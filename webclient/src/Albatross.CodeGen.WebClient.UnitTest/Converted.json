@@ -1,0 +1,275 @@
+﻿[
+    {
+        "AccessModifier": 1,
+        "Name": "ValueClientService",
+        "BaseClass": {
+            "AccessModifier": 0,
+            "Name": "Albatross.WebClient.ClientBase",
+            "BaseClass": null,
+            "Static": false,
+            "Sealed": false,
+            "Abstract": false,
+            "Partial": false,
+            "Namespace": null,
+            "IsGeneric": false,
+            "Imports": null,
+            "Constructors": null,
+            "Properties": null,
+            "Fields": null,
+            "Methods": null
+        },
+        "Static": false,
+        "Sealed": false,
+        "Abstract": false,
+        "Partial": true,
+        "Namespace": "Albatross.Test.WebClient",
+        "IsGeneric": false,
+        "Imports": [ "System", "System.Net.Http", "System.Threading.Tasks", "Microsoft.Extensions.Logging", "Albatross.WebClient", "System.Collections.Generic" ],
+        "Constructors": [
+            {
+                "BaseConstructor": {
+                    "BaseConstructor": null,
+                    "ReturnType": {
+                        "Name": "System.Void",
+                        "IsGeneric": false,
+                        "IsArray": false,
+                        "GenericTypeArguments": [],
+                        "IsAsync": false,
+                        "IsVoid": true
+                    },
+                    "Name": "base",
+                    "AccessModifier": 0,
+                    "Parameters": [
+                        {
+                            "Name": "logger",
+                            "Type": {
+                                "Name": "Microsoft.Extensions.Logging.ILogger",
+                                "IsGeneric": true,
+                                "IsArray": false,
+                                "GenericTypeArguments": [
+                                    {
+                                        "Name": "ValueClientService",
+                                        "IsGeneric": false,
+                                        "IsArray": false,
+                                        "GenericTypeArguments": [],
+                                        "IsAsync": false,
+                                        "IsVoid": false
+                                    }
+                                ],
+                                "IsAsync": false,
+                                "IsVoid": false
+                            },
+                            "Modifier": 0
+                        },
+                        {
+                            "Name": "client",
+                            "Type": {
+                                "Name": "System.Net.Http.HttpClient",
+                                "IsGeneric": false,
+                                "IsArray": false,
+                                "GenericTypeArguments": [],
+                                "IsAsync": false,
+                                "IsVoid": false
+                            },
+                            "Modifier": 0
+                        },
+                        {
+                            "Name": "config",
+                            "Type": {
+                                "Name": "Microsoft.Extensions.Configuration.IConfiguration",
+                                "IsGeneric": false,
+                                "IsArray": false,
+                                "GenericTypeArguments": [],
+                                "IsAsync": false,
+                                "IsVoid": false
+                            },
+                            "Modifier": 0
+                        }
+                    ],
+                    "Async": false,
+                    "Static": false,
+                    "Virtual": false,
+                    "Override": false,
+                    "Body": null
+                },
+                "ReturnType": {
+                    "Name": "System.Void",
+                    "IsGeneric": false,
+                    "IsArray": false,
+                    "GenericTypeArguments": [],
+                    "IsAsync": false,
+                    "IsVoid": true
+                },
+                "Name": "ValueClientService",
+                "AccessModifier": 1,
+                "Parameters": [
+                    {
+                        "Name": "logger",
+                        "Type": {
+                            "Name": "Microsoft.Extensions.Logging.ILogger",
+                            "IsGeneric": true,
+                            "IsArray": false,
+                            "GenericTypeArguments": [
+                                {
+                                    "Name": "ValueClientService",
+                                    "IsGeneric": false,
+                                    "IsArray": false,
+                                    "GenericTypeArguments": [],
+                                    "IsAsync": false,
+                                    "IsVoid": false
+                                }
+                            ],
+                            "IsAsync": false,
+                            "IsVoid": false
+                        },
+                        "Modifier": 0
+                    },
+                    {
+                        "Name": "client",
+                        "Type": {
+                            "Name": "System.Net.Http.HttpClient",
+                            "IsGeneric": false,
+                            "IsArray": false,
+                            "GenericTypeArguments": [],
+                            "IsAsync": false,
+                            "IsVoid": false
+                        },
+                        "Modifier": 0
+                    },
+                    {
+                        "Name": "config",
+                        "Type": {
+                            "Name": "Microsoft.Extensions.Configuration.IConfiguration",
+                            "IsGeneric": false,
+                            "IsArray": false,
+                            "GenericTypeArguments": [],
+                            "IsAsync": false,
+                            "IsVoid": false
+                        },
+                        "Modifier": 0
+                    }
+                ],
+                "Async": false,
+                "Static": false,
+                "Virtual": false,
+                "Override": false,
+                "Body": null
+            }
+        ],
+        "Properties": null,
+        "Fields": [
+            {
+                "Name": "ControllerPath",
+                "Type": {
+                    "Name": "System.String",
+                    "IsGeneric": false,
+                    "IsArray": false,
+                    "GenericTypeArguments": [],
+                    "IsAsync": false,
+                    "IsVoid": false
+                },
+                "Modifier": 1,
+                "ReadOnly": false,
+                "Static": false,
+                "Const": true,
+                "Value": "\"api/value\""
+            }
+        ],
+        "Methods": [
+            {
+                "ReturnType": {
+                    "Name": "System.Threading.Tasks.Task",
+                    "IsGeneric": true,
+                    "IsArray": false,
+                    "GenericTypeArguments": [
+                        {
+                            "Name": "Albatross.WebClient.IntegrationTest.Messages.PayLoad",
+                            "IsGeneric": false,
+                            "IsArray": false,
+                            "GenericTypeArguments": [],
+                            "IsAsync": false,
+                            "IsVoid": false
+                        }
+                    ],
+                    "IsAsync": true,
+                    "IsVoid": false
+                },
+                "Name": "GetJson",
+                "AccessModifier": 1,
+                "Parameters": [],
+                "Async": true,
+                "Static": false,
+                "Virtual": false,
+                "Override": false,
+                "Body": { "Content": "string path = $\"{ControllerPath}/json\";\r\nvar queryString = new System.Collections.Specialized.NameValueCollection();\r\nusing (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {\r\n\treturn await this.Invoke<Albatross.WebClient.IntegrationTest.Messages.PayLoad>(request);\r\n}" }
+            },
+            {
+                "ReturnType": {
+                    "Name": "System.Threading.Tasks.Task",
+                    "IsGeneric": true,
+                    "IsArray": false,
+                    "GenericTypeArguments": [
+                        {
+                            "Name": "System.String",
+                            "IsGeneric": false,
+                            "IsArray": false,
+                            "GenericTypeArguments": [],
+                            "IsAsync": false,
+                            "IsVoid": false
+                        }
+                    ],
+                    "IsAsync": true,
+                    "IsVoid": false
+                },
+                "Name": "GetText",
+                "AccessModifier": 1,
+                "Parameters": [],
+                "Async": true,
+                "Static": false,
+                "Virtual": false,
+                "Override": false,
+                "Body": { "Content": "string path = $\"{ControllerPath}/text\";\r\nvar queryString = new System.Collections.Specialized.NameValueCollection();\r\nusing (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {\r\n\treturn await this.Invoke<System.String>(request);\r\n}" }
+            },
+            {
+                "ReturnType": {
+                    "Name": "System.Threading.Tasks.Task",
+                    "IsGeneric": true,
+                    "IsArray": false,
+                    "GenericTypeArguments": [
+                        {
+                            "Name": "Albatross.WebClient.IntegrationTest.Messages.PayLoad",
+                            "IsGeneric": false,
+                            "IsArray": false,
+                            "GenericTypeArguments": [],
+                            "IsAsync": false,
+                            "IsVoid": false
+                        }
+                    ],
+                    "IsAsync": true,
+                    "IsVoid": false
+                },
+                "Name": "Post",
+                "AccessModifier": 1,
+                "Parameters": [
+                    {
+                        "Name": "payLoad",
+                        "Type": {
+                            "Name": "Albatross.WebClient.IntegrationTest.Messages.PayLoad",
+                            "IsGeneric": false,
+                            "IsArray": false,
+                            "GenericTypeArguments": [],
+                            "IsAsync": false,
+                            "IsVoid": false
+                        },
+                        "Modifier": 0
+                    }
+                ],
+                "Async": true,
+                "Static": false,
+                "Virtual": false,
+                "Override": false,
+                "Body": { "Content": "string path = $\"{ControllerPath}/post\";\r\nvar queryString = new System.Collections.Specialized.NameValueCollection();\r\nusing (var request = this.CreateJsonRequest<Albatross.WebClient.IntegrationTest.Messages.PayLoad>(HttpMethod.Post, path, queryString, @payLoad)) {\r\n\treturn await this.Invoke<Albatross.WebClient.IntegrationTest.Messages.PayLoad>(request);\r\n}" }
+            }
+        ]
+    }
+]
