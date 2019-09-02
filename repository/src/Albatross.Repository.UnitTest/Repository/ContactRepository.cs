@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Albatross.Repository.UnitTest.Repository {
 	public class ContactRepository : Repository<Contact>, IContactRepository {
-		public ContactRepository(TestDbContext dbContext) : base(dbContext) {
+		public ContactRepository(TestingDbContext dbContext) : base(dbContext) {
 		}
 		public override IQueryable<Contact> Items => base.Items.Include(args=>args.Addresses);
 

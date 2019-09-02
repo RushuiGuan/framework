@@ -15,7 +15,7 @@ namespace Albatross.Repository.UnitTest {
 		[Test]
 		public async Task Run() {
 			using (var unitOfWork = NewUnitOfWork()) {
-				using (var t = unitOfWork.Get<TestDbContext>().BeginTransaction()) {
+				using (var t = unitOfWork.Get<TestingDbContext>().BeginTransaction()) {
 					var contacts = unitOfWork.Get<IContactRepository>();
 					contacts.Add(new Contact(new ContactDto {
 						Name = nameof(TransactionTest),

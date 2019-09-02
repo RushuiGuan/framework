@@ -14,5 +14,6 @@ namespace Albatross.Repository.Core
 		IDbConnection DbConnection { get; }
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 		ITransaction BeginTransaction();
+		string GetCreateScript();
 	}
 }

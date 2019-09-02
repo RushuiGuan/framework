@@ -10,49 +10,46 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Repository.ByEFCore {
-	public class DbContextSession : DbContext, IDbSession {
+	public abstract class CustomDbContext : DbContext, IDbSession {
 		IEnumerable<IBuildEntityModel> builders;
-		string connectionString;
-
 		public IDbConnection DbConnection { get; private set; }
 
-		public DbContextSession(string connectionString, IEnumerable<IBuildEntityModel> builders) {
-			this.connectionString = connectionString;
+		public CustomDbContext(IEnumerable<IBuildEntityModel> builders) {
 			this.builders = builders;
 		}
 
+		public abstract IDbConnection CreateConnection(DbContextOptionsBuilder optionsBuilder);
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-			string connectionString = this.connectionString;
-            SqlConnection conn = new SqlConnection(connectionString);
-            DbConnection = conn;
-            DbConnection.Open();
+			this.DbConnection = CreateConnection(optionsBuilder);
 			optionsBuilder.UseLazyLoadingProxies(false);
 			optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-			optionsBuilder.UseSqlServer(conn);
 			optionsBuilder.EnableDetailedErrors(true);
-            optionsBuilder.EnableSensitiveDataLogging();
+			optionsBuilder.EnableSensitiveDataLogging();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			foreach (var builder in builders) {
-                builder.Build(modelBuilder);
+				builder.Build(modelBuilder);
 			}
-		}
-
-		public override void Dispose() {
-            base.Dispose();
-            this.DbConnection?.Dispose();
 		}
 
 		public void Migrate() {
 			this.Database.Migrate();
 		}
 
-        public ITransaction BeginTransaction()
-        {
-            IDbContextTransaction t = this.Database.BeginTransaction();
-            return new EFCoreTransaction(t);
-        }
+		public override void Dispose() {
+			base.Dispose();
+			if (this.DbConnection != null) {
+				this.DbConnection.Dispose();
+				this.DbConnection = null;
+			}
+		}
+
+		public ITransaction BeginTransaction() {
+			IDbContextTransaction t = this.Database.BeginTransaction();
+			return new EFCoreTransaction(t);
+		}
 
 		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
 			try {
@@ -61,5 +58,9 @@ namespace Albatross.Repository.ByEFCore {
 				throw converted;
 			}
 		}
-    }
+
+		public string GetCreateScript() {
+			return this.Database.GenerateCreateScript();
+		}
+	}
 }

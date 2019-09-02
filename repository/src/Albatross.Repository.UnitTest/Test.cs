@@ -35,6 +35,7 @@ namespace Albatross.Repository.UnitTest {
 		}
 		private Task RemoveContact(string name) {
 			using (var unitOfWork = NewUnitOfWork()) {
+				unitOfWork.Get<TestingDbContext>().Migrate();
 				var contacts = unitOfWork.Get<ContactRepository>();
 				if (contacts.TryGet(name, out Contact item)) {
 					contacts.Remove(item);
@@ -44,6 +45,7 @@ namespace Albatross.Repository.UnitTest {
 		}
 		private ContactDto GetContact(string name, out Contact model) {
 			using (var unitOfWork = NewUnitOfWork()) {
+				unitOfWork.Get<TestingDbContext>().Migrate();
 				var contacts = unitOfWork.Get<ContactRepository>();
 				model = contacts.Get(name);
 				return unitOfWork.Get<IMapperFactory>().Map<Contact, ContactDto>(model);
@@ -52,6 +54,7 @@ namespace Albatross.Repository.UnitTest {
 		private async Task<ContactDto> CreateContact(string name, int user) {
 			Contact model;
 			using (var unitOfWork = NewUnitOfWork()) {
+				unitOfWork.Get<TestingDbContext>().Migrate();
 				var contacts = unitOfWork.Get<ContactRepository>();
 				var dto = new ContactDto {
 					Name= name,
@@ -66,6 +69,7 @@ namespace Albatross.Repository.UnitTest {
 		private async Task<ContactDto> UpdateContact(ContactDto dto, int user) {
 			Contact model;
 			using (var unitOfWork = NewUnitOfWork()) {
+				unitOfWork.Get<TestingDbContext>().Migrate();
 				var contacts = unitOfWork.Get<ContactRepository>();
 				model = contacts.Get(dto.Name);
 				model.Update(dto, user);
@@ -80,6 +84,7 @@ namespace Albatross.Repository.UnitTest {
 			await RemoveContact(name);
 			var dto = await CreateContact(name, 1);
 			using (var unitOfWork = NewUnitOfWork()) {
+				unitOfWork.Get<TestingDbContext>().Migrate();
 				var contacts = unitOfWork.Get<ContactRepository>();
 				var c = contacts.Get(name);
 				Assert.AreEqual(1, c.CreatedBy);
