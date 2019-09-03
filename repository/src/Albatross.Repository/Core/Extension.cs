@@ -28,7 +28,7 @@ namespace Albatross.Repository.Core {
 		  Func<Dst, TKey> dstKeySelector, Func<Src, TKey> srcKeySelector,
 		  Action<Dst, Src> matched, Action<Src> notMatchedByDst, Action<Dst> notMatchedBySrc) {
 			var dstArray = dst.ToArray();
-
+			if(src == null) { src = new Src[0]; }
 			Dictionary<TKey, Src> srcDict = new Dictionary<TKey, Src>();
 			List<Src> newItems = new List<Src>();
 

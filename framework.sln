@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Reflection.UnitTe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "repository", "repository", "{0D0A8505-9722-46F1-A6C1-C7D61BDFED07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Repository", "repository\src\Albatross.Repository\Albatross.Repository.csproj", "{D940A88A-E3C1-454F-96D4-FFC2A5FE35E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository", "repository\src\Albatross.Repository\Albatross.Repository.csproj", "{D940A88A-E3C1-454F-96D4-FFC2A5FE35E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository.UnitTest", "repository\src\Albatross.Repository.UnitTest\Albatross.Repository.UnitTest.csproj", "{6D943C44-BA0F-4F91-AA1D-93C35D7DDEF5}"
 EndProject
@@ -31,55 +31,53 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "webclient", "webclient", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "authentication", "authentication", "{61928BE3-77D1-4A22-8ED6-06CDEA2197EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Cryptography", "crypto\src\Albatross.Cryptography\Albatross.Cryptography.csproj", "{D10FBF23-F3B8-46A1-A253-AAD1F95C6A01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Cryptography", "crypto\src\Albatross.Cryptography\Albatross.Cryptography.csproj", "{D10FBF23-F3B8-46A1-A253-AAD1F95C6A01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Cryptography.UnitTest", "crypto\src\Albatross.Cryptography.UnitTest\Albatross.Cryptography.UnitTest.csproj", "{9FE2FACB-83CF-4FB5-8F74-FF336B079D3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Cryptography.UnitTest", "crypto\src\Albatross.Cryptography.UnitTest\Albatross.Cryptography.UnitTest.csproj", "{9FE2FACB-83CF-4FB5-8F74-FF336B079D3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Cryptography.PowerShell", "crypto\src\Albatross.Cryptography.PowerShell\Albatross.Cryptography.PowerShell.csproj", "{9D34ACE2-7F4C-48C8-AA1C-1BFF920E1BE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Cryptography.PowerShell", "crypto\src\Albatross.Cryptography.PowerShell\Albatross.Cryptography.PowerShell.csproj", "{9D34ACE2-7F4C-48C8-AA1C-1BFF920E1BE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Host.AspNetCore", "host\src\Albatross.Host.AspNetCore\Albatross.Host.AspNetCore.csproj", "{54CB28C1-424F-4F65-AB5D-73BE861B47F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Host.AspNetCore", "host\src\Albatross.Host.AspNetCore\Albatross.Host.AspNetCore.csproj", "{54CB28C1-424F-4F65-AB5D-73BE861B47F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Host.PowerShell", "host\src\Albatross.Host.PowerShell\Albatross.Host.PowerShell.csproj", "{68874C53-A389-4C0B-B3EF-F9A2D249C0EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Host.PowerShell", "host\src\Albatross.Host.PowerShell\Albatross.Host.PowerShell.csproj", "{68874C53-A389-4C0B-B3EF-F9A2D249C0EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Host.UnitTest", "host\src\Albatross.Host.UnitTest\Albatross.Host.UnitTest.csproj", "{E0C9D7C3-ACE6-4FAE-AFA8-94F1AA643AED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Host.UnitTest", "host\src\Albatross.Host.UnitTest\Albatross.Host.UnitTest.csproj", "{E0C9D7C3-ACE6-4FAE-AFA8-94F1AA643AED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Test.AspNetCore", "host\src\Albatross.Test.AspNetCore\Albatross.Test.AspNetCore.csproj", "{6EE70573-2813-44D5-8EE2-53AC9F4F4321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Test.AspNetCore", "host\src\Albatross.Test.AspNetCore\Albatross.Test.AspNetCore.csproj", "{6EE70573-2813-44D5-8EE2-53AC9F4F4321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Test.NUnit", "host\src\Albatross.Test.NUnit\Albatross.Test.NUnit.csproj", "{24D0DE00-8653-4579-BAA0-994CF6CD089E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Test.NUnit", "host\src\Albatross.Test.NUnit\Albatross.Test.NUnit.csproj", "{24D0DE00-8653-4579-BAA0-994CF6CD089E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Mapping", "mapping\src\Albatross.Mapping\Albatross.Mapping.csproj", "{CA0F5536-7143-417B-AC86-341DE7E90B77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Mapping", "mapping\src\Albatross.Mapping\Albatross.Mapping.csproj", "{CA0F5536-7143-417B-AC86-341DE7E90B77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Mapping.UnitTest", "mapping\src\Albatross.Mapping.UnitTest\Albatross.Mapping.UnitTest.csproj", "{F3855961-D465-48F9-B436-6EDEF93BAA56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Mapping.UnitTest", "mapping\src\Albatross.Mapping.UnitTest\Albatross.Mapping.UnitTest.csproj", "{F3855961-D465-48F9-B436-6EDEF93BAA56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Reflection", "reflection\src\Albatross.Reflection\Albatross.Reflection.csproj", "{1D7F8261-5E05-48F5-9FF3-4CF7BCD94797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Reflection", "reflection\src\Albatross.Reflection\Albatross.Reflection.csproj", "{1D7F8261-5E05-48F5-9FF3-4CF7BCD94797}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Repository.NUnit", "repository\src\Albatross.Repository.NUnit\Albatross.Repository.NUnit.csproj", "{ADDCB23B-488D-44C8-953E-F0B731378097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository.NUnit", "repository\src\Albatross.Repository.NUnit\Albatross.Repository.NUnit.csproj", "{ADDCB23B-488D-44C8-953E-F0B731378097}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Authentication", "authentication\src\Albatross.Authentication\Albatross.Authentication.csproj", "{CD7EFAA1-0F95-4ECC-975F-E0AAEC9F3099}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Authentication", "authentication\src\Albatross.Authentication\Albatross.Authentication.csproj", "{CD7EFAA1-0F95-4ECC-975F-E0AAEC9F3099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Authentication.UnitTest", "authentication\src\Albatross.Authentication.UnitTest\Albatross.Authentication.UnitTest.csproj", "{D3BD77FC-C636-4D20-8E00-EFD0E418D95E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Authentication.UnitTest", "authentication\src\Albatross.Authentication.UnitTest\Albatross.Authentication.UnitTest.csproj", "{D3BD77FC-C636-4D20-8E00-EFD0E418D95E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.WebClient", "webclient\src\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj", "{B5C4E084-F610-44F7-9F74-50E215FDE03D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.WebClient", "webclient\src\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj", "{B5C4E084-F610-44F7-9F74-50E215FDE03D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.WebClient.UnitTest", "webclient\src\Albatross.CodeGen.WebClient.UnitTest\Albatross.CodeGen.WebClient.UnitTest.csproj", "{341AC648-D53D-4703-B78A-A68E4A57990E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.WebClient.UnitTest", "webclient\src\Albatross.CodeGen.WebClient.UnitTest\Albatross.CodeGen.WebClient.UnitTest.csproj", "{341AC648-D53D-4703-B78A-A68E4A57990E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.WebClient", "webclient\src\Albatross.WebClient\Albatross.WebClient.csproj", "{A1541D93-16B0-4CEC-8585-B49F9CD31ACF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.WebClient", "webclient\src\Albatross.WebClient\Albatross.WebClient.csproj", "{A1541D93-16B0-4CEC-8585-B49F9CD31ACF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.WebClient.IntegrationTest", "webclient\src\Albatross.WebClient.IntegrationTest\Albatross.WebClient.IntegrationTest.csproj", "{59055985-6F7E-4331-BC18-79BE621F60FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.WebClient.IntegrationTest", "webclient\src\Albatross.WebClient.IntegrationTest\Albatross.WebClient.IntegrationTest.csproj", "{59055985-6F7E-4331-BC18-79BE621F60FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.WebClient.IntegrationTest.Messages", "webclient\src\Albatross.WebClient.IntegrationTest.Messages\Albatross.WebClient.IntegrationTest.Messages.csproj", "{BFA1A245-53B4-44CE-ACAC-85880F0B03D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.WebClient.IntegrationTest.Messages", "webclient\src\Albatross.WebClient.IntegrationTest.Messages\Albatross.WebClient.IntegrationTest.Messages.csproj", "{BFA1A245-53B4-44CE-ACAC-85880F0B03D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Test.Api", "webclient\src\Albatross.Test.Api\Albatross.Test.Api.csproj", "{F59BC85F-082C-4C99-9803-1CD79DABD94E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Test.Api", "webclient\src\Albatross.Test.Api\Albatross.Test.Api.csproj", "{F59BC85F-082C-4C99-9803-1CD79DABD94E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codegen", "codegen", "{C51E9B80-5260-4A6B-BC54-8D32AE8E419B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen", "codegen\src\Albatross.CodeGen\Albatross.CodeGen.csproj", "{59F41E47-7D71-447C-A603-894E6E4C4CD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen", "codegen\src\Albatross.CodeGen\Albatross.CodeGen.csproj", "{59F41E47-7D71-447C-A603-894E6E4C4CD1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E2CDCCF9-7EA0-431C-9273-103A48527429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.PowerShell", "codegen\src\Albatross.CodeGen.PowerShell\Albatross.CodeGen.PowerShell.csproj", "{DA9E9B0D-0101-4A9D-9658-2B8D426EFD53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.PowerShell", "codegen\src\Albatross.CodeGen.PowerShell\Albatross.CodeGen.PowerShell.csproj", "{DA9E9B0D-0101-4A9D-9658-2B8D426EFD53}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.UnitTest", "codegen\src\Albatross.CodeGen.UnitTest\Albatross.CodeGen.UnitTest.csproj", "{55F4B24D-1406-41F4-B2A5-2DEF155C1D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.UnitTest", "codegen\src\Albatross.CodeGen.UnitTest\Albatross.CodeGen.UnitTest.csproj", "{55F4B24D-1406-41F4-B2A5-2DEF155C1D05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -471,7 +469,6 @@ Global
 		{BFA1A245-53B4-44CE-ACAC-85880F0B03D5} = {64DD75D5-BE93-446B-B74F-0D5AE8DCCB06}
 		{F59BC85F-082C-4C99-9803-1CD79DABD94E} = {64DD75D5-BE93-446B-B74F-0D5AE8DCCB06}
 		{59F41E47-7D71-447C-A603-894E6E4C4CD1} = {C51E9B80-5260-4A6B-BC54-8D32AE8E419B}
-		{E2CDCCF9-7EA0-431C-9273-103A48527429} = {C51E9B80-5260-4A6B-BC54-8D32AE8E419B}
 		{DA9E9B0D-0101-4A9D-9658-2B8D426EFD53} = {C51E9B80-5260-4A6B-BC54-8D32AE8E419B}
 		{55F4B24D-1406-41F4-B2A5-2DEF155C1D05} = {C51E9B80-5260-4A6B-BC54-8D32AE8E419B}
 	EndGlobalSection

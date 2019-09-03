@@ -1,19 +1,21 @@
 import-module app-dev
 
-Set-ProjectVersion $PSScriptRoot -version "1.5.0";
+Set-ProjectVersion $PSScriptRoot -version "1.5.2";
 
 
 $array = @(
-    "$PSScriptRoot\reflection\src\Albatross.Reflection",
-    "$PSScriptRoot\crypto\src\Albatross.Cryptography",
-    "$PSScriptRoot\webclient\src\Albatross.WebClient",
-    "$PSScriptRoot\config\src\Albatross.Config",
-    "$PSScriptRoot\mapping\src\Albatross.Mapping",
-    "$PSScriptRoot\repository\src\Albatross.Repository",
     "$PSScriptRoot\authentication\src\Albatross.Authentication",
+    "$PSScriptRoot\codegen\src\Albatross.CodeGen",
+    "$PSScriptRoot\config\src\Albatross.Config",
+    "$PSScriptRoot\crypto\src\Albatross.Cryptography",
     "$PSScriptRoot\host\src\Albatross.Host.NUnit",
     "$PSScriptRoot\host\src\Albatross.Host.AspNetCore",
-    "$PSScriptRoot\host\src\Albatross.Host.PowerShell"
+    "$PSScriptRoot\host\src\Albatross.Host.PowerShell",
+    "$PSScriptRoot\mapping\src\Albatross.Mapping",
+    "$PSScriptRoot\reflection\src\Albatross.Reflection",
+    "$PSScriptRoot\repository\src\Albatross.Repository",
+    "$PSScriptRoot\repository\src\Albatross.Repository.NUnit",
+    "$PSScriptRoot\webclient\src\Albatross.WebClient"
 );
 
 $nuget_root = (Get-NugetLocal);

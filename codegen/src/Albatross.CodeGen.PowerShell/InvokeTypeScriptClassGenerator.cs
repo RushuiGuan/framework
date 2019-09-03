@@ -17,17 +17,23 @@ namespace Albatross.CodeGen.PowerShell {
 		[Parameter]
 		public SwitchParameter Force { get; set; }
 
-        StreamWriter writer;
-        protected override void BeginProcessing()
-        {
-            base.BeginProcessing();
+		[Parameter]
+		public SwitchParameter Append { get; set; }
+
+		StreamWriter writer;
+		protected override void BeginProcessing() {
+			base.BeginProcessing();
 			if (Output != null) {
-				if (!Output.Exists || Force || this.ShouldContinue("The file already exists, continue and overwrite?", "Warning")) {
-					writer = new StreamWriter(new FileStream(Output.FullName, FileMode.OpenOrCreate));
+				if (!Output.Exists || Force || Append || this.ShouldContinue("The file already exists, continue and overwrite?", "Warning")) {
+					if (Append.ToBool()) {
+						writer = new StreamWriter(new FileStream(Output.FullName, FileMode.Append));
+					} else {
+						writer = new StreamWriter(new FileStream(Output.FullName, FileMode.OpenOrCreate));
+					}
 				}
 			}
-        }
-        protected override void ProcessRecord() {
+		}
+		protected override void ProcessRecord() {
 			if (writer != null) {
 				EntryObject.Run(writer, Class);
 				writer.WriteLine();
@@ -35,8 +41,7 @@ namespace Albatross.CodeGen.PowerShell {
 			EntryObject.Run(Console.Out, Class);
 			Console.WriteLine();
 		}
-        protected override void EndProcessing()
-        {
+		protected override void EndProcessing() {
 			if (writer != null) {
 				writer.Flush();
 				writer.BaseStream.SetLength(writer.BaseStream.Position);
@@ -44,7 +49,7 @@ namespace Albatross.CodeGen.PowerShell {
 			}
 
 			base.EndProcessing();
-        }
+		}
 
 		protected override void RegisterContainer(IServiceCollection svc) {
 			svc.AddDefaultCodeGen();

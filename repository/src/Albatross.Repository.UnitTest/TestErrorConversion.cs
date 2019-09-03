@@ -17,38 +17,32 @@ namespace Albatross.Repository.UnitTest {
 
 		static readonly string Tag = typeof(TestErrorConversion).FullName;
 
-		public override void OneTimeSetUp(TestUnitOfWork unitOfWork) {
-			base.OneTimeSetUp(unitOfWork);
-			var repo = unitOfWork.Get<ContactRepository>();
-			repo.RemoveRange(repo.Items.Where(args => args.Tag == Tag));
-			repo.SaveChangesAsync().Wait();
-		}
-
-
 		[Test]
 		public void TestUniqeKeyViolationException() {
-			TestDelegate testDelegate = new TestDelegate(async () => {
+			AsyncTestDelegate testDelegate = new AsyncTestDelegate(async () => {
 				string name = nameof(TestUniqeKeyViolationException);
 				using (var unitOfWork = NewUnitOfWork()) {
+					unitOfWork.Get<TestingDbContext>().Database.EnsureCreated();
 					var repo = unitOfWork.Get<ContactRepository>();
 					repo.Add(new Model.Contact(new ContactDto { Name = name }, 1));
 					repo.Add(new Model.Contact(new ContactDto { Name = name }, 1));
 					await repo.SaveChangesAsync();
 				}
 			});
-			Assert.Catch<UniqueKeyViolationException>(testDelegate);
+			Assert.CatchAsync<UniqueKeyViolationException>(testDelegate);
 		}
 
 		[Test]
 		public void TestMissingRequiredFieldException() {
-			TestDelegate testDelegate = new TestDelegate(async () => {
+			AsyncTestDelegate testDelegate = new AsyncTestDelegate(async () => {
 				using (var unitOfWork = NewUnitOfWork()) {
+					unitOfWork.Get<TestingDbContext>().Database.EnsureCreated();
 					var repo = unitOfWork.Get<ContactRepository>();
 					repo.Add(new Model.Contact(new ContactDto { Name = null }, 1));
 					await repo.SaveChangesAsync();
 				}
 			});
-			Assert.Catch<MissingRequiredFieldException>(testDelegate);
+			Assert.CatchAsync<MissingRequiredFieldException>(testDelegate);
 		}
 	}
 }

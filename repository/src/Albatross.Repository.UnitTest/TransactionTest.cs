@@ -1,4 +1,5 @@
 ﻿using Albatross.Host.NUnit;
+using Albatross.Repository.NUnit;
 using Albatross.Repository.UnitTest.Dto;
 using Albatross.Repository.UnitTest.Model;
 using Albatross.Repository.UnitTest.Repository;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TransactionTest : TestBase<TestUnitOfWork> {
+	public class TransactionTest : TestBase<InMemoryDbUnitOfWork<TestingDbContext>> {
 		public override void RegisterPackages(IServiceCollection svc) {
 			svc.AddTestDatabase();
 		}

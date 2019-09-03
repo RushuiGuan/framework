@@ -4,7 +4,7 @@ using NUnit.Framework;
 using System;
 
 namespace Albatross.Host.NUnit {
-	public abstract class TestBase<T> where T : TestUnitOfWork {
+	public abstract class TestBase<T> where T : class, IDisposable {
         private ServiceCollection services = new ServiceCollection();
         private ServiceProvider provider;
 
