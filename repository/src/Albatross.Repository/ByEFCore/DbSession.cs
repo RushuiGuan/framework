@@ -10,11 +10,13 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Repository.ByEFCore {
-	public abstract class CustomDbContext : DbContext, IDbSession {
+	public abstract class DbSession : DbContext, IDbSession {
 		IEnumerable<IBuildEntityModel> builders;
 		public IDbConnection DbConnection { get; private set; }
 
-		public CustomDbContext(IEnumerable<IBuildEntityModel> builders) {
+		public DbContext DbContext => this;
+
+		public DbSession(IEnumerable<IBuildEntityModel> builders) {
 			this.builders = builders;
 		}
 
@@ -28,15 +30,6 @@ namespace Albatross.Repository.ByEFCore {
 			optionsBuilder.EnableSensitiveDataLogging();
 		}
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder) {
-			foreach (var builder in builders) {
-				builder.Build(modelBuilder);
-			}
-		}
-
-		public void Migrate() {
-			this.Database.Migrate();
-		}
 
 		public override void Dispose() {
 			base.Dispose();
@@ -46,10 +39,6 @@ namespace Albatross.Repository.ByEFCore {
 			}
 		}
 
-		public ITransaction BeginTransaction() {
-			IDbContextTransaction t = this.Database.BeginTransaction();
-			return new EFCoreTransaction(t);
-		}
 
 		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
 			try {
@@ -59,8 +48,9 @@ namespace Albatross.Repository.ByEFCore {
 			}
 		}
 
-		public string GetCreateScript() {
-			return this.Database.GenerateCreateScript();
-		}
+		protected override void OnModelCreating(ModelBuilder modelBuilder) => builders.ForEach(args => args.Build(modelBuilder));
+		public string GetCreateScript() =>this.Database.GenerateCreateScript();
+		public void EnsureCreated() => this.Database.EnsureCreated();
+		public ITransaction BeginTransaction() => new EFCoreTransaction(this.Database.BeginTransaction());
 	}
 }

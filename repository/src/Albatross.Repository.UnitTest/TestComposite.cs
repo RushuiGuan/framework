@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
     [TestFixture]
-    public class TestComposite : TestBase<InMemoryDbUnitOfWork<TestingDbContext>> {
+    public class TestComposite : TestBase<InMemoryDbUnitOfWork<TestingDbSession>> {
         public override void RegisterPackages(IServiceCollection svc) {
             svc.AddTestDatabase().AddTransient<CompositeRepository>();
         }

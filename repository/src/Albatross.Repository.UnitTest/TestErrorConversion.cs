@@ -22,7 +22,7 @@ namespace Albatross.Repository.UnitTest {
 			AsyncTestDelegate testDelegate = new AsyncTestDelegate(async () => {
 				string name = nameof(TestUniqeKeyViolationException);
 				using (var unitOfWork = NewUnitOfWork()) {
-					unitOfWork.Get<TestingDbContext>().Database.EnsureCreated();
+					unitOfWork.Get<TestingDbSession>().Database.EnsureCreated();
 					var repo = unitOfWork.Get<ContactRepository>();
 					repo.Add(new Model.Contact(new ContactDto { Name = name }, 1));
 					repo.Add(new Model.Contact(new ContactDto { Name = name }, 1));
@@ -36,7 +36,7 @@ namespace Albatross.Repository.UnitTest {
 		public void TestMissingRequiredFieldException() {
 			AsyncTestDelegate testDelegate = new AsyncTestDelegate(async () => {
 				using (var unitOfWork = NewUnitOfWork()) {
-					unitOfWork.Get<TestingDbContext>().Database.EnsureCreated();
+					unitOfWork.Get<TestingDbSession>().Database.EnsureCreated();
 					var repo = unitOfWork.Get<ContactRepository>();
 					repo.Add(new Model.Contact(new ContactDto { Name = null }, 1));
 					await repo.SaveChangesAsync();

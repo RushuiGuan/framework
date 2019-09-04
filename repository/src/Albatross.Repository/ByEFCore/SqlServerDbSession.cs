@@ -10,10 +10,10 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Repository.ByEFCore {
-	public class SqlServerDbContext : CustomDbContext {
+	public class SqlServerDbSession : DbSession {
 		string connectionString;
 
-		public SqlServerDbContext(string connectionString, IEnumerable<IBuildEntityModel> builders):base(builders) {
+		public SqlServerDbSession(string connectionString, IEnumerable<IBuildEntityModel> builders):base(builders) {
 			this.connectionString = connectionString;
 		}
 

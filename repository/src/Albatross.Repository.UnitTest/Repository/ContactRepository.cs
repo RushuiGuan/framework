@@ -1,16 +1,16 @@
 ﻿using Albatross.Repository.ByEFCore;
+using Albatross.Repository.Core;
 using Albatross.Repository.UnitTest.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Albatross.Repository.UnitTest.Repository {
+
+	public interface IContactRepository : IRepository<Contact> { }
 	public class ContactRepository : Repository<Contact>, IContactRepository {
-		public ContactRepository(TestingDbContext dbContext) : base(dbContext) {
+		public ContactRepository(TestingDbSession dbContext) : base(dbContext) {
 		}
-		public override IQueryable<Contact> Items => base.Items.Include(args=>args.Addresses);
+		public override IQueryable<Contact> Items => base.Items.Include(args => args.Addresses);
 
 		public Contact Get(string name) {
 			return Items.First(args => args.Name == name);

@@ -1,1 +1,0 @@
-start $PSScriptRoot\..\src\codegen.sln;

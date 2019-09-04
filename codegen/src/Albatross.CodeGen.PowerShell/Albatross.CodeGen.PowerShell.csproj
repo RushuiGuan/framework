@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <Version>1.5.2</Version>
+    <Version>1.5.5</Version>
     <Product>Albatross Code Generator PowerShell Utilities</Product>
     <Authors>Rushui Guan</Authors>
     <PackageProjectUrl>https://github.com/RushuiGuan/CodeGen</PackageProjectUrl>

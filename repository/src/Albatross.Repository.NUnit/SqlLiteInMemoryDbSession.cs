@@ -6,9 +6,9 @@ using Albatross.Repository.ByEFCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Albatross.Repository.NUnit {
-	public class SqlLiteInMemoryDbContext : CustomDbContext {
+	public class SqlLiteInMemoryDbSession : DbSession {
 		const string ConnectionString = "Data Source=:memory:";
-		public SqlLiteInMemoryDbContext(IEnumerable<IBuildEntityModel> builders) : base(builders) {
+		public SqlLiteInMemoryDbSession(IEnumerable<IBuildEntityModel> builders) : base(builders) {
 		}
 
 		public override IDbConnection CreateConnection(DbContextOptionsBuilder optionsBuilder) {

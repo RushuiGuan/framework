@@ -1,1 +1,0 @@
-dotnet test $PSScriptRoot\..\src\codegen.sln;

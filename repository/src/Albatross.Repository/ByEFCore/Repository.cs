@@ -8,14 +8,13 @@ using System.Linq.Expressions;
 
 namespace Albatross.Repository.ByEFCore {
 	public class Repository<T> : IRepository<T> where T : class {
-		protected CustomDbContext customDbContext;
 		protected DbSet<T> dbSet;
 		public virtual IQueryable<T> Items => dbSet;
-		public IDbSession DbSession => customDbContext;
+		public IDbSession DbSession { get; private set; }
 
-		public Repository(CustomDbContext dbContext) {
-			this.customDbContext = dbContext;
-			dbSet = dbContext.Set<T>();
+		public Repository(IDbSession session) {
+			this.DbSession = session;
+			dbSet = session.DbContext.Set<T>();
 		}
 
 		public virtual T GetItem(params object[] keys) {

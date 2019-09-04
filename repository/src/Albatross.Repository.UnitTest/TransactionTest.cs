@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TransactionTest : TestBase<InMemoryDbUnitOfWork<TestingDbContext>> {
+	public class TransactionTest : TestBase<InMemoryDbUnitOfWork<TestingDbSession>> {
 		public override void RegisterPackages(IServiceCollection svc) {
 			svc.AddTestDatabase();
 		}
 		[Test]
 		public async Task Run() {
 			using (var unitOfWork = NewUnitOfWork()) {
-				using (var t = unitOfWork.Get<TestingDbContext>().BeginTransaction()) {
+				using (var t = unitOfWork.Get<TestingDbSession>().BeginTransaction()) {
 					var contacts = unitOfWork.Get<IContactRepository>();
 					contacts.Add(new Contact(new ContactDto {
 						Name = nameof(TransactionTest),

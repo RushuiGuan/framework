@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Albatross.Repository.NUnit {
-	public class InMemoryDbUnitOfWork<T> : TestUnitOfWork where T : CustomDbContext {
+	public class InMemoryDbUnitOfWork<T> : TestUnitOfWork where T : DbSession {
 		public InMemoryDbUnitOfWork(IServiceScope scope) :base(scope){
-			Get<T>().Database.EnsureCreated();
+			Get<T>().EnsureCreated();
 		}
 	}
 }

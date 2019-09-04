@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace Albatross.Repository.UnitTest {
-	public class TestingDbContext : Albatross.Repository.NUnit.SqlLiteInMemoryDbContext {
-		public TestingDbContext(IModelBuilderFactory factory) : base(factory.Get(typeof(TestingDbContext).Assembly)) { }
+	public class TestingDbSession : Albatross.Repository.NUnit.SqlLiteInMemoryDbSession {
+		public TestingDbSession(IModelBuilderFactory factory) : base(factory.Get(typeof(TestingDbSession).Assembly)) { }
 	}
 }

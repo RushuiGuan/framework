@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestSqlLiteDbContext : TestBase<TestUnitOfWork> {
+	public class TestSqlLiteDbSession : TestBase<TestUnitOfWork> {
 
 
 		public override void RegisterPackages(IServiceCollection svc) {
@@ -17,7 +17,7 @@ namespace Albatross.Repository.UnitTest {
 		[Test]
 		public void SqlScriptGeneration() {
 			using (TestUnitOfWork unitOfWork = NewUnitOfWork()) {
-				var context = unitOfWork.Get<TestingDbContext>();
+				var context = unitOfWork.Get<TestingDbSession>();
 				string script = context.GetCreateScript();
 				Assert.IsNotEmpty(script);
 				using (StreamWriter writer = new StreamWriter("generated.sql")) {
