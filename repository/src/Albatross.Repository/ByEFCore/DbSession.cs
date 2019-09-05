@@ -24,7 +24,7 @@ namespace Albatross.Repository.ByEFCore {
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 			this.DbConnection = CreateConnection(optionsBuilder);
-			optionsBuilder.UseLazyLoadingProxies(false);
+			optionsBuilder.UseLazyLoadingProxies(true);
 			optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 			optionsBuilder.EnableDetailedErrors(true);
 			optionsBuilder.EnableSensitiveDataLogging();
@@ -38,7 +38,6 @@ namespace Albatross.Repository.ByEFCore {
 				this.DbConnection = null;
 			}
 		}
-
 
 		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
 			try {

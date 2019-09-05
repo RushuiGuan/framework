@@ -13,7 +13,7 @@ namespace Albatross.Authentication {
 			this.httpContextAccessor = httpContextAccessor;
 		}
 
-		public string AuthenticationType => "httpcontext";
+		public string Provider => "httpcontext";
 		const string ClaimType_ClientID = "client_id";
 
 		public string Get() {

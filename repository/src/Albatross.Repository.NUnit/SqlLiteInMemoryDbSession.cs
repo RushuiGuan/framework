@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Albatross.Repository.NUnit {
 	public class SqlLiteInMemoryDbSession : DbSession {
-		const string ConnectionString = "Data Source=:memory:";
+		public const string ConnectionString = "Data Source=:memory:";
 		public SqlLiteInMemoryDbSession(IEnumerable<IBuildEntityModel> builders) : base(builders) {
 		}
 

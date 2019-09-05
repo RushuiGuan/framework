@@ -7,6 +7,6 @@ namespace Albatross.Authentication.Core
     public interface IGetCurrentUser
     {
         string Get();
-        string AuthenticationType { get; }
+        string Provider { get; }
     }
 }

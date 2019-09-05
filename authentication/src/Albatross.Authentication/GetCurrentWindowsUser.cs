@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Albatross.Authentication {
 	public class GetCurrentWindowsUser : IGetCurrentUser {
-		public string AuthenticationType => "Windows";
+		public string Provider => "Windows";
 
 		public string Get() {
 			string name = System.Security.Principal.WindowsIdentity.GetCurrent().Name;

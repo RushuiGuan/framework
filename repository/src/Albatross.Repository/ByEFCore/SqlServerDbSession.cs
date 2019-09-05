@@ -23,15 +23,5 @@ namespace Albatross.Repository.ByEFCore {
 			optionsBuilder.UseSqlServer(conn);
 			return conn;
 		}
-
-
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-			CreateConnection(optionsBuilder);
-
-			optionsBuilder.UseLazyLoadingProxies(false);
-			optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-			optionsBuilder.EnableDetailedErrors(true);
-            optionsBuilder.EnableSensitiveDataLogging();
-		}
 	}
 }
