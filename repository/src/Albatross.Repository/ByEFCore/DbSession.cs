@@ -24,7 +24,7 @@ namespace Albatross.Repository.ByEFCore {
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 			this.DbConnection = CreateConnection(optionsBuilder);
-			optionsBuilder.UseLazyLoadingProxies(true);
+			optionsBuilder.UseLazyLoadingProxies(false);
 			optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 			optionsBuilder.EnableDetailedErrors(true);
 			optionsBuilder.EnableSensitiveDataLogging();
