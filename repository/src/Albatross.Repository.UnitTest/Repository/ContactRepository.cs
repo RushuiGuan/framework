@@ -10,7 +10,7 @@ namespace Albatross.Repository.UnitTest.Repository {
 
 	public interface IContactRepository : IRepository<Contact> { }
 	public class ContactRepository : Repository<Contact>, IContactRepository {
-		public ContactRepository(TestingDbSession dbContext) : base(dbContext) {
+		public ContactRepository(CRMSqlLiteDbSession dbContext) : base(dbContext) {
 		}
 		public override IQueryable<Contact> Items => base.Items.Include(args => args.Addresses);
 

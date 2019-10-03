@@ -15,9 +15,9 @@ namespace Albatross.Repository.UnitTest {
 		}
 
 		[Test]
-		public void SqlScriptGeneration() {
+		public void SqlLiteScriptGeneration() {
 			using (TestUnitOfWork unitOfWork = NewUnitOfWork()) {
-				var context = unitOfWork.Get<TestingDbSession>();
+				var context = unitOfWork.Get<CRMSqlLiteDbSession>();
 				string script = context.GetCreateScript();
 				Assert.IsNotEmpty(script);
 				using (StreamWriter writer = new StreamWriter("generated.sql")) {
@@ -25,5 +25,7 @@ namespace Albatross.Repository.UnitTest {
 				}
 			}
 		}
+
+        
 	}
 }

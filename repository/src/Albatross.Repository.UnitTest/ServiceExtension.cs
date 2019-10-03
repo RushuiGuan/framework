@@ -6,7 +6,8 @@ using Albatross.Mapping.Core;
 namespace Albatross.Repository.UnitTest {
 	public static class ServiceExtension {
 		public static IServiceCollection AddTestDatabase(this IServiceCollection services) {
-			services.AddScoped<TestingDbSession>();
+            services.AddScoped<SqlServerCreateScriptDbSession>();
+			services.AddScoped<CRMSqlLiteDbSession>();
 			services.AddScoped<ContactRepository>();
 			services.AddScoped<IContactRepository>(provider => provider.GetRequiredService<ContactRepository>());
 			services.AddCustomEFCore(typeof(ServiceExtension).Assembly);

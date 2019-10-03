@@ -2,12 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Storage;
 using System;
-using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Albatross.Repository.ByEFCore {
 	public abstract class DbSession : DbContext, IDbSession {
@@ -29,7 +27,6 @@ namespace Albatross.Repository.ByEFCore {
 			optionsBuilder.EnableDetailedErrors(true);
 			optionsBuilder.EnableSensitiveDataLogging();
 		}
-
 
 		public override void Dispose() {
 			base.Dispose();

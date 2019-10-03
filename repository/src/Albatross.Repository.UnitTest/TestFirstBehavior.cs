@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestFirstBehavior : TestBase<InMemoryDbUnitOfWork<TestingDbSession>> {
+	public class TestFirstBehavior : TestBase<InMemoryDbUnitOfWork<CRMSqlLiteDbSession>> {
 		public override void RegisterPackages(IServiceCollection svc) {
 			svc.AddTestDatabase();
 		}

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Albatross.Repository.UnitTest
 {
-    public class GetTestDatabaseConnectionString : GetConfig<string>
+    public class GetCRMDatabaseConnectionString : GetConfig<string>
     {
-		public GetTestDatabaseConnectionString(IGetConfigValue getConfigValue) : base(getConfigValue) { }
+		public GetCRMDatabaseConnectionString(IGetConfigValue getConfigValue) : base(getConfigValue) { }
 
 		protected override string Key => "connectionString.test";
 	}

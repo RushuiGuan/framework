@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Albatross.Repository.UnitTest.Repository {
 	public class CompositeRepository : Repository<Composite>{
-		public CompositeRepository(TestingDbSession dbContext) : base(dbContext) {
+		public CompositeRepository(CRMSqlLiteDbSession dbContext) : base(dbContext) {
 		}
 	}
 }

@@ -17,7 +17,7 @@ using Albatross.Repository.NUnit;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class Test : TestBase<InMemoryDbUnitOfWork<TestingDbSession>> {
+	public class Test : TestBase<InMemoryDbUnitOfWork<CRMSqlLiteDbSession>> {
 		const string ContactName = "test";
 		const string CityName = "West Haven";
 
