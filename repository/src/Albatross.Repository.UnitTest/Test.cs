@@ -1,29 +1,23 @@
-﻿using System.Linq;
-using Albatross.Host.NUnit;
-using Albatross.Repository.ByEFCore;
+﻿using Albatross.Host.NUnit;
 using Albatross.Repository.Core;
 using Albatross.Repository.UnitTest.Model;
 using Albatross.Repository.UnitTest.Repository;
-using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Albatross.Repository.UnitTest.Dto;
 using Albatross.Mapping.Core;
 using System.Threading.Tasks;
-using Albatross.Repository.NUnit;
+using Albatross.Repository.Sqlite;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class Test : TestBase<InMemoryDbUnitOfWork<CRMSqlLiteDbSession>> {
+	public class Test : TestBase<SqliteUnitOfWork> {
 		const string ContactName = "test";
 		const string CityName = "West Haven";
 
 
 		public override void RegisterPackages(IServiceCollection svc) {
-			svc.AddTestDatabase();
+			svc.AddTestDatabase().UseSqlite<CRMDbSession>();
 		}
 
 		private void CreateAddress(ContactDto c) {

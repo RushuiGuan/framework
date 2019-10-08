@@ -10,31 +10,23 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace Albatross.Repository.ByEFCore {
 	public abstract class DbSession : DbContext, IDbSession {
 		IEnumerable<IBuildEntityModel> builders;
-		public IDbConnection DbConnection { get; private set; }
 
 		public DbContext DbContext => this;
 
-		public DbSession(IEnumerable<IBuildEntityModel> builders) {
+		public IDbConnection DbConnection => this.Database.GetDbConnection();
+
+		public DbSession(DbContextOptions option, IEnumerable<IBuildEntityModel> builders) :base(option){
 			this.builders = builders;
 		}
 
-		public abstract IDbConnection CreateConnection(DbContextOptionsBuilder optionsBuilder);
+		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+		//	this.DbConnection = CreateConnection(optionsBuilder);
+		//	optionsBuilder.UseLazyLoadingProxies(false);
+		//	optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
+		//	optionsBuilder.EnableDetailedErrors(true);
+		//	optionsBuilder.EnableSensitiveDataLogging();
+		//}
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-			this.DbConnection = CreateConnection(optionsBuilder);
-			optionsBuilder.UseLazyLoadingProxies(false);
-			optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-			optionsBuilder.EnableDetailedErrors(true);
-			optionsBuilder.EnableSensitiveDataLogging();
-		}
-
-		public override void Dispose() {
-			base.Dispose();
-			if (this.DbConnection != null) {
-				this.DbConnection.Dispose();
-				this.DbConnection = null;
-			}
-		}
 
 		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
 			try {

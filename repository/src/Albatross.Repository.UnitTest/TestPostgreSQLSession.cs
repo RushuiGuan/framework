@@ -1,16 +1,16 @@
 ﻿using Albatross.Host.NUnit;
-using Albatross.Repository.SqlServer;
 using Microsoft.Extensions.DependencyInjection;
+using Albatross.Repository.PostgreSQL;
 using NUnit.Framework;
 using System;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestSqlDbSession : TestBase<TestUnitOfWork> {
+	public class TestPostgreSQLSession : TestBase<TestUnitOfWork> {
         public override void RegisterPackages(IServiceCollection services)
         {
 			services.AddTestDatabase();
-			services.UseSqlServer<CRMDbSession>("server=xyz");
+			services.UsePostgreSQL<CRMDbSession>("server=xyz");
             base.RegisterPackages(services);
         }
 

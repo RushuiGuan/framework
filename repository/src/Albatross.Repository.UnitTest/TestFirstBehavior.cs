@@ -1,21 +1,18 @@
 ﻿using Albatross.Host.NUnit;
-using Albatross.Repository.NUnit;
+using Albatross.Repository.Sqlite;
 using Albatross.Repository.UnitTest.Dto;
 using Albatross.Repository.UnitTest.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestFirstBehavior : TestBase<InMemoryDbUnitOfWork<CRMSqlLiteDbSession>> {
+	public class TestFirstBehavior : TestBase<SqliteUnitOfWork> {
 		public override void RegisterPackages(IServiceCollection svc) {
-			svc.AddTestDatabase();
+			svc.AddTestDatabase().UseSqlite<CRMDbSession>();
 		}
 
 		private void CreateAddress(ContactDto c) {

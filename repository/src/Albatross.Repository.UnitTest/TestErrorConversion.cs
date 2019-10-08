@@ -7,12 +7,14 @@ using Albatross.Host.NUnit;
 using Microsoft.Extensions.DependencyInjection;
 using Albatross.Repository.UnitTest.Dto;
 using System.Threading.Tasks;
+using Albatross.Repository.Sqlite;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
 	public class TestErrorConversion : TestBase<TestUnitOfWork> {
 		public override void RegisterPackages(IServiceCollection svc) {
 			svc.AddTestDatabase().AddTransient<ContactRepository>();
+			svc.UseSqlite<CRMDbSession>();
 		}
 
 		static readonly string Tag = typeof(TestErrorConversion).FullName;
@@ -22,7 +24,7 @@ namespace Albatross.Repository.UnitTest {
 			AsyncTestDelegate testDelegate = new AsyncTestDelegate(async () => {
 				string name = nameof(TestUniqeKeyViolationException);
 				using (var unitOfWork = NewUnitOfWork()) {
-					unitOfWork.Get<CRMSqlLiteDbSession>().Database.EnsureCreated();
+					unitOfWork.Get<CRMDbSession>().Database.EnsureCreated();
 					var repo = unitOfWork.Get<ContactRepository>();
 					repo.Add(new Model.Contact(new ContactDto { Name = name }, 1));
 					repo.Add(new Model.Contact(new ContactDto { Name = name }, 1));
@@ -36,7 +38,7 @@ namespace Albatross.Repository.UnitTest {
 		public void TestMissingRequiredFieldException() {
 			AsyncTestDelegate testDelegate = new AsyncTestDelegate(async () => {
 				using (var unitOfWork = NewUnitOfWork()) {
-					unitOfWork.Get<CRMSqlLiteDbSession>().Database.EnsureCreated();
+					unitOfWork.Get<CRMDbSession>().Database.EnsureCreated();
 					var repo = unitOfWork.Get<ContactRepository>();
 					repo.Add(new Model.Contact(new ContactDto { Name = null }, 1));
 					await repo.SaveChangesAsync();

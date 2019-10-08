@@ -1,22 +1,19 @@
 ﻿using Albatross.Host.NUnit;
 using Albatross.Repository.Core;
-using Albatross.Repository.NUnit;
+using Albatross.Repository.Sqlite;
 using Albatross.Repository.UnitTest.Model;
 using Albatross.Repository.UnitTest.Repository;
-using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
-    [TestFixture]
-    public class TestComposite : TestBase<InMemoryDbUnitOfWork<CRMSqlLiteDbSession>> {
+	[TestFixture]
+    public class TestComposite : TestBase<SqliteUnitOfWork> {
         public override void RegisterPackages(IServiceCollection svc) {
             svc.AddTestDatabase().AddTransient<CompositeRepository>();
+			svc.UseSqlite<CRMDbSession>();
         }
 
         [Test]
