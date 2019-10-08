@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Albatross.Reflection;
 using Albatross.Repository.ByEFCore;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
@@ -88,5 +90,7 @@ namespace Albatross.Repository.Core {
 		public static ITransaction BeginTransaction<T>(this IRepository<T> repository) {
 			return repository.DbSession.BeginTransaction();
 		}
+
+		
 	}
 }

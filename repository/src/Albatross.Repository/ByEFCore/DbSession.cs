@@ -9,24 +9,18 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Albatross.Repository.ByEFCore {
 	public abstract class DbSession : DbContext, IDbSession {
-		IEnumerable<IBuildEntityModel> builders;
-
 		public DbContext DbContext => this;
-
 		public IDbConnection DbConnection => this.Database.GetDbConnection();
 
-		public DbSession(DbContextOptions option, IEnumerable<IBuildEntityModel> builders) :base(option){
-			this.builders = builders;
+		public DbSession(DbContextOptions option) :base(option){
 		}
 
-		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-		//	this.DbConnection = CreateConnection(optionsBuilder);
-		//	optionsBuilder.UseLazyLoadingProxies(false);
-		//	optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-		//	optionsBuilder.EnableDetailedErrors(true);
-		//	optionsBuilder.EnableSensitiveDataLogging();
-		//}
-
+		protected override void OnModelCreating(ModelBuilder modelBuilder) {
+			var items = GetType().Assembly.GetEntityModels();
+			foreach (var item in items) {
+				item.Build(modelBuilder);
+			}
+		}
 
 		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
 			try {
@@ -35,8 +29,6 @@ namespace Albatross.Repository.ByEFCore {
 				throw converted;
 			}
 		}
-
-		protected override void OnModelCreating(ModelBuilder modelBuilder) => builders.ForEach(args => args.Build(modelBuilder));
 		public string GetCreateScript() =>this.Database.GenerateCreateScript();
 		public void EnsureCreated() => this.Database.EnsureCreated();
 		public ITransaction BeginTransaction() => new EFCoreTransaction(this.Database.BeginTransaction());

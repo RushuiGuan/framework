@@ -7,10 +7,6 @@ using System.Reflection;
 
 namespace Albatross.Repository.ByEFCore {
     public static class ServiceExtension {
-        public static IServiceCollection AddModelBuilderFactory(this IServiceCollection services) {
-            services.AddSingleton<IModelBuilderFactory, ModelBuilderFactory>();
-            return services;
-        }
 
         public static IServiceCollection AddEntityMaps(this IServiceCollection services, Assembly assembly) {
 			foreach(Type type in assembly.GetConcreteClasses<IBuildEntityModel>()){
@@ -19,10 +15,12 @@ namespace Albatross.Repository.ByEFCore {
 			}
             return services;
         }
-
-        public static IServiceCollection AddCustomEFCore(this IServiceCollection services, Assembly assembly) {
-            services.AddModelBuilderFactory().AddEntityMaps(assembly);
-            return services;
-        }
-    }
+		public static IEnumerable<IBuildEntityModel> GetEntityModels(this Assembly assembly) {
+			List<IBuildEntityModel> list = new List<IBuildEntityModel>();
+			foreach (Type type in assembly.GetConcreteClasses<IBuildEntityModel>()) {
+				list.Add((IBuildEntityModel)Activator.CreateInstance(type));
+			}
+			return list;
+		}
+	}
 }

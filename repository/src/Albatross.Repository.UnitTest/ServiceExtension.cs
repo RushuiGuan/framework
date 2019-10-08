@@ -9,7 +9,6 @@ namespace Albatross.Repository.UnitTest {
 			services.AddScoped<CRMDbSession>();
 			services.AddScoped<ContactRepository>();
 			services.AddScoped<IContactRepository>(provider => provider.GetRequiredService<ContactRepository>());
-			services.AddCustomEFCore(typeof(ServiceExtension).Assembly);
 			Albatross.Mapping.Core.Extension.AddMapping(services, typeof(ServiceExtension).Assembly);
 			services.AddSingleton<IConfigMapping, ConfigMapping>();
 			return services;
