@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Albatross.Repository.SqlServer {
 	public static class ServiceExtension{
@@ -12,8 +13,8 @@ namespace Albatross.Repository.SqlServer {
 		}
 
 
-		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, string connectionString) where T:DbContext {
-			services.AddDbContext<T>(builder => BuildDefaultOption(builder, connectionString));
+		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, Func<string> getConnectionString) where T:DbContext {
+			services.AddDbContext<T>(builder => BuildDefaultOption(builder, getConnectionString()));
 			return services;
 		}
 

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>1.5.14</Version>
+    <Version>1.5.15</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="nunit" Version="3.11.0" />

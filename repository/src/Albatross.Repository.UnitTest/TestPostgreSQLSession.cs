@@ -10,7 +10,7 @@ namespace Albatross.Repository.UnitTest {
         public override void RegisterPackages(IServiceCollection services)
         {
 			services.AddTestDatabase();
-			services.UsePostgreSQL<CRMDbSession>("server=xyz");
+			services.UsePostgreSQL<CRMDbSession>(()=>"server=xyz");
             base.RegisterPackages(services);
         }
 

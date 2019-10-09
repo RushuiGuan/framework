@@ -1,6 +1,6 @@
 import-module app-dev
 
-Set-ProjectVersion $PSScriptRoot -version "1.5.14";
+Set-ProjectVersion $PSScriptRoot -version "1.5.15";
 
 
 $array = @(

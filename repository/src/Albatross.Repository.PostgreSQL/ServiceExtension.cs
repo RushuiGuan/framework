@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Albatross.Repository.PostgreSQL {
 	public static class ServiceExtension{
@@ -12,13 +13,13 @@ namespace Albatross.Repository.PostgreSQL {
 		}
 
 
-		public static IServiceCollection UsePostgreSQL<T>(this IServiceCollection services, string connectionString) where T:DbContext {
-			services.AddDbContext<T>(builder => BuildDefaultOption(builder, connectionString));
+		public static IServiceCollection UsePostgreSQL<T>(this IServiceCollection services, Func<string> getConnectionString) where T:DbContext {
+			services.AddDbContext<T>(builder => BuildDefaultOption(builder, getConnectionString()));
 			return services;
 		}
 
-		public static IServiceCollection UsePostgreSQLWithContextPool<T>(this IServiceCollection services, string connectionString) where T : DbContext {
-			services.AddDbContextPool<T>(builder => BuildDefaultOption(builder, connectionString));
+		public static IServiceCollection UsePostgreSQLWithContextPool<T>(this IServiceCollection services, Func<string> getConnectionString) where T : DbContext {
+			services.AddDbContextPool<T>(builder => BuildDefaultOption(builder, getConnectionString()));
 			return services;
 		}
 	}
