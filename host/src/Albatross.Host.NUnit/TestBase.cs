@@ -1,4 +1,6 @@
-﻿using Albatross.Config.Core;
+﻿using Albatross.Config;
+using Albatross.Config.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
@@ -13,6 +15,8 @@ namespace Albatross.Host.NUnit {
 
 		[OneTimeSetUp]
         public void InitializeTestFixture() {
+			var cfg = new SetupConfig(this.GetType().Assembly).Configuration;
+			services.AddSingleton<IConfiguration>(cfg);
             services.AddCustomConfig(this.GetType().Assembly, true);
             services.AddTransient<IServiceScope>(args => provider.CreateScope());
             services.AddTransient<T>();

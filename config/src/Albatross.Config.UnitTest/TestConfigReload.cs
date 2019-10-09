@@ -13,7 +13,7 @@ namespace Albatross.Config.UnitTest {
         ServiceProvider provider;
         [OneTimeSetUp]
         public void Setup() {
-            svc.AddCustomConfig(this.GetType().Assembly, true);
+			new SetupConfig(this.GetType().Assembly).RegisterServices(svc);
             svc.AddSingleton<GetChangeTest>();
             provider = svc.BuildServiceProvider();
         }

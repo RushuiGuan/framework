@@ -78,7 +78,7 @@ namespace Albatross.Host.AspNetCore {
 		#endregion
 
 		public IServiceProvider ConfigureServices(IServiceCollection services) {
-            services.AddCustomConfig(this.GetType().Assembly);
+            services.AddConfig(this.GetType().Assembly);
 			services.AddAspNetCorePrincipalProvider();
 			services.AddSingleton<IGetServerJsonSerializer, GetDefaultServerJsonSerializer>();
             services.AddSingleton<GlobalExceptionHandler>();

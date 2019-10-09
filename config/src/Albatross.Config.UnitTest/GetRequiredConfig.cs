@@ -1,4 +1,5 @@
 ﻿using Albatross.Config.Core;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Text;
 namespace Albatross.Config.UnitTest {
 	public class GetRequiredConfig : GetConfig<string> {
 
-		public GetRequiredConfig(IGetConfigValue getConfigValue) : base(getConfigValue) {
+		public GetRequiredConfig(IConfiguration configuration) : base(configuration) {
 		}
 
 		protected override string Key => "important";

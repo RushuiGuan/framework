@@ -23,10 +23,10 @@ namespace Albatross.Repository.SqlServer {
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="services"></param>
-		/// <param name="connectionString"></param>
+		/// <param name="getConnectionString"></param>
 		/// <returns></returns>
-		public static IServiceCollection UseSqlServerWithContextPool<T>(this IServiceCollection services, string connectionString) where T : DbContext {
-			services.AddDbContextPool<T>(builder => BuildDefaultOption(builder, connectionString));
+		public static IServiceCollection UseSqlServerWithContextPool<T>(this IServiceCollection services, Func<string> getConnectionString) where T : DbContext {
+			services.AddDbContextPool<T>(builder => BuildDefaultOption(builder, getConnectionString()));
 			return services;
 		}
 	}
