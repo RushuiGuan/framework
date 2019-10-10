@@ -1,22 +1,27 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
 namespace Albatross.Config.UnitTest {
+	public class Startup {
+		public void Configure() { }
+ }
 	[TestFixture]
 	public class TestHostSettingFile {
 
 		[Test]
-		public void Run() {
-			var setup = new SetupConfig(this.GetType().GetAssemblyLocation(), useHostSetting: true);
-			ServiceCollection svc = new ServiceCollection();
-			setup.RegisterServices(svc);
-			var provider = svc.BuildServiceProvider();
-			IHostingEnvironment env = provider.GetService<IHostingEnvironment>();
+		public void BasicCheck() {
+			string contentRoot = @"C:\app\framework\config\src\Albatross.Config.UnitTest";
+			var setup = new SetupConfig(contentRoot, useHostSetting: true);
+			var host = WebHost.CreateDefaultBuilder()
+				.UseConfiguration(setup.Configuration)
+				.UseStartup<Startup>().Build();
+
+			IHostingEnvironment env = host.Services.GetService<IHostingEnvironment>();
 			Assert.NotNull(env);
+			Assert.AreEqual(contentRoot, env.ContentRootPath);
 		}
 	}
 }

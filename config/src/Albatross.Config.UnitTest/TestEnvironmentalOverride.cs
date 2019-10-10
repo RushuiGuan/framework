@@ -1,30 +1,31 @@
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using System.IO;
 
 namespace Albatross.Config.UnitTest {
 	[Category(nameof(Albatross.Config))]
     public class TestEnvironmentalOverride {
-        ServiceCollection svc = new ServiceCollection();
-        ServiceProvider provider;
-        [OneTimeSetUp]
-        public void Setup() {
-			System.Environment.SetEnvironmentVariable("my__data__count", "200");
-			new SetupConfig(this.GetType().GetAssemblyLocation(), "test_").RegisterServices(svc);
-			svc.AddConfig<MySetting, GetMySetting>();
-            provider = svc.BuildServiceProvider();
-        }
-
-
 		[Test]
 		public void TestNormal() {
-			MySetting my = provider.GetRequiredService<MySetting>();
-			Assert.AreEqual(100, my.Data.Count);
+			ServiceCollection svc = new ServiceCollection();
+			new SetupConfig(Directory.GetCurrentDirectory()).RegisterServices(svc);
+			svc.AddConfig<MySetting, GetMySetting>();
+			using (var provider = svc.BuildServiceProvider()) {
+				MySetting my = provider.GetRequiredService<MySetting>();
+				Assert.AreEqual(100, my.Data.Count);
+			}
 		}
 
 		[Test]
 		public void TestOverride() {
-			MySetting my = provider.GetRequiredService<MySetting>();
-			Assert.AreEqual(200, my.Data.Count);
+			ServiceCollection svc = new ServiceCollection();
+			System.Environment.SetEnvironmentVariable("my__data__count", "200");
+			new SetupConfig(Directory.GetCurrentDirectory(), "test_").RegisterServices(svc);
+			svc.AddConfig<MySetting, GetMySetting>();
+			using (var provider = svc.BuildServiceProvider()) {
+				MySetting my = provider.GetRequiredService<MySetting>();
+				Assert.AreEqual(200, my.Data.Count);
+			}
 		}
     }
 }

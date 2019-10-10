@@ -9,7 +9,12 @@ using System.Text;
 
 namespace Albatross.Config {
 	public static class Extension {
-		public static string GetAssemblyLocation(this Type type)=> System.IO.Path.GetDirectoryName(type.Assembly.CodeBase);
+
+		public static string GetAssemblyLocation(this Type type) {
+			string codebase = new Uri(type.Assembly.CodeBase).LocalPath;
+			return System.IO.Path.GetDirectoryName(codebase);
+		}
+
 		public static string GetWorkingDirectory() => System.Environment.CurrentDirectory;
 
 		/// <summary>
