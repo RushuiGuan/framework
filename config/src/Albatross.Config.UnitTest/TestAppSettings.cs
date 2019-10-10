@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Albatross.Config.UnitTest {
 	[Category(nameof(Albatross.Config))]
-    public class TestEnvironmentalOverride {
+    public class TestAppSettings {
 		[Test]
 		public void TestNormal() {
 			ServiceCollection svc = new ServiceCollection();
