@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System.IO;
@@ -13,15 +12,23 @@ namespace Albatross.Config.UnitTest {
 
 		[Test]
 		public void BasicCheck() {
-			string contentRoot = @"C:\app\framework\config\src\Albatross.Config.UnitTest";
-			var setup = new SetupConfig(contentRoot, useHostSetting: true);
-			var host = WebHost.CreateDefaultBuilder()
+			string directory = Directory.GetCurrentDirectory();
+			if (!directory.EndsWith(Path.DirectorySeparatorChar)) {
+				directory = directory + Path.DirectorySeparatorChar;
+			}
+			var setup = new SetupConfig(directory);
+			var host = new WebHostBuilder()
 				.UseConfiguration(setup.Configuration)
 				.UseStartup<Startup>().Build();
 
-			IHostingEnvironment env = host.Services.GetService<IHostingEnvironment>();
+
+			IWebHostEnvironment env = host.Services.GetService<IWebHostEnvironment>();
 			Assert.NotNull(env);
-			Assert.AreEqual(contentRoot, env.ContentRootPath);
+			Assert.AreEqual(directory, env.ContentRootPath);
+			Assert.AreEqual("dev", env.EnvironmentName);
+			Assert.AreEqual("http://localhost:2000", env.WebRootPath);
+			Assert.AreEqual("test-app", env.ApplicationName);
+		
 		}
 	}
 }
