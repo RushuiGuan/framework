@@ -9,18 +9,8 @@ using System.Text;
 
 namespace Albatross.Config {
 	public static class Extension {
-		/// <summary>
-		/// Init should be set to true for console app or unit test.  aspnetcore will initialize the config objects itself and should be set to false
-		/// </summary>
-		/// <param name="services"></param>
-		/// <param name="entryAssembly"></param>
-		/// <returns></returns>
-		public static IServiceCollection AddConfig(this IServiceCollection services, Assembly entryAssembly, IConfiguration configuration=null) {
-			if(configuration != null) { services.AddSingleton(configuration); }
-			services.AddSingleton<IGetEntryAssemblyLocation>(new GetEntryAssemblyLocation(entryAssembly));
-			services.AddConfig<ProgramSetting, GetProgramSetting>();
-			return services;
-		}
+		public static string GetAssemblyLocation(this Type type)=> System.IO.Path.GetDirectoryName(type.Assembly.CodeBase);
+		public static string GetWorkingDirectory() => System.Environment.CurrentDirectory;
 
 		/// <summary>
 		/// Registration for the Configuration Class C and its factory class F 
@@ -48,7 +38,6 @@ namespace Albatross.Config {
 
 		public static SetupConfig RegisterServices(this SetupConfig setupConfig, IServiceCollection services) {
 			services.AddSingleton<IConfiguration>(setupConfig.Configuration);
-			services.AddSingleton<IGetEntryAssemblyLocation>(setupConfig.GetAssemblyLocation);
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
 			return setupConfig;
 		}

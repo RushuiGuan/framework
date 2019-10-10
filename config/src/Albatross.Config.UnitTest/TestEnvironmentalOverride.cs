@@ -9,7 +9,7 @@ namespace Albatross.Config.UnitTest {
         [OneTimeSetUp]
         public void Setup() {
 			System.Environment.SetEnvironmentVariable("my__data__count", "200");
-			new SetupConfig(this.GetType().Assembly, "test_").RegisterServices(svc);
+			new SetupConfig(this.GetType().GetAssemblyLocation(), "test_").RegisterServices(svc);
 			svc.AddConfig<MySetting, GetMySetting>();
             provider = svc.BuildServiceProvider();
         }

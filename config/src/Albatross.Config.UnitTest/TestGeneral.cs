@@ -12,24 +12,11 @@ namespace Albatross.Config.UnitTest {
         ServiceProvider provider;
         [OneTimeSetUp]
         public void Setup() {
-			new SetupConfig(this.GetType().Assembly).RegisterServices(svc);
+			new SetupConfig(this.GetType().GetAssemblyLocation()).RegisterServices(svc);
             svc.AddTransient<GetGoogleUrl>();
             svc.AddTransient<GetRequiredConfig>();
             provider = svc.BuildServiceProvider();
         }
-
-        [Test]
-		public void TestGetAssemblyLocation_NullInput() {
-			var handle = new GetEntryAssemblyLocation(null);
-			Assert.AreEqual(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath, handle.CodeBase);
-		}
-
-		[Test]
-		public void TestGetAssemblyLocation() {
-            Assembly asm = this.GetType().Assembly;
-			var handle = new GetEntryAssemblyLocation(asm);
-			Assert.AreEqual(new Uri(asm.CodeBase).LocalPath, handle.CodeBase);
-		}
 
         [Test]
         public void TestGetProgramSetting() {

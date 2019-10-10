@@ -4,16 +4,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 using Albatross.Config;
+using System.IO;
 
 namespace Albatross.Host.AspNetCore {
-	public class KestrelWebHost <T> where T:class {
+	public class KestrelWebHost<T> where T : class {
 		private IWebHost Create(string[] args) {
-			var setup = new SetupConfig(typeof(T).Assembly);
+			var setup = new SetupConfig(Directory.GetCurrentDirectory());
 			setup.UseSerilog();
 			return WebHost.CreateDefaultBuilder(args)
-                .UseStartup<T>()
+				.UseStartup<T>()
 				.UseSerilog()
-                .UseConfiguration(setup.Configuration)
+				.UseConfiguration(setup.Configuration)
 				.UseKestrel()
 				.Build();
 		}
@@ -21,7 +22,7 @@ namespace Albatross.Host.AspNetCore {
 		public void Run(params string[] args) {
 			try {
 				Create(args).Run();
-			}catch(Exception err) {
+			} catch (Exception err) {
 				Log.Fatal(err, "Host terminated unexpectedly");
 			} finally {
 				Log.CloseAndFlush();

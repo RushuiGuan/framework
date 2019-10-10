@@ -1,9 +1,8 @@
 ﻿using Albatross.CodeGen.CSharp.Model;
-using Albatross.Config.Core;
+using Albatross.Config;
 using Albatross.Host.NUnit;
 using Albatross.IAM.Api;
 using Albatross.Test.Api;
-using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
@@ -11,7 +10,7 @@ using System.IO;
 using System.Text;
 
 namespace Albatross.CodeGen.WebClient.UnitTest {
-    [TestFixture]
+	[TestFixture]
 	public class GeneralTest :TestBase<TestUnitOfWork>{
         public override void RegisterPackages(IServiceCollection svc) {
             svc.AddDefaultCodeGen().AddCodeGen(this.GetType().Assembly);
@@ -36,7 +35,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
                     streamWriter.Write(result);
                 }
 
-                string expectedFile = Path.Join(unitOfWork.Get<IGetEntryAssemblyLocation>().Directory, "GroupClientService.expected.cs");
+                string expectedFile = Path.Join(GetType().GetAssemblyLocation(), "GroupClientService.expected.cs");
                 using (StreamReader reader = new StreamReader(expectedFile)) {
                     string expected = reader.ReadToEnd();
                     Assert.AreEqual(expected, result);
@@ -61,7 +60,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 					streamWriter.Write(result);
 				}
 
-				string expectedFile = Path.Join(unitOfWork.Get<IGetEntryAssemblyLocation>().Directory, "ValueClientService.expected.cs");
+				string expectedFile = Path.Join(this.GetType().GetAssemblyLocation(), "ValueClientService.expected.cs");
 				using (StreamReader reader = new StreamReader(expectedFile)) {
 					string expected = reader.ReadToEnd();
 					Assert.AreEqual(expected, result);

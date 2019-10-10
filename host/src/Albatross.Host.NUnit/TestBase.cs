@@ -15,7 +15,7 @@ namespace Albatross.Host.NUnit {
 
 		[OneTimeSetUp]
         public void InitializeTestFixture() {
-			var setup = new SetupConfig(this.GetType().Assembly);
+			var setup = new SetupConfig(typeof(T).GetAssemblyLocation());
 			setup.RegisterServices(services).UseSerilog();
             services.AddTransient<IServiceScope>(args => provider.CreateScope());
             services.AddTransient<T>();

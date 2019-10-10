@@ -13,13 +13,13 @@ namespace Albatross.Config.UnitTest {
         ServiceProvider provider;
         [OneTimeSetUp]
         public void Setup() {
-			new SetupConfig(this.GetType().Assembly).RegisterServices(svc);
+			new SetupConfig(this.GetType().GetAssemblyLocation()).RegisterServices(svc);
             svc.AddSingleton<GetChangeTest>();
             provider = svc.BuildServiceProvider();
         }
 
         private void SetValue(int value) {
-            var location = provider.GetRequiredService<IGetEntryAssemblyLocation>().Directory;
+			var location = this.GetType().GetAssemblyLocation();
             string path = Path.Join(location, "appsettings.json");
             string content;
             using (StreamReader reader = new StreamReader(path)) {

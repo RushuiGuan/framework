@@ -1,14 +1,10 @@
 ﻿using Albatross.Config;
-using Albatross.Config.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.Configuration;
 
-namespace Albatross.Repository.UnitTest
-{
-    public class GetCRMDatabaseConnectionString : GetConfig<string>
+namespace Albatross.Repository.UnitTest {
+	public class GetCRMDatabaseConnectionString : GetConfig<string>
     {
-		public GetCRMDatabaseConnectionString(IGetConfigValue getConfigValue) : base(getConfigValue) { }
+		public GetCRMDatabaseConnectionString(IConfiguration configuration) : base(configuration) { }
 
 		protected override string Key => "connectionString.test";
 	}

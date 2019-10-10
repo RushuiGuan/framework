@@ -1,4 +1,5 @@
-﻿using Albatross.Config.Core;
+﻿using Albatross.Config;
+using Albatross.Config.Core;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.Host.PowerShell {
@@ -11,7 +12,8 @@ namespace Albatross.Host.PowerShell {
 
 
 		public Session Start() {
-            services.AddCustomConfig(this.GetType().Assembly, true);
+			var setup = new SetupConfig(this.GetType().GetAssemblyLocation());
+			setup.RegisterServices(services);
 			RegisterServices(services);
             provider = services.BuildServiceProvider();
 			return this;

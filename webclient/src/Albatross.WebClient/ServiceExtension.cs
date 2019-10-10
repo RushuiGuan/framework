@@ -1,10 +1,8 @@
-﻿using Albatross.Config.Core;
+﻿using Albatross.Config;
 using IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Albatross.WebClient {

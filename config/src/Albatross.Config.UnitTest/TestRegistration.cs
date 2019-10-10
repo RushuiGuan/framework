@@ -9,22 +9,20 @@ namespace Albatross.Config.UnitTest {
         [Test]
         public void RunSetupConfig() {
             ServiceCollection svc = new ServiceCollection();
-			new SetupConfig(this.GetType().Assembly).RegisterServices(svc);
+			new SetupConfig(this.GetType().GetAssemblyLocation()).RegisterServices(svc);
 			ServiceProvider provider = svc.BuildServiceProvider();
 
-            Assert.NotNull(provider.GetService<ProgramSetting>());
-            Assert.NotNull(provider.GetService<IGetEntryAssemblyLocation>());
+			Assert.NotNull(provider.GetService<ProgramSetting>());
 		}
 
 		[Test]
 		public void RunSecondaryRegistration() {
 			ServiceCollection svc = new ServiceCollection();
-			var setup = new SetupConfig(this.GetType().Assembly);
+			var setup = new SetupConfig(this.GetType().GetAssemblyLocation());
 			setup.RegisterServices(svc);
 			ServiceProvider provider = svc.BuildServiceProvider();
 
 			Assert.NotNull(provider.GetService<ProgramSetting>());
-			Assert.NotNull(provider.GetService<IGetEntryAssemblyLocation>());
 		}
 	}
 }
