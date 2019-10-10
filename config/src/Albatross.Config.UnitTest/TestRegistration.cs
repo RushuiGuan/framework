@@ -13,17 +13,18 @@ namespace Albatross.Config.UnitTest {
 			ServiceProvider provider = svc.BuildServiceProvider();
 
             Assert.NotNull(provider.GetService<ProgramSetting>());
-            Assert.NotNull(provider.GetService<IGetAssemblyLocation>());
+            Assert.NotNull(provider.GetService<IGetEntryAssemblyLocation>());
 		}
 
 		[Test]
 		public void RunSecondaryRegistration() {
 			ServiceCollection svc = new ServiceCollection();
-			svc.AddConfig(this.GetType().Assembly, new ConfigurationBuilder().Build());
+			var setup = new SetupConfig(this.GetType().Assembly);
+			setup.RegisterServices(svc);
 			ServiceProvider provider = svc.BuildServiceProvider();
 
 			Assert.NotNull(provider.GetService<ProgramSetting>());
-			Assert.NotNull(provider.GetService<IGetAssemblyLocation>());
+			Assert.NotNull(provider.GetService<IGetEntryAssemblyLocation>());
 		}
 	}
 }

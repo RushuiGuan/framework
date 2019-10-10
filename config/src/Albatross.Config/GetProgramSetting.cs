@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Albatross.Config {
 	public class GetProgramSetting : GetConfig<ProgramSetting> {
-		IGetAssemblyLocation getAssemblyLocation;
+		IGetEntryAssemblyLocation getAssemblyLocation;
 		protected override string Key => ProgramSetting.Key;
 		public override bool Required => false;
 
-		public GetProgramSetting(IConfiguration configuration, IGetAssemblyLocation getAssemblyLocation) : base(configuration) {
+		public GetProgramSetting(IConfiguration configuration, IGetEntryAssemblyLocation getAssemblyLocation) : base(configuration) {
 			this.getAssemblyLocation = getAssemblyLocation;
 		}
 		

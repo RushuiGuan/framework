@@ -11,12 +11,12 @@ namespace Albatross.Config {
 		private readonly bool useHostSetting;
 		private readonly string environmentPrefix;
 
-		public IGetAssemblyLocation GetAssemblyLocation { get; private set; }
+		public IGetEntryAssemblyLocation GetAssemblyLocation { get; private set; }
 
 		public IConfiguration Configuration { get; private set; }
 		public ProgramSetting ProgramSetting => this.Configuration.GetValue<ProgramSetting>(ProgramSetting.Key);
 
-		public SetupConfig(Assembly entryAssembly, string environmentPrefix = Default_Environment_Prefix, bool useHostSetting = false) {
+		public SetupConfig(Assembly entryAssembly, string environmentPrefix = Default_Environment_Prefix, bool useHostSetting = true) {
 			this.GetAssemblyLocation = new GetEntryAssemblyLocation(entryAssembly);
 			this.useHostSetting = useHostSetting;
 			this.environmentPrefix = environmentPrefix;
@@ -26,16 +26,14 @@ namespace Albatross.Config {
 		private void Run() {
 			var builder = new ConfigurationBuilder();
 			builder.SetBasePath(GetAssemblyLocation.Directory);
-			builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
 			if (this.useHostSetting) {
 				builder.AddJsonFile("hostsettings.json", optional: true);
-				if (string.IsNullOrEmpty(Environment)) {
+				if (!string.IsNullOrEmpty(Environment)) {
 					builder.AddJsonFile($"hostsettings.{Environment}.json", optional: true);
 				}
 			}
+			builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 			builder.AddEnvironmentVariables(this.environmentPrefix);
-
 			this.Configuration = builder.Build();
 		}
 	}

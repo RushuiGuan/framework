@@ -17,14 +17,16 @@ namespace Albatross.Config {
 		public virtual bool Required => true;
 
 		public virtual T Get() {
+			T t = default(T);
 			var section = this.configuration.GetSection(Key);
-			if (section == null && Required) {
-				throw new ConfigurationException(Key);
-			} else {
-				T t = section.Get<T>();
+			if (section != null) {
+				t = section.Get<T>();
 				(t as IConfigSetting)?.Validate();
-				return t;
 			}
+			if (object.ReferenceEquals(t, null) && Required) {
+				throw new ConfigurationException(Key);
+			}
+			return t;
 		}
 	}
 }

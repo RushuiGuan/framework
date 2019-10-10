@@ -19,7 +19,7 @@ namespace Albatross.Config.UnitTest {
         }
 
         private void SetValue(int value) {
-            var location = provider.GetRequiredService<IGetAssemblyLocation>().Directory;
+            var location = provider.GetRequiredService<IGetEntryAssemblyLocation>().Directory;
             string path = Path.Join(location, "appsettings.json");
             string content;
             using (StreamReader reader = new StreamReader(path)) {

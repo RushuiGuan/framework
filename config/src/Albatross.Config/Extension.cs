@@ -17,7 +17,7 @@ namespace Albatross.Config {
 		/// <returns></returns>
 		public static IServiceCollection AddConfig(this IServiceCollection services, Assembly entryAssembly, IConfiguration configuration=null) {
 			if(configuration != null) { services.AddSingleton(configuration); }
-			services.AddSingleton<IGetAssemblyLocation>(new GetEntryAssemblyLocation(entryAssembly));
+			services.AddSingleton<IGetEntryAssemblyLocation>(new GetEntryAssemblyLocation(entryAssembly));
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
 			return services;
 		}
@@ -48,7 +48,7 @@ namespace Albatross.Config {
 
 		public static SetupConfig RegisterServices(this SetupConfig setupConfig, IServiceCollection services) {
 			services.AddSingleton<IConfiguration>(setupConfig.Configuration);
-			services.AddSingleton<IGetAssemblyLocation>(setupConfig.GetAssemblyLocation);
+			services.AddSingleton<IGetEntryAssemblyLocation>(setupConfig.GetAssemblyLocation);
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
 			return setupConfig;
 		}

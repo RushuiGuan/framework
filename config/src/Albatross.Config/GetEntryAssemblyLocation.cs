@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 
 namespace Albatross.Config {
-	public class GetEntryAssemblyLocation : IGetAssemblyLocation {
+	public class GetEntryAssemblyLocation : IGetEntryAssemblyLocation {
 		Assembly assembly;
 
 		public GetEntryAssemblyLocation(Assembly assembly) {

@@ -1,4 +1,5 @@
 ﻿using Albatross.Authentication;
+using Albatross.Config;
 using Albatross.Config.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -73,12 +74,10 @@ namespace Albatross.Host.AspNetCore {
 				};
 			});
 			return services;
-		}
-		
+		}	
 		#endregion
 
 		public IServiceProvider ConfigureServices(IServiceCollection services) {
-            services.AddConfig(this.GetType().Assembly);
 			services.AddAspNetCorePrincipalProvider();
 			services.AddSingleton<IGetServerJsonSerializer, GetDefaultServerJsonSerializer>();
             services.AddSingleton<GlobalExceptionHandler>();

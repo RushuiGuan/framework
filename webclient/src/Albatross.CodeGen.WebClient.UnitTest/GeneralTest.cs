@@ -36,7 +36,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
                     streamWriter.Write(result);
                 }
 
-                string expectedFile = Path.Join(unitOfWork.Get<IGetAssemblyLocation>().Directory, "GroupClientService.expected.cs");
+                string expectedFile = Path.Join(unitOfWork.Get<IGetEntryAssemblyLocation>().Directory, "GroupClientService.expected.cs");
                 using (StreamReader reader = new StreamReader(expectedFile)) {
                     string expected = reader.ReadToEnd();
                     Assert.AreEqual(expected, result);
@@ -61,7 +61,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 					streamWriter.Write(result);
 				}
 
-				string expectedFile = Path.Join(unitOfWork.Get<IGetAssemblyLocation>().Directory, "ValueClientService.expected.cs");
+				string expectedFile = Path.Join(unitOfWork.Get<IGetEntryAssemblyLocation>().Directory, "ValueClientService.expected.cs");
 				using (StreamReader reader = new StreamReader(expectedFile)) {
 					string expected = reader.ReadToEnd();
 					Assert.AreEqual(expected, result);

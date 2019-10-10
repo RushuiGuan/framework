@@ -3,26 +3,17 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
+using Albatross.Config;
 
 namespace Albatross.Host.AspNetCore {
 	public class KestrelWebHost <T> where T:class {
 		private IWebHost Create(string[] args) {
-			const string ASPNETCORE_ENVIRONMENT = "ASPNETCORE_ENVIRONMENT";
-			string env = System.Environment.GetEnvironmentVariable(ASPNETCORE_ENVIRONMENT);
-
-            var config = new ConfigurationBuilder()
-				.SetBasePath(new Albatross.Config.GetEntryAssemblyLocation(typeof(T).Assembly).Directory)
-				.AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
-                .AddJsonFile("hostsettings.json", optional: true)
-				.AddJsonFile($"hostsettings.{env}.json", optional: true)
-                .Build();
-
-			Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(config).CreateLogger();
-
+			var setup = new SetupConfig(typeof(T).Assembly);
+			setup.UseSerilog();
 			return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<T>()
 				.UseSerilog()
-                .UseConfiguration(config)
+                .UseConfiguration(setup.Configuration)
 				.UseKestrel()
 				.Build();
 		}

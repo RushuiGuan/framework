@@ -8,7 +8,7 @@ namespace Albatross.Config.UnitTest {
         ServiceProvider provider;
         [OneTimeSetUp]
         public void Setup() {
-			System.Environment.SetEnvironmentVariable("test_my_data_count", "200");
+			System.Environment.SetEnvironmentVariable("my__data__count", "200");
 			new SetupConfig(this.GetType().Assembly, "test_").RegisterServices(svc);
 			svc.AddConfig<MySetting, GetMySetting>();
             provider = svc.BuildServiceProvider();

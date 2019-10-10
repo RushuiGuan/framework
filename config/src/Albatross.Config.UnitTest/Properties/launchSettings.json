@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Albatross.Config.UnitTest": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "my-data-count": "200"
+      }
+    }
+  }
+}
