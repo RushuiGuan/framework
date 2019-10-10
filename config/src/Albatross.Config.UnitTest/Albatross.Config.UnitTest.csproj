@@ -7,7 +7,6 @@
   <ItemGroup>
     <None Remove="appSettings.json" />
     <None Remove="hostsettings.Development.json" />
-    <None Remove="hostsettings.json" />
     <None Remove="hostsettings.local.json" />
   </ItemGroup>
   <ItemGroup>
@@ -18,11 +17,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <DependentUpon>hostsettings.json</DependentUpon>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="hostsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="hostsettings.local.json">
