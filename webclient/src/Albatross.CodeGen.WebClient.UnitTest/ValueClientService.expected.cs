@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 using Albatross.WebClient;
 using System.Collections.Generic;
 
-namespace Albatross.Test.WebClient {
+namespace Albatross.CodeGen.WebClient.WebClient {
 	public partial class ValueClientService : Albatross.WebClient.ClientBase {
-		public ValueClientService(Microsoft.Extensions.Logging.ILogger<ValueClientService> @logger, System.Net.Http.HttpClient @client, Microsoft.Extensions.Configuration.IConfiguration @config) : base(@logger, @client, @config) {
+		public ValueClientService(Microsoft.Extensions.Logging.ILogger<ValueClientService> @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
 		}
 		public const System.String ControllerPath = "api/value";
 		public async System.Threading.Tasks.Task<Albatross.WebClient.IntegrationTest.Messages.PayLoad> GetJson() {

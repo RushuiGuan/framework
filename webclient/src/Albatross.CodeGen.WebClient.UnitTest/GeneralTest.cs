@@ -30,10 +30,6 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 					writer.Run(writer1, converted);
 				}
 				string result = sb.ToString();
-                string file = @"C:\git\app\webclient\src\Albatross.CodeGen.WebClient.UnitTest\GroupClientService.actual.cs";
-                using (StreamWriter streamWriter = new StreamWriter(file)) {
-                    streamWriter.Write(result);
-                }
 
                 string expectedFile = Path.Join(GetType().GetAssemblyLocation(), "GroupClientService.expected.cs");
                 using (StreamReader reader = new StreamReader(expectedFile)) {
@@ -55,10 +51,6 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 					writer.Run(writer1, converted);
 				}
 				string result = sb.ToString();
-				string file = @"C:\git\app\webclient\src\Albatross.CodeGen.WebClient.UnitTest\ValueClientService.actual.cs";
-				using (StreamWriter streamWriter = new StreamWriter(file)) {
-					streamWriter.Write(result);
-				}
 
 				string expectedFile = Path.Join(this.GetType().GetAssemblyLocation(), "ValueClientService.expected.cs");
 				using (StreamReader reader = new StreamReader(expectedFile)) {

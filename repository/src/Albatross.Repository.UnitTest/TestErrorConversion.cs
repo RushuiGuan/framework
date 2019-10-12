@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Albatross.Repository.Sqlite;
 
 namespace Albatross.Repository.UnitTest {
+	[Ignore("Need to figure out sql error handling for different data providers")]
 	[TestFixture]
 	public class TestErrorConversion : TestBase<TestUnitOfWork> {
 		public override void RegisterPackages(IServiceCollection svc) {

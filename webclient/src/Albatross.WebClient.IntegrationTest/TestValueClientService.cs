@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace Albatross.WebClient.IntegrationTest {
+	[Ignore("integration test")]
     [TestFixture]
 	public class TestValueClientService :TestBase<TestUnitOfWork>{
 		public override void RegisterPackages(IServiceCollection svc) {

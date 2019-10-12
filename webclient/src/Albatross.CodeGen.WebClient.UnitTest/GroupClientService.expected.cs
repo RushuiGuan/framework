@@ -7,21 +7,21 @@ using System.Collections.Generic;
 
 namespace Albatross.IAM.WebClient {
 	public partial class GroupClientService : Albatross.WebClient.ClientBase {
-		public GroupClientService(Microsoft.Extensions.Logging.ILogger<GroupClientService> @logger, System.Net.Http.HttpClient @client, Microsoft.Extensions.Configuration.IConfiguration @config) : base(@logger, @client, @config) {
+		public GroupClientService(Microsoft.Extensions.Logging.ILogger<GroupClientService> @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
 		}
 		public const System.String ControllerPath = "api/group";
-		public async System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Albatross.IAM.Messages.PrincipalDto>> GetNormal() {
+		public async System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Albatross.IAM.Api.PrincipalDto>> GetNormal() {
 			string path = $"{ControllerPath}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.Invoke<System.Collections.Generic.IEnumerable<Albatross.IAM.Messages.PrincipalDto>>(request);
+				return await this.Invoke<System.Collections.Generic.IEnumerable<Albatross.IAM.Api.PrincipalDto>>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Albatross.IAM.Messages.PrincipalDto>> GetNormalAsync() {
+		public async System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Albatross.IAM.Api.PrincipalDto>> GetNormalAsync() {
 			string path = $"{ControllerPath}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.Invoke<System.Collections.Generic.IEnumerable<Albatross.IAM.Messages.PrincipalDto>>(request);
+				return await this.Invoke<System.Collections.Generic.IEnumerable<Albatross.IAM.Api.PrincipalDto>>(request);
 			}
 		}
 		public async System.Threading.Tasks.Task GetVoid() {
