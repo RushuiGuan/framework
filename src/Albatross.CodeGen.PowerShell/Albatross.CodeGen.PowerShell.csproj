@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Version>1.5.17</Version>
+    <Product>Albatross Code Generator PowerShell Utilities</Product>
+    <Authors>Rushui Guan</Authors>
+    <PackageProjectUrl>https://github.com/RushuiGuan/CodeGen</PackageProjectUrl>
+    <Description>The powershell utility contains a set of cmdlets that allow users to execute generators for code generation purpose.</Description>
+    <PackageTags>code generator c# sql codegen powershell database csharp</PackageTags>
+    <LangVersion>7.3</LangVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Copyright>Copyright © 2019</Copyright>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="JsonNet.PrivateSettersContractResolvers" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="System.Management.Automation" Version="6.2.2" />
+    <PackageReference Include="Albatross.Database" Version="1.1.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>
+      </PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

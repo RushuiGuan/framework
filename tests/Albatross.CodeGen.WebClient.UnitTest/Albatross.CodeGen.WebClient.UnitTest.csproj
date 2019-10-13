@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <Version>1.5.17</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="GroupClientService.expected.cs" />
+    <Compile Remove="ValueClientService.expected.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GroupClientService.expected.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ValueClientService.expected.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Albatross.Host.NUnit\Albatross.Host.NUnit.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
+    <ProjectReference Include="..\Albatross.WebClient.IntegrationTest.Messages\Albatross.WebClient.IntegrationTest.Messages.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.WebClient\Albatross.WebClient.csproj" />
+    <ProjectReference Include="..\Albatross.WebClient.TestApi\Albatross.WebClient.TestApi.csproj" />
+  </ItemGroup>
+</Project>

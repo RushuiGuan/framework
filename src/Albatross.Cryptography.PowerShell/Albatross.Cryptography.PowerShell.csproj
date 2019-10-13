@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+    <Version>1.5.17</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Albatross.Cryptography\Albatross.Cryptography.csproj" />
+    <ProjectReference Include="..\Albatross.Host.PowerShell\Albatross.Host.PowerShell.csproj" />
+  </ItemGroup>
+</Project>
