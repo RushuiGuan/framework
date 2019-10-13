@@ -10,14 +10,24 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: './framework.sln'
-    testRunTitle: 'Build'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     projects: './framework.sln'
     testRunTitle: 'Test'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: 'src/**/*.csproj'
+    includesymbols: true
+    versioningScheme: 'off'
+    verbosityPack: 'Normal'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '7b9b4fe0-bdef-49a9-81bb-69e986c33802'
