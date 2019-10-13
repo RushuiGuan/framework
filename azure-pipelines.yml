@@ -14,8 +14,10 @@ steps:
   inputs:
     command: 'build'
     projects: './framework.sln'
+    testRunTitle: 'Build'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: './tests/**/*.csproj'
+    projects: './framework.sln'
+    testRunTitle: 'Test'
