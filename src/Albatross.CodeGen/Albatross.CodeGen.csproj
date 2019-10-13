@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Albatross.CodeGen</PackageId>
@@ -11,18 +11,10 @@
     <PackageTags>code generator c# sql codegen powershell database csharp</PackageTags>
     <LangVersion>7.3</LangVersion>
     <PackageProjectUrl>https://github.com/RushuiGuan/CodeGen</PackageProjectUrl>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>Copyright © 2019</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Albatross.Database" Version="1.1.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>
-      </PackagePath>
-    </None>
   </ItemGroup>
 </Project>
