@@ -2,6 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Copyright>Copyright Ã‚Â© 2019</Copyright>
-    <Version>1.5.17</Version>
+    <Version>1.5.18</Version>
   </PropertyGroup>
 </Project>
