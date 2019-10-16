@@ -4,10 +4,6 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  solution: './src/framework.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
 
 steps:
 
