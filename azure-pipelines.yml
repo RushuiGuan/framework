@@ -19,7 +19,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: 'src/**/*.csproj'
-    includesymbols: true
+    includesymbols: false
     versioningScheme: 'off'
     verbosityPack: 'Normal'
 
@@ -27,7 +27,7 @@ steps:
   displayName: 'push'
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'd705c2ae-5d82-4633-a7f6-27f96c8e342c'
 
