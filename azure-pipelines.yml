@@ -8,12 +8,14 @@ pool:
 steps:
 
 - task: DotNetCoreCLI@2
+  displayName: 'test'
   inputs:
     command: 'test'
     projects: './framework.sln'
     testRunTitle: 'Test'
 
 - task: DotNetCoreCLI@2
+  displayName: 'pack'
   inputs:
     command: 'pack'
     packagesToPack: 'src/**/*.csproj'
@@ -22,6 +24,7 @@ steps:
     verbosityPack: 'Normal'
 
 - task: DotNetCoreCLI@2
+  displayName: 'push'
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.symbols.nupkg'
