@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>1.5.18</Version>
+    <Version>1.5.20</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />

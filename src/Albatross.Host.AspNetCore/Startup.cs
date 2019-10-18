@@ -61,6 +61,7 @@ namespace Albatross.Host.AspNetCore {
 
 		#region authorization
 		public virtual IServiceCollection AddIdentityServer(IServiceCollection services) {
+			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
 			services.AddAuthorization();
 			services.AddAuthentication(BearerAuthenticationScheme).AddJwtBearer(BearerAuthenticationScheme, options => {
 				AuthorizationSetting setting = ServiceProvider.GetRequiredService<AuthorizationSetting>();
