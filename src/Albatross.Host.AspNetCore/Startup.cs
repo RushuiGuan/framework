@@ -12,8 +12,8 @@ using System;
 
 namespace Albatross.Host.AspNetCore {
 	public class Startup {
-		public const string DefaultApp_RootPath = "app";
-		public const string DefaultApp_BaseHref = "/app";
+		public const string DefaultApp_RootPath = "wwwroot";
+		public const string DefaultApp_BaseHref = "";
 		public const string BearerAuthenticationScheme = "Bearer";
         public IConfiguration Configuration { get; }
         public IServiceProvider ServiceProvider;
