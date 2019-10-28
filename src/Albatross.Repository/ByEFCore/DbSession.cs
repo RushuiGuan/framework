@@ -6,6 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Reflection;
 
 namespace Albatross.Repository.ByEFCore {
 	public abstract class DbSession : DbContext, IDbSession {
@@ -15,8 +16,10 @@ namespace Albatross.Repository.ByEFCore {
 		public DbSession(DbContextOptions option) :base(option){
 		}
 
+		public virtual Assembly EntityModelAssembly => this.GetType().Assembly;
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
-			var items = GetType().Assembly.GetEntityModels();
+			var items = EntityModelAssembly.GetEntityModels();
 			foreach (var item in items) {
 				item.Build(modelBuilder);
 			}
