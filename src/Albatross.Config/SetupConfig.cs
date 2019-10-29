@@ -6,18 +6,13 @@ using System.Reflection;
 
 namespace Albatross.Config {
 	public class SetupConfig {
-		const string ASPNETCORE_ENVIRONMENT = "ASPNETCORE_ENVIRONMENT";
-		public const string Default_Environment_Prefix = "ASPNETCORE_";
-		public string Environment => System.Environment.GetEnvironmentVariable(ASPNETCORE_ENVIRONMENT);
-		private readonly bool useHostSetting;
 		private readonly string BasePath;
 		private readonly string environmentPrefix;
 
 		public IConfiguration Configuration { get; private set; }
 		public ProgramSetting ProgramSetting => this.Configuration.GetValue<ProgramSetting>(ProgramSetting.Key);
 
-		public SetupConfig(string basePath = null, string environmentPrefix = null, bool useHostSetting = true) {
-			this.useHostSetting = useHostSetting;
+		public SetupConfig(string basePath = null, string environmentPrefix = null) {
 			this.BasePath = basePath ?? Directory.GetCurrentDirectory();
 			this.environmentPrefix = environmentPrefix;
 			Run();

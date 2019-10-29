@@ -11,6 +11,9 @@ namespace Albatross.Host.AspNetCore {
 		/// BaseUrl of the Authorization Server
 		/// </summary>
         public string Authority { get; set; }
+		public string TokenUrl { get; set; }
+		public string SwaggerClientId { get; set; }
+		public string SwaggerClientSecret { get; set; }
 
 		/// <summary>
 		/// ApiResource Name

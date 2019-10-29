@@ -2,8 +2,11 @@
   "profiles": {
     "Albatross.Test.Api": {
       "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:20000/swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "iam__connectionString": "server=localhost;initial catalog=app;trusted_connection=true"
       },
       "applicationUrl": "http://localhost:20000/"
     }
