@@ -12,6 +12,12 @@ namespace Albatross.Repository.SqlServer {
 			builder.UseSqlServer(connectionString);
 		}
 
+		public static DbContextOptions<T> BuildMigrationOption<T>(string historyTableSchema, string connectionString = "any") where T : DbContext {
+			DbContextOptionsBuilder<T> builder = new DbContextOptionsBuilder<T>();
+			builder.UseSqlServer(connectionString, opt => opt.MigrationsHistoryTable("__EFMigrationsHistory", historyTableSchema));
+			return builder.Options;
+		}
+
 		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, Func<string> getConnectionString) where T:DbContext {
 			services.AddDbContext<T>(builder => BuildDefaultOption(builder, getConnectionString()));
 			return services;
