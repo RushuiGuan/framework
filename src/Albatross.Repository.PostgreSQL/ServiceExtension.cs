@@ -12,8 +12,10 @@ namespace Albatross.Repository.PostgreSQL {
 			builder.UseNpgsql(connectionString);
 		}
 
-		public static void BuildMigrationOption(this DbContextOptionsBuilder builder, string historyTableSchema, string connectionString = "any") {
+		public static DbContextOptions<T> BuildMigrationOption<T>(string historyTableSchema, string connectionString = "any") where T:DbContext{
+			DbContextOptionsBuilder<T> builder = new DbContextOptionsBuilder<T>();
 			builder.UseNpgsql(connectionString, opt => opt.MigrationsHistoryTable("__EFMigrationsHistory", historyTableSchema));
+			return builder.Options;
 		}
 
 		public static IServiceCollection UsePostgreSQL<T>(this IServiceCollection services, Func<string> getConnectionString) where T:DbContext {

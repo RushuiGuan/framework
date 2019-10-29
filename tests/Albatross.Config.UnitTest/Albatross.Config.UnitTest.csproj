@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>1.5.23</Version>
+    <Version>1.5.24</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="appSettings.json" />
