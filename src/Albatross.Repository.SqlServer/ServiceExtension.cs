@@ -4,14 +4,13 @@ using System;
 
 namespace Albatross.Repository.SqlServer {
 	public static class ServiceExtension{
-		public static void BuildDefaultOption(DbContextOptionsBuilder builder, string connectionString) {
+		public static void BuildDefaultOption(this DbContextOptionsBuilder builder, string connectionString) {
 			builder.EnableDetailedErrors(true);
 			builder.EnableSensitiveDataLogging(true);
 			builder.UseLazyLoadingProxies(false);
 			builder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 			builder.UseSqlServer(connectionString);
 		}
-
 
 		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, Func<string> getConnectionString) where T:DbContext {
 			services.AddDbContext<T>(builder => BuildDefaultOption(builder, getConnectionString()));
