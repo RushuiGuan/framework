@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <Version>1.5.24</Version>
+    <Version>1.5.25</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extras.Moq" Version="4.3.0" />
