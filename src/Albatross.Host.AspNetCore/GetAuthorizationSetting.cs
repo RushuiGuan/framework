@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Albatross.Host.AspNetCore {
 	public class GetAuthorizationSetting : GetConfig<AuthorizationSetting> {
-		public GetAuthorizationSetting(IConfiguration getConfigValue) : base(getConfigValue) {}
+		public GetAuthorizationSetting(IConfiguration getConfigValue) : base(getConfigValue) { }
 		protected override string Key => AuthorizationSetting.key;
 	}
 }

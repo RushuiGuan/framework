@@ -1,0 +1,5 @@
+{
+  "csharp.referencesCodeLens.enabled": false,
+  "omnisharp.useEditorFormattingSettings": true,
+  "omnisharp.enableEditorConfigSupport": true
+}
