@@ -9,7 +9,7 @@ namespace Albatross.WebClient.TestApi {
 
 		public override void AddCustomServices(IServiceCollection services) {
 			base.AddCustomServices(services);
-			services.AddScoped<IAMSetting>(provider => this.Configuration.GetSection(IAMSetting.Key).Get<IAMSetting>());
+			services.AddScoped<DatabaseSetting>(provider => this.Configuration.GetSection(DatabaseSetting.Key).Get<DatabaseSetting>());
 		}
 	}
 }

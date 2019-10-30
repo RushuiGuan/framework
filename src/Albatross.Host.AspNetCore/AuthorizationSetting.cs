@@ -11,9 +11,11 @@ namespace Albatross.Host.AspNetCore {
 		/// BaseUrl of the Authorization Server
 		/// </summary>
 		public string Authority { get; set; }
-		public string TokenUrl { get; set; }
+
+		public string AuthorizeUrl => $"{Authority}/connect/authorize";
+		public string TokenUrl => $"{Authority}/connect/token";
+
 		public string SwaggerClientId { get; set; }
-		public string SwaggerClientSecret { get; set; }
 		public string SwaggerScope { get; set; }
 
 		/// <summary>

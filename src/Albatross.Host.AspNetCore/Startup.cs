@@ -64,7 +64,7 @@ namespace Albatross.Host.AspNetCore {
 							Scopes = new Dictionary<string, string> {
 								{ AuthorizationSetting.SwaggerScope, string.Empty},
 							},
-							AuthorizationUrl = AuthorizationSetting.Authority,
+							AuthorizationUrl = AuthorizationSetting.AuthorizeUrl,
 							TokenUrl = AuthorizationSetting.TokenUrl,
 						},
 					}
@@ -78,7 +78,6 @@ namespace Albatross.Host.AspNetCore {
 				options.DocumentPath = "/swagger/v1/swagger.json";
 				options.OAuth2Client = new NSwag.AspNetCore.OAuth2ClientSettings() {
 					ClientId = AuthorizationSetting.SwaggerClientId,
-					ClientSecret = AuthorizationSetting.SwaggerClientSecret,
 				};
 			});
 		}

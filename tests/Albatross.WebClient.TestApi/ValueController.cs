@@ -7,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 namespace Albatross.WebClient.TestApi {
 	[Route("api/[controller]")]
 	public class ValueController : Controller {
-		private readonly IAMSetting setting;
+		private readonly DatabaseSetting setting;
 
-		public ValueController(IAMSetting setting) {
+		public ValueController(DatabaseSetting setting) {
 			this.setting = setting;
 		}
 

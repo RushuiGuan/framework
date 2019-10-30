@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.WebClient.TestApi {
-	public class IAMSetting {
-		public const string Key = "iam";
+	public class DatabaseSetting {
+		public const string Key = "database";
 
 		public string ConnectionString { get; set; }
-		public string UserSalt { get; set; }
 		public string DatabaseProvider { get; set; }
 	}
 }
