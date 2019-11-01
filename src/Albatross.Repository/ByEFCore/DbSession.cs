@@ -1,11 +1,9 @@
 ﻿using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Data;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Reflection;
 
 namespace Albatross.Repository.ByEFCore {
@@ -13,8 +11,7 @@ namespace Albatross.Repository.ByEFCore {
 		public DbContext DbContext => this;
 		public IDbConnection DbConnection => this.Database.GetDbConnection();
 
-		public DbSession(DbContextOptions option) :base(option){
-		}
+		public DbSession(DbContextOptions option) : base(option) { }
 
 		public virtual Assembly EntityModelAssembly => this.GetType().Assembly;
 
@@ -32,7 +29,7 @@ namespace Albatross.Repository.ByEFCore {
 				throw converted;
 			}
 		}
-		public string GetCreateScript() =>this.Database.GenerateCreateScript();
+		public string GetCreateScript() => this.Database.GenerateCreateScript();
 		public void EnsureCreated() => this.Database.EnsureCreated();
 		public ITransaction BeginTransaction() => new EFCoreTransaction(this.Database.BeginTransaction());
 	}

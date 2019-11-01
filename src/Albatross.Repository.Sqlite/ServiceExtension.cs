@@ -24,7 +24,7 @@ namespace Albatross.Repository.Sqlite {
 				sqlLiteConnection.Open();
 				builder.EnableDetailedErrors(true);
 				builder.EnableSensitiveDataLogging(true);
-				builder.UseLazyLoadingProxies(false);
+				builder.UseLazyLoadingProxies(true);
 				builder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 				builder.UseSqlite(sqlLiteConnection);
 			});
