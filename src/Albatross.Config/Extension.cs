@@ -36,7 +36,8 @@ namespace Albatross.Config {
 
 		public static SetupConfig UseSerilog(this SetupConfig setupConfig) {
 			Log.Logger = new LoggerConfiguration()
-				.ReadFrom.Configuration(setupConfig.Configuration)
+				.Enrich.FromLogContext()
+				.WriteTo.Console()
 				.CreateLogger();
 			return setupConfig;
 		}

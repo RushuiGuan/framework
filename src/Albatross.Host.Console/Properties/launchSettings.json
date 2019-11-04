@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Albatross.Host.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "reference-tree  --assembly-file \"D:\\app\\framework\\tests\\Albatross.Host.AspNetCore.Test\\bin\\Debug\\netcoreapp3.0\\win-x64\\Albatross.Host.AspNetCore.Test.dll\""
+    }
+  }
+}

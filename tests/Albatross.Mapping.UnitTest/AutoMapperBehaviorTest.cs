@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AutoMapper;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,12 +21,10 @@ namespace Albatross.Mapping.UnitTest
 
         [Test]
         public void Run() {
-            //or
-            AutoMapper.Mapper.Initialize(cfg => {
-                cfg.CreateMap<A, AA>().ReverseMap();
-            });
-            AutoMapper.Mapper.Map(new AA(), new A());
-            AutoMapper.Mapper.Map(new A(), new AA());
+			var config = new MapperConfiguration(cfg => cfg.CreateMap<A, AA>());
+			var mapper = config.CreateMapper();
+			mapper.Map(new AA(), new A());
+			mapper.Map(new A(), new AA());
         }
     }
 }

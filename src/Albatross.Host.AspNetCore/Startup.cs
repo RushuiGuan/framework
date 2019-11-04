@@ -93,11 +93,11 @@ namespace Albatross.Host.AspNetCore {
 
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddControllers();
-			services.AddConfig<ProgramSetting, GetProgramSetting>();
-			services.AddAspNetCorePrincipalProvider();
-			services.AddSingleton<GlobalExceptionHandler>();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddConfig<ProgramSetting, GetProgramSetting>();
+			services.AddSingleton<GlobalExceptionHandler>();
 			services.AddCors(opt => opt.AddDefaultPolicy(ConfigureCors));
+			services.AddAspNetCorePrincipalProvider();
 			services.AddMvc();
 			AddSwagger(services);
 			AddSpa(services);
@@ -113,14 +113,16 @@ namespace Albatross.Host.AspNetCore {
 			Log.Information("Environments: @{environments}", environments);
 			//app.UseHttpsRedirection();
 			app.UseRouting();
-			app.UseCors();
-			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = context => globalExceptionHandler.InvokeAsync(context, null) });
-			app.UseAuthentication();
-			UseSwagger(app);
-			UseSpa(app);
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();
 			});
+
+			app.UseCors();
+			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = context => globalExceptionHandler.RunAsync(context) });
+			app.UseAuthentication();
+			UseSwagger(app);
+			UseSpa(app);
+			
 		}
 		public void UseSpa(IApplicationBuilder app) {
 			app.UseStaticFiles();

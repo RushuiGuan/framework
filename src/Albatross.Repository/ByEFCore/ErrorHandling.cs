@@ -1,9 +1,7 @@
 ﻿using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace Albatross.Repository.ByEFCore {
 	public static class ErrorHandling {

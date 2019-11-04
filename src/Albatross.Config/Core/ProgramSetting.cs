@@ -21,9 +21,5 @@ namespace Albatross.Config.Core {
         /// Optional: the group of the application
         /// </summary>
         public string Group { get; set; }
-        /// <summary>
-        /// Optional: the configuration database connection string
-        /// </summary>
-        public string ConfigDatabaseConnection { get; set; }
 	}
 }

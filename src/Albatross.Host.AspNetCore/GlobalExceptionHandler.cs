@@ -7,10 +7,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.Host.AspNetCore {
-	public class GlobalExceptionHandler : IMiddleware {
-		public GlobalExceptionHandler() {
-		}
-		public async Task InvokeAsync(HttpContext context, RequestDelegate next) {
+	public class GlobalExceptionHandler  {
+		public async Task RunAsync(HttpContext context) {
 			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 			context.Response.ContentType = "application/json";
 			Exception error = context.Features.Get<IExceptionHandlerFeature>()?.Error;

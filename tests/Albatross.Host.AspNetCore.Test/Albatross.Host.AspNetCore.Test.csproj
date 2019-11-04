@@ -5,7 +5,7 @@
     <AssemblyName>Albatross.Host.AspNetCore.Test</AssemblyName>
     <Version>1.5.27</Version>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Host.AspNetCore\Albatross.Host.AspNetCore.csproj" />
   </ItemGroup>
