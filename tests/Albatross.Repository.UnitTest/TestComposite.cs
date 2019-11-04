@@ -10,12 +10,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-    public class TestComposite : TestBase<SqliteUnitOfWork> {
-        public override void RegisterPackages(IServiceCollection svc) {
-            svc.AddTestDatabase().AddTransient<CompositeRepository>();
-			svc.UseSqlite<CRMDbSession>();
-        }
-
+    public class TestComposite : TestBase<TestUnitOfWork> {
         [Test]
         public async Task Run() {
             var item = new Composite {

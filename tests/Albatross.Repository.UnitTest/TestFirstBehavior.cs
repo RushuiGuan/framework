@@ -10,11 +10,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestFirstBehavior : TestBase<SqliteUnitOfWork> {
-		public override void RegisterPackages(IServiceCollection svc) {
-			svc.AddTestDatabase().UseSqlite<CRMDbSession>();
-		}
-
+	public class TestFirstBehavior : TestBase<TestUnitOfWork> {
 		private void CreateAddress(ContactDto c) {
 			const int AddressCount = 10;
 			c.Addresses = new AddressDto[AddressCount];

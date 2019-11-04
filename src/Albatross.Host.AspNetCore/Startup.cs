@@ -20,7 +20,6 @@ namespace Albatross.Host.AspNetCore {
 		public const string DefaultApp_BaseHref = "";
 		public const string BearerAuthenticationScheme = "Bearer";
 		public IConfiguration Configuration { get; }
-		public IServiceProvider ServiceProvider;
 		AuthorizationSetting AuthorizationSetting => new GetAuthorizationSetting(Configuration).Get();
 
 		public Startup(IConfiguration configuration) {
@@ -36,19 +35,6 @@ namespace Albatross.Host.AspNetCore {
 
 		public virtual void AddCustomServices(IServiceCollection services) {
 		}
-
-		#region Spa
-		public IServiceCollection AddSpa(IServiceCollection services) {
-			services.AddSpaStaticFiles(cfg => cfg.RootPath = DefaultApp_RootPath);
-			return services;
-		}
-		public void UseSpa(IApplicationBuilder app) {
-			app.UseStaticFiles();
-			app.UseSpaStaticFiles();
-			string baseRef = DefaultApp_BaseHref;
-			app.Map(baseRef, web => web.UseSpa(spa => { }));
-		}
-		#endregion
 
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
@@ -100,36 +86,47 @@ namespace Albatross.Host.AspNetCore {
 		}
 		#endregion
 
-		public IServiceProvider ConfigureServices(IServiceCollection services) {
+		public IServiceCollection AddSpa(IServiceCollection services) {
+			services.AddSpaStaticFiles(cfg => cfg.RootPath = DefaultApp_RootPath);
+			return services;
+		}
+
+		public void ConfigureServices(IServiceCollection services) {
+			services.AddControllers();
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
 			services.AddAspNetCorePrincipalProvider();
-			services.AddSingleton<IGetServerJsonSerializer, GetDefaultServerJsonSerializer>();
 			services.AddSingleton<GlobalExceptionHandler>();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddCors(opt => opt.AddDefaultPolicy(ConfigureCors));
-			services.AddMvc().AddJsonOptions(opt => {
-				opt.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-			});
+			services.AddMvc();
 			AddSwagger(services);
 			AddSpa(services);
 			AddIdentityServer(services);
 			AddCustomServices(services);
-			this.ServiceProvider = services.BuildServiceProvider();
-			return this.ServiceProvider;
 		}
 
-		public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env, GlobalExceptionHandler globalExceptionHandler, ProgramSetting program) {
+		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, GlobalExceptionHandler globalExceptionHandler, ProgramSetting program) {
 			var environments = new {
 				aspnetcore = env.EnvironmentName,
 				program = program.Environment,
 			};
 			Log.Information("Environments: @{environments}", environments);
+			//app.UseHttpsRedirection();
+			app.UseRouting();
 			app.UseCors();
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = context => globalExceptionHandler.InvokeAsync(context, null) });
 			app.UseAuthentication();
-			app.UseMvc();
 			UseSwagger(app);
 			UseSpa(app);
+			app.UseEndpoints(endpoints => {
+				endpoints.MapControllers();
+			});
+		}
+		public void UseSpa(IApplicationBuilder app) {
+			app.UseStaticFiles();
+			app.UseSpaStaticFiles();
+			string baseRef = DefaultApp_BaseHref;
+			app.Map(baseRef, web => web.UseSpa(spa => { }));
 		}
 	}
 }

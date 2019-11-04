@@ -1,19 +1,14 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.Host.AspNetCore {
 	public class GlobalExceptionHandler : IMiddleware {
-		JsonSerializer serializer;
-
-		public GlobalExceptionHandler(IGetServerJsonSerializer getJsonSerializer) {
-			this.serializer = getJsonSerializer.Get();
+		public GlobalExceptionHandler() {
 		}
 		public async Task InvokeAsync(HttpContext context, RequestDelegate next) {
 			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -26,8 +21,9 @@ namespace Albatross.Host.AspNetCore {
 					StackTrace = error.StackTrace,
 					ExceptionMessage = error.Message,
 				};
-				using (var writer = new StreamWriter(context.Response.Body)) {
-					serializer.Serialize(writer, msg);
+
+				using (var writer = new Utf8JsonWriter(context.Response.Body)) {
+					JsonSerializer.Serialize(writer, msg);
 					await writer.FlushAsync().ConfigureAwait(false);
 				}
 			}

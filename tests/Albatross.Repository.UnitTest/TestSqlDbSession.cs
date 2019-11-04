@@ -1,5 +1,6 @@
 ﻿using Albatross.Host.NUnit;
 using Albatross.Repository.SqlServer;
+using Albatross.Repository.UnitTest.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
@@ -9,7 +10,6 @@ namespace Albatross.Repository.UnitTest {
 	public class TestSqlDbSession : TestBase<TestUnitOfWork> {
         public override void RegisterPackages(IServiceCollection services)
         {
-			services.AddTestDatabase();
 			services.UseSqlServer<CRMDbSession>(()=>"server=xyz");
             base.RegisterPackages(services);
         }

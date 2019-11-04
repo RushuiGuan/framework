@@ -3,14 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Albatross.Repository.PostgreSQL;
 using NUnit.Framework;
 using System;
+using Albatross.Repository.UnitTest.Repository;
+using Albatross.Repository.ByEFCore;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
 	public class TestPostgreSQLSession : TestBase<TestUnitOfWork> {
         public override void RegisterPackages(IServiceCollection services)
         {
-			services.AddTestDatabase();
-			services.UsePostgreSQL<CRMDbSession>(()=>"server=xyz");
+			services.UsePostgreSQL<CRMDbSession>(()=> DbSession.Any);
             base.RegisterPackages(services);
         }
 

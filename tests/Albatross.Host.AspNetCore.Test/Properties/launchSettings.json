@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Albatross.Test.AspNetCore": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:40000/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_random": "random",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:40000"
+    }
+  }
+}

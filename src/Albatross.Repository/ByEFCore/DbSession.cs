@@ -8,17 +8,28 @@ using System.Reflection;
 
 namespace Albatross.Repository.ByEFCore {
 	public abstract class DbSession : DbContext, IDbSession {
+		#region constants
+		public const string Any = "any";
+		public const string EFMigrationHistory = "__EFMigrationsHistory";
+		public const string SqlServer = "sqlserver";
+		public const string PostgreSQL = "postgresql";
+		public const string SqlLite = "sqllite";
+		#endregion
+
 		public DbContext DbContext => this;
 		public IDbConnection DbConnection => this.Database.GetDbConnection();
 
 		public DbSession(DbContextOptions option) : base(option) { }
 
-		public virtual Assembly EntityModelAssembly => this.GetType().Assembly;
+		public virtual Assembly[] EntityModelAssemblies => new Assembly[] { this.GetType().Assembly };
+
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
-			var items = EntityModelAssembly.GetEntityModels();
-			foreach (var item in items) {
-				item.Build(modelBuilder);
+			foreach (var assembly in EntityModelAssemblies) {
+				var items = assembly.GetEntityModels();
+				foreach (var item in items) {
+					item.Build(modelBuilder);
+				}
 			}
 		}
 
@@ -29,6 +40,7 @@ namespace Albatross.Repository.ByEFCore {
 				throw converted;
 			}
 		}
+
 		public string GetCreateScript() => this.Database.GenerateCreateScript();
 		public void EnsureCreated() => this.Database.EnsureCreated();
 		public ITransaction BeginTransaction() => new EFCoreTransaction(this.Database.BeginTransaction());

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Albatross.Repository.ByEFCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -12,9 +13,9 @@ namespace Albatross.Repository.PostgreSQL {
 			builder.UseNpgsql(connectionString);
 		}
 
-		public static DbContextOptions<T> BuildMigrationOption<T>(string historyTableSchema, string connectionString = "any") where T:DbContext{
+		public static DbContextOptions<T> BuildMigrationOption<T>(string historyTableSchema, string connectionString = DbSession.Any) where T:DbContext{
 			DbContextOptionsBuilder<T> builder = new DbContextOptionsBuilder<T>();
-			builder.UseNpgsql(connectionString, opt => opt.MigrationsHistoryTable("__EFMigrationsHistory", historyTableSchema));
+			builder.UseNpgsql(connectionString, opt => opt.MigrationsHistoryTable(DbSession.EFMigrationHistory, historyTableSchema));
 			return builder.Options;
 		}
 

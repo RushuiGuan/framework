@@ -11,14 +11,10 @@ using Albatross.Repository.Sqlite;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class Test : TestBase<SqliteUnitOfWork> {
+	public class Test : TestBase<TestUnitOfWork> {
 		const string ContactName = "test";
 		const string CityName = "West Haven";
 
-
-		public override void RegisterPackages(IServiceCollection svc) {
-			svc.AddTestDatabase().UseSqlite<CRMDbSession>();
-		}
 
 		private void CreateAddress(ContactDto c) {
 			const int AddressCount = 10;

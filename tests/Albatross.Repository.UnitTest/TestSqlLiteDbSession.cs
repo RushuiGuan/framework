@@ -3,18 +3,14 @@ using System.IO;
 using Albatross.Host.NUnit;
 using Albatross.Repository.ByEFCore;
 using Albatross.Repository.Sqlite;
+using Albatross.Repository.UnitTest.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestSqlLiteDbSession : TestBase<SqliteUnitOfWork> {
+	public class TestSqlLiteDbSession : TestBase<TestUnitOfWork> {
 
-
-		public override void RegisterPackages(IServiceCollection svc) {
-			svc.AddTestDatabase();
-			svc.UseSqlite<CRMDbSession>();
-		}
 
 		[Test]
 		public void SqlLiteScriptGeneration() {

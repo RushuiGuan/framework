@@ -9,10 +9,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TransactionTest : TestBase<SqliteUnitOfWork> {
-		public override void RegisterPackages(IServiceCollection svc) {
-			svc.AddTestDatabase().UseSqlite<CRMDbSession>();
-		}
+	public class TransactionTest : TestBase<TestUnitOfWork> {
 		[Test]
 		public async Task Run() {
 			using (var unitOfWork = NewUnitOfWork()) {

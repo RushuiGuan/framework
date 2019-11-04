@@ -7,8 +7,6 @@ using System.Linq;
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
 	public class MergeTest {
-
-
 		static IEnumerable<Model> GetModels() {
 			return new Model[] {
 

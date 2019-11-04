@@ -13,11 +13,6 @@ namespace Albatross.Repository.UnitTest {
 	[Ignore("Need to figure out sql error handling for different data providers")]
 	[TestFixture]
 	public class TestErrorConversion : TestBase<TestUnitOfWork> {
-		public override void RegisterPackages(IServiceCollection svc) {
-			svc.AddTestDatabase().AddTransient<ContactRepository>();
-			svc.UseSqlite<CRMDbSession>();
-		}
-
 		static readonly string Tag = typeof(TestErrorConversion).FullName;
 
 		[Test]
