@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-    public class TestComposite : TestBase<TestUnitOfWork> {
+    public class TestComposite : TestBase<TestScope> {
         [Test]
         public async Task Run() {
             var item = new Composite {

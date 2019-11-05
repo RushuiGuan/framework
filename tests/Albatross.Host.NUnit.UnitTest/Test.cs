@@ -4,7 +4,7 @@ using System;
 
 namespace Albatross.Host.NUnit.UnitTest {
 	[TestFixture]
-	public class BootStrapTest: TestBase<TestUnitOfWork> {
+	public class BootStrapTest: TestBase<TestScope> {
 
 		[Test]
 		public void Run() {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace Albatross.Cryptography.UnitTest {
-    public class Tests : TestBase<TestUnitOfWork>{
+    public class Tests : TestBase<TestScope>{
         public override void RegisterPackages(IServiceCollection services) {
             services.AddCrypto();
 			services.AddSingleton<CreateHMACSHAHash>();

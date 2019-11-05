@@ -7,7 +7,7 @@ using System;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestSqlDbSession : TestBase<TestUnitOfWork> {
+	public class TestSqlDbSession : TestBase<TestScope> {
         public override void RegisterPackages(IServiceCollection services)
         {
 			services.UseSqlServer<CRMDbSession>(()=>"server=xyz");
@@ -16,7 +16,7 @@ namespace Albatross.Repository.UnitTest {
 
         [Test]
         public void SqlScriptGeneration() {
-            using (TestUnitOfWork unitOfWork = NewUnitOfWork()) {
+            using (TestScope unitOfWork = NewUnitOfWork()) {
                 var context = unitOfWork.Get<CRMDbSession>();
                 string script = context.GetCreateScript();
                 Console.WriteLine(script);

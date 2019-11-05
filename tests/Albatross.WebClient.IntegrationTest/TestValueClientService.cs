@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Albatross.WebClient.IntegrationTest {
 	[Ignore("integration test")]
     [TestFixture]
-	public class TestValueClientService :TestBase<TestUnitOfWork>{
+	public class TestValueClientService :TestBase<TestScope>{
 		public override void RegisterPackages(IServiceCollection svc) {
             svc.WithTestClientService(client => {
                 client.BaseAddress = new Uri("http://localhost:20000");

@@ -21,7 +21,7 @@ namespace Albatross.Config {
 		private void Run() {
 			var builder = new ConfigurationBuilder();
 			builder.SetBasePath(this.BasePath);
-			builder.AddJsonFile("hostsettings.json", optional: true);
+			//builder.AddJsonFile("hostsettings.json", optional: true);
 			builder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 			builder.AddEnvironmentVariables(this.environmentPrefix);
 			this.Configuration = builder.Build();

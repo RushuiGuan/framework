@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Albatross.CodeGen.WebClient.UnitTest {
 	[TestFixture]
-	public class GeneralTest :TestBase<TestUnitOfWork>{
+	public class GeneralTest :TestBase<TestScope>{
         public override void RegisterPackages(IServiceCollection svc) {
             svc.AddDefaultCodeGen().AddCodeGen(this.GetType().Assembly);
             svc.AddTransient<ConvertApiControllerToCSharpClass>();

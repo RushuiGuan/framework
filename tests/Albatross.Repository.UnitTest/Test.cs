@@ -11,7 +11,7 @@ using Albatross.Repository.Sqlite;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class Test : TestBase<TestUnitOfWork> {
+	public class Test : TestBase<TestScope> {
 		const string ContactName = "test";
 		const string CityName = "West Haven";
 
@@ -43,7 +43,7 @@ namespace Albatross.Repository.UnitTest {
 				return unitOfWork.Get<IMapperFactory>().Map<Contact, ContactDto>(model);
 			}
 		}
-		private async Task<ContactDto> CreateContact(TestUnitOfWork unitOfWork, int user) {
+		private async Task<ContactDto> CreateContact(TestScope unitOfWork, int user) {
 			Contact model;
 			var contacts = unitOfWork.Get<ContactRepository>();
 			var dto = new ContactDto {
@@ -55,7 +55,7 @@ namespace Albatross.Repository.UnitTest {
 			await contacts.SaveChangesAsync();
 			return unitOfWork.Get<IMapperFactory>().Map<Contact, ContactDto>(model);
 		}
-		private async Task<ContactDto> UpdateContact(TestUnitOfWork unitOfWork, ContactDto dto, int user) {
+		private async Task<ContactDto> UpdateContact(TestScope unitOfWork, ContactDto dto, int user) {
 			Contact model;
 			var contacts = unitOfWork.Get<ContactRepository>();
 			model = contacts.Get(dto.Name);

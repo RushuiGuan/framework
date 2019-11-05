@@ -8,7 +8,7 @@ using System;
 
 namespace Albatross.Mapping.UnitTest {
 	[TestFixture]
-	public class Test : TestBase<TestUnitOfWork> {
+	public class Test : TestBase<TestScope> {
 
 		public override void RegisterPackages(IServiceCollection svc) {
 			svc.AddMapping();

@@ -8,7 +8,7 @@ using Albatross.Repository.ByEFCore;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestPostgreSQLSession : TestBase<TestUnitOfWork> {
+	public class TestPostgreSQLSession : TestBase<TestScope> {
         public override void RegisterPackages(IServiceCollection services)
         {
 			services.UsePostgreSQL<CRMDbSession>(()=> DbSession.Any);
@@ -17,7 +17,7 @@ namespace Albatross.Repository.UnitTest {
 
         [Test]
         public void SqlScriptGeneration() {
-            using (TestUnitOfWork unitOfWork = NewUnitOfWork()) {
+            using (TestScope unitOfWork = NewUnitOfWork()) {
                 var context = unitOfWork.Get<CRMDbSession>();
                 string script = context.GetCreateScript();
                 Console.WriteLine(script);

@@ -1,11 +1,7 @@
 ﻿using Albatross.Config.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace Albatross.Config {
 	public static class Extension {
@@ -32,14 +28,6 @@ namespace Albatross.Config {
 			services.AddSingleton<IGetConfig<ConfigType>>(provider => provider.GetRequiredService<FactoryType>());
 			services.AddScoped<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
 			return services;
-		}
-
-		public static SetupConfig UseSerilog(this SetupConfig setupConfig) {
-			Log.Logger = new LoggerConfiguration()
-				.Enrich.FromLogContext()
-				.WriteTo.Console()
-				.CreateLogger();
-			return setupConfig;
 		}
 
 		public static SetupConfig RegisterServices(this SetupConfig setupConfig, IServiceCollection services) {

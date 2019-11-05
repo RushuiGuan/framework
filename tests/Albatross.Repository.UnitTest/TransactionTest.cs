@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TransactionTest : TestBase<TestUnitOfWork> {
+	public class TransactionTest : TestBase<TestScope> {
 		[Test]
 		public async Task Run() {
 			using (var unitOfWork = NewUnitOfWork()) {

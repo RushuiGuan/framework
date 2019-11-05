@@ -9,12 +9,12 @@ using NUnit.Framework;
 
 namespace Albatross.Repository.UnitTest {
 	[TestFixture]
-	public class TestSqlLiteDbSession : TestBase<TestUnitOfWork> {
+	public class TestSqlLiteDbSession : TestBase<TestScope> {
 
 
 		[Test]
 		public void SqlLiteScriptGeneration() {
-			using (TestUnitOfWork unitOfWork = NewUnitOfWork()) {
+			using (TestScope unitOfWork = NewUnitOfWork()) {
 				var context = unitOfWork.Get<CRMDbSession>();
 				string script = context.GetCreateScript();
 				Assert.IsNotEmpty(script);

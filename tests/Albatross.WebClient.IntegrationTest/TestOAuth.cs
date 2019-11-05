@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Albatross.WebClient.IntegrationTest {
 	[Ignore("integration test")]
     [TestFixture]
-	public class TestOAuth : TestBase<TestUnitOfWork> {
+	public class TestOAuth : TestBase<TestScope> {
         public override void RegisterPackages(IServiceCollection svc) {
             svc
                 .AddHttpClient<SecuredClientService>()
