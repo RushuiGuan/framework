@@ -1,50 +1,52 @@
 using System;
-using Albatross.Host.NUnit;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
+using Xunit;
 
 namespace Albatross.Cryptography.UnitTest {
-    public class Tests : TestBase<TestScope>{
-        public override void RegisterPackages(IServiceCollection services) {
-            services.AddCrypto();
-			services.AddSingleton<CreateHMACSHAHash>();
-        }
+    public class Tests : IClassFixture<CryptoTestHost> {
+		private readonly CryptoTestHost host;
 
-		[TestCase("")]
-		[TestCase("test")]
-		[TestCase("123")]
+		public Tests(CryptoTestHost host) {
+			this.host = host;
+		}
+
+		[Theory]
+		[InlineData("")]
+		[InlineData("test")]
+		[InlineData("123")]
 		public void TestCreate512BitHash(string secret) {
-			using (var unitOfWork = NewUnitOfWork()) {
-				var createHash = unitOfWork.Get<CreateHMACSHAHash>();
+			using (var scope = host.Create()) {
+				var createHash = scope.Get<CreateHMACSHAHash>();
 				byte[] hash, salt;
 				hash = createHash.Create512(secret, out salt);
 				byte[] hash2 = createHash.Create(secret, salt);
-				Assert.AreEqual(hash, hash2);
+				Assert.Equal(hash, hash2);
 			}
 		}
 
-        [TestCase("")]
-		[TestCase("test")]
-		[TestCase("123")]
+		[Theory]
+        [InlineData("")]
+		[InlineData("test")]
+		[InlineData("123")]
 		public void TestCreate256BitHash(string secret) {
-			using (var unitOfWork = NewUnitOfWork()) {
-				var createHash = unitOfWork.Get<CreateHMACSHAHash>();
+			using (var scope = host.Create()) {
+				var createHash = scope.Get<CreateHMACSHAHash>();
 				byte[] hash, salt;
 				hash = createHash.Create256(secret, out salt);
 				byte[] hash2 = createHash.Create(secret, salt);
-				Assert.AreEqual(hash, hash2);
+				Assert.Equal(hash, hash2);
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void TestCreateHash_NullCheck() {
-            using (var unitOfWork = NewUnitOfWork()) {
-                TestDelegate testDelegate = new TestDelegate(() => {
-                    var createHash = unitOfWork.Get<CreateHMACSHAHash>();
-                    byte[] hash, salt;
-                    hash = createHash.Create256(null, out salt);
-                });
-                Assert.Catch<ArgumentNullException>(testDelegate);
+            using (var scope = host.Create()) {
+				Action action = () => {
+					var createHash = scope.Get<CreateHMACSHAHash>();
+					byte[] hash, salt;
+					hash = createHash.Create256(null, out salt);
+				};
+				Assert.Throws<ArgumentNullException>(action);
             }
 		}
 	}

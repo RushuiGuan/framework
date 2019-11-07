@@ -1,30 +1,23 @@
 ﻿using AutoMapper;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Xunit;
 
-namespace Albatross.Mapping.UnitTest
-{
-    [TestFixture]
-    public class AutoMapperBehaviorTest
-    {
-        public class A {
-            public int Number1 { get; set; }
-            public int Number2 { get; set; }
-        }
+namespace Albatross.Mapping.UnitTest {
+	public class AutoMapperBehaviorTest{
+		public class A {
+			public int Number1 { get; set; }
+			public int Number2 { get; set; }
+		}
 
-        public class AA
-        {
-            public int Number1 { get; set; }
-        }
+		public class AA {
+			public int Number1 { get; set; }
+		}
 
-        [Test]
-        public void Run() {
-			var config = new MapperConfiguration(cfg => cfg.CreateMap<A, AA>());
+		[Fact]
+		public void Run() {
+			var config = new MapperConfiguration(cfg => cfg.CreateMap<A, AA>().ReverseMap());
 			var mapper = config.CreateMapper();
 			mapper.Map(new AA(), new A());
 			mapper.Map(new A(), new AA());
-        }
-    }
+		}
+	}
 }

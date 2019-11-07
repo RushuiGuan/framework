@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <Version>1.5.28</Version>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+        <PackageReference Include="xunit.console" Version="2.4.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Albatross.Host.Test\Albatross.Host.Test.csproj" />
+        <ProjectReference Include="..\..\src\Albatross.Repository\Albatross.Repository.csproj" />
+        <ProjectReference Include="..\..\src\Albatross.Repository.PostgreSQL\Albatross.Repository.PostgreSQL.csproj" />
+        <ProjectReference Include="..\..\src\Albatross.Repository.Sqlite\Albatross.Repository.Sqlite.csproj" />
+        <ProjectReference Include="..\..\src\Albatross.Repository.SqlServer\Albatross.Repository.SqlServer.csproj" />
+        <ProjectReference Include="..\Albatross.CRM\Albatross.CRM.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+</Project>

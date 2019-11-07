@@ -1,29 +1,27 @@
 ﻿using Albatross.CodeGen.CSharp.Model;
 using Albatross.Config;
-using Albatross.Host.NUnit;
 using Albatross.IAM.Api;
-using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
 using System;
 using System.IO;
 using System.Text;
+using Xunit;
 
 namespace Albatross.CodeGen.WebClient.UnitTest {
-	[TestFixture]
-	public class GeneralTest :TestBase<TestScope>{
-        public override void RegisterPackages(IServiceCollection svc) {
-            svc.AddDefaultCodeGen().AddCodeGen(this.GetType().Assembly);
-            svc.AddTransient<ConvertApiControllerToCSharpClass>();
 
-        }
+	public class GeneralTest :IClassFixture<WebClientTestHost>{
+		private readonly WebClientTestHost host;
 
-		[Test]
+		public GeneralTest(WebClientTestHost host) {
+			this.host = host;
+		}
+
+		[Fact]
 		public void TestGroupController() {
-			using (var unitOfWork = NewUnitOfWork()) {
+			using (var scope = host.Create()) {
 				Type type = typeof(GroupController);
-				ConvertApiControllerToCSharpClass handle = unitOfWork.Get<ConvertApiControllerToCSharpClass>();
+				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
 				Class converted = handle.Convert(type);
-				var writer = unitOfWork.Get<Albatross.CodeGen.CSharp.Writer.WriteCSharpClass>();
+				var writer = scope.Get<Albatross.CodeGen.CSharp.Writer.WriteCSharpClass>();
 				StringBuilder sb = new StringBuilder();
 				using(StringWriter writer1 = new StringWriter(sb)) {
 					writer.Run(writer1, converted);
@@ -33,18 +31,18 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
                 string expectedFile = Path.Join(GetType().GetAssemblyLocation(), "GroupClientService.expected.cs");
                 using (StreamReader reader = new StreamReader(expectedFile)) {
                     string expected = reader.ReadToEnd();
-                    Assert.AreEqual(expected, result);
+                    Assert.Equal(expected, result);
                 }
             }
 		}
 
-		[Test]
+		[Fact]
 		public void TestValueController() {
-			using (var unitOfWork = NewUnitOfWork()) {
+			using (var scope = host.Create()) {
 				Type type = typeof(ValueController);
-				ConvertApiControllerToCSharpClass handle = unitOfWork.Get<ConvertApiControllerToCSharpClass>();
+				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
 				Class converted = handle.Convert(type);
-				var writer = unitOfWork.Get<Albatross.CodeGen.CSharp.Writer.WriteCSharpClass>();
+				var writer = scope.Get<Albatross.CodeGen.CSharp.Writer.WriteCSharpClass>();
 				StringBuilder sb = new StringBuilder();
 				using (StringWriter writer1 = new StringWriter(sb)) {
 					writer.Run(writer1, converted);
@@ -54,7 +52,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				string expectedFile = Path.Join(this.GetType().GetAssemblyLocation(), "ValueClientService.expected.cs");
 				using (StreamReader reader = new StreamReader(expectedFile)) {
 					string expected = reader.ReadToEnd();
-					Assert.AreEqual(expected, result);
+					Assert.Equal(expected, result);
 				}
 			}
 		}

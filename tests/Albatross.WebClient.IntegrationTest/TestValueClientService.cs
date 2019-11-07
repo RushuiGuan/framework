@@ -1,54 +1,62 @@
-﻿using Albatross.Host.NUnit;
+﻿using Albatross.Host.Test;
 using Albatross.WebClient.IntegrationTest.Messages;
-using Autofac;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Albatross.WebClient.IntegrationTest {
-	[Ignore("integration test")]
-    [TestFixture]
-	public class TestValueClientService :TestBase<TestScope>{
-		public override void RegisterPackages(IServiceCollection svc) {
-            svc.WithTestClientService(client => {
-                client.BaseAddress = new Uri("http://localhost:20000");
-            });
+	public class TestValueClientServiceHost : TestHost {
+		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+			base.RegisterServices(configuration, services);
+			services.WithTestClientService(client => {
+				client.BaseAddress = new Uri("http://localhost:20000");
+			});
+		}
+	}
+
+	public class TestValueClientService :IClassFixture<TestValueClientServiceHost> {
+		private readonly TestValueClientServiceHost host;
+
+		public TestValueClientService(TestValueClientServiceHost host) {
+			this.host = host;
 		}
 
-		[Test]
+		[Fact(Skip= "integration test")]
 		public async Task TestGetText() {
-			using (var unitOfWork = NewUnitOfWork()) {
-				var result = await unitOfWork.Get<ValueClientService>().GetText();
+			using (var scope = host.Create()) {
+				var result = await scope.Get<ValueClientService>().GetText();
 				Assert.NotNull(result);
-                Assert.AreEqual(PayLoadExtension.GetText(), result);
+                Assert.Equal(PayLoadExtension.GetText(), result);
 			}
 		}
-        [Test]
+
+		[Fact(Skip= "integration test")]
         public async Task TestGetJson() {
-            using (var unitOfWork = NewUnitOfWork()) {
-                var result = await unitOfWork.Get<ValueClientService>().GetJson();
+            using (var scope = host.Create()) {
+                var result = await scope.Get<ValueClientService>().GetJson();
                 Assert.NotNull(result);
                 var expected = PayLoadExtension.Make();
-                Assert.AreEqual(expected.Data, result.Data);
-                Assert.AreEqual(expected.Date, result.Date);
-                Assert.AreEqual(expected.DateTimeOffset, result.DateTimeOffset);
-                Assert.AreEqual(expected.Name, result.Name);
-                Assert.AreEqual(expected.Number, result.Number);
+                Assert.Equal(expected.Data, result.Data);
+                Assert.Equal(expected.Date, result.Date);
+                Assert.Equal(expected.DateTimeOffset, result.DateTimeOffset);
+                Assert.Equal(expected.Name, result.Name);
+                Assert.Equal(expected.Number, result.Number);
             }
         }
 
-        [Test]
+		[Fact(Skip= "integration test")]
         public async Task TestPostJson() {
-            using (var unitOfWork = NewUnitOfWork()) {
-                var result = await unitOfWork.Get<ValueClientService>().Post(PayLoadExtension.Make());
+            using (var scope = host.Create()) {
+                var result = await scope.Get<ValueClientService>().Post(PayLoadExtension.Make());
                 Assert.NotNull(result);
                 var expected = PayLoadExtension.Make();
-                Assert.AreEqual(expected.Data, result.Data);
-                Assert.AreEqual(expected.Date, result.Date);
-                Assert.AreEqual(expected.DateTimeOffset, result.DateTimeOffset);
-                Assert.AreEqual(expected.Name, result.Name);
-                Assert.AreEqual(expected.Number, result.Number);
+                Assert.Equal(expected.Data, result.Data);
+                Assert.Equal(expected.Date, result.Date);
+                Assert.Equal(expected.DateTimeOffset, result.DateTimeOffset);
+                Assert.Equal(expected.Name, result.Name);
+                Assert.Equal(expected.Number, result.Number);
             }
         }
     }

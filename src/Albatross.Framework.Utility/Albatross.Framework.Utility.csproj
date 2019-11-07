@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>FrameworkUtil</AssemblyName>
+    <StartupObject>Albatross.Framework.Utility.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Albatross.Host.Utility\Albatross.Host.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,16 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <Version>1.5.28</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Authentication\Albatross.Authentication.csproj" />
-    <ProjectReference Include="..\..\src\Albatross.Host.NUnit\Albatross.Host.NUnit.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Host.Test\Albatross.Host.Test.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appSettings.json">

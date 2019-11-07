@@ -27,8 +27,14 @@ namespace Albatross.Repository.Sqlite {
 				builder.UseLazyLoadingProxies(true);
 				builder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 				builder.UseSqlite(sqlLiteConnection);
-			});
+			}, ServiceLifetime.Singleton);
 			return services;
+		}
+
+		public static DbContextOptions<T> BuildMigrationOption<T>(string historyTableSchema) where T : DbContext {
+			DbContextOptionsBuilder<T> builder = new DbContextOptionsBuilder<T>();
+			builder.UseSqlite(ConnectionString, opt => opt.MigrationsHistoryTable(DbSession.EFMigrationHistory, historyTableSchema));
+			return builder.Options;
 		}
 	}
 }

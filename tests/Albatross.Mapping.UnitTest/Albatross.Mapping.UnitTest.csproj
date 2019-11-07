@@ -7,11 +7,11 @@
     <Version>1.5.28</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Albatross.Host.NUnit\Albatross.Host.NUnit.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Host.Test\Albatross.Host.Test.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Mapping\Albatross.Mapping.csproj" />
   </ItemGroup>
   <ItemGroup>

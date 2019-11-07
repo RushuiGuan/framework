@@ -13,7 +13,7 @@ namespace Albatross.Repository.ByEFCore {
 		public const string EFMigrationHistory = "__EFMigrationsHistory";
 		public const string SqlServer = "sqlserver";
 		public const string PostgreSQL = "postgresql";
-		public const string SqlLite = "sqllite";
+		public const string Sqlite = "sqllite";
 		#endregion
 
 		public DbContext DbContext => this;
@@ -30,14 +30,6 @@ namespace Albatross.Repository.ByEFCore {
 				foreach (var item in items) {
 					item.Build(modelBuilder);
 				}
-			}
-		}
-
-		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
-			try {
-				return base.SaveChangesAsync(cancellationToken);
-			} catch (DbUpdateException err) when (err.TryConvertError(out Exception converted)) {
-				throw converted;
 			}
 		}
 
