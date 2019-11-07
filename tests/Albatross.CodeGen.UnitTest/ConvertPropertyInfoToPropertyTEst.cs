@@ -2,14 +2,18 @@
 using Albatross.CodeGen.CSharp.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {
-	[TestFixture]
-	public class ConvertPropertyInfoToPropertyTest :TestBase {
+	public class ConvertPropertyInfoToPropertyTest :IClassFixture<MyTestHost>{
+		private readonly MyTestHost host;
+
+		public ConvertPropertyInfoToPropertyTest(MyTestHost host) {
+			this.host = host;
+		}
 
 		public class TestClass {
 			public string Text { get; set; }
@@ -22,23 +26,23 @@ namespace Albatross.CodeGen.UnitTest {
 		}
 
 
-		public static IEnumerable<TestCaseData> GetTestData() {
+		public static IEnumerable<object[]> GetTestData() {
 			Type type = typeof(TestClass);
 
-			return new TestCaseData[] {
-				new TestCaseData(type.GetProperty(nameof(TestClass.Text)), new Property(nameof(TestClass.Text)){  Type = DotNetType.String(), CanWrite = true, CanRead = true, } ),
-				new TestCaseData(type.GetProperty(nameof(TestClass.ReadOnlyText)), new Property(nameof(TestClass.ReadOnlyText)){  Type = DotNetType.String(), CanWrite = false, CanRead = true, } ),
-				new TestCaseData(type.GetProperty(nameof(TestClass.Number)), new Property(nameof(TestClass.Number)){  Type = DotNetType.Integer(), CanWrite = true, CanRead = true, Static = true, } ),
-				new TestCaseData(type.GetProperty(nameof(TestClass.Double)), new Property(nameof(TestClass.Double)){  Type = DotNetType.Double(), CanWrite = true, CanRead = true, SetModifier = AccessModifier.Private, } ),
+			return new List<object[]> {
+				new object[]{type.GetProperty(nameof(TestClass.Text)), new Property(nameof(TestClass.Text)){  Type = DotNetType.String(), CanWrite = true, CanRead = true, } },
+				new object[]{type.GetProperty(nameof(TestClass.ReadOnlyText)), new Property(nameof(TestClass.ReadOnlyText)){  Type = DotNetType.String(), CanWrite = false, CanRead = true, } },
+				new object[]{type.GetProperty(nameof(TestClass.Number)), new Property(nameof(TestClass.Number)){  Type = DotNetType.Integer(), CanWrite = true, CanRead = true, Static = true, } },
+				new object[]{type.GetProperty(nameof(TestClass.Double)), new Property(nameof(TestClass.Double)){  Type = DotNetType.Double(), CanWrite = true, CanRead = true, SetModifier = AccessModifier.Private, } },
 			};
 		}
 
-
-		[TestCaseSource(nameof(GetTestData))]
+		[Theory]
+		[MemberData(nameof(GetTestData))]
 		public void Run(PropertyInfo propertyInfo, Property expected) {
-			ConvertPropertyInfoToProperty handle = provider.GetRequiredService<ConvertPropertyInfoToProperty>();
+			ConvertPropertyInfoToProperty handle = host.Provider.GetRequiredService<ConvertPropertyInfoToProperty>();
 			var result = handle.Convert(propertyInfo);
-			Assert.AreEqual(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(result));
+			Assert.Equal(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(result));
 		}
 	}
 }

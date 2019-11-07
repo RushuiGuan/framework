@@ -2,13 +2,15 @@
 using Albatross.CodeGen.CSharp.Model;
 using Albatross.CodeGen.CSharp.Writer;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
+using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {
-	[TestFixture(TestOf = typeof(WriteConstructor))]
-	public class WriteConstructorTest : TestBase {
+	public class WriteConstructorTest : IClassFixture<MyTestHost> {
+	public WriteConstructorTest(MyTestHost host) {
+			this.host = host;
+		}
 
 		public const string NormalConstructor = @"public Test() {
 	int i = 100;
@@ -19,14 +21,15 @@ namespace Albatross.CodeGen.UnitTest {
 		public const string StaticConstructor = @"static Test() {
 	int i = 100;
 }";
-		public const string BaseConstructor= @"public Test(System.Int32 @a, System.String @b) : base(@a, @b) {
+		public const string BaseConstructor = @"public Test(System.Int32 @a, System.String @b) : base(@a, @b) {
 	int i = 100;
 }";
 		public const string ChainConstructor = @"public Test(System.Int32 @a, System.String @b) : this(@a, @b) {
 	int i = 100;
 }";
+		private readonly MyTestHost host;
 
-		public static IEnumerable<TestCaseData> GetTestCases() {
+		public static IEnumerable<object[]> GetTestCases() {
 			Parameter[] parameters = new Parameter[]{
 						new Parameter{
 							 Name = "a",
@@ -37,29 +40,24 @@ namespace Albatross.CodeGen.UnitTest {
 							 Type = DotNetType.String(),
 						},
 					};
-			return new TestCaseData[] {
-				new TestCaseData(new Constructor{
+			return new List<object[]> {
+				new object[]{new Constructor{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Body = new CodeBlock("int i = 100;"),
-				}){
-					ExpectedResult = NormalConstructor.RemoveCarriageReturn(),
-				},
-				new TestCaseData(new Constructor{
+				},NormalConstructor.RemoveCarriageReturn(), },
+
+				new object[]{new Constructor{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Parameters = parameters,
-				}){
-					ExpectedResult = ParameterizedConstructor.RemoveCarriageReturn(),
-				},
-				new TestCaseData(new Constructor{
+				}, ParameterizedConstructor.RemoveCarriageReturn(), },
+				new object[]{new Constructor{
 					Static = true,
 					Name = "Test",
 					Body = new CodeBlock("int i = 100;"),
-				}){
-					ExpectedResult = StaticConstructor.RemoveCarriageReturn(),
-				},
-				new TestCaseData(new Constructor{
+				},StaticConstructor.RemoveCarriageReturn(),             },
+				new object[]{new Constructor{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Parameters = parameters,
@@ -68,10 +66,8 @@ namespace Albatross.CodeGen.UnitTest {
 						Name = "base",
 						Parameters = parameters,
 					}
-				}){
-					ExpectedResult = BaseConstructor.RemoveCarriageReturn(),
-				},
-				new TestCaseData(new Constructor{
+				},BaseConstructor.RemoveCarriageReturn(),               },
+				new object[]{new Constructor{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Parameters = parameters,
@@ -80,19 +76,18 @@ namespace Albatross.CodeGen.UnitTest {
 						Name = "this",
 						Parameters = parameters,
 					}
-				}){
-					ExpectedResult = ChainConstructor.RemoveCarriageReturn(),
-				},
+				}, ChainConstructor.RemoveCarriageReturn(),             },
 			};
 		}
 
-
-		[TestCaseSource(nameof(GetTestCases))]
-		public string Run(Constructor constructor) {
-			WriteConstructor writeConstructor = provider.GetRequiredService<WriteConstructor>();
+		[Theory]
+		[MemberData(nameof(GetTestCases))]
+		public void Run(Constructor constructor, string expected) {
+			WriteConstructor writeConstructor = host.Provider.GetRequiredService<WriteConstructor>();
 			StringWriter writer = new StringWriter();
 			writer.Run(writeConstructor, constructor);
-			return writer.ToString().RemoveCarriageReturn();
+			string actual = writer.ToString().RemoveCarriageReturn();
+			Assert.Equal(expected, actual);
 		}
 	}
 }

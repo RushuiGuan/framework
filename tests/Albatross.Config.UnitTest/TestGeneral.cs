@@ -1,42 +1,45 @@
 using Albatross.Config.Core;
+using Albatross.Host.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
-using System;
-using System.Reflection;
+using Xunit;
 
 namespace Albatross.Config.UnitTest {
-    [Category(nameof(Albatross.Config))]
-    public class Tests {
-        ServiceCollection svc = new ServiceCollection();
-        ServiceProvider provider;
-        [OneTimeSetUp]
-        public void Setup() {
-			new SetupConfig(this.GetType().GetAssemblyLocation()).RegisterServices(svc);
-            svc.AddTransient<GetGoogleUrl>();
-            svc.AddTransient<GetRequiredConfig>();
-            provider = svc.BuildServiceProvider();
-        }
+	public class MyTestHost : TestHost {
+		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+			base.RegisterServices(configuration, services);
+			services.AddTransient<GetGoogleUrl>();
+			services.AddTransient<GetRequiredConfig>();
+			services.AddConfig<ProgramSetting, GetProgramSetting>();
+		}
+	}
 
-        [Test]
-        public void TestGetProgramSetting() {
-			var setting = provider.GetRequiredService<ProgramSetting>();
-            Assert.NotNull(setting);
-            Assert.IsNotEmpty(setting.App);
-            Assert.IsNotEmpty(setting.Group);
-            Assert.IsNotEmpty(setting.Environment);
-        }
+	public class Tests : IClassFixture<MyTestHost> {
+		private readonly MyTestHost host;
 
-        [Test]
-        public void TestGetGoogleUrl() {
-            var value = provider.GetRequiredService<GetGoogleUrl>().Get();
-            Assert.IsNotEmpty(value);
-        }
+		public Tests(MyTestHost host) {
+			this.host = host;
+		}
 
-        [Test]
-        public void TestGetRequiredConfig() {
-            var handle = provider.GetRequiredService<GetRequiredConfig>();
-            Assert.Catch<ConfigurationException>(() => handle.Get());
-        }
-    }
+		[Fact]
+		public void TestGetProgramSetting() {
+			var setting = host.Provider.GetRequiredService<ProgramSetting>();
+			Assert.NotNull(setting);
+			Assert.NotEmpty(setting.App);
+			Assert.NotEmpty(setting.Group);
+			Assert.NotEmpty(setting.Environment);
+		}
+
+		[Fact]
+		public void TestGetGoogleUrl() {
+			var value = host.Provider.GetRequiredService<GetGoogleUrl>().Get();
+			Assert.NotEmpty(value);
+		}
+
+		[Fact]
+		public void TestGetRequiredConfig() {
+			var handle = host.Provider.GetRequiredService<GetRequiredConfig>();
+			Assert.Throws<ConfigurationException>(() => handle.Get());
+		}
+	}
 }

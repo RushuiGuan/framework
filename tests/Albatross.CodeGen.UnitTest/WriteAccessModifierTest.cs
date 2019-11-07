@@ -1,23 +1,23 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Albatross.CodeGen.CSharp.Model;
 using Albatross.CodeGen.CSharp.Writer;
-using NUnit.Framework;
+using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {
-	[TestFixture(TestOf =typeof(WriteAccessModifier))]
 	public class WriteAccessModifierTest {
 
-		[TestCase(AccessModifier.Internal, ExpectedResult = "internal")]
-		[TestCase(AccessModifier.Public, ExpectedResult = "public")]
-		[TestCase(AccessModifier.Private, ExpectedResult = "private")]
-		[TestCase(AccessModifier.Protected, ExpectedResult = "protected")]
-		[TestCase(AccessModifier.Protected | AccessModifier.Internal, ExpectedResult = "protected internal")]
-		[TestCase(AccessModifier.Private| AccessModifier.Internal, ExpectedResult = "private internal")]
-		public string Run(AccessModifier accessModifier) {
+		[Theory]
+		[InlineData(AccessModifier.Internal, "internal")]
+		[InlineData(AccessModifier.Public, "public")]
+		[InlineData(AccessModifier.Private, "private")]
+		[InlineData(AccessModifier.Protected, "protected")]
+		[InlineData(AccessModifier.Protected | AccessModifier.Internal, "protected internal")]
+		[InlineData(AccessModifier.Private | AccessModifier.Internal, "private internal")]
+		public void Run(AccessModifier accessModifier, string expected) {
 			StringWriter writer = new StringWriter();
 			new WriteAccessModifier().Run(writer, accessModifier);
-			return writer.ToString();
+			string result = writer.ToString();
+			Assert.Equal(expected, result);
 		}
 	}
 }

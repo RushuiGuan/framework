@@ -1,6 +1,8 @@
 ﻿using Albatross.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,21 +13,34 @@ namespace Albatross.Host.Utility {
 		public TextWriter Out => System.Console.Out;
 		public TextWriter Error => System.Console.Error;
 
-		protected Option option;
+		public Option Options { get; }
 		protected IServiceProvider Provider { get; private set; }
 		protected IConfiguration Configuration { get; private set; }
+		protected IHost host;
 
-		public IUtility<Option> Init(Option option) {
-			this.option = option;
-			ServiceCollection services = new ServiceCollection();
-			var setup = new SetupConfig(this.GetType().GetAssemblyLocation()).RegisterServices(services);
-			Configuration = setup.Configuration;
-			Register(services, Configuration, option);
-			Provider = services.BuildServiceProvider();
-			return this;
+		public UtilityBase(Option option){
+			this.Options = option;
+			Log.Logger = new LoggerConfiguration()
+					.Enrich.FromLogContext()
+					.WriteTo.Console()
+					.CreateLogger();
+
+			host = Microsoft.Extensions.Hosting.Host
+				.CreateDefaultBuilder()
+				.UseSerilog()
+				.ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
+				.Build();
+
+			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 		}
 
-		public abstract void Register(IServiceCollection services, IConfiguration configuration, Option option);
+		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) { }
 		public abstract int Run();
+		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
+
+		public void Dispose() {
+			this.host.Dispose();
+			Log.CloseAndFlush();
+		}
 	}
 }

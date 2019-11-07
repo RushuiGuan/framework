@@ -2,13 +2,15 @@
 using Albatross.CodeGen.CSharp.Model;
 using Albatross.CodeGen.CSharp.Writer;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
+using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {
-	[TestFixture(TestOf = typeof(WriteMethod))]
-	public class WriteMethodTest : TestBase {
+	public class WriteMethodTest : IClassFixture<MyTestHost> {
+	public WriteMethodTest(MyTestHost host) {
+			this.host = host;
+		}
 
 		public const string NormalMethod = @"public System.Int32 Test() {
 	int i = 100;
@@ -22,19 +24,19 @@ namespace Albatross.CodeGen.UnitTest {
 }";
 		public const string VirtualMethod = @"public virtual void Test() {
 }";
+		private readonly MyTestHost host;
 
-		public static IEnumerable<TestCaseData> GetTestCases() {
-			return new TestCaseData[] {
-				new TestCaseData(new Method{
+		public static IEnumerable<object[]> GetTestCases() {
+			return new List<object[]> {
+				new object[]{new Method{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Body = new CodeBlock("int i = 100;"),
 					Override = false,
 					ReturnType = DotNetType.Integer(),
-				}){
-					ExpectedResult = NormalMethod.RemoveCarriageReturn(),
+				},NormalMethod.RemoveCarriageReturn(),
 				},
-				new TestCaseData(new Method{
+				new object[]{new Method{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Override = false,
@@ -49,43 +51,40 @@ namespace Albatross.CodeGen.UnitTest {
 							 Type = DotNetType.String(),
 						},
 					},
-				}){
-					ExpectedResult = ParameterizedMethod.RemoveCarriageReturn(),
+				},ParameterizedMethod.RemoveCarriageReturn(),
 				},
-				new TestCaseData(new Method{
+				new object[]{new Method{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Static = true,
 					ReturnType = DotNetType.Void(),
-				}){
-					ExpectedResult = StaticMethod.RemoveCarriageReturn(),
+				},StaticMethod.RemoveCarriageReturn(),
 				},
-				new TestCaseData(new Method{
+				new object[]{new Method{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Override = true,
 					ReturnType = DotNetType.Void(),
-				}){
-					ExpectedResult = OverrideMethod.RemoveCarriageReturn(),
+				},OverrideMethod.RemoveCarriageReturn(),
 				},
-				new TestCaseData(new Method{
+				new object[]{new Method{
 					AccessModifier = AccessModifier.Public,
 					Name = "Test",
 					Virtual = true,
 					ReturnType = DotNetType.Void(),
-				}){
-					ExpectedResult = VirtualMethod.RemoveCarriageReturn(),
+				},VirtualMethod.RemoveCarriageReturn(),
 				},
 			};
 		}
 
-
-		[TestCaseSource(nameof(GetTestCases))]
-		public string Run(Method method) {
-			WriteMethod writeMethod = provider.GetRequiredService<WriteMethod>();
+		[Theory]
+		[MemberData(nameof(GetTestCases))]
+		public void Run(Method method, string expected) {
+			WriteMethod writeMethod = host.Provider.GetRequiredService<WriteMethod>();
 			StringWriter writer = new StringWriter();
 			writer.Run(writeMethod, method);
-			return writer.ToString().RemoveCarriageReturn();
+			string actual =writer.ToString().RemoveCarriageReturn();
+			Assert.Equal(expected, actual);
 		}
 	}
 }

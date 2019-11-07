@@ -1,13 +1,9 @@
-using Albatross.Config.Core;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
 using System.IO;
+using Xunit;
 
 namespace Albatross.Config.UnitTest {
-	[Category(nameof(Albatross.Config))]
 	public class TestConfigChange {
 		private void SetValue(int value) {
 			var location = this.GetType().GetAssemblyLocation();
@@ -24,7 +20,7 @@ namespace Albatross.Config.UnitTest {
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void NormalAppSettingChange() {
 			System.Environment.SetEnvironmentVariable("change-test", null);
 			ServiceCollection svc = new ServiceCollection();
@@ -35,16 +31,16 @@ namespace Albatross.Config.UnitTest {
 				SetValue(1);
 				System.Threading.Thread.Sleep(1000);
 				int value = handle.Get();
-				Assert.AreEqual(1, value);
+				Assert.Equal(1, value);
 				SetValue(2);
 				System.Threading.Thread.Sleep(1000);
 				value = handle.Get();
-				Assert.AreEqual(2, value);
+				Assert.Equal(2, value);
 			}
 		}
 
 
-		[Test]
+		[Fact]
 		public void ConfigChangeCannotOverrideEnvironment() {
 			int value = 99999;
 			System.Environment.SetEnvironmentVariable("change-test", value.ToString());
@@ -53,13 +49,13 @@ namespace Albatross.Config.UnitTest {
 			svc.AddSingleton<GetChangeTest>();
 			using (var provider = svc.BuildServiceProvider()) {
 				var handle = provider.GetRequiredService<GetChangeTest>();
-				Assert.AreEqual(value, handle.Get());
+				Assert.Equal(value, handle.Get());
 				SetValue(1);
 				System.Threading.Thread.Sleep(1000);
-				Assert.AreEqual(value, handle.Get());
+				Assert.Equal(value, handle.Get());
 				SetValue(2);
 				System.Threading.Thread.Sleep(1000);
-				Assert.AreEqual(value, handle.Get());
+				Assert.Equal(value, handle.Get());
 			}
 		}
 	}

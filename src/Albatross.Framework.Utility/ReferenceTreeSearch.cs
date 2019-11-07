@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using CommandLine;
+using Albatross.Host.Utility;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.Framework.Utility {
 	[Verb("search-reference-tree", HelpText = "Search the reference tree for a particular assembly")]
@@ -18,19 +21,18 @@ namespace Albatross.Framework.Utility {
 		public string AdditionalAssemblyFolders { get; set; }
 	}
 
-	public class ReferenceTreeSearch {
-		public ReferenceTreeSearchOptions Options { get; private set; }
+	public class ReferenceTreeSearch : UtilityBase<ReferenceTreeSearchOptions> {
+		public ReferenceTreeSearch(ReferenceTreeSearchOptions option) : base(option) { }
+
 		public IEnumerable<string> AsssemblyDirectories { get; private set; }
 
-		public ReferenceTreeSearch Init(ReferenceTreeSearchOptions options) {
-			this.Options = options;
+		public override void Init(IConfiguration configuration, IServiceProvider provider) {
 			this.AsssemblyDirectories = new string[] {
 				new FileInfo(Options.RootAssembly).DirectoryName,
 			}.Union((Options.AdditionalAssemblyFolders ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries)).Distinct();
-			return this;
 		}
 
-		public int Run() {
+		public override int Run() {
 			Stack<Assembly> stack = new Stack<Assembly>();
 			Assembly assembly = Assembly.LoadFrom(Options.RootAssembly);
 			Search(stack, assembly);

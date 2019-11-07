@@ -1,8 +1,8 @@
-using NUnit.Framework;
 using Albatross.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using Xunit;
 
 namespace Albatross.Reflection.UnitTest {
     public struct GenericStruct<T> {
@@ -10,48 +10,48 @@ namespace Albatross.Reflection.UnitTest {
     }
 
     public class Tests {
-        [Test]
+        [Fact]
         public void TestGetNullableValueType_GenericStruct() {
             Type type = typeof(GenericStruct<string>?);
             Assert.True(type.GetNullableValueType(out Type args));
-            Assert.AreSame(typeof(GenericStruct<string>), args);
+            Assert.Same(typeof(GenericStruct<string>), args);
         }
 
-        [Test]
+        [Fact]
         public void TestGetNullableValueType_True() {
             Type type = typeof(int?);
             Assert.True(type.GetNullableValueType(out Type args));
-            Assert.AreSame(typeof(int), args);
+            Assert.Same(typeof(int), args);
         }
 
-        [Test]
+        [Fact]
         public void TestGetNullableValueType_False() {
             Type type = typeof(int);
             Assert.False(type.GetNullableValueType(out Type args));
             Assert.Null(args);
         }
 
-        [Test]
+        [Fact]
         public void TestGetCollectionElementType_True() {
             Type type = typeof(IEnumerable<string>);
             Assert.True(type.GetCollectionElementType(out Type args));
-            Assert.AreSame(typeof(string), args);
+            Assert.Same(typeof(string), args);
         }
 
-        [Test]
+        [Fact]
         public void TestGetCollectionElementType_False() {
             Type type = typeof(string);
             Assert.False(type.GetCollectionElementType(out Type args));
             Assert.Null(args);
         }
 
-        [Test]
+        [Fact]
         public void TestIsAnonymousType_True() {
             Type type = new { a = 1 }.GetType();
             Assert.True(type.IsAnonymousType());
         }
 
-        [Test]
+        [Fact]
         public void TestIsAnonymousType_False() {
             Type type = typeof(int);
             Assert.False(type.IsAnonymousType());
@@ -70,35 +70,35 @@ namespace Albatross.Reflection.UnitTest {
         public class Base1<T> { }
         public class Test2 : Base<string> { }
 
-        [Test]
+        [Fact]
         public void TestTryGetClosedGenericType_interface() {
             Type type = typeof(IEnumerable<>);
             Assert.True(typeof(Test1).TryGetClosedGenericType(typeof(IEnumerable<>), out Type generic));
-            Assert.AreSame(typeof(IEnumerable<int>), generic);
+            Assert.Same(typeof(IEnumerable<int>), generic);
         }
 
-        [Test]
+        [Fact]
         public void TestTryGetClosedGenericType_class() {
             Assert.True(typeof(Test2).TryGetClosedGenericType(typeof(Base<>), out Type generic));
-            Assert.AreSame(typeof(Base<string>), generic);
+            Assert.Same(typeof(Base<string>), generic);
         }
 
-        [Test]
+        [Fact]
         public void TestTryGetClosedGenericType_class_false_wrong_generic() {
             Assert.False(typeof(Test2).TryGetClosedGenericType(typeof(int), out Type generic));
-            Assert.IsNull(generic);
+            Assert.Null(generic);
         }
 
-        [Test]
+        [Fact]
         public void TestTryGetClosedGenericType_class_false_wrong_type1() {
             Assert.False(typeof(Test2).TryGetClosedGenericType(typeof(IEnumerable<>), out Type generic));
-            Assert.IsNull(generic);
+            Assert.Null(generic);
         }
 
-        [Test]
+        [Fact]
         public void TestTryGetClosedGenericType_class_false_wrong_type2() {
             Assert.False(typeof(Test2).TryGetClosedGenericType(typeof(Base1<>), out Type generic));
-            Assert.IsNull(generic);
+            Assert.Null(generic);
         }
     }
 }

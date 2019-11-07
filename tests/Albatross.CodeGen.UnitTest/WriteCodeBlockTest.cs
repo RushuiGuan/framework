@@ -1,20 +1,18 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Albatross.CodeGen.CSharp.Model;
 using Albatross.CodeGen.CSharp.Writer;
 using Albatross.CodeGen.Core;
-using NUnit.Framework;
+using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {
-	[TestFixture(TestOf =typeof(WriteCodeBlock))]
 	public class WriteCodeBlockTest {
-
-
-		[TestCase("test;", ExpectedResult =" {\n\ttest;\n}")]
-		public string Run(string input) {
+		[Theory]
+		[InlineData("test;", " {\n\ttest;\n}")]
+		public void Run(string input, string expected) {
 			StringWriter writer = new StringWriter();
 			writer.Run(new WriteCodeBlock(), new CodeBlock(input));
-			return writer.ToString().RemoveCarriageReturn();
+			string actual = writer.ToString().RemoveCarriageReturn();
+			Assert.Equal(expected, actual);
 		}
 	}
 }

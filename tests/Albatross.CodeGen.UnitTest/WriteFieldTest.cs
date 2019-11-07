@@ -2,44 +2,44 @@
 using Albatross.CodeGen.CSharp.Model;
 using Albatross.CodeGen.CSharp.Writer;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
+using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {
-	[TestFixture(TestOf = typeof(WriteField))]
-	public class WriteFieldTest : TestBase {
+	public class WriteFieldTest : IClassFixture<MyTestHost> {
+		public WriteFieldTest(MyTestHost host) {
+			this.host = host;
+		}
 
 		public const string NormalMethod = @"public System.Int32 Test;";
 		public const string StaticMethod = @"public static System.String a;";
+		private readonly MyTestHost host;
 
-		public static IEnumerable<TestCaseData> GetTestCases() {
-			return new TestCaseData[] {
-				new TestCaseData(new Field{
+		public static IEnumerable<object[]> GetTestCases() {
+			return new List<object[]> {
+				new object[]{new Field{
 					Modifier = AccessModifier.Public,
 					Name = "Test",
 					Type = DotNetType.Integer(),
-				}){
-					ExpectedResult = NormalMethod.RemoveCarriageReturn(),
-				},
-				new TestCaseData(new Field{
+				},NormalMethod.RemoveCarriageReturn(),              },
+				new object[]{new Field{
 					Modifier = AccessModifier.Public,
 					Name = "a",
 					Static = true,
 					Type = DotNetType.String(),
-				}){
-					ExpectedResult = StaticMethod.RemoveCarriageReturn(),
-				},
+				},StaticMethod.RemoveCarriageReturn(),        },
 			};
 		}
 
-
-		[TestCaseSource(nameof(GetTestCases))]
-		public string Run(Field field) {
-			WriteField writeField = provider.GetRequiredService<WriteField>();
+		[Theory]
+		[MemberData(nameof(GetTestCases))]
+		public void Run(Field field, string expected) {
+			WriteField writeField = host.Provider.GetRequiredService<WriteField>();
 			StringWriter writer = new StringWriter();
 			writer.Run(writeField, field);
-			return writer.ToString().RemoveCarriageReturn();
+			string actual = writer.ToString().RemoveCarriageReturn();
+			Assert.Equal(expected, actual);
 		}
 	}
 }
