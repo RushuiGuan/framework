@@ -5,6 +5,7 @@
     <AssemblyName>FrameworkUtil</AssemblyName>
     <StartupObject>Albatross.Framework.Utility.Program</StartupObject>
     <Version>1.5.28</Version>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Host.Utility\Albatross.Host.Utility.csproj" />
