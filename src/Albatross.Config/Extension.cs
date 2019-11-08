@@ -29,11 +29,5 @@ namespace Albatross.Config {
 			services.AddScoped<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
 			return services;
 		}
-
-		public static SetupConfig RegisterServices(this SetupConfig setupConfig, IServiceCollection services) {
-			services.AddSingleton<IConfiguration>(setupConfig.Configuration);
-			services.AddConfig<ProgramSetting, GetProgramSetting>();
-			return setupConfig;
-		}
 	}
 }
