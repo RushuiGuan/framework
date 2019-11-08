@@ -11,8 +11,7 @@ namespace Albatross.Host.Utility {
 		public TextWriter Error => System.Console.Error;
 
 		public Option Options { get; }
-		protected IServiceProvider Provider { get; private set; }
-		protected IConfiguration Configuration { get; private set; }
+		protected IServiceProvider Provider => host.Services;
 		protected IHost host;
 
 		public UtilityBase(Option option) {
@@ -23,7 +22,6 @@ namespace Albatross.Host.Utility {
 						 .UseSerilog()
 						 .ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
 						 .Build();
-
 			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 		}
 
