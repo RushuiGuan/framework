@@ -1,29 +1,29 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Serilog;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Serilog;
 using System;
+using Albatross.Logging;
 
-namespace Albatross.Host.Test{
+namespace Albatross.Host.Test {
 	public class TestHost : IDisposable {
 		protected IHost host;
+		private SetupSerilog setupSerilog;
+		public IServiceProvider Provider => this.host.Services;
 
 		public TestHost() {
-			Log.Logger = new LoggerConfiguration()
-				.Enrich.FromLogContext()
-				.WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}")
-				.CreateLogger();
-
+			setupSerilog = new SetupSerilog();
 			host = Microsoft.Extensions.Hosting.Host
 				.CreateDefaultBuilder()
 				.UseSerilog()
-				.ConfigureServices((ctx,svc) => RegisterServices(ctx.Configuration, svc))
+				.ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
 				.Build();
 
 			Init(host.Services.GetRequiredService<IConfiguration>());
 		}
 
-		public IServiceProvider Provider => this.host.Services;
+		public virtual void Init(IConfiguration configuration) { }
+
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			services.AddTransient(provider => provider.CreateScope());
 			services.AddTransient<TestScope>();
@@ -33,11 +33,9 @@ namespace Albatross.Host.Test{
 			return Provider.GetRequiredService<TestScope>();
 		}
 
-		public virtual void Init(IConfiguration configuration) { }
-
 		public void Dispose() {
 			host.Dispose();
-			Log.CloseAndFlush();
+			setupSerilog.Dispose();
 		}
 	}
 }

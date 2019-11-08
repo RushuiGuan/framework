@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>true</IsPackable>
-    <Version>1.5.28</Version>
+    <Version>1.5.29</Version>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
@@ -15,14 +15,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Serilog" Version="2.9.0" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="3.0.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Authentication\Albatross.Authentication.csproj" />
     <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
+    <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
     <ProjectReference Include="..\Albatross.Reflection\Albatross.Reflection.csproj" />
   </ItemGroup>
 </Project>

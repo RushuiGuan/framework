@@ -15,18 +15,14 @@ namespace Albatross.Host.Utility {
 		protected IConfiguration Configuration { get; private set; }
 		protected IHost host;
 
-		public UtilityBase(Option option){
+		public UtilityBase(Option option) {
 			this.Options = option;
-			Log.Logger = new LoggerConfiguration()
-					.Enrich.FromLogContext()
-					.WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}")
-					.CreateLogger();
-		
+
 			host = Microsoft.Extensions.Hosting.Host
-				.CreateDefaultBuilder()
-				.UseSerilog()
-				.ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
-				.Build();
+						 .CreateDefaultBuilder()
+						 .UseSerilog()
+						 .ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
+						 .Build();
 
 			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 		}
@@ -37,7 +33,6 @@ namespace Albatross.Host.Utility {
 
 		public void Dispose() {
 			this.host.Dispose();
-			Log.CloseAndFlush();
 		}
 	}
 }

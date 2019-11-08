@@ -6,6 +6,7 @@ using Albatross.Config;
 using System.IO;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
+using Albatross.Logging;
 
 namespace Albatross.Host.AspNetCore {
 	public class WebHost<T> where T : class {
@@ -18,17 +19,8 @@ namespace Albatross.Host.AspNetCore {
 		}
 
 		public async Task RunAsync(params string[] args) {
-			try {
-				Log.Logger = new LoggerConfiguration()
-					.Enrich.FromLogContext()
-					.WriteTo.Console()
-					.CreateLogger();
-				await Create(args).Build().RunAsync();
-			} catch (Exception err) {
-				Log.Fatal(err, "Host terminated unexpectedly");
-			} finally {
-				Log.CloseAndFlush();
-			}
+			using var setup = new SetupSerilog();
+			await Create(args).Build().RunAsync();
 		}
 	}
 }

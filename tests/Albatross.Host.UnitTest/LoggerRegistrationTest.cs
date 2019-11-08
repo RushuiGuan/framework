@@ -1,8 +1,6 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 
 namespace Albatross.Host.UnitTest {
-    [TestFixture]
 	public class LoggerRegistrationTest {
 		public interface ITest {
 			int Run();
