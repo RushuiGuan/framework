@@ -1,12 +1,9 @@
-﻿using Albatross.Config;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Albatross.Host.Utility {
 	public abstract class UtilityBase<Option> : IUtility<Option> {
@@ -22,9 +19,9 @@ namespace Albatross.Host.Utility {
 			this.Options = option;
 			Log.Logger = new LoggerConfiguration()
 					.Enrich.FromLogContext()
-					.WriteTo.Console()
+					.WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}")
 					.CreateLogger();
-
+		
 			host = Microsoft.Extensions.Hosting.Host
 				.CreateDefaultBuilder()
 				.UseSerilog()

@@ -11,7 +11,7 @@ namespace Albatross.Host.Test{
 		public TestHost() {
 			Log.Logger = new LoggerConfiguration()
 				.Enrich.FromLogContext()
-				.WriteTo.Console()
+				.WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}")
 				.CreateLogger();
 
 			host = Microsoft.Extensions.Hosting.Host
