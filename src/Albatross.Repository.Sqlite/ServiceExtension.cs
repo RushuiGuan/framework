@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using Albatross.Repository.ByEFCore;
+﻿using Albatross.Repository.ByEFCore;
+using Albatross.Repository.Core;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.Repository.Sqlite {
-	public static class ServiceExtension{
+	public static class ServiceExtension {
 		public const string ConnectionString = "Data Source=:memory:";
 		/// <summary>
 		/// Being a in memory database, we have to prevent efcore from manage the database connections, since all data is lost when
@@ -18,8 +15,8 @@ namespace Albatross.Repository.Sqlite {
 		/// <typeparam name="T"></typeparam>
 		/// <param name="services"></param>
 		/// <returns></returns>
-		public static IServiceCollection UseSqlite<T>(this IServiceCollection services) where T:DbContext {
-			services.AddDbContext<T>(builder=> {
+		public static IServiceCollection UseSqlite<T>(this IServiceCollection services) where T : DbContext {
+			services.AddDbContext<T>(builder => {
 				SqliteConnection sqlLiteConnection = new SqliteConnection(ConnectionString);
 				sqlLiteConnection.Open();
 				builder.EnableDetailedErrors(true);
@@ -28,6 +25,15 @@ namespace Albatross.Repository.Sqlite {
 				builder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 				builder.UseSqlite(sqlLiteConnection);
 			}, ServiceLifetime.Singleton);
+			return services;
+		}
+
+		public static IServiceCollection TryUseSqlite<T>(this IServiceCollection services, DatabaseConnectionSetting setting, bool useContextPool, bool throwIfNotMatched = false) where T : DbContext {
+			if (setting.DatabaseProvider == DatabaseProvider.Name) {
+				services.UseSqlite<T>();
+			} else if (throwIfNotMatched) {
+				throw new UnsupportedDatabaseProviderException(setting.DatabaseProvider);
+			}
 			return services;
 		}
 

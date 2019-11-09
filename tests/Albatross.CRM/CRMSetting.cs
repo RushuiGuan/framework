@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Albatross.Repository.Core;
 
 namespace Albatross.CRM {
-	public class CRMSetting {
+	public class CRMSetting : DatabaseConnectionSetting {
 		public const string Key = "crm";
-		public string DatabaseProvider { get; set; }
-		public string ConnectionString { get; set; }
 	}
 }

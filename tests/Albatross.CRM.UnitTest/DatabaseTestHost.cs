@@ -8,9 +8,12 @@ using Xunit;
 using Albatross.CRM;
 using Albatross.CRM.UnitTest.DbSessions;
 using Albatross.Repository.Core;
+using sqlite = Albatross.Repository.Sqlite;
+using sqlserver = Albatross.Repository.SqlServer;
+using postgres = Albatross.Repository.PostgreSQL;
 
 namespace Albatross.Repository.UnitTest {
-	public class DatabaseTestHost : TestHost{
+	public class DatabaseTestHost : TestHost {
 
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
@@ -21,11 +24,12 @@ namespace Albatross.Repository.UnitTest {
 			CRMSetting setting = new GetCRMSettings(configuration).Get();
 			Console.WriteLine($"Migrating via {setting.DatabaseProvider}");
 			DbContext context;
-			if (setting.DatabaseProvider == DbSession.SqlServer) {
+
+			if (setting.DatabaseProvider == sqlserver.DatabaseProvider.Name) {
 				context = new CRMDbSqlMigrationSession(setting.ConnectionString);
-			} else if (setting.DatabaseProvider == DbSession.PostgreSQL) {
+			} else if (setting.DatabaseProvider == postgres.DatabaseProvider.Name) {
 				context = new CRMDbPostgresMigrationSession(setting.ConnectionString);
-			}else if(setting.DatabaseProvider == DbSession.Sqlite) {
+			} else if (setting.DatabaseProvider == sqlite.DatabaseProvider.Name) {
 				context = new CRMDbSqlLiteMigrationSession();
 			} else {
 				throw new UnsupportedDatabaseProviderException(setting.DatabaseProvider);
@@ -36,7 +40,7 @@ namespace Albatross.Repository.UnitTest {
 	}
 
 	[CollectionDefinition(DatabaseTestHostCollection.Name)]
-	public class DatabaseTestHostCollection : ICollectionFixture<DatabaseTestHost> { 
+	public class DatabaseTestHostCollection : ICollectionFixture<DatabaseTestHost> {
 		public const string Name = "primary-test-db";
 	}
 }

@@ -11,9 +11,6 @@ namespace Albatross.Repository.ByEFCore {
 		#region constants
 		public const string Any = "any";
 		public const string EFMigrationHistory = "__EFMigrationsHistory";
-		public const string SqlServer = "sqlserver";
-		public const string PostgreSQL = "postgresql";
-		public const string Sqlite = "sqllite";
 		#endregion
 
 		public DbContext DbContext => this;
