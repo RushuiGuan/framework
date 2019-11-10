@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <StartupObject>Albatross.WebClient.TestApi.Program</StartupObject>
-    <Version>1.5.31</Version>
+    <Version>1.5.32</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Host.AspNetCore\Albatross.Host.AspNetCore.csproj" />

@@ -1,8 +1,5 @@
 import-module app-dev
 
-Set-ProjectVersion $PSScriptRoot -version "1.5.31";
-
-
 $nuget_root = (Get-NugetLocal);
 
 $config = "debug";
