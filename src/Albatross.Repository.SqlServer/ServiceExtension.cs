@@ -37,17 +37,17 @@ namespace Albatross.Repository.SqlServer {
 			return services;
 		}
 
-		public static IServiceCollection TryUseSqlServer<T>(this IServiceCollection services, DatabaseConnectionSetting setting, bool useContextPool = true, bool throwIfNotMatched = false) where T : DbContext {
+		public static bool TryUseSqlServer<T>(this IServiceCollection services, DatabaseConnectionSetting setting, bool useContextPool = true) where T : DbContext {
 			if (setting.DatabaseProvider == DatabaseProvider.Name) {
 				if (useContextPool) {
 					services.AddDbContextPool<T>(builder => BuildDefaultOption(builder, setting.ConnectionString));
 				} else {
 					services.AddDbContext<T>(builder => BuildDefaultOption(builder, setting.ConnectionString));
 				}
-			} else if (throwIfNotMatched) {
-				throw new UnsupportedDatabaseProviderException(setting.DatabaseProvider);
+				return true;
+			} else {
+				return false;
 			}
-			return services;
 		}
 	}
 }

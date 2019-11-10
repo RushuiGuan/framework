@@ -28,13 +28,13 @@ namespace Albatross.Repository.Sqlite {
 			return services;
 		}
 
-		public static IServiceCollection TryUseSqlite<T>(this IServiceCollection services, DatabaseConnectionSetting setting, bool useContextPool, bool throwIfNotMatched = false) where T : DbContext {
+		public static bool TryUseSqlite<T>(this IServiceCollection services, DatabaseConnectionSetting setting, bool useContextPool) where T : DbContext {
 			if (setting.DatabaseProvider == DatabaseProvider.Name) {
 				services.UseSqlite<T>();
-			} else if (throwIfNotMatched) {
-				throw new UnsupportedDatabaseProviderException(setting.DatabaseProvider);
+				return true;
+			} else {
+				return false;
 			}
-			return services;
 		}
 
 		public static DbContextOptions<T> BuildMigrationOption<T>(string historyTableSchema) where T : DbContext {
