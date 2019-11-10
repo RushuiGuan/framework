@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.Repository.Sqlite {
 	public static class ServiceExtension {
-		public const string ConnectionString = "Data Source=:memory:";
+		public const string InMemoryConnectionString = "Data Source=:memory:";
 		/// <summary>
 		/// Being a in memory database, we have to prevent efcore from manage the database connections, since all data is lost when
 		/// the connection is closed.  When declare and assign the connection manually, the connection will be closed\disposed when
@@ -15,9 +15,9 @@ namespace Albatross.Repository.Sqlite {
 		/// <typeparam name="T"></typeparam>
 		/// <param name="services"></param>
 		/// <returns></returns>
-		public static IServiceCollection UseSqlite<T>(this IServiceCollection services) where T : DbContext {
+		public static IServiceCollection UseSqliteInMemory<T>(this IServiceCollection services) where T : DbContext {
 			services.AddDbContext<T>(builder => {
-				SqliteConnection sqlLiteConnection = new SqliteConnection(ConnectionString);
+				SqliteConnection sqlLiteConnection = new SqliteConnection(InMemoryConnectionString);
 				sqlLiteConnection.Open();
 				builder.EnableDetailedErrors(true);
 				builder.EnableSensitiveDataLogging(true);
@@ -28,9 +28,9 @@ namespace Albatross.Repository.Sqlite {
 			return services;
 		}
 
-		public static bool TryUseSqlite<T>(this IServiceCollection services, DatabaseConnectionSetting setting, bool useContextPool) where T : DbContext {
+		public static bool TryUseSqliteInMemory<T>(this IServiceCollection services, DatabaseConnectionSetting setting) where T : DbContext {
 			if (setting.DatabaseProvider == DatabaseProvider.Name) {
-				services.UseSqlite<T>();
+				services.UseSqliteInMemory<T>();
 				return true;
 			} else {
 				return false;
@@ -39,7 +39,7 @@ namespace Albatross.Repository.Sqlite {
 
 		public static DbContextOptions<T> BuildMigrationOption<T>(string historyTableSchema) where T : DbContext {
 			DbContextOptionsBuilder<T> builder = new DbContextOptionsBuilder<T>();
-			builder.UseSqlite(ConnectionString, opt => opt.MigrationsHistoryTable(DbSession.EFMigrationHistory, historyTableSchema));
+			builder.UseSqlite(InMemoryConnectionString, opt => opt.MigrationsHistoryTable(DbSession.EFMigrationHistory, historyTableSchema));
 			return builder.Options;
 		}
 	}
