@@ -3,20 +3,22 @@ using System;
 using Albatross.CRM.UnitTest.DbSessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
 {
     [DbContext(typeof(CRMDbSqlLiteMigrationSession))]
-    [Migration("20191106213348_CRMSqliteMigration_Create")]
-    partial class CRMSqliteMigration_Create
+    [Migration("20191111035258_CRMSqliteMigration_M1")]
+    partial class CRMSqliteMigration_M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0");
+                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("Relational:Sequence:crm.Hilo", "'Hilo', 'crm', '1', '1', '', '', 'Int64', 'False'");
 
             modelBuilder.Entity("Albatross.CRM.Model.Address", b =>
                 {
@@ -104,7 +106,15 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
                 {
                     b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:HiLoSequenceName", "Hilo")
+                        .HasAnnotation("SqlServer:HiLoSequenceSchema", "crm")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.SequenceHiLo);
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
@@ -123,10 +133,15 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
                         .HasColumnType("TEXT")
                         .HasMaxLength(128);
 
+                    b.Property<int>("ReferredByID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("CustomerID");
 
                     b.HasIndex("Name")
                         .IsUnique();
+
+                    b.HasIndex("ReferredByID");
 
                     b.ToTable("Customer","crm");
                 });
@@ -184,6 +199,15 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
                         .WithMany("Contacts")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Albatross.CRM.Model.Customer", b =>
+                {
+                    b.HasOne("Albatross.CRM.Model.Customer", "ReferredBy")
+                        .WithMany()
+                        .HasForeignKey("ReferredByID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

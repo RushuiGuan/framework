@@ -17,6 +17,7 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("Relational:Sequence:crm.Hilo", "'Hilo', 'crm', '1', '1', '', '', 'Int64', 'False'")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Albatross.CRM.Model.Address", b =>
@@ -108,7 +109,9 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                     b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasAnnotation("SqlServer:HiLoSequenceName", "Hilo")
+                        .HasAnnotation("SqlServer:HiLoSequenceSchema", "crm")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.SequenceHiLo);
 
                     b.Property<string>("Company")
                         .IsRequired()
@@ -132,10 +135,15 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                         .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
 
+                    b.Property<int>("ReferredByID")
+                        .HasColumnType("int");
+
                     b.HasKey("CustomerID");
 
                     b.HasIndex("Name")
                         .IsUnique();
+
+                    b.HasIndex("ReferredByID");
 
                     b.ToTable("Customer","crm");
                 });
@@ -194,6 +202,15 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                         .WithMany("Contacts")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Albatross.CRM.Model.Customer", b =>
+                {
+                    b.HasOne("Albatross.CRM.Model.Customer", "ReferredBy")
+                        .WithMany()
+                        .HasForeignKey("ReferredByID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

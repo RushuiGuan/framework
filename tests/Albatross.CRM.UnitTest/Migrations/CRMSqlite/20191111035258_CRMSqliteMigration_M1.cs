@@ -3,12 +3,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
 {
-    public partial class CRMSqliteMigration_Create : Migration
+    public partial class CRMSqliteMigration_M1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
                 name: "crm");
+
+            migrationBuilder.CreateSequence(
+                name: "Hilo",
+                schema: "crm");
 
             migrationBuilder.CreateTable(
                 name: "Customer",
@@ -21,11 +25,20 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
                     ModifiedBy = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     Modified = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false)
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    Company = table.Column<string>(maxLength: 128, nullable: false),
+                    ReferredByID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customer", x => x.CustomerID);
+                    table.ForeignKey(
+                        name: "FK_Customer_Customer_ReferredByID",
+                        column: x => x.ReferredByID,
+                        principalSchema: "crm",
+                        principalTable: "Customer",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,6 +137,12 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
                 table: "Customer",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_ReferredByID",
+                schema: "crm",
+                table: "Customer",
+                column: "ReferredByID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -142,6 +161,10 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
 
             migrationBuilder.DropTable(
                 name: "Customer",
+                schema: "crm");
+
+            migrationBuilder.DropSequence(
+                name: "Hilo",
                 schema: "crm");
         }
     }

@@ -1,14 +1,19 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
+namespace Albatross.CRM.UnitTest.Migrations.CRMPostgres
 {
-    public partial class CRMSqlMigration_Create : Migration
+    public partial class CRMPostgresMigration_M1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
                 name: "crm");
+
+            migrationBuilder.CreateSequence(
+                name: "Hilo",
+                schema: "crm");
 
             migrationBuilder.CreateTable(
                 name: "Customer",
@@ -16,16 +21,25 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                 columns: table => new
                 {
                     CustomerID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CreatedBy = table.Column<int>(nullable: false),
                     ModifiedBy = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     Modified = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false)
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    Company = table.Column<string>(maxLength: 128, nullable: false),
+                    ReferredByID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customer", x => x.CustomerID);
+                    table.ForeignKey(
+                        name: "FK_Customer_Customer_ReferredByID",
+                        column: x => x.ReferredByID,
+                        principalSchema: "crm",
+                        principalTable: "Customer",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,7 +48,7 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                 columns: table => new
                 {
                     ProductID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CreatedBy = table.Column<int>(nullable: false),
                     ModifiedBy = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
@@ -55,7 +69,7 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                 columns: table => new
                 {
                     ContactID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CreatedBy = table.Column<int>(nullable: false),
                     ModifiedBy = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
@@ -83,7 +97,7 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                 columns: table => new
                 {
                     AddressID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CreatedBy = table.Column<int>(nullable: false),
                     ModifiedBy = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
@@ -124,6 +138,12 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                 table: "Customer",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_ReferredByID",
+                schema: "crm",
+                table: "Customer",
+                column: "ReferredByID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -142,6 +162,10 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
 
             migrationBuilder.DropTable(
                 name: "Customer",
+                schema: "crm");
+
+            migrationBuilder.DropSequence(
+                name: "Hilo",
                 schema: "crm");
         }
     }

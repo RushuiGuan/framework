@@ -3,6 +3,7 @@ using System;
 using Albatross.CRM.UnitTest.DbSessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -17,7 +18,8 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMPostgres
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("Relational:Sequence:crm.Hilo", "'Hilo', 'crm', '1', '1', '', '', 'Int64', 'False'");
 
             modelBuilder.Entity("Albatross.CRM.Model.Address", b =>
                 {
@@ -108,7 +110,10 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMPostgres
                     b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                        .HasAnnotation("SqlServer:HiLoSequenceName", "Hilo")
+                        .HasAnnotation("SqlServer:HiLoSequenceSchema", "crm")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.SequenceHiLo);
 
                     b.Property<string>("Company")
                         .IsRequired()
@@ -132,10 +137,15 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMPostgres
                         .HasColumnType("character varying(128)")
                         .HasMaxLength(128);
 
+                    b.Property<int>("ReferredByID")
+                        .HasColumnType("integer");
+
                     b.HasKey("CustomerID");
 
                     b.HasIndex("Name")
                         .IsUnique();
+
+                    b.HasIndex("ReferredByID");
 
                     b.ToTable("Customer","crm");
                 });
@@ -194,6 +204,15 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMPostgres
                         .WithMany("Contacts")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Albatross.CRM.Model.Customer", b =>
+                {
+                    b.HasOne("Albatross.CRM.Model.Customer", "ReferredBy")
+                        .WithMany()
+                        .HasForeignKey("ReferredByID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
