@@ -19,7 +19,7 @@ namespace Albatross.CRM.Model {
 			Addresses.Merge(dto.Addresses, 
 				args=>args.AddressID, 
 				args=>args.AddressID, 
-				(dst, src)=>dst.Update(src, user), 
+				(src, dst) =>dst.Update(src, user), 
 				src=>Addresses.Add(new Address(src, user)), 
 				dst=>Addresses.Remove(dst));
 

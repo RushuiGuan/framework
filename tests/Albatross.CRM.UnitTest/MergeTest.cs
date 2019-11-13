@@ -69,7 +69,7 @@ namespace Albatross.Repository.UnitTest {
 			IEnumerable<ModelDto> dtos = GetModelDtos();
 			List<Model> matched = new List<Model>();
 			List<ModelDto> dtoMatched = new List<ModelDto>();
-			models.Merge(dtos, m=>new { m.FirstName, m.LastName }, dto=> new { dto.FirstName, dto.LastName}, (model, dto)=> { matched.Add(model); dtoMatched.Add(dto); }, null, null);
+			models.Merge(dtos, m=>new { m.FirstName, m.LastName }, dto=> new { dto.FirstName, dto.LastName}, (dto, model)=> { matched.Add(model); dtoMatched.Add(dto); }, null, null);
 			Assert.Equal(2, matched.Count);
 			Assert.Equal(2, matched.First().Age);
 			Assert.Equal(3, matched.Last().Age);

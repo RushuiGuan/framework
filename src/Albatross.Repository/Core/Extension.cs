@@ -17,9 +17,9 @@ namespace Albatross.Repository.Core {
 		}
 
 
-		public static void Merge<Dst, Src, TKey>(this IEnumerable<Dst> dst, IEnumerable<Src> src,
+		public static void Merge<Src, Dst, TKey>(this IEnumerable<Dst> dst, IEnumerable<Src> src,
 		  Func<Dst, TKey> dstKeySelector, Func<Src, TKey> srcKeySelector,
-		  Action<Dst, Src> matched, Action<Src> notMatchedByDst, Action<Dst> notMatchedBySrc) {
+		  Action<Src, Dst> matched, Action<Src> notMatchedByDst, Action<Dst> notMatchedBySrc) {
 			var dstArray = dst.ToArray();
 			if(src == null) { src = new Src[0]; }
 			Dictionary<TKey, Src> srcDict = new Dictionary<TKey, Src>();
@@ -36,7 +36,7 @@ namespace Albatross.Repository.Core {
 			foreach (var item in dstArray) {
 				TKey key = dstKeySelector(item);
 				if (srcDict.TryGetValue(key, out Src srcItem)) {
-					matched?.Invoke(item, srcItem);
+					matched?.Invoke(srcItem, item);
 					srcDict.Remove(key);
 				} else {
 					notMatchedBySrc?.Invoke(item);
