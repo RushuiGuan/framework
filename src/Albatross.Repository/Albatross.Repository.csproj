@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>1.5.33-alpha.1</Version>
+    <Version>1.5.33-alpha.2</Version>
     <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -12,7 +12,6 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Albatross.Mapping\Albatross.Mapping.csproj" />
     <ProjectReference Include="..\Albatross.Reflection\Albatross.Reflection.csproj" />
   </ItemGroup>
 </Project>
