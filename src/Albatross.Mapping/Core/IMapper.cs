@@ -2,13 +2,7 @@
 using System;
 
 namespace Albatross.Mapping.Core {
-	public interface IMapper<From, To>: IMapper {
+	public interface IMapper<From, To> {
 		void Map(From src, To dst);
-
     }
-
-	public interface IMapper{
-		void Map(object src, object dst);
-	}
 }
-

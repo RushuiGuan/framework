@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Albatross.Reflection;
+using Albatross.Mapping.ByAutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System;
@@ -8,14 +9,14 @@ namespace Albatross.Mapping.Core {
     public static class Extension {
 
         public static IServiceCollection AddMapping(this IServiceCollection services, Assembly assembly = null) {
+            services.AddSingleton<ConfigAutoMapper>();
+            services.AddSingleton(provider => provider.GetRequiredService<ConfigAutoMapper>().Create());
+            services.AddSingleton(typeof(IMapper<,>), typeof(AutoMapperGeneric<,>));
             services.AddSingleton<IMapperFactory, MapperFactory>();
-            
-			if (assembly != null) {
-				Type genericDefinition = typeof(IMapper<,>);
-                foreach (Type type in assembly.GetConcreteClasses()) {
-					if (type.TryGetClosedGenericType(genericDefinition, out Type genericType)) {
-						services.AddSingleton(genericType, type);
-					}
+
+            if (assembly != null) {
+                foreach (Type type in assembly.GetConcreteClasses<AutoMapper.Profile>()) {
+                    services.AddTransient(typeof(AutoMapper.Profile), type);
                 }
             }
             return services;
