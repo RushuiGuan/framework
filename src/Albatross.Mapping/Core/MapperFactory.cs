@@ -1,8 +1,7 @@
-﻿using Albatross.Mapping.Core;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Albatross.Mapping {
+namespace Albatross.Mapping.Core {
 	internal class MapperFactory : IMapperFactory {
 		IServiceProvider serviceProvider;
 		public MapperFactory(IServiceProvider serviceProvider) {

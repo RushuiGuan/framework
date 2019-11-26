@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using Albatross.Reflection;
+﻿using Albatross.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System;
 
 namespace Albatross.Mapping.Core {
-    public static class Extension {
+	public static class Extension {
 
         public static IServiceCollection AddMapping(this IServiceCollection services, Assembly assembly = null) {
             services.AddSingleton<IMapperFactory, MapperFactory>();
