@@ -1,20 +1,19 @@
 ﻿using Albatross.Mapping.Core;
-using AutoMapper;
 using System.Collections.Generic;
 
 namespace Albatross.Mapping.ByAutoMapper {
 	public class ConfigAutoMapper {
 		IEnumerable<IConfigMapping> configurations;
-        IEnumerable<Profile> profiles;
+        IEnumerable<AutoMapper.Profile> profiles;
 
 
-        public ConfigAutoMapper(IEnumerable<IConfigMapping> configurations, IEnumerable<Profile> profiles) {
+        public ConfigAutoMapper(IEnumerable<IConfigMapping> configurations, IEnumerable<AutoMapper.Profile> profiles) {
 			this.configurations = configurations;
             this.profiles = profiles;
 		}
 
 
-		public IMapper Create() {
+		public AutoMapper.IMapper Create() {
 			var cfg = new AutoMapper.MapperConfiguration(Configure);
 			return cfg.CreateMapper();
 		}

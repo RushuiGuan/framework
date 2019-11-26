@@ -1,31 +1,14 @@
 ﻿using Albatross.Host.Test;
 using Albatross.Mapping.Core;
-using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
-using static Albatross.Mapping.UnitTest.Test;
 
 namespace Albatross.Mapping.UnitTest {
-	public class MyTestHost : TestHost {
-		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-			base.RegisterServices(configuration, services);
-			services.AddMapping();
-			services.AddSingleton<IConfigMapping, CfgMapping>();
-		}
-	}
-	public class CfgMapping : IConfigMapping {
-		public void Configure(IMapperConfigurationExpression expression) {
-			expression.CreateMap<From, To>();
-			expression.CreateMap<From, From>();
-			expression.CreateMap<To, To>();
-		}
-	}
+	public class TestMapping : IClassFixture<MappingTestHost> {
+		private readonly MappingTestHost host;
 
-	public class Test : IClassFixture<MyTestHost> {
-		private readonly MyTestHost host;
-
-		public Test(MyTestHost host) {
+		public TestMapping(MappingTestHost host) {
 			this.host = host;
 		}
 
@@ -45,22 +28,6 @@ namespace Albatross.Mapping.UnitTest {
 		public class To {
 			public int A1 { get; set; }
 			public int B1 { get; set; }
-		}
-
-		[Fact]
-		public void UseAutoMapper() {
-			From a = new From {
-				A1 = 100,
-				B1 = 101,
-			};
-
-			using (var scope = host.Create()) {
-				IMapper mapper = scope.Get<IMapper>();
-				Assert.NotNull(mapper);
-				To b = mapper.Map<From, To>(a);
-				Assert.Equal(a.A1, b.A1);
-				Assert.Equal(a.B1, b.B1);
-			}
 		}
 
 		[Fact]
@@ -84,7 +51,6 @@ namespace Albatross.Mapping.UnitTest {
 		public void UseCustomMapper() {
 			var svc = new ServiceCollection();
 			svc.AddMapping();
-			svc.AddSingleton<IConfigMapping, CfgMapping>();
 			svc.AddSingleton<IMapper<From, To>, CustomMap>();
 			var provider = svc.BuildServiceProvider();
 

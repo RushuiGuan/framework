@@ -11,6 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Host.Test\Albatross.Host.Test.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Mapping.ByAutoMapper\Albatross.Mapping.ByAutoMapper.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Mapping\Albatross.Mapping.csproj" />
       <PackageReference Include="xunit.console" Version="2.4.1" />
       <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
