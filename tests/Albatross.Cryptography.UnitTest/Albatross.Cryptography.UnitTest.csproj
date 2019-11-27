@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>1.5.32</Version>
+    <Version>1.5.33-alpha.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="appsettings.json" />
@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Cryptography\Albatross.Cryptography.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Host.Test\Albatross.Host.Test.csproj" />
-      <PackageReference Include="xunit.console" Version="2.4.1" />
-      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="xunit.console" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
   </ItemGroup>
 </Project>

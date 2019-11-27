@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <StartupObject>Albatross.Host.AspNetCore.Test.Program</StartupObject>
     <AssemblyName>Albatross.Host.AspNetCore.Test</AssemblyName>
-    <Version>1.5.32</Version>
+    <Version>1.5.33-alpha.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Host.AspNetCore\Albatross.Host.AspNetCore.csproj" />

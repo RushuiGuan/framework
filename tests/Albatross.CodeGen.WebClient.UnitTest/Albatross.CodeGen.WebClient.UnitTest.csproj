@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
-    <Version>1.5.32</Version>
+    <Version>1.5.33-alpha.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="GroupClientService.expected.cs" />
@@ -28,8 +28,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-      <PackageReference Include="xunit.console" Version="2.4.1" />
-      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="xunit.console" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
