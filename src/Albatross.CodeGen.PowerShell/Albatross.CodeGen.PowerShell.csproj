@@ -15,7 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JsonNet.PrivateSettersContractResolvers" Version="1.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
     <PackageReference Include="System.Management.Automation" Version="6.2.3" />
     <PackageReference Include="Albatross.Database" Version="1.1.7" />
   </ItemGroup>

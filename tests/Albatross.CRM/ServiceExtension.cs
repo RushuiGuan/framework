@@ -1,5 +1,5 @@
 ﻿using Albatross.CRM.Repository;
-using Albatross.Mapping.Core;
+using Albatross.Mapping.ByAutoMapper;
 using Albatross.Repository.ByEFCore;
 using Albatross.Repository.Core;
 using Albatross.Repository.Dto;

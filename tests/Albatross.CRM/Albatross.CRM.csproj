@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Config\Albatross.Config.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Mapping.ByAutoMapper\Albatross.Mapping.ByAutoMapper.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Mapping\Albatross.Mapping.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Repository.PostgreSQL\Albatross.Repository.PostgreSQL.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Repository.Sqlite\Albatross.Repository.Sqlite.csproj" />
