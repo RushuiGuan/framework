@@ -15,7 +15,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 			this.host = host;
 		}
 
-		[Fact]
+		[Fact(Skip ="use open api instead")]
 		public void TestGroupController() {
 			using (var scope = host.Create()) {
 				Type type = typeof(GroupController);
@@ -36,7 +36,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
             }
 		}
 
-		[Fact]
+		[Fact(Skip ="use open api instead")]
 		public void TestValueController() {
 			using (var scope = host.Create()) {
 				Type type = typeof(ValueController);

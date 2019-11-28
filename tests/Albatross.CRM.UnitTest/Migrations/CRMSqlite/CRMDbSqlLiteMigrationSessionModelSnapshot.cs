@@ -15,7 +15,7 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.0.1")
                 .HasAnnotation("Relational:Sequence:crm.Hilo", "'Hilo', 'crm', '1', '1', '', '', 'Int64', 'False'");
 
             modelBuilder.Entity("Albatross.CRM.Model.Address", b =>
@@ -131,15 +131,10 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
                         .HasColumnType("TEXT")
                         .HasMaxLength(128);
 
-                    b.Property<int>("ReferredByID")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("CustomerID");
 
                     b.HasIndex("Name")
                         .IsUnique();
-
-                    b.HasIndex("ReferredByID");
 
                     b.ToTable("Customer","crm");
                 });
@@ -197,15 +192,6 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlite
                         .WithMany("Contacts")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Albatross.CRM.Model.Customer", b =>
-                {
-                    b.HasOne("Albatross.CRM.Model.Customer", "ReferredBy")
-                        .WithMany()
-                        .HasForeignKey("ReferredByID")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

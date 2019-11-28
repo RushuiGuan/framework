@@ -1,4 +1,5 @@
 ﻿using Albatross.Mapping.Core;
+using Albatross.Mapping.ByAutoMapper;
 using Albatross.Host.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ namespace Albatross.Mapping.UnitTest {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
 			services.AddMapping(this.GetType().Assembly);
+			services.AddAutoMapperMapping();
 		}
 	}
 }

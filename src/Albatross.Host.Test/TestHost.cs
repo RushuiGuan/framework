@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using Albatross.Logging;
+using System.Threading.Tasks;
 
 namespace Albatross.Host.Test {
 	public class TestHost : IDisposable {
@@ -19,10 +20,12 @@ namespace Albatross.Host.Test {
 				.ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
 				.Build();
 
-			Init(host.Services.GetRequiredService<IConfiguration>());
+			InitAsync(host.Services.GetRequiredService<IConfiguration>()).Wait();
 		}
 
-		public virtual void Init(IConfiguration configuration) { }
+		public virtual Task InitAsync(IConfiguration configuration) {
+			return Task.CompletedTask;
+		}
 
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			services.AddTransient(provider => provider.CreateScope());

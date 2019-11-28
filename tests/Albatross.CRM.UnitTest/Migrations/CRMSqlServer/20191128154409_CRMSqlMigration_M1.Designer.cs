@@ -4,14 +4,16 @@ using Albatross.CRM.UnitTest.DbSessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
 {
     [DbContext(typeof(CRMDbSqlMigrationSession))]
-    partial class CRMDbSqlMigrationSessionModelSnapshot : ModelSnapshot
+    [Migration("20191128154409_CRMSqlMigration_M1")]
+    partial class CRMSqlMigration_M1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -11,6 +11,7 @@ using Albatross.Repository.Core;
 using sqlite = Albatross.Repository.Sqlite;
 using sqlserver = Albatross.Repository.SqlServer;
 using postgres = Albatross.Repository.PostgreSQL;
+using System.Threading.Tasks;
 
 namespace Albatross.Repository.UnitTest {
 	public class DatabaseTestHost : TestHost {
@@ -20,22 +21,26 @@ namespace Albatross.Repository.UnitTest {
 			services.AddCRM(configuration);
 		}
 
-		public override void Init(IConfiguration configuration) {
+		public override Task InitAsync(IConfiguration configuration) {
 			CRMSetting setting = new GetCRMSettings(configuration).Get();
 			Console.WriteLine($"Migrating via {setting.DatabaseProvider}");
-			DbContext context;
 
+			using DbContext context = GetDbContext(setting);
+			context.Database.EnsureDeleted();
+			context.Database.Migrate();
+			return base.InitAsync(configuration);
+		}
+
+		DbContext GetDbContext(CRMSetting setting){
 			if (setting.DatabaseProvider == sqlserver.DatabaseProvider.Name) {
-				context = new CRMDbSqlMigrationSession(setting.ConnectionString);
+				return new CRMDbSqlMigrationSession(setting.ConnectionString);
 			} else if (setting.DatabaseProvider == postgres.DatabaseProvider.Name) {
-				context = new CRMDbPostgresMigrationSession(setting.ConnectionString);
+				return new CRMDbPostgresMigrationSession(setting.ConnectionString);
 			} else if (setting.DatabaseProvider == sqlite.DatabaseProvider.Name) {
-				context = new CRMDbSqlLiteMigrationSession();
+				return new CRMDbSqlLiteMigrationSession();
 			} else {
 				throw new UnsupportedDatabaseProviderException(setting.DatabaseProvider);
 			}
-			context.Database.EnsureDeleted();
-			context.Database.Migrate();
 		}
 	}
 
