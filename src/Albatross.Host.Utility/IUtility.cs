@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Host.Utility {
 	public interface IUtility : IDisposable {
-		int Run();
+		Task<int> RunAsync();
 		TextWriter Out { get; }
 		TextWriter Error { get; }
 	}

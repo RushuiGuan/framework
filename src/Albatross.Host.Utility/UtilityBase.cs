@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Albatross.Host.Utility {
 	public abstract class UtilityBase<Option> : IUtility<Option> {
@@ -26,7 +27,7 @@ namespace Albatross.Host.Utility {
 		}
 
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) { }
-		public abstract int Run();
+		public abstract Task<int> RunAsync();
 		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
 
 		public void Dispose() {

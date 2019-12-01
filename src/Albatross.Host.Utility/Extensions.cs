@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Albatross.Host.Utility {
 	public static class Extensions {
-		public static int Run(this Parser parser, string[] args, params Type[] jobTypes) {
+		public static async Task<int> Run(this Parser parser, string[] args, params Type[] jobTypes) {
 			Dictionary<Type, Type> dict = new Dictionary<Type, Type>();
 			foreach(var jobType in jobTypes){
 				if (jobType.TryGetClosedGenericType(typeof(IUtility<>), out Type genericType)) {
@@ -16,12 +17,13 @@ namespace Albatross.Host.Utility {
 				}
 			}
 			ParserResult<Object> parserResult = parser.ParseArguments(args, dict.Keys.ToArray());
-			return parserResult.MapResult<object, int>(opt => {
-				Type optionType = opt.GetType();
-				Type jobType = dict[optionType];
-				IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt);
-				return utility.Run();
-			}, err=>1);
+			return await parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err=>Task.FromResult(1));
+		}
+		static async Task<int> RunAsync(object opt, Dictionary<Type, Type> dict) {
+			Type optionType = opt.GetType();
+			Type jobType = dict[optionType];
+			IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt);
+			return await utility.RunAsync();
 		}
 	}
 }

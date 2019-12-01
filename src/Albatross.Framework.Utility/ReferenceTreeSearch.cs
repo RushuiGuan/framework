@@ -7,6 +7,7 @@ using CommandLine;
 using Albatross.Host.Utility;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace Albatross.Framework.Utility {
 	[Verb("search-reference-tree", HelpText = "Search the reference tree for a particular assembly")]
@@ -32,11 +33,11 @@ namespace Albatross.Framework.Utility {
 			}.Union((Options.AdditionalAssemblyFolders ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries)).Distinct();
 		}
 
-		public override int Run() {
+		public override Task<int> RunAsync() {
 			Stack<Assembly> stack = new Stack<Assembly>();
 			Assembly assembly = Assembly.LoadFrom(Options.RootAssembly);
 			Search(stack, assembly);
-			return 0;
+			return Task.FromResult(0);
 		}
 
 		public bool IsMatch(Assembly assembly) => assembly.GetName().Name.StartsWith(Options.Target, StringComparison.InvariantCultureIgnoreCase);

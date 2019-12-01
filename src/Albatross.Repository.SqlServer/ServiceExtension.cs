@@ -9,7 +9,7 @@ namespace Albatross.Repository.SqlServer {
 		public static void BuildDefaultOption(this DbContextOptionsBuilder builder, string connectionString) {
 			builder.EnableDetailedErrors(true);
 			builder.EnableSensitiveDataLogging(true);
-			builder.UseLazyLoadingProxies(true);
+			builder.UseLazyLoadingProxies(false);
 			builder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 			builder.UseSqlServer(connectionString);
 		}
