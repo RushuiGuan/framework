@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 namespace Albatross.Host.Test {
 	public class TestHost : IDisposable {
 		protected IHost host;
-		private SetupSerilog setupSerilog;
 		public IServiceProvider Provider => this.host.Services;
 
+		static TestHost(){
+			new SetupSerilog();
+		}
+
 		public TestHost() {
-			setupSerilog = new SetupSerilog();
 			host = Microsoft.Extensions.Hosting.Host
 				.CreateDefaultBuilder()
 				.UseSerilog()
@@ -38,7 +40,6 @@ namespace Albatross.Host.Test {
 
 		public void Dispose() {
 			host.Dispose();
-			setupSerilog.Dispose();
 		}
 	}
 }

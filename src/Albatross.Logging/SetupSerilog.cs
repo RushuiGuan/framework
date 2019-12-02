@@ -16,7 +16,7 @@ namespace Albatross.Logging {
 		}
 
 		public void Dispose() {
-
+			Log.CloseAndFlush();
 		}
 	}
 }
