@@ -1,4 +1,4 @@
-﻿using Albatross.CRM.Dto;
+﻿using Albatross.CRM.Messages;
 using Albatross.CRM.Model;
 using Albatross.CRM.Repository;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace Albatross.Repository.UnitTest {
 				using (var t = scope.Get<CRMDbSession>().BeginTransaction()) {
 					string name = "customer-test-transaction";
 					var contacts = scope.Get<ICustomerRepository>();
-					contacts.Add(new Customer(new CustomerDto { Name = name, Company = name, }, 1));
+					contacts.Add(new CRM.Model.Customer(new CRM.Messages.Customer { Name = name, Company = name, }, 1));
 					await contacts.DbSession.SaveChangesAsync();
 				}
 			}

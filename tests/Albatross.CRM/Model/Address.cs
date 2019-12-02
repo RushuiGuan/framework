@@ -1,16 +1,16 @@
 ﻿using Albatross.Repository.ByEFCore;
-using Albatross.CRM.Dto;
+using Albatross.CRM.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Albatross.CRM.Model {
 	public class Address : BaseEntity {
 		protected Address() { }
-		public Address(AddressDto dto, int user) : base(user) {
+		public Address(Messages.Address dto, int user) : base(user) {
 			this.Update(dto, user);
 		}
 
-		public void Update(AddressDto dto, int user) {
+		public void Update(Messages.Address dto, int user) {
 			City = dto.City;
 			State = dto.State;
 			Street = dto.Street;

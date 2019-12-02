@@ -1,5 +1,5 @@
 ﻿using Albatross.Repository.Core;
-using Albatross.CRM.Dto;
+using Albatross.CRM.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,11 +9,11 @@ using System.Text;
 namespace Albatross.CRM.Model {
 	public class Contact : BaseEntity{
 		private Contact() { }
-		public Contact(ContactDto dto, int user) :base(user){
+		public Contact(Messages.Contact dto, int user) :base(user){
 			Update(dto, user);
 		}
 
-		public void Update(ContactDto dto, int user) {
+		public void Update(Messages.Contact dto, int user) {
 			Name = dto.Name;
 			Tag = dto.Tag;
 			Addresses.Merge(dto.Addresses, 

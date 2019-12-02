@@ -10,6 +10,8 @@ namespace Albatross.CRM.Model {
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public DateTime AvailableDate { get; set; }
+
+
 	}
 	public class ProductMap : BaseEntityMap<Product> {
 		public override void Map(EntityTypeBuilder<Product> builder) {

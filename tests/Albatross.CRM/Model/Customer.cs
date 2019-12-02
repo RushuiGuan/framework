@@ -1,12 +1,13 @@
-﻿using Albatross.CRM.Dto;
+﻿using msg = Albatross.CRM.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
+using Albatross.Repository.Core;
 
 namespace Albatross.CRM.Model {
 	public class Customer : BaseEntity {
 		public Customer() { }
-		public Customer(CustomerDto dto, int user) : base(user) {
+		public Customer(msg.Customer dto, int user) : base(user) {
 			Update(dto, user);
 		}
 
@@ -15,12 +16,32 @@ namespace Albatross.CRM.Model {
 		public string Company { get; set; }
 
 		public virtual ICollection<Contact> Contacts { get; set; }
+		public virtual ICollection<License> Licenses { get; set; }
 
-		public void Update(CustomerDto dto, int user) {
+		public void Update(msg.Customer dto, int user) {
 			CustomerID = dto.CustomerID;
 			Name = dto.Name;
 			Company = dto.Company;
+			//Licenses.Merge();
 			base.Update(user);
+		}
+
+		public void Input(msg.Customer dto) {
+			CustomerID = dto.CustomerID;
+			Name = dto.Name;
+			Company = dto.Company;
+			//Licenses = from item in dto.Licenses select new License()
+		}
+
+		public void Update(Customer src) {
+			Name = src.Name;
+			Company = src.Company;
+			Licenses.Merge<License, License, string>(src.Licenses,
+				args => args.Key,
+				args => args.Key,
+				null,
+				src => Licenses.Add(src),
+				dst => Licenses.Remove(dst));
 		}
 	}
 
@@ -40,6 +61,7 @@ namespace Albatross.CRM.Model {
 			builder.Property(args => args.Company).HasMaxLength(CRMConstant.NameLength).IsRequired();
 
 			builder.HasMany(args => args.Contacts).WithOne(args => args.Customer).HasForeignKey(args => args.CustomerID).IsRequired();
+			builder.HasMany(args => args.Licenses).WithOne(args => args.Customer).HasForeignKey(args => args.CustomerID).IsRequired();
 			base.Map(builder);
 		}
 	}

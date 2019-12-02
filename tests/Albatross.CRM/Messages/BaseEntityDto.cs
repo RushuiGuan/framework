@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Albatross.CRM.Dto {
+namespace Albatross.CRM.Messages {
 	public class BaseEntityDto {
 		public int CreatedBy { get; set; }
 		public int ModifiedBy { get; set; }

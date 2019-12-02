@@ -143,6 +143,46 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                     b.ToTable("Customer","crm");
                 });
 
+            modelBuilder.Entity("Albatross.CRM.Model.License", b =>
+                {
+                    b.Property<int>("LicenseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("BeginDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Modified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("LicenseID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("License","crm");
+                });
+
             modelBuilder.Entity("Albatross.CRM.Model.Product", b =>
                 {
                     b.Property<int>("ProductID")
@@ -196,6 +236,21 @@ namespace Albatross.CRM.UnitTest.Migrations.CRMSqlServer
                     b.HasOne("Albatross.CRM.Model.Customer", "Customer")
                         .WithMany("Contacts")
                         .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Albatross.CRM.Model.License", b =>
+                {
+                    b.HasOne("Albatross.CRM.Model.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Albatross.CRM.Model.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

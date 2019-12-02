@@ -1,4 +1,4 @@
-﻿using Albatross.CRM.Dto;
+﻿using Albatross.CRM.Messages;
 using Albatross.CRM.Model;
 using Albatross.CRM.Repository;
 using Microsoft.Extensions.Logging;

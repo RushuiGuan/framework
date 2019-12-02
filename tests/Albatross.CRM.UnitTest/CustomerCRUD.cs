@@ -6,7 +6,7 @@ using Albatross.Host.Test;
 using System;
 using Albatross.CRM.Repository;
 using Albatross.CRM.Model;
-using Albatross.CRM.Dto;
+using Albatross.CRM.Messages;
 
 namespace Albatross.Repository.UnitTest {
 	[Collection(DatabaseTestHostCollection.Name)]
@@ -21,36 +21,36 @@ namespace Albatross.Repository.UnitTest {
 		private Task RemoveCustomer(string name) {
 			using (var scope = host.Create()) {
 				var customers = scope.Get<ICustomerRepository>();
-				if (customers.TryGet(name, out Customer item)) {
+				if (customers.TryGet(name, out CRM.Model.Customer item)) {
 					customers.Remove(item);
 				}
 				return customers.SaveChangesAsync();
 			}
 		}
-		private CustomerDto GetCustomer(string name, out Customer model) {
+		private Customer GetCustomer(string name, out CRM.Model.Customer model) {
 			using (var scope = host.Create()) {
 				var customers = scope.Get<ICustomerRepository>();
 				model = customers.Get(name);
-				return scope.Get<IMapperFactory>().Map<Customer, CustomerDto>(model);
+				return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
 			}
 		}
-		private async Task<CustomerDto> CreateCustomer(TestScope scope, string name, int user) {
-			Customer model;
+		private async Task<CRM.Messages.Customer> CreateCustomer(TestScope scope, string name, int user) {
+			CRM.Model.Customer model;
 			var customers = scope.Get<ICustomerRepository>();
-			var dto = new CustomerDto { Name = name, Company = name,};
-			model = new Customer(dto, user);
+			var dto = new CRM.Messages.Customer { Name = name, Company = name,};
+			model = new CRM.Model.Customer(dto, user);
 			customers.Add(model);
 			await customers.SaveChangesAsync();
-			return scope.Get<IMapperFactory>().Map<Customer, CustomerDto>(model);
+			return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
 		}
 
-		private async Task<CustomerDto> UpdateCustomer(TestScope scope, CustomerDto dto, int user) {
-			Customer model;
+		private async Task<CRM.Messages.Customer> UpdateCustomer(TestScope scope, CRM.Messages.Customer dto, int user) {
+			CRM.Model.Customer model;
 			var customers = scope.Get<ICustomerRepository>();
 			model = customers.Get(dto.CustomerID);
 			model.Update(dto, user);
 			await customers.SaveChangesAsync();
-			return scope.Get<IMapperFactory>().Map<Customer, CustomerDto>(model);
+			return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
 		}
 
 		[Fact]
