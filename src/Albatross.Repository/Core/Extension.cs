@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,11 @@ namespace Albatross.Repository.Core {
 
 		public static ITransaction BeginTransaction<T>(this IRepository<T> repository) {
 			return repository.DbSession.BeginTransaction();
+		}
+
+		public static bool IsChanged(this object obj, DbContext context) {
+			var entry = context.Entry(obj);
+			return entry.State != EntityState.Unchanged;
 		}
 	}
 }
