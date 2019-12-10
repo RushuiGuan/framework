@@ -113,13 +113,13 @@ namespace Albatross.Host.AspNetCore {
 			Log.Information("Environments: @{environments}", environments);
 			//app.UseHttpsRedirection();
 			app.UseRouting();
+			app.UseAuthentication().UseAuthorization();
 			app.UseEndpoints(endpoints => {
 				endpoints.MapControllers();
 			});
 
 			app.UseCors();
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = context => globalExceptionHandler.RunAsync(context) });
-			app.UseAuthentication();
 			UseSwagger(app);
 			UseSpa(app);
 			
