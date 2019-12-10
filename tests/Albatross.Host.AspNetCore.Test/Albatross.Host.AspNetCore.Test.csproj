@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject>Albatross.Host.AspNetCore.Test.Program</StartupObject>
     <AssemblyName>Albatross.Host.AspNetCore.Test</AssemblyName>
-    <Version>1.5.33-alpha.1</Version>
+    <Version>1.5.33-alpha.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Host.AspNetCore\Albatross.Host.AspNetCore.csproj" />
