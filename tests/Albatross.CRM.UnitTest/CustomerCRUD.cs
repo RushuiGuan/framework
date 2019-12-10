@@ -6,7 +6,7 @@ using Albatross.Host.Test;
 using System;
 using Albatross.CRM.Repository;
 using Albatross.CRM.Model;
-using Albatross.CRM.Messages;
+using msg = Albatross.CRM.Messages;
 
 namespace Albatross.Repository.UnitTest {
 	[Collection(DatabaseTestHostCollection.Name)]
@@ -27,11 +27,11 @@ namespace Albatross.Repository.UnitTest {
 				return customers.SaveChangesAsync();
 			}
 		}
-		private Customer GetCustomer(string name, out CRM.Model.Customer model) {
+		private msg.Customer GetCustomer(string name, out CRM.Model.Customer model) {
 			using (var scope = host.Create()) {
 				var customers = scope.Get<ICustomerRepository>();
 				model = customers.Get(name);
-				return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
+				return scope.Get<IMapperFactory>().Map<Customer, msg.Customer>(model);
 			}
 		}
 		private async Task<CRM.Messages.Customer> CreateCustomer(TestScope scope, string name, int user) {
