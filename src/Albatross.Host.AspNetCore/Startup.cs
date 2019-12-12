@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
-using Serilog;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.Host.AspNetCore {
@@ -48,7 +49,7 @@ namespace Albatross.Host.AspNetCore {
 					Flow = OpenApiOAuth2Flow.Implicit,
 					Flows = new OpenApiOAuthFlows() {
 						Implicit = new OpenApiOAuthFlow() {
-							Scopes = AuthorizationSetting.SwaggerScopes.ToDictionary<string, string>(args => args),
+							Scopes = AuthorizationSetting.SwaggerScopeDictionary,
 							AuthorizationUrl = AuthorizationSetting.AuthorizeUrl,
 							TokenUrl = AuthorizationSetting.TokenUrl,
 						},
@@ -104,8 +105,8 @@ namespace Albatross.Host.AspNetCore {
 			AddCustomServices(services);
 		}
 
-		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, GlobalExceptionHandler globalExceptionHandler, ProgramSetting program) {
-			Log.Information("Initializing @{App} for environment @{environment}", program.App, program.Environment);
+		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, GlobalExceptionHandler globalExceptionHandler, ProgramSetting program, ILogger<Startup> logger) {
+			logger.LogInformation("Initializing {@program}", program);
 			//app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseAuthentication().UseAuthorization();
