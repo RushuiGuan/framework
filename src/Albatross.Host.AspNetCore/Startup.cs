@@ -10,8 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using Serilog;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.Host.AspNetCore {
@@ -20,10 +18,14 @@ namespace Albatross.Host.AspNetCore {
 		public const string DefaultApp_BaseHref = "";
 		public const string BearerAuthenticationScheme = "Bearer";
 		public IConfiguration Configuration { get; }
-		AuthorizationSetting AuthorizationSetting => new GetAuthorizationSetting(Configuration).Get();
+		protected AuthorizationSetting AuthorizationSetting { get; }
+		protected ProgramSetting ProgramSetting { get; }
 
 		public Startup(IConfiguration configuration) {
 			Configuration = configuration;
+			ProgramSetting = new GetProgramSetting(configuration).Get();
+			AuthorizationSetting = new GetAuthorizationSetting(Configuration).Get();
+			AuthorizationSetting.SetDefault(ProgramSetting);
 		}
 
 		protected virtual void ConfigureCors(CorsPolicyBuilder builder) {
@@ -33,8 +35,7 @@ namespace Albatross.Host.AspNetCore {
 			builder.SetIsOriginAllowed(args => true);
 		}
 
-		public virtual void AddCustomServices(IServiceCollection services) {
-		}
+		public virtual void AddCustomServices(IServiceCollection services) { }
 
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
@@ -104,24 +105,17 @@ namespace Albatross.Host.AspNetCore {
 		}
 
 		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, GlobalExceptionHandler globalExceptionHandler, ProgramSetting program) {
-			var environments = new {
-				aspnetcore = env.EnvironmentName,
-				program = program.Environment,
-			};
-			Log.Information("Environments: @{environments}", environments);
+			Log.Information("Initializing @{App} for environment @{environment}", program.App, program.Environment);
 			//app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseAuthentication().UseAuthorization();
-			app.UseEndpoints(endpoints => {
-				endpoints.MapControllers();
-			});
-
+			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			app.UseCors();
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = context => globalExceptionHandler.RunAsync(context) });
 			UseSwagger(app);
 			UseSpa(app);
-			
 		}
+
 		public void UseSpa(IApplicationBuilder app) {
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();

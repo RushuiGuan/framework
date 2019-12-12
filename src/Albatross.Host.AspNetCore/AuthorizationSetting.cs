@@ -1,7 +1,4 @@
 ﻿using Albatross.Config.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Albatross.Host.AspNetCore {
 	public class AuthorizationSetting : IConfigSetting {
@@ -29,6 +26,17 @@ namespace Albatross.Host.AspNetCore {
 			}
 			if (string.IsNullOrEmpty(Audience)) {
 				throw new ConfigurationException(this.GetType(), nameof(Audience));
+			}
+		}
+
+		public void SetDefault(ProgramSetting programSetting) {
+			if (string.IsNullOrEmpty(SwaggerClientId)) {
+				SwaggerClientId = $"{programSetting.App}-swagger";
+			}
+			if(SwaggerScopes == null||SwaggerScopes.Length == 0) {
+				SwaggerScopes = new string[] {
+					$"{programSetting.App}-default",
+				};
 			}
 		}
 	}
