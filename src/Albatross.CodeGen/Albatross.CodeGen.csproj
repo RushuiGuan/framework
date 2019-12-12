@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Albatross.CodeGen</PackageId>
-    <Version>1.5.33-alpha.1</Version>
+    <Version>1.5.33-alpha.2</Version>
     <Authors>Rushui Guan</Authors>
     <Product>Albatross Code Generator</Product>
     <Description>A customizable code generator engine with a Powershell tool that allows user to quickly setup composite generators and update the target file.</Description>
@@ -15,6 +15,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Albatross.Database" Version="1.1.7" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
   </ItemGroup>
 </Project>

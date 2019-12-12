@@ -16,7 +16,7 @@ namespace Albatross.Host.AspNetCore {
 		public string TokenUrl => $"{Authority}/connect/token";
 
 		public string SwaggerClientId { get; set; }
-		public string SwaggerScope { get; set; }
+		public string[] SwaggerScopes { get; set; }
 
 		/// <summary>
 		/// ApiResource Name
