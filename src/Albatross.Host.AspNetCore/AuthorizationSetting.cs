@@ -19,19 +19,10 @@ namespace Albatross.Host.AspNetCore {
 		public string SwaggerClientId { get; set; }
 
 		/// <summary>
-		/// Swagger Scopes.  If not set, it will be set using the default scope '<see cref="ProgramSetting.App"/>-default'.
+		/// Key value pair of Swagger Scope name and description.  Multiple scopes can be specified.  If not set, the default scope name will be the application name appended with "-default"
+		/// The application name comes from  <see cref="ProgramSetting.App"/>
 		/// </summary>
-		public string[] SwaggerScopes { get; set; }
-
-		public Dictionary<string, string> SwaggerScopeDictionary {
-			get {
-				Dictionary<string, string> dict = new Dictionary<string, string>();
-				if (SwaggerScopes != null) {
-					foreach (var item in SwaggerScopes) { dict.Add(item, string.Empty); }
-				}
-				return dict;
-			}
-		}
+		public Dictionary<string, string> SwaggerScopes { get; set; }
 
 		/// <summary>
 		/// ApiResource Name.  If not set, it will be set to the same value as <see cref="ProgramSetting.App"/>.
@@ -48,10 +39,8 @@ namespace Albatross.Host.AspNetCore {
 			if (string.IsNullOrEmpty(SwaggerClientId)) {
 				SwaggerClientId = $"{programSetting.App}-swagger";
 			}
-			if(SwaggerScopes == null||SwaggerScopes.Length == 0) {
-				SwaggerScopes = new string[] {
-					$"{programSetting.App}-default",
-				};
+			if (SwaggerScopes == null || SwaggerScopes.Count == 0) {
+				SwaggerScopes = new Dictionary<string, string> { { $"{programSetting.App}-default", $"Default Scope for {programSetting.App}" } };
 			}
 			if (string.IsNullOrEmpty(Audience)) { Audience = programSetting.App; }
 		}

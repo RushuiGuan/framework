@@ -49,7 +49,7 @@ namespace Albatross.Host.AspNetCore {
 					Flow = OpenApiOAuth2Flow.Implicit,
 					Flows = new OpenApiOAuthFlows() {
 						Implicit = new OpenApiOAuthFlow() {
-							Scopes = AuthorizationSetting.SwaggerScopeDictionary,
+							Scopes = AuthorizationSetting.SwaggerScopes,
 							AuthorizationUrl = AuthorizationSetting.AuthorizeUrl,
 							TokenUrl = AuthorizationSetting.TokenUrl,
 						},
