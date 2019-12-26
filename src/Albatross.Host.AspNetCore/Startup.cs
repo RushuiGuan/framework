@@ -71,7 +71,7 @@ namespace Albatross.Host.AspNetCore {
 		#endregion
 
 		#region authorization
-		protected void ConfigureAuthorization(AuthorizationOptions options) { }
+		protected virtual void ConfigureAuthorization(AuthorizationOptions options) { }
 		public virtual IServiceCollection AddIdentityServer(IServiceCollection services) {
 			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
 			services.AddAuthorization(ConfigureAuthorization);
@@ -112,8 +112,8 @@ namespace Albatross.Host.AspNetCore {
 			//app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseAuthentication().UseAuthorization();
-			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			app.UseCors();
+			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = context => globalExceptionHandler.RunAsync(context) });
 			UseSwagger(app);
 			UseSpa(app);
