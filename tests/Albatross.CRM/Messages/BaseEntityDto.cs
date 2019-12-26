@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Albatross.CRM.Messages {
 	public class BaseEntityDto {
-		public int CreatedBy { get; set; }
-		public int ModifiedBy { get; set; }
-		public DateTimeOffset CreatedByUTC { get; set; }
-		public DateTimeOffset ModifiedByUTC { get; set; }
+		public int CreatedBy {get;private set;}
+		public int ModifiedBy {get;private set;}
+		public DateTimeOffset CreatedByUTC {get;private set;}
+		public DateTimeOffset ModifiedByUTC {get;private set;}
 	}
 }

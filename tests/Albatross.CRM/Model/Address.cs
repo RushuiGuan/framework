@@ -1,44 +1,30 @@
 ﻿using Albatross.Repository.ByEFCore;
 using Albatross.CRM.Messages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Albatross.Repository.Core;
 
 namespace Albatross.CRM.Model {
-	public class Address : BaseEntity {
+	public class Address : BaseEntity<User> {
 		protected Address() { }
-		public Address(Messages.Address dto, int user) : base(user) {
-			this.Update(dto, user);
+		public Address(Messages.Address dto, User user) : base(user) {
+			this.Update(dto, user, null);
 		}
 
-		public void Update(Messages.Address dto, int user) {
+		public void Update(Messages.Address dto, User user, DbContext context) {
 			City = dto.City;
 			State = dto.State;
 			Street = dto.Street;
-			base.Update(user);
+			base.Update(user, context);
 		}
 
-		public int AddressID { get; set; }
-		public string Type { get; set; }
-		public string Street { get; set; }
-		public string City { get; set; }
-		public string State { get; set; }
+		public int AddressID {get;private set;}
+		public string Type {get;private set;}
+		public string Street {get;private set;}
+		public string City {get;private set;}
+		public string State {get;private set;}
 
 
-		public int ContactID { get; set; }
-		public virtual Contact Contact { get; set; }
-	}
-
-	public class AddressMap : BaseEntityMap<Address> {
-		public override void Map(EntityTypeBuilder<Address> builder) {
-			builder.HasKey(a => a.AddressID);
-			builder.ToTable(nameof(Address), CRMConstant.Schema);
-
-			builder.Property(a => a.Type).HasMaxLength(CRMConstant.NameLength);
-			builder.Property(a => a.Street).HasMaxLength(CRMConstant.TitleLength);
-			builder.Property(a => a.City).HasMaxLength(CRMConstant.TitleLength);
-			builder.Property(a => a.State).HasMaxLength(CRMConstant.NameLength);
-
-			builder.HasOne(a => a.Contact).WithMany(c => c.Addresses).HasForeignKey(a => a.ContactID).IsRequired();
-		}
+		public int ContactID {get;private set;}
+		public virtual Contact Contact {get;private set;}
 	}
 }

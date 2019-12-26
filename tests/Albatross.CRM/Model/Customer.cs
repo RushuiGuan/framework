@@ -1,29 +1,28 @@
 ﻿using msg = Albatross.CRM.Messages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 using Albatross.Repository.Core;
 
 namespace Albatross.CRM.Model {
-	public class Customer : BaseEntity {
+	public class Customer : BaseEntity<User> {
 		public Customer() { }
-		public Customer(msg.Customer dto, int user) : base(user) {
-			Update(dto, user);
+		public Customer(msg.Customer dto, User user) : base(user) {
+			Update(dto, user, null);
 		}
 
-		public int CustomerID { get; set; }
-		public string Name { get; set; }
-		public string Company { get; set; }
+		public int CustomerID {get;private set;}
+		public string Name {get;private set;}
+		public string Company {get;private set;}
 
-		public virtual ICollection<Contact> Contacts { get; set; }
-		public virtual ICollection<License> Licenses { get; set; }
+		public virtual ICollection<Contact> Contacts {get;private set;}
+		public virtual ICollection<License> Licenses {get;private set;}
 
-		public void Update(msg.Customer dto, int user) {
+		public void Update(msg.Customer dto, User user, DbContext context) {
 			CustomerID = dto.CustomerID;
 			Name = dto.Name;
 			Company = dto.Company;
 			//Licenses.Merge();
-			base.Update(user);
+			base.Update(user, context);
 		}
 
 		public void Input(msg.Customer dto) {
@@ -42,27 +41,6 @@ namespace Albatross.CRM.Model {
 				null,
 				src => Licenses.Add(src),
 				dst => Licenses.Remove(dst));
-		}
-	}
-
-	public class CustomerMap : BaseEntityMap<Customer> {
-		public override void Map(EntityTypeBuilder<Customer> builder) {
-			builder.ToTable(nameof(Customer), CRMConstant.Schema);
-			builder.HasKey(args => args.CustomerID);
-
-			var propertyBuilder = builder.Property(args => args.CustomerID);
-
-			//NpgsqlPropertyBuilderExtensions.UseHiLo(propertyBuilder, CRMConstant.Hilo, CRMConstant.Schema);
-			SqlServerPropertyBuilderExtensions.UseHiLo(propertyBuilder, CRMConstant.Hilo, CRMConstant.Schema);
-
-			builder.Property(args => args.Name).HasMaxLength(CRMConstant.NameLength).IsRequired();
-			builder.HasIndex(args => args.Name).IsUnique();
-
-			builder.Property(args => args.Company).HasMaxLength(CRMConstant.NameLength).IsRequired();
-
-			builder.HasMany(args => args.Contacts).WithOne(args => args.Customer).HasForeignKey(args => args.CustomerID).IsRequired();
-			builder.HasMany(args => args.Licenses).WithOne(args => args.Customer).HasForeignKey(args => args.CustomerID).IsRequired();
-			base.Map(builder);
 		}
 	}
 }

@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Albatross.Repository.Core;
 
 namespace Albatross.CRM.Model {
-	public class License : BaseEntity {
+	public class License : BaseEntity<User> {
 		protected License() { }
-		public License(int user) : base(user) {
+		public License(User user) : base(user) {
 		}
 		public int LicenseID { get; private set; }
 		public int ProductID { get; private set; }
@@ -20,27 +19,14 @@ namespace Albatross.CRM.Model {
 
 		public virtual Customer Customer { get; private set; }
 		public virtual Product Product { get; private set; }
-		public DateTime BeginDate { get; set; }
-		public DateTime EndDate { get; set; }
+		public DateTime BeginDate {get;private set;}
+		public DateTime EndDate {get;private set;}
 
-		public void Validate() {
+		public override void Validate() {
+			base.Validate();
 			if(BeginDate > EndDate) {
 				throw new ValidationException("Begin date should be before end date");
 			}
-		}
-	}
-
-	public class LicenseMap : BaseEntityMap<License> {
-		public override void Map(EntityTypeBuilder<License> builder) {
-			builder.ToTable(nameof(License), CRMConstant.Schema);
-			builder.HasKey(args => args.LicenseID);
-			builder.HasAlternateKey(args => args.Key);
-
-			builder.Property(args => args.Key).IsRequired(true);
-
-			builder.HasOne(args => args.Customer).WithMany(args=>args.Licenses).HasForeignKey(args => args.CustomerID).IsRequired(true);
-			builder.HasOne(args => args.Product).WithMany().HasForeignKey(args => args.ProductID).IsRequired(true);
-			base.Map(builder);
 		}
 	}
 }
