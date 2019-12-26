@@ -2,45 +2,36 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Albatross.Repository.Core;
+using System.ComponentModel.DataAnnotations;
+using Albatross.CRM.Repository;
 
 namespace Albatross.CRM.Model {
 	public class Customer : BaseEntity<User> {
 		public Customer() { }
-		public Customer(msg.Customer dto, User user) : base(user) {
-			Update(dto, user, null);
+		public Customer(msg.Customer dto, User user, IProductRepository products) : base(user) {
+			Update(dto, user, products, null);
 		}
 
 		public int CustomerID {get;private set;}
+		[Required]
 		public string Name {get;private set;}
+		[Required]
 		public string Company {get;private set;}
 
-		public virtual ICollection<Contact> Contacts {get;private set;}
-		public virtual ICollection<License> Licenses {get;private set;}
+		public virtual ICollection<Contact> Contacts { get; private set; } = new List<Contact>();
+		public virtual ICollection<License> Licenses { get; private set; } = new List<License>();
+		public ICollection<PurchaseOrder> PurchaseOrders { get; private set; } = new List<PurchaseOrder>();
 
-		public void Update(msg.Customer dto, User user, DbContext context) {
-			CustomerID = dto.CustomerID;
-			Name = dto.Name;
-			Company = dto.Company;
-			//Licenses.Merge();
-			base.Update(user, context);
-		}
-
-		public void Input(msg.Customer dto) {
-			CustomerID = dto.CustomerID;
-			Name = dto.Name;
-			Company = dto.Company;
-			//Licenses = from item in dto.Licenses select new License()
-		}
-
-		public void Update(Customer src) {
+		public void Update(msg.Customer src, User user, IProductRepository products,  DbContext context) {
 			Name = src.Name;
 			Company = src.Company;
-			Licenses.Merge<License, License, string>(src.Licenses,
+			Licenses.Merge<msg.License, License, string>(src.Licenses,
 				args => args.Key,
 				args => args.Key,
-				null,
-				src => Licenses.Add(src),
-				dst => Licenses.Remove(dst));
+				(src, dst) => dst.Update(src, user, products, context),
+				src => Licenses.Add(new License(src, user)),
+				dst => Licenses.Remove(dst)); ;
+			base.Update(user, context);
 		}
 	}
 }

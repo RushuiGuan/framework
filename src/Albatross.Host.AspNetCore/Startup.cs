@@ -1,6 +1,7 @@
 ﻿using Albatross.Authentication;
 using Albatross.Config;
 using Albatross.Config.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -70,9 +71,10 @@ namespace Albatross.Host.AspNetCore {
 		#endregion
 
 		#region authorization
+		protected void ConfigureAuthorization(AuthorizationOptions options) { }
 		public virtual IServiceCollection AddIdentityServer(IServiceCollection services) {
 			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
-			services.AddAuthorization();
+			services.AddAuthorization(ConfigureAuthorization);
 			services.AddAuthentication(BearerAuthenticationScheme).AddJwtBearer(BearerAuthenticationScheme, options => {
 				options.Authority = AuthorizationSetting.Authority;
 				options.Audience = AuthorizationSetting.Audience;
