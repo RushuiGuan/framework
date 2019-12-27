@@ -6,7 +6,8 @@ namespace Albatross.Logging {
 	public class SetupSerilog : IDisposable {
 		public SetupSerilog() {
 			var configuration = new ConfigurationBuilder()
-				.AddJsonFile("serilog.json", false, true)
+				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
+				.AddJsonFile("serilog.json", true, true)
 				.AddEnvironmentVariables()
 				.Build();
 
