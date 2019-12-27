@@ -4,6 +4,7 @@ using Albatross.Config.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -11,8 +12,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
-using System.Collections.Generic;
+using System;
 using System.Linq;
+using System.Net;
+using System.Net.Mime;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Albatross.Host.AspNetCore {
 	public class Startup {
@@ -22,6 +27,9 @@ namespace Albatross.Host.AspNetCore {
 		public IConfiguration Configuration { get; }
 		protected AuthorizationSetting AuthorizationSetting { get; }
 		protected ProgramSetting ProgramSetting { get; }
+		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions { 
+			 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+		};
 
 		public Startup(IConfiguration configuration) {
 			Configuration = configuration;
@@ -97,7 +105,6 @@ namespace Albatross.Host.AspNetCore {
 			services.AddControllers();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
-			services.AddSingleton<GlobalExceptionHandler>();
 			services.AddCors(opt => opt.AddDefaultPolicy(ConfigureCors));
 			services.AddAspNetCorePrincipalProvider();
 			services.AddMvc();
@@ -107,14 +114,14 @@ namespace Albatross.Host.AspNetCore {
 			AddCustomServices(services);
 		}
 
-		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, GlobalExceptionHandler globalExceptionHandler, ProgramSetting program, ILogger<Startup> logger) {
+		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ProgramSetting program, ILogger<Startup> logger) {
 			logger.LogInformation("Initializing {@program}", program);
 			//app.UseHttpsRedirection();
+			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions});
 			app.UseRouting();
 			app.UseAuthentication().UseAuthorization();
 			app.UseCors();
 			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = context => globalExceptionHandler.RunAsync(context) });
 			UseSwagger(app);
 			UseSpa(app);
 		}
@@ -124,6 +131,25 @@ namespace Albatross.Host.AspNetCore {
 			app.UseSpaStaticFiles();
 			string baseRef = DefaultApp_BaseHref;
 			app.Map(baseRef, web => web.UseSpa(spa => { }));
+		}
+
+		protected async Task HandleGlobalExceptions(HttpContext context) {
+			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+			context.Response.ContentType = MediaTypeNames.Application.Json;
+			var error = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+			
+			if (error != null) {
+				var msg = CreateExceptionMessage(error);
+				msg.HttpStatus = context.Response.StatusCode;
+				await JsonSerializer.SerializeAsync(context.Response.BodyWriter.AsStream(), msg, JsonSerializerOptions);
+			}
+		}
+
+		protected virtual ErrorMessage CreateExceptionMessage(Exception error) {
+			return new ErrorMessage{
+				Message = error.Message,
+				Type = error.GetType().FullName,
+			};
 		}
 	}
 }

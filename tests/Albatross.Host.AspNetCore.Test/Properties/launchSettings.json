@@ -3,11 +3,11 @@
     "Program": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:6666",
+      "launchUrl": "http://localhost:55555",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:6666"
+      "applicationUrl": "http://localhost:55555"
     }
   }
 }
