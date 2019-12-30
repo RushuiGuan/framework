@@ -7,6 +7,7 @@ namespace Albatross.Repository.Core {
 	public interface IRepository<T> {
 		IDbSession DbSession { get; }
 		IQueryable<T> Items { get; }
+		IEnumerable<T> Local { get; }
 		void Add(T t);
 		void AddRange(IEnumerable<T> items);
 
