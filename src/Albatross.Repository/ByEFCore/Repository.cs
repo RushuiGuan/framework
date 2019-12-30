@@ -1,15 +1,14 @@
 ﻿using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Albatross.Repository.ByEFCore {
 	public class Repository<T> : IRepository<T> where T : class {
 		protected DbSet<T> dbSet;
 		public virtual IQueryable<T> Items => dbSet;
+		public IEnumerable<T> Local => dbSet.Local;
+
 		public IDbSession DbSession { get; private set; }
 
 		public Repository(IDbSession session) {
