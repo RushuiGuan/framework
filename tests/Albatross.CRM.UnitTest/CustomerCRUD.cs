@@ -16,6 +16,9 @@ namespace Albatross.Repository.UnitTest {
 			this.host = host;
 		}
 
+		User Admin { get; } = new User(1, "admin");
+		User User { get; } = new User(2, "user");
+
 		const string CustomerName = nameof(CustomerCRUD);
 
 		private Task RemoveCustomer(string name) {
@@ -34,21 +37,23 @@ namespace Albatross.Repository.UnitTest {
 				return scope.Get<IMapperFactory>().Map<Customer, msg.Customer>(model);
 			}
 		}
-		private async Task<CRM.Messages.Customer> CreateCustomer(TestScope scope, string name, int user) {
+		private async Task<CRM.Messages.Customer> CreateCustomer(TestScope scope, string name, User user) {
 			CRM.Model.Customer model;
 			var customers = scope.Get<ICustomerRepository>();
-			var dto = new CRM.Messages.Customer { Name = name, Company = name,};
-			model = new CRM.Model.Customer(dto, user);
+			var products = scope.Get<IProductRepository>();
+			var dto = new CRM.Messages.Customer { Name = name, Company = name, };
+			model = new CRM.Model.Customer(dto, user, products);
 			customers.Add(model);
 			await customers.SaveChangesAsync();
 			return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
 		}
 
-		private async Task<CRM.Messages.Customer> UpdateCustomer(TestScope scope, CRM.Messages.Customer dto, int user) {
+		private async Task<CRM.Messages.Customer> UpdateCustomer(TestScope scope, CRM.Messages.Customer dto, User user) {
 			CRM.Model.Customer model;
 			var customers = scope.Get<ICustomerRepository>();
+			var products = scope.Get<IProductRepository>();
 			model = customers.Get(dto.CustomerID);
-			model.Update(dto, user);
+			model.Update(dto, user, products, customers.DbSession.DbContext);
 			await customers.SaveChangesAsync();
 			return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
 		}
@@ -57,13 +62,12 @@ namespace Albatross.Repository.UnitTest {
 		public async Task Create() {
 			using (var scope = host.Create()) {
 				string name = "test-customer-create";
-				int user = 1;
 
-				var dto = await CreateCustomer(scope, name, user);
+				var dto = await CreateCustomer(scope, name, Admin);
 				var customers = scope.Get<ICustomerRepository>();
 				var model = customers.Get(name);
-				Assert.Equal(user, model.CreatedBy);
-				Assert.Equal(user, model.ModifiedBy);
+				Assert.Equal(Admin.UserID, model.CreatedBy.UserID);
+				Assert.Equal(Admin.UserID, model.ModifiedBy.UserID);
 
 				Assert.Equal(dto.Name, (string)model.Name);
 				Assert.True(model.Created < DateTime.UtcNow);
@@ -75,16 +79,16 @@ namespace Albatross.Repository.UnitTest {
 		public async Task Update() {
 			using (var scope = host.Create()) {
 				string name = "test-customer-update";
-				var dto = await CreateCustomer(scope, name, 1);
+				var dto = await CreateCustomer(scope, name, Admin);
 
 				dto.Name = "test-customer-update-123";
-				dto = await UpdateCustomer(scope, dto, 2);
+				dto = await UpdateCustomer(scope, dto, User);
 
 				var customers = scope.Get<ICustomerRepository>();
 				var model = customers.Get(dto.Name);
 
-				Assert.Equal(1, model.CreatedBy);
-				Assert.Equal(2, model.ModifiedBy);
+				Assert.Equal(1, model.CreatedBy.UserID);
+				Assert.Equal(2, model.ModifiedBy.UserID);
 				Assert.True(model.Modified < DateTime.UtcNow);
 				Assert.True(model.Modified > model.Created);
 			}
@@ -94,7 +98,7 @@ namespace Albatross.Repository.UnitTest {
 		public async Task Delete() {
 			using (var scope = host.Create()) {
 				string name = "test-customer-delete";
-				var dto = await CreateCustomer(scope, name, 1);
+				var dto = await CreateCustomer(scope, name, Admin);
 
 				var customers = scope.Get<ICustomerRepository>();
 				var model = customers.Get(dto.Name);

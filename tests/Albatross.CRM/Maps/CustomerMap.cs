@@ -10,7 +10,7 @@ namespace Albatross.CRM.Maps {
 
 			var propertyBuilder = builder.Property(args => args.CustomerID);
 
-			//NpgsqlPropertyBuilderExtensions.UseHiLo(propertyBuilder, CRMConstant.Hilo, CRMConstant.Schema);
+			NpgsqlPropertyBuilderExtensions.UseHiLo(propertyBuilder, CRMConstant.Hilo, CRMConstant.Schema);
 			SqlServerPropertyBuilderExtensions.UseHiLo(propertyBuilder, CRMConstant.Hilo, CRMConstant.Schema);
 
 			builder.Property(args => args.Name).HasMaxLength(CRMConstant.NameLength).IsRequired();

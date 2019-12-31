@@ -69,7 +69,10 @@ namespace Albatross.Repository.UnitTest {
 			IEnumerable<ModelDto> dtos = GetModelDtos();
 			List<Model> matched = new List<Model>();
 			List<ModelDto> dtoMatched = new List<ModelDto>();
-			models.Merge(dtos, m=>new { m.FirstName, m.LastName }, dto=> new { dto.FirstName, dto.LastName}, (dto, model)=> { matched.Add(model); dtoMatched.Add(dto); }, null, null);
+			models.Merge(dtos,
+				msg => new { msg.FirstName, msg.LastName },
+				model => new { model.FirstName, model.LastName },
+				(dto, model) => { matched.Add(model); dtoMatched.Add(dto); }, null, null);
 			Assert.Equal(2, matched.Count);
 			Assert.Equal(2, matched.First().Age);
 			Assert.Equal(3, matched.Last().Age);
@@ -82,14 +85,13 @@ namespace Albatross.Repository.UnitTest {
 		public void NotMatchedBySourceTest() {
 			IEnumerable<Model> models = GetModels();
 			IEnumerable<ModelDto> dtos = GetModelDtos();
-
-		
 			List<Model> notMatched = new List<Model>();
 
-			models.Merge(dtos, m => new { m.FirstName, m.LastName }, 
-				dto => new { dto.FirstName, dto.LastName }, 
-				null, null, src=>notMatched.Add(src));
-		
+			models.Merge(dtos, 
+				msg => new { msg.FirstName, msg.LastName },
+				model => new { model.FirstName, model.LastName },
+				null, null, src => notMatched.Add(src));
+
 			Assert.Equal(2, notMatched.Count);
 			Assert.Equal(4, notMatched.First().Age);
 			Assert.Equal(5, notMatched.Last().Age);
@@ -104,7 +106,7 @@ namespace Albatross.Repository.UnitTest {
 
 			models.Merge(dtos, m => new { m.FirstName, m.LastName },
 				dto => new { dto.FirstName, dto.LastName },
-				null, src=> notMatched.Add(src), null);
+				null, src => notMatched.Add(src), null);
 
 			Assert.Single(notMatched);
 			Assert.Equal(11, notMatched.First().Age);

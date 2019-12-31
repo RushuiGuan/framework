@@ -16,14 +16,17 @@ namespace Albatross.Repository.UnitTest {
 			this.host = host;
 		}
 
+		User Admin { get; } = new User(1, "admin");
+
 		[Fact]
 		public void TestUniqueKeyViolationException() {
 			Func<Task> func =async () => {
 				using (var scope = host.Create()) {
 					string name = "test-error-handling-unique-key-violation";
 					var repo = scope.Get<ICustomerRepository>();
-					repo.Add(new CRM.Model.Customer(new CRM.Messages.Customer { Name = name }, 1));
-					repo.Add(new CRM.Model.Customer(new CRM.Messages.Customer { Name = name }, 1));
+					var products = scope.Get<IProductRepository>();
+					repo.Add(new CRM.Model.Customer(new CRM.Messages.Customer { Name = name }, Admin, products));
+					repo.Add(new CRM.Model.Customer(new CRM.Messages.Customer { Name = name }, Admin, products));
 					await repo.SaveChangesAsync();
 				}
 			};
@@ -36,7 +39,8 @@ namespace Albatross.Repository.UnitTest {
 				using (var scope = host.Create()) {
 					string name = "test-error-handling-required-field-violation";
 					var repo = scope.Get<ICustomerRepository>();
-					var customer = new CRM.Model.Customer(new CRM.Messages.Customer { Name = name, }, 1);
+					var products = scope.Get<IProductRepository>();
+					var customer = new CRM.Model.Customer(new CRM.Messages.Customer { Name = name, }, Admin, products);
 					repo.Add(customer);
 					await repo.SaveChangesAsync();
 				}

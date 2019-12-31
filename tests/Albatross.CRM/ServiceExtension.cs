@@ -1,8 +1,5 @@
 ﻿using Albatross.CRM.Repository;
 using Albatross.Mapping.ByAutoMapper;
-using Albatross.Repository.ByEFCore;
-using Albatross.Repository.Core;
-using Albatross.Repository.Dto;
 using Albatross.Repository.PostgreSQL;
 using Albatross.Repository.Sqlite;
 using Albatross.Repository.SqlServer;
@@ -20,7 +17,6 @@ namespace Albatross.CRM {
 			services.AddAutoMapperMapping();
 			services.AddScoped<ICustomerRepository, CustomerRepository>();
 			Albatross.Mapping.Core.Extension.AddMapping(services, typeof(ServiceExtension).Assembly);
-			services.AddSingleton<IConfigMapping, ConfigMapping>();
 			return services;
 		}
 	}

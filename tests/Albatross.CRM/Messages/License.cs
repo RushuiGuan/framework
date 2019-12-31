@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Albatross.CRM.Messages {
 	public class License {
-		public int CustomerID {get;private set;}
-		public string Product {get;private set;}
-		public string Key {get;private set;}
-		public DateTime StartDate {get;private set;}
-		public DateTime EndDate {get;private set;}
+		public int CustomerID {get; set;}
+		public string Product {get; set;}
+		public string Key {get; set;}
+		public DateTime StartDate {get; set;}
+		public DateTime EndDate {get; set;}
 	}
 }

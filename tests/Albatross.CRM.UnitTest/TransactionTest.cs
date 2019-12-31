@@ -13,13 +13,16 @@ namespace Albatross.Repository.UnitTest {
 			this.host = host;
 		}
 
+		User Admin { get; } = new User(1, "admin");
+
 		[Fact]
 		public async Task Run() {
 			using (var scope = host.Create()) {
 				using (var t = scope.Get<CRMDbSession>().BeginTransaction()) {
 					string name = "customer-test-transaction";
 					var contacts = scope.Get<ICustomerRepository>();
-					contacts.Add(new CRM.Model.Customer(new CRM.Messages.Customer { Name = name, Company = name, }, 1));
+					var products = scope.Get<IProductRepository>();
+					contacts.Add(new CRM.Model.Customer(new CRM.Messages.Customer { Name = name, Company = name, }, Admin, products));
 					await contacts.DbSession.SaveChangesAsync();
 				}
 			}
