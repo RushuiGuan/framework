@@ -7,7 +7,7 @@
     <Version>1.5.33-alpha.2</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Host.Test\Albatross.Host.Test.csproj" />
