@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>1.5.33-alpha.2</Version>
+    <Version>1.5.33-alpha.3</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="appSettings.json" />
