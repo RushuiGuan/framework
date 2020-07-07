@@ -2,7 +2,7 @@ import-module app-dev
 
 $nuget_root = (Get-NugetLocal);
 
-$config = "debug";
+$config = "release";
 
 get-childitem $PSScriptRoot\src\*.csproj -r | ForEach-Object {
 	invoke-dotnetclean -csproj $_ -config $config;
