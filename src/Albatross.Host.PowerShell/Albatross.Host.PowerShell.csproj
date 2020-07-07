@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
-    <Version>1.5.33-alpha.5</Version>
+    <Version>1.5.33</Version>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
