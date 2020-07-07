@@ -12,6 +12,7 @@ namespace Albatross.Host.Utility {
 		public TextWriter Error => System.Console.Error;
 
 		public Option Options { get; }
+		public Microsoft.Extensions.Logging.ILogger logger;
 		protected IServiceProvider Provider => host.Services;
 		protected IHost host;
 
@@ -23,7 +24,12 @@ namespace Albatross.Host.Utility {
 						 .UseSerilog()
 						 .ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
 						 .Build();
+
+
+			logger = host.Services.GetRequiredService(typeof(Microsoft.Extensions.Logging.ILogger<>).MakeGenericType(this.GetType())) as Microsoft.Extensions.Logging.ILogger;
+
 			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
+
 		}
 
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) { }
