@@ -11,7 +11,6 @@ namespace Albatross.Framework.Utility {
 	public class LoggingTestOption {}
 
 	public class LoggingTest: UtilityBase<LoggingTestOption> {
-		private ILogger<LoggingTest> logger;
 
 		public LoggingTest(LoggingTestOption option):base(option) {
 		}
