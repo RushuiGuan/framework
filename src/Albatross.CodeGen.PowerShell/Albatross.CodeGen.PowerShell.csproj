@@ -13,6 +13,7 @@
     <OutputType>Library</OutputType>
     <StartupObject />
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JsonNet.PrivateSettersContractResolvers" Version="1.0.0" />

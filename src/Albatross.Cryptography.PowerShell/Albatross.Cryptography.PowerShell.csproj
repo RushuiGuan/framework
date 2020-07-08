@@ -6,6 +6,7 @@
     <StartupObject />
     <Version>1.6.0-alpha</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Cryptography\Albatross.Cryptography.csproj" />
