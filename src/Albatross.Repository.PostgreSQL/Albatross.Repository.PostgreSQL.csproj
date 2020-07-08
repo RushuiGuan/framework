@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
     <Version>1.5.33</Version>
   </PropertyGroup>
   <ItemGroup>
@@ -8,5 +10,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Repository\Albatross.Repository.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>

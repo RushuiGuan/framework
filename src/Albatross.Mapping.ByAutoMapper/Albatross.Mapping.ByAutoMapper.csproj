@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
     <Version>1.0.2</Version>
   </PropertyGroup>
   <ItemGroup>
@@ -10,5 +12,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Mapping\Albatross.Mapping.csproj" />
     <ProjectReference Include="..\Albatross.Reflection\Albatross.Reflection.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
