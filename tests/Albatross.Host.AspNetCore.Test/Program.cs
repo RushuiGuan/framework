@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Albatross.Logging;
+using System.Threading.Tasks;
 
 namespace Albatross.Host.AspNetCore.Test {
 	public class Program {

@@ -24,8 +24,9 @@ namespace Albatross.Host.AspNetCore {
 				});
 		}
 
-		public async Task RunAsync(params string[] args) {
+		public virtual async Task RunAsync(params string[] args) {
 			using var setup = new SetupSerilog();
+			setup.UseConfigFile("serilog.json");
 			await Create(args).Build().RunAsync();
 		}
 	}
