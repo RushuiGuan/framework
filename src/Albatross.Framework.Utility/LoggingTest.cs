@@ -17,7 +17,9 @@ namespace Albatross.Framework.Utility {
 
 
 		public override Task<int> RunAsync() {
-			logger.LogInformation("test");
+			for (int i = 0; i < 10; i++) {
+				logger.LogInformation("test: {value}", i);
+			}
 			return Task.FromResult(1);
 		}
 	}
