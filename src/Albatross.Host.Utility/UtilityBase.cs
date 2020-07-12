@@ -1,12 +1,19 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Albatross.Logging;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace Albatross.Host.Utility {
+	/// <summary>
+	/// The utility base acts as the bootstrapper for dependency injections.
+	/// </summary>
+	/// <typeparam name="Option"></typeparam>
 	public abstract class UtilityBase<Option> : IUtility<Option> {
 		public TextWriter Out => System.Console.Out;
 		public TextWriter Error => System.Console.Error;
@@ -16,9 +23,14 @@ namespace Albatross.Host.Utility {
 		protected IServiceProvider Provider => host.Services;
 		protected IHost host;
 
+		protected void SetupLogging(Option option) {
+			new SetupSerilog().UseConsoleAndFile(LogEventLevel.Information, "out.log");
+		}
+
+
 		public UtilityBase(Option option) {
 			this.Options = option;
-
+			SetupLogging(option);
 			host = Microsoft.Extensions.Hosting.Host
 						 .CreateDefaultBuilder()
 						 .UseSerilog()
@@ -38,6 +50,7 @@ namespace Albatross.Host.Utility {
 
 		public void Dispose() {
 			this.host.Dispose();
+			Log.CloseAndFlush();
 		}
 	}
 }

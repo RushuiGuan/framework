@@ -93,7 +93,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logging", "logging", "{0D48
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Logging", "src\Albatross.Logging\Albatross.Logging.csproj", "{142986D3-AB94-49BD-AF10-F64E736BEF1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Mapping.ByAutoMapper", "src\Albatross.Mapping.ByAutoMapper\Albatross.Mapping.ByAutoMapper.csproj", "{EDC6F976-9E82-4CCF-81FC-8F7719CBB71A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Mapping.ByAutoMapper", "src\Albatross.Mapping.ByAutoMapper\Albatross.Mapping.ByAutoMapper.csproj", "{EDC6F976-9E82-4CCF-81FC-8F7719CBB71A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

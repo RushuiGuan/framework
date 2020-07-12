@@ -11,15 +11,10 @@ namespace Albatross.Framework.Utility {
 	public class LoggingTestOption {}
 
 	public class LoggingTest: UtilityBase<LoggingTestOption> {
-		private ILogger<LoggingTest> logger;
 
 		public LoggingTest(LoggingTestOption option):base(option) {
 		}
 
-		public override void Init(IConfiguration configuration, IServiceProvider provider) {
-			base.Init(configuration, provider);
-			logger = provider.GetService<ILogger<LoggingTest>>();
-		}
 
 		public override Task<int> RunAsync() {
 			logger.LogInformation("test");
