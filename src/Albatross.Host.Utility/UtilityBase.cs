@@ -23,7 +23,7 @@ namespace Albatross.Host.Utility {
 		protected IServiceProvider Provider => host.Services;
 		protected IHost host;
 
-		protected void SetupLogging(Option option) {
+		protected virtual void SetupLogging(Option option) {
 			new SetupSerilog().UseConsoleAndFile(LogEventLevel.Debug, "out.log");
 		}
 
