@@ -22,8 +22,9 @@ namespace Albatross.Host.Utility {
 		static async Task<int> RunAsync(object opt, Dictionary<Type, Type> dict) {
 			Type optionType = opt.GetType();
 			Type jobType = dict[optionType];
-			IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt);
-			return await utility.RunAsync();
+			using (IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt)) {
+				return await utility.RunAsync();
+			}
 		}
 	}
 }

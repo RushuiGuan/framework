@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 using System;
 using System.IO;
@@ -24,7 +24,7 @@ namespace Albatross.Host.Utility {
 		protected IHost host;
 
 		protected void SetupLogging(Option option) {
-			new SetupSerilog().UseConsoleAndFile(LogEventLevel.Information, "out.log");
+			new SetupSerilog().UseConsoleAndFile(LogEventLevel.Debug, "out.log");
 		}
 
 
@@ -37,11 +37,9 @@ namespace Albatross.Host.Utility {
 						 .ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
 						 .Build();
 
-
 			logger = host.Services.GetRequiredService(typeof(Microsoft.Extensions.Logging.ILogger<>).MakeGenericType(this.GetType())) as Microsoft.Extensions.Logging.ILogger;
-
+			logger.LogInformation("Logging initialized for {type} instance", this.GetType().Name);
 			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
-
 		}
 
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) { }
@@ -49,7 +47,9 @@ namespace Albatross.Host.Utility {
 		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
 
 		public void Dispose() {
+			logger.LogDebug("Disposing UtilityBase");
 			this.host.Dispose();
+			logger.LogDebug("CloseAndFlush Logging");
 			Log.CloseAndFlush();
 		}
 	}
