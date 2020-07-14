@@ -49,7 +49,6 @@ namespace Albatross.Host.AspNetCore {
 					}
 				};
 			}
-			if (string.IsNullOrEmpty(Audience)) { Audience = programSetting.App; }
 		}
 	}
 }
