@@ -123,8 +123,8 @@ namespace Albatross.Host.AspNetCore {
 			//app.UseHttpsRedirection();
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions});
 			app.UseRouting();
-			app.UseAuthentication().UseAuthorization();
 			app.UseCors();
+			app.UseAuthentication().UseAuthorization();
 			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			UseSwagger(app);
 			UseSpa(app);
