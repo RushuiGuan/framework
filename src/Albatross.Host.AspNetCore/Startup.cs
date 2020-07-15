@@ -39,8 +39,12 @@ namespace Albatross.Host.AspNetCore {
 			AuthorizationSetting = new GetAuthorizationSetting(Configuration).Get();
 		}
 
-		protected virtual void ConfigureCors(CorsPolicyBuilder builder) { }
-
+		protected virtual void ConfigureCors(CorsPolicyBuilder builder) {
+			builder.AllowAnyHeader();
+			builder.AllowAnyMethod();
+			builder.AllowCredentials();
+			builder.SetIsOriginAllowed(args => true);
+		}
 
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
