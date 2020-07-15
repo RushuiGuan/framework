@@ -96,18 +96,6 @@ namespace Albatross.Host.AspNetCore {
 					options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
 						ValidateIssuerSigningKey = false,
 					};
-					if (!string.IsNullOrEmpty(SecuredSignalrHubPath)) {
-						options.Events = new JwtBearerEvents { 
-							OnMessageReceived = context => {
-								var accessToken = context.Request.Query["access_token"];
-								var path = context.HttpContext.Request.Path;
-								if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments(SecuredSignalrHubPath)) {
-									context.Token = accessToken;
-								}
-								return Task.CompletedTask;
-							}
-						};
-					}
 				});
 			return services;
 		}
@@ -117,11 +105,6 @@ namespace Albatross.Host.AspNetCore {
 			services.AddSpaStaticFiles(cfg => cfg.RootPath = DefaultApp_RootPath);
 			return services;
 		}
-
-		/// <summary>
-		/// The root path for the secured signalr hub.  For example "/hub/secured" </param>
-		/// </summary>
-		public virtual string SecuredSignalrHubPath { get=>null; }
 
 		public virtual void ConfigureServices(IServiceCollection services) {
 			services.AddControllers();
