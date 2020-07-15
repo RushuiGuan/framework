@@ -1,12 +1,14 @@
 ﻿using Albatross.Authentication;
 using Albatross.Config;
 using Albatross.Config.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -35,17 +37,10 @@ namespace Albatross.Host.AspNetCore {
 			Configuration = configuration;
 			ProgramSetting = new GetProgramSetting(configuration).Get();
 			AuthorizationSetting = new GetAuthorizationSetting(Configuration).Get();
-			AuthorizationSetting.SetDefault(ProgramSetting);
 		}
 
-		protected virtual void ConfigureCors(CorsPolicyBuilder builder) {
-			builder.AllowAnyHeader();
-			builder.AllowAnyMethod();
-			builder.AllowCredentials();
-			builder.SetIsOriginAllowed(args => true);
-		}
+		protected virtual void ConfigureCors(CorsPolicyBuilder builder) { }
 
-		public virtual void AddCustomServices(IServiceCollection services) { }
 
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
@@ -80,18 +75,36 @@ namespace Albatross.Host.AspNetCore {
 
 		#region authorization
 		protected virtual void ConfigureAuthorization(AuthorizationOptions options) { }
-		public virtual IServiceCollection AddIdentityServer(IServiceCollection services) {
+		/// <summary>
+		/// special treatment is needed for access token transmitted by signalr web sockets.  It is sent using a query string.  <seealso cref="https://docs.microsoft.com/en-us/aspnet/core/signalr/authn-and-authz?view=aspnetcore-3.1"/>
+		/// </summary>
+		/// <param name="services"></param>
+		/// <returns></returns>
+		public virtual IServiceCollection AddAccessControl(IServiceCollection services) {
 			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
 			services.AddAuthorization(ConfigureAuthorization);
-			services.AddAuthentication(BearerAuthenticationScheme).AddJwtBearer(BearerAuthenticationScheme, options => {
-				options.Authority = AuthorizationSetting.Authority;
-				options.Audience = AuthorizationSetting.Audience;
-				options.RequireHttpsMetadata = false;
-				options.IncludeErrorDetails = true;
-				options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
-					ValidateIssuerSigningKey = false,
-				};
-			});
+			services.AddAuthentication(BearerAuthenticationScheme)
+				.AddJwtBearer(BearerAuthenticationScheme, options => {
+					options.Authority = AuthorizationSetting.Authority;
+					options.Audience = AuthorizationSetting.Audience;
+					options.RequireHttpsMetadata = false;
+					options.IncludeErrorDetails = true;
+					options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
+						ValidateIssuerSigningKey = false,
+					};
+					if (!string.IsNullOrEmpty(SecuredSignalrHubPath)) {
+						options.Events = new JwtBearerEvents { 
+							OnMessageReceived = context => {
+								var accessToken = context.Request.Query["access_token"];
+								var path = context.HttpContext.Request.Path;
+								if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments(SecuredSignalrHubPath)) {
+									context.Token = accessToken;
+								}
+								return Task.CompletedTask;
+							}
+						};
+					}
+				});
 			return services;
 		}
 		#endregion
@@ -101,7 +114,12 @@ namespace Albatross.Host.AspNetCore {
 			return services;
 		}
 
-		public void ConfigureServices(IServiceCollection services) {
+		/// <summary>
+		/// The root path for the secured signalr hub.  For example "/hub/secured" </param>
+		/// </summary>
+		public virtual string SecuredSignalrHubPath { get=>null; }
+
+		public virtual void ConfigureServices(IServiceCollection services) {
 			services.AddControllers();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
@@ -110,8 +128,7 @@ namespace Albatross.Host.AspNetCore {
 			services.AddMvc();
 			AddSwagger(services);
 			AddSpa(services);
-			AddIdentityServer(services);
-			AddCustomServices(services);
+			AddAccessControl(services);
 		}
 
 		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ProgramSetting program, ILogger<Startup> logger) {

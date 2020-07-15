@@ -38,17 +38,5 @@ namespace Albatross.Host.AspNetCore {
 				throw new ConfigurationException(this.GetType(), nameof(Authority));
 			}
 		}
-
-		public void SetDefault(ProgramSetting programSetting) {
-			if (string.IsNullOrEmpty(SwaggerClientId)) { SwaggerClientId = $"{programSetting.App}-swagger"; }
-			if (SwaggerScopes?.Length == null || SwaggerScopes.Length == 0) {
-				SwaggerScopes = new SwaggerScope[] { 
-					new SwaggerScope{ 
-						 Name = $"{programSetting.App}-default",
-						 Description = $"default scope - {programSetting.App}",
-					}
-				};
-			}
-		}
 	}
 }

@@ -7,9 +7,11 @@ namespace Albatross.WebClient.TestApi {
 		public TestApiStartup(IConfiguration configuration) : base(configuration) {
 		}
 
-		public override void AddCustomServices(IServiceCollection services) {
-			base.AddCustomServices(services);
+
+		public override void ConfigureServices(IServiceCollection services) {
+			base.ConfigureServices(services);
 			services.AddScoped<DatabaseSetting>(provider => this.Configuration.GetSection(DatabaseSetting.Key).Get<DatabaseSetting>());
+
 		}
 	}
 }
