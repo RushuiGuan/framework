@@ -29,15 +29,13 @@ namespace Albatross.Host.Worker {
 					hostBuilder.UseSystemd();
 					break;
 			}
+
 			hostBuilder.ConfigureAppConfiguration(builder => {
 					builder.Sources.Clear();
 					builder.AddConfiguration(configuration);
-				})
-				.ConfigureServices((hostContext, services) => {
-					services.AddHostedService<T>();
+				}).ConfigureServices((hostContext, services) => {
 					ConfigureServices(services);
 				});
-
 			return hostBuilder;
 		}
 		
