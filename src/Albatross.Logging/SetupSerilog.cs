@@ -10,15 +10,19 @@ namespace Albatross.Logging {
 
 
 		public void UseConfigFile(string name) {
+			string basePath = System.IO.Directory.GetCurrentDirectory();
+
 			var configuration = new ConfigurationBuilder()
-				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
-				.AddJsonFile(name, true, true)
+				.SetBasePath(basePath)
+				.AddJsonFile(name, false, true)
 				.AddEnvironmentVariables()
 				.Build();
 
 			Log.Logger = new LoggerConfiguration()
 				.ReadFrom.Configuration(configuration)
 				.CreateLogger();
+
+			Log.Information("Logger Created at root path {basePath}", basePath);
 		}
 
 		public void UseConsoleAndFile(LogEventLevel loggingLevel, string fileName) {
@@ -31,6 +35,7 @@ namespace Albatross.Logging {
 		}
 
 		public void Dispose() {
+			Log.Information("Shutting down logger");
 			Log.CloseAndFlush();
 		}
 	}
