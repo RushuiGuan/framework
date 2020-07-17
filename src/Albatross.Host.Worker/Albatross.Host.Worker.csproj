@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <OutputType>EXE</OutputType>
+        <OutputType>Library</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <Version>1.0.1-alpha.0</Version>

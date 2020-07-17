@@ -26,16 +26,18 @@ namespace Albatross.Logging {
 		}
 
 		public void UseConsoleAndFile(LogEventLevel loggingLevel, string fileName) {
-			Log.Logger = new LoggerConfiguration()
+			var cfg = new LoggerConfiguration()
 				.MinimumLevel.ControlledBy(new LoggingLevelSwitch(loggingLevel))
-				.WriteTo.Console(outputTemplate: DefaultOutputTemplate)
-				.WriteTo.File(fileName, outputTemplate:DefaultOutputTemplate)
-				.Enrich.FromLogContext()
-				.CreateLogger();
+				.WriteTo.Console(outputTemplate: DefaultOutputTemplate);
+
+			if (!string.IsNullOrWhiteSpace(fileName)) { cfg.WriteTo.File(fileName, outputTemplate: DefaultOutputTemplate); }
+			cfg.Enrich.FromLogContext();
+			Log.Logger = cfg.CreateLogger();
+			Log.Information("Logger created"); ;
 		}
 
 		public void Dispose() {
-			Log.Information("Shutting down logger");
+			Log.Information("Logger Closing");
 			Log.CloseAndFlush();
 		}
 	}

@@ -23,20 +23,21 @@ namespace Albatross.Host.Worker {
 				.UseSerilog();
 			
 			var setting = new GetProgramSetting(configuration).Get();
-			
-			//switch (setting.ServiceManager) {
-			//	case ProgramSetting.WindowsServiceManager:
-			//		hostBuilder.UseWindowsService();
-			//		break;
-			//	case ProgramSetting.SystemDServiceManager:
-			//		hostBuilder.UseSystemd();
-			//		break;
-			//}
+
+			switch (setting.ServiceManager) {
+				case ProgramSetting.WindowsServiceManager:
+					hostBuilder.UseWindowsService();
+					break;
+				case ProgramSetting.SystemDServiceManager:
+					hostBuilder.UseSystemd();
+					break;
+			}
 
 			hostBuilder.ConfigureAppConfiguration(builder => {
 					builder.Sources.Clear();
 					builder.AddConfiguration(configuration);
 				}).ConfigureServices((hostContext, services) => {
+					services.AddHostedService<T>();
 					ConfigureServices(services);
 				});
 			return hostBuilder;
@@ -46,6 +47,7 @@ namespace Albatross.Host.Worker {
 		public virtual async Task RunAsync(params string[] args) {
 			using var setup = new SetupSerilog();
 			setup.UseConfigFile("serilog.json");
+			//setup.UseConsoleAndFile(Serilog.Events.LogEventLevel.Information, null);
 			await Create(args).Build().RunAsync();
 		}
 
@@ -54,6 +56,7 @@ namespace Albatross.Host.Worker {
 		}
 	}
 
+	/*
 	class Program {
 		static Task Main(string[] args) {
 			return new ServiceHost<MyHostedService>().RunAsync(args);
@@ -63,7 +66,7 @@ namespace Albatross.Host.Worker {
 	public class MyHostedService : BackgroundService {
 		private readonly ILogger<MyHostedService> logger;
 
-		public MyHostedService(ILogger<MyHostedService> logger, ProgramSetting programSetting) {
+		public MyHostedService(ILogger<MyHostedService> logger, ProgramSetting programSetting)  {
 			this.logger = logger;
 			logger.LogInformation("{class} instance created", nameof(MyHostedService));
 			logger.LogInformation("Running {program}, environment: {environment}, service manager: {manager}", programSetting.App, programSetting.Environment, programSetting.ServiceManager);
@@ -79,4 +82,5 @@ namespace Albatross.Host.Worker {
 			}
 		}
 	}
+	*/
 }
