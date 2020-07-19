@@ -6,7 +6,7 @@
     <Version>1.6.0-alpha</Version>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Albatross.Host.AspNetCore\Albatross.Host.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
     <ProjectReference Include="..\Albatross.WebClient.IntegrationTest.Messages\Albatross.WebClient.IntegrationTest.Messages.csproj" />
   </ItemGroup>
 </Project>

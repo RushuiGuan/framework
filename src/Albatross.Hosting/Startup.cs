@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using Serilog;
 using System;
 using System.Linq;
 using System.Net;
@@ -27,8 +28,6 @@ namespace Albatross.Hosting {
 		public const string DefaultApp_RootPath = "wwwroot";
 		public const string DefaultApp_BaseHref = "";
 		public const string BearerAuthenticationScheme = "Bearer";
-
-		//private readonly ILogger<Startup> logger;
 
 		public IConfiguration Configuration { get; }
 		protected AuthorizationSetting AuthorizationSetting { get; }
@@ -44,9 +43,8 @@ namespace Albatross.Hosting {
 		public virtual bool WebApi { get; } = true;
 
 		public Startup(IConfiguration configuration) {
-			// logger.LogInformation("Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}", Secured, Spa, Swagger, Grpc, WebApi);
+			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}", Secured, Spa, Swagger, Grpc, WebApi);
 			Configuration = configuration;
-			//this.logger = logger;
 			ProgramSetting = new GetProgramSetting(configuration).Get();
 			if (Secured && WebApi) {
 				AuthorizationSetting = new GetAuthorizationSetting(Configuration).Get();

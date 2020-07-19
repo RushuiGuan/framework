@@ -1,9 +1,11 @@
 ﻿using Albatross.Config;
+using Albatross.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Albatross.WebClient.TestApi {
-	public class TestApiStartup : Albatross.Host.AspNetCore.Startup {
+	public class TestApiStartup : Startup {
 		public TestApiStartup(IConfiguration configuration) : base(configuration) {
 		}
 
