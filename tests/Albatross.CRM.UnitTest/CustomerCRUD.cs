@@ -2,7 +2,7 @@
 using Albatross.Mapping.Core;
 using System.Threading.Tasks;
 using Xunit;
-using Albatross.Host.Test;
+using Albatross.Hosting.Test;
 using System;
 using Albatross.CRM.Repository;
 using Albatross.CRM.Model;

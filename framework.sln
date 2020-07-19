@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config.UnitTest",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "crypto", "crypto", "{E18EB25B-3C4E-42C6-8707-C72F870CFA9F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "host", "host", "{F7268AF8-35EC-4301-814F-B204590EABCA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosting", "hosting", "{F7268AF8-35EC-4301-814F-B204590EABCA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mapping", "mapping", "{1BC84F14-358A-4F92-AE6C-ABDB9EA7B4C0}"
 EndProject
@@ -33,9 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Cryptography.Unit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Cryptography.PowerShell", "src\Albatross.Cryptography.PowerShell\Albatross.Cryptography.PowerShell.csproj", "{9D34ACE2-7F4C-48C8-AA1C-1BFF920E1BE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Host.PowerShell", "src\Albatross.Host.PowerShell\Albatross.Host.PowerShell.csproj", "{68874C53-A389-4C0B-B3EF-F9A2D249C0EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.PowerShell", "src\Albatross.Hosting.PowerShell\Albatross.Hosting.PowerShell.csproj", "{68874C53-A389-4C0B-B3EF-F9A2D249C0EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Host.UnitTest", "tests\Albatross.Host.UnitTest\Albatross.Host.UnitTest.csproj", "{E0C9D7C3-ACE6-4FAE-AFA8-94F1AA643AED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.UnitTest", "tests\Albatross.Hosting.UnitTest\Albatross.Hosting.UnitTest.csproj", "{E0C9D7C3-ACE6-4FAE-AFA8-94F1AA643AED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Mapping", "src\Albatross.Mapping\Albatross.Mapping.csproj", "{CA0F5536-7143-417B-AC86-341DE7E90B77}"
 EndProject
@@ -73,15 +73,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository.Postgr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository.SqlServer", "src\Albatross.Repository.SqlServer\Albatross.Repository.SqlServer.csproj", "{F126450A-8230-40E9-80D0-5102D592D4FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Test", "tests\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj", "{9B93E040-C17C-445A-9716-E4BB1E9139DF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Host.Utility", "src\Albatross.Host.Utility\Albatross.Host.Utility.csproj", "{A6153010-3622-46C3-9C20-1149F3620BF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Utility", "src\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj", "{A6153010-3622-46C3-9C20-1149F3620BF7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utility", "utility", "{5F2DB5AE-2C09-4269-BF37-8852C5CA6FCC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Framework.Utility", "src\Albatross.Framework.Utility\Albatross.Framework.Utility.csproj", "{3D3F7457-25C3-4327-902F-23AEF3D44F07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Host.Test", "src\Albatross.Host.Test\Albatross.Host.Test.csproj", "{1A6BDD6F-B306-4AFD-BCAA-14708BE36A7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Test", "src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj", "{1A6BDD6F-B306-4AFD-BCAA-14708BE36A7B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CRM", "tests\Albatross.CRM\Albatross.CRM.csproj", "{2CEA69B0-E609-4C52-95CE-262CC5A11C9D}"
 EndProject
@@ -417,18 +415,6 @@ Global
 		{F126450A-8230-40E9-80D0-5102D592D4FB}.Release|x64.Build.0 = Release|Any CPU
 		{F126450A-8230-40E9-80D0-5102D592D4FB}.Release|x86.ActiveCfg = Release|Any CPU
 		{F126450A-8230-40E9-80D0-5102D592D4FB}.Release|x86.Build.0 = Release|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Debug|x64.Build.0 = Debug|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Debug|x86.Build.0 = Debug|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Release|x64.ActiveCfg = Release|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Release|x64.Build.0 = Release|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Release|x86.ActiveCfg = Release|Any CPU
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF}.Release|x86.Build.0 = Release|Any CPU
 		{A6153010-3622-46C3-9C20-1149F3620BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6153010-3622-46C3-9C20-1149F3620BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6153010-3622-46C3-9C20-1149F3620BF7}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -556,7 +542,6 @@ Global
 		{45AB1C1E-5F3F-4CCA-84B4-1928E19BC827} = {0D0A8505-9722-46F1-A6C1-C7D61BDFED07}
 		{9AFC6C12-1D2A-4CBB-B83A-64E145A21498} = {0D0A8505-9722-46F1-A6C1-C7D61BDFED07}
 		{F126450A-8230-40E9-80D0-5102D592D4FB} = {0D0A8505-9722-46F1-A6C1-C7D61BDFED07}
-		{9B93E040-C17C-445A-9716-E4BB1E9139DF} = {F7268AF8-35EC-4301-814F-B204590EABCA}
 		{A6153010-3622-46C3-9C20-1149F3620BF7} = {F7268AF8-35EC-4301-814F-B204590EABCA}
 		{3D3F7457-25C3-4327-902F-23AEF3D44F07} = {5F2DB5AE-2C09-4269-BF37-8852C5CA6FCC}
 		{1A6BDD6F-B306-4AFD-BCAA-14708BE36A7B} = {F7268AF8-35EC-4301-814F-B204590EABCA}

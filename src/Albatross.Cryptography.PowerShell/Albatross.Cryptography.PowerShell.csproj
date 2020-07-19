@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Cryptography\Albatross.Cryptography.csproj" />
-    <ProjectReference Include="..\Albatross.Host.PowerShell\Albatross.Host.PowerShell.csproj" />
+    <ProjectReference Include="..\Albatross.Hosting.PowerShell\Albatross.Hosting.PowerShell.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">

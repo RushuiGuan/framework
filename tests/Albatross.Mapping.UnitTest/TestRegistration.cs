@@ -1,4 +1,4 @@
-﻿using Albatross.Host.Test;
+﻿using Albatross.Hosting.Test;
 using Albatross.Mapping.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +20,7 @@ namespace Albatross.Mapping.UnitTest {
 			this.host = host;
 		}
 
-		public class MyTestHost : Albatross.Host.Test.TestHost {
+		public class MyTestHost : Albatross.Hosting.Test.TestHost {
 			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 				base.RegisterServices(configuration, services);
 				services.AddMapping(this.GetType().Assembly);

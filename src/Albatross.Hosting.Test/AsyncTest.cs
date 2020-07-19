@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Host.Test {
+namespace Albatross.Hosting.Test {
 	public class AsyncTest {
 		public interface ITestDisposable : IDisposable {
 			void Run();

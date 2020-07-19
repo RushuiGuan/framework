@@ -1,4 +1,4 @@
-﻿using Albatross.Host.Test;
+﻿using Albatross.Hosting.Test;
 using Albatross.Repository.ByEFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

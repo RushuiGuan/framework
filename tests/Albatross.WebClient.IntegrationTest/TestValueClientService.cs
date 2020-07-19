@@ -1,4 +1,4 @@
-﻿using Albatross.Host.Test;
+﻿using Albatross.Hosting.Test;
 using Albatross.WebClient.IntegrationTest.Messages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

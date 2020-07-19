@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Albatross.Host.Test {
+namespace Albatross.Hosting.Test {
 	public class GetCurrentTestUser : IGetCurrentUser {
 		public string Provider { get; private set; }
 		string account;

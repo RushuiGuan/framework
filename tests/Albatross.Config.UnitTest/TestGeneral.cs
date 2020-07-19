@@ -1,5 +1,5 @@
 using Albatross.Config.Core;
-using Albatross.Host.Test;
+using Albatross.Hosting.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;

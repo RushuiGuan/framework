@@ -33,7 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
-    <ProjectReference Include="..\..\src\Albatross.Host.Test\Albatross.Host.Test.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
     <ProjectReference Include="..\Albatross.WebClient.IntegrationTest.Messages\Albatross.WebClient.IntegrationTest.Messages.csproj" />
     <ProjectReference Include="..\..\src\Albatross.WebClient\Albatross.WebClient.csproj" />
     <ProjectReference Include="..\Albatross.WebClient.TestApi\Albatross.WebClient.TestApi.csproj" />

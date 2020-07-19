@@ -1,4 +1,4 @@
-﻿using Albatross.Host.Test;
+﻿using Albatross.Hosting.Test;
 using IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

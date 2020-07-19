@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -9,7 +9,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Albatross.Host.Utility\Albatross.Host.Utility.csproj" />
+    <ProjectReference Include="..\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">

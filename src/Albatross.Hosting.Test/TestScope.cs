@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Albatross.Host.Test {
+namespace Albatross.Hosting.Test {
     public class TestScope : IDisposable {
         public IServiceScope scope{ get;}
 

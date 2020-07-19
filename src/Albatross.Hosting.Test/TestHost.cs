@@ -6,7 +6,7 @@ using System;
 using Albatross.Logging;
 using System.Threading.Tasks;
 
-namespace Albatross.Host.Test {
+namespace Albatross.Hosting.Test {
 	public class TestHost : IDisposable {
 		protected IHost host;
 		public IServiceProvider Provider => this.host.Services;
