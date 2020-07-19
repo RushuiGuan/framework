@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:63109/",
-      "sslPort": 44362
+      "applicationUrl": "http://localhost:63111/",
+      "sslPort": 44395
     }
   },
   "profiles": {
@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Albatross.Host.AspNetCore": {
+    "Albatross.Hosting": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
