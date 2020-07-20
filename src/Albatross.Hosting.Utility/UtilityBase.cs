@@ -9,7 +9,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Albatross.Host.Utility {
+namespace Albatross.Hosting.Utility {
 	/// <summary>
 	/// The utility base acts as the bootstrapper for dependency injections.
 	/// </summary>

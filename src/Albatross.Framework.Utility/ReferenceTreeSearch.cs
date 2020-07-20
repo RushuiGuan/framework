@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using CommandLine;
-using Albatross.Host.Utility;
+using Albatross.Hosting.Utility;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;

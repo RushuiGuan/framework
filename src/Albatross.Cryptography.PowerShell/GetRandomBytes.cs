@@ -1,4 +1,4 @@
-﻿using Albatross.Host.PowerShell;
+﻿using Albatross.Hosting.PowerShell;
 using System;
 using System.Management.Automation;
 

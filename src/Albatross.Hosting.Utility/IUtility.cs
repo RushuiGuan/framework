@@ -1,11 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Albatross.Host.Utility {
+namespace Albatross.Hosting.Utility {
 	public interface IUtility : IDisposable {
 		Task<int> RunAsync();
 		TextWriter Out { get; }

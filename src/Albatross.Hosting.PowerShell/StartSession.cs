@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Albatross.Host.PowerShell {
+namespace Albatross.Hosting.PowerShell {
 	public class StartSession {
 	}
 }

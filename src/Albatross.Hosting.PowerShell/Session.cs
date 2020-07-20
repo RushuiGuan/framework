@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Albatross.Host.PowerShell {
+namespace Albatross.Hosting.PowerShell {
 	public class Session {
 		IHost host;
 		

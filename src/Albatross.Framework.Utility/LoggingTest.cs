@@ -1,4 +1,4 @@
-﻿using Albatross.Host.Utility;
+﻿using Albatross.Hosting.Utility;
 using CommandLine;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
