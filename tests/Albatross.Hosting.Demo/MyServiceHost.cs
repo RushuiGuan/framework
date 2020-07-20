@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,9 +13,14 @@ namespace Albatross.Hosting.Test {
 		}
 
 		protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
-			while (true) {
-				await Task.Delay(1000, stoppingToken);
-				stoppingToken.ThrowIfCancellationRequested();
+			try {
+				while (true) {
+					await Task.Delay(1000, stoppingToken);
+					stoppingToken.ThrowIfCancellationRequested();
+				}
+			} catch (OperationCanceledException) {
+				logger.LogInformation("Shutting down {service}", this.GetType().Name);
+				throw;
 			}
 		}
 	}

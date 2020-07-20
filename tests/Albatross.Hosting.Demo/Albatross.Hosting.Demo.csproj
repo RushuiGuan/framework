@@ -2,8 +2,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject></StartupObject>
-    <AssemblyName>Albatross.Hosting.Test</AssemblyName>
+    <AssemblyName>Albatross.Hosting.Sample</AssemblyName>
     <Version>1.6.0-alpha</Version>
+    <RootNamespace>Albatross.Hosting.Sample</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />

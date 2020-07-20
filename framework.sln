@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Cryptography.Powe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.PowerShell", "src\Albatross.Hosting.PowerShell\Albatross.Hosting.PowerShell.csproj", "{68874C53-A389-4C0B-B3EF-F9A2D249C0EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.UnitTest", "tests\Albatross.Hosting.UnitTest\Albatross.Hosting.UnitTest.csproj", "{E0C9D7C3-ACE6-4FAE-AFA8-94F1AA643AED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Demo", "tests\Albatross.Hosting.UnitTest\Albatross.Hosting.Demo.csproj", "{E0C9D7C3-ACE6-4FAE-AFA8-94F1AA643AED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Mapping", "src\Albatross.Mapping\Albatross.Mapping.csproj", "{CA0F5536-7143-417B-AC86-341DE7E90B77}"
 EndProject
