@@ -16,8 +16,8 @@ namespace Albatross.Repository.UnitTest {
 			this.host = host;
 		}
 
-		User Admin { get; } = new User(1, "admin");
-		User User { get; } = new User(2, "user");
+		string Admin = "admin";
+		string User = "user";
 
 		const string CustomerName = nameof(CustomerCRUD);
 
@@ -37,7 +37,7 @@ namespace Albatross.Repository.UnitTest {
 				return scope.Get<IMapperFactory>().Map<Customer, msg.Customer>(model);
 			}
 		}
-		private async Task<CRM.Messages.Customer> CreateCustomer(TestScope scope, string name, User user) {
+		private async Task<CRM.Messages.Customer> CreateCustomer(TestScope scope, string name, string user) {
 			CRM.Model.Customer model;
 			var customers = scope.Get<ICustomerRepository>();
 			var products = scope.Get<IProductRepository>();
@@ -48,7 +48,7 @@ namespace Albatross.Repository.UnitTest {
 			return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
 		}
 
-		private async Task<CRM.Messages.Customer> UpdateCustomer(TestScope scope, CRM.Messages.Customer dto, User user) {
+		private async Task<CRM.Messages.Customer> UpdateCustomer(TestScope scope, CRM.Messages.Customer dto, string user) {
 			CRM.Model.Customer model;
 			var customers = scope.Get<ICustomerRepository>();
 			var products = scope.Get<IProductRepository>();
@@ -66,8 +66,8 @@ namespace Albatross.Repository.UnitTest {
 				var dto = await CreateCustomer(scope, name, Admin);
 				var customers = scope.Get<ICustomerRepository>();
 				var model = customers.Get(name);
-				Assert.Equal(Admin.UserID, model.CreatedBy.UserID);
-				Assert.Equal(Admin.UserID, model.ModifiedBy.UserID);
+				Assert.Equal(Admin, model.CreatedBy);
+				Assert.Equal(Admin, model.ModifiedBy);
 
 				Assert.Equal(dto.Name, (string)model.Name);
 				Assert.True(model.CreatedUTC < DateTime.UtcNow);
@@ -87,8 +87,8 @@ namespace Albatross.Repository.UnitTest {
 				var customers = scope.Get<ICustomerRepository>();
 				var model = customers.Get(dto.Name);
 
-				Assert.Equal(1, model.CreatedBy.UserID);
-				Assert.Equal(2, model.ModifiedBy.UserID);
+				Assert.Equal(Admin, model.CreatedBy);
+				Assert.Equal(User, model.ModifiedBy);
 				Assert.True(model.ModifiedUTC < DateTime.UtcNow);
 				Assert.True(model.ModifiedUTC > model.CreatedUTC);
 			}

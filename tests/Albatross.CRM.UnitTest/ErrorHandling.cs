@@ -16,7 +16,7 @@ namespace Albatross.Repository.UnitTest {
 			this.host = host;
 		}
 
-		User Admin { get; } = new User(1, "admin");
+		string Admin = "admin";
 
 		[Fact]
 		public void TestUniqueKeyViolationException() {

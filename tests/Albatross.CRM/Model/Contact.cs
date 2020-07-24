@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace Albatross.CRM.Model {
-	public class Contact : MutableEntity<User> {
+	public class Contact : MutableEntity {
 		private Contact() { }
-		public Contact(msg.Contact dto, User user, IDbSession session) : base(user, session) {
+		public Contact(msg.Contact dto, string user, IDbSession session) : base(user, session) {
 			Update(dto, user, session);
 		}
 
-		public void Update(msg.Contact dto, User user, IDbSession session) {
+		public void Update(msg.Contact dto, string user, IDbSession session) {
 			Name = dto.Name;
 			Tag = dto.Tag;
 			Addresses.Merge(dto.Addresses,

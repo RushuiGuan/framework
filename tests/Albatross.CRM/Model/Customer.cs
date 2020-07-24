@@ -7,9 +7,9 @@ using Albatross.CRM.Repository;
 using System.Net.Security;
 
 namespace Albatross.CRM.Model {
-	public class Customer : MutableEntity<User> {
+	public class Customer : MutableEntity {
 		public Customer() { }
-		public Customer(msg.Customer dto, User user, IProductRepository products) : base(user, products.DbSession) {
+		public Customer(msg.Customer dto, string user, IProductRepository products) : base(user, products.DbSession) {
 			Update(dto, user, products, null);
 		}
 
@@ -23,7 +23,7 @@ namespace Albatross.CRM.Model {
 		public virtual ICollection<License> Licenses { get; private set; } = new List<License>();
 		public ICollection<PurchaseOrder> PurchaseOrders { get; private set; } = new List<PurchaseOrder>();
 
-		public void Update(msg.Customer src, User user, IProductRepository products, IDbSession session) {
+		public void Update(msg.Customer src, string user, IProductRepository products, IDbSession session) {
 			Name = src.Name;
 			Company = src.Company;
 			Licenses.Merge<msg.License, License, string>(src.Licenses,
