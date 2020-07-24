@@ -21,7 +21,12 @@ namespace Albatross.Repository.Core {
 			this.CreateOrUpdate(user, session);
 		}
 		public void CreateOrUpdate(string user, IDbSession session) {
-			if (session.IsChanged(this)) {
+			if (session.IsNew(this)) {
+				CreatedBy = user;
+				CreatedUTC = DateTime.UtcNow;
+				ModifiedBy = user;
+				ModifiedUTC = DateTime.UtcNow;
+			} else if (session.IsChanged(this)) {
 				ModifiedUTC = DateTime.UtcNow;
 				ModifiedBy = user;
 			}

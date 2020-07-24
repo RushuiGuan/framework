@@ -19,5 +19,6 @@ namespace Albatross.Repository.Core
 		string GetCreateScript();
 		void EnsureCreated();
 		bool IsChanged(object t);
+		bool IsNew(object t);
 	}
 }

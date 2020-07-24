@@ -2,6 +2,7 @@
 using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Albatross.Repository.ByEFCore {
 	public class MutableEntityMap<T> : EntityMap<T> where T:MutableEntity {
@@ -9,10 +10,21 @@ namespace Albatross.Repository.ByEFCore {
 		public override void Map(EntityTypeBuilder<T> builder) {
 			builder.ToTable(TableName);
 
-			builder.Property(p => p.CreatedBy).IsRequired().HasMaxLength(MutableEntity.UserNameLength);
-			builder.Property(p => p.CreatedUTC).IsRequired();
-			builder.Property(p => p.ModifiedBy).IsRequired().HasMaxLength(MutableEntity.UserNameLength);
-			builder.Property(p => p.ModifiedUTC).IsRequired();
+			builder.Property(p => p.CreatedBy)
+				.IsRequired()
+				.HasMaxLength(MutableEntity.UserNameLength);
+
+			builder.Property(p => p.CreatedUTC)
+				.IsRequired()
+				.HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc)); 
+			
+			builder.Property(p => p.ModifiedBy)
+				.IsRequired()
+				.HasMaxLength(MutableEntity.UserNameLength);
+
+			builder.Property(p => p.ModifiedUTC)
+				.IsRequired()
+				.HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc)); 
 		}
 	}
 }

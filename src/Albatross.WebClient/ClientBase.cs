@@ -1,24 +1,17 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
-using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using IdentityModel.Client;
+using System.Text.Json;
 
-namespace Albatross.WebClient{
+namespace Albatross.WebClient {
 	public abstract class ClientBase {
 		protected HttpClient client;
 		protected ILogger logger;
-
-        JsonSerializer jsonSerializer = new JsonSerializer {
-			ContractResolver = new CamelCasePropertyNamesContractResolver(),
-		};
 
 		public ClientBase(ILogger logger, HttpClient client) {
 			this.client = client;
@@ -28,12 +21,14 @@ namespace Albatross.WebClient{
         protected virtual string Scope { get; }
 
         #region authentication
+		/*
         public Task<string> UseClientCredential(ClientAuthorizationSetting clientSetting) {
 			return client.UseClientCredential(clientSetting, Scope);
         }
         public Task<string> UseResourceOwnerPassword(string username, string password, ClientAuthorizationSetting clientSetting) {
 			return client.UseResourceOwnerPassword(username, password, clientSetting, Scope);
         }
+		*/
         #endregion
 
         #region utility
@@ -42,12 +37,10 @@ namespace Albatross.WebClient{
 		}
 		public Uri BaseUrl => this.client.BaseAddress;
 		protected virtual string SerializeJson<T>(T t) {
-			StringWriter writer = new StringWriter();
-			jsonSerializer.Serialize(writer, t);
-			return writer.ToString();
+			return JsonSerializer.Serialize<T>(t);
 		}
 		protected virtual T Deserialize<T>(string content) {
-			return jsonSerializer.Deserialize<T>(new JsonTextReader(new StringReader(content)));
+			return JsonSerializer.Deserialize<T>(content);
 		}
 		#endregion
 

@@ -38,5 +38,10 @@ namespace Albatross.Repository.ByEFCore {
 			var entry = this.DbContext.Entry(t);
 			return entry.State != EntityState.Unchanged;
 		}
+
+		public bool IsNew(object t) {
+			var entry = this.DbContext.Entry(t);
+			return entry.State == EntityState.Added || entry.State == EntityState.Detached;
+		}
 	}
 }

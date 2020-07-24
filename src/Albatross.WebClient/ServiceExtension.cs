@@ -1,9 +1,7 @@
 ﻿using Albatross.Config;
-using IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Albatross.WebClient {
 	public static class ServiceExtension {
@@ -28,6 +26,7 @@ namespace Albatross.WebClient {
 			return builder;
 		}
 
+		/*
 		public static async Task<string> UseClientCredential(this HttpClient client, ClientAuthorizationSetting clientAuthorizaitonSetting, string scope) {
 			var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest {
 				Address = clientAuthorizaitonSetting.TokenEndPoint,
@@ -54,5 +53,6 @@ namespace Albatross.WebClient {
 			client.SetBearerToken(tokenResponse.AccessToken);
 			return tokenResponse.AccessToken;
 		}
+		*/
 	}
 }
