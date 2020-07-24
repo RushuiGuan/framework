@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Albatross.Repository.ByEFCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -26,6 +28,19 @@ namespace Albatross.Repository.Core {
 
 		public virtual void Validate() {
 			Validator.ValidateObject(this, new ValidationContext(this), true);
+		}
+	}
+
+
+	public class MutableEntityMap<T, UserType> : EntityMap<T> where T:MutableEntity<UserType> {
+		public virtual string TableName => typeof(T).Name;
+		public override void Map(EntityTypeBuilder<T> builder) {
+			builder.ToTable(TableName);
+
+			builder.Property(p => p.CreatedBy).IsRequired();
+			builder.Property(p => p.CreatedUTC).IsRequired();
+			builder.Property(p => p.ModifiedBy).IsRequired();
+			builder.Property(p => p.ModifiedUTC).IsRequired();
 		}
 	}
 }
