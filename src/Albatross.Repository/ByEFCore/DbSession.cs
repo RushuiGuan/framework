@@ -33,5 +33,10 @@ namespace Albatross.Repository.ByEFCore {
 		public string GetCreateScript() => this.Database.GenerateCreateScript();
 		public void EnsureCreated() => this.Database.EnsureCreated();
 		public ITransaction BeginTransaction() => new EFCoreTransaction(this.Database.BeginTransaction());
+
+		public bool IsChanged(object t) {
+			var entry = this.DbContext.Entry(t);
+			return entry.State != EntityState.Unchanged;
+		}
 	}
 }

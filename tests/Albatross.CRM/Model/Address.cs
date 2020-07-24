@@ -4,15 +4,15 @@ using Albatross.Repository.Core;
 namespace Albatross.CRM.Model {
 	public class Address : MutableEntity<User> {
 		protected Address() { }
-		public Address(Messages.Address dto, User user, DbContext context) : base(user, context) {
+		public Address(Messages.Address dto, User user, IDbSession session) : base(user, session) {
 			this.Update(dto, user, null);
 		}
 
-		public void Update(Messages.Address dto, User user, DbContext context) {
+		public void Update(Messages.Address dto, User user, IDbSession session) {
 			City = dto.City;
 			State = dto.State;
 			Street = dto.Street;
-			base.CreateOrUpdate(user, context);
+			base.CreateOrUpdate(user, session);
 		}
 
 		public int AddressID {get;private set;}

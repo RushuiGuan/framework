@@ -11,13 +11,13 @@ namespace Albatross.Repository.Core {
 		public UserType ModifiedBy { get; protected set; }
 
 		protected MutableEntity() { }
-		protected MutableEntity(UserType user, DbContext context) {
+		protected MutableEntity(UserType user, IDbSession session) {
 			CreatedUTC = DateTime.UtcNow;
 			CreatedBy = user;
-			this.CreateOrUpdate(user, context);
+			this.CreateOrUpdate(user, session);
 		}
-		public void CreateOrUpdate(UserType user, DbContext context) {
-			if (this.IsChanged(context)) {
+		public void CreateOrUpdate(UserType user, IDbSession session) {
+			if (session.IsChanged(this)) {
 				ModifiedUTC = DateTime.UtcNow;
 				ModifiedBy = user;
 			}

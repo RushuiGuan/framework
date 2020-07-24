@@ -9,7 +9,7 @@ using Albatross.CRM.Repository;
 namespace Albatross.CRM.Model {
 	public class License : MutableEntity<User> {
 		protected License() { }
-		public License(msg.License license, User user, DbContext context) : base(user, context) {
+		public License(msg.License license, User user, IDbSession session) : base(user, session) {
 		}
 		public int LicenseID { get; private set; }
 
@@ -32,11 +32,11 @@ namespace Albatross.CRM.Model {
 				throw new ValidationException("Begin date should be before end date");
 			}
 		}
-		public void Update(msg.License license, User user, IProductRepository products, DbContext context) {
+		public void Update(msg.License license, User user, IProductRepository products, IDbSession session) {
 			Product = (from item in products.Items where item.Name == license.Product select item).First();
 			StartDate = license.StartDate;
 			EndDate = license.EndDate;
-			base.CreateOrUpdate(user, context);
+			base.CreateOrUpdate(user, session);
 		}
 	}
 }

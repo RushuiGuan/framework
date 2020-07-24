@@ -18,5 +18,6 @@ namespace Albatross.Repository.Core
 		ITransaction BeginTransaction();
 		string GetCreateScript();
 		void EnsureCreated();
+		bool IsChanged(object t);
 	}
 }

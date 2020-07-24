@@ -53,7 +53,7 @@ namespace Albatross.Repository.UnitTest {
 			var customers = scope.Get<ICustomerRepository>();
 			var products = scope.Get<IProductRepository>();
 			model = customers.Get(dto.CustomerID);
-			model.Update(dto, user, products, customers.DbSession.DbContext);
+			model.Update(dto, user, products, customers.DbSession);
 			await customers.SaveChangesAsync();
 			return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
 		}
