@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Albatross.CRM.Repository;
 
 namespace Albatross.CRM.Model {
-	public class License : BaseEntity<User> {
+	public class License : MutableEntity<User> {
 		protected License() { }
-		public License(msg.License license, User user) : base(user) {
+		public License(msg.License license, User user, DbContext context) : base(user, context) {
 		}
 		public int LicenseID { get; private set; }
 
@@ -36,7 +36,7 @@ namespace Albatross.CRM.Model {
 			Product = (from item in products.Items where item.Name == license.Product select item).First();
 			StartDate = license.StartDate;
 			EndDate = license.EndDate;
-			base.Update(user, context);
+			base.CreateOrUpdate(user, context);
 		}
 	}
 }

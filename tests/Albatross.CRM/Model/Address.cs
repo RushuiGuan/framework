@@ -1,12 +1,10 @@
-﻿using Albatross.Repository.ByEFCore;
-using Albatross.CRM.Messages;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Albatross.Repository.Core;
 
 namespace Albatross.CRM.Model {
-	public class Address : BaseEntity<User> {
+	public class Address : MutableEntity<User> {
 		protected Address() { }
-		public Address(Messages.Address dto, User user) : base(user) {
+		public Address(Messages.Address dto, User user, DbContext context) : base(user, context) {
 			this.Update(dto, user, null);
 		}
 
@@ -14,7 +12,7 @@ namespace Albatross.CRM.Model {
 			City = dto.City;
 			State = dto.State;
 			Street = dto.Street;
-			base.Update(user, context);
+			base.CreateOrUpdate(user, context);
 		}
 
 		public int AddressID {get;private set;}

@@ -70,8 +70,8 @@ namespace Albatross.Repository.UnitTest {
 				Assert.Equal(Admin.UserID, model.ModifiedBy.UserID);
 
 				Assert.Equal(dto.Name, (string)model.Name);
-				Assert.True(model.Created < DateTime.UtcNow);
-				Assert.True(model.Modified < DateTime.UtcNow);
+				Assert.True(model.CreatedUTC < DateTime.UtcNow);
+				Assert.True(model.ModifiedUTC < DateTime.UtcNow);
 			}
 		}
 
@@ -89,8 +89,8 @@ namespace Albatross.Repository.UnitTest {
 
 				Assert.Equal(1, model.CreatedBy.UserID);
 				Assert.Equal(2, model.ModifiedBy.UserID);
-				Assert.True(model.Modified < DateTime.UtcNow);
-				Assert.True(model.Modified > model.Created);
+				Assert.True(model.ModifiedUTC < DateTime.UtcNow);
+				Assert.True(model.ModifiedUTC > model.CreatedUTC);
 			}
 		}
 

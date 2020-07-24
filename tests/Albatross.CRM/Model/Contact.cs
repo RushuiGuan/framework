@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace Albatross.CRM.Model {
-	public class Contact : BaseEntity<User> {
+	public class Contact : MutableEntity<User> {
 		private Contact() { }
-		public Contact(msg.Contact dto, User user) : base(user) {
-			Update(dto, user, null);
+		public Contact(msg.Contact dto, User user, DbContext context) : base(user, context) {
+			Update(dto, user, context);
 		}
 
 		public void Update(msg.Contact dto, User user, DbContext context) {
@@ -17,10 +17,10 @@ namespace Albatross.CRM.Model {
 				args => args.AddressID,
 				args => args.AddressID,
 				(src, dst) => dst.Update(src, user, context),
-				src => Addresses.Add(new Address(src, user)),
+				src => Addresses.Add(new Address(src, user, context)),
 				dst => Addresses.Remove(dst));
 
-			base.Update(user, context);
+			base.CreateOrUpdate(user, context);
 		}
 
 

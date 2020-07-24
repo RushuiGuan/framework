@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using Albatross.Repository.Core;
 using System.ComponentModel.DataAnnotations;
 using Albatross.CRM.Repository;
+using System.Net.Security;
 
 namespace Albatross.CRM.Model {
-	public class Customer : BaseEntity<User> {
+	public class Customer : MutableEntity<User> {
 		public Customer() { }
-		public Customer(msg.Customer dto, User user, IProductRepository products) : base(user) {
+		public Customer(msg.Customer dto, User user, IProductRepository products) : base(user, products.DbSession.DbContext) {
 			Update(dto, user, products, null);
 		}
 
@@ -29,9 +30,9 @@ namespace Albatross.CRM.Model {
 				args => args.Key,
 				args => args.Key,
 				(src, dst) => dst.Update(src, user, products, context),
-				src => Licenses.Add(new License(src, user)),
+				src => Licenses.Add(new License(src, user, context)),
 				dst => Licenses.Remove(dst)); ;
-			base.Update(user, context);
+			base.CreateOrUpdate(user, context);
 		}
 	}
 }

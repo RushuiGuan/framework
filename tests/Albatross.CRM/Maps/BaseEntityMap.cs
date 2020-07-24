@@ -7,13 +7,13 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Albatross.CRM.Maps {
-	public class BaseEntityMap<T> : EntityMap<T> where T : BaseEntity<User> {
+	public class BaseEntityMap<T> : EntityMap<T> where T : MutableEntity<User> {
 		public override void Map(EntityTypeBuilder<T> builder) {
 			builder.OwnsOne<User>(args => args.CreatedBy);
 			builder.OwnsOne<User>(args => args.ModifiedBy);
 			
-			builder.Property(p => p.Created).IsRequired();
-			builder.Property(p => p.Modified).IsRequired();
+			builder.Property(p => p.CreatedUTC).IsRequired();
+			builder.Property(p => p.ModifiedUTC).IsRequired();
 		}
 	}
 }
