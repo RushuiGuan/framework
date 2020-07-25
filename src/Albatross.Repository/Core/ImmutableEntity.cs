@@ -8,10 +8,7 @@ namespace Albatross.Repository.Core {
 		[Required]
 		[MaxLength(UserNameLength)]
 		public string CreatedBy { get; protected set; }
-		protected ImmutableEntity() { }
-		protected ImmutableEntity(string user) : this() {
-			Create(user);
-		}
+		
 		public void Create(string user) {
 			this.CreatedBy = user;
 			this.CreatedUTC = DateTime.UtcNow;

@@ -14,12 +14,6 @@ namespace Albatross.Repository.Core {
 		[MaxLength(UserNameLength)]
 		public string ModifiedBy { get; protected set; }
 
-		protected MutableEntity() { }
-		protected MutableEntity(string user, IDbSession session) {
-			CreatedUTC = DateTime.UtcNow;
-			CreatedBy = user;
-			this.CreateOrUpdate(user, session);
-		}
 		public void CreateOrUpdate(string user, IDbSession session) {
 			if (session.IsNew(this)) {
 				CreatedBy = user;
