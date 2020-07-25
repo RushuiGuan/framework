@@ -1,14 +1,12 @@
 ﻿using Albatross.Authentication;
 using Albatross.Config;
 using Albatross.Config.Core;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -94,6 +92,8 @@ namespace Albatross.Hosting {
 		#endregion
 
 		#region authorization
+		protected virtual void ConfigureAuthorization(AuthorizationOptions option) { }
+		
 		/// <summary>
 		/// special treatment is needed for access token transmitted by signalr web sockets.  It is sent using a query string.  <seealso cref="https://docs.microsoft.com/en-us/aspnet/core/signalr/authn-and-authz?view=aspnetcore-3.1"/>
 		/// </summary>
@@ -101,7 +101,7 @@ namespace Albatross.Hosting {
 		/// <returns></returns>
 		public virtual IServiceCollection AddAccessControl(IServiceCollection services) {
 			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
-			services.AddAuthorization();
+			services.AddAuthorization(ConfigureAuthorization);
 			services.AddAuthentication(BearerAuthenticationScheme)
 				.AddJwtBearer(BearerAuthenticationScheme, options => {
 					options.Authority = AuthorizationSetting.Authority;
