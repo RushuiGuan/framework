@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 namespace Albatross.CodeGen.WebClient {
 	public class ConvertApiControllerToCSharpClass : IConvertObject<Type, Class> {
 		const string Controller = "Controller";
-		const string ClientService = "ClientService";
+		const string ProxyService = "ProxyService";
 		const string WebClient = "WebClient";
 		const string ControllerPath = "ControllerPath";
 		const string Logger = "logger";
@@ -118,7 +118,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetClassName(Type type) {
-			return GetController(type) + ClientService;
+			return GetController(type) + ProxyService;
 		}
 
 		Class GetBaseClass() {

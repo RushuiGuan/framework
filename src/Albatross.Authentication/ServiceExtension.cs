@@ -1,4 +1,5 @@
 ﻿using Albatross.Authentication.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.Authentication {
@@ -10,6 +11,7 @@ namespace Albatross.Authentication {
 
 		public static IServiceCollection AddAspNetCorePrincipalProvider(this IServiceCollection svc) {
 			svc.AddSingleton<IGetCurrentUser, GetCurrentUserFromHttpContext>();
+			svc.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			return svc;
 		}
 	}

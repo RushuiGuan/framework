@@ -1,7 +1,9 @@
 ﻿using Albatross.Config;
+using IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Albatross.WebClient {
 	public static class ServiceExtension {
@@ -26,13 +28,12 @@ namespace Albatross.WebClient {
 			return builder;
 		}
 
-		/*
-		public static async Task<string> UseClientCredential(this HttpClient client, ClientAuthorizationSetting clientAuthorizaitonSetting, string scope) {
+		public static async Task<string> UseClientCredential(this HttpClient client, ClientAuthorizationSetting setting) {
 			var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest {
-				Address = clientAuthorizaitonSetting.TokenEndPoint,
-				ClientId = clientAuthorizaitonSetting.ClientID,
-				ClientSecret = clientAuthorizaitonSetting.ClientSecret,
-				Scope = scope,
+				Address = setting.TokenEndPoint,
+				ClientId = setting.ClientID,
+				ClientSecret = setting.ClientSecret,
+				Scope = string.Join(" ", setting.Scopes),
 			});
 
             if (tokenResponse.IsError) { throw new Albatross.WebClient.ClientException(tokenResponse.Error); }
@@ -40,19 +41,18 @@ namespace Albatross.WebClient {
             return tokenResponse.AccessToken;
 		}
 
-		public static async Task<string> UseResourceOwnerPassword(this HttpClient client, string username, string password, ClientAuthorizationSetting clientAuthorizaitonSetting, string scope) {
+		public static async Task<string> UseResourceOwnerPassword(this HttpClient client, string username, string password, ClientAuthorizationSetting setting) {
 			var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest {
-				Address = clientAuthorizaitonSetting.TokenEndPoint,
-				ClientId = clientAuthorizaitonSetting.ClientID,
-				ClientSecret = clientAuthorizaitonSetting.ClientSecret,
+				Address = setting.TokenEndPoint,
+				ClientId = setting.ClientID,
+				ClientSecret = setting.ClientSecret,
 				UserName = username,
 				Password = password,
-				Scope = scope,
+				Scope = string.Join(" ", setting.Scopes),
 			});
 			if (tokenResponse.IsError) { throw new Exception(tokenResponse.Error); }
 			client.SetBearerToken(tokenResponse.AccessToken);
 			return tokenResponse.AccessToken;
 		}
-		*/
 	}
 }

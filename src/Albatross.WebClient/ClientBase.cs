@@ -18,17 +18,13 @@ namespace Albatross.WebClient {
 			this.logger = logger;
         }
 
-        protected virtual string Scope { get; }
-
         #region authentication
-		/*
         public Task<string> UseClientCredential(ClientAuthorizationSetting clientSetting) {
-			return client.UseClientCredential(clientSetting, Scope);
+			return client.UseClientCredential(clientSetting);
         }
         public Task<string> UseResourceOwnerPassword(string username, string password, ClientAuthorizationSetting clientSetting) {
-			return client.UseResourceOwnerPassword(username, password, clientSetting, Scope);
+			return client.UseResourceOwnerPassword(username, password, clientSetting);
         }
-		*/
         #endregion
 
         #region utility

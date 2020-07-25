@@ -22,12 +22,21 @@
     <PackageReference Include="Albatross.Database" Version="1.1.7" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
     <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="codegen.psd1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>

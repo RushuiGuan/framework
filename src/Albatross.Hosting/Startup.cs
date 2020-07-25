@@ -126,7 +126,6 @@ namespace Albatross.Hosting {
 
 			if (WebApi) {
 				services.AddControllers();
-				services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 				services.AddCors(opt => opt.AddDefaultPolicy(ConfigureCors));
 				services.AddAspNetCorePrincipalProvider();
 
