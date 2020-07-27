@@ -1,0 +1,1 @@
+dotnet publish --output c:\tools\modules\test

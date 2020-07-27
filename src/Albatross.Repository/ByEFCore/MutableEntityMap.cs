@@ -11,16 +11,14 @@ namespace Albatross.Repository.ByEFCore {
 			builder.ToTable(TableName);
 
 			builder.Property(p => p.CreatedBy)
-				.IsRequired()
-				.HasMaxLength(MutableEntity.UserNameLength);
+				.IsRequired();
 
 			builder.Property(p => p.CreatedUTC)
 				.IsRequired()
-				.HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc)); 
-			
+				.HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+
 			builder.Property(p => p.ModifiedBy)
-				.IsRequired()
-				.HasMaxLength(MutableEntity.UserNameLength);
+				.IsRequired();
 
 			builder.Property(p => p.ModifiedUTC)
 				.IsRequired()

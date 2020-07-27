@@ -9,8 +9,10 @@ namespace Albatross.Logging {
 		public const string DefaultOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}";
 
 
-		public void UseConfigFile(string name) {
-			string basePath = System.IO.Directory.GetCurrentDirectory();
+		public void UseConfigFile(string name, string basePath = null) {
+			if (string.IsNullOrEmpty(basePath)) {
+				basePath = System.IO.Directory.GetCurrentDirectory();
+			}
 
 			var configuration = new ConfigurationBuilder()
 				.SetBasePath(basePath)

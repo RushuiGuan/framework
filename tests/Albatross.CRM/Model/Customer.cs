@@ -9,8 +9,8 @@ using System.Net.Security;
 namespace Albatross.CRM.Model {
 	public class Customer : MutableEntity {
 		public Customer() { }
-		public Customer(msg.Customer dto, string user, IProductRepository products) : base(user, products.DbSession) {
-			Update(dto, user, products, null);
+		public Customer(msg.Customer dto, string user, IProductRepository products) {
+			Update(dto, user, products, products.DbSession);
 		}
 
 		public int CustomerID {get;private set;}

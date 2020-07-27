@@ -9,8 +9,7 @@ namespace Albatross.Repository.ByEFCore {
 		public override void Map(EntityTypeBuilder<T> builder) {
 			builder.ToTable(TableName);
 			builder.Property(p => p.CreatedBy)
-				.IsRequired()
-				.HasMaxLength(ImmutableEntity.UserNameLength);
+				.IsRequired();
 
 			builder.Property(p => p.CreatedUTC)
 				.IsRequired()

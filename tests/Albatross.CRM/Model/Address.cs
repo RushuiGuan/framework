@@ -4,8 +4,8 @@ using Albatross.Repository.Core;
 namespace Albatross.CRM.Model {
 	public class Address : MutableEntity {
 		protected Address() { }
-		public Address(Messages.Address dto, string user, IDbSession session) : base(user, session) {
-			this.Update(dto, user, null);
+		public Address(Messages.Address dto, string user, IDbSession session) {
+			this.Update(dto, user, session);
 		}
 
 		public void Update(Messages.Address dto, string user, IDbSession session) {

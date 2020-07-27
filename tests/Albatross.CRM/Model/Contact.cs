@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Albatross.CRM.Model {
 	public class Contact : MutableEntity {
 		private Contact() { }
-		public Contact(msg.Contact dto, string user, IDbSession session) : base(user, session) {
+		public Contact(msg.Contact dto, string user, IDbSession session) {
 			Update(dto, user, session);
 		}
 

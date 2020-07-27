@@ -10,6 +10,7 @@ namespace Albatross.Repository.Core {
 		[Required]
 		[MaxLength(UserNameLength)]
 		public string CreatedBy { get; protected set; }
+
 		[Required]
 		[MaxLength(UserNameLength)]
 		public string ModifiedBy { get; protected set; }

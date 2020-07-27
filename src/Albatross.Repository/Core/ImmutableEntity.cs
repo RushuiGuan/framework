@@ -5,15 +5,17 @@ namespace Albatross.Repository.Core {
 	public class ImmutableEntity {
 		public const int UserNameLength = 128;
 		public DateTime CreatedUTC { get; protected set; }
+
 		[Required]
 		[MaxLength(UserNameLength)]
 		public string CreatedBy { get; protected set; }
 		
-		public void Create(string user) {
+		protected void Create(string user) {
 			this.CreatedBy = user;
 			this.CreatedUTC = DateTime.UtcNow;
 			this.Validate();
 		}
+
 		public virtual void Validate() {
 			Validator.ValidateObject(this, new ValidationContext(this), true);
 		}

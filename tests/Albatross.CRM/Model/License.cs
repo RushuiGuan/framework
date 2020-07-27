@@ -9,7 +9,7 @@ using Albatross.CRM.Repository;
 namespace Albatross.CRM.Model {
 	public class License : MutableEntity {
 		protected License() { }
-		public License(msg.License license, string user, IDbSession session) : base(user, session) {
+		public License(msg.License license, string user, IDbSession session) {
 		}
 		public int LicenseID { get; private set; }
 
