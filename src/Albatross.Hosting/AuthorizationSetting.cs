@@ -8,7 +8,7 @@ namespace Albatross.Hosting {
 	}
 	public class AuthorizationPolicy {
 		public string Name { get; set; }
-		public string[] RequiredRoles { get; set; }
+		public string[] Roles { get; set; }
 	}
 	public class AuthorizationSetting : IConfigSetting {
 		public const string key = "authorization";

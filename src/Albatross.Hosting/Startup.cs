@@ -99,8 +99,8 @@ namespace Albatross.Hosting {
 		}
 
 		private void BuildAuthorizationPolicy(AuthorizationPolicyBuilder builder, AuthorizationPolicy policy) {
-			if(policy.RequiredRoles?.Length > 0) {
-				builder.RequireRole(policy.RequiredRoles);
+			if(policy.Roles?.Length > 0) {
+				builder.RequireRole(policy.Roles);
 			}
 		}
 
