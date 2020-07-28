@@ -10,7 +10,6 @@ namespace Albatross.Hosting.Test {
 		public override bool Swagger => true;
 		public override bool WebApi => true;
 
-
 		public Startup(IConfiguration configuration) : base(configuration) {
 		}
 	}

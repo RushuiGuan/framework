@@ -92,8 +92,18 @@ namespace Albatross.Hosting {
 		#endregion
 
 		#region authorization
-		protected virtual void ConfigureAuthorization(AuthorizationOptions option) { }
-		
+		protected virtual void ConfigureAuthorization(AuthorizationOptions option) {
+			foreach (var policy in this.AuthorizationSetting.Policies ?? new AuthorizationPolicy[0]) {
+				option.AddPolicy(policy.Name, builder => BuildAuthorizationPolicy(builder, policy));
+			}
+		}
+
+		private void BuildAuthorizationPolicy(AuthorizationPolicyBuilder builder, AuthorizationPolicy policy) {
+			if(policy.RequiredRoles?.Length > 0) {
+				builder.RequireRole(policy.RequiredRoles);
+			}
+		}
+
 		/// <summary>
 		/// special treatment is needed for access token transmitted by signalr web sockets.  It is sent using a query string.  <seealso cref="https://docs.microsoft.com/en-us/aspnet/core/signalr/authn-and-authz?view=aspnetcore-3.1"/>
 		/// </summary>

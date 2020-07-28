@@ -6,6 +6,10 @@ namespace Albatross.Hosting {
 		public string Name { get; set; }
 		public string Description { get; set; }
 	}
+	public class AuthorizationPolicy {
+		public string Name { get; set; }
+		public string[] RequiredRoles { get; set; }
+	}
 	public class AuthorizationSetting : IConfigSetting {
 		public const string key = "authorization";
 
@@ -38,5 +42,7 @@ namespace Albatross.Hosting {
 				throw new ConfigurationException(this.GetType(), nameof(Authority));
 			}
 		}
+
+		public AuthorizationPolicy[] Policies { get; set; }
 	}
 }

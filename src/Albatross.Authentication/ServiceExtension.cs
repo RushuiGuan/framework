@@ -10,8 +10,8 @@ namespace Albatross.Authentication {
 		}
 
 		public static IServiceCollection AddAspNetCorePrincipalProvider(this IServiceCollection svc) {
-			svc.AddSingleton<IGetCurrentUser, GetCurrentUserFromHttpContext>();
 			svc.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			svc.AddSingleton<IGetCurrentUser, GetCurrentUserFromHttpContext>();
 			return svc;
 		}
 	}

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.5.33</Version>
+    <Version>1.5.34-alpha</Version>
     <Nullable>enable</Nullable>
     <LangVersion>8</LangVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -14,7 +14,8 @@
   <ItemGroup>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Albatross.Authentication.Core;
 using Albatross.Config.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,12 +15,14 @@ namespace Albatross.Hosting.Test {
 		private readonly ProgramSetting setting;
 		private readonly IConfiguration configuration;
 		private readonly ILogger<ValuesController> logger;
+		private readonly IGetCurrentUser getCurrentUser;
 
-		public ValuesController(ProgramSetting setting, IConfiguration configuration, ILogger<ValuesController> logger) {
+		public ValuesController(ProgramSetting setting, IConfiguration configuration, ILogger<ValuesController> logger, IGetCurrentUser getCurrentUser) {
 			logger.LogInformation("{class} instance created", nameof(ValuesController));
 			this.setting = setting;
 			this.configuration = configuration;
 			this.logger = logger;
+			this.getCurrentUser = getCurrentUser;
 		}
 
 		[HttpGet]
@@ -37,5 +40,8 @@ namespace Albatross.Hosting.Test {
 			var setting = this.configuration.GetSection(TestSetting.Key).Get<TestSetting>();
 			return $"{setting.Name} - {setting.Count}";
 		}
+
+		[HttpGet("current-user")]
+		public string CurrentUser() => this.getCurrentUser.Get();
 	}
 }
