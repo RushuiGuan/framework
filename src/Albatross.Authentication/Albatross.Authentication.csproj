@@ -6,6 +6,8 @@
     <LangVersion>8</LangVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+    <Authors>Rushui Guan</Authors>
+    <Description>A nuget package to determine the current user for different environments</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
