@@ -5,42 +5,51 @@ using Serilog.Events;
 using System;
 
 namespace Albatross.Logging {
-	public class SetupSerilog : IDisposable {
+	public class SetupSerilog {
 		public const string DefaultOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}";
+		Action<LoggerConfiguration> configActions = null;
 
+		public SetupSerilog UseConfigFile(string name, string basePath = null) {
+			Action<LoggerConfiguration> action = cfg => {
+				if (string.IsNullOrEmpty(basePath)) {
+					basePath = System.IO.Directory.GetCurrentDirectory();
+				}
+				var configuration = new ConfigurationBuilder()
+					.SetBasePath(basePath)
+					.AddJsonFile(name, false, true)
+					.AddEnvironmentVariables()
+					.Build();
+				cfg.ReadFrom.Configuration(configuration);
+			};
+			configActions += action;
+			return this;
+		}
 
-		public void UseConfigFile(string name, string basePath = null) {
-			if (string.IsNullOrEmpty(basePath)) {
-				basePath = System.IO.Directory.GetCurrentDirectory();
+		public SetupSerilog UseConsole(LogEventLevel loggingLevel) {
+			Action<LoggerConfiguration> action = cfg => {
+				cfg.MinimumLevel.ControlledBy(new LoggingLevelSwitch(loggingLevel))
+					.WriteTo
+					.Console(outputTemplate: DefaultOutputTemplate)
+					.Enrich.FromLogContext();
+			};
+			configActions += action;
+			return this;
+		}
+
+		public SetupSerilog Configure(Action<LoggerConfiguration> action) {
+			this.configActions += action;
+			return this;
+		}
+
+		public Logger Create(bool setDefault = true) {
+			LoggerConfiguration cfg = new LoggerConfiguration();
+			configActions?.Invoke(cfg);
+			var logger = cfg.CreateLogger();
+			logger.Information("Logger created");
+			if (setDefault) {
+				Log.Logger = logger;
 			}
-
-			var configuration = new ConfigurationBuilder()
-				.SetBasePath(basePath)
-				.AddJsonFile(name, false, true)
-				.AddEnvironmentVariables()
-				.Build();
-
-			Log.Logger = new LoggerConfiguration()
-				.ReadFrom.Configuration(configuration)
-				.CreateLogger();
-
-			Log.Information("Logger Created at root path {basePath}", basePath);
-		}
-
-		public void UseConsoleAndFile(LogEventLevel loggingLevel, string fileName) {
-			var cfg = new LoggerConfiguration()
-				.MinimumLevel.ControlledBy(new LoggingLevelSwitch(loggingLevel))
-				.WriteTo.Console(outputTemplate: DefaultOutputTemplate);
-
-			if (!string.IsNullOrWhiteSpace(fileName)) { cfg.WriteTo.File(fileName, outputTemplate: DefaultOutputTemplate); }
-			cfg.Enrich.FromLogContext();
-			Log.Logger = cfg.CreateLogger();
-			Log.Information("Logger created"); ;
-		}
-
-		public void Dispose() {
-			Log.Information("Logger Closing");
-			Log.CloseAndFlush();
+			return logger;
 		}
 	}
 }

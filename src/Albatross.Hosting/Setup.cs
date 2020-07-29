@@ -70,8 +70,7 @@ namespace Albatross.Hosting {
 
 		public async Task RunAsync() {
 			this.hostBuilder.ConfigureServices(this.ConfigureServices);
-			using var setupSerilog = new SetupSerilog();
-			setupSerilog.UseConfigFile("serilog.json");
+			using var logger = new SetupSerilog().UseConfigFile("serilog.json").Create();
 			await this.hostBuilder.Build().RunAsync();
 		}
 	}

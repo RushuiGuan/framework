@@ -10,7 +10,7 @@ namespace Albatross.Framework.Utility {
 	[Verb("logging-test")]
 	public class LoggingTestOption {}
 
-	public class LoggingTest: UtilityBase<LoggingTestOption> {
+	public class LoggingTest: MyUtilityBase<LoggingTestOption> {
 
 		public LoggingTest(LoggingTestOption option):base(option) {
 		}

@@ -12,7 +12,7 @@ namespace Albatross.Hosting.Test {
 		public IServiceProvider Provider => this.host.Services;
 
 		static TestHost(){
-			new SetupSerilog().UseConsoleAndFile(Serilog.Events.LogEventLevel.Debug, "out.log");
+			new SetupSerilog().UseConsole(Serilog.Events.LogEventLevel.Debug).UseConfigFile("out.log");
 		}
 
 		public TestHost() {

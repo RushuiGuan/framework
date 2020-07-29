@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Albatross.Framework.Utility": {
+      "commandName": "Project",
+      "commandLineArgs": "logging-test"
+    }
+  }
+}

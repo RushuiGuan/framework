@@ -9,6 +9,14 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="serilog.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="serilog.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
   </ItemGroup>
   <ItemGroup>

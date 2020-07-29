@@ -22,15 +22,16 @@ namespace Albatross.Hosting.Utility {
 		public Microsoft.Extensions.Logging.ILogger logger;
 		protected IServiceProvider Provider => host.Services;
 		protected IHost host;
+		private Serilog.Core.Logger serilogLogger;
 
-		protected virtual void SetupLogging(Option option) {
-			new SetupSerilog().UseConsoleAndFile(LogEventLevel.Debug, "out.log");
+		protected virtual Serilog.Core.Logger SetupLogging(Option option) {
+			return new SetupSerilog().UseConsole(LogEventLevel.Debug).Create();
 		}
 
 
 		public UtilityBase(Option option) {
 			this.Options = option;
-			SetupLogging(option);
+			serilogLogger = SetupLogging(option);
 			host = Microsoft.Extensions.Hosting.Host
 						 .CreateDefaultBuilder()
 						 .UseSerilog()
@@ -50,7 +51,7 @@ namespace Albatross.Hosting.Utility {
 			logger.LogDebug("Disposing UtilityBase");
 			this.host.Dispose();
 			logger.LogDebug("CloseAndFlush Logging");
-			Log.CloseAndFlush();
+			serilogLogger.Dispose();
 		}
 	}
 }
