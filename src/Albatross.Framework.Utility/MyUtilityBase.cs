@@ -1,5 +1,6 @@
 ﻿using Albatross.Hosting.Utility;
 using Albatross.Logging;
+using Serilog;
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace Albatross.Framework.Utility {
 		protected MyUtilityBase(T option) : base(option) {
 		}
 
-		protected override Logger SetupLogging(T option) {
-			return new SetupSerilog().UseConfigFile("serilog.json").Create();
+		protected override void ConfigureLogging(LoggerConfiguration cfg) {
+			SetupSerilog.UseConfigFile(cfg, "serilog.json", null);
 		}
 	}
 }

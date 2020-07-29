@@ -24,14 +24,14 @@ namespace Albatross.Hosting.Utility {
 		protected IHost host;
 		private Serilog.Core.Logger serilogLogger;
 
-		protected virtual Serilog.Core.Logger SetupLogging(Option option) {
-			return new SetupSerilog().UseConsole(LogEventLevel.Debug).Create();
+		protected virtual void ConfigureLogging(LoggerConfiguration cfg) {
+			SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
 		}
 
 
 		public UtilityBase(Option option) {
 			this.Options = option;
-			serilogLogger = SetupLogging(option);
+			serilogLogger = new SetupSerilog().Configure(ConfigureLogging).Create();
 			host = Microsoft.Extensions.Hosting.Host
 						 .CreateDefaultBuilder()
 						 .UseSerilog()

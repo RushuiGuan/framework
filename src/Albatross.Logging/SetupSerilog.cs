@@ -10,28 +10,13 @@ namespace Albatross.Logging {
 		Action<LoggerConfiguration> configActions = null;
 
 		public SetupSerilog UseConfigFile(string name, string basePath = null) {
-			Action<LoggerConfiguration> action = cfg => {
-				if (string.IsNullOrEmpty(basePath)) {
-					basePath = System.IO.Directory.GetCurrentDirectory();
-				}
-				var configuration = new ConfigurationBuilder()
-					.SetBasePath(basePath)
-					.AddJsonFile(name, false, true)
-					.AddEnvironmentVariables()
-					.Build();
-				cfg.ReadFrom.Configuration(configuration);
-			};
+			Action<LoggerConfiguration> action = cfg => UseConfigFile(cfg, name, basePath);
 			configActions += action;
 			return this;
 		}
 
 		public SetupSerilog UseConsole(LogEventLevel loggingLevel) {
-			Action<LoggerConfiguration> action = cfg => {
-				cfg.MinimumLevel.ControlledBy(new LoggingLevelSwitch(loggingLevel))
-					.WriteTo
-					.Console(outputTemplate: DefaultOutputTemplate)
-					.Enrich.FromLogContext();
-			};
+			Action<LoggerConfiguration> action = cfg => UseConsole(cfg, loggingLevel);
 			configActions += action;
 			return this;
 		}
@@ -50,6 +35,24 @@ namespace Albatross.Logging {
 				Log.Logger = logger;
 			}
 			return logger;
+		}
+
+		public static void UseConfigFile(LoggerConfiguration cfg, string name, string basePath) {
+			if (string.IsNullOrEmpty(basePath)) {
+				basePath = System.IO.Directory.GetCurrentDirectory();
+			}
+			var configuration = new ConfigurationBuilder()
+				.SetBasePath(basePath)
+				.AddJsonFile(name, false, true)
+				.AddEnvironmentVariables()
+				.Build();
+			cfg.ReadFrom.Configuration(configuration);
+		}
+		public static void UseConsole(LoggerConfiguration cfg, LogEventLevel loggingLevel) {
+			cfg.MinimumLevel.ControlledBy(new LoggingLevelSwitch(loggingLevel))
+				.WriteTo
+				.Console(outputTemplate: DefaultOutputTemplate)
+				.Enrich.FromLogContext();
 		}
 	}
 }
