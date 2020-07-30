@@ -50,11 +50,12 @@ namespace Albatross.Hosting {
 
 		public Setup ConfigureWebHost<Startup>() where Startup : Hosting.Startup{
 			hostBuilder.ConfigureWebHostDefaults(webBuilder => {
-					webBuilder.UseStartup<Startup>();
-					webBuilder.PreferHostingUrls(true);
-				});
+				webBuilder.UseStartup<Startup>();
+				webBuilder.PreferHostingUrls(true);
+			});
 			return this;
 		}
+
 
 		public Setup ConfigureServiceHost<T>() where T:class, IHostedService {
 			hostBuilder.ConfigureServices((hostContext, services) => {
