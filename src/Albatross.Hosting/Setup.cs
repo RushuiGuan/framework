@@ -18,10 +18,11 @@ namespace Albatross.Hosting {
 
 		public Setup(string[] args) {
 			hostBuilder = Host.CreateDefaultBuilder(args).UseSerilog();
-
+			var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 			configuration = new ConfigurationBuilder()
 				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json", false, true)
+				.AddJsonFile($"appsettings.{env}.json", true, true)
 				.AddJsonFile("hostsettings.json", true, false)
 				.AddEnvironmentVariables()
 				.AddCommandLine(args)
