@@ -22,5 +22,8 @@
 		<Content Update="hostsettings.json">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Content>
+		<Content Update="serilog.json">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 </Project>
