@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Albatross.Reflection {
 	public static partial class Extension {
@@ -24,6 +23,11 @@ namespace Albatross.Reflection {
 		/// <returns></returns>
 		public static IEnumerable<Type> GetConcreteClasses(this Assembly assembly) {
 			return assembly.GetTypes().Where(args => args.IsConcreteType());
+		}
+
+		public static string GetEmbeddedFile(this Type type, string resourceName) {
+			using var stream = type.Assembly.GetManifestResourceStream(resourceName);
+			return new StreamReader(stream).ReadToEnd();
 		}
 	}
 }

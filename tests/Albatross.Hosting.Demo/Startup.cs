@@ -9,6 +9,7 @@ namespace Albatross.Hosting.Test {
 		public override bool Grpc => true;
 		public override bool Swagger => true;
 		public override bool WebApi => true;
+		public override bool Secured => true;
 
 		public Startup(IConfiguration configuration) : base(configuration) {
 		}

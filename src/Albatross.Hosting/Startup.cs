@@ -1,6 +1,7 @@
 ﻿using Albatross.Authentication;
 using Albatross.Config;
 using Albatross.Config.Core;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -61,7 +62,7 @@ namespace Albatross.Hosting {
 			services.AddOpenApiDocument(cfg => {
 				cfg.Title = this.GetType().Assembly.GetName().Name;
 				cfg.PostProcess = doc => { };
-				if (Secured) {
+				if (Secured && AuthorizationSetting.IsBearerAuthentication) {
 					cfg.AddSecurity("bearer", Enumerable.Empty<string>(), new OpenApiSecurityScheme {
 						Type = OpenApiSecuritySchemeType.OAuth2,
 						Description = "OpenId Authentication",
@@ -104,16 +105,12 @@ namespace Albatross.Hosting {
 			}
 		}
 
-		/// <summary>
-		/// special treatment is needed for access token transmitted by signalr web sockets.  It is sent using a query string.  <seealso cref="https://docs.microsoft.com/en-us/aspnet/core/signalr/authn-and-authz?view=aspnetcore-3.1"/>
-		/// </summary>
-		/// <param name="services"></param>
-		/// <returns></returns>
 		public virtual IServiceCollection AddAccessControl(IServiceCollection services) {
 			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
 			services.AddAuthorization(ConfigureAuthorization);
-			services.AddAuthentication(BearerAuthenticationScheme)
-				.AddJwtBearer(BearerAuthenticationScheme, options => {
+			AuthenticationBuilder builder = services.AddAuthentication(AuthorizationSetting.Authentication);
+			if (AuthorizationSetting.IsBearerAuthentication) {
+				builder.AddJwtBearer(BearerAuthenticationScheme, options => {
 					options.Authority = AuthorizationSetting.Authority;
 					options.Audience = AuthorizationSetting.Audience;
 					options.RequireHttpsMetadata = false;
@@ -122,6 +119,7 @@ namespace Albatross.Hosting {
 						ValidateIssuerSigningKey = false,
 					};
 				});
+			}
 			return services;
 		}
 		#endregion
@@ -138,14 +136,15 @@ namespace Albatross.Hosting {
 				services.AddControllers();
 				services.AddCors(opt => opt.AddDefaultPolicy(ConfigureCors));
 				services.AddAspNetCorePrincipalProvider();
-
 				if (Swagger) {
 					services.AddMvc();
 					AddSwagger(services); 
 				}
 			}
 			if (Spa) { AddSpa(services); }
-			if (Secured) { AddAccessControl(services); }
+			if (Secured) { 
+				AddAccessControl(services); 
+			}
 		}
 
 		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ProgramSetting program, ILogger<Startup> logger) {

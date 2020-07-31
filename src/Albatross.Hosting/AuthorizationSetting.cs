@@ -1,5 +1,5 @@
 ﻿using Albatross.Config.Core;
-using System.Collections.Generic;
+using System;
 
 namespace Albatross.Hosting {
 	public class SwaggerScope {
@@ -11,35 +11,39 @@ namespace Albatross.Hosting {
 		public string[] Roles { get; set; }
 	}
 	public class AuthorizationSetting : IConfigSetting {
+		public const string BearerAuthenticationScheme = "bearer";
+		public const string WindowsAuthenticationScheme = "Windows";
+
 		public const string key = "authorization";
 
+		public string Authentication { get; set; }
+
+		#region Bearer authentication scheme
 		/// <summary>
 		/// BaseUrl of the Authorization Server
 		/// </summary>
 		public string Authority { get; set; }
-
 		public string AuthorizeUrl { get; set; }
 		public string TokenUrl { get; set; }
-
-		/// <summary>
-		/// Swagger client id.  If not set, it will be set as '<see cref="ProgramSetting.App"/>-swagger'.
-		/// </summary>
 		public string SwaggerClientId { get; set; }
-
-		/// <summary>
-		/// Collection of swagger scopes.  If not set, the default scope name will be the application name appended with "-default"
-		/// The application name comes from  <see cref="ProgramSetting.App"/>
-		/// </summary>
 		public SwaggerScope[] SwaggerScopes { get; set; }
-
 		/// <summary>
-		/// ApiResource Name.  If not set, it will be set to the same value as <see cref="ProgramSetting.App"/>.
+		/// ApiResource Name
 		/// </summary>
 		public string Audience { get; set; }
+		#endregion
+
+		public bool IsBearerAuthentication => string.Equals(Authentication, BearerAuthenticationScheme, StringComparison.InvariantCultureIgnoreCase);
+		public bool IsWindowsAuthentication => string.Equals(Authentication, WindowsAuthenticationScheme, StringComparison.InvariantCultureIgnoreCase);
+
 
 		public void Validate() {
-			if (string.IsNullOrEmpty(Authority)) {
-				throw new ConfigurationException(this.GetType(), nameof(Authority));
+			if (string.IsNullOrEmpty(Authentication)) {
+				throw new ConfigurationException(this.GetType(), nameof(Authentication));
+			} else if (IsBearerAuthentication) {
+				if (string.IsNullOrEmpty(Authority)) { throw new ConfigurationException(this.GetType(), nameof(Authority)); }
+				if (string.IsNullOrEmpty(AuthorizeUrl)) { throw new ConfigurationException(this.GetType(), nameof(AuthorizeUrl)); }
+				if (string.IsNullOrEmpty(TokenUrl)) { throw new ConfigurationException(this.GetType(), nameof(TokenUrl)); }
 			}
 		}
 
