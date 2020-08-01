@@ -5,6 +5,8 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Albatross.Logging;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions;
+using System.IO;
 
 namespace Albatross.Hosting.Test {
 	public class TestHost : IDisposable {
@@ -16,11 +18,18 @@ namespace Albatross.Hosting.Test {
 		}
 
 		public TestHost() {
-			host = Microsoft.Extensions.Hosting.Host
-				.CreateDefaultBuilder()
-				.UseSerilog()
-				.ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
+			string folder = new FileInfo(this.GetType().Assembly.GetAssemblyLocation()).Directory.FullName;
+			var hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
+			var configuration = new ConfigurationBuilder()
+				.SetBasePath(folder)
+				.AddJsonFile("appsettings.json", false, true)
 				.Build();
+
+			host = hostBuilder.ConfigureAppConfiguration(builder => {
+				builder.Sources.Clear();
+				builder.AddConfiguration(configuration);
+			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
+			.Build();
 
 			InitAsync(host.Services.GetRequiredService<IConfiguration>()).Wait();
 		}
