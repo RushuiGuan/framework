@@ -26,7 +26,6 @@ namespace Albatross.Hosting {
 	public class Startup {
 		public const string DefaultApp_RootPath = "wwwroot";
 		public const string DefaultApp_BaseHref = "";
-		public const string BearerAuthenticationScheme = "Bearer";
 
 		public IConfiguration Configuration { get; }
 		protected AuthorizationSetting AuthorizationSetting { get; }
@@ -110,7 +109,7 @@ namespace Albatross.Hosting {
 			services.AddAuthorization(ConfigureAuthorization);
 			AuthenticationBuilder builder = services.AddAuthentication(AuthorizationSetting.Authentication);
 			if (AuthorizationSetting.IsBearerAuthentication) {
-				builder.AddJwtBearer(BearerAuthenticationScheme, options => {
+				builder.AddJwtBearer(AuthorizationSetting.BearerAuthenticationScheme, options => {
 					options.Authority = AuthorizationSetting.Authority;
 					options.Audience = AuthorizationSetting.Audience;
 					options.RequireHttpsMetadata = false;

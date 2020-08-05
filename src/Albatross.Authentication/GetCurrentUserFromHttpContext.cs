@@ -10,12 +10,15 @@ namespace Albatross.Authentication {
 		}
 
 		public string Provider => "httpcontext";
-		const string ClaimType_ClientID = "client_id";
+		const string ClaimType_Preferred_Username = "preferred_username";
+		const string ClaimType_Name = "name";
 
 		public string Get() {
 			string name = httpContextAccessor.HttpContext?.User?.Identity?.Name;
 			if (string.IsNullOrEmpty(name)) {
-				name = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimType_ClientID)?.Value;
+				name = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimType_Name)?.Value;
+			}else if (string.IsNullOrEmpty(name)) {
+				name = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimType_Preferred_Username)?.Value;
 			}
 			if (!string.IsNullOrEmpty(name)) {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
