@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Albatross.Authentication.Core;
 using Albatross.Config.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -43,5 +44,11 @@ namespace Albatross.Hosting.Test {
 
 		[HttpGet("current-user")]
 		public string CurrentUser() => this.getCurrentUser.Get();
+
+		[HttpGet("test-azure-role")]
+		[Authorize(Policy = "view-trades")]
+		public string TestAzureRole() {
+			return "success";
+		}
 	}
 }

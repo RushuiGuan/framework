@@ -1,6 +1,7 @@
 ﻿using Albatross.Authentication;
 using Albatross.Config;
 using Albatross.Config.Core;
+using Albatross.Azure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -100,7 +101,8 @@ namespace Albatross.Hosting {
 
 		private void BuildAuthorizationPolicy(AuthorizationPolicyBuilder builder, AuthorizationPolicy policy) {
 			if(policy.Roles?.Length > 0) {
-				builder.RequireRole(policy.Roles);
+				//builder.RequireRole(policy.Roles);
+				builder.RequireAzureRole(policy.Roles);
 			}
 		}
 
@@ -159,8 +161,7 @@ namespace Albatross.Hosting {
 			if (WebApi && Swagger) { UseSwagger(app); }
 			if (Spa) { UseSpa(app); }
 		}
-		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) {
-		}
+		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) { }
 
 		public void UseSpa(IApplicationBuilder app) {
 			app.UseStaticFiles();

@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Authentication\Albatross.Authentication.csproj" />
+    <ProjectReference Include="..\Albatross.Azure\Albatross.Azure.csproj" />
     <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
     <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
   </ItemGroup>
