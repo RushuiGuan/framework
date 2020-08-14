@@ -1,7 +1,6 @@
 ﻿using Albatross.Authentication;
 using Albatross.Config;
 using Albatross.Config.Core;
-using Albatross.Azure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -86,6 +85,7 @@ namespace Albatross.Hosting {
 				if (Secured) {
 					options.OAuth2Client = new NSwag.AspNetCore.OAuth2ClientSettings() {
 						ClientId = AuthorizationSetting.SwaggerClientId,
+						AppName = this.ProgramSetting.App,
 					};
 				}
 			});
@@ -99,10 +99,9 @@ namespace Albatross.Hosting {
 			}
 		}
 
-		private void BuildAuthorizationPolicy(AuthorizationPolicyBuilder builder, AuthorizationPolicy policy) {
+		protected virtual void BuildAuthorizationPolicy(AuthorizationPolicyBuilder builder, AuthorizationPolicy policy) {
 			if(policy.Roles?.Length > 0) {
-				//builder.RequireRole(policy.Roles);
-				builder.RequireAzureRole(policy.Roles);
+				builder.RequireRole(policy.Roles);
 			}
 		}
 

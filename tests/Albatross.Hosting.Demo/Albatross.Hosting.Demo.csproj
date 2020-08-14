@@ -12,6 +12,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Albatross.Azure\Albatross.Azure.csproj" />
 		<ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
 	</ItemGroup>
 	<ItemGroup>

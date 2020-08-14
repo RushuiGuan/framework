@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.Hosting.Demo {
 	public class MyServiceHost : BackgroundService {
 		private readonly ILogger<MyServiceHost> logger;
 

@@ -32,7 +32,6 @@ namespace Albatross.Azure
 			if (context.User.IsInRole(role)) {
 				return true;
 			} else if(context.User.Claims.Any(args=>args.Type == "hasgroups" && args.Value == "true")) {
-				context.User
 				return await Task.FromResult(true);
 			}
 			return false;

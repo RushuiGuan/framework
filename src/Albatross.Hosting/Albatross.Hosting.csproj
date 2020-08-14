@@ -10,16 +10,15 @@
     <Description>Wrapper library to quickly create a combination of web api, spa or service with serilog logging, swagger and bearer token authentication\authorization support.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.7" />
     <PackageReference Include="System.IO.Pipelines" Version="4.7.2" />
-    <PackageReference Include="NSwag.AspNetCore" Version="13.6.2" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="3.1.6" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.6" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Authentication\Albatross.Authentication.csproj" />
-    <ProjectReference Include="..\Albatross.Azure\Albatross.Azure.csproj" />
     <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
     <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
   </ItemGroup>

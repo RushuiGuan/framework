@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Albatross.Hosting.Test{
+namespace Albatross.Hosting.Demo {
 	public class Program {
 		public static Task Main(string[] args) {
 			return new Setup(args)

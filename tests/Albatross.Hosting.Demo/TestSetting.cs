@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.Hosting.Demo {
 	public class TestSetting {
 		public const string Key = "test";
 		public string Name { get; set; }
