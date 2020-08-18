@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Albatross.Config {
 	public abstract class GetConfig<T> : IGetConfig<T> {
-		private readonly IConfiguration configuration;
+		protected readonly IConfiguration configuration;
 
 		protected abstract string Key { get; }
 
@@ -27,6 +27,10 @@ namespace Albatross.Config {
 				throw new ConfigurationException(Key);
 			}
 			return t;
+		}
+
+		protected string GetConnectionString(string name) {
+			return configuration.GetConnectionString(name);
 		}
 	}
 }
