@@ -23,10 +23,14 @@ namespace Albatross.Config {
 		/// <typeparam name="FactoryType">The factory concrete class</typeparam>
 		/// <param name="services">The ServiceCollection instance</param>
 		/// <returns>The service collection instance</returns>
-		public static IServiceCollection AddConfig<ConfigType, FactoryType>(this IServiceCollection services) where ConfigType : class, new() where FactoryType : class, IGetConfig<ConfigType> {
+		public static IServiceCollection AddConfig<ConfigType, FactoryType>(this IServiceCollection services, bool singleton = false) where ConfigType : class, new() where FactoryType : class, IGetConfig<ConfigType> {
 			services.AddSingleton<FactoryType>();
 			services.AddSingleton<IGetConfig<ConfigType>>(provider => provider.GetRequiredService<FactoryType>());
-			services.AddScoped<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
+			if (singleton) {
+				services.AddSingleton<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
+			} else {
+				services.AddScoped<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
+			}
 			return services;
 		}
 	}

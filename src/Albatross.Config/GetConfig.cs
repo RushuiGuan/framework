@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Albatross.Config {
-	public abstract class GetConfig<T> : IGetConfig<T> {
+	public abstract class GetConfig<Cfg> : IGetConfig<Cfg> {
 		protected readonly IConfiguration configuration;
 
 		protected abstract string Key { get; }
@@ -16,11 +16,12 @@ namespace Albatross.Config {
 
 		public virtual bool Required => true;
 
-		public virtual T Get() {
-			T t = default(T);
+		public virtual Cfg Get() {
+			Cfg t = default;
 			var section = this.configuration.GetSection(Key);
 			if (section != null) {
-				t = section.Get<T>();
+				t = section.Get<Cfg>();
+				Update(t);
 				(t as IConfigSetting)?.Validate();
 			}
 			if (object.ReferenceEquals(t, null) && Required) {
@@ -28,6 +29,8 @@ namespace Albatross.Config {
 			}
 			return t;
 		}
+
+		protected virtual void Update(Cfg cfg) { }
 
 		protected string GetConnectionString(string name) {
 			return configuration.GetConnectionString(name);
