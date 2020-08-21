@@ -1,4 +1,5 @@
 ﻿using Albatross.Config.Core;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace Albatross.Hosting {
@@ -45,6 +46,9 @@ namespace Albatross.Hosting {
 				if (string.IsNullOrEmpty(AuthorizeUrl)) { throw new ConfigurationException(this.GetType(), nameof(AuthorizeUrl)); }
 				if (string.IsNullOrEmpty(TokenUrl)) { throw new ConfigurationException(this.GetType(), nameof(TokenUrl)); }
 			}
+		}
+
+		public void Init(IConfiguration configuration) {
 		}
 
 		public AuthorizationPolicy[] Policies { get; set; }

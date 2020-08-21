@@ -2,6 +2,7 @@
 using Albatross.Repository.Core;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.Repository.Sqlite {
@@ -28,8 +29,8 @@ namespace Albatross.Repository.Sqlite {
 			return services;
 		}
 
-		public static bool TryUseSqliteInMemory<T>(this IServiceCollection services, DatabaseConnectionSetting setting) where T : DbContext {
-			if (setting.DatabaseProvider == DatabaseProvider.Name) {
+		public static bool TryUseSqliteInMemory<T>(this IServiceCollection services, string databaseProvider) where T : DbContext {
+			if (databaseProvider == DatabaseProvider.Name) {
 				services.UseSqliteInMemory<T>();
 				return true;
 			} else {

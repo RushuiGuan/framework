@@ -21,8 +21,10 @@ namespace Albatross.Config {
 			var section = this.configuration.GetSection(Key);
 			if (section != null) {
 				t = section.Get<Cfg>();
-				Update(t);
-				(t as IConfigSetting)?.Validate();
+				if(t is IConfigSetting) {
+					((IConfigSetting)t).Init(configuration);
+					((IConfigSetting)t).Validate();
+				}
 			}
 			if (object.ReferenceEquals(t, null) && Required) {
 				throw new ConfigurationException(Key);
@@ -30,7 +32,6 @@ namespace Albatross.Config {
 			return t;
 		}
 
-		protected virtual void Update(Cfg cfg) { }
 
 		protected string GetConnectionString(string name) {
 			return configuration.GetConnectionString(name);

@@ -1,0 +1,17 @@
+proj Albatross.CodeGen.PowerShell| prerelease
+proj Albatross.CodeGen| prerelease
+proj Albatross.Config| prerelease
+proj Albatross.Cryptography| prerelease
+proj Albatross.Hosting.PowerShell| prerelease
+proj Albatross.Hosting.Test| prerelease
+proj Albatross.Hosting.Utility| prerelease
+proj Albatross.Hosting| prerelease
+proj Albatross.Logging| prerelease
+proj Albatross.Mapping.ByAutoMapper| prerelease
+proj Albatross.Mapping| prerelease
+proj Albatross.Repository.PostgreSQL| prerelease
+proj Albatross.Repository.SqlServer| prerelease
+proj Albatross.Repository.Sqlite| prerelease
+proj Albatross.Repository| prerelease
+proj Albatross.WebClient | prerelease
+

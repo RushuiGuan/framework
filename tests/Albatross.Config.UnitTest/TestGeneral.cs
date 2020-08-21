@@ -11,6 +11,8 @@ namespace Albatross.Config.UnitTest {
 			services.AddTransient<GetGoogleUrl>();
 			services.AddTransient<GetRequiredConfig>();
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
+			services.AddConfig<DbConfig, GetDbConfig>();
+			services.AddConfig<EmptyConfig, GetEmptyConfig>();
 		}
 	}
 
@@ -40,6 +42,20 @@ namespace Albatross.Config.UnitTest {
 		public void TestGetRequiredConfig() {
 			var handle = host.Provider.GetRequiredService<GetRequiredConfig>();
 			Assert.Throws<ConfigurationException>(() => handle.Get());
+		}
+
+		[Fact]
+		public void TestDbConfig() {
+			var handle = host.Provider.GetRequiredService<GetDbConfig>();
+			var cfg = handle.Get();
+			Assert.NotNull(cfg.DbConnection);
+		}
+
+		[Fact]
+		public void TestEmptyConfig() {
+			var handle = host.Provider.GetRequiredService<GetEmptyConfig>();
+			var cfg = handle.Get();
+			Assert.NotNull(cfg);
 		}
 	}
 }

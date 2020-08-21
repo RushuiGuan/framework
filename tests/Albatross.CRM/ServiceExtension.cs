@@ -10,9 +10,9 @@ namespace Albatross.CRM {
 	public static class ServiceExtension {
 		public static IServiceCollection AddCRM(this IServiceCollection services, IConfiguration configuration) {
 			var setting = new GetCRMSettings(configuration).Get();
-			var result = services.TryUsePostgreSQL<CRMDbSession>(setting, true) ||
-				services.TryUseSqlServer<CRMDbSession>(setting, false) ||
-				services.TryUseSqliteInMemory<CRMDbSession>(setting);
+			var result = services.TryUsePostgreSQL<CRMDbSession>(setting.DatabaseProvider, setting.ConnectionString, true) ||
+				services.TryUseSqlServer<CRMDbSession>(setting.DatabaseProvider, setting.ConnectionString, false) ||
+				services.TryUseSqliteInMemory<CRMDbSession>(setting.DatabaseProvider);
 
 			services.AddAutoMapperMapping();
 			services.AddScoped<ICustomerRepository, CustomerRepository>();
