@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Albatross.Config.UnitTest {
-	public class GetRequiredConfig : GetConfig<string> {
+	public class RequiredConfig { }
+	public class GetRequiredConfig : GetConfig<RequiredConfig> {
 
 		public GetRequiredConfig(IConfiguration configuration) : base(configuration) {
 		}

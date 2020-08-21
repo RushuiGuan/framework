@@ -5,11 +5,10 @@ using System.Text;
 
 namespace Albatross.Config.UnitTest {
 	public class DbConfig : Albatross.Config.Core.IConfigSetting {
-		public string DbKey { get; set; }
 		public string DbConnection { get; set; }
 
 		public void Init(IConfiguration configuration) {
-			this.DbConnection = configuration.GetConnectionString(DbKey);
+			this.DbConnection = configuration.GetConnectionString("test");
 		}
 
 		public void Validate() {
@@ -20,8 +19,5 @@ namespace Albatross.Config.UnitTest {
 		}
 
 		protected override string Key => "db-config";
-		protected override void Update(DbConfig cfg) {
-			cfg.DbConnection = GetConnectionString(cfg.DbKey);
-		}
 	}
 }

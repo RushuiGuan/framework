@@ -9,7 +9,6 @@ using System.Text;
 namespace Albatross.Config {
 	public class GetProgramSetting : GetConfig<ProgramSetting> {
 		protected override string Key => ProgramSetting.Key;
-		public override bool Required => false;
 
 		public GetProgramSetting(IConfiguration configuration) : base(configuration) {
 		}

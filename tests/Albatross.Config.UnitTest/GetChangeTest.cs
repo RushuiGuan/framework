@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Albatross.Config.UnitTest {
-	public class GetChangeTest : GetConfig<int> {
+	public class ChangeTest {
+
+	}
+	public class GetChangeTest : GetConfig<ChangeTest> {
 
 		public GetChangeTest(IConfiguration configuration) : base(configuration) {
 		}

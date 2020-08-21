@@ -35,7 +35,7 @@ namespace Albatross.Config.UnitTest {
 		[Fact]
 		public void TestGetGoogleUrl() {
 			var value = host.Provider.GetRequiredService<GetGoogleUrl>().Get();
-			Assert.NotEmpty(value);
+			Assert.NotNull(value);
 		}
 
 		[Fact]
