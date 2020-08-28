@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using Polly.Caching;
+using Polly.Registry;
 using Serilog;
 using System;
 using System.Linq;
@@ -34,11 +36,12 @@ namespace Albatross.Hosting {
 			 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 		};
 
-		public virtual bool Secured { get; }
-		public virtual bool Spa { get; }
 		public virtual bool Swagger { get; } = true;
-		public virtual bool Grpc { get; }
 		public virtual bool WebApi { get; } = true;
+		public virtual bool Secured { get; } = false;
+		public virtual bool Spa { get; } = false;
+		public virtual bool Grpc { get; } = false;
+		public virtual bool Caching { get; } = false;
 
 		public Startup(IConfiguration configuration) {
 			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}", Secured, Spa, Swagger, Grpc, WebApi);
@@ -55,6 +58,10 @@ namespace Albatross.Hosting {
 			builder.AllowCredentials();
 			builder.SetIsOriginAllowed(args => true);
 		}
+
+		#region caching
+		public virtual IReadOnlyPolicyRegistry<string> CreateCachePolicy(IServiceProvider serviceProvider, PolicyRegistry registry) => registry;
+		#endregion
 
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
@@ -141,8 +148,11 @@ namespace Albatross.Hosting {
 				}
 			}
 			if (Spa) { AddSpa(services); }
-			if (Secured) { 
-				AddAccessControl(services); 
+			if (Secured) { AddAccessControl(services); }
+			if (Caching) {
+				services.AddMemoryCache();
+				services.AddSingleton<IAsyncCacheProvider, Polly.Caching.Memory.MemoryCacheProvider>();
+				services.AddSingleton(provider => CreateCachePolicy(provider, new PolicyRegistry()));
 			}
 		}
 

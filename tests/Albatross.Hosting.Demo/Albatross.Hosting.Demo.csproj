@@ -19,6 +19,10 @@
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <PackageReference Include="Polly" Version="7.2.1" />
+	  <PackageReference Include="Polly.Caching.Memory" Version="3.0.2" />
+	</ItemGroup>
+	<ItemGroup>
 		<Content Update="serilog.json">
 		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Content>
