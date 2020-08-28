@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using Polly;
 using Polly.Caching;
 using Polly.Registry;
 using Serilog;
@@ -21,6 +22,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 
