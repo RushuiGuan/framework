@@ -18,15 +18,6 @@ namespace Albatross.WebClient {
 			this.logger = logger;
         }
 
-        #region authentication
-        public Task<string> UseClientCredential(ClientAuthorizationSetting clientSetting) {
-			return client.UseClientCredential(clientSetting);
-        }
-        public Task<string> UseResourceOwnerPassword(string username, string password, ClientAuthorizationSetting clientSetting) {
-			return client.UseResourceOwnerPassword(username, password, clientSetting);
-        }
-        #endregion
-
         #region utility
         protected HttpMethod GetPatchMethod() {
 			return new HttpMethod("Patch");
