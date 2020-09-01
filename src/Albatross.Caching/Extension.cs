@@ -32,9 +32,6 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public static AbsoluteTtl GetTtlStrategy(this TimeSpan timeSpan) {
-			return new AbsoluteTtl(new DateTimeOffset(DateTime.UtcNow.Add(timeSpan)));
-		}
 		public static IServiceCollection AddCacheMgmt<T>(this IServiceCollection services) where T: class, ICacheManagement {
 			services.AddSingleton<ICacheManagement, T>();
 			return services;

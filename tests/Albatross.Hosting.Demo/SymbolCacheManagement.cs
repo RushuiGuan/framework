@@ -11,6 +11,6 @@ namespace Albatross.Hosting.Test {
 
 		public override string Name => CacheName;
 
-		public override ITtlStrategy TtlStrategy => TimeSpan.FromMinutes(10).GetTtlStrategy();
+		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromMinutes(10));
 	}
 }
