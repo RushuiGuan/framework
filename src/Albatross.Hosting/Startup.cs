@@ -1,4 +1,5 @@
 ﻿using Albatross.Authentication;
+using Albatross.Caching;
 using Albatross.Config;
 using Albatross.Config.Core;
 using Microsoft.AspNetCore.Authentication;
@@ -14,15 +15,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
-using Polly;
-using Polly.Caching;
 using Polly.Registry;
 using Serilog;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -60,10 +58,6 @@ namespace Albatross.Hosting {
 			builder.AllowCredentials();
 			builder.SetIsOriginAllowed(args => true);
 		}
-
-		#region caching
-		public virtual IReadOnlyPolicyRegistry<string> CreateCachePolicy(IServiceProvider serviceProvider, PolicyRegistry registry) => registry;
-		#endregion
 
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
@@ -152,9 +146,7 @@ namespace Albatross.Hosting {
 			if (Spa) { AddSpa(services); }
 			if (Secured) { AddAccessControl(services); }
 			if (Caching) {
-				services.AddMemoryCache();
-				services.AddSingleton<IAsyncCacheProvider, Polly.Caching.Memory.MemoryCacheProvider>();
-				services.AddSingleton(provider => CreateCachePolicy(provider, new PolicyRegistry()));
+				services.AddCaching();
 			}
 		}
 
@@ -170,7 +162,11 @@ namespace Albatross.Hosting {
 			if (Grpc) { app.UseEndpoints(endpoints => MapGrpcServices(endpoints)); }
 			if (WebApi && Swagger) { UseSwagger(app); }
 			if (Spa) { UseSpa(app); }
+			if (Caching) {
+				Albatross.Caching.Extension.UseCache(app.ApplicationServices);
+			}
 		}
+
 		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) {
 		}
 

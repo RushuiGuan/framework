@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Caching;
+using Polly.Registry;
 using Serilog;
 
 namespace Albatross.Hosting.Test {
@@ -19,23 +20,16 @@ namespace Albatross.Hosting.Test {
 		private readonly ILogger<ValuesController> logger;
 		private readonly IGetCurrentUser getCurrentUser;
 		private readonly IMemoryCache memoryCache;
-		private readonly IAsyncPolicy<int[]> fiveMinuteAsyncPolicy;
-		private readonly IAsyncPolicy<string[]> tenMinuteAsyncPolicy;
-		private readonly IAsyncCacheProvider cacheProvider;
+		private readonly IReadOnlyPolicyRegistry<string> policyRegistry;
 
-		public ValuesController(ProgramSetting setting, IConfiguration configuration, ILogger<ValuesController> logger, IGetCurrentUser getCurrentUser, IMemoryCache memoryCache,
-			IAsyncPolicy<int[]> fiveMinuteAsyncPolicy, 
-			IAsyncPolicy<string[]> tenMinuteAsyncPolicy,
-			IAsyncCacheProvider cacheProvider) {
+		public ValuesController(ProgramSetting setting, IConfiguration configuration, ILogger<ValuesController> logger, IGetCurrentUser getCurrentUser, IMemoryCache memoryCache, IReadOnlyPolicyRegistry<string> policyRegistry) {
 			logger.LogInformation("{class} instance created", nameof(ValuesController));
 			this.setting = setting;
 			this.configuration = configuration;
 			this.logger = logger;
 			this.getCurrentUser = getCurrentUser;
 			this.memoryCache = memoryCache;
-			this.fiveMinuteAsyncPolicy = fiveMinuteAsyncPolicy;
-			this.tenMinuteAsyncPolicy = tenMinuteAsyncPolicy;
-			this.cacheProvider = cacheProvider;
+			this.policyRegistry = policyRegistry;
 		}
 
 		[HttpGet]
@@ -57,14 +51,16 @@ namespace Albatross.Hosting.Test {
 		[HttpGet("current-user")]
 		public string CurrentUser() => this.getCurrentUser.Get();
 
-		[HttpGet("data")]
-		public Task<int[]> GetData(int key) {
-			return fiveMinuteAsyncPolicy.ExecuteAsync(context => GetImportantNumber(key), new Context(key.ToString()));
+		[HttpGet("symbol")]
+		public Task<int[]> GetSymbol(int key) {
+			var policy = policyRegistry.Get<IAsyncPolicy<int[]>>(SymbolCacheManagement.CacheName);
+			return policy.ExecuteAsync(context => GetImportantNumber(key), new Context(key.ToString()));
 		}
 
-		[HttpGet("text")]
+		[HttpGet("issuer")]
 		public Task<string[]> GetText(int key) {
-			return tenMinuteAsyncPolicy.ExecuteAsync(context => GetImportantText(key), new Context(key.ToString()));
+			var policy = policyRegistry.Get<IAsyncPolicy<string[]>>(IssuerCachedMgmt.CacheName);
+			return policy.ExecuteAsync(context => GetImportantText(key), new Context(key.ToString()));
 		}
 
 		[HttpPost("evict")]
