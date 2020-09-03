@@ -5,6 +5,12 @@
     <Version>1.6.0-alpha</Version>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Embedded\test.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Embedded\test.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="xunit.console" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">

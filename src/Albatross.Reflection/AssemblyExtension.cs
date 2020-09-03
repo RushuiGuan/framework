@@ -25,7 +25,8 @@ namespace Albatross.Reflection {
 			return assembly.GetTypes().Where(args => args.IsConcreteType());
 		}
 
-		public static string GetEmbeddedFile(this Type type, string resourceName) {
+		public static string GetEmbeddedFile(this Type type, string name, string folder = "Embedded") {
+			string resourceName = $"{type.Assembly.GetName().Name}.{folder}.{name}";
 			using var stream = type.Assembly.GetManifestResourceStream(resourceName);
 			return new StreamReader(stream).ReadToEnd();
 		}

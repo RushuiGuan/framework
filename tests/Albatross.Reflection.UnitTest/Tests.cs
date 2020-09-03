@@ -100,5 +100,11 @@ namespace Albatross.Reflection.UnitTest {
             Assert.False(typeof(Test2).TryGetClosedGenericType(typeof(Base1<>), out Type generic));
             Assert.Null(generic);
         }
+
+		[Fact]
+		public void TestGetResource() {
+			string text = this.GetType().GetEmbeddedFile("test.txt");
+			Assert.Equal("test", text);
+		}
     }
 }
