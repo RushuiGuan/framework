@@ -12,7 +12,6 @@ namespace Albatross.Caching {
 		string Name { get; }
 		ITtlStrategy TtlStrategy { get; }
 		string GetCacheKey(Context context);
-		Task Init(CancellationToken cancellationToken);
 		void Envict(Context context);
 		void Register();
 		void OnCacheGet(Context context, string cacheKey);

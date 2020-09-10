@@ -49,9 +49,5 @@ namespace Albatross.Caching {
 			string key = GetCacheKey(context);
 			cache.Remove(key);
 		}
-
-		public virtual Task Init(CancellationToken cancellationToken) {
-			return Task.CompletedTask;
-		}
 	}
 }

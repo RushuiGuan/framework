@@ -27,22 +27,13 @@ namespace Albatross.Caching {
 			return services;
 		}
 
-		public static async Task UseCache(this IServiceProvider serviceProvider, ILogger logger) {
+		public static void UseCache(this IServiceProvider serviceProvider) {
 			IPolicyRegistry<string> registry = serviceProvider.GetRequiredService<IPolicyRegistry<string>>();
 			IAsyncCacheProvider cacheProvider = serviceProvider.GetRequiredService<IAsyncCacheProvider>();
 			var items = serviceProvider.GetRequiredService<IEnumerable<ICacheManagement>>();
 			foreach (var item in items) {
 				item.Register();
 			}
-
-			var tasks = items.Select(async args => {
-				var stopWatch = new Stopwatch();
-				stopWatch.Start();
-				await args.Init(CancellationToken.None);
-				stopWatch.Stop();
-				logger.LogInformation("Cache {name} initialized in {duration:#,#} ms", args.Name, stopWatch.ElapsedMilliseconds);
-			}).ToArray();
-			await Task.WhenAll(tasks);
 		}
 
 		public static IServiceCollection AddCacheMgmt<T>(this IServiceCollection services) where T: class, ICacheManagement {
