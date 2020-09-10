@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
-using Polly.Registry;
 using Serilog;
 using System;
 using System.Linq;
@@ -132,6 +131,7 @@ namespace Albatross.Hosting {
 		}
 
 		public virtual void ConfigureServices(IServiceCollection services) {
+			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider=> provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
 
 			if (WebApi) {
@@ -163,7 +163,7 @@ namespace Albatross.Hosting {
 			if (WebApi && Swagger) { UseSwagger(app); }
 			if (Spa) { UseSpa(app); }
 			if (Caching) {
-				Albatross.Caching.Extension.UseCache(app.ApplicationServices);
+				Albatross.Caching.Extension.UseCache(app.ApplicationServices, logger).Wait();
 			}
 		}
 
