@@ -12,7 +12,6 @@ namespace Albatross.Caching {
 		string Name { get; }
 		ITtlStrategy TtlStrategy { get; }
 		string GetCacheKey(Context context);
-		void Envict(Context context);
 		void Register();
 		void OnCacheGet(Context context, string cacheKey);
 		void OnCacheMiss(Context context, string cacheKey);

@@ -26,11 +26,15 @@ namespace Albatross.Caching {
 
 		public virtual void OnCacheGet(Context context, string cacheKey) { }
 		public virtual void OnCacheMiss(Context context, string cacheKey) {
-			logger.LogInformation("Cache Miss {name}: {key}", Name, cacheKey);
+			if (!context.ContainsKey("init")) {
+				logger.LogInformation("Cache Miss {name}: {key}", Name, cacheKey);
+			}
 		}
 
 		public virtual void OnCachePut(Context context, string cacheKey) {
-			logger.LogInformation("Cache Put {name}: {key}", Name, cacheKey);
+			if (!context.ContainsKey("init")) {
+				logger.LogInformation("Cache Put {name}: {key}", Name, cacheKey);
+			}
 		}
 		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) { }
 		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) { }
@@ -42,12 +46,11 @@ namespace Albatross.Caching {
 		}
 
 		public virtual string GetCacheKey(Context context) {
-			return $"{Name}-{context.OperationKey}";
-		}
-
-		public virtual void Envict(Context context) {
-			string key = GetCacheKey(context);
-			cache.Remove(key);
+			if (string.IsNullOrEmpty(context.OperationKey)) {
+				return Name;
+			} else {
+				return $"{Name}-{context.OperationKey}";
+			}
 		}
 	}
 }
