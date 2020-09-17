@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -129,13 +130,13 @@ namespace Albatross.Hosting {
 			services.AddSpaStaticFiles(cfg => cfg.RootPath = DefaultApp_RootPath);
 			return services;
 		}
-
+		public virtual void ConfigureJsonOption(JsonOptions options) { }
 		public virtual void ConfigureServices(IServiceCollection services) {
 			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider=> provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
 
 			if (WebApi) {
-				services.AddControllers();
+				services.AddControllers().AddJsonOptions(ConfigureJsonOption);
 				services.AddCors(opt => opt.AddDefaultPolicy(ConfigureCors));
 				services.AddAspNetCorePrincipalProvider();
 				if (Swagger) {
