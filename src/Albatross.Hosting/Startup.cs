@@ -163,7 +163,7 @@ namespace Albatross.Hosting {
 			if (WebApi && Swagger) { UseSwagger(app); }
 			if (Spa) { UseSpa(app); }
 			if (Caching) {
-				Albatross.Caching.Extension.UseCache(app.ApplicationServices);
+				Albatross.Caching.Extension.UseCache(app.ApplicationServices, logger);
 			}
 		}
 

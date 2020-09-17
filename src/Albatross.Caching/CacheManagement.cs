@@ -41,9 +41,13 @@ namespace Albatross.Caching {
 		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) { }
 
 		public void Register() {
-			var policy = Policy.CacheAsync<CacheFormat>(cacheProvider, TtlStrategy, this,
-				OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
-			registry.Add(Name, policy);
+			if (!registry.ContainsKey(Name)) {
+				var policy = Policy.CacheAsync<CacheFormat>(cacheProvider, TtlStrategy, this,
+					OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
+				registry.Add(Name, policy);
+			} else {
+				logger.LogError("CacheManagement {cacheName} has already been registered", Name);
+			}
 		}
 
 		public virtual string GetCacheKey(Context context) {

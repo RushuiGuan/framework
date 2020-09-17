@@ -31,10 +31,11 @@ namespace Albatross.Hosting.Test {
 			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
 			.Build();
 
-			InitAsync(host.Services.GetRequiredService<IConfiguration>()).Wait();
+			var logger = host.Services.GetRequiredService(typeof(Microsoft.Extensions.Logging.ILogger<>).MakeGenericType(this.GetType())) as Microsoft.Extensions.Logging.ILogger;
+			InitAsync(host.Services.GetRequiredService<IConfiguration>(), logger).Wait();
 		}
 
-		public virtual Task InitAsync(IConfiguration configuration) {
+		public virtual Task InitAsync(IConfiguration configuration, Microsoft.Extensions.Logging.ILogger logger) {
 			return Task.CompletedTask;
 		}
 

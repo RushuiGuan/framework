@@ -12,6 +12,7 @@ using sqlite = Albatross.Repository.Sqlite;
 using sqlserver = Albatross.Repository.SqlServer;
 using postgres = Albatross.Repository.PostgreSQL;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Albatross.Repository.UnitTest {
 	public class DatabaseTestHost : TestHost {
@@ -21,14 +22,14 @@ namespace Albatross.Repository.UnitTest {
 			services.AddCRM(configuration);
 		}
 
-		public override Task InitAsync(IConfiguration configuration) {
+		public override Task InitAsync(IConfiguration configuration, ILogger logger) {
 			CRMSetting setting = new GetCRMSettings(configuration).Get();
 			Console.WriteLine($"Migrating via {setting.DatabaseProvider}");
 
 			using DbContext context = GetDbContext(setting);
 			context.Database.EnsureDeleted();
 			context.Database.Migrate();
-			return base.InitAsync(configuration);
+			return base.InitAsync(configuration, logger);
 		}
 
 		DbContext GetDbContext(CRMSetting setting){
