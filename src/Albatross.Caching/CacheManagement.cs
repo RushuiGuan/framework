@@ -13,6 +13,7 @@ namespace Albatross.Caching {
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
 		private readonly IMemoryCache cache;
+		public const string Context_Init = "init";
 
 		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCache cache) {
 			this.logger = logger;
@@ -26,13 +27,13 @@ namespace Albatross.Caching {
 
 		public virtual void OnCacheGet(Context context, string cacheKey) { }
 		public virtual void OnCacheMiss(Context context, string cacheKey) {
-			if (!context.ContainsKey("init")) {
+			if (!context.ContainsKey(Context_Init)) {
 				logger.LogInformation("Cache Miss {name}: {key}", Name, cacheKey);
 			}
 		}
 
 		public virtual void OnCachePut(Context context, string cacheKey) {
-			if (!context.ContainsKey("init")) {
+			if (!context.ContainsKey(Context_Init)) {
 				logger.LogInformation("Cache Put {name}: {key}", Name, cacheKey);
 			}
 		}
@@ -51,6 +52,10 @@ namespace Albatross.Caching {
 			} else {
 				return $"{Name}-{context.OperationKey}";
 			}
+		}
+
+		public void Evict(Context context) {
+			this.cache.Remove(GetCacheKey(context));
 		}
 	}
 }

@@ -13,6 +13,7 @@ namespace Albatross.Caching {
 		ITtlStrategy TtlStrategy { get; }
 		string GetCacheKey(Context context);
 		void Register();
+		void Evict(Context context);
 		void OnCacheGet(Context context, string cacheKey);
 		void OnCacheMiss(Context context, string cacheKey);
 		void OnCachePut(Context context, string cacheKey);
