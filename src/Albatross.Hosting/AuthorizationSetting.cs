@@ -1,6 +1,11 @@
 ﻿using Albatross.Config.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Albatross.Hosting {
 	public class SwaggerScope {
@@ -12,11 +17,20 @@ namespace Albatross.Hosting {
 		public string[] Roles { get; set; }
 	}
 	public class AuthorizationSetting : IConfigSetting {
-		public const string BearerAuthenticationScheme = "bearer";
-		public const string WindowsAuthenticationScheme = "Windows";
+		public const string BearerAuthenticationScheme = JwtBearerDefaults.AuthenticationScheme;
+		public const string KerborosAuthenticationScheme = NegotiateDefaults.AuthenticationScheme;
+		public const string WindowsAuthenticationScheme = HttpSysDefaults.AuthenticationScheme;
+		public static readonly string[] SupportedAuthenticationScheme = new string[] {
+			BearerAuthenticationScheme,
+			KerborosAuthenticationScheme,
+			WindowsAuthenticationScheme,
+		};
 
 		public const string key = "authorization";
 
+		/// <summary>
+		/// Authentication scheme is case sensitive!  bearer or Negotiate
+		/// </summary>
 		public string Authentication { get; set; }
 
 		#region Bearer authentication scheme
@@ -34,13 +48,16 @@ namespace Albatross.Hosting {
 		public string Audience { get; set; }
 		#endregion
 
-		public bool IsBearerAuthentication => string.Equals(Authentication, BearerAuthenticationScheme, StringComparison.InvariantCultureIgnoreCase);
-		public bool IsWindowsAuthentication => string.Equals(Authentication, WindowsAuthenticationScheme, StringComparison.InvariantCultureIgnoreCase);
+		public bool IsBearerAuthentication => string.Equals(Authentication, BearerAuthenticationScheme);
+		public bool IsKerborosAuthentication => string.Equals(Authentication, KerborosAuthenticationScheme);
+		public bool IsWindowsAuthentication => string.Equals(Authentication, WindowsAuthenticationScheme);
 
 
 		public void Validate() {
 			if (string.IsNullOrEmpty(Authentication)) {
 				throw new ConfigurationException(this.GetType(), nameof(Authentication));
+			}else if(!SupportedAuthenticationScheme.Contains(Authentication, StringComparer.InvariantCultureIgnoreCase)) {
+				throw new NotSupportedException($"Authentication Scheme {Authentication} is not supported.  Authentation Scheme is case sensitive and should be one of the following: {string.Join(',', SupportedAuthenticationScheme)}");
 			} else if (IsBearerAuthentication) {
 				if (string.IsNullOrEmpty(Authority)) { throw new ConfigurationException(this.GetType(), nameof(Authority)); }
 				if (string.IsNullOrEmpty(AuthorizeUrl)) { throw new ConfigurationException(this.GetType(), nameof(AuthorizeUrl)); }

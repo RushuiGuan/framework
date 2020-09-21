@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Albatross.Authentication.Core;
 using Albatross.Config.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -49,6 +50,7 @@ namespace Albatross.Hosting.Test {
 		}
 
 		[HttpGet("current-user")]
+		[Authorize]
 		public string CurrentUser() => this.getCurrentUser.Get();
 
 		[HttpGet("symbol")]

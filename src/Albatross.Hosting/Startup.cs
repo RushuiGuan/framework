@@ -3,6 +3,7 @@ using Albatross.Caching;
 using Albatross.Config;
 using Albatross.Config.Core;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -44,11 +45,12 @@ namespace Albatross.Hosting {
 		public virtual bool Caching { get; } = false;
 
 		public Startup(IConfiguration configuration) {
-			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}", Secured, Spa, Swagger, Grpc, WebApi);
+			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
 			Configuration = configuration;
 			ProgramSetting = new GetProgramSetting(configuration).Get();
 			if (Secured && WebApi) {
 				AuthorizationSetting = new GetAuthorizationSetting(Configuration).Get();
+				AuthorizationSetting.Validate();
 			}
 		}
 
@@ -111,7 +113,9 @@ namespace Albatross.Hosting {
 			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
 			services.AddAuthorization(ConfigureAuthorization);
 			AuthenticationBuilder builder = services.AddAuthentication(AuthorizationSetting.Authentication);
-			if (AuthorizationSetting.IsBearerAuthentication) {
+			if (AuthorizationSetting.IsKerborosAuthentication) {
+				builder.AddNegotiate();
+			} else if (AuthorizationSetting.IsBearerAuthentication) {
 				builder.AddJwtBearer(AuthorizationSetting.BearerAuthenticationScheme, options => {
 					options.Authority = AuthorizationSetting.Authority;
 					options.Audience = AuthorizationSetting.Audience;
@@ -157,7 +161,9 @@ namespace Albatross.Hosting {
 			app.UseRouting();
 			if (WebApi) {
 				app.UseCors();
-				if (Secured) { app.UseAuthentication().UseAuthorization(); }
+				if (Secured) { 
+					app.UseAuthentication().UseAuthorization();
+				}
 				app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			}
 			if (Grpc) { app.UseEndpoints(endpoints => MapGrpcServices(endpoints)); }
