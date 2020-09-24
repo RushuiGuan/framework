@@ -15,8 +15,8 @@ namespace Albatross.WebClient.IntegrationTest {
 			base.RegisterServices(configuration, services);
 			services
 				.AddHttpClient<SecuredClientService>()
-				.SetBaseUrl(() => new Uri("http://localhost:20000"))
 				.ConfigureHttpClient(async client => {
+					client.BaseAddress = new Uri("http://localhost:20000");
 					var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest {
 						Address = "http://localhost:30002/connect/token",
 						ClientId = "client",

@@ -24,11 +24,16 @@ namespace Albatross.WebClient {
 		}
 		public Uri BaseUrl => this.client.BaseAddress;
 		protected virtual string SerializeJson<T>(T t) {
-			return JsonSerializer.Serialize<T>(t);
+			return JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
 		}
 		protected virtual T Deserialize<T>(string content) {
-			return JsonSerializer.Deserialize<T>(content);
+			return JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
 		}
+		
+		private JsonSerializerOptions defaultSerializationOptions = new JsonSerializerOptions { 
+			 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+		};
+
 		#endregion
 
 		#region creating request and response

@@ -64,5 +64,18 @@ namespace Albatross.Caching {
 		}
 
 		public static IAsyncPolicy<T> GetAsyncPolicy<T>(this IReadOnlyPolicyRegistry<string> registry, string key) => registry.Get<IAsyncPolicy<T>>(key);
+
+
+		public static ICacheManagement GetCacheManagement(this ICacheManagementFactory factory, string name) {
+			if(factory.TryGetValue(name, out ICacheManagement result)) {
+				return result;
+			} else {
+				throw new ArgumentException($"CacheManagement {name} is not registered");
+			}
+		}
+		public static void Evict(this ICacheManagementFactory factory, string cacheName, string key) {
+			var mgmt = factory.GetCacheManagement(cacheName);
+			mgmt.Evict(new Context(key));
+		}
 	}
 }

@@ -5,23 +5,6 @@ using System.Net.Http;
 
 namespace Albatross.WebClient {
 	public static class ServiceExtension {
-		public static IHttpClientBuilder SetBaseUrl(this IHttpClientBuilder builder, Func<Uri> getBaseUrl) {
-			builder.ConfigureHttpClient(client => {
-				client.BaseAddress = getBaseUrl();
-			});
-			return builder;
-		}
-
-		public static IHttpClientBuilder UseWindowsAuthentication(this IHttpClientBuilder builder) {
-			builder.ConfigurePrimaryHttpMessageHandler(() => {
-				return new HttpClientHandler() {
-					AllowAutoRedirect = false,
-					UseDefaultCredentials = true,
-				};
-			});
-			return builder;
-		}
-
 		/// <summary>
 		/// return named string specified in the endpoints section of the json configuration
 		/// </summary>
