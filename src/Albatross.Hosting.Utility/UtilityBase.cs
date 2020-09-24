@@ -1,4 +1,6 @@
-﻿using Albatross.Logging;
+﻿using Albatross.Config;
+using Albatross.Config.Core;
+using Albatross.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -43,7 +45,9 @@ namespace Albatross.Hosting.Utility {
 			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 		}
 
-		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) { }
+		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+			services.AddConfig<ProgramSetting, GetProgramSetting>();
+		}
 		public abstract Task<int> RunAsync();
 		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
 

@@ -1,5 +1,9 @@
-﻿using Albatross.Hosting.Utility;
+﻿using Albatross.Config;
+using Albatross.Config.Core;
+using Albatross.Hosting.Utility;
 using Albatross.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Core;
 using System;
@@ -14,6 +18,11 @@ namespace Albatross.Framework.Utility {
 
 		protected override void ConfigureLogging(LoggerConfiguration cfg) {
 			SetupSerilog.UseConfigFile(cfg, "serilog.json", null);
+		}
+
+		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+			base.RegisterServices(configuration, services);
+			services.AddConfig<ProgramSetting, GetProgramSetting>();
 		}
 	}
 }
