@@ -35,6 +35,7 @@ namespace Albatross.Hosting {
 		}
 
 		public Setup RunAsService() {
+			System.Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location);
 			var setting = new GetProgramSetting(configuration).Get();
 			switch (setting.ServiceManager) {
 				case ProgramSetting.WindowsServiceManager:
