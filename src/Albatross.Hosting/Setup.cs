@@ -6,9 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting {
@@ -17,17 +14,18 @@ namespace Albatross.Hosting {
 		protected IConfiguration configuration;
 
 		public Setup(string[] args) {
+			var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower();
 			hostBuilder = Host.CreateDefaultBuilder(args).UseSerilog();
-			var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-			configuration = new ConfigurationBuilder()
+			var configBuilder = new ConfigurationBuilder()
 				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
-				.AddJsonFile("appsettings.json", false, true)
-				.AddJsonFile($"appsettings.{env}.json", true, true)
-				.AddJsonFile("hostsettings.json", true, false)
+				.AddJsonFile("appsettings.json", false, true);
+			if (!string.IsNullOrEmpty(env)) { configBuilder.AddJsonFile($"appsettings.{env}.json", true, true); }
+
+			var configuration = configBuilder.AddJsonFile("hostsettings.json", true, false)
 				.AddEnvironmentVariables()
 				.AddCommandLine(args)
 				.Build();
-
+			
 			hostBuilder.ConfigureAppConfiguration(builder => {
 				builder.Sources.Clear();
 				builder.AddConfiguration(configuration);
@@ -35,7 +33,6 @@ namespace Albatross.Hosting {
 		}
 
 		public Setup RunAsService() {
-			System.Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location);
 			var setting = new GetProgramSetting(configuration).Get();
 			switch (setting.ServiceManager) {
 				case ProgramSetting.WindowsServiceManager:
