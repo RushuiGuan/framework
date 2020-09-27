@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Albatross.Validation;
+using System.ComponentModel.DataAnnotations;
 using Xunit;
 
-namespace Albatross.Validation.Test {
+namespace Albatross.Test.Validation {
 
 	public class Parent {
 		[RecursiveValidation, Required]

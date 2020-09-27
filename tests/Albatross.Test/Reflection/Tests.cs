@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using Xunit;
 
-namespace Albatross.Reflection.UnitTest {
+namespace Albatross.Test.Reflection {
     public struct GenericStruct<T> {
         public T ID { get; set; }
     }

@@ -1,16 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Reflection\Embedded\test.txt" />
+    <None Remove="Embedded\test.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Reflection\Embedded\test.txt" />
+    <EmbeddedResource Include="Embedded\test.txt" />
   </ItemGroup>
 
   <ItemGroup>
