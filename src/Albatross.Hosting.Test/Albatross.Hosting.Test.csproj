@@ -25,7 +25,6 @@
     <ProjectReference Include="..\Albatross.Authentication\Albatross.Authentication.csproj" />
     <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
     <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
-    <ProjectReference Include="..\Albatross.Reflection\Albatross.Reflection.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">

@@ -6,11 +6,7 @@ using Polly.Caching;
 using Polly.Registry;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Albatross.Caching {
 	public static class Extension {
