@@ -21,7 +21,7 @@ namespace Albatross.Hosting {
 				.AddJsonFile("appsettings.json", false, true);
 			if (!string.IsNullOrEmpty(env)) { configBuilder.AddJsonFile($"appsettings.{env}.json", true, true); }
 
-			var configuration = configBuilder.AddJsonFile("hostsettings.json", true, false)
+			this.configuration = configBuilder.AddJsonFile("hostsettings.json", true, false)
 				.AddEnvironmentVariables()
 				.AddCommandLine(args)
 				.Build();
