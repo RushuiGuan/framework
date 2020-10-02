@@ -1,21 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Buffers;
 
 namespace Albatross.Serialization
 {
-	public static class Extension
-	{
-		public static T ToObject<T>(this JsonElement element) {
-			string text = JsonSerializer.Serialize(element);
-			return JsonSerializer.Deserialize<T>(text);
+	public static class Extension	{
+
+		public static T ToObject<T>(this JsonElement element, JsonSerializerOptions options = null) {
+			var bufferWriter = new ArrayBufferWriter<byte>();
+			using (var writer = new Utf8JsonWriter(bufferWriter)) {
+				element.WriteTo(writer);
+			}
+			return JsonSerializer.Deserialize<T>(bufferWriter.WrittenSpan, options);
 		}
 
-		public static object ToObject(this JsonElement element, Type type) {
-			string text = JsonSerializer.Serialize(element);
-			return JsonSerializer.Deserialize(text, type);
+		public static object ToObject(this JsonElement element, Type type, JsonSerializerOptions options = null) {
+
+			var bufferWriter = new ArrayBufferWriter<byte>();
+			using (var writer = new Utf8JsonWriter(bufferWriter)) {
+				element.WriteTo(writer);
+			}
+			return JsonSerializer.Deserialize(bufferWriter.WrittenSpan, type, options);
 		}
 
 		public static Dictionary<string, object> ToObject(this JsonElement element, Dictionary<string, Type> properties, Action<string, object> action = null) {
@@ -34,6 +43,46 @@ namespace Albatross.Serialization
 			} else {
 				throw new ArgumentException($"Invalid json element: {element}");
 			}
+		}
+
+		public static bool TryGetJsonPropertyValue(this JsonElement elem, string propertyName, Type type, out object propertyValue) {
+			if (elem.ValueKind == JsonValueKind.Null || elem.ValueKind == JsonValueKind.Undefined) {
+				propertyValue = null;
+				return false;
+			}
+			if (elem.TryGetProperty(propertyName, out JsonElement value)) {
+				propertyValue = value.ToObject(type);
+				return true;
+			} else {
+				propertyValue = null;
+				return false;
+			}
+		}
+
+		public static void WriteJson(this IDataReader reader, Utf8JsonWriter writer, JsonSerializerOptions options) {
+			writer.WriteStartArray();
+			while (reader.Read()) {
+				writer.WriteStartObject();
+				for (int i = 0; i < reader.FieldCount; i++) {
+					writer.WritePropertyName(reader.GetName(i));
+					object value = reader.GetValue(i);
+					if (value == DBNull.Value || value == null) {
+						writer.WriteNullValue();
+					} else {
+						JsonSerializer.Serialize(writer, value, value.GetType(), options);
+					}
+				}
+				writer.WriteEndObject();
+			}
+			writer.WriteEndArray();
+		}
+
+		public static JsonElement WriteJson(this IDataReader reader, JsonSerializerOptions options) {
+			var bufferWriter = new ArrayBufferWriter<byte>();
+			using (var writer = new Utf8JsonWriter(bufferWriter)) {
+				reader.WriteJson(writer, options);
+			}
+			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
 		}
 	}
 }

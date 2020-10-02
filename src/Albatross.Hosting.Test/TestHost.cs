@@ -23,6 +23,7 @@ namespace Albatross.Hosting.Test {
 			var configuration = new ConfigurationBuilder()
 				.SetBasePath(folder)
 				.AddJsonFile("appsettings.json", false, true)
+				.AddEnvironmentVariables()
 				.Build();
 
 			host = hostBuilder.ConfigureAppConfiguration(builder => {
