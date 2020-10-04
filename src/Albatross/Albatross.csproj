@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <LangVersion>Latest</LangVersion>
-    <Version>1.0.3-alpha</Version>
+    <Version>1.0.3-alpha.0</Version>
     <Authors>Rushui Guan</Authors>
     <Description>Combined assembly on utility classes for serilzation, validation and reflection</Description>
   </PropertyGroup>

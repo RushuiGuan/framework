@@ -107,5 +107,7 @@ namespace Albatross.Reflection {
 				return type;
 			}
 		}
+
+		public static string GetTypeNameWithoutAssemblyVersion(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
 	}
 }
