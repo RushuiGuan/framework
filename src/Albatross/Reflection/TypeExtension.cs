@@ -90,5 +90,22 @@ namespace Albatross.Reflection {
 			}
 			return genericType != null;
 		}
+
+		/// <summary>
+		/// Type.GetType method returns null if class is not found.  This method will throw ArgumentException
+		/// </summary>
+		/// <param name="className"></param>
+		/// <returns></returns>
+		public static Type GetType(this string className) {
+			if (string.IsNullOrEmpty(className)) {
+				throw new ArgumentException("Type not found: empty class name");
+			} else {
+				Type type = Type.GetType(className);
+				if(type == null) {
+					throw new ArgumentException($"Type not found: {className}");
+				}
+				return type;
+			}
+		}
 	}
 }
