@@ -96,7 +96,7 @@ namespace Albatross.Reflection {
 		/// </summary>
 		/// <param name="className"></param>
 		/// <returns></returns>
-		public static Type GetType(this string className) {
+		public static Type GetClass(this string className) {
 			if (string.IsNullOrEmpty(className)) {
 				throw new ArgumentException("Type not found: empty class name");
 			} else {

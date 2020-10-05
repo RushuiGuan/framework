@@ -6,10 +6,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Embedded\MyTypedValue.Normal.json" />
+    <None Remove="Embedded\MyTypedValue.NullValue.json" />
+    <None Remove="Embedded\MyTypedValue.OutOfOrder.json" />
+    <None Remove="Embedded\MyTypedValue.Undefined.json" />
     <None Remove="Embedded\test.txt" />
+    <None Remove="Embedded\TypedValue.Normal.json" />
+    <None Remove="Embedded\TypedValue.NullValue.json" />
+    <None Remove="Embedded\TypedValue.OutOfOrder.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Embedded\TypedValue.NullValue.json" />
+    <EmbeddedResource Include="Embedded\MyTypedValue.Undefined.json" />
+    <EmbeddedResource Include="Embedded\MyTypedValue.NullValue.json" />
+    <EmbeddedResource Include="Embedded\MyTypedValue.Normal.json" />
+    <EmbeddedResource Include="Embedded\MyTypedValue.OutOfOrder.json" />
+    <EmbeddedResource Include="Embedded\TypedValue.OutOfOrder.json" />
+    <EmbeddedResource Include="Embedded\TypedValue.Normal.json" />
     <EmbeddedResource Include="Embedded\test.txt" />
   </ItemGroup>
 
