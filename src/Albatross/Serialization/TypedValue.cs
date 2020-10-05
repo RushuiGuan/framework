@@ -1,5 +1,6 @@
 ﻿using Albatross.Reflection;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -62,6 +63,7 @@ namespace Albatross.Serialization {
 					t.Value = JsonSerializer.Deserialize(valueElement.GetRawText(), type, options);
 				}
 			}
+			Validator.ValidateObject(t, new ValidationContext(t));
 			return t;
 		}
 
@@ -81,7 +83,7 @@ namespace Albatross.Serialization {
 			WriteAdditionalProperty(writer, value, options);
 			writer.WriteEndObject();
 		}
-		protected virtual void ReadAdditionalProperty(ref Utf8JsonReader reader, T artifact, string propertyName, JsonSerializerOptions options) { }
+		protected virtual void ReadAdditionalProperty(ref Utf8JsonReader reader, T t, string propertyName, JsonSerializerOptions options) { }
 		protected virtual void WriteAdditionalProperty(Utf8JsonWriter writer, T value, JsonSerializerOptions options) { }
 	}
 }
