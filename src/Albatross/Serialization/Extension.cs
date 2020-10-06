@@ -4,6 +4,7 @@ using System.Data;
 using System.Text.Json;
 using System.Buffers;
 using System.Dynamic;
+using Albatross.Reflection;
 
 namespace Albatross.Serialization {
 	public static class Extension	{
@@ -110,6 +111,11 @@ namespace Albatross.Serialization {
 				default:
 					return elem;
 			}
+		}
+
+		public static string SerializeValue(TypedValue value, JsonSerializerOptions options = null) {
+			Type type = string.IsNullOrEmpty(value.ClassName) ? typeof(JsonElement) : value.ClassName.GetClass();
+			return JsonSerializer.Serialize(value.Value, type, options);
 		}
 	}
 }
