@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Buffers;
+using System.Dynamic;
 
-namespace Albatross.Serialization
-{
+namespace Albatross.Serialization {
 	public static class Extension	{
 
 		public static T ToObject<T>(this JsonElement element, JsonSerializerOptions options = null) {
@@ -83,6 +81,35 @@ namespace Albatross.Serialization
 				reader.WriteJson(writer, options);
 			}
 			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
+		}
+
+		public static dynamic Convert(this JsonElement elem) {
+			switch (elem.ValueKind) {
+				case JsonValueKind.True:
+					return true;
+				case JsonValueKind.False:
+					return false;
+				case JsonValueKind.String: 
+						string text= elem.GetString();
+					if (DateTime.TryParse(text, out DateTime dateTime)) {
+						return dateTime;
+					} else {
+						return text;
+					}
+				case JsonValueKind.Number:
+					return elem.TryGetInt64(out long value) ? value : elem.GetDouble();
+				case JsonValueKind.Null:
+				case JsonValueKind.Undefined:
+					return null;
+				case JsonValueKind.Object:
+					IDictionary<string, object> expando = new ExpandoObject();
+					foreach(var child in elem.EnumerateObject()) {
+						expando.Add(child.Name, Convert(child.Value));
+					}
+					return expando;
+				default:
+					return elem;
+			}
 		}
 	}
 }
