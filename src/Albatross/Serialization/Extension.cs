@@ -58,7 +58,7 @@ namespace Albatross.Serialization {
 			}
 		}
 
-		public static void WriteJson(this IDataReader reader, Utf8JsonWriter writer, JsonSerializerOptions options) {
+		public static void WriteJson(this IDataReader reader, Utf8JsonWriter writer, JsonSerializerOptions options = null) {
 			writer.WriteStartArray();
 			while (reader.Read()) {
 				writer.WriteStartObject();
@@ -76,7 +76,7 @@ namespace Albatross.Serialization {
 			writer.WriteEndArray();
 		}
 
-		public static JsonElement WriteJson(this IDataReader reader, JsonSerializerOptions options) {
+		public static JsonElement WriteJson(this IDataReader reader, JsonSerializerOptions options = null) {
 			var bufferWriter = new ArrayBufferWriter<byte>();
 			using (var writer = new Utf8JsonWriter(bufferWriter)) {
 				reader.WriteJson(writer, options);
@@ -113,9 +113,16 @@ namespace Albatross.Serialization {
 			}
 		}
 
-		public static string SerializeValue(TypedValue value, JsonSerializerOptions options = null) {
-			Type type = string.IsNullOrEmpty(value.ClassName) ? typeof(JsonElement) : value.ClassName.GetClass();
+		public static string SerializeValue(this TypedValue value, out Type type, JsonSerializerOptions options = null) {
+			type = value.ClassName.GetClass();
 			return JsonSerializer.Serialize(value.Value, type, options);
+		}
+
+		public static object DeserializeValue(this TypedValue value, string text, JsonSerializerOptions options = null) {
+			Type type = value.ClassName.GetClass();
+			object result = JsonSerializer.Deserialize(text, type, options);
+			value.Value = result;
+			return result;
 		}
 	}
 }
