@@ -3,7 +3,6 @@ using Albatross.Caching;
 using Albatross.Config;
 using Albatross.Config.Core;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -132,12 +131,13 @@ namespace Albatross.Hosting {
 
 		public IServiceCollection AddSpa(IServiceCollection services) {
 			services.AddSpaStaticFiles(cfg => cfg.RootPath = DefaultApp_RootPath);
+			services.AddConfig<AngularConfig, GetAngularConfig>(true);
+			services.AddSingleton<ITransformAngularConfig, TransformAngularConfig>();
 			return services;
 		}
 		public virtual void ConfigureJsonOption(JsonOptions options) { }
 		public virtual void ConfigureServices(IServiceCollection services) {
 			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider=> provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
-			services.AddConfig<ProgramSetting, GetProgramSetting>();
 
 			if (WebApi) {
 				services.AddControllers().AddJsonOptions(ConfigureJsonOption);
@@ -155,8 +155,8 @@ namespace Albatross.Hosting {
 			}
 		}
 
-		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ProgramSetting program, ILogger<Startup> logger) {
-			logger.LogInformation("Initializing {@program}", program);
+		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger) {
+			logger.LogInformation("Initializing {@program}", this.ProgramSetting);
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions});
 			app.UseRouting();
 			if (WebApi) {
@@ -176,12 +176,13 @@ namespace Albatross.Hosting {
 
 		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) {
 		}
+		public virtual string BaseRef => DefaultApp_BaseHref;
 
 		public void UseSpa(IApplicationBuilder app) {
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
-			string baseRef = DefaultApp_BaseHref;
-			app.Map(baseRef, web => web.UseSpa(spa => { }));
+			app.Map(BaseRef, web => web.UseSpa(spa => { }));
+			app.ApplicationServices.GetRequiredService<ITransformAngularConfig>().Transform();
 		}
 
 		protected async Task HandleGlobalExceptions(HttpContext context) {

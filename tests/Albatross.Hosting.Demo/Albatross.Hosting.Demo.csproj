@@ -2,9 +2,9 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<StartupObject></StartupObject>
-		<AssemblyName>Albatross.Hosting.Sample</AssemblyName>
+		<AssemblyName>Albatross.Hosting.Demo</AssemblyName>
 		<Version>1.6.0-alpha</Version>
-		<RootNamespace>Albatross.Hosting.Sample</RootNamespace>
+		<RootNamespace>Albatross.Hosting.Demo</RootNamespace>
 	</PropertyGroup>
 	<PropertyGroup>
 		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
@@ -17,7 +17,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Properties\" />
-		<Folder Include="wwwroot\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Content Update="serilog.json">

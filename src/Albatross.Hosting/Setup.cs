@@ -64,7 +64,7 @@ namespace Albatross.Hosting {
 		}
 
 		public virtual void ConfigureServices(IServiceCollection services) {
-			services.AddConfig<ProgramSetting, GetProgramSetting>();
+			services.AddConfig<ProgramSetting, GetProgramSetting>(true);
 		}
 
 

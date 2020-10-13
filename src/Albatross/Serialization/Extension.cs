@@ -1,13 +1,17 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text.Json;
 using System.Buffers;
 using System.Dynamic;
 using Albatross.Reflection;
+using System.Xml.Schema;
+using System.IO;
+using System.Text;
 
 namespace Albatross.Serialization {
-	public static class Extension	{
+	public static class Extension {
 
 		public static T ToObject<T>(this JsonElement element, JsonSerializerOptions options = null) {
 			var bufferWriter = new ArrayBufferWriter<byte>();
@@ -24,24 +28,6 @@ namespace Albatross.Serialization {
 				element.WriteTo(writer);
 			}
 			return JsonSerializer.Deserialize(bufferWriter.WrittenSpan, type, options);
-		}
-
-		public static Dictionary<string, object> ToObject(this JsonElement element, Dictionary<string, Type> properties, Action<string, object> action = null) {
-			Dictionary<string, object> result = new Dictionary<string, object>();
-			if (element.ValueKind == JsonValueKind.Null || element.ValueKind == JsonValueKind.Undefined) {
-				return result;
-			} else if (element.ValueKind == JsonValueKind.Object) {
-				foreach (var pair in properties) {
-					if (element.TryGetProperty(pair.Key, out JsonElement value)) {
-						object propertyValue = value.ToObject(pair.Value);
-						action?.Invoke(pair.Key, propertyValue);
-						result.Add(pair.Key, propertyValue);
-					}
-				}
-				return result;
-			} else {
-				throw new ArgumentException($"Invalid json element: {element}");
-			}
 		}
 
 		public static bool TryGetJsonPropertyValue(this JsonElement elem, string propertyName, Type type, out object propertyValue) {
@@ -90,8 +76,8 @@ namespace Albatross.Serialization {
 					return true;
 				case JsonValueKind.False:
 					return false;
-				case JsonValueKind.String: 
-						string text= elem.GetString();
+				case JsonValueKind.String:
+					string text = elem.GetString();
 					if (DateTime.TryParse(text, out DateTime dateTime)) {
 						return dateTime;
 					} else {
@@ -104,7 +90,7 @@ namespace Albatross.Serialization {
 					return null;
 				case JsonValueKind.Object:
 					IDictionary<string, object> expando = new ExpandoObject();
-					foreach(var child in elem.EnumerateObject()) {
+					foreach (var child in elem.EnumerateObject()) {
 						expando.Add(child.Name, Convert(child.Value));
 					}
 					return expando;
@@ -123,6 +109,39 @@ namespace Albatross.Serialization {
 			object result = JsonSerializer.Deserialize(text, type, options);
 			value.Value = result;
 			return result;
+		}
+
+		public static void ApplyJsonValue(Utf8JsonWriter writer, JsonElement src, JsonElement value, JsonSerializerOptions options = null) {
+			if (value.ValueKind == JsonValueKind.Undefined) {
+				JsonSerializer.Serialize<JsonElement>(writer, src, options);
+			}else if(src.ValueKind == JsonValueKind.Object && value.ValueKind == JsonValueKind.Object) {
+				writer.WriteStartObject();
+				foreach(var property in src.EnumerateObject()) {
+					writer.WritePropertyName(options?.PropertyNamingPolicy?.ConvertName(property.Name) ?? property.Name);
+					if(value.TryGetProperty(property.Name, out JsonElement overrideProperty)) {
+						ApplyJsonValue(writer, property.Value, overrideProperty, options);
+					} else {
+						JsonSerializer.Serialize<JsonElement>(writer, property.Value, options);
+					}
+				}
+				foreach(var property in value.EnumerateObject()) {
+					if(!src.TryGetProperty(property.Name, out JsonElement _)) {
+						writer.WritePropertyName(property.Name);
+						JsonSerializer.Serialize<JsonElement>(writer, property.Value, options);
+					}
+				}
+				writer.WriteEndObject();
+			} else {
+				JsonSerializer.Serialize<JsonElement>(writer, value, options);
+			}
+		}
+
+		public static JsonElement ApplyJsonValue(JsonElement src, JsonElement value, JsonSerializerOptions options = null) {
+			ArrayBufferWriter<byte> bufferWriter= new ArrayBufferWriter<byte>();
+			using (var writer = new Utf8JsonWriter(bufferWriter)) {
+				ApplyJsonValue(writer, src, value, options);
+			}
+			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
 		}
 	}
 }
