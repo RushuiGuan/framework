@@ -167,7 +167,7 @@ namespace Albatross.Hosting {
 			}
 			if (Grpc) { app.UseEndpoints(endpoints => MapGrpcServices(endpoints)); }
 			if (WebApi && Swagger) { UseSwagger(app); }
-			if (Spa) { UseSpa(app); }
+			if (Spa) { UseSpa(app, logger); }
 			if (Caching) {
 				Albatross.Caching.Extension.UseCache(app.ApplicationServices, logger);
 			}
@@ -175,11 +175,15 @@ namespace Albatross.Hosting {
 
 		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) { }
 
-		public void UseSpa(IApplicationBuilder app) {
-			app.UseStaticFiles();
-			app.UseSpaStaticFiles();
+		public void UseSpa(IApplicationBuilder app, ILogger<Startup> logger) {
 			var config = app.ApplicationServices.GetRequiredService<AngularConfig>();
-			app.Map(config.BaseHref ?? string.Empty, web => web.UseSpa(spa => { }));
+			logger.LogInformation("Initializing SPA with relative baseHref {baseHref}", config.RequestPath);
+			var options = new StaticFileOptions { 
+				 RequestPath = config.RequestPath,
+			};
+			//app.UseStaticFiles();
+			app.UseSpaStaticFiles(new StaticFileOptions { RequestPath = config.RequestPath });
+			app.Map(config.RequestPath ?? string.Empty, web => web.UseSpa(spa => { }));
 			app.ApplicationServices.GetRequiredService<ITransformAngularConfig>().Transform();
 		}
 

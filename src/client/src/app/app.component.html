@@ -1,4 +1,7 @@
-<a [routerLink]="['test']">test</a>
-<a [routerLink]="['demo']">demo</a>
+<div>Current environment is: {{config.get().environment}}</div>
+<div class="toolbar">
+    <a [routerLink]="['app1']">app1</a>
+    <a [routerLink]="['app2']">app2</a>
+</div>
 <hr />
 <router-outlet></router-outlet>

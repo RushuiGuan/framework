@@ -1,0 +1,15 @@
+.main{
+    display: flex;
+    flex-direction: row;
+}
+.left div{
+    margin-bottom: 1rem;
+}
+.left{
+    display: block;
+    margin-right: 1rem;
+}
+
+.content   {
+    display: block;;
+}
