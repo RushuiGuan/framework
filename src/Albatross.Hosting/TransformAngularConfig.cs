@@ -14,20 +14,19 @@ namespace Albatross.Hosting {
 	}
 	public class TransformAngularConfig : ITransformAngularConfig {
 		private readonly AngularConfig config;
-		private readonly ProgramSetting programSetting;
 		private readonly ILogger<TransformAngularConfig> logger;
 
 		public TransformAngularConfig(AngularConfig config, ProgramSetting programSetting, ILogger<TransformAngularConfig> logger) {
 			this.config = config;
-			this.programSetting = programSetting;
 			this.logger = logger;
 		}
 
 		public void Transform() {
-			if(config.Transformations?.Length > 0) {
+			var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower();
+			if (config.Transformations?.Length > 0 && !string.IsNullOrEmpty(env)) {
 				foreach(var configFile in config.Transformations) {
 					string file = GetConfigFile(configFile, null);
-					string change = GetConfigFile(configFile, programSetting.Environment);
+					string change = GetConfigFile(configFile, env);
 					if (!File.Exists(file)) {
 						logger.LogError("Angular config file {file} doesn't exist", file);
 					}else if (!File.Exists(change)) {
