@@ -8,8 +8,8 @@ namespace Albatross.Hosting.Test {
 		public override bool Secured => false;
 		public override bool Swagger => true;
 		public override bool WebApi => true;
-		public override bool Spa => false;
-		// public override bool Caching => true;
+		public override bool Spa => true;
+		public override bool Caching => true;
 
 		public MyStartup(IConfiguration configuration) : base(configuration) {
 		}
@@ -20,5 +20,6 @@ namespace Albatross.Hosting.Test {
 			services.AddSingleton<ICacheManagement, IssuerCachedMgmt>();
 			services.AddSingleton<ICacheManagement, SymbolCacheManagement>();
 		}
+		public override string BaseHref => "/ui";
 	}
 }

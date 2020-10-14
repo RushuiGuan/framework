@@ -34,11 +34,19 @@ namespace Albatross.Hosting.Utility {
 		public UtilityBase(Option option) {
 			this.Options = option;
 			serilogLogger = new SetupSerilog().Configure(ConfigureLogging).Create();
-			host = Microsoft.Extensions.Hosting.Host
-						 .CreateDefaultBuilder()
-						 .UseSerilog()
-						 .ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
-						 .Build();
+
+			var env = System.Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")?.ToLower();
+			IHostBuilder hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
+			var configBuilder = new ConfigurationBuilder()
+				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json", false, true);
+			if (!string.IsNullOrEmpty(env)) { configBuilder.AddJsonFile($"appsettings.{env}.json", true, true); }
+			var configuration = configBuilder.AddEnvironmentVariables().Build();
+			
+			host = hostBuilder.ConfigureAppConfiguration(builder => {
+				builder.Sources.Clear();
+				builder.AddConfiguration(configuration);
+			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc)).Build();
 
 			logger = host.Services.GetRequiredService(typeof(Microsoft.Extensions.Logging.ILogger<>).MakeGenericType(this.GetType())) as Microsoft.Extensions.Logging.ILogger;
 			logger.LogInformation("Logging initialized for {type} instance", this.GetType().Name);

@@ -5,7 +5,7 @@ namespace Albatross.Hosting.Test{
 		public static Task Main(string[] args) {
 			return new Setup(args)
 				.ConfigureServiceHost<MyServiceHost>()
-				.RunAsService()
+				//.RunAsService()
 				.ConfigureWebHost<MyStartup>()
 				.RunAsync();
         }

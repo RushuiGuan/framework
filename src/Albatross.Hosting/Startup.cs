@@ -176,12 +176,12 @@ namespace Albatross.Hosting {
 
 		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) {
 		}
-		public virtual string BaseRef => DefaultApp_BaseHref;
+		public virtual string BaseHref => DefaultApp_BaseHref;
 
 		public void UseSpa(IApplicationBuilder app) {
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
-			app.Map(BaseRef, web => web.UseSpa(spa => { }));
+			app.Map(BaseHref, web => web.UseSpa(spa => { }));
 			app.ApplicationServices.GetRequiredService<ITransformAngularConfig>().Transform();
 		}
 
