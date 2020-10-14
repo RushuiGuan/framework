@@ -27,13 +27,12 @@ using System.Threading.Tasks;
 namespace Albatross.Hosting {
 	public class Startup {
 		public const string DefaultApp_RootPath = "wwwroot";
-		public const string DefaultApp_BaseHref = "";
 
 		public IConfiguration Configuration { get; }
 		protected AuthorizationSetting AuthorizationSetting { get; }
 		protected ProgramSetting ProgramSetting { get; }
-		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions { 
-			 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
+			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 		};
 
 		public virtual bool Swagger { get; } = true;
@@ -103,7 +102,7 @@ namespace Albatross.Hosting {
 		}
 
 		private void BuildAuthorizationPolicy(AuthorizationPolicyBuilder builder, AuthorizationPolicy policy) {
-			if(policy.Roles?.Length > 0) {
+			if (policy.Roles?.Length > 0) {
 				builder.RequireRole(policy.Roles);
 			}
 		}
@@ -137,7 +136,7 @@ namespace Albatross.Hosting {
 		}
 		public virtual void ConfigureJsonOption(JsonOptions options) { }
 		public virtual void ConfigureServices(IServiceCollection services) {
-			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider=> provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
+			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 
 			if (WebApi) {
 				services.AddControllers().AddJsonOptions(ConfigureJsonOption);
@@ -145,7 +144,7 @@ namespace Albatross.Hosting {
 				services.AddAspNetCorePrincipalProvider();
 				if (Swagger) {
 					services.AddMvc();
-					AddSwagger(services); 
+					AddSwagger(services);
 				}
 			}
 			if (Spa) { AddSpa(services); }
@@ -157,11 +156,11 @@ namespace Albatross.Hosting {
 
 		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger) {
 			logger.LogInformation("Initializing {@program}", this.ProgramSetting);
-			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions});
+			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions });
 			app.UseRouting();
 			if (WebApi) {
 				app.UseCors();
-				if (Secured) { 
+				if (Secured) {
 					app.UseAuthentication().UseAuthorization();
 				}
 				app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
@@ -174,14 +173,13 @@ namespace Albatross.Hosting {
 			}
 		}
 
-		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) {
-		}
-		public virtual string BaseHref => DefaultApp_BaseHref;
+		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) { }
 
 		public void UseSpa(IApplicationBuilder app) {
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
-			app.Map(BaseHref, web => web.UseSpa(spa => { }));
+			var config = app.ApplicationServices.GetRequiredService<AngularConfig>();
+			app.Map(config.BaseHref ?? string.Empty, web => web.UseSpa(spa => { }));
 			app.ApplicationServices.GetRequiredService<ITransformAngularConfig>().Transform();
 		}
 
@@ -189,7 +187,7 @@ namespace Albatross.Hosting {
 			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 			context.Response.ContentType = MediaTypeNames.Application.Json;
 			var error = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-			
+
 			if (error != null) {
 				var msg = CreateExceptionMessage(error);
 				msg.HttpStatus = context.Response.StatusCode;
@@ -198,7 +196,7 @@ namespace Albatross.Hosting {
 		}
 
 		protected virtual ErrorMessage CreateExceptionMessage(Exception error) {
-			return new ErrorMessage{
+			return new ErrorMessage {
 				Message = error.Message,
 				Type = error.GetType().FullName,
 			};

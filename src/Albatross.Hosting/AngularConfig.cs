@@ -10,6 +10,7 @@ namespace Albatross.Hosting {
 		public const string Key = "angular";
 		public string[] Location { get; set; }
 		public string[] Transformations { get; set; }
+		public string BaseHref { get; set; }
 
 		public override void Init(IConfiguration configuration) {
 		}

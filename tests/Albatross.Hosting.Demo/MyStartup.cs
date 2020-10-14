@@ -20,6 +20,5 @@ namespace Albatross.Hosting.Test {
 			services.AddSingleton<ICacheManagement, IssuerCachedMgmt>();
 			services.AddSingleton<ICacheManagement, SymbolCacheManagement>();
 		}
-		public override string BaseHref => "/ui";
 	}
 }
