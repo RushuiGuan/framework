@@ -15,11 +15,18 @@ namespace Albatross.Authentication.UnitTest {
 		[Fact]
 		public async Task TestSelf() {
 			using var scope = host.Create();
-
 			var svc = scope.Get<ActiveDirectoryUserProfileService>();
 			var current = scope.Get<IGetCurrentUser>().Get();
 			var user = await svc.GetUser(current);
 			Assert.NotNull(user);
+		}
+
+		[Fact]
+		public async Task TestSearchUsers() {
+			using var scope = host.Create();
+			var svc = scope.Get<ActiveDirectoryUserProfileService>();
+			var users = await svc.Search();
+			Assert.NotEmpty(users);
 		}
 	}
 }

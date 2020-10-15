@@ -38,6 +38,18 @@ namespace Albatross.Authentication.Server {
 			return await policy.ExecuteAsync(context => userProfileService.GetUser(account), new Context(account));
 		}
 
+		[HttpPost]
+		public void InvalidateCache() {
+			string account = getCurrentUser.Get();
+			cacheMgmtFactory.GetCacheManagement(nameof(ActiveDirectoryUserProfileCacheMgmt)).Evict(new Polly.Context(account));
+		}
+
+		[HttpGet("{account}")]
+		public async Task<User> Get(string account) {
+			var policy = cachePolicyRegistry.GetAsyncPolicy<User>(ActiveDirectoryUserProfileCacheMgmt.CacheKey);
+			return await policy.ExecuteAsync(context => userProfileService.GetUser(account), new Context(account));
+		}
+
 		[HttpPost("{account}")]
 		public void InvalidateCache(string account) {
 			cacheMgmtFactory.GetCacheManagement(nameof(ActiveDirectoryUserProfileCacheMgmt)).Evict(new Polly.Context(account));
