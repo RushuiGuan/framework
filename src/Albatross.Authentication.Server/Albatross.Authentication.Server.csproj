@@ -1,12 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
 	
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.8" />
 		<PackageReference Include="System.DirectoryServices.AccountManagement" Version="4.7.0" />
 		<PackageReference Include="System.DirectoryServices" Version="4.7.0" />
+	</ItemGroup>
+
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\Albatross.Authentication\Albatross.Authentication.csproj" />
+	  <ProjectReference Include="..\Albatross.Caching\Albatross.Caching.csproj" />
 	</ItemGroup>
 </Project>
