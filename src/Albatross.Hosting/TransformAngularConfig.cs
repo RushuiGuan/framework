@@ -26,21 +26,19 @@ namespace Albatross.Hosting {
 
 		public void Transform() {
 			var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower();
-			if (config.Location?.Length > 0 && config.Transformations?.Length > 0 && !string.IsNullOrEmpty(env)) {
-				foreach(var configFile in config.Transformations) {
-					string file = GetConfigFile(configFile, null);
-					string change = GetConfigFile(configFile, env);
-					if (!File.Exists(file)) {
-						logger.LogError("Angular config file {file} doesn't exist", file);
-					}else if (!File.Exists(change)) {
-						logger.LogError("Angular config transformation file {file} doesn't exist", change);
-					} else {
-						var srcElem = ReadJsonFile(file);
-						var changeElem = ReadJsonFile(change);
-						var result = Albatross.Serialization.Extension.ApplyJsonValue(srcElem, changeElem);
-						logger.LogInformation("Overriding config file {config} with values from {environment_config}", configFile, Path.GetFileName(change));
-						WriteJsonFile(file, result);
-					}
+			if (config.ConfigFile?.Length > 0 && !string.IsNullOrEmpty(env)) {
+				string file = GetConfigFile(null);
+				string change = GetConfigFile(env);
+				if (!File.Exists(file)) {
+					logger.LogError("Angular config file {file} doesn't exist", file);
+				} else if (!File.Exists(change)) {
+					logger.LogError("Angular config transformation file {file} doesn't exist", change);
+				} else {
+					var srcElem = ReadJsonFile(file);
+					var changeElem = ReadJsonFile(change);
+					var result = Albatross.Serialization.Extension.ApplyJsonValue(srcElem, changeElem);
+					logger.LogInformation("Overriding config file {config} with values from {environment_config}", config.ConfigFile.Last(), Path.GetFileName(change));
+					WriteJsonFile(file, result);
 				}
 			}
 			UpdateBaseHref();
@@ -48,9 +46,9 @@ namespace Albatross.Hosting {
 
 		public void UpdateBaseHref() {
 			if (config.BaseHrefFile?.Length > 0) {
-				var indexHtml = Path.Join((new string[] { System.Environment.CurrentDirectory }.Union(config.Location).Union(config.BaseHrefFile)).ToArray());
+				var indexHtml = Path.Join((new string[] { System.Environment.CurrentDirectory }.Union(config.BaseHrefFile)).ToArray());
 				if (File.Exists(indexHtml)) {
-					logger.LogInformation("Replacing baseHref for {file}; the framework will only find and replace the exact string: {target}", indexHtml, "<base href=\"/\">");
+					logger.LogInformation("Replacing baseHref for {file}", indexHtml);
 					string content;
 					using(var reader = new StreamReader(indexHtml)) {
 						content = reader.ReadToEnd();
@@ -66,16 +64,17 @@ namespace Albatross.Hosting {
 					logger.LogError("Angular index html file {name} doesn't exist", indexHtml);
 				}
 			} else {
-				logger.LogWarning("Angular IndexHtml path not specified, baseHref transformation skipped");
+				logger.LogWarning("Angular config baseHrefFile property not specified, baseHref transformation skipped");
 			}
 		}
-		string GetConfigFile(string name, string environment) {
+		string GetConfigFile(string environment) {
+			string name = config.ConfigFile.Last();
 			if (!string.IsNullOrEmpty(environment)) {
 				name = $"{Path.GetFileNameWithoutExtension(name)}.{environment}.json";
 			}
 			var location = new string[] {
 				System.Environment.CurrentDirectory
-			}.Union(config.Location).Union(new string[] { name}).ToArray();
+			}.Union(config.ConfigFile.SkipLast(1)).Union(new string[] { name}).ToArray();
 			return Path.Join(location);
 		}
 

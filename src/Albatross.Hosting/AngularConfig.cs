@@ -10,8 +10,7 @@ namespace Albatross.Hosting {
 	public class AngularConfig : ConfigBase{
 		public const string Key = "angular";
 
-		public string[] Location { get; set; }
-		public string[] Transformations { get; set; }
+		public string[] ConfigFile { get; set; }
 		public string[] BaseHrefFile { get; set; }
 		/// <summary>
 		/// Use by the hosting aspnetcore web app.  Default is String.Empty.  This property should reflect the relative path for the angular app to the aspnetcore web app.  It should start with a / but never end with one.
@@ -26,9 +25,6 @@ namespace Albatross.Hosting {
 		public string BaseHref { get; set; }
 
 		public override void Init(IConfiguration configuration) {
-			if(Location?.Length == 0) {
-				throw new ValidationException("Missing required property: location");
-			}
 		}
 	}
 

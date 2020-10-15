@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Albatross.Authentication.Core;
 using Albatross.Config.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Albatross.Hosting {
@@ -40,12 +41,14 @@ namespace Albatross.Hosting {
 		}
 
 		[HttpGet("user-claim")]
+		[Authorize]
 		public string[] GetUserClaims() { 
 			var items = (from item in HttpContext.User?.Claims ?? new System.Security.Claims.Claim[0]
 						 select $"{item.Type}: {item.Value}").ToArray();
 			return items;
 		}
 		[HttpGet("user")]
+		[Authorize]
 		public string GetCurrentUser() {
 			return getCurrentUser.Get();
 		}

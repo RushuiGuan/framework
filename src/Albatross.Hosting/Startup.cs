@@ -111,6 +111,7 @@ namespace Albatross.Hosting {
 			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
 			services.AddAuthorization(ConfigureAuthorization);
 			AuthenticationBuilder builder = services.AddAuthentication(AuthorizationSetting.Authentication);
+
 			if (AuthorizationSetting.IsKerborosAuthentication) {
 				builder.AddNegotiate();
 			} else if (AuthorizationSetting.IsBearerAuthentication) {
@@ -177,7 +178,7 @@ namespace Albatross.Hosting {
 
 		public void UseSpa(IApplicationBuilder app, ILogger<Startup> logger) {
 			var config = app.ApplicationServices.GetRequiredService<AngularConfig>();
-			logger.LogInformation("Initializing SPA with relative baseHref {baseHref}", config.RequestPath);
+			logger.LogInformation("Initializing SPA with request path of  {requestPath} and baseHref of ", config.RequestPath, config.BaseHref);
 			var options = new StaticFileOptions { 
 				 RequestPath = config.RequestPath,
 			};
