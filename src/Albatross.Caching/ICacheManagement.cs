@@ -13,7 +13,7 @@ namespace Albatross.Caching {
 		ITtlStrategy TtlStrategy { get; }
 		string GetCacheKey(Context context);
 		void Register();
-		void Evict(Context context);
+		void Evict(params Context[] contexts);
 		void OnCacheGet(Context context, string cacheKey);
 		void OnCacheMiss(Context context, string cacheKey);
 		void OnCachePut(Context context, string cacheKey);
@@ -21,5 +21,6 @@ namespace Albatross.Caching {
 		void OnCachePutError(Context context, string cacheKey, Exception error);
 	}
 	public interface ICacheManagement<CacheFormat> :ICacheManagement{
+		Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, Context context);
 	}
 }

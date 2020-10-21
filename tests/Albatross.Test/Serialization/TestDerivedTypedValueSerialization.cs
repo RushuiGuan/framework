@@ -15,14 +15,14 @@ namespace Albatross.Test.Serialization {
 
 	public class MyTypedValueJsonConverter: TypedValueJsonConverter<MyTypedValue> {
 		protected override void ReadAdditionalProperty(ref Utf8JsonReader reader, MyTypedValue artifact, string propertyName, JsonSerializerOptions options) {
-			if(CheckPropertyName(nameof(MyTypedValue.Description), propertyName, options)) {
+			if(options.CheckPropertyName(nameof(MyTypedValue.Description), propertyName)) {
 				if (reader.Read()) {
 					artifact.Description = reader.GetString();
 				}
 			}
 		}
 		protected override void WriteAdditionalProperty(Utf8JsonWriter writer, MyTypedValue value, JsonSerializerOptions options) {
-			writer.WriteString(GetPropertyName(nameof(MyTypedValue.Description), options), value.Description);
+			writer.WriteString(options.GetPropertyName(nameof(MyTypedValue.Description)), value.Description);
 		}
 	}
 

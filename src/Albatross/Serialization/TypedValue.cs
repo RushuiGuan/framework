@@ -11,16 +11,7 @@ namespace Albatross.Serialization {
 		public object Value { get; set; }
 	}
 	public class TypedValueJsonConverter<T> : JsonConverter<T> where T : TypedValue, new() {
-		protected static bool CheckPropertyName(string expected, string actual, JsonSerializerOptions options) {
-			if (options.PropertyNamingPolicy == null) {
-				return expected == actual;
-			}else if (options.PropertyNameCaseInsensitive) {
-				return string.Equals(expected, actual, StringComparison.InvariantCultureIgnoreCase);
-			} else {
-				return options.PropertyNamingPolicy.ConvertName(expected) == actual;
-			}
-		}
-		protected static string GetPropertyName(string name, JsonSerializerOptions options) => options.PropertyNamingPolicy?.ConvertName(name) ?? name;
+		
 
 		public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
 			T t = new T();
@@ -32,12 +23,12 @@ namespace Albatross.Serialization {
 				if (reader.TokenType == JsonTokenType.EndObject && reader.CurrentDepth == startDepth) { break; }
 				if (reader.TokenType == JsonTokenType.PropertyName) {
 					string propertyName = reader.GetString();
-					if (CheckPropertyName(nameof(TypedValue.ClassName), propertyName, options)) {
+					if (options.CheckPropertyName(nameof(TypedValue.ClassName), propertyName)) {
 						if (reader.Read()) { 
 							t.ClassName = reader.GetString();
 							classNameSet = true;
 						}
-					}else if(CheckPropertyName(nameof(TypedValue.Value), propertyName, options)) {
+					}else if(options.CheckPropertyName(nameof(TypedValue.Value), propertyName)) {
 						if (classNameSet) {
 							Type type = t.ClassName.GetClass();
 							t.Value = JsonSerializer.Deserialize(ref reader, type, options);
@@ -60,7 +51,11 @@ namespace Albatross.Serialization {
 				if (type == typeof(JsonElement)) {
 					t.Value = valueElement;
 				} else {
-					t.Value = JsonSerializer.Deserialize(valueElement.GetRawText(), type, options);
+					if (valueElement.ValueKind == JsonValueKind.Undefined) {
+						t.Value = null;
+					} else {
+						t.Value = JsonSerializer.Deserialize(valueElement.GetRawText(), type, options);
+					}
 				}
 			}
 			Validator.ValidateObject(t, new ValidationContext(t));
@@ -70,15 +65,15 @@ namespace Albatross.Serialization {
 		public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options) {
 			writer.WriteStartObject();
 			if (!string.IsNullOrEmpty(value.ClassName)) {
-				writer.WriteString(GetPropertyName(nameof(TypedValue.ClassName), options), value.ClassName);
+				writer.WriteString(options.GetPropertyName(nameof(TypedValue.ClassName)), value.ClassName);
 			}else if (!options.IgnoreNullValues) {
-				writer.WriteNull(GetPropertyName(nameof(TypedValue.ClassName), options));
+				writer.WriteNull(options.GetPropertyName(nameof(TypedValue.ClassName)));
 			}
 			if (value.Value != null) {
-				writer.WritePropertyName(GetPropertyName(nameof(TypedValue.Value), options));
+				writer.WritePropertyName(options.GetPropertyName(nameof(TypedValue.Value)));
 				JsonSerializer.Serialize(writer, value.Value, options);
 			} else if (!options.IgnoreNullValues) {
-				writer.WriteNull(GetPropertyName(nameof(TypedValue.ClassName), options));
+				writer.WriteNull(options.GetPropertyName(nameof(TypedValue.Value)));
 			}
 			WriteAdditionalProperty(writer, value, options);
 			writer.WriteEndObject();

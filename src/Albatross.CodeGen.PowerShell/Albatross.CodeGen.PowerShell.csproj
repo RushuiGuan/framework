@@ -19,7 +19,7 @@
     <PackageReference Include="JsonNet.PrivateSettersContractResolvers" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
     <PackageReference Include="System.Management.Automation" Version="7.0.3" />
-    <PackageReference Include="Albatross.Database" Version="1.1.7" />
+    <PackageReference Include="Albatross.Database" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />

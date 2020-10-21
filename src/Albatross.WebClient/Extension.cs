@@ -16,7 +16,7 @@ namespace Albatross.WebClient {
 				for (int i = 0; i < queryStringValues.Count; i++) {
 					string[] values = queryStringValues.GetValues(i);
 					string key = queryStringValues.GetKey(i);
-					foreach (string value in values) {
+					foreach (string value in values ??new string[0]) {
 						writer.Write(Uri.EscapeDataString(key));
 						writer.Write("=");
 						writer.Write(Uri.EscapeDataString(value));

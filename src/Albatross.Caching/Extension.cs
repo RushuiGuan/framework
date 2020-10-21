@@ -6,6 +6,7 @@ using Polly.Caching;
 using Polly.Registry;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Albatross.Caching {
@@ -62,16 +63,22 @@ namespace Albatross.Caching {
 		public static IAsyncPolicy<T> GetAsyncPolicy<T>(this IReadOnlyPolicyRegistry<string> registry, string key) => registry.Get<IAsyncPolicy<T>>(key);
 
 
-		public static ICacheManagement GetCacheManagement(this ICacheManagementFactory factory, string name) {
+		public static ICacheManagement Get(this ICacheManagementFactory factory, string name) {
 			if(factory.TryGetValue(name, out ICacheManagement result)) {
 				return result;
 			} else {
 				throw new ArgumentException($"CacheManagement {name} is not registered");
 			}
 		}
-		public static void Evict(this ICacheManagementFactory factory, string cacheName, string key) {
-			var mgmt = factory.GetCacheManagement(cacheName);
-			mgmt.Evict(new Context(key));
+
+		public static ICacheManagement<CacheFormat> Get<CacheFormat>(this ICacheManagementFactory factory, string name) {
+			ICacheManagement cache = factory.Get(name);
+			return (ICacheManagement<CacheFormat>)cache;
+		}
+
+		public static void Evict(this ICacheManagementFactory factory, string cacheName, params string[] keys) {
+			var mgmt = factory.Get(cacheName);
+			mgmt.Evict(keys.Select(args => new Context(args)).ToArray());
 		}
 	}
 }

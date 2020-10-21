@@ -1,8 +1,10 @@
 ﻿using Albatross.Reflection;
 using Albatross.Serialization;
+using System.Collections.Specialized;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Albatross.Test.Serialization {
 	public class ClassA {
@@ -43,5 +45,32 @@ namespace Albatross.Test.Serialization {
 			Assert.IsType<ClassA>(result.Value);
 			Assert.Equal("test", ((ClassA)result.Value).Name);
 		}
+
+		[Fact]
+		public void TestSomeSpecialCases() {
+			TypedValue value = new TypedValue {
+				ClassName = typeof(WebApiParam).GetTypeNameWithoutAssemblyVersion(),
+				Value = new WebApiParam (),
+			};
+			string result = JsonSerializer.Serialize<TypedValue>(value);
+			Assert.NotNull(result);
+		}
+
+		[Fact]
+		public void TestNullDeserialization() {
+			string text = "{\"className\" : \"Albatross.Test.Serialization.WebApiParam, Albatross.Test\"}";
+			TypedValue value  = JsonSerializer.Deserialize<TypedValue>(text, options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+			Assert.Equal(typeof(WebApiParam).GetTypeNameWithoutAssemblyVersion(), value.ClassName);
+			Assert.Null(value.Value);
+		}
+
+	}
+
+	public class WebApiParam {
+		public JsonElement FromBody { get; set; }
+		public NameValueCollection FromQuery { get; set; }
+		public NameValueCollection FromHeader { get; set; }
+		public NameValueCollection FromForm { get; set; }
+		public string ContentType { get; set; }
 	}
 }

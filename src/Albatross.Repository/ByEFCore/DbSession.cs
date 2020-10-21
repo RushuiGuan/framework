@@ -1,9 +1,6 @@
 ﻿using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Reflection;
 
 namespace Albatross.Repository.ByEFCore {

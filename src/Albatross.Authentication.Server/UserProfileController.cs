@@ -41,7 +41,7 @@ namespace Albatross.Authentication.Server {
 		[HttpPost]
 		public void InvalidateCache() {
 			string account = getCurrentUser.Get();
-			cacheMgmtFactory.GetCacheManagement(nameof(ActiveDirectoryUserProfileCacheMgmt)).Evict(new Polly.Context(account));
+			cacheMgmtFactory.Get(nameof(ActiveDirectoryUserProfileCacheMgmt)).Evict(new Polly.Context(account));
 		}
 
 		[HttpGet("{account}")]
@@ -52,7 +52,7 @@ namespace Albatross.Authentication.Server {
 
 		[HttpPost("{account}")]
 		public void InvalidateCache(string account) {
-			cacheMgmtFactory.GetCacheManagement(nameof(ActiveDirectoryUserProfileCacheMgmt)).Evict(new Polly.Context(account));
+			cacheMgmtFactory.Get(nameof(ActiveDirectoryUserProfileCacheMgmt)).Evict(new Polly.Context(account));
 		}
 	}
 }

@@ -114,18 +114,18 @@ namespace Albatross.Serialization {
 		public static void ApplyJsonValue(Utf8JsonWriter writer, JsonElement src, JsonElement value, JsonSerializerOptions options = null) {
 			if (value.ValueKind == JsonValueKind.Undefined) {
 				JsonSerializer.Serialize<JsonElement>(writer, src, options);
-			}else if(src.ValueKind == JsonValueKind.Object && value.ValueKind == JsonValueKind.Object) {
+			} else if (src.ValueKind == JsonValueKind.Object && value.ValueKind == JsonValueKind.Object) {
 				writer.WriteStartObject();
-				foreach(var property in src.EnumerateObject()) {
+				foreach (var property in src.EnumerateObject()) {
 					writer.WritePropertyName(options?.PropertyNamingPolicy?.ConvertName(property.Name) ?? property.Name);
-					if(value.TryGetProperty(property.Name, out JsonElement overrideProperty)) {
+					if (value.TryGetProperty(property.Name, out JsonElement overrideProperty)) {
 						ApplyJsonValue(writer, property.Value, overrideProperty, options);
 					} else {
 						JsonSerializer.Serialize<JsonElement>(writer, property.Value, options);
 					}
 				}
-				foreach(var property in value.EnumerateObject()) {
-					if(!src.TryGetProperty(property.Name, out JsonElement _)) {
+				foreach (var property in value.EnumerateObject()) {
+					if (!src.TryGetProperty(property.Name, out JsonElement _)) {
 						writer.WritePropertyName(property.Name);
 						JsonSerializer.Serialize<JsonElement>(writer, property.Value, options);
 					}
@@ -137,11 +137,23 @@ namespace Albatross.Serialization {
 		}
 
 		public static JsonElement ApplyJsonValue(JsonElement src, JsonElement value, JsonSerializerOptions options = null) {
-			ArrayBufferWriter<byte> bufferWriter= new ArrayBufferWriter<byte>();
+			ArrayBufferWriter<byte> bufferWriter = new ArrayBufferWriter<byte>();
 			using (var writer = new Utf8JsonWriter(bufferWriter)) {
 				ApplyJsonValue(writer, src, value, options);
 			}
 			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
 		}
+
+		public static bool CheckPropertyName(this JsonSerializerOptions options, string expected, string actual) {
+			if (options?.PropertyNamingPolicy == null) {
+				return expected == actual;
+			} else if (options?.PropertyNameCaseInsensitive == true) {
+				return string.Equals(expected, actual, StringComparison.InvariantCultureIgnoreCase);
+			} else {
+				return options.PropertyNamingPolicy.ConvertName(expected) == actual;
+			}
+		}
+		public static string GetPropertyName(this JsonSerializerOptions options, string name) => options?.PropertyNamingPolicy?.ConvertName(name) ?? name;
+
 	}
 }

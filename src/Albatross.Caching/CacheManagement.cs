@@ -58,8 +58,14 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public void Evict(Context context) {
-			this.cache.Remove(GetCacheKey(context));
+		public void Evict(params Context[] contexts) {
+			foreach (var context in contexts) {
+				this.cache.Remove(GetCacheKey(context));
+			}
+		}
+
+		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, Context context) {
+			return this.registry.GetAsyncPolicy<CacheFormat>(Name).ExecuteAsync(func, context);
 		}
 	}
 }
