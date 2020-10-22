@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Albatross.Config.Core;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Albatross.Hosting.Utility {
 	[Verb("show-env")]
@@ -22,8 +23,17 @@ namespace Albatross.Hosting.Utility {
 			var setting = this.host.Services.GetRequiredService<ProgramSetting>();
 			logger.LogInformation("Program Setting: {environment}", setting?.Environment);
 
-			var hostEnv = this.host.Services.GetRequiredService<IHostEnvironment>();
-			logger.LogInformation("Host Environment: {hostEnvironment}", hostEnv.EnvironmentName);
+			IConfiguration cfg = host.Services.GetRequiredService<IConfiguration>();
+			var section = cfg.GetSection("connectionStrings");
+			foreach(var item in section.GetChildren()) {
+				logger.LogInformation("Connection String: {name} {value}", item.Key, item.Value);
+			}
+
+			section = cfg.GetSection("endpoints");
+			foreach (var item in section.GetChildren()) {
+				logger.LogInformation("Endpoint: {name} {value}", item.Key, item.Value);
+			}
+
 			return Task.FromResult(0);
 		}
 	}
