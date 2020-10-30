@@ -1,10 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>1.0.1-alpha</Version>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Embedded\DynamicConversion.json" />
     <None Remove="Embedded\MyTypedValue.Normal.json" />
@@ -16,7 +15,6 @@
     <None Remove="Embedded\TypedValue.NullValue.json" />
     <None Remove="Embedded\TypedValue.OutOfOrder.json" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Embedded\DynamicConversion.json" />
     <EmbeddedResource Include="Embedded\TypedValue.NullValue.json" />
@@ -28,7 +26,6 @@
     <EmbeddedResource Include="Embedded\TypedValue.Normal.json" />
     <EmbeddedResource Include="Embedded\test.txt" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -37,9 +34,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross\Albatross.csproj" />
   </ItemGroup>
-
 </Project>

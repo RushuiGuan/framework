@@ -30,6 +30,14 @@ namespace Albatross.Serialization {
 			return JsonSerializer.Deserialize(bufferWriter.WrittenSpan, type, options);
 		}
 
+		public static JsonElement ToJsonElement<T>(this T t, JsonSerializerOptions options =null) {
+			var bufferWriter = new ArrayBufferWriter<byte>();
+			using (var writer = new Utf8JsonWriter(bufferWriter)) {
+				JsonSerializer.Serialize<T>(writer, t, options);
+			}
+			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
+		}
+
 		public static bool TryGetJsonPropertyValue(this JsonElement elem, string propertyName, Type type, out object propertyValue) {
 			if (elem.ValueKind == JsonValueKind.Null || elem.ValueKind == JsonValueKind.Undefined) {
 				propertyValue = null;

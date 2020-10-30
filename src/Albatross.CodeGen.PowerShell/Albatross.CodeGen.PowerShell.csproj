@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.6.0-alpha.1</Version>
+    <Version>1.6.0-alpha.2</Version>
     <Product>Albatross Code Generator PowerShell Utilities</Product>
     <Authors>Rushui Guan</Authors>
     <PackageProjectUrl>https://github.com/RushuiGuan/framework</PackageProjectUrl>
@@ -26,18 +26,15 @@
     <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>
-      </PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Update="codegen.psd1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="readme.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 </Project>

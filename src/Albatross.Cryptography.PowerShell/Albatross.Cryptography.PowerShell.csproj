@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
-    <Version>1.6.0-alpha</Version>
+    <Version>1.6.0-alpha.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
   </PropertyGroup>
@@ -15,7 +15,8 @@
   <ItemGroup>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
 </Project>

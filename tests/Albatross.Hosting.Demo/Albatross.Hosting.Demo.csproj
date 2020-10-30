@@ -1,27 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<StartupObject></StartupObject>
-		<AssemblyName>Albatross.Hosting.Demo</AssemblyName>
-		<Version>1.6.0-alpha</Version>
-		<RootNamespace>Albatross.Hosting.Demo</RootNamespace>
-		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-	</PropertyGroup>
-	<PropertyGroup>
-		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-		<OutputType>Exe</OutputType>
-	</PropertyGroup>
-	
-	<ItemGroup>
-		<ProjectReference Include="..\..\src\Albatross.Caching\Albatross.Caching.csproj" />
-		<ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Properties\" />
-	</ItemGroup>
-	<ItemGroup>
-		<Content Update="serilog.json">
-		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <StartupObject>
+    </StartupObject>
+    <AssemblyName>Albatross.Hosting.Demo</AssemblyName>
+    <Version>1.6.0-alpha.0</Version>
+    <RootNamespace>Albatross.Hosting.Demo</RootNamespace>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Albatross.Caching\Albatross.Caching.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="serilog.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
