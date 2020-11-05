@@ -25,10 +25,10 @@ namespace Albatross.Repository.Core {
 				ModifiedUTC = DateTime.UtcNow;
 				ModifiedBy = user;
 			}
-			this.Validate();
+			this.Validate(session);
 		}
 
-		public virtual void Validate() {
+		public virtual void Validate(IDbSession session) {
 			Validator.ValidateObject(this, new ValidationContext(this), true);
 		}
 	}

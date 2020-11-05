@@ -57,9 +57,5 @@ namespace Albatross.Repository.Core {
 			}
 			return items;
 		}
-
-		public static ITransaction BeginTransaction<T>(this IRepository<T> repository) {
-			return repository.DbSession.BeginTransaction();
-		}
 	}
 }

@@ -30,6 +30,7 @@ namespace Albatross.Hosting.Utility {
 			SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
 		}
 
+		public virtual string CurrentDirectory => System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location);
 
 		public UtilityBase(Option option) {
 			this.Options = option;
@@ -38,7 +39,7 @@ namespace Albatross.Hosting.Utility {
 			var env = System.Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")?.ToLower();
 			IHostBuilder hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			var configBuilder = new ConfigurationBuilder()
-				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
+				.SetBasePath(CurrentDirectory)
 				.AddJsonFile("appsettings.json", false, true);
 			if (!string.IsNullOrEmpty(env)) { configBuilder.AddJsonFile($"appsettings.{env}.json", true, true); }
 			var configuration = configBuilder.AddEnvironmentVariables().Build();

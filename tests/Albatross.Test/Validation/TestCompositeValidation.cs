@@ -22,5 +22,11 @@ namespace Albatross.Test.Validation {
 			//validation should kick in for the child object
 			Assert.Throws<ValidationException>(() => Validator.ValidateObject(parent, new ValidationContext(parent), true));
 		}
+
+		[Fact]
+		public void TestSomething() {
+			string location = this.GetType().Assembly.Location;
+			Assert.NotNull(location);
+		}
 	}
 }

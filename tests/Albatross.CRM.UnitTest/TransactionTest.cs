@@ -1,6 +1,7 @@
 ﻿using Albatross.CRM.Messages;
 using Albatross.CRM.Model;
 using Albatross.CRM.Repository;
+using Albatross.Repository.Core;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -24,6 +25,7 @@ namespace Albatross.Repository.UnitTest {
 					var products = scope.Get<IProductRepository>();
 					contacts.Add(new CRM.Model.Customer(new CRM.Messages.Customer { Name = name, Company = name, }, Admin, products));
 					await contacts.DbSession.SaveChangesAsync();
+					t.Commit();
 				}
 			}
 		}

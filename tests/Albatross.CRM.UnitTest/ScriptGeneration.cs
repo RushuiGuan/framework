@@ -1,4 +1,5 @@
 ﻿using Albatross.CRM.UnitTest.DbSessions;
+using Albatross.Repository.Core;
 using Xunit;
 
 namespace Albatross.Repository.UnitTest {

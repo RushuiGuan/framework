@@ -14,7 +14,6 @@ namespace Albatross.Hosting.PowerShell {
 			var configuration = new ConfigurationBuilder()
 				.SetBasePath(basePath)
 				.AddJsonFile("appsettings.json", false, true)
-				.AddJsonFile("hostsettings.json", true, false)
 				.AddEnvironmentVariables()
 				.Build();
 

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -22,6 +24,21 @@ namespace Albatross.WebClient {
 						writer.Write(Uri.EscapeDataString(value));
 						writer.Write("&");
 					}
+				}
+			}
+			return writer.ToString();
+		}
+
+		public static string GetUrl(this string url, IEnumerable<KeyValuePair<string, string>> queryStringValues) {
+			StringWriter writer = new StringWriter();
+			writer.Write(url);
+			if (queryStringValues?.Count() > 0) {
+				writer.Write("?");
+				foreach (var item in queryStringValues) {
+					writer.Write(Uri.EscapeDataString(item.Key));
+					writer.Write("=");
+					writer.Write(Uri.EscapeDataString(item.Value));
+					writer.Write("&");
 				}
 			}
 			return writer.ToString();

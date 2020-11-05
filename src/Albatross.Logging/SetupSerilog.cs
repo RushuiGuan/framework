@@ -6,7 +6,7 @@ using System;
 
 namespace Albatross.Logging {
 	public class SetupSerilog {
-		public const string DefaultOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}";
+		public const string DefaultOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}";
 		Action<LoggerConfiguration> configActions = null;
 
 		public SetupSerilog UseConfigFile(string name, string basePath = null) {

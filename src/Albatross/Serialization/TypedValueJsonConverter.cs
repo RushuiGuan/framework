@@ -64,7 +64,7 @@ namespace Albatross.Serialization {
 			}else if (!options.IgnoreNullValues) {
 				writer.WriteNull(options.GetPropertyName(nameof(TypedValue.ClassName)));
 			}
-			if (value.Value != null) {
+			if (!IsNull(value.Value)) { 
 				writer.WritePropertyName(options.GetPropertyName(nameof(TypedValue.Value)));
 				JsonSerializer.Serialize(writer, value.Value, options);
 			} else if (!options.IgnoreNullValues) {
@@ -75,5 +75,16 @@ namespace Albatross.Serialization {
 		}
 		protected virtual void ReadAdditionalProperty(ref Utf8JsonReader reader, T t, string propertyName, JsonSerializerOptions options) { }
 		protected virtual void WriteAdditionalProperty(Utf8JsonWriter writer, T value, JsonSerializerOptions options) { }
+
+		bool IsNull(object value) {
+			if(value == null) {
+				return true;
+			}else if(value is JsonElement) {
+				var elem = (JsonElement)value;
+				return elem.ValueKind == JsonValueKind.Null || elem.ValueKind == JsonValueKind.Undefined;
+			} else {
+				return false;
+			}
+		}
 	}
 }
