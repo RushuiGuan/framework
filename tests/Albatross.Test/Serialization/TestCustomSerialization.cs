@@ -128,9 +128,19 @@ namespace Albatross.Test.Serialization {
 
 	public class TestCustomSerialization {
 		[Fact]
-		public void Test() {
+		public void TestCustom() {
 			string text = this.GetType().GetEmbeddedFile("TypedValue.Custom.json");
 			var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+			JobDto dto = JsonSerializer.Deserialize<JobDto>(text, options);
+			Assert.NotNull(dto);
+			string result = JsonSerializer.Serialize(dto, options);
+			Assert.NotNull(result);
+		}
+
+		[Fact]
+		public void TestCustom1() {
+			string text = this.GetType().GetEmbeddedFile("TypedValue.Custom2.json");
+			var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
 			JobDto dto = JsonSerializer.Deserialize<JobDto>(text, options);
 			Assert.NotNull(dto);
 			string result = JsonSerializer.Serialize(dto, options);

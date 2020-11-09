@@ -12,12 +12,14 @@
     <None Remove="Embedded\MyTypedValue.Undefined.json" />
     <None Remove="Embedded\test.txt" />
     <None Remove="Embedded\TypedValue.Custom.json" />
+    <None Remove="Embedded\TypedValue.Custom2.json" />
     <None Remove="Embedded\TypedValue.Normal.json" />
     <None Remove="Embedded\TypedValue.NullValue.json" />
     <None Remove="Embedded\TypedValue.OutOfOrder.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Embedded\DynamicConversion.json" />
+    <EmbeddedResource Include="Embedded\TypedValue.Custom2.json" />
     <EmbeddedResource Include="Embedded\TypedValue.Custom.json" />
     <EmbeddedResource Include="Embedded\TypedValue.NullValue.json" />
     <EmbeddedResource Include="Embedded\MyTypedValue.Undefined.json" />
