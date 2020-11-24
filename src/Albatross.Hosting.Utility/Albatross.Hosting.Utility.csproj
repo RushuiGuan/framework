@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>1.6.12-alpha.6</Version>
+    <Version>1.6.12-alpha.13</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
     <Description>Wrapper api to create a command line utility using CommandLineParser with dependency injection and serilog logging support.</Description>

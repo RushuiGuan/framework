@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System;
+using System.Data;
 
 namespace Albatross.Mapping.Core {
 	public static class Extension {
