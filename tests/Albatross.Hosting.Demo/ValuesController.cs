@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Albatross.Authentication.Core;
 using Albatross.Config.Core;
+using Albatross.Hosting.Demo.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -22,8 +24,10 @@ namespace Albatross.Hosting.Test {
 		private readonly IGetCurrentUser getCurrentUser;
 		private readonly IMemoryCache memoryCache;
 		private readonly IReadOnlyPolicyRegistry<string> policyRegistry;
+		private readonly IHubContext<NotifHub> hubContext;
 
-		public ValuesController(ProgramSetting setting, IConfiguration configuration, ILogger<ValuesController> logger, IGetCurrentUser getCurrentUser, IMemoryCache memoryCache, IReadOnlyPolicyRegistry<string> policyRegistry) {
+		public ValuesController(ProgramSetting setting, IConfiguration configuration, ILogger<ValuesController> logger, 
+			IGetCurrentUser getCurrentUser, IMemoryCache memoryCache, IReadOnlyPolicyRegistry<string> policyRegistry, IHubContext<NotifHub> hubContext) {
 			logger.LogInformation("{class} instance created", nameof(ValuesController));
 			this.setting = setting;
 			this.configuration = configuration;
@@ -31,6 +35,7 @@ namespace Albatross.Hosting.Test {
 			this.getCurrentUser = getCurrentUser;
 			this.memoryCache = memoryCache;
 			this.policyRegistry = policyRegistry;
+			this.hubContext = hubContext;
 		}
 
 		[HttpGet]
@@ -68,6 +73,11 @@ namespace Albatross.Hosting.Test {
 		[HttpPost("evict")]
 		public void EvictCache(string key) {
 			memoryCache.Remove(key);
+		}
+
+		[HttpPost("notif")]
+		public async Task SendNotif() {
+			await hubContext.Clients.All.SendAsync("update", Guid.NewGuid());
 		}
 
 		private async Task<int[]> GetImportantNumber(int key) {

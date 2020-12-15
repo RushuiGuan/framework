@@ -34,7 +34,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     imports: [
         BrowserModule,
         AppRoutingModule,
-        CommonModule
+        CommonModule,
     ],
     providers: [
         {
