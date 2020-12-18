@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Hosting {
 	public class Setup {
-		IHostBuilder hostBuilder;
+		protected IHostBuilder hostBuilder;
 		protected IConfiguration configuration;
 
 		public Setup(string[] args) {
@@ -25,14 +25,14 @@ namespace Albatross.Hosting {
 				.AddEnvironmentVariables()
 				.AddCommandLine(args)
 				.Build();
-			
+
 			hostBuilder.ConfigureAppConfiguration(builder => {
 				builder.Sources.Clear();
 				builder.AddConfiguration(configuration);
 			});
 		}
 
-		public Setup RunAsService() {
+		public virtual Setup RunAsService() {
 			var setting = new GetProgramSetting(configuration).Get();
 			switch (setting.ServiceManager) {
 				case ProgramSetting.WindowsServiceManager:
@@ -47,7 +47,7 @@ namespace Albatross.Hosting {
 			return this;
 		}
 
-		public Setup ConfigureWebHost<Startup>() where Startup : Hosting.Startup{
+		public virtual Setup ConfigureWebHost<Startup>() where Startup : Hosting.Startup {
 			hostBuilder.ConfigureWebHostDefaults(webBuilder => {
 				webBuilder.UseStartup<Startup>();
 				webBuilder.PreferHostingUrls(true);
@@ -56,7 +56,7 @@ namespace Albatross.Hosting {
 		}
 
 
-		public Setup ConfigureServiceHost<T>() where T:class, IHostedService {
+		public virtual Setup ConfigureServiceHost<T>() where T : class, IHostedService {
 			hostBuilder.ConfigureServices((hostContext, services) => {
 				services.AddHostedService<T>();
 			});
@@ -68,7 +68,7 @@ namespace Albatross.Hosting {
 		}
 
 
-		public async Task RunAsync() {
+		public virtual async Task RunAsync() {
 			this.hostBuilder.ConfigureServices(this.ConfigureServices);
 			using var logger = new SetupSerilog().UseConfigFile("serilog.json").Create();
 			await this.hostBuilder.Build().RunAsync();
