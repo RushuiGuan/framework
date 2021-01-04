@@ -31,6 +31,7 @@ namespace Albatross.Hosting {
 		public IConfiguration Configuration { get; }
 		protected AuthorizationSetting AuthorizationSetting { get; }
 		protected ProgramSetting ProgramSetting { get; }
+		protected IServiceProvider ServiceProvider { get; private set; }
 		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 		};
@@ -157,6 +158,7 @@ namespace Albatross.Hosting {
 
 		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger) {
 			logger.LogInformation("Initializing {@program}", this.ProgramSetting);
+			this.ServiceProvider = app.ApplicationServices;
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions });
 			app.UseRouting();
 			if (WebApi) {

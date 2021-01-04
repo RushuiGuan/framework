@@ -1,8 +1,9 @@
 ﻿using Albatross.Caching;
+using Albatross.Hosting.Demo;
 using Albatross.Hosting.Demo.Hubs;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,10 @@ namespace Albatross.Hosting.Test {
 			services.AddSingleton<ICacheManagement, IssuerCachedMgmt>();
 			services.AddSingleton<ICacheManagement, SymbolCacheManagement>();
 			services.AddSignalR();
+			services.AddRazorPages().AddRazorRuntimeCompilation();
+			services.Configure<MvcRazorRuntimeCompilationOptions>(options => {
+				options.FileProviders.Add(new RazorViewPathProvider());
+			});
 		}
 		public override void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger) {
 			base.Configure(app, env, logger);

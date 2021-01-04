@@ -29,8 +29,9 @@ namespace Albatross.WebClient {
 		protected T Deserialize<T>(string content) {
 			return JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
 		}
-		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions { 
-			 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
+			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+			IgnoreNullValues = true,
 		};
 		#endregion
 
