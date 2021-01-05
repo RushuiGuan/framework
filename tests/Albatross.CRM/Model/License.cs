@@ -26,8 +26,8 @@ namespace Albatross.CRM.Model {
 		public DateTime StartDate {get;private set;}
 		public DateTime EndDate {get;private set;}
 
-		public override void Validate() {
-			base.Validate();
+		public override void Validate(IDbSession session) {
+			base.Validate(session);
 			if(StartDate > EndDate) {
 				throw new ValidationException("Begin date should be before end date");
 			}

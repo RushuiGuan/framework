@@ -44,7 +44,7 @@ namespace Albatross.Hosting {
 		public virtual bool Caching { get; } = false;
 
 		public Startup(IConfiguration configuration) {
-			LogInfo("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
+			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
 			Configuration = configuration;
 			ProgramSetting = new GetProgramSetting(configuration).Get();
 			if (Secured && WebApi) {
@@ -207,9 +207,6 @@ namespace Albatross.Hosting {
 				Message = error.Message,
 				Type = error.GetType().FullName,
 			};
-		}
-		protected void LogInfo(string msgTemplate, params object[] objects) {
-			Log.Logger.Information(msgTemplate, objects);
 		}
 	}
 }
