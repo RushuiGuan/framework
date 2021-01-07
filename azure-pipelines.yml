@@ -22,5 +22,5 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'd705c2ae-5d82-4633-a7f6-27f96c8e342c'
+    publishVstsFeed: 'WeltonInvestment'
 
