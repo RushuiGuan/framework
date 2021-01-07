@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>1.0.9</Version>
+    <Version>1.0.10-alpha</Version>
     <Authors>Rushui Guan</Authors>
     <Description>Caching management using Polly</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>

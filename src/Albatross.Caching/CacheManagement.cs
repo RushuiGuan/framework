@@ -4,7 +4,6 @@ using Polly;
 using Polly.Caching;
 using Polly.Registry;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Caching {
@@ -25,7 +24,8 @@ namespace Albatross.Caching {
 		public abstract string Name { get; }
 		public abstract ITtlStrategy TtlStrategy { get; }
 
-		public virtual void OnCacheGet(Context context, string cacheKey) { }
+		public virtual void OnCacheGet(Context context, string cacheKey) {
+		}
 		public virtual void OnCacheMiss(Context context, string cacheKey) {
 			if (!context.ContainsKey(Context_Init)) {
 				logger.LogInformation("Cache miss: {key}", cacheKey);
@@ -52,9 +52,9 @@ namespace Albatross.Caching {
 
 		public virtual string GetCacheKey(Context context) {
 			if (string.IsNullOrEmpty(context.OperationKey)) {
-				return Name;
+				return Name.ToLowerInvariant();
 			} else {
-				return $"{Name}-{context.OperationKey}";
+				return $"{Name}-{context.OperationKey}".ToLowerInvariant();
 			}
 		}
 
