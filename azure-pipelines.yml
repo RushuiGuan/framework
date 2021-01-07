@@ -17,10 +17,8 @@ steps:
     verbosityPack: 'Normal'
 
 - task: DotNetCoreCLI@2
-  displayName: 'push'
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'd705c2ae-5d82-4633-a7f6-27f96c8e342c'
-
+    publishVstsFeed: '30a9ea44-15fa-461e-990e-cd415a59ecf8/350389dd-8545-40ff-8782-7b2d98dd0289'
