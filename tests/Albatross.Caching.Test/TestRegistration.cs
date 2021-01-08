@@ -23,10 +23,19 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Fact]
-		public void TestEmptyOperationKey() {
+		public void TestMultipleRegistrations() {
 			var scope = host.Create();
 			var items = scope.Get<IEnumerable<ICacheManagement>>();
-			Assert.Equal(1, items.Count());
+			Assert.Equal(2, items.Count());
+		}
+
+		[Fact]
+		public void TestSingletonRegistrationAgainstCollectionRegistration() {
+			var scope = host.Create();
+			var items = scope.Get<IEnumerable<ICacheManagement>>();
+			var single = scope.Get<ICacheManagement>();
+			Assert.NotSame(single, items.First());
+			Assert.Same(single, items.Last());
 		}
 	}
 }

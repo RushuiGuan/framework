@@ -9,7 +9,7 @@ namespace Albatross.Config.UnitTest {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
 			services.AddTransient<GetGoogleUrl>();
-			services.AddTransient<GetRequiredConfig>();
+			services.AddTransient<GetNoLongerRequiredConfig>();
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
 			services.AddConfig<DbConfig, GetDbConfig>();
 			services.AddConfig<EmptyConfig, GetEmptyConfig>();
@@ -39,8 +39,8 @@ namespace Albatross.Config.UnitTest {
 		}
 
 		[Fact]
-		public void TestGetRequiredConfig() {
-			var handle = host.Provider.GetRequiredService<GetRequiredConfig>();
+		public void TestGetNoLongerRequiredConfig() {
+			var handle = host.Provider.GetRequiredService<GetNoLongerRequiredConfig>();
 			Assert.Throws<ConfigurationException>(() => handle.Get());
 		}
 

@@ -107,18 +107,6 @@ namespace Albatross.Serialization {
 			}
 		}
 
-		public static string SerializeValue(this TypedValue value, out Type type, JsonSerializerOptions options = null) {
-			type = value.ClassName.GetClass();
-			return JsonSerializer.Serialize(value.Value, type, options);
-		}
-
-		public static object DeserializeValue(this TypedValue value, string text, JsonSerializerOptions options = null) {
-			Type type = value.ClassName.GetClass();
-			object result = JsonSerializer.Deserialize(text, type, options);
-			value.Value = result;
-			return result;
-		}
-
 		public static void ApplyJsonValue(Utf8JsonWriter writer, JsonElement src, JsonElement value, JsonSerializerOptions options = null) {
 			if (value.ValueKind == JsonValueKind.Undefined) {
 				JsonSerializer.Serialize<JsonElement>(writer, src, options);

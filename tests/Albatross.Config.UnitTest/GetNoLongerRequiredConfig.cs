@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Albatross.Config.UnitTest {
-	public class RequiredConfig { }
-	public class GetRequiredConfig : GetConfig<RequiredConfig> {
+	public class NoLongerRequiredConfig { }
+	public class GetNoLongerRequiredConfig : GetConfig<NoLongerRequiredConfig> {
 
-		public GetRequiredConfig(IConfiguration configuration) : base(configuration) {
+		public GetNoLongerRequiredConfig(IConfiguration configuration) : base(configuration) {
 		}
 
 		protected override string Key => "important";
