@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Version>1.6.0</Version>
     <Product>Albatross Code Generator PowerShell Utilities</Product>
     <Authors>Rushui Guan</Authors>
@@ -16,10 +16,9 @@
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="JsonNet.PrivateSettersContractResolvers" Version="1.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
-    <PackageReference Include="System.Management.Automation" Version="7.0.3" />
-    <PackageReference Include="Albatross.Database" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="System.Management.Automation" Version="7.1.0" />
+    <PackageReference Include="Albatross.Database" Version="3.0.1-alpha.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
