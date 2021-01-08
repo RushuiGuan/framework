@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Albatross.Repository.Core;
+using System;
+using msg = Albatross.CRM.Messages;
 
 namespace Albatross.CRM.Model {
 	public class Address : MutableEntity {
@@ -24,5 +26,20 @@ namespace Albatross.CRM.Model {
 
 		public int ContactID {get;private set;}
 		public virtual Contact Contact {get;private set;}
+
+		public msg.Address CreateDto() {
+			return new msg.Address {
+				AddressID = AddressID,
+				City = City,
+				ContactID = ContactID,
+				CreatedBy = CreatedBy,
+				CreatedByUTC = CreatedUTC,
+				ModifiedBy = ModifiedBy,
+				ModifiedByUTC = ModifiedUTC,
+				State = State,
+				Street = Street,
+				Type = Type,
+			};
+		}
 	}
 }

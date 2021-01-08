@@ -1,5 +1,4 @@
 ﻿using Albatross.Hosting.Test;
-using Albatross.Repository.ByEFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +7,6 @@ using Xunit;
 using Albatross.CRM;
 using Albatross.CRM.UnitTest.DbSessions;
 using Albatross.Repository.Core;
-using sqlite = Albatross.Repository.Sqlite;
 using sqlserver = Albatross.Repository.SqlServer;
 using postgres = Albatross.Repository.PostgreSQL;
 using System.Threading.Tasks;
@@ -37,8 +35,6 @@ namespace Albatross.Repository.UnitTest {
 				return new CRMDbSqlMigrationSession(setting.ConnectionString);
 			} else if (setting.DatabaseProvider == postgres.DatabaseProvider.Name) {
 				return new CRMDbPostgresMigrationSession(setting.ConnectionString);
-			} else if (setting.DatabaseProvider == sqlite.DatabaseProvider.Name) {
-				return new CRMDbSqlLiteMigrationSession();
 			} else {
 				throw new UnsupportedDatabaseProviderException(setting.DatabaseProvider);
 			}

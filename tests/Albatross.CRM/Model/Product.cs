@@ -11,5 +11,9 @@ namespace Albatross.CRM.Model {
 		public DateTime AvailableDate {get;private set;}
 
 		public ProductCategory Category {			get;private set;		}
+
+		public string CreateDto() {
+			throw new NotImplementedException();
+		}
 	}
 }

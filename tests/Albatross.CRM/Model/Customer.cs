@@ -5,6 +5,7 @@ using Albatross.Repository.Core;
 using System.ComponentModel.DataAnnotations;
 using Albatross.CRM.Repository;
 using System.Net.Security;
+using System.Linq;
 
 namespace Albatross.CRM.Model {
 	public class Customer : MutableEntity {
@@ -13,11 +14,11 @@ namespace Albatross.CRM.Model {
 			Update(dto, user, products, products.DbSession);
 		}
 
-		public int CustomerID {get;private set;}
+		public int CustomerID { get; private set; }
 		[Required]
-		public string Name {get;private set;}
+		public string Name { get; private set; }
 		[Required]
-		public string Company {get;private set;}
+		public string Company { get; private set; }
 
 		public virtual ICollection<Contact> Contacts { get; private set; } = new List<Contact>();
 		public virtual ICollection<License> Licenses { get; private set; } = new List<License>();
@@ -33,6 +34,20 @@ namespace Albatross.CRM.Model {
 				src => Licenses.Add(new License(src, user, session)),
 				dst => Licenses.Remove(dst)); ;
 			base.CreateOrUpdate(user, session);
+		}
+
+		public msg.Customer CreateDto() {
+			return new msg.Customer {
+				Company = Company,
+				Contacts = Contacts?.Select(args => args.CreateDto()).ToArray() ?? new msg.Contact[0],
+				CreatedBy = CreatedBy,
+				CreatedByUTC = CreatedUTC,
+				CustomerID = CustomerID,
+				Licenses = Licenses?.Select(args => args.CreateDto()).ToArray() ?? new msg.License[0],
+				ModifiedBy = ModifiedBy,
+				ModifiedByUTC = ModifiedUTC,
+				Name = Name,
+			};
 		}
 	}
 }

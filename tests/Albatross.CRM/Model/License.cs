@@ -38,5 +38,14 @@ namespace Albatross.CRM.Model {
 			EndDate = license.EndDate;
 			base.CreateOrUpdate(user, session);
 		}
+
+		public msg.License CreateDto() {
+			return new msg.License {
+				CustomerID = CustomerID,
+				EndDate = EndDate,
+				Key = Key,
+				StartDate = StartDate,
+			};
+		}
 	}
 }

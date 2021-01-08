@@ -18,12 +18,5 @@ namespace Albatross.Repository.UnitTest {
 				Assert.NotEmpty(script);
 			}
 		}
-		[Fact(Skip ="not supported")]
-		public void SqliteScriptGeneration() {
-			using (var context = new CRMDbSqlLiteMigrationSession()) {
-				string script = context.GetCreateScript();
-				Assert.NotEmpty(script);
-			}
-		}
 	}
 }

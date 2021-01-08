@@ -2,7 +2,6 @@ using Albatross.CRM.Repository;
 using Albatross.Repository.ByEFCore;
 using sql = Albatross.Repository.SqlServer;
 using postgres = Albatross.Repository.PostgreSQL;
-using sqlite = Albatross.Repository.Sqlite;
 
 namespace Albatross.CRM.UnitTest.DbSessions {
 	public class CRMDbSqlMigrationSession : CRMDbSession {
@@ -14,11 +13,6 @@ namespace Albatross.CRM.UnitTest.DbSessions {
 	public class CRMDbPostgresMigrationSession : CRMDbSession {
 		public CRMDbPostgresMigrationSession() : this(DbSession.Any) { }
 		public CRMDbPostgresMigrationSession(string connectionString) : base(postgres.ServiceExtension.BuildMigrationOption<CRMDbSession>(CRMConstant.Schema, connectionString)) {
-		}
-	}
-
-	public class CRMDbSqlLiteMigrationSession : CRMDbSession {
-		public CRMDbSqlLiteMigrationSession() : base(sqlite.ServiceExtension.BuildMigrationOption<CRMDbSession>(CRMConstant.Schema)) {
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using Albatross.Repository.Core;
-using Albatross.Mapping.Core;
 using System.Threading.Tasks;
 using Xunit;
 using Albatross.Hosting.Test;
@@ -34,7 +33,7 @@ namespace Albatross.Repository.UnitTest {
 			using (var scope = host.Create()) {
 				var customers = scope.Get<ICustomerRepository>();
 				model = customers.Get(name);
-				return scope.Get<IMapperFactory>().Map<Customer, msg.Customer>(model);
+				return model.CreateDto();
 			}
 		}
 		private async Task<CRM.Messages.Customer> CreateCustomer(TestScope scope, string name, string user) {
@@ -45,7 +44,7 @@ namespace Albatross.Repository.UnitTest {
 			model = new CRM.Model.Customer(dto, user, products);
 			customers.Add(model);
 			await customers.SaveChangesAsync();
-			return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
+			return model.CreateDto();
 		}
 
 		private async Task<CRM.Messages.Customer> UpdateCustomer(TestScope scope, CRM.Messages.Customer dto, string user) {
@@ -55,7 +54,7 @@ namespace Albatross.Repository.UnitTest {
 			model = customers.Get(dto.CustomerID);
 			model.Update(dto, user, products, customers.DbSession);
 			await customers.SaveChangesAsync();
-			return scope.Get<IMapperFactory>().Map<CRM.Model.Customer, CRM.Messages.Customer>(model);
+			return model.CreateDto();
 		}
 
 		[Fact]

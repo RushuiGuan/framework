@@ -2,6 +2,8 @@
 using msg = Albatross.CRM.Messages;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace Albatross.CRM.Model {
 	public class Contact : MutableEntity {
@@ -32,5 +34,18 @@ namespace Albatross.CRM.Model {
 
 		public virtual ICollection<Address> Addresses { get; private set; } = new List<Address>();
 		public virtual Customer Customer { get; private set; }
+
+		public msg.Contact CreateDto() {
+			return new msg.Contact {
+				ContactID = ContactID,
+				CreatedBy = CreatedBy,
+				Addresses = Addresses?.Select(args => args.CreateDto())?.ToArray() ?? new msg.Address[0],
+				CreatedByUTC = CreatedUTC,
+				ModifiedBy = ModifiedBy,
+				ModifiedByUTC = ModifiedUTC,
+				Name = Name,
+				Tag = Tag,
+			};
+		}
 	}
 }
