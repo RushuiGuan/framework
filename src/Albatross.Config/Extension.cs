@@ -33,6 +33,6 @@ namespace Albatross.Config {
 			}
 			return services;
 		}
-		public static string GetEndPoint(this IConfiguration configuration, string name) => configuration.GetSection($"endpoints:{name}").Value;
+		public static string GetEndPoint(this IConfiguration configuration, string name) => configuration.GetSection($"endpoints:{name}").Value?.TrimEnd('/');
 	}
 }
