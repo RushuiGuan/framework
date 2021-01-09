@@ -48,6 +48,7 @@ namespace Albatross.Logging {
 				.Build();
 			cfg.ReadFrom.Configuration(configuration);
 		}
+
 		public static void UseConsole(LoggerConfiguration cfg, LogEventLevel loggingLevel) {
 			cfg.MinimumLevel.ControlledBy(new LoggingLevelSwitch(loggingLevel))
 				.WriteTo

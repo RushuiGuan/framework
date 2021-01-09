@@ -7,7 +7,8 @@ using System.Text;
 namespace Albatross.WebClient.IntegrationTest {
 	public static class Extension {
 		public static IHttpClientBuilder WithTestClientService(this IServiceCollection services, Action<HttpClient> configure) {
-			return services.AddHttpClient<ValueClientService>(configure);
+			return services.AddHttpClient<SecuredProxyService>()
+				.AddTypedClient<ValueProxyService>();
 		}
 	}
 }

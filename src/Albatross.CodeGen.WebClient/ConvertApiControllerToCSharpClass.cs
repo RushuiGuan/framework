@@ -108,7 +108,7 @@ namespace Albatross.CodeGen.WebClient {
 					list[i] = GetController(type);
 				}
 			}
-			return string.Join("/", list).ToLower();
+			return "/" + string.Join("/", list).ToLower();
 		}
 
 		string GetNamespace(Type type) {

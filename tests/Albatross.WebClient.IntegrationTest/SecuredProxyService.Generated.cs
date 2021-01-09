@@ -6,10 +6,10 @@ using Albatross.WebClient;
 using System.Collections.Generic;
 
 namespace Albatross.WebClient.IntegrationTest {
-	public partial class ValueClientService : Albatross.WebClient.ClientBase {
-		public ValueClientService(Microsoft.Extensions.Logging.ILogger<ValueClientService> @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
+	public partial class SecuredProxyService : Albatross.WebClient.ClientBase {
+		public SecuredProxyService(Microsoft.Extensions.Logging.ILogger<SecuredProxyService> @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
 		}
-		public const System.String ControllerPath = "api/value";
+		public const System.String ControllerPath = "/api/secured";
 		public async System.Threading.Tasks.Task<Albatross.WebClient.IntegrationTest.Messages.PayLoad> GetJson() {
 			string path = $"{ControllerPath}/json";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
