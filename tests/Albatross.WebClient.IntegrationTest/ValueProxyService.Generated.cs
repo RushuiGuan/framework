@@ -38,5 +38,14 @@ namespace Albatross.WebClient.IntegrationTest {
 				return await this.Invoke<System.String>(request);
 			}
 		}
+
+		public async System.Threading.Tasks.Task<System.String> Timeout(int seconds) {
+			string path = $"{ControllerPath}/timeout";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			queryString.Add("seconds", seconds.ToString());
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return await this.Invoke(request);
+			}
+		}
 	}
 }

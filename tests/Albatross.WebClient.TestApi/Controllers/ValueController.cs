@@ -1,6 +1,7 @@
 ﻿using Albatross.WebClient.IntegrationTest.Messages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,6 +33,11 @@ namespace Albatross.WebClient.TestApi.Controllers {
 		[HttpGet("config")]
 		public string GetConfig() {
 			return setting.ConnectionString;
+		}
+
+		[HttpGet("timeout")]
+		public async Task TimeoutInSeconds([FromQuery]int seconds) {
+			await Task.Delay(seconds * 1000);
 		}
 	}
 }
