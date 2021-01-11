@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics.Contracts;
 
 namespace Albatross.Config {
 	public static class Extension {
@@ -33,6 +34,14 @@ namespace Albatross.Config {
 			}
 			return services;
 		}
-		public static string GetEndPoint(this IConfiguration configuration, string name) => configuration.GetSection($"endpoints:{name}").Value?.TrimEnd('/');
+
+		const string Slash = "/";
+		public static string GetEndPoint(this IConfiguration configuration, string name) {
+			string value = configuration.GetSection($"endpoints:{name}").Value;
+			if (!value.EndsWith(Slash)) {
+				value = value + Slash;
+			}
+			return value;
+		}
 	}
 }
