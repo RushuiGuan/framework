@@ -36,6 +36,13 @@ namespace Albatross.Config {
 		}
 
 		const string Slash = "/";
+		/// <summary>
+		/// For C# the HttpClient class will remove any relative path if the BaseUrl does not end with a slash.  For example: http://localhost/beezy will becomes 
+		/// http://localhost unless base url is set as http://localhost/beezy/
+		/// </summary>
+		/// <param name="configuration"></param>
+		/// <param name="name"></param>
+		/// <returns></returns>
 		public static string GetEndPoint(this IConfiguration configuration, string name) {
 			string value = configuration.GetSection($"endpoints:{name}").Value;
 			if (!value.EndsWith(Slash)) {
