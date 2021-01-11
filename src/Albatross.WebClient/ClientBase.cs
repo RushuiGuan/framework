@@ -55,7 +55,7 @@ namespace Albatross.WebClient {
 			return request;
 		}
 		public async Task<string> Invoke(HttpRequestMessage request) {
-			logger.LogInformation("{method}: {url}", request.Method, $"{client.BaseAddress}{request.RequestUri}");
+			logger.LogInformation("{method}: {url}", request.Method, $"{request.RequestUri.AbsoluteUri}");
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (response.IsSuccessStatusCode) {
