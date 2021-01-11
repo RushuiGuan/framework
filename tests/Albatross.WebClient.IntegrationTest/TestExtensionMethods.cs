@@ -32,5 +32,13 @@ namespace Albatross.WebClient.IntegrationTest {
 				Assert.True(err.InnerException is TimeoutException);
 			}
 		}
+
+		[Fact]
+		public void TestUrl() {
+			Uri baseUri = new Uri("http://localhost");
+			string relativeUrl = "/test";
+			var newUri = new Uri(baseUri, relativeUrl);
+			Assert.Equal("http://localhost/test", newUri.ToString());
+		}
 	}
 }
