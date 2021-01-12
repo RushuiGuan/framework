@@ -1,5 +1,5 @@
 trigger:
-- release
+- master
 
 pool:
   vmImage: 'windows-latest'
@@ -13,7 +13,7 @@ steps:
     command: 'restore'
     projects: './framework.sln'
     feedsToUse: 'select'
-    vstsFeed: '950cdf21-3433-4803-911e-20e2a9f7c35c'
+    vstsFeed: 'Staging'
 
 - task: DotNetCoreCLI@2
   displayName: 'Pack'
@@ -30,4 +30,4 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: '950cdf21-3433-4803-911e-20e2a9f7c35c'
+    publishVstsFeed: 'Staging'
