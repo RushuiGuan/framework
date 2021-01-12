@@ -8,15 +8,24 @@ pool:
 steps:
 
 - task: DotNetCoreCLI@2
-  displayName: 'pack'
+  displayName: 'Restore'
+  inputs:
+    command: 'restore'
+    projects: './framework.sln'
+    feedsToUse: 'select'
+    vstsFeed: '950cdf21-3433-4803-911e-20e2a9f7c35c'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack'
   inputs:
     command: 'pack'
-    packagesToPack: 'src/**/*.csproj'
+    packagesToPack: './src/**/*.csproj'
     includesymbols: false
     versioningScheme: 'off'
     verbosityPack: 'Normal'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Push'
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
