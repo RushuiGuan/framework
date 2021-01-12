@@ -88,9 +88,12 @@ namespace Albatross.CodeGen.WebClient {
 			return converted;
 		}
 
-        DotNetType GetILoggerType(Type type) {
-            return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, true, new DotNetType[] { new DotNetType(GetClassName(type)), });
-        }
+		DotNetType GetILoggerType(Type type) {
+			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, false, null);
+		}
+		DotNetType GetGenericILoggerType(Type type) {
+			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, true, new DotNetType[] { new DotNetType(GetClassName(type)), });
+		}
 
 		string GetController(Type type) {
 			if (type.Name.EndsWith(Controller)) {
@@ -108,7 +111,7 @@ namespace Albatross.CodeGen.WebClient {
 					list[i] = GetController(type);
 				}
 			}
-			return "/" + string.Join("/", list).ToLower();
+			return string.Join("/", list).ToLower();
 		}
 
 		string GetNamespace(Type type) {

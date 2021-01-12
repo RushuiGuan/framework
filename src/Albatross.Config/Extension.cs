@@ -39,6 +39,8 @@ namespace Albatross.Config {
 		/// <summary>
 		/// For C# the HttpClient class will remove any relative path if the BaseUrl does not end with a slash.  For example: http://localhost/beezy will becomes 
 		/// http://localhost unless base url is set as http://localhost/beezy/
+		/// 
+		/// For the request url, if it starts with a slash, it will be considered as a root url.  By default, we shouldn't use any slash in the request url.
 		/// </summary>
 		/// <param name="configuration"></param>
 		/// <param name="name"></param>
