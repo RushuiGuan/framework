@@ -1,6 +1,3 @@
-trigger:
-- staging
-
 pool:
   name: West Coast
 
@@ -12,25 +9,14 @@ variables:
 - name: buildConfiguration
   value: 'Release'
 
-
 steps:
-- task: PowerShell@2
-  displayName: 'Initilization'
-  inputs:
-    targetType: 'inline'
-    script: |
-      . $(Build.SourcesDirectory)/ci.ps1;
-      Backup-DirectoryBuild;
-      Set-PreRelease -prerelease '$(Build.SourceBranchName)' -build $(Build.BuildId)
-    pwsh: true
-
 - task: DotNetCoreCLI@2
   displayName: 'Restore'
   inputs:
     command: 'restore'
     projects: $(solution)
     feedsToUse: 'select'
-    vstsFeed: 'Staging'
+    vstsFeed: 'Production'
     verbosityRestore: Minimal
 
 - task: DotNetCoreCLI@2
@@ -47,6 +33,6 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'Staging'
+    publishVstsFeed: 'Production'
     verbosityRestore: Minimal
 
