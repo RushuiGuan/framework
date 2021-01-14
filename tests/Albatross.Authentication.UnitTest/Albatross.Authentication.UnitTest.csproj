@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>1.6.0-alpha.0</Version>
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>

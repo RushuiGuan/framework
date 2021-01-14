@@ -1,10 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.0-alpha</Version>
     <Nullable>enable</Nullable>
-    <LangVersion>8</LangVersion>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+	  <LangVersion>latest</LangVersion>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
     <Authors>Rushui Guan</Authors>
     <Description>A nuget package to determine the current user for different environments</Description>

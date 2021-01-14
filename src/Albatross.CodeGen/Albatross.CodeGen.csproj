@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Albatross.CodeGen</PackageId>
-    <Version>2.0.0-alpha</Version>
     <Authors>Rushui Guan</Authors>
     <Product>Albatross Code Generator</Product>
     <Description>A customizable code generator engine with a Powershell tool that allows user to quickly setup composite generators and update the target file.</Description>

@@ -4,7 +4,6 @@
     <StartupObject>
     </StartupObject>
     <AssemblyName>Albatross.Hosting.Demo</AssemblyName>
-    <Version>1.6.0-alpha.2</Version>
     <RootNamespace>Albatross.Hosting.Demo</RootNamespace>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
