@@ -7,6 +7,7 @@ using Albatross.Logging;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions;
 using System.IO;
+using Microsoft.Extensions.Logging;
 
 namespace Albatross.Hosting.Test {
 	public class TestHost : IDisposable {
@@ -32,7 +33,7 @@ namespace Albatross.Hosting.Test {
 			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc))
 			.Build();
 
-			var logger = host.Services.GetRequiredService(typeof(Microsoft.Extensions.Logging.ILogger<>).MakeGenericType(this.GetType())) as Microsoft.Extensions.Logging.ILogger;
+			var logger = host.Services.GetRequiredService<Microsoft.Extensions.Logging.ILogger>();
 			InitAsync(host.Services.GetRequiredService<IConfiguration>(), logger).Wait();
 		}
 
@@ -41,6 +42,7 @@ namespace Albatross.Hosting.Test {
 		}
 
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 			services.AddTransient(provider => provider.CreateScope());
 			services.AddTransient<TestScope>();
 		}
