@@ -6,11 +6,20 @@ function Backup-DirectoryBuild() {
     Copy-Item $src -Destination $backup;
 }
 
+function IsProd($branch) {
+    if ($branch -eq "production" -or $branch -eq "prod") {
+        return $true;
+    }
+    else {
+        return $false;
+    }
+}
+
 function Set-ReleaseVersion($branch, $build) {
     if (Test-Path $file) {
         $xml = [xml](Get-Content $file);
         $version = $xml.Project.PropertyGroup.Version
-        if ($branch -ne "production" -and $branch -ne "prod") {
+        if (-not (IsProd -branch $branch)) {
             $xml.Project.PropertyGroup.Version = $version + "-$branch.$build";
         }
         $xml.Save($file);
@@ -18,6 +27,15 @@ function Set-ReleaseVersion($branch, $build) {
     }
     else {
         throw "Missing Directory.Build.props file";
+    }
+}
+
+function Get-Feed($branch) {
+    if (IsProd($branch)) {
+        return "production";
+    }
+    else {
+        return "staging";
     }
 }
 
