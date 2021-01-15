@@ -21,7 +21,7 @@ steps:
     script: |
       . $(Build.SourcesDirectory)/ci.ps1;
       Backup-DirectoryBuild;
-      Set-PreRelease -prerelease '$(Build.SourceBranchName)' -build $(Build.BuildId)
+      Set-ReleaseVersion -branch '$(Build.SourceBranchName)' -build $(Build.BuildId)
     pwsh: true
 
 - task: DotNetCoreCLI@2
