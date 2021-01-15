@@ -6,11 +6,13 @@ function Backup-DirectoryBuild() {
     Copy-Item $src -Destination $backup;
 }
 
-function Set-PreRelease($prerelease, $build) {
+function Set-ReleaseVersion($branch, $build) {
     if (Test-Path $file) {
         $xml = [xml](Get-Content $file);
         $version = $xml.Project.PropertyGroup.Version
-        $xml.Project.PropertyGroup.Version = $version + "-$prerelease.$build";
+        if ($branch -ne "production" -and $branch -ne "prod") {
+            $xml.Project.PropertyGroup.Version = $version + "-$branch.$build";
+        }
         $xml.Save($file);
         return $xml.Project.PropertyGroup.Version;
     }
