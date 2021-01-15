@@ -76,12 +76,12 @@ steps:
     verbosityRestore: Normal
     configuration: $(buildConfiguration)
     projects: |
-      **/*.Admin.csproj
-      **/*.Utility.csproj
-      **/*.Api.csproj
-      **/*.Controller.csproj
-      **/*.Scheduler.csproj
-      **/*.Worker.csproj
+      src/**/*.Admin.csproj
+      src/**/*.Utility.csproj
+      src/**/*.Api.csproj
+      src/**/*.Controller.csproj
+      src/**/*.Scheduler.csproj
+      src/**/*.Worker.csproj
 
 - task: PowerShell@2
   condition: and(succeeded(), or(eq(variables['hasApp'], 'true'), eq(variables['hasApp'], '')))
