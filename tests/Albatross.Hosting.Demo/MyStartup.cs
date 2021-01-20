@@ -30,12 +30,14 @@ namespace Albatross.Hosting.Test {
 			services.Configure<MvcRazorRuntimeCompilationOptions>(options => {
 				options.FileProviders.Add(new RazorViewPathProvider());
 			});
+			services.AddMvc(options => options.InputFormatters.Add(new TextPlainInputFormatter()));
 		}
 		public override void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger) {
 			base.Configure(app, env, logger);
 			app.UseEndpoints(buider => {
 				buider.MapHub<NotifHub>("/notif");
 			});
+
 		}
 	}
 }

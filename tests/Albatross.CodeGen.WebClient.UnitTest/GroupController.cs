@@ -12,17 +12,17 @@ namespace Albatross.IAM.Api {
     [Route("api/[controller]")]
     public class GroupController : ControllerBase {
 
-        #region return type test
-        [HttpGet]
-        public IEnumerable<PrincipalDto> GetNormal() {
-            return new PrincipalDto[0];
-        }
+		#region return type test
+		[HttpGet]
+		public IEnumerable<PrincipalDto> GetNormal() {
+			return new PrincipalDto[0];
+		}
 
-        [HttpGet]
-        public Task<IEnumerable<PrincipalDto>> GetNormalAsync() {
-            return Task<IEnumerable<PrincipalDto>>.FromResult<IEnumerable<PrincipalDto>>(null);
-        }
-        [HttpGet]
+		[HttpGet]
+		public Task<IEnumerable<PrincipalDto>> GetNormalAsync() {
+			return Task<IEnumerable<PrincipalDto>>.FromResult<IEnumerable<PrincipalDto>>(null);
+		}
+		[HttpGet]
         public void GetVoid() {
         }
         [HttpGet]

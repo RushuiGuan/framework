@@ -15,7 +15,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 			this.host = host;
 		}
 
-		[Fact(Skip ="use open api instead")]
+		[Fact]
 		public void TestGroupController() {
 			using (var scope = host.Create()) {
 				Type type = typeof(GroupController);
@@ -29,7 +29,11 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				string result = sb.ToString();
 
                 string expectedFile = Path.Join(GetType().GetAssemblyLocation(), "GroupClientService.expected.cs");
-                using (StreamReader reader = new StreamReader(expectedFile)) {
+				string actualFile = Path.Join(GetType().GetAssemblyLocation(), "GroupClientService.actual.cs");
+				using(StreamWriter writer2 = new StreamWriter(actualFile)) {
+					writer2.Write(result);
+				}
+				using (StreamReader reader = new StreamReader(expectedFile)) {
                     string expected = reader.ReadToEnd();
                     Assert.Equal(expected, result);
                 }

@@ -49,8 +49,7 @@ namespace Albatross.WebClient {
 		}
 		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			request.Content = new StringContent(content);
-			request.Headers.Add(Constant.ContentType, Constant.TextHtmlContentType);
+			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
 			return request;
 		}
 		public async Task<string> Invoke(HttpRequestMessage request) {

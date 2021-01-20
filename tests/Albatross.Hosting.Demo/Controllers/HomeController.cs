@@ -22,5 +22,10 @@ public class Input {
 		public ActionResult Get([FromQuery]int id) {
 			return View("my very special view.default-super", new Input { Id = id});
 		}
+
+		[HttpPost("text")]
+		public string Post([FromBody]string text) {
+			return text;
+		}
 	}
 }

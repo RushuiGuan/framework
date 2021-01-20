@@ -135,7 +135,8 @@ namespace Albatross.CodeGen.WebClient {
 				actionTemplate = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
 			}
 			Method method = convertMethod.Convert(methodInfo);
-			if (!method.ReturnType.IsAsync) {
+			/// make async void void and the rest async
+			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {
 				method.ReturnType = DotNetType.MakeAsync(method.ReturnType);
 			}
 			method.Body = new CodeBlock();

@@ -84,7 +84,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5BBE0D4B-8362-4DA0-86F1-8E9C6BE809BE}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		azure-pipelines.library-only.yml = azure-pipelines.library-only.yml
 		ci.ps1 = ci.ps1
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
