@@ -68,15 +68,5 @@ namespace Albatross.Hosting.Utility {
 			logger.LogDebug("CloseAndFlush Logging");
 			serilogLogger.Dispose();
 		}
-
-		protected EntityType ReadInput<EntityType>(string file) {
-			using var reader = new StreamReader(file);
-			string text = reader.ReadToEnd();
-			return JsonSerializer.Deserialize<EntityType>(text, new JsonSerializerOptions {
-				IgnoreNullValues = true,
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-				WriteIndented = true
-			});
-		}
 	}
 }

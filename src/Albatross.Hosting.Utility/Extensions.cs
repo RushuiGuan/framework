@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -45,27 +44,14 @@ namespace Albatross.Hosting.Utility {
 			return await parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
 		}
 
-		public static void WriteOutput<T>(this T input, object data) where T : BaseOption {
-			var jsonOption = new JsonSerializerOptions {
+		public static EntityType ReadInput<EntityType>(this string file) {
+			using var reader = new StreamReader(file);
+			string text = reader.ReadToEnd();
+			return JsonSerializer.Deserialize<EntityType>(text, new JsonSerializerOptions {
 				IgnoreNullValues = true,
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-				WriteIndented = true,
-			};
-			string result = JsonSerializer.Serialize(data, data.GetType(), jsonOption);
-
-			if (input.Verbose) { Console.WriteLine(result); }
-
-			if (!string.IsNullOrEmpty(input.Output)) {
-				using var stream = System.IO.File.OpenWrite(input.Output);
-				using var fileWriter = new StreamWriter(stream);
-				fileWriter.Write(result);
-				fileWriter.Flush();
-				stream.SetLength(stream.Position);
-			}
-
-			if (input.Clipboard) {
-				new TextCopy.Clipboard().SetText(result);
-			}
+				WriteIndented = true
+			});
 		}
 	}
 }
