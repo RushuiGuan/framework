@@ -6,6 +6,6 @@ namespace Albatross.Authentication.Core
 {
     public class InvalidUserException: Exception
     {
-        public InvalidUserException(string user) : base($"User {user} doesn't have an account") { }
+        public InvalidUserException(string user) : base($"{user} is not a valid user") { }
     }
 }

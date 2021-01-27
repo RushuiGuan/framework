@@ -9,6 +9,7 @@ using Serilog;
 using Serilog.Events;
 using System;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Utility {
@@ -66,6 +67,16 @@ namespace Albatross.Hosting.Utility {
 			this.host.Dispose();
 			logger.LogDebug("CloseAndFlush Logging");
 			serilogLogger.Dispose();
+		}
+
+		protected EntityType ReadInput<EntityType>(string file) {
+			using var reader = new StreamReader(file);
+			string text = reader.ReadToEnd();
+			return JsonSerializer.Deserialize<EntityType>(text, new JsonSerializerOptions {
+				IgnoreNullValues = true,
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+				WriteIndented = true
+			});
 		}
 	}
 }

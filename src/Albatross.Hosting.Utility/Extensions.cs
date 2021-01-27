@@ -2,9 +2,11 @@
 using CommandLine;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Utility {
@@ -41,6 +43,29 @@ namespace Albatross.Hosting.Utility {
 			dict.Add(typeof(ShowEnvironmentOption), typeof(ShowEnvironment));
 			ParserResult<Object> parserResult = parser.ParseArguments(args, dict.Keys.ToArray());
 			return await parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
+		}
+
+		public static void WriteOutput<T>(this T input, object data) where T : BaseOption {
+			var jsonOption = new JsonSerializerOptions {
+				IgnoreNullValues = true,
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+				WriteIndented = true,
+			};
+			string result = JsonSerializer.Serialize(data, data.GetType(), jsonOption);
+
+			if (input.Verbose) { Console.WriteLine(result); }
+
+			if (!string.IsNullOrEmpty(input.Output)) {
+				using var stream = System.IO.File.OpenWrite(input.Output);
+				using var fileWriter = new StreamWriter(stream);
+				fileWriter.Write(result);
+				fileWriter.Flush();
+				stream.SetLength(stream.Position);
+			}
+
+			if (input.Clipboard) {
+				new TextCopy.Clipboard().SetText(result);
+			}
 		}
 	}
 }
