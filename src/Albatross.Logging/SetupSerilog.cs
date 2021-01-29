@@ -30,7 +30,7 @@ namespace Albatross.Logging {
 			LoggerConfiguration cfg = new LoggerConfiguration();
 			configActions?.Invoke(cfg);
 			var logger = cfg.CreateLogger();
-			logger.Information("Logger created");
+			// logger.Information("Logger created");
 			if (setDefault) {
 				Log.Logger = logger;
 			}
