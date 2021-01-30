@@ -62,12 +62,13 @@ namespace Albatross.WebClient {
 					if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError) {
 						ErrorMessage error;
 						if (string.IsNullOrEmpty(content)) {
-							error = new ErrorMessage() { Message = "An error has occurred", };
+							error = new ErrorMessage() {
+								Message = "An error has occurred",
+								HttpStatus = (int)response.StatusCode,
+							};
 						} else {
 							error = Deserialize<ErrorMessage>(content);
 						}
-						error.StatusCode = (int)response.StatusCode;
-						error.StatusDescription = Convert.ToString(response.StatusCode);
 						throw new ClientException(error);
 					} else {
 						response.EnsureSuccessStatusCode();

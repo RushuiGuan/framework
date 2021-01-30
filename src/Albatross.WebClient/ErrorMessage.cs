@@ -5,10 +5,7 @@ using System.Text;
 namespace Albatross.WebClient {
 	public class ErrorMessage {
 		public string Message { get; set; }
-		public string ExceptionMessage { get; set; }
-		public string ExceptionType { get; set; }
-		public string StackTrace { get; set; }
-		public int? StatusCode { get; set; }
-		public string StatusDescription { get; set; }
+		public string Type { get; set; }
+		public int HttpStatus { get; set; }
 	}
 }
