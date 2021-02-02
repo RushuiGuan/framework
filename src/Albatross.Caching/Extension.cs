@@ -1,5 +1,6 @@
 ﻿using Albatross.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Caching;
@@ -20,10 +21,13 @@ namespace Albatross.Caching {
 		public static IServiceCollection AddCaching(this IServiceCollection services) {
 			var registry = new PolicyRegistry();
 			services.AddMemoryCache();
-			services.AddSingleton<IPolicyRegistry<string>>(registry);
-			services.AddSingleton<IReadOnlyPolicyRegistry<string>>(registry);
-			services.AddSingleton<IAsyncCacheProvider, Polly.Caching.Memory.MemoryCacheProvider>();
-			services.AddSingleton<ICacheManagementFactory, CacheManagementFactory>();
+
+			services.TryAdd(ServiceDescriptor.Singleton<IPolicyRegistry<string>>(registry));
+			services.TryAdd(ServiceDescriptor.Singleton<IReadOnlyPolicyRegistry<string>>(registry));
+			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider, Polly.Caching.Memory.MemoryCacheProvider>());
+			services.TryAdd(ServiceDescriptor.Singleton<ICacheManagementFactory, CacheManagementFactory>());
+			services.TryAdd(ServiceDescriptor.Singleton<IMemoryCacheReset, MemoryCacheReset>());
+			
 			return services;
 		}
 
