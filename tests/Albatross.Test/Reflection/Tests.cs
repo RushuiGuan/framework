@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using Xunit;
+using System.IO;
+using System.Linq;
 
 namespace Albatross.Test.Reflection {
     public struct GenericStruct<T> {
@@ -105,6 +107,14 @@ namespace Albatross.Test.Reflection {
 		public void TestGetResource() {
 			string text = this.GetType().GetEmbeddedFile("test.txt");
 			Assert.Equal("test", text);
+		}
+
+		[Fact]
+		public void TestAssemblyLocation() {
+			string location = this.GetType().Assembly.Location;
+			string name1 = new FileInfo(location).Directory.FullName;
+			string name2 = new FileInfo(location).DirectoryName;
+			Assert.Equal(name1, name2);
 		}
     }
 }

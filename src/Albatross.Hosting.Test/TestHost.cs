@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Albatross.Logging;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions;
 using System.IO;
 using Microsoft.Extensions.Logging;
 
@@ -19,7 +18,7 @@ namespace Albatross.Hosting.Test {
 		}
 
 		public TestHost() {
-			string folder = new FileInfo(this.GetType().Assembly.GetAssemblyLocation()).Directory.FullName;
+			string folder = new FileInfo(this.GetType().Assembly.Location).DirectoryName;
 			var hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			var configuration = new ConfigurationBuilder()
 				.SetBasePath(folder)
