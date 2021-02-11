@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -138,7 +139,7 @@ namespace Albatross.Hosting {
 		}
 		public virtual void ConfigureJsonOption(JsonOptions options) { }
 		public virtual void ConfigureServices(IServiceCollection services) {
-			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
+			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 
 			if (WebApi) {
 				services.AddControllers().AddJsonOptions(ConfigureJsonOption);

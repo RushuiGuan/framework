@@ -32,8 +32,6 @@ namespace Albatross.Caching {
 		}
 
 		public static void UseCache(this IServiceProvider serviceProvider, ILogger logger) {
-			IPolicyRegistry<string> registry = serviceProvider.GetRequiredService<IPolicyRegistry<string>>();
-			IAsyncCacheProvider cacheProvider = serviceProvider.GetRequiredService<IAsyncCacheProvider>();
 			var items = serviceProvider.GetRequiredService<IEnumerable<ICacheManagement>>();
 			foreach (var item in items) {
 				logger.LogInformation("Register Cache Management {cacheName}", item.Name);

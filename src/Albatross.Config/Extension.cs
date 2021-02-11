@@ -1,6 +1,7 @@
 ﻿using Albatross.Config.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Diagnostics.Contracts;
 
@@ -25,12 +26,13 @@ namespace Albatross.Config {
 		/// <param name="services">The ServiceCollection instance</param>
 		/// <returns>The service collection instance</returns>
 		public static IServiceCollection AddConfig<ConfigType, FactoryType>(this IServiceCollection services, bool singleton = false) where ConfigType : class, new() where FactoryType : class, IGetConfig<ConfigType> {
-			services.AddSingleton<FactoryType>();
-			services.AddSingleton<IGetConfig<ConfigType>>(provider => provider.GetRequiredService<FactoryType>());
+
+			services.TryAddSingleton<FactoryType>();
+			services.TryAddSingleton<IGetConfig<ConfigType>>(provider => provider.GetRequiredService<FactoryType>());
 			if (singleton) {
-				services.AddSingleton<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
+				services.TryAddSingleton<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
 			} else {
-				services.AddScoped<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
+				services.TryAddScoped<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
 			}
 			return services;
 		}
