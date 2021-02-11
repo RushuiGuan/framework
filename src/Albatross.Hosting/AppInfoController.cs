@@ -5,6 +5,7 @@ using Albatross.Authentication.Core;
 using Albatross.Config.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Albatross.Hosting {
 	[Route("api/app-info")]
@@ -12,10 +13,12 @@ namespace Albatross.Hosting {
 	public class AppInfoController : ControllerBase {
 		private readonly ProgramSetting programSetting;
 		private readonly IGetCurrentUser getCurrentUser;
+		private readonly ILogger logger;
 
-		public AppInfoController(ProgramSetting programSetting, IGetCurrentUser getCurrentUser) {
+		public AppInfoController(ProgramSetting programSetting, IGetCurrentUser getCurrentUser, ILogger logger) {
 			this.programSetting = programSetting;
 			this.getCurrentUser = getCurrentUser;
+			this.logger = logger;
 		}
 
 		[HttpGet]
@@ -51,6 +54,11 @@ namespace Albatross.Hosting {
 		[Authorize]
 		public string GetCurrentUser() {
 			return getCurrentUser.Get();
+		}
+
+		[HttpPost("log")]
+		public void Log([FromQuery]LogLevel level, [FromBody]string msg) {
+			logger.Log(level, msg);
 		}
 	}
 }
