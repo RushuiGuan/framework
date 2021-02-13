@@ -7,10 +7,10 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Albatross.WebClient{
+namespace Albatross.WebClient {
 	public static class WebSocketExtension {
-		public const int SendBufferSize = 1024;
-		public const int ReceiveBufferSize = 1024;
+		public const int SendBufferSize = 1024 * 8;
+		public const int ReceiveBufferSize = 1024 * 8;
 
 		public static async Task<WebSocketMessageType> Receive(this WebSocket socket, Memory<byte> buffer, Stream stream, CancellationToken cancellation) {
 			ValueWebSocketReceiveResult result;
@@ -27,22 +27,22 @@ namespace Albatross.WebClient{
 			return result.MessageType;
 		}
 
-		public static async Task Send(this WebSocket socket, byte[] data, WebSocketMessageType messageType, CancellationToken cancellation) {
+		public static async Task Send(this WebSocket socket, byte[] data, WebSocketMessageType messageType, CancellationToken cancellation, int bufferSize = SendBufferSize) {
 			Memory<byte> buffer = new Memory<byte>(data);
 			int left = data.Length, offset = 0;
 			do {
-				int count = Math.Min(SendBufferSize, left);
+				int count = Math.Min(bufferSize, left);
 				left -= count;
 				await socket.SendAsync(buffer.Slice(offset, count), messageType, left == 0, cancellation);
 				offset += count;
 			} while (left > 0);
 		}
 
-		public static async Task<T> Receive<T>(this WebSocket socket, CancellationToken cancellation, JsonSerializerOptions serializerOptions, ILogger logger) {
-			Memory<byte> buffer = new Memory<byte>(new byte[ReceiveBufferSize]);
+		public static async Task<T> Receive<T>(this WebSocket socket, CancellationToken cancellation, JsonSerializerOptions serializerOptions, ILogger logger, int bufferSize = ReceiveBufferSize) {
+			Memory<byte> buffer = new Memory<byte>(new byte[bufferSize]);
 			using MemoryStream stream = new MemoryStream();
 			var type = await socket.Receive(buffer, stream, cancellation);
-			if(type == WebSocketMessageType.Close) {
+			if (type == WebSocketMessageType.Close) {
 				throw new WebSocketException(WebSocketError.ConnectionClosedPrematurely, "Connection closed during a read operation");
 			} else {
 				var array = stream.ToArray();
