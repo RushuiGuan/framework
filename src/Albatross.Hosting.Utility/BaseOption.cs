@@ -16,12 +16,18 @@ namespace Albatross.Hosting.Utility {
 
 
 		public void WriteOutput(object data) {
-			var jsonOption = new JsonSerializerOptions {
-				IgnoreNullValues = true,
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-				WriteIndented = true,
-			};
-			string result = JsonSerializer.Serialize(data, data.GetType(), jsonOption);
+			string result;
+
+			if (data is string) {
+				result = (string)data;
+			} else {
+				var jsonOption = new JsonSerializerOptions {
+					IgnoreNullValues = true,
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+					WriteIndented = true,
+				};
+				result = JsonSerializer.Serialize(data, data.GetType(), jsonOption);
+			}
 
 			if (Verbose) { Console.WriteLine(result); }
 
