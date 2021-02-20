@@ -29,7 +29,6 @@ namespace Albatross.Config.UnitTest {
 			Assert.NotNull(setting);
 			Assert.NotEmpty(setting.App);
 			Assert.NotEmpty(setting.Group);
-			Assert.NotEmpty(setting.Environment);
 		}
 
 		[Fact]

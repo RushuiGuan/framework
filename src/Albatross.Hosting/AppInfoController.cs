@@ -5,6 +5,7 @@ using Albatross.Authentication.Core;
 using Albatross.Config.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Albatross.Hosting {
@@ -13,18 +14,22 @@ namespace Albatross.Hosting {
 	public class AppInfoController : ControllerBase {
 		private readonly ProgramSetting programSetting;
 		private readonly IGetCurrentUser getCurrentUser;
+		private readonly IHostEnvironment hostEnvironment;
 		private readonly ILogger logger;
 
-		public AppInfoController(ProgramSetting programSetting, IGetCurrentUser getCurrentUser, ILogger logger) {
+		public AppInfoController(ProgramSetting programSetting, IGetCurrentUser getCurrentUser, IHostEnvironment hostEnvironment, ILogger logger) {
 			this.programSetting = programSetting;
 			this.getCurrentUser = getCurrentUser;
+			this.hostEnvironment = hostEnvironment;
 			this.logger = logger;
 		}
 
 		[HttpGet]
 		public ProgramSetting Get() => programSetting;
 
-		
+		[HttpGet("env")]
+		public string GetHostEnvironment() => hostEnvironment.EnvironmentName;
+
 
 		[HttpGet("assembly")]
 		public IEnumerable<string> GetAssemblies([FromQuery]string[] name) {

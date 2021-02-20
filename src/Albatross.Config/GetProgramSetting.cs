@@ -18,9 +18,6 @@ namespace Albatross.Config {
 			if (string.IsNullOrEmpty(setting.App)) {
 				setting.App = Assembly.GetEntryAssembly().FullName;
 			}
-			if (string.IsNullOrEmpty(setting.Environment)) {
-				setting.Environment = "dev";
-			}
 			return setting;
 		}
 	}
