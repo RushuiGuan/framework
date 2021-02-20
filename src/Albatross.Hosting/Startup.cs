@@ -158,7 +158,7 @@ namespace Albatross.Hosting {
 		}
 
 		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger) {
-			logger.LogInformation("Initializing {@program}", this.ProgramSetting);
+			logger.LogInformation("Initializing {@program} with environment {environment}", this.ProgramSetting, env.EnvironmentName);
 			this.ServiceProvider = app.ApplicationServices;
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions });
 			app.UseRouting();
