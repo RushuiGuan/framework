@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -28,10 +27,8 @@ using System.Threading.Tasks;
 namespace Albatross.Hosting {
 	public class Startup {
 		public const string DefaultApp_RootPath = "wwwroot";
-
-		public IConfiguration Configuration { get; }
+		
 		protected AuthorizationSetting AuthorizationSetting { get; }
-		protected ProgramSetting ProgramSetting { get; }
 		protected IServiceProvider ServiceProvider { get; private set; }
 		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -46,10 +43,8 @@ namespace Albatross.Hosting {
 
 		public Startup(IConfiguration configuration) {
 			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
-			Configuration = configuration;
-			ProgramSetting = new GetProgramSetting(configuration).Get();
 			if (Secured && WebApi) {
-				AuthorizationSetting = new GetAuthorizationSetting(Configuration).Get();
+				AuthorizationSetting = new GetAuthorizationSetting(configuration).Get();
 				AuthorizationSetting.Validate();
 			}
 		}
@@ -157,8 +152,8 @@ namespace Albatross.Hosting {
 			}
 		}
 
-		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger) {
-			logger.LogInformation("Initializing {@program} with environment {environment}", this.ProgramSetting, env.EnvironmentName);
+		public virtual void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Startup> logger) {
+			logger.LogInformation("Initializing {@program} with environment {environment}", programSetting, environmentSetting.Value);
 			this.ServiceProvider = app.ApplicationServices;
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions });
 			app.UseRouting();

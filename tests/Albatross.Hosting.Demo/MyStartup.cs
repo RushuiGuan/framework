@@ -1,4 +1,5 @@
 ﻿using Albatross.Caching;
+using Albatross.Config.Core;
 using Albatross.Hosting.Demo;
 using Albatross.Hosting.Demo.Hubs;
 using Microsoft.AspNetCore.Builder;
@@ -32,8 +33,8 @@ namespace Albatross.Hosting.Test {
 			});
 			services.AddMvc(options => options.InputFormatters.Add(new TextPlainInputFormatter()));
 		}
-		public override void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger) {
-			base.Configure(app, env, logger);
+		public override void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting envSetting, ILogger<Startup> logger) {
+			base.Configure(app, programSetting, envSetting, logger);
 			app.UseEndpoints(buider => {
 				buider.MapHub<NotifHub>("/notif");
 			});

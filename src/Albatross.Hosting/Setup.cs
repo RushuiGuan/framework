@@ -4,6 +4,7 @@ using Albatross.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Albatross.Hosting {
 		protected IConfiguration configuration;
 
 		public Setup(string[] args) {
-			var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower();
+			var env = EnvironmentSetting.ASPNETCORE_ENVIRONMENT.Value;
 			hostBuilder = Host.CreateDefaultBuilder(args).UseSerilog();
 			var configBuilder = new ConfigurationBuilder()
 				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
@@ -65,6 +66,7 @@ namespace Albatross.Hosting {
 
 		public virtual void ConfigureServices(IServiceCollection services) {
 			services.AddConfig<ProgramSetting, GetProgramSetting>(true);
+			services.TryAddSingleton<EnvironmentSetting>(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
 		}
 
 
