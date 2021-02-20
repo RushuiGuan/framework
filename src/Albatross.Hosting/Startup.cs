@@ -30,6 +30,7 @@ namespace Albatross.Hosting {
 		
 		protected AuthorizationSetting AuthorizationSetting { get; }
 		protected IServiceProvider ServiceProvider { get; private set; }
+		protected IConfiguration Configuration { get; }
 		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 		};
@@ -42,6 +43,7 @@ namespace Albatross.Hosting {
 		public virtual bool Caching { get; } = false;
 
 		public Startup(IConfiguration configuration) {
+			this.Configuration = configuration;
 			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
 			if (Secured && WebApi) {
 				AuthorizationSetting = new GetAuthorizationSetting(configuration).Get();
