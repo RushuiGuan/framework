@@ -20,8 +20,8 @@ namespace Albatross.Framework.Utility {
 			SetupSerilog.UseConfigFile(cfg, "serilog.json", null);
 		}
 
-		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-			base.RegisterServices(configuration, services);
+		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environmentSetting, IServiceCollection services) {
+			base.RegisterServices(configuration, environmentSetting, services);
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
 		}
 	}

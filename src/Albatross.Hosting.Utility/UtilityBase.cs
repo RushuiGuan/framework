@@ -37,26 +37,27 @@ namespace Albatross.Hosting.Utility {
 			this.Options = option;
 			serilogLogger = new SetupSerilog().Configure(ConfigureLogging).Create();
 
-			var env = System.Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")?.ToLower();
+			var env = EnvironmentSetting.DOTNET_ENVIRONMENT;
 			IHostBuilder hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			var configBuilder = new ConfigurationBuilder()
 				.SetBasePath(CurrentDirectory)
 				.AddJsonFile("appsettings.json", false, true);
-			if (!string.IsNullOrEmpty(env)) { configBuilder.AddJsonFile($"appsettings.{env}.json", true, true); }
+			if (!string.IsNullOrEmpty(env.Value)) { configBuilder.AddJsonFile($"appsettings.{env.Value}.json", true, true); }
 			var configuration = configBuilder.AddEnvironmentVariables().Build();
 			
 			host = hostBuilder.ConfigureAppConfiguration(builder => {
 				builder.Sources.Clear();
 				builder.AddConfiguration(configuration);
-			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc)).Build();
+			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, env, svc)).Build();
 
 			logger = host.Services.GetRequiredService<Microsoft.Extensions.Logging.ILogger>();
 			logger.LogInformation("Logging initialized for {type} instance", this.GetType().Name);
 			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 		}
 
-		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			services.AddConfig<ProgramSetting, GetProgramSetting>();
+			services.AddSingleton<EnvironmentSetting>(envSetting);
 			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 		}
 		public abstract Task<int> RunAsync();
