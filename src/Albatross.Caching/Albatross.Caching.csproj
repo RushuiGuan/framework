@@ -4,6 +4,7 @@
     <Authors>Rushui Guan</Authors>
     <Description>Caching management using Polly</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />

@@ -9,7 +9,7 @@
     </PackageReleaseNotes>
     <PackageTags>code generator c# sql codegen powershell database csharp</PackageTags>
     <LangVersion>7.3</LangVersion>
-    <PackageProjectUrl>https://github.com/RushuiGuan/CodeGen</PackageProjectUrl>
+    <PackageProjectUrl></PackageProjectUrl>
     <Copyright>Copyright © 2019</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
