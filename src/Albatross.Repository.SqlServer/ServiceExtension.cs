@@ -23,8 +23,8 @@ namespace Albatross.Repository.SqlServer {
 			return builder.Options;
 		}
 
-		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, string connectionString) where T : DbContext {
-			services.AddDbContext<T>(builder => BuildDefaultOption(builder, connectionString));
+		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, Func<IServiceProvider, string> getConnectionString) where T : DbContext {
+			services.AddDbContext<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
 			return services;
 		}
 
@@ -35,8 +35,8 @@ namespace Albatross.Repository.SqlServer {
 		/// <param name="services"></param>
 		/// <param name="getConnectionString"></param>
 		/// <returns></returns>
-		public static IServiceCollection UseSqlServerWithContextPool<T>(this IServiceCollection services, string connectionString) where T : DbContext {
-			services.AddDbContextPool<T>(builder => BuildDefaultOption(builder, connectionString));
+		public static IServiceCollection UseSqlServerWithContextPool<T>(this IServiceCollection services, Func<IServiceProvider, string>getConnectionString) where T : DbContext {
+			services.AddDbContextPool<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
 			return services;
 		}
 
