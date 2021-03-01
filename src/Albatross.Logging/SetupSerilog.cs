@@ -9,8 +9,11 @@ namespace Albatross.Logging {
 		public const string DefaultOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}";
 		Action<LoggerConfiguration> configActions = null;
 
-		public SetupSerilog UseConfigFile(string name, string basePath = null) {
-			Action<LoggerConfiguration> action = cfg => UseConfigFile(cfg, name, basePath);
+		public SetupSerilog() {
+		}
+
+		public SetupSerilog UseConfigFile(string environment, string basePath = null) {
+			Action<LoggerConfiguration> action = cfg => UseConfigFile(cfg, environment, basePath);
 			configActions += action;
 			return this;
 		}
@@ -30,22 +33,23 @@ namespace Albatross.Logging {
 			LoggerConfiguration cfg = new LoggerConfiguration();
 			configActions?.Invoke(cfg);
 			var logger = cfg.CreateLogger();
-			// logger.Information("Logger created");
 			if (setDefault) {
 				Log.Logger = logger;
 			}
 			return logger;
 		}
 
-		public static void UseConfigFile(LoggerConfiguration cfg, string name, string basePath) {
+		public static void UseConfigFile(LoggerConfiguration cfg, string environment, string basePath) {
 			if (string.IsNullOrEmpty(basePath)) {
 				basePath = System.IO.Directory.GetCurrentDirectory();
 			}
-			var configuration = new ConfigurationBuilder()
+			var configBuilder = new ConfigurationBuilder()
 				.SetBasePath(basePath)
-				.AddJsonFile(name, false, true)
-				.AddEnvironmentVariables()
-				.Build();
+				.AddJsonFile("serilog.json", false, true);
+			if (!string.IsNullOrEmpty(environment)) { configBuilder.AddJsonFile($"serilog.{environment}.json", true, true); }
+			configBuilder.AddEnvironmentVariables();
+
+			var configuration = configBuilder.Build();
 			cfg.ReadFrom.Configuration(configuration);
 		}
 

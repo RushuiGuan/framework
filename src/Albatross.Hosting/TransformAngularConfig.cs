@@ -1,15 +1,9 @@
 ﻿using Albatross.Config.Core;
 using Microsoft.Extensions.Logging;
-using NJsonSchema.Generation;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace Albatross.Hosting {
 	public interface ITransformAngularConfig {
@@ -17,18 +11,19 @@ namespace Albatross.Hosting {
 	}
 	public class TransformAngularConfig : ITransformAngularConfig {
 		private readonly AngularConfig config;
+		private readonly EnvironmentSetting environmentSetting;
 		private readonly ILogger<TransformAngularConfig> logger;
 
-		public TransformAngularConfig(AngularConfig config, ProgramSetting programSetting, ILogger<TransformAngularConfig> logger) {
+		public TransformAngularConfig(AngularConfig config, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<TransformAngularConfig> logger) {
 			this.config = config;
+			this.environmentSetting = environmentSetting;
 			this.logger = logger;
 		}
 
 		public void Transform() {
-			var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower();
-			if (config.ConfigFile?.Length > 0 && !string.IsNullOrEmpty(env)) {
+			if (config.ConfigFile?.Length > 0 && !string.IsNullOrEmpty(environmentSetting.Value)) {
 				string file = GetConfigFile(null);
-				string change = GetConfigFile(env);
+				string change = GetConfigFile(environmentSetting.Value);
 				if (!File.Exists(file)) {
 					logger.LogError("Angular config file {file} doesn't exist", file);
 				} else if (!File.Exists(change)) {

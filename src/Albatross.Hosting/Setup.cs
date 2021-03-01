@@ -13,14 +13,15 @@ namespace Albatross.Hosting {
 	public class Setup {
 		protected IHostBuilder hostBuilder;
 		protected IConfiguration configuration;
+		string environment { get; init; }
 
 		public Setup(string[] args) {
-			var env = EnvironmentSetting.ASPNETCORE_ENVIRONMENT.Value;
+			environment = EnvironmentSetting.ASPNETCORE_ENVIRONMENT.Value;
 			hostBuilder = Host.CreateDefaultBuilder(args).UseSerilog();
 			var configBuilder = new ConfigurationBuilder()
 				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json", false, true);
-			if (!string.IsNullOrEmpty(env)) { configBuilder.AddJsonFile($"appsettings.{env}.json", true, true); }
+			if (!string.IsNullOrEmpty(environment)) { configBuilder.AddJsonFile($"appsettings.{environment}.json", true, true); }
 
 			this.configuration = configBuilder.AddJsonFile("hostsettings.json", true, false)
 				.AddEnvironmentVariables()
@@ -72,7 +73,7 @@ namespace Albatross.Hosting {
 
 		public virtual async Task RunAsync() {
 			this.hostBuilder.ConfigureServices(this.ConfigureServices);
-			using var logger = new SetupSerilog().UseConfigFile("serilog.json").Create();
+			using var logger = new SetupSerilog().UseConfigFile(environment).Create();
 			await this.hostBuilder.Build().RunAsync();
 		}
 	}
