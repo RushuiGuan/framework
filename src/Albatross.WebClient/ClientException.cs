@@ -1,19 +1,15 @@
 ﻿using System;
+using System.Net;
 
 namespace Albatross.WebClient{
 	public class ClientException : Exception {
-		public ErrorMessage ErrorMessage { get; private set; }
+		public ErrorMessage ErrorMessage { get; }
+		
+		public ClientException(HttpStatusCode statusCode, string msg) : this(new ErrorMessage(statusCode, msg)) {
+		}
 
-		public ClientException(string msg) : base(msg) {
-			ErrorMessage = new ErrorMessage();
-		}
-		public ClientException(ErrorMessage error) : base(error.Message) {
-			ErrorMessage = error;
-		}
-		public ClientException(string msg, Exception innerException) : base(msg, innerException) {
-			ErrorMessage = new ErrorMessage {
-				Message = msg,
-			};
+		public ClientException(ErrorMessage err):base($"{err.StatusCode}:{err.Message}") {
+			ErrorMessage = err;
 		}
 	}
 }

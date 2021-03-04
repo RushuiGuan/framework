@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Specialized;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using System.Net;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -52,32 +53,32 @@ namespace Albatross.WebClient {
 			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
 			return request;
 		}
-		public async Task<string> Invoke(HttpRequestMessage request) {
+		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(client.BaseAddress, request.RequestUri)}");
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (response.IsSuccessStatusCode) {
 					return content;
 				} else {
-					if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError) {
+					if (throwCustomException == null) {
 						ErrorMessage error;
 						if (string.IsNullOrEmpty(content)) {
 							error = new ErrorMessage() {
-								Message = "An error has occurred",
-								HttpStatus = (int)response.StatusCode,
+								StatusCode = response.StatusCode,
 							};
 						} else {
 							error = Deserialize<ErrorMessage>(content);
+							error.StatusCode = response.StatusCode;
 						}
 						throw new ClientException(error);
 					} else {
-						throw new ClientException(content);
+						throw throwCustomException(response.StatusCode, content);
 					}
 				}
 			}
 		}
-		public async Task<T> Invoke<T>(HttpRequestMessage request) {
-			string content = await Invoke(request);
+		public async Task<T> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+			string content = await Invoke(request, throwCustomException);
 			return Deserialize<T>(content);
 		}
 		#endregion

@@ -195,7 +195,7 @@ namespace Albatross.Hosting {
 
 			if (error != null) {
 				var msg = CreateExceptionMessage(error);
-				msg.HttpStatus = context.Response.StatusCode;
+				msg.StatusCode = context.Response.StatusCode;
 				await JsonSerializer.SerializeAsync(context.Response.BodyWriter.AsStream(), msg, JsonSerializerOptions);
 			}
 		}
