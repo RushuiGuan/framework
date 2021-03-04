@@ -71,8 +71,7 @@ namespace Albatross.WebClient {
 						}
 						throw new ClientException(error);
 					} else {
-						response.EnsureSuccessStatusCode();
-						throw new Exception();
+						throw new ClientException(content);
 					}
 				}
 			}

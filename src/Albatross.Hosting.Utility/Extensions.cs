@@ -53,5 +53,9 @@ namespace Albatross.Hosting.Utility {
 				WriteIndented = true
 			});
 		}
+		public static string ReadInput(this string file) {
+			using var reader = new StreamReader(file);
+			return reader.ReadToEnd();
+		}
 	}
 }
