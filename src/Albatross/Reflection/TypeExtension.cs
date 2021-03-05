@@ -109,5 +109,11 @@ namespace Albatross.Reflection {
 		}
 
 		public static string GetTypeNameWithoutAssemblyVersion(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
+
+		public static A GetEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute {
+			var type = typeof(EnumType);
+			var members = type.GetMember(enumValue.ToString());
+			return members[0].GetCustomAttribute<A>();
+		}
 	}
 }
