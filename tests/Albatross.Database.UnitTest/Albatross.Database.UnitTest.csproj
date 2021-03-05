@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="Moq" Version="4.15.2" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Albatross.Database.SqlServer\Albatross.Database.SqlServer.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Database\Albatross.Database.csproj" />
+  </ItemGroup>
+</Project>
