@@ -65,15 +65,15 @@ namespace Albatross.Hosting {
 			return this;
 		}
 
-		public virtual void ConfigureServices(IServiceCollection services) {
+		public virtual void ConfigureServices(IServiceCollection services, Serilog.Core.Logger logger) {
 			services.AddConfig<ProgramSetting, GetProgramSetting>(true);
 			services.TryAddSingleton<EnvironmentSetting>(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
 		}
 
 
 		public virtual async Task RunAsync() {
-			this.hostBuilder.ConfigureServices(this.ConfigureServices);
-			using var logger = new SetupSerilog().UseConfigFile(environment).Create();
+			using Serilog.Core.Logger logger = new SetupSerilog().UseConfigFile(environment).Create();
+			this.hostBuilder.ConfigureServices(services=>this.ConfigureServices(services, logger));
 			await this.hostBuilder.Build().RunAsync();
 		}
 	}

@@ -182,7 +182,6 @@ namespace Albatross.Hosting {
 			var options = new StaticFileOptions { 
 				 RequestPath = config.RequestPath,
 			};
-			//app.UseStaticFiles();
 			app.UseSpaStaticFiles(new StaticFileOptions { RequestPath = config.RequestPath });
 			app.Map(config.RequestPath ?? string.Empty, web => web.UseSpa(spa => { }));
 			app.ApplicationServices.GetRequiredService<ITransformAngularConfig>().Transform();
