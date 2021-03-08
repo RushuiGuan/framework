@@ -14,13 +14,13 @@ namespace Albatross.Hosting {
 	public class AppInfoController : ControllerBase {
 		private readonly ProgramSetting programSetting;
 		private readonly IGetCurrentUser getCurrentUser;
-		private readonly IHostEnvironment hostEnvironment;
+		private readonly EnvironmentSetting environmentSetting;
 		private readonly ILogger logger;
 
-		public AppInfoController(ProgramSetting programSetting, IGetCurrentUser getCurrentUser, IHostEnvironment hostEnvironment, ILogger logger) {
+		public AppInfoController(ProgramSetting programSetting, IGetCurrentUser getCurrentUser, EnvironmentSetting environmentSetting, ILogger logger) {
 			this.programSetting = programSetting;
 			this.getCurrentUser = getCurrentUser;
-			this.hostEnvironment = hostEnvironment;
+			this.environmentSetting = environmentSetting;
 			this.logger = logger;
 		}
 
@@ -28,7 +28,7 @@ namespace Albatross.Hosting {
 		public ProgramSetting Get() => programSetting;
 
 		[HttpGet("env")]
-		public string GetHostEnvironment() => hostEnvironment.EnvironmentName;
+		public EnvironmentSetting GetEnvironment() => environmentSetting;
 
 
 		[HttpGet("assembly")]

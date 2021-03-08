@@ -9,6 +9,7 @@ namespace Albatross.Config.Core {
 	/// </summary>
 	public class EnvironmentSetting {
 		public string Value { get; }
+		public string HostName => System.Net.Dns.GetHostName();
 
 		public EnvironmentSetting(string variable) {
 			Value = System.Environment.GetEnvironmentVariable(variable)?.ToLower();
