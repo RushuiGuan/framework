@@ -12,7 +12,7 @@
     <PackageReleaseNotes>Please see https://rushuiguan.github.io/database/</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/RushuiGuan/database</RepositoryUrl>
     <Copyright>Copyright Â©2018</Copyright>
-    <Version>3.0.1</Version>
+	  <Version>3.0.2</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>

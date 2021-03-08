@@ -12,8 +12,8 @@
     <PackageReleaseNotes>Please see https://rushuiguan.github.io/database/</PackageReleaseNotes>
     <PackageProjectUrl>https://rushuiguan.github.io/database/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RushuiGuan/database</RepositoryUrl>
-    <Version>3.0.1</Version>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+	  <Version>3.0.2</Version>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
