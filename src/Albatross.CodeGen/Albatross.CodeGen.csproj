@@ -15,7 +15,6 @@
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Albatross.Database" Version="3.0.1-alpha.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
@@ -24,5 +23,8 @@
       <PackagePath>
       </PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Albatross.Database\Albatross.Database.csproj" />
   </ItemGroup>
 </Project>

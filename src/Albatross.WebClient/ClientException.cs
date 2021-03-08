@@ -8,7 +8,7 @@ namespace Albatross.WebClient{
 		public ClientException(HttpStatusCode statusCode, string msg) : this(new ErrorMessage(statusCode, msg)) {
 		}
 
-		public ClientException(ErrorMessage err):base($"{err.StatusCode}:{err.Message}") {
+		public ClientException(ErrorMessage err):base($"{err.StatusCode}({(int)err.StatusCode}):{err.Message}") {
 			ErrorMessage = err;
 		}
 	}
