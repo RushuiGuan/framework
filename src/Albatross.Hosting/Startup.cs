@@ -200,10 +200,14 @@ namespace Albatross.Hosting {
 		}
 
 		protected virtual ErrorMessage CreateExceptionMessage(Exception error) {
-			return new ErrorMessage {
+			var msg = new ErrorMessage {
 				Message = error.Message,
 				Type = error.GetType().FullName,
 			};
+			if(error.InnerException != null) {
+				msg.InnerError = CreateExceptionMessage(error.InnerException);
+			}
+			return msg;
 		}
 	}
 }
