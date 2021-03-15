@@ -48,7 +48,7 @@ namespace Albatross.Caching {
 		}
 
 		private async Task EnvictRemoteCache(IEnumerable<object> keys) {
-			foreach (string instance in config.OtherInstances) {
+			foreach (string instance in config.SiblingEndPoints) {
 				try { 
 					using var client = clientFactory.CreateClient(CachingClient.CachingProxyName);
 					var proxy = new CachingClient(logger, client);
@@ -65,7 +65,7 @@ namespace Albatross.Caching {
 		}
 
 		private async Task ResetRemoteCache() {
-			foreach (string instance in config.OtherInstances) {
+			foreach (string instance in config.SiblingEndPoints) {
 				try {
 					using var client = clientFactory.CreateClient(CachingClient.CachingProxyName);
 					var proxy = new CachingClient(logger, client);

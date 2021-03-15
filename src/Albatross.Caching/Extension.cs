@@ -1,4 +1,5 @@
-﻿using Albatross.Reflection;
+﻿using Albatross.Config;
+using Albatross.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -28,6 +29,7 @@ namespace Albatross.Caching {
 			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider, Polly.Caching.Memory.MemoryCacheProvider>());
 			services.TryAdd(ServiceDescriptor.Singleton<ICacheManagementFactory, CacheManagementFactory>());
 			services.TryAdd(ServiceDescriptor.Singleton<IMemoryCacheExtended, MemoryCacheExtended>());
+			services.AddConfig<CachingConfig, GetCachingConfig>();
 			services.AddHttpClient(CachingClient.CachingProxyName).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { UseDefaultCredentials = true, });
 			return services;
 		}
