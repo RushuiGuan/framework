@@ -3,7 +3,6 @@ using Albatross.Config.Core;
 using Albatross.Hosting.Demo;
 using Albatross.Hosting.Demo.Hubs;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,9 +22,7 @@ namespace Albatross.Hosting.Test {
 
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
-			services.AddCaching();
-			services.AddSingleton<ICacheManagement, IssuerCachedMgmt>();
-			services.AddSingleton<ICacheManagement, SymbolCacheManagement>();
+			services.AddCacheMgmt(this.GetType().Assembly);
 			services.AddSignalR();
 			services.AddRazorPages().AddRazorRuntimeCompilation();
 			services.Configure<MvcRazorRuntimeCompilationOptions>(options => {
@@ -38,7 +35,6 @@ namespace Albatross.Hosting.Test {
 			app.UseEndpoints(buider => {
 				buider.MapHub<NotifHub>("/notif");
 			});
-
 		}
 	}
 }

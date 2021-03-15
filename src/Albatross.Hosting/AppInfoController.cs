@@ -24,18 +24,6 @@ namespace Albatross.Hosting {
 			this.logger = logger;
 		}
 
-		[HttpGet]
-		public ProgramSetting Get() => programSetting;
-
-		[HttpGet("env")]
-		public EnvironmentSetting GetEnvironment() => environmentSetting;
-
-
-		[HttpGet("assembly")]
-		public IEnumerable<string> GetAssemblies([FromQuery]string[] name) {
-			return FindAssembly(name);
-		}
-
 		List<string> FindAssembly(IEnumerable<string> names) {
 			List<string> result = new List<string>();
 			foreach (var name in names) {
@@ -48,22 +36,24 @@ namespace Albatross.Hosting {
 			return result;
 		}
 
+		[HttpGet]
+		public ProgramSetting Get() => programSetting;
+
+		[HttpGet("env")]
+		public EnvironmentSetting GetEnvironment() => environmentSetting;
+
+		[HttpGet("assembly")]
+		public IEnumerable<string> GetAssemblies([FromQuery] string[] name) => FindAssembly(name);
+
 		[HttpGet("user-claim")]
 		[Authorize]
-		public string[] GetUserClaims() { 
-			var items = (from item in HttpContext.User?.Claims ?? new System.Security.Claims.Claim[0]
-						 select $"{item.Type}: {item.Value}").ToArray();
-			return items;
-		}
-		[HttpGet("user")]
+		public string[] GetUserClaims() => HttpContext.User?.Claims?.Select(args => $"{args.Type}: {args.Value}")?.ToArray() ?? new string[0];
+
 		[Authorize]
-		public string GetCurrentUser() {
-			return getCurrentUser.Get();
-		}
+		[HttpGet("user")]
+		public string GetCurrentUser() => getCurrentUser.Get();
 
 		[HttpPost("log")]
-		public void Log([FromQuery]LogLevel level, [FromBody]string msg) {
-			logger.Log(level, msg);
-		}
+		public void Log([FromQuery] LogLevel level, [FromBody] string msg) => logger.Log(level, msg);
 	}
 }

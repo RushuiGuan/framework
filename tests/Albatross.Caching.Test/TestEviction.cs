@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using Xunit;
 
 namespace Albatross.Caching.Test {
@@ -29,15 +32,18 @@ namespace Albatross.Caching.Test {
 
 		[Fact]
 		public void TestReset() {
+			var scope = host.Create();
+
+			ILogger<MemoryCacheExtended> logger = new Mock<ILogger<MemoryCacheExtended>>().Object;
+			IHttpClientFactory factory = new Mock<IHttpClientFactory>().Object;
 			MemoryCache cache = new MemoryCache(new MemoryCacheOptions());
 			cache.GetOrCreate<string>(1, e => "a");
 			cache.GetOrCreate<string>(2, e => "b");
 			cache.GetOrCreate<string>(3, e => "c");
 			Assert.True(cache.Count == 3);
-			var reset = new MemoryCacheReset(cache);
+			var reset = new MemoryCacheExtended(cache, factory, new CachingConfig(), logger);
 			reset.Reset();
 			Assert.True(cache.Count == 0);
-
 		}
 	}
 }

@@ -4,6 +4,7 @@ using Polly;
 using Polly.Caching;
 using Polly.Registry;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.Caching {
@@ -11,10 +12,10 @@ namespace Albatross.Caching {
 		protected readonly ILogger logger;
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
-		private readonly IMemoryCache cache;
+		private readonly IMemoryCacheExtended cache;
 		public const string Context_Init = "init";
 
-		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCache cache) {
+		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCacheExtended cache) {
 			this.logger = logger;
 			this.registry = registry;
 			this.cacheProvider = cacheProvider.AsyncFor<CacheFormat>();
@@ -59,11 +60,9 @@ namespace Albatross.Caching {
 		}
 
 		public void Evict(params Context[] contexts) {
-			foreach (var context in contexts) {
-				string key = GetCacheKey(context);
-				logger.LogInformation("Evicting cache: {key}", key);
-				this.cache.Remove(key);
-			}
+			var keys = contexts.Select(args => GetCacheKey(args));
+			logger.LogInformation("Evicting cache: {@key}", keys);
+			this.cache.Envict(keys);
 		}
 
 		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, Context context) {

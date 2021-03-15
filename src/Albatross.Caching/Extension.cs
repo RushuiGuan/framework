@@ -8,6 +8,7 @@ using Polly.Registry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 
 namespace Albatross.Caching {
@@ -26,8 +27,8 @@ namespace Albatross.Caching {
 			services.TryAdd(ServiceDescriptor.Singleton<IReadOnlyPolicyRegistry<string>>(registry));
 			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider, Polly.Caching.Memory.MemoryCacheProvider>());
 			services.TryAdd(ServiceDescriptor.Singleton<ICacheManagementFactory, CacheManagementFactory>());
-			services.TryAdd(ServiceDescriptor.Singleton<IMemoryCacheReset, MemoryCacheReset>());
-			
+			services.TryAdd(ServiceDescriptor.Singleton<IMemoryCacheExtended, MemoryCacheExtended>());
+			services.AddHttpClient(CachingClient.CachingProxyName).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { UseDefaultCredentials = true, });
 			return services;
 		}
 

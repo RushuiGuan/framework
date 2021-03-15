@@ -1,13 +1,12 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Albatross.Caching;
 using Microsoft.Extensions.Logging;
 using Polly.Caching;
 using Polly.Registry;
 using System;
-using System.Collections.Generic;
 
 namespace Albatross.Authentication.Server {
 	public class ActiveDirectoryUserProfileCacheMgmt : Albatross.Caching.CacheManagement<User> {
-		public ActiveDirectoryUserProfileCacheMgmt(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCache cache) : base(logger, registry, cacheProvider, cache) {
+		public ActiveDirectoryUserProfileCacheMgmt(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCacheExtended cache) : base(logger, registry, cacheProvider, cache) {
 		}
 
 		public const string CacheKey = nameof(ActiveDirectoryUserProfileCacheMgmt);
