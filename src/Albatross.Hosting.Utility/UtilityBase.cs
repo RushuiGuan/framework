@@ -51,7 +51,7 @@ namespace Albatross.Hosting.Utility {
 			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, env, svc)).Build();
 
 			logger = host.Services.GetRequiredService<Microsoft.Extensions.Logging.ILogger>();
-			logger.LogInformation("Logging initialized for {type} instance", this.GetType().Name);
+			logger.LogDebug("Logging initialized for {type} instance", this.GetType().Name);
 			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 		}
 
