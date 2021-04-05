@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Albatross.CodeGen.WebClient.UnitTest {
 
-	public class GeneralTest :IClassFixture<WebClientTestHost>{
+	public class GeneralTest : IClassFixture<WebClientTestHost> {
 		private readonly WebClientTestHost host;
 
 		public GeneralTest(WebClientTestHost host) {
@@ -23,24 +23,22 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				Class converted = handle.Convert(type);
 				var writer = scope.Get<Albatross.CodeGen.CSharp.Writer.WriteCSharpClass>();
 				StringBuilder sb = new StringBuilder();
-				using(StringWriter writer1 = new StringWriter(sb)) {
+				using (StringWriter writer1 = new StringWriter(sb)) {
 					writer.Run(writer1, converted);
 				}
 				string result = sb.ToString();
-
-                string expectedFile = Path.Join(GetType().GetAssemblyLocation(), "GroupClientService.expected.cs");
+				using var stream = this.GetType().Assembly.GetManifestResourceStream("Albatross.CodeGen.WebClient.UnitTest.GroupClientService.expected.cs");
+				string expected = new StreamReader(stream).ReadToEnd().Replace("\r", null).Replace("\n", null).Replace("\t", null);
 				string actualFile = Path.Join(GetType().GetAssemblyLocation(), "GroupClientService.actual.cs");
-				using(StreamWriter writer2 = new StreamWriter(actualFile)) {
+				using (StreamWriter writer2 = new StreamWriter(actualFile)) {
 					writer2.Write(result);
 				}
-				using (StreamReader reader = new StreamReader(expectedFile)) {
-                    string expected = reader.ReadToEnd();
-                    Assert.Equal(expected, result);
-                }
-            }
+				result = result.Replace("\r", null).Replace("\n", null).Replace("\t", null);
+				Assert.Equal(expected, result);
+			}
 		}
 
-		[Fact(Skip ="use open api instead")]
+		[Fact(Skip = "use open api instead")]
 		public void TestValueController() {
 			using (var scope = host.Create()) {
 				Type type = typeof(ValueController);

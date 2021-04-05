@@ -67,7 +67,12 @@ namespace Albatross.WebClient {
 								StatusCode = response.StatusCode,
 							};
 						} else {
-							error = Deserialize<ErrorMessage>(content);
+							try {
+								error = Deserialize<ErrorMessage>(content);
+							} catch {
+								error = new ErrorMessage();
+								error.Message = content;
+							}
 							error.StatusCode = response.StatusCode;
 						}
 						throw new ClientException(error);

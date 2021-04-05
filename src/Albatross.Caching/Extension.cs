@@ -34,8 +34,9 @@ namespace Albatross.Caching {
 			return services;
 		}
 
-		public static void UseCache(this IServiceProvider serviceProvider, ILogger logger) {
+		public static void UseCache(this IServiceProvider serviceProvider) {
 			var items = serviceProvider.GetRequiredService<IEnumerable<ICacheManagement>>();
+			var logger = serviceProvider.GetRequiredService<ILogger>();
 			foreach (var item in items) {
 				logger.LogInformation("Register Cache Management {cacheName}", item.Name);
 				item.Register();

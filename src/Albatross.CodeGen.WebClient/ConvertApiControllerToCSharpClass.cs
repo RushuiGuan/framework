@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.WebClient {
 	public class ConvertApiControllerToCSharpClass : IConvertObject<Type, Class> {
@@ -183,7 +184,7 @@ namespace Albatross.CodeGen.WebClient {
                 if (!method.ReturnType.IsVoid) { writer.Write("return "); }
 
                 writer.Write($"await this.Invoke");
-                if (!method.ReturnType.IsVoid && method.ReturnType != new DotNetType(typeof(string))) {
+                if (!method.ReturnType.IsVoid && !method.ReturnType.Equals(new DotNetType(typeof(string))) && !method.ReturnType.Equals(new DotNetType(typeof(Task<string>)))) {
                     writer.Write($"<{method.ReturnType.RemoveAsync()}>");
                 }
 				writer.WriteLine("(request);");

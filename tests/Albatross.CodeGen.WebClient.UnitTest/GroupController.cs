@@ -53,10 +53,6 @@ namespace Albatross.IAM.Api {
         public string JsonObject([FromBody]NameDto dto) {
             return string.Empty;
         }
-        [HttpPost()]
-        public string JsonObject([FromBody]NameDto dto1, [FromBody]NameDto dto2) {
-            return string.Empty;
-        }
         [HttpPost("{groupID}/{userID}")]
         public string MixedRouteQueryStringAndJson(int groupID, int userID, string name, string criteria, [FromBody]NameDto dto) {
             return string.Empty;

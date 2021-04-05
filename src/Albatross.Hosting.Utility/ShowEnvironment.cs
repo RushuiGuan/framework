@@ -20,9 +20,6 @@ namespace Albatross.Hosting.Utility {
 			string environment = System.Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 			logger.LogInformation("DOTNET_ENVIRONMENT Variable: {environment}", environment);
 
-			var hostEnv = this.host.Services.GetRequiredService<IHostEnvironment>();
-			logger.LogInformation("Host Environment: {environment}", hostEnv.EnvironmentName);
-
 			IConfiguration cfg = host.Services.GetRequiredService<IConfiguration>();
 			var section = cfg.GetSection("connectionStrings");
 			foreach(var item in section.GetChildren()) {
