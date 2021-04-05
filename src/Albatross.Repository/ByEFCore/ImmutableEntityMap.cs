@@ -5,9 +5,8 @@ using System;
 
 namespace Albatross.Repository.ByEFCore {
 	public class ImmutableEntityMap<T> : EntityMap<T> where T: ImmutableEntity {
-		public virtual string TableName => typeof(T).Name;
 		public override void Map(EntityTypeBuilder<T> builder) {
-			builder.ToTable(TableName);
+			base.Map(builder);
 			builder.Property(p => p.CreatedBy)
 				.IsRequired();
 

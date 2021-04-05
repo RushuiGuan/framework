@@ -6,10 +6,8 @@ using System;
 
 namespace Albatross.Repository.ByEFCore {
 	public class MutableEntityMap<T> : EntityMap<T> where T:MutableEntity {
-		public virtual string TableName => typeof(T).Name;
 		public override void Map(EntityTypeBuilder<T> builder) {
-			builder.ToTable(TableName);
-
+			base.Map(builder);
 			builder.Property(p => p.CreatedBy)
 				.IsRequired();
 
