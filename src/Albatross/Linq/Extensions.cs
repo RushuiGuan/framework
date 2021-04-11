@@ -11,5 +11,13 @@ namespace Albatross.Linq {
 				}
 			}
 		}
+
+		public static T GetOrAdd<K, T>(this IDictionary<K, T> dict, K key, Func<T> func) {
+			if(!dict.TryGetValue(key, out T value)) {
+				value = func();
+				dict.Add(key, value);
+			}
+			return value;
+		}
 	}
 }
