@@ -11,6 +11,7 @@ namespace Albatross.Authentication.Server {
 		Task<IEnumerable<User>> Search();
 	}
 
+	#pragma warning disable CA1416 // Validate platform compatibility
 	public class ActiveDirectoryUserProfileService : IUserProfileService {
 		Lazy<PrincipalContext> lazyPrincipalContext;
 		private readonly ILogger<ActiveDirectoryUserProfileService> logger;
@@ -20,7 +21,7 @@ namespace Albatross.Authentication.Server {
 			this.logger = logger;
 			this.config = config;
 			lazyPrincipalContext = new Lazy<PrincipalContext>(() => new PrincipalContext(ContextType.Domain, config.DomainName, config.LdapString));
-			//lazyPrincipalContext = new Lazy<PrincipalContext>(() => new PrincipalContext(ContextType.Domain, config.DomainName));
+							  //lazyPrincipalContext = new Lazy<PrincipalContext>(() => new PrincipalContext(ContextType.Domain, config.DomainName));
 		}
 
 
@@ -76,4 +77,5 @@ namespace Albatross.Authentication.Server {
 			});
 		}
 	}
+	#pragma warning restore CA1416 // Validate platform compatibility
 }
