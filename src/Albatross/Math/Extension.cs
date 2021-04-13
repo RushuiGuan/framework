@@ -11,5 +11,13 @@ namespace Albatross.Math {
 				return null;
 			}
 		}
+
+		public static double? ToDouble(this decimal? value) {
+			if (value.HasValue) {
+				return Convert.ToDouble(value.Value);
+			} else {
+				return null;
+			}
+		}
 	}
 }
