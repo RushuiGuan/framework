@@ -3,9 +3,9 @@ using System.Threading;
 
 namespace Albatross.Threading {
 	public static class Extension {
-		public static ReaderLock EnterReadLock(this ReaderWriterLockSlim readerWriterLock) => new ReaderLock(readerWriterLock, false);
-		public static ReaderLock EnterUpgradeableReadLock(this ReaderWriterLockSlim readerWriterLock) => new ReaderLock(readerWriterLock, true);
-		public static WriterLock EnterWriteLock(this ReaderWriterLockSlim readerWriterLock) => new WriterLock(readerWriterLock);
+		public static ReaderLock GetReadLock(this ReaderWriterLockSlim readerWriterLock) => new ReaderLock(readerWriterLock, false);
+		public static ReaderLock GetUpgradeableReadLock(this ReaderWriterLockSlim readerWriterLock) => new ReaderLock(readerWriterLock, true);
+		public static WriterLock GetWriteLock(this ReaderWriterLockSlim readerWriterLock) => new WriterLock(readerWriterLock);
 	}
 
 	public sealed class ReaderLock : IDisposable {
