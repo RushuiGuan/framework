@@ -14,6 +14,7 @@ namespace Albatross.Threading {
 
 	public class ReaderLock : IDisposable {
 		private readonly ReaderWriterLockSlim readerWriterLock;
+		private readonly bool canUpgrade;
 
 		public ReaderLock(ReaderWriterLockSlim readerWriterLock, bool canUpgrade) {
 			if (canUpgrade) {
@@ -22,10 +23,17 @@ namespace Albatross.Threading {
 				readerWriterLock.EnterReadLock();
 			}
 			this.readerWriterLock = readerWriterLock;
+			this.canUpgrade = canUpgrade;
 		}
 
 		public WriterLock Upgrade() => new WriterLock(readerWriterLock);
-		public void Dispose() => readerWriterLock.ExitReadLock();
+		public void Dispose() {
+			if (canUpgrade) {
+				readerWriterLock.ExitUpgradeableReadLock();
+			} else {
+				readerWriterLock.ExitReadLock();
+			}
+		}
 	}
 
 	public class WriterLock : IDisposable {
