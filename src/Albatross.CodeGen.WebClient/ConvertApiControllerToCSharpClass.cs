@@ -164,7 +164,11 @@ namespace Albatross.CodeGen.WebClient {
 					} else if (!actionRoutes.Contains(item.Name)) {
                         writer.Write($"queryString.Add(nameof(@{item.Name}), ");
 						if(item.ParameterType == typeof(DateTime) || item.ParameterType == typeof(DateTime?)) {
-							writer.WriteLine($"string.Format(\"{{0:o}}\", @{item.Name}));");
+							if (item.Name.EndsWith("date", StringComparison.InvariantCultureIgnoreCase)) {
+								writer.WriteLine($"string.Format(\"{{0:yyyy-MM-dd}}\", @{item.Name}));");
+							} else {
+								writer.WriteLine($"string.Format(\"{{0:o}}\", @{item.Name}));");
+							}
 						} else if (item.ParameterType != typeof(string)) {
 							writer.WriteLine($"System.Convert.ToString(@{item.Name}));");
 						} else {
