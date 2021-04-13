@@ -3,16 +3,12 @@ using System.Threading;
 
 namespace Albatross.Threading {
 	public static class Extension {
-		public static ReaderLock EnterReadLock(this ReaderWriterLockSlim readerWriterLock, bool canUpgrade = false) {
-			return new ReaderLock(readerWriterLock, canUpgrade);
-		}
-
-		public static WriterLock EnterWriteLock(this ReaderWriterLockSlim readerWriterLock) {
-			return new WriterLock(readerWriterLock);
-		}
+		public static ReaderLock EnterReadLock(this ReaderWriterLockSlim readerWriterLock) => new ReaderLock(readerWriterLock, false);
+		public static ReaderLock EnterUpgradeableReadLock(this ReaderWriterLockSlim readerWriterLock) => new ReaderLock(readerWriterLock, true);
+		public static WriterLock EnterWriteLock(this ReaderWriterLockSlim readerWriterLock) => new WriterLock(readerWriterLock);
 	}
 
-	public class ReaderLock : IDisposable {
+	public sealed class ReaderLock : IDisposable {
 		private readonly ReaderWriterLockSlim readerWriterLock;
 		private readonly bool canUpgrade;
 
@@ -36,14 +32,13 @@ namespace Albatross.Threading {
 		}
 	}
 
-	public class WriterLock : IDisposable {
+	public sealed class WriterLock : IDisposable {
 		private readonly ReaderWriterLockSlim readerWriterLock;
 
 		public WriterLock(ReaderWriterLockSlim readerWriterLock) {
 			readerWriterLock.EnterWriteLock();
 			this.readerWriterLock = readerWriterLock;
 		}
-
 		public void Dispose() => readerWriterLock.ExitWriteLock();
 	}
 }
