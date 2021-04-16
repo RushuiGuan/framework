@@ -8,8 +8,8 @@ namespace Albatross.Config {
 	public static class Extension {
 
 		public static string GetAssemblyLocation(this Type type) {
-			string codebase = new Uri(type.Assembly.CodeBase).LocalPath;
-			return System.IO.Path.GetDirectoryName(codebase);
+			string location = type.Assembly.Location;
+			return System.IO.Path.GetDirectoryName(location);
 		}
 
 		public static string GetWorkingDirectory() => System.Environment.CurrentDirectory;

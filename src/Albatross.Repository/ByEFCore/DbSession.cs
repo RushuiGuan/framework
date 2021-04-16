@@ -28,5 +28,15 @@ namespace Albatross.Repository.ByEFCore {
 				}
 			}
 		}
+
+		public bool IsNew(object t) {
+			var entry = DbContext.Entry(t);
+			return entry.State == EntityState.Added || entry.State == EntityState.Detached;
+		}
+
+		public bool IsChanged(object t) {
+			var entry = DbContext.Entry(t);
+			return entry.State != EntityState.Unchanged;
+		}
 	}
 }

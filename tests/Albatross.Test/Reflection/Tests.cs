@@ -5,6 +5,7 @@ using System.Collections;
 using Xunit;
 using System.IO;
 using System.Linq;
+using Albatross.Config;
 
 namespace Albatross.Test.Reflection {
     public struct GenericStruct<T> {
@@ -115,6 +116,14 @@ namespace Albatross.Test.Reflection {
 			string name1 = new FileInfo(location).Directory.FullName;
 			string name2 = new FileInfo(location).DirectoryName;
 			Assert.Equal(name1, name2);
+		}
+
+		[Fact]
+		public void TestAssemblyCodeBase() {
+			string location = this.GetType().Assembly.Location;
+			location = System.IO.Path.GetDirectoryName(location);
+			string actual = this.GetType().GetAssemblyLocation();
+			Assert.Equal(location, actual);
 		}
     }
 }

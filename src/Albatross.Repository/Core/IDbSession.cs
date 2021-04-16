@@ -13,19 +13,13 @@ namespace Albatross.Repository.Core {
 		IDbConnection DbConnection { get; }
 		DbContext DbContext { get; }
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+		bool IsNew(object t);
+		bool IsChanged(object t);
 	}
 	public static class DbSessionExtensions {
 		public static void EnsureCreated(this IDbSession session) => session.DbContext.Database.EnsureCreated();
 		public static string GetCreateScript(this IDbSession session) => session.DbContext.Database.GenerateCreateScript();
 		public static IDbContextTransaction BeginTransaction(this IDbSession session) => session.DbContext.Database.BeginTransaction();
 		public static Task<IDbContextTransaction> BeginTransactionAsync(this IDbSession session, CancellationToken cancellationToken) => session.DbContext.Database.BeginTransactionAsync(cancellationToken);
-		public static bool IsNew(this IDbSession session, object t) {
-			var entry = session.DbContext.Entry(t);
-			return entry.State == EntityState.Added || entry.State == EntityState.Detached;
-		}
-		public static bool IsChanged(this IDbSession session, object t) {
-			var entry = session.DbContext.Entry(t);
-			return entry.State != EntityState.Unchanged;
-		}
 	}
 }
