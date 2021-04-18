@@ -41,11 +41,11 @@ namespace Albatross.CRM.Model {
 				Company = Company,
 				Contacts = Contacts?.Select(args => args.CreateDto()).ToArray() ?? new msg.Contact[0],
 				CreatedBy = CreatedBy,
-				CreatedByUTC = CreatedUTC,
+				CreatedByUTC = CreatedUtc,
 				CustomerID = CustomerID,
 				Licenses = Licenses?.Select(args => args.CreateDto()).ToArray() ?? new msg.License[0],
 				ModifiedBy = ModifiedBy,
-				ModifiedByUTC = ModifiedUTC,
+				ModifiedByUTC = ModifiedUtc,
 				Name = Name,
 			};
 		}

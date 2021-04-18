@@ -11,14 +11,14 @@ namespace Albatross.Repository.ByEFCore {
 			builder.Property(p => p.CreatedBy)
 				.IsRequired();
 
-			builder.Property(p => p.CreatedUTC)
+			builder.Property(p => p.CreatedUtc)
 				.IsRequired()
 				.HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
 
 			builder.Property(p => p.ModifiedBy)
 				.IsRequired();
 
-			builder.Property(p => p.ModifiedUTC)
+			builder.Property(p => p.ModifiedUtc)
 				.IsRequired()
 				.HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc)); 
 		}

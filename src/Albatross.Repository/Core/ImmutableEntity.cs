@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Albatross.Repository.Core {
 	public class ImmutableEntity {
 		public const int UserNameLength = 128;
-		public DateTime CreatedUTC { get; protected set; }
+		public DateTime CreatedUtc { get; protected set; }
 
 		[Required]
 		[MaxLength(UserNameLength)]
@@ -12,7 +12,7 @@ namespace Albatross.Repository.Core {
 		
 		protected void Create(string user) {
 			this.CreatedBy = user;
-			this.CreatedUTC = DateTime.UtcNow;
+			this.CreatedUtc = DateTime.UtcNow;
 			this.Validate();
 		}
 

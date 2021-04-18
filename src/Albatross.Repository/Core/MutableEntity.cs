@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Albatross.Repository.Core {
 	public class MutableEntity {
 		public const int UserNameLength = 128;
-		public DateTime CreatedUTC { get; protected set; }
-		public DateTime ModifiedUTC { get; protected set; }
+		public DateTime CreatedUtc { get; protected set; }
+		public DateTime ModifiedUtc { get; protected set; }
 
 		[Required]
 		[MaxLength(UserNameLength)]
@@ -18,11 +18,11 @@ namespace Albatross.Repository.Core {
 		public void CreateOrUpdate(string user, IDbSession session) {
 			if (session.IsNew(this)) {
 				CreatedBy = user;
-				CreatedUTC = DateTime.UtcNow;
+				CreatedUtc = DateTime.UtcNow;
 				ModifiedBy = user;
-				ModifiedUTC = DateTime.UtcNow;
+				ModifiedUtc = DateTime.UtcNow;
 			} else if (session.IsChanged(this)) {
-				ModifiedUTC = DateTime.UtcNow;
+				ModifiedUtc = DateTime.UtcNow;
 				ModifiedBy = user;
 			}
 			this.Validate(session);

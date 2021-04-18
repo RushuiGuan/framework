@@ -11,9 +11,9 @@ namespace Albatross.CRM.Maps {
 			builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
 			builder.Property(c => c.Tag);
 
-			builder.Property(a => a.CreatedUTC);
+			builder.Property(a => a.CreatedUtc);
 			builder.Property(a => a.CreatedBy);
-			builder.Property(a => a.ModifiedUTC);
+			builder.Property(a => a.ModifiedUtc);
 			builder.Property(a => a.ModifiedBy);
 			builder.Ignore(a => a.Test);
 

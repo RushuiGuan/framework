@@ -29,7 +29,7 @@ namespace Albatross.Repository.TimeSeries {
 				Start = Start,
 				End = End,
 				CreatedBy = user,
-				CreatedUTC = DateTime.UtcNow,
+				CreatedUtc = DateTime.UtcNow,
 			};
 		}
 

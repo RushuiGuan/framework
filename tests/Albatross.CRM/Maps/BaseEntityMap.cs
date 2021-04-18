@@ -12,8 +12,8 @@ namespace Albatross.CRM.Maps {
 			builder.OwnsOne<string>(args => args.CreatedBy);
 			builder.OwnsOne<string>(args => args.ModifiedBy);
 			
-			builder.Property(p => p.CreatedUTC).IsRequired();
-			builder.Property(p => p.ModifiedUTC).IsRequired();
+			builder.Property(p => p.CreatedUtc).IsRequired();
+			builder.Property(p => p.ModifiedUtc).IsRequired();
 		}
 	}
 }

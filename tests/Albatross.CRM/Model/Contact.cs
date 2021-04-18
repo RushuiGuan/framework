@@ -40,9 +40,9 @@ namespace Albatross.CRM.Model {
 				ContactID = ContactID,
 				CreatedBy = CreatedBy,
 				Addresses = Addresses?.Select(args => args.CreateDto())?.ToArray() ?? new msg.Address[0],
-				CreatedByUTC = CreatedUTC,
+				CreatedByUTC = CreatedUtc,
 				ModifiedBy = ModifiedBy,
-				ModifiedByUTC = ModifiedUTC,
+				ModifiedByUTC = ModifiedUtc,
 				Name = Name,
 				Tag = Tag,
 			};
