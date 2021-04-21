@@ -1,20 +1,9 @@
-﻿using Albatross.Hosting.Test;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Polly;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
 namespace Albatross.Caching.Test {
-	public class MyTestHost: TestHost {
-		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-			base.RegisterServices(configuration, services);
-			services.AddCaching();
-			services.AddCacheMgmt<MyCacheMgmt>();
-			services.AddCacheMgmt<MyCacheMgmt>();
-		}
-	}
+
 	public class TestRegistration : IClassFixture<MyTestHost>{
 		private readonly MyTestHost host;
 

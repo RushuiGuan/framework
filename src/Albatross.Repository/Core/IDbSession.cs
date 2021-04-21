@@ -13,6 +13,7 @@ namespace Albatross.Repository.Core {
 		IDbConnection DbConnection { get; }
 		DbContext DbContext { get; }
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+		int SaveChanges();
 		bool IsNew(object t);
 		bool IsChanged(object t);
 	}
