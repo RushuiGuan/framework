@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.CommandQuery {
 	public static class Extensions {
-		public static IServiceCollection AddCommand<T>(this IServiceCollection services) {
+		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, string> getQueueName) {
 			return services;
 		}
 

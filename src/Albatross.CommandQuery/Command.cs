@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Albatross.CommandQuery {
 	public abstract class Command{
-		System.Threading.ManualResetEventSlim? ManualResetEvent { get; init; }
+		System.Threading.ManualResetEventSlim? syncHandle { get; init; }
 		public Guid Id { get; init; }
 		public Exception? Error { get; private set; }
 		public abstract string QueueName { get; }
 
-		public Command(bool sync) {
+		public Command(bool synchronized) {
 			Id = Guid.NewGuid();
-			if (sync) {
-				ManualResetEvent = new System.Threading.ManualResetEventSlim(false);
+			if (synchronized) {
+				syncHandle = new System.Threading.ManualResetEventSlim(false);
 			}
 		}
 		public void Fail(Exception err) {
@@ -19,11 +19,11 @@ namespace Albatross.CommandQuery {
 		}
 
 		public void Wait() {
-			this.ManualResetEvent?.Wait();
+			this.syncHandle?.Wait();
 		}
 		public void Complete() {
-			this.ManualResetEvent?.Set();
-			this.ManualResetEvent?.Dispose();
+			this.syncHandle?.Set();
+			this.syncHandle?.Dispose();
 		}
 	}
 }

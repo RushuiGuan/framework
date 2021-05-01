@@ -10,16 +10,22 @@ namespace Albatross.CommandQuery {
 	}
 
 	public class CommandQueueFactory : ICommandQueueFactory {
-		protected readonly IServiceScopeFactory scopeFactory;
+		private readonly IServiceProvider serviceProvider;
 		protected readonly ILogger<DefaultCommandQueue> logger;
 		private readonly ConcurrentDictionary<string, ICommandQueue> dict = new ConcurrentDictionary<string, ICommandQueue>();
+		private readonly Dictionary<Type, Type> commandQueueRegistration = new Dictionary<Type, Type>();
 
-		public CommandQueueFactory(IServiceScopeFactory scopeFactory, ILogger<DefaultCommandQueue> logger) {
-			this.scopeFactory = scopeFactory;
+		public CommandQueueFactory( IServiceProvider serviceProvider, ILogger<DefaultCommandQueue> logger) {
+			this.serviceProvider = serviceProvider;
 			this.logger = logger;
 		}
 
 		public virtual ICommandQueue CreateQueue(Command command) {
+			if(commandQueueRegistration.TryGetValue(command.GetType(), out Type queueType)) {
+				return (ICommandQueue)serviceProvider.GetRequiredService(queueType);
+			} else {
+				return serviceProvider.GetRequiredService<DefaultCommandQueue>();
+			}
 			return new DefaultCommandQueue(this.scopeFactory, logger);
 		}
 
