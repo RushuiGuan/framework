@@ -11,7 +11,8 @@ namespace Albatross.CommandQuery {
 			return services;
 		}
 
-		public static IServiceCollection AddCommandHandler<T>(this IServiceCollection services) {
+		public static IServiceCollection AddCommandHandler<T, >(this IServiceCollection services) {
+			services.AddSingleton<ICommandHandler<T>, 
 			return services;
 		}
 	}

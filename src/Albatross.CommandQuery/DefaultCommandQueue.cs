@@ -11,7 +11,7 @@ namespace Albatross.CommandQuery {
 		Task Start();
 		string Name { get; }
 	}
-	public class CommandQueue : ICommandQueue {
+	public class DefaultCommandQueue : ICommandQueue {
 		private readonly ILogger logger;
 		private readonly IServiceScopeFactory scopeFactory;
 		private object sync = new object();
@@ -20,7 +20,7 @@ namespace Albatross.CommandQuery {
 		private bool running = true;
 		public string Name => "Default";
 
-		public CommandQueue(IServiceScopeFactory scopeFactory, ILogger<CommandQueue> logger) {
+		public DefaultCommandQueue(IServiceScopeFactory scopeFactory, ILogger<DefaultCommandQueue> logger) {
 			logger.LogInformation("creating command queue {name}", Name);
 			this.scopeFactory = scopeFactory;
 			this.logger = logger;
@@ -41,7 +41,7 @@ namespace Albatross.CommandQuery {
 				autoResetEvent.WaitOne();
 				if (running) {
 					while (true) {
-						Command command;
+						Command? command;
 						lock (sync) { 
 							if (!queue.TryDequeue(out command)) {
 								break;
@@ -49,7 +49,8 @@ namespace Albatross.CommandQuery {
 						}
 						try {
 							using var scope = scopeFactory.CreateScope();
-							var commandHandler = scope.ServiceProvider.GetRequiredService<ICommandHandler<Command>>();
+							var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
+							var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
 							logger.LogInformation("{queue} processing: {id}",this.Name, command.Id);
 							await commandHandler.Handle(command).ConfigureAwait(false);
 						} catch (Exception err) {

@@ -5,29 +5,26 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Albatross.CommandQuery {
-	public interface ICommandQueueFactory<T> :IDisposable where T:Command {
-		void Submit(T command);
+	public interface ICommandQueueFactory :IDisposable  {
+		void Submit(Command command);
 	}
 
-	public class CommandQueueFactory<T> : ICommandQueueFactory<T> where T:Command {
+	public class CommandQueueFactory : ICommandQueueFactory {
 		protected readonly IServiceScopeFactory scopeFactory;
-		protected readonly ILogger<CommandQueue<T>> logger;
-		private readonly ConcurrentDictionary<string, ICommandQueue<T>> dict = new ConcurrentDictionary<string, ICommandQueue<T>>();
+		protected readonly ILogger<DefaultCommandQueue> logger;
+		private readonly ConcurrentDictionary<string, ICommandQueue> dict = new ConcurrentDictionary<string, ICommandQueue>();
 
-		public CommandQueueFactory(IServiceScopeFactory scopeFactory, ILogger<CommandQueue<T>> logger) {
+		public CommandQueueFactory(IServiceScopeFactory scopeFactory, ILogger<DefaultCommandQueue> logger) {
 			this.scopeFactory = scopeFactory;
 			this.logger = logger;
 		}
 
-		public virtual ICommandQueue<T> CreateQueue(T command) {
-			string name = GetQueueName(command);
-			return new CommandQueue<T>(name, args=> { }, this.scopeFactory, logger);
+		public virtual ICommandQueue CreateQueue(Command command) {
+			return new DefaultCommandQueue(this.scopeFactory, logger);
 		}
 
-		public virtual string GetQueueName(T command) => typeof(T).Name;
-
-		public void Submit(T command) {
-			var queue = dict.GetOrAdd(GetQueueName(command), (key) => CreateQueue(command));
+		public void Submit(Command command) {
+			var queue = dict.GetOrAdd(command.QueueName, (key) => CreateQueue(command));
 			queue.Submit(command);
 		}
 
