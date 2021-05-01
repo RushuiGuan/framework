@@ -6,61 +6,57 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.CommandQuery {
-	public interface ICommandQueue<T>: IDisposable where T:Command {
+	public interface ICommandQueue: IDisposable {
+		void Submit(Command command);
+		Task Start();
 		string Name { get; }
-		Task Submit(T command);
 	}
-	public class CommandQueue<T> : ICommandQueue<T> where T : Command {
-		private object sync = new object();
+	public class CommandQueue : ICommandQueue {
 		private readonly ILogger logger;
-		private readonly Queue<T> queue = new Queue<T>();
 		private readonly IServiceScopeFactory scopeFactory;
-		private readonly Action<Queue<T>> collapseCommand;
+		private object sync = new object();
+		private readonly Queue<Command> queue = new Queue<Command>();
 		private readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 		private bool running = true;
-		public string Name { get; init; }
+		public string Name => "Default";
 
-		public CommandQueue(string name, 
-			Action<Queue<T>> collapseCommand,
-			IServiceScopeFactory scopeFactory, 
-			ILogger<CommandQueue<T>> logger) {
-			logger.LogInformation("creating command queue {name}", name);
+		public CommandQueue(IServiceScopeFactory scopeFactory, ILogger<CommandQueue> logger) {
+			logger.LogInformation("creating command queue {name}", Name);
 			this.scopeFactory = scopeFactory;
-			this.collapseCommand = collapseCommand;
 			this.logger = logger;
-			this.Name = name;
-			Task.Run(Start);
 		}
 		
-		public Task Submit(T command) {
+		public void Submit(Command command) {
 			lock (sync) {
 				logger.LogInformation("{queue} incoming:{@data}", this.Name, command);
 				queue.Enqueue(command);
-				this.collapseCommand?.Invoke(queue);
 			}
 			autoResetEvent.Set();
-			return Task.CompletedTask;
+			command.Wait();
 		}
 
-		async void Start() {
+		public async Task  Start() {
 			logger.LogDebug("starting command queue {name}", this.Name);
 			while (running) {
 				autoResetEvent.WaitOne();
 				if (running) {
-					using var scope = scopeFactory.CreateScope();
-					var commandHandler = scope.ServiceProvider.GetRequiredService<ICommandHandler<T>>();
 					while (true) {
-						T command;
+						Command command;
 						lock (sync) { 
 							if (!queue.TryDequeue(out command)) {
 								break;
 							}
 						}
 						try {
+							using var scope = scopeFactory.CreateScope();
+							var commandHandler = scope.ServiceProvider.GetRequiredService<ICommandHandler<Command>>();
 							logger.LogInformation("{queue} processing: {id}",this.Name, command.Id);
-							await commandHandler.Handle(command);
+							await commandHandler.Handle(command).ConfigureAwait(false);
 						} catch (Exception err) {
 							logger.LogError(err, "{queue} failed to process: {id}", this.Name, command.Id);
+							command.Fail(err);
+						} finally {
+							command.Complete();
 						}
 					}
 				}

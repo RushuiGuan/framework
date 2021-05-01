@@ -7,8 +7,6 @@ using System.Collections.Generic;
 namespace Albatross.CommandQuery {
 	public interface ICommandQueueFactory<T> :IDisposable where T:Command {
 		void Submit(T command);
-		string GetQueueName(T command);
-		ICommandQueue<T> CreateQueue(T command);
 	}
 
 	public class CommandQueueFactory<T> : ICommandQueueFactory<T> where T:Command {
