@@ -14,7 +14,7 @@ namespace Albatross.CommandQuery {
 		}
 
 		public async Task Send(T @event) {
-			logger.LogInformation("publishing event: {@event}", @event);
+			logger.LogInformation("publishing: {@event}", @event);
 			foreach(var sub in subscriptions) {
 				try {
 					await sub.Receive(@event).ConfigureAwait(false);

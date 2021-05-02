@@ -6,11 +6,10 @@ namespace Albatross.CommandQuery {
 		System.Threading.ManualResetEventSlim? syncHandle { get; init; }
 		public Guid Id { get; init; }
 		public Exception? Error { get; private set; }
-		public abstract string QueueName { get; }
 
-		public Command(bool synchronized) {
+		public Command(bool waitForCompletion) {
 			Id = Guid.NewGuid();
-			if (synchronized) {
+			if (waitForCompletion) {
 				syncHandle = new System.Threading.ManualResetEventSlim(false);
 			}
 		}

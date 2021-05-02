@@ -6,29 +6,36 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.CommandQuery {
+	/// <summary>
+	/// command queue should be registered as transient.  Its instances are managed by the CommandBus
+	/// </summary>
 	public interface ICommandQueue: IDisposable {
 		void Submit(Command command);
+		void SetName(string name);
 		Task Start();
-		string Name { get; }
 	}
-	public class DefaultCommandQueue : ICommandQueue {
+	public class CommandQueue : ICommandQueue {
 		private readonly ILogger logger;
 		private readonly IServiceScopeFactory scopeFactory;
 		private object sync = new object();
 		private readonly Queue<Command> queue = new Queue<Command>();
 		private readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-		private bool running = true;
-		public string Name => "Default";
+		private bool running = false;
 
-		public DefaultCommandQueue(IServiceScopeFactory scopeFactory, ILogger<DefaultCommandQueue> logger) {
+		public string Name { get; private set; } = "Unknown";
+		
+		public void SetName(string name) { this.Name = name; }
+
+		public CommandQueue(IServiceScopeFactory scopeFactory, ILogger<CommandQueue> logger) {
 			logger.LogInformation("creating command queue {name}", Name);
 			this.scopeFactory = scopeFactory;
 			this.logger = logger;
 		}
+
 		
-		public void Submit(Command command) {
+		public virtual void Submit(Command command) {
 			lock (sync) {
-				logger.LogInformation("{queue} incoming:{@data}", this.Name, command);
+				logger.LogInformation("submitted {name}: {@data}", Name, command);
 				queue.Enqueue(command);
 			}
 			autoResetEvent.Set();
@@ -36,7 +43,16 @@ namespace Albatross.CommandQuery {
 		}
 
 		public async Task  Start() {
-			logger.LogDebug("starting command queue {name}", this.Name);
+			lock (sync) {
+				if (running) {
+					logger.LogWarning("command queue {name} is already running!", Name);
+					return;
+				} else {
+					running = true;
+				}
+			}
+			
+			logger.LogDebug("starting {name}", Name);
 			while (running) {
 				autoResetEvent.WaitOne();
 				if (running) {
@@ -51,10 +67,10 @@ namespace Albatross.CommandQuery {
 							using var scope = scopeFactory.CreateScope();
 							var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
 							var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
-							logger.LogInformation("{queue} processing: {id}",this.Name, command.Id);
+							logger.LogInformation("processing {name}: {commandId}",Name, command.Id);
 							await commandHandler.Handle(command).ConfigureAwait(false);
 						} catch (Exception err) {
-							logger.LogError(err, "{queue} failed to process: {id}", this.Name, command.Id);
+							logger.LogError(err, "failed to process {name}: {commandId}", Name, command.Id);
 							command.Fail(err);
 						} finally {
 							command.Complete();
@@ -62,14 +78,17 @@ namespace Albatross.CommandQuery {
 					}
 				}
 			}
-			logger.LogInformation("Command queue terminated {name}", this.Name);
+			logger.LogInformation("{name} terminated", Name);
 		}
 
 		public void Dispose() {
-			logger.LogInformation("shutting down command queue {name}", this.Name);
-			running = false;
+			logger.LogInformation("{name} shutting down", Name);
+			lock (sync) {
+				running = false;
+			}
 			autoResetEvent.Set();
 			autoResetEvent.Dispose();
 		}
+
 	}
 }
