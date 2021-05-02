@@ -30,14 +30,14 @@
     <EmbeddedResource Include="Embedded\test.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Albatross.CommandQuery\Albatross.CommandQuery.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.CommandQuery\Albatross.Commands.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
     <ProjectReference Include="..\..\src\Albatross\Albatross.csproj" />
   </ItemGroup>

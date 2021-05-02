@@ -4,7 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace Albatross.CommandQuery {
+namespace Albatross.Commands {
 	public interface ICommandBus : IDisposable {
 		void Submit(Command command);
 		void Start();

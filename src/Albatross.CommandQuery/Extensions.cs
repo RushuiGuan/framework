@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Albatross.CommandQuery {
+namespace Albatross.Commands {
 	public static class Extensions {
 		public const string DefaultQueueName = "Default";
 		public static IServiceCollection AddCommandBus(this IServiceCollection services) {

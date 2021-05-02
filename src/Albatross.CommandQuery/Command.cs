@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Albatross.CommandQuery {
+namespace Albatross.Commands {
 	public abstract class Command{
 		System.Threading.ManualResetEventSlim? syncHandle { get; init; }
 		public Guid Id { get; init; }

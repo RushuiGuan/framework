@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Albatross.CommandQuery {
+namespace Albatross.Commands {
 	public abstract class Event{
 		public Guid Id { get; init; }
 		public Event () {

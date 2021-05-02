@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Repository.SqlServer\Albatross.Repository.SqlServer.csproj" />
-    <ProjectReference Include="..\..\src\Albatross.Repository.TimeSeries\Albatross.Repository.TimeSeries.csproj" />
   </ItemGroup>
 
 </Project>

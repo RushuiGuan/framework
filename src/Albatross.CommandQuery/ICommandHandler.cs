@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Albatross.CommandQuery {
+namespace Albatross.Commands {
 	public interface ICommandHandler {
 		Task Handle(Command command);
 	}

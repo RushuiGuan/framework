@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Albatross.CommandQuery {
+namespace Albatross.Commands {
 	public interface IRegisterCommand{
 		Type CommandType { get; }
 		Type QueueType { get; }

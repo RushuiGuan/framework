@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Albatross.CommandQuery {
+namespace Albatross.Commands {
 	/// <summary>
 	/// command queue should be registered as transient.  Its instances are managed by the CommandBus
 	/// </summary>
@@ -89,6 +89,5 @@ namespace Albatross.CommandQuery {
 			autoResetEvent.Set();
 			autoResetEvent.Dispose();
 		}
-
 	}
 }
