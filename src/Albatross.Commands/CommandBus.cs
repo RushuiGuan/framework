@@ -13,7 +13,7 @@ namespace Albatross.Commands {
 	public class CommandBus : ICommandBus {
 		private readonly IServiceProvider serviceProvider;
 		protected readonly ILogger<CommandQueue> logger;
-		private readonly ConcurrentDictionary<string, ICommandQueue> dict = new ConcurrentDictionary<string, ICommandQueue>();
+		private readonly ConcurrentDictionary<string, ICommandQueue> queues = new ConcurrentDictionary<string, ICommandQueue>();
 		// registration is initialized in constructor and it is immutable, no need to lock
 		private readonly Dictionary<Type, IRegisterCommand> registration = new Dictionary<Type, IRegisterCommand>();
 
@@ -40,7 +40,7 @@ namespace Albatross.Commands {
 		public void Submit(Command command) {
 			if (registration.TryGetValue(command.GetType(), out IRegisterCommand? registered)) {
 				string name = registered.GetQueueName(command);
-				var queue = dict.GetOrAdd(name, (key) => CreateQueue(key, command));
+				var queue = queues.GetOrAdd(name, (key) => CreateQueue(key, command));
 				queue.Submit(command);
 			} else {
 				throw new ArgumentException($"Command {command.GetType().FullName} is not registered");
@@ -48,10 +48,6 @@ namespace Albatross.Commands {
 		}
 
 		public void Dispose() {
-			foreach (var key in this.dict.Keys) {
-				dict.Remove(key, out var queue);
-				queue?.Dispose();
-			}
 		}
 	}
 }

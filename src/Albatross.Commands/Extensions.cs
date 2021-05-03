@@ -10,16 +10,16 @@ namespace Albatross.Commands {
 			services.TryAddSingleton<ICommandBus, CommandBus>();
 			return services;
 		}
-		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<Command, string>? getQueueName = null) where T:Command{
-			services.TryAddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, CommandQueue>(getQueueName ?? (_=>DefaultQueueName)));
+		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<IServiceProvider, Command, string>? getQueueName = null) where T:Command{
+			services.TryAddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, CommandQueue>(provider, getQueueName ?? ((_,_)=>DefaultQueueName)));
 			services.TryAddTransient<CommandQueue>();
 			return services;
 		}
 
-		public static IServiceCollection AddCommand<T, Q>(this IServiceCollection services, Func<Command, string>? getQueueName = null) 
+		public static IServiceCollection AddCommand<T, Q>(this IServiceCollection services, Func<IServiceProvider, Command, string>? getQueueName = null) 
 			where T : Command 
 			where Q: class, ICommandQueue {
-			services.TryAddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, Q>(getQueueName ?? (_ => DefaultQueueName)));
+			services.TryAddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, Q>(provider, getQueueName ?? ((_,_) => DefaultQueueName)));
 			services.TryAddTransient<Q>();
 			return services;
 		}

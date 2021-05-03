@@ -8,18 +8,20 @@ namespace Albatross.Commands {
 	}
 
 	public class RegisterCommand<T, Q> : IRegisterCommand where T : Command where Q : ICommandQueue {
-		private readonly Func<Command, string> getQueueName;
+		private readonly IServiceProvider provider;
+		private readonly Func<IServiceProvider, Command, string> getQueueName;
 
 		public Type CommandType => typeof(T);
 		public Type QueueType => typeof(Q);
 
 
-		public RegisterCommand(Func<Command, string> getQueueName) {
+		public RegisterCommand(IServiceProvider provider, Func<IServiceProvider, Command, string> getQueueName) {
+			this.provider = provider;
 			this.getQueueName = getQueueName;
 		}
 
 		public string GetQueueName(Command command) {
-			return getQueueName(command);
+			return getQueueName(this.provider, command);
 		}
 	}
 }
