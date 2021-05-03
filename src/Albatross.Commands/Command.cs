@@ -5,7 +5,7 @@ namespace Albatross.Commands {
 	public abstract class Command{
 		System.Threading.ManualResetEventSlim? syncHandle { get; init; }
 		public Guid Id { get; init; }
-		public Exception? Error { get; private set; }
+		public Exception? Exception { get; private set; }
 
 		public Command(bool waitForCompletion) {
 			Id = Guid.NewGuid();
@@ -13,8 +13,8 @@ namespace Albatross.Commands {
 				syncHandle = new System.Threading.ManualResetEventSlim(false);
 			}
 		}
-		public void Fail(Exception err) {
-			this.Error = err;
+		public void Error(Exception err) {
+			this.Exception = err;
 		}
 
 		public void Wait() {

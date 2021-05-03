@@ -69,9 +69,10 @@ namespace Albatross.Commands {
 							var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
 							logger.LogInformation("processing {name}: {commandId}",Name, command.Id);
 							await commandHandler.Handle(command).ConfigureAwait(false);
+							logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
 						} catch (Exception err) {
 							logger.LogError(err, "failed to process {name}: {commandId}", Name, command.Id);
-							command.Fail(err);
+							command.Error(err);
 						} finally {
 							command.Complete();
 						}

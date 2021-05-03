@@ -3,11 +3,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Albatross.Commands {
 	public interface ICommandBus : IDisposable {
 		void Submit(Command command);
-		void Start();
 	}
 
 	public class CommandBus : ICommandBus {
@@ -30,6 +30,7 @@ namespace Albatross.Commands {
 			if (registration.TryGetValue(command.GetType(), out IRegisterCommand? registered)) {
 				var queue = (ICommandQueue)serviceProvider.GetRequiredService(registered.QueueType);
 				queue.SetName(name);
+				Task.Run(queue.Start);
 				return queue;
 			} else {
 				throw new ArgumentException($"Command {command.GetType().FullName} is not registered");
@@ -43,12 +44,6 @@ namespace Albatross.Commands {
 				queue.Submit(command);
 			} else {
 				throw new ArgumentException($"Command {command.GetType().FullName} is not registered");
-			}
-		}
-
-		public void Start() {
-			foreach(var queue in this.dict.Values) {
-				_ = queue.Start();
 			}
 		}
 

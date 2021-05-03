@@ -1,0 +1,19 @@
+﻿using System.Threading.Tasks;
+
+namespace Albatross.Commands.Daemon {
+	public class MyCommandHandler : BaseCommandHandler<MyCommand> {
+		private readonly IEventPublisher<MyCommandExecuted> eventPublisher;
+
+		public MyCommandHandler(IEventPublisher<MyCommandExecuted> eventPublisher) {
+			this.eventPublisher = eventPublisher;
+		}
+
+		public override async Task Handle(MyCommand command) {
+			if (command.Fail) {
+				throw new System.Exception("This is destine to fail");
+			}
+			await Task.Delay(2000);
+			await this.eventPublisher.Send(new MyCommandExecuted());
+		}
+	}
+}
