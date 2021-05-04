@@ -6,9 +6,11 @@ namespace Albatross.Commands {
 		System.Threading.ManualResetEventSlim? syncHandle { get; init; }
 		public Guid Id { get; init; }
 		public Exception? Exception { get; private set; }
+		public bool BlockUntilCompletion { get; init; }
 
 		public Command(bool waitForCompletion) {
 			Id = Guid.NewGuid();
+			this.BlockUntilCompletion = waitForCompletion;
 			if (waitForCompletion) {
 				syncHandle = new System.Threading.ManualResetEventSlim(false);
 			}
