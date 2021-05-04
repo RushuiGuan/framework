@@ -17,11 +17,12 @@ namespace Albatross.Commands {
 	public class CommandQueue : ICommandQueue {
 		private readonly ILogger logger;
 		private readonly IServiceScopeFactory scopeFactory;
-		protected object sync = new object();
-		private readonly Queue<Command> queue = new Queue<Command>();
-		private readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 		private bool running = false;
 
+		protected object sync = new object();
+		protected readonly Queue<Command> queue = new Queue<Command>();
+		protected readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+		
 		public string Name { get; private set; } = string.Empty;
 		
 
