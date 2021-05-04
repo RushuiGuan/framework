@@ -22,11 +22,20 @@ namespace Albatross.Commands {
 		private readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 		private bool running = false;
 
-		public string Name { get; private set; } = "Unknown";
+		public string Name { get; private set; } = string.Empty;
 		
-		public void SetName(string name) { 
-			this.Name = name; 
-			logger.LogInformation("creating command queue {name}", Name);
+
+		/// <summary>
+		/// this is not a good thing to do, but we don't have a better alternative.
+		/// </summary>
+		/// <param name="name"></param>
+		public void SetName(string name) {
+			if (string.IsNullOrEmpty(this.Name)) {
+				this.Name = name;
+				logger.LogInformation("creating command queue {name}", Name);
+			} else {
+				throw new InvalidOperationException($"The name of command queue {this.Name} has already been set");
+			}
 		}
 
 		public CommandQueue(IServiceScopeFactory scopeFactory, ILogger<CommandQueue> logger) {
@@ -66,12 +75,13 @@ namespace Albatross.Commands {
 							}
 						}
 						try {
-							using var scope = scopeFactory.CreateScope();
-							var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
-							var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
-							logger.LogInformation("processing {name}: {commandId}",Name, command.Id);
-							await commandHandler.Handle(command).ConfigureAwait(false);
-							logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
+							using (var scope = scopeFactory.CreateScope()) {
+								var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
+								var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
+								logger.LogInformation("processing {name}: {commandId}", Name, command.Id);
+								await commandHandler.Handle(command).ConfigureAwait(false);
+								logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
+							}
 						} catch (Exception err) {
 							logger.LogError(err, "failed to process {name}: {commandId}", Name, command.Id);
 							command.Error(err);
