@@ -24,10 +24,12 @@ namespace Albatross.Commands {
 
 		public string Name { get; private set; } = "Unknown";
 		
-		public void SetName(string name) { this.Name = name; }
+		public void SetName(string name) { 
+			this.Name = name; 
+			logger.LogInformation("creating command queue {name}", Name);
+		}
 
 		public CommandQueue(IServiceScopeFactory scopeFactory, ILogger<CommandQueue> logger) {
-			logger.LogInformation("creating command queue {name}", Name);
 			this.scopeFactory = scopeFactory;
 			this.logger = logger;
 		}
