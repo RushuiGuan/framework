@@ -17,7 +17,7 @@ namespace Albatross.Commands {
 	public class CommandQueue : ICommandQueue {
 		private readonly ILogger logger;
 		private readonly IServiceScopeFactory scopeFactory;
-		private object sync = new object();
+		protected object sync = new object();
 		private readonly Queue<Command> queue = new Queue<Command>();
 		private readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 		private bool running = false;
