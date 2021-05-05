@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Albatross.Commands {
 	public abstract class Command{
@@ -22,6 +21,7 @@ namespace Albatross.Commands {
 		public void Wait() {
 			this.syncHandle?.Wait();
 		}
+
 		public void Complete() {
 			this.syncHandle?.Set();
 			this.syncHandle?.Dispose();

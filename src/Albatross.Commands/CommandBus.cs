@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -28,8 +27,7 @@ namespace Albatross.Commands {
 
 		protected virtual ICommandQueue CreateQueue(string name, Command command) {
 			if (registration.TryGetValue(command.GetType(), out IRegisterCommand? registered)) {
-				var queue = (ICommandQueue)serviceProvider.GetRequiredService(registered.QueueType);
-				queue.SetName(name);
+				var queue = registered.Create(name, this.serviceProvider);
 				Task.Run(queue.Start);
 				return queue;
 			} else {
@@ -39,7 +37,7 @@ namespace Albatross.Commands {
 
 		public void Submit(Command command) {
 			if (registration.TryGetValue(command.GetType(), out IRegisterCommand? registered)) {
-				string name = registered.GetQueueName(command);
+				string name = registered.GetQueueName(command, serviceProvider);
 				var queue = queues.GetOrAdd(name, (key) => CreateQueue(key, command));
 				queue.Submit(command);
 			} else {

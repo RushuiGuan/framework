@@ -1,29 +1,30 @@
 ﻿using Albatross.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace Albatross.Commands {
 	public static class Extensions {
-
-		public const string DefaultQueueName = "Default";
 		public static IServiceCollection AddCommandBus(this IServiceCollection services) {
 			services.TryAddSingleton<ICommandBus, CommandBus>();
 			return services;
 		}
 
-		static string GetDefaultQueueName(IServiceProvider provider, Command cmd) => DefaultQueueName;
+		static string GetDefaultQueueName(Command _, IServiceProvider provider) => "Default";
+		static CommandQueue CreateDefaultQueue(string name, IServiceProvider provider)
+			=> new CommandQueue(name, provider.GetRequiredService<IServiceScopeFactory>(), provider.GetRequiredService<ILogger<CommandQueue>>());
 
-		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<IServiceProvider, T, string>? getQueueName = null) where T:Command{
-			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, CommandQueue>(provider, getQueueName ?? GetDefaultQueueName));
+		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T:Command{
+			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, CommandQueue>(getQueueName ?? GetDefaultQueueName, CreateDefaultQueue));
 			services.TryAddTransient<CommandQueue>();
 			return services;
 		}
-
-		public static IServiceCollection AddCommand<T, Q>(this IServiceCollection services, Func<IServiceProvider, Command, string>? getQueueName = null) 
+		
+		public static IServiceCollection AddCommand<T, Q>(this IServiceCollection services, Func<Command, IServiceProvider, string>? getQueueName, Func<string, IServiceProvider, Q> createQueue) 
 			where T : Command 
 			where Q: class, ICommandQueue {
-			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, Q>(provider, getQueueName ?? GetDefaultQueueName));
+			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, Q>(getQueueName ?? GetDefaultQueueName, createQueue));
 			services.TryAddTransient<Q>();
 			return services;
 		}

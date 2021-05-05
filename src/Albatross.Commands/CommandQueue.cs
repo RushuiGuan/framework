@@ -6,14 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Commands {
-	/// <summary>
-	/// command queue should be registered as transient.  Its instances are managed by the CommandBus
-	/// </summary>
-	public interface ICommandQueue: IDisposable {
-		void Submit(Command command);
-		void SetName(string name);
-		Task Start();
-	}
 	public class CommandQueue : ICommandQueue {
 		private readonly ILogger logger;
 		private readonly IServiceScopeFactory scopeFactory;
@@ -23,28 +15,15 @@ namespace Albatross.Commands {
 		protected readonly Queue<Command> queue = new Queue<Command>();
 		protected readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 		
-		public string Name { get; private set; } = string.Empty;
+		public string Name { get; init; }
 		
-
-		/// <summary>
-		/// this is not a good thing to do, but we don't have a better alternative.
-		/// </summary>
-		/// <param name="name"></param>
-		public void SetName(string name) {
-			if (string.IsNullOrEmpty(this.Name)) {
-				this.Name = name;
-				logger.LogInformation("creating command queue {name}", Name);
-			} else {
-				throw new InvalidOperationException($"The name of command queue {this.Name} has already been set");
-			}
-		}
-
-		public CommandQueue(IServiceScopeFactory scopeFactory, ILogger<CommandQueue> logger) {
+		public CommandQueue(string name, IServiceScopeFactory scopeFactory, ILogger<CommandQueue> logger) {
+			this.Name = name;
 			this.scopeFactory = scopeFactory;
 			this.logger = logger;
+			logger.LogInformation("creating command queue {name}", Name);
 		}
 
-		
 		public virtual void Submit(Command command) {
 			lock (sync) {
 				logger.LogInformation("submitted {name}: {@data}", Name, command);

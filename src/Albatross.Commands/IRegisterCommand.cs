@@ -4,33 +4,32 @@ namespace Albatross.Commands {
 	public interface IRegisterCommand{
 		Type CommandType { get; }
 		Type QueueType { get; }
-		string GetQueueName(Command command);
+		string GetQueueName(Command command, IServiceProvider provider);
+		ICommandQueue Create(string name, IServiceProvider provider);
 	}
-	public interface IRegisterCommand<C, Q> : IRegisterCommand where C:Command where Q : ICommandQueue { }
+	public interface IRegisterCommand<C, Q> : IRegisterCommand where C:Command where Q : ICommandQueue { 
+	}
 
 	public class RegisterCommand<C, Q> : IRegisterCommand<C, Q> where C : Command where Q : ICommandQueue {
-		private readonly IServiceProvider provider;
-		private readonly Func<IServiceProvider, C, string> getQueueName;
+		private readonly Func<C, IServiceProvider, string> getQueueName;
+		private readonly Func<string, IServiceProvider, ICommandQueue> createQueue;
 
 		public Type CommandType => typeof(C);
 		public Type QueueType => typeof(Q);
 
-
-		public RegisterCommand(IServiceProvider provider, Func<IServiceProvider, C, string> getQueueName) {
-			this.provider = provider;
+		public RegisterCommand(Func<C, IServiceProvider, string> getQueueName, Func<string, IServiceProvider, ICommandQueue> createQueue) {
 			this.getQueueName = getQueueName;
+			this.createQueue = createQueue;
 		}
 
-		public string GetQueueName(C command) {
-			return getQueueName(this.provider, command);
-		}
-
-		string IRegisterCommand.GetQueueName(Command command) {
-			if(command is C) {
-				return GetQueueName((C)command);
+		public string GetQueueName(Command command, IServiceProvider provider) {
+			if (command is C) {
+				return this.getQueueName((C)command, provider);
 			} else {
 				throw new ArgumentException();
 			}
 		}
+
+		public ICommandQueue Create(string name, IServiceProvider provider) => this.createQueue(name, provider);
 	}
 }
