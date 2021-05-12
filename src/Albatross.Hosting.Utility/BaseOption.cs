@@ -53,6 +53,7 @@ namespace Albatross.Hosting.Utility {
 			using (StringWriter writer = new StringWriter(sb)) {
 				using (var csvWriter = new CsvHelper.CsvWriter(writer, CultureInfo.InvariantCulture)) {
 					csvWriter.WriteHeader<T>();
+					writer.WriteLine();
 					csvWriter.WriteRecords<T>(items);
 				}
 			}
