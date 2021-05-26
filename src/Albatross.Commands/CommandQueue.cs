@@ -26,7 +26,7 @@ namespace Albatross.Commands {
 
 		public virtual void Submit(Command command) {
 			lock (sync) {
-				logger.LogInformation("submitted {name}: {@data}", Name, command);
+				logger.LogInformation("submitted {name}: {id}", Name, command.Id);
 				queue.Enqueue(command);
 			}
 			autoResetEvent.Set();
