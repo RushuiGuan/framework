@@ -7,10 +7,11 @@ namespace Albatross.Commands {
 		public Exception? Exception { get; private set; }
 		public bool BlockUntilCompletion { get; init; }
 
-		public Command(bool waitForCompletion) {
-			Id = Guid.NewGuid();
-			this.BlockUntilCompletion = waitForCompletion;
-			if (waitForCompletion) {
+		public Command(bool blockUntilCompletion):this(blockUntilCompletion, Guid.NewGuid()) { }
+		public Command(bool blockUntilCompletion, Guid id) {
+			this.Id = id;
+			this.BlockUntilCompletion = blockUntilCompletion;
+			if (blockUntilCompletion) {
 				syncHandle = new System.Threading.ManualResetEventSlim(false);
 			}
 		}
