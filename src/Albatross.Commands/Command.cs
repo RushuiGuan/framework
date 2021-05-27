@@ -3,12 +3,12 @@
 namespace Albatross.Commands {
 	public abstract class Command{
 		System.Threading.ManualResetEventSlim? syncHandle { get; init; }
-		public Guid Id { get; init; }
+		public string Id { get; init; }
 		public Exception? Exception { get; private set; }
 		public bool BlockUntilCompletion { get; init; }
 
-		public Command(bool blockUntilCompletion):this(blockUntilCompletion, Guid.NewGuid()) { }
-		public Command(bool blockUntilCompletion, Guid id) {
+		public Command(bool blockUntilCompletion):this(blockUntilCompletion, Guid.NewGuid().ToString()) { }
+		public Command(bool blockUntilCompletion, string id) {
 			this.Id = id;
 			this.BlockUntilCompletion = blockUntilCompletion;
 			if (blockUntilCompletion) {
