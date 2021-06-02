@@ -13,7 +13,7 @@ namespace Albatross.Commands {
 
 		static string GetDefaultQueueName(Command _, IServiceProvider provider) => "Default";
 		static CommandQueue CreateDefaultQueue(string name, IServiceProvider provider)
-			=> new CommandQueue(name, provider.GetRequiredService<IServiceScopeFactory>(), provider.GetRequiredService<ILogger<CommandQueue>>());
+			=> new CommandQueue(name, provider.GetRequiredService<IServiceScopeFactory>(), provider.GetRequiredService<ILoggerFactory>());
 
 		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T:Command{
 			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, CommandQueue>(getQueueName ?? GetDefaultQueueName, CreateDefaultQueue));

@@ -17,10 +17,10 @@ namespace Albatross.Commands {
 		
 		public string Name { get; init; }
 		
-		public CommandQueue(string name, IServiceScopeFactory scopeFactory, ILogger<CommandQueue> logger) {
+		public CommandQueue(string name, IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory) {
 			this.Name = name;
 			this.scopeFactory = scopeFactory;
-			this.logger = logger;
+			this.logger = loggerFactory.CreateLogger($"CommandQueue:{name}");
 			logger.LogInformation("creating command queue {name}", Name);
 		}
 
