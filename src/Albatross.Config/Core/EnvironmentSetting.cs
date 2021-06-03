@@ -17,5 +17,6 @@ namespace Albatross.Config.Core {
 
 		public readonly static EnvironmentSetting ASPNETCORE_ENVIRONMENT = new EnvironmentSetting("ASPNETCORE_ENVIRONMENT");
 		public readonly static EnvironmentSetting DOTNET_ENVIRONMENT = new EnvironmentSetting("DOTNET_ENVIRONMENT");
+		public bool IsProd => string.Equals(Value, "production", StringComparison.InvariantCultureIgnoreCase);
 	}
 }

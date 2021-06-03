@@ -15,6 +15,5 @@
         /// Optional: the group of the application
         /// </summary>
         public string Group { get; set; }
-		public bool IsProd { get; set; }
 	}
 }
