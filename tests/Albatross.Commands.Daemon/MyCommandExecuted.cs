@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Albatross.Commands.Daemon {
-	public class MyCommandExecuted : Event{
+﻿namespace Albatross.Commands.Daemon {
+	public class MyCommandExecuted : Event {
+		public MyCommandExecuted(string id) : base(id) {
+		}
 	}
 }

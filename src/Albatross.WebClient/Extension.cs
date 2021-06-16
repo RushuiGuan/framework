@@ -69,8 +69,8 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region post
-		public static async Task<TOut> PostAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Post, relativeUrl, queryStringValues, input)) {
+		public static async Task<TOut> PostAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Post, relativeUrl, queryStringValues, input, requestLogger)) {
 				return await client.Invoke<TOut>(request, throwCustomException);
 			}
 		}
@@ -79,8 +79,8 @@ namespace Albatross.WebClient {
 				return await client.Invoke<TOut>(request, throwCustomException);
 			}
 		}
-		public static async Task<string> PostAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Post, relativeUrl, queryStringValues, input)) {
+		public static async Task<string> PostAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Post, relativeUrl, queryStringValues, input, requestLogger)) {
 				return await client.Invoke(request, throwCustomException);
 			}
 		}
@@ -92,8 +92,8 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region patch
-		public static async Task<TOut> PatchAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpPatchMethod, relativeUrl, queryStringValues, input)) {
+		public static async Task<TOut> PatchAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+			using (var request = client.CreateJsonRequest<TIn>(HttpPatchMethod, relativeUrl, queryStringValues, input, requestLogger)) {
 				return await client.Invoke<TOut>(request, throwCustomException);
 			}
 		}
@@ -102,8 +102,8 @@ namespace Albatross.WebClient {
 				return await client.Invoke<TOut>(request, throwCustomException);
 			}
 		}
-		public static async Task<string> PatchAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpPatchMethod, relativeUrl, queryStringValues, input)) {
+		public static async Task<string> PatchAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+			using (var request = client.CreateJsonRequest<TIn>(HttpPatchMethod, relativeUrl, queryStringValues, input, requestLogger)) {
 				return await client.Invoke(request, throwCustomException);
 			}
 		}
@@ -115,8 +115,8 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region put
-		public static async Task PutAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Put, relativeUrl, queryStringValues, input)) {
+		public static async Task PutAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Put, relativeUrl, queryStringValues, input, requestLogger)) {
 				await client.Invoke(request, throwCustomException);
 			}
 		}

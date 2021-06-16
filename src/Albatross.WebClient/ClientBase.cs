@@ -42,7 +42,7 @@ namespace Albatross.WebClient {
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			return request;
 		}
-		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t, StreamWriter logger) {
+		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t, StreamWriter logger = null) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			string content = SerializeJson<T>(t);
 			logger?.Write(content);

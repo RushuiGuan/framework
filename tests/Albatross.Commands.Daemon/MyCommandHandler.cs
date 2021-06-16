@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Albatross.Commands.Daemon {
 	public class MyCommandHandler : BaseCommandHandler<MyCommand> {
@@ -13,7 +14,7 @@ namespace Albatross.Commands.Daemon {
 				throw new System.Exception("This is destine to fail");
 			}
 			await Task.Delay(2000);
-			await this.eventPublisher.Send(new MyCommandExecuted());
+			await this.eventPublisher.Send(new MyCommandExecuted(Guid.NewGuid().ToString()));
 		}
 	}
 }
