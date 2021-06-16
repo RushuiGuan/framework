@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Net;
+using System.IO;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -41,9 +42,10 @@ namespace Albatross.WebClient {
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			return request;
 		}
-		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t) {
+		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t, StreamWriter logger) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			string content = SerializeJson<T>(t);
+			logger?.Write(content);
 			request.Content = new StringContent(content, Encoding.UTF8, Constant.JsonContentType);
 			//request.Headers.Add(Constant.ContentType, Constant.JsonContentType);
 			return request;
