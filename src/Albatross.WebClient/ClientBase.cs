@@ -84,8 +84,9 @@ namespace Albatross.WebClient {
 				}
 			}
 		}
-		public async Task<T> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public async Task<T> Invoke<T>(HttpRequestMessage request, StreamWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			string content = await Invoke(request, throwCustomException);
+			logger?.Write(content);
 			return Deserialize<T>(content);
 		}
 		#endregion
