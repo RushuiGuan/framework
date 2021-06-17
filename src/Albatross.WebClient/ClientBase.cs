@@ -74,12 +74,13 @@ namespace Albatross.WebClient {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			string content = SerializeJson<T>(t);
 			request.Content = new StringContent(content, Encoding.UTF8, Constant.JsonContentType);
-			WriteRequest(request);
+			writer?.WriteLine(content);
 			return request;
 		}
 		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
+			writer?.WriteLine(content);
 			return request;
 		}
 		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
