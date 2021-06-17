@@ -42,10 +42,10 @@ namespace Albatross.WebClient {
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			return request;
 		}
-		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t, TextWriter logger = null) {
+		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t, TextWriter writer = null) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			string content = SerializeJson<T>(t);
-			logger?.Write(content);
+			writer?.Write(content);
 			request.Content = new StringContent(content, Encoding.UTF8, Constant.JsonContentType);
 			//request.Headers.Add(Constant.ContentType, Constant.JsonContentType);
 			return request;
@@ -55,10 +55,11 @@ namespace Albatross.WebClient {
 			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
 			return request;
 		}
-		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public async Task<string> Invoke(HttpRequestMessage request, TextWriter writer = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(client.BaseAddress, request.RequestUri)}");
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
+				writer?.Write(content);
 				if (response.IsSuccessStatusCode) {
 					return content;
 				} else {
@@ -84,9 +85,8 @@ namespace Albatross.WebClient {
 				}
 			}
 		}
-		public async Task<T> Invoke<T>(HttpRequestMessage request, TextWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			string content = await Invoke(request, throwCustomException);
-			logger?.Write(content);
+		public async Task<T> Invoke<T>(HttpRequestMessage request, TextWriter writer = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+			string content = await Invoke(request, writer, throwCustomException);
 			return Deserialize<T>(content);
 		}
 		#endregion
