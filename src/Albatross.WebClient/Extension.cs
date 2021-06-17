@@ -47,7 +47,7 @@ namespace Albatross.WebClient {
 		}
 
 		#region get methods
-		public static async Task<T> GetAsync<T>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, StreamWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public static async Task<T> GetAsync<T>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TextWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			using (var request = client.CreateRequest(HttpMethod.Get, relativeUrl, queryStringValues)) {
 				return await client.Invoke<T>(request, logger, throwCustomException);
 			}
@@ -69,18 +69,18 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region post
-		public static async Task<TOut> PostAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public static async Task<TOut> PostAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, TextWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Post, relativeUrl, queryStringValues, input, logger)) {
 				logger?.WriteLine();
 				return await client.Invoke<TOut>(request, logger, throwCustomException);
 			}
 		}
-		public static async Task<TOut> PostAsync<TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input, StreamWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public static async Task<TOut> PostAsync<TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input, TextWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			using (var request = client.CreateStringRequest(HttpMethod.Post, relativeUrl, queryStringValues, input)) {
 				return await client.Invoke<TOut>(request, logger, throwCustomException);
 			}
 		}
-		public static async Task<string> PostAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public static async Task<string> PostAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, TextWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Post, relativeUrl, queryStringValues, input, logger)) {
 				return await client.Invoke(request, throwCustomException);
 			}
@@ -93,17 +93,17 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region patch
-		public static async Task<TOut> PatchAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public static async Task<TOut> PatchAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, TextWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			using (var request = client.CreateJsonRequest<TIn>(HttpPatchMethod, relativeUrl, queryStringValues, input, logger)) {
 				return await client.Invoke<TOut>(request, logger, throwCustomException);
 			}
 		}
-		public static async Task<TOut> PatchAsync<TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input, StreamWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public static async Task<TOut> PatchAsync<TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input, TextWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			using (var request = client.CreateStringRequest(HttpPatchMethod, relativeUrl, queryStringValues, input)) {
 				return await client.Invoke<TOut>(request, logger, throwCustomException);
 			}
 		}
-		public static async Task<string> PatchAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public static async Task<string> PatchAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, TextWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			using (var request = client.CreateJsonRequest<TIn>(HttpPatchMethod, relativeUrl, queryStringValues, input, requestLogger)) {
 				return await client.Invoke(request, throwCustomException);
 			}
@@ -116,7 +116,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region put
-		public static async Task PutAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, StreamWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public static async Task PutAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input, TextWriter requestLogger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Put, relativeUrl, queryStringValues, input, requestLogger)) {
 				await client.Invoke(request, throwCustomException);
 			}

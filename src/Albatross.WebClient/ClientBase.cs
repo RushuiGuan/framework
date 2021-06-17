@@ -42,7 +42,7 @@ namespace Albatross.WebClient {
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			return request;
 		}
-		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t, StreamWriter logger = null) {
+		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t, TextWriter logger = null) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			string content = SerializeJson<T>(t);
 			logger?.Write(content);
@@ -84,7 +84,7 @@ namespace Albatross.WebClient {
 				}
 			}
 		}
-		public async Task<T> Invoke<T>(HttpRequestMessage request, StreamWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public async Task<T> Invoke<T>(HttpRequestMessage request, TextWriter logger = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			string content = await Invoke(request, throwCustomException);
 			logger?.Write(content);
 			return Deserialize<T>(content);
