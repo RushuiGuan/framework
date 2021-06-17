@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Albatross.WebClient;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Albatross.WebClient.IntegrationTest {
 	public partial class ValueProxyService : Albatross.WebClient.ClientBase {
@@ -31,6 +32,7 @@ namespace Albatross.WebClient.IntegrationTest {
 				return await this.Invoke<Albatross.WebClient.IntegrationTest.Messages.PayLoad>(request);
 			}
 		}
+
 		public async System.Threading.Tasks.Task<System.String> GetConfig() {
 			string path = $"{ControllerPath}/config";
 			var queryString = new System.Collections.Specialized.NameValueCollection();

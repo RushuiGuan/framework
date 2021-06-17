@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Xunit;
 using System.Collections.Specialized;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 
 namespace Albatross.WebClient.IntegrationTest {
 	public partial class TestWebClient : IClassFixture<MyTestHost>{
@@ -39,6 +40,16 @@ namespace Albatross.WebClient.IntegrationTest {
 			string relativeUrl = "/test";
 			var newUri = new Uri(baseUri, relativeUrl);
 			Assert.Equal("http://localhost/test", newUri.ToString());
+		}
+
+		[Fact]
+		public async Task TestPost() {
+			var scope = host.Create();
+			using var writer = new StreamWriter(@"c:\temp\test.json");
+			var proxy = scope.Get<ValueProxyService>();
+			proxy.UseTextWriter(writer);
+			var result = await proxy.Post(new Messages.PayLoad { Number = 100 });
+			Assert.NotNull(result);
 		}
 	}
 }

@@ -13,11 +13,14 @@ namespace Albatross.WebClient {
 	public abstract class ClientBase {
 		protected HttpClient client;
 		protected ILogger logger;
+		private TextWriter writer;
 
 		public ClientBase(ILogger logger, HttpClient client) {
 			this.client = client;
 			this.logger = logger;
         }
+
+		public void UseTextWriter(TextWriter writer) { this.writer = writer; }
 
         #region utility
         protected HttpMethod GetPatchMethod() {
@@ -36,18 +39,42 @@ namespace Albatross.WebClient {
 		};
 		#endregion
 
+		void WriteHeader(HttpHeaders headers) {
+			foreach (var header in headers) {
+				writer.Write(header.Key);
+				writer.Write(":");
+				foreach (var value in header.Value) {
+					writer.Write(" ");
+					writer.Write(value);
+				}
+				writer.WriteLine();
+			}
+		}
+
+		void WriteRequest(HttpRequestMessage request) {
+			if (writer != null) {
+				writer.Write(request.Method);
+				writer.Write(" ");
+				writer.WriteLine(request.RequestUri);
+				WriteHeader(request.Headers);
+				if (request.Content != null) {
+					writer.WriteLine(request.Content.ReadAsStringAsync().Result);
+				}
+			}
+		}
+
 		#region creating request and response
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.GetUrl(queryStringValues));
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
+			WriteRequest(request);
 			return request;
 		}
-		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t, TextWriter writer = null) {
+		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			string content = SerializeJson<T>(t);
-			writer?.Write(content);
 			request.Content = new StringContent(content, Encoding.UTF8, Constant.JsonContentType);
-			//request.Headers.Add(Constant.ContentType, Constant.JsonContentType);
+			WriteRequest(request);
 			return request;
 		}
 		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
@@ -55,11 +82,14 @@ namespace Albatross.WebClient {
 			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
 			return request;
 		}
-		public async Task<string> Invoke(HttpRequestMessage request, TextWriter writer = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
 			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(client.BaseAddress, request.RequestUri)}");
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
-				writer?.Write(content);
+				if(writer != null) {
+					WriteHeader(response.Headers);
+					writer.Write(content);
+				}
 				if (response.IsSuccessStatusCode) {
 					return content;
 				} else {
@@ -85,8 +115,8 @@ namespace Albatross.WebClient {
 				}
 			}
 		}
-		public async Task<T> Invoke<T>(HttpRequestMessage request, TextWriter writer = null, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			string content = await Invoke(request, writer, throwCustomException);
+		public async Task<T> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+			string content = await Invoke(request, throwCustomException);
 			return Deserialize<T>(content);
 		}
 		#endregion
