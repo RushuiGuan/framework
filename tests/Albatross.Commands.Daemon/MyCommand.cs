@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.Commands.Daemon {
-	public class MyCommand : Command {
+	public class MyCommand : Command<int> {
 		public bool Fail { get; init; }
 
-		public MyCommand(bool waitForCompletion, bool fail) : base(waitForCompletion) {
+		public MyCommand(bool fail, string id) : base(id) {
 			this.Fail = fail;
 		}
 	}

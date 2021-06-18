@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Albatross.Commands {
-	public abstract class BaseCommandHandler<T> : ICommandHandler<T> where T : Command {
-		public abstract Task Handle(T command);
+	public abstract class BaseCommandHandler<T, K> : ICommandHandler<T, K> where T : Command<K> where K :notnull {
+		public abstract Task<K> Handle(T command);
 
-		Task ICommandHandler.Handle(Command command) {
+		public async Task<object> Handle(Command command) {
 			if(command is T) {
-				return this.Handle((T)command);
+				K result = await this.Handle((T)command);
+				return result;
 			} else {
 				throw new ArgumentException();
 			}

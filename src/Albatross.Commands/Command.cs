@@ -1,31 +1,31 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Albatross.Commands {
-	public abstract class Command{
-		System.Threading.ManualResetEventSlim? syncHandle { get; init; }
-		public string Id { get; init; }
-		public Exception? Exception { get; private set; }
-		public bool BlockUntilCompletion { get; init; }
-
-		public Command(bool blockUntilCompletion):this(blockUntilCompletion, Guid.NewGuid().ToString()) { }
-		public Command(bool blockUntilCompletion, string id) {
+	public abstract class Command {
+		public Command(string id) {
 			this.Id = id;
-			this.BlockUntilCompletion = blockUntilCompletion;
-			if (blockUntilCompletion) {
-				syncHandle = new System.Threading.ManualResetEventSlim(false);
+		}
+		public string Id { get; init; }
+		public abstract Type ReturnType { get; }
+		public abstract void SetException(Exception err);
+		public abstract void SetResult(object obj);
+	}
+
+	public abstract class Command<K> :Command{
+		public Command(string id) : base(id) { }
+
+		public override Type ReturnType => typeof(K);
+		public Task<K> Task => taskCompletionSource.Task;
+		TaskCompletionSource<K> taskCompletionSource = new TaskCompletionSource<K>();
+		public void SetResult(K k) => taskCompletionSource.SetResult(k);
+		public override void SetException(Exception err) => taskCompletionSource.SetException(err);
+		public override void SetResult(object obj) {
+			if(obj is K) {
+				this.SetResult((K)obj);
+			} else {
+				throw new ArgumentException();
 			}
-		}
-		public void Error(Exception err) {
-			this.Exception = err;
-		}
-
-		public void Wait() {
-			this.syncHandle?.Wait();
-		}
-
-		public void Complete() {
-			this.syncHandle?.Set();
-			this.syncHandle?.Dispose();
 		}
 	}
 }

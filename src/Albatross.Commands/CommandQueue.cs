@@ -6,6 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Commands {
+	// a couple problems with this implementation
+	// when disposing, the remaining commands in the queue will be disgarded
+	// should create an explicit close command.  The close command will block until the queue is drained
 	public class CommandQueue : ICommandQueue {
 		private readonly ILogger logger;
 		private readonly IServiceScopeFactory scopeFactory;
@@ -30,7 +33,6 @@ namespace Albatross.Commands {
 				queue.Enqueue(command);
 			}
 			autoResetEvent.Set();
-			command.Wait();
 		}
 
 		public async Task  Start() {
@@ -56,17 +58,16 @@ namespace Albatross.Commands {
 						}
 						try {
 							using (var scope = scopeFactory.CreateScope()) {
-								var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
+								var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), command.ReturnType);
 								var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
 								logger.LogInformation("processing {name}: {commandId}", Name, command.Id);
-								await commandHandler.Handle(command).ConfigureAwait(false);
+								var result = await commandHandler.Handle(command).ConfigureAwait(false);
+								command.SetResult(result);
 								logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
 							}
 						} catch (Exception err) {
 							logger.LogError(err, "failed to process {name}: {commandId}", Name, command.Id);
-							command.Error(err);
-						} finally {
-							command.Complete();
+							command.SetException(err);
 						}
 					}
 				}

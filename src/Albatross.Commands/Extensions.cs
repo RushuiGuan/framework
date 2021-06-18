@@ -30,7 +30,7 @@ namespace Albatross.Commands {
 		}
 
 		public static IServiceCollection AddCommandHandler<H>(this IServiceCollection services) {
-			if (typeof(H).TryGetClosedGenericType(typeof(ICommandHandler<>), out Type genericType)) {
+			if (typeof(H).TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type genericType)) {
 				services.TryAddScoped(genericType, typeof(H));
 			} else {
 				throw new ArgumentException($"{typeof(H).FullName} is not a valid command handler type");

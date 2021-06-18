@@ -16,10 +16,11 @@ namespace Albatross.Commands.Daemon {
 		}
 
 		[HttpPost]
-		public void SendMyCommand(bool wait, bool fail) {
-			MyCommand cmd = new MyCommand(wait, fail);
+		public async Task<int> SendMyCommand(bool fail) {
+			MyCommand cmd = new MyCommand(fail, Guid.NewGuid().ToString());
 			commandBus.Submit(cmd);
-			if (cmd.Exception != null) { throw cmd.Exception; }
+			int result = await cmd.Task;
+			return result;
 		}
 	}
 }
