@@ -12,7 +12,7 @@ namespace Albatross.Commands {
 		public abstract void SetResult(object obj);
 	}
 
-	public abstract class Command<K> :Command{
+	public abstract class Command<K> :Command where K: notnull {
 		public Command(string id) : base(id) { }
 
 		public override Type ReturnType => typeof(K);

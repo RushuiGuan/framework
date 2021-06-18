@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Albatross.Commands {
@@ -8,5 +9,7 @@ namespace Albatross.Commands {
 	public interface ICommandQueue: IDisposable {
 		void Submit(Command command);
 		Task Start();
+		IEnumerable<string> QueueItems { get; }
+		void Signal();
 	}
 }

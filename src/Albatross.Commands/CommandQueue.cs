@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +20,15 @@ namespace Albatross.Commands {
 		protected readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 		
 		public string Name { get; init; }
-		
+
+		public IEnumerable<string> QueueItems {
+			get {
+				lock (this.sync) {
+					return queue.Select(args => args.Id).ToArray();
+				}
+			}
+		}
+
 		public CommandQueue(string name, IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory) {
 			this.Name = name;
 			this.scopeFactory = scopeFactory;
@@ -82,6 +91,10 @@ namespace Albatross.Commands {
 			}
 			autoResetEvent.Set();
 			autoResetEvent.Dispose();
+		}
+
+		public void Signal() {
+			this.autoResetEvent.Set();
 		}
 	}
 }
