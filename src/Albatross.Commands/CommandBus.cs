@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace Albatross.Commands {
 	public interface ICommandBus : IDisposable {
 		void Submit(Command command);
+		ICommandQueue Get(string name);
+		IEnumerable<string> GetAll();
 	}
 
 	public class CommandBus : ICommandBus {
@@ -46,6 +48,14 @@ namespace Albatross.Commands {
 		}
 
 		public void Dispose() {
+		}
+
+		public ICommandQueue Get(string name) {
+			return this.queues[name];
+		}
+
+		public IEnumerable<string> GetAll() {
+			return this.queues.Keys;
 		}
 	}
 }

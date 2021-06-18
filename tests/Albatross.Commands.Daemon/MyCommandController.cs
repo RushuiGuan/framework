@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,11 +14,25 @@ namespace Albatross.Commands.Daemon {
 		}
 
 		[HttpPost]
-		public async Task<int> SendMyCommand(bool fail) {
-			MyCommand cmd = new MyCommand(fail, Guid.NewGuid().ToString());
-			commandBus.Submit(cmd);
-			int result = await cmd.Task;
+		public async Task<int[]> SendMyCommand(bool fail) {
+			List<MyCommand> list = new List<MyCommand>();
+			for(int i=0; i<100; i++) {
+				MyCommand cmd = new MyCommand(fail, i.ToString());
+				list.Add(cmd);
+				commandBus.Submit(cmd);
+			}
+			int[] result = await Task.WhenAll(list.Select(args => args.Task).ToArray());
 			return result;
+		}
+
+		[HttpGet("queues")]
+		public IEnumerable<string> GetCommandQueues() {
+			return this.commandBus.GetAll();
+		}
+
+		[HttpGet("queue-item")]
+		public IEnumerable<string> GetCommandQueueItems(string name) {
+			return this.commandBus.Get(name).QueueItems;
 		}
 	}
 }
