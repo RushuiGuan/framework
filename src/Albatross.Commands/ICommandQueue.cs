@@ -9,7 +9,7 @@ namespace Albatross.Commands {
 	public interface ICommandQueue: IDisposable {
 		void Submit(Command command);
 		Task Start();
-		IEnumerable<string> QueueItems { get; }
 		void Signal();
+		CommandQueueDto CreateDto();
 	}
 }

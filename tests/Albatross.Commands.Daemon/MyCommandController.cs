@@ -24,15 +24,5 @@ namespace Albatross.Commands.Daemon {
 			int[] result = await Task.WhenAll(list.Select(args => args.Task).ToArray());
 			return result;
 		}
-
-		[HttpGet("queues")]
-		public IEnumerable<string> GetCommandQueues() {
-			return this.commandBus.GetAll();
-		}
-
-		[HttpGet("queue-item")]
-		public IEnumerable<string> GetCommandQueueItems(string name) {
-			return this.commandBus.Get(name).QueueItems;
-		}
 	}
 }

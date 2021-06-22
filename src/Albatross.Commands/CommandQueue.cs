@@ -18,16 +18,9 @@ namespace Albatross.Commands {
 		protected object sync = new object();
 		protected readonly Queue<Command> queue = new Queue<Command>();
 		protected readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-		
+
 		public string Name { get; init; }
 
-		public IEnumerable<string> QueueItems {
-			get {
-				lock (this.sync) {
-					return queue.Select(args => args.Id).ToArray();
-				}
-			}
-		}
 
 		public CommandQueue(string name, IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory) {
 			this.Name = name;
@@ -44,7 +37,7 @@ namespace Albatross.Commands {
 			autoResetEvent.Set();
 		}
 
-		public async Task  Start() {
+		public async Task Start() {
 			lock (sync) {
 				if (running) {
 					logger.LogWarning("command queue {name} is already running!", Name);
@@ -53,14 +46,13 @@ namespace Albatross.Commands {
 					running = true;
 				}
 			}
-			
 			logger.LogDebug("starting {name}", Name);
 			while (running) {
 				autoResetEvent.WaitOne();
 				if (running) {
 					while (true) {
 						Command? command;
-						lock (sync) { 
+						lock (sync) {
 							if (!queue.TryDequeue(out command)) {
 								break;
 							}
@@ -93,8 +85,10 @@ namespace Albatross.Commands {
 			autoResetEvent.Dispose();
 		}
 
-		public void Signal() {
-			this.autoResetEvent.Set();
+		public void Signal() => this.autoResetEvent.Set();
+
+		public CommandQueueDto CreateDto() {
+			return new CommandQueueDto(this.Name, this.running, this.queue.Select(args => args.Id).ToArray());
 		}
 	}
 }

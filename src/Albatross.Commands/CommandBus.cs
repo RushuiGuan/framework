@@ -8,7 +8,7 @@ namespace Albatross.Commands {
 	public interface ICommandBus : IDisposable {
 		void Submit(Command command);
 		ICommandQueue Get(string name);
-		IEnumerable<string> GetAll();
+		IEnumerable<string> GetAllQueues();
 	}
 
 	public class CommandBus : ICommandBus {
@@ -51,11 +51,13 @@ namespace Albatross.Commands {
 		}
 
 		public ICommandQueue Get(string name) {
-			return this.queues[name];
+			if (this.queues.TryGetValue(name, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"{name} is not a valid command queue");
+			}
 		}
 
-		public IEnumerable<string> GetAll() {
-			return this.queues.Keys;
-		}
+		public IEnumerable<string> GetAllQueues() => this.queues.Keys;
 	}
 }
