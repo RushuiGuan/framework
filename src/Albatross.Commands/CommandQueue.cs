@@ -40,45 +40,49 @@ namespace Albatross.Commands {
 		}
 
 		public async Task Start() {
-			lock (sync) {
-				if (running) {
-					logger.LogWarning("command queue {name} is already running!", Name);
-					return;
-				} else {
-					running = true;
+			try {
+				lock (sync) {
+					if (running) {
+						logger.LogWarning("command queue {name} is already running!", Name);
+						return;
+					} else {
+						running = true;
+					}
 				}
-			}
-			logger.LogDebug("starting {name}", Name);
-			while (running) {
-				autoResetEvent.WaitOne();
-				if (running) {
-					while (true) {
-						Command? command;
-						lock (sync) {
-							if (!queue.TryDequeue(out command)) {
-								break;
-							} else {
-								Last = command;
+				logger.LogDebug("starting {name}", Name);
+				while (running) {
+					autoResetEvent.WaitOne();
+					if (running) {
+						while (true) {
+							Command? command;
+							lock (sync) {
+								if (!queue.TryDequeue(out command)) {
+									break;
+								} else {
+									Last = command;
+								}
 							}
-						}
-						try {
-							using (var scope = scopeFactory.CreateScope()) {
-								var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), command.ReturnType);
-								var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
-								logger.LogInformation("processing {name}: {commandId}", Name, command.Id);
-								command.MarkStart();
-								var result = await commandHandler.Handle(command).ConfigureAwait(false);
-								command.SetResult(result);
-								logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
+							try {
+								using (var scope = scopeFactory.CreateScope()) {
+									var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), command.ReturnType);
+									var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
+									logger.LogInformation("processing {name}: {commandId}", Name, command.Id);
+									command.MarkStart();
+									var result = await commandHandler.Handle(command).ConfigureAwait(false);
+									command.SetResult(result);
+									logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
+								}
+							} catch (Exception err) {
+								logger.LogError(err, "failed to process {name}: {commandId}", Name, command.Id);
+								command.SetException(err);
 							}
-						} catch (Exception err) {
-							logger.LogError(err, "failed to process {name}: {commandId}", Name, command.Id);
-							command.SetException(err);
 						}
 					}
 				}
+				logger.LogInformation("{name} terminated", Name);
+			} catch (Exception err) {
+				logger.LogCritical($"Command Queue {Name} crashed", err);
 			}
-			logger.LogInformation("{name} terminated", Name);
 		}
 
 		public void Dispose() {
