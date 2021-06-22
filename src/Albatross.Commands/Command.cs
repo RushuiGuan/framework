@@ -14,7 +14,7 @@ namespace Albatross.Commands {
 		public DateTime? SubmittedDateTimeUtc { get; private set; }
 		public DateTime? StartedDateTimeUtc { get; private set; }
 		public DateTime EndDateTimeUtc { get; protected set; }
-		public bool Success { get; protected set; }
+		public bool? Success { get; protected set; }
 
 		public void MarkStart() => this.StartedDateTimeUtc = DateTime.UtcNow;
 		public void MarkSubmitted() => this.SubmittedDateTimeUtc = DateTime.UtcNow;
@@ -39,15 +39,17 @@ namespace Albatross.Commands {
 		TaskCompletionSource<K> taskCompletionSource = new TaskCompletionSource<K>();
 
 		public override void SetException(Exception err) {
-			taskCompletionSource.SetException(err);
 			EndDateTimeUtc = DateTime.UtcNow;
 			Success = false;
+			// make sure this is the last step in this function
+			taskCompletionSource.SetException(err);
 		}
 		public override void SetResult(object obj) {
 			if (obj is K) {
-				this.taskCompletionSource.SetResult((K)obj);
 				EndDateTimeUtc = DateTime.UtcNow;
 				Success = true;
+				// make sure this is the last step in this function
+				this.taskCompletionSource.SetResult((K)obj);
 			} else {
 				this.SetException(new ArgumentException($"Command {Id} cannot set result with incorrect type.  expected: {typeof(K).Name}, received: {obj?.GetType()?.Name}"));
 			}

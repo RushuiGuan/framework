@@ -14,7 +14,7 @@ namespace Albatross.Commands {
 		public DateTime? SubmitedDateTimeUtc { get; set; }
 		public double? WaitTime { get; set; }
 		public double? RunTime { get; set; }
-		public bool Success { get; set; }
+		public bool? Success { get; set; }
 	}
 	public class CommandQueueDto {
 		public string Name { get; init; }

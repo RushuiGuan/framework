@@ -1,4 +1,5 @@
 ﻿using Albatross.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
@@ -23,6 +24,15 @@ namespace Albatross.Test.Validation {
 				new Child{ }
 			};
 			Assert.Throws<ValidationException>(() => Validator.ValidateObject(parent, new ValidationContext(parent), true));
+		}
+
+		[Fact]
+		public void TestTimespan() {
+			DateTime? d1 = DateTime.UtcNow;
+			DateTime? d2 = null;
+			double? result = (d2 - d1)?.TotalMilliseconds;
+			Assert.Null(result);
+
 		}
 	}
 }
