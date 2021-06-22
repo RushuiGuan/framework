@@ -52,32 +52,45 @@ namespace Albatross.Commands {
 				logger.LogDebug("starting {name}", Name);
 				while (running) {
 					autoResetEvent.WaitOne();
+					logger.LogInformation("step 1");
 					if (running) {
 						while (true) {
+							logger.LogInformation("step 2");
 							Command? command;
 							lock (sync) {
+								logger.LogInformation("step 3");
 								if (!queue.TryDequeue(out command)) {
+									logger.LogInformation("step 4b");
 									break;
 								} else {
+									logger.LogInformation("step 4a - {cmd}", command.Id);
 									Last = command;
 								}
 							}
 							try {
+								logger.LogInformation("step 5 - {cmd}", command.Id);
 								using (var scope = scopeFactory.CreateScope()) {
+									logger.LogInformation("step 6 - {cmd}", command.Id);
 									var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), command.ReturnType);
+									logger.LogInformation("step 7 - {cmd}", command.Id);
 									var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
 									logger.LogInformation("processing {name}: {commandId}", Name, command.Id);
 									command.MarkStart();
 									var result = await commandHandler.Handle(command).ConfigureAwait(false);
+									logger.LogInformation("step 8 - {cmd}", command.Id);
 									command.SetResult(result);
 									logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
 								}
 							} catch (Exception err) {
+								logger.LogInformation("step 9 - {cmd}", command.Id);
 								logger.LogError(err, "failed to process {name}: {commandId}", Name, command.Id);
 								command.SetException(err);
 							}
+							logger.LogInformation("step 10 - {cmd}", command.Id);
 						}
+						logger.LogInformation("step 11");
 					}
+					logger.LogInformation("step 12");
 				}
 				logger.LogInformation("{name} terminated", Name);
 			} catch (Exception err) {
