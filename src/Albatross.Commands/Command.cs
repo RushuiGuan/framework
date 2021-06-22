@@ -35,7 +35,7 @@ namespace Albatross.Commands {
 		}
 
 		public override Type ReturnType => typeof(K);
-		public Task<K> Task => taskCompletionSource.Task;
+		protected internal Task<K> Task => taskCompletionSource.Task;
 		TaskCompletionSource<K> taskCompletionSource = new TaskCompletionSource<K>();
 
 		public override void SetException(Exception err) {

@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Albatross.Commands {
 	public interface ICommandBus : IDisposable {
-		void Submit(Command command);
+		Task<T> Submit<T>(Command<T> command) where T:notnull;
 		ICommandQueue Get(string name);
 		IEnumerable<string> GetAllQueues();
 	}
 
 	public class CommandBus : ICommandBus {
 		private readonly IServiceProvider serviceProvider;
-		protected readonly ILogger<CommandQueue> logger;
+		protected readonly ILogger<CommandBus> logger;
 		private readonly ConcurrentDictionary<string, ICommandQueue> queues = new ConcurrentDictionary<string, ICommandQueue>();
 		// registration is initialized in constructor and it is immutable, no need to lock
 		private readonly Dictionary<Type, IRegisterCommand> registration = new Dictionary<Type, IRegisterCommand>();
 
-		public CommandBus(IServiceProvider serviceProvider, IEnumerable<IRegisterCommand> registration, ILogger<CommandQueue> logger) {
+		public CommandBus(IServiceProvider serviceProvider, IEnumerable<IRegisterCommand> registration, ILogger<CommandBus> logger) {
 			this.serviceProvider = serviceProvider;
 			this.logger = logger;
 
@@ -37,11 +37,12 @@ namespace Albatross.Commands {
 			}
 		}
 
-		public void Submit(Command command) {
+		public Task<T> Submit<T>(Command<T> command) where T:notnull{
 			if (registration.TryGetValue(command.GetType(), out IRegisterCommand? registered)) {
 				string name = registered.GetQueueName(command, serviceProvider);
 				var queue = queues.GetOrAdd(name, (key) => CreateQueue(key, command));
 				queue.Submit(command);
+				return command.Task;
 			} else {
 				throw new ArgumentException($"Command {command.GetType().FullName} is not registered");
 			}

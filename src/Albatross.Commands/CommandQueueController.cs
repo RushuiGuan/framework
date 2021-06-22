@@ -20,5 +20,8 @@ namespace Albatross.Commands.Daemon {
 		public CommandQueueDto GetCommandQueue(string name) {
 			return this.commandBus.Get(name).CreateDto();
 		}
+
+		[HttpPost("{name}")]
+		public void Signal(string name) => this.commandBus.Get(name).Signal();
 	}
 }

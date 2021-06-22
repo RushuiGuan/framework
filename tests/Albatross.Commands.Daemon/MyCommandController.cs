@@ -15,13 +15,12 @@ namespace Albatross.Commands.Daemon {
 
 		[HttpPost]
 		public async Task<int[]> SendMyCommand(bool fail) {
-			List<MyCommand> list = new List<MyCommand>();
+			List<Task<int>> list = new List<Task<int>>();
 			for(int i=0; i<100; i++) {
 				MyCommand cmd = new MyCommand(fail, i.ToString());
-				list.Add(cmd);
-				commandBus.Submit(cmd);
+				list.Add(commandBus.Submit(cmd));
 			}
-			int[] result = await Task.WhenAll(list.Select(args => args.Task).ToArray());
+			int[] result = await Task.WhenAll(list);
 			return result;
 		}
 	}
