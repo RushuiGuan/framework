@@ -10,6 +10,7 @@ namespace Albatross.Commands {
 		void Submit(Command command);
 		Task Start();
 		void Signal();
+		Command? Last { get; }
 		CommandQueueDto CreateDto();
 	}
 }

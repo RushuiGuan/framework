@@ -20,6 +20,7 @@ namespace Albatross.Commands {
 		protected readonly AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 
 		public string Name { get; init; }
+		public Command? Last { get; private set; }
 
 
 		public CommandQueue(string name, IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory) {
@@ -33,6 +34,7 @@ namespace Albatross.Commands {
 			lock (sync) {
 				logger.LogInformation("submitted {name}: {id}", Name, command.Id);
 				queue.Enqueue(command);
+				command.MarkSubmitted();
 			}
 			autoResetEvent.Set();
 		}
@@ -55,6 +57,8 @@ namespace Albatross.Commands {
 						lock (sync) {
 							if (!queue.TryDequeue(out command)) {
 								break;
+							} else {
+								Last = command;
 							}
 						}
 						try {
@@ -62,6 +66,7 @@ namespace Albatross.Commands {
 								var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), command.ReturnType);
 								var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
 								logger.LogInformation("processing {name}: {commandId}", Name, command.Id);
+								command.MarkStart();
 								var result = await commandHandler.Handle(command).ConfigureAwait(false);
 								command.SetResult(result);
 								logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
@@ -88,7 +93,7 @@ namespace Albatross.Commands {
 		public void Signal() => this.autoResetEvent.Set();
 
 		public CommandQueueDto CreateDto() {
-			return new CommandQueueDto(this.Name, this.running, this.queue.Select(args => args.Id).ToArray());
+			return new CommandQueueDto(this.Name, this.running, this.queue.Select(args => args.CreateDto()).ToArray(), this.Last?.CreateDto());
 		}
 	}
 }
