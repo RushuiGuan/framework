@@ -41,15 +41,18 @@ namespace Albatross.Commands {
 		public override void SetException(Exception err) {
 			EndDateTimeUtc = DateTime.UtcNow;
 			Success = false;
+			
 			// make sure this is the last step in this function
-			taskCompletionSource.SetException(err);
+			// SetException and SetResult is also a blocking call.  Will causes deadlocks if not kicked off using a different thread
+			System.Threading.Tasks.Task.Run(() => taskCompletionSource.SetException(err));
 		}
 		public override void SetResult(object obj) {
 			if (obj is K) {
 				EndDateTimeUtc = DateTime.UtcNow;
 				Success = true;
 				// make sure this is the last step in this function
-				this.taskCompletionSource.SetResult((K)obj);
+				// SetException and SetResult is also a blocking call.  Will causes deadlocks if not kicked off using a different thread
+				System.Threading.Tasks.Task.Run(() => taskCompletionSource.SetResult((K)obj));
 			} else {
 				this.SetException(new ArgumentException($"Command {Id} cannot set result with incorrect type.  expected: {typeof(K).Name}, received: {obj?.GetType()?.Name}"));
 			}
