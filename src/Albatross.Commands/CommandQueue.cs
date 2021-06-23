@@ -22,6 +22,13 @@ namespace Albatross.Commands {
 		public string Name { get; init; }
 		public Command? Last { get; private set; }
 
+		public int Count {
+			get {
+				lock (sync) {
+					return queue.Count;
+				}
+			}
+		}
 
 		public CommandQueue(string name, IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory) {
 			this.Name = name;
@@ -29,6 +36,7 @@ namespace Albatross.Commands {
 			this.logger = loggerFactory.CreateLogger($"CommandQueue:{name}");
 			logger.LogInformation("creating command queue {name}", Name);
 		}
+
 
 		public virtual void Submit(Command command) {
 			lock (sync) {

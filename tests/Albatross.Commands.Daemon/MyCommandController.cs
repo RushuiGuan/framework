@@ -13,15 +13,30 @@ namespace Albatross.Commands.Daemon {
 			this.commandBus = commandBus;
 		}
 
-		[HttpPost]
-		public async Task<int[]> SendMyCommand(bool fail) {
+		[HttpPost("default")]
+		public async Task<double> SendMyCommand(bool fail) {
+			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			stopwatch.Start();
 			List<Task<int>> list = new List<Task<int>>();
 			for(int i=0; i<100; i++) {
 				MyCommand cmd = new MyCommand(fail, i.ToString());
 				list.Add(commandBus.Submit(cmd));
 			}
 			int[] result = await Task.WhenAll(list);
-			return result;
+			return stopwatch.Elapsed.TotalSeconds;
+		}
+
+		[HttpPost("improved")]
+		public async Task<double> SendMyCommand2(bool fail) {
+			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			stopwatch.Start();
+			List<Task<int>> list = new List<Task<int>>();
+			for (int i = 0; i < 100; i++) {
+				var cmd = new MyCommand2(fail, i.ToString());
+				list.Add(commandBus.Submit(cmd));
+			}
+			int[] result = await Task.WhenAll(list);
+			return stopwatch.Elapsed.TotalSeconds;
 		}
 	}
 }

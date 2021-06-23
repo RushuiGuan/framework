@@ -13,7 +13,6 @@ namespace Albatross.Commands.Daemon {
 			if (command.Fail) {
 				throw new System.Exception("This is destine to fail");
 			}
-			//await Task.Delay(2000);
 			await this.eventPublisher.Send(new MyCommandExecuted(Guid.NewGuid().ToString()));
 			return 0;
 		}

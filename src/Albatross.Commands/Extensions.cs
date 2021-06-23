@@ -12,23 +12,17 @@ namespace Albatross.Commands {
 		}
 
 		static string GetDefaultQueueName(Command _, IServiceProvider provider) => "Default";
-		static CommandQueue CreateDefaultQueue(string name, IServiceProvider provider)
+		public static ICommandQueue CreateDefaultQueue(string name, IServiceProvider provider)
 			=> new CommandQueue(name, provider.GetRequiredService<IServiceScopeFactory>(), provider.GetRequiredService<ILoggerFactory>());
 
-		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T:Command{
-			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, CommandQueue>(getQueueName ?? GetDefaultQueueName, CreateDefaultQueue));
-			services.TryAddTransient<CommandQueue>();
+		public static ICommandQueue CreateImprovedQueue(string name, IServiceProvider provider)
+			=> new ImprovedCommandQueue(name, provider.GetRequiredService<IServiceScopeFactory>(), provider.GetRequiredService<ILoggerFactory>());
+
+		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null, Func<string, IServiceProvider, ICommandQueue> createQueue = null) where T:Command{
+			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T>(getQueueName ?? GetDefaultQueueName, createQueue ?? CreateDefaultQueue));
 			return services;
 		}
 		
-		public static IServiceCollection AddCommand<T, Q>(this IServiceCollection services, Func<Command, IServiceProvider, string>? getQueueName, Func<string, IServiceProvider, Q> createQueue) 
-			where T : Command 
-			where Q: class, ICommandQueue {
-			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, Q>(getQueueName ?? GetDefaultQueueName, createQueue));
-			services.TryAddTransient<Q>();
-			return services;
-		}
-
 		public static IServiceCollection AddCommandHandler<H>(this IServiceCollection services) {
 			if (typeof(H).TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type genericType)) {
 				services.TryAddScoped(genericType, typeof(H));

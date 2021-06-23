@@ -12,5 +12,6 @@ namespace Albatross.Commands {
 		void Signal();
 		Command? Last { get; }
 		CommandQueueDto CreateDto();
+		int Count { get; }
 	}
 }

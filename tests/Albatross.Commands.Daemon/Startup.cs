@@ -20,7 +20,9 @@ namespace Albatross.Commands.Daemon {
 
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
-			services.AddCommandBus().AddCommand<MyCommand>().AddCommandHandler<MyCommandHandler>();
+			services.AddCommandBus().AddCommand<MyCommand>((cmd, _)=> "default", Extensions.CreateDefaultQueue).AddCommandHandler<MyCommandHandler>();
+			services.AddCommandBus().AddCommand<MyCommand2>((_, _) => "improved", Extensions.CreateImprovedQueue).AddCommandHandler<MyCommandHandler2>();
+
 			services.AddDefaultEventPublisher<MyCommandExecuted>();
 			services.AddSingleton<IEventSubscription<MyCommandExecuted>, PositionService>();
 		}
