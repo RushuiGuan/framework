@@ -4,12 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
+#nullable enable
 namespace Albatross.Config {
 	public static class Extension {
 
 		public static string GetAssemblyLocation(this Type type) {
 			string location = type.Assembly.Location;
-			return System.IO.Path.GetDirectoryName(location);
+			return System.IO.Path.GetDirectoryName(location) ?? throw new InvalidOperationException($"Invalid assembly location: {location}");
 		}
 
 		public static string GetWorkingDirectory() => System.Environment.CurrentDirectory;
@@ -46,12 +47,13 @@ namespace Albatross.Config {
 		/// <param name="configuration"></param>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public static string GetEndPoint(this IConfiguration configuration, string name) {
+		public static string? GetEndPoint(this IConfiguration configuration, string name) {
 			string value = configuration.GetSection($"endpoints:{name}").Value;
-			if (!value.EndsWith(Slash)) {
+			if (value != null && !value.EndsWith(Slash)) {
 				value = value + Slash;
 			}
 			return value;
 		}
 	}
 }
+#nullable disable
