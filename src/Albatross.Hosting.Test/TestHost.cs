@@ -7,9 +7,11 @@ using Albatross.Logging;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Extensions.Logging;
+using Albatross.Config.Core;
 
 namespace Albatross.Hosting.Test {
 	public class TestHost : IDisposable {
+		public const string Environment = "test";
 		protected IHost host;
 		public IServiceProvider Provider => this.host.Services;
 
@@ -22,7 +24,8 @@ namespace Albatross.Hosting.Test {
 			var hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			var configuration = new ConfigurationBuilder()
 				.SetBasePath(folder)
-				.AddJsonFile("appsettings.json", false, true)
+				.AddJsonFile("appsettings.json", false, false)
+				.AddJsonFile($"appsettings.{Environment}.json", true, false)
 				.AddEnvironmentVariables()
 				.Build();
 
@@ -41,6 +44,7 @@ namespace Albatross.Hosting.Test {
 		}
 
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+			services.AddSingleton(new EnvironmentSetting(Environment));
 			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 			services.AddTransient(provider => provider.CreateScope());
 			services.AddTransient<TestScope>();
