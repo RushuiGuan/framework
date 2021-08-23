@@ -48,7 +48,7 @@ namespace Albatross.Config {
 		/// <param name="name"></param>
 		/// <returns></returns>
 		public static string? GetEndPoint(this IConfiguration configuration, string name) {
-			string value = configuration.GetSection($"endpoints:{name}").Value;
+			string value = configuration.GetSection($"endpoints:{name}")?.Value;
 			if (value != null && !value.EndsWith(Slash)) {
 				value = value + Slash;
 			}
