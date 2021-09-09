@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Conversion {
-	public class ConvertTypeToTypeScriptClass : IConvertObject<Type, TypeScript.Model.Class> {
+	public class ConvertTypeToTypeScriptInterface : IConvertObject<Type, TypeScript.Model.Interface> {
 		ConvertPropertyInfoToTypeScriptProperty convertPropertyInfoToTypeScriptProperty;
-		public ConvertTypeToTypeScriptClass(ConvertPropertyInfoToTypeScriptProperty convertPropertyInfoToTypeScriptProperty) {
+		public ConvertTypeToTypeScriptInterface(ConvertPropertyInfoToTypeScriptProperty convertPropertyInfoToTypeScriptProperty) {
 			this.convertPropertyInfoToTypeScriptProperty = convertPropertyInfoToTypeScriptProperty;
 		}
-		public TypeScript.Model.Class Convert(Type type) {
-			return new Class {
+		public TypeScript.Model.Interface Convert(Type type) {
+			return new Interface {
 				Name = type.Name,
 				Export = true,
 				Properties = from property in type.GetProperties() select convertPropertyInfoToTypeScriptProperty.Convert(property),
