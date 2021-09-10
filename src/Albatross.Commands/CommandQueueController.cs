@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Albatross.Commands.Daemon {
 	[Route("api/command-queue")]
@@ -38,5 +39,10 @@ namespace Albatross.Commands.Daemon {
 		[HttpPost("{name}")]
 		public void Signal(string name) => this.commandBus.Get(name).Signal();
 
+		[HttpGet("queue-busy")]
+		public bool Busy([FromQuery] string pattern) {
+			Regex regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+			return this.commandBus.IsQueueBusy(regex);
+		}
 	}
 }

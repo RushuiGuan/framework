@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Albatross.Commands {
@@ -9,6 +10,7 @@ namespace Albatross.Commands {
 		Task<T> Submit<T>(Command<T> command) where T:notnull;
 		ICommandQueue Get(string name);
 		IEnumerable<string> GetAllQueues();
+		bool IsQueueBusy(Regex regex);
 	}
 
 	public class CommandBus : ICommandBus {
@@ -60,5 +62,14 @@ namespace Albatross.Commands {
 		}
 
 		public IEnumerable<string> GetAllQueues() => this.queues.Keys;
+
+		public bool IsQueueBusy(Regex regex) {
+			foreach(var item in this.queues.ToArray()) {
+				if (regex.IsMatch(item.Key) && item.Value.Count > 0) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }
