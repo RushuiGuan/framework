@@ -56,19 +56,23 @@ namespace Albatross.CodeGen.Core {
 		public static TextWriter Semicolon(this TextWriter writer, int count = 1) {
 			return writer.AppendChar(';', count);
 		}
-        public static TextWriter WriteItems<T>(this TextWriter writer, IEnumerable<T> items, string delimiter, Action<TextWriter, T> action) {
-            if (items != null) {
-                int count = 0, total = items.Count();
-                foreach (var item in items) {
-                    action?.Invoke(writer, item);
-                    count++;
-                    if (count != total) {
-                        writer.Append(delimiter);
-                    }
-                }
-            }
-            return writer;
-        }
+		public static TextWriter WriteItems<T>(this TextWriter writer, IEnumerable<T> items, string delimiter, Action<TextWriter, T> action = null) {
+			if (items != null) {
+				int count = 0, total = items.Count();
+				foreach (var item in items) {
+					if (action == null) {
+						writer.Append(item);
+					} else {
+						action.Invoke(writer, item);
+					}
+					count++;
+					if (count != total) {
+						writer.Append(delimiter);
+					}
+				}
+			}
+			return writer;
+		}
 		#endregion
 
 		#region C# code generation
@@ -124,6 +128,22 @@ namespace Albatross.CodeGen.Core {
 		public static TextWriter AsString(this TextWriter writer) {
 			writer.Write(".ToString()");
 			return writer;
+		}
+		#endregion
+
+		#region typescript generation
+		public static TextWriter StringLiteral(this TextWriter writer, string text, bool singleQuote = true) {
+			char quoteCharacter = singleQuote ? '\'' : '"';
+			writer.Append(quoteCharacter);
+			foreach (char c in text) {
+				if (c == quoteCharacter) {
+					writer.Append('\\');
+				}
+				writer.Append(c);
+			}
+			writer.Append(quoteCharacter);
+			return writer;
+
 		}
 		#endregion
 	}

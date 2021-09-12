@@ -24,14 +24,10 @@ namespace Albatross.CodeGen.Core
             Writer.Flush();
             StringReader reader = new StringReader(content.ToString());
             string line = reader.ReadLine();
-            while (line != null) {
-				if (string.IsNullOrEmpty(line)) {
-					parentWriter.WriteLine();
-				} else { 
-					parentWriter.Tab().WriteLine(line);
-				}
-                line = reader.ReadLine();
-            }
+			while (line != null) {
+				parentWriter.Tab().WriteLine(line);
+				line = reader.ReadLine();
+			}
             this.end(parentWriter);
         }
     }

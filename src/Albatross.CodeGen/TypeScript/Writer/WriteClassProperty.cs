@@ -15,10 +15,11 @@ namespace Albatross.CodeGen.TypeScript.Writer
             this.writeTypeScriptType = writeTypeScriptType;
         }
 
-        public override void Run(TextWriter writer, Property t)
-        {
-            writer.Tab().Append(t.Name).Append(": ");
-            writer.Run(writeTypeScriptType, t.Type).Append(";");
-        }
+		public override void Run(TextWriter writer, Property t) {
+			writer.Tab().Append(t.Name);
+			if (t.Optional) { writer.Append("?"); }
+			writer.Append(": ");
+			writer.Run(writeTypeScriptType, t.Type).Append(";");
+		}
     }
 }

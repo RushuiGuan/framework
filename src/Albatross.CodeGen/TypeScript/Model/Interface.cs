@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Albatross.CodeGen.TypeScript.Model
-{
-    public class Interface
-    {
-        public bool Export { get; set; }
-        public string Name { get; set; }
+namespace Albatross.CodeGen.TypeScript.Model {
+	public class Interface {
+		public bool Export { get; set; }
+		public string Name { get; set; }
 
-        public IEnumerable<Property> Properties { get; set; }
-    }
+		public IEnumerable<Property> Properties { get; set; }
+	}
 }

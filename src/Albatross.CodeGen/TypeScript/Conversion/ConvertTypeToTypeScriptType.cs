@@ -1,10 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Conversion {
 	public class ConvertTypeToTypeScriptType : IConvertObject<Type, TypeScriptType> {
