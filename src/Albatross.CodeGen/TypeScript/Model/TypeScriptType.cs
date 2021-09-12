@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Albatross.Reflection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,9 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			if (IsArray) {
 				type = type.GetElementType();
 			}
-
+			if(type.GetNullableValueType(out var valueType)) {
+				type = valueType;
+			}
 			IsGeneric = type.IsGenericType;
 			if (IsGeneric) {
 				Name = ReflectionExtension.GetGenericTypeName(type.GetGenericTypeDefinition().Name);

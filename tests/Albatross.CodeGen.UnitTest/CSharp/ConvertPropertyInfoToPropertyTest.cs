@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Xunit;
 
-namespace Albatross.CodeGen.UnitTest {
+namespace Albatross.CodeGen.UnitTest.CSharp {
 	public class ConvertPropertyInfoToPropertyTest :IClassFixture<MyTestHost>{
 		private readonly MyTestHost host;
 

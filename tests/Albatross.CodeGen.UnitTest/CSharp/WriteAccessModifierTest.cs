@@ -3,7 +3,7 @@ using Albatross.CodeGen.CSharp.Model;
 using Albatross.CodeGen.CSharp.Writer;
 using Xunit;
 
-namespace Albatross.CodeGen.UnitTest {
+namespace Albatross.CodeGen.UnitTest.CSharp {
 	public class WriteAccessModifierTest {
 
 		[Theory]

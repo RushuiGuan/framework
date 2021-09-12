@@ -26,5 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Database\Albatross.Database.csproj" />
+    <ProjectReference Include="..\Albatross\Albatross.csproj" />
   </ItemGroup>
 </Project>

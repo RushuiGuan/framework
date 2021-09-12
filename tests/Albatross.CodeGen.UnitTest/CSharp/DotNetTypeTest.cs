@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Albatross.CodeGen.UnitTest {
+namespace Albatross.CodeGen.UnitTest.CSharp {
 	public class ConvertTypeToDotNetTypeTest {
 
 		public static IEnumerable<object[]> GetTestData() {

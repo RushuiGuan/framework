@@ -4,7 +4,7 @@ using Albatross.CodeGen.CSharp.Writer;
 using Albatross.CodeGen.Core;
 using Xunit;
 
-namespace Albatross.CodeGen.UnitTest {
+namespace Albatross.CodeGen.UnitTest.CSharp {
 	public class WriteCodeBlockTest {
 		[Theory]
 		[InlineData("test;", " {\n\ttest;\n}")]

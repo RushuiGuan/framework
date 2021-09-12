@@ -16,7 +16,7 @@ namespace Albatross.Commands.Daemon {
 
 		public async Task Receive(MyCommandExecuted @event) {
 			logger.LogInformation("receiving event {@event}", @event);
-			//await Task.Delay(3000);
+			await Task.Delay(3000);
 			logger.LogInformation("received event {@event}", @event);
 		}
 	}

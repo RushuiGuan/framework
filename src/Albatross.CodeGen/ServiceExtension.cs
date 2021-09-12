@@ -1,10 +1,7 @@
 ﻿using Albatross.CodeGen.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Albatross.CodeGen {
 	public static class ServiceExtension {
@@ -31,6 +28,7 @@ namespace Albatross.CodeGen {
 				return false;
 			}
 		}
+
 		public static bool TryAddConverter(this IServiceCollection services, Type converterType) {
 			if (converterType.TryGetGenericInterfaceType(typeof(IConvertObject<>), out Type genericInterfaceType)) {
 				services.AddTransient(converterType);

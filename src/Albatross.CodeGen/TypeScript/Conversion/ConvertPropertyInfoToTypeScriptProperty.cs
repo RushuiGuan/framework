@@ -11,7 +11,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 
 		public Property Convert(PropertyInfo from) {
 			var property = new Property {
-				Name = from.Name.VariableName(),
+				Name = from.Name.CamelCaseVariableName(),
 				Type = convertToTypeScriptType.Convert(from.PropertyType),
 			};
 			property.Optional = from.PropertyType.GetNullableValueType(out _);

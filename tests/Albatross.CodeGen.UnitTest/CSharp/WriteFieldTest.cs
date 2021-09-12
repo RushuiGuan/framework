@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace Albatross.CodeGen.UnitTest {
+namespace Albatross.CodeGen.UnitTest.CSharp {
 	public class WriteFieldTest : IClassFixture<MyTestHost> {
 		public WriteFieldTest(MyTestHost host) {
 			this.host = host;

@@ -101,12 +101,14 @@ namespace Albatross.Reflection {
 				throw new ArgumentException("Type not found: empty class name");
 			} else {
 				Type type = Type.GetType(className);
-				if(type == null) {
+				if (type == null) {
 					throw new ArgumentException($"Type not found: {className}");
 				}
 				return type;
 			}
 		}
+
+		public static bool IsNullable(this Type type) => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
 
 		public static string GetTypeNameWithoutAssemblyVersion(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
 

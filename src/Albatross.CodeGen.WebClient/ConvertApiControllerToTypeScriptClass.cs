@@ -16,16 +16,12 @@ namespace Albatross.CodeGen.WebClient {
 		const string Controller = "Controller";
 		const string ProxyService = "ProxyService";
 		const string WebClient = "WebClient";
-		const string ControllerPath = "ControllerPath";
-		const string Logger = "logger";
-		const string Client = "client";
+
 
 		Regex actionRouteRegex = new Regex(@"{(\w+)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-		IConvertObject<MethodInfo, Method> convertMethod;
 
-		public ConvertApiControllerToTypeScriptClass(IConvertObject<MethodInfo, Method> convertMethod) {
-			this.convertMethod = convertMethod;
+		public ConvertApiControllerToTypeScriptClass() {
 		}
 
 		object IConvertObject<Type>.Convert(Type from) {
@@ -101,7 +97,7 @@ namespace Albatross.CodeGen.WebClient {
 			if (string.IsNullOrEmpty(actionTemplate)) {
 				actionTemplate = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
 			}
-			Method method = convertMethod.Convert(methodInfo);
+			Method method = new Method();
 			/// make async void void and the rest async
 			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {
 				method.ReturnType = TypeScriptType.MakeAsync(method.ReturnType);

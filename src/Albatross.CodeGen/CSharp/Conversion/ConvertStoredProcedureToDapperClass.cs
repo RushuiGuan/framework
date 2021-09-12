@@ -33,7 +33,7 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 				ReturnType = new DotNetType("Dapper.CommandDefinition"),
 				Parameters = from sqlParam
 							 in procedure.Parameters
-							 select new Albatross.CodeGen.CSharp.Model.Parameter(Extension.VariableName(sqlParam.Name)) {
+							 select new Albatross.CodeGen.CSharp.Model.Parameter(Extension.CamelCaseVariableName(sqlParam.Name)) {
 								 Type = getDotNetType.Convert(sqlParam.Type),
 							 },
 			};
