@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,10 +17,12 @@ namespace Albatross.CodeGen.WebClient {
 		public const string DefaultPattern = "^.+Controller$";
 		private readonly ConvertApiControllerToTypeScriptClass converter;
 		private readonly ICodeGenerator<Class> codegen;
+		private readonly ILogger<GenerateApiTypeScriptProxy> logger;
 
-		public GenerateApiTypeScriptProxy(ConvertApiControllerToTypeScriptClass converter, ICodeGenerator<Class> codegen) {
+		public GenerateApiTypeScriptProxy(ConvertApiControllerToTypeScriptClass converter, ICodeGenerator<Class> codegen, ILogger<GenerateApiTypeScriptProxy> logger) {
 			this.converter = converter;
 			this.codegen = codegen;
+			this.logger = logger;
 		}
 
 		public string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory) {
@@ -32,14 +35,16 @@ namespace Albatross.CodeGen.WebClient {
 				foreach (Type type in types) {
 					if (!type.IsAnonymousType() && !type.IsInterface && type.IsPublic) {
 						if (regex.IsMatch(type.FullName ?? string.Empty)) {
+							logger.LogInformation("Processing class {type}", type.FullName);
 							var @class = converter.Convert(type);
 							@class.Namespace = @namespace;
-							string filename = Path.Join(outputDirectory, $"{@class.Name}.Generated.cs");
+							string filename = Path.Join(outputDirectory, $"{@class.Name}.Generated.ts");
 							using (StreamWriter writer = new StreamWriter(filename, false)) {
 								codegen.Run(writer, @class);
 								codegen.Run(stringWriter, @class);
 								writer.WriteLine();
 							}
+							logger.LogInformation("Create output file {name}", filename);
 						}
 					}
 				}
