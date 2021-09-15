@@ -25,6 +25,7 @@ namespace Albatross.Repository.SqlServer {
 
 		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, Func<IServiceProvider, string> getConnectionString) where T : DbContext {
 			services.AddDbContext<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
+			services.AddSingleton<ISqlBatchExecution, SqlBatchExecution>();
 			return services;
 		}
 

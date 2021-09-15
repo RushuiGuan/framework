@@ -7,6 +7,7 @@
         <Authors>Rushui Guan</Authors>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="Dapper" Version="2.0.90" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
     </ItemGroup>
     <ItemGroup>

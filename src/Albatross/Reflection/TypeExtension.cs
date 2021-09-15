@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -116,6 +117,11 @@ namespace Albatross.Reflection {
 			var type = typeof(EnumType);
 			var members = type.GetMember(enumValue.ToString());
 			return members[0].GetCustomAttribute<A>();
+		}
+
+		public static DirectoryInfo GetAssemblyLocation(this Assembly asm, string subfolder) {
+			string location = System.IO.Path.GetDirectoryName(asm.Location);
+			return new DirectoryInfo(System.IO.Path.Combine(location, subfolder));
 		}
 	}
 }
