@@ -28,7 +28,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
