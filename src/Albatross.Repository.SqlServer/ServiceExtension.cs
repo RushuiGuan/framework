@@ -38,6 +38,7 @@ namespace Albatross.Repository.SqlServer {
 		/// <returns></returns>
 		public static IServiceCollection UseSqlServerWithContextPool<T>(this IServiceCollection services, Func<IServiceProvider, string>getConnectionString) where T : DbContext {
 			services.AddDbContextPool<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
+			services.AddSingleton<ISqlBatchExecution, SqlBatchExecution>();
 			return services;
 		}
 
