@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
+using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,6 @@ namespace Albatross.CodeGen.WebClient {
 						if (regex.IsMatch(type.FullName ?? string.Empty)) {
 							logger.LogInformation("Processing class {type}", type.FullName);
 							var @class = converter.Convert(type);
-							@class.Namespace = @namespace;
 							string filename = Path.Join(outputDirectory, $"{@class.Name}.Generated.ts");
 							using (StreamWriter writer = new StreamWriter(filename, false)) {
 								codegen.Run(writer, @class);

@@ -32,8 +32,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		public Class Convert(Type type) {
-			Class converted = new Class() {
-				Name = GetClassName(type),
+			Class converted = new Class(GetClassName(type)) {
 				BaseClass = GetBaseClass(),
 				Constructor = new Constructor {
 					AccessModifier = AccessModifier.Public,
@@ -67,7 +66,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetControllerRoute(Type type) {
-			RouteAttribute route = type.GetCustomAttribute<RouteAttribute>();
+			RouteAttribute? route = type.GetCustomAttribute<RouteAttribute>();
 			var list = route?.Template?.Split('/') ?? new string[0];
 			for (int i = 0; i < list.Length; i++) {
 				if (string.Equals(list[i], "[controller]")) {
@@ -78,7 +77,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetNamespace(Type type) {
-			string[] list = type.Namespace.Split('.');
+			string[] list = type.Namespace?.Split('.') ?? new string[0];
 			list[list.Length - 1] = WebClient;
 			return string.Join(".", list);
 		}
@@ -88,16 +87,15 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		Class GetBaseClass() {
-			return new Class {
-				Name = "Albatross.WebClient.ClientBase",
+			return new Class("Albatross.WebClient.ClientBase") {
 			};
 		}
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
-			string actionTemplate = attrib.Template;
+			string? actionTemplate = attrib.Template;
 			if (string.IsNullOrEmpty(actionTemplate)) {
 				actionTemplate = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
 			}
-			Method method = new Method();
+			Method method = new Method(methodInfo.Name);
 			/// make async void void and the rest async
 			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {
 				method.ReturnType = TypeScriptType.MakeAsync(method.ReturnType);
@@ -119,11 +117,11 @@ namespace Albatross.CodeGen.WebClient {
 					}
 				}
 
-				ParameterInfo fromBody = null;
+				ParameterInfo? fromBody = null;
 				foreach (var item in methodInfo.GetParameters()) {
 					if (item.GetCustomAttribute<FromBodyAttribute>() != null) {
 						fromBody = item;
-					} else if (!actionRoutes.Contains(item.Name)) {
+					} else if (item.Name != null && !actionRoutes.Contains(item.Name)) {
 						writer.Write($"queryString.Add(nameof(@{item.Name}), ");
 						if (item.ParameterType == typeof(DateTime) || item.ParameterType == typeof(DateTime?)) {
 							if (item.Name.EndsWith("date", StringComparison.InvariantCultureIgnoreCase)) {

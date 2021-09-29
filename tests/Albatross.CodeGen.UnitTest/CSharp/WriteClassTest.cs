@@ -35,15 +35,12 @@ namespace Albatross.Sample {
 		public static IEnumerable<object[]> GetTestCases() {
 			return new List<object[]> {
 				new object[]{
-					new Class{
+					new Class("ClassA"){
 						AccessModifier = AccessModifier.Public,
-						Name ="ClassA",
 						Namespace = "Albatross.Sample",
 						Imports = new string[]{"System", "System.IO",},
 						Properties = new Property[]{
-							new Property{
-								Name = "P1",
-								Type = DotNetType.String(),
+							new Property("P1", DotNetType.String()){
 								CanRead = true,
 								CanWrite = true,
 								Modifier = AccessModifier.Public,
@@ -53,16 +50,13 @@ namespace Albatross.Sample {
 					ClassA.RemoveCarriageReturn(),
 				},
 				new object[]{
-					new Class{
+					new Class("ClassB"){
 						AccessModifier = AccessModifier.Public,
-						Name ="ClassB",
 						Static = true,
 						Partial = true,
 						Namespace = "Albatross.Sample",
 						Properties = new Property[]{
-							new Property{
-								Name = "P1",
-								Type = DotNetType.String(),
+							new Property("P1", DotNetType.String()){
 								CanRead = true,
 								CanWrite = true,
 								Modifier = AccessModifier.Public,

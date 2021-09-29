@@ -5,14 +5,12 @@
     <Authors>Rushui Guan</Authors>
     <Product>Albatross Code Generator</Product>
     <Description>A customizable code generator engine with a Powershell tool that allows user to quickly setup composite generators and update the target file.</Description>
-    <PackageReleaseNotes>
-    </PackageReleaseNotes>
     <PackageTags>code generator c# sql codegen powershell database csharp</PackageTags>
-    <LangVersion>7.3</LangVersion>
     <PackageProjectUrl></PackageProjectUrl>
     <Copyright>Copyright © 2019</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />

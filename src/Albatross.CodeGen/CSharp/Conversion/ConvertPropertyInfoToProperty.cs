@@ -13,14 +13,12 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 
         public Property Convert(PropertyInfo from)
         {
-            Property property = new Property
+            Property property = new Property(from.Name, new DotNetType(from.PropertyType))
             {
-                Name = from.Name,
-                Type = new DotNetType(from.PropertyType),
                 CanWrite = from.CanWrite,
                 CanRead = from.CanRead,
 				Static = from.GetAccessors().Any(args => args.IsStatic),
-				Modifier = from.GetMethod.GetAccessModifier(),
+				Modifier = from.GetMethod?.GetAccessModifier() ?? AccessModifier.Private,
 			};
 			property.SetModifier = (from.GetSetMethod()??from.GetSetMethod(true))?.GetAccessModifier() ?? property.Modifier;
 			return property;

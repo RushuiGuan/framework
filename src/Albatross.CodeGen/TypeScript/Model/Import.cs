@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Albatross.CodeGen.TypeScript.Model {
 	public class Import {
-		public List<string> Items { get; set; }
-		public string From { get; set; }
+		public Import(TypeScriptFile file) {
+			this.From = file;
+		}
+		public ISet<string> Items { get; set; } = new HashSet<string>();
+		public TypeScriptFile From { get; set; }
 	}
 }

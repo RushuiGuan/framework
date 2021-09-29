@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Albatross.CodeGen.CSharp.Model {
 	public class Field { 
-		public Field() { }
-		public Field(string name) {
-			Name = name;
+		public Field(string name, DotNetType type) {
+			this.Name = name;
+			this.Type = type;
 		}
 
 		public string Name { get; set; }
@@ -15,6 +15,6 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public bool ReadOnly { get; set; } 
 		public bool Static { get; set; }
 		public bool Const { get; set; }
-		public string Value { get; set; }
+		public string? Value { get; set; }
 	}
 }

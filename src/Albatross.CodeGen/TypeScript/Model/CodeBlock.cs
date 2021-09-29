@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Albatross.CodeGen.TypeScript.Model {
 	public class CodeBlock {
-		public CodeBlock() { }
-		public CodeBlock(string content) {
-			this.Content = content;
-		}
-		public string Content { get; set; }
+		public string? Content { get; set; }
+		public List<CodeBlock> Children { get; } = new List<CodeBlock>();
 	}
 }

@@ -13,12 +13,11 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public string Name { get; set; }
 		public bool IsGeneric { get; }
 		public bool IsArray { get; set; }
-		public TypeScriptType[] GenericTypeArguments { get; }
+		public TypeScriptType[] GenericTypeArguments { get; } 
 		public bool IsAsync => this.Name == PromiseType;
 		public bool IsVoid => Name == VoidType || IsAsync && !IsGeneric;
 
-		public TypeScriptType() { }
-		public TypeScriptType(string name) : this(name, false, false, null) { }
+		public TypeScriptType(string name) : this(name, false, false, new TypeScriptType[0]) { }
 		public TypeScriptType(string name, bool isArray, bool isGeneric, TypeScriptType[] genericTypeArguments) {
 			this.Name = name;
 			this.IsArray = isArray;
@@ -28,17 +27,17 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public TypeScriptType(Type type) {
 			IsArray = type.IsArray;
 			if (IsArray) {
-				type = type.GetElementType();
+				type = type.GetElementType() ?? throw new Exception("impossible");
 			}
 			if(type.GetNullableValueType(out var valueType)) {
-				type = valueType;
+				type = valueType ?? throw new Exception("impossible");
 			}
 			IsGeneric = type.IsGenericType;
 			if (IsGeneric) {
-				Name = ReflectionExtension.GetGenericTypeName(type.GetGenericTypeDefinition().Name);
+				Name = type.GetGenericTypeDefinition().Name.GetGenericTypeName();
 				GenericTypeArguments = (from item in type.GetGenericArguments() select new TypeScriptType(item)).ToArray();
 			} else {
-				Name = type.FullName;
+				Name = type.Name;
 				GenericTypeArguments = new TypeScriptType[0];
 			}
 		}
@@ -48,12 +47,12 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			new Writer.WriteTypeScriptType().Run(writer, this);
 			return writer.ToString();
 		}
-		public override bool Equals(object obj) {
+		public override bool Equals(object? obj) {
 			if (obj is TypeScriptType) {
 				TypeScriptType input = (TypeScriptType)obj;
 				bool result = input.Name == Name && input.IsArray == IsArray
 					&& input.IsGeneric == IsGeneric && input.IsVoid == IsVoid
-					&& input.GenericTypeArguments?.Length == GenericTypeArguments?.Length;
+					&& input.GenericTypeArguments.Length == GenericTypeArguments.Length;
 				if (result) {
 					for (int i = 0; i < GenericTypeArguments.Length; i++) {
 						if (input.GenericTypeArguments[i]?.Equals(GenericTypeArguments[i]) != true) {

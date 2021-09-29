@@ -1,10 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Albatross.CodeGen.CSharp.Conversion {
 	public class ConvertFieldInfoToField : IConvertObject<FieldInfo, Field> {
@@ -13,10 +9,8 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 
         public Field Convert(FieldInfo from)
         {
-            return new Field
+            return new Field(from.Name, new DotNetType(from.FieldType))
             {
-                Name = from.Name,
-                Type = new DotNetType(from.FieldType),
                 ReadOnly = from.IsInitOnly,
             };
         }

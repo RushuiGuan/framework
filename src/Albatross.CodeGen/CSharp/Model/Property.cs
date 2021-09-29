@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Albatross.CodeGen.CSharp.Model {
 	public class Property {
-		public Property() { }
-		public Property(string name) {
+		public Property(string name, DotNetType type) {
 			this.Name = name;
+			this.Type = type;
 		}
 
 		public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public bool Static { get; set; }
 		public bool CanWrite { get; set; } = true;
 		public bool CanRead { get; set; } = true;
-		public CodeBlock GetCodeBlock { get; set; }
-		public CodeBlock SetCodeBlock { get; set; }
+		public CodeBlock? GetCodeBlock { get; set; }
+		public CodeBlock? SetCodeBlock { get; set; }
 	}
 }

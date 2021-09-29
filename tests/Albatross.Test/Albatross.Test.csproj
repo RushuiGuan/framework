@@ -4,6 +4,15 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Validation\**" />
+    <EmbeddedResource Remove="Validation\**" />
+    <None Remove="Validation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Serialization\TestApplyJsonValue.cs" />
+    <Compile Remove="Serialization\TestDynamicConversion.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Embedded\DynamicConversion.json" />
     <None Remove="Embedded\MyTypedValue.Normal.json" />
     <None Remove="Embedded\MyTypedValue.NullValue.json" />

@@ -2,10 +2,10 @@
     <PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <LangVersion>Latest</LangVersion>
         <Authors>Rushui Guan</Authors>
         <Description>Combined assembly on utility classes for serilzation, validation and reflection</Description>
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

@@ -16,10 +16,8 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 		}
 
 		public Class Convert(Table table) {
-			Class @class = new Class {
-				Name = table.Name.Proper(),
-				Properties = from item in table.Columns select new Property(item.Name.Proper()) {
-					Type = getDotNetType.Convert(item.Type),
+			Class @class = new Class (table.Name.Proper()){
+				Properties = from item in table.Columns select new Property(item.Name.Proper(), getDotNetType.Convert(item.Type)) {
 					Modifier = AccessModifier.Public,
 				},
 			};

@@ -31,49 +31,36 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 
 		public static IEnumerable<object[]> GetTestCases() {
 			Parameter[] parameters = new Parameter[]{
-						new Parameter{
-							 Name = "a",
-							 Type = DotNetType.Integer(),
-						},
-						new Parameter{
-							 Name = "b",
-							 Type = DotNetType.String(),
-						},
+						new Parameter("a",DotNetType.Integer()),
+						new Parameter("b",DotNetType.String()),
 					};
 			return new List<object[]> {
-				new object[]{new Constructor{
+				new object[]{new Constructor("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Body = new CodeBlock("int i = 100;"),
 				},NormalConstructor.RemoveCarriageReturn(), },
 
-				new object[]{new Constructor{
+				new object[]{new Constructor("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Parameters = parameters,
 				}, ParameterizedConstructor.RemoveCarriageReturn(), },
-				new object[]{new Constructor{
+				new object[]{new Constructor("Test"){
 					Static = true,
-					Name = "Test",
 					Body = new CodeBlock("int i = 100;"),
 				},StaticConstructor.RemoveCarriageReturn(),             },
-				new object[]{new Constructor{
+				new object[]{new Constructor("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Parameters = parameters,
 					Body = new CodeBlock("int i = 100;"),
-					BaseConstructor = new Constructor{
-						Name = "base",
+					BaseConstructor = new Constructor("base"){
 						Parameters = parameters,
 					}
 				},BaseConstructor.RemoveCarriageReturn(),               },
-				new object[]{new Constructor{
+				new object[]{new Constructor("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Parameters = parameters,
 					Body = new CodeBlock("int i = 100;"),
-					BaseConstructor = new Constructor{
-						Name = "this",
+					BaseConstructor = new Constructor("this"){
 						Parameters = parameters,
 					}
 				}, ChainConstructor.RemoveCarriageReturn(),             },

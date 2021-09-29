@@ -18,16 +18,12 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 
 		public static IEnumerable<object[]> GetTestCases() {
 			return new List<object[]> {
-				new object[]{new Field{
+				new object[]{new Field ("Test", DotNetType.Integer()){
 					Modifier = AccessModifier.Public,
-					Name = "Test",
-					Type = DotNetType.Integer(),
 				},NormalMethod.RemoveCarriageReturn(),              },
-				new object[]{new Field{
+				new object[]{new Field("a", DotNetType.String()){
 					Modifier = AccessModifier.Public,
-					Name = "a",
 					Static = true,
-					Type = DotNetType.String(),
 				},StaticMethod.RemoveCarriageReturn(),        },
 			};
 		}

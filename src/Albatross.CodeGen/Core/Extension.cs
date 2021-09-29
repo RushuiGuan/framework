@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.Core {
             return writer;
         }
 
-        public static CodeGeneratorScope BeginScope(this TextWriter writer, string text = null) {
+        public static CodeGeneratorScope BeginScope(this TextWriter writer, string? text = null) {
             return new CodeGeneratorScope(writer, args => args.AppendLine($"{text} {{"), args => args.Append("}"));
         }
 
@@ -57,27 +57,27 @@ namespace Albatross.CodeGen.Core {
 			}
 		}
 
-		public static void AddRange<T>(this HashSet<T> list, IEnumerable<T> items) {
-			if (items != null) {
-				foreach (var item in items) {
-					list.Add(item);
-				}
-			}
-		}
+		//public static void AddRange<T>(this HashSet<T> list, IEnumerable<T> items) {
+		//	if (items != null) {
+		//		foreach (var item in items) {
+		//			list.Add(item);
+		//		}
+		//	}
+		//}
 
-		public static IEnumerable<T> Merge<T, K>(this IEnumerable<T> src, IEnumerable<T> dst, Func<T, K> getKey) {
-			Dictionary<K, T> dict = new Dictionary<K, T>();
-			if(src != null) {
-				foreach(var item in src) {
-					dict.Add(getKey(item), item);
-				}
-			}
-			if(dst != null) {
-				foreach(var item in dst) {
-					dict[getKey(item)] = item;
-				}
-			}
-			return dict.Values;	
-		}
+		//public static IEnumerable<T> Merge<T, K>(this IEnumerable<T> src, IEnumerable<T> dst, Func<T, K> getKey) {
+		//	Dictionary<K, T> dict = new Dictionary<K, T>();
+		//	if(src != null) {
+		//		foreach(var item in src) {
+		//			dict.Add(getKey(item), item);
+		//		}
+		//	}
+		//	if(dst != null) {
+		//		foreach(var item in dst) {
+		//			dict[getKey(item)] = item;
+		//		}
+		//	}
+		//	return dict.Values;	
+		//}
 	}
 }

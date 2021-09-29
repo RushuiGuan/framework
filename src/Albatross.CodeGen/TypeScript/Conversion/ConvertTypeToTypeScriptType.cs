@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
+using Albatross.Reflection;
 using System;
 
 namespace Albatross.CodeGen.TypeScript.Conversion {
@@ -29,7 +30,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 			} else if (type.GetNullableValueType(out Type targetType)) {
 				return this.Convert(targetType);
 			} else {
-				return new TypeScriptType(type.Name);
+				return new TypeScriptType(type);
 			}
 		}
 

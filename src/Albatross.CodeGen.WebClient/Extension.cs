@@ -17,7 +17,8 @@ namespace Albatross.CodeGen.WebClient {
 			services.AddCodeGen(typeof(Extension).Assembly);
 			services.AddSingleton<IGenerateApiCSharpProxy, GenerateApiCSharpProxy>();
 			services.AddSingleton<IGenerateApiTypeScriptProxy, GenerateApiTypeScriptProxy>();
-			services.AddSingleton<IGenerateTypeScriptDto, GenerateTypeScriptDto>();
+			services.AddSingleton<IConvertDtoToTypeScriptInterface, ConvertDtoToTypeScriptInterface>();
+			services.AddSingleton<IConvertAssemblyToTypeScriptModel, ConvertAssemblyToTypeScriptModel>();
 			return services;
 		}
     }

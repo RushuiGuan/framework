@@ -28,48 +28,37 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 
 		public static IEnumerable<object[]> GetTestCases() {
 			return new List<object[]> {
-				new object[]{new Method{
+				new object[]{new Method("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Body = new CodeBlock("int i = 100;"),
 					Override = false,
 					ReturnType = DotNetType.Integer(),
 				},NormalMethod.RemoveCarriageReturn(),
 				},
-				new object[]{new Method{
+				new object[]{new Method("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Override = false,
 					ReturnType = DotNetType.Integer(),
 					Parameters = new Parameter[]{
-						new Parameter{
-							 Name = "a",
-							 Type = DotNetType.Integer(),
-						},
-						new Parameter{
-							 Name = "b",
-							 Type = DotNetType.String(),
-						},
+						new Parameter("a",DotNetType.Integer()),
+						new Parameter("b",DotNetType.String()),
 					},
 				},ParameterizedMethod.RemoveCarriageReturn(),
 				},
-				new object[]{new Method{
+				new object[]{new Method("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Static = true,
 					ReturnType = DotNetType.Void(),
 				},StaticMethod.RemoveCarriageReturn(),
 				},
-				new object[]{new Method{
+				new object[]{new Method("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Override = true,
 					ReturnType = DotNetType.Void(),
 				},OverrideMethod.RemoveCarriageReturn(),
 				},
-				new object[]{new Method{
+				new object[]{new Method("Test"){
 					AccessModifier = AccessModifier.Public,
-					Name = "Test",
 					Virtual = true,
 					ReturnType = DotNetType.Void(),
 				},VirtualMethod.RemoveCarriageReturn(),

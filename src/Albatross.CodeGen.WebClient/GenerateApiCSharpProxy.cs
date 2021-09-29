@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
+using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

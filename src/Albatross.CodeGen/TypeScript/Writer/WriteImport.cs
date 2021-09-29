@@ -14,7 +14,7 @@ namespace Albatross.CodeGen.TypeScript.Writer {
 			using(var scope = writer.BeginScope()) {
 				scope.Writer.WriteItems(import.Items, ", ");
 			}
-			writer.Append(" from ").StringLiteral(import.From).Semicolon();
+			writer.Append(" from ").StringLiteral("./" + import.From.Name, singleQuote:true).Semicolon().WriteLine();
 		}
 	}
 }

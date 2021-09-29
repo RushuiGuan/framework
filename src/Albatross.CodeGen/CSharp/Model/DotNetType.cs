@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Albatross.Reflection;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,25 +16,25 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public bool IsAsync => this.Name == typeof(Task).FullName;
 		public bool IsVoid => Name == VoidType || IsAsync && !IsGeneric;
 
-		public DotNetType(string name) : this(name, false, false, null) { }
+		public DotNetType(string name) : this(name, false, false, new DotNetType[0]) { }
 		public DotNetType(string name, bool isArray, bool isGeneric, DotNetType[] genericTypeArguments) {
 			this.Name = name;
 			this.IsArray = isArray;
 			this.IsGeneric = isGeneric;
-			this.GenericTypeArguments = genericTypeArguments?.ToArray() ?? new DotNetType[0];
+			this.GenericTypeArguments = genericTypeArguments.ToArray();
 		}
 		public DotNetType(Type type) {
 			IsArray = type.IsArray;
 			if (IsArray) {
-				type = type.GetElementType();
+				type = type.GetElementType() ?? throw new InvalidOperationException($"Array type {type.Name} is missing its element type");
 			}
 
 			IsGeneric = type.IsGenericType;
 			if (IsGeneric) {
-				Name = ReflectionExtension.GetGenericTypeName(type.GetGenericTypeDefinition().FullName);
+				Name = type.GetGenericTypeDefinition().FullName?.GetGenericTypeName() ?? throw new Exception("impossible");
 				GenericTypeArguments = (from item in type.GetGenericArguments() select new DotNetType(item)).ToArray();
 			} else {
-				Name = type.FullName;
+				Name = type.FullName ?? throw new Exception($"Type {type.Name} is missing its full name (maybe it is an anonymous type?)");
 				GenericTypeArguments = new DotNetType[0];
 			}
 		}
@@ -43,12 +44,12 @@ namespace Albatross.CodeGen.CSharp.Model {
 			new Writer.WriteDotNetType().Run(writer, this);
 			return writer.ToString();
 		}
-		public override bool Equals(object obj) {
-			if(obj is DotNetType) {
+		public override bool Equals(object? obj) {
+			if(obj != null && obj is DotNetType) {
 				DotNetType input = (DotNetType)obj;
 				bool result = input.Name == Name && input.IsArray == IsArray
 					&& input.IsGeneric == IsGeneric && input.IsVoid == IsVoid
-					&& input.GenericTypeArguments?.Length == GenericTypeArguments?.Length;
+					&& input.GenericTypeArguments.Length == GenericTypeArguments.Length;
 				if (result) {
 					for(int i=0; i<GenericTypeArguments.Length; i++) {
 						if(input.GenericTypeArguments[i]?.Equals(GenericTypeArguments[i])!=true) {
@@ -97,9 +98,9 @@ namespace Albatross.CodeGen.CSharp.Model {
 		}
 		public static DotNetType MakeAsync(DotNetType dotNetType) {
 			if (dotNetType.IsVoid) {
-				return new DotNetType(typeof(Task).FullName);
+				return new DotNetType(typeof(Task).FullName ?? throw new Exception());
 			} else {
-				return new DotNetType(typeof(Task).FullName, false, true, new DotNetType[] { dotNetType });
+				return new DotNetType(typeof(Task).FullName ?? throw new Exception(), false, true, new DotNetType[] { dotNetType });
 			}
 		}
 		public DotNetType RemoveAsync() {

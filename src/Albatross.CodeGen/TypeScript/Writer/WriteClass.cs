@@ -5,33 +5,34 @@ using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Writer {
 	public class WriteClass : CodeGeneratorBase<Class> {
-		private readonly WriteClassProperty writeProperty;
+		private readonly WriteTypeScriptProperty writeProperty;
 		private readonly WriteImport writeImport;
 		private readonly WriteMethod writeMethod;
 
-		public WriteClass(WriteClassProperty writeProperty, WriteImport writeImport, WriteMethod writeMethod) {
+		public WriteClass(WriteTypeScriptProperty writeProperty, WriteImport writeImport, WriteMethod writeMethod) {
 			this.writeProperty = writeProperty;
 			this.writeImport = writeImport;
 			this.writeMethod = writeMethod;
 		}
 
-		public override void Run(TextWriter writer, Class @class) {
-			foreach(var import in @class.Imports) {
+		public override void Run(TextWriter writer, Class item) {
+			foreach(var import in item.Imports ?? new string[0]) {
 				writeImport.Run(writer, import);
 			}
 
-			if (@class.Export) {
-				writer.Append("export ");
-			}
-			writer.Append("class ");
-			using(var scope = writer.BeginScope(@class.Name)) {
-					foreach (var property in @class.Properties) {
-						writer.Run(writeProperty, property).WriteLine();
-					}
-				foreach (var method in @class.Methods) {
-					writer.Run(writeMethod, method);
+			writer.Append("export ").Append("class ");
+			using(var scope = writer.BeginScope(item.Name)) {
+				foreach (var property in item.Properties) {
+					scope.Writer.Run(writeProperty, property);
+				}
+				if (item.Constructor != null) {
+					scope.Writer.Run(writeMethod, item.Constructor);
+				}
+				foreach (var method in item.Methods) {
+					scope.Writer.Run(writeMethod, method);
 				}
 			}
+			writer.WriteLine();
 		}
 	}
 }

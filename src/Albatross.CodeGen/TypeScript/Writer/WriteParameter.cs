@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.TypeScript.Writer {
 		}
 
 		public override void Run(TextWriter writer, Parameter parameter) {
-			writer.Run(writeAccessModifier, parameter.AccessModifier).Append(parameter.Name).Space().Run(writeType, parameter.Type);
+			writer.Run(writeAccessModifier, parameter.AccessModifier).Append(parameter.Name).Append(" : ").Run(writeType, parameter.Type);
 		}
 	}
 }

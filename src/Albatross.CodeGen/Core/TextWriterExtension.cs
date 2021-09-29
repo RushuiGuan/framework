@@ -56,10 +56,10 @@ namespace Albatross.CodeGen.Core {
 		public static TextWriter Semicolon(this TextWriter writer, int count = 1) {
 			return writer.AppendChar(';', count);
 		}
-		public static TextWriter WriteItems<T>(this TextWriter writer, IEnumerable<T> items, string delimiter, Action<TextWriter, T> action = null) {
-			if (items != null) {
-				int count = 0, total = items.Count();
-				foreach (var item in items) {
+		public static TextWriter WriteItems<T>(this TextWriter writer, IEnumerable<T> items, string delimiter, Action<TextWriter, T>? action = null) {
+			int count = 0, total = items.Count();
+			foreach (var item in items) {
+				if (item != null) {
 					if (action == null) {
 						writer.Append(item);
 					} else {
@@ -69,6 +69,8 @@ namespace Albatross.CodeGen.Core {
 					if (count != total) {
 						writer.Append(delimiter);
 					}
+				} else {
+					total--;
 				}
 			}
 			return writer;

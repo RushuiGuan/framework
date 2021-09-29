@@ -1,29 +1,31 @@
-﻿using Albatross.CodeGen;
-using Albatross.CodeGen.Core;
+﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
-using System;
-using System.Collections.Generic;
+using Albatross.Reflection;
 using System.IO;
-using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Writer {
 	public class WriteInterface : CodeGeneratorBase<Interface> {
-		WriteClassProperty writeProperty;
-		public WriteInterface(WriteClassProperty writeProperty) {
+		WriteTypeScriptProperty writeProperty;
+		public WriteInterface(WriteTypeScriptProperty writeProperty) {
 			this.writeProperty = writeProperty;
 		}
 
 		public override void Run(TextWriter writer, Interface t) {
-			if (t.Export) {
-				writer.Append("export ");
+			writer.Append("export ").Append("interface ");
+			if (t.IsGeneric) {
+				writer.Append(t.Name.GetGenericTypeName());
+				writer.Append("<");
+				writer.WriteItems(t.GenericTypes, ",");
+				writer.Append(">");
+			} else {
+				writer.Append(t.Name);
 			}
-			writer.Append("interface ").Append(t.Name).Append("{");
-			if (t.Properties != null) {
+			using (var scope = writer.BeginScope()) {
 				foreach (var property in t.Properties) {
-					writer.Run(writeProperty, property).WriteLine();
+					scope.Writer.Run(writeProperty, property);
 				}
 			}
-			writer.Append("}");
+			writer.WriteLine();
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Albatross.CodeGen.Core;
+using Albatross.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
@@ -19,7 +20,7 @@ namespace Albatross.CodeGen {
 		}
 
 		public static bool TryAddCodeGenerator(this IServiceCollection services, Type codeGenType) {
-			if (codeGenType.TryGetGenericInterfaceType(typeof(ICodeGenerator<>), out Type genericInterfaceType)) {
+			if (codeGenType.TryGetClosedGenericType(typeof(ICodeGenerator<>), out Type? genericInterfaceType)) {
 				// register any ICodeGenerator
 				services.AddTransient(codeGenType);
 				services.AddTransient(genericInterfaceType, codeGenType);
@@ -30,11 +31,11 @@ namespace Albatross.CodeGen {
 		}
 
 		public static bool TryAddConverter(this IServiceCollection services, Type converterType) {
-			if (converterType.TryGetGenericInterfaceType(typeof(IConvertObject<>), out Type genericInterfaceType)) {
+			if (converterType.TryGetClosedGenericType(typeof(IConvertObject<>), out Type? genericInterfaceType)) {
 				services.AddTransient(converterType);
 				//register any close implementation of IConvertObject<>
 				services.AddTransient(genericInterfaceType, converterType);
-				if (converterType.TryGetGenericInterfaceType(typeof(IConvertObject<,>), out genericInterfaceType)) {
+				if (converterType.TryGetClosedGenericType(typeof(IConvertObject<,>), out genericInterfaceType)) {
 					services.AddTransient(genericInterfaceType, converterType);
 				}
 				return true;

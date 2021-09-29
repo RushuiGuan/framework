@@ -21,14 +21,19 @@ namespace Albatross.CodeGen.TypeScript.Writer
 		}
 
         public override void Run(TextWriter writer, Method method) {
-			writer.Run(writeAccessModifier, method.AccessModifier).Space();
+			if (method.AccessModifier != AccessModifier.Public) {
+				writer.Run(writeAccessModifier, method.AccessModifier).Space();
+			}
             if (method.Async) { writer.Write("async "); }
 			writer.Append(method.Name).OpenParenthesis();
 			writer.Run(writeParams, method.Parameters);
 			writer.CloseParenthesis();
-			writer.Write(":");
-			writer.Run(writeType, method.ReturnType).Space();
+			if (method.ReturnType == TypeScriptType.Void()) {
+				writer.Write(":");
+				writer.Run(writeType, method.ReturnType).Space();
+			}
 			writer.Run(writeCodeBlock, method.Body);
+			writer.WriteLine();
 		}
 	}
 }

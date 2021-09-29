@@ -9,6 +9,6 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			AccessModifier = AccessModifier.Public;
 			Async = false;
 		}
-		public Method BaseConstructor { get; set; }
+		public Method? BaseConstructor { get; set; }
 	}
 }

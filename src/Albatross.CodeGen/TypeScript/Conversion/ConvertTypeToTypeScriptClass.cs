@@ -1,10 +1,7 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Conversion {
 	public class ConvertTypeToTypeScriptClass : IConvertObject<Type, TypeScript.Model.Class> {
@@ -13,9 +10,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 			this.convertPropertyInfoToTypeScriptProperty = convertPropertyInfoToTypeScriptProperty;
 		}
 		public TypeScript.Model.Class Convert(Type type) {
-			return new Class {
-				Name = type.Name,
-				Export = true,
+			return new Class(type.Name) {
 				Properties = from property in type.GetProperties() select convertPropertyInfoToTypeScriptProperty.Convert(property),
 			};
 		}

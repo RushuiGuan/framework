@@ -34,43 +34,34 @@ namespace Albatross.CodeGen.WebClient {
 		}
 		IEnumerable<Parameter> GetConstructorParameters(Type type) {
 			return new Parameter[]{
-				new Parameter {
-					Type = GetILoggerType(type),
+				new Parameter(Logger,GetILoggerType(type)) {
 					Modifier = CSharp.Model.ParameterModifier.None,
-					Name = Logger,
 				},
-				new Parameter{
-					Type = new DotNetType(typeof(HttpClient)),
+				new Parameter(Client, new DotNetType(typeof(HttpClient))){
 					Modifier = CSharp.Model.ParameterModifier.None,
-					Name = Client,
 				},
 			};
 		}
 
 		public Class Convert(Type type) {
-			Class converted = new Class() {
+			Class converted = new Class(GetClassName(type)) {
                 Partial = true,
 				Imports = new string[] { "System", "System.Net.Http", "System.Threading.Tasks", "Microsoft.Extensions.Logging", "Albatross.WebClient", "System.Collections.Generic" },
 				AccessModifier = AccessModifier.Public,
 				Namespace = GetNamespace(type),
-				Name = GetClassName(type),
 				BaseClass = GetBaseClass(),
 				Fields = new Field[] {
-					new Field {
-						Name = ControllerPath,
-						Type = DotNetType.String(),
+					new Field(ControllerPath, DotNetType.String()) {
 						Const = true,
 						Value = new StringWriter().Literal(GetControllerRoute(type)).ToString(),
 						Modifier = AccessModifier.Public,
 					},
 				},
 				Constructors = new Constructor[] {
-					new Constructor{
+					new Constructor(GetClassName(type)){
 						AccessModifier = AccessModifier.Public,
-						Name = GetClassName(type),
 						Parameters = GetConstructorParameters(type),
-						BaseConstructor = new Constructor{
-							Name="base",
+						BaseConstructor = new Constructor("base"){
 							Parameters = GetConstructorParameters(type),
 						}
 					}
@@ -90,7 +81,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		DotNetType GetILoggerType(Type type) {
-			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, false, null);
+			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, false, new DotNetType[0]);
 		}
 		DotNetType GetGenericILoggerType(Type type) {
 			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, true, new DotNetType[] { new DotNetType(GetClassName(type)), });
@@ -105,7 +96,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetControllerRoute(Type type) {
-			RouteAttribute route = type.GetCustomAttribute<RouteAttribute>();
+			RouteAttribute? route = type.GetCustomAttribute<RouteAttribute>();
 			var list = route?.Template?.Split('/') ?? new string[0];
 			for (int i = 0; i < list.Length; i++) {
 				if (string.Equals(list[i], "[controller]")) {
@@ -116,7 +107,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetNamespace(Type type) {
-			string[] list = type.Namespace.Split('.');
+			string[] list = type.Namespace?.Split('.')?? new string[1];
 			list[list.Length - 1] = WebClient;
 			return string.Join(".", list);
 		}
@@ -126,9 +117,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		Class GetBaseClass() {
-			return new Class {
-				Name = "Albatross.WebClient.ClientBase",
-			};
+			return new Class("Albatross.WebClient.ClientBase");
 		}
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
 			string actionTemplate = attrib.Template;
@@ -157,14 +146,14 @@ namespace Albatross.CodeGen.WebClient {
 					}
 				}
 
-				ParameterInfo fromBody = null;
+				ParameterInfo? fromBody = null;
 				foreach (var item in methodInfo.GetParameters()) {
 					if (item.GetCustomAttribute<FromBodyAttribute>() != null) {
 						fromBody = item;
-					} else if (!actionRoutes.Contains(item.Name)) {
+					} else if (item.Name != null && !actionRoutes.Contains(item.Name)) {
                         writer.Write($"queryString.Add(nameof(@{item.Name}), ");
 						if(item.ParameterType == typeof(DateTime) || item.ParameterType == typeof(DateTime?)) {
-							if (item.Name.EndsWith("date", StringComparison.InvariantCultureIgnoreCase)) {
+							if (item.Name?.EndsWith("date", StringComparison.InvariantCultureIgnoreCase)==true) {
 								writer.WriteLine($"string.Format(\"{{0:yyyy-MM-dd}}\", @{item.Name}));");
 							} else {
 								writer.WriteLine($"string.Format(\"{{0:o}}\", @{item.Name}));");

@@ -12,8 +12,7 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 		}
 
 		public Class Convert(Procedure procedure) {
-			Class @class = new Class {
-				Name = procedure.Name.Proper(),
+			Class @class = new Class(procedure.Name.Proper()) {
 				AccessModifier = AccessModifier.Public,
 				Imports = new string[] { "Dapper", "System.Data", },
 				Methods = new Method[] {
@@ -33,9 +32,7 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 				ReturnType = new DotNetType("Dapper.CommandDefinition"),
 				Parameters = from sqlParam
 							 in procedure.Parameters
-							 select new Albatross.CodeGen.CSharp.Model.Parameter(Extension.CamelCaseVariableName(sqlParam.Name)) {
-								 Type = getDotNetType.Convert(sqlParam.Type),
-							 },
+							 select new Model.Parameter(Extension.CamelCaseVariableName(sqlParam.Name), getDotNetType.Convert(sqlParam.Type))
 			};
 
 			method.Body = new CodeBlock("DynamicParameters dynamicParameters = new DynamicParameters();\nreturn new CommandDefinition(dbConnection,);");

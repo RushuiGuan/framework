@@ -4,9 +4,13 @@ using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Model {
 	public class Interface {
-		public bool Export { get; set; }
+		public Interface(string name) {
+			this.Name = name;
+		}
 		public string Name { get; set; }
+		public bool IsGeneric { get; set; }
+		public IEnumerable<string> GenericTypes { get; set; } = new string[0];
 
-		public IEnumerable<Property> Properties { get; set; }
+		public IEnumerable<Property> Properties { get; set; } = new Property[0];
 	}
 }
