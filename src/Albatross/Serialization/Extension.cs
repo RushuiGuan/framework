@@ -103,7 +103,7 @@ namespace Albatross.Serialization {
 
 
 
-		public static JsonElement WriteJson(this IDataReader reader, JsonSerializerOptions options = null) {
+		public static JsonElement WriteJson(this IDataReader reader, JsonSerializerOptions? options = null) {
 			var bufferWriter = new ArrayBufferWriter<byte>();
 			using (var writer = new Utf8JsonWriter(bufferWriter)) {
 				reader.WriteJson(writer, options);
