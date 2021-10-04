@@ -18,9 +18,11 @@ namespace Albatross.Repository.SqlServer {
 			this.logger = logger;
 		}
 
-		public async Task Migrate() {
-			this.logger.LogInformation("Migrating via {ConnectionString}", session.DbConnection.ConnectionString);
-			session.Database.Migrate();
+		public async Task Migrate(bool scriptOnly) {
+			if (!scriptOnly) {
+				this.logger.LogInformation("Migrating via {ConnectionString}", session.DbConnection.ConnectionString);
+				session.Database.Migrate();
+			}
 			
 			var directoryInfo = typeof(T).Assembly.GetAssemblyLocation("Scripts");
 			if (directoryInfo.Exists) {
