@@ -135,7 +135,7 @@ namespace Albatross.CodeGen.WebClient {
 				writer.Write("string path = $\"{ControllerPath}");
 				if (!string.IsNullOrEmpty(actionTemplate)) {
 					writer.Write("/");
-					writer.Write(actionTemplate);
+					writer.Write(actionTemplate.Replace("*", ""));
 				}
 				writer.WriteLine("\";");
 				writer.WriteLine("var queryString = new System.Collections.Specialized.NameValueCollection();");
