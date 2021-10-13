@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 #nullable enable
 namespace Albatross.CodeGen.WebClient {
 	public interface IGenerateApiTypeScriptProxy {
-		string Generate(string pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Action<Class>? adjustClassModel = null);
+		string Generate(string pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Func<Class, bool>? adjustClassModel = null);
 	}
 	public class GenerateApiTypeScriptProxy : IGenerateApiTypeScriptProxy {
 		public const string DefaultPattern = "^.+Controller$";
@@ -26,7 +26,7 @@ namespace Albatross.CodeGen.WebClient {
 			this.logger = logger;
 		}
 
-		public string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Action<Class>? adjustClassModel = null) {
+		public string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Func<Class, bool>? adjustClassModel = null) {
 			pattern = pattern ?? DefaultPattern;
 			Regex regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 			StringBuilder sb = new StringBuilder();
@@ -38,14 +38,15 @@ namespace Albatross.CodeGen.WebClient {
 						if (regex.IsMatch(type.FullName ?? string.Empty)) {
 							logger.LogInformation("Processing class {type}", type.FullName);
 							var @class = converter.Convert(type);
-							adjustClassModel?.Invoke(@class);
-							string filename = Path.Join(outputDirectory, $"{@class.Name}.Generated.ts");
-							using (StreamWriter writer = new StreamWriter(filename, false)) {
-								codegen.Run(writer, @class);
-								codegen.Run(stringWriter, @class);
-								writer.WriteLine();
+							if (adjustClassModel?.Invoke(@class) != false) {
+								string filename = Path.Join(outputDirectory, $"{@class.Name}.Generated.ts");
+								using (StreamWriter writer = new StreamWriter(filename, false)) {
+									codegen.Run(writer, @class);
+									codegen.Run(stringWriter, @class);
+									writer.WriteLine();
+								}
+								logger.LogInformation("Create output file {name}", filename);
 							}
-							logger.LogInformation("Create output file {name}", filename);
 						}
 					}
 				}
