@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 #nullable enable
 namespace Albatross.CodeGen.WebClient {
 	public interface IGenerateApiCSharpProxy {
-		string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory);
+		string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Action<Class>? adjustClassModel = null);
 	}
 	public class GenerateApiCSharpProxy : IGenerateApiCSharpProxy {
 		public const string DefaultPattern = "^.+Controller$";
@@ -26,7 +26,7 @@ namespace Albatross.CodeGen.WebClient {
 			this.logger = logger;
 		}
 
-		public string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory) {
+		public string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Action<Class>? adjustClassModel = null) {
 			pattern = pattern ?? DefaultPattern;
 			Regex regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 			StringBuilder sb = new StringBuilder();
@@ -40,6 +40,7 @@ namespace Albatross.CodeGen.WebClient {
 							logger.LogInformation("Processing class {type}", type.FullName);
 							var @class = converter.Convert(type);
 							@class.Namespace = @namespace;
+							adjustClassModel?.Invoke(@class);
 							string filename = Path.Join(outputDirectory, $"{@class.Name}.Generated.cs");
 							using (StreamWriter writer = new StreamWriter(filename, false)) {
 								codegen.Run(writer, @class);
