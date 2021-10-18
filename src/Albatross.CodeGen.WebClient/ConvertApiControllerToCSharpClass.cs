@@ -2,7 +2,6 @@
 using Albatross.CodeGen.CSharp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -130,7 +129,7 @@ namespace Albatross.CodeGen.WebClient {
 				method.ReturnType = DotNetType.MakeAsync(method.ReturnType);
 			}
 
-			var codeBlock = new CodeBlock();
+			method.CodeBlock = new CodeBlock();
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
 				writer.Write("string path = $\"{ControllerPath}");
@@ -184,8 +183,7 @@ namespace Albatross.CodeGen.WebClient {
 				writer.WriteLine("(request);");
 				writer.Write("}");
 			}
-			codeBlock.Content = sb.ToString();
-			method.CodeBlocks.Add(codeBlock);
+			method.CodeBlock.Content = sb.ToString();
             method.Async = true;
 			return method;
 		}

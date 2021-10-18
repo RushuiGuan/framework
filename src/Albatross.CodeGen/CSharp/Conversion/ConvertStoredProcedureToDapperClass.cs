@@ -35,7 +35,7 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 							 select new Model.Parameter(Extension.CamelCaseVariableName(sqlParam.Name), getDotNetType.Convert(sqlParam.Type))
 			};
 
-			method.CodeBlocks.Add(new CodeBlock("DynamicParameters dynamicParameters = new DynamicParameters();\nreturn new CommandDefinition(dbConnection,);"));
+			method.CodeBlock = new CodeBlock("DynamicParameters dynamicParameters = new DynamicParameters();\nreturn new CommandDefinition(dbConnection,);");
 			return method;
 		}
 	}

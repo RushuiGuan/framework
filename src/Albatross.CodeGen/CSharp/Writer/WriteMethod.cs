@@ -19,7 +19,7 @@ namespace Albatross.CodeGen.CSharp.Writer
 			this.writeCodeBlock = writeCodeBlock;
 		}
 
-        public override void Run(TextWriter writer, Method t) {
+		public override void Run(TextWriter writer, Method t) {
 			writer.Run(writeAccessModifier, t.AccessModifier).Space();
 			if (t.Static) {
 				writer.Static();
@@ -28,16 +28,14 @@ namespace Albatross.CodeGen.CSharp.Writer
 			} else if (t.Virtual) {
 				writer.Write("virtual ");
 			}
-            if (t.Async) { writer.Write("async "); }
+			if (t.Async) { writer.Write("async "); }
 
 			writer.Run(writeType, t.ReturnType).Space();
 
 			writer.Append(t.Name).OpenParenthesis();
 			writer.Run(writeParams, t.Parameters);
 			writer.CloseParenthesis();
-			foreach (var codeBlock in t.CodeBlocks) {
-				writer.Run(writeCodeBlock, codeBlock);
-			}
+			writer.Run(writeCodeBlock, t.CodeBlock);
 		}
 	}
 }

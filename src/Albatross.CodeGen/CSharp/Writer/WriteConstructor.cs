@@ -34,9 +34,7 @@ namespace Albatross.CodeGen.CSharp.Writer
                 writer.WriteItems(constructor.Parameters, ", ", (w, item)=> { w.Append("@").Append(item.Name); });
 				writer.CloseParenthesis();
 			}
-			foreach (var codeBlock in constructor.CodeBlocks) {
-				writer.Run(writeCodeBlock, codeBlock);
-			}
+			writer.Run(writeCodeBlock, constructor.CodeBlock);
 		}
 	}
 }
