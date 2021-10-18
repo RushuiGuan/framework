@@ -20,5 +20,12 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
         public PayLoad Post([FromBody]PayLoad payLoad) {
             return payLoad;
         }
+
+
+		[HttpGet]
+		[Route("array-input")]
+		public string TestArrayInput([FromQuery]string[] items) {
+			return string.Join(",", items);
+		}
 	}
 }

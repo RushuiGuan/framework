@@ -14,5 +14,9 @@ namespace Albatross.Serialization {
 		public const string Csv = "text/csv";
 
 		public const string MultipartFormData = "multipart/form-data";
+
+		public static class Images {
+			public const string Png = "image/png";
+		}
 	}
 }

@@ -10,5 +10,6 @@ namespace Albatross.CodeGen.Core {
 
 	public interface ICodeGenerator {
         void Run(TextWriter writer, object source);
+		Type Type { get; }
 	}
 }

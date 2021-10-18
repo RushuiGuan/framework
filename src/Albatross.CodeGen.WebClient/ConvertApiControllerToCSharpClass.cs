@@ -129,7 +129,8 @@ namespace Albatross.CodeGen.WebClient {
 			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {
 				method.ReturnType = DotNetType.MakeAsync(method.ReturnType);
 			}
-			method.Body = new CodeBlock();
+
+			var codeBlock = new CodeBlock();
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
 				writer.Write("string path = $\"{ControllerPath}");
@@ -183,7 +184,8 @@ namespace Albatross.CodeGen.WebClient {
 				writer.WriteLine("(request);");
 				writer.Write("}");
 			}
-			method.Body.Content = sb.ToString();
+			codeBlock.Content = sb.ToString();
+			method.CodeBlocks.Add(codeBlock);
             method.Async = true;
 			return method;
 		}

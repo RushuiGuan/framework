@@ -3,6 +3,7 @@ using Albatross.Config;
 using Albatross.IAM.Api;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -56,6 +57,24 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 					string expected = reader.ReadToEnd();
 					Assert.Equal(expected, result);
 				}
+			}
+		}
+
+
+		/// <summary>
+		/// CodeGen scenario: the api has a query string input with the type of array
+		/// query string should be created correctly
+		/// </summary>
+		[Fact]
+		public void TestArrayInput() {
+			using (var scope = host.Create()) {
+				Type type = typeof(ValueController);
+				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
+				Class converted = handle.Convert(type);
+				Assert.NotNull(converted);
+				var method = converted.Methods.FirstOrDefault(args => args.Name == "TestArrayInput");
+				Assert.NotNull(method);
+				Assert.Single(method.Parameters);
 			}
 		}
 	}

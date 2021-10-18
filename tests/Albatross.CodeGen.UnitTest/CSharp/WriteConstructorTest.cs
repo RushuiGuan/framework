@@ -37,7 +37,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 			return new List<object[]> {
 				new object[]{new Constructor("Test"){
 					AccessModifier = AccessModifier.Public,
-					Body = new CodeBlock("int i = 100;"),
+					CodeBlocks = new CodeBlock("int i = 100;"),
 				},NormalConstructor.RemoveCarriageReturn(), },
 
 				new object[]{new Constructor("Test"){
@@ -46,12 +46,12 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 				}, ParameterizedConstructor.RemoveCarriageReturn(), },
 				new object[]{new Constructor("Test"){
 					Static = true,
-					Body = new CodeBlock("int i = 100;"),
+					CodeBlocks = new CodeBlock("int i = 100;"),
 				},StaticConstructor.RemoveCarriageReturn(),             },
 				new object[]{new Constructor("Test"){
 					AccessModifier = AccessModifier.Public,
 					Parameters = parameters,
-					Body = new CodeBlock("int i = 100;"),
+					CodeBlocks = new CodeBlock("int i = 100;"),
 					BaseConstructor = new Constructor("base"){
 						Parameters = parameters,
 					}
@@ -59,7 +59,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 				new object[]{new Constructor("Test"){
 					AccessModifier = AccessModifier.Public,
 					Parameters = parameters,
-					Body = new CodeBlock("int i = 100;"),
+					CodeBlocks = new CodeBlock("int i = 100;"),
 					BaseConstructor = new Constructor("this"){
 						Parameters = parameters,
 					}

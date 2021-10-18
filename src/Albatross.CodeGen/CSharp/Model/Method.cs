@@ -14,6 +14,6 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public bool Static { get; set; }
 		public bool Virtual { get; set; }
 		public bool Override { get; set; }
-		public CodeBlock Body { get; set; } = new CodeBlock();
+		public List<CodeBlock> CodeBlocks { get; init; } = new List<CodeBlock>();
 	}
 }

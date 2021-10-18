@@ -8,8 +8,8 @@ using System.Text.Json;
 
 namespace Albatross.Hosting.Utility {
 	public class BaseOption {
-		[Option('o', "out", Required = false, HelpText = "Output file name")]
-		public string Output { get; set; }
+		[Option('o', "console-out", Required = false, HelpText = "Console output file name")]
+		public string LogFile { get; set; }
 
 		[Option('v', "verbose")]
 		public bool Verbose { get; set; }
@@ -21,8 +21,8 @@ namespace Albatross.Hosting.Utility {
 		void SendResult(string result) {
 			if (Verbose) { Console.WriteLine(result); }
 
-			if (!string.IsNullOrEmpty(Output)) {
-				using var stream = System.IO.File.OpenWrite(Output);
+			if (!string.IsNullOrEmpty(LogFile)) {
+				using var stream = System.IO.File.OpenWrite(LogFile);
 				using var fileWriter = new StreamWriter(stream);
 				fileWriter.Write(result);
 				fileWriter.Flush();

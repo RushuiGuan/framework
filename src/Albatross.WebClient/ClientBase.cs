@@ -18,21 +18,19 @@ namespace Albatross.WebClient {
 		public ClientBase(ILogger logger, HttpClient client) {
 			this.client = client;
 			this.logger = logger;
-        }
+		}
 
 		public void UseTextWriter(TextWriter writer) { this.writer = writer; }
 
-        #region utility
-        protected HttpMethod GetPatchMethod() {
+		#region utility
+		protected HttpMethod GetPatchMethod() {
 			return new HttpMethod("Patch");
 		}
 		public Uri BaseUrl => this.client.BaseAddress;
-		protected string SerializeJson<T>(T t) {
-			return JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
-		}
-		protected T Deserialize<T>(string content) {
-			return JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
-		}
+		protected string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
+		protected T Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
+		protected ValueTask<T> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
+
 		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			IgnoreNullValues = true,
@@ -87,7 +85,7 @@ namespace Albatross.WebClient {
 			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(client.BaseAddress, request.RequestUri)}");
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
-				if(writer != null) {
+				if (writer != null) {
 					WriteHeader(response.Headers);
 					writer.Write(content);
 				}
