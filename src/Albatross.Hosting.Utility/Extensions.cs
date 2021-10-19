@@ -25,7 +25,7 @@ namespace Albatross.Hosting.Utility {
 			Type optionType = opt.GetType();
 			Type jobType = dict[optionType];
 			using (IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt)) {
-				return await utility.RunAsync();
+				return await utility.Run();
 			}
 		}
 

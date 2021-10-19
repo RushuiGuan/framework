@@ -23,7 +23,7 @@ namespace Albatross.Framework.Utility {
 		}
 
 
-		public override Task<int> RunAsync() {
+		protected override Task<int> RunUtility() {
 			if (Options.Array != null) {
 				foreach (var i in Options.Array) {
 					Console.WriteLine(i);
