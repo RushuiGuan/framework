@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
+using Albatross.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System;
@@ -23,9 +24,11 @@ namespace Albatross.CodeGen.WebClient {
 		Regex actionRouteRegex = new Regex(@"{(\w+)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         IConvertObject<MethodInfo, Method> convertMethod;
+		private readonly ICodeGenFactory factory;
 
-		public ConvertApiControllerToCSharpClass(IConvertObject<MethodInfo, Method> convertMethod) {
+		public ConvertApiControllerToCSharpClass(IConvertObject<MethodInfo, Method> convertMethod, ICodeGenFactory factory) {
 			this.convertMethod = convertMethod;
+			this.factory = factory;
 		}
 
 		object IConvertObject<Type>.Convert(Type from) {
@@ -118,6 +121,21 @@ namespace Albatross.CodeGen.WebClient {
 		Class GetBaseClass() {
 			return new Class("Albatross.WebClient.ClientBase");
 		}
+
+		private void CreateQueryStringParameter(TextWriter writer, string itemName, Type itemType) {
+			writer.Write($"queryString.Add(nameof(@{itemName}), ");
+			if (itemType == typeof(DateTime) || itemType == typeof(DateTime?)) {
+				if (itemName?.EndsWith("date", StringComparison.InvariantCultureIgnoreCase) == true) {
+					writer.WriteLine($"string.Format(\"{{0:yyyy-MM-dd}}\", @{itemName}));");
+				} else {
+					writer.WriteLine($"string.Format(\"{{0:o}}\", @{itemName}));");
+				}
+			} else if (itemType != typeof(string)) {
+				writer.WriteLine($"System.Convert.ToString(@{itemName}));");
+			} else {
+				writer.WriteLine($"@{itemName});");
+			}
+		}
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
 			string actionTemplate = attrib.Template;
 			if (string.IsNullOrEmpty(actionTemplate)) {
@@ -129,7 +147,7 @@ namespace Albatross.CodeGen.WebClient {
 				method.ReturnType = DotNetType.MakeAsync(method.ReturnType);
 			}
 
-			method.CodeBlock = new CodeBlock();
+			method.CodeBlock = new CSharpCodeBlock();
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
 				writer.Write("string path = $\"{ControllerPath}");
@@ -145,24 +163,20 @@ namespace Albatross.CodeGen.WebClient {
 						actionRoutes.Add(match.Groups[1].Value);
 					}
 				}
-
+				
 				ParameterInfo? fromBody = null;
 				foreach (var item in methodInfo.GetParameters()) {
 					if (item.GetCustomAttribute<FromBodyAttribute>() != null) {
 						fromBody = item;
 					} else if (item.Name != null && !actionRoutes.Contains(item.Name)) {
-                        writer.Write($"queryString.Add(nameof(@{item.Name}), ");
-						if(item.ParameterType == typeof(DateTime) || item.ParameterType == typeof(DateTime?)) {
-							if (item.Name?.EndsWith("date", StringComparison.InvariantCultureIgnoreCase)==true) {
-								writer.WriteLine($"string.Format(\"{{0:yyyy-MM-dd}}\", @{item.Name}));");
-							} else {
-								writer.WriteLine($"string.Format(\"{{0:o}}\", @{item.Name}));");
-							}
-						} else if (item.ParameterType != typeof(string)) {
-							writer.WriteLine($"System.Convert.ToString(@{item.Name}));");
+						if (item.ParameterType.GetCollectionElementType(out Type elementType)) {
+							var forEachBlock = new ForEachCodeBlock("item", item.Name);
+							factory.RunCodeGen(writer, forEachBlock);
+							using var scope = writer.BeginScope();
+							CreateQueryStringParameter(scope.Writer,item.Name, elementType);
 						} else {
-                            writer.WriteLine($"@{item.Name});");
-                        }
+							CreateQueryStringParameter(writer, item.Name, item.ParameterType);
+						}
 					}
 				}
 				if (fromBody?.ParameterType == typeof(string)) {

@@ -10,9 +10,9 @@ namespace Albatross.CodeGen.CSharp.Writer
 	public class WriteConstructor : CodeGeneratorBase<Constructor> {
 		ICodeGenerator<AccessModifier> writeAccessModifier;
 		ICodeGenerator<IEnumerable<Parameter>> writeParams;
-		ICodeGenerator<CodeBlock> writeCodeBlock;
+		ICodeGenerator<CSharpCodeBlock> writeCodeBlock;
 
-		public WriteConstructor(ICodeGenerator<AccessModifier> writeAccessModifier, ICodeGenerator<IEnumerable<Parameter>> writeParams, ICodeGenerator<CodeBlock> writeCodeBlock) {
+		public WriteConstructor(ICodeGenerator<AccessModifier> writeAccessModifier, ICodeGenerator<IEnumerable<Parameter>> writeParams, ICodeGenerator<CSharpCodeBlock> writeCodeBlock) {
 			this.writeAccessModifier = writeAccessModifier;
 			this.writeParams = writeParams;
 			this.writeCodeBlock = writeCodeBlock;

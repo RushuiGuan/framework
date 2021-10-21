@@ -1,7 +1,10 @@
 ﻿using Albatross.CodeGen.Core;
+using Albatross.CodeGen.CSharp.Model;
 using Albatross.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 namespace Albatross.CodeGen {
@@ -15,6 +18,10 @@ namespace Albatross.CodeGen {
 			return services;
 		}
 
+		public static void RegisterDefault(this ICodeGenFactory factory) {
+			factory.Register(typeof(CodeGenFactory).Assembly);
+		}
+
 		public static IServiceCollection AddDefaultCodeGen(this IServiceCollection services) {
 			services.AddCodeGen(typeof(ServiceExtension).Assembly);
 			return services;
@@ -25,7 +32,6 @@ namespace Albatross.CodeGen {
 				// register any ICodeGenerator
 				services.AddTransient(codeGenType);
 				services.AddTransient(genericInterfaceType, codeGenType);
-				services.AddTransient(typeof(ICodeGenerator), codeGenType);
 				return true;
 			} else {
 				return false;
@@ -43,6 +49,13 @@ namespace Albatross.CodeGen {
 			} else {
 				return false;
 			}
+		}
+
+		public static ICodeGenFactory RunCodeGen(this ICodeGenFactory factory, TextWriter writer,  object model) {
+			if (model != null) {
+				factory.Get(model.GetType()).Run(writer, model);
+			}
+			return factory;
 		}
 	}
 }

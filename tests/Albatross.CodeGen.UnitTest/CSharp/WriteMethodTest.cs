@@ -30,7 +30,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 			return new List<object[]> {
 				new object[]{new Method("Test"){
 					AccessModifier = AccessModifier.Public,
-					CodeBlock = new CodeBlock("int i = 100;"),
+					CodeBlock = new CSharpCodeBlock("int i = 100;"),
 					Override = false,
 					ReturnType = DotNetType.Integer(),
 				},NormalMethod.RemoveCarriageReturn(),

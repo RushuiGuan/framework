@@ -56,28 +56,5 @@ namespace Albatross.CodeGen.Core {
 				return text;
 			}
 		}
-
-		//public static void AddRange<T>(this HashSet<T> list, IEnumerable<T> items) {
-		//	if (items != null) {
-		//		foreach (var item in items) {
-		//			list.Add(item);
-		//		}
-		//	}
-		//}
-
-		//public static IEnumerable<T> Merge<T, K>(this IEnumerable<T> src, IEnumerable<T> dst, Func<T, K> getKey) {
-		//	Dictionary<K, T> dict = new Dictionary<K, T>();
-		//	if(src != null) {
-		//		foreach(var item in src) {
-		//			dict.Add(getKey(item), item);
-		//		}
-		//	}
-		//	if(dst != null) {
-		//		foreach(var item in dst) {
-		//			dict[getKey(item)] = item;
-		//		}
-		//	}
-		//	return dict.Values;	
-		//}
 	}
 }
