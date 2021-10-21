@@ -13,10 +13,22 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public TextWriter Generate(TextWriter writer) {
 			writer.AppendChar('"');
 			foreach(char c in Value) {
-				if(c == '"') {
-					writer.Append("\\\"");
-				} else {
-					writer.Append(c);
+				switch (c) {
+					case '"':
+						writer.Append("\\\"");
+						break;
+					case '\\':
+						writer.Append("\\");
+						break;
+					case '\n':
+						writer.Append("\\n");
+						break;
+					case '\t':
+						writer.Append("\\t");
+						break;
+					default:
+						writer.Append(c);
+						break;
 				}
 			}
 			writer.AppendChar('"');

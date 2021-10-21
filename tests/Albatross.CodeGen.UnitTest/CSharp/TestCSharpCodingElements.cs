@@ -59,5 +59,18 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 			string actual = writer.ToString().RemoveCarriageReturn();
 			Assert.Equal(expected, actual);
 		}
+
+		[Theory]
+		[InlineData("abc", "\"abc\"")]
+		[InlineData("a\"bc", "\"a\\\"bc\"")]
+		[InlineData("a\\bc", "\"a\\bc\"")]
+		[InlineData("a\tbc", "\"a\\tbc\"")]
+		[InlineData("a\nbc", "\"a\\nbc\"")]
+		public void TestStringLiteral(string text, string expected) {
+			StringWriter writer = new StringWriter();
+			writer.Code(new StringLiteral(text));
+			string actual = writer.ToString().RemoveCarriageReturn();
+			Assert.Equal(expected, actual);
+		}
 	}
 }
