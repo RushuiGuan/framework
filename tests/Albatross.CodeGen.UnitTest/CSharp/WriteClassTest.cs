@@ -1,17 +1,12 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
-using Albatross.CodeGen.CSharp.Writer;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest.CSharp {
-	public class WriteClassTest : IClassFixture<MyTestHost> {
-		public WriteClassTest(MyTestHost host) {
-			this.host = host;
-		}
-
+	public class WriteClassTest {
 		public const string ClassA = @"using System;
 using System.IO;
 
@@ -30,7 +25,6 @@ namespace Albatross.Sample {
 	}
 }";
 		public const string StaticMethod = @"public static System.String a;";
-		private readonly MyTestHost host;
 
 		public static IEnumerable<object[]> GetTestCases() {
 			return new List<object[]> {
@@ -72,9 +66,8 @@ namespace Albatross.Sample {
 		[Theory]
 		[MemberData(nameof(GetTestCases))]
 		public void Run(Class @class, string expected) {
-			WriteCSharpClass writeClass = host.Provider.GetRequiredService<WriteCSharpClass>();
 			StringWriter writer = new StringWriter();
-			writer.Run(writeClass, @class);
+			writer.Code(@class);
 			string actual = writer.ToString().RemoveCarriageReturn();
 			Assert.Equal(expected, actual);
 		}

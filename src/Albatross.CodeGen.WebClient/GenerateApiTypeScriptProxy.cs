@@ -17,12 +17,10 @@ namespace Albatross.CodeGen.WebClient {
 	public class GenerateApiTypeScriptProxy : IGenerateApiTypeScriptProxy {
 		public const string DefaultPattern = "^.+Controller$";
 		private readonly ConvertApiControllerToTypeScriptClass converter;
-		private readonly ICodeGenerator<Class> codegen;
 		private readonly ILogger<GenerateApiTypeScriptProxy> logger;
 
-		public GenerateApiTypeScriptProxy(ConvertApiControllerToTypeScriptClass converter, ICodeGenerator<Class> codegen, ILogger<GenerateApiTypeScriptProxy> logger) {
+		public GenerateApiTypeScriptProxy(ConvertApiControllerToTypeScriptClass converter, ILogger<GenerateApiTypeScriptProxy> logger) {
 			this.converter = converter;
-			this.codegen = codegen;
 			this.logger = logger;
 		}
 
@@ -41,8 +39,8 @@ namespace Albatross.CodeGen.WebClient {
 							if (adjustClassModel?.Invoke(@class) != false) {
 								string filename = Path.Join(outputDirectory, $"{@class.Name}.Generated.ts");
 								using (StreamWriter writer = new StreamWriter(filename, false)) {
-									codegen.Run(writer, @class);
-									codegen.Run(stringWriter, @class);
+									writer.Code(@class);
+									stringWriter.Code(@class);
 									writer.WriteLine();
 								}
 								logger.LogInformation("Create output file {name}", filename);

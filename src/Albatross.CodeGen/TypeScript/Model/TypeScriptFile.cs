@@ -1,9 +1,11 @@
-﻿using Albatross.Linq;
+﻿using Albatross.CodeGen.Core;
+using Albatross.Linq;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Model {
-	public class TypeScriptFile {
+	public class TypeScriptFile: ICodeElement  {
 		public TypeScriptFile(string name) {
 			this.Name = name;
 		}
@@ -41,6 +43,22 @@ namespace Albatross.CodeGen.TypeScript.Model {
 					}
 				}
 			}
+		}
+
+		public TextWriter Generate(TextWriter writer) {
+			foreach (var item in Imports) {
+				writer.Code(item);
+			}
+			foreach (var item in Enums) {
+				writer.Code(item);
+			}
+			foreach (var item in Interfaces) {
+				writer.Code(item);
+			}
+			foreach (var item in Classes) {
+				writer.Code(item);
+			}
+			return writer;
 		}
 	}
 }

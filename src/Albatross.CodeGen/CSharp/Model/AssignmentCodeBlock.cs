@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.CSharp.Model {
-	public class AssignmentCodeBlock : ICodeBlock {
+	public class AssignmentCodeBlock : ICodeElement {
 		public AssignmentCodeBlock(string variableName, string expression) {
 			VariableName = variableName;
 			Expression = expression;
@@ -11,13 +11,12 @@ namespace Albatross.CodeGen.CSharp.Model {
 
 		public string VariableName { get; set; }
 		public string Expression { get; set; }
-	}
 
-	public class WriteAssignmentCodeBlock : WriteCodeBlock<AssignmentCodeBlock> {
-		public override void Run(TextWriter writer, AssignmentCodeBlock source) {
-			writer.Append("var ").Append(source.VariableName).Append(" = ")
-				.Append(source.Expression)
+		public TextWriter Generate(TextWriter writer) {
+			writer.Append("var ").Append(VariableName).Append(" = ")
+				.Append(Expression)
 				.AppendLine(";");
+			return writer;
 		}
 	}
 }

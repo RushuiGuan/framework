@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.IO;
 using System.Text;
 
 namespace Albatross.CodeGen.Core {
 	public static class Extension {
-
-        public static TextWriter Run<T>(this TextWriter writer, ICodeGenerator<T> codeGenerator, T t) {
-            codeGenerator.Run(writer, t);
-            return writer;
-        }
-
         public static CodeGeneratorScope BeginScope(this TextWriter writer, string? text = null) {
             return new CodeGeneratorScope(writer, args => args.AppendLine($"{text} {{"), args => args.Append("}"));
         }
 
-
+		public static TextWriter Code(this TextWriter writer, ICodeElement codeElement) {
+			codeElement.Generate(writer);
+			return writer;
+		}
+		
 		public static string Proper(this string text) {
 			if (!string.IsNullOrEmpty(text)) {
 				string result = text.Substring(0, 1).ToUpper();

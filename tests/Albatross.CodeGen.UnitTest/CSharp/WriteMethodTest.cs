@@ -1,17 +1,12 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
-using Albatross.CodeGen.CSharp.Writer;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest.CSharp {
-	public class WriteMethodTest : IClassFixture<MyTestHost> {
-	public WriteMethodTest(MyTestHost host) {
-			this.host = host;
-		}
-
+	public class WriteMethodTest {
 		public const string NormalMethod = @"public System.Int32 Test() {
 	int i = 100;
 }";
@@ -24,13 +19,11 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 }";
 		public const string VirtualMethod = @"public virtual void Test() {
 }";
-		private readonly MyTestHost host;
-
 		public static IEnumerable<object[]> GetTestCases() {
 			return new List<object[]> {
 				new object[]{new Method("Test"){
 					AccessModifier = AccessModifier.Public,
-					CodeBlock = new CSharpCodeBlock("int i = 100;"),
+					CodeBlock = new CodeBlock("int i = 100;"),
 					Override = false,
 					ReturnType = DotNetType.Integer(),
 				},NormalMethod.RemoveCarriageReturn(),
@@ -69,9 +62,8 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 		[Theory]
 		[MemberData(nameof(GetTestCases))]
 		public void Run(Method method, string expected) {
-			WriteMethod writeMethod = host.Provider.GetRequiredService<WriteMethod>();
 			StringWriter writer = new StringWriter();
-			writer.Run(writeMethod, method);
+			writer.Code(method);
 			string actual =writer.ToString().RemoveCarriageReturn();
 			Assert.Equal(expected, actual);
 		}

@@ -13,13 +13,12 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 				new object[]{typeof(string), new DotNetType("System.String")},
 				new object[]{typeof(DateTime), new DotNetType("System.DateTime")},
 				new object[]{typeof(Guid), new DotNetType("System.Guid")},
-				new object[]{typeof(ConvertTypeToDotNetTypeTest), new DotNetType("Albatross.CodeGen.UnitTest.ConvertTypeToDotNetTypeTest")},
-				new object[]{typeof(int[]), new DotNetType("System.Int32", true, false, null)},
+				new object[]{typeof(ConvertTypeToDotNetTypeTest), new DotNetType("Albatross.CodeGen.UnitTest.CSharp.ConvertTypeToDotNetTypeTest")},
+				new object[]{typeof(int[]), new DotNetType("System.Int32", true, false, new DotNetType[0])},
 				new object[]{typeof(IEnumerable<string>), DotNetType.MakeIEnumerable(new DotNetType("System.String")) }
 			};
 		}
-
-
+		
 		[Theory]
 		[MemberData(nameof(GetTestData))]
 		public void Run(Type type, DotNetType expected) {

@@ -1,4 +1,5 @@
-﻿using Albatross.CodeGen.TypeScript.Conversion;
+﻿using Albatross.CodeGen.Core;
+using Albatross.CodeGen.TypeScript.Conversion;
 using Albatross.CodeGen.TypeScript.Model;
 using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
@@ -54,8 +55,8 @@ namespace Albatross.CodeGen.WebClient {
 					new Parameter("src", new TypeScriptType(type))
 				}
 			};
-			var ifStatement = new IfCodeBlock("src");
-			constructor.Body.Children.Add(ifStatement);
+			var ifStatement = new IfCodeBlock("src", new CodeBlock());
+			constructor.Body = ifStatement;
 			return constructor;
 		}
 	}

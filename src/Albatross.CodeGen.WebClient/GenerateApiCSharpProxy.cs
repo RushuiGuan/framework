@@ -17,12 +17,10 @@ namespace Albatross.CodeGen.WebClient {
 	public class GenerateApiCSharpProxy : IGenerateApiCSharpProxy {
 		public const string DefaultPattern = "^.+Controller$";
 		private readonly ConvertApiControllerToCSharpClass converter;
-		private readonly ICodeGenerator<Class> codegen;
 		private readonly ILogger<GenerateApiCSharpProxy> logger;
 
-		public GenerateApiCSharpProxy(ConvertApiControllerToCSharpClass converter, ICodeGenerator<Class> codegen, ILogger<GenerateApiCSharpProxy> logger) {
+		public GenerateApiCSharpProxy(ConvertApiControllerToCSharpClass converter, ILogger<GenerateApiCSharpProxy> logger) {
 			this.converter = converter;
-			this.codegen = codegen;
 			this.logger = logger;
 		}
 
@@ -43,8 +41,8 @@ namespace Albatross.CodeGen.WebClient {
 							if (adjustClassModel?.Invoke(@class) != false) {
 								string filename = Path.Join(outputDirectory, $"{@class.Name}.Generated.cs");
 								using (StreamWriter writer = new StreamWriter(filename, false)) {
-									codegen.Run(writer, @class);
-									codegen.Run(stringWriter, @class);
+									writer.Code(@class);
+									stringWriter.Code(@class);
 									writer.WriteLine();
 								}
 								logger.LogInformation("Create output file {name}", filename);

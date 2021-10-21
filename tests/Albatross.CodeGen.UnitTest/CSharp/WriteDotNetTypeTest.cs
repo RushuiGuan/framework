@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Albatross.CodeGen.CSharp.Model;
-using Albatross.CodeGen.CSharp.Writer;
 using Albatross.CodeGen.Core;
 using Xunit;
 
@@ -36,7 +35,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 		[MemberData(nameof(Get))]
 		public void Run(DotNetType dotNetType, string expected) {
 			StringWriter writer = new StringWriter();
-			writer.Run(new WriteDotNetType(), dotNetType);
+			writer.Code(dotNetType);
 			string actual = writer.ToString();
 			Assert.Equal(expected, actual);
 		}

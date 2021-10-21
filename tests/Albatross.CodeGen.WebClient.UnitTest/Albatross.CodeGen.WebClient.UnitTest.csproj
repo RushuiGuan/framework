@@ -6,26 +6,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="GroupClientService.expected.cs" />
-    <Compile Remove="ValueClientService.expected.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="GroupClientService.expected.cs">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ValueClientService.expected.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
@@ -35,5 +21,13 @@
     <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
     <ProjectReference Include="..\..\src\Albatross.WebClient\Albatross.WebClient.csproj" />
     <ProjectReference Include="..\Albatross.WebClient.TestApi\Albatross.WebClient.TestApi.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="GroupClientService.expected.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="ValueClientService.expected.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -62,8 +62,8 @@ namespace Albatross.IAM.WebClient {
 		public async System.Threading.Tasks.Task<System.String> QueryStrings(System.Int32 @id, System.String @name) {
 			string path = $"{ControllerPath}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
-			queryString.Add(nameof(@id), System.Convert.ToString(@id));
-			queryString.Add(nameof(@name), @name);
+			queryString.Add("id", System.Convert.ToString(@id));
+			queryString.Add("name", @name);
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
 				return await this.Invoke(request);
 			}
@@ -78,8 +78,8 @@ namespace Albatross.IAM.WebClient {
 		public async System.Threading.Tasks.Task<System.String> MixedRouteQueryStringAndJson(System.Int32 @groupID, System.Int32 @userID, System.String @name, System.String @criteria, Albatross.IAM.Api.NameDto @dto) {
 			string path = $"{ControllerPath}/{groupID}/{userID}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
-			queryString.Add(nameof(@name), @name);
-			queryString.Add(nameof(@criteria), @criteria);
+			queryString.Add("name", @name);
+			queryString.Add("criteria", @criteria);
 			using (var request = this.CreateJsonRequest<Albatross.IAM.Api.NameDto>(HttpMethod.Post, path, queryString, @dto)) {
 				return await this.Invoke(request);
 			}

@@ -8,13 +8,7 @@ using System.Reflection;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest.CSharp {
-	public class ConvertPropertyInfoToPropertyTest :IClassFixture<MyTestHost>{
-		private readonly MyTestHost host;
-
-		public ConvertPropertyInfoToPropertyTest(MyTestHost host) {
-			this.host = host;
-		}
-
+	public class ConvertPropertyInfoToPropertyTest {
 		public class TestClass {
 			public string Text { get; set; }
 			public string ReadOnlyText { get; }
@@ -40,7 +34,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 		[Theory]
 		[MemberData(nameof(GetTestData))]
 		public void Run(PropertyInfo propertyInfo, Property expected) {
-			ConvertPropertyInfoToProperty handle = host.Provider.GetRequiredService<ConvertPropertyInfoToProperty>();
+			var handle = new ConvertPropertyInfoToProperty();
 			var result = handle.Convert(propertyInfo);
 			Assert.Equal(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(result));
 		}

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -100,7 +99,6 @@ namespace Albatross.CodeGen.WebClient {
 			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {
 				method.ReturnType = TypeScriptType.MakeAsync(method.ReturnType);
 			}
-			method.Body = new CodeBlock();
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
 				writer.Write("string path = $\"{ControllerPath}");
@@ -154,7 +152,7 @@ namespace Albatross.CodeGen.WebClient {
 				writer.WriteLine("(request);");
 				writer.Write("}");
 			}
-			method.Body.Content = sb.ToString();
+			method.Body = new CodeBlock(sb.ToString());
 			method.Async = true;
 			return method;
 		}

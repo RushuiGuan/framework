@@ -1,4 +1,5 @@
-﻿using Albatross.Reflection;
+﻿using Albatross.CodeGen.Core;
+using Albatross.Reflection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Model {
-	public class TypeScriptType {
+	public class TypeScriptType : ICodeElement {
 		const string VoidType = "void";
 		const string PromiseType = "Promise";
 
@@ -44,7 +45,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 
 		public override string ToString() {
 			StringWriter writer = new StringWriter();
-			new Writer.WriteTypeScriptType().Run(writer, this);
+			writer.Code(this);
 			return writer.ToString();
 		}
 		public override bool Equals(object? obj) {
@@ -94,6 +95,35 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			} else {
 				return this;
 			}
+		}
+
+		public TextWriter Generate(TextWriter writer) {
+			if (IsVoid && !IsAsync) {
+				writer.Append("void");
+			} else {
+				writer.Append(Name);
+				if (IsGeneric) {
+					if (GenericTypeArguments?.Count() > 0) {
+						writer.OpenAngleBracket();
+						bool first = true;
+						foreach (var genericType in GenericTypeArguments) {
+							if (!first) {
+								writer.Comma().Space();
+							} else {
+								first = false;
+							}
+							writer.Code(genericType);
+						}
+						writer.CloseAngleBracket();
+					} else {
+						throw new CodeGenException("Missing Generic Arguments");
+					}
+				}
+				if (IsArray) {
+					writer.Append("[]");
+				}
+			}
+			return writer;
 		}
 	}
 }

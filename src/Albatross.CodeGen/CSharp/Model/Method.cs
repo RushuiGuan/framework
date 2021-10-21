@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Albatross.CodeGen.Core;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Albatross.CodeGen.CSharp.Model {
-	public class Method {
+	public class Method : ICodeElement{
 		public Method(string name) {
 			Name = name;
 		}
@@ -14,6 +16,25 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public bool Static { get; set; }
 		public bool Virtual { get; set; }
 		public bool Override { get; set; }
-		public CSharpCodeBlock CodeBlock { get; set; } = new CSharpCodeBlock();
+		public ICodeElement CodeBlock { get; set; } = new CodeBlock();
+
+		public virtual TextWriter Generate(TextWriter writer) {
+			writer.Code(new AccessModifierElement(AccessModifier)).Space();
+			if (Static) {
+				writer.Static();
+			} else if (Override) {
+				writer.Write("override ");
+			} else if (Virtual) {
+				writer.Write("virtual ");
+			}
+			if (Async) { writer.Write("async "); }
+			writer.Code(ReturnType).Space().Append(Name).OpenParenthesis()
+				.Code(new ParameterCollection(Parameters))
+				.CloseParenthesis();
+			using(var scope = writer.BeginScope()) {
+				scope.Writer.Code(CodeBlock);
+			}
+			return writer;
+		}
 	}
 }

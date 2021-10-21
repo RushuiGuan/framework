@@ -24,11 +24,9 @@ namespace Albatross.CodeGen.WebClient {
 		Regex actionRouteRegex = new Regex(@"{(\w+)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         IConvertObject<MethodInfo, Method> convertMethod;
-		private readonly ICodeGenFactory factory;
 
-		public ConvertApiControllerToCSharpClass(IConvertObject<MethodInfo, Method> convertMethod, ICodeGenFactory factory) {
+		public ConvertApiControllerToCSharpClass(IConvertObject<MethodInfo, Method> convertMethod) {
 			this.convertMethod = convertMethod;
-			this.factory = factory;
 		}
 
 		object IConvertObject<Type>.Convert(Type from) {
@@ -122,20 +120,6 @@ namespace Albatross.CodeGen.WebClient {
 			return new Class("Albatross.WebClient.ClientBase");
 		}
 
-		private void CreateQueryStringParameter(TextWriter writer, string itemName, Type itemType) {
-			writer.Write($"queryString.Add(nameof(@{itemName}), ");
-			if (itemType == typeof(DateTime) || itemType == typeof(DateTime?)) {
-				if (itemName?.EndsWith("date", StringComparison.InvariantCultureIgnoreCase) == true) {
-					writer.WriteLine($"string.Format(\"{{0:yyyy-MM-dd}}\", @{itemName}));");
-				} else {
-					writer.WriteLine($"string.Format(\"{{0:o}}\", @{itemName}));");
-				}
-			} else if (itemType != typeof(string)) {
-				writer.WriteLine($"System.Convert.ToString(@{itemName}));");
-			} else {
-				writer.WriteLine($"@{itemName});");
-			}
-		}
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
 			string actionTemplate = attrib.Template;
 			if (string.IsNullOrEmpty(actionTemplate)) {
@@ -147,7 +131,6 @@ namespace Albatross.CodeGen.WebClient {
 				method.ReturnType = DotNetType.MakeAsync(method.ReturnType);
 			}
 
-			method.CodeBlock = new CSharpCodeBlock();
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
 				writer.Write("string path = $\"{ControllerPath}");
@@ -156,7 +139,7 @@ namespace Albatross.CodeGen.WebClient {
 					writer.Write(actionTemplate.Replace("*", ""));
 				}
 				writer.WriteLine("\";");
-				writer.WriteLine("var queryString = new System.Collections.Specialized.NameValueCollection();");
+				writer.Code(new AssignmentCodeBlock("queryString", "new System.Collections.Specialized.NameValueCollection()"));
 				HashSet<string> actionRoutes = new HashSet<string>();
 				if (attrib.Template != null) {
 					foreach (Match match in actionRouteRegex.Matches(attrib.Template)) {
@@ -170,12 +153,11 @@ namespace Albatross.CodeGen.WebClient {
 						fromBody = item;
 					} else if (item.Name != null && !actionRoutes.Contains(item.Name)) {
 						if (item.ParameterType.GetCollectionElementType(out Type elementType)) {
-							var forEachBlock = new ForEachCodeBlock("item", item.Name);
-							factory.RunCodeGen(writer, forEachBlock);
-							using var scope = writer.BeginScope();
-							CreateQueryStringParameter(scope.Writer,item.Name, elementType);
+							writer.Code(new ForEachCodeBlock("item", item.Name){ 
+								ForEachContent = new AddCSharpQueryStringParam(item.Name, "item", elementType)
+							});
 						} else {
-							CreateQueryStringParameter(writer, item.Name, item.ParameterType);
+							writer.Code(new AddCSharpQueryStringParam(item.Name, item.Name, item.ParameterType));
 						}
 					}
 				}
@@ -197,7 +179,7 @@ namespace Albatross.CodeGen.WebClient {
 				writer.WriteLine("(request);");
 				writer.Write("}");
 			}
-			method.CodeBlock.Content = sb.ToString();
+			method.CodeBlock = new CodeBlock(sb.ToString());
             method.Async = true;
 			return method;
 		}
