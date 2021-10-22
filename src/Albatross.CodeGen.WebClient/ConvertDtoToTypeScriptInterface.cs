@@ -9,8 +9,10 @@ using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.WebClient {
 	public interface IConvertDtoToTypeScriptInterface {
-		void ConvertEnums(TypeScriptFile fileparams, params Assembly[] assemblies);
-		void ConvertClasses(TypeScriptFile file, string pattern,  IEnumerable<TypeScriptFile> dependancies, params Assembly[] assemblies);
+		void ConvertEnums<T>(TypeScriptFile typeScriptFile) where T :struct;
+		void ConvertEnums(TypeScriptFile typeScriptFile, params Assembly[] assemblies);
+		void ConvertClass<T>(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies);
+		void ConvertClasses(TypeScriptFile typeScriptFile, string pattern,  IEnumerable<TypeScriptFile> dependancies, params Assembly[] assemblies);
 	}
 
 	public class ConvertDtoToTypeScriptInterface : IConvertDtoToTypeScriptInterface {
@@ -23,6 +25,16 @@ namespace Albatross.CodeGen.WebClient {
 			this.logger = logger;
 			this.convertInterface = convertInterface;
 			this.convertEnum = convertEnum;
+		}
+
+		public void ConvertClass<T>(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies) {
+			Type type = typeof(T);
+			if (!type.IsAnonymousType() && !type.IsInterface && type.IsPublic && !type.IsEnum && !(type.IsAbstract && type.IsSealed)) {
+				var item = convertInterface.Convert(type);
+				typeScriptFile.Interfaces.Add(item);
+				typeScriptFile.BuildImports(dependancies);
+				typeScriptFile.BuildArtifacts();
+			}
 		}
 
 		public void ConvertClasses(TypeScriptFile typeScriptFile, string? pattern, IEnumerable<TypeScriptFile> dependancies, params Assembly[] assemblies) {
@@ -53,6 +65,10 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 			typeScriptFile.BuildArtifacts();
+		}
+
+		public void ConvertEnums<T>(TypeScriptFile typeScriptFile) where T : struct {
+			typeScriptFile.Enums.Add(convertEnum.Convert(typeof(T)));
 		}
 	}
 }

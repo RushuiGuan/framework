@@ -12,7 +12,8 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		const string PromiseType = "Promise";
 
 		public string Name { get; set; }
-		public bool IsGeneric { get; }
+		public bool IsGeneric { get; set; }
+		public bool IsGenericParameter { get; set; }
 		public bool IsArray { get; set; }
 		public TypeScriptType[] GenericTypeArguments { get; } 
 		public bool IsAsync => this.Name == PromiseType;
@@ -34,6 +35,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 				type = valueType ?? throw new Exception("impossible");
 			}
 			IsGeneric = type.IsGenericType;
+			IsGenericParameter = type.IsGenericParameter;
 			if (IsGeneric) {
 				Name = type.GetGenericTypeDefinition().Name.GetGenericTypeName();
 				GenericTypeArguments = (from item in type.GetGenericArguments() select new TypeScriptType(item)).ToArray();

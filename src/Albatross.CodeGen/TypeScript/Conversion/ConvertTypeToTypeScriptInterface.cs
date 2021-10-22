@@ -14,12 +14,12 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 		}
 		public TypeScript.Model.Interface Convert(Type type) {
 			var model = new Interface(type.Name) {
-				Properties = from property in type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
-							 select convertPropertyInfoToTypeScriptProperty.Convert(property),
+				Properties = (from property in type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+							 select convertPropertyInfoToTypeScriptProperty.Convert(property)).ToList(),
 			};
 			if (type.IsGenericType) {
 				model.IsGeneric = true;
-				model.GenericTypes = type.GetGenericArguments().Select(args => args.Name);
+				model.GenericTypes = type.GetGenericArguments().Select(args => args.Name).ToList();
 			}
 			return model;
 		}

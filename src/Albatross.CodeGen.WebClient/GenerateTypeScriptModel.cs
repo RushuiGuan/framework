@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 namespace Albatross.CodeGen.WebClient {
 	public interface IConvertAssemblyToTypeScriptModel {
 		void ConvertClasses(TypeScriptFile file, string pattern, IEnumerable<TypeScriptFile> dependancies, params Assembly[] assemblies);
+		void ConvertClasses<T>(TypeScriptFile file, IEnumerable<TypeScriptFile> dependancies);
 	}
 	public class ConvertAssemblyToTypeScriptModel  : IConvertAssemblyToTypeScriptModel {
 		public const string DefaultPattern = "^.+Dto$";
@@ -20,6 +21,16 @@ namespace Albatross.CodeGen.WebClient {
 		public ConvertAssemblyToTypeScriptModel (ConvertTypeToTypeScriptClass convertClass, ILogger<ConvertAssemblyToTypeScriptModel > logger) {
 			this.converter = convertClass;
 			this.logger = logger;
+		}
+
+		public void ConvertClasses<T>(TypeScriptFile file, IEnumerable<TypeScriptFile> dependancies) {
+			Type type = typeof(T);
+			if (!type.IsAnonymousType() && !type.IsInterface && type.IsPublic && !type.IsEnum && !(type.IsAbstract && type.IsSealed)) {
+				logger.LogInformation("Processing class {type}", type.FullName);
+				file.Classes.Add(Create(type));
+				file.BuildImports(dependancies);
+				file.BuildArtifacts();
+			}
 		}
 
 		public void ConvertClasses(TypeScriptFile file, string pattern, IEnumerable<TypeScriptFile> dependancies, params Assembly[] assemblies) {

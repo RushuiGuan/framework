@@ -12,8 +12,8 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		}
 		public string Name { get; set; }
 		public bool IsGeneric { get; set; }
-		public IEnumerable<string> GenericTypes { get; set; } = new string[0];
-		public IEnumerable<Property> Properties { get; set; } = new Property[0];
+		public List<string> GenericTypes { get; set; } = new List<string>();
+		public List<Property> Properties { get; set; } = new List<Property>();
 
 		public TextWriter Generate(TextWriter writer) {
 			writer.Append("export ").Append("interface ");
