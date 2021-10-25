@@ -1,5 +1,6 @@
 trigger:
 - staging
+- v3
 
 pool:
   name: West Coast
