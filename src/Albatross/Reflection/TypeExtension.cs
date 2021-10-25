@@ -24,12 +24,12 @@ namespace Albatross.Reflection {
 		/// Return the generic argument of IEnumerable<> or the element type of an array
 		/// </summary>
 		public static bool GetCollectionElementType(this Type collectionType, out Type elementType) {
-			elementType = typeof(object); ;
+			elementType = typeof(object);
 
 			if (collectionType == typeof(string)) {
 				return false;
 			} else if (collectionType == typeof(Array) || collectionType.IsArray) {
-				elementType = collectionType.GetElementType() ?? typeof(object);
+				elementType = collectionType.GetElementType()!;
 				if (elementType == null) {
 					elementType = typeof(object);
 				}

@@ -18,7 +18,7 @@ namespace Albatross.Repository.ByEFCore {
 		public static IEnumerable<IBuildEntityModel> GetEntityModels(this Assembly assembly) {
 			List<IBuildEntityModel> list = new List<IBuildEntityModel>();
 			foreach (Type type in assembly.GetConcreteClasses<IBuildEntityModel>()) {
-				list.Add((IBuildEntityModel)Activator.CreateInstance(type));
+				list.Add((IBuildEntityModel)Activator.CreateInstance(type)!);
 			}
 			return list;
 		}
