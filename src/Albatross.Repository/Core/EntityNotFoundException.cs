@@ -11,9 +11,9 @@ namespace Albatross.Repository.Core {
 
 		static string GetMsg(string property, object? value) {
 			if (value == null) {
-				return $"Cannot find {typeof(TSource).Name} with a null value for {property}";
+				return $"Cannot find {typeof(TSource).Name} with a null value for {property.ToLower()}";
 			} else {
-				return $"Cannot find {typeof(TSource).Name} with the {property} of {value}";
+				return $"Cannot find {typeof(TSource).Name} with the {property.ToLower()} of {value}";
 			}
 		}
 	}
