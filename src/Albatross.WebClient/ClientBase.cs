@@ -27,9 +27,9 @@ namespace Albatross.WebClient {
 			return new HttpMethod("Patch");
 		}
 		public Uri BaseUrl => this.client.BaseAddress;
-		protected string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
-		protected T Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
-		protected ValueTask<T> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
+		public string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
+		public T Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
+		public ValueTask<T> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
 
 		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
