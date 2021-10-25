@@ -18,5 +18,11 @@ namespace Albatross.Reflection {
 			}
 			return propInfo;
 		}
+
+		public static Expression<Func<T, bool>> GetPredicate<T>(string propertyOrFieldName, object? value) {
+			ParameterExpression parameter = Expression.Parameter(typeof(T), "args");
+			var body = Expression.Equal(Expression.PropertyOrField(parameter, propertyOrFieldName), Expression.Constant(value));
+			return Expression.Lambda<Func<T, bool>>(body, parameter);
+		}
 	}
 }
