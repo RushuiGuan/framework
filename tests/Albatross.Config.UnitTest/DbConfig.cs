@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Albatross.Config.UnitTest {
 	public class DbConfig : Albatross.Config.Core.IConfigSetting {
-		public string DbConnection { get; set; }
+		[Required]
+		public string DbConnection { get; set; } = null!;
 
 		public void Init(IConfiguration configuration) {
 			this.DbConnection = configuration.GetConnectionString("test");

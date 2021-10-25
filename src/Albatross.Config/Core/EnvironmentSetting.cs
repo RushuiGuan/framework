@@ -8,11 +8,13 @@ namespace Albatross.Config.Core {
 	/// variable is not set
 	/// </summary>
 	public class EnvironmentSetting {
+		public const string UnknownEnvironment = "Unknown";
+
 		public string Value { get; }
 		public string HostName => System.Net.Dns.GetHostName();
 
 		public EnvironmentSetting(string variable) {
-			Value = System.Environment.GetEnvironmentVariable(variable)?.ToLower();
+			Value = System.Environment.GetEnvironmentVariable(variable)?.ToLower()?? UnknownEnvironment;
 		}
 
 		public readonly static EnvironmentSetting ASPNETCORE_ENVIRONMENT = new EnvironmentSetting("ASPNETCORE_ENVIRONMENT");

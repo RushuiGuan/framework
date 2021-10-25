@@ -40,7 +40,8 @@ namespace Albatross.Config.UnitTest {
 		[Fact]
 		public void TestGetNoLongerRequiredConfig() {
 			var handle = host.Provider.GetRequiredService<GetNoLongerRequiredConfig>();
-			Assert.Throws<ConfigurationException>(() => handle.Get());
+			var config = handle.Get();
+			Assert.NotNull(config);
 		}
 
 		[Fact]
