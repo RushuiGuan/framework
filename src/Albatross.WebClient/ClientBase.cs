@@ -13,7 +13,7 @@ namespace Albatross.WebClient {
 	public abstract class ClientBase {
 		protected HttpClient client;
 		protected ILogger logger;
-		private TextWriter writer;
+		private TextWriter? writer;
 
 		public ClientBase(ILogger logger, HttpClient client) {
 			this.client = client;
@@ -26,10 +26,10 @@ namespace Albatross.WebClient {
 		protected HttpMethod GetPatchMethod() {
 			return new HttpMethod("Patch");
 		}
-		public Uri BaseUrl => this.client.BaseAddress;
+		public Uri BaseUrl => this.client.BaseAddress ?? throw new InvalidOperationException($"Base address not set for {this.GetType().FullName}");
 		protected string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
-		protected T Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
-		protected ValueTask<T> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
+		protected T? Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
+		protected ValueTask<T?> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
 
 		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -37,15 +37,15 @@ namespace Albatross.WebClient {
 		};
 		#endregion
 
-		void WriteHeader(HttpHeaders headers) {
+		void WriteHeader(TextWriter myWriter, HttpHeaders headers) {
 			foreach (var header in headers) {
-				writer.Write(header.Key);
-				writer.Write(":");
+				myWriter.Write(header.Key);
+				myWriter.Write(":");
 				foreach (var value in header.Value) {
-					writer.Write(" ");
-					writer.Write(value);
+					myWriter.Write(" ");
+					myWriter.Write(value);
 				}
-				writer.WriteLine();
+				myWriter.WriteLine();
 			}
 		}
 
@@ -54,7 +54,7 @@ namespace Albatross.WebClient {
 				writer.Write(request.Method);
 				writer.Write(" ");
 				writer.WriteLine(request.RequestUri);
-				WriteHeader(request.Headers);
+				WriteHeader(writer, request.Headers);
 				if (request.Content != null) {
 					writer.WriteLine(request.Content.ReadAsStringAsync().Result);
 				}
@@ -81,12 +81,12 @@ namespace Albatross.WebClient {
 			writer?.WriteLine(content);
 			return request;
 		}
-		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(client.BaseAddress, request.RequestUri)}");
+		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
+			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
-					WriteHeader(response.Headers);
+					WriteHeader(writer, response.Headers);
 					writer.Write(content);
 				}
 				if (response.IsSuccessStatusCode) {
@@ -94,19 +94,13 @@ namespace Albatross.WebClient {
 				} else {
 					if (throwCustomException == null) {
 						ErrorMessage error;
-						if (string.IsNullOrEmpty(content)) {
-							error = new ErrorMessage() {
-								StatusCode = response.StatusCode,
-							};
-						} else {
-							try {
-								error = Deserialize<ErrorMessage>(content);
-							} catch {
-								error = new ErrorMessage();
-								error.Message = content;
-							}
-							error.StatusCode = response.StatusCode;
+						try {
+							error = Deserialize<ErrorMessage>(content) ?? new ErrorMessage();
+						} catch {
+							error = new ErrorMessage();
+							error.Message = content;
 						}
+						error.StatusCode = response.StatusCode;
 						throw new ClientException(error);
 					} else {
 						throw throwCustomException(response.StatusCode, content);
@@ -114,7 +108,7 @@ namespace Albatross.WebClient {
 				}
 			}
 		}
-		public async Task<T> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public async Task<T?> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
 			string content = await Invoke(request, throwCustomException);
 			return Deserialize<T>(content);
 		}
