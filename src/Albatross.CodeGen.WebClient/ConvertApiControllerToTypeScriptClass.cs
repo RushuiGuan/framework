@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
+using Albatross.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System;

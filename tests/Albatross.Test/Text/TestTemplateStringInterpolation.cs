@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Templating.Test {
+namespace Albatross.Text.Test {
 	public class TestTemplateStringInterpolation {
 
 		public ILogger<StringInterpolationService> Logger() => new Moq.Mock<ILogger<StringInterpolationService>>().Object;

@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
+using Albatross.Text;
 using System;
 using System.IO;
 using System.Linq;

@@ -2,7 +2,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Albatross.Templating {
+namespace Albatross.Text  {
 	public interface IStringInterpolationService {
 		string Interpolate<T>(string input, Func<string, T, string> func, T value);
 	}

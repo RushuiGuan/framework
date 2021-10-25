@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.Reflection;
+using Albatross.Text;
 using System;
 using System.IO;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Albatross.CodeGen.UnitTest {
 	public static class Extension {
-		public static string RemoveCarriageReturn(this string text) {
+		public static string? RemoveCarriageReturn(this string text) {
 			return text?.Replace("\r", "");
 		}
 	}
