@@ -1,8 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,24 +14,6 @@ namespace Albatross.Repository.Core {
 
 		public static Task<int> SaveChangesAsync<T>(this IRepository<T> repo, CancellationToken cancellationToken = default) {
 			return repo.DbSession.SaveChangesAsync(cancellationToken);
-		}
-
-		public static T Item<T>(this IQueryable<T> source, string propertyName, object? value) {
-			var predicate = Albatross.Reflection.ExpressionExtension.GetPredicate<T>(propertyName, value);
-			try {
-				return source.Where(predicate).First();
-			} catch (InvalidOperationException) {
-				throw new EntityNotFoundException<T>(propertyName, value);
-			}
-		}
-
-		public static async Task<T> ItemAsync<T>(this IQueryable<T> source, string propertyName, object value) {
-			var predicate = Albatross.Reflection.ExpressionExtension.GetPredicate<T>(propertyName, value);
-			try {
-				return await source.Where(predicate).FirstAsync();
-			} catch (InvalidOperationException) {
-				throw new EntityNotFoundException<T>(propertyName, value);
-			}
 		}
 
 		public static void Merge<Src, Dst, TKey>(this IEnumerable<Dst> dst, IEnumerable<Src> src,
