@@ -1,13 +1,12 @@
 ﻿using Albatross.Reflection;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Albatross.Repository.ByEFCore {
 	public static class ServiceExtension {
-
 		public static IServiceCollection AddEntityMaps(this IServiceCollection services, Assembly assembly) {
 			foreach (Type type in assembly.GetConcreteClasses<IBuildEntityModel>()) {
 				services.AddSingleton(type);
@@ -21,6 +20,26 @@ namespace Albatross.Repository.ByEFCore {
 				list.Add((IBuildEntityModel)Activator.CreateInstance(type)!);
 			}
 			return list;
+		}
+
+		public static PropertyBuilder<DateTime> UtcDateTimeProperty(this PropertyBuilder<DateTime> builder) {
+			builder.HasConversion(value => value, value => DateTime.SpecifyKind(value, DateTimeKind.Utc));
+			return builder;
+		}
+
+		public static PropertyBuilder<DateTime?> UtcDateTimeProperty(this PropertyBuilder<DateTime?> builder) {
+			builder.HasConversion(value => value, item => item.HasValue? DateTime.SpecifyKind(item.Value, DateTimeKind.Utc): null);
+			return builder;
+		}
+
+		public static PropertyBuilder<DateTime> DateOnlyProperty(this PropertyBuilder<DateTime> builder) {
+			builder.HasConversion(value => value, value => DateTime.SpecifyKind(value, DateTimeKind.Unspecified));
+			return builder;
+		}
+
+		public static PropertyBuilder<DateTime?> DateOnlyProperty(this PropertyBuilder<DateTime?> builder) {
+			builder.HasConversion(value => value, item => item.HasValue ? DateTime.SpecifyKind(item.Value, DateTimeKind.Unspecified) : null);
+			return builder;
 		}
 	}
 }
