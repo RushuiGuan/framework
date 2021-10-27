@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,20 +12,20 @@ namespace Albatross.Reflection {
 		/// <summary>
 		/// Return the generic argument of Nullable<>
 		/// </summary>
-		public static bool GetNullableValueType(this Type nullableType, out Type valueType) {
-			valueType = typeof(object);
+		public static bool GetNullableValueType(this Type nullableType, [NotNullWhen(true)]out Type? valueType) {
 			if (nullableType.IsGenericType && nullableType.GetGenericTypeDefinition() == typeof(Nullable<>)) {
 				valueType = nullableType.GetGenericArguments()[0];
 				return true;
 			}
+			valueType = null;
 			return false;
 		}
 
 		/// <summary>
 		/// Return the generic argument of IEnumerable<> or the element type of an array
 		/// </summary>
-		public static bool GetCollectionElementType(this Type collectionType, out Type elementType) {
-			elementType = typeof(object);
+		public static bool GetCollectionElementType(this Type collectionType, [NotNullWhen(true)] out Type? elementType) {
+			elementType = null;
 
 			if (collectionType == typeof(string)) {
 				return false;
@@ -79,23 +80,22 @@ namespace Albatross.Reflection {
 		/// <param name="genericDefinition">The definition of a generic type.  For example: typeof(IEnumerable&lt;&gt;)</param>
 		/// <param name="genericType">If the class extends\implements the generic type\interface, its type will be set in this output parameter</param>
 		/// <returns>Return true if the class implements the generic interface</returns>
-		public static bool TryGetClosedGenericType(this Type type, Type genericDefinition, out Type genericType) {
-			Type? result = null;
+		public static bool TryGetClosedGenericType(this Type type, Type genericDefinition, [NotNullWhen(true)]out Type? genericType) {
+			genericType = null;
 			if (!type.IsAbstract && type.IsClass && !type.IsGenericTypeDefinition) {
 				if (genericDefinition.IsInterface) {
-					result = type.GetInterfaces().FirstOrDefault(args => args.IsGenericType && args.GetGenericTypeDefinition() == genericDefinition);
+					genericType = type.GetInterfaces().FirstOrDefault(args => args.IsGenericType && args.GetGenericTypeDefinition() == genericDefinition);
 				} else {
 					while (type != typeof(object)) {
 						if (type.IsGenericType && type.GetGenericTypeDefinition() == genericDefinition) {
-							result = type;
+							genericType = type;
 							break;
 						}
 						type = type.BaseType ?? typeof(object);
 					}
 				}
 			}
-			genericType = result ?? typeof(object);
-			return result != null;
+			return genericType != null;
 		}
 
 		/// <summary>

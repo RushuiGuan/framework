@@ -10,11 +10,11 @@ using System.Collections.Generic;
 namespace Albatross.Framework.Utility {
 	[Verb("input-test")]
 	public class InputTestOption{
-		[Option('i', "input", Required =true)]
-		public IEnumerable<int> Array { get; set; }
+		[Option('i', "input", Required = true)]
+		public IEnumerable<int> Array { get; set; } = new int[0];
 
 		[Option('s', "string", Required = false)]
-		public IEnumerable<string> TextArray { get; set; }
+		public IEnumerable<string> TextArray { get; set; } = new string[0];
 	}
 
 	public class InputTest: MyUtilityBase<InputTestOption> {
@@ -24,15 +24,11 @@ namespace Albatross.Framework.Utility {
 
 
 		protected override Task<int> RunUtility() {
-			if (Options.Array != null) {
-				foreach (var i in Options.Array) {
-					Console.WriteLine(i);
-				}
+			foreach (var i in Options.Array) {
+				Console.WriteLine(i);
 			}
-			if(Options.TextArray != null) {
-				foreach (var i in Options.TextArray) {
-					Console.WriteLine(i);
-				}
+			foreach (var i in Options.TextArray) {
+				Console.WriteLine(i);
 			}
 			return Task.FromResult(1);
 		}

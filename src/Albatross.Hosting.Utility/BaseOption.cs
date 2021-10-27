@@ -9,7 +9,7 @@ using System.Text.Json;
 namespace Albatross.Hosting.Utility {
 	public class BaseOption {
 		[Option('o', "console-out", Required = false, HelpText = "Console output file name")]
-		public string LogFile { get; set; }
+		public string? LogFile { get; set; }
 
 		[Option('v', "verbose")]
 		public bool Verbose { get; set; }

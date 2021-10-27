@@ -17,7 +17,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 				new object[]{DotNetType.Decimal(),"System.Decimal",},
 				new object[]{DotNetType.Double(),"System.Double",  },
 				new object[]{DotNetType.Guid(),"System.Guid",  },
-				new object[]{DotNetType.IDbConnection(),typeof(System.Data.IDbConnection).FullName,},
+				new object[]{DotNetType.IDbConnection(),typeof(System.Data.IDbConnection).FullName!,},
 				new object[]{DotNetType.Integer(),"System.Int32",  },
 				new object[]{DotNetType.Long(),"System.Int64", },
 				new object[]{DotNetType.Short(),"System.Int16",},

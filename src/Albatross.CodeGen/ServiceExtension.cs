@@ -19,7 +19,7 @@ namespace Albatross.CodeGen {
 		}
 
 		public static bool TryAddConverter(this IServiceCollection services, Type converterType) {
-			if (converterType.TryGetClosedGenericType(typeof(IConvertObject<>), out Type? genericInterfaceType)) {
+			if (converterType.TryGetClosedGenericType(typeof(IConvertObject<>), out Type genericInterfaceType)) {
 				services.AddTransient(converterType);
 				services.AddTransient(genericInterfaceType, converterType);
 				if (converterType.TryGetClosedGenericType(typeof(IConvertObject<,>), out genericInterfaceType)) {

@@ -29,7 +29,6 @@ namespace Albatross.Hosting {
 		public const string DefaultApp_RootPath = "wwwroot";
 		
 		protected AuthorizationSetting AuthorizationSetting { get; }
-		protected IServiceProvider ServiceProvider { get; private set; }
 		protected IConfiguration Configuration { get; }
 		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -47,7 +46,8 @@ namespace Albatross.Hosting {
 			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
 			if (Secured && WebApi) {
 				AuthorizationSetting = new GetAuthorizationSetting(configuration).Get();
-				AuthorizationSetting.Validate();
+			} else {
+				AuthorizationSetting = new AuthorizationSetting();
 			}
 		}
 
@@ -156,7 +156,6 @@ namespace Albatross.Hosting {
 
 		public virtual void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Startup> logger) {
 			logger.LogInformation("Initializing {@program} with environment {environment}", programSetting, environmentSetting.Value);
-			this.ServiceProvider = app.ApplicationServices;
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions });
 			app.UseRouting();
 			if (WebApi) {

@@ -30,10 +30,10 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public TypeScriptType(Type type) {
 			IsArray = type.IsArray;
 			if (IsArray) {
-				type = type.GetElementType() ?? throw new Exception("impossible");
+				type = type.GetElementType()!;
 			}
 			if(type.GetNullableValueType(out var valueType)) {
-				type = valueType ?? throw new Exception("impossible");
+				type = valueType;
 			}
 			IsGeneric = type.IsGenericType;
 			IsGenericParameter = type.IsGenericParameter;

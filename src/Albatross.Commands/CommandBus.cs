@@ -30,7 +30,7 @@ namespace Albatross.Commands {
 		}
 
 		protected virtual ICommandQueue CreateQueue(string name, Command command) {
-			if (registration.TryGetValue(command.GetType(), out IRegisterCommand? registered)) {
+			if (registration.TryGetValue(command.GetType(), out IRegisterCommand registered)) {
 				var queue = registered.Create(name, this.serviceProvider);
 				Task.Run(queue.Start);
 				return queue;
@@ -40,7 +40,7 @@ namespace Albatross.Commands {
 		}
 
 		public Task<T> Submit<T>(Command<T> command) where T:notnull{
-			if (registration.TryGetValue(command.GetType(), out IRegisterCommand? registered)) {
+			if (registration.TryGetValue(command.GetType(), out IRegisterCommand registered)) {
 				string name = registered.GetQueueName(command, serviceProvider);
 				var queue = queues.GetOrAdd(name, (key) => CreateQueue(key, command));
 				queue.Submit(command);
