@@ -10,6 +10,7 @@
 	<PropertyGroup>
 		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
 		<OutputType>Exe</OutputType>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
