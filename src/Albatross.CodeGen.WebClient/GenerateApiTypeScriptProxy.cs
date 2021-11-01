@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 #nullable enable
 namespace Albatross.CodeGen.WebClient {
 	public interface IGenerateApiTypeScriptProxy {
-		string Generate(string pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Func<Class, bool>? adjustClassModel = null);
+		string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Func<Class, bool>? adjustClassModel = null);
 	}
 	public class GenerateApiTypeScriptProxy : IGenerateApiTypeScriptProxy {
 		public const string DefaultPattern = "^.+Controller$";
