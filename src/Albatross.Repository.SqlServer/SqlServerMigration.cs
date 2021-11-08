@@ -24,7 +24,7 @@ namespace Albatross.Repository.SqlServer {
 				session.Database.Migrate();
 			}
 
-			var directoryInfo = new DirectoryInfo(typeof(T).Assembly.GetAssemblyLocation("Scripts"));
+			var directoryInfo = typeof(T).Assembly.GetAssemblyDirectoryLocation("Scripts");
 			if (directoryInfo.Exists) {
 				var files = directoryInfo.GetFiles("*.sql").OrderBy(args => args.Name);
 				foreach (var file in files) {
