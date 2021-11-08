@@ -134,9 +134,9 @@ namespace Albatross.Reflection {
 			}
 		}
 
-		public static DirectoryInfo GetAssemblyLocation(this Assembly asm, string subfolder) {
+		public static string GetAssemblyLocation(this Assembly asm, string path) {
 			string location = System.IO.Path.GetDirectoryName(asm.Location)??throw new Exception($"Cannot find the location of assembly {asm.FullName}");
-			return new DirectoryInfo(System.IO.Path.Combine(location, subfolder));
+			return System.IO.Path.Combine(location, path);
 		}
 	}
 }
