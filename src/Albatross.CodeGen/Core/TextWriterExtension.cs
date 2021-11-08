@@ -1,9 +1,5 @@
-﻿using System.Reflection;
-using System;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 using Albatross.Text;
 
 namespace Albatross.CodeGen.Core {
