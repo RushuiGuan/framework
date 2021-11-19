@@ -18,13 +18,12 @@ namespace Albatross.Repository.SqlServer {
 			this.logger = logger;
 		}
 
-		public async Task Migrate(bool scriptOnly) {
-			if (!scriptOnly) {
-				this.logger.LogInformation("Migrating via {ConnectionString}", session.DbConnection.ConnectionString);
-				session.Database.Migrate();
-			}
-
-			var directoryInfo = typeof(T).Assembly.GetAssemblyDirectoryLocation("Scripts");
+		public async Task MigrateEfCore() {
+			this.logger.LogInformation("Migrating via {ConnectionString}", session.DbConnection.ConnectionString);
+			await session.Database.MigrateAsync();
+		}
+		public async Task ExecuteDeploymentScript(string location = "Scripts") {
+			var directoryInfo = typeof(T).Assembly.GetAssemblyDirectoryLocation(location);
 			if (directoryInfo.Exists) {
 				var files = directoryInfo.GetFiles("*.sql").OrderBy(args => args.Name);
 				foreach (var file in files) {
