@@ -9,14 +9,13 @@ namespace Albatross.Repository.Core {
 		[Required]
 		[MaxLength(UserNameLength)]
 		public string CreatedBy { get; protected set; }
-		
-		protected void Create(string user) {
-			this.CreatedBy = user;
-			this.CreatedUtc = DateTime.UtcNow;
-			this.Validate();
-		}
 
-		public virtual void Validate() {
+		protected ImmutableEntity(string createdBy) {
+			this.CreatedBy = createdBy;
+			this.CreatedUtc = DateTime.UtcNow;
+		}
+		
+		public virtual void Validate(IDbSession session) {
 			Validator.ValidateObject(this, new ValidationContext(this), true);
 		}
 	}

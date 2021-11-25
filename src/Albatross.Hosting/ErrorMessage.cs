@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Albatross.Hosting {
+﻿namespace Albatross.Hosting {
 	public class ErrorMessage {
-		public string Message { get; set; }
-		public string Type { get; set; }
+		public string? Message { get; set; }
+		public string? Type { get; set; }
 		public int StatusCode { get; set; }
 
-		public ErrorMessage InnerError { get; set; }
+		public ErrorMessage? InnerError { get; set; }
 	}
 }

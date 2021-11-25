@@ -12,7 +12,7 @@ namespace Albatross.Hosting.Demo {
 			return new DirectoryContent();
 		}
 
-		public IFileInfo GetFileInfo(string subpath) {
+		public IFileInfo? GetFileInfo(string subpath) {
 			if (string.Equals("/views/home/my very special view.default-super.cshtml", subpath, StringComparison.InvariantCultureIgnoreCase)) {
 				return new InMemoryFile();
 			} else {
@@ -29,7 +29,7 @@ namespace Albatross.Hosting.Demo {
 
 		public bool ActiveChangeCallbacks => false;
 
-		public IDisposable RegisterChangeCallback(Action<object> callback, object state) {
+		public IDisposable? RegisterChangeCallback(Action<object> callback, object state) {
 			return null;
 		}
 	}
@@ -49,7 +49,7 @@ namespace Albatross.Hosting.Demo {
 
 		public long Length => throw new NotImplementedException();
 
-		public string PhysicalPath => null;
+		public string? PhysicalPath => null;
 
 		public string Name => "my very special view.default-super";
 

@@ -15,7 +15,7 @@ namespace Albatross.Hosting.Utility {
 		public ShowEnvironment(ShowEnvironmentOption option):base(option) {
 		}
 
-		public override Task<int> RunAsync() {
+		protected override Task<int> RunUtility() {
 
 			string environment = System.Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 			logger.LogInformation("DOTNET_ENVIRONMENT Variable: {environment}", environment);

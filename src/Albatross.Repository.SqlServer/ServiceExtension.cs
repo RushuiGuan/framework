@@ -25,6 +25,7 @@ namespace Albatross.Repository.SqlServer {
 
 		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, Func<IServiceProvider, string> getConnectionString) where T : DbContext {
 			services.AddDbContext<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
+			services.AddSingleton<ISqlBatchExecution, SqlBatchExecution>();
 			return services;
 		}
 
@@ -37,15 +38,16 @@ namespace Albatross.Repository.SqlServer {
 		/// <returns></returns>
 		public static IServiceCollection UseSqlServerWithContextPool<T>(this IServiceCollection services, Func<IServiceProvider, string>getConnectionString) where T : DbContext {
 			services.AddDbContextPool<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
+			services.AddSingleton<ISqlBatchExecution, SqlBatchExecution>();
 			return services;
 		}
 
-		public static bool TryUseSqlServer<T>(this IServiceCollection services, string provider, string connectionString, bool useContextPool = true) where T : DbContext {
+		public static bool TryUseSqlServer<T>(this IServiceCollection services, string provider, Func<IServiceProvider, string> getConnectionString, bool useContextPool = true) where T : DbContext {
 			if (provider == DatabaseProvider.Name) {
 				if (useContextPool) {
-					services.AddDbContextPool<T>(builder => BuildDefaultOption(builder, connectionString));
+					services.AddDbContextPool<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
 				} else {
-					services.AddDbContext<T>(builder => BuildDefaultOption(builder, connectionString));
+					services.AddDbContext<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
 				}
 				return true;
 			} else {

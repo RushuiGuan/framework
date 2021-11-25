@@ -38,7 +38,7 @@ namespace Albatross.WebClient {
 			} while (left > 0);
 		}
 
-		public static async Task<T> Receive<T>(this WebSocket socket, CancellationToken cancellation, JsonSerializerOptions serializerOptions, ILogger logger, int bufferSize = ReceiveBufferSize) {
+		public static async Task<T?> Receive<T>(this WebSocket socket, CancellationToken cancellation, JsonSerializerOptions serializerOptions, ILogger logger, int bufferSize = ReceiveBufferSize) {
 			Memory<byte> buffer = new Memory<byte>(new byte[bufferSize]);
 			using MemoryStream stream = new MemoryStream();
 			var type = await socket.Receive(buffer, stream, cancellation);

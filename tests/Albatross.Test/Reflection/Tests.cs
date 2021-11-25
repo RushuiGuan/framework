@@ -125,5 +125,11 @@ namespace Albatross.Test.Reflection {
 			string actual = this.GetType().GetAssemblyLocation();
 			Assert.Equal(location, actual);
 		}
+
+		[Fact]
+		public void TestIsNullable() {
+			Assert.True(typeof(int?).IsNullable());
+			Assert.False(this.GetType().IsNullable());
+		}
     }
 }

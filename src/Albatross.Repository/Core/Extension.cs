@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +16,9 @@ namespace Albatross.Repository.Core {
 			return repo.DbSession.SaveChangesAsync(cancellationToken);
 		}
 
-
 		public static void Merge<Src, Dst, TKey>(this IEnumerable<Dst> dst, IEnumerable<Src> src,
 			Func<Src, TKey> srcKeySelector, Func<Dst, TKey> dstKeySelector, 
-			Action<Src, Dst> matched, Action<Src> notMatchedByDst, Action<Dst> notMatchedBySrc) {
+			Action<Src, Dst>? matched, Action<Src>? notMatchedByDst, Action<Dst>? notMatchedBySrc) where TKey:notnull{
 			var dstArray = dst.ToArray();
 			if(src == null) { src = new Src[0]; }
 			Dictionary<TKey, Src> srcDict = new Dictionary<TKey, Src>();

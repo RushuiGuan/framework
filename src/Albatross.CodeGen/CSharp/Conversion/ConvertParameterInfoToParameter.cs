@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
+using System;
 using System.Reflection;
 
 namespace Albatross.CodeGen.CSharp.Conversion {
@@ -9,9 +10,7 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 		}
 
 		public Parameter Convert(ParameterInfo info) {
-			var p = new Parameter {
-				Name = info.Name,
-				Type = new DotNetType(info.ParameterType),
+			var p = new Parameter(info.Name ?? throw new Exception(), new DotNetType(info.ParameterType)) {
 				Modifier = info.IsOut ? Model.ParameterModifier.Out : info.IsIn ? Model.ParameterModifier.In : Model.ParameterModifier.Ref,
 			};
 

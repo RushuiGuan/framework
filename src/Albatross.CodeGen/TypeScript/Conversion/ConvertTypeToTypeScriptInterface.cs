@@ -13,11 +13,15 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 			this.convertPropertyInfoToTypeScriptProperty = convertPropertyInfoToTypeScriptProperty;
 		}
 		public TypeScript.Model.Interface Convert(Type type) {
-			return new Interface {
-				Name = type.Name,
-				Export = true,
-				Properties = from property in type.GetProperties() select convertPropertyInfoToTypeScriptProperty.Convert(property),
+			var model = new Interface(type.Name) {
+				Properties = (from property in type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+							 select convertPropertyInfoToTypeScriptProperty.Convert(property)).ToList(),
 			};
+			if (type.IsGenericType) {
+				model.IsGeneric = true;
+				model.GenericTypes = type.GetGenericArguments().Select(args => args.Name).ToList();
+			}
+			return model;
 		}
 
 		object IConvertObject<Type>.Convert(Type from) {

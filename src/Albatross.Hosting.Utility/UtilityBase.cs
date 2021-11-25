@@ -9,7 +9,6 @@ using Serilog;
 using Serilog.Events;
 using System;
 using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Utility {
@@ -31,7 +30,7 @@ namespace Albatross.Hosting.Utility {
 			SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
 		}
 
-		public virtual string CurrentDirectory => System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location);
+		public virtual string CurrentDirectory => System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location)!;
 
 		public UtilityBase(Option option) {
 			this.Options = option;
@@ -60,7 +59,15 @@ namespace Albatross.Hosting.Utility {
 			services.AddSingleton<EnvironmentSetting>(envSetting);
 			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 		}
-		public abstract Task<int> RunAsync();
+		public async Task<int> Run() {
+			try {
+				return await this.RunUtility();
+			}catch(Exception err) {
+				logger.LogError(err, string.Empty);
+				return -1;
+			}
+		}
+		protected abstract Task<int> RunUtility();
 		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
 
 		public void Dispose() {

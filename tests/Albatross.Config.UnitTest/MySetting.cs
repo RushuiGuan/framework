@@ -9,8 +9,8 @@ namespace Albatross.Config.UnitTest {
 	}
 
 	public class MySetting {
-		public string Name { get; set; }
-		public GameData Data { get; set; }
+		public string? Name { get; set; }
+		public GameData? Data { get; set; }
 		public const string Key = "my";
 	}
 

@@ -1,11 +1,11 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
+using Albatross.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,16 +16,12 @@ namespace Albatross.CodeGen.WebClient {
 		const string Controller = "Controller";
 		const string ProxyService = "ProxyService";
 		const string WebClient = "WebClient";
-		const string ControllerPath = "ControllerPath";
-		const string Logger = "logger";
-		const string Client = "client";
+
 
 		Regex actionRouteRegex = new Regex(@"{(\w+)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-		IConvertObject<MethodInfo, Method> convertMethod;
 
-		public ConvertApiControllerToTypeScriptClass(IConvertObject<MethodInfo, Method> convertMethod) {
-			this.convertMethod = convertMethod;
+		public ConvertApiControllerToTypeScriptClass() {
 		}
 
 		object IConvertObject<Type>.Convert(Type from) {
@@ -36,8 +32,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		public Class Convert(Type type) {
-			Class converted = new Class() {
-				Name = GetClassName(type),
+			Class converted = new Class(GetClassName(type)) {
 				BaseClass = GetBaseClass(),
 				Constructor = new Constructor {
 					AccessModifier = AccessModifier.Public,
@@ -71,7 +66,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetControllerRoute(Type type) {
-			RouteAttribute route = type.GetCustomAttribute<RouteAttribute>();
+			RouteAttribute? route = type.GetCustomAttribute<RouteAttribute>();
 			var list = route?.Template?.Split('/') ?? new string[0];
 			for (int i = 0; i < list.Length; i++) {
 				if (string.Equals(list[i], "[controller]")) {
@@ -82,7 +77,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetNamespace(Type type) {
-			string[] list = type.Namespace.Split('.');
+			string[] list = type.Namespace?.Split('.') ?? new string[0];
 			list[list.Length - 1] = WebClient;
 			return string.Join(".", list);
 		}
@@ -92,21 +87,19 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		Class GetBaseClass() {
-			return new Class {
-				Name = "Albatross.WebClient.ClientBase",
+			return new Class("Albatross.WebClient.ClientBase") {
 			};
 		}
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
-			string actionTemplate = attrib.Template;
+			string? actionTemplate = attrib.Template;
 			if (string.IsNullOrEmpty(actionTemplate)) {
 				actionTemplate = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
 			}
-			Method method = convertMethod.Convert(methodInfo);
+			Method method = new Method(methodInfo.Name);
 			/// make async void void and the rest async
 			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {
 				method.ReturnType = TypeScriptType.MakeAsync(method.ReturnType);
 			}
-			method.Body = new CodeBlock();
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
 				writer.Write("string path = $\"{ControllerPath}");
@@ -123,11 +116,11 @@ namespace Albatross.CodeGen.WebClient {
 					}
 				}
 
-				ParameterInfo fromBody = null;
+				ParameterInfo? fromBody = null;
 				foreach (var item in methodInfo.GetParameters()) {
 					if (item.GetCustomAttribute<FromBodyAttribute>() != null) {
 						fromBody = item;
-					} else if (!actionRoutes.Contains(item.Name)) {
+					} else if (item.Name != null && !actionRoutes.Contains(item.Name)) {
 						writer.Write($"queryString.Add(nameof(@{item.Name}), ");
 						if (item.ParameterType == typeof(DateTime) || item.ParameterType == typeof(DateTime?)) {
 							if (item.Name.EndsWith("date", StringComparison.InvariantCultureIgnoreCase)) {
@@ -160,7 +153,7 @@ namespace Albatross.CodeGen.WebClient {
 				writer.WriteLine("(request);");
 				writer.Write("}");
 			}
-			method.Body.Content = sb.ToString();
+			method.Body = new CodeBlock(sb.ToString());
 			method.Async = true;
 			return method;
 		}

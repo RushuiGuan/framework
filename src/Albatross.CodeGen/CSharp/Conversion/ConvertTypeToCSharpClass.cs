@@ -14,13 +14,12 @@ namespace Albatross.CodeGen.CSharp.Conversion {
         }
         public Class Convert(Type type)
         {
-			var result = new Class {
+			var result = new Class(type.Name) {
 				Namespace = type.Namespace,
 				AccessModifier = type.IsPublic ? AccessModifier.Public : AccessModifier.None,
 				Sealed = type.IsSealed,
 				Static = type.IsAbstract && type.IsSealed,
 				Abstract = type.IsAbstract && !type.IsSealed,
-				Name = type.Name,
 			};
 
             if (type.BaseType != null &&  type.BaseType != typeof(object))

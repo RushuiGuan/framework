@@ -1,10 +1,12 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
+using Albatross.Reflection;
+using Albatross.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -21,9 +23,9 @@ namespace Albatross.CodeGen.WebClient {
 		const string Logger = "logger";
 		const string Client = "client";
 
-		Regex actionRouteRegex = new Regex(@"{(\w+)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+		public readonly static Regex actionRouteRegex = new Regex(@"{\**(\w+)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        IConvertObject<MethodInfo, Method> convertMethod;
+        private IConvertObject<MethodInfo, Method> convertMethod;
 
 		public ConvertApiControllerToCSharpClass(IConvertObject<MethodInfo, Method> convertMethod) {
 			this.convertMethod = convertMethod;
@@ -32,45 +34,37 @@ namespace Albatross.CodeGen.WebClient {
 		object IConvertObject<Type>.Convert(Type from) {
 			return this.Convert(from);
 		}
+
 		IEnumerable<Parameter> GetConstructorParameters(Type type) {
 			return new Parameter[]{
-				new Parameter {
-					Type = GetILoggerType(type),
+				new Parameter(Logger,GetILoggerType(type)) {
 					Modifier = CSharp.Model.ParameterModifier.None,
-					Name = Logger,
 				},
-				new Parameter{
-					Type = new DotNetType(typeof(HttpClient)),
+				new Parameter(Client, new DotNetType(typeof(HttpClient))){
 					Modifier = CSharp.Model.ParameterModifier.None,
-					Name = Client,
 				},
 			};
 		}
 
 		public Class Convert(Type type) {
-			Class converted = new Class() {
+			Class converted = new Class(GetClassName(type)) {
                 Partial = true,
 				Imports = new string[] { "System", "System.Net.Http", "System.Threading.Tasks", "Microsoft.Extensions.Logging", "Albatross.WebClient", "System.Collections.Generic" },
 				AccessModifier = AccessModifier.Public,
 				Namespace = GetNamespace(type),
-				Name = GetClassName(type),
 				BaseClass = GetBaseClass(),
 				Fields = new Field[] {
-					new Field {
-						Name = ControllerPath,
-						Type = DotNetType.String(),
+					new Field(ControllerPath, DotNetType.String()) {
 						Const = true,
 						Value = new StringWriter().Literal(GetControllerRoute(type)).ToString(),
 						Modifier = AccessModifier.Public,
 					},
 				},
 				Constructors = new Constructor[] {
-					new Constructor{
+					new Constructor(GetClassName(type)){
 						AccessModifier = AccessModifier.Public,
-						Name = GetClassName(type),
 						Parameters = GetConstructorParameters(type),
-						BaseConstructor = new Constructor{
-							Name="base",
+						BaseConstructor = new Constructor("base"){
 							Parameters = GetConstructorParameters(type),
 						}
 					}
@@ -90,13 +84,14 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		DotNetType GetILoggerType(Type type) {
-			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, false, null);
+			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, false, new DotNetType[0]);
 		}
+		
 		DotNetType GetGenericILoggerType(Type type) {
 			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, true, new DotNetType[] { new DotNetType(GetClassName(type)), });
 		}
 
-		string GetController(Type type) {
+		string GetControllerName(Type type) {
 			if (type.Name.EndsWith(Controller)) {
 				return type.Name.Substring(0, type.Name.Length - Controller.Length);
 			} else {
@@ -105,75 +100,79 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetControllerRoute(Type type) {
-			RouteAttribute route = type.GetCustomAttribute<RouteAttribute>();
+			RouteAttribute? route = type.GetCustomAttribute<RouteAttribute>();
 			var list = route?.Template?.Split('/') ?? new string[0];
 			for (int i = 0; i < list.Length; i++) {
 				if (string.Equals(list[i], "[controller]")) {
-					list[i] = GetController(type);
+					list[i] = GetControllerName(type);
 				}
 			}
 			return string.Join("/", list).ToLower();
 		}
 
 		string GetNamespace(Type type) {
-			string[] list = type.Namespace.Split('.');
+			string[] list = type.Namespace?.Split('.')?? new string[1];
 			list[list.Length - 1] = WebClient;
 			return string.Join(".", list);
 		}
 
 		string GetClassName(Type type) {
-			return GetController(type) + ProxyService;
+			return GetControllerName(type) + ProxyService;
 		}
 
 		Class GetBaseClass() {
-			return new Class {
-				Name = "Albatross.WebClient.ClientBase",
-			};
+			return new Class("Albatross.WebClient.ClientBase");
 		}
+
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
-			string actionTemplate = attrib.Template;
-			if (string.IsNullOrEmpty(actionTemplate)) {
-				actionTemplate = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
-			}
 			Method method = convertMethod.Convert(methodInfo);
+			
 			/// make async void void and the rest async
 			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {
 				method.ReturnType = DotNetType.MakeAsync(method.ReturnType);
 			}
-			method.Body = new CodeBlock();
+
+			string actionTemplate = attrib.Template;
+			if (string.IsNullOrEmpty(actionTemplate)) {
+				actionTemplate = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
+			}
+
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
 				writer.Write("string path = $\"{ControllerPath}");
 				if (!string.IsNullOrEmpty(actionTemplate)) {
 					writer.Write("/");
-					writer.Write(actionTemplate);
+					// deal with wild card routes
+					writer.Write(actionTemplate.Replace("*", ""));
 				}
 				writer.WriteLine("\";");
-				writer.WriteLine("var queryString = new System.Collections.Specialized.NameValueCollection();");
+				writer.Code(new NewObjectCodeBlock<NameValueCollection>("queryString"));
+
 				HashSet<string> actionRoutes = new HashSet<string>();
 				if (attrib.Template != null) {
 					foreach (Match match in actionRouteRegex.Matches(attrib.Template)) {
 						actionRoutes.Add(match.Groups[1].Value);
 					}
 				}
-
-				ParameterInfo fromBody = null;
+				
+				ParameterInfo? fromBody = null;
 				foreach (var item in methodInfo.GetParameters()) {
-					if (item.GetCustomAttribute<FromBodyAttribute>() != null) {
-						fromBody = item;
-					} else if (!actionRoutes.Contains(item.Name)) {
-                        writer.Write($"queryString.Add(nameof(@{item.Name}), ");
-						if(item.ParameterType == typeof(DateTime) || item.ParameterType == typeof(DateTime?)) {
-							if (item.Name.EndsWith("date", StringComparison.InvariantCultureIgnoreCase)) {
-								writer.WriteLine($"string.Format(\"{{0:yyyy-MM-dd}}\", @{item.Name}));");
+					if (item.Name != null) {
+						if (item.GetCustomAttribute<FromBodyAttribute>() != null) {
+							// skip the FromBody parameter
+							fromBody = item;
+						} else if (item.GetCustomAttribute<FromRouteAttribute>() != null || actionRoutes.Contains(item.Name)) {
+							// skip the routing parameter
+							continue;
+						} else if (item.Name != null) {
+							if (item.ParameterType.GetCollectionElementType(out Type elementType)) {
+								writer.Code(new ForEachCodeBlock("item", item.Name) {
+									ForEachContent = new AddCSharpQueryStringParam(item.Name, "item", elementType)
+								});
 							} else {
-								writer.WriteLine($"string.Format(\"{{0:o}}\", @{item.Name}));");
+								writer.Code(new AddCSharpQueryStringParam(item.Name, item.Name, item.ParameterType));
 							}
-						} else if (item.ParameterType != typeof(string)) {
-							writer.WriteLine($"System.Convert.ToString(@{item.Name}));");
-						} else {
-                            writer.WriteLine($"@{item.Name});");
-                        }
+						}
 					}
 				}
 				if (fromBody?.ParameterType == typeof(string)) {
@@ -194,7 +193,7 @@ namespace Albatross.CodeGen.WebClient {
 				writer.WriteLine("(request);");
 				writer.Write("}");
 			}
-			method.Body.Content = sb.ToString();
+			method.CodeBlock = new CodeBlock(sb.ToString());
             method.Async = true;
 			return method;
 		}

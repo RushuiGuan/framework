@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -10,25 +12,25 @@ namespace Albatross.Reflection {
 		/// <summary>
 		/// Return the generic argument of Nullable<>
 		/// </summary>
-		public static bool GetNullableValueType(this Type nullableType, out Type valueType) {
-			valueType = null;
+		public static bool GetNullableValueType(this Type nullableType, [NotNullWhen(true)]out Type? valueType) {
 			if (nullableType.IsGenericType && nullableType.GetGenericTypeDefinition() == typeof(Nullable<>)) {
 				valueType = nullableType.GetGenericArguments()[0];
 				return true;
 			}
+			valueType = null;
 			return false;
 		}
 
 		/// <summary>
 		/// Return the generic argument of IEnumerable<> or the element type of an array
 		/// </summary>
-		public static bool GetCollectionElementType(this Type collectionType, out Type elementType) {
+		public static bool GetCollectionElementType(this Type collectionType, [NotNullWhen(true)] out Type? elementType) {
 			elementType = null;
 
 			if (collectionType == typeof(string)) {
 				return false;
 			} else if (collectionType == typeof(Array) || collectionType.IsArray) {
-				elementType = collectionType.GetElementType();
+				elementType = collectionType.GetElementType()!;
 				if (elementType == null) {
 					elementType = typeof(object);
 				}
@@ -44,12 +46,17 @@ namespace Albatross.Reflection {
 			return true;
 		}
 
+		public static string GetGenericTypeName(this string name) {
+			return name.Substring(0, name.LastIndexOf('`'));
+		}
+
+
 		/// <summary>
 		/// Check if a type is anoymous
 		/// </summary>
 		public static Boolean IsAnonymousType(this Type type) {
 			Boolean hasCompilerGeneratedAttribute = type.GetCustomAttributes(typeof(CompilerGeneratedAttribute), false).Count() > 0;
-			Boolean nameContainsAnonymousType = type.FullName.Contains("AnonymousType");
+			Boolean nameContainsAnonymousType = type.FullName?.Contains("AnonymousType") == true;
 			Boolean isAnonymousType = hasCompilerGeneratedAttribute && nameContainsAnonymousType;
 			return isAnonymousType;
 		}
@@ -73,7 +80,7 @@ namespace Albatross.Reflection {
 		/// <param name="genericDefinition">The definition of a generic type.  For example: typeof(IEnumerable&lt;&gt;)</param>
 		/// <param name="genericType">If the class extends\implements the generic type\interface, its type will be set in this output parameter</param>
 		/// <returns>Return true if the class implements the generic interface</returns>
-		public static bool TryGetClosedGenericType(this Type type, Type genericDefinition, out Type genericType) {
+		public static bool TryGetClosedGenericType(this Type type, Type genericDefinition, [NotNullWhen(true)]out Type? genericType) {
 			genericType = null;
 			if (!type.IsAbstract && type.IsClass && !type.IsGenericTypeDefinition) {
 				if (genericDefinition.IsInterface) {
@@ -84,7 +91,7 @@ namespace Albatross.Reflection {
 							genericType = type;
 							break;
 						}
-						type = type.BaseType;
+						type = type.BaseType ?? typeof(object);
 					}
 				}
 			}
@@ -100,20 +107,46 @@ namespace Albatross.Reflection {
 			if (string.IsNullOrEmpty(className)) {
 				throw new ArgumentException("Type not found: empty class name");
 			} else {
-				Type type = Type.GetType(className);
-				if(type == null) {
+				Type? type = Type.GetType(className);
+				if (type == null) {
 					throw new ArgumentException($"Type not found: {className}");
 				}
 				return type;
 			}
 		}
 
+		public static bool IsNullable(this Type type) => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+
 		public static string GetTypeNameWithoutAssemblyVersion(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
 
-		public static A GetEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute {
+		public static A? GetEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute where EnumType: notnull {
 			var type = typeof(EnumType);
-			var members = type.GetMember(enumValue.ToString());
-			return members[0].GetCustomAttribute<A>();
+			if (type.IsEnum) {
+				var value = enumValue.ToString();
+				if (value != null) {
+					var members = type.GetMember(value);
+					return members[0].GetCustomAttribute<A>();
+				} else {
+					return null;
+				}
+			} else {
+				throw new ArgumentException($"Type {type.FullName} is not an enum");
+			}
+		}
+
+		public static string GetAssemblyLocation(this Assembly asm, string path) {
+			string location = System.IO.Path.GetDirectoryName(asm.Location)??throw new Exception($"Cannot find the location of assembly {asm.FullName}");
+			return System.IO.Path.Combine(location, path);
+		}
+
+		public static DirectoryInfo GetAssemblyDirectoryLocation(this Assembly asm, string path) {
+			string location = GetAssemblyLocation(asm, path);
+			return new DirectoryInfo(location);
+		}
+
+		public static FileInfo GetAssemblyFileLocation(this Assembly asm, string path) {
+			string location = GetAssemblyLocation(asm, path);
+			return new FileInfo(location);
 		}
 	}
 }

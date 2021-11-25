@@ -1,23 +1,26 @@
-﻿using System;
+﻿using Albatross.CodeGen.Core;
+using Albatross.Reflection;
+using Albatross.Text;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Model {
-	public class TypeScriptType {
+	public class TypeScriptType : ICodeElement {
 		const string VoidType = "void";
 		const string PromiseType = "Promise";
 
 		public string Name { get; set; }
-		public bool IsGeneric { get; }
+		public bool IsGeneric { get; set; }
+		public bool IsGenericParameter { get; set; }
 		public bool IsArray { get; set; }
-		public TypeScriptType[] GenericTypeArguments { get; }
+		public TypeScriptType[] GenericTypeArguments { get; } 
 		public bool IsAsync => this.Name == PromiseType;
 		public bool IsVoid => Name == VoidType || IsAsync && !IsGeneric;
 
-		public TypeScriptType() { }
-		public TypeScriptType(string name) : this(name, false, false, null) { }
+		public TypeScriptType(string name) : this(name, false, false, new TypeScriptType[0]) { }
 		public TypeScriptType(string name, bool isArray, bool isGeneric, TypeScriptType[] genericTypeArguments) {
 			this.Name = name;
 			this.IsArray = isArray;
@@ -27,30 +30,33 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public TypeScriptType(Type type) {
 			IsArray = type.IsArray;
 			if (IsArray) {
-				type = type.GetElementType();
+				type = type.GetElementType()!;
 			}
-
+			if(type.GetNullableValueType(out var valueType)) {
+				type = valueType;
+			}
 			IsGeneric = type.IsGenericType;
+			IsGenericParameter = type.IsGenericParameter;
 			if (IsGeneric) {
-				Name = ReflectionExtension.GetGenericTypeName(type.GetGenericTypeDefinition().Name);
+				Name = type.GetGenericTypeDefinition().Name.GetGenericTypeName();
 				GenericTypeArguments = (from item in type.GetGenericArguments() select new TypeScriptType(item)).ToArray();
 			} else {
-				Name = type.FullName;
+				Name = type.Name;
 				GenericTypeArguments = new TypeScriptType[0];
 			}
 		}
 
 		public override string ToString() {
 			StringWriter writer = new StringWriter();
-			new Writer.WriteTypeScriptType().Run(writer, this);
+			writer.Code(this);
 			return writer.ToString();
 		}
-		public override bool Equals(object obj) {
+		public override bool Equals(object? obj) {
 			if (obj is TypeScriptType) {
 				TypeScriptType input = (TypeScriptType)obj;
 				bool result = input.Name == Name && input.IsArray == IsArray
 					&& input.IsGeneric == IsGeneric && input.IsVoid == IsVoid
-					&& input.GenericTypeArguments?.Length == GenericTypeArguments?.Length;
+					&& input.GenericTypeArguments.Length == GenericTypeArguments.Length;
 				if (result) {
 					for (int i = 0; i < GenericTypeArguments.Length; i++) {
 						if (input.GenericTypeArguments[i]?.Equals(GenericTypeArguments[i]) != true) {
@@ -92,6 +98,35 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			} else {
 				return this;
 			}
+		}
+
+		public TextWriter Generate(TextWriter writer) {
+			if (IsVoid && !IsAsync) {
+				writer.Append("void");
+			} else {
+				writer.Append(Name);
+				if (IsGeneric) {
+					if (GenericTypeArguments?.Count() > 0) {
+						writer.OpenAngleBracket();
+						bool first = true;
+						foreach (var genericType in GenericTypeArguments) {
+							if (!first) {
+								writer.Comma().Space();
+							} else {
+								first = false;
+							}
+							writer.Code(genericType);
+						}
+						writer.CloseAngleBracket();
+					} else {
+						throw new CodeGenException("Missing Generic Arguments");
+					}
+				}
+				if (IsArray) {
+					writer.Append("[]");
+				}
+			}
+			return writer;
 		}
 	}
 }

@@ -1,14 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <LangVersion>Latest</LangVersion>
         <Authors>Rushui Guan</Authors>
         <Description>Combined assembly on utility classes for serilzation, validation and reflection</Description>
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
         <PackageReference Include="System.Buffers" Version="4.5.1" />
         <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
         <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
