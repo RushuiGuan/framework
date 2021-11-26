@@ -44,14 +44,19 @@ namespace Albatross.Hosting.Utility {
 			return await parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
 		}
 
-		public static EntityType? ReadInput<EntityType>(this string file) {
+		public static EntityType ReadInput<EntityType>(this string file) {
 			using var reader = new StreamReader(file);
 			string text = reader.ReadToEnd();
-			return JsonSerializer.Deserialize<EntityType>(text, new JsonSerializerOptions {
+			var result = JsonSerializer.Deserialize<EntityType>(text, new JsonSerializerOptions {
 				IgnoreNullValues = true,
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 				WriteIndented = true
 			});
+			if(result == null) {
+				throw new InvalidDataException($"File {file} cannot be deserialized into an object of {typeof(EntityType).Name}");
+			} else {
+				return result;
+			}
 		}
 		public static string ReadInput(this string file) {
 			using var reader = new StreamReader(file);
