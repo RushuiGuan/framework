@@ -28,7 +28,7 @@ namespace Albatross.Config {
 			return t;
 		}
 
-		protected string GetConnectionString(string name) {
+		protected string? GetConnectionString(string name) {
 			return configuration.GetConnectionString(name);
 		}
 	}
