@@ -31,6 +31,8 @@ namespace Albatross.Repository.SqlServer {
 
 		/// <summary>
 		/// when using context pool, the dbcontext class has to have a constructor with only dbcontextoption parameter 
+		/// To create a readonly connection, use the readonly connection string if available (require sql server availability group).  
+		/// As an alternative, access the database using an user with only readonly permission
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="services"></param>
