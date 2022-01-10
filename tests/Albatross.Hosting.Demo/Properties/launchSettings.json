@@ -12,9 +12,6 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "staging"
-      },
       "applicationUrl": "http://localhost:5000"
     },
     "Demo IIS": {

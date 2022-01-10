@@ -13,7 +13,7 @@ namespace Albatross.Hosting.Test {
 		public override bool Grpc => false;
 		public override bool Secured => true;
 		public override bool Swagger => true;
-		public override bool WebApi => true;
+		public override bool WebApi => false;
 		public override bool Spa => true;
 		public override bool Caching => true;
 

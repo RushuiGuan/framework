@@ -177,7 +177,7 @@ namespace Albatross.Hosting {
 
 		public void UseSpa(IApplicationBuilder app, ILogger<Startup> logger) {
 			var config = app.ApplicationServices.GetRequiredService<AngularConfig>();
-			logger.LogInformation("Initializing SPA with request path of  {requestPath} and baseHref of ", config.RequestPath, config.BaseHref);
+			logger.LogInformation("Initializing SPA with request path of '{requestPath}' and baseHref of '{baseRef}'", config.RequestPath, config.BaseHref);
 			var options = new StaticFileOptions { 
 				 RequestPath = config.RequestPath,
 			};

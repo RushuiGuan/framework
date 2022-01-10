@@ -2,6 +2,7 @@
 using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
 namespace Albatross.Repository.SqlServer {
@@ -25,7 +26,7 @@ namespace Albatross.Repository.SqlServer {
 
 		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, Func<IServiceProvider, string> getConnectionString) where T : DbContext {
 			services.AddDbContext<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
-			services.AddSingleton<ISqlBatchExecution, SqlBatchExecution>();
+			services.TryAddSingleton<ISqlBatchExecution, SqlBatchExecution>();
 			return services;
 		}
 
@@ -40,7 +41,7 @@ namespace Albatross.Repository.SqlServer {
 		/// <returns></returns>
 		public static IServiceCollection UseSqlServerWithContextPool<T>(this IServiceCollection services, Func<IServiceProvider, string>getConnectionString) where T : DbContext {
 			services.AddDbContextPool<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider)));
-			services.AddSingleton<ISqlBatchExecution, SqlBatchExecution>();
+			services.TryAddSingleton<ISqlBatchExecution, SqlBatchExecution>();
 			return services;
 		}
 
