@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_BASE_HREF, CommonModule, PlatformLocation } from '@angular/common';
@@ -13,41 +13,42 @@ import { Page3Component } from './page3/page3.component';
 import { Page4Component } from './page4/page4.component';
 
 export function initApp(cfgSvc: ConfigService): any {
-    console.log("app initialization");
-    const promise = cfgSvc.init();
-    return () => promise;
+	console.log("app initialization");
+	const promise = cfgSvc.init();
+	return () => promise;
 }
 export function getBaseHref(platformLocation: PlatformLocation): string {
-    return platformLocation.getBaseHrefFromDOM();
+	return platformLocation.getBaseHrefFromDOM();
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        App1Component,
-        App2Component,
-        Page1Component,
-        Page2Component,
-        Page3Component,
-        Page4Component
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        CommonModule,
-    ],
-    providers: [
-        {
-            provide: APP_BASE_HREF,
-            useFactory: getBaseHref,
-            deps: [PlatformLocation]
-        },
-        {
-            provide: APP_INITIALIZER,
-            useFactory: initApp,
-            deps: [ConfigService], multi: true
-        }
-    ],
-    bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		App1Component,
+		App2Component,
+		Page1Component,
+		Page2Component,
+		Page3Component,
+		Page4Component
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		CommonModule,
+		HttpClientModule
+	],
+	providers: [
+		{
+			provide: APP_BASE_HREF,
+			useFactory: getBaseHref,
+			deps: [PlatformLocation]
+		},
+		{
+			provide: APP_INITIALIZER,
+			useFactory: initApp,
+			deps: [ConfigService], multi: true
+		}
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

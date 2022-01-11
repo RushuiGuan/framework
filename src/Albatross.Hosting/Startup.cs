@@ -55,7 +55,7 @@ namespace Albatross.Hosting {
 			builder.AllowAnyHeader();
 			builder.AllowAnyMethod();
 			builder.AllowCredentials();
-			builder.SetIsOriginAllowed(args => true);
+			// builder.SetIsOriginAllowed(args => true);
 		}
 
 		#region swagger

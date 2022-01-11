@@ -3,6 +3,7 @@ using Albatross.Config.Core;
 using Albatross.Hosting.Demo;
 using Albatross.Hosting.Demo.Hubs;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,12 +14,11 @@ namespace Albatross.Hosting.Test {
 		public override bool Grpc => false;
 		public override bool Secured => true;
 		public override bool Swagger => true;
-		public override bool WebApi => false;
+		public override bool WebApi => true;
 		public override bool Spa => true;
 		public override bool Caching => true;
 
-		public MyStartup(IConfiguration configuration) : base(configuration) {
-		}
+		public MyStartup(IConfiguration configuration) : base(configuration) { }
 
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
@@ -35,6 +35,9 @@ namespace Albatross.Hosting.Test {
 			app.UseEndpoints(buider => {
 				buider.MapHub<NotifHub>("/notif");
 			});
+		}
+		protected override void ConfigureCors(CorsPolicyBuilder builder) {
+			base.ConfigureCors(builder);
 		}
 	}
 }

@@ -17,6 +17,7 @@ using Serilog;
 
 namespace Albatross.Hosting.Test {
 	[Route("api/[controller]")]
+	[Authorize]
 	public class ValuesController : Controller {
 		private readonly ProgramSetting setting;
 		private readonly IConfiguration configuration;
