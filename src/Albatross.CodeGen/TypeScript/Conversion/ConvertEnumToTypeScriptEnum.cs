@@ -15,8 +15,6 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 			}
 		}
 
-		object IConvertObject<Type>.Convert(Type from) {
-			return this.Convert(from);
-		}
+		object IConvertObject<Type>.Convert(Type from) => this.Convert(from);
 	}
 }

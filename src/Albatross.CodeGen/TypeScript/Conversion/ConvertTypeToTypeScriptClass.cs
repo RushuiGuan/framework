@@ -11,12 +11,12 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 		}
 		public TypeScript.Model.Class Convert(Type type) {
 			return new Class(type.Name) {
-				Properties = from property in type.GetProperties() select convertPropertyInfoToTypeScriptProperty.Convert(property),
+				Properties = (from property in type.GetProperties() 
+							  select convertPropertyInfoToTypeScriptProperty.Convert(property)
+							  ).ToList(),
 			};
 		}
 
-		object IConvertObject<Type>.Convert(Type from) {
-			return this.Convert(from);
-		}
+		object IConvertObject<Type>.Convert(Type from) => this.Convert(from);
 	}
 }

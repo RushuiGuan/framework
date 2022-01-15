@@ -12,23 +12,25 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public string Name { get; set; }
 		public TypeScriptType ReturnType { get; set; } = TypeScriptType.Void();
 		public AccessModifier AccessModifier { get; set; }
-		public IEnumerable<Parameter> Parameters { get; set; } = new Parameter[0];
+		public IEnumerable<ParameterDeclaration> Parameters { get; set; } = new ParameterDeclaration[0];
         public bool Async { get; set; }
-		public ICodeElement Body { get; set; } = new CodeBlock();
+		public CodeBlock Body { get; init; } = new CodeBlock();
 
 		public TextWriter Generate(TextWriter writer) {
-			if (AccessModifier != AccessModifier.Public) {
+			if (AccessModifier != AccessModifier.Public && AccessModifier != AccessModifier.None) {
 				writer.Code(new AccessModifierElement(AccessModifier)).Space();
 			}
 			if (Async) { writer.Write("async "); }
-			writer.Append(Name).OpenParenthesis();
+			writer.Append(Name.CamelCaseVariableName()).OpenParenthesis();
 			writer.Code(new MethodParameterCollection(Parameters));
 			writer.CloseParenthesis();
-			if (ReturnType == TypeScriptType.Void()) {
-				writer.Write(":");
+			if (!ReturnType.Equals(TypeScriptType.Void())) {
+				writer.Write(": ");
 				writer.Code(ReturnType).Space();
 			}
-			writer.Code(Body);
+			using (var scope = writer.BeginScope()) {
+				scope.Writer.Code(this.Body);
+			}
 			writer.WriteLine();
 			return writer;
 		}

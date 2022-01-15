@@ -1,4 +1,5 @@
 ﻿using Albatross.CodeGen.Core;
+using Albatross.CodeGen.TypeScript.Conversion;
 using Albatross.Reflection;
 using Albatross.Text;
 using System;
@@ -6,43 +7,52 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.TypeScript.Model {
-	public class TypeScriptType : ICodeElement {
-		const string VoidType = "void";
-		const string PromiseType = "Promise";
+	public class TypeScriptType : ICodeElement, IEquatable<TypeScriptType>{
+		public const string VoidType = "void";
+		public const string PromiseType = "Promise";
 
 		public string Name { get; set; }
 		public bool IsGeneric { get; set; }
-		public bool IsGenericParameter { get; set; }
 		public bool IsArray { get; set; }
-		public TypeScriptType[] GenericTypeArguments { get; } 
+		public TypeScriptType[] GenericTypeArguments { get; set; } = new TypeScriptType[0];
 		public bool IsAsync => this.Name == PromiseType;
 		public bool IsVoid => Name == VoidType || IsAsync && !IsGeneric;
 
 		public TypeScriptType(string name) : this(name, false, false, new TypeScriptType[0]) { }
-		public TypeScriptType(string name, bool isArray, bool isGeneric, TypeScriptType[] genericTypeArguments) {
+		public TypeScriptType(string name, bool isArray, bool isGeneric, params TypeScriptType[] genericTypeArguments) {
 			this.Name = name;
 			this.IsArray = isArray;
 			this.IsGeneric = isGeneric;
 			this.GenericTypeArguments = genericTypeArguments?.ToArray() ?? new TypeScriptType[0];
 		}
 		public TypeScriptType(Type type) {
-			IsArray = type.IsArray;
-			if (IsArray) {
-				type = type.GetElementType()!;
+			if(type.GetCollectionElementType(out var elementType)) {
+				IsArray = true;
+				type = elementType;
 			}
 			if(type.GetNullableValueType(out var valueType)) {
 				type = valueType;
 			}
 			IsGeneric = type.IsGenericType;
-			IsGenericParameter = type.IsGenericParameter;
-			if (IsGeneric) {
-				Name = type.GetGenericTypeDefinition().Name.GetGenericTypeName();
-				GenericTypeArguments = (from item in type.GetGenericArguments() select new TypeScriptType(item)).ToArray();
-			} else {
-				Name = type.Name;
-				GenericTypeArguments = new TypeScriptType[0];
+			this.Name = type.Name;
+
+			if (type.IsDerived<Task>()) {
+				if (IsGeneric) {
+					this.Name = PromiseType;
+				} else {
+					this.Name = VoidType;
+				}
+			} else if (IsGeneric) {
+				Name = type.GetGenericTypeDefinition().Name.GetGenericTypeName() + "_";
+			}
+			if (IsAsync && !IsGeneric) {
+				IsGeneric = true;
+				GenericTypeArguments = new TypeScriptType[] { TypeScriptType.Any() };
+			} else if(IsGeneric){
+				GenericTypeArguments = (from item in type.GetGenericArguments() select new ConvertTypeToTypeScriptType().Convert(item)).ToArray();
 			}
 		}
 
@@ -51,20 +61,26 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			writer.Code(this);
 			return writer.ToString();
 		}
-		public override bool Equals(object? obj) {
-			if (obj is TypeScriptType) {
-				TypeScriptType input = (TypeScriptType)obj;
-				bool result = input.Name == Name && input.IsArray == IsArray
-					&& input.IsGeneric == IsGeneric && input.IsVoid == IsVoid
-					&& input.GenericTypeArguments.Length == GenericTypeArguments.Length;
+		public bool Equals(TypeScriptType? other) {
+			if (other != null) {
+				bool result = other.Name == Name && other.IsArray == IsArray
+					&& other.IsGeneric == IsGeneric && other.IsVoid == IsVoid
+					&& other.GenericTypeArguments.Length == GenericTypeArguments.Length;
 				if (result) {
 					for (int i = 0; i < GenericTypeArguments.Length; i++) {
-						if (input.GenericTypeArguments[i]?.Equals(GenericTypeArguments[i]) != true) {
+						if (other.GenericTypeArguments[i]?.Equals(GenericTypeArguments[i]) != true) {
 							return false;
 						}
 					}
 				}
 				return result;
+			} else {
+				return false;
+			}
+		}
+		public override bool Equals(object? obj) {
+			if (obj is TypeScriptType) {
+				return this.Equals((TypeScriptType)obj);
 			}
 			return false;
 		}
@@ -81,9 +97,9 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public static TypeScriptType MakeAsync(TypeScriptType typescriptType) {
 			if (!typescriptType.IsAsync) {
 				if (typescriptType.IsVoid) {
-					return new TypeScriptType(PromiseType);
+					return new TypeScriptType(PromiseType, false, true, TypeScriptType.Any());
 				} else {
-					return new TypeScriptType(PromiseType, false, true, new TypeScriptType[] { typescriptType });
+					return new TypeScriptType(PromiseType, false, true, typescriptType);
 				}
 			}
 			return typescriptType;

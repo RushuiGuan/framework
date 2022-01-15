@@ -6,27 +6,17 @@ using System.Reflection;
 
 namespace Albatross.CodeGen.CSharp.Conversion {
 	public class ConvertPropertyInfoToProperty : IConvertObject<PropertyInfo, Property> {
-
-
-        public ConvertPropertyInfoToProperty() {
-		}
-
-        public Property Convert(PropertyInfo from)
-        {
-            Property property = new Property(from.Name, new DotNetType(from.PropertyType))
-            {
-                CanWrite = from.CanWrite,
-                CanRead = from.CanRead,
+		public Property Convert(PropertyInfo from) {
+			Property property = new Property(from.Name, new DotNetType(from.PropertyType)) {
+				CanWrite = from.CanWrite,
+				CanRead = from.CanRead,
 				Static = from.GetAccessors().Any(args => args.IsStatic),
 				Modifier = from.GetMethod?.GetAccessModifier() ?? AccessModifier.Private,
 			};
-			property.SetModifier = (from.GetSetMethod()??from.GetSetMethod(true))?.GetAccessModifier() ?? property.Modifier;
+			property.SetModifier = (from.GetSetMethod() ?? from.GetSetMethod(true))?.GetAccessModifier() ?? property.Modifier;
 			return property;
-        }
+		}
 
-        object IConvertObject<PropertyInfo>.Convert(PropertyInfo from)
-        {
-            return this.Convert(from);
-        }
-    }
+		object IConvertObject<PropertyInfo>.Convert(PropertyInfo from) => this.Convert(from);
+	}
 }
