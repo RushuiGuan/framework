@@ -23,16 +23,5 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			writer.Append(" from ").StringLiteral(Source, singleQuote: true).Semicolon().WriteLine();
 			return writer;
 		}
-
-		public static IEnumerable<Import> Consolidate(IEnumerable<Import> imports) {
-			var results = imports.GroupBy(args => args.Source).Select(args => {
-				var result = new Import(args.Key);
-				foreach (var item in args.SelectMany(x => x.Items)) {
-					result.Items.Add(item);
-				}
-				return result;
-			}).ToArray();
-			return results;
-		}
 	}
 }

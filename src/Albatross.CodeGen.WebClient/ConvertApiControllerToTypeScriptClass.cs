@@ -35,13 +35,12 @@ namespace Albatross.CodeGen.WebClient {
 		void CreateImport(Class model) {
 			model.Imports.Add(new Import("@angular/common/http", "HttpClient"));
 			model.Imports.Add(new Import("@angular/core", "Injectable"));
-			model.Imports.Add(new Import("welton-core", "ConfigService"));
-			model.Imports.Add(new Import("./data.service", "DataService"));
+			model.Imports.Add(new Import("welton-core", "ConfigService", "DataService"));
 		}
 
 		void CreateEndPointGetter(Class model, Type type, string endPointName) {
 			var getter = new Getter("endPoint", AccessModifier.None, TypeScriptType.String());
-			getter.Body.Add($"return this.config.get().endpoint.{endPointName} + '{this.GetControllerRoute(type)}/'");
+			getter.Body.Add($"return this.config.get().endpoint['{endPointName}'] + '{this.GetControllerRoute(type)}/'");
 			model.Getters.Add(getter);
 		}
 

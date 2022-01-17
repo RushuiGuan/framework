@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 #nullable enable
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateApiTypeScriptProxy {
-		string Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Class, bool>? adjustClassModel = null);
+		IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Class, bool>? adjustClassModel = null);
 	}
 	public class CreateApiTypeScriptProxy : ICreateApiTypeScriptProxy {
 		public const string DefaultPattern = "^.+Controller$";
@@ -25,12 +25,12 @@ namespace Albatross.CodeGen.WebClient {
 			this.logger = logger;
 		}
 
-		public string Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Class, bool>? adjustClassModel = null) {
+		public IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, IEnumerable<TypeScriptFile> dependencies, 
+			string outputDirectory, Func<Class, bool>? adjustClassModel = null) {
 			this.converter.EndpointName = endpoint;
 			pattern = pattern ?? DefaultPattern;
 			Regex regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-			StringBuilder sb = new StringBuilder();
-			using var stringWriter = new StringWriter(sb);
+			List<TypeScriptFile> files = new List<TypeScriptFile>();
 			foreach (var assembly in assemblies) {
 				var types = assembly.GetTypes();
 				foreach (Type type in types) {
@@ -40,13 +40,13 @@ namespace Albatross.CodeGen.WebClient {
 							var @class = converter.Convert(type);
 							if (adjustClassModel?.Invoke(@class) != false) {
 								TypeScriptFile file = new TypeScriptFile(GetApiFileName(@class.Name));
+								files.Add(file);
 								file.Classes.Add(@class);
 								file.BuildImports(dependencies.ToArray());
 								file.Imports.AddRange(@class.Imports);
 								string filename = Path.Join(outputDirectory, file.Name);
 								using (StreamWriter writer = new StreamWriter(filename, false)) {
 									writer.Code(file);
-									stringWriter.Code(file);
 									writer.WriteLine();
 								}
 								logger.LogInformation("Create output file {name}", filename);
@@ -55,8 +55,7 @@ namespace Albatross.CodeGen.WebClient {
 					}
 				}
 			}
-			stringWriter.Flush();
-			return sb.ToString();
+			return files;
 		}
 
 		string GetApiFileName(string className) {
