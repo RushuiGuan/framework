@@ -16,7 +16,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 							  | System.Reflection.BindingFlags.Instance)
 							  select convertPropertyInfoToTypeScriptProperty.Convert(property)).ToList(),
 			};
-			if (type.BaseType != null && type.BaseType != typeof(object)) {
+			if (type.BaseType != null && type.BaseType != typeof(object) && type.BaseType != typeof(System.ValueType)) {
 				model.BaseInterface = Convert(type.BaseType);
 			}
 			return model;
