@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-#nullable enable
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateApiTypeScriptProxy {
 		IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, 
@@ -81,4 +80,3 @@ namespace Albatross.CodeGen.WebClient {
 		}
 	}
 }
-#nullable disable
