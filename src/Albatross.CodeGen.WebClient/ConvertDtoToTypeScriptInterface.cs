@@ -13,7 +13,9 @@ namespace Albatross.CodeGen.WebClient {
 		void ConvertEnum<T>(TypeScriptFile typeScriptFile) where T :struct;
 		void ConvertEnums(TypeScriptFile typeScriptFile, params Assembly[] assemblies);
 		void ConvertClass(Type type, TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies);
-		void ConvertClasses(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies, Func<Type, bool> customFilter, params Assembly[] assemblies);
+		void ConvertClasses(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies, 
+			Func<Type, bool>? isValidType,
+			params Assembly[] assemblies);
 	}
 
 	public class ConvertDtoToTypeScriptInterface : IConvertDtoToTypeScriptInterface {
@@ -21,24 +23,26 @@ namespace Albatross.CodeGen.WebClient {
 		private readonly ConvertTypeToTypeScriptInterface convertInterface;
 		private readonly ConvertEnumToTypeScriptEnum convertEnum;
 
-		public ConvertDtoToTypeScriptInterface(ILogger<ConvertDtoToTypeScriptInterface> logger, ConvertTypeToTypeScriptInterface convertInterface, ConvertEnumToTypeScriptEnum convertEnum) {
+		public ConvertDtoToTypeScriptInterface(ILogger<ConvertDtoToTypeScriptInterface> logger, ConvertTypeToTypeScriptInterface convertInterface, 
+			ConvertEnumToTypeScriptEnum convertEnum) {
 			this.logger = logger;
 			this.convertInterface = convertInterface;
 			this.convertEnum = convertEnum;
 		}
 
-		bool IsValidDtoClass(Type type, Func<Type, bool>? customFilter) => 
+		bool IsValidDtoType(Type type, Func<Type, bool> predicate) => 
 			!type.IsAnonymousType() && !type.IsInterface && type.IsPublic
 			&& !type.IsEnum && !(type.IsAbstract && type.IsSealed) 
 			&& !type.IsDerived<Attribute>() && !type.IsDerived<Exception>()
-			&& customFilter?.Invoke(type) != true;
+			&& predicate(type);
 
 		public void ConvertClasses(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies, 
-			Func<Type, bool> customFilter, params Assembly[] assemblies) {
+			Func<Type, bool>? isValidType, params Assembly[] assemblies) {
+			isValidType = isValidType ?? (args => true);
 			foreach (var assembly in assemblies) {
 				var types = assembly.GetTypes();
 				foreach (Type type in types) {
-					if (IsValidDtoClass(type, customFilter)) {
+					if (IsValidDtoType(type, isValidType)) {
 						var item = convertInterface.Convert(type);
 						typeScriptFile.Interfaces.Add(item);
 					}

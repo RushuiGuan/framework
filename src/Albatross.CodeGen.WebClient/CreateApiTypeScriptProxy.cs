@@ -13,7 +13,8 @@ using System.Text.RegularExpressions;
 #nullable enable
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateApiTypeScriptProxy {
-		IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Class, bool>? adjustClassModel = null);
+		IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, 
+			IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Type, bool>? isValidType);
 	}
 	public class CreateApiTypeScriptProxy : ICreateApiTypeScriptProxy {
 		public const string DefaultPattern = "^.+Controller$";
@@ -25,8 +26,9 @@ namespace Albatross.CodeGen.WebClient {
 			this.logger = logger;
 		}
 
-		public IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, IEnumerable<TypeScriptFile> dependencies, 
-			string outputDirectory, Func<Class, bool>? adjustClassModel = null) {
+		public IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, 
+			IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Type, bool>? isValidType) {
+			isValidType = isValidType ?? (args => true);
 			this.converter.EndpointName = endpoint;
 			pattern = pattern ?? DefaultPattern;
 			Regex regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
@@ -37,8 +39,8 @@ namespace Albatross.CodeGen.WebClient {
 					if (!type.IsAnonymousType() && !type.IsInterface && type.IsPublic) {
 						if (regex.IsMatch(type.FullName ?? string.Empty)) {
 							logger.LogInformation("Processing class {type}", type.FullName);
-							var @class = converter.Convert(type);
-							if (adjustClassModel?.Invoke(@class) != false) {
+							if (isValidType(type)) {
+								var @class = converter.Convert(type);
 								TypeScriptFile file = new TypeScriptFile(GetApiFileName(@class.Name));
 								files.Add(file);
 								file.Classes.Add(@class);

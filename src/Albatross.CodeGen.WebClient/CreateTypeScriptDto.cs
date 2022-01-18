@@ -9,7 +9,8 @@ using System.Reflection;
 
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateTypeScriptDto {
-		TypeScriptFile Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, string outputDirectory, Func<Type, bool> customFilter);
+		TypeScriptFile Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, 
+			string outputDirectory, Func<Type, bool>? isValidType);
 	}
 	public class CreateTypeScriptDto : ICreateTypeScriptDto {
 		private readonly IConvertDtoToTypeScriptInterface converter;
@@ -20,7 +21,9 @@ namespace Albatross.CodeGen.WebClient {
 			this.logger = logger;
 		}
 
-		public TypeScriptFile Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, string outputDirectory, Func<Type, bool> customFilter) {
+		public TypeScriptFile Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, 
+			string outputDirectory, Func<Type, bool>? isValidType) {
+
 			string dtoFileName = System.IO.Path.Join(outputDirectory, "dto.ts");
 			TypeScriptFile file = new TypeScriptFile(Path.GetFileNameWithoutExtension(dtoFileName));
 			converter.ConvertEnums(file, assemblies.ToArray());
@@ -31,7 +34,7 @@ namespace Albatross.CodeGen.WebClient {
 					this.converter.ConvertClass(type, file, new TypeScriptFile[0]);
 				}
 			}
-			converter.ConvertClasses(file, new TypeScriptFile[0], customFilter, assemblies.ToArray());
+			converter.ConvertClasses(file, new TypeScriptFile[0], isValidType, assemblies.ToArray());
 			using (var writer = new StreamWriter(dtoFileName, false)) {
 				writer.Code(file);
 			}
