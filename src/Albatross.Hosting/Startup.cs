@@ -55,7 +55,8 @@ namespace Albatross.Hosting {
 			builder.AllowAnyHeader();
 			builder.AllowAnyMethod();
 			builder.AllowCredentials();
-			// builder.SetIsOriginAllowed(args => true);
+			var cors = this.Configuration.GetSection("cors").Get<string[]>() ?? new string[0];
+			builder.WithOrigins(cors);
 		}
 
 		#region swagger
