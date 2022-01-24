@@ -57,6 +57,7 @@ namespace Albatross.Hosting {
 			builder.AllowCredentials();
 			var cors = this.Configuration.GetSection("cors").Get<string[]>() ?? new string[0];
 			builder.WithOrigins(cors);
+			Log.Logger.Information("Cors configuration: {cors}", cors.Length == 0 ? "None": String.Join(",", cors));
 		}
 
 		#region swagger
