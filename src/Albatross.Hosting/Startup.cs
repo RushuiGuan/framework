@@ -14,11 +14,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using NSwag;
-using NSwag.Generation.Processors.Security;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Text.Json;
@@ -62,36 +60,14 @@ namespace Albatross.Hosting {
 
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
-			services.AddOpenApiDocument(cfg => {
-				cfg.Title = this.GetType().Assembly.GetName().Name;
-				cfg.PostProcess = doc => { };
-				if (Secured && AuthorizationSetting.IsBearerAuthentication) {
-					cfg.AddSecurity("bearer", Enumerable.Empty<string>(), new OpenApiSecurityScheme {
-						Type = OpenApiSecuritySchemeType.OAuth2,
-						Description = "OpenId Authentication",
-						Flow = OpenApiOAuth2Flow.Implicit,
-						Flows = new OpenApiOAuthFlows() {
-							Implicit = new OpenApiOAuthFlow() {
-								Scopes = AuthorizationSetting.SwaggerScopes.ToDictionary<SwaggerScope, string, string>(args => args.Name, args => args.Description),
-								AuthorizationUrl = AuthorizationSetting.AuthorizeUrl,
-								TokenUrl = AuthorizationSetting.TokenUrl,
-							},
-						}
-					});
-				}
-				cfg.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("bearer"));
+			services.AddSwaggerGen(c => {
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = new GetProgramSetting(this.Configuration).Get().App, Version = "v1" });
 			});
 			return services;
 		}
-		public virtual void UseSwagger(IApplicationBuilder app) {
-			app.UseOpenApi().UseSwaggerUi3(options => {
-				options.DocumentPath = "/swagger/v1/swagger.json";
-				if (Secured) {
-					options.OAuth2Client = new NSwag.AspNetCore.OAuth2ClientSettings() {
-						ClientId = AuthorizationSetting.SwaggerClientId,
-					};
-				}
-			});
+		public virtual void UseSwagger(IApplicationBuilder app, ProgramSetting programSetting) {
+			app.UseSwagger();
+			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", programSetting.App));
 		}
 		#endregion
 
@@ -168,7 +144,7 @@ namespace Albatross.Hosting {
 				app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			}
 			if (Grpc) { app.UseEndpoints(endpoints => MapGrpcServices(endpoints)); }
-			if (WebApi && Swagger) { UseSwagger(app); }
+			if (WebApi && Swagger) { UseSwagger(app, programSetting); }
 			if (Spa) { UseSpa(app, logger); }
 			if (Caching) {
 				Albatross.Caching.Extension.UseCache(app.ApplicationServices);
