@@ -52,11 +52,11 @@ namespace Albatross.Hosting {
 		}
 
 		protected virtual void ConfigureCors(CorsPolicyBuilder builder) {
-			builder.AllowAnyHeader();
-			builder.AllowAnyMethod();
-			builder.AllowCredentials();
 			var cors = this.Configuration.GetSection("cors").Get<string[]>() ?? new string[0];
-			builder.WithOrigins(cors);
+			builder.WithOrigins(cors)
+				.AllowAnyHeader()
+				.AllowAnyMethod()
+				.AllowCredentials();
 			Log.Logger.Information("Cors configuration: {cors}", cors.Length == 0 ? "None": String.Join(",", cors));
 		}
 
