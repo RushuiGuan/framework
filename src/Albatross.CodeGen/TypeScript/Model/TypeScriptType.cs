@@ -28,7 +28,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			this.IsGeneric = isGeneric;
 			this.GenericTypeArguments = genericTypeArguments?.ToArray() ?? new TypeScriptType[0];
 		}
-		public TypeScriptType(Type type) {
+		internal TypeScriptType(Type type) {
 			if(type.GetCollectionElementType(out var elementType)) {
 				IsArray = true;
 				type = elementType;
@@ -93,6 +93,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public static TypeScriptType Boolean() => new TypeScriptType("boolean");
 		public static TypeScriptType Number() => new TypeScriptType("number");
 		public static TypeScriptType Any() => new TypeScriptType("any");
+		public static TypeScriptType Blob() => new TypeScriptType("Blob");
 		public static TypeScriptType Void() => new TypeScriptType(VoidType);
 		public static TypeScriptType MakeAsync(TypeScriptType typescriptType) {
 			if (!typescriptType.IsAsync) {
