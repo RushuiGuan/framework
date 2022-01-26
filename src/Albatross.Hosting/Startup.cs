@@ -67,7 +67,7 @@ namespace Albatross.Hosting {
 		}
 		public virtual void UseSwagger(IApplicationBuilder app, ProgramSetting programSetting) {
 			app.UseSwagger();
-			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", programSetting.App));
+			app.UseSwaggerUI();
 		}
 		#endregion
 
