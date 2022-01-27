@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateApiTypeScriptProxy {
 		IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, 
-			IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Type, bool>? isValidType);
+			IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Type, bool>? isValidType, Action<Class>? modifyProxyClass = null);
 	}
 	public class CreateApiTypeScriptProxy : ICreateApiTypeScriptProxy {
 		public const string DefaultPattern = "^.+Controller$";
@@ -26,7 +26,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		public IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, 
-			IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Type, bool>? isValidType) {
+			IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Type, bool>? isValidType, Action<Class>? modifyProxyClass = null) {
 			isValidType = isValidType ?? (args => true);
 			this.converter.EndpointName = endpoint;
 			pattern = pattern ?? DefaultPattern;
@@ -40,6 +40,7 @@ namespace Albatross.CodeGen.WebClient {
 							logger.LogInformation("Processing class {type}", type.FullName);
 							if (isValidType(type)) {
 								var @class = converter.Convert(type);
+								modifyProxyClass?.Invoke(@class);
 								TypeScriptFile file = new TypeScriptFile(GetApiFileName(@class.Name));
 								files.Add(file);
 								file.Classes.Add(@class);
