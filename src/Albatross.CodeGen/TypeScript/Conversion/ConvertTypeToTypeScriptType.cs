@@ -22,7 +22,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 			} else if (type == typeof(TimeSpan)) {
 				return TypeScriptType.String();
 			} else if (type == typeof(byte[])) {
-				return TypeScriptType.Blob();
+				return TypeScriptType.String();
 			} else if (type == typeof(object)) {
 				return TypeScriptType.Any();
 			} else if (type.GetCollectionElementType(out Type elementType)) {
