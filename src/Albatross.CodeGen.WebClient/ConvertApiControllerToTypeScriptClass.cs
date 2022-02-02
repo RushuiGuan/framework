@@ -40,7 +40,7 @@ namespace Albatross.CodeGen.WebClient {
 
 		void CreateEndPointGetter(Class model, Type type, string endPointName) {
 			var getter = new Getter("endPoint", AccessModifier.None, TypeScriptType.String());
-			getter.Body.Add($"return this.config.get().endpoint['{endPointName}'] + '{this.GetControllerRoute(type)}/'");
+			getter.Body.Add($"return this.config.endpoint('{endPointName}') + '{this.GetControllerRoute(type)}/'");
 			model.Getters.Add(getter);
 		}
 
