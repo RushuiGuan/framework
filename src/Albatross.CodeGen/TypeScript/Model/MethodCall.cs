@@ -26,7 +26,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			}
 			writer.OpenParenthesis();
 			writer.WriteItems(Parameters, ", ", (w, item) => w.Code(item));
-			writer.CloseParenthesis().Semicolon().WriteLine();
+			writer.CloseParenthesis();
 			return writer;
 		}
 	}

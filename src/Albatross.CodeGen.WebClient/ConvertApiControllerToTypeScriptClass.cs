@@ -31,7 +31,9 @@ namespace Albatross.CodeGen.WebClient {
 				},
 			};
 			model.Constructor.Body.Add(new Super(new TypeScriptValue(TypeScript.Model.ValueType.Variable, "logger")));
+			model.Constructor.Body.Add(new Termination());
 			model.Constructor.Body.Add(new LoggerInfo($"{model.Name} instance created"));
+			model.Constructor.Body.Add(new Termination());
 		}
 
 		void CreateImport(Class model) {
