@@ -23,11 +23,11 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		void CreateConstructor(Class model) {
-			model.Constructor = new Constructor(true) {
+			model.Constructor = new Constructor() {
 				Parameters = new ParameterDeclaration[] {
 					new ParameterDeclaration("config", new TypeScriptType("ConfigService"), AccessModifier.Private),
 					new ParameterDeclaration("client", new TypeScriptType("HttpClient"), AccessModifier.Protected),
-					new ParameterDeclaration("logger", new TypeScriptType("Logger"), AccessModifier.Protected),
+					new ParameterDeclaration("logger", new TypeScriptType("Logger"), AccessModifier.None),
 				},
 			};
 			model.Constructor.Body.Add(new Super(new TypeScriptValue(TypeScript.Model.ValueType.Variable, "logger")));

@@ -5,13 +5,10 @@ using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Model {
 	public class Constructor :Method {
-		public Constructor(bool hasBaseClass) : base("constructor") {
+		public Constructor() : base("constructor") {
 			AccessModifier = AccessModifier.Public;
 			Async = false;
 			var body = new CodeBlock();
-			if (hasBaseClass) {
-				body.Add("super();");
-			}
 			this.Body = body;
 		}
 	}
