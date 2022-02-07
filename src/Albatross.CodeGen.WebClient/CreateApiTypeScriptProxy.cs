@@ -73,7 +73,7 @@ namespace Albatross.CodeGen.WebClient {
 					}
 					sb.Append(char.ToLower(c));
 				}
-				sb.Append(".service.ts");
+				sb.Append(".service.generated.ts");
 				return sb.ToString();
 			} else {
 				throw new Exception($"Api class name has to end with {postFix}");

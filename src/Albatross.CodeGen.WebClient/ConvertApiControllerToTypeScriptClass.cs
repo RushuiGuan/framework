@@ -27,15 +27,16 @@ namespace Albatross.CodeGen.WebClient {
 				Parameters = new ParameterDeclaration[] {
 					new ParameterDeclaration("config", new TypeScriptType("ConfigService"), AccessModifier.Private),
 					new ParameterDeclaration("client", new TypeScriptType("HttpClient"), AccessModifier.Protected),
+					new ParameterDeclaration("logger", new TypeScriptType("Logger"), AccessModifier.Protected),
 				},
 			};
-			model.Constructor.Body.Add(new ConsoleLog($"{model.Name} instance created"));
+			model.Constructor.Body.Add(new LoggerInfo($"{model.Name} instance created"));
 		}
 
 		void CreateImport(Class model) {
 			model.Imports.Add(new Import("@angular/common/http", "HttpClient"));
 			model.Imports.Add(new Import("@angular/core", "Injectable"));
-			model.Imports.Add(new Import("welton-core", "ConfigService", "DataService"));
+			model.Imports.Add(new Import("welton-core", "ConfigService", "DataService", "Logger"));
 		}
 
 		void CreateEndPointGetter(Class model, Type type, string endPointName) {
