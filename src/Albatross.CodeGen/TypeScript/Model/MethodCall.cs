@@ -1,6 +1,5 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.Text;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -27,7 +26,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			}
 			writer.OpenParenthesis();
 			writer.WriteItems(Parameters, ", ", (w, item) => w.Code(item));
-			writer.CloseParenthesis();
+			writer.CloseParenthesis().Semicolon().WriteLine();
 			return writer;
 		}
 	}
