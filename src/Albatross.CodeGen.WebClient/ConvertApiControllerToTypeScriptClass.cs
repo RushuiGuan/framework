@@ -30,6 +30,7 @@ namespace Albatross.CodeGen.WebClient {
 					new ParameterDeclaration("logger", new TypeScriptType("Logger"), AccessModifier.Protected),
 				},
 			};
+			model.Constructor.Body.Add(new Super(new TypeScriptValue(TypeScript.Model.ValueType.Variable, "logger")));
 			model.Constructor.Body.Add(new LoggerInfo($"{model.Name} instance created"));
 		}
 
