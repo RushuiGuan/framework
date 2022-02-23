@@ -10,7 +10,7 @@ using System.Reflection;
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateTypeScriptDto {
 		TypeScriptFile Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, 
-			string outputDirectory, Func<Type, bool>? isValidType);
+			string outputDirectory, string name, Func<Type, bool>? isValidType);
 	}
 	public class CreateTypeScriptDto : ICreateTypeScriptDto {
 		private readonly IConvertDtoToTypeScriptInterface converter;
@@ -22,9 +22,9 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		public TypeScriptFile Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, 
-			string outputDirectory, Func<Type, bool>? isValidType) {
+			string outputDirectory, string name, Func<Type, bool>? isValidType) {
 
-			string dtoFileName = System.IO.Path.Join(outputDirectory, "dto.ts");
+			string dtoFileName = System.IO.Path.Join(outputDirectory, $"{name}.ts");
 			TypeScriptFile file = new TypeScriptFile(Path.GetFileNameWithoutExtension(dtoFileName));
 			converter.ConvertEnums(file, assemblies.ToArray());
 			foreach (var type in additionalDtoClass) {

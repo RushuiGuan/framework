@@ -6,8 +6,11 @@ using System.Linq;
 namespace Albatross.CodeGen.TypeScript.Conversion {
 	public class ConvertTypeToTypeScriptInterface : IConvertObject<Type, TypeScript.Model.Interface> {
 		ConvertPropertyInfoToTypeScriptProperty convertPropertyInfoToTypeScriptProperty;
-		public ConvertTypeToTypeScriptInterface(ConvertPropertyInfoToTypeScriptProperty convertPropertyInfoToTypeScriptProperty) {
+		private readonly ConvertTypeToTypeScriptType convertTypeToTypeScriptType;
+
+		public ConvertTypeToTypeScriptInterface(ConvertPropertyInfoToTypeScriptProperty convertPropertyInfoToTypeScriptProperty, ConvertTypeToTypeScriptType convertTypeToTypeScriptType) {
 			this.convertPropertyInfoToTypeScriptProperty = convertPropertyInfoToTypeScriptProperty;
+			this.convertTypeToTypeScriptType = convertTypeToTypeScriptType;
 		}
 		public TypeScript.Model.Interface Convert(Type type) {
 			var model = new Interface(type.Name, type.IsGenericType, type.GetGenericArguments().Select(args => args.Name)) {
@@ -17,7 +20,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 							  select convertPropertyInfoToTypeScriptProperty.Convert(property)).ToList(),
 			};
 			if (type.BaseType != null && type.BaseType != typeof(object) && type.BaseType != typeof(System.ValueType)) {
-				model.BaseInterface = Convert(type.BaseType);
+				model.BaseType = convertTypeToTypeScriptType.Convert(type.BaseType);
 			}
 			return model;
 		}

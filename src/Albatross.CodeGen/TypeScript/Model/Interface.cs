@@ -20,7 +20,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public bool IsGeneric { get; set; }
 		public IEnumerable<string> GenericArgumentTypes { get; set; }
 		public List<Property> Properties { get; set; } = new List<Property>();
-		public Interface? BaseInterface { get; set; }
+		public TypeScriptType? BaseType { get; set; }
 
 		public TextWriter Generate(TextWriter writer) {
 			if (IsGeneric && GenericArgumentTypes.Count() == 0) {
@@ -30,8 +30,9 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			if (IsGeneric) {
 				writer.Append("<").WriteItems(GenericArgumentTypes, ",", (w, item) => w.Append(item)).Append(">");
 			}
-			if (BaseInterface != null) {
-				writer.Append(" extends ").Append(BaseInterface.Name);
+			if (BaseType != null) {
+				writer.Append(" extends ");
+				BaseType.Generate(writer);
 			}
 			using (var scope = writer.BeginScope()) {
 				foreach (var property in Properties) {
