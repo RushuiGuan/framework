@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateAngularPublicApi {
-		void Generate(string outputFolder, string fileFolder, IEnumerable<TypeScriptFile> files);
+		void Generate(string outputFolder, string fileFolder, IEnumerable<TypeScriptFile> dependancies);
 	}
 	public class CreateAngularPublicApi : ICreateAngularPublicApi {
 		public void Generate(string outputFolder, string fileFolder, IEnumerable<TypeScriptFile> files) {
