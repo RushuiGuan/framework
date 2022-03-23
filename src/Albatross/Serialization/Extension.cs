@@ -73,33 +73,25 @@ namespace Albatross.Serialization {
 		public static void WriteJson(this IDataReader reader, Utf8JsonWriter writer, JsonSerializerOptions? options = null) {
 			writer.WriteStartArray();
 			while (reader.Read()) {
-				writer.WriteStartObject();
-				for (int i = 0; i < reader.FieldCount; i++) {
-					writer.WritePropertyName(reader.GetName(i));
-					object value = reader.GetValue(i);
-					if (value == DBNull.Value || value == null) {
-						writer.WriteNullValue();
-					} else {
-						JsonSerializer.Serialize(writer, value, value.GetType(), options);
-					}
-				}
-				writer.WriteEndObject();
+				reader.WriteJsonSingleRow(writer, options);
 			}
 			writer.WriteEndArray();
 		}
-		//public static bool TryGetJsonPropertyValue(this JsonElement elem, string propertyName, Type type, out object propertyValue) {
-		//	if (elem.ValueKind == JsonValueKind.Null || elem.ValueKind == JsonValueKind.Undefined) {
-		//		propertyValue = new object();
-		//		return false;
-		//	}
-		//	if (elem.TryGetProperty(propertyName, out JsonElement value)) {
-		//		propertyValue = value.ToObject(type);
-		//		return true;
-		//	} else {
-		//		propertyValue = new object();
-		//		return false;
-		//	}
-		//}
+		public static void WriteJsonSingleRow(this IDataReader reader, Utf8JsonWriter writer, JsonSerializerOptions? options = null) {
+			writer.WriteStartObject();
+			for (int i = 0; i < reader.FieldCount; i++) {
+				object value = reader.GetValue(i);
+				if (value == DBNull.Value || value == null) {
+					if (options?.IgnoreNullValues != true) {
+						writer.WriteNull(reader.GetName(i));
+					}
+				} else { 
+					writer.WritePropertyName(reader.GetName(i));
+					JsonSerializer.Serialize(writer, value, value.GetType(), options);
+				}
+			}
+			writer.WriteEndObject();
+		}
 
 
 
@@ -110,49 +102,5 @@ namespace Albatross.Serialization {
 			}
 			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
 		}
-
-		//public static dynamic? Convert(this JsonElement elem) {
-		//	switch (elem.ValueKind) {
-		//		case JsonValueKind.True:
-		//			return true;
-		//		case JsonValueKind.False:
-		//			return false;
-		//		case JsonValueKind.String:
-		//			string? text = elem.GetString();
-		//			if (DateTime.TryParse(text, out DateTime dateTime)) {
-		//				return dateTime;
-		//			} else {
-		//				return text;
-		//			}
-		//		case JsonValueKind.Number:
-		//			return elem.TryGetInt64(out long value) ? value : elem.GetDouble();
-		//		case JsonValueKind.Null:
-		//		case JsonValueKind.Undefined:
-		//			return null;
-		//		case JsonValueKind.Object:
-		//			IDictionary<string, object> expando = new ExpandoObject();
-		//			foreach (var child in elem.EnumerateObject()) {
-		//				expando.Add(child.Name, Convert(child.Value));
-		//			}
-		//			return expando;
-		//		default:
-		//			return elem;
-		//	}
-		//}
-
-
-
-		//public static bool CheckPropertyName(this JsonSerializerOptions? options, string expected, string actual) {
-		//	if (options?.PropertyNamingPolicy == null) {
-		//		return expected == actual;
-		//	} else if (options?.PropertyNameCaseInsensitive == true) {
-		//		return string.Equals(expected, actual, StringComparison.InvariantCultureIgnoreCase);
-		//	} else {
-		//		return options?.PropertyNamingPolicy?.ConvertName(expected) == actual;
-		//	}
-		//}
-
-		//public static string GetPropertyName(this JsonSerializerOptions options, string name) => options?.PropertyNamingPolicy?.ConvertName(name) ?? name;
-
 	}
 }
