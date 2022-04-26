@@ -13,23 +13,8 @@ namespace Albatross.WebClient {
 	public static class Extension {
 		public static readonly HttpMethod HttpPatchMethod = new HttpMethod("PATCH");
 
-		public static string GetUrl(this string url, IEnumerable<KeyValuePair<string, string>> queryStringValues) {
-			StringWriter writer = new StringWriter();
-			writer.Write(url);
-			if (queryStringValues?.Count() > 0) {
-				writer.Write("?");
-				foreach (var item in queryStringValues) {
-					writer.Write(Uri.EscapeDataString(item.Key));
-					writer.Write("=");
-					writer.Write(Uri.EscapeDataString(item.Value));
-					writer.Write("&");
-				}
-			}
-			return writer.ToString();
-		}
-
 		public static StringBuilder CreateUrl(this string url, NameValueCollection queryStringValues) {
-			StringBuilder sb = new StringBuilder().Append(url);
+			StringBuilder sb = new StringBuilder(url);
 			if (queryStringValues?.Count > 0) {
 				sb.Append("?");
 				for (int i = 0; i < queryStringValues.Count; i++) {
