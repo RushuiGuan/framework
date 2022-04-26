@@ -5,31 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
 namespace Albatross.WebClient {
 	public static class Extension {
 		public static readonly HttpMethod HttpPatchMethod = new HttpMethod("PATCH");
-
-		public static string GetUrl(this string url, NameValueCollection queryStringValues) {
-			StringWriter writer = new StringWriter();
-			writer.Write(url);
-			if (queryStringValues?.Count > 0) {
-				writer.Write("?");
-				for (int i = 0; i < queryStringValues.Count; i++) {
-					string[] values = queryStringValues.GetValues(i) ?? new string[0];
-					string key = queryStringValues.GetKey(i) ?? string.Empty;
-					foreach (string value in values) {
-						writer.Write(Uri.EscapeDataString(key));
-						writer.Write("=");
-						writer.Write(Uri.EscapeDataString(value));
-						writer.Write("&");
-					}
-				}
-			}
-			return writer.ToString();
-		}
 
 		public static string GetUrl(this string url, IEnumerable<KeyValuePair<string, string>> queryStringValues) {
 			StringWriter writer = new StringWriter();
@@ -45,6 +27,28 @@ namespace Albatross.WebClient {
 			}
 			return writer.ToString();
 		}
+
+		public static StringBuilder CreateUrl(this string url, NameValueCollection queryStringValues) {
+			StringBuilder sb = new StringBuilder().Append(url);
+			if (queryStringValues?.Count > 0) {
+				sb.Append("?");
+				for (int i = 0; i < queryStringValues.Count; i++) {
+					string[] values = queryStringValues.GetValues(i) ?? new string[0];
+					string key = queryStringValues.GetKey(i) ?? string.Empty;
+					foreach (string value in values) {
+						sb.AddQueryParam(key, value);
+					}
+				}
+			}
+			return sb;
+		}
+		static internal void AddQueryParam(this StringBuilder sb, string key, string value) {
+			sb.Append(Uri.EscapeDataString(key));
+			sb.Append("=");
+			sb.Append(Uri.EscapeDataString(value));
+			sb.Append("&");
+		}
+
 
 		#region get methods
 		public static async Task<T?> GetAsync<T>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
