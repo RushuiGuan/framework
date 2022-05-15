@@ -1,7 +1,6 @@
-﻿using Albatross.CodeGen.Core;
-using Xunit;
+﻿using Xunit;
 
-namespace Albatross.CodeGen.UnitTest.TypeScript {
+namespace Albatross.Text {
 	public class TestCamelCaseVariableNameConversion {
 
 		[Theory]
@@ -15,7 +14,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 		[InlineData("CUSIP", "cusip")]
 		[InlineData("BBYellow", "bbYellow")]
 		public void Run(string input, string expected) {
-			var result = input.CamelCaseVariableName();
+			var result = input.CamelCase();
 			Assert.Equal(expected, result);
 		}
 	}

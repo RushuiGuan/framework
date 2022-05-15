@@ -13,7 +13,6 @@ namespace Albatross.Text {
 			writer.WriteLine(obj);
 			return writer;
 		}
-
 		public static TextWriter AppendChar(this TextWriter writer, char c, int count = 1) {
 			for (int i = 0; i < count; i++) {
 				writer.Write(c);

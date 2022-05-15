@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
+using Albatross.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System;
@@ -143,7 +144,7 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 
-			var array = queryParams.Select(args => new TypeScriptValue(TypeScript.Model.ValueType.Variable, args.Name!.CamelCaseVariableName())).ToArray();
+			var array = queryParams.Select(args => new TypeScriptValue(TypeScript.Model.ValueType.Variable, args.Name!.CamelCase())).ToArray();
 			var queryParamValue = new TypeScriptValueArray(array);
 
 			if (attrib is HttpGetAttribute) {

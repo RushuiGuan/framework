@@ -21,7 +21,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 				writer.Code(new AccessModifierElement(AccessModifier)).Space();
 			}
 			if (Async) { writer.Write("async "); }
-			writer.Append(Name.CamelCaseVariableName()).OpenParenthesis();
+			writer.Append(Name.CamelCase()).OpenParenthesis();
 			writer.Code(new MethodParameterCollection(Parameters));
 			writer.CloseParenthesis();
 			if (!ReturnType.Equals(TypeScriptType.Void())) {
