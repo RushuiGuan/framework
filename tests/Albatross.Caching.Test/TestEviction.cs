@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace Albatross.Caching.Test {
 			cache.GetOrCreate<string>(2, e => "b");
 			cache.GetOrCreate<string>(3, e => "c");
 			Assert.True(cache.Count == 3);
-			var reset = new MemoryCacheExtended(cache, factory, new CachingConfig(), logger);
+			var reset = new MemoryCacheExtended(cache, factory, new CachingConfig(new Mock<IConfiguration>().Object), logger);
 			reset.Reset();
 			Assert.True(cache.Count == 0);
 		}

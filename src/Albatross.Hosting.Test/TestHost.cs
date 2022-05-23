@@ -7,7 +7,7 @@ using Albatross.Logging;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Albatross.Config.Core;
+using Albatross.Config;
 
 namespace Albatross.Hosting.Test {
 	public class TestHost : IDisposable {

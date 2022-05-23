@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Albatross.Config.Core {
+namespace Albatross.Config {
 	/// <summary>
 	/// This is created because IHostEnvironment will return production if ASPNETCORE_ENVIRONMENT OR DOTNET_ENVIRONMENT
 	/// variable is not set
@@ -14,7 +14,7 @@ namespace Albatross.Config.Core {
 		public string HostName => System.Net.Dns.GetHostName();
 
 		public EnvironmentSetting(string variable) {
-			Value = System.Environment.GetEnvironmentVariable(variable)?.ToLower()?? UnknownEnvironment;
+			Value = Environment.GetEnvironmentVariable(variable)?.ToLower() ?? UnknownEnvironment;
 		}
 
 		public readonly static EnvironmentSetting ASPNETCORE_ENVIRONMENT = new EnvironmentSetting("ASPNETCORE_ENVIRONMENT");

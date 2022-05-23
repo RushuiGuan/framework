@@ -1,4 +1,4 @@
-﻿using Albatross.Config.Core;
+﻿using Albatross.Config;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Linq;

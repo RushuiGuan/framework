@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using Albatross.Config.Core;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 
 namespace Albatross.Hosting.Utility {

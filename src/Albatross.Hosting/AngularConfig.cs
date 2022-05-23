@@ -3,7 +3,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Albatross.Hosting {
 	public class AngularConfig : ConfigBase{
-		public const string Key = "angular";
+		public AngularConfig(IConfiguration configuration) : base(configuration) {
+		}
+
+		public override string Key => "angular";
 
 		public string[] ConfigFile { get; set; } = new string[0];
 		public string[] BaseHrefFile { get; set; } = new string[0];
@@ -19,14 +22,5 @@ namespace Albatross.Hosting {
 		/// </summary>
 		public string BaseHref { get; set; } = "/";
 
-		public override void Init(IConfiguration configuration) {
-		}
-	}
-
-	public class GetAngularConfig : GetConfig<AngularConfig> {
-		public GetAngularConfig(IConfiguration configuration) : base(configuration) {
-		}
-
-		protected override string Key => AngularConfig.Key;
 	}
 }

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Albatross.Authentication.Core;
-using Albatross.Config.Core;
+using Albatross.Config;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

@@ -1,5 +1,5 @@
 ﻿using Albatross.Caching;
-using Albatross.Config.Core;
+using Albatross.Config;
 using Albatross.Hosting.Demo;
 using Albatross.Hosting.Demo.Hubs;
 using Microsoft.AspNetCore.Builder;

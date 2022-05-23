@@ -1,13 +1,15 @@
-﻿using Albatross.Config.Core;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Albatross.Config {
-	public abstract class ConfigBase : IConfigSetting {
-		public abstract void Init(IConfiguration configuration);
+	public abstract class ConfigBase  {
+		public virtual string Key => string.Empty;
+		public ConfigBase(IConfiguration configuration) {
+			if (!string.IsNullOrEmpty(Key)) {
+				var section = configuration.GetSection(Key);
+				section.Bind(this);
+			}
+		}
 
 		public virtual void Validate() {
 			Validator.ValidateObject(this, new ValidationContext(this));

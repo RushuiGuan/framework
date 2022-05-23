@@ -2,21 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Albatross.Config.UnitTest {
-	public class DbConfig : Albatross.Config.Core.IConfigSetting {
-		[Required]
-		public string DbConnection { get; set; } = null!;
-
-		public void Init(IConfiguration configuration) {
-			this.DbConnection = configuration.GetConnectionString("test");
+	public class DbConfig : ConfigBase{
+		public override string Key => "db-config";
+		public DbConfig(IConfiguration configuration) : base(configuration) {
 		}
 
-		public void Validate() {
-		}
-	}
-	public class GetDbConfig : GetConfig<DbConfig> {
-		public GetDbConfig(IConfiguration configuration) : base(configuration) {
-		}
-
-		protected override string Key => "db-config";
+		public string? Data { get; set; }
 	}
 }

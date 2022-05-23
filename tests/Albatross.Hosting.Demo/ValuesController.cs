@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Albatross.Authentication.Core;
-using Albatross.Config.Core;
+using Albatross.Config;
 using Albatross.Hosting.Demo.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

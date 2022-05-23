@@ -1,7 +1,6 @@
 ﻿using Albatross.Authentication;
 using Albatross.Caching;
 using Albatross.Config;
-using Albatross.Config.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -42,11 +41,7 @@ namespace Albatross.Hosting {
 		public Startup(IConfiguration configuration) {
 			this.Configuration = configuration;
 			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
-			if (Secured && WebApi) {
-				AuthorizationSetting = new GetAuthorizationSetting(configuration).Get();
-			} else {
-				AuthorizationSetting = new AuthorizationSetting();
-			}
+			AuthorizationSetting = new AuthorizationSetting(configuration);
 		}
 
 		protected virtual void ConfigureCors(CorsPolicyBuilder builder) {
@@ -61,7 +56,7 @@ namespace Albatross.Hosting {
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
 			services.AddSwaggerGen(c => {
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = new GetProgramSetting(this.Configuration).Get().App, Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = new ProgramSetting(this.Configuration).App, Version = "v1" });
 			});
 			return services;
 		}
@@ -85,7 +80,7 @@ namespace Albatross.Hosting {
 		}
 
 		public virtual IServiceCollection AddAccessControl(IServiceCollection services) {
-			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
+			services.AddConfig<AuthorizationSetting>();
 			services.AddAuthorization(ConfigureAuthorization);
 			AuthenticationBuilder builder = services.AddAuthentication(AuthorizationSetting.Authentication);
 
@@ -108,7 +103,7 @@ namespace Albatross.Hosting {
 
 		public IServiceCollection AddSpa(IServiceCollection services) {
 			services.AddSpaStaticFiles(cfg => cfg.RootPath = DefaultApp_RootPath);
-			services.AddConfig<AngularConfig, GetAngularConfig>(true);
+			services.AddConfig<AngularConfig>(true);
 			services.AddSingleton<ITransformAngularConfig, TransformAngularConfig>();
 			return services;
 		}

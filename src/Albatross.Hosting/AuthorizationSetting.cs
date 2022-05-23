@@ -1,4 +1,4 @@
-﻿using Albatross.Config.Core;
+﻿using Albatross.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Server.HttpSys;
@@ -25,7 +25,7 @@ namespace Albatross.Hosting {
 			this.Name = name;
 		}
 	}
-	public class AuthorizationSetting : IConfigSetting {
+	public class AuthorizationSetting : ConfigBase {
 		public const string BearerAuthenticationScheme = JwtBearerDefaults.AuthenticationScheme;
 		public const string KerborosAuthenticationScheme = NegotiateDefaults.AuthenticationScheme;
 		public const string WindowsAuthenticationScheme = HttpSysDefaults.AuthenticationScheme;
@@ -35,7 +35,10 @@ namespace Albatross.Hosting {
 			WindowsAuthenticationScheme,
 		};
 
-		public const string key = "authorization";
+		public override string Key => "authorization";
+
+		public AuthorizationSetting(IConfiguration configuration) : base(configuration) {
+		}
 
 		/// <summary>
 		/// Authentication scheme is case sensitive!  bearer or Negotiate
@@ -63,7 +66,7 @@ namespace Albatross.Hosting {
 		public bool IsWindowsAuthentication => string.Equals(Authentication, WindowsAuthenticationScheme);
 
 
-		public void Validate() {
+		public override void Validate() {
 			if (string.IsNullOrEmpty(Authentication)) {
 				throw new ConfigurationException(this.GetType(), nameof(Authentication));
 			} else if (!SupportedAuthenticationScheme.Contains(Authentication, StringComparer.InvariantCultureIgnoreCase)) {
@@ -75,7 +78,6 @@ namespace Albatross.Hosting {
 			}
 		}
 
-		public void Init(IConfiguration configuration) { }
 		public AuthorizationPolicy[] Policies { get; set; } = new AuthorizationPolicy[0];
 	}
 }

@@ -1,4 +1,4 @@
-using Albatross.Config.Core;
+using Albatross.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
