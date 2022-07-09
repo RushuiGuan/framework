@@ -23,7 +23,7 @@ steps:
       Backup-DirectoryBuild;
       $version = Set-ReleaseVersion -branch '$(Build.SourceBranchName)' -build $(Build.BuildId)
       echo "release version: $version";
-      $feed = Get-Feed -branch '$(Build.SourceBranchName)'
+      $feed = Get-NugetFeed -branch '$(Build.SourceBranchName)'
       echo "##vso[task.setvariable variable=feed]$feed"
       echo "using feed: $feed";
     pwsh: true
