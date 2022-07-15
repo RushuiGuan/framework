@@ -1,9 +1,8 @@
 trigger:
 - staging
-- v3
 
 pool:
-  name: West Coast
+  name: East Coast
 
 variables:
 - group: ci-variables
@@ -13,8 +12,6 @@ variables:
   value: 'Any CPU'
 - name: buildConfiguration
   value: 'Release'
-- name: defaultNugetPattern
-  value: src/**/*.Core.csproj;src/**/*.Proxy.csproj
 
 steps:
 - task: PowerShell@2
@@ -26,16 +23,9 @@ steps:
       Backup-DirectoryBuild;
       $version = Set-ReleaseVersion -branch '$(Build.SourceBranchName)' -build $(Build.BuildId)
       echo "release version: $version";
-      $feed = Get-Feed -branch '$(Build.SourceBranchName)'
+      $feed = Get-NugetFeed -branch '$(Build.SourceBranchName)'
       echo "##vso[task.setvariable variable=feed]$feed"
       echo "using feed: $feed";
-
-      if (-not $env:nugetPattern){
-        echo "##vso[task.setvariable variable=nugetPattern]$(defaultNugetPattern)"
-        echo "using nuget pattern: $(defaultNugetPattern)"
-      } else{
-        echo "using nuget pattern: $(nugetPattern)"
-      }
     pwsh: true
 
 - task: DotNetCoreCLI@2
@@ -48,16 +38,14 @@ steps:
     verbosityRestore: Minimal
 
 - task: DotNetCoreCLI@2
-  condition: and(succeeded(), or(eq(variables['hasNuget'], 'true'), eq(variables['hasNuget'], '')))
   displayName: 'Pack'
   inputs:
     command: 'pack'
     verbosityPack: Minimal
-    packagesToPack: $(nugetPattern)
+    packagesToPack: 'src/**/*.csproj'
     configuration: $(buildConfiguration)
 
 - task: DotNetCoreCLI@2
-  condition: and(succeeded(), or(eq(variables['hasNuget'], 'true'), eq(variables['hasNuget'], '')))
   displayName: 'Push Packages'
   inputs:
     command: 'push'
@@ -65,39 +53,3 @@ steps:
     nuGetFeedType: 'internal'
     publishVstsFeed: $(feed)
     verbosityRestore: Minimal
-
-- task: DotNetCoreCLI@2
-  condition: and(succeeded(), or(eq(variables['hasApp'], 'true'), eq(variables['hasApp'], '')))
-  displayName: 'Publish to artifact staging folder'
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    zipAfterPublish: true
-    arguments: '-o $(Build.ArtifactStagingDirectory)'
-    verbosityRestore: Normal
-    configuration: $(buildConfiguration)
-    projects: |
-      src/**/*.Admin.csproj
-      src/**/*.Utility.csproj
-      src/**/*.Api.csproj
-      src/**/*.Controller.csproj
-      src/**/*.Scheduler.csproj
-      src/**/*.Worker.csproj
-
-- task: PowerShell@2
-  condition: and(succeeded(), or(eq(variables['hasApp'], 'true'), eq(variables['hasApp'], '')))
-  displayName: 'Create zip file and publish to Octopus'
-  env:
-    OctopusApiKey: $(OctopusApiKey)
-  inputs:
-    targetType: 'inline'
-    script: |
-      . $(Build.SourcesDirectory)/ci.ps1;
-      $version = Get-OctopusReleaseNumber -build $(Build.BuildId)
-      Get-ChildItem $(Build.ArtifactStagingDirectory) -filter *.zip | foreach-object {
-        $name = [System.IO.Path]::GetFileNameWithoutExtension($_.Name);
-        Rename-Item $_.FullName -newName "$($name).$version.zip"
-      }
-      Get-ChildItem $(Build.ArtifactStagingDirectory) -filter *.zip | foreach-object {
-        Send-Octopus -file $_.FullName -apiKey $env:OctopusApiKey
-      }
