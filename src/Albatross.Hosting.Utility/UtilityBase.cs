@@ -29,7 +29,7 @@ namespace Albatross.Hosting.Utility {
 			SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
 		}
 
-		public virtual string CurrentDirectory => System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location)!;
+		public virtual string CurrentDirectory => Path.GetDirectoryName(Environment.GetCommandLineArgs()[0])!;
 
 		public UtilityBase(Option option) {
 			this.Options = option;
