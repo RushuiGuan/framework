@@ -7,13 +7,15 @@ namespace Albatross.Repository.Core {
 
 		[Required]
 		[MaxLength(Constant.UserNameLength)]
-		public string CreatedBy { get; protected set; }
+		public string CreatedBy { get; protected set; } = String.Empty;
 
-		protected ImmutableEntity(string createdBy) : this(createdBy, DateTime.UtcNow){
-		}
-		protected ImmutableEntity(string createdBy, DateTime createdUtc) {
+		public ImmutableEntity(string createdBy) {
 			this.CreatedBy = createdBy;
-			this.CreatedUtc = createdUtc;
+			this.CreatedUtc = DateTime.UtcNow;
 		}
+		/// <summary>
+		/// this constructor is used by efcore and unit test
+		/// </summary>
+		protected internal ImmutableEntity() { }
 	}
 }
