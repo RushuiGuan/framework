@@ -34,7 +34,7 @@ namespace Albatross.WebClient {
 
 		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-			IgnoreNullValues = true,
+			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
 		};
 		#endregion
 

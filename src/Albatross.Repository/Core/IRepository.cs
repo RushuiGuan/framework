@@ -16,6 +16,6 @@ namespace Albatross.Repository.Core {
 
 		void Remove(T obj);
 		void RemoveRange(IEnumerable<T> items);
-        T GetItem(params object[] keys);
+        T? GetItem(params object[] keys);
 	}
 }

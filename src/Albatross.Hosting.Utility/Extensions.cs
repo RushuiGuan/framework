@@ -48,7 +48,7 @@ namespace Albatross.Hosting.Utility {
 			using var reader = new StreamReader(file);
 			string text = reader.ReadToEnd();
 			var result = JsonSerializer.Deserialize<EntityType>(text, new JsonSerializerOptions {
-				IgnoreNullValues = true,
+				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 				WriteIndented = true
 			});

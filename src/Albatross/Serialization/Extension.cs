@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Buffers;
 using System.Data;
+using System.Text.Json.Serialization;
 
 namespace Albatross.Serialization {
 	public static class Extension {
@@ -82,7 +83,7 @@ namespace Albatross.Serialization {
 			for (int i = 0; i < reader.FieldCount; i++) {
 				object value = reader.GetValue(i);
 				if (value == DBNull.Value || value == null) {
-					if (options?.IgnoreNullValues != true) {
+					if (options?.DefaultIgnoreCondition != JsonIgnoreCondition.WhenWritingNull) { 
 						writer.WriteNull(reader.GetName(i));
 					}
 				} else { 

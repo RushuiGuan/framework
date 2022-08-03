@@ -16,7 +16,7 @@ namespace Albatross.Repository.ByEFCore {
 			dbSet = session.DbContext.Set<T>();
 		}
 
-		public virtual T GetItem(params object[] keys) {
+		public virtual T? GetItem(params object[] keys) {
 			return dbSet.Find(keys);
 		}
 
