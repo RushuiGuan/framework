@@ -36,9 +36,9 @@ namespace Albatross.Caching {
 
 		public IEnumerable<object> Keys {
 			get {
-				FieldInfo field = typeof(MemoryCache).GetField("_entries", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-				IDictionary dictionary = (IDictionary)field.GetValue(cache);
-				return dictionary.Keys.Cast<object>();
+				FieldInfo? field = typeof(MemoryCache).GetField("_entries", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+				IDictionary? dictionary = (IDictionary?)(field?.GetValue(cache));
+				return dictionary?.Keys.Cast<object>() ?? new object[0];
 			}
 		}
 

@@ -1,4 +1,4 @@
-﻿using Albatross.Config.Core;
+﻿using Albatross.Config;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace Albatross.Hosting {
 		}
 
 		public void Transform() {
-			if (config.ConfigFile?.Length > 0 && !string.IsNullOrEmpty(environmentSetting.Value)) {
+			if (config.ConfigFile.Length > 0 && !string.IsNullOrEmpty(environmentSetting.Value)) {
 				string file = GetConfigFile(null);
 				string change = GetConfigFile(environmentSetting.Value);
 				if (!File.Exists(file)) {
@@ -40,7 +40,7 @@ namespace Albatross.Hosting {
 		}
 
 		public void UpdateBaseHref() {
-			if (config.BaseHrefFile?.Length > 0) {
+			if (config.BaseHrefFile.Length > 0) {
 				var indexHtml = Path.Join((new string[] { System.Environment.CurrentDirectory }.Union(config.BaseHrefFile)).ToArray());
 				if (File.Exists(indexHtml)) {
 					logger.LogInformation("Replacing baseHref for {file}", indexHtml);
@@ -62,7 +62,7 @@ namespace Albatross.Hosting {
 				logger.LogWarning("Angular config baseHrefFile property not specified, baseHref transformation skipped");
 			}
 		}
-		string GetConfigFile(string environment) {
+		string GetConfigFile(string? environment) {
 			string name = config.ConfigFile.Last();
 			if (!string.IsNullOrEmpty(environment)) {
 				name = $"{Path.GetFileNameWithoutExtension(name)}.{environment}.json";

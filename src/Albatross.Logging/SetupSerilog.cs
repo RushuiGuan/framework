@@ -7,12 +7,12 @@ using System;
 namespace Albatross.Logging {
 	public class SetupSerilog {
 		public const string DefaultOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}";
-		Action<LoggerConfiguration> configActions = null;
+		Action<LoggerConfiguration>? configActions = null;
 
 		public SetupSerilog() {
 		}
 
-		public SetupSerilog UseConfigFile(string environment, string basePath = null) {
+		public SetupSerilog UseConfigFile(string environment, string? basePath = null) {
 			Action<LoggerConfiguration> action = cfg => UseConfigFile(cfg, environment, basePath);
 			configActions += action;
 			return this;
@@ -39,7 +39,7 @@ namespace Albatross.Logging {
 			return logger;
 		}
 
-		public static void UseConfigFile(LoggerConfiguration cfg, string environment, string basePath) {
+		public static void UseConfigFile(LoggerConfiguration cfg, string environment, string? basePath) {
 			if (string.IsNullOrEmpty(basePath)) {
 				basePath = System.IO.Directory.GetCurrentDirectory();
 			}

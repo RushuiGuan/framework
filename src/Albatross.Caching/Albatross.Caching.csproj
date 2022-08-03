@@ -1,27 +1,29 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-	  <TargetFramework>net5.0</TargetFramework>
-    <Authors>Rushui Guan</Authors>
-    <Description>Caching management using Polly</Description>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Polly" Version="7.2.2" />
-    <PackageReference Include="Polly.Caching.Memory" Version="3.0.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>
-      </PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
-    <ProjectReference Include="..\Albatross.WebClient\Albatross.WebClient.csproj" />
-    <ProjectReference Include="..\Albatross\Albatross.csproj" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>Latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<Authors>Rushui Guan</Authors>
+		<Description>Caching management using Polly</Description>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+		<PackageReference Include="Polly" Version="7.2.2" />
+		<PackageReference Include="Polly.Caching.Memory" Version="3.0.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>
+			</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
+		<ProjectReference Include="..\Albatross.WebClient\Albatross.WebClient.csproj" />
+		<ProjectReference Include="..\Albatross\Albatross.csproj" />
+	</ItemGroup>
 </Project>

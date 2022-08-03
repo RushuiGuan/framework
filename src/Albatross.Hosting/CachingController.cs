@@ -1,5 +1,4 @@
-﻿using Albatross.Linq;
-using Albatross.Caching;
+﻿using Albatross.Caching;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -20,13 +19,19 @@ namespace Albatross.Hosting {
 		}
 
 		[HttpGet("keys")]
-		public IEnumerable<string> Keys() => memoryCacheExtended.Keys.Select(args=>Convert.ToString(args));
+		public IEnumerable<string?> Keys() => memoryCacheExtended.Keys.Select(args => Convert.ToString(args));
 
 		[HttpGet]
 		public object Get(string key) => memoryCache.Get(key);
 
 		[HttpPost("envict")]
-		public void Envict([FromBody] IEnumerable<string> keys) => keys?.ForEach(args => memoryCache.Remove(args));
+		public void Envict([FromBody] IEnumerable<string?> keys) {
+			foreach(var key in keys) {
+				if (!string.IsNullOrEmpty(key)) {
+					memoryCache.Remove(key);
+				}
+			}
+		}
 
 		[HttpPost]
 		public void Reset() => this.memoryCacheExtended.Reset();

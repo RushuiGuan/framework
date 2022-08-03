@@ -1,6 +1,7 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.TypeScript.Model;
 using Albatross.Reflection;
+using Albatross.Text;
 using System.Reflection;
 
 namespace Albatross.CodeGen.TypeScript.Conversion {
@@ -11,14 +12,12 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 		}
 
 		public Property Convert(PropertyInfo from) {
-			var property = new Property(from.Name.CamelCaseVariableName(), convertToTypeScriptType.Convert(from.PropertyType)) {
+			var property = new Property(from.Name.CamelCase(), convertToTypeScriptType.Convert(from.PropertyType)) {
 				Optional = from.PropertyType.GetNullableValueType(out _)
 			};
 			return property;
 		}
 
-		object IConvertObject<PropertyInfo>.Convert(PropertyInfo from) {
-			return this.Convert(from);
-		}
+		object IConvertObject<PropertyInfo>.Convert(PropertyInfo from) => this.Convert(from);
 	}
 }

@@ -1,5 +1,4 @@
-﻿using Albatross.Config.Core;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
@@ -16,23 +15,27 @@ namespace Albatross.Config {
 		public static string GetWorkingDirectory() => System.Environment.CurrentDirectory;
 
 		/// <summary>
-		/// Registration for the Configuration Class C and its factory class F 
-		/// F is registered as a singleton and C is registered as scope
-		/// Interface IConfig&lt;C&gt; is also registered.
-		/// Besides creation, the factory class should invoke validation.  It is critical to validate configuration data.  A misspelled property name in the appsettings.json file could lead to null config values.
+		/// Registration for the Configuration Class C.  C has to have the base class of <see cref="ConfigBase"/> and it also requires a constructor with
+		/// a single parameter of type <see cref="IConfiguration"/>
+		/// The call will run the validate method right after the object creation.  It is critical to validate configuration data.
+		/// A misspelled property name in the appsettings.json file could lead to null config values.
 		/// </summary>
 		/// <typeparam name="ConfigType">The configuration class</typeparam>
-		/// <typeparam name="FactoryType">The factory concrete class</typeparam>
 		/// <param name="services">The ServiceCollection instance</param>
 		/// <returns>The service collection instance</returns>
-		public static IServiceCollection AddConfig<ConfigType, FactoryType>(this IServiceCollection services, bool singleton = false) where ConfigType : class, new() where FactoryType : class, IGetConfig<ConfigType> {
-
-			services.TryAddSingleton<FactoryType>();
-			services.TryAddSingleton<IGetConfig<ConfigType>>(provider => provider.GetRequiredService<FactoryType>());
+		public static IServiceCollection AddConfig<ConfigType>(this IServiceCollection services, bool singleton = false) where ConfigType : ConfigBase{
 			if (singleton) {
-				services.TryAddSingleton<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
+				services.TryAddSingleton<ConfigType>(provider=> {
+					var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
+					cfg.Validate();
+					return cfg;
+				});
 			} else {
-				services.TryAddScoped<ConfigType>(provider => provider.GetRequiredService<FactoryType>().Get());
+				services.TryAddScoped<ConfigType>(provider => {
+					var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
+					cfg.Validate();
+					return cfg;
+				});
 			}
 			return services;
 		}
@@ -53,6 +56,19 @@ namespace Albatross.Config {
 				value = value + Slash;
 			}
 			return value;
+		}
+
+		public static string GetRequiredEndPoint(this IConfiguration configuration, string name) {
+			string section = $"endpoints:{name}";
+			string value = configuration.GetSection(section)?.Value;
+			if (value != null && !value.EndsWith(Slash)) {
+				value = value + Slash;
+			}
+			return value ?? throw new ConfigurationException(section);
+		}
+		public static string GetRequiredConnectionString(this IConfiguration configuration, string name) {
+			string value = configuration.GetConnectionString(name);
+			return value ?? throw new ConfigurationException($"connectionStrings:{name}");
 		}
 	}
 }

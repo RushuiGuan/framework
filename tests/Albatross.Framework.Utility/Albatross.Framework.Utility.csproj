@@ -6,6 +6,7 @@
     <StartupObject>Albatross.Framework.Utility.Program</StartupObject>
     <IsPackable>false</IsPackable>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="appsettings.json" />

@@ -1,5 +1,4 @@
 ﻿using Albatross.Config;
-using Albatross.Config.Core;
 using Albatross.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +34,7 @@ namespace Albatross.Hosting {
 		}
 
 		public virtual Setup RunAsService() {
-			var setting = new GetProgramSetting(configuration).Get();
+			var setting = new ProgramSetting(configuration);
 			switch (setting.ServiceManager) {
 				case ProgramSetting.WindowsServiceManager:
 					hostBuilder.UseWindowsService();
@@ -66,7 +65,7 @@ namespace Albatross.Hosting {
 		}
 
 		public virtual void ConfigureServices(IServiceCollection services) {
-			services.AddConfig<ProgramSetting, GetProgramSetting>(true);
+			services.AddConfig<ProgramSetting>(true);
 			services.TryAddSingleton<EnvironmentSetting>(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
 		}
 

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Albatross.CodeGen.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Model {
 	public class Constructor :Method {
 		public Constructor() : base("constructor") {
-			ReturnType = TypeScriptType.Void();
 			AccessModifier = AccessModifier.Public;
 			Async = false;
+			var body = new CodeBlock();
+			this.Body = body;
 		}
-		public Method? BaseConstructor { get; set; }
 	}
 }

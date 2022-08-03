@@ -13,7 +13,7 @@ namespace Albatross.Hosting.Utility {
 		public static async Task<int> Run(this Parser parser, string[] args, params Type[] jobTypes) {
 			Dictionary<Type, Type> dict = new Dictionary<Type, Type>();
 			foreach (var jobType in jobTypes) {
-				if (jobType.TryGetClosedGenericType(typeof(IUtility<>), out Type genericType)) {
+				if (jobType.TryGetClosedGenericType(typeof(IUtility<>), out var genericType)) {
 					Type optionType = genericType.GetGenericArguments().First();
 					dict.Add(optionType, jobType);
 				}
@@ -24,7 +24,7 @@ namespace Albatross.Hosting.Utility {
 		static async Task<int> RunAsync(object opt, Dictionary<Type, Type> dict) {
 			Type optionType = opt.GetType();
 			Type jobType = dict[optionType];
-			using (IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt)) {
+			using (IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt)!) {
 				return await utility.Run();
 			}
 		}
@@ -33,7 +33,7 @@ namespace Albatross.Hosting.Utility {
 			Dictionary<Type, Type> dict = new Dictionary<Type, Type>();
 			foreach (var asm in assemblies) {
 				foreach(var type in asm.GetTypes()) {
-					if (type.TryGetClosedGenericType(typeof(IUtility<>), out Type genericType)) {
+					if (type.TryGetClosedGenericType(typeof(IUtility<>), out var genericType)) {
 						Type optionType = genericType.GetGenericArguments().First();
 						dict.Add(optionType, type);
 					}
@@ -47,11 +47,16 @@ namespace Albatross.Hosting.Utility {
 		public static EntityType ReadInput<EntityType>(this string file) {
 			using var reader = new StreamReader(file);
 			string text = reader.ReadToEnd();
-			return JsonSerializer.Deserialize<EntityType>(text, new JsonSerializerOptions {
+			var result = JsonSerializer.Deserialize<EntityType>(text, new JsonSerializerOptions {
 				IgnoreNullValues = true,
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 				WriteIndented = true
 			});
+			if(result == null) {
+				throw new InvalidDataException($"File {file} cannot be deserialized into an object of {typeof(EntityType).Name}");
+			} else {
+				return result;
+			}
 		}
 		public static string ReadInput(this string file) {
 			using var reader = new StreamReader(file);

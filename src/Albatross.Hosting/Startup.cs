@@ -1,7 +1,6 @@
 ﻿using Albatross.Authentication;
 using Albatross.Caching;
 using Albatross.Config;
-using Albatross.Config.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -14,11 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using NSwag;
-using NSwag.Generation.Processors.Security;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Text.Json;
@@ -29,7 +26,6 @@ namespace Albatross.Hosting {
 		public const string DefaultApp_RootPath = "wwwroot";
 		
 		protected AuthorizationSetting AuthorizationSetting { get; }
-		protected IServiceProvider ServiceProvider { get; private set; }
 		protected IConfiguration Configuration { get; }
 		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -45,51 +41,28 @@ namespace Albatross.Hosting {
 		public Startup(IConfiguration configuration) {
 			this.Configuration = configuration;
 			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
-			if (Secured && WebApi) {
-				AuthorizationSetting = new GetAuthorizationSetting(configuration).Get();
-				AuthorizationSetting.Validate();
-			}
+			AuthorizationSetting = new AuthorizationSetting(configuration);
 		}
 
 		protected virtual void ConfigureCors(CorsPolicyBuilder builder) {
-			builder.AllowAnyHeader();
-			builder.AllowAnyMethod();
-			builder.AllowCredentials();
-			builder.SetIsOriginAllowed(args => true);
+			var cors = this.Configuration.GetSection("cors").Get<string[]>() ?? new string[0];
+			builder.WithOrigins(cors)
+				.AllowAnyHeader()
+				.AllowAnyMethod()
+				.AllowCredentials();
+			Log.Logger.Information("Cors configuration: {cors}", cors.Length == 0 ? "None": String.Join(",", cors));
 		}
 
 		#region swagger
 		public virtual IServiceCollection AddSwagger(IServiceCollection services) {
-			services.AddOpenApiDocument(cfg => {
-				cfg.Title = this.GetType().Assembly.GetName().Name;
-				cfg.PostProcess = doc => { };
-				if (Secured && AuthorizationSetting.IsBearerAuthentication) {
-					cfg.AddSecurity("bearer", Enumerable.Empty<string>(), new OpenApiSecurityScheme {
-						Type = OpenApiSecuritySchemeType.OAuth2,
-						Description = "OpenId Authentication",
-						Flow = OpenApiOAuth2Flow.Implicit,
-						Flows = new OpenApiOAuthFlows() {
-							Implicit = new OpenApiOAuthFlow() {
-								Scopes = AuthorizationSetting.SwaggerScopes.ToDictionary<SwaggerScope, string, string>(args => args.Name, args => args.Description),
-								AuthorizationUrl = AuthorizationSetting.AuthorizeUrl,
-								TokenUrl = AuthorizationSetting.TokenUrl,
-							},
-						}
-					});
-				}
-				cfg.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("bearer"));
+			services.AddSwaggerGen(c => {
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = new ProgramSetting(this.Configuration).App, Version = "v1" });
 			});
 			return services;
 		}
-		public virtual void UseSwagger(IApplicationBuilder app) {
-			app.UseOpenApi().UseSwaggerUi3(options => {
-				options.DocumentPath = "/swagger/v1/swagger.json";
-				if (Secured) {
-					options.OAuth2Client = new NSwag.AspNetCore.OAuth2ClientSettings() {
-						ClientId = AuthorizationSetting.SwaggerClientId,
-					};
-				}
-			});
+		public virtual void UseSwagger(IApplicationBuilder app, ProgramSetting programSetting) {
+			app.UseSwagger();
+			app.UseSwaggerUI();
 		}
 		#endregion
 
@@ -107,7 +80,7 @@ namespace Albatross.Hosting {
 		}
 
 		public virtual IServiceCollection AddAccessControl(IServiceCollection services) {
-			services.AddConfig<AuthorizationSetting, GetAuthorizationSetting>();
+			services.AddConfig<AuthorizationSetting>();
 			services.AddAuthorization(ConfigureAuthorization);
 			AuthenticationBuilder builder = services.AddAuthentication(AuthorizationSetting.Authentication);
 
@@ -130,7 +103,7 @@ namespace Albatross.Hosting {
 
 		public IServiceCollection AddSpa(IServiceCollection services) {
 			services.AddSpaStaticFiles(cfg => cfg.RootPath = DefaultApp_RootPath);
-			services.AddConfig<AngularConfig, GetAngularConfig>(true);
+			services.AddConfig<AngularConfig>(true);
 			services.AddSingleton<ITransformAngularConfig, TransformAngularConfig>();
 			return services;
 		}
@@ -156,7 +129,6 @@ namespace Albatross.Hosting {
 
 		public virtual void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Startup> logger) {
 			logger.LogInformation("Initializing {@program} with environment {environment}", programSetting, environmentSetting.Value);
-			this.ServiceProvider = app.ApplicationServices;
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions });
 			app.UseRouting();
 			if (WebApi) {
@@ -167,7 +139,7 @@ namespace Albatross.Hosting {
 				app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			}
 			if (Grpc) { app.UseEndpoints(endpoints => MapGrpcServices(endpoints)); }
-			if (WebApi && Swagger) { UseSwagger(app); }
+			if (WebApi && Swagger) { UseSwagger(app, programSetting); }
 			if (Spa) { UseSpa(app, logger); }
 			if (Caching) {
 				Albatross.Caching.Extension.UseCache(app.ApplicationServices);
@@ -178,7 +150,7 @@ namespace Albatross.Hosting {
 
 		public void UseSpa(IApplicationBuilder app, ILogger<Startup> logger) {
 			var config = app.ApplicationServices.GetRequiredService<AngularConfig>();
-			logger.LogInformation("Initializing SPA with request path of  {requestPath} and baseHref of ", config.RequestPath, config.BaseHref);
+			logger.LogInformation("Initializing SPA with request path of '{requestPath}' and baseHref of '{baseRef}'", config.RequestPath, config.BaseHref);
 			var options = new StaticFileOptions { 
 				 RequestPath = config.RequestPath,
 			};

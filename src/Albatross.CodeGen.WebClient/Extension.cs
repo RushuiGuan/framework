@@ -15,10 +15,11 @@ namespace Albatross.CodeGen.WebClient {
 		}
 		public static IServiceCollection AddWebClientCodeGen(this IServiceCollection services) {
 			services.AddCodeGen(typeof(Extension).Assembly);
-			services.AddSingleton<IGenerateApiCSharpProxy, GenerateApiCSharpProxy>();
-			services.AddSingleton<IGenerateApiTypeScriptProxy, GenerateApiTypeScriptProxy>();
+			services.AddSingleton<ICreateApiCSharpProxy, CreateApiCSharpProxy>();
+			services.AddSingleton<ICreateApiTypeScriptProxy, CreateApiTypeScriptProxy>();
+			services.AddSingleton<ICreateTypeScriptDto, CreateTypeScriptDto>();
 			services.AddSingleton<IConvertDtoToTypeScriptInterface, ConvertDtoToTypeScriptInterface>();
-			services.AddSingleton<IConvertAssemblyToTypeScriptModel, ConvertAssemblyToTypeScriptModel>();
+			services.AddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
 			return services;
 		}
     }

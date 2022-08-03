@@ -64,7 +64,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 		public void Run(Method method, string expected) {
 			StringWriter writer = new StringWriter();
 			writer.Code(method);
-			string actual =writer.ToString().RemoveCarriageReturn();
+			string actual = writer.ToString().RemoveCarriageReturn();
 			Assert.Equal(expected, actual);
 		}
 	}

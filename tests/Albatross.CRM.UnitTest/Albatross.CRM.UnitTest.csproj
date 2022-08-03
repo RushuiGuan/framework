@@ -19,7 +19,6 @@
     <ProjectReference Include="..\..\src\Albatross.Repository\Albatross.Repository.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Repository.PostgreSQL\Albatross.Repository.PostgreSQL.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Repository.SqlServer\Albatross.Repository.SqlServer.csproj" />
-    <ProjectReference Include="..\Albatross.CRM\Albatross.CRM.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

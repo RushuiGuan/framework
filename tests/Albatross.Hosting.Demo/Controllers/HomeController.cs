@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Demo.Controllers {
 	public class Input {
-		public string Name { get; set; }
+		public string? Name { get; set; }
 		public int Id { get; set; }
 		public string Now => DateTime.Now.Ticks.ToString();
 	}

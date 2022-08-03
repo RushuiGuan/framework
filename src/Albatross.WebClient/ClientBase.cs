@@ -8,12 +8,13 @@ using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Net;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
 		protected HttpClient client;
 		protected ILogger logger;
-		private TextWriter writer;
+		private TextWriter? writer;
 
 		public ClientBase(ILogger logger, HttpClient client) {
 			this.client = client;
@@ -26,10 +27,10 @@ namespace Albatross.WebClient {
 		protected HttpMethod GetPatchMethod() {
 			return new HttpMethod("Patch");
 		}
-		public Uri BaseUrl => this.client.BaseAddress;
+		public Uri BaseUrl => this.client.BaseAddress ?? throw new InvalidOperationException($"Base address not set for {this.GetType().FullName}");
 		public string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
-		public T Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
-		public ValueTask<T> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
+		public T? Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
+		public ValueTask<T?> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
 
 		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -37,15 +38,15 @@ namespace Albatross.WebClient {
 		};
 		#endregion
 
-		void WriteHeader(HttpHeaders headers) {
+		void WriteHeader(TextWriter myWriter, HttpHeaders headers) {
 			foreach (var header in headers) {
-				writer.Write(header.Key);
-				writer.Write(":");
+				myWriter.Write(header.Key);
+				myWriter.Write(":");
 				foreach (var value in header.Value) {
-					writer.Write(" ");
-					writer.Write(value);
+					myWriter.Write(" ");
+					myWriter.Write(value);
 				}
-				writer.WriteLine();
+				myWriter.WriteLine();
 			}
 		}
 
@@ -54,7 +55,7 @@ namespace Albatross.WebClient {
 				writer.Write(request.Method);
 				writer.Write(" ");
 				writer.WriteLine(request.RequestUri);
-				WriteHeader(request.Headers);
+				WriteHeader(writer, request.Headers);
 				if (request.Content != null) {
 					writer.WriteLine(request.Content.ReadAsStringAsync().Result);
 				}
@@ -62,8 +63,29 @@ namespace Albatross.WebClient {
 		}
 
 		#region creating request and response
+		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues,int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
+			List<HttpRequestMessage> requests = new List<HttpRequestMessage>();
+			int offset = 0;
+			do {
+				var sb = relativeUrl.CreateUrl(queryStringValues);
+#pragma warning disable CS1717 // Assignment made to same variable
+				for (offset = offset; offset < arrayQueryValues.Length; offset++) {
+					int current = sb.Length;
+					sb.AddQueryParam(arrayQueryKey, arrayQueryValues[offset]!);
+					if (sb.Length > maxUrlLength - this.BaseUrl.AbsoluteUri.Length) {
+						sb.Length = current;
+						break;
+					}
+				}
+#pragma warning restore CS1717 // Assignment made to same variable
+				var request = new HttpRequestMessage(method, sb.ToString());
+				requests.Add(request);
+			} while (offset < arrayQueryValues.Length);
+			return requests;
+		}
+
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
-			var request = new HttpRequestMessage(method, relativeUrl.GetUrl(queryStringValues));
+			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			WriteRequest(request);
 			return request;
@@ -81,12 +103,12 @@ namespace Albatross.WebClient {
 			writer?.WriteLine(content);
 			return request;
 		}
-		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
-			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(client.BaseAddress, request.RequestUri)}");
+		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
+			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
-					WriteHeader(response.Headers);
+					WriteHeader(writer, response.Headers);
 					writer.Write(content);
 				}
 				if (response.IsSuccessStatusCode) {
@@ -94,19 +116,13 @@ namespace Albatross.WebClient {
 				} else {
 					if (throwCustomException == null) {
 						ErrorMessage error;
-						if (string.IsNullOrEmpty(content)) {
-							error = new ErrorMessage() {
-								StatusCode = response.StatusCode,
-							};
-						} else {
-							try {
-								error = Deserialize<ErrorMessage>(content);
-							} catch {
-								error = new ErrorMessage();
-								error.Message = content;
-							}
-							error.StatusCode = response.StatusCode;
+						try {
+							error = Deserialize<ErrorMessage>(content) ?? new ErrorMessage();
+						} catch {
+							error = new ErrorMessage();
+							error.Message = content;
 						}
+						error.StatusCode = response.StatusCode;
 						throw new ClientException(error);
 					} else {
 						throw throwCustomException(response.StatusCode, content);
@@ -114,7 +130,7 @@ namespace Albatross.WebClient {
 				}
 			}
 		}
-		public async Task<T> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception> throwCustomException = null) {
+		public async Task<T?> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
 			string content = await Invoke(request, throwCustomException);
 			return Deserialize<T>(content);
 		}

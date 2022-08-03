@@ -1,6 +1,5 @@
 ﻿using Albatross.CodeGen.CSharp.Conversion;
 using Albatross.CodeGen.CSharp.Model;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,8 +9,8 @@ using Xunit;
 namespace Albatross.CodeGen.UnitTest.CSharp {
 	public class ConvertPropertyInfoToPropertyTest {
 		public class TestClass {
-			public string Text { get; set; }
-			public string ReadOnlyText { get; }
+			public string? Text { get; set; }
+			public string? ReadOnlyText { get; }
 			public static int Number { get; set; }
 			public double Double {
 				get;
@@ -24,10 +23,10 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 			Type type = typeof(TestClass);
 
 			return new List<object[]> {
-				new object[]{type.GetProperty(nameof(TestClass.Text)), new Property(nameof(TestClass.Text), DotNetType.String()) {   CanWrite = true, CanRead = true, } },
-				new object[]{type.GetProperty(nameof(TestClass.ReadOnlyText)), new Property(nameof(TestClass.ReadOnlyText), DotNetType.String()) {   CanWrite = false, CanRead = true, } },
-				new object[]{type.GetProperty(nameof(TestClass.Number)), new Property(nameof(TestClass.Number), DotNetType.Integer()) {   CanWrite = true, CanRead = true, Static = true, } },
-				new object[]{type.GetProperty(nameof(TestClass.Double)), new Property(nameof(TestClass.Double), DotNetType.Double()) {  CanWrite = true, CanRead = true, SetModifier = AccessModifier.Private, } },
+				new object[]{type.GetProperty(nameof(TestClass.Text))!, new Property(nameof(TestClass.Text), DotNetType.String()) {   CanWrite = true, CanRead = true, } },
+				new object[]{type.GetProperty(nameof(TestClass.ReadOnlyText))!, new Property(nameof(TestClass.ReadOnlyText), DotNetType.String()) {   CanWrite = false, CanRead = true, } },
+				new object[]{type.GetProperty(nameof(TestClass.Number))!, new Property(nameof(TestClass.Number), DotNetType.Integer()) {   CanWrite = true, CanRead = true, Static = true, } },
+				new object[]{type.GetProperty(nameof(TestClass.Double))!, new Property(nameof(TestClass.Double), DotNetType.Double()) {  CanWrite = true, CanRead = true, SetModifier = AccessModifier.Private, } },
 			};
 		}
 

@@ -21,6 +21,8 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 				return TypeScriptType.Date();
 			} else if (type == typeof(TimeSpan)) {
 				return TypeScriptType.String();
+			} else if (type == typeof(byte[])) {
+				return TypeScriptType.String();
 			} else if (type == typeof(object)) {
 				return TypeScriptType.Any();
 			} else if (type.GetCollectionElementType(out Type elementType)) {
@@ -34,10 +36,6 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 			}
 		}
 
-
-
-		object IConvertObject<Type>.Convert(Type from) {
-			return this.Convert(from);
-		}
+		object IConvertObject<Type>.Convert(Type from) => this.Convert(from);
 	}
 }

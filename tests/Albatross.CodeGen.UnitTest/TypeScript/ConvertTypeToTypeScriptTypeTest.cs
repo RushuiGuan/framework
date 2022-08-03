@@ -15,6 +15,7 @@ namespace Albatross.CodeGen.UnitTest {
 				new object[]{typeof(int?), new TypeScriptType("number") },
 				new object[]{typeof(int), new TypeScriptType("number") },
 				new object[]{typeof(string), new TypeScriptType("string") },
+				new object[]{typeof(byte[]), new TypeScriptType("string") },
 				new object[]{typeof(DateTime), new TypeScriptType("Date") },
 				new object[]{typeof(DateTime?), new TypeScriptType("Date") },
 				new object[]{typeof(Guid), new TypeScriptType("Guid") },

@@ -23,7 +23,8 @@ namespace Albatross.Repository.SqlServer {
 			await session.Database.MigrateAsync();
 		}
 		public async Task ExecuteDeploymentScript(string location = "Scripts") {
-			var directoryInfo = typeof(T).Assembly.GetAssemblyLocation(location);
+			this.logger.LogInformation("Deploying script via {ConnectionString}", session.DbConnection.ConnectionString);
+			var directoryInfo = typeof(T).Assembly.GetAssemblyDirectoryLocation(location);
 			if (directoryInfo.Exists) {
 				var files = directoryInfo.GetFiles("*.sql").OrderBy(args => args.Name);
 				foreach (var file in files) {

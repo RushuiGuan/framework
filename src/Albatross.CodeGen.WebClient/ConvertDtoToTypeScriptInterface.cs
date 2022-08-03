@@ -4,50 +4,47 @@ using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.WebClient {
 	public interface IConvertDtoToTypeScriptInterface {
-		void ConvertEnums<T>(TypeScriptFile typeScriptFile) where T :struct;
+		void ConvertEnum(Type type, TypeScriptFile typeScriptFile);
+		void ConvertEnum<T>(TypeScriptFile typeScriptFile) where T :struct;
 		void ConvertEnums(TypeScriptFile typeScriptFile, params Assembly[] assemblies);
-		void ConvertClass<T>(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies);
-		void ConvertClasses(TypeScriptFile typeScriptFile, string pattern,  IEnumerable<TypeScriptFile> dependancies, params Assembly[] assemblies);
+		void ConvertClass(Type type, TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies);
+		void ConvertClasses(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies, 
+			Func<Type, bool>? isValidType,
+			params Assembly[] assemblies);
 	}
 
 	public class ConvertDtoToTypeScriptInterface : IConvertDtoToTypeScriptInterface {
-		public const string DefaultPattern = "^.*(?<!Exception)$";
 		private readonly ILogger<ConvertDtoToTypeScriptInterface> logger;
 		private readonly ConvertTypeToTypeScriptInterface convertInterface;
 		private readonly ConvertEnumToTypeScriptEnum convertEnum;
 
-		public ConvertDtoToTypeScriptInterface(ILogger<ConvertDtoToTypeScriptInterface> logger, ConvertTypeToTypeScriptInterface convertInterface, ConvertEnumToTypeScriptEnum convertEnum) {
+		public ConvertDtoToTypeScriptInterface(ILogger<ConvertDtoToTypeScriptInterface> logger, ConvertTypeToTypeScriptInterface convertInterface, 
+			ConvertEnumToTypeScriptEnum convertEnum) {
 			this.logger = logger;
 			this.convertInterface = convertInterface;
 			this.convertEnum = convertEnum;
 		}
 
-		public void ConvertClass<T>(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies) {
-			Type type = typeof(T);
-			if (!type.IsAnonymousType() && !type.IsInterface && type.IsPublic && !type.IsEnum && !(type.IsAbstract && type.IsSealed)) {
-				var item = convertInterface.Convert(type);
-				typeScriptFile.Interfaces.Add(item);
-				typeScriptFile.BuildImports(dependancies);
-				typeScriptFile.BuildArtifacts();
-			}
-		}
+		bool IsValidDtoType(Type type, Func<Type, bool> predicate) => 
+			!type.IsAnonymousType() && !type.IsInterface && type.IsPublic
+			&& !type.IsEnum && !(type.IsAbstract && type.IsSealed) 
+			&& !type.IsDerived<Attribute>() && !type.IsDerived<Exception>()
+			&& predicate(type);
 
-		public void ConvertClasses(TypeScriptFile typeScriptFile, string? pattern, IEnumerable<TypeScriptFile> dependancies, params Assembly[] assemblies) {
-			pattern = pattern ?? DefaultPattern;
-			Regex regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+		public void ConvertClasses(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies, 
+			Func<Type, bool>? isValidType, params Assembly[] assemblies) {
+			isValidType = isValidType ?? (args => true);
 			foreach (var assembly in assemblies) {
 				var types = assembly.GetTypes();
 				foreach (Type type in types) {
-					if (!type.IsAnonymousType() && !type.IsInterface && type.IsPublic && !type.IsEnum && !(type.IsAbstract && type.IsSealed)) {
-						if (regex.IsMatch(type.FullName ?? string.Empty)) {
-							var item = convertInterface.Convert(type);
-							typeScriptFile.Interfaces.Add(item);
-						}
+					if (IsValidDtoType(type, isValidType)) {
+						var item = convertInterface.Convert(type);
+						typeScriptFile.Interfaces.Add(item);
 					}
 				}
 			}
@@ -67,8 +64,21 @@ namespace Albatross.CodeGen.WebClient {
 			typeScriptFile.BuildArtifacts();
 		}
 
-		public void ConvertEnums<T>(TypeScriptFile typeScriptFile) where T : struct {
+		public void ConvertEnum<T>(TypeScriptFile typeScriptFile) where T : struct {
 			typeScriptFile.Enums.Add(convertEnum.Convert(typeof(T)));
+		}
+		public void ConvertEnum(Type enumType, TypeScriptFile typeScriptFile){
+			if (enumType.IsEnum) {
+				typeScriptFile.Enums.Add(convertEnum.Convert(enumType));
+			} else {
+				throw new InvalidOperationException($"Class {enumType.Name} is not an enum");
+			}
+		}
+		public void ConvertClass(Type type, TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies) {
+			var item = convertInterface.Convert(type);
+			typeScriptFile.Interfaces.Add(item);
+			typeScriptFile.BuildImports(dependancies);
+			typeScriptFile.BuildArtifacts();
 		}
 	}
 }

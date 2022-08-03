@@ -1,6 +1,7 @@
 ﻿using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Data;
 using System.Reflection;
 using System.Threading;
@@ -37,6 +38,23 @@ namespace Albatross.Repository.ByEFCore {
 		public bool IsChanged(object t) {
 			var entry = DbContext.Entry(t);
 			return entry.State != EntityState.Unchanged;
+		}
+	}
+	public abstract class ReadOnlyDbSession : DbSession {
+		protected ReadOnlyDbSession(DbContextOptions option) : base(option) {
+		}
+
+		public override int SaveChanges() {
+			throw new InvalidOperationException("This db context is readonly");
+		}
+		public override int SaveChanges(bool acceptAllChangesOnSuccess) {
+			throw new InvalidOperationException("This db context is readonly");
+		}
+		public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default) {
+			throw new InvalidOperationException("This db context is readonly");
+		}
+		public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
+			throw new InvalidOperationException("This db context is readonly");
 		}
 	}
 }

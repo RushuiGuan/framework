@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using Albatross.Authentication.Core;
-using Albatross.Config.Core;
+using Albatross.Config;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Albatross.Hosting {
@@ -28,7 +27,7 @@ namespace Albatross.Hosting {
 			List<string> result = new List<string>();
 			foreach (var name in names) {
 				try {
-					result.Add(Assembly.Load(name).FullName);
+					result.Add(Assembly.Load(name).FullName!);
 				} catch {
 					result.Add($"{name}: not found");
 				}

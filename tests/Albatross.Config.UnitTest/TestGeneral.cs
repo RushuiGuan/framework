@@ -1,18 +1,19 @@
-using Albatross.Config.Core;
 using Albatross.Hosting.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel.DataAnnotations;
 using Xunit;
 
 namespace Albatross.Config.UnitTest {
 	public class MyTestHost : TestHost {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
-			services.AddTransient<GetGoogleUrl>();
-			services.AddTransient<GetNoLongerRequiredConfig>();
-			services.AddConfig<ProgramSetting, GetProgramSetting>();
-			services.AddConfig<DbConfig, GetDbConfig>();
-			services.AddConfig<EmptyConfig, GetEmptyConfig>();
+			services.AddConfig<ProgramSetting>();
+			services.AddConfig<SingleValueConfig>();
+			services.AddConfig<MySetting>();
+			services.AddConfig<ConfigWithNoKey>();
+			services.AddConfig<DbConfig>();
+			services.AddConfig<ValidationTest>();
 		}
 	}
 
@@ -27,34 +28,59 @@ namespace Albatross.Config.UnitTest {
 		public void TestGetProgramSetting() {
 			var setting = host.Provider.GetRequiredService<ProgramSetting>();
 			Assert.NotNull(setting);
-			Assert.NotEmpty(setting.App);
-			Assert.NotEmpty(setting.Group);
+			Assert.Equal("config-unittest", setting.App);
+			Assert.Equal("config", setting.Group);
+			Assert.Equal("windows", setting.ServiceManager);
 		}
 
+		/// <summary>
+		/// The config value is just a string in this case.  The Config class will have to override the base class
+		/// to get this value
+		/// </summary>
 		[Fact]
-		public void TestGetGoogleUrl() {
-			var value = host.Provider.GetRequiredService<GetGoogleUrl>().Get();
+		public void TestSingleValueConfig() {
+			var value = host.Provider.GetRequiredService<SingleValueConfig>();
 			Assert.NotNull(value);
+			Assert.Equal("www.google.com", value.Value);
 		}
 
+		/// <summary>
+		/// The config value comes from a json object
+		/// </summary>
 		[Fact]
-		public void TestGetNoLongerRequiredConfig() {
-			var handle = host.Provider.GetRequiredService<GetNoLongerRequiredConfig>();
-			Assert.Throws<ConfigurationException>(() => handle.Get());
+		public void TestSerializedConfig() {
+			var config = host.Provider.GetRequiredService<MySetting>();
+			Assert.NotNull(config);
+			Assert.Equal("my test data", config.Name);
+			Assert.NotNull(config.Data);
+			Assert.Equal(100, config.Data?.Count);
 		}
 
+		/// <summary>
+		/// Config with no keys can get its value from other (shared) parts of configuration, such as connectionStrings and endpoints
+		/// </summary>
 		[Fact]
-		public void TestDbConfig() {
-			var handle = host.Provider.GetRequiredService<GetDbConfig>();
-			var cfg = handle.Get();
-			Assert.NotNull(cfg.DbConnection);
-		}
-
-		[Fact]
-		public void TestEmptyConfig() {
-			var handle = host.Provider.GetRequiredService<GetEmptyConfig>();
-			var cfg = handle.Get();
+		public void TestConfigWithNoKey() {
+			var cfg = host.Provider.GetRequiredService<ConfigWithNoKey>();
 			Assert.NotNull(cfg);
+			Assert.Equal("azure-db", cfg.ConnectionString);
+			Assert.Equal("microsoft.com/", cfg.EndPoint);
+		}
+
+		/// <summary>
+		/// The config is completely missing in the config file and it should be allowed.  Validation will kick in
+		/// if any of the data is required
+		/// </summary>
+		[Fact]
+		public void TestNotDefinedConfig() {
+			var cfg = host.Provider.GetRequiredService<DbConfig>();
+			Assert.NotNull(cfg);
+			Assert.Null(cfg.Data);
+		}
+
+		[Fact]
+		public void TestValidation() {
+			Assert.Throws<ValidationException>(() => host.Provider.GetRequiredService<ValidationTest>());
 		}
 	}
 }

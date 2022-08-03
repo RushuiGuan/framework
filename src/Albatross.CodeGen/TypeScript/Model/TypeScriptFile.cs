@@ -31,16 +31,19 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			var types = Interfaces.SelectMany(args => args.Properties.Select(args => args.Type))
 				.Union(Classes.SelectMany(args => args.Properties.Select(args => args.Type)))
 				.Union(Classes.SelectMany(args=>args.Constructor?.Parameters.Select(args=>args.Type) ?? new TypeScriptType[0]))
-				.Union(Classes.SelectMany(@class => @class.Methods.SelectMany(method => method.Parameters.Select(param => param.Type))));
+				.Union(Classes.SelectMany(@class => @class.Methods.SelectMany(method => method.Parameters.Select(param => param.Type))))
+				.Union(Classes.SelectMany(@class => @class.Methods.Select(method => method.ReturnType)));
 
-			dependancies.ForEach(args => Imports.Add(new Import(args)));
+			types = types.Union(types.Where(args => args.IsGeneric).SelectMany(args => args.GenericTypeArguments));
 
-			foreach(var type in types) {
-				foreach(var import in Imports) {
-					if (import.From.Artifacts.Contains(type.Name)) {
-						import.Items.Add(type.Name);
-						continue;
-					}
+			foreach(var file in dependancies) {
+				var import = new Import($"./{file.Name}");
+				var referenced = (from artifact in file.Artifacts join type in types on artifact equals type.Name select artifact).ToArray();
+				foreach (var item in referenced) {
+					import.Items.Add(item);
+				}
+				if (import.Items.Count > 0) {
+					this.Imports.Add(import);
 				}
 			}
 		}
@@ -49,6 +52,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			foreach (var item in Imports) {
 				writer.Code(item);
 			}
+			writer.WriteLine();
 			foreach (var item in Enums) {
 				writer.Code(item);
 			}

@@ -40,7 +40,7 @@ namespace Albatross.Commands {
 
 		public virtual void Submit(Command command) {
 			lock (sync) {
-				logger.LogInformation("submitted {name}: {id}", Name, command.Id);
+				logger.LogDebug("submitted {name}: {id}", Name, command.Id);
 				queue.Enqueue(command);
 				command.MarkSubmitted();
 			}
@@ -57,7 +57,7 @@ namespace Albatross.Commands {
 						running = true;
 					}
 				}
-				logger.LogDebug("starting {name}", Name);
+				logger.LogInformation("starting {name}", Name);
 				while (running) {
 					autoResetEvent.WaitOne();
 					if (running) {
@@ -74,11 +74,11 @@ namespace Albatross.Commands {
 								using (var scope = scopeFactory.CreateScope()) {
 									var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), command.ReturnType);
 									var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(handlerType);
-									logger.LogInformation("processing {name}: {commandId}", Name, command.Id);
+									logger.LogDebug("processing {name}: {commandId}", Name, command.Id);
 									command.MarkStart();
 									var result = await commandHandler.Handle(command).ConfigureAwait(false);
 									command.SetResult(result);
-									logger.LogInformation("processed {name}: {commandId}", Name, command.Id);
+									logger.LogDebug("processed {name}: {commandId}", Name, command.Id);
 								}
 							} catch (Exception err) {
 								logger.LogError(err, "failed to process {name}: {commandId}", Name, command.Id);

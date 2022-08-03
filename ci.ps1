@@ -1,8 +1,8 @@
-$file = "$PSScriptRoot\Directory.Build.props";
+$propsFile = "$PSScriptRoot\Directory.Build.props";
 $backup = "$PSScriptRoot\backup.props";
 
 function Backup-DirectoryBuild() {
-    $src = Get-Item $file
+    $src = Get-Item $propsFile
     Copy-Item $src -Destination $backup;
 }
 
@@ -16,13 +16,13 @@ function IsProd($branch) {
 }
 
 function Set-ReleaseVersion($branch, $build) {
-    if (Test-Path $file) {
-        $xml = [xml](Get-Content $file);
+    if (Test-Path $propsFile) {
+        $xml = [xml](Get-Content $propsFile);
         $version = $xml.Project.PropertyGroup.Version
         if (-not (IsProd -branch $branch)) {
             $xml.Project.PropertyGroup.Version = $version + "-$branch.$build";
         }
-        $xml.Save($file);
+        $xml.Save($propsFile);
         return $xml.Project.PropertyGroup.Version;
     }
     else {
@@ -30,7 +30,20 @@ function Set-ReleaseVersion($branch, $build) {
     }
 }
 
-function Get-Feed($branch) {
+function Set-AngularReleaseVersion(
+	[Parameter(ValueFromPipeline)]
+	[string]$file, 
+	[string]$version,
+    [string]$branch) {
+	if ([string]::IsNullOrEmpty($version)) { throw "Missing version";	}
+
+    "Setting version $version for angular package $file";
+	$json = (Get-Content $file | convertfrom-json);
+	$json.version = $version;
+	ConvertTo-Json $json | set-content $file;
+}
+
+function Get-NugetFeed($branch) {
     if (IsProd($branch)) {
         return "production";
     }
@@ -39,12 +52,23 @@ function Get-Feed($branch) {
     }
 }
 
-# octopus cannot handle prerelease.  So we use the format major.minor.patch.build instead.
-# we will get rid of prerelease and add the build number
-function Get-OctopusReleaseNumber($build) {
+function Get-NpmFeed($branch) {
+    if (IsProd($branch)) {
+        return "angular-production";
+    }
+    else {
+        return "angular-staging";
+    }
+}
+
+function Get-OctopusReleaseNumber($branch, $build) {
     if (Test-Path $backup) {
         $xml = [xml](Get-Content $backup);
-        return $xml.Project.PropertyGroup.Version + ".$build";
+        if(IsProd($branch)){
+            return $xml.Project.PropertyGroup.Version;
+        }else{
+            return $xml.Project.PropertyGroup.Version + "-$branch.$build";
+        }
     }
     else {
         throw "Backup Directory.Build.props file has not been created";
@@ -53,7 +77,7 @@ function Get-OctopusReleaseNumber($build) {
 
 function Send-Octopus($file, $apiKey) {
     Add-Type -AssemblyName System.Net.Http
-    $octopusURL = "http://srv-build1:8888/Octopus/"
+    $octopusURL = "http://octopus:8080/"
     # Create http client handler
     $httpClient = New-Object System.Net.Http.HttpClient
     $httpClient.DefaultRequestHeaders.Add("X-Octopus-ApiKey", $apiKey)
@@ -77,9 +101,18 @@ function Send-Octopus($file, $apiKey) {
 
     # Upload package
     $response = $httpClient.PostAsync("$octopusURL/api/packages/raw?replace=false", $content).Result
+	if(-not $response){
+        Write-Error "No response from Octopus. The OctopusDeploy service might be down";
+    }
     $response.EnsureSuccessStatusCode() > $null;
     Write-Output "Successfully posted artifact $file to octopus";
 
     if ($fileStream) { $fileStream.Close() }
     if ($httpClient) { $httpClient.Dispose(); }
+}
+
+function Build-Angular() {
+    Set-Location $PSScriptRoot\src\client
+    npm ci;
+    npm run deploy;
 }

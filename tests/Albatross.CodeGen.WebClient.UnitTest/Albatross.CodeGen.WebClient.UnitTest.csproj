@@ -6,7 +6,17 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="TestHttpDeleteProxyService.expected.cs" />
+    <Compile Remove="TestHttpGetProxyService.expected.cs" />
+    <Compile Remove="TestHttpPostProxyService.expected.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestHttpGetProxyService.expected.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="appsettings.json">
@@ -14,20 +24,21 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <Content Include="TestHttpPostProxyService.expected.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestHttpDeleteProxyService.expected.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
     <ProjectReference Include="..\..\src\Albatross.WebClient\Albatross.WebClient.csproj" />
-    <ProjectReference Include="..\Albatross.WebClient.TestApi\Albatross.WebClient.TestApi.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="GroupClientService.expected.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Update="ValueClientService.expected.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 ﻿using Albatross.Config;
-using Albatross.Config.Core;
 using Albatross.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +29,7 @@ namespace Albatross.Hosting.Utility {
 			SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
 		}
 
-		public virtual string CurrentDirectory => System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location);
+		public virtual string CurrentDirectory => Path.GetDirectoryName(Environment.GetCommandLineArgs()[0])!;
 
 		public UtilityBase(Option option) {
 			this.Options = option;
@@ -55,7 +54,7 @@ namespace Albatross.Hosting.Utility {
 		}
 
 		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
-			services.AddConfig<ProgramSetting, GetProgramSetting>();
+			services.AddConfig<ProgramSetting>();
 			services.AddSingleton<EnvironmentSetting>(envSetting);
 			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 		}

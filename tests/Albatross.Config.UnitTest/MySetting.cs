@@ -8,16 +8,12 @@ namespace Albatross.Config.UnitTest {
 		public int Count { get; set; }
 	}
 
-	public class MySetting {
-		public string Name { get; set; }
-		public GameData Data { get; set; }
-		public const string Key = "my";
-	}
+	public class MySetting : ConfigBase{
+		public string? Name { get; set; }
+		public GameData? Data { get; set; }
+		public override string Key => "my";
 
-	public class GetMySetting : GetConfig<MySetting> {
-		public GetMySetting(IConfiguration configuration) : base(configuration) {
+		public MySetting(IConfiguration configuration) : base(configuration) {
 		}
-
-		protected override string Key => MySetting.Key;
 	}
 }

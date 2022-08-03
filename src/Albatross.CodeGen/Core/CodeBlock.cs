@@ -14,6 +14,17 @@ namespace Albatross.CodeGen.Core {
 		public CodeBlock() {
 			this.Action = _ => { };
 		}
+		public CodeBlock(ICodeElement codeElement) {
+			this.Action = writer => codeElement.Generate(writer);
+		}
+
+		public void Add(ICodeElement codeElement) {
+			this.Action += writer => codeElement.Generate(writer);
+		}
+
+		public void Add(string content) {
+			this.Action += (args) => args.WriteLine(content);
+		}
 
 
 		public TextWriter Generate(TextWriter writer) {
