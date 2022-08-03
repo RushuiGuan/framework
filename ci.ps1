@@ -77,7 +77,7 @@ function Get-OctopusReleaseNumber($branch, $build) {
 
 function Send-Octopus($file, $apiKey) {
     Add-Type -AssemblyName System.Net.Http
-    $octopusURL = "http://nybuild1:8080/"
+    $octopusURL = "http://octopus:8080/"
     # Create http client handler
     $httpClient = New-Object System.Net.Http.HttpClient
     $httpClient.DefaultRequestHeaders.Add("X-Octopus-ApiKey", $apiKey)
@@ -101,6 +101,9 @@ function Send-Octopus($file, $apiKey) {
 
     # Upload package
     $response = $httpClient.PostAsync("$octopusURL/api/packages/raw?replace=false", $content).Result
+	if(-not $response){
+        Write-Error "No response from Octopus. The OctopusDeploy service might be down";
+    }
     $response.EnsureSuccessStatusCode() > $null;
     Write-Output "Successfully posted artifact $file to octopus";
 

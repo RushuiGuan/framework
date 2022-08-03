@@ -2,7 +2,7 @@ trigger:
 - staging
 
 pool:
-  name: East Coast
+  name: Default
 
 variables:
 - group: ci-variables
