@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace Albatross.WebClient.IntegrationTest {
+namespace Albatross.WebClient.Test {
 	public static class Extension {
 		public static IServiceCollection AddTestClientService(this IServiceCollection services) {
 			services.AddHttpClient<SecuredProxyService>()
@@ -14,7 +14,7 @@ namespace Albatross.WebClient.IntegrationTest {
 				   client.BaseAddress = new Uri(provider.GetRequiredService<MyConfig>().TestUrl);
 			   });
 
-			services.AddConfig<MyConfig, GetMyConfig>();
+			services.AddConfig<MyConfig>();
 			return services;
 		}
 	}

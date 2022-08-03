@@ -5,16 +5,16 @@ using Microsoft.Extensions.Logging;
 using Albatross.WebClient;
 using System.Collections.Generic;
 
-namespace Albatross.WebClient.IntegrationTest {
+namespace Albatross.WebClient.Test {
 	public partial class SecuredProxyService : Albatross.WebClient.ClientBase {
 		public SecuredProxyService(Microsoft.Extensions.Logging.ILogger<SecuredProxyService> @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
 		}
 		public const System.String ControllerPath = "/api/secured";
-		public async System.Threading.Tasks.Task<Albatross.WebClient.IntegrationTest.Messages.PayLoad> GetJson() {
+		public async System.Threading.Tasks.Task<PayLoad> GetJson() {
 			string path = $"{ControllerPath}/json";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.Invoke<Albatross.WebClient.IntegrationTest.Messages.PayLoad>(request);
+				return await this.Invoke<PayLoad>(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> GetText() {
@@ -24,11 +24,11 @@ namespace Albatross.WebClient.IntegrationTest {
 				return await this.Invoke<System.String>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.IntegrationTest.Messages.PayLoad> Post(Albatross.WebClient.IntegrationTest.Messages.PayLoad @payLoad) {
+		public async System.Threading.Tasks.Task<PayLoad> Post(PayLoad @payLoad) {
 			string path = $"{ControllerPath}/post";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
-			using (var request = this.CreateJsonRequest<Albatross.WebClient.IntegrationTest.Messages.PayLoad>(HttpMethod.Post, path, queryString, @payLoad)) {
-				return await this.Invoke<Albatross.WebClient.IntegrationTest.Messages.PayLoad>(request);
+			using (var request = this.CreateJsonRequest<PayLoad>(HttpMethod.Post, path, queryString, @payLoad)) {
+				return await this.Invoke<PayLoad>(request);
 			}
 		}
 	}

@@ -1,15 +1,10 @@
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Albatross.WebClient;
-using System.Collections.Generic;
 using Xunit;
-using System.Collections.Specialized;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 
-namespace Albatross.WebClient.IntegrationTest {
+namespace Albatross.WebClient.Test {
 	public partial class TestWebClient : IClassFixture<MyTestHost>{
 		private readonly MyTestHost host;
 
@@ -48,7 +43,7 @@ namespace Albatross.WebClient.IntegrationTest {
 			using var writer = new StreamWriter(@"c:\temp\test.json");
 			var proxy = scope.Get<ValueProxyService>();
 			proxy.UseTextWriter(writer);
-			var result = await proxy.Post(new Messages.PayLoad { Number = 100 });
+			var result = await proxy.Post(new PayLoad { Number = 100 });
 			Assert.NotNull(result);
 		}
 	}
