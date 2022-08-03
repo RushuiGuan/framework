@@ -57,6 +57,19 @@ namespace Albatross.Config {
 			}
 			return value;
 		}
+
+		public static string GetRequiredEndPoint(this IConfiguration configuration, string name) {
+			string section = $"endpoints:{name}";
+			string value = configuration.GetSection(section)?.Value;
+			if (value != null && !value.EndsWith(Slash)) {
+				value = value + Slash;
+			}
+			return value ?? throw new ConfigurationException(section);
+		}
+		public static string GetRequiredConnectionString(this IConfiguration configuration, string name) {
+			string value = configuration.GetConnectionString(name);
+			return value ?? throw new ConfigurationException($"connectionStrings:{name}");
+		}
 	}
 }
 #nullable disable
