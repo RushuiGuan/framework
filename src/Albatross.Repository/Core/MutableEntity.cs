@@ -15,22 +15,15 @@ namespace Albatross.Repository.Core {
 		[MaxLength(Constant.UserNameLength)]
 		public string CreatedBy { get; protected set; } = String.Empty;
 
-		public MutableEntity(string createdBy) {
-			this.CreatedBy = createdBy;
-			this.ModifiedBy = createdBy;
-			this.CreatedUtc = DateTime.UtcNow;
-			this.ModifiedUtc = DateTime.UtcNow;
-		}
-
-		/// <summary>
-		/// this constructor is used by efcore and unit test
-		/// </summary>
-		protected internal MutableEntity() { }
-
-		public void Audit(string modifiedBy, IDbSession session) {
-			if (session.IsChanged(this)) {
+		public void Audit(string user, IDbSession session) {
+			if (session.IsNew(this)) {
+				CreatedBy = user;
+				CreatedUtc = DateTime.UtcNow;
+				ModifiedBy = user;
 				ModifiedUtc = DateTime.UtcNow;
-				ModifiedBy = modifiedBy;
+			} else if (session.IsChanged(this)) {
+				ModifiedUtc = DateTime.UtcNow;
+				ModifiedBy = user;
 			}
 		}
 	}

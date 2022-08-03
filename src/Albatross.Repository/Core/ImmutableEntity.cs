@@ -9,13 +9,9 @@ namespace Albatross.Repository.Core {
 		[MaxLength(Constant.UserNameLength)]
 		public string CreatedBy { get; protected set; } = String.Empty;
 
-		public ImmutableEntity(string createdBy) {
-			this.CreatedBy = createdBy;
+		protected void Audit(string user) {
+			this.CreatedBy = user;
 			this.CreatedUtc = DateTime.UtcNow;
 		}
-		/// <summary>
-		/// this constructor is used by efcore and unit test
-		/// </summary>
-		protected internal ImmutableEntity() { }
 	}
 }
