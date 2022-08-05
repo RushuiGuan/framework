@@ -22,8 +22,8 @@ namespace Albatross.Hosting.Utility {
 
 		public Option Options { get; }
 		public Microsoft.Extensions.Logging.ILogger logger;
-		protected IServiceProvider Provider => host.Services;
-		protected IHost host;
+		private IServiceProvider Provider => host.Services;
+		private IHost host;
 		private Serilog.Core.Logger serilogLogger;
 
 		protected virtual void ConfigureLogging(LoggerConfiguration cfg) {
