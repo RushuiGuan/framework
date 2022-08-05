@@ -33,7 +33,7 @@ namespace Albatross.Framework.Utility {
 			}.Union(Options.AdditionalAssemblyFolders.Split(';', StringSplitOptions.RemoveEmptyEntries)).Distinct();
 		}
 
-		protected override Task<int> RunUtility() {
+		public Task<int> RunUtility() {
 			Stack<Assembly> stack = new Stack<Assembly>();
 			Assembly assembly = Assembly.LoadFrom(Options.RootAssembly);
 			Search(stack, assembly);
