@@ -86,6 +86,7 @@ namespace Albatross.WebClient {
 
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
+			this.logger.LogDebug("Creating http {method} request for {url}", method, request.RequestUri);
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			WriteRequest(request);
 			return request;
@@ -103,36 +104,53 @@ namespace Albatross.WebClient {
 			writer?.WriteLine(content);
 			return request;
 		}
+		public HttpRequestMessage CreateStreamRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, Stream stream) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			request.Content = new StreamContent(stream);
+			return request;
+		}
 		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
+				await EnsureStatusCode(response, throwCustomException);
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
 					WriteHeader(writer, response.Headers);
 					writer.Write(content);
 				}
-				if (response.IsSuccessStatusCode) {
-					return content;
-				} else {
-					if (throwCustomException == null) {
-						ErrorMessage error;
-						try {
-							error = Deserialize<ErrorMessage>(content) ?? new ErrorMessage();
-						} catch {
-							error = new ErrorMessage();
-							error.Message = content;
-						}
-						error.StatusCode = response.StatusCode;
-						throw new ClientException(error);
-					} else {
-						throw throwCustomException(response.StatusCode, content);
-					}
-				}
+				return content;
 			}
 		}
 		public async Task<T?> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
 			string content = await Invoke(request, throwCustomException);
 			return Deserialize<T>(content);
+		}
+
+		public async Task Download(HttpRequestMessage request, Stream stream, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				await EnsureStatusCode(response, throwCustomException);
+				await response.Content.CopyToAsync(stream);
+			}
+		}
+
+		public async Task EnsureStatusCode(HttpResponseMessage response, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
+			if(response.StatusCode != HttpStatusCode.OK) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (throwCustomException == null) {
+					ErrorMessage error;
+					try {
+						error = Deserialize<ErrorMessage>(content) ?? new ErrorMessage();
+					} catch {
+						error = new ErrorMessage();
+						error.Message = content;
+					}
+					error.StatusCode = response.StatusCode;
+					throw new ClientException(error);
+				} else {
+					throw throwCustomException(response.StatusCode, content);
+				}
+			}
 		}
 		#endregion
 	}
