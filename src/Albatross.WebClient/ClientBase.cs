@@ -86,7 +86,6 @@ namespace Albatross.WebClient {
 
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
-			this.logger.LogDebug("Creating http {method} request for {url}", method, request.RequestUri);
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			WriteRequest(request);
 			return request;
@@ -109,6 +108,14 @@ namespace Albatross.WebClient {
 			request.Content = new StreamContent(stream);
 			return request;
 		}
+		public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string boundary, Stream stream) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			var formData = new MultipartFormDataContent(boundary);
+			formData.Add(new StreamContent(stream));
+			request.Content = formData;
+			return request;
+		}
+
 		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
