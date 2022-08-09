@@ -14,7 +14,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public AccessModifier AccessModifier { get; set; }
 		public IEnumerable<ParameterDeclaration> Parameters { get; set; } = new ParameterDeclaration[0];
         public bool Async { get; set; }
-		public CodeBlock Body { get; init; } = new CodeBlock();
+		public CodeBlock Body { get; set; } = new CodeBlock();
 
 		public TextWriter Generate(TextWriter writer) {
 			if (AccessModifier != AccessModifier.Public && AccessModifier != AccessModifier.None) {

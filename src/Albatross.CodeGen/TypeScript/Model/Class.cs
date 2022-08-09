@@ -16,15 +16,15 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public MethodCall? Decorator { get; set; }
 
 		public Constructor? Constructor { get; set; }
-		public List<Import> Imports { get; init; } = new List<Import>();
+		public List<Import> Imports { get; set; } = new List<Import>();
 		public List<Getter> Getters { get; set; } = new List<Getter>();
-		public List<Property> Properties { get; init; } = new List<Property>();
-		public List<Method> Methods { get; init; } = new List<Method>();
+		public List<Property> Properties { get; set; } = new List<Property>();
+		public List<Method> Methods { get; set; } = new List<Method>();
 
 		public TextWriter Generate(TextWriter writer) {
 			if (this.Decorator != null) { writer.Code(this.Decorator).WriteLine(); }
 			writer.Append("export ").Append("class ").Append(Name);
-			if(BaseClass != null) {
+			if (BaseClass != null) {
 				writer.Append(" extends ").Append(BaseClass.Name);
 			}
 			using (var scope = writer.BeginScope()) {

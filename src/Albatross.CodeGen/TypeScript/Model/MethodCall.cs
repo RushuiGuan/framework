@@ -14,7 +14,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 		public bool Async { get; set; }
 		public string MethodName { get; set; }
 		public ICodeElement[] Parameters { get; set; }
-		public List<TypeScriptType> GenericArguments { get; init; } = new List<TypeScriptType>();
+		public List<TypeScriptType> GenericArguments { get; set; } = new List<TypeScriptType>();
 
 		public TextWriter Generate(TextWriter writer) {
 			if (Async) { writer.Append("await "); }
