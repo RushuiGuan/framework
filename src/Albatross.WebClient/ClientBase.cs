@@ -108,14 +108,104 @@ namespace Albatross.WebClient {
 			request.Content = new StreamContent(stream);
 			return request;
 		}
-		public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string boundary, Stream stream) {
+		public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, params MultiPartFormData[] formDataArray) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			var formData = new MultipartFormDataContent(boundary);
-			formData.Add(new StreamContent(stream));
-			request.Content = formData;
+			var content = new MultipartFormDataContent();
+			foreach (var item in formDataArray) { 
+				content.AddMultiPartFormData(item); 
+			}
+			request.Content = content;
 			return request;
 		}
 
+		public async Task<string> GetRawResponse(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (writer != null) {
+					WriteHeader(writer, response.Headers);
+					writer.Write(content);
+				}
+				EnsureStatusCode(response.StatusCode, content);
+				return content;
+			}
+		}
+		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (writer != null) {
+					WriteHeader(writer, response.Headers);
+					writer.Write(content);
+				}
+				EnsureStatusCode<ErrorType>(response.StatusCode, content);
+				return content;
+			}
+		}
+		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (writer != null) {
+					WriteHeader(writer, response.Headers);
+					writer.Write(content);
+				}
+				EnsureStatusCode<ErrorType>(response.StatusCode, content);
+				return Deserialize<ResultType>(content);
+			}
+		}
+		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (writer != null) {
+					WriteHeader(writer, response.Headers);
+					writer.Write(content);
+				}
+				EnsureStatusCode(response.StatusCode, content);
+				return Deserialize<ResultType>(content);
+			}
+		}
+		public Task<ResultType?> GetJsonResponseUsingDefaultErrorHandler<ResultType>(HttpRequestMessage request) => GetJsonResponse<ResultType, ErrorMessage>(request);
+
+		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				if (response.StatusCode != HttpStatusCode.OK) {
+					string content = await response.Content.ReadAsStringAsync();
+					if (writer != null) {
+						WriteHeader(writer, response.Headers);
+						writer.Write(content);
+					}
+					EnsureStatusCode<ErrorType>(response.StatusCode, content);
+				} else {
+					await response.Content.CopyToAsync(stream);
+				}
+			}
+		}
+		public async Task Download(HttpRequestMessage request, Stream stream) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				if (response.StatusCode != HttpStatusCode.OK) {
+					string content = await response.Content.ReadAsStringAsync();
+					if (writer != null) {
+						WriteHeader(writer, response.Headers);
+						writer.Write(content);
+					}
+					EnsureStatusCode(response.StatusCode, content);
+				} else {
+					await response.Content.CopyToAsync(stream);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Call this invoke if the caller want to receive the response in flat text only
+		/// </summary>
+		/// <param name="request"></param>
+		/// <param name="throwCustomException"></param>
+		/// <returns></returns>
+		[Obsolete("Please use GetRawResponse or GetRawResponse<ResultType> method instead")]
 		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
@@ -128,21 +218,9 @@ namespace Albatross.WebClient {
 				return content;
 			}
 		}
-		public async Task<T?> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			string content = await Invoke(request, throwCustomException);
-			return Deserialize<T>(content);
-		}
-
-		public async Task Download(HttpRequestMessage request, Stream stream, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await client.SendAsync(request)) {
-				await EnsureStatusCode(response, throwCustomException);
-				await response.Content.CopyToAsync(stream);
-			}
-		}
-
-		public async Task EnsureStatusCode(HttpResponseMessage response, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			if(response.StatusCode != HttpStatusCode.OK) {
+		[Obsolete]
+		public async Task EnsureStatusCode(HttpResponseMessage response, Func<HttpStatusCode, string, Exception>? throwCustomException) {
+			if (response.StatusCode != HttpStatusCode.OK) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (throwCustomException == null) {
 					ErrorMessage error;
@@ -158,6 +236,39 @@ namespace Albatross.WebClient {
 					throw throwCustomException(response.StatusCode, content);
 				}
 			}
+		}
+		public void EnsureStatusCode(HttpStatusCode statusCode, string content) {
+			if (statusCode != HttpStatusCode.OK) {
+				ErrorMessage error = new ErrorMessage(statusCode, content);
+				throw new ClientException(error);
+			}
+		}
+		public void EnsureStatusCode<ErrorType>(HttpStatusCode statusCode, string content) {
+			Exception exception;
+			if (statusCode != HttpStatusCode.OK) {
+				try {
+					var error = Deserialize<ErrorType>(content);
+					exception = new ClientException<ErrorType>(statusCode, error, $"HttpStatusCode: {statusCode}, Error: {content}");
+				} catch {
+					exception = new ClientException(statusCode, content);
+				}
+				throw exception;
+			}
+		}
+
+		/// <summary>
+		/// Call this invoke if the caller wants to deserialize the response into an object of class T.  Please note that Invoke&lt;string&gt; will 
+		/// call this method and the content is expected to be json serialized string.  A deserialization error will occur if the content is not a string
+		/// json.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="request"></param>
+		/// <param name="throwCustomException"></param>
+		/// <returns></returns>
+		[Obsolete("Please use GetJsonResponse<ResultType, ErrorType> or GetJsonResponse<ResultType> method instead")]
+		public async Task<T?> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
+			string content = await Invoke(request, throwCustomException);
+			return Deserialize<T>(content);
 		}
 		#endregion
 	}

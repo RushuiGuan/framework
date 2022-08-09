@@ -186,10 +186,11 @@ namespace Albatross.CodeGen.WebClient {
                 //skip "return" if return type is void or Task
                 if (!method.ReturnType.IsVoid) { writer.Write("return "); }
 
-                writer.Write($"await this.Invoke");
                 if (!method.ReturnType.IsVoid && !method.ReturnType.Equals(new DotNetType(typeof(string))) && !method.ReturnType.Equals(new DotNetType(typeof(Task<string>)))) {
-                    writer.Write($"<{method.ReturnType.RemoveAsync()}>");
-                }
+                    writer.Write($"await this.GetJsonResponse<{method.ReturnType.RemoveAsync()}>");
+				} else {
+					writer.Write($"await this.GetRawResponse");
+				}
 				writer.WriteLine("(request);");
 				writer.Write("}");
 			}

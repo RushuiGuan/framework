@@ -12,4 +12,13 @@ namespace Albatross.WebClient{
 			ErrorMessage = err;
 		}
 	}
+
+	public class ClientException<T> : Exception {
+		public T? ErrorObject { get; set; }
+		public HttpStatusCode StatusCode { get; set; }
+		public ClientException(HttpStatusCode statusCode, T? errorObject, string errorMsg): base($"{statusCode}({(int)statusCode}):{errorMsg}") {
+			this.StatusCode = statusCode;
+			this.ErrorObject = errorObject;
+		}
+	}
 }

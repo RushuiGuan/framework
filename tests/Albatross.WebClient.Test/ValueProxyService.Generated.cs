@@ -15,21 +15,21 @@ namespace Albatross.WebClient.Test {
 			string path = $"{ControllerPath}/json";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.Invoke<PayLoad>(request);
+				return await this.GetJsonResponse<PayLoad>(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> GetText() {
 			string path = $"{ControllerPath}/text";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.Invoke<System.String>(request);
+				return await this.GetJsonResponse<System.String>(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<PayLoad> Post(PayLoad @payLoad) {
 			string path = $"{ControllerPath}/post";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateJsonRequest<PayLoad>(HttpMethod.Post, path, queryString, @payLoad)) {
-				return await this.Invoke<PayLoad>(request);
+				return await this.GetJsonResponse<PayLoad>(request);
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace Albatross.WebClient.Test {
 			string path = $"{ControllerPath}/config";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.Invoke<System.String>(request);
+				return await this.GetJsonResponse<System.String>(request);
 			}
 		}
 
@@ -46,7 +46,7 @@ namespace Albatross.WebClient.Test {
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("seconds", seconds.ToString());
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.Invoke(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 	}

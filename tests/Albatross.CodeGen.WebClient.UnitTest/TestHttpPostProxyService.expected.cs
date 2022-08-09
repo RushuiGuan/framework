@@ -14,14 +14,14 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			string path = $"{ControllerPath}/from-body";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateJsonRequest<Albatross.WebClient.Test.Messages.Dto>(HttpMethod.Post, path, queryString, @dto)) {
-				return await this.Invoke<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> PostStringOnly(System.String @body) {
 			string path = $"{ControllerPath}/post-string";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateStringRequest(HttpMethod.Post, path, queryString, @body)) {
-				return await this.Invoke(request);
+				return await this.GetJsonResponse(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> QueryString(System.String @name) {
@@ -29,14 +29,14 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("name", @name);
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
-				return await this.Invoke(request);
+				return await this.GetJsonResponse(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> RouteParam(System.String @name) {
 			string path = $"{ControllerPath}/route-param/{name}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
-				return await this.Invoke(request);
+				return await this.GetJsonResponse(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> Mixed(System.String @name, System.Int32 @id, Albatross.WebClient.Test.Messages.Dto @dto) {
@@ -44,7 +44,7 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("id", System.Convert.ToString(@id));
 			using (var request = this.CreateJsonRequest<Albatross.WebClient.Test.Messages.Dto>(HttpMethod.Post, path, queryString, @dto)) {
-				return await this.Invoke(request);
+				return await this.GetJsonResponse(request);
 			}
 		}
 		public async void AsyncVoid(System.Int32 @i) {
@@ -52,7 +52,7 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("i", System.Convert.ToString(@i));
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 	}

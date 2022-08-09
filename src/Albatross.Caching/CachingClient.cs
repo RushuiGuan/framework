@@ -16,7 +16,7 @@ namespace Albatross.Caching {
 			string path = $"{ControllerPath}/envict";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateJsonRequest<IEnumerable<string?>>(HttpMethod.Post, path, queryString, @keys.Select(args => Convert.ToString(args)))) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
@@ -24,7 +24,7 @@ namespace Albatross.Caching {
 			string path = $"{ControllerPath}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 	}
