@@ -30,12 +30,17 @@ namespace Albatross.WebClient {
 			sb.Append("&");
 		}
 		public static void AddMultiPartFormData(this MultipartFormDataContent content, MultiPartFormData data) {
+			HttpContent part;
 			if (data.Stream != null) {
 				data.Stream.Position = 0;
-				content.Add(new StreamContent(data.Stream), data.Name);
+				part = new StreamContent(data.Stream);
 			} else {
-				content.Add(new ByteArrayContent(data.Data), data.Name);
+				part = new ByteArrayContent(data.Data);
 			}
+			if (!string.IsNullOrEmpty(data.ContentType)) {
+				part.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(data.ContentType);
+			}
+			content.Add(part, data.Name, data.Filename);
 		}
 
 
