@@ -40,9 +40,12 @@ namespace Albatross.WebClient {
 			if (!string.IsNullOrEmpty(data.ContentType)) {
 				part.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(data.ContentType);
 			}
-			content.Add(part, data.Name, data.Filename);
+			if (string.IsNullOrEmpty(data.Filename)) {
+				content.Add(part, data.Name);
+			} else {
+				content.Add(part, data.Name, data.Filename);
+			}
 		}
-
 
 		#region get methods
 		[Obsolete]
