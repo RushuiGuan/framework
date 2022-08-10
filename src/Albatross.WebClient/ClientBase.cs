@@ -83,7 +83,6 @@ namespace Albatross.WebClient {
 			} while (offset < arrayQueryValues.Length);
 			return requests;
 		}
-
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
@@ -126,7 +125,7 @@ namespace Albatross.WebClient {
 					WriteHeader(writer, response.Headers);
 					writer.Write(content);
 				}
-				EnsureStatusCode(response.StatusCode, content);
+				EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
 				return content;
 			}
 		}
@@ -138,7 +137,7 @@ namespace Albatross.WebClient {
 					WriteHeader(writer, response.Headers);
 					writer.Write(content);
 				}
-				EnsureStatusCode<ErrorType>(response.StatusCode, content);
+				EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
 				return content;
 			}
 		}
@@ -150,7 +149,7 @@ namespace Albatross.WebClient {
 					WriteHeader(writer, response.Headers);
 					writer.Write(content);
 				}
-				EnsureStatusCode<ErrorType>(response.StatusCode, content);
+				EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
 				return Deserialize<ResultType>(content);
 			}
 		}
@@ -162,11 +161,10 @@ namespace Albatross.WebClient {
 					WriteHeader(writer, response.Headers);
 					writer.Write(content);
 				}
-				EnsureStatusCode(response.StatusCode, content);
+				EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
 				return Deserialize<ResultType>(content);
 			}
 		}
-		public Task<ResultType?> GetJsonResponseUsingDefaultErrorHandler<ResultType>(HttpRequestMessage request) => GetJsonResponse<ResultType, ErrorMessage>(request);
 
 		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
@@ -177,7 +175,7 @@ namespace Albatross.WebClient {
 						WriteHeader(writer, response.Headers);
 						writer.Write(content);
 					}
-					EnsureStatusCode<ErrorType>(response.StatusCode, content);
+					EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
 				} else {
 					await response.Content.CopyToAsync(stream);
 				}
@@ -192,83 +190,27 @@ namespace Albatross.WebClient {
 						WriteHeader(writer, response.Headers);
 						writer.Write(content);
 					}
-					EnsureStatusCode(response.StatusCode, content);
+					EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
 				} else {
 					await response.Content.CopyToAsync(stream);
 				}
 			}
 		}
 
-		/// <summary>
-		/// Call this invoke if the caller want to receive the response in flat text only
-		/// </summary>
-		/// <param name="request"></param>
-		/// <param name="throwCustomException"></param>
-		/// <returns></returns>
-		[Obsolete("Please use GetRawResponse or GetRawResponse<ResultType> method instead")]
-		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await client.SendAsync(request)) {
-				await EnsureStatusCode(response, throwCustomException);
-				string content = await response.Content.ReadAsStringAsync();
-				if (writer != null) {
-					WriteHeader(writer, response.Headers);
-					writer.Write(content);
-				}
-				return content;
-			}
+		public void EnsureStatusCode(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string content) {
+			EnsureStatusCode<ServiceError>(statusCode, method, endpoint, content);
 		}
-		[Obsolete]
-		public async Task EnsureStatusCode(HttpResponseMessage response, Func<HttpStatusCode, string, Exception>? throwCustomException) {
-			if (response.StatusCode != HttpStatusCode.OK) {
-				string content = await response.Content.ReadAsStringAsync();
-				if (throwCustomException == null) {
-					ErrorMessage error;
-					try {
-						error = Deserialize<ErrorMessage>(content) ?? new ErrorMessage();
-					} catch {
-						error = new ErrorMessage();
-						error.Message = content;
-					}
-					error.StatusCode = response.StatusCode;
-					throw new ClientException(error);
-				} else {
-					throw throwCustomException(response.StatusCode, content);
-				}
-			}
-		}
-		public void EnsureStatusCode(HttpStatusCode statusCode, string content) {
-			if (statusCode != HttpStatusCode.OK) {
-				ErrorMessage error = new ErrorMessage(statusCode, content);
-				throw new ClientException(error);
-			}
-		}
-		public void EnsureStatusCode<ErrorType>(HttpStatusCode statusCode, string content) {
+		public void EnsureStatusCode<ErrorType>(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string content) {
 			Exception exception;
 			if (statusCode != HttpStatusCode.OK) {
 				try {
 					var error = Deserialize<ErrorType>(content);
-					exception = new ClientException<ErrorType>(statusCode, error, $"HttpStatusCode: {statusCode}, Error: {content}");
+					exception = new ServiceException<ErrorType>(statusCode, method, endpoint, error, content);
 				} catch {
-					exception = new ClientException(statusCode, content);
+					exception = new ServiceException(statusCode, method, endpoint, null, content);
 				}
 				throw exception;
 			}
-		}
-
-		/// <summary>
-		/// Call this invoke if the caller wants to deserialize the response into an object of class T.  Please note that Invoke&lt;string&gt; will 
-		/// call this method and the content is expected to be json serialized string.  A deserialization error will occur if the content is not a string
-		/// json.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="request"></param>
-		/// <param name="throwCustomException"></param>
-		/// <returns></returns>
-		[Obsolete("Please use GetJsonResponse<ResultType, ErrorType> or GetJsonResponse<ResultType> method instead")]
-		public async Task<T?> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			string content = await Invoke(request, throwCustomException);
-			return Deserialize<T>(content);
 		}
 		#endregion
 	}
