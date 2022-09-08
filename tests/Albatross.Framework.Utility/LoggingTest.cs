@@ -16,7 +16,7 @@ namespace Albatross.Framework.Utility {
 		}
 
 
-		protected override Task<int> RunUtility() {
+		public Task<int> RunUtility() {
 			for (int i = 0; i < 10; i++) {
 				logger.LogInformation("test: {value}", i);
 			}

@@ -2,8 +2,15 @@ using System.Collections.Generic;
 using Xunit;
 using System.Text.Json;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using Moq;
 
 namespace Albatross.WebClient.Test {
+	public class TestClient : ClientBase {
+		public TestClient(ILogger logger, HttpClient client) : base(logger, client) {
+		}
+	}
 	public partial class TestSerialization {
 		public TestSerialization() {
 		}
@@ -13,9 +20,29 @@ namespace Albatross.WebClient.Test {
 			IEnumerable<string> result = JsonSerializer.Deserialize<IEnumerable<string>>("[\"test\"]");
 			Assert.True(result?.Count() == 1);
 
-			ISet<string> result2 = JsonSerializer.Deserialize<ISet<string>>("[\"test\", \"TEST\"]", new JsonSerializerOptions { 
+			ISet<string> result2 = JsonSerializer.Deserialize<ISet<string>>("[\"test\", \"TEST\"]", new JsonSerializerOptions {
 			});
 			Assert.True(result2?.Count() == 1);
+		}
+
+		[Theory]
+		[InlineData("")]
+		[InlineData("{\"message\" : 1}")]
+		public void TestDeserializationError(string text) {
+			var client = new TestClient(new Mock<ILogger>().Object, new HttpClient());
+			Assert.Throws<JsonException>(() => {
+				var result = client.Deserialize<ServiceError>(text);
+			});
+		}
+
+		[Theory]
+		[InlineData("{\"xx\" : 1}")]
+		[InlineData("{\"message\" : \"dd\" }")]
+		[InlineData("{\"message\" : \"dd\", \"my\": \"yes\" }")]
+		public void TestDeserialization(string text) {
+			var client = new TestClient(new Mock<ILogger>().Object, new HttpClient());
+			var result = client.Deserialize<ServiceError>(text);
+			Assert.NotNull(result);
 		}
 	}
 }

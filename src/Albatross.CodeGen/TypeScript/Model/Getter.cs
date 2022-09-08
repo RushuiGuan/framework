@@ -9,7 +9,7 @@ namespace Albatross.CodeGen.TypeScript.Model {
 			AccessModifier = new AccessModifierElement(accessModifier);
 			Type = type;
 		}
-		public CodeBlock Body { get; init; } = new CodeBlock();
+		public CodeBlock Body { get; set; } = new CodeBlock();
 
 		public string Name { get; set; }
 		public AccessModifierElement AccessModifier { get; set; }

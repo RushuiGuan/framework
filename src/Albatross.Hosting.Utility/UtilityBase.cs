@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -21,8 +22,8 @@ namespace Albatross.Hosting.Utility {
 
 		public Option Options { get; }
 		public Microsoft.Extensions.Logging.ILogger logger;
-		protected IServiceProvider Provider => host.Services;
-		protected IHost host;
+		private IServiceProvider Provider => host.Services;
+		private IHost host;
 		private Serilog.Core.Logger serilogLogger;
 
 		protected virtual void ConfigureLogging(LoggerConfiguration cfg) {
@@ -55,18 +56,39 @@ namespace Albatross.Hosting.Utility {
 
 		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			services.AddConfig<ProgramSetting>();
-			services.AddSingleton<EnvironmentSetting>(envSetting);
-			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
+			services.AddSingleton(envSetting);
+			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName??"default"));
 		}
+		public const string RunUtilityMethod = "RunUtility";
+
 		public async Task<int> Run() {
 			try {
-				return await this.RunUtility();
-			}catch(Exception err) {
+				var method = this.GetType().GetMethod(RunUtilityMethod, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+				if (method != null) {
+					if (method.ReturnType == typeof(Task<int>)) {
+						List<object> list = new List<object>();
+						foreach (var param in method.GetParameters()) {
+							object value = this.Provider.GetRequiredService(param.ParameterType);
+							list.Add(value);
+						}
+						var result = method.Invoke(this, list.ToArray());
+						if (result == null) {
+							logger.LogWarning("RunUtility method has returned a null value.  This is not a good form.  Please always return a non null Task<int> object such as Task.FromResult(0).");
+							return 0;
+						} else {
+							return await (Task<int>)result;
+						}
+					} else {
+						throw new InvalidOperationException("RunUtility method has to return Task<int>");
+					}
+				} else {
+					throw new InvalidOperationException("RunUtility method is not defined in this class");
+				}
+			} catch(Exception err) {
 				logger.LogError(err, string.Empty);
 				return -1;
 			}
 		}
-		protected abstract Task<int> RunUtility();
 		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
 
 		public void Dispose() {

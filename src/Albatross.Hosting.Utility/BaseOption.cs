@@ -40,7 +40,7 @@ namespace Albatross.Hosting.Utility {
 				result = (string)data;
 			} else {
 				var jsonOption = new JsonSerializerOptions {
-					IgnoreNullValues = true,
+					DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 					WriteIndented = true,
 				};

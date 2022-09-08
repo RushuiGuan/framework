@@ -4,52 +4,18 @@ trigger:
 pool:
   name: Default
 
-variables:
-- group: ci-variables
-- name: solution
-  value: '**/*.sln'
-- name: buildPlatform
-  value: 'Any CPU'
-- name: buildConfiguration
-  value: 'Release'
+resources:
+  repositories:
+  - repository: devops
+    type: git
+    name: devops\devops
+    ref: refs/heads/production
 
-steps:
-- task: PowerShell@2
-  displayName: 'Initilization'
-  inputs:
-    targetType: 'inline'
-    script: |
-      . $(Build.SourcesDirectory)/ci.ps1;
-      Backup-DirectoryBuild;
-      $version = Set-ReleaseVersion -branch '$(Build.SourceBranchName)' -build $(Build.BuildId)
-      echo "release version: $version";
-      $feed = Get-NugetFeed -branch '$(Build.SourceBranchName)'
-      echo "##vso[task.setvariable variable=feed]$feed"
-      echo "using feed: $feed";
-    pwsh: true
 
-- task: DotNetCoreCLI@2
-  displayName: 'Restore'
-  inputs:
-    command: 'restore'
-    projects: $(solution)
-    feedsToUse: 'select'
-    vstsFeed: $(feed)
-    verbosityRestore: Minimal
+extends:
+  template: api-build-template.yml@devops
+  parameters:
+    project: framework
+    nugetPattern: 'framework/src/**/*.csproj'
+    hasApp: 'false'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Pack'
-  inputs:
-    command: 'pack'
-    verbosityPack: Minimal
-    packagesToPack: 'src/**/*.csproj'
-    configuration: $(buildConfiguration)
-
-- task: DotNetCoreCLI@2
-  displayName: 'Push Packages'
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: $(feed)
-    verbosityRestore: Minimal

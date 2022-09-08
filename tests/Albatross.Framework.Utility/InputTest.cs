@@ -23,7 +23,7 @@ namespace Albatross.Framework.Utility {
 		}
 
 
-		protected override Task<int> RunUtility() {
+		public Task<int> RunUtility() {
 			foreach (var i in Options.Array) {
 				Console.WriteLine(i);
 			}

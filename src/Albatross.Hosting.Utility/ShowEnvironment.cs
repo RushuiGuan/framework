@@ -1,6 +1,5 @@
 ﻿using CommandLine;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
@@ -13,18 +12,17 @@ namespace Albatross.Hosting.Utility {
 		public ShowEnvironment(ShowEnvironmentOption option):base(option) {
 		}
 
-		protected override Task<int> RunUtility() {
+		public Task<int> RunUtility(IConfiguration configuration) {
 
 			string environment = System.Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 			logger.LogInformation("DOTNET_ENVIRONMENT Variable: {environment}", environment);
 
-			IConfiguration cfg = host.Services.GetRequiredService<IConfiguration>();
-			var section = cfg.GetSection("connectionStrings");
+			var section = configuration.GetSection("connectionStrings");
 			foreach(var item in section.GetChildren()) {
 				logger.LogInformation("Connection String: {name} {value}", item.Key, item.Value);
 			}
 
-			section = cfg.GetSection("endpoints");
+			section = configuration.GetSection("endpoints");
 			foreach (var item in section.GetChildren()) {
 				logger.LogInformation("Endpoint: {name} {value}", item.Key, item.Value);
 			}

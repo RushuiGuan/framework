@@ -34,7 +34,7 @@ namespace Albatross.WebClient {
 
 		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-			IgnoreNullValues = true,
+			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
 		};
 		#endregion
 
@@ -83,7 +83,6 @@ namespace Albatross.WebClient {
 			} while (offset < arrayQueryValues.Length);
 			return requests;
 		}
-
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
@@ -103,36 +102,119 @@ namespace Albatross.WebClient {
 			writer?.WriteLine(content);
 			return request;
 		}
-		public async Task<string> Invoke(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			logger.LogInformation("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+		public HttpRequestMessage CreateStreamRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, Stream stream) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			request.Content = new StreamContent(stream);
+			return request;
+		}
+		public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, params MultiPartFormData[] formDataArray) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			var content = new MultipartFormDataContent();
+			foreach (var item in formDataArray) { 
+				content.AddMultiPartFormData(item); 
+			}
+			request.Content = content;
+			return request;
+		}
+
+		public async Task<string> GetRawResponse(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
 					WriteHeader(writer, response.Headers);
 					writer.Write(content);
 				}
-				if (response.IsSuccessStatusCode) {
-					return content;
-				} else {
-					if (throwCustomException == null) {
-						ErrorMessage error;
-						try {
-							error = Deserialize<ErrorMessage>(content) ?? new ErrorMessage();
-						} catch {
-							error = new ErrorMessage();
-							error.Message = content;
-						}
-						error.StatusCode = response.StatusCode;
-						throw new ClientException(error);
-					} else {
-						throw throwCustomException(response.StatusCode, content);
+				EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
+				return content;
+			}
+		}
+		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (writer != null) {
+					WriteHeader(writer, response.Headers);
+					writer.Write(content);
+				}
+				EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
+				return content;
+			}
+		}
+		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (writer != null) {
+					WriteHeader(writer, response.Headers);
+					writer.Write(content);
+				}
+				EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
+				return Deserialize<ResultType>(content);
+			}
+		}
+		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (writer != null) {
+					WriteHeader(writer, response.Headers);
+					writer.Write(content);
+				}
+				EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
+				return Deserialize<ResultType>(content);
+			}
+		}
+
+		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				if (response.StatusCode != HttpStatusCode.OK) {
+					string content = await response.Content.ReadAsStringAsync();
+					if (writer != null) {
+						WriteHeader(writer, response.Headers);
+						writer.Write(content);
 					}
+					EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
+				} else {
+					await response.Content.CopyToAsync(stream);
 				}
 			}
 		}
-		public async Task<T?> Invoke<T>(HttpRequestMessage request, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			string content = await Invoke(request, throwCustomException);
-			return Deserialize<T>(content);
+		public async Task Download(HttpRequestMessage request, Stream stream) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				if (response.StatusCode != HttpStatusCode.OK) {
+					string content = await response.Content.ReadAsStringAsync();
+					if (writer != null) {
+						WriteHeader(writer, response.Headers);
+						writer.Write(content);
+					}
+					EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
+				} else {
+					await response.Content.CopyToAsync(stream);
+				}
+			}
+		}
+
+		public void EnsureStatusCode(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string content) {
+			EnsureStatusCode<ServiceError>(statusCode, method, endpoint, content);
+		}
+		public void EnsureStatusCode<ErrorType>(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string content) {
+			Exception exception;
+			if (statusCode != HttpStatusCode.OK) {
+				try {
+					var error = Deserialize<ErrorType>(content);
+					if (typeof(ErrorType) ==typeof(ServiceError)) {
+						exception = new ServiceException(statusCode, method, endpoint, error as ServiceError, content);
+					} else {
+						exception = new ServiceException<ErrorType>(statusCode, method, endpoint, error, content);
+					}
+				} catch {
+					exception = new ServiceException(statusCode, method, endpoint, null, content);
+				}
+				throw exception;
+			}
 		}
 		#endregion
 	}
