@@ -17,4 +17,5 @@ extends:
   parameters:
     project: framework
     nugetPattern: 'framework/src/**/*.csproj'
+    hasApp: false
 
