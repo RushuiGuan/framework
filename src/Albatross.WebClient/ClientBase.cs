@@ -205,7 +205,11 @@ namespace Albatross.WebClient {
 			if (statusCode != HttpStatusCode.OK) {
 				try {
 					var error = Deserialize<ErrorType>(content);
-					exception = new ServiceException<ErrorType>(statusCode, method, endpoint, error, content);
+					if (typeof(ErrorType) ==typeof(ServiceError)) {
+						exception = new ServiceException(statusCode, method, endpoint, error as ServiceError, content);
+					} else {
+						exception = new ServiceException<ErrorType>(statusCode, method, endpoint, error, content);
+					}
 				} catch {
 					exception = new ServiceException(statusCode, method, endpoint, null, content);
 				}
