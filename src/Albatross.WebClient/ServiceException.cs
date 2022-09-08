@@ -42,9 +42,9 @@ namespace Albatross.WebClient {
 		 */
 		static string BuildMessage(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string errorMsg) {
 			StringBuilder sb = new StringBuilder();
-			sb.Append((int)statusCode).Append(" ").Append(method).Append(": ").AppendLine(endpoint.ToString());
+			sb.Append((int)statusCode).Append(" ").Append(method).Append(": ").Append(endpoint.ToString());
 			if (!string.IsNullOrEmpty(errorMsg)) {
-				sb.AppendLine(errorMsg);
+				sb.AppendLine().Append(errorMsg);
 			}
 			return sb.ToString();
 		}
