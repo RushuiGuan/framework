@@ -40,13 +40,6 @@ namespace Albatross.CodeGen.WebClient {
 							logger.LogInformation("Processing class {type}", type.FullName);
 							if (isValidType(type)) {
 								var @class = converter.Convert(type);
-								foreach (var method in @class.Methods) {
-									foreach (var param in method.Parameters) {
-										if(param.Type == TypeScriptType.Date()) {
-											param.Type = TypeScriptType.String();
-										}
-									}
-								}
 								modifyProxyClass?.Invoke(@class);
 								TypeScriptFile file = new TypeScriptFile(GetApiFileName(@class.Name));
 								files.Add(file);
