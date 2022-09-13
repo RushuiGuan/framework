@@ -1,11 +1,6 @@
 ﻿using Albatross.CodeGen.TypeScript.Conversion;
 using Albatross.CodeGen.TypeScript.Model;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.CodeGen.WebClient.UnitTest {
