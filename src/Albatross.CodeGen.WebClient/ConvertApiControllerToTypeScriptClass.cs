@@ -106,7 +106,9 @@ namespace Albatross.CodeGen.WebClient {
 			// javascript can't handle datetime correctly, might as well just use text instead
 			// ideally it should be formatted to sometime of date string
 			foreach (var param in method.Parameters) {
-				if (param.Type == TypeScriptType.Date()) { param.Type = TypeScriptType.String(); }
+				if (object.Equals(param.Type, TypeScriptType.Date())) { 
+					param.Type = TypeScriptType.String(); 
+				}
 			}
 			method.Async = true;
 			// fix method return types
