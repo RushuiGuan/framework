@@ -139,10 +139,8 @@ namespace Albatross.CodeGen.WebClient {
 
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
-				if (!string.IsNullOrEmpty(actionTemplate)) {
-					new AddCSharpRouteParam(actionTemplate).Generate(writer);
-					writer.WriteLine();
-				}
+				new AddCSharpRouteUrl(actionTemplate).Generate(writer);
+				writer.WriteLine();
 				writer.Code(new NewObjectCodeBlock<NameValueCollection>("queryString"));
 				HashSet<string> actionRoutes = new HashSet<string>();
 				if (attrib.Template != null) {

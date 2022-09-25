@@ -111,7 +111,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[InlineData("snapshot/wacky{tradeDate}doodle{xx}string", @"string path = $""{ControllerPath}/snapshot/wacky{tradeDate:yyyy-MM-dd}doodle{xx}string"";")]
 		public void TestAddCSharpRoutingParam(string input, string expected) {
 			StringWriter writer = new StringWriter();
-			var codeElement = new AddCSharpRouteParam(input);
+			var codeElement = new AddCSharpRouteUrl(input);
 			codeElement.Generate(writer);
 			writer.Flush();
 			string result = writer.ToString();
@@ -129,7 +129,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[InlineData("{date}", true, "date", "", "")]
 		[InlineData("{date1}", true, "date1", "", "")]
 		public void TestRoutingParamRegex(string input, bool success, string dateParam, string catchAll, string name) {
-			var match = AddCSharpRouteParam.ParamRegex.Match(input);
+			var match = AddCSharpRouteUrl.ParamRegex.Match(input);
 			Assert.Equal(success, match.Success);
 			if (success) {
 				Assert.Equal(dateParam, match.Groups[1].Value);

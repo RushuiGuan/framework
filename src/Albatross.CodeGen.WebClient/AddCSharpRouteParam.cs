@@ -5,10 +5,10 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.WebClient {
-	public class AddCSharpRouteParam : ICodeElement {
-		private readonly string template;
+	public class AddCSharpRouteUrl : ICodeElement {
+		private readonly string? template;
 
-		public AddCSharpRouteParam(string template) {
+		public AddCSharpRouteUrl(string? template) {
 			this.template = template;
 		}
 
