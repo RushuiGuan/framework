@@ -14,14 +14,14 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			string path = $"{ControllerPath}/route-only/{name}/{id}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 		public async System.Threading.Tasks.Task RouteWithDate(System.DateTime @date, System.Int32 @id) {
-			string path = $"{ControllerPath}/route-with-date/{date}/{id}";
+			string path = $"{ControllerPath}/route-with-date/{date:yyyy-MM-dd}/{id}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 		public async void QueryStringOnly(System.String @name, System.Int32 @id) {
@@ -30,7 +30,7 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			queryString.Add("name", @name);
 			queryString.Add("id", System.Convert.ToString(@id));
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 		public async void QueryStringWithDate(System.DateTime @date, System.Int32 @id) {
@@ -39,7 +39,7 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			queryString.Add("date", string.Format("{0:yyyy-MM-dd}", @date));
 			queryString.Add("id", System.Convert.ToString(@id));
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 		public async void Mixed(System.String @name, System.Int32 @id) {
@@ -47,15 +47,15 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("id", System.Convert.ToString(@id));
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 		public async void MixedDates(System.DateTime @tradeDate, System.DateTime @settlementDate) {
-			string path = $"{ControllerPath}/mixed-dates/{tradeDate}";
+			string path = $"{ControllerPath}/mixed-dates/{tradeDate:yyyy-MM-dd}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("settlementDate", string.Format("{0:yyyy-MM-dd}", @settlementDate));
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 		public async System.Threading.Tasks.Task TestArrayInput(System.String[] @items) {
@@ -65,14 +65,14 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 				queryString.Add("items", @item);
 			}
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 		public async System.Threading.Tasks.Task TestWildCardRoute(System.String @name) {
 			string path = $"{ControllerPath}/wild-card-route-param/{name}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				await this.Invoke(request);
+				await this.GetRawResponse(request);
 			}
 		}
 	}

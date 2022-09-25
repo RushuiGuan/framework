@@ -23,7 +23,7 @@ namespace Albatross.CodeGen.WebClient {
 		const string Logger = "logger";
 		const string Client = "client";
 
-		public readonly static Regex actionRouteRegex = new Regex(@"{\**(\w+)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+		public readonly static Regex ActionRouteRegex = new Regex(@"{(\*\*)?([a-z_]+[a-z0-9_]*)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private IConvertObject<MethodInfo, Method> convertMethod;
 
@@ -139,19 +139,15 @@ namespace Albatross.CodeGen.WebClient {
 
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
-				writer.Write("string path = $\"{ControllerPath}");
 				if (!string.IsNullOrEmpty(actionTemplate)) {
-					writer.Write("/");
-					// deal with wild card routes
-					writer.Write(actionTemplate.Replace("*", ""));
+					new AddCSharpRouteParam(actionTemplate).Generate(writer);
+					writer.WriteLine();
 				}
-				writer.WriteLine("\";");
 				writer.Code(new NewObjectCodeBlock<NameValueCollection>("queryString"));
-
 				HashSet<string> actionRoutes = new HashSet<string>();
 				if (attrib.Template != null) {
-					foreach (Match match in actionRouteRegex.Matches(attrib.Template)) {
-						actionRoutes.Add(match.Groups[1].Value);
+					foreach (Match match in ActionRouteRegex.Matches(attrib.Template)) {
+						actionRoutes.Add(match.Groups[2].Value);
 					}
 				}
 				
