@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Net;
 using System.IO;
 using System.Collections.Generic;
+using Polly;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -38,6 +39,12 @@ namespace Albatross.WebClient {
 		};
 		#endregion
 
+		void WriteRawResponse(TextWriter writer, HttpStatusCode statusCode, HttpHeaders headers, string content) {
+			writer.WriteLine($"status-code: {statusCode}({(int)statusCode})");
+			WriteHeader(writer, headers);
+			writer.Write(content);
+		}
+
 		void WriteHeader(TextWriter myWriter, HttpHeaders headers) {
 			foreach (var header in headers) {
 				myWriter.Write(header.Key);
@@ -63,23 +70,26 @@ namespace Albatross.WebClient {
 		}
 
 		#region creating request and response
-		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues,int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
+		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
 			List<HttpRequestMessage> requests = new List<HttpRequestMessage>();
 			int offset = 0;
 			do {
 				var sb = relativeUrl.CreateUrl(queryStringValues);
-#pragma warning disable CS1717 // Assignment made to same variable
-				for (offset = offset; offset < arrayQueryValues.Length; offset++) {
+				int index;
+				for (index = offset; index < arrayQueryValues.Length; index++) {
 					int current = sb.Length;
-					sb.AddQueryParam(arrayQueryKey, arrayQueryValues[offset]!);
+					sb.AddQueryParam(arrayQueryKey, arrayQueryValues[index]!);
 					if (sb.Length > maxUrlLength - this.BaseUrl.AbsoluteUri.Length) {
 						sb.Length = current;
+						if (index == 0) {
+							throw new InvalidOperationException("Cannot create requests because url max length is smaller than the minimum length required for a single request");
+						}
 						break;
 					}
 				}
-#pragma warning restore CS1717 // Assignment made to same variable
 				var request = new HttpRequestMessage(method, sb.ToString());
 				requests.Add(request);
+				offset = index;
 			} while (offset < arrayQueryValues.Length);
 			return requests;
 		}
@@ -110,8 +120,8 @@ namespace Albatross.WebClient {
 		public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, params MultiPartFormData[] formDataArray) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			var content = new MultipartFormDataContent();
-			foreach (var item in formDataArray) { 
-				content.AddMultiPartFormData(item); 
+			foreach (var item in formDataArray) {
+				content.AddMultiPartFormData(item);
 			}
 			request.Content = content;
 			return request;
@@ -122,8 +132,7 @@ namespace Albatross.WebClient {
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
-					WriteHeader(writer, response.Headers);
-					writer.Write(content);
+					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 				}
 				EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
 				return content;
@@ -131,11 +140,11 @@ namespace Albatross.WebClient {
 		}
 		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
-					WriteHeader(writer, response.Headers);
-					writer.Write(content);
+					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 				}
 				EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
 				return content;
@@ -146,8 +155,7 @@ namespace Albatross.WebClient {
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
-					WriteHeader(writer, response.Headers);
-					writer.Write(content);
+					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 				}
 				EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
 				return Deserialize<ResultType>(content);
@@ -158,8 +166,7 @@ namespace Albatross.WebClient {
 			using (var response = await client.SendAsync(request)) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
-					WriteHeader(writer, response.Headers);
-					writer.Write(content);
+					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 				}
 				EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
 				return Deserialize<ResultType>(content);
@@ -172,8 +179,7 @@ namespace Albatross.WebClient {
 				if (response.StatusCode != HttpStatusCode.OK) {
 					string content = await response.Content.ReadAsStringAsync();
 					if (writer != null) {
-						WriteHeader(writer, response.Headers);
-						writer.Write(content);
+						WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 					}
 					EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
 				} else {
@@ -187,8 +193,7 @@ namespace Albatross.WebClient {
 				if (response.StatusCode != HttpStatusCode.OK) {
 					string content = await response.Content.ReadAsStringAsync();
 					if (writer != null) {
-						WriteHeader(writer, response.Headers);
-						writer.Write(content);
+						WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 					}
 					EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
 				} else {
@@ -205,7 +210,7 @@ namespace Albatross.WebClient {
 			if (statusCode != HttpStatusCode.OK) {
 				try {
 					var error = Deserialize<ErrorType>(content);
-					if (typeof(ErrorType) ==typeof(ServiceError)) {
+					if (typeof(ErrorType) == typeof(ServiceError)) {
 						exception = new ServiceException(statusCode, method, endpoint, error as ServiceError, content);
 					} else {
 						exception = new ServiceException<ErrorType>(statusCode, method, endpoint, error, content);

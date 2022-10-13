@@ -42,5 +42,20 @@ namespace Albatross.Hosting.Demo.Controllers {
 				"a", "b","c",
 			}), new Polly.Context());
 		}
+
+		static int pollyTest = 1;
+
+		[HttpGet("polly-test")]
+		public string RunPollyTest([FromQuery]int count) {
+			try {
+				if (pollyTest % count != 0) {
+					throw new Exception($"Polly test returns error: {pollyTest}");
+				} else {
+					return "successful";
+				}
+			} finally {
+				pollyTest++;
+			}
+		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Internal;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -53,6 +55,53 @@ namespace Albatross.WebClient.Test{
 			}
 			var requests = proxy.CreateRequests(HttpMethod.Get, path, queryString, 2000, "id", arrayQueryString.ToArray());
 			Assert.Single(requests);
+		}
+		[InlineData(45, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
+		[InlineData(46, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
+		[InlineData(47, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
+		[InlineData(48, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
+		[InlineData(49, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
+		[InlineData(50, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&id=1&")]
+		[InlineData(51, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&id=1&")]
+		[InlineData(52, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&id=1&")]
+		[Theory]
+		public void TestRequestGeneration3(int maxlength, int count, params string[] expected) {
+			var client = new HttpClient();
+			client.BaseAddress = new Uri("http://app-prod");
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
+			string path = $"api/bar";
+			var queryString = new NameValueCollection();
+			queryString.Add("date", "2022-10-10");
+			var arrayQueryString = new List<string>();
+			for (int i = 0; i < count; i++) {
+				arrayQueryString.Add(i.ToString());
+			}
+			var requests = proxy.CreateRequests(HttpMethod.Get, path, queryString, maxlength, "id", arrayQueryString.ToArray()).ToArray();
+			Assert.Equal(expected.Length, requests.Count());
+			List<(string expectedUrl, HttpRequestMessage request)> list = new List<(string expectedUrl, HttpRequestMessage request)>();
+			List<Action<(string expectedUrl, HttpRequestMessage msg)>> actions = new List<Action<(string, HttpRequestMessage)>>();
+			for (int i = 0; i < expected.Length; i++) {
+				list.Add((expected[i], requests[i]));
+				actions.Add(args => Assert.Equal(args.expectedUrl, $"{client.BaseAddress}{args.msg.RequestUri}"));
+			}
+			Assert.Collection(list, actions.ToArray());
+		}
+
+		[Theory]
+		[InlineData(2, 2)]
+		[InlineData(44, 2)]
+		public void TestInsufficientMaxLength(int maxlength, int count) {
+			var client = new HttpClient();
+			client.BaseAddress = new Uri("http://app-prod");
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
+			string path = $"api/bar";
+			var queryString = new NameValueCollection();
+			queryString.Add("date", "2022-10-10");
+			var arrayQueryString = new List<string>();
+			for (int i = 0; i < count; i++) {
+				arrayQueryString.Add(i.ToString());
+			}
+			Assert.Throws<InvalidOperationException>(() => proxy.CreateRequests(HttpMethod.Get, path, queryString, maxlength, "id", arrayQueryString.ToArray()));
 		}
 	}
 }

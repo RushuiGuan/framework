@@ -11,10 +11,15 @@ namespace Albatross.Math {
 				return null;
 			}
 		}
+		const decimal PreciseOne = 1.000000000000000000000000000000000000000000000000m;
+		public static double ToDouble(this decimal value) {
+			var converted = value / PreciseOne;
+			return Convert.ToDouble(converted);
+		}
 
 		public static double? ToDouble(this decimal? value) {
 			if (value.HasValue) {
-				return Convert.ToDouble(value.Value);
+				return value.Value.ToDouble();
 			} else {
 				return null;
 			}
