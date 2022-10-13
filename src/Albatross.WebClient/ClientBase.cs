@@ -130,75 +130,92 @@ namespace Albatross.WebClient {
 		public async Task<string> GetRawResponse(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
-				string content = await response.Content.ReadAsStringAsync();
-				if (writer != null) {
-					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
-				}
-				EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
-				return content;
+				return await GetRawResponse(response);
 			}
+		}
+		public async Task<string> GetRawResponse(HttpResponseMessage response) {
+			string content = await response.Content.ReadAsStringAsync();
+			if (writer != null) {
+				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+			}
+			EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
+			return content;
 		}
 		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 
 			using (var response = await client.SendAsync(request)) {
-				string content = await response.Content.ReadAsStringAsync();
-				if (writer != null) {
-					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
-				}
-				EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
-				return content;
+				return await GetRawResponse<ErrorType>(response);
 			}
+		}
+		public async Task<string> GetRawResponse<ErrorType>(HttpResponseMessage response) {
+			string content = await response.Content.ReadAsStringAsync();
+			if (writer != null) {
+				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+			}
+			EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
+			return content;
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
-				string content = await response.Content.ReadAsStringAsync();
-				if (writer != null) {
-					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
-				}
-				EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
-				return Deserialize<ResultType>(content);
+				return await GetJsonResponse<ResultType, ErrorType>(response);
 			}
+		}
+		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpResponseMessage response) {
+			string content = await response.Content.ReadAsStringAsync();
+			if (writer != null) {
+				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+			}
+			EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
+			return Deserialize<ResultType>(content);
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
+				return await GetJsonResponse<ResultType>(response);
+			}
+		}
+		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpResponseMessage response) {
+			string content = await response.Content.ReadAsStringAsync();
+			if (writer != null) {
+				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+			}
+			EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
+			return Deserialize<ResultType>(content);
+		}
+		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await client.SendAsync(request)) {
+				await this.Download<ErrorType>(response, stream);
+			}
+		}
+		public async Task Download<ErrorType>(HttpResponseMessage response, Stream stream) {
+			if (response.StatusCode != HttpStatusCode.OK) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
 					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 				}
-				EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
-				return Deserialize<ResultType>(content);
-			}
-		}
-
-		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await client.SendAsync(request)) {
-				if (response.StatusCode != HttpStatusCode.OK) {
-					string content = await response.Content.ReadAsStringAsync();
-					if (writer != null) {
-						WriteRawResponse(writer, response.StatusCode, response.Headers, content);
-					}
-					EnsureStatusCode<ErrorType>(response.StatusCode, request.Method, request.RequestUri, content);
-				} else {
-					await response.Content.CopyToAsync(stream);
-				}
+				EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
+			} else {
+				await response.Content.CopyToAsync(stream);
 			}
 		}
 		public async Task Download(HttpRequestMessage request, Stream stream) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 			using (var response = await client.SendAsync(request)) {
-				if (response.StatusCode != HttpStatusCode.OK) {
-					string content = await response.Content.ReadAsStringAsync();
-					if (writer != null) {
-						WriteRawResponse(writer, response.StatusCode, response.Headers, content);
-					}
-					EnsureStatusCode(response.StatusCode, request.Method, request.RequestUri, content);
-				} else {
-					await response.Content.CopyToAsync(stream);
+				await this.Download(response, stream);
+			}
+		}
+		public async Task Download(HttpResponseMessage response, Stream stream) {
+			if (response.StatusCode != HttpStatusCode.OK) {
+				string content = await response.Content.ReadAsStringAsync();
+				if (writer != null) {
+					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 				}
+				EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
+			} else {
+				await response.Content.CopyToAsync(stream);
 			}
 		}
 

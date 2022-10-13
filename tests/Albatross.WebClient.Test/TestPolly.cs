@@ -55,9 +55,7 @@ namespace Albatross.WebClient.Test {
 					return await this.client.SendAsync(request);
 				}
 			});
-			string content = await response.Content.ReadAsStringAsync();
-			EnsureStatusCode(response.StatusCode, HttpMethod.Get, response.RequestMessage!.RequestUri!, content);
-			return content;
+			return await GetRawResponse(response);
 		}
 	}
 
