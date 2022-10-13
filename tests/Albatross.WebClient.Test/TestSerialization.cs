@@ -22,7 +22,7 @@ namespace Albatross.WebClient.Test {
 
 			ISet<string> result2 = JsonSerializer.Deserialize<ISet<string>>("[\"test\", \"TEST\"]", new JsonSerializerOptions {
 			});
-			Assert.True(result2?.Count() == 1);
+			Assert.True(result2?.Count() == 2);
 		}
 
 		[Theory]

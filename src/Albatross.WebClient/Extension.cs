@@ -1,14 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Net;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Albatross.WebClient {
 	public static class Extension {
-		public static readonly HttpMethod HttpPatchMethod = new HttpMethod("PATCH");
-
 		public static StringBuilder CreateUrl(this string url, NameValueCollection queryStringValues) {
 			StringBuilder sb = new StringBuilder(url);
 			if (queryStringValues?.Count > 0) {
@@ -47,85 +46,32 @@ namespace Albatross.WebClient {
 			}
 		}
 
-		#region get methods
-		public static async Task<T?> GetAsync<T>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateRequest(HttpMethod.Get, relativeUrl, queryStringValues)) {
-				return await client.GetJsonResponse<T>(request);
+		public static async Task<HttpContent?> CloneAsync(this HttpContent? src) {
+			if(src != null) {
+				var stream = new MemoryStream();
+				await src.CopyToAsync(stream);
+				var content = new StreamContent(stream);
+				stream.Position = 0;
+				foreach(KeyValuePair<string, IEnumerable<string>> header in content.Headers) {
+					content.Headers.Add(header.Key, header.Value);
+				}
+				return content;
+			} else {
+				return null;
 			}
 		}
-
-		public static async Task<string> GetAsync(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateRequest(HttpMethod.Get, relativeUrl, queryStringValues)) {
-				return await client.GetRawResponse(request);
+		public static async Task<HttpRequestMessage> CloneAsync(this HttpRequestMessage request) {
+			var newRequest = new HttpRequestMessage(request.Method, request.RequestUri) {
+				Content = await request.Content.CloneAsync().ConfigureAwait(false),
+				Version = request.Version
+			};
+			foreach (KeyValuePair<string, object> property in request.Properties) {
+				newRequest.Properties.Add(property);
 			}
-		}
-		#endregion
-
-		#region delete
-		public static async Task DeleteAsync(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateRequest(HttpMethod.Delete, relativeUrl, queryStringValues)) {
-				await client.GetRawResponse(request);
+			foreach (KeyValuePair<string, IEnumerable<string>> header in request.Headers) {
+				newRequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
 			}
+			return newRequest;
 		}
-		#endregion
-
-		#region post
-		public static async Task<TOut?> PostAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input,  Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Post, relativeUrl, queryStringValues, input)) {
-				return await client.GetJsonResponse<TOut>(request);
-			}
-		}
-		public static async Task<TOut?> PostAsync<TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input,  Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateStringRequest(HttpMethod.Post, relativeUrl, queryStringValues, input)) {
-				return await client.GetJsonResponse<TOut>(request);
-			}
-		}
-		public static async Task<string> PostAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input,  Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Post, relativeUrl, queryStringValues, input)) {
-				return await client.GetRawResponse(request);
-			}
-		}
-		public static async Task<string> PostAsync(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateStringRequest(HttpMethod.Post, relativeUrl, queryStringValues, input)) {
-				return await client.GetRawResponse(request);
-			}
-		}
-		#endregion
-
-		#region patch
-		public static async Task<TOut?> PatchAsync<TIn, TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input,  Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpPatchMethod, relativeUrl, queryStringValues, input)) {
-				return await client.GetJsonResponse<TOut>(request);
-			}
-		}
-		public static async Task<TOut?> PatchAsync<TOut>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input,  Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateStringRequest(HttpPatchMethod, relativeUrl, queryStringValues, input)) {
-				return await client.GetJsonResponse<TOut>(request);
-			}
-		}
-		public static async Task<string> PatchAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input,  Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpPatchMethod, relativeUrl, queryStringValues, input)) {
-				return await client.GetRawResponse(request);
-			}
-		}
-		public static async Task<string> PatchAsync(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateStringRequest(HttpPatchMethod, relativeUrl, queryStringValues, input)) {
-				return await client.GetRawResponse(request);
-			}
-		}
-		#endregion
-
-		#region put
-		public static async Task PutAsync<TIn>(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, TIn input,  Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateJsonRequest<TIn>(HttpMethod.Put, relativeUrl, queryStringValues, input)) {
-				await client.GetRawResponse(request);
-			}
-		}
-		public static async Task PutAsync(this ClientBase client, string relativeUrl, NameValueCollection queryStringValues, string input, Func<HttpStatusCode, string, Exception>? throwCustomException = null) {
-			using (var request = client.CreateStringRequest(HttpMethod.Put, relativeUrl, queryStringValues, input)) {
-				await client.GetRawResponse(request);
-			}
-		}
-		#endregion
 	}
 }

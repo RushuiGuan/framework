@@ -3,9 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
+using Polly.Caching;
 using Polly.Retry;
 using System;
 using System.Net.Http;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -47,11 +49,15 @@ namespace Albatross.WebClient.Test {
 					TimeSpan.FromSeconds(3)
 				},
 				(result, timespan) => { });
-
-			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				var result = await this.GetRawResponse(request, myRetryPolicy);
-				return result;
-			}
+			
+			var response = await myRetryPolicy.ExecuteAsync(async () => {
+				using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+					return await this.client.SendAsync(request);
+				}
+			});
+			string content = await response.Content.ReadAsStringAsync();
+			EnsureStatusCode(response.StatusCode, HttpMethod.Get, response.RequestMessage!.RequestUri!, content);
+			return content;
 		}
 	}
 
