@@ -71,6 +71,7 @@ namespace Albatross.WebClient {
 		}
 
 		#region creating request and response
+		[Obsolete]
 		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, 
 			string arrayQueryKey, params string[] arrayQueryValues) {
 			var urls = this.CreateRequestUrls(relativeUrl, queryStringValues, maxUrlLength, arrayQueryKey, arrayQueryValues);
