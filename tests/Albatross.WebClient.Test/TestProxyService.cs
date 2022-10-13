@@ -32,7 +32,7 @@ namespace Albatross.WebClient.Test{
 			foreach (var item in ids) {
 				arrayQueryString.Add(Convert.ToString(@item));
 			}
-			var requests = proxy.CreateRequests(HttpMethod.Get, path, queryString, 2000, "id", arrayQueryString.ToArray());
+			var requests = proxy.CreateRequestUrls(path, queryString, 2000, "id", arrayQueryString.ToArray());
 			Assert.Equal(4, requests.Count());
 		}
 
@@ -53,17 +53,17 @@ namespace Albatross.WebClient.Test{
 			foreach (var item in ids) {
 				arrayQueryString.Add(Convert.ToString(@item));
 			}
-			var requests = proxy.CreateRequests(HttpMethod.Get, path, queryString, 2000, "id", arrayQueryString.ToArray());
+			var requests = proxy.CreateRequestUrls(path, queryString, 2000, "id", arrayQueryString.ToArray());
 			Assert.Single(requests);
 		}
-		[InlineData(45, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
-		[InlineData(46, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
-		[InlineData(47, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
-		[InlineData(48, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
-		[InlineData(49, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&", "http://app-prod/api/bar?date=2022-10-10&id=1&")]
-		[InlineData(50, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&id=1&")]
-		[InlineData(51, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&id=1&")]
-		[InlineData(52, 2, "http://app-prod/api/bar?date=2022-10-10&id=0&id=1&")]
+		[InlineData(45, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
+		[InlineData(46, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
+		[InlineData(47, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
+		[InlineData(48, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
+		[InlineData(49, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
+		[InlineData(50, 2, "api/bar?date=2022-10-10&id=0&id=1&")]
+		[InlineData(51, 2, "api/bar?date=2022-10-10&id=0&id=1&")]
+		[InlineData(52, 2, "api/bar?date=2022-10-10&id=0&id=1&")]
 		[Theory]
 		public void TestRequestGeneration3(int maxlength, int count, params string[] expected) {
 			var client = new HttpClient();
@@ -76,13 +76,13 @@ namespace Albatross.WebClient.Test{
 			for (int i = 0; i < count; i++) {
 				arrayQueryString.Add(i.ToString());
 			}
-			var requests = proxy.CreateRequests(HttpMethod.Get, path, queryString, maxlength, "id", arrayQueryString.ToArray()).ToArray();
+			var requests = proxy.CreateRequestUrls(path, queryString, maxlength, "id", arrayQueryString.ToArray()).ToArray();
 			Assert.Equal(expected.Length, requests.Count());
-			List<(string expectedUrl, HttpRequestMessage request)> list = new List<(string expectedUrl, HttpRequestMessage request)>();
-			List<Action<(string expectedUrl, HttpRequestMessage msg)>> actions = new List<Action<(string, HttpRequestMessage)>>();
+			List<(string expectedUrl, string actualUrl)> list = new List<(string expectedUrl, string actualUrl)>();
+			List<Action<(string expectedUrl, string actualUrl)>> actions = new List<Action<(string, string)>>();
 			for (int i = 0; i < expected.Length; i++) {
 				list.Add((expected[i], requests[i]));
-				actions.Add(args => Assert.Equal(args.expectedUrl, $"{client.BaseAddress}{args.msg.RequestUri}"));
+				actions.Add(args => Assert.Equal(args.expectedUrl, args.actualUrl));
 			}
 			Assert.Collection(list, actions.ToArray());
 		}
@@ -101,7 +101,7 @@ namespace Albatross.WebClient.Test{
 			for (int i = 0; i < count; i++) {
 				arrayQueryString.Add(i.ToString());
 			}
-			Assert.Throws<InvalidOperationException>(() => proxy.CreateRequests(HttpMethod.Get, path, queryString, maxlength, "id", arrayQueryString.ToArray()));
+			Assert.Throws<InvalidOperationException>(() => proxy.CreateRequestUrls(path, queryString, maxlength, "id", arrayQueryString.ToArray()));
 		}
 	}
 }

@@ -70,6 +70,7 @@ namespace Albatross.WebClient {
 		}
 
 		#region creating request and response
+		[Obsolete]
 		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
 			List<HttpRequestMessage> requests = new List<HttpRequestMessage>();
 			int offset = 0;
@@ -92,6 +93,28 @@ namespace Albatross.WebClient {
 				offset = index;
 			} while (offset < arrayQueryValues.Length);
 			return requests;
+		}
+		public IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
+			List<string> urls = new List<string>();
+			int offset = 0;
+			do {
+				var sb = relativeUrl.CreateUrl(queryStringValues);
+				int index;
+				for (index = offset; index < arrayQueryValues.Length; index++) {
+					int current = sb.Length;
+					sb.AddQueryParam(arrayQueryKey, arrayQueryValues[index]!);
+					if (sb.Length > maxUrlLength - this.BaseUrl.AbsoluteUri.Length) {
+						sb.Length = current;
+						if (index == 0) {
+							throw new InvalidOperationException("Cannot create requests because url max length is smaller than the minimum length required for a single request");
+						}
+						break;
+					}
+				}
+				urls.Add(sb.ToString());
+				offset = index;
+			} while (offset < arrayQueryValues.Length);
+			return urls;
 		}
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
