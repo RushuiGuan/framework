@@ -10,6 +10,7 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using Polly;
+using System.Linq;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -70,29 +71,10 @@ namespace Albatross.WebClient {
 		}
 
 		#region creating request and response
-		[Obsolete]
-		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
-			List<HttpRequestMessage> requests = new List<HttpRequestMessage>();
-			int offset = 0;
-			do {
-				var sb = relativeUrl.CreateUrl(queryStringValues);
-				int index;
-				for (index = offset; index < arrayQueryValues.Length; index++) {
-					int current = sb.Length;
-					sb.AddQueryParam(arrayQueryKey, arrayQueryValues[index]!);
-					if (sb.Length > maxUrlLength - this.BaseUrl.AbsoluteUri.Length) {
-						sb.Length = current;
-						if (index == 0) {
-							throw new InvalidOperationException("Cannot create requests because url max length is smaller than the minimum length required for a single request");
-						}
-						break;
-					}
-				}
-				var request = new HttpRequestMessage(method, sb.ToString());
-				requests.Add(request);
-				offset = index;
-			} while (offset < arrayQueryValues.Length);
-			return requests;
+		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, 
+			string arrayQueryKey, params string[] arrayQueryValues) {
+			var urls = this.CreateRequestUrls(relativeUrl, queryStringValues, maxUrlLength, arrayQueryKey, arrayQueryValues);
+			return urls.Select(args => new HttpRequestMessage(method, args)).ToArray();
 		}
 		public IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
 			List<string> urls = new List<string>();
