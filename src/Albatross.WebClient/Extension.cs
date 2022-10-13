@@ -45,33 +45,5 @@ namespace Albatross.WebClient {
 				content.Add(part, data.Name, data.Filename);
 			}
 		}
-
-		public static async Task<HttpContent?> CloneAsync(this HttpContent? src) {
-			if(src != null) {
-				var stream = new MemoryStream();
-				await src.CopyToAsync(stream);
-				var content = new StreamContent(stream);
-				stream.Position = 0;
-				foreach(KeyValuePair<string, IEnumerable<string>> header in content.Headers) {
-					content.Headers.Add(header.Key, header.Value);
-				}
-				return content;
-			} else {
-				return null;
-			}
-		}
-		public static async Task<HttpRequestMessage> CloneAsync(this HttpRequestMessage request) {
-			var newRequest = new HttpRequestMessage(request.Method, request.RequestUri) {
-				Content = await request.Content.CloneAsync().ConfigureAwait(false),
-				Version = request.Version
-			};
-			foreach (KeyValuePair<string, object> property in request.Properties) {
-				newRequest.Properties.Add(property);
-			}
-			foreach (KeyValuePair<string, IEnumerable<string>> header in request.Headers) {
-				newRequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
-			}
-			return newRequest;
-		}
 	}
 }
