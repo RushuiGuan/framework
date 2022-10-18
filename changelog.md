@@ -1,5 +1,12 @@
 * v4.1.0
-	* upgrade to efcore 7
+	* upgrade all dependencies to latest release
+		* csvhelper major upgrade 28 to 29
+		* azure.storage.blobs minor upgrade 12.13 to 12.14
+		* serilog minor upgrade 2.11 to 2.12
+		* microsoft test sdk 17.2 to 17.3
+		* all other upgrades are patch
+	* upgrade to efcore 7 rc
+	* remove Albatross.Repository.ByEfCore.Repository class because it is never used
 
 * v4.0.2
 	* Albatross.WebClient
