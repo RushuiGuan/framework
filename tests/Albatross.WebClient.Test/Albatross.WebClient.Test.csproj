@@ -18,4 +18,9 @@
     <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
     <ProjectReference Include="..\..\src\Albatross.WebClient\Albatross.WebClient.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

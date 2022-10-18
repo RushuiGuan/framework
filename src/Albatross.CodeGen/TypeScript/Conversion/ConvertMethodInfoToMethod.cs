@@ -16,7 +16,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 
 		public Method Convert(MethodInfo info) {
 			Method method = new Method(info.Name) {
-				Parameters = from item in info.GetParameters() select convertToParameter.Convert(item),
+				Parameters = (from item in info.GetParameters() select convertToParameter.Convert(item)).ToArray(),
 				ReturnType = typeConverter.Convert(info.ReturnType),
 			};
 			return method;

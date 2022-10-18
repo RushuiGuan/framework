@@ -34,4 +34,5 @@
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+	<ProjectExtensions><VisualStudio><UserProperties hostsettings_1json__JsonSchema="https://docs.strmprivacy.io/jsonschema/BatchJob.json" /></VisualStudio></ProjectExtensions>
 </Project>

@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 
 		public Method Convert(MethodInfo info) {
 			Method method = new Method(info.Name) {
-				Parameters = from item in info.GetParameters() select convertToParameter.Convert(item),
+				Parameters = (from item in info.GetParameters() select convertToParameter.Convert(item)).ToArray(),
 				ReturnType = new DotNetType(info.ReturnType),
 				Static = info.IsStatic,
 				Virtual = info.IsVirtual,
