@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Albatross.Repository.Core {
 	public class MutableEntity {
+		public int Id { get; set; }
 		public DateTime ModifiedUtc { get; protected set; }
 
 		[Required]

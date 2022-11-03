@@ -5,7 +5,7 @@ namespace Albatross.Repository.ByEFCore {
 	public class MutableEntityMap<T> : EntityMap<T> where T:MutableEntity {
 		public override void Map(EntityTypeBuilder<T> builder) {
 			base.Map(builder);
-
+			builder.HasKey(x => x.Id);
 			builder.Property(p => p.CreatedBy).IsRequired();
 			builder.Property(p => p.ModifiedBy).IsRequired();
 			
