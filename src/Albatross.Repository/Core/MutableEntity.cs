@@ -27,5 +27,13 @@ namespace Albatross.Repository.Core {
 				ModifiedBy = user;
 			}
 		}
+
+		public MutableEntity(int id, DateTime modifiedUtc, string modifiedBy, DateTime createdUtc, string createdBy) {
+			Id = id;
+			ModifiedUtc = modifiedUtc;
+			ModifiedBy = modifiedBy;
+			CreatedUtc = createdUtc;
+			CreatedBy = createdBy;
+		}
 	}
 }
