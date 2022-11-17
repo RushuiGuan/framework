@@ -44,7 +44,7 @@ namespace Albatross.Logging {
 				basePath = System.IO.Directory.GetCurrentDirectory();
 			}
 			var configBuilder = new ConfigurationBuilder()
-				.SetBasePath(basePath)
+				.SetBasePath(basePath!)
 				.AddJsonFile("serilog.json", false, true);
 			if (!string.IsNullOrEmpty(environment)) { configBuilder.AddJsonFile($"serilog.{environment}.json", true, true); }
 			configBuilder.AddEnvironmentVariables();

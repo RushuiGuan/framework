@@ -23,7 +23,7 @@ namespace Albatross.Hosting.Test {
 			string folder = new FileInfo(this.GetType().Assembly.Location).DirectoryName;
 			var hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			var configuration = new ConfigurationBuilder()
-				.SetBasePath(folder)
+				.SetBasePath(folder!)
 				.AddJsonFile("appsettings.json", false, false)
 				.AddJsonFile($"appsettings.{Environment}.json", true, false)
 				.AddEnvironmentVariables()
