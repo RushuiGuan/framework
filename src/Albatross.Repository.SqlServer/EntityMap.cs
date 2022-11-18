@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Albatross.Repository.ByEFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Albatross.Repository.ByEFCore {
+namespace Albatross.Repository.SqlServer {
 
 	public abstract class EntityMap<T> : IBuildEntityModel, IEntityMap<T> where T : class {
 		public virtual string TableName => typeof(T).Name;

@@ -1,7 +1,8 @@
-﻿using Albatross.Repository.Core;
+﻿using Albatross.Repository.ByEFCore;
+using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Albatross.Repository.ByEFCore {
+namespace Albatross.Repository.SqlServer {
 	public class MutableEntityMap<T> : EntityMap<T> where T:MutableEntity {
 		public override void Map(EntityTypeBuilder<T> builder) {
 			base.Map(builder);

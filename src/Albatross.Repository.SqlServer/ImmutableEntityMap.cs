@@ -1,8 +1,9 @@
-﻿using Albatross.Repository.Core;
+﻿using Albatross.Repository.ByEFCore;
+using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Albatross.Repository.ByEFCore {
-	public class ImmutableEntityMap<T> : EntityMap<T> where T: ImmutableEntity {
+namespace Albatross.Repository.SqlServer {
+		public class ImmutableEntityMap<T> : EntityMap<T> where T: ImmutableEntity {
 		public override void Map(EntityTypeBuilder<T> builder) {
 			base.Map(builder);
 			builder.Property(p => p.CreatedBy).IsRequired();
