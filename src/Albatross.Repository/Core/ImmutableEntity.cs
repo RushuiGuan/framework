@@ -2,23 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Albatross.Repository.Core {
-	public record class ImmutableEntity {
-		public int Id { get; init; }
-		public DateTime CreatedUtc { get; init; }
+	public class ImmutableEntity {
+		public DateTime CreatedUtc { get; protected set; }
 
 		[Required]
 		[MaxLength(Constant.UserNameLength)]
-		public string CreatedBy { get; init; }
+		public string CreatedBy { get; protected set; } = String.Empty;
 
-		public ImmutableEntity(int id, DateTime createdUtc, string createdBy) {
-			Id = id;
-			CreatedUtc = createdUtc;
-			CreatedBy = createdBy;
-		}
-
-		public ImmutableEntity(string createdBy) {
-			CreatedUtc = DateTime.UtcNow;
-			CreatedBy = createdBy;
+		protected void Audit(string user) {
+			this.CreatedBy = user;
+			this.CreatedUtc = DateTime.UtcNow;
 		}
 	}
 }

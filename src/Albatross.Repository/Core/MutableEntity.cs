@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Albatross.Repository.Core {
 	public class MutableEntity {
-		public int Id { get; set; }
 		public DateTime ModifiedUtc { get; protected set; }
 
 		[Required]
@@ -26,14 +25,6 @@ namespace Albatross.Repository.Core {
 				ModifiedUtc = DateTime.UtcNow;
 				ModifiedBy = user;
 			}
-		}
-
-		public MutableEntity(int id, DateTime modifiedUtc, string modifiedBy, DateTime createdUtc, string createdBy) {
-			Id = id;
-			ModifiedUtc = modifiedUtc;
-			ModifiedBy = modifiedBy;
-			CreatedUtc = createdUtc;
-			CreatedBy = createdBy;
 		}
 	}
 }
