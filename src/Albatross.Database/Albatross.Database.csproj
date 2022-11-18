@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	  <TargetFramework>net6.0</TargetFramework>
+	  <TargetFramework>net7.0</TargetFramework>
     <Authors>Rushui Guan</Authors>
     <Product>Albatross Database Schema Api</Product>
     <Title>Albatross Database Schema Core Api</Title>

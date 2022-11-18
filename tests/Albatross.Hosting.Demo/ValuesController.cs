@@ -52,7 +52,7 @@ namespace Albatross.Hosting.Test {
 		[HttpGet("settings")]
 		public string GetSettings() {
 			var setting = this.configuration.GetSection(TestSetting.Key).Get<TestSetting>();
-			return $"{setting.Name} - {setting.Count}";
+			return $"{setting?.Name} - {setting?.Count}";
 		}
 
 		[HttpGet("current-user")]
@@ -91,7 +91,7 @@ namespace Albatross.Hosting.Test {
 				}
 				return result;
 			} else {
-				return new int[0];
+				return Array.Empty<int>();
 			}
 		}
 
@@ -105,7 +105,7 @@ namespace Albatross.Hosting.Test {
 				}
 				return result;
 			} else {
-				return new string[0];
+				return Array.Empty<string>();
 			}
 		}
 	}
