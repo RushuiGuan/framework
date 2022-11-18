@@ -14,6 +14,7 @@ namespace Albatross.Caching {
 		string GetCacheKey(Context context);
 		void Register();
 		void Evict(params Context[] contexts);
+		void EvictAll();
 		void OnCacheGet(Context context, string cacheKey);
 		void OnCacheMiss(Context context, string cacheKey);
 		void OnCachePut(Context context, string cacheKey);

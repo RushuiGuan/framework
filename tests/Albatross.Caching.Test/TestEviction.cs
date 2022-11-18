@@ -1,10 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Moq;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.Caching.Test {
@@ -16,35 +12,75 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Fact]
-		public void TestMultipleRegistrations() {
-			var scope = host.Create();
-			var items = scope.Get<IEnumerable<ICacheManagement>>();
-			Assert.Equal(2, items.Count());
-		}
-
-		[Fact]
-		public void TestSingletonRegistrationAgainstCollectionRegistration() {
-			var scope = host.Create();
-			var items = scope.Get<IEnumerable<ICacheManagement>>();
-			var single = scope.Get<ICacheManagement>();
-			Assert.NotSame(single, items.First());
-			Assert.Same(single, items.Last());
-		}
-
-		[Fact]
 		public void TestReset() {
-			var scope = host.Create();
-
-			ILogger<MemoryCacheExtended> logger = new Mock<ILogger<MemoryCacheExtended>>().Object;
-			IHttpClientFactory factory = new Mock<IHttpClientFactory>().Object;
 			MemoryCache cache = new MemoryCache(new MemoryCacheOptions());
 			cache.GetOrCreate<string>(1, e => "a");
 			cache.GetOrCreate<string>(2, e => "b");
 			cache.GetOrCreate<string>(3, e => "c");
 			Assert.True(cache.Count == 3);
-			var reset = new MemoryCacheExtended(cache, factory, new CachingConfig(new Mock<IConfiguration>().Object), logger);
+			var reset = new MemoryCacheExtended(cache);
 			reset.Reset();
 			Assert.True(cache.Count == 0);
+		}
+		[Fact]
+		public async Task TestCacheMgmtEvictSingle() {
+			var cacheMgmt = this.host.CacheFactory.Get<string>(nameof(MyCacheMgmt));
+			var cacheMgmt1 = this.host.CacheFactory.Get<string>(nameof(MyCacheMgmt1));
+			await cacheMgmt.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context("a"));
+			await cacheMgmt.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context("b"));
+			await cacheMgmt.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context());
+
+			await cacheMgmt1.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context("a"));
+			await cacheMgmt1.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context("b"));
+			await cacheMgmt1.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context());
+
+			Assert.Collection(this.host.CacheExtended.Keys.OrderBy(args => args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt).ToLower()}-", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt).ToLower()}-a", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt).ToLower()}-b", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-a", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-b", args)
+			);
+			cacheMgmt.Evict(new Polly.Context());
+			Assert.Collection(this.host.CacheExtended.Keys.OrderBy(args => args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt).ToLower()}-a", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt).ToLower()}-b", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-a", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-b", args)
+			);
+		}
+
+
+		[Fact]
+		public async Task TestCacheMgmtEvictAll() {
+			var cacheMgmt = this.host.CacheFactory.Get<string>(nameof(MyCacheMgmt));
+			var cacheMgmt1 = this.host.CacheFactory.Get<string>(nameof(MyCacheMgmt1));
+			await cacheMgmt.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context("a"));
+			await cacheMgmt.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context("b"));
+			await cacheMgmt.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context());
+
+			await cacheMgmt1.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context("a"));
+			await cacheMgmt1.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context("b"));
+			await cacheMgmt1.ExecuteAsync(context => Task.FromResult(context.OperationKey), new Polly.Context());
+
+			Assert.Collection(this.host.CacheExtended.Keys.OrderBy(args => args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt).ToLower()}-", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt).ToLower()}-a", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt).ToLower()}-b", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-a", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-b", args)
+			);
+			cacheMgmt.EvictAll();
+			Assert.Collection(this.host.CacheExtended.Keys.OrderBy(args => args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-a", args),
+				args => Assert.Equal($"{nameof(MyCacheMgmt1).ToLower()}-b", args)
+			);
+			cacheMgmt1.EvictAll();
+			Assert.Empty(this.host.CacheExtended.Keys);
 		}
 	}
 }

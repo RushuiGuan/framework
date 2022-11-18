@@ -27,7 +27,7 @@ namespace Albatross.Repository.SqlServer {
 			return builder.Options;
 		}
 
-		public static IServiceCollection UseSqlServer<T>(this IServiceCollection services, Func<IServiceProvider, string> getConnectionString, Action<SqlServerDbContextOptionsBuilder>? dbcontextOptionBuilder = null) where T : DbContext {
+		public static IServiceCollection AddSqlServer<T>(this IServiceCollection services, Func<IServiceProvider, string> getConnectionString, Action<SqlServerDbContextOptionsBuilder>? dbcontextOptionBuilder = null) where T : DbContext {
 			services.AddDbContext<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider), dbcontextOptionBuilder));
 			services.TryAddSingleton<ISqlBatchExecution, SqlBatchExecution>();
 			return services;
@@ -42,23 +42,10 @@ namespace Albatross.Repository.SqlServer {
 		/// <param name="services"></param>
 		/// <param name="getConnectionString"></param>
 		/// <returns></returns>
-		public static IServiceCollection UseSqlServerWithContextPool<T>(this IServiceCollection services, Func<IServiceProvider, string> getConnectionString, Action<SqlServerDbContextOptionsBuilder>? dbcontextOptionBuilder = null) where T : DbContext {
+		public static IServiceCollection AddSqlServerWithContextPool<T>(this IServiceCollection services, Func<IServiceProvider, string> getConnectionString, Action<SqlServerDbContextOptionsBuilder>? dbcontextOptionBuilder = null) where T : DbContext {
 			services.AddDbContextPool<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider), dbcontextOptionBuilder ?? DefaultDbContextOptionBuilder));
 			services.TryAddSingleton<ISqlBatchExecution, SqlBatchExecution>();
 			return services;
-		}
-
-		public static bool TryUseSqlServer<T>(this IServiceCollection services, string provider, Func<IServiceProvider, string> getConnectionString, Action<SqlServerDbContextOptionsBuilder>? dbcontextOptionBuilder = null, bool useContextPool = true) where T : DbContext {
-			if (provider == DatabaseProvider.Name) {
-				if (useContextPool) {
-					services.AddDbContextPool<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider), dbcontextOptionBuilder ?? DefaultDbContextOptionBuilder));
-				} else {
-					services.AddDbContext<T>((provider, builder) => BuildDefaultOption(builder, getConnectionString(provider), dbcontextOptionBuilder ?? DefaultDbContextOptionBuilder));
-				}
-				return true;
-			} else {
-				return false;
-			}
 		}
 	}
 }

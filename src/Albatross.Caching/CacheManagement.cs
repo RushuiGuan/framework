@@ -52,16 +52,20 @@ namespace Albatross.Caching {
 		}
 
 		public virtual string GetCacheKey(Context context) {
-			if (string.IsNullOrEmpty(context.OperationKey)) {
-				return Name.ToLowerInvariant();
-			} else {
-				return $"{Name}-{context.OperationKey}".ToLowerInvariant();
-			}
+			// dash below is intentional so that it can be used as part of the prefix to evict all cache created by this class
+			return $"{Name}-{context.OperationKey}".ToLowerInvariant();
 		}
 
 		public void Evict(params Context[] contexts) {
 			var keys = contexts.Select(args => GetCacheKey(args));
 			logger.LogInformation("Evicting cache: {@key}", keys);
+			this.cache.Envict(keys);
+		}
+
+		public void EvictAll() {
+			var prefix = GetCacheKey(new Context());
+			var keys = this.cache.Keys.Select(args => args.ToString() ?? String.Empty)
+				.Where(args => args.StartsWith(prefix)).ToArray();
 			this.cache.Envict(keys);
 		}
 

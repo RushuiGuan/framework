@@ -8,9 +8,13 @@ namespace Albatross.Caching.Test {
 	public class MyCacheMgmt : CacheManagement<string> {
 		public MyCacheMgmt(ILogger<MyCacheMgmt> logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCacheExtended cache) : base(logger, registry, cacheProvider, cache) {
 		}
-
 		public override string Name => nameof(MyCacheMgmt);
-
+		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromMinutes(5));
+	}
+	public class MyCacheMgmt1 : CacheManagement<string> {
+		public MyCacheMgmt1(ILogger<MyCacheMgmt1> logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCacheExtended cache) : base(logger, registry, cacheProvider, cache) {
+		}
+		public override string Name => nameof(MyCacheMgmt1);
 		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromMinutes(5));
 	}
 }

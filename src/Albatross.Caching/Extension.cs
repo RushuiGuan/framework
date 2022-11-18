@@ -43,7 +43,7 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public static IServiceCollection AddCacheMgmt<T>(this IServiceCollection services) where T: class, ICacheManagement {
+		public static IServiceCollection AddCacheMgmt<T>(this IServiceCollection services) where T : class, ICacheManagement {
 			services.AddSingleton<ICacheManagement, T>();
 			return services;
 		}
@@ -54,7 +54,7 @@ namespace Albatross.Caching {
 		/// <param name="services"></param>
 		/// <param name="assembly"></param>
 		/// <returns></returns>
-		public static IServiceCollection AddCacheMgmt(this IServiceCollection services, Assembly assembly){
+		public static IServiceCollection AddCacheMgmt(this IServiceCollection services, Assembly assembly) {
 			if (assembly != null) {
 				Type genericDefinition = typeof(ICacheManagement<>);
 				foreach (Type type in assembly.GetConcreteClasses()) {
@@ -70,7 +70,7 @@ namespace Albatross.Caching {
 
 
 		public static ICacheManagement Get(this ICacheManagementFactory factory, string name) {
-			if(factory.TryGetValue(name, out ICacheManagement result)) {
+			if (factory.TryGetValue(name, out ICacheManagement result)) {
 				return result;
 			} else {
 				throw new ArgumentException($"CacheManagement {name} is not registered");
@@ -86,5 +86,9 @@ namespace Albatross.Caching {
 			var mgmt = factory.Get(cacheName);
 			mgmt.Evict(keys.Select(args => new Context(args)).ToArray());
 		}
+
+		public static void EvictDefault(this ICacheManagementFactory factory, string cacheName) => factory.Get(cacheName).EvictDefault();
+		public static void EvictDefault(this ICacheManagement cacheMgmt) =>
+			cacheMgmt.Evict(new Context());
 	}
 }
