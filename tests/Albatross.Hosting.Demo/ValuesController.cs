@@ -52,7 +52,7 @@ namespace Albatross.Hosting.Test {
 		[HttpGet("settings")]
 		public string GetSettings() {
 			var setting = this.configuration.GetSection(TestSetting.Key).Get<TestSetting>();
-			return $"{setting?.Name} - {setting?.Count}";
+			return $"{setting.Name} - {setting.Count}";
 		}
 
 		[HttpGet("current-user")]

@@ -22,7 +22,7 @@ namespace Albatross.Hosting {
 		public IEnumerable<string?> Keys() => memoryCacheExtended.Keys.Select(args => Convert.ToString(args));
 
 		[HttpGet]
-		public object? Get(string key) => memoryCache.Get(key);
+		public object Get(string key) => memoryCache.Get(key);
 
 		[HttpPost("envict")]
 		public void Envict([FromBody] IEnumerable<string?> keys) {

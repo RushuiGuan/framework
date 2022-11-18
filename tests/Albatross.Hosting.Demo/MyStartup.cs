@@ -25,6 +25,9 @@ namespace Albatross.Hosting.Test {
 			services.AddCacheMgmt(this.GetType().Assembly);
 			services.AddSignalR();
 			services.AddRazorPages().AddRazorRuntimeCompilation();
+			services.Configure<MvcRazorRuntimeCompilationOptions>(options => {
+				options.FileProviders.Add(new RazorViewPathProvider());
+			});
 			services.AddMvc(options => options.InputFormatters.Add(new TextPlainInputFormatter()));
 		}
 		public override void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting envSetting, ILogger<Startup> logger) {

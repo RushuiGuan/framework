@@ -11,6 +11,10 @@ namespace Albatross.Repository.Core {
 			}
 		}
 
+		public static Task<int> SaveChangesAsync<T>(this IRepository<T> repo, CancellationToken cancellationToken = default) {
+			return repo.DbSession.SaveChangesAsync(cancellationToken);
+		}
+
 		public static void ValidateByDataAnnotations(this object entity) {
 			Validator.ValidateObject(entity, new ValidationContext(entity), true);
 		}

@@ -5,7 +5,7 @@ namespace Albatross.Config.UnitTest {
 		public override string Key => "single-value-config";
 		public string Value{ get; set; }
 		public SingleValueConfig(IConfiguration configuration) : base(configuration) {
-			this.Value = configuration.GetSection(Key).Get<string>() ?? throw new ConfigurationException(this.Key);
+			this.Value = configuration.GetSection(Key).Get<string>();
 		}
 	}
 }
