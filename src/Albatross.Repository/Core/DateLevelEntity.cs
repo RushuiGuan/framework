@@ -39,11 +39,10 @@ namespace Albatross.Repository.Core {
 	//	}
 	//}
 
-	public record class DateLevelEntity<EntityType> where EntityType : class {
+	public abstract class DateLevelEntity {
 		public int Id { get; init; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
-		public EntityType Entity { get; set; } = default!;
 		public readonly static DateTime MaxEndDate = new DateTime(9999, 12, 31);
 
 		public DateTime CreatedUtc { get; init; }
@@ -65,8 +64,7 @@ namespace Albatross.Repository.Core {
 			this.ModifiedBy = modifiedBy;
 		}
 
-		public DateLevelEntity(EntityType data, DateTime startDate, DateTime? endDate, string createdBy) {
-			this.Entity = data;
+		public DateLevelEntity(DateTime startDate, DateTime? endDate, string createdBy) {
 			this.StartDate = startDate;
 			this.EndDate = endDate ?? MaxEndDate;
 			this.CreatedBy = createdBy;

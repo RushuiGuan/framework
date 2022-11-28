@@ -18,7 +18,7 @@ namespace Albatross.Repository.Core {
 			Validator.ValidateObject(entity, new ValidationContext(entity), true);
 		}
 
-		public static IQueryable<DateLevelEntity<T>> GetChanged<T>(this DateLevelEntity<T> entity, IQueryable<DateLevelEntity<T>> set) where T : class {
+		public static IQueryable<DateLevelEntity> GetChanged<T>(this DateLevelEntity entity, IQueryable<DateLevelEntity> set) where T : class {
 			return set.Where(args => args.Id == entity.Id && (args.StartDate >= entity.StartDate && args.StartDate <= entity.EndDate
 					|| args.EndDate >= entity.StartDate && args.EndDate <= entity.EndDate
 					|| args.StartDate < entity.StartDate && args.EndDate > entity.EndDate
@@ -44,44 +44,44 @@ namespace Albatross.Repository.Core {
 
 		// when inserting a date level entry, we don't change the start date since it is part of the primary key.
 		// If this situation come up, we would delete the old entry and create a new one
-		public static async Task SetDateLevel1<T>(this DateLevelEntity<T> src, IQueryable<DateLevelEntity<T>> set,
-				Action<DateLevelEntity<T>> add,
-				Action<DateLevelEntity<T>> remove) where T : class {
+		//public static async Task SetDateLevel1(this DateLevelEntity src, IQueryable<DateLevelEntity> set,
+		//		Action<DateLevelEntity> add,
+		//		Action<DateLevelEntity> remove) where T : class {
 
-			var prior = await set.Where(args => args.Id == src.Id && args.StartDate <= src.StartDate)
-				.OrderByDescending(args => args.StartDate)
-				.FirstOrDefaultAsync();
+		//	var prior = await set.Where(args => args.Id == src.Id && args.StartDate <= src.StartDate)
+		//		.OrderByDescending(args => args.StartDate)
+		//		.FirstOrDefaultAsync();
 
-			if (prior != null) {
-				if (prior.Entity != src.Entity) {
-					prior.ModifiedUtc = DateTime.UtcNow;
-					prior.ModifiedBy = src.CreatedBy;
-					if (prior.StartDate == src.StartDate) {
-						prior.Entity = src.Entity;
-						src = prior;
-					} else {
-						prior.EndDate = src.StartDate.AddDays(-1);
-						add(src);
-					}
-				} else {
-					return;
-				}
-			} else {
-				add(src);
-			}
+		//	if (prior != null) {
+		//		if (prior != src) {
+		//			prior.ModifiedUtc = DateTime.UtcNow;
+		//			prior.ModifiedBy = src.CreatedBy;
+		//			if (prior.StartDate == src.StartDate) {
+		//				prior.Entity = src.Entity;
+		//				src = prior;
+		//			} else {
+		//				prior.EndDate = src.StartDate.AddDays(-1);
+		//				add(src);
+		//			}
+		//		} else {
+		//			return;
+		//		}
+		//	} else {
+		//		add(src);
+		//	}
 
-			var post = await set.Where(args => args.Id == src.Id && args.StartDate > src.StartDate)
-				.OrderBy(args => args.StartDate).FirstOrDefaultAsync();
-			if (post != null) {
-				if (post.Entity == src.Entity) {
-					remove(post);
-					src.EndDate = post.EndDate;
-				} else {
-					src.EndDate = post.StartDate.AddDays(-1);
-				}
-			} else {
-				src.EndDate = DateLevelEntity<T>.MaxEndDate;
-			}
-		}
+		//	var post = await set.Where(args => args.Id == src.Id && args.StartDate > src.StartDate)
+		//		.OrderBy(args => args.StartDate).FirstOrDefaultAsync();
+		//	if (post != null) {
+		//		if (post.Entity == src.Entity) {
+		//			remove(post);
+		//			src.EndDate = post.EndDate;
+		//		} else {
+		//			src.EndDate = post.StartDate.AddDays(-1);
+		//		}
+		//	} else {
+		//		src.EndDate = DateLevelEntity<T>.MaxEndDate;
+		//	}
+		//}
 	}
 }
