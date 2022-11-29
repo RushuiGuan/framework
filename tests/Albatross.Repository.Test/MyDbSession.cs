@@ -10,7 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Repository.Test {
-	public class MyDbSession : DbSession {
+	public interface IMyDbSession : IDbSession { }
+	public class MyDbSession : DbSession, IMyDbSession {
 		public MyDbSession(DbContextOptions<MyDbSession> option) : base(option) {
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {

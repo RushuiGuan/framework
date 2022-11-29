@@ -1,6 +1,6 @@
 CREATE TABLE [FutureMarket] (
     [Id] int NOT NULL IDENTITY,
-    [Name] nvarchar(32) NOT NULL,
+    [Name] nvarchar(256) NOT NULL,
     [ContractSize] decimal(20,10) NOT NULL,
     CONSTRAINT [PK_FutureMarket] PRIMARY KEY ([Id])
 );
