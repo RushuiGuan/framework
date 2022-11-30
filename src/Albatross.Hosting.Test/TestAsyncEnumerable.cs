@@ -7,8 +7,6 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-
-
 namespace Albatross.Hosting.Test {
 	public class TestAsyncEnumerableQuery<T> : IQueryable<T>, IAsyncQueryProvider, IAsyncEnumerable<T> {
 		EnumerableQuery<T> value;
@@ -53,6 +51,9 @@ namespace Albatross.Hosting.Test {
 		public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default) => this.GetAsyncEnumerable().GetAsyncEnumerator(cancellationToken);
 		public IEnumerator GetEnumerator() => value.AsQueryable().GetEnumerator();
 
+		// this implementation doesnot work because EnumerableQuery is returning the IQueryable with an incorrect provider
+		// however, this method is generally not called
+		// only fix when needed
 		IQueryable IQueryProvider.CreateQuery(Expression expression) {
 			return ((IQueryProvider)this.value).CreateQuery(expression);
 		}

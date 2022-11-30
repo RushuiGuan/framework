@@ -39,7 +39,7 @@ namespace Albatross.Repository.Core {
 	//	}
 	//}
 
-	public abstract class DateLevelEntity {
+	public abstract record class DateLevelEntity {
 		public int Id { get; init; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
@@ -53,6 +53,8 @@ namespace Albatross.Repository.Core {
 		[MaxLength(Constant.UserNameLength)]
 		public string ModifiedBy { get; set; }
 
+		public abstract void Update(DateLevelEntity src);
+
 		// contructor used by efcore
 		protected DateLevelEntity(int id, DateTime startDate, DateTime endDate, DateTime createdUtc, string createdBy, DateTime modifiedUtc, string modifiedBy) {
 			this.Id = id;
@@ -64,7 +66,8 @@ namespace Albatross.Repository.Core {
 			this.ModifiedBy = modifiedBy;
 		}
 
-		public DateLevelEntity(DateTime startDate, DateTime? endDate, string createdBy) {
+		public DateLevelEntity(int id, DateTime startDate, DateTime? endDate, string createdBy) {
+			this.Id = id;
 			this.StartDate = startDate;
 			this.EndDate = endDate ?? MaxEndDate;
 			this.CreatedBy = createdBy;

@@ -7,9 +7,9 @@ using Xunit;
 namespace Albatross.Repository.Test {
 	public class TestMockDbSession {
 		readonly static FutureMarket[] Markets = new FutureMarket[] { 
+			new FutureMarket("L"),
 			new FutureMarket("C"),
 			new FutureMarket("NG"),
-			new FutureMarket("L"),
 		};
 
 		/// <summary>
@@ -43,10 +43,10 @@ namespace Albatross.Repository.Test {
 		[Fact]
 		public void CreateWhereQuery() {
 			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
-			var result = session.DbContext
+			var query = session.DbContext
 				.Set<FutureMarket>()
 				.Where(args => args.Id > 0);
-			Assert.NotNull(result);
+			Assert.NotNull(query);
 		}
 
 		[Fact]
@@ -67,6 +67,7 @@ namespace Albatross.Repository.Test {
 				.Where(args => args.Name.Contains("C"))
 				.ToArray();
 			Assert.NotEmpty(result);
+			Assert.Collection(result, args => Assert.Equal("C", args.Name));
 		}
 
 		[Fact]
@@ -87,6 +88,17 @@ namespace Albatross.Repository.Test {
 				.Include(args=>args.TickSizes)
 				.Where(args => args.Name.Contains("C"))
 				.ToArrayAsync();
+			Assert.NotEmpty(result);
+		}
+
+		[Fact]
+		public void ExecuteIncludeQuery() {
+			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
+			var result = session.DbContext
+				.Set<FutureMarket>()
+				.Include(args => args.TickSizes)
+				.Where(args => args.Name.Contains("C"))
+				.ToArray();
 			Assert.NotEmpty(result);
 		}
 

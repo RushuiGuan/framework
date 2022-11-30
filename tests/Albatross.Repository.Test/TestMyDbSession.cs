@@ -1,6 +1,7 @@
 ﻿using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions;
 using Moq;
 using System;
 using System.Collections;
@@ -26,7 +27,8 @@ namespace Albatross.Repository.Test {
 			var session = scope.Get<MyDbSession>();
 			string script = session.GetCreateScript();
 
-			using (var file = File.OpenWrite(@"C:\app\framework\tests\Albatross.Repository.Test\MyDbSession.sql")) {
+			
+			using (var file = File.OpenWrite($"{Path.GetDirectoryName(this.GetType().Assembly.Location)}\\MyDbSession.sql")) {
 				using (var writer = new StreamWriter(file)) {
 					writer.Write(script);
 					writer.Flush();

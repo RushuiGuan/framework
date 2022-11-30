@@ -37,6 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Albatross.Config\Albatross.Config.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Repository.SqlServer\Albatross.Repository.SqlServer.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
