@@ -22,10 +22,11 @@ namespace Albatross.Hosting.Test {
 			dbContextMock.Setup(args => args.Set<T>()).Returns(items.CreateAsyncDbSet<T>().Object);
 		}
 		public static Mock<DbSet<T>> CreateAsyncDbSet<T>(this IEnumerable<T> items) where T:class {
-			var data = new AsyncTestData<T>(items);
+			var data = new TestAsyncEnumerableQuery<T>(items);
 			var mock = new Mock<DbSet<T>>();
-			mock.As<IQueryable<T>>().Setup(args => args.Expression).Returns(data.Expression);
-			mock.As<IQueryable<T>>().Setup(args => args.Provider).Returns(data.Provider);
+			mock.As<IEnumerable<T>>().Setup(args => args.GetEnumerator()).Returns(((IEnumerable<T>)data).GetEnumerator());
+			mock.As<IQueryable<T>>().Setup(args => args.Expression).Returns(((IQueryable)data).Expression);
+			mock.As<IQueryable<T>>().Setup(args => args.Provider).Returns(((IQueryable)data).Provider);
 			mock.As<IAsyncEnumerable<T>>().Setup(args=>args.GetAsyncEnumerator(CancellationToken.None))
 				.Returns(()=> data.GetAsyncEnumerator());
 			return mock;

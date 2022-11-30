@@ -1,9 +1,6 @@
 ﻿using Albatross.Hosting.Test;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,8 +12,12 @@ namespace Albatross.Repository.Test {
 			new FutureMarket("L"),
 		};
 
+		/// <summary>
+		/// This is a special execute that does not leverage IAsyncQueryProvider.  It uses IAsyncEnumerable<T> instead because there is not expression involved
+		/// </summary>
+		/// <returns></returns>
 		[Fact]
-		public async Task AsyncToArray() {
+		public async Task AsyncExecuteToArray() {
 			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
 			var result = await session.DbContext
 				.Set<FutureMarket>()
@@ -26,42 +27,108 @@ namespace Albatross.Repository.Test {
 			Assert.Equal(Markets.Count(), result.Count());
 		}
 
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
 		[Fact]
-		public async Task AsyncWhereQuery() {
+		public void ExecuteToArray() {
+			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
+			var set = session.DbContext.Set<FutureMarket>();
+			var result = set.ToArray();
+			Assert.NotNull(result);
+			Assert.NotEmpty(result);
+			Assert.Equal(Markets.Count(), result.Count());
+		}
+
+		[Fact]
+		public void CreateWhereQuery() {
+			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
+			var result = session.DbContext
+				.Set<FutureMarket>()
+				.Where(args => args.Id > 0);
+			Assert.NotNull(result);
+		}
+
+		[Fact]
+		public async Task AsyncExecuteWhereQuery() {
 			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
 			var result = await session.DbContext
 				.Set<FutureMarket>()
-				.Where(args=>args.Id > 0)
+				.Where(args=>args.Name.Contains("C"))
 				.ToArrayAsync();
 			Assert.NotEmpty(result);
 		}
 
 		[Fact]
-		public async Task AsyncIncludeQuery() {
+		public void ExecuteWhereQuery() {
+			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
+			var result = session.DbContext
+				.Set<FutureMarket>()
+				.Where(args => args.Name.Contains("C"))
+				.ToArray();
+			Assert.NotEmpty(result);
+		}
+
+		[Fact]
+		public void CreateIncludeQuery() {
+			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
+			var result = session.DbContext
+				.Set<FutureMarket>()
+				.Include(args => args.TickSizes)
+				.Where(args => args.Name.Contains("C"));
+			Assert.NotNull(result);
+		}
+
+		[Fact]
+		public async Task AsyncExecuteIncludeQuery() {
 			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
 			var result = await session.DbContext
 				.Set<FutureMarket>()
 				.Include(args=>args.TickSizes)
-				.Where(args => args.Id > 0)
+				.Where(args => args.Name.Contains("C"))
 				.ToArrayAsync();
 			Assert.NotEmpty(result);
 		}
+
 		[Fact]
-		public async Task AsyncFirstWithoutPedicate() {
+		public void ExecuteFirstWithoutPedicate() {
+			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
+			var result = session.DbContext
+				.Set<FutureMarket>()
+				.Include(args => args.TickSizes)
+				.First();
+			Assert.NotNull(result);
+			Assert.Same(Markets.First(), result);
+		}
+
+		[Fact]
+		public async Task AsyncExecuteFirstWithoutPedicate() {
 			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
 			var result = await session.DbContext
 				.Set<FutureMarket>()
 				.Include(args => args.TickSizes)
 				.FirstAsync();
 			Assert.NotNull(result);
+			Assert.Same(Markets.First(), result);
 		}
 		[Fact]
-		public async Task AsyncFirstWithPedicate() {
+		public void ExecuteFirstWithPedicate() {
+			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
+			var result = session.DbContext
+				.Set<FutureMarket>()
+				.Include(args => args.TickSizes)
+				.First(args => args.Name == "C");
+			Assert.NotNull(result);
+			Assert.Equal("C", result.Name);
+		}
+
+		[Fact]
+		public async Task AsyncExecuteFirstWithPedicate() {
 			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();
 			var result = await session.DbContext
 				.Set<FutureMarket>()
 				.Include(args => args.TickSizes)
-				.FirstAsync(args => true);
+				.FirstAsync(args => args.Name == "C");
 			Assert.NotNull(result);
 			Assert.Equal("C", result.Name);
 		}
