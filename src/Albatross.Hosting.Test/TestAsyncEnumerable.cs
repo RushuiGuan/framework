@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿using Albatross.Reflection;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Test {
-	public class TestAsyncEnumerableQuery<T> : IQueryable<T>, IAsyncQueryProvider, IAsyncEnumerable<T> {
+	public class TestAsyncEnumerableQuery<T> : IOrderedQueryable<T>, IAsyncQueryProvider, IAsyncEnumerable<T> {
 		EnumerableQuery<T> value;
 
 		public TestAsyncEnumerableQuery(IEnumerable<T> enumerable) {
@@ -30,24 +31,27 @@ namespace Albatross.Hosting.Test {
 		// the result would be IEnumerable<DataType>
 		// we have to cast result back to TElement, which the compiler has no knowledge of type
 		public TElement ExecuteAsync<TElement>(Expression expression, CancellationToken cancellationToken = default) {
-			var result = this.AsQueryable().Provider.Execute(expression);
-			if (result != null) {
-				Type resultType = result.GetType();
-				Type taskType = typeof(Task<>).MakeGenericType(resultType);
-				if (typeof(TElement).IsAssignableFrom(taskType)) {
-					var method = typeof(Task).GetMethod(nameof(Task.FromResult), System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-					if (method != null) {
-						var methodInfo = method.MakeGenericMethod(resultType);
+			if (typeof(TElement).GetTaskResultType(out Type resultType)) {
+				var method = typeof(Task).GetMethod(nameof(Task.FromResult), System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public)
+						?? throw new NotSupportedException("Cannot find FromResult static method from Task class");
+				var methodInfo = method.MakeGenericMethod(resultType);
+				var result = this.AsQueryable().Provider.Execute(expression);
+				if (result != null) {
+					if (result.GetType().IsDerived(resultType)) {
 						var obj = methodInfo.Invoke(null, new object?[] { result });
 						return (TElement)obj!;
+					} else {
+						throw new ArgumentException(expression.ToString());
 					}
-					return default!;
 				} else {
-					throw new ArgumentException(expression.ToString());
+					var obj = methodInfo.Invoke(null, new object?[] { null });
+					return (TElement)obj!;
 				}
+			} else {
+				throw new ArgumentException($"ExecuteAsync received incorrect generic type: {typeof(TElement).FullName}");
 			}
-			return default!;
 		}
+
 		public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default) => this.GetAsyncEnumerable().GetAsyncEnumerator(cancellationToken);
 		public IEnumerator GetEnumerator() => value.AsQueryable().GetEnumerator();
 

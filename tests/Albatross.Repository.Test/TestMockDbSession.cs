@@ -27,9 +27,6 @@ namespace Albatross.Repository.Test {
 			Assert.Equal(Markets.Count(), result.Count());
 		}
 
-		/// <summary>
-		/// </summary>
-		/// <returns></returns>
 		[Fact]
 		public void ExecuteToArray() {
 			var session = Markets.CreateAsyncMockSession<IMyDbSession, FutureMarket>();

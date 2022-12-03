@@ -6,7 +6,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Albatross.Repository.Test {
-	public record class TickSize : DateLevelEntity{
+	public sealed record class TickSize : DateLevelEntity{
 		public TickSize(int id, DateTime startDate, DateTime endDate, DateTime createdUtc, string createdBy, DateTime modifiedUtc, string modifiedBy) : base(id, startDate, endDate, createdUtc, createdBy, modifiedUtc, modifiedBy) {
 		}
 		public TickSize(int id, DateTime startDate, DateTime? endDate, decimal value, string user) : base(id, startDate, endDate, user){
@@ -18,7 +18,18 @@ namespace Albatross.Repository.Test {
 		public decimal Value { get; set; }
 
 		public override void Update(DateLevelEntity src) {
-			throw new NotImplementedException();
+			if(src is TickSize newValue) {
+				Value = newValue.Value;
+			} else {
+				throw new ArgumentException();
+			}
+		}
+		public override bool HasSameValue(DateLevelEntity src) {
+			if(src is TickSize other) {
+				return other.Value == this.Value;
+			} else {
+				return false;
+			}
 		}
 	}
 	public class TickSizeEntityMap: DateLevelEntityEntityMap<TickSize> {
