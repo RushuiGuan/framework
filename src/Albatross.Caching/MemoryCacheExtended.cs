@@ -9,7 +9,7 @@ using System.Reflection;
 namespace Albatross.Caching {
 	public interface IMemoryCacheExtended {
 		IEnumerable<object> Keys { get; }
-		void Envict(IEnumerable<object> keys);
+		void Evict(IEnumerable<object> keys);
 		void Reset();
 	}
 	/// <summary>
@@ -33,7 +33,7 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public void Envict(IEnumerable<object> keys) => keys.ForEach(this.cache.Remove);
+		public void Evict(IEnumerable<object> keys) => keys.ForEach(this.cache.Remove);
 		public void Reset() => Keys.ForEach(this.cache.Remove);
 	}
 }

@@ -59,14 +59,14 @@ namespace Albatross.Caching {
 		public void Evict(params Context[] contexts) {
 			var keys = contexts.Select(args => GetCacheKey(args));
 			logger.LogInformation("Evicting cache: {@key}", keys);
-			this.cache.Envict(keys);
+			this.cache.Evict(keys);
 		}
 
 		public void EvictAll() {
 			var prefix = GetCacheKey(new Context());
 			var keys = this.cache.Keys.Select(args => args.ToString() ?? String.Empty)
 				.Where(args => args.StartsWith(prefix)).ToArray();
-			this.cache.Envict(keys);
+			this.cache.Evict(keys);
 		}
 
 		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, Context context) {
