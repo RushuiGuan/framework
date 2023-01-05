@@ -1,0 +1,28 @@
+{
+	"Serilog": {
+		"MinimumLevel": {
+			"Default": "Information",
+			"Override": {
+				"System": "Error",
+				"Microsoft": "Error"
+			}
+		},
+		"WriteTo": {
+			"ConsoleSink": {
+				"Name": "Console",
+				"Args": {
+					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}"
+				}
+			},
+			"FileSink":{
+				"Name": "File",
+				"Args": {
+					"path": "log\\log.txt",
+					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}",
+					"rollingInterval": "Day"
+				}
+			}
+		},
+		"Enrich": [ "FromLogContext" ]
+	}
+}

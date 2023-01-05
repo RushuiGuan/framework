@@ -2,11 +2,6 @@
 
 namespace Albatross.Cryptography.Core {
     public static class Extension {
-        public static string GetBase64(this ICryptoRNG rng, int size) {
-            byte[] data = rng.GetBytes(size);
-            return Convert.ToBase64String(data);
-        }
-
 		public static bool Match(this byte[] arrayA, byte[] arrayB) {
 			if(arrayA != null && arrayB!= null && arrayA.Length == arrayB.Length) {
 				for(int i=0; i<arrayA.Length; i++) {

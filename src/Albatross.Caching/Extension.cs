@@ -22,8 +22,9 @@ namespace Albatross.Caching {
 
 		public static IServiceCollection AddCaching(this IServiceCollection services) {
 			var registry = new PolicyRegistry();
-			services.AddMemoryCache();
-
+			// services.AddMemoryCache();
+			services.AddStackExchangeRedisCache(option => {
+			});
 			services.TryAdd(ServiceDescriptor.Singleton<IPolicyRegistry<string>>(registry));
 			services.TryAdd(ServiceDescriptor.Singleton<IReadOnlyPolicyRegistry<string>>(registry));
 			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider, Polly.Caching.Memory.MemoryCacheProvider>());
