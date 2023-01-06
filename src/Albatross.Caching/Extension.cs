@@ -1,5 +1,7 @@
 ﻿using Albatross.Config;
 using Albatross.Reflection;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -9,7 +11,6 @@ using Polly.Registry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 
 namespace Albatross.Caching {
@@ -20,20 +21,40 @@ namespace Albatross.Caching {
 			registry.Add(cacheKey, policy);
 		}
 
-		public static IServiceCollection AddCaching(this IServiceCollection services) {
+		public static IServiceCollection AddCaching(this IServiceCollection services, IConfiguration configuration) {
 			var registry = new PolicyRegistry();
 			// services.AddMemoryCache();
 			services.AddStackExchangeRedisCache(option => {
+				var config = new CachingConfig(configuration);
+				config.Validate();
+				option.InstanceName = config.InstanceName;
+				option.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions {
+					EndPoints = { config.RedisConnectionString },
+					User = config.User,
+					Password = config.Password,
+					AllowAdmin = false,
+					Ssl = false,
+				};
 			});
 			services.TryAdd(ServiceDescriptor.Singleton<IPolicyRegistry<string>>(registry));
 			services.TryAdd(ServiceDescriptor.Singleton<IReadOnlyPolicyRegistry<string>>(registry));
-			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider, Polly.Caching.Memory.MemoryCacheProvider>());
+			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider<string>, Polly.Caching.Distributed.NetStandardIDistributedCacheStringProvider>());
+			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider<byte[]>, Polly.Caching.Distributed.NetStandardIDistributedCacheByteArrayProvider>());
 			services.TryAdd(ServiceDescriptor.Singleton<ICacheManagementFactory, CacheManagementFactory>());
-			services.TryAdd(ServiceDescriptor.Singleton<IMemoryCacheExtended, MemoryCacheExtended>());
+			services.TryAdd(ServiceDescriptor.Singleton<IRedisKeyManagement, RedisKeyManagement>());
 			services.AddConfig<CachingConfig>(true);
-			services.AddHttpClient(CachingClient.CachingProxyName).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { UseDefaultCredentials = true, });
+			services.AddStringCacheProvider();
 			return services;
 		}
+		public static IServiceCollection AddStringCacheProvider(this IServiceCollection services) {
+			services.AddSingleton<IAsyncCacheProviderConverter, StringAsyncCacheProviderConverter>();
+			return services;
+		}
+		public static IServiceCollection AddByteArrayCacheProvider(this IServiceCollection services) {
+			services.AddSingleton<IAsyncCacheProviderConverter, ByteArrayAsyncCacheProviderConverter>();
+			return services;
+		}
+
 
 		public static void UseCache(this IServiceProvider serviceProvider) {
 			var items = serviceProvider.GetRequiredService<IEnumerable<ICacheManagement>>();
@@ -85,11 +106,11 @@ namespace Albatross.Caching {
 
 		public static void Evict(this ICacheManagementFactory factory, string cacheName, params string[] keys) {
 			var mgmt = factory.Get(cacheName);
-			mgmt.Evict(keys.Select(args => new Context(args)).ToArray());
+			mgmt.Remove(keys.Select(args => new Context(args)).ToArray());
 		}
 
 		public static void EvictDefault(this ICacheManagementFactory factory, string cacheName) => factory.Get(cacheName).EvictDefault();
 		public static void EvictDefault(this ICacheManagement cacheMgmt) =>
-			cacheMgmt.Evict(new Context());
+			cacheMgmt.Remove(new Context());
 	}
 }

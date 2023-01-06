@@ -123,7 +123,7 @@ namespace Albatross.Hosting {
 			if (Spa) { AddSpa(services); }
 			if (Secured) { AddAccessControl(services); }
 			if (Caching) {
-				services.AddCaching();
+				services.AddCaching(this.Configuration);
 			}
 		}
 

@@ -1,10 +1,6 @@
 ﻿using Polly;
 using Polly.Caching;
-using Polly.Registry;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Caching {
@@ -13,8 +9,8 @@ namespace Albatross.Caching {
 		ITtlStrategy TtlStrategy { get; }
 		string GetCacheKey(Context context);
 		void Register();
-		void Evict(params Context[] contexts);
-		void EvictAll();
+		void Remove(params Context[] contexts);
+		void Reset();
 		void OnCacheGet(Context context, string cacheKey);
 		void OnCacheMiss(Context context, string cacheKey);
 		void OnCachePut(Context context, string cacheKey);

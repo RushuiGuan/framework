@@ -23,26 +23,11 @@ namespace Albatross.Hosting {
 			this.logger = logger;
 		}
 
-		List<string> FindAssembly(IEnumerable<string> names) {
-			List<string> result = new List<string>();
-			foreach (var name in names) {
-				try {
-					result.Add(Assembly.Load(name).FullName!);
-				} catch {
-					result.Add($"{name}: not found");
-				}
-			}
-			return result;
-		}
-
 		[HttpGet]
 		public ProgramSetting Get() => programSetting;
 
 		[HttpGet("env")]
 		public EnvironmentSetting GetEnvironment() => environmentSetting;
-
-		[HttpGet("assembly")]
-		public IEnumerable<string> GetAssemblies([FromQuery] string[] name) => FindAssembly(name);
 
 		[HttpGet("user-claim")]
 		[Authorize]

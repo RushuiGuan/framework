@@ -16,6 +16,7 @@ namespace Albatross.Caching.TestHost {
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
 			services.AddCacheMgmt(this.GetType().Assembly);
+			services.AddByteArrayCacheProvider();
 			services.AddSignalR();
 			services.AddMvc(options => options.InputFormatters.Add(new TextPlainInputFormatter()));
 		}

@@ -1,7 +1,7 @@
 {
 	"Serilog": {
 		"MinimumLevel": {
-			"Default": "Information",
+			"Default": "Debug",
 			"Override": {
 				"System": "Error",
 				"Microsoft": "Error"
@@ -14,15 +14,15 @@
 					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}"
 				}
 			},
-			"FileSink":{
+			"FileSink": {
 				"Name": "File",
 				"Args": {
-					"path": "log\\log.txt",
+					"path": "%LogDirectory%\\Caching.TestHost\\Caching.log",
 					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {Properties:j} {Message:lj}{NewLine}{Exception}",
 					"rollingInterval": "Day"
 				}
 			}
 		},
-		"Enrich": [ "FromLogContext" ]
+		"Enrich": [ "FromLogContext", "WithThreadId", "WithMachineName" ]
 	}
 }

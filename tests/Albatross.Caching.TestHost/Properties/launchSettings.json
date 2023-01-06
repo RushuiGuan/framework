@@ -1,14 +1,11 @@
-﻿{
-	"$schema": "https://json.schemastore.org/launchsettings.json",
-	"profiles": {
-		"Default": {
-			"commandName": "Project",
-			"dotnetRunMessages": true,
-			"launchBrowser": true,
-			"launchUrl": "swagger",
-			"applicationUrl": "http://localhost:60000",
-			"environmentVariables": {
-			}
-		}
-	}
+{
+  "profiles": {
+    "Default": {
+      "commandName": "Project",
+      "launchUrl": "swagger",
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:60000"
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
 }

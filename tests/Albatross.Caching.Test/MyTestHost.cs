@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace Albatross.Caching.Test {
 	public class MyTestHost : TestHost {
 		public ICacheManagementFactory CacheFactory { get; private set; }
-		public IMemoryCacheExtended CacheExtended { get; private set; }
 
 
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
-			services.AddCaching();
+			services.AddCaching(configuration);
 			services.AddCacheMgmt(typeof(MyCacheMgmt).Assembly);
 		}
 
@@ -20,7 +19,6 @@ namespace Albatross.Caching.Test {
 			await base.InitAsync(configuration, logger);
 			this.Provider.UseCache();
 			this.CacheFactory = this.Provider.GetRequiredService<ICacheManagementFactory>();
-			this.CacheExtended = this.Provider.GetRequiredService<IMemoryCacheExtended>();
 		}
 	}
 }
