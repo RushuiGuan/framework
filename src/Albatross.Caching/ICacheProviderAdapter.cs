@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 
 namespace Albatross.Caching {
-	public interface IAsyncCacheProviderConverter {
-		public IAsyncCacheProvider<T> Get<T>();
+	public interface ICacheProviderAdapter {
+		public IAsyncCacheProvider<T> Create<T>();
 	}
 }

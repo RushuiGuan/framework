@@ -20,11 +20,11 @@ namespace Albatross.Caching {
 		private readonly IRedisKeyManagement keyMgmt;
 		public const string Context_Init = "init";
 
-		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProviderConverter converter, IRedisKeyManagement keyMgmt) {
+		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter, IRedisKeyManagement keyMgmt) {
 			this.logger = logger;
 			this.registry = registry;
 			this.keyMgmt = keyMgmt;
-			this.cacheProvider = converter.Get<CacheFormat>();
+			this.cacheProvider = cacheProviderAdapter.Create<CacheFormat>();
 		}
 
 		public virtual string Name => this.GetType().Name;

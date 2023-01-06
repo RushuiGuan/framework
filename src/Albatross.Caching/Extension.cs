@@ -47,11 +47,11 @@ namespace Albatross.Caching {
 			return services;
 		}
 		public static IServiceCollection AddStringCacheProvider(this IServiceCollection services) {
-			services.AddSingleton<IAsyncCacheProviderConverter, StringAsyncCacheProviderConverter>();
+			services.AddSingleton<ICacheProviderAdapter, StringCacheProviderAdapter>();
 			return services;
 		}
 		public static IServiceCollection AddByteArrayCacheProvider(this IServiceCollection services) {
-			services.AddSingleton<IAsyncCacheProviderConverter, ByteArrayAsyncCacheProviderConverter>();
+			services.AddSingleton<ICacheProviderAdapter, ByteArrayCacheProviderAdapter>();
 			return services;
 		}
 

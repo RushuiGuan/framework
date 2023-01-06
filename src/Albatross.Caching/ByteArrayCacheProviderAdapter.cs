@@ -4,14 +4,14 @@ using System.Text.Json;
 using System;
 
 namespace Albatross.Caching {
-	public class ByteArrayAsyncCacheProviderConverter : IAsyncCacheProviderConverter {
+	public class ByteArrayCacheProviderAdapter : ICacheProviderAdapter {
 		private readonly IAsyncCacheProvider<byte[]> provider;
 
-		public ByteArrayAsyncCacheProviderConverter(IAsyncCacheProvider<byte[]> provider) {
+		public ByteArrayCacheProviderAdapter(IAsyncCacheProvider<byte[]> provider) {
 			this.provider = provider;
 		}
 
-		public IAsyncCacheProvider<T> Get<T>() {
+		public IAsyncCacheProvider<T> Create<T>() {
 			return this.provider.WithSerializer<T, byte[]>(new ByteArrayJsonCacheItemSerializer<T>());
 		}
 	}

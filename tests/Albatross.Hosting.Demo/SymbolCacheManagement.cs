@@ -10,7 +10,7 @@ namespace Albatross.Hosting.Test {
 	public class SymbolCacheManagement : CacheManagement<IEnumerable<string>> {
 		public const string CacheName = "sy";
 
-		public SymbolCacheManagement(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProviderConverter cacheProvider, IRedisKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
+		public SymbolCacheManagement(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, IRedisKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
 		}
 
 		public override string Name => CacheName;

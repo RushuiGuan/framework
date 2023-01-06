@@ -6,7 +6,7 @@ using System;
 
 namespace Albatross.Caching.Test {
 	public class YourCacheMgmt : CacheManagement<string> {
-		public YourCacheMgmt(ILogger<YourCacheMgmt> logger, IPolicyRegistry<string> registry, IAsyncCacheProviderConverter cacheProvider, IRedisKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
+		public YourCacheMgmt(ILogger<YourCacheMgmt> logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, IRedisKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
 		}
 
 		public override string Name => nameof(YourCacheMgmt);

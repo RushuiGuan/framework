@@ -10,9 +10,9 @@ namespace Albatross.Hosting {
 	[ApiController]
 	public class CachingController : ControllerBase {
 		private readonly IRedisKeyManagement keyMgmt;
-		private readonly IAsyncCacheProviderConverter cacheProviderConverter;
+		private readonly ICacheProviderAdapter cacheProviderConverter;
 
-		public CachingController(IRedisKeyManagement keyMgmt, IAsyncCacheProviderConverter cacheProviderConverter) {
+		public CachingController(IRedisKeyManagement keyMgmt, ICacheProviderAdapter cacheProviderConverter) {
 			this.keyMgmt = keyMgmt;
 			this.cacheProviderConverter = cacheProviderConverter;
 		}
@@ -22,7 +22,7 @@ namespace Albatross.Hosting {
 
 		[HttpGet]
 		public async Task<string?> Get(string key) {
-			var provider = cacheProviderConverter.Get<string>();
+			var provider = cacheProviderConverter.Create<string>();
 			var result = await provider.TryGetAsync(key, CancellationToken.None, false);
 			if (result.Item1) {
 				return result.Item2;
