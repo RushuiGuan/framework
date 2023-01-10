@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 namespace Albatross.Repository.Test {
 	public static class Constant {
 		public const int NameLength = 256;
+		public const string Schema = "test";
 
+		public const string ConnectionString = "Server=.;Database=atlas;Trusted_Connection=true;Encrypt=No";
 		public readonly static IEnumerable<FutureMarket> AllFutureMarkets = new FutureMarket[]{
 			new FutureMarket("EC"),
 			new FutureMarket("LL"),
@@ -94,6 +96,5 @@ namespace Albatross.Repository.Test {
 			new FutureMarket("SFR"),
 			new FutureMarket("SFI"),
 		};
-
 	}
 }

@@ -1,16 +1,8 @@
 ﻿using Albatross.Repository.Core;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions;
-using Moq;
+using Albatross.Repository.SqlServer;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -41,6 +33,14 @@ namespace Albatross.Repository.Test {
 				?? throw new InvalidOperationException("embedded stream doesn't exist");
 			var expected = new StreamReader(stream).ReadToEnd();
 			Assert.Equal(expected, script);
+		}
+
+
+		[Fact]
+		public async Task RunEfMigrate() {
+			var scope = host.Create();
+			var migration = scope.Get<SqlServerMigration<MySqlServerMigration>>();
+			await migration.MigrateEfCore();
 		}
 	}
 }

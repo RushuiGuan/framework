@@ -15,7 +15,11 @@ namespace Albatross.Repository.Test {
 	public class MyTestHost : TestHost {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
-			services.AddSqlServerWithContextPool<MyDbSession>(provider => DbSession.Any);
+			services.AddSqlServerWithContextPool<MyDbSession>(provider => Constant.ConnectionString);
+			services.AddScoped<SqlServerMigration<MySqlServerMigration>>();
+			services.AddScoped<MySqlServerMigration>(provider => {
+				return new MySqlServerMigration(Constant.ConnectionString);
+			});
 		}
 
 		public static void GetDbSession<T, K>(K value) where T : class {

@@ -16,6 +16,7 @@ namespace Albatross.Repository.Test {
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			base.OnModelCreating(modelBuilder);
+			modelBuilder.HasDefaultSchema(Constant.Schema);
 		}
 	}
 }
