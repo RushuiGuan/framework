@@ -32,7 +32,8 @@ namespace Albatross.Caching {
 					EndPoints = { config.RedisConnectionString },
 					User = config.User,
 					Password = config.Password,
-					AllowAdmin = false,
+					// need this for the KEYs command
+					AllowAdmin = true,
 					Ssl = false,
 				};
 			});
