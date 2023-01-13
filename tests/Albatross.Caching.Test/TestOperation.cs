@@ -13,7 +13,7 @@ namespace Albatross.Caching.Test {
 			this.host = host;
 		}
 
-		[Fact]
+		[Fact(Skip ="require redis server")]
 		public async Task TestNormalOperation() {
 			var scope = host.Create();
 			var factory = scope.Get<ICacheManagementFactory>();
