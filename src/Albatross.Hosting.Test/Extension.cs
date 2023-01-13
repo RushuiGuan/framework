@@ -1,8 +1,14 @@
 ﻿using Albatross.Repository.Core;
+using CsvHelper;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
@@ -35,8 +41,28 @@ namespace Albatross.Hosting.Test {
 			return mock;
 		}
 
-		public static string GetSourceCodeDirectory(string projectPath) {
+		public static string GetSourceCodeDirectory(this string projectPath) {
 			return @$"{System.Environment.GetEnvironmentVariable("DevDirectory")}\{projectPath}";
+		}
+
+		public static void DumpCsv(this string query, object parameters, string connectionString, string outputFile) {
+			using var conn = new SqlConnection(connectionString);
+			var items = conn.Query(query, parameters);
+			items.DumpCsv(outputFile);
+		}
+
+		public static void DumpCsv<T>(this IEnumerable<T> items, string outputFile) {
+			using var writer = new StreamWriter(outputFile);
+			using var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture, false);
+			csvWriter.WriteRecords(items);
+		}
+
+		public static IEnumerable<T> ReadCsv<T>(this string resource) {
+			using var stream = Assembly.GetCallingAssembly().GetManifestResourceStream(resource) 
+				?? throw new ArgumentException($"Assembly embedded resource {resource} was not found");
+			using var reader = new StreamReader(stream);
+			var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture, false);
+			return csvReader.GetRecords<T>();
 		}
 	}
 }
