@@ -3,16 +3,22 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using System.IO;
 
 namespace Albatross.Hosting.Test {
 	public static class TestCaseExtension {
 		static JsonSerializerOptions defaultJsonSerializerOption = new JsonSerializerOptions {
-			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+			WriteIndented = true,
 		};
 
+		public static void CreateJsonTestCases<T>(this T[] data, string filename) where T : TestCase {
+			using var stream = File.OpenWrite(filename);
+			JsonSerializer.Serialize<T[]>(stream, data, defaultJsonSerializerOption);
+		}
 
-		static T _GetJsonTestCase<T>(this Assembly assembly, string embeddedFile, string name) where T:TestCase {
+		static T _GetJsonTestCase<T>(this Assembly assembly, string embeddedFile, string name) where T : TestCase {
 			using var stream = assembly.GetManifestResourceStream(embeddedFile);
 			if (stream == null) {
 				throw new ArgumentException("Invalid embedded file path");
@@ -25,7 +31,7 @@ namespace Albatross.Hosting.Test {
 			return result;
 		}
 
-		public static TestCase<T> GetJsonTestCases<T>(this Assembly assembly, string embeddedFile, string name) 
+		public static TestCase<T> GetJsonTestCases<T>(this Assembly assembly, string embeddedFile, string name)
 			=> assembly._GetJsonTestCase<TestCase<T>>(embeddedFile, name);
 
 		public static TestCase<T1, T2> GetJsonTestCases<T1, T2>(this Assembly assembly, string embeddedFile, string name)

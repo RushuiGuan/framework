@@ -34,5 +34,9 @@ namespace Albatross.Hosting.Test {
 				.Returns(()=> data.GetAsyncEnumerator());
 			return mock;
 		}
+
+		public static string GetSourceCodeDirectory(string projectPath) {
+			return @$"{System.Environment.GetEnvironmentVariable("DevDirectory")}\{projectPath}";
+		}
 	}
 }
