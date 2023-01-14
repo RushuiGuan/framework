@@ -45,10 +45,15 @@ namespace Albatross.Hosting.Test {
 			return @$"{System.Environment.GetEnvironmentVariable("DevDirectory")}\{projectPath}";
 		}
 
-		public static void DumpCsv(this string query, object parameters, string connectionString, string outputFile) {
+		public static bool DumpCsv(this string query, object parameters, string connectionString, string outputFile, bool skipIfEmpty = true) {
 			using var conn = new SqlConnection(connectionString);
-			var items = conn.Query(query, parameters);
-			items.DumpCsv(outputFile);
+			var items = conn.Query(query, parameters).ToArray();
+			if (!skipIfEmpty || items.Length > 0) {
+				items.DumpCsv(outputFile);
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public static void DumpCsv<T>(this IEnumerable<T> items, string outputFile) {
