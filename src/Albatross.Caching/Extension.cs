@@ -1,4 +1,5 @@
-﻿using Albatross.Config;
+﻿using Albatross.Caching.Redis;
+using Albatross.Config;
 using Albatross.Reflection;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
@@ -42,7 +43,7 @@ namespace Albatross.Caching {
 			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider<string>, Polly.Caching.Distributed.NetStandardIDistributedCacheStringProvider>());
 			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider<byte[]>, Polly.Caching.Distributed.NetStandardIDistributedCacheByteArrayProvider>());
 			services.TryAdd(ServiceDescriptor.Singleton<ICacheManagementFactory, CacheManagementFactory>());
-			services.TryAdd(ServiceDescriptor.Singleton<IRedisKeyManagement, RedisKeyManagement>());
+			services.TryAdd(ServiceDescriptor.Singleton<ICacheKeyManagement, RedisCacheKeyManagement>());
 			services.AddConfig<CachingConfig>(true);
 			services.AddStringCacheProvider();
 			return services;
@@ -109,9 +110,12 @@ namespace Albatross.Caching {
 			var mgmt = factory.Get(cacheName);
 			mgmt.Remove(keys.Select(args => new Context(args)).ToArray());
 		}
-
-		public static void EvictDefault(this ICacheManagementFactory factory, string cacheName) => factory.Get(cacheName).EvictDefault();
-		public static void EvictDefault(this ICacheManagement cacheMgmt) =>
-			cacheMgmt.Remove(new Context());
+		public static void Reset(this ICacheKeyManagement keyMgmt) {
+			var keys = keyMgmt.FindKeys("*");
+			keyMgmt.Remove(keys);
+		}
+		public static void Remove(this ICacheKeyManagement keyMgmt, params string[] keys) {
+			keyMgmt.Remove(keys);
+		}
 	}
 }

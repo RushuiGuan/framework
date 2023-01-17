@@ -27,4 +27,7 @@
 		<ProjectReference Include="..\Albatross.WebClient\Albatross.WebClient.csproj" />
 		<ProjectReference Include="..\Albatross\Albatross.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="MemCache\" />
+	</ItemGroup>
 </Project>

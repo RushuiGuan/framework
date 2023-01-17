@@ -9,10 +9,10 @@ namespace Albatross.Hosting {
 	[Route("api/caching")]
 	[ApiController]
 	public class CachingController : ControllerBase {
-		private readonly IRedisKeyManagement keyMgmt;
+		private readonly ICacheKeyManagement keyMgmt;
 		private readonly ICacheProviderAdapter cacheProviderConverter;
 
-		public CachingController(IRedisKeyManagement keyMgmt, ICacheProviderAdapter cacheProviderConverter) {
+		public CachingController(ICacheKeyManagement keyMgmt, ICacheProviderAdapter cacheProviderConverter) {
 			this.keyMgmt = keyMgmt;
 			this.cacheProviderConverter = cacheProviderConverter;
 		}
