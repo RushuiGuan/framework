@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Polly.Caching;
 using Polly.Registry;
-using StackExchange.Redis;
 using System;
 
 namespace Albatross.Caching.TestHost {

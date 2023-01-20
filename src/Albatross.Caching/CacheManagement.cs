@@ -4,6 +4,7 @@ using Polly.Caching;
 using Polly.Registry;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Caching {
@@ -30,8 +31,7 @@ namespace Albatross.Caching {
 		public virtual string Name => this.GetType().Name;
 		public abstract ITtlStrategy TtlStrategy { get; }
 
-		public virtual void OnCacheGet(Context context, string cacheKey) {
-		}
+		public virtual void OnCacheGet(Context context, string cacheKey) { }
 		public virtual void OnCacheMiss(Context context, string cacheKey) {
 			if (!context.ContainsKey(Context_Init)) {
 				logger.LogInformation("Cache miss: {key}", cacheKey);
@@ -42,8 +42,13 @@ namespace Albatross.Caching {
 				logger.LogInformation("Cache put: {key}", cacheKey);
 			}
 		}
-		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) { }
-		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) { }
+		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) {
+			logger.LogError(error, "Cache get error for {name}", this.Name);
+		}
+		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) {
+			logger.LogError(error, "Cache put error for {name}", this.Name);
+
+		}
 
 		public void Register() {
 			if (!registry.ContainsKey(Name)) {
@@ -55,10 +60,8 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public virtual string GetCacheKey(Context context) {
-			// dash below is intentional so that it can be used as part of the prefix to evict all cache created by this class
-			return $"{Name}:{context.OperationKey}".ToLowerInvariant();
-		}
+		// dash below is intentional so that it can be used as part of the prefix to evict all cache created by this class
+		public virtual string GetCacheKey(Context context) => $"{Name}{Constant.CacheKeyDelimiter}{context.OperationKey}".ToLowerInvariant();
 
 		public void Remove(params Context[] contexts) {
 			var keys = contexts.Select(args => GetCacheKey(args));
@@ -71,9 +74,22 @@ namespace Albatross.Caching {
 			this.keyMgmt.FindAndRemoveKeys(pattern);
 		}
 
+		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, Context context, CancellationToken cancellationToken) {
+			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
+			return policy.ExecuteAsync(func, context, cancellationToken);
+		}
+
 		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, Context context) {
-			var policy = this.registry.GetAsyncPolicy<CacheFormat>(Name);
+			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
 			return policy.ExecuteAsync(func, context);
 		}
+
+		public Task<(bool, CacheFormat)> TryGetAsync(Context context, CancellationToken cancellationToken) {
+			string key = GetCacheKey(context);
+			return this.cacheProvider.TryGetAsync(key, cancellationToken, false);
+		}
+
+		public Task PutAsync(Context context, CacheFormat value, CancellationToken cancellationToken = default) =>
+			this.cacheProvider.PutAsync(GetCacheKey(context), value, this.TtlStrategy.GetTtl(context, value), cancellationToken, false);
 	}
 }

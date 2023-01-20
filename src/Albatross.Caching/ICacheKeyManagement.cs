@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Albatross.Caching {
 	public interface ICacheKeyManagement {
