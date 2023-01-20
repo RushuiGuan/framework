@@ -16,7 +16,7 @@ namespace Albatross.Caching.Test {
 		}
 		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromDays(1));
 	}
-	public class LongTermCacheMgmt2 : CacheManagement<object> {
+	public class LongTermCacheMgmt2 : CacheManagement<MyData> {
 		public LongTermCacheMgmt2(ILogger<LongTermCacheMgmt1> logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
 		}
 		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromDays(1));
