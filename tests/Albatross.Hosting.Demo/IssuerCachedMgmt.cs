@@ -9,7 +9,7 @@ namespace Albatross.Hosting.Test {
 	public class IssuerCachedMgmt : CacheManagement<string[]> {
 		public const string CacheName = "issuer";
 
-		public IssuerCachedMgmt(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCacheExtended cache) : base(logger, registry, cacheProvider, cache) {
+		public IssuerCachedMgmt(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, IRedisKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
 		}
 
 		public override string Name => CacheName;

@@ -1,8 +1,5 @@
 ﻿using Albatross.Authentication.Core;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Albatross.Hosting.Test {
 	public static class ServiceExtension {

@@ -1,0 +1,20 @@
+{
+	"Serilog": {
+		"WriteTo": {
+			"EmailSink": {
+				"Name": "Email",
+				"Args": {
+					"connectionInfo": {
+						"FromEmail": "DoNotReply@outlook.com",
+						"ToEmail": "rushui@outlook.com",
+						"MailServer": "mymailserver",
+						"EmailSubject": "ProjectName: {Message}",
+						"Port": 587
+					},
+					"restrictedToMinimumLevel": "Error",
+					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}"
+				}
+			}
+		}
+	}
+}

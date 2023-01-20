@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Caching;
 using Polly.Registry;
@@ -8,21 +7,27 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.Caching {
+
+	/// <summary>
+	/// a abstract cache management class.  All cache created by this class should have a prefix of $"{Name}:".  The name of the cache management is a virtual property with
+	/// the default implementation that returns the class name.
+	/// </summary>
+	/// <typeparam name="CacheFormat"></typeparam>
 	public abstract class CacheManagement<CacheFormat> : ICacheManagement<CacheFormat>, ICacheKeyStrategy {
 		protected readonly ILogger logger;
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
-		private readonly IMemoryCacheExtended cache;
+		private readonly IRedisKeyManagement keyMgmt;
 		public const string Context_Init = "init";
 
-		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, IAsyncCacheProvider cacheProvider, IMemoryCacheExtended cache) {
+		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter, IRedisKeyManagement keyMgmt) {
 			this.logger = logger;
 			this.registry = registry;
-			this.cacheProvider = cacheProvider.AsyncFor<CacheFormat>();
-			this.cache = cache;
+			this.keyMgmt = keyMgmt;
+			this.cacheProvider = cacheProviderAdapter.Create<CacheFormat>();
 		}
 
-		public abstract string Name { get; }
+		public virtual string Name => this.GetType().Name;
 		public abstract ITtlStrategy TtlStrategy { get; }
 
 		public virtual void OnCacheGet(Context context, string cacheKey) {
@@ -32,7 +37,6 @@ namespace Albatross.Caching {
 				logger.LogInformation("Cache miss: {key}", cacheKey);
 			}
 		}
-
 		public virtual void OnCachePut(Context context, string cacheKey) {
 			if (!context.ContainsKey(Context_Init)) {
 				logger.LogInformation("Cache put: {key}", cacheKey);
@@ -52,21 +56,24 @@ namespace Albatross.Caching {
 		}
 
 		public virtual string GetCacheKey(Context context) {
-			if (string.IsNullOrEmpty(context.OperationKey)) {
-				return Name.ToLowerInvariant();
-			} else {
-				return $"{Name}-{context.OperationKey}".ToLowerInvariant();
-			}
+			// dash below is intentional so that it can be used as part of the prefix to evict all cache created by this class
+			return $"{Name}:{context.OperationKey}".ToLowerInvariant();
 		}
 
-		public void Evict(params Context[] contexts) {
+		public void Remove(params Context[] contexts) {
 			var keys = contexts.Select(args => GetCacheKey(args));
-			logger.LogInformation("Evicting cache: {@key}", keys);
-			this.cache.Envict(keys);
+			logger.LogInformation("Removing cache: {@key}", keys);
+			keyMgmt.Remove(keys.ToArray());
+		}
+
+		public void Reset() {
+			var pattern = GetCacheKey(new Context()) + "*";
+			this.keyMgmt.FindAndRemoveKeys(pattern);
 		}
 
 		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, Context context) {
-			return this.registry.GetAsyncPolicy<CacheFormat>(Name).ExecuteAsync(func, context);
+			var policy = this.registry.GetAsyncPolicy<CacheFormat>(Name);
+			return policy.ExecuteAsync(func, context);
 		}
 	}
 }

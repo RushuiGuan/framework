@@ -18,7 +18,7 @@ namespace Albatross.Caching.Test {
 			var scope = host.Create();
 			var factory = scope.Get<ICacheManagementFactory>();
 			var cacheMgmt = factory.Get<string>(nameof(MyCacheMgmt));
-			string key = "a";
+			string key = "my man";
 			int count = 0;
 			var t1 = await cacheMgmt.ExecuteAsync(async context => {
 				await Task.Delay(1000);

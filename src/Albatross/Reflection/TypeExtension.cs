@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Albatross.Reflection {
 	public static partial class Extension {
@@ -18,6 +19,18 @@ namespace Albatross.Reflection {
 				return true;
 			}
 			valueType = null;
+			return false;
+		}
+
+		/// <summary>
+		/// Return the generic argument of Task<>
+		/// </summary>
+		public static bool GetTaskResultType(this Type taskType, [NotNullWhen(true)] out Type? resultType) {
+			if (taskType.IsGenericType && taskType.GetGenericTypeDefinition() == typeof(Task<>)) {
+				resultType = taskType.GetGenericArguments()[0];
+				return true;
+			}
+			resultType = null;
 			return false;
 		}
 
@@ -62,7 +75,12 @@ namespace Albatross.Reflection {
 		}
 
 		public static bool IsConcreteType(this Type type) => !type.IsAbstract && !type.IsInterface && type.IsClass && !type.IsGenericTypeDefinition;
+
+		/// <summary>
+		/// return true if input parameter is derived from the generic type
+		/// </summary>
 		public static bool IsDerived<T>(this Type type) => typeof(T).IsAssignableFrom(type);
+		public static bool IsDerived(this Type type, Type baseType) => baseType.IsAssignableFrom(type);
 
 
 		/// <summary>

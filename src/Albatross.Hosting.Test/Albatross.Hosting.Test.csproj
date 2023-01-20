@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	  <TargetFramework>net6.0</TargetFramework>
+	  <TargetFramework>net7.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
@@ -12,8 +12,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Moq" Version="4.18.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <PrivateAssets>all</PrivateAssets>
@@ -24,6 +24,8 @@
     <ProjectReference Include="..\Albatross.Authentication\Albatross.Authentication.csproj" />
     <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
     <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
+    <ProjectReference Include="..\Albatross.Repository.SqlServer\Albatross.Repository.SqlServer.csproj" />
+    <ProjectReference Include="..\Albatross.Repository\Albatross.Repository.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
