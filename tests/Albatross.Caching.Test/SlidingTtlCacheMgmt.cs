@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Albatross.Caching.Test {
-	public class SlidingTtlCacheMgmt : CacheManagement<object> {
+	public class SlidingTtlCacheMgmt : CacheManagement<MyData> {
 		public SlidingTtlCacheMgmt(ILogger<SlidingTtlCacheMgmt> logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
 		}
 		public override string Name => nameof(SlidingTtlCacheMgmt);

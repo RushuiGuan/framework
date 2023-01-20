@@ -52,13 +52,13 @@ namespace Albatross.Caching.Test {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();
 			var factory = scope.Get<ICacheManagementFactory>();
-			var cacheMgmt = factory.Get<object>(nameof(SlidingTtlCacheMgmt));
+			var cacheMgmt = factory.Get<MyData>(nameof(SlidingTtlCacheMgmt));
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			for (int i = 0; i < loopCount; i++) {
 				var result = await cacheMgmt.ExecuteAsync(context => {
 					cache_miss++;
-					return Task.FromResult(new object());
+					return Task.FromResult(new MyData());
 				}, new Context(key));
 				await Task.Delay(delay_ms);
 			}
@@ -76,7 +76,7 @@ namespace Albatross.Caching.Test {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();
 			var factory = scope.Get<ICacheManagementFactory>();
-			var cache = factory.Get<object>(name);
+			var cache = factory.Get<MyData>(name);
 			var fullKey = cache.GetCacheKey(new Context(key));
 			Assert.Equal(expected, fullKey);
 			if (string.IsNullOrEmpty(key)) {

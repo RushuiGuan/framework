@@ -8,6 +8,9 @@ namespace Albatross.Caching.Test {
 		public MyData(string value) {
 			this.Value = value;
 		}
+		public MyData() {
+			Value = Guid.NewGuid().ToString();
+		}
 
 		public string Value { get; set; }
 	}
