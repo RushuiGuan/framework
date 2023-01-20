@@ -6,9 +6,11 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="MyDbSession.sql" />
+    <None Remove="TestCases\data.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyDbSession.sql" />
+    <EmbeddedResource Include="TestCases\data.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">

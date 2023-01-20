@@ -88,20 +88,20 @@ namespace Albatross.WebClient.Test {
 			this.host = host;
 		}
 
-		[Fact]
+		[Fact(Skip = "require web server")]
 		public async Task RunNormalTest() {
 			var client = host.Provider.GetRequiredService<PollyTestClient>();
 			var result = await client.GetData(4);
 			Assert.Equal("successful", result);
 		}
 
-		[Fact]
+		[Fact(Skip = "require web server")]
 		public async Task RunFailTest() {
 			var client = host.Provider.GetRequiredService<PollyTestClient>();
 			await Assert.ThrowsAsync<ServiceException>(()=> client.GetData(100));
 		}
 
-		[Fact]
+		[Fact(Skip = "require web server")]
 		public async Task RunNormalTestWithManualPolicy() {
 			var client = host.Provider.GetRequiredService<PollyTestClient2>();
 			var result = await client.GetData(4);

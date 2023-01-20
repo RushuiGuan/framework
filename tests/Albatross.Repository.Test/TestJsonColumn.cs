@@ -34,7 +34,7 @@ namespace Albatross.Repository.Test {
 			});
 			await session.SaveChangesAsync();
 		}
-		[Fact]
+		[Fact(Skip ="require sql server")]
 		public async Task TestWrite() {
 			using var scope = host.Create();
 			var session = scope.Get<MyDbSession>();
@@ -55,7 +55,7 @@ namespace Albatross.Repository.Test {
 			await session.SaveChangesAsync();
 		}
 
-		[Fact]
+		[Fact(Skip ="require sql server")]
 		public async Task TestRead() {
 			using var scope = host.Create();
 			var session = scope.Get<MyDbSession>();
