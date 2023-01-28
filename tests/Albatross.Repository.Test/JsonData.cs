@@ -1,8 +1,6 @@
 ﻿using Albatross.Repository.SqlServer;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 
@@ -61,19 +59,10 @@ namespace Albatross.Repository.Test {
 	}
 
 	public class JsonDataEntityMap : EntityMap<JsonData> {
-		static JsonSerializerOptions options = new JsonSerializerOptions {
-			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-			TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
-		};
-		ValueConverter<IJsonData, string> valueConveter = new ValueConverter<IJsonData, string>(
-			args => JsonSerializer.Serialize(args, options),
-			args => JsonSerializer.Deserialize<IJsonData>(args, options) ?? new EmptyJsonData()
-		);
 		public override void Map(EntityTypeBuilder<JsonData> builder) {
 			base.Map(builder);
 			builder.HasKey(p => p.Id);
-			builder.Property(p => p.Rule).HasConversion(valueConveter);
+			builder.Property(p => p.Rule).HasConversion(this.GetJsonValueConverter<IJsonData>(() => new EmptyJsonData()));
 		}
 	}
 }
