@@ -45,23 +45,23 @@ namespace Albatross.Config {
 		/// For C# the HttpClient class will remove any relative path if the BaseUrl does not end with a slash.  For example: http://localhost/beezy will becomes 
 		/// http://localhost unless base url is set as http://localhost/beezy/
 		/// For the request url, if it starts with a slash, it will be considered as a root url.  By default, we shouldn't use any slash in the request url.
-		/// The call will always append Slack '/' to the endpoint if it doesn't already end with it.  If this behavior is not desired, use connection string instead.
+		/// The call will append Slack '/' to the endpoint by default if it doesn't already end with it.  If this behavior is not desired, set ensureTrailingSlash to false
 		/// </summary>
 		/// <param name="configuration"></param>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public static string? GetEndPoint(this IConfiguration configuration, string name) {
+		public static string? GetEndPoint(this IConfiguration configuration, string name, bool ensureTrailingSlash = true) {
 			string value = configuration.GetSection($"endpoints:{name}")?.Value;
-			if (value != null && !value.EndsWith(Slash)) {
+			if (value != null && !value.EndsWith(Slash) && ensureTrailingSlash) {
 				value = value + Slash;
 			}
 			return value;
 		}
 
-		public static string GetRequiredEndPoint(this IConfiguration configuration, string name) {
+		public static string GetRequiredEndPoint(this IConfiguration configuration, string name, bool ensureTrailingSlash = true) {
 			string section = $"endpoints:{name}";
 			string value = configuration.GetSection(section)?.Value;
-			if (value != null && !value.EndsWith(Slash)) {
+			if (value != null && !value.EndsWith(Slash) && ensureTrailingSlash) {
 				value = value + Slash;
 			}
 			return value ?? throw new ConfigurationException(section);
