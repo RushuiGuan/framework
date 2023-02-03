@@ -23,9 +23,9 @@ namespace Albatross.Config {
 		/// <typeparam name="ConfigType">The configuration class</typeparam>
 		/// <param name="services">The ServiceCollection instance</param>
 		/// <returns>The service collection instance</returns>
-		public static IServiceCollection AddConfig<ConfigType>(this IServiceCollection services, bool singleton = false) where ConfigType : ConfigBase{
+		public static IServiceCollection AddConfig<ConfigType>(this IServiceCollection services, bool singleton = false) where ConfigType : ConfigBase {
 			if (singleton) {
-				services.TryAddSingleton<ConfigType>(provider=> {
+				services.TryAddSingleton<ConfigType>(provider => {
 					var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
 					cfg.Validate();
 					return cfg;
@@ -57,6 +57,7 @@ namespace Albatross.Config {
 			}
 			return value;
 		}
+		public static string? GetEndPoint(this IConfiguration configuration, string name) => GetEndPoint(configuration, name, true);
 
 		public static string GetRequiredEndPoint(this IConfiguration configuration, string name, bool ensureTrailingSlash = true) {
 			string section = $"endpoints:{name}";
@@ -66,6 +67,8 @@ namespace Albatross.Config {
 			}
 			return value ?? throw new ConfigurationException(section);
 		}
+		public static string GetRequiredEndPoint(this IConfiguration configuration, string name) => GetRequiredEndPoint(configuration, name, true);
+
 		public static string GetRequiredConnectionString(this IConfiguration configuration, string name) {
 			string value = configuration.GetConnectionString(name);
 			return value ?? throw new ConfigurationException($"connectionStrings:{name}");
