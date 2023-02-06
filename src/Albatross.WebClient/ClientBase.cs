@@ -230,7 +230,7 @@ namespace Albatross.WebClient {
 		}
 		public void EnsureStatusCode<ErrorType>(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string content) {
 			Exception exception;
-			if (statusCode != HttpStatusCode.OK) {
+			if ((int)statusCode >= 200 && (int)statusCode < 300) {
 				try {
 					var error = Deserialize<ErrorType>(content);
 					if (typeof(ErrorType) == typeof(ServiceError)) {
