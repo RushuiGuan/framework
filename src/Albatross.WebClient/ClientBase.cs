@@ -174,7 +174,7 @@ namespace Albatross.WebClient {
 				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 			}
 			EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			return Deserialize<ResultType>(content);
+			return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType): Deserialize<ResultType>(content);
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
@@ -188,7 +188,7 @@ namespace Albatross.WebClient {
 				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 			}
 			EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			return Deserialize<ResultType>(content);
+			return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType) : Deserialize<ResultType>(content);
 		}
 		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
