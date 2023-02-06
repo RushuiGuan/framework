@@ -11,15 +11,12 @@ namespace Albatross.Hosting.Utility {
 		[Option('o', "console-out", Required = false, HelpText = "Console output file name")]
 		public string? LogFile { get; set; }
 
-		[Option('v', "verbose")]
-		public bool Verbose { get; set; }
-
 		[Option('c', "clipboard")]
 		public bool Clipboard { get; set; }
 
 
 		void SendResult(string result) {
-			if (Verbose) { Console.WriteLine(result); }
+			Console.WriteLine(result);
 
 			if (!string.IsNullOrEmpty(LogFile)) {
 				using var stream = System.IO.File.OpenWrite(LogFile);
