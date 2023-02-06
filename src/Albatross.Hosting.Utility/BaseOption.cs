@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
@@ -31,7 +32,18 @@ namespace Albatross.Hosting.Utility {
 			}
 		}
 
-		public void WriteOutput(object data) {
+		public void WriteOutput<T>(T data, params string[] properties) {
+			StringBuilder sb = new StringBuilder();
+			Type type = typeof(T);
+			var maxLength = properties.Max(args => args.Length);
+			foreach (var name in properties) {
+				var property = type.GetProperty(name) ?? throw new ArgumentException($"Property {name} is not found in class {type.Name}");
+				sb.Append(name.PadLeft(maxLength)).Append(": ").Append(property.GetValue(data)).AppendLine();
+			}
+			SendResult(sb.ToString());
+		}
+
+		public void WriteJsonOutput(object data) {
 			string result;
 			if (data is string) {
 				result = (string)data;
