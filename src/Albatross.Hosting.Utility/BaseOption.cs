@@ -33,7 +33,7 @@ namespace Albatross.Hosting.Utility {
 			}
 		}
 
-		public void WriteOutput<T>(T? data, params string[] properties) {
+		public void WriteProperties<T>(T? data, params string[] properties) {
 			if (data == null) { return; }
 			StringBuilder sb = new StringBuilder();
 			Type type = typeof(T);
@@ -48,7 +48,7 @@ namespace Albatross.Hosting.Utility {
 			SendResult(sb.ToString());
 		}
 
-		public void WriteJsonOutput(object data) {
+		public void WriteOutput(object data) {
 			string result;
 			if (data is string) {
 				result = (string)data;
