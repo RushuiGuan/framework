@@ -1,4 +1,5 @@
-﻿using CommandLine;
+﻿using Albatross.Reflection;
+using CommandLine;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -32,13 +33,17 @@ namespace Albatross.Hosting.Utility {
 			}
 		}
 
-		public void WriteOutput<T>(T data, params string[] properties) {
+		public void WriteOutput<T>(T? data, params string[] properties) {
+			if (data == null) { return; }
 			StringBuilder sb = new StringBuilder();
 			Type type = typeof(T);
 			var maxLength = properties.Max(args => args.Length);
 			foreach (var name in properties) {
-				var property = type.GetProperty(name) ?? throw new ArgumentException($"Property {name} is not found in class {type.Name}");
-				sb.Append(name.PadLeft(maxLength)).Append(": ").Append(property.GetValue(data)).AppendLine();
+				var value = type.GetPropertyValue(data, name);
+				if(value is DateTime ||  value is DateTime?) {
+					value = $"{value:yyyy-MM-dd HH:mm:ssz}";
+				}
+				sb.Append(name.PadLeft(maxLength)).Append(": ").Append(value).AppendLine();
 			}
 			SendResult(sb.ToString());
 		}
