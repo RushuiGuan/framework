@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.Json;
 
 namespace Albatross.Hosting.Utility {
-	public class BaseOption {
+	public record class BaseOption {
 		[Option('o', "console-out", Required = false, HelpText = "Console output file name")]
 		public string? LogFile { get; set; }
 
