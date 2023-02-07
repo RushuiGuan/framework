@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Caching.Utility {
 	[Verb("get")]
-	public record class GetValueOption : BaseOption {
+	public class GetValueOption : BaseOption {
 		[Option('k', "key", Required = true)]
 		public string Key { get; set; } = null!;
 	}
