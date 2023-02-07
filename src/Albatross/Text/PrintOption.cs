@@ -5,7 +5,7 @@ namespace Albatross.Text {
 		public delegate string FormatValueDelegate(string property, object? value);
 		public char HeaderSeperator { get; set; } = '-';
 		public FormatValueDelegate FormatValue { get; set; } = DefaultFormatValue;
-		static string DefaultFormatValue(string property, object? value) {
+		public static string DefaultFormatValue(string property, object? value) {
 			switch (value) {
 				case DateTime date:
 					if (property.Contains("datetime", StringComparison.InvariantCultureIgnoreCase)) {
