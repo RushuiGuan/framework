@@ -130,5 +130,44 @@ namespace Albatross.Text {
 				}
 			}
 		}
+
+		public static void PrintTable<T>(this TextWriter writer, T?[] items, PrintTableOption option, params string[] properties) {
+			int columnCount = properties.Length;
+			int[] columnWidth = new int[columnCount];
+			List<string?[]> rows = new List<string?[]>();
+			string?[] row;
+			row = new string[columnCount];
+			rows.Add(row);
+			for (int i = 0; i < columnCount; i++) {
+				row[i] = option.GetHeader(properties[i]);
+				columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
+			}
+			Type type = typeof(T);
+			foreach(var item in items) {
+				row = new string[columnCount];
+				rows.Add(row);
+				for(int i =0; i<columnCount; i++) {
+					var value = type.GetPropertyValue(item, properties[i]);
+					row[i] = option.FormatValue(properties[i], value);
+					columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
+				}
+			}
+			
+			bool headerSeperator = false;
+			foreach (var r in rows) {
+				for (int i = 0; i < columnCount; i++) {
+					writer.Append((r[i] ?? string.Empty).PadRight(columnWidth[i]));
+					if (i == columnCount - 1) {
+						writer.WriteLine();
+					} else {
+						writer.Space();
+					}
+				}
+				if (!headerSeperator) {
+					headerSeperator = true;
+					writer.AppendChar(option.HeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
+				}
+			}
+		}
 	}
 }
