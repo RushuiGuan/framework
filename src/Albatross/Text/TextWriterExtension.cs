@@ -2,9 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using Albatross.Reflection;
 
 namespace Albatross.Text {
-	public static class TextWriterExtension {
+	public static partial class TextWriterExtension {
 		public static TextWriter Append(this TextWriter writer, object obj) {
 			writer.Write(obj);
 			return writer;
@@ -74,6 +75,60 @@ namespace Albatross.Text {
 				}
 			}
 			return writer;
+		}
+
+		public static void PrintProperties<T>(this TextWriter writer, T? data, params string[] properties) 
+			=> writer.PrintProperties<T>(new T?[] { data }, new PrintPropertiesOption(), properties);
+
+		public static void PrintProperties<T>(this TextWriter writer, T?[] items, PrintPropertiesOption option, params string[] properties) {
+			int columnCount = items.Length + 1;
+			int[] columnWidth = new int[columnCount];
+			List<string?[]> rows = new List<string?[]>();
+			string?[] row;
+			if (option?.GetHeader != null) {
+				row = new string[columnCount];
+				row[0] = null;
+				for (int i = 1; i < columnCount; i++) {
+					row[i] = option.GetHeader(i - 1);
+					columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
+				}
+				rows.Add(row);
+			}
+			Type type = typeof(T);
+			foreach (var name in properties) {
+				row = new string[columnCount];
+				rows.Add(row);
+				row[0] = name;
+				columnWidth[0] = System.Math.Max(columnWidth[0], name.Length);
+				for (int i = 0; i < items.Length; i++) {
+					var value = type.GetPropertyValue(items[i], name);
+					if (option?.FormatValue != null) {
+						row[i + 1] = option.FormatValue(name, value);
+					} else {
+						row[i + 1] = Convert.ToString(value);
+					}
+					columnWidth[i + 1] = System.Math.Max(columnWidth[i + 1], row[i + 1]?.Length ?? 0);
+				}
+			}
+			bool headerSeperator = false;
+			foreach (var r in rows) {
+				for (int i = 0; i < columnCount; i++) {
+					if (i == 0) {
+						writer.Write((r[i] ?? string.Empty).PadLeft(columnWidth[i]));
+					} else {
+						writer.Append((r[i] ?? string.Empty).PadRight(columnWidth[i]));
+					}
+					if (i == columnCount - 1) {
+						writer.WriteLine();
+					} else {
+						writer.Space();
+					}
+				}
+				if(option?.HasHeaderSeperator == true && !headerSeperator) {
+					headerSeperator = true;
+					writer.AppendChar(option.HeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
+				}
+			}
 		}
 	}
 }

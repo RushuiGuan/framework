@@ -189,7 +189,8 @@ namespace Albatross.Reflection {
 		/// return the property value of an object using reflection.  Property name can be delimited using . to allow retrieval of nested object property value
 		/// </summary>
 		/// <exception cref="ArgumentException"></exception>
-		public static object? GetPropertyValue(this Type type, object data, string name) {
+		public static object? GetPropertyValue(this Type type, object? data, string name) {
+			if (data == null) { return null; }
 			var index = name.IndexOf('.');
 			if(index == -1) {
 				var property = type.GetProperty(name) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");

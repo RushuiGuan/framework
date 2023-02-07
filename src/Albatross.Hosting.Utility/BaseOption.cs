@@ -1,4 +1,5 @@
 ﻿using Albatross.Reflection;
+using Albatross.Text;
 using CommandLine;
 using System;
 using System.Collections.Generic;
@@ -34,18 +35,15 @@ namespace Albatross.Hosting.Utility {
 		}
 
 		public void WriteProperties<T>(T? data, params string[] properties) {
-			if (data == null) { return; }
-			StringBuilder sb = new StringBuilder();
-			Type type = typeof(T);
-			var maxLength = properties.Max(args => args.Length);
-			foreach (var name in properties) {
-				var value = type.GetPropertyValue(data, name);
-				if(value is DateTime ||  value is DateTime?) {
-					value = $"{value:yyyy-MM-dd HH:mm:ssz}";
-				}
-				sb.Append(name.PadLeft(maxLength)).Append(": ").Append(value).AppendLine();
-			}
-			SendResult(sb.ToString());
+			StringWriter writer = new StringWriter();
+			writer.PrintProperties(data, properties);
+			SendResult(writer.ToString());
+		}
+
+		public void WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option, params string[] properties) {
+			StringWriter writer = new StringWriter();
+			writer.PrintProperties<T>(data.ToArray(), option,  properties);
+			SendResult(writer.ToString());
 		}
 
 		public void WriteOutput(object data) {
