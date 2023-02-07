@@ -46,6 +46,12 @@ namespace Albatross.Hosting.Utility {
 			SendResult(writer.ToString());
 		}
 
+		public void WriteTable<T>(IEnumerable<T> data, PrintTableOption option, params string[] properties) {
+			StringWriter writer = new StringWriter();
+			writer.PrintTable<T>(data.ToArray(), option, properties);
+			SendResult(writer.ToString());
+		}
+
 		public void WriteOutput(object data) {
 			string result;
 			if (data is string) {
