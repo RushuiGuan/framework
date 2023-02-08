@@ -1,6 +1,9 @@
-﻿using Albatross.Reflection;
+﻿using Albatross.Logging;
+using Albatross.Reflection;
 using Albatross.Text;
 using CommandLine;
+using Serilog.Events;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,9 +17,25 @@ namespace Albatross.Hosting.Utility {
 		[Option('o', "console-out", Required = false, HelpText = "Console output file name")]
 		public string? LogFile { get; set; }
 
-		[Option('c', "clipboard")]
+		[Option("clipboard", HelpText ="Set this flag to copy the output to clipboard")]
 		public bool Clipboard { get; set; }
 
+		[Option("verbose", HelpText = "Set this flag to see logs at information level")]
+		public bool Verbose{ get; set; }
+
+		[Option("debug", HelpText = "Set this flag to see logs at debug level")]
+		public bool Debug{ get; set; }
+
+
+		public void ConfigureLogging(LoggerConfiguration cfg) {
+			if (Debug) {
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
+			}else if (Verbose) {
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Information);
+			} else {
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Error);
+			}
+		}
 
 		void SendResult(string result) {
 			Console.WriteLine(result);
