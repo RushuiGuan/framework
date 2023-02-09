@@ -1,12 +1,15 @@
 {
-	"profiles": {
-		"logging-test": {
-			"commandName": "Project",
-			"commandLineArgs": "logging-test"
-		},
-		"config-test": {
-			"commandName": "Project",
-			"commandLineArgs": "config-test"
-		}
-	}
+  "profiles": {
+    "logging-test": {
+      "commandName": "Project",
+      "commandLineArgs": "logging-test"
+    },
+    "config-test": {
+      "commandName": "Project",
+      "commandLineArgs": "config-test"
+    },
+    "generic type check": {
+      "commandName": "Project"
+    }
+  }
 }

@@ -27,7 +27,11 @@ namespace Albatross.Hosting.Utility {
 		private Serilog.Core.Logger serilogLogger;
 
 		protected virtual void ConfigureLogging(LoggerConfiguration cfg) {
-			SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
+			if(this.Options is BaseOption) {
+				(this.Options as BaseOption)?.ConfigureLogging(cfg);
+			} else {
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
+			}
 		}
 
 		public virtual string CurrentDirectory => Path.GetDirectoryName(Environment.GetCommandLineArgs()[0])!;

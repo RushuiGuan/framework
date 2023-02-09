@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Albatross.Config;
 using System.Threading.Tasks;
+using Org.BouncyCastle.Crypto.Agreement.JPake;
 
 namespace Albatross.Test.Reflection {
     public struct GenericStruct<T> {
@@ -156,5 +157,59 @@ namespace Albatross.Test.Reflection {
 			Assert.True(typeof(string).IsDerived(typeof(object)));
 			Assert.False(typeof(object).IsDerived(typeof(string)));
 		}
-    }
+
+		class Style {
+			public string? Name { get; set; }
+			public string? Color { get; set; }
+			public Width? Width { get; set; }
+			public Padding? Padding { get; set; }
+		}
+
+		class Width {
+			public string? Unit { get; set; }
+			public int Number { get; set; }
+			public int? Stroke { get; set; }
+		}
+		class Padding {
+			public string? Left { get; set; }
+			public string? Right { get; set; }
+		}
+	
+		[Theory]
+		[InlineData(nameof(Style.Name), "box")]
+		[InlineData(nameof(Style.Color), "red")]
+		[InlineData("Width.Unit", "px")]
+		[InlineData("Width.Number", 100)]
+		[InlineData("Width.Stroke", null)]
+		[InlineData("Padding", null)]
+		[InlineData("Padding.Left", null)]
+		[InlineData("Padding.Right", null)]
+		[InlineData("Padding.x", null)]	// the method will return null here even when x is not a valid property because the Padding property is null
+		public void TestGetPropertyValue(string propertyName, object expected) {
+			var obj = new Style {
+				Name = "box",
+				Color = "red",
+				Width = new Width {
+					Unit = "px",
+					Number = 100,
+				}
+			};
+			Assert.Equal(typeof(Style).GetPropertyValue(obj, propertyName), expected);
+		}
+		[Theory]
+		[InlineData("Name1")]
+		[InlineData("Color1")]
+		[InlineData("Width.Unit1")]
+		public void TestGetPropertyValueNotFound(string propertyName) {
+			var obj = new Style {
+				Name = "box",
+				Color = "red",
+				Width = new Width {
+					Unit = "px",
+					Number = 100,
+				}
+			};
+			Assert.Throws<ArgumentException>(() => typeof(Style).GetPropertyValue(obj, propertyName));
+		}
+	}
 }
