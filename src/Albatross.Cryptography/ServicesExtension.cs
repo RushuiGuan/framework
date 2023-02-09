@@ -7,7 +7,6 @@ using System.Text;
 namespace Albatross.Cryptography {
     public static class ServicesExtension {
 		public static IServiceCollection AddCrypto(this IServiceCollection services) {
-			services.AddSingleton<ICryptoRNG, CryptoRNG>();
 			services.AddSingleton<ICreateHMACHash, CreateHMACSHAHash>();
 			services.AddSingleton<CreateSHA256Hash>();
 			services.AddSingleton<CreateSHA512Hash>();

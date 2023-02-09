@@ -6,6 +6,7 @@ using Xunit;
 using System.IO;
 using System.Linq;
 using Albatross.Config;
+using System.Threading.Tasks;
 
 namespace Albatross.Test.Reflection {
     public struct GenericStruct<T> {
@@ -34,7 +35,22 @@ namespace Albatross.Test.Reflection {
             Assert.Null(args);
         }
 
-        [Fact]
+
+		[Fact]
+		public void TestGetTestResultType_True() {
+			Type type = typeof(Task<string>);
+			Assert.True(type.GetTaskResultType(out Type args));
+			Assert.Same(typeof(string), args);
+		}
+
+		[Fact]
+		public void TestGetTestResultType_False() {
+			Type type = typeof(string);
+			Assert.False(type.GetTaskResultType(out Type args));
+			Assert.Null(args);
+		}
+
+		[Fact]
         public void TestGetCollectionElementType_True() {
             Type type = typeof(IEnumerable<string>);
             Assert.True(type.GetCollectionElementType(out Type args));
@@ -130,6 +146,15 @@ namespace Albatross.Test.Reflection {
 		public void TestIsNullable() {
 			Assert.True(typeof(int?).IsNullable());
 			Assert.False(this.GetType().IsNullable());
+		}
+
+		[Fact]
+		public void TestIsDerived() {
+			Assert.True(typeof(string).IsDerived<object>());
+			Assert.False(typeof(object).IsDerived<string>());
+
+			Assert.True(typeof(string).IsDerived(typeof(object)));
+			Assert.False(typeof(object).IsDerived(typeof(string)));
 		}
     }
 }
