@@ -14,7 +14,7 @@ using System.Text.Json;
 
 namespace Albatross.Hosting.Utility {
 	public class BaseOption {
-		[Option('o', "console-out", Required = false, HelpText = "Console output file name")]
+		[Option("console-out", Required = false, HelpText = "Console output file name")]
 		public string? LogFile { get; set; }
 
 		[Option("clipboard", HelpText ="Set this flag to copy the output to clipboard")]
@@ -85,6 +85,7 @@ namespace Albatross.Hosting.Utility {
 			}
 			SendResult(result);
 		}
+
 		public void WriteCsvOutput<T>(IEnumerable<T> items) {
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
