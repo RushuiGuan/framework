@@ -97,5 +97,10 @@ namespace Albatross.Hosting.Utility {
 			}
 			SendResult(sb.ToString());
 		}
+
+		public string? Prompt(string message) {
+			Console.Write(message);
+			return Console.ReadLine();
+		}
 	}
 }
