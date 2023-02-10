@@ -77,15 +77,15 @@ namespace Albatross.Text {
 			return writer;
 		}
 
-		public static void PrintProperties<T>(this TextWriter writer, T? data, params string[] properties) 
-			=> writer.PrintProperties<T>(new T?[] { data }, new PrintPropertiesOption(), properties);
+		public static void PrintProperties<T>(this TextWriter writer, T? data, params string[] properties)
+			=> writer.PrintProperties<T>(new T?[] { data }, new PrintPropertiesOption(properties));
 
-		public static void PrintProperties<T>(this TextWriter writer, T?[] items, PrintPropertiesOption option, params string[] properties) {
+		public static void PrintProperties<T>(this TextWriter writer, T?[] items, PrintPropertiesOption option) {
 			int columnCount = items.Length + 1;
 			int[] columnWidth = new int[columnCount];
 			List<string?[]> rows = new List<string?[]>();
 			string?[] row;
-			if (option?.GetRowHeader != null) {
+			if (option.GetRowHeader != null) {
 				row = new string[columnCount];
 				row[0] = null;
 				for (int i = 1; i < columnCount; i++) {
@@ -95,14 +95,14 @@ namespace Albatross.Text {
 				rows.Add(row);
 			}
 			Type type = typeof(T);
-			foreach (var name in properties) {
+			foreach (var name in option.Properties) {
 				row = new string[columnCount];
 				rows.Add(row);
-				row[0] = option?.GetColumnHeader?.Invoke(name) ?? name;
+				row[0] = option.GetColumnHeader?.Invoke(name) ?? name;
 				columnWidth[0] = System.Math.Max(columnWidth[0], name.Length);
 				for (int i = 0; i < items.Length; i++) {
 					var value = type.GetPropertyValue(items[i], name);
-					if (option?.FormatValue != null) {
+					if (option.FormatValue != null) {
 						row[i + 1] = option.FormatValue(name, value);
 					} else {
 						row[i + 1] = Convert.ToString(value);
@@ -124,22 +124,22 @@ namespace Albatross.Text {
 						writer.Space();
 					}
 				}
-				if(option?.HasRowHeaderSeperator == true && !rowHeaderSeperator) {
+				if(option.HasRowHeaderSeperator == true && !rowHeaderSeperator) {
 					rowHeaderSeperator = true;
 					writer.AppendChar(option.RowHeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
 				}
 			}
 		}
 
-		public static void PrintTable<T>(this TextWriter writer, T?[] items, PrintTableOption option, params string[] properties) {
-			int columnCount = properties.Length;
+		public static void PrintTable<T>(this TextWriter writer, T?[] items, PrintTableOption option) {
+			int columnCount = option.Properties.Length;
 			int[] columnWidth = new int[columnCount];
 			List<string?[]> rows = new List<string?[]>();
 			string?[] row;
 			row = new string[columnCount];
 			rows.Add(row);
 			for (int i = 0; i < columnCount; i++) {
-				row[i] = option.GetRowHeader(properties[i]);
+				row[i] = option.GetRowHeader(option.Properties[i]);
 				columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 			}
 			Type type = typeof(T);
@@ -147,8 +147,8 @@ namespace Albatross.Text {
 				row = new string[columnCount];
 				rows.Add(row);
 				for(int i =0; i<columnCount; i++) {
-					var value = type.GetPropertyValue(item, properties[i]);
-					row[i] = option.FormatValue(properties[i], value);
+					var value = type.GetPropertyValue(item, option.Properties[i]);
+					row[i] = option.FormatValue(option.Properties[i], value);
 					columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 				}
 			}
