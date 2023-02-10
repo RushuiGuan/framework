@@ -3,14 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Polly;
 using Polly.Registry;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Xml.Linq;
 
 namespace Albatross.Caching {
 	public static class Extension {
@@ -55,7 +51,7 @@ namespace Albatross.Caching {
 		}
 
 
-		static ICacheManagement Get(this ICacheManagementFactory factory, string name) {
+		public static ICacheManagement Get(this ICacheManagementFactory factory, string name) {
 			if (factory.TryGetValue(name, out ICacheManagement result)) {
 				return result;
 			} else {
