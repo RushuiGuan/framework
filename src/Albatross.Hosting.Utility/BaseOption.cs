@@ -14,8 +14,8 @@ using System.Text.Json;
 
 namespace Albatross.Hosting.Utility {
 	public class BaseOption {
-		[Option("console-out", Required = false, HelpText = "Console output file name")]
-		public string? LogFile { get; set; }
+		[Option("out", HelpText = "The filename to save the console output")]
+		public string? Output { get; set; }
 
 		[Option("clipboard", HelpText ="Set this flag to copy the output to clipboard")]
 		public bool Clipboard { get; set; }
@@ -40,8 +40,8 @@ namespace Albatross.Hosting.Utility {
 		void SendResult(string result) {
 			Console.WriteLine(result);
 
-			if (!string.IsNullOrEmpty(LogFile)) {
-				using var stream = System.IO.File.OpenWrite(LogFile);
+			if (!string.IsNullOrEmpty(Output)) {
+				using var stream = System.IO.File.OpenWrite(Output);
 				using var fileWriter = new StreamWriter(stream);
 				fileWriter.Write(result);
 				fileWriter.Flush();

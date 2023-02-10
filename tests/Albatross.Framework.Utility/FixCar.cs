@@ -51,7 +51,7 @@ namespace Albatross.Framework.Utility {
 				Category = "oil change",
 				Clipboard = Options.Clipboard,
 				EstimatedCost = 80,
-				LogFile = Options.LogFile,
+				Output = Options.Output,
 				Model = Options.Model,
 				Year = Options.Year,
 			});

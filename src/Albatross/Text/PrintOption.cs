@@ -3,7 +3,7 @@
 namespace Albatross.Text {
 	public class PrintOption {
 		public delegate string FormatValueDelegate(string property, object? value);
-		public char HeaderSeperator { get; set; } = '-';
+		public char RowHeaderSeperator { get; set; } = '-';
 		public FormatValueDelegate FormatValue { get; set; } = DefaultFormatValue;
 		public static string DefaultFormatValue(string property, object? value) {
 			switch (value) {
@@ -20,11 +20,12 @@ namespace Albatross.Text {
 	}
 
 	public class PrintPropertiesOption : PrintOption {
-		public Func<int, string?>? GetHeader { get; set; }
-		public bool HasHeaderSeperator => GetHeader != null;
+		public Func<int, string?>? GetRowHeader { get; set; }
+		public Func<string, string> GetColumnHeader { get; set; } = args => args;
+		public bool HasRowHeaderSeperator => GetRowHeader != null;
 	}
 
 	public class PrintTableOption : PrintOption {
-		public Func<string, string> GetHeader { get; set; } = args => args;
+		public Func<string, string> GetRowHeader { get; set; } = args => args;
 	}
 }

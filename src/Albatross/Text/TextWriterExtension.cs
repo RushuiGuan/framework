@@ -85,11 +85,11 @@ namespace Albatross.Text {
 			int[] columnWidth = new int[columnCount];
 			List<string?[]> rows = new List<string?[]>();
 			string?[] row;
-			if (option?.GetHeader != null) {
+			if (option?.GetRowHeader != null) {
 				row = new string[columnCount];
 				row[0] = null;
 				for (int i = 1; i < columnCount; i++) {
-					row[i] = option.GetHeader(i - 1);
+					row[i] = option.GetRowHeader(i - 1);
 					columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 				}
 				rows.Add(row);
@@ -98,7 +98,7 @@ namespace Albatross.Text {
 			foreach (var name in properties) {
 				row = new string[columnCount];
 				rows.Add(row);
-				row[0] = name;
+				row[0] = option?.GetColumnHeader?.Invoke(name) ?? name;
 				columnWidth[0] = System.Math.Max(columnWidth[0], name.Length);
 				for (int i = 0; i < items.Length; i++) {
 					var value = type.GetPropertyValue(items[i], name);
@@ -110,7 +110,7 @@ namespace Albatross.Text {
 					columnWidth[i + 1] = System.Math.Max(columnWidth[i + 1], row[i + 1]?.Length ?? 0);
 				}
 			}
-			bool headerSeperator = false;
+			bool rowHeaderSeperator = false;
 			foreach (var r in rows) {
 				for (int i = 0; i < columnCount; i++) {
 					if (i == 0) {
@@ -124,9 +124,9 @@ namespace Albatross.Text {
 						writer.Space();
 					}
 				}
-				if(option?.HasHeaderSeperator == true && !headerSeperator) {
-					headerSeperator = true;
-					writer.AppendChar(option.HeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
+				if(option?.HasRowHeaderSeperator == true && !rowHeaderSeperator) {
+					rowHeaderSeperator = true;
+					writer.AppendChar(option.RowHeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
 				}
 			}
 		}
@@ -139,7 +139,7 @@ namespace Albatross.Text {
 			row = new string[columnCount];
 			rows.Add(row);
 			for (int i = 0; i < columnCount; i++) {
-				row[i] = option.GetHeader(properties[i]);
+				row[i] = option.GetRowHeader(properties[i]);
 				columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 			}
 			Type type = typeof(T);
@@ -165,7 +165,7 @@ namespace Albatross.Text {
 				}
 				if (!headerSeperator) {
 					headerSeperator = true;
-					writer.AppendChar(option.HeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
+					writer.AppendChar(option.RowHeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
 				}
 			}
 		}

@@ -66,7 +66,7 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
 			writer.PrintProperties<Product>(products, new PrintPropertiesOption {
-				GetHeader = args => {
+				GetRowHeader = args => {
 					switch (args) {
 						case 0:
 							return "My Product";
