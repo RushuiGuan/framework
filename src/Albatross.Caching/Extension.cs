@@ -65,7 +65,7 @@ namespace Albatross.Caching {
 			return (ICacheManagement<CacheFormat>)cache;
 		}
 
-		public static void Remove(this ICacheManagement cache, params string[] keys) {
+		public static void Remove(this ICacheManagement cache, IEnumerable<string> keys) {
 			cache.Remove(keys.Select(args => new Polly.Context(args)).ToArray());
 		}
 	}
