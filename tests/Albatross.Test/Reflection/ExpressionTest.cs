@@ -5,7 +5,7 @@ using Xunit;
 namespace Albatross.Test.Reflection {
 	public class ExpressionTest {
 		public class A {
-			public string Test1 { get; }
+			public string? Test1 { get; }
 			public int Number { get; }
 		}
 

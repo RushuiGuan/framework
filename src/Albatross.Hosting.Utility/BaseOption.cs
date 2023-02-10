@@ -59,15 +59,15 @@ namespace Albatross.Hosting.Utility {
 			SendResult(writer.ToString());
 		}
 
-		public void WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option, params string[] properties) {
+		public void WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option) {
 			StringWriter writer = new StringWriter();
-			writer.PrintProperties<T>(data.ToArray(), option,  properties);
+			writer.PrintProperties<T>(data.ToArray(), option);
 			SendResult(writer.ToString());
 		}
 
-		public void WriteTable<T>(IEnumerable<T> data, PrintTableOption option, params string[] properties) {
+		public void WriteTable<T>(IEnumerable<T> data, PrintTableOption option) {
 			StringWriter writer = new StringWriter();
-			writer.PrintTable<T>(data.ToArray(), option, properties);
+			writer.PrintTable<T>(data.ToArray(), option);
 			SendResult(writer.ToString());
 		}
 

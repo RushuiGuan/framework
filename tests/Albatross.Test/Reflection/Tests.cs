@@ -130,7 +130,7 @@ namespace Albatross.Test.Reflection {
 		[Fact]
 		public void TestAssemblyLocation() {
 			string location = this.GetType().Assembly.Location;
-			string name1 = new FileInfo(location).Directory.FullName;
+			string name1 = new FileInfo(location).Directory?.FullName;
 			string name2 = new FileInfo(location).DirectoryName;
 			Assert.Equal(name1, name2);
 		}
