@@ -11,7 +11,7 @@ namespace Albatross.Test.Reflection {
 
 		[Fact]
 		public void TestCase1() {
-			PropertyInfo p = ExpressionExtension.GetPropertyInfo<A>(args => args.Test1);
+			PropertyInfo p = ExpressionExtension.GetPropertyInfo<A>(args => args.Test1!);
 			Assert.Equal(nameof(A.Test1), p.Name);
 		}
 
