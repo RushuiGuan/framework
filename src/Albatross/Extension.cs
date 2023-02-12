@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 
 
 namespace Albatross {
@@ -8,7 +8,7 @@ namespace Albatross {
 	/// category.  Microsoft use namespace "System" for them.  We could consider Albatross.System but Albatross seems fitting.
 	/// </summary>
 	public static class Extension {
-		public static HashCode From<T>(this HashCode hashCode, IEnumerable<T> items) {
+		public static HashCode FromCollection(this HashCode hashCode, IEnumerable items) {
 			foreach(var item in items) {
 				hashCode.Add(item);
 			}

@@ -16,10 +16,7 @@ namespace Albatross.Test.RecordClass {
 		public MyRecord(int id) { Id = id; }
 		public List<string> List { get; init; } = new List<string>();
 		public override int GetHashCode() {
-			var hashCode = new HashCode();
-			hashCode.Add(Id);
-			List.ForEach(args => hashCode.Add(args));
-			return hashCode.ToHashCode();
+			return new HashCode().From(Id).FromCollection(List).ToHashCode();
 		}
 		public virtual bool Equals(MyRecord? other) {
 			if(other == null || other.GetType() != this.GetType()) return false;
