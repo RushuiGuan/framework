@@ -16,10 +16,11 @@ namespace Albatross.Repository.ByEFCore {
 		public DbSession(DbContextOptions option) : base(option) { }
 
 		public virtual Assembly[] EntityModelAssemblies => new Assembly[] { this.GetType().Assembly };
+		public virtual string NamespacePrefix => string.Empty;
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			foreach (var assembly in EntityModelAssemblies) {
-				var items = assembly.GetEntityModels();
+				var items = assembly.GetEntityModels(this.NamespacePrefix);
 				foreach (var item in items) {
 					item.Build(modelBuilder);
 				}

@@ -7,10 +7,12 @@ using System.Reflection;
 
 namespace Albatross.Repository.ByEFCore {
 	public static class ServiceExtension {
-		public static IEnumerable<IBuildEntityModel> GetEntityModels(this Assembly assembly) {
+		public static IEnumerable<IBuildEntityModel> GetEntityModels(this Assembly assembly, string? namespacePrefix) {
 			List<IBuildEntityModel> list = new List<IBuildEntityModel>();
 			foreach (Type type in assembly.GetConcreteClasses<IBuildEntityModel>()) {
-				list.Add((IBuildEntityModel)Activator.CreateInstance(type)!);
+				if (string.IsNullOrEmpty(namespacePrefix) || type?.Namespace?.StartsWith(namespacePrefix) == true) {
+					list.Add((IBuildEntityModel)Activator.CreateInstance(type)!);
+				}
 			}
 			return list;
 		}
