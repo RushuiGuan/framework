@@ -24,6 +24,7 @@ namespace Albatross.Test.Serialization {
 
 	public class TestPolymorphic {
 		const string myClass = @"{""$type"":""my-class"",""Type"":""b"",""Name"":""a""}";
+		const string myClassWithoutType = @"{""Type"":""b"",""Name"":""a""}";
 		const string myBase = @"{""Name"":""c""}";
 		[Fact]
 		public void TestSerialization() {
@@ -43,5 +44,15 @@ namespace Albatross.Test.Serialization {
 			dto = JsonSerializer.Deserialize<MyBase>(myClass);
 			Assert.IsType<MyClass>(dto);
 		}
+
+		[Fact]
+		public void TestBaseClassVsDerivedClassSerialization() {
+			MyBase dto = new MyClass("a", "b");
+			var text = JsonSerializer.Serialize(dto);
+			Assert.Equal(myClass, text);
+			text = JsonSerializer.Serialize((MyClass)dto);
+			Assert.Equal(myClassWithoutType, text);
+		}
 	}
+
 }

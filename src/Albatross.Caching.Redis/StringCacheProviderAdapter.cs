@@ -30,9 +30,6 @@ namespace Albatross.Caching.Redis {
 				case string text:
 					return text;
 				default:
-					// do not remove the generic type T here.  The compile will pick the wrong signature and pick Serialize(obj)
-					// instead of Serialize<T>(T t).  This makes a difference with T being the base class and the obj being its derived
-					// class
 					return JsonSerializer.Serialize<T>(obj);
 			}
 		}
