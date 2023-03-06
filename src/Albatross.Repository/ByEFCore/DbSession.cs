@@ -1,4 +1,5 @@
-﻿using Albatross.Repository.Core;
+﻿using Albatross.Text;
+using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Reflection;
@@ -20,7 +21,7 @@ namespace Albatross.Repository.ByEFCore {
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			foreach (var assembly in EntityModelAssemblies) {
-				var items = assembly.GetEntityModels(this.NamespacePrefix);
+				var items = assembly.GetEntityModels(this.NamespacePrefix.PostfixIfNotNullOrEmpty('.'));
 				foreach (var item in items) {
 					item.Build(modelBuilder);
 				}

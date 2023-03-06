@@ -59,5 +59,19 @@ namespace Albatross.Text {
 			var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
 			return regex.IsMatch(text);
 		}
+
+		/// <summary>
+		/// Postfix the specified character to the text if the text is not empty and does not end with the said character
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="character"></param>
+		/// <returns></returns>
+		public static string? PostfixIfNotNullOrEmpty(this string? text, char character) {
+			if(!string.IsNullOrEmpty(text) && !text.EndsWith(character)) {
+				return text + character;
+			} else {
+				return text;
+			}
+		}
 	}
 }
