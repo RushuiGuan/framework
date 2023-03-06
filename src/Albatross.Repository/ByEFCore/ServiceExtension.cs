@@ -10,7 +10,7 @@ namespace Albatross.Repository.ByEFCore {
 		public static IEnumerable<IBuildEntityModel> GetEntityModels(this Assembly assembly, string? namespacePrefix) {
 			List<IBuildEntityModel> list = new List<IBuildEntityModel>();
 			foreach (Type type in assembly.GetConcreteClasses<IBuildEntityModel>()) {
-				if (string.IsNullOrEmpty(namespacePrefix) || type?.Namespace?.StartsWith(namespacePrefix) == true) {
+				if (string.IsNullOrEmpty(namespacePrefix) || type?.FullName?.StartsWith(namespacePrefix) == true) {
 					list.Add((IBuildEntityModel)Activator.CreateInstance(type)!);
 				}
 			}
