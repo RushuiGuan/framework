@@ -14,7 +14,7 @@ using System.Text.Json;
 
 namespace Albatross.Hosting.Utility {
 	public class BaseOption {
-		[Option("out", HelpText = "The filename to save the console output")]
+		[Option("console-out", HelpText = "The filename to save the console output")]
 		public string? Output { get; set; }
 
 		[Option("clipboard", HelpText ="Set this flag to copy the output to clipboard")]
