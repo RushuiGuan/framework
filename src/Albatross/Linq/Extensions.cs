@@ -21,6 +21,16 @@ namespace Albatross.Linq {
 			}
 			return value;
 		}
+
+		public static T GetOrAdd<T>(this ICollection<T> list, Func<T, bool> predicate, Func<T> func) {
+			var item = list.FirstOrDefault(predicate);
+			if (item == null) {
+				item = func();
+				list.Add(item);
+			}
+			return item;
+		}
+		
 		public static void Merge<Src, Dst, TKey>(this IEnumerable<Dst> dst, IEnumerable<Src> src,
 			Func<Src, TKey> srcKeySelector, Func<Dst, TKey> dstKeySelector,
 			Action<Src, Dst>? matched, Action<Src>? notMatchedByDst, Action<Dst>? notMatchedBySrc) where TKey : notnull {
