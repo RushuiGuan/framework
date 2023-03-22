@@ -33,7 +33,7 @@ namespace Albatross.Hosting.Utility {
 			}else if (Verbose) {
 				SetupSerilog.UseConsole(cfg, LogEventLevel.Information);
 			} else {
-				SetupSerilog.UseConsole(cfg, LogEventLevel.Error);
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Warning);
 			}
 		}
 
