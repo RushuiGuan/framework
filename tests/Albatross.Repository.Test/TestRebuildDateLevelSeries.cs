@@ -17,7 +17,9 @@ namespace Albatross.Repository.Test {
 		[Fact]
 		public async Task Single_Row() {
 			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, Values.Jan1_2022, Values.Jan1_2022, 100, "current-user")
+				new TickSize(1, Values.Jan1_2022, 100) {
+					EndDate = Values.Jan1_2022
+				}
 			};
 			var input = new TestAsyncEnumerableQuery<TickSize>(list);
 			await input.AsQueryable().RebuildDateLevelSeries(1, args=>list.Remove(args));
@@ -26,8 +28,12 @@ namespace Albatross.Repository.Test {
 		[Fact]
 		public async Task Two_Row_Diff() {
 			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, Values.Feb1_2022, Values.Jan1_2022, 100, "current-user"),
-				new TickSize(1, Values.Jan1_2022, Values.Jan1_2022, 200, "current-user"),
+				new TickSize(1, Values.Feb1_2022, 100){
+					EndDate = Values.Jan1_2022
+				},
+				new TickSize(1, Values.Jan1_2022, 200){
+					EndDate = Values.Jan1_2022
+				}
 			};
 			var input = new TestAsyncEnumerableQuery<TickSize>(list);
 			await input.AsQueryable().RebuildDateLevelSeries(1, args=>list.Remove(args));
@@ -45,8 +51,8 @@ namespace Albatross.Repository.Test {
 		[Fact]
 		public async Task Two_Row_Same() {
 			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, Values.Feb1_2022, Values.Jan1_2022, 100, "current-user"),
-				new TickSize(1, Values.Jan1_2022, Values.Jan1_2022, 100, "current-user"),
+				new TickSize(1, Values.Feb1_2022, 100) { EndDate = Values.Jan1_2022 },
+				new TickSize(1, Values.Jan1_2022, 100) { EndDate = Values.Jan1_2022 },
 			};
 			var input = new TestAsyncEnumerableQuery<TickSize>(list);
 			await input.AsQueryable().RebuildDateLevelSeries(1, args=>list.Remove(args));
@@ -61,9 +67,9 @@ namespace Albatross.Repository.Test {
 		[Fact]
 		public async Task Three_Row_Diff() {
 			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, Values.Feb1_2022, Values.Jan1_2022, 100, "current-user"),
-				new TickSize(1, Values.Jan1_2022, Values.Jan1_2022, 200, "current-user"),
-				new TickSize(1, Values.Mar1_2022, Values.Jan1_2022, 300, "current-user"),
+				new TickSize(1, Values.Feb1_2022, 100){ EndDate = Values.Jan1_2022 },
+				new TickSize(1, Values.Jan1_2022, 200) { EndDate = Values.Jan1_2022 },
+				new TickSize(1, Values.Mar1_2022, 300) { EndDate = Values.Jan1_2022 },
 			};
 			var input = new TestAsyncEnumerableQuery<TickSize>(list);
 			await input.AsQueryable().RebuildDateLevelSeries(1, args=>list.Remove(args));
@@ -85,9 +91,9 @@ namespace Albatross.Repository.Test {
 		[Fact]
 		public async Task Three_Row_Same() {
 			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, Values.Feb1_2022, Values.Jan1_2022, 100, "current-user"),
-				new TickSize(1, Values.Jan1_2022, Values.Jan1_2022, 100, "current-user"),
-				new TickSize(1, Values.Mar1_2022, Values.Jan1_2022, 100, "current-user"),
+				new TickSize(1, Values.Feb1_2022, 100) { EndDate = Values.Jan1_2022 },
+				new TickSize(1, Values.Jan1_2022, 100) { EndDate = Values.Jan1_2022 },
+				new TickSize(1, Values.Mar1_2022, 100) { EndDate = Values.Jan1_2022 },
 			};
 			var input = new TestAsyncEnumerableQuery<TickSize>(list);
 			await input.AsQueryable().RebuildDateLevelSeries(1, args => list.Remove(args));
@@ -102,9 +108,9 @@ namespace Albatross.Repository.Test {
 		[Fact]
 		public async Task Three_Row_Mixed() {
 			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, Values.Feb1_2022, Values.Jan1_2022, 100, "current-user"),
-				new TickSize(1, Values.Jan1_2022, Values.Jan1_2022, 100, "current-user"),
-				new TickSize(1, Values.Mar1_2022, Values.Jan1_2022, 200, "current-user"),
+				new TickSize(1, Values.Feb1_2022, 100) { EndDate = Values.Jan1_2022 },
+				new TickSize(1, Values.Jan1_2022, 100) { EndDate = Values.Jan1_2022 },
+				new TickSize(1, Values.Mar1_2022, 200) { EndDate = Values.Jan1_2022 },
 			};
 			var input = new TestAsyncEnumerableQuery<TickSize>(list);
 			await input.AsQueryable().RebuildDateLevelSeries(1, args => list.Remove(args));

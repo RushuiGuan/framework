@@ -6,7 +6,8 @@ using Xunit;
 namespace Albatross.Test.RecordClass {
 	public sealed record class MyDerivedRecord : MyRecord {
 		public string Name { get; set; }
-		public MyDerivedRecord(int id) : base(id) {
+		public MyDerivedRecord(int id, string name) : base(id) {
+			this.Name = name;
 		}
 	}
 	public record class MyRecord {
@@ -53,12 +54,8 @@ namespace Albatross.Test.RecordClass {
 		}
 		[Fact]
 		public void TestDerived() {
-			var x = new MyDerivedRecord(1) {
-				Name = "a",
-			};
-			var y = new MyDerivedRecord(1) {
-				Name = "a"
-			};
+			var x = new MyDerivedRecord(1, "a");
+			var y = new MyDerivedRecord(1, "a");
 			Assert.Equal(x, y);
 			Assert.Equal(x.GetHashCode(), y.GetHashCode());
 			x.List.Add("b");
@@ -94,7 +91,14 @@ namespace Albatross.Test.RecordClass {
 			var d = new KeyValuePair<string, string>("b", "b");
 			Assert.NotEqual(a, d);
 			Assert.NotEqual(a.GetHashCode(), d.GetHashCode());
+		}
 
+		[Fact]
+		public void TestRecordClassEqual() {
+			var a = new MyDerivedRecord(1, "a");
+			var b = new MyDerivedRecord(1, "a");
+			Assert.True(a == b);
+			Assert.True(typeof(MyDerivedRecord).IsAssignableFrom(typeof(IEquatable<MyDerivedRecord>)));
 		}
 	}
 }
