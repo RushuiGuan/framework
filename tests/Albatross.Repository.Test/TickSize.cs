@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
 namespace Albatross.Repository.Test {
-	public sealed record class TickSize : DateLevelEntity<int> {
+	public sealed class TickSize : DateLevelEntity<int> {
 		public TickSize(int marketId, DateTime startDate, decimal value) : base(startDate) {
 			this.MarketId = marketId;
 			this.Value = value;
