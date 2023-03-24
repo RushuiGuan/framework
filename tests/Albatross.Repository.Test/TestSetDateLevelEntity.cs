@@ -15,6 +15,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Mar1_2022, 100).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -44,6 +45,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Nov1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -72,6 +74,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -100,6 +103,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Aug1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -128,6 +132,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Jul1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -136,13 +141,13 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(100, args.Value);
 				},
 				args => {
-					Assert.Equal(Values.Sep1_2022, args.StartDate);
-					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(Values.Jul1_2022, args.StartDate);
+					Assert.Equal(Values.Aug31_2022, args.EndDate);
 					Assert.Equal(300, args.Value);
 				},
 				args => {
-					Assert.Equal(Values.Jul1_2022, args.StartDate);
-					Assert.Equal(Values.Aug31_2022, args.EndDate);
+					Assert.Equal(Values.Sep1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
 					Assert.Equal(300, args.Value);
 				}
 			);
@@ -156,6 +161,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Jun1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -164,6 +170,11 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(100, args.Value);
 				},
 				args => {
+					Assert.Equal(Values.Jun1_2022, args.StartDate);
+					Assert.Equal(Values.Jun30_2022, args.EndDate);
+					Assert.Equal(300, args.Value);
+				},
+				args => {
 					Assert.Equal(Values.Jul1_2022, args.StartDate);
 					Assert.Equal(Values.Aug31_2022, args.EndDate);
 					Assert.Equal(200, args.Value);
@@ -172,15 +183,10 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
 					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Jun1_2022, args.StartDate);
-					Assert.Equal(Values.Jun30_2022, args.EndDate);
-					Assert.Equal(300, args.Value);
 				}
 			);
 		}
-	
+
 		[Fact]
 		public async Task Mar100_Jul200_Sep300_Mar300() {
 			List<TickSize> list = new List<TickSize>();
@@ -189,8 +195,14 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Mar1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Mar1_2022, args.StartDate);
+					Assert.Equal(Values.Jun30_2022, args.EndDate);
+					Assert.Equal(300, args.Value);
+				},
 				args => {
 					Assert.Equal(Values.Jul1_2022, args.StartDate);
 					Assert.Equal(Values.Aug31_2022, args.EndDate);
@@ -199,11 +211,6 @@ namespace Albatross.Repository.Test {
 				args => {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
-					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Mar1_2022, args.StartDate);
-					Assert.Equal(Values.Jun30_2022, args.EndDate);
 					Assert.Equal(300, args.Value);
 				}
 			);
@@ -217,8 +224,14 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Feb1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Feb1_2022, args.StartDate);
+					Assert.Equal(Values.Feb28_2022, args.EndDate);
+					Assert.Equal(300, args.Value);
+				},
 				args => {
 					Assert.Equal(Values.Mar1_2022, args.StartDate);
 					Assert.Equal(Values.Jun30_2022, args.EndDate);
@@ -232,11 +245,6 @@ namespace Albatross.Repository.Test {
 				args => {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
-					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Feb1_2022, args.StartDate);
-					Assert.Equal(Values.Feb28_2022, args.EndDate);
 					Assert.Equal(300, args.Value);
 				}
 			);
@@ -251,6 +259,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Nov1_2022, 400).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -284,6 +293,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 400).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -312,6 +322,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Aug1_2022, 400).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -325,14 +336,14 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(200, args.Value);
 				},
 				args => {
-					Assert.Equal(Values.Sep1_2022, args.StartDate);
-					Assert.Equal(Values.MaxSqlDate, args.EndDate);
-					Assert.Equal(300, args.Value);
-				},
-				args => {
 					Assert.Equal(Values.Aug1_2022, args.StartDate);
 					Assert.Equal(Values.Aug31_2022, args.EndDate);
 					Assert.Equal(400, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Sep1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(300, args.Value);
 				}
 			);
 		}
@@ -345,6 +356,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Jul1_2022, 400).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -353,14 +365,14 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(100, args.Value);
 				},
 				args => {
-					Assert.Equal(Values.Sep1_2022, args.StartDate);
-					Assert.Equal(Values.MaxSqlDate, args.EndDate);
-					Assert.Equal(300, args.Value);
-				},
-				args => {
 					Assert.Equal(Values.Jul1_2022, args.StartDate);
 					Assert.Equal(Values.Aug31_2022, args.EndDate);
 					Assert.Equal(400, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Sep1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(300, args.Value);
 				}
 			);
 		}
@@ -373,12 +385,18 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Jun1_2022, 400).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
 					Assert.Equal(Values.Mar1_2022, args.StartDate);
 					Assert.Equal(Values.May31_2022, args.EndDate);
 					Assert.Equal(100, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Jun1_2022, args.StartDate);
+					Assert.Equal(Values.Jun30_2022, args.EndDate);
+					Assert.Equal(400, args.Value);
 				},
 				args => {
 					Assert.Equal(Values.Jul1_2022, args.StartDate);
@@ -389,11 +407,6 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
 					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Jun1_2022, args.StartDate);
-					Assert.Equal(Values.Jun30_2022, args.EndDate);
-					Assert.Equal(400, args.Value);
 				}
 			);
 		}
@@ -406,8 +419,14 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Mar1_2022, 400).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
+					args => {
+						Assert.Equal(Values.Mar1_2022, args.StartDate);
+						Assert.Equal(Values.Jun30_2022, args.EndDate);
+						Assert.Equal(400, args.Value);
+					},
 				args => {
 					Assert.Equal(Values.Jul1_2022, args.StartDate);
 					Assert.Equal(Values.Aug31_2022, args.EndDate);
@@ -417,11 +436,6 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
 					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Mar1_2022, args.StartDate);
-					Assert.Equal(Values.Jun30_2022, args.EndDate);
-					Assert.Equal(400, args.Value);
 				}
 			);
 		}
@@ -434,8 +448,14 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Feb1_2022, 400).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Feb1_2022, args.StartDate);
+					Assert.Equal(Values.Feb28_2022, args.EndDate);
+					Assert.Equal(400, args.Value);
+				},
 				args => {
 					Assert.Equal(Values.Mar1_2022, args.StartDate);
 					Assert.Equal(Values.Jun30_2022, args.EndDate);
@@ -450,15 +470,10 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
 					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Feb1_2022, args.StartDate);
-					Assert.Equal(Values.Feb28_2022, args.EndDate);
-					Assert.Equal(400, args.Value);
 				}
 			);
 		}
-
+		static int Compare(TickSize x, TickSize y) => x.StartDate.CompareTo(y.StartDate);
 		/// set 3
 		[Fact]
 		public async Task Mar100_Jul200_Sep300_Jun100() {
@@ -468,6 +483,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Jun1_2022, 100).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -496,8 +512,14 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Mar1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Mar1_2022, args.StartDate);
+					Assert.Equal(Values.Jun30_2022, args.EndDate);
+					Assert.Equal(300, args.Value);
+				},
 				args => {
 					Assert.Equal(Values.Jul1_2022, args.StartDate);
 					Assert.Equal(Values.Aug31_2022, args.EndDate);
@@ -506,11 +528,6 @@ namespace Albatross.Repository.Test {
 				args => {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
-					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Mar1_2022, args.StartDate);
-					Assert.Equal(Values.Jun30_2022, args.EndDate);
 					Assert.Equal(300, args.Value);
 				}
 			);
@@ -524,8 +541,14 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Feb1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Feb1_2022, args.StartDate);
+					Assert.Equal(Values.Feb28_2022, args.EndDate);
+					Assert.Equal(300, args.Value);
+				},
 				args => {
 					Assert.Equal(Values.Mar1_2022, args.StartDate);
 					Assert.Equal(Values.Jun30_2022, args.EndDate);
@@ -540,11 +563,6 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
 					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Feb1_2022, args.StartDate);
-					Assert.Equal(Values.Feb28_2022, args.EndDate);
-					Assert.Equal(300, args.Value);
 				}
 			);
 		}
@@ -558,6 +576,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Nov1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -591,6 +610,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -614,6 +634,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Aug1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -642,6 +663,7 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Jul1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
@@ -650,13 +672,13 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(100, args.Value);
 				},
 				args => {
-					Assert.Equal(Values.Sep1_2022, args.StartDate);
-					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(Values.Jul1_2022, args.StartDate);
+					Assert.Equal(Values.Aug31_2022, args.EndDate);
 					Assert.Equal(300, args.Value);
 				},
 				args => {
-					Assert.Equal(Values.Jul1_2022, args.StartDate);
-					Assert.Equal(Values.Aug31_2022, args.EndDate);
+					Assert.Equal(Values.Sep1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
 					Assert.Equal(300, args.Value);
 				}
 			);
@@ -671,12 +693,18 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Jun1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
 				args => {
 					Assert.Equal(Values.Mar1_2022, args.StartDate);
 					Assert.Equal(Values.May31_2022, args.EndDate);
 					Assert.Equal(100, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Jun1_2022, args.StartDate);
+					Assert.Equal(Values.Jun30_2022, args.EndDate);
+					Assert.Equal(300, args.Value);
 				},
 				args => {
 					Assert.Equal(Values.Jul1_2022, args.StartDate);
@@ -686,11 +714,6 @@ namespace Albatross.Repository.Test {
 				args => {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
-					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Jun1_2022, args.StartDate);
-					Assert.Equal(Values.Jun30_2022, args.EndDate);
 					Assert.Equal(300, args.Value);
 				}
 			);
@@ -704,8 +727,14 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Mar1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
+					args => {
+						Assert.Equal(Values.Mar1_2022, args.StartDate);
+						Assert.Equal(Values.Jun30_2022, args.EndDate);
+						Assert.Equal(300, args.Value);
+					},
 				args => {
 					Assert.Equal(Values.Jul1_2022, args.StartDate);
 					Assert.Equal(Values.Aug31_2022, args.EndDate);
@@ -714,11 +743,6 @@ namespace Albatross.Repository.Test {
 				args => {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
-					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Mar1_2022, args.StartDate);
-					Assert.Equal(Values.Jun30_2022, args.EndDate);
 					Assert.Equal(300, args.Value);
 				}
 			);
@@ -732,8 +756,14 @@ namespace Albatross.Repository.Test {
 			await new TickSize(1, Values.Jul1_2022, 200).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Sep1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
 			await new TickSize(1, Values.Feb1_2022, 300).SetDateLevel<TickSize, int>(set.Object, list.Add, args => list.Remove(args));
+			list.Sort(Compare);
 
 			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Feb1_2022, args.StartDate);
+					Assert.Equal(Values.Feb28_2022, args.EndDate);
+					Assert.Equal(300, args.Value);
+				},
 				args => {
 					Assert.Equal(Values.Mar1_2022, args.StartDate);
 					Assert.Equal(Values.Jun30_2022, args.EndDate);
@@ -747,11 +777,6 @@ namespace Albatross.Repository.Test {
 				args => {
 					Assert.Equal(Values.Sep1_2022, args.StartDate);
 					Assert.Equal(Values.MaxSqlDate, args.EndDate);
-					Assert.Equal(300, args.Value);
-				},
-				args => {
-					Assert.Equal(Values.Feb1_2022, args.StartDate);
-					Assert.Equal(Values.Feb28_2022, args.EndDate);
 					Assert.Equal(300, args.Value);
 				}
 			);
