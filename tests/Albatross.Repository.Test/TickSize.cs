@@ -14,17 +14,10 @@ namespace Albatross.Repository.Test {
 		public int MarketId { get; set; }
 		public FutureMarket Market { get; set; } = default!;
 		[Precision(20, 10)]
-		public decimal Value { get; set; }
+		public decimal Value { get; init; }
 
 		public override int Key => MarketId;
 
-		public override void Update(DateLevelEntity src) {
-			if (src is TickSize newValue) {
-				Value = newValue.Value;
-			} else {
-				throw new ArgumentException();
-			}
-		}
 
 		public override bool HasSameValue(DateLevelEntity src) {
 			if (src is TickSize other) {

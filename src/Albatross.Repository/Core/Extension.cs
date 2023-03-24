@@ -20,8 +20,8 @@ namespace Albatross.Repository.Core {
 		/// <summary>
 		/// Return all the date level records impacted by the entity in the set
 		/// </summary>
-		public static IQueryable<DateLevelEntity<K>> GetChanged<T, K>(this IQueryable<DateLevelEntity<K>> set, DateLevelEntity<K> entity) 
-			where T : class 
+		public static IQueryable<DateLevelEntity<K>> GetChanged<T, K>(this IQueryable<DateLevelEntity<K>> set, DateLevelEntity<K> entity)
+			where T : class
 			where K : IEquatable<K> {
 			return set.Where(args => args.Key.Equals(entity.Key) && (args.StartDate >= entity.StartDate && args.StartDate <= entity.EndDate
 					|| args.EndDate >= entity.StartDate && args.EndDate <= entity.EndDate
@@ -33,56 +33,52 @@ namespace Albatross.Repository.Core {
 		/// 1. there should be no gap between the first StartDate and <see cref="DateLevelEntity.MaxEndDate"/>
 		/// 2. there should be no overlap of dates among entries.
 		/// Assuming all operations abide these rules, the method below will not check if the EndDate is correct and simply assume that is the case
+		/// this implementation is treating datelevel entity has immutable values and only its StartDate and EndDate can be changed
 		/// </summary>
 		public static async Task SetDateLevel<T, K>(this T src, IQueryable<T> set, Action<T> add, Action<T> remove, bool removePostDateEntries = false)
 			where K : IEquatable<K>
 			where T : DateLevelEntity<K> {
-			var current = await set.Where(args => args.Key.Equals(src.Key) && args.StartDate == src.StartDate)
-				.FirstOrDefaultAsync();
-			if (current != null) {
-				current.Update(src);
+
+			if (removePostDateEntries) {
+				var test = await set.ToArrayAsync();
+				var items = await set
+					.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
+					.ToArrayAsync();
+				foreach (var item in items) {
+					remove(item);
+				}
+				src.EndDate = DateLevelEntity.MaxEndDate;
+				add(src);
 			} else {
-				if (removePostDateEntries) {
-					var test = await set.ToArrayAsync();
-					var items = await set
-						.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
-						.ToArrayAsync();
-					foreach (var item in items) {
-						remove(item);
-					}
+				var after = await set
+					.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
+					.OrderBy(args => args.StartDate)
+					.FirstOrDefaultAsync();
+
+				if (after == null) {
 					src.EndDate = DateLevelEntity.MaxEndDate;
 					add(src);
 				} else {
-					var after = await set
-						.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
-						.OrderBy(args => args.StartDate)
-						.FirstOrDefaultAsync();
-
-					if (after == null) {
-						src.EndDate = DateLevelEntity.MaxEndDate;
+					var changed = !after.HasSameValue(src);
+					if (changed && after.StartDate != src.StartDate) {
+						src.EndDate = after.StartDate.AddDays(-1);
 						add(src);
-					} else if (after.HasSameValue(src)) {
+					} else if (changed || after.StartDate != src.StartDate) {
 						src.EndDate = after.EndDate;
 						remove(after);
 						add(src);
-					} else if (after.StartDate == src.StartDate) {
-						after.Update(src);
-						src = after;
-					} else {
-						src.EndDate = after.StartDate.AddDays(-1);
-						add(src);
 					}
 				}
-				var before = await set.Where(args => args.Key.Equals(src.Key) && args.StartDate < src.StartDate)
-					.OrderByDescending(args => args.StartDate)
-					.FirstOrDefaultAsync();
-				if (before != null) {
-					if (before.HasSameValue(src)) {
-						before.EndDate = src.EndDate;
-						remove(src);
-					} else {
-						before.EndDate = src.StartDate.AddDays(-1);
-					}
+			}
+			var before = await set.Where(args => args.Key.Equals(src.Key) && args.StartDate < src.StartDate)
+				.OrderByDescending(args => args.StartDate)
+				.FirstOrDefaultAsync();
+			if (before != null) {
+				if (before.HasSameValue(src)) {
+					before.EndDate = src.EndDate;
+					remove(src);
+				} else {
+					before.EndDate = src.StartDate.AddDays(-1);
 				}
 			}
 		}

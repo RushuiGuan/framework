@@ -6,7 +6,6 @@ namespace Albatross.Repository.Core {
 		public DateTime EndDate { get; set; } = MaxEndDate;
 		public readonly static DateTime MaxEndDate = new DateTime(9999, 12, 31);
 
-		public abstract void Update(DateLevelEntity src);
 		public abstract bool HasSameValue(DateLevelEntity src);
 
 		public DateLevelEntity(DateTime startDate) {
