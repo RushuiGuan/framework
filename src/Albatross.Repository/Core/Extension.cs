@@ -40,7 +40,6 @@ namespace Albatross.Repository.Core {
 			where T : DateLevelEntity<K> {
 
 			if (removePostDateEntries) {
-				var test = await set.ToArrayAsync();
 				var items = await set
 					.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
 					.ToArrayAsync();
