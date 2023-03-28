@@ -1,6 +1,7 @@
 using Albatross.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Albatross.Repository.Core {
 		/// Assuming all operations abide these rules, the method below will not check if the EndDate is correct and simply assume that is the case
 		/// this implementation is treating datelevel entity has immutable values and only its StartDate and EndDate can be changed
 		/// </summary>
-		public static async Task SetDateLevel<T, K>(this IQueryable<T> set, T src, Action<T> add, Action<T> remove, bool removePostDateEntries = false)
+		public static async Task SetDateLevelAsync<T, K>(this IQueryable<T> set, T src, Action<T> add, Action<T> remove, bool removePostDateEntries = false)
 			where K : IEquatable<K>
 			where T : DateLevelEntity<K> {
 
@@ -62,6 +63,48 @@ namespace Albatross.Repository.Core {
 			var before = await set.Where(args => args.Key.Equals(src.Key) && args.StartDate < src.StartDate)
 				.OrderByDescending(args => args.StartDate)
 				.FirstOrDefaultAsync();
+			if (before != null) {
+				if (before.HasSameValue(src)) {
+					before.EndDate = src.EndDate;
+					remove(src);
+				} else {
+					before.EndDate = src.StartDate.AddDays(-1);
+				}
+			}
+		}
+
+		public static void SetDateLevel<T, K>(this IEnumerable<T> set, T src, Action<T> add, Action<T> remove, bool removePostDateEntries = false)
+			where K : IEquatable<K>
+			where T : DateLevelEntity<K> {
+
+			if (removePostDateEntries) {
+				var items = set.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate).ToArray();
+				foreach (var item in items) {
+					remove(item);
+				}
+				src.EndDate = DateLevelEntity.MaxEndDate;
+				add(src);
+			} else {
+				var after = set.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
+					.OrderBy(args => args.StartDate).FirstOrDefault();
+
+				if (after == null) {
+					src.EndDate = DateLevelEntity.MaxEndDate;
+					add(src);
+				} else {
+					var changed = !after.HasSameValue(src);
+					if (changed && after.StartDate != src.StartDate) {
+						src.EndDate = after.StartDate.AddDays(-1);
+						add(src);
+					} else if (changed || after.StartDate != src.StartDate) {
+						src.EndDate = after.EndDate;
+						remove(after);
+						add(src);
+					}
+				}
+			}
+			var before = set.Where(args => args.Key.Equals(src.Key) && args.StartDate < src.StartDate)
+				.OrderByDescending(args => args.StartDate).FirstOrDefault();
 			if (before != null) {
 				if (before.HasSameValue(src)) {
 					before.EndDate = src.EndDate;
