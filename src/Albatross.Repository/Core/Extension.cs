@@ -1,3 +1,4 @@
+using Albatross.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,24 +19,13 @@ namespace Albatross.Repository.Core {
 		}
 
 		/// <summary>
-		/// Return all the date level records impacted by the entity in the set
-		/// </summary>
-		public static IQueryable<DateLevelEntity<K>> GetChanged<T, K>(this IQueryable<DateLevelEntity<K>> set, DateLevelEntity<K> entity)
-			where T : class
-			where K : IEquatable<K> {
-			return set.Where(args => args.Key.Equals(entity.Key) && (args.StartDate >= entity.StartDate && args.StartDate <= entity.EndDate
-					|| args.EndDate >= entity.StartDate && args.EndDate <= entity.EndDate
-					|| args.StartDate < entity.StartDate && args.EndDate > entity.EndDate));
-		}
-
-		/// <summary>
 		/// For DateLevel entries, two rules apply
 		/// 1. there should be no gap between the first StartDate and <see cref="DateLevelEntity.MaxEndDate"/>
 		/// 2. there should be no overlap of dates among entries.
 		/// Assuming all operations abide these rules, the method below will not check if the EndDate is correct and simply assume that is the case
 		/// this implementation is treating datelevel entity has immutable values and only its StartDate and EndDate can be changed
 		/// </summary>
-		public static async Task SetDateLevel<T, K>(this T src, IQueryable<T> set, Action<T> add, Action<T> remove, bool removePostDateEntries = false)
+		public static async Task SetDateLevel<T, K>(this IQueryable<T> set, T src, Action<T> add, Action<T> remove, bool removePostDateEntries = false)
 			where K : IEquatable<K>
 			where T : DateLevelEntity<K> {
 
@@ -82,6 +72,7 @@ namespace Albatross.Repository.Core {
 			}
 		}
 
+		// TODO: need unit test
 		public static async Task DeleteDateLevel<T, K>(this IQueryable<T> set, K key, DateTime startDate, Action<T> remove)
 			where K : IEquatable<K>
 			where T : DateLevelEntity<K> {
