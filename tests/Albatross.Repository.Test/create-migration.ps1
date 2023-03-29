@@ -13,4 +13,6 @@ $name = "v$count";
 "Creating migration $name";
 
 dotnet ef migrations add MySqlServerMigration_$name --context MySqlServerMigration --output-dir (Get-Path Migrations, SqlServer)
+dotnet run ef-migrate
+dotnet run create-sql-script --output-file .\db\tables.sql --drop-script .\db\drop.sql
 Set-Location $location;

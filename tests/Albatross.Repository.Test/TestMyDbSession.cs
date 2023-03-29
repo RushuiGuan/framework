@@ -1,10 +1,10 @@
 ﻿using Albatross.Repository.ByEFCore;
 using Albatross.Repository.Core;
 using Albatross.Repository.SqlServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,39 +21,10 @@ namespace Albatross.Repository.Test.MyNamespace {
 		public TestMyDbSession(MyTestHost host) {
 			this.host = host;
 		}
-		[Fact]
-		public void GenerateScript() {
-			using var scope = host.Create();
-			var session = scope.Get<MyDbSession>();
-			string script = session.GetCreateScript();
-
-			
-			using (var file = File.OpenWrite($"{Path.GetDirectoryName(this.GetType().Assembly.Location)}\\MyDbSession.sql")) {
-				using (var writer = new StreamWriter(file)) {
-					writer.Write(script);
-					writer.Flush();
-					file.SetLength(file.Position);
-				}
-			}
-
-			var stream = Assembly.GetExecutingAssembly()
-				.GetManifestResourceStream("Albatross.Repository.Test.MyDbSession.sql")
-				?? throw new InvalidOperationException("embedded stream doesn't exist");
-			var expected = new StreamReader(stream).ReadToEnd();
-			Assert.Equal(expected, script);
-		}
-
-
-		[Fact]
-		public async Task RunEfMigrate() {
-			var scope = host.Create();
-			var migration = scope.Get<SqlServerMigration<MySqlServerMigration>>();
-			await migration.MigrateEfCore();
-		}
 
 		[Fact]
 		public void TestGetEntityModels() {
-			var items =this.GetType().Assembly.GetEntityModels(null);
+			var items = this.GetType().Assembly.GetEntityModels(null);
 			Assert.NotEmpty(items);
 
 			items = this.GetType().Assembly.GetEntityModels("Albatross.Repository.Test.MyNamespace");
@@ -61,6 +32,30 @@ namespace Albatross.Repository.Test.MyNamespace {
 
 			items = this.GetType().Assembly.GetEntityModels("Albatross.Repository.Test.MyNamespace.");
 			Assert.Single(items);
+		}
+
+		[Fact]
+		public async Task TestTickSizePersistance() {
+			string marketName = "test";
+			DateTime startDate = new DateTime(1980, 1, 1);
+			using var scope = host.Create();
+			var session = scope.Get<MyDbSession>();
+			var set = session.DbContext.Set<FutureMarket>();
+			var market = set
+				.Include(args => args.TickSizes)
+				.Where(args => args.Name == marketName).FirstOrDefault();
+			if (market == null) {
+				market = new FutureMarket(marketName);
+				set.Add(market);
+				await session.SaveChangesAsync();
+			}
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, startDate, 1));
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 2, 1), 2));
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 3, 1), 3));
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 4, 1), 3));
+			await session.SaveChangesAsync();
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 3, 1), 2));
+			await session.SaveChangesAsync();
 		}
 	}
 }

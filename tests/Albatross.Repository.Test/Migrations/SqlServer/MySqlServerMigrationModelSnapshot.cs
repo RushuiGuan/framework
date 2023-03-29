@@ -18,7 +18,7 @@ namespace Albatross.Repository.Test.Migrations.SqlServer
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("test")
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -74,39 +74,26 @@ namespace Albatross.Repository.Test.Migrations.SqlServer
 
             modelBuilder.Entity("Albatross.Repository.Test.TickSize", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int")
-                        .HasColumnName("MarketId");
+                    b.Property<int>("MarketId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<DateTime>("CreatedUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<DateTime>("ModifiedUtc")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Value")
                         .HasPrecision(20, 10)
                         .HasColumnType("decimal(20,10)");
 
-                    b.HasKey("Id", "StartDate");
+                    b.HasKey("MarketId", "StartDate");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id", "StartDate"));
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("MarketId", "StartDate"), false);
+
+                    b.HasIndex("MarketId", "StartDate", "EndDate");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("MarketId", "StartDate", "EndDate"));
 
                     b.ToTable("TickSize", "test");
 
@@ -120,7 +107,7 @@ namespace Albatross.Repository.Test.Migrations.SqlServer
                 {
                     b.HasOne("Albatross.Repository.Test.FutureMarket", "Market")
                         .WithMany("TickSizes")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("MarketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

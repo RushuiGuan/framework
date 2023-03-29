@@ -778,5 +778,28 @@ namespace Albatross.Repository.Test {
 				}
 			);
 		}
+
+		[Fact]
+		public void Mar100_Jul200_Jul200() {
+			List<TickSize> list = new List<TickSize>();
+
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
+			list.Sort(Compare);
+
+			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Mar1_2022, args.StartDate);
+					Assert.Equal(Values.Jun30_2022, args.EndDate);
+					Assert.Equal(100, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Jul1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(200, args.Value);
+				}
+			);
+		}
 	}
 }

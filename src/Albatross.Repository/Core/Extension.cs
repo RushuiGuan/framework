@@ -97,11 +97,19 @@ namespace Albatross.Repository.Core {
 				}
 			} else {
 				var items = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate).ToArray();
+				bool hasExisting = false;
 				foreach (var item in items) {
-					collection.Remove(item);
+					if (item.StartDate == src.StartDate && item.HasSameValue(src)) {
+						hasExisting = true;
+						item.EndDate = DateLevelEntity.MaxEndDate;
+					} else {
+						collection.Remove(item);
+					}
 				}
-				src.EndDate = DateLevelEntity.MaxEndDate;
-				collection.Add(src);
+				if (!hasExisting) {
+					src.EndDate = DateLevelEntity.MaxEndDate;
+					collection.Add(src);
+				}
 			}
 			var before = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate < src.StartDate)
 				.OrderByDescending(args => args.StartDate).FirstOrDefault();

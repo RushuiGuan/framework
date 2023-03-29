@@ -48,19 +48,15 @@ namespace Albatross.Repository.Test.Migrations.SqlServer
                 schema: "test",
                 columns: table => new
                 {
-                    MarketId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MarketId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<decimal>(type: "decimal(20,10)", precision: 20, scale: 10, nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ModifiedUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TickSize", x => new { x.MarketId, x.StartDate })
-                        .Annotation("SqlServer:Clustered", true);
+                        .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_TickSize_FutureMarket_MarketId",
                         column: x => x.MarketId,
@@ -69,6 +65,13 @@ namespace Albatross.Repository.Test.Migrations.SqlServer
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TickSize_MarketId_StartDate_EndDate",
+                schema: "test",
+                table: "TickSize",
+                columns: new[] { "MarketId", "StartDate", "EndDate" })
+                .Annotation("SqlServer:Clustered", true);
         }
 
         /// <inheritdoc />

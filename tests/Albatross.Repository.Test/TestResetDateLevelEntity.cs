@@ -63,5 +63,47 @@ namespace Albatross.Repository.Test {
 				}
 			);
 		}
+		[Fact]
+		public async Task ResetTimeSeries3() {
+			List<TickSize> list = new List<TickSize>();
+			var set = list.CreateAsyncDbSet<TickSize>();
+			await set.Object.SetDateLevelAsync<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), list.Add, args => list.Remove(args));
+			await set.Object.SetDateLevelAsync<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), list.Add, args => list.Remove(args));
+			await set.Object.SetDateLevelAsync<TickSize, int>(new TickSize(1, Values.Apr1_2022, 100), list.Add, args => list.Remove(args), true);
+
+			list.Sort(Compare);
+
+			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Mar1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(100, args.Value);
+				}
+			);
+		}
+
+		[Fact]
+		public async Task ResetTimeSeries4() {
+			List<TickSize> list = new List<TickSize>();
+			var set = list.CreateAsyncDbSet<TickSize>();
+			await set.Object.SetDateLevelAsync<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), list.Add, args => list.Remove(args));
+			await set.Object.SetDateLevelAsync<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), list.Add, args => list.Remove(args));
+			await set.Object.SetDateLevelAsync<TickSize, int>(new TickSize(1, Values.Apr1_2022, 300), list.Add, args => list.Remove(args), true);
+
+			list.Sort(Compare);
+
+			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Mar1_2022, args.StartDate);
+					Assert.Equal(Values.Mar31_2022, args.EndDate);
+					Assert.Equal(100, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Apr1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(300, args.Value);
+				}
+			);
+		}
 	}
 }
