@@ -14,7 +14,7 @@ namespace Albatross.WebClient.Test{
 		public MyProxyService(ILogger logger, HttpClient client) : base(logger, client) {
 		}
 	}
-	public class TestProxyService {
+	public class TestMyProxyService {
 		[Fact]
 		public void TestRequestGeneration1() {
 			List<int> ids = new List<int>();
@@ -102,6 +102,10 @@ namespace Albatross.WebClient.Test{
 				arrayQueryString.Add(i.ToString());
 			}
 			Assert.Throws<InvalidOperationException>(() => proxy.CreateRequestUrls(path, queryString, maxlength, "id", arrayQueryString.ToArray()));
+		}
+
+
+		public void TestRetry() {
 		}
 	}
 }

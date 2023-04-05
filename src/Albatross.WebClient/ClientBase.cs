@@ -11,6 +11,7 @@ using System.IO;
 using System.Collections.Generic;
 using Polly;
 using System.Linq;
+using Polly.Retry;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -72,7 +73,7 @@ namespace Albatross.WebClient {
 
 		#region creating request and response
 		[Obsolete]
-		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, 
+		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength,
 			string arrayQueryKey, params string[] arrayQueryValues) {
 			var urls = this.CreateRequestUrls(relativeUrl, queryStringValues, maxUrlLength, arrayQueryKey, arrayQueryValues);
 			return urls.Select(args => new HttpRequestMessage(method, args)).ToArray();
@@ -174,7 +175,7 @@ namespace Albatross.WebClient {
 				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
 			}
 			EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType): Deserialize<ResultType>(content);
+			return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType) : Deserialize<ResultType>(content);
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
@@ -245,6 +246,39 @@ namespace Albatross.WebClient {
 				throw exception;
 			}
 		}
+		#endregion
+
+		#region retry logic
+		static bool ShouldRetry(Exception err, bool includeInternalServerError) {
+			if (err is HttpRequestException) {
+				return true;
+			} else if (err is ServiceException serviceException) {
+				return includeInternalServerError && serviceException.StatusCode == HttpStatusCode.InternalServerError
+					|| serviceException.StatusCode == HttpStatusCode.RequestTimeout
+					|| serviceException.StatusCode == HttpStatusCode.TooManyRequests
+					|| serviceException.StatusCode == HttpStatusCode.ServiceUnavailable
+					|| serviceException.StatusCode == HttpStatusCode.GatewayTimeout;
+			} else {
+				return false;
+			}
+		}
+		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, Action<DelegateResult<T?>, TimeSpan> onRetry, bool retryInternalServerError, int count, int max) {
+			var array = new TimeSpan[count];
+			var product = 1;
+			for (int i = 0; i < count; i++) {
+				array[i] = TimeSpan.FromSeconds(product);
+				product = product * 2;
+				if (product > max) { product = max; }
+			}
+			logger.LogInformation("Setting up retry policy using the following step back sequence: {@array}", array);
+			return Policy.Handle<Exception>(err => ShouldRetry(err, retryInternalServerError)).OrResult<T?>(predicate)
+					.WaitAndRetryAsync(array, (delegateResult, timespan) => onRetry(delegateResult, timespan));
+		}
+		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, string what, bool retryInternalServerError, int count, int max) 
+			=> this.GetDefaultRetryPolicy<T>(predicate, (delegateResult, timeSpan) => {
+				this.logger.LogWarning("Retrying {what} after {timespan} seconds\non result: {result}\nfor error: {error}", 
+					what, timeSpan, delegateResult.Result, delegateResult.Exception);
+			}, retryInternalServerError, count, max);
 		#endregion
 	}
 }

@@ -2,6 +2,7 @@
 using Albatross.Hosting.Test;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,5 +58,35 @@ namespace Albatross.Hosting.Demo.Controllers {
 				pollyTest++;
 			}
 		}
+
+		[HttpPost("polly-post-test")]
+		public async Task<MyResponse> PostData([FromBody] MyRequest myRequest) {
+			if (myRequest.Input == 0) {
+				throw new System.Exception($"input cannot be 0");
+			} else if (myRequest.Input == 1) {
+				await Task.Delay(10000);
+			} else if (myRequest.Input == 2) {
+				return new MyResponse {
+					Success = false,
+					Output = myRequest.Input,
+				};
+			}
+			return new MyResponse {
+				Success = true,
+				Output = myRequest.Input,
+			};
+		}
+	}
+	public class MyRequest {
+		public int Input { get; set; }
+		public string Data { get; set; }
+		public MyRequest(string data) {
+			this.Data = data;
+		}
+	}
+
+	public class MyResponse {
+		public int Output { get; set; }
+		public bool Success { get; set; }
 	}
 }

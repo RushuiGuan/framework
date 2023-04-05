@@ -12,6 +12,19 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.WebClient.Test {
+	public class MyRequest {
+		public int Input { get; set; }
+		public string Data { get; set; }
+		public MyRequest(string data) {
+			this.Data = data;
+		}
+	}
+
+	public class MyResponse {
+		public int Output { get; set; }
+		public bool Success { get; set; }
+	}
+
 	public class PollyTestClient : ClientBase {
 		public const System.String ControllerPath = "home";
 
@@ -28,6 +41,7 @@ namespace Albatross.WebClient.Test {
 				return result;
 			}
 		}
+		
 	}
 
 	public class PollyTestClient2 : ClientBase {
@@ -56,6 +70,19 @@ namespace Albatross.WebClient.Test {
 				}
 			});
 			return await GetRawResponse(response);
+		}
+
+		public async Task<MyResponse?> PostData(MyRequest @myRequest) {
+			string path = $"{ControllerPath}/polly-post-test";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			using (var request = this.CreateJsonRequest<MyRequest>(HttpMethod.Post, path, queryString, @myRequest)) {
+				return await this.GetJsonResponse<MyResponse>(request);
+			}
+		}
+
+		public async Task<MyResponse?> PostDataWithRetry(MyRequest @myRequest) {
+			var policy = this.GetDefaultRetryPolicy<MyResponse>(args => false, nameof(PostData), true, 3, int.MaxValue);
+			return await policy.ExecuteAsync(async () => await this.PostData(myRequest));
 		}
 	}
 
