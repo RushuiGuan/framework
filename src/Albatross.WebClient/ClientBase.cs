@@ -289,7 +289,7 @@ namespace Albatross.WebClient {
 		}
 		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, string what, bool retryInternalServerError, int count, int max) 
 			=> this.GetDefaultRetryPolicy<T>(predicate, (delegateResult, timeSpan) => {
-				this.logger.LogWarning("Retrying {what} after {timespan} seconds\non result: {result}\nfor error: {error}", 
+				this.logger.LogWarning("Retrying {what} after {timespan} seconds\non result: {@result}\nfor error: {error}", 
 					what, timeSpan, delegateResult.Result, delegateResult.Exception);
 			}, retryInternalServerError, count, max);
 		#endregion
