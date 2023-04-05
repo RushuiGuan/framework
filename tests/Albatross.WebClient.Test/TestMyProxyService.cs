@@ -103,9 +103,5 @@ namespace Albatross.WebClient.Test{
 			}
 			Assert.Throws<InvalidOperationException>(() => proxy.CreateRequestUrls(path, queryString, maxlength, "id", arrayQueryString.ToArray()));
 		}
-
-
-		public void TestRetry() {
-		}
 	}
 }
