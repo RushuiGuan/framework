@@ -23,6 +23,14 @@ namespace Albatross.Test.Serialization {
 			var dto = JsonSerializer.Deserialize<JobDto>(text);
 			Assert.NotNull(dto);
 		}
+
+		[Fact]
+		public void TestNullableComparison() {
+			int? a = null;
+			Assert.False(6 > a);
+			a = 4;
+			Assert.True(6 > a);
+		}
 	}
 }
 #nullable restore
