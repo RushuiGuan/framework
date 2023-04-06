@@ -287,11 +287,11 @@ namespace Albatross.WebClient {
 			return Policy.Handle<Exception>(err => ShouldRetry(err, retryInternalServerError)).OrResult<T?>(predicate)
 					.WaitAndRetryAsync(array, (delegateResult, timespan) => onRetry(delegateResult, timespan));
 		}
-		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, string what, bool retryInternalServerError, int count, int max) 
+		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds) 
 			=> this.GetDefaultRetryPolicy<T>(predicate, (delegateResult, timeSpan) => {
 				this.logger.LogWarning("Retrying {what} after {timespan} seconds\non result: {@result}\nfor error: {error}", 
 					what, timeSpan, delegateResult.Result, delegateResult.Exception);
-			}, retryInternalServerError, count, max);
+			}, retryInternalServerError, count, maxDelayInSeconds);
 		#endregion
 	}
 }
