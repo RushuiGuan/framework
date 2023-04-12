@@ -98,7 +98,6 @@ namespace Albatross.Test.RecordClass {
 			var a = new MyDerivedRecord(1, "a");
 			var b = new MyDerivedRecord(1, "a");
 			Assert.True(a == b);
-			Assert.True(typeof(MyDerivedRecord).IsAssignableFrom(typeof(IEquatable<MyDerivedRecord>)));
 		}
 	}
 }

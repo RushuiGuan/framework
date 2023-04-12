@@ -1,13 +1,12 @@
 ﻿using Albatross.Caching;
 using Albatross.Config;
-using Albatross.Hosting.Demo;
 using Albatross.Hosting.Demo.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Albatross.Caching.MemCache;
 
 namespace Albatross.Hosting.Test {
 	public class MyStartup : Startup {
@@ -23,6 +22,7 @@ namespace Albatross.Hosting.Test {
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
 			services.AddCacheMgmt(this.GetType().Assembly);
+			services.AddMemCache();
 			services.AddSignalR();
 			services.AddRazorPages().AddRazorRuntimeCompilation();
 			services.AddMvc(options => options.InputFormatters.Add(new TextPlainInputFormatter()));

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Albatross.Authentication.Core;
 using Albatross.Config;
+using Albatross.Hosting.Demo.CacheMgmt;
 using Albatross.Hosting.Demo.Hubs;
+using Albatross.Hosting.Test;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -15,7 +17,7 @@ using Polly.Caching;
 using Polly.Registry;
 using Serilog;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.Hosting.Demo.Controllers {
 	[Route("api/[controller]")]
 	[Authorize]
 	public class ValuesController : Controller {
@@ -27,7 +29,7 @@ namespace Albatross.Hosting.Test {
 		private readonly IReadOnlyPolicyRegistry<string> policyRegistry;
 		private readonly IHubContext<NotifHub> hubContext;
 
-		public ValuesController(ProgramSetting setting, IConfiguration configuration, ILogger<ValuesController> logger, 
+		public ValuesController(ProgramSetting setting, IConfiguration configuration, ILogger<ValuesController> logger,
 			IGetCurrentUser getCurrentUser, IMemoryCache memoryCache, IReadOnlyPolicyRegistry<string> policyRegistry, IHubContext<NotifHub> hubContext) {
 			logger.LogInformation("{class} instance created", nameof(ValuesController));
 			this.setting = setting;
@@ -51,13 +53,13 @@ namespace Albatross.Hosting.Test {
 
 		[HttpGet("settings")]
 		public string GetSettings() {
-			var setting = this.configuration.GetSection(TestSetting.Key).Get<TestSetting>();
+			var setting = configuration.GetSection(TestSetting.Key).Get<TestSetting>();
 			return $"{setting?.Name} - {setting?.Count}";
 		}
 
 		[HttpGet("current-user")]
 		[Authorize]
-		public string CurrentUser() => this.getCurrentUser.Get();
+		public string CurrentUser() => getCurrentUser.Get();
 
 		[HttpGet("symbol")]
 		public Task<int[]> GetSymbol(int key) {

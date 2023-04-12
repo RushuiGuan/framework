@@ -69,7 +69,7 @@ namespace Albatross.WebClient.Test {
 					return await this.client.SendAsync(request);
 				}
 			});
-			return await GetRawResponse(response);
+			return await ProcessResponseAsText(response);
 		}
 
 		public async Task<MyResponse?> PostData(MyRequest @myRequest) {

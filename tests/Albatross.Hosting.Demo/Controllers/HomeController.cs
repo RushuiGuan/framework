@@ -1,5 +1,5 @@
 ﻿using Albatross.Caching;
-using Albatross.Hosting.Test;
+using Albatross.Hosting.Demo.CacheMgmt;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Asn1.Ocsp;

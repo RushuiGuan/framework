@@ -28,265 +28,17 @@ namespace Albatross.WebClient {
 
 		public void UseTextWriter(TextWriter writer) { this.writer = writer; }
 		public virtual int MaxRedirect => 3;
+		public const string GZipEncoding = "gzip";
 
 		#region utility
-		protected HttpMethod GetPatchMethod() {
-			return new HttpMethod("Patch");
-		}
 		public Uri BaseUrl => this.client.BaseAddress ?? throw new InvalidOperationException($"Base address not set for {this.GetType().FullName}");
 		public string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
 		public T? Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
 		public ValueTask<T?> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
-
 		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
 		};
-		#endregion
-
-		protected void WriteRawResponse(TextWriter writer, HttpResponseMessage response, string content) {
-			writer.WriteLine("-------------------- Response --------------------");
-			writer.WriteLine($"status-code: {response.StatusCode}({(int)response.StatusCode})");
-			WriteHeader(writer, response.Headers);
-			WriteHeader(writer, response.Content.Headers);
-			writer.Write(content);
-		}
-
-		void WriteHeader(TextWriter myWriter, HttpHeaders headers) {
-			foreach (var header in headers) {
-				myWriter.Write(header.Key);
-				myWriter.Write(":");
-				foreach (var value in header.Value) {
-					myWriter.Write(" ");
-					myWriter.Write(value);
-				}
-				myWriter.WriteLine();
-			}
-		}
-
-		protected void WriteRequest(HttpRequestMessage request) {
-			if (writer != null) {
-				writer.WriteLine("-------------------- Request --------------------");
-				writer.Write(request.Method);
-				writer.Write(" ");
-				writer.WriteLine(request.RequestUri);
-				WriteHeader(writer, request.Headers);
-				if (request.Content != null) {
-					WriteHeader(writer, request.Content.Headers);
-					writer.WriteLine(request.Content.ReadAsStringAsync().Result);
-				}
-			}
-		}
-
-		#region creating request and response
-		[Obsolete]
-		public IEnumerable<HttpRequestMessage> CreateRequests(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength,
-			string arrayQueryKey, params string[] arrayQueryValues) {
-			var urls = this.CreateRequestUrls(relativeUrl, queryStringValues, maxUrlLength, arrayQueryKey, arrayQueryValues);
-			return urls.Select(args => new HttpRequestMessage(method, args)).ToArray();
-		}
-		public IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
-			List<string> urls = new List<string>();
-			int offset = 0;
-			do {
-				var sb = relativeUrl.CreateUrl(queryStringValues);
-				int index;
-				for (index = offset; index < arrayQueryValues.Length; index++) {
-					int current = sb.Length;
-					sb.AddQueryParam(arrayQueryKey, arrayQueryValues[index]!);
-					if (sb.Length > maxUrlLength - this.BaseUrl.AbsoluteUri.Length) {
-						sb.Length = current;
-						if (index == 0) {
-							throw new InvalidOperationException("Cannot create requests because url max length is smaller than the minimum length required for a single request");
-						}
-						break;
-					}
-				}
-				urls.Add(sb.ToString());
-				offset = index;
-			} while (offset < arrayQueryValues.Length);
-			return urls;
-		}
-		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
-			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
-			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
-			WriteRequest(request);
-			return request;
-		}
-		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t) {
-			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			string content = SerializeJson<T>(t);
-			request.Content = new StringContent(content, Encoding.UTF8, Constant.JsonContentType);
-			writer?.WriteLine(content);
-			return request;
-		}
-		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
-			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
-			writer?.WriteLine(content);
-			return request;
-		}
-		public HttpRequestMessage CreateStreamRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, Stream stream) {
-			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			request.Content = new StreamContent(stream);
-			return request;
-		}
-		public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, params MultiPartFormData[] formDataArray) {
-			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			var content = new MultipartFormDataContent();
-			foreach (var item in formDataArray) {
-				content.AddMultiPartFormData(item);
-			}
-			request.Content = content;
-			return request;
-		}
-
-		public async Task<string> GetRawResponse(HttpRequestMessage request) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await SendRequest(request)) {
-				return await GetRawResponse(response);
-			}
-		}
-		public async Task<string> GetRawResponse(HttpResponseMessage response) {
-			string content = await ReadResponseAsText(response);
-			if (writer != null) {
-				WriteRawResponse(writer, response, content);
-			}
-			EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			return content;
-		}
-		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-
-			using (var response = await SendRequest(request)) {
-				return await GetRawResponse<ErrorType>(response);
-			}
-		}
-		public async Task<string> GetRawResponse<ErrorType>(HttpResponseMessage response) {
-			string content = await ReadResponseAsText(response);
-			if (writer != null) {
-				WriteRawResponse(writer, response, content);
-			}
-			EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			return content;
-		}
-		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await SendRequest(request)) {
-				return await GetJsonResponse<ResultType, ErrorType>(response);
-			}
-		}
-		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpResponseMessage response) {
-			string content = await ReadResponseAsText(response);
-			if (writer != null) {
-				WriteRawResponse(writer, response, content);
-			}
-			EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType) : Deserialize<ResultType>(content);
-		}
-		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await SendRequest(request)) {
-				return await GetJsonResponse<ResultType>(response);
-			}
-		}
-		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpResponseMessage response) {
-			string content = await ReadResponseAsText(response);
-			if (writer != null) {
-				WriteRawResponse(writer, response, content);
-			}
-			EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType) : Deserialize<ResultType>(content);
-		}
-		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await SendRequest(request)) {
-				await this.Download<ErrorType>(response, stream);
-			}
-		}
-		public async Task Download<ErrorType>(HttpResponseMessage response, Stream stream) {
-			if (response.StatusCode != HttpStatusCode.OK) {
-				string content = await response.Content.ReadAsStringAsync();
-				if (writer != null) {
-					WriteRawResponse(writer, response, content);
-				}
-				EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			} else {
-				await response.Content.CopyToAsync(stream);
-			}
-		}
-		public async Task Download(HttpRequestMessage request, Stream stream) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await SendRequest(request)) {
-				await this.Download(response, stream);
-			}
-		}
-		public async Task Download(HttpResponseMessage response, Stream stream) {
-			if (response.StatusCode != HttpStatusCode.OK) {
-				string content = await response.Content.ReadAsStringAsync();
-				if (writer != null) {
-					WriteRawResponse(writer, response, content);
-				}
-				EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
-			} else {
-				await response.Content.CopyToAsync(stream);
-			}
-		}
-
-		public void EnsureStatusCode(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string content) {
-			EnsureStatusCode<ServiceError>(statusCode, method, endpoint, content);
-		}
-
-		public void EnsureStatusCode<ErrorType>(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string content) {
-			Exception exception;
-			if ((int)statusCode > 399) {
-				try {
-					var error = Deserialize<ErrorType>(content);
-					if (typeof(ErrorType) == typeof(ServiceError)) {
-						exception = new ServiceException(statusCode, method, endpoint, error as ServiceError, content);
-					} else {
-						exception = new ServiceException<ErrorType>(statusCode, method, endpoint, error, content);
-					}
-				} catch {
-					exception = new ServiceException(statusCode, method, endpoint, null, content);
-				}
-				throw exception;
-			}
-		}
-
-		public async Task<HttpResponseMessage> SendRequest(HttpRequestMessage request, int redirectCount = 0) {
-			var response = await client.SendAsync(request);
-			if (ShouldRedirect(response)) {
-				if (redirectCount > MaxRedirect) {
-					throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
-				}
-				Uri redirectUri = response.Headers.Location;
-				if (!redirectUri.IsAbsoluteUri) {
-					redirectUri = new Uri(response.RequestMessage.RequestUri, response.Headers.Location);
-				}
-				response.Dispose();
-				using (var newRequest = await CloneHttpRequest(response.RequestMessage, redirectUri)) {
-					logger.LogInformation("Redirected from {url} to {to}", request.RequestUri, newRequest.RequestUri);
-					return await SendRequest(newRequest, redirectCount++);
-				}
-			} else {
-				return response;
-			}
-		}
-		#endregion
-
-		#region utilities 
-		public async Task<string> ReadResponseAsText(HttpResponseMessage response) {
-			if (response.Content.Headers.ContentEncoding.Contains("gzip")) {
-				using var stream = await response.Content.ReadAsStreamAsync();
-				using var gzip = new GZipStream(stream, CompressionMode.Decompress);
-				using var reader = new StreamReader(gzip);
-				return await reader.ReadToEndAsync();
-			} else {
-				return await response.Content.ReadAsStringAsync();
-			}
-		}
-
 		public async Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
 			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
 				Version = request.Version
@@ -302,7 +54,6 @@ namespace Albatross.WebClient {
 			}
 			return result;
 		}
-
 		public static bool ShouldRedirect(HttpResponseMessage response) {
 			switch (response.StatusCode) {
 				case HttpStatusCode.MultipleChoices:
@@ -316,7 +67,9 @@ namespace Albatross.WebClient {
 					return false;
 			}
 		}
+		#endregion
 
+		#region retry logic 
 		public static bool ShouldRetry(Exception err, bool includeInternalServerError) {
 			if (err is HttpRequestException) {
 				return true;
@@ -347,19 +100,235 @@ namespace Albatross.WebClient {
 			for (int i = 0; i < count; i++) {
 				array[i] = TimeSpan.FromSeconds(delay);
 				delay = delay * 2;
-				if (delay > maxDelayInSeconds) { 
-					delay = maxDelayInSeconds.Value; 
+				if (delay > maxDelayInSeconds) {
+					delay = maxDelayInSeconds.Value;
 				}
 			}
 			logger.LogDebug("Setting up retry policy using the following step back sequence: {@array}", array);
 			return Policy.Handle<Exception>(err => ShouldRetry(err, retryInternalServerError)).OrResult<T?>(predicate)
 					.WaitAndRetryAsync(array, (delegateResult, timespan) => onRetry(delegateResult, timespan));
 		}
-		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds) 
+		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds)
 			=> this.GetDefaultRetryPolicy<T>(predicate, (delegateResult, timeSpan) => {
-				this.logger.LogWarning("Retrying {what} after {timespan} seconds\non result: {@result}\nfor error: {error}", 
+				this.logger.LogWarning("Retrying {what} after {timespan} seconds\non result: {@result}\nfor error: {error}",
 					what, timeSpan, delegateResult.Result, delegateResult.Exception);
 			}, retryInternalServerError, count, maxDelayInSeconds);
+		#endregion
+
+		#region creating request
+		public IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
+			List<string> urls = new List<string>();
+			int offset = 0;
+			do {
+				var sb = relativeUrl.CreateUrl(queryStringValues);
+				int index;
+				for (index = offset; index < arrayQueryValues.Length; index++) {
+					int current = sb.Length;
+					sb.AddQueryParam(arrayQueryKey, arrayQueryValues[index]!);
+					if (sb.Length > maxUrlLength - this.BaseUrl.AbsoluteUri.Length) {
+						sb.Length = current;
+						if (index == 0) {
+							throw new InvalidOperationException("Cannot create requests because url max length is smaller than the minimum length required for a single request");
+						}
+						break;
+					}
+				}
+				urls.Add(sb.ToString());
+				offset = index;
+			} while (offset < arrayQueryValues.Length);
+			return urls;
+		}
+		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
+			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
+			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
+			writer.LogRequest(request);
+			return request;
+		}
+		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			string content = SerializeJson<T>(t);
+			request.Content = new StringContent(content, Encoding.UTF8, Constant.JsonContentType);
+			writer?.WriteLine(content);
+			return request;
+		}
+		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
+			writer?.WriteLine(content);
+			return request;
+		}
+		public HttpRequestMessage CreateStreamRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, Stream stream) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			request.Content = new StreamContent(stream);
+			return request;
+		}
+		public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, params MultiPartFormData[] formDataArray) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			var content = new MultipartFormDataContent();
+			foreach (var item in formDataArray) {
+				content.AddMultiPartFormData(item);
+			}
+			request.Content = content;
+			return request;
+		}
+		#endregion
+
+		#region get response
+		public async Task<HttpResponseMessage> SendRequest(HttpRequestMessage request, int redirectCount = 0) {
+			var response = await client.SendAsync(request);
+			if (ShouldRedirect(response)) {
+				if (redirectCount > MaxRedirect) {
+					throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
+				}
+				Uri redirectUri = response.Headers.Location;
+				if (!redirectUri.IsAbsoluteUri) {
+					redirectUri = new Uri(response.RequestMessage.RequestUri, response.Headers.Location);
+				}
+				response.Dispose();
+				using (var newRequest = await CloneHttpRequest(response.RequestMessage, redirectUri)) {
+					logger.LogInformation("Redirected from {url} to {to}", request.RequestUri, newRequest.RequestUri);
+					return await SendRequest(newRequest, redirectCount++);
+				}
+			} else {
+				return response;
+			}
+		}
+		public async Task<string> GetRawResponse(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await SendRequest(request)) {
+				return await ProcessResponseAsText(response);
+			}
+		}
+		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+
+			using (var response = await SendRequest(request)) {
+				return await ProcessResponseAsText<ErrorType>(response);
+			}
+		}
+		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await SendRequest(request)) {
+				return await ProcessResponseAsJson<ResultType, ErrorType>(response);
+			}
+		}
+		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await SendRequest(request)) {
+				return await ProcessResponseAsJson<ResultType>(response);
+			}
+		}
+		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await SendRequest(request)) {
+				await this.Download<ErrorType>(response, stream);
+			}
+		}
+		public async Task Download(HttpRequestMessage request, Stream stream) {
+			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			using (var response = await SendRequest(request)) {
+				await this.Download(response, stream);
+			}
+		}
+		#endregion
+
+		#region error processing
+		public Task EnsureStatusCode(HttpResponseMessage response) => EnsureStatusCode<ServiceError>(response);
+		public async Task EnsureStatusCode<ErrorType>(HttpResponseMessage response) {
+			Exception exception;
+			if ((int)response.StatusCode > 399) {
+				string content = await ReadResponseAsText(response);
+				try {
+					var error = Deserialize<ErrorType>(content);
+					if (typeof(ErrorType) == typeof(ServiceError)) {
+						exception = new ServiceException(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, error as ServiceError, content);
+					} else {
+						exception = new ServiceException<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, error, content);
+					}
+				} catch {
+					exception = new ServiceException(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, null, content);
+				}
+				throw exception;
+			}
+		}
+		#endregion
+
+		#region process response
+		public async Task<string> ReadResponseAsText(HttpResponseMessage response) {
+			if (response.Content.Headers.ContentEncoding.Contains(GZipEncoding)) {
+				using var stream = await response.Content.ReadAsStreamAsync();
+				using var gzip = new GZipStream(stream, CompressionMode.Decompress);
+				using var reader = new StreamReader(gzip);
+				return await reader.ReadToEndAsync();
+			} else {
+				return await response.Content.ReadAsStringAsync();
+			}
+		}
+		public async Task<T?> ReadResponseJson<T>(HttpResponseMessage response) {
+			if (response.StatusCode == HttpStatusCode.NoContent) {
+				return default;
+			} else {
+				using var stream = await response.Content.ReadAsStreamAsync();
+				if (response.Content.Headers.ContentEncoding.Contains(GZipEncoding)) {
+					using var gzip = new GZipStream(stream, CompressionMode.Decompress);
+					return await DeserializeAsync<T>(stream);
+				} else {
+					return await DeserializeAsync<T>(stream);
+				}
+			}
+		}
+		public async Task<string> ProcessResponseAsText(HttpResponseMessage response) {
+			try {
+				await EnsureStatusCode(response);
+				string content = await ReadResponseAsText(response);
+				return content;
+			} finally {
+				await writer.LogResponse(response);
+			}
+		}
+		public async Task<string> ProcessResponseAsText<ErrorType>(HttpResponseMessage response) {
+			try {
+				await EnsureStatusCode<ErrorType>(response);
+				string content = await ReadResponseAsText(response);
+				return content;
+			} finally {
+				await writer.LogResponse(response);
+			}
+		}
+		public async Task<ResultType?> ProcessResponseAsJson<ResultType, ErrorType>(HttpResponseMessage response) {
+			try {
+				await EnsureStatusCode<ErrorType>(response);
+				var result = await ReadResponseJson<ResultType>(response);
+				return result;
+			} finally {
+				await writer.LogResponse(response);
+			}
+		}
+		public async Task<ResultType?> ProcessResponseAsJson<ResultType>(HttpResponseMessage response) {
+			try {
+				await EnsureStatusCode(response);
+				string content = await ReadResponseAsText(response);
+				return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType) : Deserialize<ResultType>(content);
+			} finally {
+				await writer.LogResponse(response);
+			}
+		}
+		public async Task Download<ErrorType>(HttpResponseMessage response, Stream stream) {
+			try {
+				await EnsureStatusCode<ErrorType>(response);
+				await response.Content.CopyToAsync(stream);
+			} finally {
+				await writer.LogResponse(response, false);
+			}
+		}
+		public async Task Download(HttpResponseMessage response, Stream stream) {
+			try {
+				await EnsureStatusCode(response);
+				await response.Content.CopyToAsync(stream);
+			} finally {
+				await writer.LogResponse(response, false);
+			}
+		}
 		#endregion
 	}
 }

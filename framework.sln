@@ -73,6 +73,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		azure-pipelines.yml = azure-pipelines.yml
+		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
@@ -96,9 +97,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.TestHost"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.Utility", "src\Albatross.Caching.Utility\Albatross.Caching.Utility.csproj", "{29AEE8E2-0E62-41A5-AE3E-BA3BACBE1411}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Caching.Redis", "src\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj", "{231B4747-9A64-4404-AFFC-5518B1308151}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.Redis", "src\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj", "{231B4747-9A64-4404-AFFC-5518B1308151}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Caching.MemCache", "src\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj", "{B438791B-0B6C-4FB0-A2C3-0BDD92282DAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.MemCache", "src\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj", "{B438791B-0B6C-4FB0-A2C3-0BDD92282DAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
