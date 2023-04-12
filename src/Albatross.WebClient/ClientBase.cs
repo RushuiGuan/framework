@@ -201,7 +201,6 @@ namespace Albatross.WebClient {
 		}
 		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsText<ErrorType>(response);
 			}
@@ -237,7 +236,7 @@ namespace Albatross.WebClient {
 		public async Task EnsureStatusCode<ErrorType>(HttpResponseMessage response) {
 			Exception exception;
 			if ((int)response.StatusCode > 399) {
-				string content = await ReadResponseAsText(response);
+				string content = await response.ReadResponseAsText();
 				try {
 					var error = Deserialize<ErrorType>(content);
 					if (typeof(ErrorType) == typeof(ServiceError)) {
@@ -254,17 +253,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region process response
-		public async Task<string> ReadResponseAsText(HttpResponseMessage response) {
-			if (response.Content.Headers.ContentEncoding.Contains(GZipEncoding)) {
-				using var stream = await response.Content.ReadAsStreamAsync();
-				using var gzip = new GZipStream(stream, CompressionMode.Decompress);
-				using var reader = new StreamReader(gzip);
-				return await reader.ReadToEndAsync();
-			} else {
-				return await response.Content.ReadAsStringAsync();
-			}
-		}
-		public async Task<T?> ReadResponseJson<T>(HttpResponseMessage response) {
+		public async Task<T?> ReadResponseAsJson<T>(HttpResponseMessage response) {
 			if (response.StatusCode == HttpStatusCode.NoContent) {
 				return default;
 			} else {
@@ -280,7 +269,7 @@ namespace Albatross.WebClient {
 		public async Task<string> ProcessResponseAsText(HttpResponseMessage response) {
 			try {
 				await EnsureStatusCode(response);
-				string content = await ReadResponseAsText(response);
+				string content = await response.ReadResponseAsText();
 				return content;
 			} finally {
 				await writer.LogResponse(response);
@@ -289,7 +278,7 @@ namespace Albatross.WebClient {
 		public async Task<string> ProcessResponseAsText<ErrorType>(HttpResponseMessage response) {
 			try {
 				await EnsureStatusCode<ErrorType>(response);
-				string content = await ReadResponseAsText(response);
+				string content = await response.ReadResponseAsText();
 				return content;
 			} finally {
 				await writer.LogResponse(response);
@@ -298,7 +287,7 @@ namespace Albatross.WebClient {
 		public async Task<ResultType?> ProcessResponseAsJson<ResultType, ErrorType>(HttpResponseMessage response) {
 			try {
 				await EnsureStatusCode<ErrorType>(response);
-				var result = await ReadResponseJson<ResultType>(response);
+				var result = await ReadResponseAsJson<ResultType>(response);
 				return result;
 			} finally {
 				await writer.LogResponse(response);
@@ -307,7 +296,7 @@ namespace Albatross.WebClient {
 		public async Task<ResultType?> ProcessResponseAsJson<ResultType>(HttpResponseMessage response) {
 			try {
 				await EnsureStatusCode(response);
-				string content = await ReadResponseAsText(response);
+				string content = await response.ReadResponseAsText();
 				return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType) : Deserialize<ResultType>(content);
 			} finally {
 				await writer.LogResponse(response);

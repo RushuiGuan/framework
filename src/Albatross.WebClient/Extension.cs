@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.IO.Compression;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -47,6 +49,18 @@ namespace Albatross.WebClient {
 			}
 		}
 
+		public static async Task<string> ReadResponseAsText(this HttpResponseMessage response) {
+			if (response.Content.Headers.ContentEncoding.Contains(ClientBase.GZipEncoding)) {
+				var stream = await response.Content.ReadAsStreamAsync();
+				stream.Seek(0, SeekOrigin.Begin);
+				var gzip = new GZipStream(stream, CompressionMode.Decompress);
+				var reader = new StreamReader(gzip);
+				return await reader.ReadToEndAsync();
+			} else {
+				return await response.Content.ReadAsStringAsync();
+			}
+		}
+
 		public static async Task LogResponse(this TextWriter? writer, HttpResponseMessage response, bool logContent = true) {
 			if (writer != null) {
 				writer.WriteLine("-------------------- Response --------------------");
@@ -54,10 +68,12 @@ namespace Albatross.WebClient {
 				LogHeader(writer, response.Headers);
 				LogHeader(writer, response.Content.Headers);
 				if (logContent) {
-					using var stream = await response.Content.ReadAsStreamAsync();
-					stream.Seek(0, SeekOrigin.Begin);
-					var content = new StreamReader(stream).ReadToEnd();
-					writer.WriteLine(content);
+					var content = await response.ReadResponseAsText();
+					if (!content.EndsWith('\n')) {
+						writer.WriteLine(content);
+					} else {
+						writer.Write(content);
+					}
 				}
 				writer.WriteLine("-------------------------------------------------");
 			}
@@ -85,7 +101,6 @@ namespace Albatross.WebClient {
 					string text = request.Content.ReadAsStringAsync().Result;
 					writer.WriteLine(text);
 				}
-				writer.WriteLine("-------------------------------------------------");
 			}
 		}
 
