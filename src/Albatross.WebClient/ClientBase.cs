@@ -43,10 +43,13 @@ namespace Albatross.WebClient {
 		};
 		#endregion
 
-		void WriteRawResponse(TextWriter writer, HttpStatusCode statusCode, HttpHeaders headers, string content) {
+		protected void WriteRawResponse(TextWriter writer, HttpResponseMessage response, string content) {
 			writer.WriteLine("-------------------- Response --------------------");
-			writer.WriteLine($"status-code: {statusCode}({(int)statusCode})");
-			WriteHeader(writer, headers);
+			writer.WriteLine($"status-code: {response.StatusCode}({(int)response.StatusCode})");
+			WriteHeader(writer, response.Headers);
+			if(response.Content != null) {
+				WriteHeader(writer, response.Content.Headers);
+			}
 			writer.Write(content);
 		}
 
@@ -62,7 +65,7 @@ namespace Albatross.WebClient {
 			}
 		}
 
-		void WriteRequest(HttpRequestMessage request) {
+		protected void WriteRequest(HttpRequestMessage request) {
 			if (writer != null) {
 				writer.WriteLine("-------------------- Request --------------------");
 				writer.Write(request.Method);
@@ -70,6 +73,7 @@ namespace Albatross.WebClient {
 				writer.WriteLine(request.RequestUri);
 				WriteHeader(writer, request.Headers);
 				if (request.Content != null) {
+					WriteHeader(writer, request.Content.Headers);
 					writer.WriteLine(request.Content.ReadAsStringAsync().Result);
 				}
 			}
@@ -147,7 +151,7 @@ namespace Albatross.WebClient {
 		public async Task<string> GetRawResponse(HttpResponseMessage response) {
 			string content = await response.Content.ReadAsStringAsync();
 			if (writer != null) {
-				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+				WriteRawResponse(writer, response, content);
 			}
 			EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
 			return content;
@@ -162,7 +166,7 @@ namespace Albatross.WebClient {
 		public async Task<string> GetRawResponse<ErrorType>(HttpResponseMessage response) {
 			string content = await response.Content.ReadAsStringAsync();
 			if (writer != null) {
-				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+				WriteRawResponse(writer, response, content);
 			}
 			EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
 			return content;
@@ -176,7 +180,7 @@ namespace Albatross.WebClient {
 		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpResponseMessage response) {
 			string content = await response.Content.ReadAsStringAsync();
 			if (writer != null) {
-				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+				WriteRawResponse(writer, response, content);
 			}
 			EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
 			return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType) : Deserialize<ResultType>(content);
@@ -190,7 +194,7 @@ namespace Albatross.WebClient {
 		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpResponseMessage response) {
 			string content = await response.Content.ReadAsStringAsync();
 			if (writer != null) {
-				WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+				WriteRawResponse(writer, response, content);
 			}
 			EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
 			return response.StatusCode == HttpStatusCode.NoContent ? default(ResultType) : Deserialize<ResultType>(content);
@@ -205,7 +209,7 @@ namespace Albatross.WebClient {
 			if (response.StatusCode != HttpStatusCode.OK) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
-					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+					WriteRawResponse(writer, response, content);
 				}
 				EnsureStatusCode<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
 			} else {
@@ -222,7 +226,7 @@ namespace Albatross.WebClient {
 			if (response.StatusCode != HttpStatusCode.OK) {
 				string content = await response.Content.ReadAsStringAsync();
 				if (writer != null) {
-					WriteRawResponse(writer, response.StatusCode, response.Headers, content);
+					WriteRawResponse(writer, response, content);
 				}
 				EnsureStatusCode(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, content);
 			} else {
