@@ -55,6 +55,7 @@ namespace Albatross.WebClient {
 				LogHeader(writer, response.Content.Headers);
 				if (logContent) {
 					using var stream = await response.Content.ReadAsStreamAsync();
+					stream.Seek(0, SeekOrigin.Begin);
 					var content = new StreamReader(stream).ReadToEnd();
 					writer.WriteLine(content);
 				}
