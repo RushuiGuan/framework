@@ -252,7 +252,7 @@ namespace Albatross.WebClient {
 
 		public async Task<HttpResponseMessage> SendRequest(HttpRequestMessage request, int redirectCount = 0) {
 			using (var response = await client.SendAsync(request)) {
-				if (IsRedirect(response)) {
+				if (ShouldRedirect(response)) {
 					if (redirectCount > MaxRedirect) {
 						throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
 					}
@@ -271,7 +271,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region utilities for retry
-		public async static Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
+		public async virtual Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
 			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
 				Version = request.Version
 			};
@@ -287,7 +287,7 @@ namespace Albatross.WebClient {
 			return result;
 		}
 
-		public static bool IsRedirect(HttpResponseMessage response) {
+		public static bool ShouldRedirect(HttpResponseMessage response) {
 			switch (response.StatusCode) {
 				case HttpStatusCode.MultipleChoices:
 				case HttpStatusCode.Moved:
