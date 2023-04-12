@@ -71,8 +71,10 @@ namespace Albatross.WebClient {
 				writer.Write(" ");
 				writer.WriteLine(request.RequestUri);
 				WriteHeader(writer, request.Headers);
-				WriteHeader(writer, request.Content.Headers);
-				writer.WriteLine(request.Content.ReadAsStringAsync().Result);
+				if (request.Content != null) {
+					WriteHeader(writer, request.Content.Headers);
+					writer.WriteLine(request.Content.ReadAsStringAsync().Result);
+				}
 			}
 		}
 
@@ -289,12 +291,14 @@ namespace Albatross.WebClient {
 			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
 				Version = request.Version
 			};
-			var ms = new MemoryStream();
-			await request.Content.CopyToAsync(ms);
-			ms.Position = 0;
-			result.Content = new StreamContent(ms);
-			foreach (var item in request.Content.Headers) {
-				result.Content.Headers.TryAddWithoutValidation(item.Key, item.Value);
+			if (request.Content != null) {
+				var ms = new MemoryStream();
+				await request.Content.CopyToAsync(ms);
+				ms.Position = 0;
+				result.Content = new StreamContent(ms);
+				foreach (var item in request.Content.Headers) {
+					result.Content.Headers.TryAddWithoutValidation(item.Key, item.Value);
+				}
 			}
 			return result;
 		}
