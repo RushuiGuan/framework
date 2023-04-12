@@ -64,6 +64,7 @@ namespace Albatross.WebClient {
 
 		void WriteRequest(HttpRequestMessage request) {
 			if (writer != null) {
+				writer.WriteLine("-------------------- Request --------------------");
 				writer.Write(request.Method);
 				writer.Write(" ");
 				writer.WriteLine(request.RequestUri);
@@ -272,7 +273,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region utilities for retry
-		public async virtual Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
+		public async Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
 			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
 				Version = request.Version
 			};
@@ -281,9 +282,9 @@ namespace Albatross.WebClient {
 				await request.Content.CopyToAsync(ms);
 				ms.Position = 0;
 				result.Content = new StreamContent(ms);
-			}
-			foreach(var item in request.Headers) {
-				result.Headers.Add(item.Key, item.Value);
+				foreach (var item in request.Content.Headers) {
+					result.Content.Headers.TryAddWithoutValidation(item.Key, item.Value);
+				}
 			}
 			return result;
 		}
