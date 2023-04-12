@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Polly;
 using System.Linq;
 using Polly.Retry;
+using System.Data;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -25,6 +26,7 @@ namespace Albatross.WebClient {
 		}
 
 		public void UseTextWriter(TextWriter writer) { this.writer = writer; }
+		public virtual int MaxRedirect => 3;
 
 		#region utility
 		protected HttpMethod GetPatchMethod() {
@@ -137,7 +139,7 @@ namespace Albatross.WebClient {
 
 		public async Task<string> GetRawResponse(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await client.SendAsync(request)) {
+			using (var response = await SendRequest(request)) {
 				return await GetRawResponse(response);
 			}
 		}
@@ -152,7 +154,7 @@ namespace Albatross.WebClient {
 		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
 
-			using (var response = await client.SendAsync(request)) {
+			using (var response = await SendRequest(request)) {
 				return await GetRawResponse<ErrorType>(response);
 			}
 		}
@@ -166,7 +168,7 @@ namespace Albatross.WebClient {
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await client.SendAsync(request)) {
+			using (var response = await SendRequest(request)) {
 				return await GetJsonResponse<ResultType, ErrorType>(response);
 			}
 		}
@@ -180,7 +182,7 @@ namespace Albatross.WebClient {
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await client.SendAsync(request)) {
+			using (var response = await SendRequest(request)) {
 				return await GetJsonResponse<ResultType>(response);
 			}
 		}
@@ -194,7 +196,7 @@ namespace Albatross.WebClient {
 		}
 		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await client.SendAsync(request)) {
+			using (var response = await SendRequest(request)) {
 				await this.Download<ErrorType>(response, stream);
 			}
 		}
@@ -211,7 +213,7 @@ namespace Albatross.WebClient {
 		}
 		public async Task Download(HttpRequestMessage request, Stream stream) {
 			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
-			using (var response = await client.SendAsync(request)) {
+			using (var response = await SendRequest(request)) {
 				await this.Download(response, stream);
 			}
 		}
@@ -247,10 +249,59 @@ namespace Albatross.WebClient {
 				throw exception;
 			}
 		}
+
+		public async Task<HttpResponseMessage> SendRequest(HttpRequestMessage request, int redirectCount = 0) {
+			using (var response = await client.SendAsync(request)) {
+				if (IsRedirect(response)) {
+					if (redirectCount > MaxRedirect) {
+						throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
+					}
+					Uri redirectUri = response.Headers.Location;
+					if (!redirectUri.IsAbsoluteUri) {
+						redirectUri = new Uri(response.RequestMessage.RequestUri, response.Headers.Location);
+					}
+					var newRequest = await CloneHttpRequest(response.RequestMessage, redirectUri);
+					logger.LogInformation("Redirected from {url} to {to}", request.RequestUri, newRequest.RequestUri);
+					return await SendRequest(newRequest, redirectCount++);
+				} else {
+					return response;
+				}
+			}
+		}
 		#endregion
 
-		#region retry logic
-		static bool ShouldRetry(Exception err, bool includeInternalServerError) {
+		#region utilities for retry
+		public async static Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
+			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
+				Version = request.Version
+			};
+			if (request.Content != null) {
+				var ms = new MemoryStream();
+				await request.Content.CopyToAsync(ms);
+				ms.Position = 0;
+				result.Content = new StreamContent(ms);
+			}
+			foreach(var item in request.Headers) {
+				result.Headers.Add(item.Key, item.Value);
+			}
+			return result;
+		}
+
+		public static bool IsRedirect(HttpResponseMessage response) {
+			switch (response.StatusCode) {
+				case HttpStatusCode.MultipleChoices:
+				case HttpStatusCode.Moved:
+				case HttpStatusCode.Found:
+				case HttpStatusCode.SeeOther:
+				case HttpStatusCode.TemporaryRedirect:
+				case HttpStatusCode.PermanentRedirect:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		public static bool ShouldRetry(Exception err, bool includeInternalServerError) {
 			if (err is HttpRequestException) {
 				return true;
 			} else if (err is ServiceException serviceException) {
