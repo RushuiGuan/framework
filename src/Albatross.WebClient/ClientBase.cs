@@ -42,6 +42,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		void WriteRawResponse(TextWriter writer, HttpStatusCode statusCode, HttpHeaders headers, string content) {
+			writer.WriteLine("-------------------- Response --------------------");
 			writer.WriteLine($"status-code: {statusCode}({(int)statusCode})");
 			WriteHeader(writer, headers);
 			writer.Write(content);
