@@ -251,21 +251,22 @@ namespace Albatross.WebClient {
 		}
 
 		public async Task<HttpResponseMessage> SendRequest(HttpRequestMessage request, int redirectCount = 0) {
-			using (var response = await client.SendAsync(request)) {
-				if (ShouldRedirect(response)) {
-					if (redirectCount > MaxRedirect) {
-						throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
-					}
-					Uri redirectUri = response.Headers.Location;
-					if (!redirectUri.IsAbsoluteUri) {
-						redirectUri = new Uri(response.RequestMessage.RequestUri, response.Headers.Location);
-					}
-					var newRequest = await CloneHttpRequest(response.RequestMessage, redirectUri);
+			var response = await client.SendAsync(request);
+			if (ShouldRedirect(response)) {
+				if (redirectCount > MaxRedirect) {
+					throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
+				}
+				Uri redirectUri = response.Headers.Location;
+				if (!redirectUri.IsAbsoluteUri) {
+					redirectUri = new Uri(response.RequestMessage.RequestUri, response.Headers.Location);
+				}
+				response.Dispose();
+				using (var newRequest = await CloneHttpRequest(response.RequestMessage, redirectUri)) {
 					logger.LogInformation("Redirected from {url} to {to}", request.RequestUri, newRequest.RequestUri);
 					return await SendRequest(newRequest, redirectCount++);
-				} else {
-					return response;
 				}
+			} else {
+				return response;
 			}
 		}
 		#endregion
