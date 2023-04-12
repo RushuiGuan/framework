@@ -13,6 +13,7 @@ using Polly;
 using System.Linq;
 using Polly.Retry;
 using System.Data;
+using System.IO.Compression;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -47,9 +48,7 @@ namespace Albatross.WebClient {
 			writer.WriteLine("-------------------- Response --------------------");
 			writer.WriteLine($"status-code: {response.StatusCode}({(int)response.StatusCode})");
 			WriteHeader(writer, response.Headers);
-			if(response.Content != null) {
-				WriteHeader(writer, response.Content.Headers);
-			}
+			WriteHeader(writer, response.Content.Headers);
 			writer.Write(content);
 		}
 
@@ -72,10 +71,8 @@ namespace Albatross.WebClient {
 				writer.Write(" ");
 				writer.WriteLine(request.RequestUri);
 				WriteHeader(writer, request.Headers);
-				if (request.Content != null) {
-					WriteHeader(writer, request.Content.Headers);
-					writer.WriteLine(request.Content.ReadAsStringAsync().Result);
-				}
+				WriteHeader(writer, request.Content.Headers);
+				writer.WriteLine(request.Content.ReadAsStringAsync().Result);
 			}
 		}
 
@@ -149,7 +146,7 @@ namespace Albatross.WebClient {
 			}
 		}
 		public async Task<string> GetRawResponse(HttpResponseMessage response) {
-			string content = await response.Content.ReadAsStringAsync();
+			string content = await ReadResponseAsText(response);
 			if (writer != null) {
 				WriteRawResponse(writer, response, content);
 			}
@@ -164,7 +161,7 @@ namespace Albatross.WebClient {
 			}
 		}
 		public async Task<string> GetRawResponse<ErrorType>(HttpResponseMessage response) {
-			string content = await response.Content.ReadAsStringAsync();
+			string content = await ReadResponseAsText(response);
 			if (writer != null) {
 				WriteRawResponse(writer, response, content);
 			}
@@ -178,7 +175,7 @@ namespace Albatross.WebClient {
 			}
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpResponseMessage response) {
-			string content = await response.Content.ReadAsStringAsync();
+			string content = await ReadResponseAsText(response);
 			if (writer != null) {
 				WriteRawResponse(writer, response, content);
 			}
@@ -192,7 +189,7 @@ namespace Albatross.WebClient {
 			}
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpResponseMessage response) {
-			string content = await response.Content.ReadAsStringAsync();
+			string content = await ReadResponseAsText(response);
 			if (writer != null) {
 				WriteRawResponse(writer, response, content);
 			}
@@ -276,19 +273,28 @@ namespace Albatross.WebClient {
 		}
 		#endregion
 
-		#region utilities for retry
+		#region utilities 
+		public async Task<string> ReadResponseAsText(HttpResponseMessage response) {
+			if (response.Content.Headers.ContentEncoding.Contains("gzip")) {
+				using var stream = await response.Content.ReadAsStreamAsync();
+				using var gzip = new GZipStream(stream, CompressionMode.Decompress);
+				using var reader = new StreamReader(gzip);
+				return await reader.ReadToEndAsync();
+			} else {
+				return await response.Content.ReadAsStringAsync();
+			}
+		}
+
 		public async Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
 			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
 				Version = request.Version
 			};
-			if (request.Content != null) {
-				var ms = new MemoryStream();
-				await request.Content.CopyToAsync(ms);
-				ms.Position = 0;
-				result.Content = new StreamContent(ms);
-				foreach (var item in request.Content.Headers) {
-					result.Content.Headers.TryAddWithoutValidation(item.Key, item.Value);
-				}
+			var ms = new MemoryStream();
+			await request.Content.CopyToAsync(ms);
+			ms.Position = 0;
+			result.Content = new StreamContent(ms);
+			foreach (var item in request.Content.Headers) {
+				result.Content.Headers.TryAddWithoutValidation(item.Key, item.Value);
 			}
 			return result;
 		}
