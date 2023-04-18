@@ -254,13 +254,13 @@ namespace Albatross.WebClient {
 
 		#region process response
 		public async Task<T?> ReadResponseAsJson<T>(HttpResponseMessage response) {
-			if (response.StatusCode == HttpStatusCode.NoContent) {
+			if (response.StatusCode == HttpStatusCode.NoContent || response.Content.Headers.ContentLength == 0) {
 				return default;
 			} else {
-				using var stream = await response.Content.ReadAsStreamAsync();
+				var stream = await response.Content.ReadAsStreamAsync();
 				if (response.Content.Headers.ContentEncoding.Contains(GZipEncoding)) {
-					using var gzip = new GZipStream(stream, CompressionMode.Decompress);
-					return await DeserializeAsync<T>(stream);
+					var gzip = new GZipStream(stream, CompressionMode.Decompress);
+					return await DeserializeAsync<T>(gzip);
 				} else {
 					return await DeserializeAsync<T>(stream);
 				}

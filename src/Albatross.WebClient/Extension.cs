@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.IO.Compression;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -50,14 +48,18 @@ namespace Albatross.WebClient {
 		}
 
 		public static async Task<string> ReadResponseAsText(this HttpResponseMessage response) {
-			if (response.Content.Headers.ContentEncoding.Contains(ClientBase.GZipEncoding)) {
-				var stream = await response.Content.ReadAsStreamAsync();
-				stream.Seek(0, SeekOrigin.Begin);
-				var gzip = new GZipStream(stream, CompressionMode.Decompress);
-				var reader = new StreamReader(gzip);
-				return await reader.ReadToEndAsync();
+			if (response.Content.Headers.ContentLength > 0) {
+				if (response.Content.Headers.ContentEncoding.Contains(ClientBase.GZipEncoding)) {
+					var stream = await response.Content.ReadAsStreamAsync();
+					stream.Seek(0, SeekOrigin.Begin);
+					var gzip = new GZipStream(stream, CompressionMode.Decompress);
+					var reader = new StreamReader(gzip);
+					return await reader.ReadToEndAsync();
+				} else {
+					return await response.Content.ReadAsStringAsync();
+				}
 			} else {
-				return await response.Content.ReadAsStringAsync();
+				return string.Empty;
 			}
 		}
 
@@ -75,7 +77,6 @@ namespace Albatross.WebClient {
 						writer.Write(content);
 					}
 				}
-				writer.WriteLine("-------------------------------------------------");
 			}
 		}
 		static void LogHeader(TextWriter myWriter, HttpHeaders headers) {
@@ -101,8 +102,18 @@ namespace Albatross.WebClient {
 					string text = request.Content.ReadAsStringAsync().Result;
 					writer.WriteLine(text);
 				}
+				writer.WriteLine();
 			}
 		}
 
+		public static async Task<ResultType> GetRequiredJsonResponse<ResultType>(this ClientBase client, HttpRequestMessage request) {
+			var result = await client.GetJsonResponse<ResultType>(request);
+			return result ?? throw new InvalidDataException($"No data was returned from {request.Method}: {request.RequestUri}");
+		}
+
+		public static async Task<ResultType> GetRequiredJsonResponse<ResultType, ErrorType>(this ClientBase client, HttpRequestMessage request) {
+			var result = await client.GetJsonResponse<ResultType, ErrorType>(request);
+			return result ?? throw new InvalidDataException($"No data was returned from {request.Method}: {request.RequestUri}");
+		}
 	}
 }
