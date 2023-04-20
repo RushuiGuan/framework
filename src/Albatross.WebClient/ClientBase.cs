@@ -94,9 +94,9 @@ namespace Albatross.WebClient {
 		/// <param name="count">Determine the number of the retries</param>
 		/// <param name="maxDelayInSeconds"></param>
 		/// <returns></returns>
-		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, Action<DelegateResult<T?>, TimeSpan> onRetry, bool retryInternalServerError, int count, int? maxDelayInSeconds) {
+		public AsyncRetryPolicy<T> GetDefaultRetryPolicy<T>(Func<T, bool> predicate, Action<DelegateResult<T>, TimeSpan> onRetry, bool retryInternalServerError, int count, int? maxDelayInSeconds) {
 			var array = new TimeSpan[count];
-			var delay = 1;
+			var delay = 1; 
 			for (int i = 0; i < count; i++) {
 				array[i] = TimeSpan.FromSeconds(delay);
 				delay = delay * 2;
@@ -105,10 +105,10 @@ namespace Albatross.WebClient {
 				}
 			}
 			logger.LogDebug("Setting up retry policy using the following step back sequence: {@array}", array);
-			return Policy.Handle<Exception>(err => ShouldRetry(err, retryInternalServerError)).OrResult<T?>(predicate)
+			return Policy.Handle<Exception>(err => ShouldRetry(err, retryInternalServerError)).OrResult<T>(predicate)
 					.WaitAndRetryAsync(array, (delegateResult, timespan) => onRetry(delegateResult, timespan));
 		}
-		public AsyncRetryPolicy<T?> GetDefaultRetryPolicy<T>(Func<T?, bool> predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds)
+		public AsyncRetryPolicy<T> GetDefaultRetryPolicy<T>(Func<T, bool> predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds)
 			=> this.GetDefaultRetryPolicy<T>(predicate, (delegateResult, timeSpan) => {
 				this.logger.LogWarning("Retrying {what} after {timespan} seconds\non result: {@result}\nfor error: {error}",
 					what, timeSpan, delegateResult.Result, delegateResult.Exception);
