@@ -48,10 +48,12 @@ namespace Albatross.WebClient {
 		}
 
 		public static async Task<string> ReadResponseAsText(this HttpResponseMessage response) {
-			if (response.Content.Headers.ContentLength > 0) {
+			if (response.Content.Headers.ContentLength != 0 == true) {
 				if (response.Content.Headers.ContentEncoding.Contains(ClientBase.GZipEncoding)) {
 					var stream = await response.Content.ReadAsStreamAsync();
-					stream.Seek(0, SeekOrigin.Begin);
+					if (stream.CanSeek) {
+						stream.Seek(0, SeekOrigin.Begin);
+					}
 					var gzip = new GZipStream(stream, CompressionMode.Decompress);
 					var reader = new StreamReader(gzip);
 					return await reader.ReadToEndAsync();
