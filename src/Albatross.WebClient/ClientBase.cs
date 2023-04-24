@@ -140,7 +140,8 @@ namespace Albatross.WebClient {
 		}
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
-			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
+			// NoCache has been moved to DefaultRequestHeaders during client setup
+			// request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			writer.LogRequest(request, client);
 			return request;
 		}
