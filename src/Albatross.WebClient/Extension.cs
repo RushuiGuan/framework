@@ -92,12 +92,13 @@ namespace Albatross.WebClient {
 				myWriter.WriteLine();
 			}
 		}
-		public static void LogRequest(this TextWriter? writer, HttpRequestMessage request) {
+		public static void LogRequest(this TextWriter? writer, HttpRequestMessage request, HttpClient client) {
 			if (writer != null) {
 				writer.WriteLine("-------------------- Request --------------------");
 				writer.Write(request.Method);
 				writer.Write(" ");
 				writer.WriteLine(request.RequestUri);
+				LogHeader(writer, client.DefaultRequestHeaders);
 				LogHeader(writer, request.Headers);
 				if (request.Content != null) {
 					LogHeader(writer, request.Content.Headers);

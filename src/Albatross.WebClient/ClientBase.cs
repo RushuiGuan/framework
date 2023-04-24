@@ -141,7 +141,7 @@ namespace Albatross.WebClient {
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
 			request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
-			writer.LogRequest(request);
+			writer.LogRequest(request, client);
 			return request;
 		}
 		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t) {
