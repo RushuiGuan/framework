@@ -314,7 +314,13 @@ namespace Albatross.WebClient {
 		public async Task Download(HttpResponseMessage response, Stream stream) {
 			try {
 				await EnsureStatusCode(response);
-				await response.Content.CopyToAsync(stream);
+				if (response.Content.Headers.ContentEncoding.Contains(ClientBase.GZipEncoding)) {
+					using var responseStream = await response.Content.ReadAsStreamAsync();
+					using var gzip = new GZipStream(responseStream, CompressionMode.Decompress);
+					await gzip.CopyToAsync(stream);
+				} else {
+					await response.Content.CopyToAsync(stream);
+				}
 			} finally {
 				await writer.LogResponse(response, false);
 			}
