@@ -73,6 +73,15 @@ namespace Albatross.Repository.Core {
 			}
 		}
 
+		/// <summary>
+		/// provided the data level collection for a single entity, this method will create a new entry for the series and adjust the end date for other items
+		/// in the same entity if necessary
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <typeparam name="K"></typeparam>
+		/// <param name="collection"></param>
+		/// <param name="src"></param>
+		/// <param name="insert"></param>
 		public static void SetDateLevel<T, K>(this ICollection<T> collection, T src, bool insert = false)
 			where K : IEquatable<K>
 			where T : DateLevelEntity<K> {
@@ -140,12 +149,17 @@ namespace Albatross.Repository.Core {
 				}
 			}
 		}
-		public static async Task RebuildDateLevelSeries<T, K>(this IQueryable<T> set, K key, Action<T> remove)
-			where K : IEquatable<K>
-			where T : DateLevelEntity<K> {
-			var items = await set.Where(args => args.Key.Equals(key))
-				.OrderBy(args => args.StartDate)
-				.ToArrayAsync();
+		/// <summary>
+		/// Provided a date level series data for a single entity, the method will rebuild the end dates and remove items if necessary
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="source"></param>
+		/// <param name="remove"></param>
+		/// <returns></returns>
+		public static void RebuildDateLevelSeries<T>(this IEnumerable<T> source, Action<T> remove)
+			where T : DateLevelEntity {
+
+			var items = source.OrderBy(args => args.StartDate).ToArray();
 			T current = null;
 			foreach (var item in items.ToArray()) {
 				if (current == null) {
