@@ -26,6 +26,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public IEnumerable<Property> Properties { get; set; } = new Property[0];
 		public IEnumerable<Field> Fields { get; set; } = new Field[0];
 		public IEnumerable<Method> Methods { get; set; } = new Method[0];
+		public IEnumerable<MethodCall> Attributes { get; set; } = new MethodCall[0];
 
 		public TextWriter Generate(TextWriter writer) {
 			if (Imports?.Count() > 0) {
@@ -36,6 +37,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 			}
 
 			using (var scope = writer.BeginScope($"namespace {Namespace}")) {
+				scope.Writer.WriteAttributes(this.Attributes);
 				scope.Writer.Code(new AccessModifierElement(AccessModifier));
 				if (Static) { scope.Writer.Append(" static"); }
 				if (Sealed) { scope.Writer.Append(" sealed"); }
