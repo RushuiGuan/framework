@@ -1,3 +1,4 @@
+using Castle.Components.DictionaryAdapter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,62 +16,24 @@ namespace Albatross.Repository.Core {
 			Validator.ValidateObject(entity, new ValidationContext(entity), true);
 		}
 
-		//public static async Task SetDateLevelAsync<T, K>(this IQueryable<T> set, T src, Action<T> add, Action<T> remove, bool setMaxEndDate = false)
-		//	where K : IEquatable<K>
-		//	where T : DateLevelEntity<K> {
-
-		//	if (setMaxEndDate) {
-		//		var items = await set
-		//			.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
-		//			.ToArrayAsync();
-		//		foreach (var item in items) {
-		//			remove(item);
-		//		}
-		//		src.EndDate = DateLevelEntity.MaxEndDate;
-		//		add(src);
-		//	} else {
-		//		var after = await set
-		//			.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
-		//			.OrderBy(args => args.StartDate)
-		//			.FirstOrDefaultAsync();
-
-		//		if (after == null) {
-		//			src.EndDate = DateLevelEntity.MaxEndDate;
-		//			add(src);
-		//		} else {
-		//			var changed = !after.HasSameValue(src);
-		//			if (changed && after.StartDate != src.StartDate) {
-		//				src.EndDate = after.StartDate.AddDays(-1);
-		//				add(src);
-		//			} else if (changed || after.StartDate != src.StartDate) {
-		//				src.EndDate = after.EndDate;
-		//				remove(after);
-		//				add(src);
-		//			}
-		//		}
-		//	}
-		//	var before = await set.Where(args => args.Key.Equals(src.Key) && args.StartDate < src.StartDate)
-		//		.OrderByDescending(args => args.StartDate)
-		//		.FirstOrDefaultAsync();
-		//	if (before != null) {
-		//		if (before.HasSameValue(src)) {
-		//			before.EndDate = src.EndDate;
-		//			remove(src);
-		//		} else {
-		//			before.EndDate = src.StartDate.AddDays(-1);
-		//		}
-		//	}
-		//}
-
 		/// <summary>
-		/// provided the data level collection for a single entity, this method will create a new entry for the series and adjust the end date for other items
-		/// in the same entity if necessary
-		/// 
-		/// For DateLevel entries, two rules apply
+		/// /// For DateLevel entries, two rules apply
 		/// 1. there should be no gap between the first StartDate and <see cref="DateLevelEntity.MaxEndDate"/>
 		/// 2. there should be no overlap of dates among entries.
 		/// Assuming all operations abide these rules, the method below will not check if the EndDate is correct and simply assume that is the case
 		/// this implementation is treating datelevel entity has immutable values and only its StartDate and EndDate can be changed
+		/// 
+		/// Provided the data level collection for a single entity, this method will create a new entry for the series and adjust the end date for other items within the the same entity 
+		/// if necessary.  There are 3 possible operations.
+		/// 1. insert operation with start date only: create a record in the middle of the time series with only a start date.  End date is determined automatically.
+		/// 2. insert operation with both start date and end date: create a record in the middle of time series.  Adjust the existing overrlapping entries accordingly.
+		/// 3. append operation with only start date: create an entry with a start date and max end date and remove any current overlapping entries.
+		///
+		/// If the insert flag is false, the method will always append the record by setting the end date as the <see cref="DateLevelEntity.MaxEndDate"/>
+		/// The method will remove any existing record between the start date and the end date
+		/// 
+		/// If the insert flag is true and the end date of the record equals <see cref="DateLevelEntity.MaxEndDate"/>, the method will insert using the start date only.  If the end date of the
+		/// record is specified, the method will insert only if it 
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <typeparam name="K"></typeparam>
@@ -82,21 +45,44 @@ namespace Albatross.Repository.Core {
 			where T : DateLevelEntity<K> {
 
 			if (insert) {
-				var after = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
-					.OrderBy(args => args.StartDate).FirstOrDefault();
-
-				if (after == null) {
-					src.EndDate = DateLevelEntity.MaxEndDate;
-					collection.Add(src);
+				if (src.EndDate == DateLevelEntity.MaxEndDate) {
+					var after = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
+						.OrderBy(args => args.StartDate).FirstOrDefault();
+					if (after == null) {
+						src.EndDate = DateLevelEntity.MaxEndDate;
+						collection.Add(src);
+					} else {
+						var changed = !after.HasSameValue(src);
+						if (changed && after.StartDate != src.StartDate) {
+							src.EndDate = after.StartDate.AddDays(-1);
+							collection.Add(src);
+						} else if (changed || after.StartDate != src.StartDate) {
+							src.EndDate = after.EndDate;
+							collection.Remove(after);
+							collection.Add(src);
+						}
+					}
 				} else {
-					var changed = !after.HasSameValue(src);
-					if (changed && after.StartDate != src.StartDate) {
-						src.EndDate = after.StartDate.AddDays(-1);
-						collection.Add(src);
-					} else if (changed || after.StartDate != src.StartDate) {
-						src.EndDate = after.EndDate;
-						collection.Remove(after);
-						collection.Add(src);
+					// throw new NotSupportedException("Insert date level entity with an end date is not yet supported");
+					var after = collection
+						.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate && args.StartDate <= src.EndDate).ToArray();
+					if (after.Length == 0) {
+						throw new InvalidOperationException($"Cannot insert date level item at the end of time series or within a single date level entry");
+					} else {
+						foreach(var item in after) {
+							if(item.EndDate <= src.EndDate) {
+								collection.Remove(item);
+							} else {
+								var changed = !item.HasSameValue(src);
+								if (changed) {
+									item.StartDate = src.EndDate.AddDays(1);
+								} else {
+									src.EndDate = item.EndDate;
+									collection.Remove(item);
+								}
+								collection.Add(src);
+							}
+						}
 					}
 				}
 			} else {

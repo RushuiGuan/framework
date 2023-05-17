@@ -1,5 +1,6 @@
 ﻿using Albatross.Hosting.Test;
 using Albatross.Repository.Core;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -800,6 +801,123 @@ namespace Albatross.Repository.Test {
 					Assert.Equal(200, args.Value);
 				}
 			);
+		}
+
+		[Fact]
+		public void Mar100_Jul200_Feb150_Insert() {
+			List<TickSize> list = new List<TickSize>();
+
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Feb1_2022, 150) { EndDate = Values.Mar31_2022}, true);
+			list.Sort(Compare);
+
+			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Feb1_2022, args.StartDate);
+					Assert.Equal(Values.Mar31_2022, args.EndDate);
+					Assert.Equal(150, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Apr1_2022, args.StartDate);
+					Assert.Equal(Values.Jun30_2022, args.EndDate);
+					Assert.Equal(100, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Jul1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate); 
+					Assert.Equal(200, args.Value);
+				}
+			);
+		}
+		[Fact]
+		public void Mar100_Jul200_Sep300_Apr150_Insert() {
+			List<TickSize> list = new List<TickSize>();
+
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Sep1_2022, 300), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Apr1_2022, 150) { EndDate = Values.Jul31_2022 }, true);
+			list.Sort(Compare);
+
+			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Mar1_2022, args.StartDate);
+					Assert.Equal(Values.Mar31_2022, args.EndDate);
+					Assert.Equal(100, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Apr1_2022, args.StartDate);
+					Assert.Equal(Values.Jul31_2022, args.EndDate);
+					Assert.Equal(150, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Aug1_2022, args.StartDate);
+					Assert.Equal(Values.Aug31_2022, args.EndDate);
+					Assert.Equal(200, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Sep1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(300, args.Value);
+				}
+			);
+		}
+		[Fact]
+		public void Mar100_Jul200_Sep300_Nov400_Apr150_Insert() {
+			List<TickSize> list = new List<TickSize>();
+
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Sep1_2022, 300), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Nov1_2022, 400), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Apr1_2022, 150) { EndDate = Values.Sep30_2022 }, true);
+			list.Sort(Compare);
+
+			Assert.Collection(list,
+				args => {
+					Assert.Equal(Values.Mar1_2022, args.StartDate);
+					Assert.Equal(Values.Mar31_2022, args.EndDate);
+					Assert.Equal(100, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Apr1_2022, args.StartDate);
+					Assert.Equal(Values.Sep30_2022, args.EndDate);
+					Assert.Equal(150, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Oct1_2022, args.StartDate);
+					Assert.Equal(Values.Oct31_2022, args.EndDate);
+					Assert.Equal(300, args.Value);
+				},
+				args => {
+					Assert.Equal(Values.Nov1_2022, args.StartDate);
+					Assert.Equal(Values.MaxSqlDate, args.EndDate);
+					Assert.Equal(400, args.Value);
+				}
+			);
+		}
+		[Fact]
+		public void Mar100_Jul200_Sep300_Insert() {
+			List<TickSize> list = new List<TickSize>();
+
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
+			Assert.Throws<InvalidOperationException>(() =>
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Sep1_2022, 300) {
+				EndDate = Values.Nov30_2022,
+			}, true));
+		}
+		[Fact]
+		public void Mar100_Jul200_Jun300_Insert() {
+			List<TickSize> list = new List<TickSize>();
+
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
+			Assert.Throws<InvalidOperationException>(() =>
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jun1_2022, 300) {
+				EndDate = Values.Jun30_2022,
+			}, true));
 		}
 	}
 }
