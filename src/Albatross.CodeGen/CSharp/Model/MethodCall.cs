@@ -19,7 +19,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 				writer.Write("await ");
 			}
 			writer.Append(Name).OpenParenthesis();
-			writer.WriteItems(Parameters, ",", (w, args) => w.Code(args));
+			writer.WriteItems(Parameters, ", ", (w, args) => w.Code(args));
 			writer.CloseParenthesis();
 			return writer;
 		}
