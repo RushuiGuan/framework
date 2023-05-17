@@ -17,6 +17,8 @@ namespace Albatross.CodeGen.CSharp.Model {
 
 		public bool IsAsync => this.Name == typeof(Task).FullName;
 		public bool IsVoid => Name == VoidType || IsAsync && !IsGeneric;
+		public bool IsValueType { get; set; } = false;
+		public bool IsNullable { get; set; } = false;
 
 		public DotNetType(string name) : this(name, false, false, new DotNetType[0]) { }
 		public DotNetType(string name, bool isArray, bool isGeneric, DotNetType[]? genericTypeArguments) {
@@ -30,7 +32,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 			if (IsArray) {
 				type = type.GetElementType() ?? throw new InvalidOperationException($"Array type {type.Name} is missing its element type");
 			}
-
+			IsValueType = type.IsValueType;
 			IsGeneric = type.IsGenericType;
 			if (IsGeneric) {
 				Name = type.GetGenericTypeDefinition().FullName?.GetGenericTypeName() ?? throw new Exception("impossible");
@@ -39,6 +41,14 @@ namespace Albatross.CodeGen.CSharp.Model {
 				Name = type.FullName ?? throw new Exception($"Type {type.Name} is missing its full name (maybe it is an anonymous type?)");
 				GenericTypeArguments = new DotNetType[0];
 			}
+		}
+		public DotNetType(DotNetType original) {
+			this.Name = original.Name;
+			this.IsGeneric = original.IsGeneric;
+			this.IsArray = original.IsArray;
+			GenericTypeArguments = original.GenericTypeArguments?.Select(args => new DotNetType(args)).ToArray() ?? new DotNetType[0];
+			IsValueType = original.IsValueType;
+			IsNullable = original.IsNullable;
 		}
 
 		public override string? ToString() {
@@ -92,7 +102,14 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public static DotNetType IDbConnection() => new DotNetType("System.Data.IDbConnection");
 
 		public static DotNetType MakeNullable(DotNetType dotNetType) {
-			return new DotNetType("System.Nullable", false, true, new DotNetType[] { dotNetType });
+			return new DotNetType(dotNetType) {
+				IsNullable = true,
+			};
+			//if (dotNetType.IsValueType) {
+			//	return new DotNetType("System.Nullable", false, true, new DotNetType[] { dotNetType });
+			//} else {
+			//	return dotNetType;
+			//}
 		}
 		public static DotNetType MakeIEnumerable(DotNetType dotNetType) {
 			return new DotNetType("System.Collections.Generic.IEnumerable", false, true, new DotNetType[] { dotNetType });
@@ -140,6 +157,9 @@ namespace Albatross.CodeGen.CSharp.Model {
 				}
 				if (IsArray) {
 					writer.Append("[]");
+				}
+				if (IsNullable) {
+					writer.Append("?");
 				}
 			}
 			return writer;
