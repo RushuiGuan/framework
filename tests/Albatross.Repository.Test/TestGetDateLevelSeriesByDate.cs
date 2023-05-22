@@ -6,7 +6,7 @@ using System.Linq;
 using Xunit;
 
 namespace Albatross.Repository.Test {
-	public class TestGetDateLevelSeriesByDate {
+	public class TestGetDateLevelEntityByDate {
 		[Fact]
 		public void No_Row() {
 			List<TickSize> list = new List<TickSize> {
