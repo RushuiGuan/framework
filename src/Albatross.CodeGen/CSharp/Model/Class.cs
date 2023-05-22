@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.CSharp.Model {
-	public class Class : ICodeElement{
+	public class Class : ICodeElement {
 		public Class(string name) {
 			Name = name;
 		}
@@ -14,17 +14,19 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public string Name { get; set; }
 		public Class? BaseClass { get; set; }
 		public bool Static { get; set; }
-        public bool Sealed { get; set; }
+		public bool Sealed { get; set; }
 		public bool Abstract { get; set; }
 		public bool Partial { get; set; }
 		public string? Namespace { get; set; }
 		public bool IsGeneric { get; set; }
+		public bool Record { get; set; }
 
 		public IEnumerable<string> Imports { get; set; } = new string[0];
 		public IEnumerable<Constructor> Constructors { get; set; } = new Constructor[0];
 		public IEnumerable<Property> Properties { get; set; } = new Property[0];
 		public IEnumerable<Field> Fields { get; set; } = new Field[0];
 		public IEnumerable<Method> Methods { get; set; } = new Method[0];
+		public IEnumerable<MethodCall> Attributes { get; set; } = new MethodCall[0];
 
 		public TextWriter Generate(TextWriter writer) {
 			if (Imports?.Count() > 0) {
@@ -35,8 +37,11 @@ namespace Albatross.CodeGen.CSharp.Model {
 			}
 
 			using (var scope = writer.BeginScope($"namespace {Namespace}")) {
+				scope.Writer.WriteAttributes(this.Attributes);
 				scope.Writer.Code(new AccessModifierElement(AccessModifier));
 				if (Static) { scope.Writer.Append(" static"); }
+				if (Sealed) { scope.Writer.Append(" sealed"); }
+				if (Record) { scope.Writer.Append(" record"); }
 				if (Partial) { scope.Writer.Append(" partial"); }
 				scope.Writer.Append(" class ").Append(Name);
 				if (BaseClass != null) {
