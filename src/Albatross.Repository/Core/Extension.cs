@@ -163,5 +163,19 @@ namespace Albatross.Repository.Core {
 				current.EndDate = DateLevelEntity.MaxEndDate;
 			}
 		}
+
+		/// <summary>
+		/// Provided a date level series and effective date. This method will search and return the items
+		/// where the given date falls within the date range.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="source"></param>
+		/// <param name="startDate"></param>
+		/// <returns></returns>
+		public static IEnumerable<T> GetDateLevelSeriesByDate<T>(this IEnumerable<T> source, DateTime effectiveDate)
+			where T : DateLevelEntity {
+			var items = source.Where(args => args.StartDate<=effectiveDate && args.EndDate>= effectiveDate).ToArray();
+			return items;
+		}
 	}
 }
