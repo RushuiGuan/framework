@@ -69,8 +69,8 @@ namespace Albatross.Repository.Core {
 					if (after.Length == 0) {
 						throw new InvalidOperationException($"Cannot insert date level item at the end of time series or within a single date level entry");
 					} else {
-						foreach(var item in after) {
-							if(item.EndDate <= src.EndDate) {
+						foreach (var item in after) {
+							if (item.EndDate <= src.EndDate) {
 								collection.Remove(item);
 							} else {
 								var changed = !item.HasSameValue(src);
@@ -101,7 +101,7 @@ namespace Albatross.Repository.Core {
 					collection.Add(src);
 				}
 			}
-			var before = collection.Where(args => args.Key.Equals( src.Key) && args.StartDate < src.StartDate)
+			var before = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate < src.StartDate)
 				.OrderByDescending(args => args.StartDate).FirstOrDefault();
 			if (before != null) {
 				if (before.HasSameValue(src)) {
@@ -172,10 +172,18 @@ namespace Albatross.Repository.Core {
 		/// <param name="source"></param>
 		/// <param name="startDate"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> GetDateLevelSeriesByDate<T>(this IEnumerable<T> source, DateTime effectiveDate)
+		public static IEnumerable<T> GetDateLevelEntityByDate<T>(this IEnumerable<T> source, DateTime effectiveDate)
 			where T : DateLevelEntity {
-			var items = source.Where(args => args.StartDate<=effectiveDate && args.EndDate>= effectiveDate).ToArray();
+			var items = source.Where(args => args.StartDate <= effectiveDate && args.EndDate >= effectiveDate).ToArray();
 			return items;
+		}
+
+		public static T? GetDateLevelItemByDate<T, K>(this IEnumerable<T> source, K key, DateTime effectiveDate)
+			where T : DateLevelEntity<K> where K : IEquatable<K> {
+			var item = source.Where(args => args.Key.Equals(key)
+				&& args.StartDate <= effectiveDate
+				&& args.EndDate >= effectiveDate).FirstOrDefault();
+			return item;
 		}
 	}
 }

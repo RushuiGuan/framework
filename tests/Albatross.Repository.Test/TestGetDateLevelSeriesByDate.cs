@@ -14,7 +14,7 @@ namespace Albatross.Repository.Test {
 					EndDate = Values.Jan31_2022
 				}
 			};
-			var result = list.GetDateLevelSeriesByDate(new DateTime(2022, 2, 1));
+			var result = list.GetDateLevelEntityByDate(new DateTime(2022, 2, 1));
 			Assert.NotNull(result);
 			Assert.Empty(result);
 		}
@@ -26,7 +26,7 @@ namespace Albatross.Repository.Test {
 					EndDate = Values.Jan31_2022
 				}
 			};
-			var result = list.GetDateLevelSeriesByDate(new DateTime(2022, 1, 1));
+			var result = list.GetDateLevelEntityByDate(new DateTime(2022, 1, 1));
 			Assert.NotNull(result);
 			Assert.Single(result);
 			Assert.Equal(Values.Jan1_2022, result.First().StartDate);
@@ -47,7 +47,7 @@ namespace Albatross.Repository.Test {
 				},
 				new TickSize(1, Values.Apr1_2022, 100) 
 			};
-			var result = list.GetDateLevelSeriesByDate(new DateTime(2022, 4, 10));
+			var result = list.GetDateLevelEntityByDate(new DateTime(2022, 4, 10));
 			Assert.NotNull(result);
 			Assert.Single(result);
 			Assert.Equal(Values.Apr1_2022, result.First().StartDate);
@@ -71,7 +71,7 @@ namespace Albatross.Repository.Test {
 				},
 				new TickSize(2, Values.Apr1_2022, 100)
 			};
-			var result = list.GetDateLevelSeriesByDate(new DateTime(2022, 4, 10));
+			var result = list.GetDateLevelEntityByDate(new DateTime(2022, 4, 10));
 			Assert.NotNull(result);
 			Assert.Equal(2, result.Count());
 			Assert.Equal(Values.Apr1_2022, result.First().StartDate);
