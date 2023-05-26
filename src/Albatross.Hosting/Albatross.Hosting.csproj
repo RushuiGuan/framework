@@ -32,7 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Update="serilog.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 </Project>
