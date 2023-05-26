@@ -60,6 +60,7 @@ namespace Albatross.Hosting.Utility {
 
 		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			services.AddConfig<ProgramSetting>();
+			services.AddSingleton(typeof(ILogger<>), typeof(LoggerEx<>));
 			services.AddSingleton(envSetting);
 			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName??"default"));
 		}
