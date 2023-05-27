@@ -75,7 +75,12 @@ namespace Albatross.Repository.Core {
 							} else {
 								var changed = !item.HasSameValue(src);
 								if (changed) {
-									item.StartDate = src.EndDate.AddDays(1);
+									// make a clone of the item, remove and insert the new.  This is
+									// due to the start date being part of the key
+									T newItem = (T)item.Clone();
+									newItem.StartDate= src.EndDate.AddDays(1);
+									collection.Remove(item);
+									collection.Add(newItem);
 								} else {
 									src.EndDate = item.EndDate;
 									collection.Remove(item);
