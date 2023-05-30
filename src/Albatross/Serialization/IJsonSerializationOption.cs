@@ -4,7 +4,8 @@ using System.Text;
 using System.Text.Json;
 
 namespace Albatross.Serialization {
-	public interface IDefaultSerializationOption {
-		JsonSerializerOptions DefaultOptions { get; }
+	public interface IJsonSerializationOption {
+		JsonSerializerOptions Default { get; }
+		JsonSerializerOptions Alternate { get; }
 	}
 }
