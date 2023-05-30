@@ -919,5 +919,19 @@ namespace Albatross.Repository.Test {
 				EndDate = Values.Jun30_2022,
 			}, true));
 		}
+
+		[Fact]
+		public void TestClone() {
+			TickSize ts = new (1, Values.Mar1_2022, 100);
+			TickSize testTick = (TickSize) ts.Clone();
+			Assert.Equal(ts.Market, testTick.Market);
+			Assert.Equal(ts.MarketId, testTick.MarketId);
+			Assert.Equal(ts.Value, testTick.Value);
+			Assert.Equal(ts.StartDate, testTick.StartDate);
+			Assert.Equal(ts.EndDate, testTick.EndDate);
+			testTick.EndDate = Values.Mar1_2022;
+			Assert.NotEqual(ts.EndDate, testTick.EndDate);
+			Assert.NotEqual(ts, testTick);
+		}
 	}
 }
