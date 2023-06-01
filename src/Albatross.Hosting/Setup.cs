@@ -68,7 +68,6 @@ namespace Albatross.Hosting {
 		public virtual void ConfigureServices(IServiceCollection services) {
 			services.AddConfig<ProgramSetting>(true);
 			services.TryAddSingleton<EnvironmentSetting>(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
-			services.AddSingleton(typeof(ILogger<>), typeof(LoggerEx<>));
 		}
 
 
