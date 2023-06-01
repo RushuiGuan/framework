@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Albatross.Reflection {
@@ -63,6 +64,7 @@ namespace Albatross.Reflection {
 			return name.Substring(0, name.LastIndexOf('`'));
 		}
 
+		public static string GetClassNameNeat(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
 
 		/// <summary>
 		/// Check if a type is anoymous
@@ -132,6 +134,7 @@ namespace Albatross.Reflection {
 				return type;
 			}
 		}
+
 
 		public static bool IsNullable(this Type type) => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
 		public static bool IsNumericType(this Type type) {

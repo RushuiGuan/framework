@@ -211,5 +211,12 @@ namespace Albatross.Test.Reflection {
 			};
 			Assert.Throws<ArgumentException>(() => typeof(Style).GetPropertyValue(obj, propertyName));
 		}
+
+		[Theory]
+		[InlineData("Albatross.Test.Reflection.Tests, xxxxxx", "Albatross.Test.Reflection.Tests, xxxxxx")]
+		public void TestGetClassNameNeat(string className, string expected) {
+			var result = className.GetClass().GetClassNameNeat();
+			Assert.Equal(expected, result);
+		}
 	}
 }

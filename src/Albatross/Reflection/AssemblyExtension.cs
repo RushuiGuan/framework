@@ -25,6 +25,9 @@ namespace Albatross.Reflection {
 			return assembly.GetTypes().Where(args => args.IsConcreteType());
 		}
 
+		/// <summary>
+		/// TODO: this doesn't work if the assembl name doesn't match the default namespace name
+		/// </summary>
 		public static string GetEmbeddedFile(this Type type, string name, string folder = "Embedded") {
 			string resourceName = $"{type.Assembly.GetName().Name}.{folder}.{name}";
 			using var stream = type.Assembly.GetManifestResourceStream(resourceName);
