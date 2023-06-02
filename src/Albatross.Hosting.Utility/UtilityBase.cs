@@ -94,8 +94,6 @@ namespace Albatross.Hosting.Utility {
 			}
 		}
 		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
-		public virtual void Shutdown() { }
-
 		public virtual void Dispose() {
 			logger.LogDebug("Disposing UtilityBase");
 			this.host.Dispose();
