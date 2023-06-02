@@ -91,9 +91,16 @@ namespace Albatross.Hosting.Utility {
 			} catch(Exception err) {
 				logger.LogError(err, string.Empty);
 				return -1;
+			}finally {
+				try {
+					this.Shutdown();
+				}catch(Exception err) {
+					logger.LogError(err, string.Empty);
+				}
 			}
 		}
 		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
+		public virtual void Shutdown() { }
 
 		public void Dispose() {
 			logger.LogDebug("Disposing UtilityBase");
