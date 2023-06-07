@@ -64,7 +64,7 @@ namespace Albatross.Reflection {
 			return name.Substring(0, name.LastIndexOf('`'));
 		}
 
-		public static string GetClassNameNeat(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
+		public static string GetClassNameNeat(this Type type) => $"{type.FullName},{type.Assembly.GetName().Name}";
 
 		/// <summary>
 		/// Check if a type is anoymous
