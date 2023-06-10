@@ -5,7 +5,7 @@ using System;
 
 #nullable enable
 namespace Albatross.Config {
-	public static class Extension {
+	public static class Extensions {
 
 		public static string GetAssemblyLocation(this Type type) {
 			string location = type.Assembly.Location;

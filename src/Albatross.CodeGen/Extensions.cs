@@ -5,7 +5,7 @@ using System;
 using System.Reflection;
 
 namespace Albatross.CodeGen {
-	public static class ServiceExtension {
+	public static class Extensions {
 		public static IServiceCollection AddCodeGen(this IServiceCollection services, Assembly assembly) {
 			foreach (var type in assembly.GetTypes()) {
 				TryAddConverter(services, type);
@@ -14,7 +14,7 @@ namespace Albatross.CodeGen {
 		}
 
 		public static IServiceCollection AddDefaultCodeGen(this IServiceCollection services) {
-			services.AddCodeGen(typeof(ServiceExtension).Assembly);
+			services.AddCodeGen(typeof(Extensions).Assembly);
 			return services;
 		}
 

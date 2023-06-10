@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.CodeGen.CSharp.Conversion {
-	public static class ConversionExtension {
+	public static class ConversionExtensions {
 		public static AccessModifier GetAccessModifier(this MethodInfo method) {
 			AccessModifier accessModifier = AccessModifier.None;
 

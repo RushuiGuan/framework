@@ -16,8 +16,6 @@
 		- add datelevel data support
 	* Albatross.Serialization
 		- namespace has been seperated from Albatross assembly to be on its own
-
-
 * v4.1.0
 	* upgrade to efcore 7
 

@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.WebClient {
-	public static class WebSocketExtension {
+	public static class WebSocketExtensions {
 		public const int SendBufferSize = 1024 * 8;
 		public const int ReceiveBufferSize = 1024 * 8;
 

@@ -6,7 +6,7 @@ using Polly.Caching;
 using System;
 
 namespace Albatross.Caching.Redis {
-	public static class Extension {
+	public static class Extensions {
 		public static IServiceCollection AddRedisCaching(this IServiceCollection services, IConfiguration configuration) {
 			var config = new RedisConfig(configuration);
 			config.Validate();

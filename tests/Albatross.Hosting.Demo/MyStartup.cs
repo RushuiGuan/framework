@@ -22,7 +22,7 @@ namespace Albatross.Hosting.Test {
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
 			services.AddCacheMgmt(this.GetType().Assembly);
-			services.AddMemCache();
+			services.AddMemCaching();
 			services.AddSignalR();
 			services.AddRazorPages().AddRazorRuntimeCompilation();
 			services.AddMvc(options => options.InputFormatters.Add(new TextPlainInputFormatter()));

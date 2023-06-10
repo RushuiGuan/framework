@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Albatross.Dates
 {
-	public static class Extension
+	public static class Extensions
 	{
 		public static DateTime PreviousWeekday(this DateTime date) {
 			date = date.Date;

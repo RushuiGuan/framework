@@ -3,7 +3,7 @@ using System.Linq;
 using Albatross.Text;
 
 namespace Albatross.CodeGen.Core {
-	public static class TextWriterExtension {
+	public static class TextWriterExtensions {
 		#region C# code generation
 		public static TextWriter This(this TextWriter writer, string name) {
 			writer.Write("this.");

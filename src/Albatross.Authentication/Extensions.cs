@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.Authentication {
-	public static class ServiceExtension {
+	public static class Extensions {
 		public static IServiceCollection AddWindowsPrincipalProvider(this IServiceCollection svc) {
 			svc.AddSingleton<IGetCurrentUser, GetCurrentWindowsUser>();
 			return svc;
