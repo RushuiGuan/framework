@@ -1,5 +1,4 @@
-﻿using Albatross.Repository.ByEFCore;
-using Albatross.Repository.Core;
+﻿using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;

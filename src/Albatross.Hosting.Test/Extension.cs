@@ -1,4 +1,4 @@
-﻿using Albatross.Repository.Core;
+﻿using Albatross.Repository;
 using CsvHelper;
 using Dapper;
 using Microsoft.Data.SqlClient;

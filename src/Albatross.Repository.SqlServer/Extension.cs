@@ -8,7 +8,6 @@ using System.Text.Json.Serialization.Metadata;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using System;
-using Albatross.Repository.ByEFCore;
 
 namespace Albatross.Repository.SqlServer {
 	public static class Extension {

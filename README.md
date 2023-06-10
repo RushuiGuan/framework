@@ -1,3 +1,19 @@
+* v5.1.0
+	* secured Albatross prefix in nuget.org
+	* create a prod release prior the inclusion of messaging capability
+	* web client improvement
+		* Albatross.WebClient 
+			- Improved built in logging
+			- Add http redirection support.
+			- Add default polly retry capability
+	* Albatross.Hosting.Utility
+		- Improved console output capability
+			- create utility to write out in tabular format and list format
+		- clean Albatross.Hosting.Utility.BaseOption class so that its verb doesn't use single character.
+			- verbose flag will trigger 
+	* Albatross.Repository
+		- add datelevel data support
+
 * v4.1.0
 	* upgrade to efcore 7
 

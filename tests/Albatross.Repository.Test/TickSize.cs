@@ -1,5 +1,4 @@
-﻿using Albatross.Repository.Core;
-using Albatross.Repository.SqlServer;
+﻿using Albatross.Repository.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
