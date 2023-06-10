@@ -52,7 +52,7 @@ namespace Albatross.Test.Math {
 			decimal price = decimal.Parse(priceText);
 			HandleNonStandardPrice(price, out var int_price, out var int_precision);
 			var result = ConvertPriceToDouble(int_price, int_precision);
-			Assert.Equal(result, Albatross.Math.Extension.ToDouble(price));
+			Assert.Equal(result, Albatross.Math.Extensions.ToDouble(price));
 		}
 	}
 }

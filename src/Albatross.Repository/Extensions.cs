@@ -1,12 +1,32 @@
 ﻿using Albatross.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Albatross.Repository {
-	public static class ServiceExtension {
+	public static class Extensions {
+		static JsonSerializerOptions jsonColumnSerializationOptions = new JsonSerializerOptions {
+			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
+			WriteIndented = true,
+			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+			TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
+		};
+		public static ValueConverter<T, string> GetJsonValueConverter<T>(this IBuildEntityModel _, Func<T> getDefault) {
+			return new ValueConverter<T, string>(
+				args => JsonSerializer.Serialize(args, jsonColumnSerializationOptions),
+				args => JsonSerializer.Deserialize<T>(args, jsonColumnSerializationOptions) ?? getDefault()
+			);
+		}
+
+		public static void ValidateByDataAnnotations(this object entity) {
+			Validator.ValidateObject(entity, new ValidationContext(entity), true);
+		}
+
 		public static IEnumerable<IBuildEntityModel> GetEntityModels(this Assembly assembly, string? namespacePrefix) {
 			List<IBuildEntityModel> list = new List<IBuildEntityModel>();
 			foreach (Type type in assembly.GetConcreteClasses<IBuildEntityModel>()) {

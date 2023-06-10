@@ -1,14 +1,6 @@
-﻿using Albatross.Repository.Core;
-using Albatross.Repository.SqlServer;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Xunit;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Albatross.Repository.Test {
 	public class TestJsonColumn : IClassFixture<MyTestHost> {

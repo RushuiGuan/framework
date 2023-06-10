@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 
 namespace Albatross.IO {
-	public static class Extension {
+	public static class Extensions {
 		public static void EnsureDirectory(this string file) {
 			var directory = Path.GetDirectoryName(file);
 			if(directory != null) {

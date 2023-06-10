@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 
 namespace Albatross.Reflection {
-	public static partial class Extension {
+	public static class AssemblyExtensions {
 		/// <summary>
 		/// Return all concrete classes that derive from base class T in an assembly
 		/// </summary>

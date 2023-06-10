@@ -5,6 +5,10 @@ using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Albatross.WebClient {
+	/// <summary>
+	/// if the webclient is being used to talk to web api hosted by Albatross.Hosting, by default
+	/// Albatross.Hosting will throw exception using the json format below, camel cased.
+	/// </summary>
 	public class ServiceError {
 		public string Message { get; set; }
 		[JsonPropertyName("type")]	// The server side serialize this property as "type"
@@ -37,7 +41,8 @@ namespace Albatross.WebClient {
 		}
 
 		/*
-		 * 500 GET: http://app-prod/beezy/api/entity/schedule/1
+		 * sample log below:
+		 * 500 GET: http://mywebsite/test/api/entity/schedule/1
 		 * Message: the actual error message
 		 */
 		static string BuildMessage(HttpStatusCode statusCode, HttpMethod method, Uri endpoint, string errorMsg) {

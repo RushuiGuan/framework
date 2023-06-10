@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Albatross.Reflection {
-	public static partial class Extension {
+	public static class TypeExtensions {
 		/// <summary>
 		/// Return the generic argument of Nullable<>
 		/// </summary>

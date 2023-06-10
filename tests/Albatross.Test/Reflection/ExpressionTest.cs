@@ -11,7 +11,7 @@ namespace Albatross.Test.Reflection {
 
 		[Fact]
 		public void TestCase1() {
-			PropertyInfo p = ExpressionExtension.GetPropertyInfo<A>(args => args.Test1!);
+			PropertyInfo p = ExpressionExtensions.GetPropertyInfo<A>(args => args.Test1!);
 			Assert.Equal(nameof(A.Test1), p.Name);
 		}
 
@@ -21,7 +21,7 @@ namespace Albatross.Test.Reflection {
 		[InlineData("Number", 1, "(args.Number == 1)")]
 		[InlineData("test1", "a", "(args.Test1 == \"a\")")]
 		public void TestCreatePredicate(string name, object value, string expected) {
-			var expression = ExpressionExtension.GetPredicate<A>(name, value);
+			var expression = ExpressionExtensions.GetPredicate<A>(name, value);
 			Assert.Equal(expected, expression.Body.ToString());
 		}
 	}

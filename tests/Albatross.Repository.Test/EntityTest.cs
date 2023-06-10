@@ -1,6 +1,4 @@
-﻿using Albatross.Repository.Core;
-using System;
-using Xunit;
+﻿using Xunit;
 
 namespace Albatross.Repository.Test {
 	public class EntityTest {

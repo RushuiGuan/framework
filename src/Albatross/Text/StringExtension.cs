@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Albatross.Text {
-	public static class StringExtension {
+	public static class StringExtensions {
 		public static string ProperCase(this string text) {
 			if (!string.IsNullOrEmpty(text)) {
 				string result = text.Substring(0, 1).ToUpper();

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 
 namespace Albatross.Reflection {
-	public static class ExpressionExtension {
+	public static class ExpressionExtensions {
 		public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, object>> lambda) {
 			MemberExpression? member = lambda.Body as MemberExpression;
 			if (member == null) {

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
 namespace Albatross.Repository.SqlServer {
-	public static class ServiceExtension {
+	public static class Extensions {
 		public static void DefaultDbContextOptionBuilder(SqlServerDbContextOptionsBuilder builder) {
 			builder.CommandTimeout(100);
 		}

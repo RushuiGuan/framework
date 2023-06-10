@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Albatross.Reflection;
 
 namespace Albatross.Text {
-	public static partial class TextWriterExtension {
+	public static partial class TextWriterExtensions {
 		public static TextWriter Append(this TextWriter writer, object obj) {
 			writer.Write(obj);
 			return writer;

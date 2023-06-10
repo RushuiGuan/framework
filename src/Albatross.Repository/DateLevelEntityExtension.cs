@@ -1,21 +1,10 @@
-using Castle.Components.DictionaryAdapter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Albatross.Repository {
-	public static class Extension {
-		public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items) {
-			foreach (var item in items) {
-				collection.Add(item);
-			}
-		}
-
-		public static void ValidateByDataAnnotations(this object entity) {
-			Validator.ValidateObject(entity, new ValidationContext(entity), true);
-		}
-
+	public static class DateLevelEntityExtensions {
 		/// <summary>
 		/// /// For DateLevel entries, two rules apply
 		/// 1. there should be no gap between the first StartDate and <see cref="DateLevelEntity.MaxEndDate"/>

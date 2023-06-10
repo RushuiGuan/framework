@@ -80,7 +80,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Framework.Utility", "tests\Albatross.Framework.Utility\Albatross.Framework.Utility.csproj", "{2A3B537E-F740-435D-9F4F-23720451055E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cqrs", "cqrs", "{1595A14F-C041-4D20-91A6-A1388CED57BC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "messaging", "messaging", "{1595A14F-C041-4D20-91A6-A1388CED57BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Commands", "src\Albatross.Commands\Albatross.Commands.csproj", "{B1A6A702-FD80-4FDF-AEAE-70F91AAED7FC}"
 EndProject

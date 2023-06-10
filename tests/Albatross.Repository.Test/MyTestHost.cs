@@ -8,7 +8,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using Albatross.Repository.SqlServer;
-using Albatross.Repository.ByEFCore;
 
 namespace Albatross.Repository.Test {
 	public class MyTestHost : TestHost {

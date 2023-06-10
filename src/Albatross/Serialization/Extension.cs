@@ -5,32 +5,7 @@ using System.Data;
 using System.Text.Json.Serialization;
 
 namespace Albatross.Serialization {
-	public static class Extension {
-		public static T? ToObject<T>(this JsonElement element, JsonSerializerOptions? options = null) {
-			var bufferWriter = new ArrayBufferWriter<byte>();
-			using (var writer = new Utf8JsonWriter(bufferWriter)) {
-				element.WriteTo(writer);
-			}
-			return JsonSerializer.Deserialize<T>(bufferWriter.WrittenSpan, options);
-		}
-
-		public static object? ToObject(this JsonElement element, Type type, JsonSerializerOptions? options = null) {
-
-			var bufferWriter = new ArrayBufferWriter<byte>();
-			using (var writer = new Utf8JsonWriter(bufferWriter)) {
-				element.WriteTo(writer);
-			}
-			return JsonSerializer.Deserialize(bufferWriter.WrittenSpan, type, options);
-		}
-
-		public static JsonElement ToJsonElement<T>(this T t, JsonSerializerOptions? options =null) {
-			var bufferWriter = new ArrayBufferWriter<byte>();
-			using (var writer = new Utf8JsonWriter(bufferWriter)) {
-				JsonSerializer.Serialize<T>(writer, t, options);
-			}
-			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
-		}
-
+	public static class Extensions {
 		public static void ApplyJsonValue(Utf8JsonWriter writer, JsonElement src, JsonElement value, JsonSerializerOptions? options = null) {
 			if (value.ValueKind == JsonValueKind.Undefined) {
 				JsonSerializer.Serialize<JsonElement>(writer, src, options);
@@ -70,7 +45,8 @@ namespace Albatross.Serialization {
 			}
 			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
 		}
-		
+
+		[Obsolete]
 		public static void WriteJson(this IDataReader reader, Utf8JsonWriter writer, JsonSerializerOptions? options = null) {
 			writer.WriteStartArray();
 			while (reader.Read()) {
@@ -78,6 +54,7 @@ namespace Albatross.Serialization {
 			}
 			writer.WriteEndArray();
 		}
+		[Obsolete]
 		public static void WriteJsonSingleRow(this IDataReader reader, Utf8JsonWriter writer, JsonSerializerOptions? options = null) {
 			writer.WriteStartObject();
 			for (int i = 0; i < reader.FieldCount; i++) {
@@ -93,9 +70,7 @@ namespace Albatross.Serialization {
 			}
 			writer.WriteEndObject();
 		}
-
-
-
+		[Obsolete]
 		public static JsonElement WriteJson(this IDataReader reader, JsonSerializerOptions? options = null) {
 			var bufferWriter = new ArrayBufferWriter<byte>();
 			using (var writer = new Utf8JsonWriter(bufferWriter)) {

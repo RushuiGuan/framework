@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Albatross.Math {
-	public static class Extension {
+	public static class Extensions {
 		public static decimal? ToDecimal(this double? value) {
 			if (value.HasValue) {
 				return Convert.ToDecimal(value.Value);

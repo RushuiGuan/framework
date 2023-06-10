@@ -31,7 +31,7 @@ namespace Albatross.Hosting {
 				} else {
 					var srcElem = ReadJsonFile(file);
 					var changeElem = ReadJsonFile(change);
-					var result = Albatross.Serialization.Extension.ApplyJsonValue(srcElem, changeElem);
+					var result = Albatross.Serialization.Extensions.ApplyJsonValue(srcElem, changeElem);
 					logger.LogInformation("Overriding config file {config} with values from {environment_config}", config.ConfigFile.Last(), Path.GetFileName(change));
 					WriteJsonFile(file, result);
 				}

@@ -6,6 +6,7 @@
 			- Improved built in logging
 			- Add http redirection support.
 			- Add default polly retry capability
+			- Add gzip encoding support
 	* Albatross.Hosting.Utility
 		- Improved console output capability
 			- create utility to write out in tabular format and list format
@@ -13,6 +14,9 @@
 			- verbose flag will trigger 
 	* Albatross.Repository
 		- add datelevel data support
+	* Albatross.Serialization
+		- namespace has been seperated from Albatross assembly to be on its own
+
 
 * v4.1.0
 	* upgrade to efcore 7
