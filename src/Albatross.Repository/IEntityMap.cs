@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Albatross.Repository.ByEFCore {
-    
-	public interface IEntityMap<T>  where T:class {
+namespace Albatross.Repository {
+
+	public interface IEntityMap<T> where T : class {
 		void Map(EntityTypeBuilder<T> builder);
 	}
 }

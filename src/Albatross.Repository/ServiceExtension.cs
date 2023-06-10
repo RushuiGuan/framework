@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Albatross.Repository.ByEFCore {
+namespace Albatross.Repository {
 	public static class ServiceExtension {
 		public static IEnumerable<IBuildEntityModel> GetEntityModels(this Assembly assembly, string? namespacePrefix) {
 			List<IBuildEntityModel> list = new List<IBuildEntityModel>();
@@ -23,7 +23,7 @@ namespace Albatross.Repository.ByEFCore {
 		}
 
 		public static PropertyBuilder<DateTime?> UtcDateTimeProperty(this PropertyBuilder<DateTime?> builder) {
-			builder.HasConversion(value => value, item => item.HasValue? DateTime.SpecifyKind(item.Value, DateTimeKind.Utc): null);
+			builder.HasConversion(value => value, item => item.HasValue ? DateTime.SpecifyKind(item.Value, DateTimeKind.Utc) : null);
 			return builder;
 		}
 

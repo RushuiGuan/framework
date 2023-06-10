@@ -1,5 +1,4 @@
 ﻿using Albatross.Hosting.Test;
-using Albatross.Repository.Core;
 using System;
 using System.Collections.Generic;
 using Xunit;

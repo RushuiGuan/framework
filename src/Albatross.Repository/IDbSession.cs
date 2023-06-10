@@ -5,7 +5,7 @@ using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Albatross.Repository.Core {
+namespace Albatross.Repository {
 	/// <summary>
 	/// Represent a database session.  Has a open database connection and should be disposed when done
 	/// </summary>
