@@ -1,1 +1,1 @@
-## Please find the documentation at [Documentation](https://rushuiguan.github.io/framework)
+## Please find the documentation at [Albatross Framework](https://rushuiguan.github.io/framework)
