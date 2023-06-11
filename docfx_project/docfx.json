@@ -43,7 +43,7 @@
 				]
 			}
 		],
-		"dest": "../../docs",
+		"dest": "../../docfx_out",
 		"output": "_site",
 		"globalMetadataFiles": [],
 		"fileMetadataFiles": [],
