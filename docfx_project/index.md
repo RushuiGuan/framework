@@ -1,5 +1,5 @@
 ### Albatross Framework
-Albatross is a development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration points to other frameworks so that developers can work with a consistant platform without dealing with low level technical issues.
+Albatross is a .Net development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration points to other frameworks so that developers can work with a consistant platform without dealing with low level technical issues.  The current version of the framework is targetting Net7.0.
 
 #### Here is a list of technogies adopted by Albatross
 
