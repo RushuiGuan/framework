@@ -47,10 +47,7 @@
 		"output": "_site",
 		"globalMetadataFiles": [],
 		"fileMetadataFiles": [],
-		"template": [
-			"default",
-			"modern"
-		],
+		"template": ["default","material/material"],
 		"postProcessors": [],
 		"keepFileLink": false,
 		"disableGitFeatures": true
