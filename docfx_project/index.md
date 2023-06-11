@@ -34,3 +34,4 @@ Albatross is a development framework that allow developers to quickly bootstrap 
 |Albatross.Repository.PostgreSQL|ORM PostgreSQL server setup|Net7.0, EFCore7.0|
 |Albatross|Utility assembly for shared code based that is not big enough to have its own assembly|NetStandard2.1|
 |Albatross.WebClient|Utility for creation of http rest client|NetStandard2.1|
+|Albatross.Messaging|Assembly for durable stream processing system|NetStandard2.1|
