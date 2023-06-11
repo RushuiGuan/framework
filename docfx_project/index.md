@@ -14,7 +14,7 @@ Albatross is a development framework that allow developers to quickly bootstrap 
 |Caching|MemCache, Redis, Polly|Albatross.Caching|
 |Command line parsing|CommandLineParser|Albatross.Hosting.Utility|
 
-#### Albatross has pre-bootstrapped hosting assemblies used as entry point for applications.  It also contains other support assemblies that covers other use cases.
+#### Albatross has pre-bootstrapped hosting assemblies that can be used as entry point for applications.  It also contains other support assemblies that covers other use cases.
 
 |Assembly|Description|Target Framework|
 |-|-|-|
