@@ -7,6 +7,7 @@
   <ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
+    <ProjectReference Include="..\Albatross.Serialization\Albatross.Serialization.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">

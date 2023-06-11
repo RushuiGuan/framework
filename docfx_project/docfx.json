@@ -53,7 +53,7 @@
 		"fileMetadataFiles": [],
 		"template": [
 			"default",
-			"templates/singulinkfx"
+			"templates/discordfx"
 		],
 		"postProcessors": [],
 		"keepFileLink": false,
