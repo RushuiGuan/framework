@@ -84,8 +84,7 @@
                     <article class="content wrap" id="_content" data-uid="">
 <h3 id="release-notes">Release Notes</h3>
 
-<ul>
-<li>v5.1.0
+<h4 id="v510---current-and-wip">v5.1.0 - Current and WIP</h4>
 <ul>
 <li>secured Albatross prefix in nuget.org</li>
 <li>create a prod release prior the inclusion of messaging capability</li>
@@ -121,20 +120,18 @@
 </ul>
 </li>
 </ul>
-</li>
-<li>v4.1.0
+<h4 id="v410---2022-10-18">v4.1.0 - 2022-10-18</h4>
 <ul>
 <li>upgrade to efcore 7</li>
 </ul>
-</li>
-<li>v4.0.2
+<h4 id="v402---2022-10-18">v4.0.2 - 2022-10-18</h4>
 <ul>
 <li>Albatross.WebClient
 <ul>
 <li><strong>breaking:</strong> renaming Invoke methods to multiple GetResponse methods so that its intent is more clear</li>
 <li>Albatross.CodeGen.WebClient has been updated accordingly</li>
 <li>Albatross.WebClient.ClientBase.CreateRequests method has been deprecated in favor of CreateRequestUrls.  Since requests cannot be reused, it is necessary to create new requests when using polly retry mechanism.  CreateRequestUrls make it easier to create new requests and a much better alternative than cloning the existing request.</li>
-<li><strong>breaking</strong> remove a bunch of extension methods in Albatross.WebClient.Extension static class.  Users are encouraged to use CreateRequest adn GetResponse methods for consistency.</li>
+<li><strong>breaking</strong> remove a bunch of extension methods in Albatross.WebClient.Extension static class.  Users are encouraged to use CreateRequest and GetResponse methods for consistency.</li>
 </ul>
 </li>
 <li>Albatross.CodeGen.WebClient
@@ -148,8 +145,6 @@
 <li>trim trailing zeros of a decimal number when converting to double
 <ul>
 <li><a href="https://stackoverflow.com/questions/1584314/conversion-of-a-decimal-to-double-number-in-c-sharp-results-in-a-difference">https://stackoverflow.com/questions/1584314/conversion-of-a-decimal-to-double-number-in-c-sharp-results-in-a-difference</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
