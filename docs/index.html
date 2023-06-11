@@ -5,9 +5,9 @@
     <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title> | Albatross Framework Documentation </title>
+      <title>Albatross is a development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration point to other frameworks so that developers can work with a consistant platform without dealing with low level integration technical issues. | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content=" | Albatross Framework Documentation ">
+      <meta name="title" content="Albatross is a development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration point to other frameworks so that developers can work with a consistant platform without dealing with low level integration technical issues. | Albatross Framework Documentation ">
       <meta name="generator" content="docfx ">
   
       <link rel="shortcut icon" href="favicon.ico">
@@ -78,19 +78,65 @@
                          </div>
 
                     <article class="content wrap" id="_content" data-uid="">
+<h1 id="albatross-is-a-development-framework-that-allow-developers-to-quickly-bootstrap-an-application-with-cross-cutting-functionaties-such-as-logging-caching-and-config-management--it-builds-intergration-point-to-other-frameworks-so-that-developers-can-work-with-a-consistant-platform-without-dealing-with-low-level-integration-technical-issues">Albatross is a development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration point to other frameworks so that developers can work with a consistant platform without dealing with low level integration technical issues.</h1>
 
-<p>test</p>
+<h2 id="here-is-a-list-of-technogies-adopted-by-albatross">Here is a list of technogies adopted by Albatross</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Technology</th>
+<th>Assembly</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRM</td>
+<td>EF Core</td>
+<td>Albatross.Repository</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Serilog</td>
+<td>Albatross.Logging</td>
+</tr>
+<tr>
+<td>Messaging</td>
+<td>ZeroMQ\NetMQ</td>
+<td>Albatross.Messaging</td>
+</tr>
+<tr>
+<td>Serialization</td>
+<td>System.Text.Json</td>
+<td></td>
+</tr>
+<tr>
+<td>Http Client</td>
+<td>System.Net.Http.HttpClient, Polly</td>
+<td>Albatross.WebClient</td>
+</tr>
+<tr>
+<td>Code generation</td>
+<td>custom</td>
+<td>Albatross.CodeGen</td>
+</tr>
+<tr>
+<td>Caching</td>
+<td>MemCache, Redis, Polly</td>
+<td>Albatross.Caching</td>
+</tr>
+<tr>
+<td>Command line parsing</td>
+<td>CommandLineParser</td>
+<td>Albatross.Hosting.Utility</td>
+</tr>
+</tbody>
+</table>
+<h2 id="albatross-has-pre-bootstrapped-hosting-assemblies--it-allows-developers-to-create-applications-quickly">Albatross has pre-bootstrapped hosting assemblies.  It allows developers to create applications quickly.</h2>
 <ul>
-<li>name: Articles
-href: articles/
-homepage: articles/intro.md</li>
-<li>name: Api Documentation
-href: api/
-homepage: api/index.md</li>
-<li>name: Source Code
-href: <a href="https://github.com/rushuiguan/framework">https://github.com/rushuiguan/framework</a></li>
-<li>name: Nuget Packages
-href: <a href="https://www.nuget.org/packages/?q=owner%3ARushui">https://www.nuget.org/packages/?q=owner%3ARushui</a></li>
+<li>Albatross.Hosting - used for creating a webapi or service application.</li>
+<li>Albatross.Hosting.Utility - used for creating a command line console program.</li>
+<li>Albatross.Hosting.Test - used for creating unit test projects</li>
 </ul>
 </article>
                 </div>
