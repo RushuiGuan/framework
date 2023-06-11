@@ -1,4 +1,4 @@
-# Albatross functionalities can be break down to the following areas
+### Albatross functionalities can be break down to the following areas
 * Bootstrapping
 	* Logging
 	* Config Management

@@ -1,6 +1,7 @@
-# Albatross is a development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration point to other frameworks so that developers can work with a consistant platform without dealing with low level integration technical issues.
+### Albatross Framework
+Albatross is a development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration point to other frameworks so that developers can work with a consistant platform without dealing with low level integration technical issues.
 
-## Here is a list of technogies adopted by Albatross
+#### Here is a list of technogies adopted by Albatross
 
 |Area|Technology|Assembly|
 |-|-|-|
@@ -13,7 +14,7 @@
 |Caching|MemCache, Redis, Polly|Albatross.Caching|
 |Command line parsing|CommandLineParser|Albatross.Hosting.Utility|
 
-## Albatross has pre-bootstrapped hosting assemblies.  It allows developers to create applications quickly.
+#### Albatross has pre-bootstrapped hosting assemblies.  It allows developers to create applications quickly.
 * Albatross.Hosting - used for creating a webapi or service application.
 * Albatross.Hosting.Utility - used for creating a command line console program.
 * Albatross.Hosting.Test - used for creating unit test projects
