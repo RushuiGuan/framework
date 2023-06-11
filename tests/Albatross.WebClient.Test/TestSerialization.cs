@@ -5,10 +5,11 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using Moq;
+using Albatross.Serialization;
 
 namespace Albatross.WebClient.Test {
 	public class TestClient : ClientBase {
-		public TestClient(ILogger logger, HttpClient client) : base(logger, client) {
+		public TestClient(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) : base(logger, client, serializationOption) {
 		}
 	}
 	public partial class TestSerialization {
@@ -29,7 +30,7 @@ namespace Albatross.WebClient.Test {
 		[InlineData("")]
 		[InlineData("{\"message\" : 1}")]
 		public void TestDeserializationError(string text) {
-			var client = new TestClient(new Mock<ILogger>().Object, new HttpClient());
+			var client = new TestClient(new Mock<ILogger>().Object, new HttpClient(), new DefaultJsonSerializationOption());
 			Assert.Throws<JsonException>(() => {
 				var result = client.Deserialize<ServiceError>(text);
 			});
@@ -40,7 +41,7 @@ namespace Albatross.WebClient.Test {
 		[InlineData("{\"message\" : \"dd\" }")]
 		[InlineData("{\"message\" : \"dd\", \"my\": \"yes\" }")]
 		public void TestDeserialization(string text) {
-			var client = new TestClient(new Mock<ILogger>().Object, new HttpClient());
+			var client = new TestClient(new Mock<ILogger>().Object, new HttpClient(), new DefaultJsonSerializationOption());
 			var result = client.Deserialize<ServiceError>(text);
 			Assert.NotNull(result);
 		}

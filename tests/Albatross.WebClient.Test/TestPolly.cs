@@ -1,4 +1,5 @@
 ﻿using Albatross.Hosting.Test;
+using Albatross.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ namespace Albatross.WebClient.Test {
 	public class PollyTestClient : ClientBase {
 		public const System.String ControllerPath = "home";
 
-		public PollyTestClient(ILogger logger, HttpClient client) : base(logger, client) {
+		public PollyTestClient(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) : base(logger, client, serializationOption) {
 		}
 
 		public async Task<string> GetData(int count) {
@@ -47,7 +48,7 @@ namespace Albatross.WebClient.Test {
 	public class PollyTestClient2 : ClientBase {
 		public const System.String ControllerPath = "home";
 
-		public PollyTestClient2(ILogger logger, HttpClient client) : base(logger, client) {
+		public PollyTestClient2(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) : base(logger, client, serializationOption) {
 		}
 
 		public async Task<string> GetData(int count) {

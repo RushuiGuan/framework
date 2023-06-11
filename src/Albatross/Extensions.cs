@@ -9,7 +9,7 @@ namespace Albatross {
 	/// </summary>
 	public static class Extensions {
 		/// <summary>
-		/// Convinient method that add collection values to the hash code and return the original hash code object.  This allows the caller to chain multiple Add together.
+		/// Convenient method that add collection values to the hash code and return the original hash code object.  This allows the caller to chain multiple Add together.
 		/// </summary>
 		public static HashCode FromCollection(this HashCode hashCode, IEnumerable items) {
 			foreach(var item in items) {
@@ -18,7 +18,7 @@ namespace Albatross {
 			return hashCode;
 		}
 		/// <summary>
-		/// Convinient method that add a single value to the hash code and return the original hash code object.  This allows the caller to chain multiple Add together.
+		/// Convenient method that add a single value to the hash code and return the original hash code object.  This allows the caller to chain multiple Add together.
 		/// </summary>
 		public static HashCode From<T>(this HashCode hashCode, T item) {
 			hashCode.Add(item);

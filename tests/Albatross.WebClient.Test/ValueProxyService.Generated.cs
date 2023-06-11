@@ -5,10 +5,11 @@ using Microsoft.Extensions.Logging;
 using Albatross.WebClient;
 using System.Collections.Generic;
 using System.IO;
+using Albatross.Serialization;
 
 namespace Albatross.WebClient.Test {
 	public partial class ValueProxyService : Albatross.WebClient.ClientBase {
-		public ValueProxyService(Microsoft.Extensions.Logging.ILogger<ValueProxyService> @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
+		public ValueProxyService(Microsoft.Extensions.Logging.ILogger<ValueProxyService> @logger, System.Net.Http.HttpClient @client, IJsonSerializationOption serializationOption) : base(@logger, @client, serializationOption) {
 		}
 		public const System.String ControllerPath = "/api/value";
 		public async System.Threading.Tasks.Task<PayLoad> GetJson() {

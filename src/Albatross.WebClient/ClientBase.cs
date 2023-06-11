@@ -19,8 +19,9 @@ namespace Albatross.WebClient {
 		protected ILogger logger;
 		private TextWriter? writer;
 
-		public ClientBase(ILogger logger, HttpClient client) {
+		public ClientBase(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) {
 			this.client = client;
+			this.defaultSerializationOptions = serializationOption.Default;
 			this.logger = logger;
 		}
 
@@ -33,10 +34,7 @@ namespace Albatross.WebClient {
 		public string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
 		public T? Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
 		public ValueTask<T?> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
-		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
-			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-		};
+		protected JsonSerializerOptions defaultSerializationOptions { get; private set; }
 		public async Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
 			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
 				Version = request.Version
