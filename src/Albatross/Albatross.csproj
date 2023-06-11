@@ -16,7 +16,7 @@
         <PackageReference Include="System.Buffers" Version="4.5.1" />
         <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
         <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
-        <PackageReference Include="System.Text.Json" Version="7.0.1" />
+        <PackageReference Include="System.Text.Json" Version="7.0.2" />
     </ItemGroup>
     <ItemGroup>
         <None Include="..\..\LICENSE">
