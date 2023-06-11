@@ -1,0 +1,1676 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ClientBase
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ClientBase
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Albatross.WebClient.ClientBase">
+
+
+
+  <h1 id="Albatross_WebClient_ClientBase" data-uid="Albatross.WebClient.ClientBase" class="text-break">
+    Class ClientBase
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.WebClient.html">WebClient</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.WebClient.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ClientBase</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ClientBase</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.WebClient.Extensions.html#Albatross_WebClient_Extensions_GetRequiredJsonResponse__1_Albatross_WebClient_ClientBase_System_Net_Http_HttpRequestMessage_">Extensions.GetRequiredJsonResponse&lt;ResultType&gt;(ClientBase, HttpRequestMessage)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.WebClient.Extensions.html#Albatross_WebClient_Extensions_GetRequiredJsonResponse__2_Albatross_WebClient_ClientBase_System_Net_Http_HttpRequestMessage_">Extensions.GetRequiredJsonResponse&lt;ResultType, ErrorType&gt;(ClientBase, HttpRequestMessage)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Albatross_WebClient_ClientBase__ctor_" data-uid="Albatross.WebClient.ClientBase.#ctor*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase__ctor_Microsoft_Extensions_Logging_ILogger_System_Net_Http_HttpClient_" data-uid="Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient)">
+  ClientBase(ILogger, HttpClient)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ClientBase(ILogger logger, HttpClient client)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd></dd>
+    <dt><code>client</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Albatross_WebClient_ClientBase_GZipEncoding" data-uid="Albatross.WebClient.ClientBase.GZipEncoding">
+  GZipEncoding
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string GZipEncoding = &quot;gzip&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Albatross_WebClient_ClientBase_client" data-uid="Albatross.WebClient.ClientBase.client">
+  client
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected HttpClient client</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Albatross_WebClient_ClientBase_logger" data-uid="Albatross.WebClient.ClientBase.logger">
+  logger
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ILogger logger</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_WebClient_ClientBase_BaseUrl_" data-uid="Albatross.WebClient.ClientBase.BaseUrl*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_BaseUrl" data-uid="Albatross.WebClient.ClientBase.BaseUrl">
+  BaseUrl
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Uri BaseUrl { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uri">Uri</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_MaxRedirect_" data-uid="Albatross.WebClient.ClientBase.MaxRedirect*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_MaxRedirect" data-uid="Albatross.WebClient.ClientBase.MaxRedirect">
+  MaxRedirect
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int MaxRedirect { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_defaultSerializationOptions_" data-uid="Albatross.WebClient.ClientBase.defaultSerializationOptions*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_defaultSerializationOptions" data-uid="Albatross.WebClient.ClientBase.defaultSerializationOptions">
+  defaultSerializationOptions
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual JsonSerializerOptions defaultSerializationOptions { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_WebClient_ClientBase_CloneHttpRequest_" data-uid="Albatross.WebClient.ClientBase.CloneHttpRequest*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CloneHttpRequest_System_Net_Http_HttpRequestMessage_System_Uri_" data-uid="Albatross.WebClient.ClientBase.CloneHttpRequest(System.Net.Http.HttpRequestMessage,System.Uri)">
+  CloneHttpRequest(HttpRequestMessage, Uri?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;HttpRequestMessage&gt; CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+    <dt><code>updatedUri</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uri">Uri</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_CreateJsonRequest_" data-uid="Albatross.WebClient.ClientBase.CreateJsonRequest*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CreateJsonRequest__1_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection___0_" data-uid="Albatross.WebClient.ClientBase.CreateJsonRequest``1(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection,``0)">
+  CreateJsonRequest&lt;T&gt;(HttpMethod, string, NameValueCollection, T)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateJsonRequest&lt;T&gt;(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>method</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></dt>
+    <dd></dd>
+    <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>queryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dd></dd>
+    <dt><code>t</code> <span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_CreateMultiPartFormRequest_" data-uid="Albatross.WebClient.ClientBase.CreateMultiPartFormRequest*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CreateMultiPartFormRequest_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection_Albatross_WebClient_MultiPartFormData___" data-uid="Albatross.WebClient.ClientBase.CreateMultiPartFormRequest(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection,Albatross.WebClient.MultiPartFormData[])">
+  CreateMultiPartFormRequest(HttpMethod, string, NameValueCollection, params MultiPartFormData[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, params MultiPartFormData[] formDataArray)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>method</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></dt>
+    <dd></dd>
+    <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>queryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dd></dd>
+    <dt><code>formDataArray</code> <a class="xref" href="Albatross.WebClient.MultiPartFormData.html">MultiPartFormData</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_CreateRequest_" data-uid="Albatross.WebClient.ClientBase.CreateRequest*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CreateRequest_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection_" data-uid="Albatross.WebClient.ClientBase.CreateRequest(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection)">
+  CreateRequest(HttpMethod, string, NameValueCollection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>method</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></dt>
+    <dd></dd>
+    <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>queryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_CreateRequestUrls_" data-uid="Albatross.WebClient.ClientBase.CreateRequestUrls*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CreateRequestUrls_System_String_System_Collections_Specialized_NameValueCollection_System_Int32_System_String_System_String___" data-uid="Albatross.WebClient.ClientBase.CreateRequestUrls(System.String,System.Collections.Specialized.NameValueCollection,System.Int32,System.String,System.String[])">
+  CreateRequestUrls(string, NameValueCollection, int, string, params string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; CreateRequestUrls(string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>queryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dd></dd>
+    <dt><code>maxUrlLength</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>arrayQueryKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arrayQueryValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_CreateStreamRequest_" data-uid="Albatross.WebClient.ClientBase.CreateStreamRequest*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CreateStreamRequest_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection_System_IO_Stream_" data-uid="Albatross.WebClient.ClientBase.CreateStreamRequest(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection,System.IO.Stream)">
+  CreateStreamRequest(HttpMethod, string, NameValueCollection, Stream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateStreamRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, Stream stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>method</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></dt>
+    <dd></dd>
+    <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>queryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dd></dd>
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_CreateStringRequest_" data-uid="Albatross.WebClient.ClientBase.CreateStringRequest*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CreateStringRequest_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection_System_String_" data-uid="Albatross.WebClient.ClientBase.CreateStringRequest(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection,System.String)">
+  CreateStringRequest(HttpMethod, string, NameValueCollection, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>method</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></dt>
+    <dd></dd>
+    <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>queryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dd></dd>
+    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_DeserializeAsync_" data-uid="Albatross.WebClient.ClientBase.DeserializeAsync*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_DeserializeAsync__1_System_IO_Stream_" data-uid="Albatross.WebClient.ClientBase.DeserializeAsync``1(System.IO.Stream)">
+  DeserializeAsync&lt;T&gt;(Stream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ValueTask&lt;T?&gt; DeserializeAsync&lt;T&gt;(Stream stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_Deserialize_" data-uid="Albatross.WebClient.ClientBase.Deserialize*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_Deserialize__1_System_String_" data-uid="Albatross.WebClient.ClientBase.Deserialize``1(System.String)">
+  Deserialize&lt;T&gt;(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T? Deserialize&lt;T&gt;(string content)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_Download_" data-uid="Albatross.WebClient.ClientBase.Download*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_Download_System_Net_Http_HttpRequestMessage_System_IO_Stream_" data-uid="Albatross.WebClient.ClientBase.Download(System.Net.Http.HttpRequestMessage,System.IO.Stream)">
+  Download(HttpRequestMessage, Stream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task Download(HttpRequestMessage request, Stream stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_Download_" data-uid="Albatross.WebClient.ClientBase.Download*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_Download_System_Net_Http_HttpResponseMessage_System_IO_Stream_" data-uid="Albatross.WebClient.ClientBase.Download(System.Net.Http.HttpResponseMessage,System.IO.Stream)">
+  Download(HttpResponseMessage, Stream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task Download(HttpResponseMessage response, Stream stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_Download_" data-uid="Albatross.WebClient.ClientBase.Download*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_Download__1_System_Net_Http_HttpRequestMessage_System_IO_Stream_" data-uid="Albatross.WebClient.ClientBase.Download``1(System.Net.Http.HttpRequestMessage,System.IO.Stream)">
+  Download&lt;ErrorType&gt;(HttpRequestMessage, Stream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task Download&lt;ErrorType&gt;(HttpRequestMessage request, Stream stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ErrorType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_Download_" data-uid="Albatross.WebClient.ClientBase.Download*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_Download__1_System_Net_Http_HttpResponseMessage_System_IO_Stream_" data-uid="Albatross.WebClient.ClientBase.Download``1(System.Net.Http.HttpResponseMessage,System.IO.Stream)">
+  Download&lt;ErrorType&gt;(HttpResponseMessage, Stream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task Download&lt;ErrorType&gt;(HttpResponseMessage response, Stream stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ErrorType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_EnsureStatusCode_" data-uid="Albatross.WebClient.ClientBase.EnsureStatusCode*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_EnsureStatusCode_System_Net_Http_HttpResponseMessage_" data-uid="Albatross.WebClient.ClientBase.EnsureStatusCode(System.Net.Http.HttpResponseMessage)">
+  EnsureStatusCode(HttpResponseMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task EnsureStatusCode(HttpResponseMessage response)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_EnsureStatusCode_" data-uid="Albatross.WebClient.ClientBase.EnsureStatusCode*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_EnsureStatusCode__1_System_Net_Http_HttpResponseMessage_" data-uid="Albatross.WebClient.ClientBase.EnsureStatusCode``1(System.Net.Http.HttpResponseMessage)">
+  EnsureStatusCode&lt;ErrorType&gt;(HttpResponseMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task EnsureStatusCode&lt;ErrorType&gt;(HttpResponseMessage response)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ErrorType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_GetDefaultRetryPolicy_" data-uid="Albatross.WebClient.ClientBase.GetDefaultRetryPolicy*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_GetDefaultRetryPolicy__1_System_Func___0_System_Boolean__System_Action_Polly_DelegateResult___0__System_TimeSpan__System_Boolean_System_Int32_System_Nullable_System_Int32__" data-uid="Albatross.WebClient.ClientBase.GetDefaultRetryPolicy``1(System.Func{``0,System.Boolean},System.Action{Polly.DelegateResult{``0},System.TimeSpan},System.Boolean,System.Int32,System.Nullable{System.Int32})">
+  GetDefaultRetryPolicy&lt;T&gt;(Func&lt;T, bool&gt;, Action&lt;DelegateResult&lt;T&gt;, TimeSpan&gt;, bool, int, int?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>retry with a exponential fallback of 1, 2, 4, 8, 16.. seconds
+use the maxDelayInSeconds to flatline the delay</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AsyncRetryPolicy&lt;T&gt; GetDefaultRetryPolicy&lt;T&gt;(Func&lt;T, bool&gt; predicate, Action&lt;DelegateResult&lt;T&gt;, TimeSpan&gt; onRetry, bool retryInternalServerError, int count, int? maxDelayInSeconds)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>onRetry</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<span class="xref">DelegateResult</span>&lt;T&gt;, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>retryInternalServerError</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Determine the number of the retries</p>
+</dd>
+    <dt><code>maxDelayInSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">AsyncRetryPolicy</span>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_GetDefaultRetryPolicy_" data-uid="Albatross.WebClient.ClientBase.GetDefaultRetryPolicy*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_GetDefaultRetryPolicy__1_System_Func___0_System_Boolean__System_String_System_Boolean_System_Int32_System_Nullable_System_Int32__" data-uid="Albatross.WebClient.ClientBase.GetDefaultRetryPolicy``1(System.Func{``0,System.Boolean},System.String,System.Boolean,System.Int32,System.Nullable{System.Int32})">
+  GetDefaultRetryPolicy&lt;T&gt;(Func&lt;T, bool&gt;, string, bool, int, int?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AsyncRetryPolicy&lt;T&gt; GetDefaultRetryPolicy&lt;T&gt;(Func&lt;T, bool&gt; predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>what</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>retryInternalServerError</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>maxDelayInSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">AsyncRetryPolicy</span>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_GetJsonResponse_" data-uid="Albatross.WebClient.ClientBase.GetJsonResponse*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_GetJsonResponse__1_System_Net_Http_HttpRequestMessage_" data-uid="Albatross.WebClient.ClientBase.GetJsonResponse``1(System.Net.Http.HttpRequestMessage)">
+  GetJsonResponse&lt;ResultType&gt;(HttpRequestMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ResultType?&gt; GetJsonResponse&lt;ResultType&gt;(HttpRequestMessage request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;ResultType&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ResultType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_GetJsonResponse_" data-uid="Albatross.WebClient.ClientBase.GetJsonResponse*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_GetJsonResponse__2_System_Net_Http_HttpRequestMessage_" data-uid="Albatross.WebClient.ClientBase.GetJsonResponse``2(System.Net.Http.HttpRequestMessage)">
+  GetJsonResponse&lt;ResultType, ErrorType&gt;(HttpRequestMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ResultType?&gt; GetJsonResponse&lt;ResultType, ErrorType&gt;(HttpRequestMessage request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;ResultType&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ResultType</code></dt>
+    <dd></dd>
+    <dt><code>ErrorType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_GetRawResponse_" data-uid="Albatross.WebClient.ClientBase.GetRawResponse*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_GetRawResponse_System_Net_Http_HttpRequestMessage_" data-uid="Albatross.WebClient.ClientBase.GetRawResponse(System.Net.Http.HttpRequestMessage)">
+  GetRawResponse(HttpRequestMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; GetRawResponse(HttpRequestMessage request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_GetRawResponse_" data-uid="Albatross.WebClient.ClientBase.GetRawResponse*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_GetRawResponse__1_System_Net_Http_HttpRequestMessage_" data-uid="Albatross.WebClient.ClientBase.GetRawResponse``1(System.Net.Http.HttpRequestMessage)">
+  GetRawResponse&lt;ErrorType&gt;(HttpRequestMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; GetRawResponse&lt;ErrorType&gt;(HttpRequestMessage request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ErrorType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_ProcessResponseAsJson_" data-uid="Albatross.WebClient.ClientBase.ProcessResponseAsJson*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_ProcessResponseAsJson__1_System_Net_Http_HttpResponseMessage_" data-uid="Albatross.WebClient.ClientBase.ProcessResponseAsJson``1(System.Net.Http.HttpResponseMessage)">
+  ProcessResponseAsJson&lt;ResultType&gt;(HttpResponseMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ResultType?&gt; ProcessResponseAsJson&lt;ResultType&gt;(HttpResponseMessage response)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;ResultType&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ResultType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_ProcessResponseAsJson_" data-uid="Albatross.WebClient.ClientBase.ProcessResponseAsJson*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_ProcessResponseAsJson__2_System_Net_Http_HttpResponseMessage_" data-uid="Albatross.WebClient.ClientBase.ProcessResponseAsJson``2(System.Net.Http.HttpResponseMessage)">
+  ProcessResponseAsJson&lt;ResultType, ErrorType&gt;(HttpResponseMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ResultType?&gt; ProcessResponseAsJson&lt;ResultType, ErrorType&gt;(HttpResponseMessage response)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;ResultType&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ResultType</code></dt>
+    <dd></dd>
+    <dt><code>ErrorType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_ProcessResponseAsText_" data-uid="Albatross.WebClient.ClientBase.ProcessResponseAsText*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_ProcessResponseAsText_System_Net_Http_HttpResponseMessage_" data-uid="Albatross.WebClient.ClientBase.ProcessResponseAsText(System.Net.Http.HttpResponseMessage)">
+  ProcessResponseAsText(HttpResponseMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ProcessResponseAsText(HttpResponseMessage response)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_ProcessResponseAsText_" data-uid="Albatross.WebClient.ClientBase.ProcessResponseAsText*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_ProcessResponseAsText__1_System_Net_Http_HttpResponseMessage_" data-uid="Albatross.WebClient.ClientBase.ProcessResponseAsText``1(System.Net.Http.HttpResponseMessage)">
+  ProcessResponseAsText&lt;ErrorType&gt;(HttpResponseMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; ProcessResponseAsText&lt;ErrorType&gt;(HttpResponseMessage response)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ErrorType</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_ReadResponseAsJson_" data-uid="Albatross.WebClient.ClientBase.ReadResponseAsJson*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_ReadResponseAsJson__1_System_Net_Http_HttpResponseMessage_" data-uid="Albatross.WebClient.ClientBase.ReadResponseAsJson``1(System.Net.Http.HttpResponseMessage)">
+  ReadResponseAsJson&lt;T&gt;(HttpResponseMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;T?&gt; ReadResponseAsJson&lt;T&gt;(HttpResponseMessage response)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_SendRequest_" data-uid="Albatross.WebClient.ClientBase.SendRequest*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_SendRequest_System_Net_Http_HttpRequestMessage_System_Int32_" data-uid="Albatross.WebClient.ClientBase.SendRequest(System.Net.Http.HttpRequestMessage,System.Int32)">
+  SendRequest(HttpRequestMessage, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;HttpResponseMessage&gt; SendRequest(HttpRequestMessage request, int redirectCount = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+    <dt><code>redirectCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_SerializeJson_" data-uid="Albatross.WebClient.ClientBase.SerializeJson*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_SerializeJson__1___0_" data-uid="Albatross.WebClient.ClientBase.SerializeJson``1(``0)">
+  SerializeJson&lt;T&gt;(T)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SerializeJson&lt;T&gt;(T t)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>t</code> <span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_ShouldRedirect_" data-uid="Albatross.WebClient.ClientBase.ShouldRedirect*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_ShouldRedirect_System_Net_Http_HttpResponseMessage_" data-uid="Albatross.WebClient.ClientBase.ShouldRedirect(System.Net.Http.HttpResponseMessage)">
+  ShouldRedirect(HttpResponseMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool ShouldRedirect(HttpResponseMessage response)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>response</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage">HttpResponseMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_ShouldRetry_" data-uid="Albatross.WebClient.ClientBase.ShouldRetry*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_ShouldRetry_System_Exception_System_Boolean_" data-uid="Albatross.WebClient.ClientBase.ShouldRetry(System.Exception,System.Boolean)">
+  ShouldRetry(Exception, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool ShouldRetry(Exception err, bool includeInternalServerError)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>err</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd></dd>
+    <dt><code>includeInternalServerError</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_UseTextWriter_" data-uid="Albatross.WebClient.ClientBase.UseTextWriter*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_UseTextWriter_System_IO_TextWriter_" data-uid="Albatross.WebClient.ClientBase.UseTextWriter(System.IO.TextWriter)">
+  UseTextWriter(TextWriter)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UseTextWriter(TextWriter writer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>writer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

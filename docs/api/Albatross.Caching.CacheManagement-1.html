@@ -1,0 +1,841 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class CacheManagement&lt;CacheFormat&gt;
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CacheManagement&lt;CacheFormat&gt;
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Albatross.Caching.CacheManagement`1">
+
+
+
+  <h1 id="Albatross_Caching_CacheManagement_1" data-uid="Albatross.Caching.CacheManagement`1" class="text-break">
+    Class CacheManagement&lt;CacheFormat&gt;
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Caching.html">Caching</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Caching.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>a abstract cache management class.  All cache created by this class should have a prefix of $&quot;{Name}:&quot;.  The name of the cache management is a virtual property with
+the default implementation that returns the class name.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class CacheManagement&lt;CacheFormat&gt; : ICacheManagement&lt;CacheFormat&gt;, ICacheManagement, ICacheKeyStrategy</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>CacheFormat</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CacheManagement&lt;CacheFormat&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Albatross.Caching.ICacheManagement-1.html">ICacheManagement</a>&lt;CacheFormat&gt;</div>
+      <div><a class="xref" href="Albatross.Caching.ICacheManagement.html">ICacheManagement</a></div>
+      <div><span class="xref">ICacheKeyStrategy</span></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Caching.Extensions.html#Albatross_Caching_Extensions_Remove_Albatross_Caching_ICacheManagement_System_Collections_Generic_IEnumerable_System_String__">Extensions.Remove(ICacheManagement, IEnumerable&lt;string&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Albatross_Caching_CacheManagement_1__ctor_" data-uid="Albatross.Caching.CacheManagement`1.#ctor*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1__ctor_Microsoft_Extensions_Logging_ILogger_Polly_Registry_IPolicyRegistry_System_String__Albatross_Caching_ICacheProviderAdapter_Albatross_Caching_ICacheKeyManagement_" data-uid="Albatross.Caching.CacheManagement`1.#ctor(Microsoft.Extensions.Logging.ILogger,Polly.Registry.IPolicyRegistry{System.String},Albatross.Caching.ICacheProviderAdapter,Albatross.Caching.ICacheKeyManagement)">
+  CacheManagement(ILogger, IPolicyRegistry&lt;string&gt;, ICacheProviderAdapter, ICacheKeyManagement)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CacheManagement(ILogger logger, IPolicyRegistry&lt;string&gt; registry, ICacheProviderAdapter cacheProviderAdapter, ICacheKeyManagement keyMgmt)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd></dd>
+    <dt><code>registry</code> <span class="xref">IPolicyRegistry</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>cacheProviderAdapter</code> <a class="xref" href="Albatross.Caching.ICacheProviderAdapter.html">ICacheProviderAdapter</a></dt>
+    <dd></dd>
+    <dt><code>keyMgmt</code> <a class="xref" href="Albatross.Caching.ICacheKeyManagement.html">ICacheKeyManagement</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Albatross_Caching_CacheManagement_1_Context_Init" data-uid="Albatross.Caching.CacheManagement`1.Context_Init">
+  Context_Init
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Context_Init = &quot;init&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Albatross_Caching_CacheManagement_1_cacheProvider" data-uid="Albatross.Caching.CacheManagement`1.cacheProvider">
+  cacheProvider
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly IAsyncCacheProvider&lt;CacheFormat&gt; cacheProvider</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IAsyncCacheProvider</span>&lt;CacheFormat&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Albatross_Caching_CacheManagement_1_logger" data-uid="Albatross.Caching.CacheManagement`1.logger">
+  logger
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly ILogger logger</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Caching_CacheManagement_1_Name_" data-uid="Albatross.Caching.CacheManagement`1.Name*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_Name" data-uid="Albatross.Caching.CacheManagement`1.Name">
+  Name
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string Name { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_TtlStrategy_" data-uid="Albatross.Caching.CacheManagement`1.TtlStrategy*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_TtlStrategy" data-uid="Albatross.Caching.CacheManagement`1.TtlStrategy">
+  TtlStrategy
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract ITtlStrategy TtlStrategy { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ITtlStrategy</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Caching_CacheManagement_1_ExecuteAsync_" data-uid="Albatross.Caching.CacheManagement`1.ExecuteAsync*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_ExecuteAsync_System_Func_Polly_Context_System_Threading_CancellationToken_System_Threading_Tasks_Task__0___Polly_Context_System_Threading_CancellationToken_" data-uid="Albatross.Caching.CacheManagement`1.ExecuteAsync(System.Func{Polly.Context,System.Threading.CancellationToken,System.Threading.Tasks.Task{`0}},Polly.Context,System.Threading.CancellationToken)">
+  ExecuteAsync(Func&lt;Context, CancellationToken, Task&lt;CacheFormat&gt;&gt;, Context, CancellationToken)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;CacheFormat&gt; ExecuteAsync(Func&lt;Context, CancellationToken, Task&lt;CacheFormat&gt;&gt; func, Context context, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<span class="xref">Context</span>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;CacheFormat&gt;&gt;</dt>
+    <dd></dd>
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;CacheFormat&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_ExecuteAsync_" data-uid="Albatross.Caching.CacheManagement`1.ExecuteAsync*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_ExecuteAsync_System_Func_Polly_Context_System_Threading_Tasks_Task__0___Polly_Context_" data-uid="Albatross.Caching.CacheManagement`1.ExecuteAsync(System.Func{Polly.Context,System.Threading.Tasks.Task{`0}},Polly.Context)">
+  ExecuteAsync(Func&lt;Context, Task&lt;CacheFormat&gt;&gt;, Context)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;CacheFormat&gt; ExecuteAsync(Func&lt;Context, Task&lt;CacheFormat&gt;&gt; func, Context context)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<span class="xref">Context</span>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;CacheFormat&gt;&gt;</dt>
+    <dd></dd>
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;CacheFormat&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_GetCacheKey_" data-uid="Albatross.Caching.CacheManagement`1.GetCacheKey*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_GetCacheKey_Polly_Context_" data-uid="Albatross.Caching.CacheManagement`1.GetCacheKey(Polly.Context)">
+  GetCacheKey(Context)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string GetCacheKey(Context context)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_OnCacheGet_" data-uid="Albatross.Caching.CacheManagement`1.OnCacheGet*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_OnCacheGet_Polly_Context_System_String_" data-uid="Albatross.Caching.CacheManagement`1.OnCacheGet(Polly.Context,System.String)">
+  OnCacheGet(Context, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnCacheGet(Context context, string cacheKey)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+    <dt><code>cacheKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_OnCacheGetError_" data-uid="Albatross.Caching.CacheManagement`1.OnCacheGetError*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_OnCacheGetError_Polly_Context_System_String_System_Exception_" data-uid="Albatross.Caching.CacheManagement`1.OnCacheGetError(Polly.Context,System.String,System.Exception)">
+  OnCacheGetError(Context, string, Exception)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnCacheGetError(Context context, string cacheKey, Exception error)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+    <dt><code>cacheKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>error</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_OnCacheMiss_" data-uid="Albatross.Caching.CacheManagement`1.OnCacheMiss*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_OnCacheMiss_Polly_Context_System_String_" data-uid="Albatross.Caching.CacheManagement`1.OnCacheMiss(Polly.Context,System.String)">
+  OnCacheMiss(Context, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnCacheMiss(Context context, string cacheKey)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+    <dt><code>cacheKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_OnCachePut_" data-uid="Albatross.Caching.CacheManagement`1.OnCachePut*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_OnCachePut_Polly_Context_System_String_" data-uid="Albatross.Caching.CacheManagement`1.OnCachePut(Polly.Context,System.String)">
+  OnCachePut(Context, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnCachePut(Context context, string cacheKey)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+    <dt><code>cacheKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_OnCachePutError_" data-uid="Albatross.Caching.CacheManagement`1.OnCachePutError*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_OnCachePutError_Polly_Context_System_String_System_Exception_" data-uid="Albatross.Caching.CacheManagement`1.OnCachePutError(Polly.Context,System.String,System.Exception)">
+  OnCachePutError(Context, string, Exception)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnCachePutError(Context context, string cacheKey, Exception error)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+    <dt><code>cacheKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>error</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_PutAsync_" data-uid="Albatross.Caching.CacheManagement`1.PutAsync*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_PutAsync_Polly_Context__0_System_Threading_CancellationToken_" data-uid="Albatross.Caching.CacheManagement`1.PutAsync(Polly.Context,`0,System.Threading.CancellationToken)">
+  PutAsync(Context, CacheFormat, CancellationToken)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task PutAsync(Context context, CacheFormat value, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+    <dt><code>value</code> <span class="xref">CacheFormat</span></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_Register_" data-uid="Albatross.Caching.CacheManagement`1.Register*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_Register" data-uid="Albatross.Caching.CacheManagement`1.Register">
+  Register()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Register()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_Remove_" data-uid="Albatross.Caching.CacheManagement`1.Remove*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_Remove_Polly_Context___" data-uid="Albatross.Caching.CacheManagement`1.Remove(Polly.Context[])">
+  Remove(params Context[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Remove(params Context[] contexts)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>contexts</code> <span class="xref">Context</span>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_Reset_" data-uid="Albatross.Caching.CacheManagement`1.Reset*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_Reset" data-uid="Albatross.Caching.CacheManagement`1.Reset">
+  Reset()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Reset()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_CacheManagement_1_TryGetAsync_" data-uid="Albatross.Caching.CacheManagement`1.TryGetAsync*"></a>
+
+  <h3 id="Albatross_Caching_CacheManagement_1_TryGetAsync_Polly_Context_System_Threading_CancellationToken_" data-uid="Albatross.Caching.CacheManagement`1.TryGetAsync(Polly.Context,System.Threading.CancellationToken)">
+  TryGetAsync(Context, CancellationToken)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;(bool, CacheFormat)&gt; TryGetAsync(Context context, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <span class="xref">Context</span></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>, CacheFormat)&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

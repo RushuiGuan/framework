@@ -1,0 +1,744 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AuthorizationSetting
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AuthorizationSetting
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Albatross.Hosting.AuthorizationSetting">
+
+
+
+  <h1 id="Albatross_Hosting_AuthorizationSetting" data-uid="Albatross.Hosting.AuthorizationSetting" class="text-break">
+    Class AuthorizationSetting
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Hosting.html">Hosting</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Hosting.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class AuthorizationSetting : ConfigBase</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Albatross.Config.ConfigBase.html">ConfigBase</a></div>
+      <div><span class="xref">AuthorizationSetting</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting__ctor_" data-uid="Albatross.Hosting.AuthorizationSetting.#ctor*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting__ctor_Microsoft_Extensions_Configuration_IConfiguration_" data-uid="Albatross.Hosting.AuthorizationSetting.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+  AuthorizationSetting(IConfiguration)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AuthorizationSetting(IConfiguration configuration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_BearerAuthenticationScheme" data-uid="Albatross.Hosting.AuthorizationSetting.BearerAuthenticationScheme">
+  BearerAuthenticationScheme
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string BearerAuthenticationScheme = &quot;Bearer&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_KerborosAuthenticationScheme" data-uid="Albatross.Hosting.AuthorizationSetting.KerborosAuthenticationScheme">
+  KerborosAuthenticationScheme
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string KerborosAuthenticationScheme = &quot;Negotiate&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_SupportedAuthenticationScheme" data-uid="Albatross.Hosting.AuthorizationSetting.SupportedAuthenticationScheme">
+  SupportedAuthenticationScheme
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly string[] SupportedAuthenticationScheme</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_WindowsAuthenticationScheme" data-uid="Albatross.Hosting.AuthorizationSetting.WindowsAuthenticationScheme">
+  WindowsAuthenticationScheme
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string WindowsAuthenticationScheme = &quot;Windows&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_Audience_" data-uid="Albatross.Hosting.AuthorizationSetting.Audience*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_Audience" data-uid="Albatross.Hosting.AuthorizationSetting.Audience">
+  Audience
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>ApiResource Name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Audience { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_Authentication_" data-uid="Albatross.Hosting.AuthorizationSetting.Authentication*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_Authentication" data-uid="Albatross.Hosting.AuthorizationSetting.Authentication">
+  Authentication
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Authentication scheme is case sensitive!  bearer or Negotiate</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required]
+public string Authentication { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_Authority_" data-uid="Albatross.Hosting.AuthorizationSetting.Authority*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_Authority" data-uid="Albatross.Hosting.AuthorizationSetting.Authority">
+  Authority
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>BaseUrl of the Authorization Server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Authority { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_AuthorizeUrl_" data-uid="Albatross.Hosting.AuthorizationSetting.AuthorizeUrl*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_AuthorizeUrl" data-uid="Albatross.Hosting.AuthorizationSetting.AuthorizeUrl">
+  AuthorizeUrl
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? AuthorizeUrl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_IsBearerAuthentication_" data-uid="Albatross.Hosting.AuthorizationSetting.IsBearerAuthentication*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_IsBearerAuthentication" data-uid="Albatross.Hosting.AuthorizationSetting.IsBearerAuthentication">
+  IsBearerAuthentication
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsBearerAuthentication { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_IsKerborosAuthentication_" data-uid="Albatross.Hosting.AuthorizationSetting.IsKerborosAuthentication*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_IsKerborosAuthentication" data-uid="Albatross.Hosting.AuthorizationSetting.IsKerborosAuthentication">
+  IsKerborosAuthentication
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsKerborosAuthentication { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_IsWindowsAuthentication_" data-uid="Albatross.Hosting.AuthorizationSetting.IsWindowsAuthentication*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_IsWindowsAuthentication" data-uid="Albatross.Hosting.AuthorizationSetting.IsWindowsAuthentication">
+  IsWindowsAuthentication
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsWindowsAuthentication { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_Key_" data-uid="Albatross.Hosting.AuthorizationSetting.Key*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_Key" data-uid="Albatross.Hosting.AuthorizationSetting.Key">
+  Key
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string Key { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_Policies_" data-uid="Albatross.Hosting.AuthorizationSetting.Policies*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_Policies" data-uid="Albatross.Hosting.AuthorizationSetting.Policies">
+  Policies
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AuthorizationPolicy[] Policies { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Hosting.AuthorizationPolicy.html">AuthorizationPolicy</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_SwaggerClientId_" data-uid="Albatross.Hosting.AuthorizationSetting.SwaggerClientId*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_SwaggerClientId" data-uid="Albatross.Hosting.AuthorizationSetting.SwaggerClientId">
+  SwaggerClientId
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? SwaggerClientId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_SwaggerScopes_" data-uid="Albatross.Hosting.AuthorizationSetting.SwaggerScopes*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_SwaggerScopes" data-uid="Albatross.Hosting.AuthorizationSetting.SwaggerScopes">
+  SwaggerScopes
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SwaggerScope[] SwaggerScopes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Hosting.SwaggerScope.html">SwaggerScope</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_TokenUrl_" data-uid="Albatross.Hosting.AuthorizationSetting.TokenUrl*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_TokenUrl" data-uid="Albatross.Hosting.AuthorizationSetting.TokenUrl">
+  TokenUrl
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? TokenUrl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Hosting_AuthorizationSetting_Validate_" data-uid="Albatross.Hosting.AuthorizationSetting.Validate*"></a>
+
+  <h3 id="Albatross_Hosting_AuthorizationSetting_Validate" data-uid="Albatross.Hosting.AuthorizationSetting.Validate">
+  Validate()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Validate()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

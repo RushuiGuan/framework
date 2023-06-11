@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class MyUtilityBase&lt;T&gt;
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class MyUtilityBase&lt;T&gt;
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Albatross.Caching.Utility.MyUtilityBase`1">
+
+
+
+  <h1 id="Albatross_Caching_Utility_MyUtilityBase_1" data-uid="Albatross.Caching.Utility.MyUtilityBase`1" class="text-break">
+    Class MyUtilityBase&lt;T&gt;
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Caching.html">Caching</a>.<a class="xref" href="Albatross.Caching.Utility.html">Utility</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>caching.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class MyUtilityBase&lt;T&gt; : UtilityBase&lt;T&gt;, IUtility&lt;T&gt;, IUtility, IDisposable</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html">UtilityBase</a>&lt;T&gt;</div>
+      <div><span class="xref">MyUtilityBase&lt;T&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Albatross.Hosting.Utility.IUtility-1.html">IUtility</a>&lt;T&gt;</div>
+      <div><a class="xref" href="Albatross.Hosting.Utility.IUtility.html">IUtility</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Albatross.Caching.Utility.GetValue.html">GetValue</a></div>
+      <div><a class="xref" href="Albatross.Caching.Utility.SetValue.html">SetValue</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html#Albatross_Hosting_Utility_UtilityBase_1_Out">UtilityBase&lt;T&gt;.Out</a>
+    </div>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html#Albatross_Hosting_Utility_UtilityBase_1_Error">UtilityBase&lt;T&gt;.Error</a>
+    </div>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html#Albatross_Hosting_Utility_UtilityBase_1_Options">UtilityBase&lt;T&gt;.Options</a>
+    </div>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html#Albatross_Hosting_Utility_UtilityBase_1_logger">UtilityBase&lt;T&gt;.logger</a>
+    </div>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html#Albatross_Hosting_Utility_UtilityBase_1_CurrentDirectory">UtilityBase&lt;T&gt;.CurrentDirectory</a>
+    </div>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html#Albatross_Hosting_Utility_UtilityBase_1_RunUtilityMethod">UtilityBase&lt;T&gt;.RunUtilityMethod</a>
+    </div>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html#Albatross_Hosting_Utility_UtilityBase_1_Run">UtilityBase&lt;T&gt;.Run()</a>
+    </div>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Utility.UtilityBase-1.html#Albatross_Hosting_Utility_UtilityBase_1_Dispose">UtilityBase&lt;T&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Albatross_Caching_Utility_MyUtilityBase_1__ctor_" data-uid="Albatross.Caching.Utility.MyUtilityBase`1.#ctor*"></a>
+
+  <h3 id="Albatross_Caching_Utility_MyUtilityBase_1__ctor__0_" data-uid="Albatross.Caching.Utility.MyUtilityBase`1.#ctor(`0)">
+  MyUtilityBase(T)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected MyUtilityBase(T option)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>option</code> <span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Caching_Utility_MyUtilityBase_1_ConfigureLogging_" data-uid="Albatross.Caching.Utility.MyUtilityBase`1.ConfigureLogging*"></a>
+
+  <h3 id="Albatross_Caching_Utility_MyUtilityBase_1_ConfigureLogging_Serilog_LoggerConfiguration_" data-uid="Albatross.Caching.Utility.MyUtilityBase`1.ConfigureLogging(Serilog.LoggerConfiguration)">
+  ConfigureLogging(LoggerConfiguration)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void ConfigureLogging(LoggerConfiguration cfg)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cfg</code> <span class="xref">LoggerConfiguration</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_Utility_MyUtilityBase_1_Init_" data-uid="Albatross.Caching.Utility.MyUtilityBase`1.Init*"></a>
+
+  <h3 id="Albatross_Caching_Utility_MyUtilityBase_1_Init_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_" data-uid="Albatross.Caching.Utility.MyUtilityBase`1.Init(Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider)">
+  Init(IConfiguration, IServiceProvider)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Init(IConfiguration configuration, IServiceProvider provider)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>provider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_Utility_MyUtilityBase_1_RegisterServices_" data-uid="Albatross.Caching.Utility.MyUtilityBase`1.RegisterServices*"></a>
+
+  <h3 id="Albatross_Caching_Utility_MyUtilityBase_1_RegisterServices_Microsoft_Extensions_Configuration_IConfiguration_Albatross_Config_EnvironmentSetting_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Caching.Utility.MyUtilityBase`1.RegisterServices(Microsoft.Extensions.Configuration.IConfiguration,Albatross.Config.EnvironmentSetting,Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+  RegisterServices(IConfiguration, EnvironmentSetting, IServiceCollection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environment, IServiceCollection services)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>environment</code> <a class="xref" href="Albatross.Config.EnvironmentSetting.html">EnvironmentSetting</a></dt>
+    <dd></dd>
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
