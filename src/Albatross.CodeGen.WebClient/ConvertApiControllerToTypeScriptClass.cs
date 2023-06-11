@@ -40,7 +40,6 @@ namespace Albatross.CodeGen.WebClient {
 		void CreateImport(Class model) {
 			model.Imports.Add(new Import("@angular/common/http", "HttpClient"));
 			model.Imports.Add(new Import("@angular/core", "Injectable"));
-			model.Imports.Add(new Import("welton-core", "ConfigService", "DataService", "Logger"));
 		}
 
 		void CreateEndPointGetter(Class model, Type type, string endPointName) {
