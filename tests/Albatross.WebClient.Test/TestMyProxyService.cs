@@ -20,7 +20,7 @@ namespace Albatross.WebClient.Test{
 				ids.Add(i);
 			}
 			var client = new HttpClient();
-			client.BaseAddress = new Uri("http://app-prod/market-data");
+			client.BaseAddress = new Uri("http://myyyhost/mmmyyy-data");
 			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/w9-bar";
 			var queryString = new NameValueCollection();
@@ -41,7 +41,7 @@ namespace Albatross.WebClient.Test{
 				ids.Add(i);
 			}
 			var client = new HttpClient();
-			client.BaseAddress = new Uri("http://app-prod/market-data");
+			client.BaseAddress = new Uri("http://myyyhost/mmmyyy-data");
 			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/w9-bar";
 			var queryString = new NameValueCollection();
@@ -65,7 +65,7 @@ namespace Albatross.WebClient.Test{
 		[Theory]
 		public void TestRequestGeneration3(int maxlength, int count, params string[] expected) {
 			var client = new HttpClient();
-			client.BaseAddress = new Uri("http://app-prod");
+			client.BaseAddress = new Uri("http://myyyhost");
 			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/bar";
 			var queryString = new NameValueCollection();
@@ -90,7 +90,7 @@ namespace Albatross.WebClient.Test{
 		[InlineData(44, 2)]
 		public void TestInsufficientMaxLength(int maxlength, int count) {
 			var client = new HttpClient();
-			client.BaseAddress = new Uri("http://app-prod");
+			client.BaseAddress = new Uri("http://myyyhost");
 			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/bar";
 			var queryString = new NameValueCollection();

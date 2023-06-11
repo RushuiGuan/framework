@@ -32,7 +32,7 @@ namespace Albatross.Repository.Test.MyNamespace {
 			Assert.Single(items);
 		}
 
-		[Fact]
+		[Fact(Skip = "require database")]
 		public async Task TestTickSizePersistance() {
 			string marketName = "test";
 			DateTime startDate = new DateTime(1980, 1, 1);
