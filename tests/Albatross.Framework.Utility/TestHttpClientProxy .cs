@@ -1,4 +1,5 @@
-﻿using Albatross.WebClient;
+﻿using Albatross.Serialization;
+using Albatross.WebClient;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
@@ -14,7 +15,7 @@ namespace Albatross.Framework.Utility {
 	public class TestHttpClientProxy : ClientBase {
 		public const System.String ControllerPath = "api/client-test";
 
-		public TestHttpClientProxy(ILogger logger, HttpClient client) : base(logger, client) {
+		public TestHttpClientProxy(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) : base(logger, client, serializationOption) {
 		}
 
 		public async Task<string> GetStringResponse(string name) {

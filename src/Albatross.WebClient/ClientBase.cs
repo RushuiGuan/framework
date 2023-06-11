@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
@@ -10,10 +9,9 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using Polly;
-using System.Linq;
 using Polly.Retry;
-using System.Data;
 using System.IO.Compression;
+using Albatross.Serialization;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -21,8 +19,9 @@ namespace Albatross.WebClient {
 		protected ILogger logger;
 		private TextWriter? writer;
 
-		public ClientBase(ILogger logger, HttpClient client) {
+		public ClientBase(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) {
 			this.client = client;
+			this.defaultSerializationOptions = serializationOption.Default;
 			this.logger = logger;
 		}
 
@@ -35,10 +34,7 @@ namespace Albatross.WebClient {
 		public string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
 		public T? Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
 		public ValueTask<T?> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
-		protected virtual JsonSerializerOptions defaultSerializationOptions => new JsonSerializerOptions {
-			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-		};
+		protected JsonSerializerOptions defaultSerializationOptions { get; private set; }
 		public async Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
 			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
 				Version = request.Version
@@ -148,13 +144,13 @@ namespace Albatross.WebClient {
 		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			string content = SerializeJson<T>(t);
-			request.Content = new StringContent(content, Encoding.UTF8, Constant.JsonContentType);
+			request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Json);
 			writer?.WriteLine(content);
 			return request;
 		}
 		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
+			request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Html);
 			writer?.WriteLine(content);
 			return request;
 		}
