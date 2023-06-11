@@ -83,6 +83,82 @@
 
                     <article class="content wrap" id="_content" data-uid="">
 
+<ul>
+<li><p>v5.1.0</p>
+<ul>
+<li>secured Albatross prefix in nuget.org</li>
+<li>create a prod release prior the inclusion of messaging capability</li>
+<li>web client improvement
+<ul>
+<li>Albatross.WebClient
+<ul>
+<li>Improved built in logging</li>
+<li>Add http redirection support.</li>
+<li>Add default polly retry capability</li>
+<li>Add gzip encoding support</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Albatross.Hosting.Utility
+<ul>
+<li>Improved console output capability
+<ul>
+<li>create utility to write out in tabular format and list format</li>
+</ul>
+</li>
+<li>clean Albatross.Hosting.Utility.BaseOption class so that its verb doesn't use single character.
+<ul>
+<li>verbose flag will trigger</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Albatross.Repository
+<ul>
+<li>add datelevel data support</li>
+</ul>
+</li>
+<li>Albatross.Serialization
+<ul>
+<li>namespace has been seperated from Albatross assembly to be on its own</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>v4.1.0</p>
+<ul>
+<li>upgrade to efcore 7</li>
+</ul>
+</li>
+<li><p>v4.0.2</p>
+<ul>
+<li>Albatross.WebClient
+<ul>
+<li><strong>breaking:</strong> renaming Invoke methods to multiple GetResponse methods so that its intent is more clear</li>
+<li>Albatross.CodeGen.WebClient has been updated accordingly</li>
+<li>Albatross.WebClient.ClientBase.CreateRequests method has been deprecated in favor of CreateRequestUrls.  Since requests cannot be reused, it is necessary to create new requests when using polly retry mechanism.  CreateRequestUrls make it easier to create new requests and a much better alternative than cloning the existing request.</li>
+<li><strong>breaking</strong> remove a bunch of extension methods in Albatross.WebClient.Extension static class.  Users are encouraged to use CreateRequest adn GetResponse methods for consistency.</li>
+</ul>
+</li>
+<li>Albatross.CodeGen.WebClient
+<ul>
+<li>a bit of code clean up in C# web client proxy generation</li>
+</ul>
+</li>
+<li>add test code for polly in webclient</li>
+<li>Albatross.Math
+<ul>
+<li>trim trailing zeros of a decimal number when converting to double
+<ul>
+<li><a href="https://stackoverflow.com/questions/1584314/conversion-of-a-decimal-to-double-number-in-c-sharp-results-in-a-difference">https://stackoverflow.com/questions/1584314/conversion-of-a-decimal-to-double-number-in-c-sharp-results-in-a-difference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </article>
                 </div>
 
