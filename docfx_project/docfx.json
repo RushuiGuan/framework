@@ -45,6 +45,10 @@
 		],
 		"dest": "../../docfx_out",
 		"output": "_site",
+		"globalMetadata":{
+			"_appName": "Albatross Framework",
+      		"_appTitle": "Albatross Framework Documentation"
+		},
 		"globalMetadataFiles": [],
 		"fileMetadataFiles": [],
 		"template": [
