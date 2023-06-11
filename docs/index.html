@@ -80,7 +80,7 @@
                     <article class="content wrap" id="_content" data-uid="">
 <h3 id="albatross-framework">Albatross Framework</h3>
 
-<p>Albatross is a development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration point to other frameworks so that developers can work with a consistant platform without dealing with low level integration technical issues.</p>
+<p>Albatross is a development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration points to other frameworks so that developers can work with a consistant platform without dealing with low level technical issues.</p>
 <h4 id="here-is-a-list-of-technogies-adopted-by-albatross">Here is a list of technogies adopted by Albatross</h4>
 <table>
 <thead>
@@ -133,12 +133,98 @@
 </tr>
 </tbody>
 </table>
-<h4 id="albatross-has-pre-bootstrapped-hosting-assemblies--it-allows-developers-to-create-applications-quickly">Albatross has pre-bootstrapped hosting assemblies.  It allows developers to create applications quickly.</h4>
-<ul>
-<li>Albatross.Hosting - used for creating a webapi or service application.</li>
-<li>Albatross.Hosting.Utility - used for creating a command line console program.</li>
-<li>Albatross.Hosting.Test - used for creating unit test projects</li>
-</ul>
+<h4 id="albatross-has-pre-bootstrapped-hosting-assemblies-used-as-entry-point-for-applications--it-also-contains-other-support-assemblies-that-covers-other-use-cases">Albatross has pre-bootstrapped hosting assemblies used as entry point for applications.  It also contains other support assemblies that covers other use cases.</h4>
+<table>
+<thead>
+<tr>
+<th>Assembly</th>
+<th>Description</th>
+<th>Target Framework</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Albatross.Hosting</td>
+<td>Bootstrapping assembly for creating a webapi and\or service application</td>
+<td>Net7.0</td>
+</tr>
+<tr>
+<td>Albatross.Hosting.Utility</td>
+<td>Bootstrapping assembly for creating a command line console program</td>
+<td>Net7.0</td>
+</tr>
+<tr>
+<td>Albatross.Hosting.Test</td>
+<td>Bootstrapping assembly for createing a unit test project</td>
+<td>Net7.0</td>
+</tr>
+<tr>
+<td>Albatross.Authentication</td>
+<td>Utility for user authentication</td>
+<td>Net6.0</td>
+</tr>
+<tr>
+<td>Albatross.Caching</td>
+<td>Utility for caching</td>
+<td>NetStandard2.1</td>
+</tr>
+<tr>
+<td>Albatross.Caching.Redis</td>
+<td>Redis caching implementation</td>
+<td>NetStandard2.1</td>
+</tr>
+<tr>
+<td>Albatross.Caching.MemCache</td>
+<td>MemCach implementation</td>
+<td>NetStandard2.1</td>
+</tr>
+<tr>
+<td>Albatross.CodeGen</td>
+<td>CodeGen utility class</td>
+<td>NetStandard2.1</td>
+</tr>
+<tr>
+<td>Albatross.CodeGen.WebClient</td>
+<td>CodeGen Implementation for WebApi Proxy</td>
+<td>Net7.0</td>
+</tr>
+<tr>
+<td>Albatross.Config</td>
+<td>Utility for configuration management</td>
+<td>NetStandard2.1</td>
+</tr>
+<tr>
+<td>Albatross.Logging</td>
+<td>Utility for logging</td>
+<td>NetStandard2.1</td>
+</tr>
+<tr>
+<td>Albatross.Repository</td>
+<td>ORM setup using EFCore</td>
+<td>Net7.0, EFCore7.0</td>
+</tr>
+<tr>
+<td>Albatross.Repository.SqlServer</td>
+<td>ORM Sql server setup</td>
+<td>Net7.0, EFCore7.0</td>
+</tr>
+<tr>
+<td>Albatross.Repository.PostgreSQL</td>
+<td>ORM PostgreSQL server setup</td>
+<td>Net7.0, EFCore7.0</td>
+</tr>
+<tr>
+<td>Albatross</td>
+<td>Utility assembly for shared code based that is not big enough to have its own assembly</td>
+<td>NetStandard2.1</td>
+</tr>
+<tr>
+<td>Albatross.WebClient</td>
+<td>Utility for creation of http rest client</td>
+<td>NetStandard2.1</td>
+</tr>
+</tbody>
+</table>
 </article>
                 </div>
 
