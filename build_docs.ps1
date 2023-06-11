@@ -2,7 +2,7 @@
 # dotnet tool update -g docfx --ignore-failed-sources
 
 
-Get-ChildItem $PSScriptRoot\docs | Remove-Item -Recurse -Force;
+Get-ChildItem $PSScriptRoot\docfx_out | Remove-Item -Recurse -Force;
 
 Set-Location $PSScriptRoot\docfx_project
 docfx metadata
