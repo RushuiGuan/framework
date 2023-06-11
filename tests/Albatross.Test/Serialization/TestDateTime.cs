@@ -19,5 +19,15 @@ namespace Albatross.Test.Serialization {
 			text = string.Format("{0:o}", DateTime.SpecifyKind(new DateTime(2020, 1, 1, 8, 30, 40), DateTimeKind.Utc));
 			Assert.NotNull(text);
 		}
+
+		/// <summary>
+		/// dotnet serialization didn't work for timespan until v7
+		/// </summary>
+		[Fact]
+		public void TestTimeSpan() {
+			TimeSpan span = TimeSpan.FromHours(10);
+			var text = JsonSerializer.Serialize(span);
+			Assert.Equal("\"10:00:00\"", text);
+		}
 	}
 }

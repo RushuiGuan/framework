@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
   </ItemGroup>
 

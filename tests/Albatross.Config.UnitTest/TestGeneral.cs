@@ -1,21 +1,8 @@
-using Albatross.Hosting.Test;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
 
 namespace Albatross.Config.UnitTest {
-	public class MyTestHost : TestHost {
-		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-			base.RegisterServices(configuration, services);
-			services.AddConfig<ProgramSetting>();
-			services.AddConfig<SingleValueConfig>();
-			services.AddConfig<MySetting>();
-			services.AddConfig<ConfigWithNoKey>();
-			services.AddConfig<DbConfig>();
-			services.AddConfig<ValidationTest>();
-		}
-	}
 
 	public class Tests : IClassFixture<MyTestHost> {
 		private readonly MyTestHost host;

@@ -1,25 +1,44 @@
-﻿using CommandLine;
+﻿using Albatross.Logging;
+using Albatross.Reflection;
+using Albatross.Text;
+using CommandLine;
+using Serilog.Events;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
 namespace Albatross.Hosting.Utility {
 	public class BaseOption {
-		[Option('o', "console-out", Required = false, HelpText = "Console output file name")]
+		[Option("console-out", Required = false, HelpText = "Console output file name")]
 		public string? LogFile { get; set; }
 
-		[Option('v', "verbose")]
-		public bool Verbose { get; set; }
-
-		[Option('c', "clipboard")]
+		[Option("clipboard", HelpText ="Set this flag to copy the output to clipboard")]
 		public bool Clipboard { get; set; }
 
+		[Option("verbose", HelpText = "Set this flag to see logs at information level")]
+		public bool Verbose{ get; set; }
+
+		[Option("debug", HelpText = "Set this flag to see logs at debug level")]
+		public bool Debug{ get; set; }
+
+
+		public void ConfigureLogging(LoggerConfiguration cfg) {
+			if (Debug) {
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
+			}else if (Verbose) {
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Information);
+			} else {
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Error);
+			}
+		}
 
 		void SendResult(string result) {
-			if (Verbose) { Console.WriteLine(result); }
+			Console.WriteLine(result);
 
 			if (!string.IsNullOrEmpty(LogFile)) {
 				using var stream = System.IO.File.OpenWrite(LogFile);
@@ -32,6 +51,24 @@ namespace Albatross.Hosting.Utility {
 			if (Clipboard) {
 				new TextCopy.Clipboard().SetText(result);
 			}
+		}
+
+		public void WriteProperties<T>(T? data, params string[] properties) {
+			StringWriter writer = new StringWriter();
+			writer.PrintProperties(data, properties);
+			SendResult(writer.ToString());
+		}
+
+		public void WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option, params string[] properties) {
+			StringWriter writer = new StringWriter();
+			writer.PrintProperties<T>(data.ToArray(), option,  properties);
+			SendResult(writer.ToString());
+		}
+
+		public void WriteTable<T>(IEnumerable<T> data, PrintTableOption option, params string[] properties) {
+			StringWriter writer = new StringWriter();
+			writer.PrintTable<T>(data.ToArray(), option, properties);
+			SendResult(writer.ToString());
 		}
 
 		public void WriteOutput(object data) {
@@ -48,6 +85,7 @@ namespace Albatross.Hosting.Utility {
 			}
 			SendResult(result);
 		}
+
 		public void WriteCsvOutput<T>(IEnumerable<T> items) {
 			StringBuilder sb = new StringBuilder();
 			using (StringWriter writer = new StringWriter(sb)) {
