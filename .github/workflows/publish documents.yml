@@ -2,7 +2,7 @@ name: publish docs
 
 on:
   push:
-    branches: [ staging ]
+    branches: [ staging, documentation ]
 
 jobs:
   publish-docs:
