@@ -2655,6 +2655,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Serialization.DefaultJsonSerializationOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Serialization.DefaultJsonSerializationOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Serialization.Extensions.yml",
       "output": {
         ".html": {
@@ -2665,10 +2675,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Serialization.FormattedJsonSerializationOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Serialization.FormattedJsonSerializationOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Serialization.IJsonSerializationOption.yml",
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Serialization.IJsonSerializationOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html"
         }
       },
       "version": ""
@@ -2849,16 +2879,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.WebClient.ClientBase.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.WebClient.Constant.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.WebClient.Constant.html"
         }
       },
       "version": ""

@@ -16355,6 +16355,57 @@ references:
   commentId: F:Albatross.Serialization.ContentTypes.Text
   fullName: Albatross.Serialization.ContentTypes.Text
   nameWithType: ContentTypes.Text
+- uid: Albatross.Serialization.DefaultJsonSerializationOption
+  name: DefaultJsonSerializationOption
+  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html
+  commentId: T:Albatross.Serialization.DefaultJsonSerializationOption
+  fullName: Albatross.Serialization.DefaultJsonSerializationOption
+  nameWithType: DefaultJsonSerializationOption
+- uid: Albatross.Serialization.DefaultJsonSerializationOption.#ctor
+  name: DefaultJsonSerializationOption()
+  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption__ctor
+  commentId: M:Albatross.Serialization.DefaultJsonSerializationOption.#ctor
+  name.vb: New()
+  fullName: Albatross.Serialization.DefaultJsonSerializationOption.DefaultJsonSerializationOption()
+  fullName.vb: Albatross.Serialization.DefaultJsonSerializationOption.New()
+  nameWithType: DefaultJsonSerializationOption.DefaultJsonSerializationOption()
+  nameWithType.vb: DefaultJsonSerializationOption.New()
+- uid: Albatross.Serialization.DefaultJsonSerializationOption.#ctor*
+  name: DefaultJsonSerializationOption
+  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption__ctor_
+  commentId: Overload:Albatross.Serialization.DefaultJsonSerializationOption.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Albatross.Serialization.DefaultJsonSerializationOption.DefaultJsonSerializationOption
+  fullName.vb: Albatross.Serialization.DefaultJsonSerializationOption.New
+  nameWithType: DefaultJsonSerializationOption.DefaultJsonSerializationOption
+  nameWithType.vb: DefaultJsonSerializationOption.New
+- uid: Albatross.Serialization.DefaultJsonSerializationOption.Alternate
+  name: Alternate
+  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption_Alternate
+  commentId: P:Albatross.Serialization.DefaultJsonSerializationOption.Alternate
+  fullName: Albatross.Serialization.DefaultJsonSerializationOption.Alternate
+  nameWithType: DefaultJsonSerializationOption.Alternate
+- uid: Albatross.Serialization.DefaultJsonSerializationOption.Alternate*
+  name: Alternate
+  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption_Alternate_
+  commentId: Overload:Albatross.Serialization.DefaultJsonSerializationOption.Alternate
+  isSpec: "True"
+  fullName: Albatross.Serialization.DefaultJsonSerializationOption.Alternate
+  nameWithType: DefaultJsonSerializationOption.Alternate
+- uid: Albatross.Serialization.DefaultJsonSerializationOption.Default
+  name: Default
+  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption_Default
+  commentId: P:Albatross.Serialization.DefaultJsonSerializationOption.Default
+  fullName: Albatross.Serialization.DefaultJsonSerializationOption.Default
+  nameWithType: DefaultJsonSerializationOption.Default
+- uid: Albatross.Serialization.DefaultJsonSerializationOption.Default*
+  name: Default
+  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption_Default_
+  commentId: Overload:Albatross.Serialization.DefaultJsonSerializationOption.Default
+  isSpec: "True"
+  fullName: Albatross.Serialization.DefaultJsonSerializationOption.Default
+  nameWithType: DefaultJsonSerializationOption.Default
 - uid: Albatross.Serialization.Extensions
   name: Extensions
   href: api/Albatross.Serialization.Extensions.html
@@ -16370,15 +16421,6 @@ references:
   fullName.vb: Albatross.Serialization.Extensions.ApplyJsonValue(System.Text.Json.JsonElement, System.Text.Json.JsonElement, System.Text.Json.JsonSerializerOptions)
   nameWithType: Extensions.ApplyJsonValue(JsonElement, JsonElement, JsonSerializerOptions?)
   nameWithType.vb: Extensions.ApplyJsonValue(JsonElement, JsonElement, JsonSerializerOptions)
-- uid: Albatross.Serialization.Extensions.ApplyJsonValue(System.Text.Json.Utf8JsonWriter,System.Text.Json.JsonElement,System.Text.Json.JsonElement,System.Text.Json.JsonSerializerOptions)
-  name: ApplyJsonValue(Utf8JsonWriter, JsonElement, JsonElement, JsonSerializerOptions?)
-  href: api/Albatross.Serialization.Extensions.html#Albatross_Serialization_Extensions_ApplyJsonValue_System_Text_Json_Utf8JsonWriter_System_Text_Json_JsonElement_System_Text_Json_JsonElement_System_Text_Json_JsonSerializerOptions_
-  commentId: M:Albatross.Serialization.Extensions.ApplyJsonValue(System.Text.Json.Utf8JsonWriter,System.Text.Json.JsonElement,System.Text.Json.JsonElement,System.Text.Json.JsonSerializerOptions)
-  name.vb: ApplyJsonValue(Utf8JsonWriter, JsonElement, JsonElement, JsonSerializerOptions)
-  fullName: Albatross.Serialization.Extensions.ApplyJsonValue(System.Text.Json.Utf8JsonWriter, System.Text.Json.JsonElement, System.Text.Json.JsonElement, System.Text.Json.JsonSerializerOptions?)
-  fullName.vb: Albatross.Serialization.Extensions.ApplyJsonValue(System.Text.Json.Utf8JsonWriter, System.Text.Json.JsonElement, System.Text.Json.JsonElement, System.Text.Json.JsonSerializerOptions)
-  nameWithType: Extensions.ApplyJsonValue(Utf8JsonWriter, JsonElement, JsonElement, JsonSerializerOptions?)
-  nameWithType.vb: Extensions.ApplyJsonValue(Utf8JsonWriter, JsonElement, JsonElement, JsonSerializerOptions)
 - uid: Albatross.Serialization.Extensions.ApplyJsonValue*
   name: ApplyJsonValue
   href: api/Albatross.Serialization.Extensions.html#Albatross_Serialization_Extensions_ApplyJsonValue_
@@ -16427,6 +16469,57 @@ references:
   isSpec: "True"
   fullName: Albatross.Serialization.Extensions.WriteJsonSingleRow
   nameWithType: Extensions.WriteJsonSingleRow
+- uid: Albatross.Serialization.FormattedJsonSerializationOption
+  name: FormattedJsonSerializationOption
+  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html
+  commentId: T:Albatross.Serialization.FormattedJsonSerializationOption
+  fullName: Albatross.Serialization.FormattedJsonSerializationOption
+  nameWithType: FormattedJsonSerializationOption
+- uid: Albatross.Serialization.FormattedJsonSerializationOption.#ctor
+  name: FormattedJsonSerializationOption()
+  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption__ctor
+  commentId: M:Albatross.Serialization.FormattedJsonSerializationOption.#ctor
+  name.vb: New()
+  fullName: Albatross.Serialization.FormattedJsonSerializationOption.FormattedJsonSerializationOption()
+  fullName.vb: Albatross.Serialization.FormattedJsonSerializationOption.New()
+  nameWithType: FormattedJsonSerializationOption.FormattedJsonSerializationOption()
+  nameWithType.vb: FormattedJsonSerializationOption.New()
+- uid: Albatross.Serialization.FormattedJsonSerializationOption.#ctor*
+  name: FormattedJsonSerializationOption
+  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption__ctor_
+  commentId: Overload:Albatross.Serialization.FormattedJsonSerializationOption.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Albatross.Serialization.FormattedJsonSerializationOption.FormattedJsonSerializationOption
+  fullName.vb: Albatross.Serialization.FormattedJsonSerializationOption.New
+  nameWithType: FormattedJsonSerializationOption.FormattedJsonSerializationOption
+  nameWithType.vb: FormattedJsonSerializationOption.New
+- uid: Albatross.Serialization.FormattedJsonSerializationOption.Alternate
+  name: Alternate
+  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption_Alternate
+  commentId: P:Albatross.Serialization.FormattedJsonSerializationOption.Alternate
+  fullName: Albatross.Serialization.FormattedJsonSerializationOption.Alternate
+  nameWithType: FormattedJsonSerializationOption.Alternate
+- uid: Albatross.Serialization.FormattedJsonSerializationOption.Alternate*
+  name: Alternate
+  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption_Alternate_
+  commentId: Overload:Albatross.Serialization.FormattedJsonSerializationOption.Alternate
+  isSpec: "True"
+  fullName: Albatross.Serialization.FormattedJsonSerializationOption.Alternate
+  nameWithType: FormattedJsonSerializationOption.Alternate
+- uid: Albatross.Serialization.FormattedJsonSerializationOption.Default
+  name: Default
+  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption_Default
+  commentId: P:Albatross.Serialization.FormattedJsonSerializationOption.Default
+  fullName: Albatross.Serialization.FormattedJsonSerializationOption.Default
+  nameWithType: FormattedJsonSerializationOption.Default
+- uid: Albatross.Serialization.FormattedJsonSerializationOption.Default*
+  name: Default
+  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption_Default_
+  commentId: Overload:Albatross.Serialization.FormattedJsonSerializationOption.Default
+  isSpec: "True"
+  fullName: Albatross.Serialization.FormattedJsonSerializationOption.Default
+  nameWithType: FormattedJsonSerializationOption.Default
 - uid: Albatross.Serialization.IJsonSerializationOption
   name: IJsonSerializationOption
   href: api/Albatross.Serialization.IJsonSerializationOption.html
@@ -16459,6 +16552,57 @@ references:
   isSpec: "True"
   fullName: Albatross.Serialization.IJsonSerializationOption.Default
   nameWithType: IJsonSerializationOption.Default
+- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption
+  name: ReducedFootprintJsonSerializationOption
+  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html
+  commentId: T:Albatross.Serialization.ReducedFootprintJsonSerializationOption
+  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption
+  nameWithType: ReducedFootprintJsonSerializationOption
+- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.#ctor
+  name: ReducedFootprintJsonSerializationOption()
+  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption__ctor
+  commentId: M:Albatross.Serialization.ReducedFootprintJsonSerializationOption.#ctor
+  name.vb: New()
+  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.ReducedFootprintJsonSerializationOption()
+  fullName.vb: Albatross.Serialization.ReducedFootprintJsonSerializationOption.New()
+  nameWithType: ReducedFootprintJsonSerializationOption.ReducedFootprintJsonSerializationOption()
+  nameWithType.vb: ReducedFootprintJsonSerializationOption.New()
+- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.#ctor*
+  name: ReducedFootprintJsonSerializationOption
+  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption__ctor_
+  commentId: Overload:Albatross.Serialization.ReducedFootprintJsonSerializationOption.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.ReducedFootprintJsonSerializationOption
+  fullName.vb: Albatross.Serialization.ReducedFootprintJsonSerializationOption.New
+  nameWithType: ReducedFootprintJsonSerializationOption.ReducedFootprintJsonSerializationOption
+  nameWithType.vb: ReducedFootprintJsonSerializationOption.New
+- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
+  name: Alternate
+  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption_Alternate
+  commentId: P:Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
+  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
+  nameWithType: ReducedFootprintJsonSerializationOption.Alternate
+- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate*
+  name: Alternate
+  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption_Alternate_
+  commentId: Overload:Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
+  isSpec: "True"
+  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
+  nameWithType: ReducedFootprintJsonSerializationOption.Alternate
+- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
+  name: Default
+  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption_Default
+  commentId: P:Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
+  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
+  nameWithType: ReducedFootprintJsonSerializationOption.Default
+- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default*
+  name: Default
+  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption_Default_
+  commentId: Overload:Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
+  isSpec: "True"
+  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
+  nameWithType: ReducedFootprintJsonSerializationOption.Default
 - uid: Albatross.Text
   name: Albatross.Text
   href: api/Albatross.Text.html
@@ -17341,15 +17485,15 @@ references:
   commentId: T:Albatross.WebClient.ClientBase
   fullName: Albatross.WebClient.ClientBase
   nameWithType: ClientBase
-- uid: Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient)
-  name: ClientBase(ILogger, HttpClient)
-  href: api/Albatross.WebClient.ClientBase.html#Albatross_WebClient_ClientBase__ctor_Microsoft_Extensions_Logging_ILogger_System_Net_Http_HttpClient_
-  commentId: M:Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient)
-  name.vb: New(ILogger, HttpClient)
-  fullName: Albatross.WebClient.ClientBase.ClientBase(Microsoft.Extensions.Logging.ILogger, System.Net.Http.HttpClient)
-  fullName.vb: Albatross.WebClient.ClientBase.New(Microsoft.Extensions.Logging.ILogger, System.Net.Http.HttpClient)
-  nameWithType: ClientBase.ClientBase(ILogger, HttpClient)
-  nameWithType.vb: ClientBase.New(ILogger, HttpClient)
+- uid: Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient,Albatross.Serialization.IJsonSerializationOption)
+  name: ClientBase(ILogger, HttpClient, IJsonSerializationOption)
+  href: api/Albatross.WebClient.ClientBase.html#Albatross_WebClient_ClientBase__ctor_Microsoft_Extensions_Logging_ILogger_System_Net_Http_HttpClient_Albatross_Serialization_IJsonSerializationOption_
+  commentId: M:Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient,Albatross.Serialization.IJsonSerializationOption)
+  name.vb: New(ILogger, HttpClient, IJsonSerializationOption)
+  fullName: Albatross.WebClient.ClientBase.ClientBase(Microsoft.Extensions.Logging.ILogger, System.Net.Http.HttpClient, Albatross.Serialization.IJsonSerializationOption)
+  fullName.vb: Albatross.WebClient.ClientBase.New(Microsoft.Extensions.Logging.ILogger, System.Net.Http.HttpClient, Albatross.Serialization.IJsonSerializationOption)
+  nameWithType: ClientBase.ClientBase(ILogger, HttpClient, IJsonSerializationOption)
+  nameWithType.vb: ClientBase.New(ILogger, HttpClient, IJsonSerializationOption)
 - uid: Albatross.WebClient.ClientBase.#ctor*
   name: ClientBase
   href: api/Albatross.WebClient.ClientBase.html#Albatross_WebClient_ClientBase__ctor_
@@ -17829,30 +17973,6 @@ references:
   isSpec: "True"
   fullName: Albatross.WebClient.ClientBase.UseTextWriter
   nameWithType: ClientBase.UseTextWriter
-- uid: Albatross.WebClient.Constant
-  name: Constant
-  href: api/Albatross.WebClient.Constant.html
-  commentId: T:Albatross.WebClient.Constant
-  fullName: Albatross.WebClient.Constant
-  nameWithType: Constant
-- uid: Albatross.WebClient.Constant.ContentType
-  name: ContentType
-  href: api/Albatross.WebClient.Constant.html#Albatross_WebClient_Constant_ContentType
-  commentId: F:Albatross.WebClient.Constant.ContentType
-  fullName: Albatross.WebClient.Constant.ContentType
-  nameWithType: Constant.ContentType
-- uid: Albatross.WebClient.Constant.JsonContentType
-  name: JsonContentType
-  href: api/Albatross.WebClient.Constant.html#Albatross_WebClient_Constant_JsonContentType
-  commentId: F:Albatross.WebClient.Constant.JsonContentType
-  fullName: Albatross.WebClient.Constant.JsonContentType
-  nameWithType: Constant.JsonContentType
-- uid: Albatross.WebClient.Constant.TextHtmlContentType
-  name: TextHtmlContentType
-  href: api/Albatross.WebClient.Constant.html#Albatross_WebClient_Constant_TextHtmlContentType
-  commentId: F:Albatross.WebClient.Constant.TextHtmlContentType
-  fullName: Albatross.WebClient.Constant.TextHtmlContentType
-  nameWithType: Constant.TextHtmlContentType
 - uid: Albatross.WebClient.Extensions
   name: Extensions
   href: api/Albatross.WebClient.Extensions.html
