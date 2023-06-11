@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
@@ -10,10 +9,9 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using Polly;
-using System.Linq;
 using Polly.Retry;
-using System.Data;
 using System.IO.Compression;
+using Albatross.Serialization;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -148,13 +146,13 @@ namespace Albatross.WebClient {
 		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			string content = SerializeJson<T>(t);
-			request.Content = new StringContent(content, Encoding.UTF8, Constant.JsonContentType);
+			request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Json);
 			writer?.WriteLine(content);
 			return request;
 		}
 		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			request.Content = new StringContent(content, Encoding.UTF8, Constant.TextHtmlContentType);
+			request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Html);
 			writer?.WriteLine(content);
 			return request;
 		}

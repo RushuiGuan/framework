@@ -26,4 +26,7 @@
       </PackagePath>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Albatross.Serialization\Albatross.Serialization.csproj" />
+  </ItemGroup>
 </Project>

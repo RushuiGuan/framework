@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Albatross.Caching\Albatross.Caching.csproj" />
     <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
     <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
+    <ProjectReference Include="..\Albatross.Serialization\Albatross.Serialization.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
