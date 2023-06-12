@@ -104,7 +104,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.MemCache"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "serialization", "serialization", "{211E7CA0-BDEB-4BEA-A123-1A40B34CBF19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Serialization", "src\Albatross.Serialization\Albatross.Serialization.csproj", "{6C588348-CF71-4E6A-84AA-23EF6DD2BCA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Serialization", "src\Albatross.Serialization\Albatross.Serialization.csproj", "{6C588348-CF71-4E6A-84AA-23EF6DD2BCA0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Serialization.Test", "tests\Albatross.Serialization.Test\Albatross.Serialization.Test.csproj", "{EAFB7A19-7140-4EFC-BC65-6FACA254D3BE}"
 EndProject
