@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../styles/colors.css">
     <link rel="stylesheet" href="../styles/discord.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:navrel" content="">
     <meta property="docfx:tocrel" content="toc.html">
   
   
@@ -111,30 +111,6 @@
     <div><a class="xref" href="Albatross.Commands.ICommandQueue.html">ICommandQueue</a></div>
     <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Commands.html">Commands</a></h6>
   <h6><strong>Assembly</strong>: Albatross.Commands.dll</h6>
   <h5 id="Albatross_Commands_ImprovedCommandQueue_syntax">Syntax</h5>
@@ -143,283 +119,125 @@
   </div>
   <h3 id="constructors">Constructors
 </h3>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue__ctor_" data-uid="Albatross.Commands.ImprovedCommandQueue.#ctor*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue__ctor_System_String_Microsoft_Extensions_DependencyInjection_IServiceScopeFactory_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="Albatross.Commands.ImprovedCommandQueue.#ctor(System.String,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory,Microsoft.Extensions.Logging.ILoggerFactory)">ImprovedCommandQueue(string, IServiceScopeFactory, ILoggerFactory)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ImprovedCommandQueue(string name, IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
         <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescopefactory">IServiceScopeFactory</a></td>
-        <td><span class="parametername">scopeFactory</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></td>
-        <td><span class="parametername">loggerFactory</span></td>
-        <td></td>
+        <td id="Albatross_Commands_ImprovedCommandQueue__ctor_System_String_Microsoft_Extensions_DependencyInjection_IServiceScopeFactory_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="Albatross.Commands.ImprovedCommandQueue.#ctor(System.String,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory,Microsoft.Extensions.Logging.ILoggerFactory)">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.-ctor.html#Albatross_Commands_ImprovedCommandQueue__ctor_System_String_Microsoft_Extensions_DependencyInjection_IServiceScopeFactory_Microsoft_Extensions_Logging_ILoggerFactory_">ImprovedCommandQueue(string, IServiceScopeFactory, ILoggerFactory)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
     </tbody>
   </table>
   <h3 id="fields">Fields
 </h3>
-
-
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_queue" data-uid="Albatross.Commands.ImprovedCommandQueue.queue">queue</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected readonly Queue&lt;Command&gt; queue</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.queue-1">Queue</a>&lt;<a class="xref" href="Albatross.Commands.Command.html">Command</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_sync" data-uid="Albatross.Commands.ImprovedCommandQueue.sync">sync</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected object sync</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-</h3>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue_Count_" data-uid="Albatross.Commands.ImprovedCommandQueue.Count*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_Count" data-uid="Albatross.Commands.ImprovedCommandQueue.Count">Count</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue_Last_" data-uid="Albatross.Commands.ImprovedCommandQueue.Last*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_Last" data-uid="Albatross.Commands.ImprovedCommandQueue.Last">Last</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Command? Last { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Commands.Command.html">Command</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue_Name_" data-uid="Albatross.Commands.ImprovedCommandQueue.Name*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_Name" data-uid="Albatross.Commands.ImprovedCommandQueue.Name">Name</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Name { get; init; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-</h3>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue_CreateDto_" data-uid="Albatross.Commands.ImprovedCommandQueue.CreateDto*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_CreateDto" data-uid="Albatross.Commands.ImprovedCommandQueue.CreateDto">CreateDto()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CommandQueueDto CreateDto()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Commands.CommandQueueDto.html">CommandQueueDto</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue_Dispose_" data-uid="Albatross.Commands.ImprovedCommandQueue.Dispose*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_Dispose" data-uid="Albatross.Commands.ImprovedCommandQueue.Dispose">Dispose()</h4>
-  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
-  </div>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue_Signal_" data-uid="Albatross.Commands.ImprovedCommandQueue.Signal*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_Signal" data-uid="Albatross.Commands.ImprovedCommandQueue.Signal">Signal()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Signal()</code></pre>
-  </div>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue_Start_" data-uid="Albatross.Commands.ImprovedCommandQueue.Start*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_Start" data-uid="Albatross.Commands.ImprovedCommandQueue.Start">Start()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Start()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Commands_ImprovedCommandQueue_Submit_" data-uid="Albatross.Commands.ImprovedCommandQueue.Submit*"></a>
-  <h4 id="Albatross_Commands_ImprovedCommandQueue_Submit_Albatross_Commands_Command_" data-uid="Albatross.Commands.ImprovedCommandQueue.Submit(Albatross.Commands.Command)">Submit(Command)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Submit(Command command)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
         <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Albatross.Commands.Command.html">Command</a></td>
-        <td><span class="parametername">command</span></td>
-        <td></td>
+        <td id="Albatross_Commands_ImprovedCommandQueue_queue" data-uid="Albatross.Commands.ImprovedCommandQueue.queue">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.queue.html">queue</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_sync" data-uid="Albatross.Commands.ImprovedCommandQueue.sync">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.sync.html">sync</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
     </tbody>
   </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="Albatross.Commands.ICommandQueue.html">ICommandQueue</a>
-  </div>
-  <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
-  </div>
+  <h3 id="properties">Properties
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_Count" data-uid="Albatross.Commands.ImprovedCommandQueue.Count">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.Count.html#Albatross_Commands_ImprovedCommandQueue_Count">Count</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_Last" data-uid="Albatross.Commands.ImprovedCommandQueue.Last">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.Last.html#Albatross_Commands_ImprovedCommandQueue_Last">Last</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_Name" data-uid="Albatross.Commands.ImprovedCommandQueue.Name">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.Name.html#Albatross_Commands_ImprovedCommandQueue_Name">Name</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_CreateDto" data-uid="Albatross.Commands.ImprovedCommandQueue.CreateDto">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.CreateDto.html#Albatross_Commands_ImprovedCommandQueue_CreateDto">CreateDto()</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_Dispose" data-uid="Albatross.Commands.ImprovedCommandQueue.Dispose">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.Dispose.html#Albatross_Commands_ImprovedCommandQueue_Dispose">Dispose()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_Signal" data-uid="Albatross.Commands.ImprovedCommandQueue.Signal">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.Signal.html#Albatross_Commands_ImprovedCommandQueue_Signal">Signal()</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_Start" data-uid="Albatross.Commands.ImprovedCommandQueue.Start">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.Start.html#Albatross_Commands_ImprovedCommandQueue_Start">Start()</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ImprovedCommandQueue_Submit_Albatross_Commands_Command_" data-uid="Albatross.Commands.ImprovedCommandQueue.Submit(Albatross.Commands.Command)">
+          <a class="xref" href="Albatross.Commands.ImprovedCommandQueue.Submit.html#Albatross_Commands_ImprovedCommandQueue_Submit_Albatross_Commands_Command_">Submit(Command)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.ValidateByDataAnnotations.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
 
 </article>

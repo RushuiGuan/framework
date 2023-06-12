@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../styles/colors.css">
     <link rel="stylesheet" href="../styles/discord.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:navrel" content="">
     <meta property="docfx:tocrel" content="toc.html">
   
   
@@ -110,30 +110,6 @@
     <h5>Implements</h5>
     <div><a class="xref" href="Albatross.Text.IStringInterpolationService.html">IStringInterpolationService</a></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Text.html">Text</a></h6>
   <h6><strong>Assembly</strong>: Albatross.dll</h6>
   <h5 id="Albatross_Text_StringInterpolationService_syntax">Syntax</h5>
@@ -142,144 +118,49 @@
   </div>
   <h3 id="constructors">Constructors
 </h3>
-
-
-  <a id="Albatross_Text_StringInterpolationService__ctor_" data-uid="Albatross.Text.StringInterpolationService.#ctor*"></a>
-  <h4 id="Albatross_Text_StringInterpolationService__ctor_Microsoft_Extensions_Logging_ILogger_" data-uid="Albatross.Text.StringInterpolationService.#ctor(Microsoft.Extensions.Logging.ILogger)">StringInterpolationService(ILogger)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StringInterpolationService(ILogger logger)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
         <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
-        <td><span class="parametername">logger</span></td>
-        <td></td>
+        <td id="Albatross_Text_StringInterpolationService__ctor_Microsoft_Extensions_Logging_ILogger_" data-uid="Albatross.Text.StringInterpolationService.#ctor(Microsoft.Extensions.Logging.ILogger)">
+          <a class="xref" href="Albatross.Text.StringInterpolationService.-ctor.html#Albatross_Text_StringInterpolationService__ctor_Microsoft_Extensions_Logging_ILogger_">StringInterpolationService(ILogger)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
     </tbody>
   </table>
   <h3 id="fields">Fields
 </h3>
-
-
-  <h4 id="Albatross_Text_StringInterpolationService_ExpressionSearchPattern" data-uid="Albatross.Text.StringInterpolationService.ExpressionSearchPattern">ExpressionSearchPattern</h4>
-  <div class="markdown level1 summary"><p>the pattern looks for text within the &quot;${&quot; and &quot;}&quot; with no space allowed at its beginning or the end.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string ExpressionSearchPattern = &quot;\\$\\{(?!\\s)(.+?)(?&lt;![\\s])}&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
+        <td id="Albatross_Text_StringInterpolationService_ExpressionSearchPattern" data-uid="Albatross.Text.StringInterpolationService.ExpressionSearchPattern">
+          <a class="xref" href="Albatross.Text.StringInterpolationService.ExpressionSearchPattern.html">ExpressionSearchPattern</a>
+        </td>
+        <td class="markdown level1 summary"><p>the pattern looks for text within the &quot;${&quot; and &quot;}&quot; with no space allowed at its beginning or the end.</p>
+</td>
       </tr>
-    </tbody>
-  </table>
-
-
-  <h4 id="Albatross_Text_StringInterpolationService_ExpressionSearchRegex" data-uid="Albatross.Text.StringInterpolationService.ExpressionSearchRegex">ExpressionSearchRegex</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly Regex ExpressionSearchRegex</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.regularexpressions.regex">Regex</a></td>
-        <td></td>
+        <td id="Albatross_Text_StringInterpolationService_ExpressionSearchRegex" data-uid="Albatross.Text.StringInterpolationService.ExpressionSearchRegex">
+          <a class="xref" href="Albatross.Text.StringInterpolationService.ExpressionSearchRegex.html">ExpressionSearchRegex</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
     </tbody>
   </table>
   <h3 id="methods">Methods
 </h3>
-
-
-  <a id="Albatross_Text_StringInterpolationService_Interpolate_" data-uid="Albatross.Text.StringInterpolationService.Interpolate*"></a>
-  <h4 id="Albatross_Text_StringInterpolationService_Interpolate__1_System_String_System_Func_System_String___0_System_String____0_System_Boolean_" data-uid="Albatross.Text.StringInterpolationService.Interpolate``1(System.String,System.Func{System.String,``0,System.String},``0,System.Boolean)">Interpolate&lt;T&gt;(string, Func&lt;string, T, string&gt;, T, bool)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Interpolate&lt;T&gt;(string input, Func&lt;string, T, string&gt; func, T value, bool throwException = false)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">input</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
-        <td><span class="parametername">func</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">value</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">throwException</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
@@ -289,21 +170,19 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">T</span></td>
-        <td></td>
+        <td id="Albatross_Text_StringInterpolationService_Interpolate__1_System_String_System_Func_System_String___0_System_String____0_System_Boolean_" data-uid="Albatross.Text.StringInterpolationService.Interpolate``1(System.String,System.Func{System.String,``0,System.String},``0,System.Boolean)">
+          <a class="xref" href="Albatross.Text.StringInterpolationService.Interpolate.html#Albatross_Text_StringInterpolationService_Interpolate__1_System_String_System_Func_System_String___0_System_String____0_System_Boolean_">Interpolate&lt;T&gt;(string, Func&lt;string, T, string&gt;, T, bool)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
     </tbody>
   </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="Albatross.Text.IStringInterpolationService.html">IStringInterpolationService</a>
-  </div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.ValidateByDataAnnotations.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
 
 </article>

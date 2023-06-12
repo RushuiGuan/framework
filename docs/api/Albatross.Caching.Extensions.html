@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../styles/colors.css">
     <link rel="stylesheet" href="../styles/discord.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:navrel" content="">
     <meta property="docfx:tocrel" content="toc.html">
   
   
@@ -106,30 +106,6 @@
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
     <div class="level1"><span class="xref">Extensions</span></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Caching.html">Caching</a></h6>
   <h6><strong>Assembly</strong>: Albatross.Caching.dll</h6>
   <h5 id="Albatross_Caching_Extensions_syntax">Syntax</h5>
@@ -138,96 +114,6 @@
   </div>
   <h3 id="methods">Methods
 </h3>
-
-
-  <a id="Albatross_Caching_Extensions_AddCacheMgmt_" data-uid="Albatross.Caching.Extensions.AddCacheMgmt*"></a>
-  <h4 id="Albatross_Caching_Extensions_AddCacheMgmt_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Reflection_Assembly_" data-uid="Albatross.Caching.Extensions.AddCacheMgmt(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly)">AddCacheMgmt(IServiceCollection, Assembly)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddCacheMgmt(this IServiceCollection services, Assembly assembly)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td><span class="parametername">services</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></td>
-        <td><span class="parametername">assembly</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Caching_Extensions_AddCacheMgmt_" data-uid="Albatross.Caching.Extensions.AddCacheMgmt*"></a>
-  <h4 id="Albatross_Caching_Extensions_AddCacheMgmt__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Caching.Extensions.AddCacheMgmt``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">AddCacheMgmt&lt;T&gt;(IServiceCollection)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddCacheMgmt&lt;T&gt;(this IServiceCollection services) where T : class, ICacheManagement</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td><span class="parametername">services</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
@@ -237,223 +123,46 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">T</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Caching_Extensions_AddCaching_" data-uid="Albatross.Caching.Extensions.AddCaching*"></a>
-  <h4 id="Albatross_Caching_Extensions_AddCaching_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_" data-uid="Albatross.Caching.Extensions.AddCaching(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">AddCaching(IServiceCollection, IConfiguration)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddCaching(this IServiceCollection services, IConfiguration configuration)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td><span class="parametername">services</span></td>
-        <td></td>
+        <td id="Albatross_Caching_Extensions_AddCacheMgmt_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Reflection_Assembly_" data-uid="Albatross.Caching.Extensions.AddCacheMgmt(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly)">
+          <a class="xref" href="Albatross.Caching.Extensions.AddCacheMgmt.html#Albatross_Caching_Extensions_AddCacheMgmt_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Reflection_Assembly_">AddCacheMgmt(IServiceCollection, Assembly)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></td>
-        <td><span class="parametername">configuration</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Caching_Extensions_Get_" data-uid="Albatross.Caching.Extensions.Get*"></a>
-  <h4 id="Albatross_Caching_Extensions_Get_Albatross_Caching_ICacheManagementFactory_System_String_" data-uid="Albatross.Caching.Extensions.Get(Albatross.Caching.ICacheManagementFactory,System.String)">Get(ICacheManagementFactory, string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICacheManagement Get(this ICacheManagementFactory factory, string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Caching.ICacheManagementFactory.html">ICacheManagementFactory</a></td>
-        <td><span class="parametername">factory</span></td>
-        <td></td>
+        <td id="Albatross_Caching_Extensions_AddCacheMgmt__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Caching.Extensions.AddCacheMgmt``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+          <a class="xref" href="Albatross.Caching.Extensions.AddCacheMgmt.html#Albatross_Caching_Extensions_AddCacheMgmt__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_">AddCacheMgmt&lt;T&gt;(IServiceCollection)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Caching.ICacheManagement.html">ICacheManagement</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Caching_Extensions_Get_" data-uid="Albatross.Caching.Extensions.Get*"></a>
-  <h4 id="Albatross_Caching_Extensions_Get__1_Albatross_Caching_ICacheManagementFactory_System_String_" data-uid="Albatross.Caching.Extensions.Get``1(Albatross.Caching.ICacheManagementFactory,System.String)">Get&lt;CacheFormat&gt;(ICacheManagementFactory, string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ICacheManagement&lt;CacheFormat&gt; Get&lt;CacheFormat&gt;(this ICacheManagementFactory factory, string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Caching.ICacheManagementFactory.html">ICacheManagementFactory</a></td>
-        <td><span class="parametername">factory</span></td>
-        <td></td>
+        <td id="Albatross_Caching_Extensions_AddCaching_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_" data-uid="Albatross.Caching.Extensions.AddCaching(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+          <a class="xref" href="Albatross.Caching.Extensions.AddCaching.html#Albatross_Caching_Extensions_AddCaching_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_">AddCaching(IServiceCollection, IConfiguration)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Caching.ICacheManagement-1.html">ICacheManagement</a>&lt;CacheFormat&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">CacheFormat</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Caching_Extensions_Remove_" data-uid="Albatross.Caching.Extensions.Remove*"></a>
-  <h4 id="Albatross_Caching_Extensions_Remove_Albatross_Caching_ICacheManagement_System_Collections_Generic_IEnumerable_System_String__" data-uid="Albatross.Caching.Extensions.Remove(Albatross.Caching.ICacheManagement,System.Collections.Generic.IEnumerable{System.String})">Remove(ICacheManagement, IEnumerable&lt;string&gt;)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Remove(this ICacheManagement cache, IEnumerable&lt;string&gt; keys)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Caching.ICacheManagement.html">ICacheManagement</a></td>
-        <td><span class="parametername">cache</span></td>
-        <td></td>
+        <td id="Albatross_Caching_Extensions_Get_Albatross_Caching_ICacheManagementFactory_System_String_" data-uid="Albatross.Caching.Extensions.Get(Albatross.Caching.ICacheManagementFactory,System.String)">
+          <a class="xref" href="Albatross.Caching.Extensions.Get.html#Albatross_Caching_Extensions_Get_Albatross_Caching_ICacheManagementFactory_System_String_">Get(ICacheManagementFactory, string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
-        <td><span class="parametername">keys</span></td>
-        <td></td>
+        <td id="Albatross_Caching_Extensions_Get__1_Albatross_Caching_ICacheManagementFactory_System_String_" data-uid="Albatross.Caching.Extensions.Get``1(Albatross.Caching.ICacheManagementFactory,System.String)">
+          <a class="xref" href="Albatross.Caching.Extensions.Get.html#Albatross_Caching_Extensions_Get__1_Albatross_Caching_ICacheManagementFactory_System_String_">Get&lt;CacheFormat&gt;(ICacheManagementFactory, string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Caching_Extensions_UseCache_" data-uid="Albatross.Caching.Extensions.UseCache*"></a>
-  <h4 id="Albatross_Caching_Extensions_UseCache_System_IServiceProvider_" data-uid="Albatross.Caching.Extensions.UseCache(System.IServiceProvider)">UseCache(IServiceProvider)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void UseCache(this IServiceProvider serviceProvider)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
+        <td id="Albatross_Caching_Extensions_Remove_Albatross_Caching_ICacheManagement_System_Collections_Generic_IEnumerable_System_String__" data-uid="Albatross.Caching.Extensions.Remove(Albatross.Caching.ICacheManagement,System.Collections.Generic.IEnumerable{System.String})">
+          <a class="xref" href="Albatross.Caching.Extensions.Remove.html#Albatross_Caching_Extensions_Remove_Albatross_Caching_ICacheManagement_System_Collections_Generic_IEnumerable_System_String__">Remove(ICacheManagement, IEnumerable&lt;string&gt;)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
-        <td><span class="parametername">serviceProvider</span></td>
-        <td></td>
+        <td id="Albatross_Caching_Extensions_UseCache_System_IServiceProvider_" data-uid="Albatross.Caching.Extensions.UseCache(System.IServiceProvider)">
+          <a class="xref" href="Albatross.Caching.Extensions.UseCache.html#Albatross_Caching_Extensions_UseCache_System_IServiceProvider_">UseCache(IServiceProvider)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
     </tbody>
   </table>

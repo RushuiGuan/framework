@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../styles/colors.css">
     <link rel="stylesheet" href="../styles/discord.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:navrel" content="">
     <meta property="docfx:tocrel" content="toc.html">
   
   
@@ -106,30 +106,6 @@
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
     <div class="level1"><span class="xref">Extensions</span></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Config.html">Config</a></h6>
   <h6><strong>Assembly</strong>: Albatross.Config.dll</h6>
   <h5 id="Albatross_Config_Extensions_syntax">Syntax</h5>
@@ -138,388 +114,69 @@
   </div>
   <h3 id="methods">Methods
 </h3>
-
-
-  <a id="Albatross_Config_Extensions_AddConfig_" data-uid="Albatross.Config.Extensions.AddConfig*"></a>
-  <h4 id="Albatross_Config_Extensions_AddConfig__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Boolean_" data-uid="Albatross.Config.Extensions.AddConfig``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">AddConfig&lt;ConfigType&gt;(IServiceCollection, bool)</h4>
-  <div class="markdown level1 summary"><p>Registration for the Configuration Class C.  C has to have the base class of <a class="xref" href="Albatross.Config.ConfigBase.html">ConfigBase</a> and it also requires a constructor with
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="Albatross_Config_Extensions_AddConfig__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Boolean_" data-uid="Albatross.Config.Extensions.AddConfig``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
+          <a class="xref" href="Albatross.Config.Extensions.AddConfig.html#Albatross_Config_Extensions_AddConfig__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Boolean_">AddConfig&lt;ConfigType&gt;(IServiceCollection, bool)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Registration for the Configuration Class C.  C has to have the base class of <a class="xref" href="Albatross.Config.ConfigBase.html">ConfigBase</a> and it also requires a constructor with
 a single parameter of type <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a>
 The call will run the validate method right after the object creation.  It is critical to validate configuration data.
 A misspelled property name in the appsettings.json file could lead to null config values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddConfig&lt;ConfigType&gt;(this IServiceCollection services, bool singleton = false) where ConfigType : ConfigBase</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td><span class="parametername">services</span></td>
-        <td><p>The ServiceCollection instance</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">singleton</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
-        <td><p>The service collection instance</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">ConfigType</span></td>
-        <td><p>The configuration class</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Config_Extensions_GetAssemblyLocation_" data-uid="Albatross.Config.Extensions.GetAssemblyLocation*"></a>
-  <h4 id="Albatross_Config_Extensions_GetAssemblyLocation_System_Type_" data-uid="Albatross.Config.Extensions.GetAssemblyLocation(System.Type)">GetAssemblyLocation(Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetAssemblyLocation(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Config_Extensions_GetEndPoint_" data-uid="Albatross.Config.Extensions.GetEndPoint*"></a>
-  <h4 id="Albatross_Config_Extensions_GetEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_" data-uid="Albatross.Config.Extensions.GetEndPoint(Microsoft.Extensions.Configuration.IConfiguration,System.String)">GetEndPoint(IConfiguration, string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string? GetEndPoint(this IConfiguration configuration, string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></td>
-        <td><span class="parametername">configuration</span></td>
-        <td></td>
+        <td id="Albatross_Config_Extensions_GetAssemblyLocation_System_Type_" data-uid="Albatross.Config.Extensions.GetAssemblyLocation(System.Type)">
+          <a class="xref" href="Albatross.Config.Extensions.GetAssemblyLocation.html#Albatross_Config_Extensions_GetAssemblyLocation_System_Type_">GetAssemblyLocation(Type)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
+        <td id="Albatross_Config_Extensions_GetEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_" data-uid="Albatross.Config.Extensions.GetEndPoint(Microsoft.Extensions.Configuration.IConfiguration,System.String)">
+          <a class="xref" href="Albatross.Config.Extensions.GetEndPoint.html#Albatross_Config_Extensions_GetEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_">GetEndPoint(IConfiguration, string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Config_Extensions_GetEndPoint_" data-uid="Albatross.Config.Extensions.GetEndPoint*"></a>
-  <h4 id="Albatross_Config_Extensions_GetEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_System_Boolean_" data-uid="Albatross.Config.Extensions.GetEndPoint(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean)">GetEndPoint(IConfiguration, string, bool)</h4>
-  <div class="markdown level1 summary"><p>For C# the HttpClient class will remove any relative path if the BaseUrl does not end with a slash.  For example: http://localhost/beezy will becomes
+        <td id="Albatross_Config_Extensions_GetEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_System_Boolean_" data-uid="Albatross.Config.Extensions.GetEndPoint(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean)">
+          <a class="xref" href="Albatross.Config.Extensions.GetEndPoint.html#Albatross_Config_Extensions_GetEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_System_Boolean_">GetEndPoint(IConfiguration, string, bool)</a>
+        </td>
+        <td class="markdown level1 summary"><p>For C# the HttpClient class will remove any relative path if the BaseUrl does not end with a slash.  For example: http://localhost/beezy will becomes
 http://localhost unless base url is set as http://localhost/beezy/
 For the request url, if it starts with a slash, it will be considered as a root url.  By default, we shouldn't use any slash in the request url.
 The call will append Slack '/' to the endpoint by default if it doesn't already end with it.  If this behavior is not desired, set ensureTrailingSlash to false</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string? GetEndPoint(this IConfiguration configuration, string name, bool ensureTrailingSlash = true)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></td>
-        <td><span class="parametername">configuration</span></td>
-        <td></td>
+</td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
+        <td id="Albatross_Config_Extensions_GetRequiredConnectionString_Microsoft_Extensions_Configuration_IConfiguration_System_String_" data-uid="Albatross.Config.Extensions.GetRequiredConnectionString(Microsoft.Extensions.Configuration.IConfiguration,System.String)">
+          <a class="xref" href="Albatross.Config.Extensions.GetRequiredConnectionString.html#Albatross_Config_Extensions_GetRequiredConnectionString_Microsoft_Extensions_Configuration_IConfiguration_System_String_">GetRequiredConnectionString(IConfiguration, string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">ensureTrailingSlash</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Config_Extensions_GetRequiredConnectionString_" data-uid="Albatross.Config.Extensions.GetRequiredConnectionString*"></a>
-  <h4 id="Albatross_Config_Extensions_GetRequiredConnectionString_Microsoft_Extensions_Configuration_IConfiguration_System_String_" data-uid="Albatross.Config.Extensions.GetRequiredConnectionString(Microsoft.Extensions.Configuration.IConfiguration,System.String)">GetRequiredConnectionString(IConfiguration, string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetRequiredConnectionString(this IConfiguration configuration, string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></td>
-        <td><span class="parametername">configuration</span></td>
-        <td></td>
+        <td id="Albatross_Config_Extensions_GetRequiredEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_" data-uid="Albatross.Config.Extensions.GetRequiredEndPoint(Microsoft.Extensions.Configuration.IConfiguration,System.String)">
+          <a class="xref" href="Albatross.Config.Extensions.GetRequiredEndPoint.html#Albatross_Config_Extensions_GetRequiredEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_">GetRequiredEndPoint(IConfiguration, string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Config_Extensions_GetRequiredEndPoint_" data-uid="Albatross.Config.Extensions.GetRequiredEndPoint*"></a>
-  <h4 id="Albatross_Config_Extensions_GetRequiredEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_" data-uid="Albatross.Config.Extensions.GetRequiredEndPoint(Microsoft.Extensions.Configuration.IConfiguration,System.String)">GetRequiredEndPoint(IConfiguration, string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetRequiredEndPoint(this IConfiguration configuration, string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></td>
-        <td><span class="parametername">configuration</span></td>
-        <td></td>
+        <td id="Albatross_Config_Extensions_GetRequiredEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_System_Boolean_" data-uid="Albatross.Config.Extensions.GetRequiredEndPoint(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean)">
+          <a class="xref" href="Albatross.Config.Extensions.GetRequiredEndPoint.html#Albatross_Config_Extensions_GetRequiredEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_System_Boolean_">GetRequiredEndPoint(IConfiguration, string, bool)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Config_Extensions_GetRequiredEndPoint_" data-uid="Albatross.Config.Extensions.GetRequiredEndPoint*"></a>
-  <h4 id="Albatross_Config_Extensions_GetRequiredEndPoint_Microsoft_Extensions_Configuration_IConfiguration_System_String_System_Boolean_" data-uid="Albatross.Config.Extensions.GetRequiredEndPoint(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean)">GetRequiredEndPoint(IConfiguration, string, bool)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetRequiredEndPoint(this IConfiguration configuration, string name, bool ensureTrailingSlash = true)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></td>
-        <td><span class="parametername">configuration</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">ensureTrailingSlash</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Config_Extensions_GetWorkingDirectory_" data-uid="Albatross.Config.Extensions.GetWorkingDirectory*"></a>
-  <h4 id="Albatross_Config_Extensions_GetWorkingDirectory" data-uid="Albatross.Config.Extensions.GetWorkingDirectory">GetWorkingDirectory()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetWorkingDirectory()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
+        <td id="Albatross_Config_Extensions_GetWorkingDirectory" data-uid="Albatross.Config.Extensions.GetWorkingDirectory">
+          <a class="xref" href="Albatross.Config.Extensions.GetWorkingDirectory.html#Albatross_Config_Extensions_GetWorkingDirectory">GetWorkingDirectory()</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
     </tbody>
   </table>

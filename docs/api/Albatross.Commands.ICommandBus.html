@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../styles/colors.css">
     <link rel="stylesheet" href="../styles/discord.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:navrel" content="">
     <meta property="docfx:tocrel" content="toc.html">
   
   
@@ -115,158 +115,6 @@
   </div>
   <h3 id="methods">Methods
 </h3>
-
-
-  <a id="Albatross_Commands_ICommandBus_Get_" data-uid="Albatross.Commands.ICommandBus.Get*"></a>
-  <h4 id="Albatross_Commands_ICommandBus_Get_System_String_" data-uid="Albatross.Commands.ICommandBus.Get(System.String)">Get(string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ICommandQueue Get(string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Commands.ICommandQueue.html">ICommandQueue</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Commands_ICommandBus_GetAllQueues_" data-uid="Albatross.Commands.ICommandBus.GetAllQueues*"></a>
-  <h4 id="Albatross_Commands_ICommandBus_GetAllQueues" data-uid="Albatross.Commands.ICommandBus.GetAllQueues">GetAllQueues()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEnumerable&lt;string&gt; GetAllQueues()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Commands_ICommandBus_IsQueueBusy_" data-uid="Albatross.Commands.ICommandBus.IsQueueBusy*"></a>
-  <h4 id="Albatross_Commands_ICommandBus_IsQueueBusy_System_Text_RegularExpressions_Regex_" data-uid="Albatross.Commands.ICommandBus.IsQueueBusy(System.Text.RegularExpressions.Regex)">IsQueueBusy(Regex)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool IsQueueBusy(Regex regex)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.regularexpressions.regex">Regex</a></td>
-        <td><span class="parametername">regex</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Commands_ICommandBus_Submit_" data-uid="Albatross.Commands.ICommandBus.Submit*"></a>
-  <h4 id="Albatross_Commands_ICommandBus_Submit__1_Albatross_Commands_Command___0__" data-uid="Albatross.Commands.ICommandBus.Submit``1(Albatross.Commands.Command{``0})">Submit&lt;T&gt;(Command&lt;T&gt;)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;T&gt; Submit&lt;T&gt;(Command&lt;T&gt; command) where T : notnull</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Albatross.Commands.Command-1.html">Command</a>&lt;T&gt;</td>
-        <td><span class="parametername">command</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
@@ -276,17 +124,37 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">T</span></td>
-        <td></td>
+        <td id="Albatross_Commands_ICommandBus_Get_System_String_" data-uid="Albatross.Commands.ICommandBus.Get(System.String)">
+          <a class="xref" href="Albatross.Commands.ICommandBus.Get.html#Albatross_Commands_ICommandBus_Get_System_String_">Get(string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ICommandBus_GetAllQueues" data-uid="Albatross.Commands.ICommandBus.GetAllQueues">
+          <a class="xref" href="Albatross.Commands.ICommandBus.GetAllQueues.html#Albatross_Commands_ICommandBus_GetAllQueues">GetAllQueues()</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ICommandBus_IsQueueBusy_System_Text_RegularExpressions_Regex_" data-uid="Albatross.Commands.ICommandBus.IsQueueBusy(System.Text.RegularExpressions.Regex)">
+          <a class="xref" href="Albatross.Commands.ICommandBus.IsQueueBusy.html#Albatross_Commands_ICommandBus_IsQueueBusy_System_Text_RegularExpressions_Regex_">IsQueueBusy(Regex)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+      <tr>
+        <td id="Albatross_Commands_ICommandBus_Submit__1_Albatross_Commands_Command___0__" data-uid="Albatross.Commands.ICommandBus.Submit``1(Albatross.Commands.Command{``0})">
+          <a class="xref" href="Albatross.Commands.ICommandBus.Submit.html#Albatross_Commands_ICommandBus_Submit__1_Albatross_Commands_Command___0__">Submit&lt;T&gt;(Command&lt;T&gt;)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
     </tbody>
   </table>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.ValidateByDataAnnotations.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
 
 </article>

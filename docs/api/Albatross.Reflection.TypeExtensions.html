@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../styles/colors.css">
     <link rel="stylesheet" href="../styles/discord.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:navrel" content="">
     <meta property="docfx:tocrel" content="toc.html">
   
   
@@ -106,30 +106,6 @@
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
     <div class="level1"><span class="xref">TypeExtensions</span></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Reflection.html">Reflection</a></h6>
   <h6><strong>Assembly</strong>: Albatross.dll</h6>
   <h5 id="Albatross_Reflection_TypeExtensions_syntax">Syntax</h5>
@@ -138,322 +114,6 @@
   </div>
   <h3 id="methods">Methods
 </h3>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetAssemblyDirectoryLocation_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyDirectoryLocation*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetAssemblyDirectoryLocation_System_Reflection_Assembly_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyDirectoryLocation(System.Reflection.Assembly,System.String)">GetAssemblyDirectoryLocation(Assembly, string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static DirectoryInfo GetAssemblyDirectoryLocation(this Assembly asm, string path)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></td>
-        <td><span class="parametername">asm</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">path</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.directoryinfo">DirectoryInfo</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetAssemblyFileLocation_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyFileLocation*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetAssemblyFileLocation_System_Reflection_Assembly_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyFileLocation(System.Reflection.Assembly,System.String)">GetAssemblyFileLocation(Assembly, string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static FileInfo GetAssemblyFileLocation(this Assembly asm, string path)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></td>
-        <td><span class="parametername">asm</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">path</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.fileinfo">FileInfo</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetAssemblyLocation_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyLocation*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetAssemblyLocation_System_Reflection_Assembly_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyLocation(System.Reflection.Assembly,System.String)">GetAssemblyLocation(Assembly, string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetAssemblyLocation(this Assembly asm, string path)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></td>
-        <td><span class="parametername">asm</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">path</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetClass_" data-uid="Albatross.Reflection.TypeExtensions.GetClass*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetClass_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetClass(System.String)">GetClass(string?)</h4>
-  <div class="markdown level1 summary"><p>Type.GetType method returns null if class is not found.  This method will throw ArgumentException</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Type GetClass(this string? className)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">className</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetClassNameNeat_" data-uid="Albatross.Reflection.TypeExtensions.GetClassNameNeat*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetClassNameNeat_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.GetClassNameNeat(System.Type)">GetClassNameNeat(Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetClassNameNeat(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetCollectionElementType_" data-uid="Albatross.Reflection.TypeExtensions.GetCollectionElementType*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetCollectionElementType_System_Type_System_Type__" data-uid="Albatross.Reflection.TypeExtensions.GetCollectionElementType(System.Type,System.Type@)">GetCollectionElementType(Type, out Type?)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool GetCollectionElementType(this Type collectionType, out Type? elementType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">collectionType</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">elementType</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute_" data-uid="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_" data-uid="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute``2(``0)">GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static A? GetEnumMemberAttribute&lt;EnumType, A&gt;(this EnumType enumValue) where EnumType : notnull where A : Attribute</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">EnumType</span></td>
-        <td><span class="parametername">enumValue</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">A</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
@@ -463,594 +123,128 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">EnumType</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetAssemblyDirectoryLocation_System_Reflection_Assembly_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyDirectoryLocation(System.Reflection.Assembly,System.String)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetAssemblyDirectoryLocation.html#Albatross_Reflection_TypeExtensions_GetAssemblyDirectoryLocation_System_Reflection_Assembly_System_String_">GetAssemblyDirectoryLocation(Assembly, string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><span class="parametername">A</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetGenericTypeName_" data-uid="Albatross.Reflection.TypeExtensions.GetGenericTypeName*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetGenericTypeName_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetGenericTypeName(System.String)">GetGenericTypeName(string)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetGenericTypeName(this string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetNullableValueType_" data-uid="Albatross.Reflection.TypeExtensions.GetNullableValueType*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetNullableValueType_System_Type_System_Type__" data-uid="Albatross.Reflection.TypeExtensions.GetNullableValueType(System.Type,System.Type@)">GetNullableValueType(Type, out Type?)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool GetNullableValueType(this Type nullableType, out Type? valueType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">nullableType</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetAssemblyFileLocation_System_Reflection_Assembly_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyFileLocation(System.Reflection.Assembly,System.String)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetAssemblyFileLocation.html#Albatross_Reflection_TypeExtensions_GetAssemblyFileLocation_System_Reflection_Assembly_System_String_">GetAssemblyFileLocation(Assembly, string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">valueType</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetPropertyValue_" data-uid="Albatross.Reflection.TypeExtensions.GetPropertyValue*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetPropertyValue_System_Type_System_Object_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetPropertyValue(System.Type,System.Object,System.String)">GetPropertyValue(Type, object?, string)</h4>
-  <div class="markdown level1 summary"><p>return the property value of an object using reflection.  Property name can be delimited using . to allow retrieval of nested object property value</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static object? GetPropertyValue(this Type type, object? data, string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetAssemblyLocation_System_Reflection_Assembly_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetAssemblyLocation(System.Reflection.Assembly,System.String)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetAssemblyLocation.html#Albatross_Reflection_TypeExtensions_GetAssemblyLocation_System_Reflection_Assembly_System_String_">GetAssemblyLocation(Assembly, string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
-        <td><span class="parametername">data</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetClass_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetClass(System.String)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetClass.html#Albatross_Reflection_TypeExtensions_GetClass_System_String_">GetClass(string?)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Type.GetType method returns null if class is not found.  This method will throw ArgumentException</p>
+</td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetTaskResultType_" data-uid="Albatross.Reflection.TypeExtensions.GetTaskResultType*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetTaskResultType_System_Type_System_Type__" data-uid="Albatross.Reflection.TypeExtensions.GetTaskResultType(System.Type,System.Type@)">GetTaskResultType(Type, out Type?)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool GetTaskResultType(this Type taskType, out Type? resultType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">taskType</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetClassNameNeat_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.GetClassNameNeat(System.Type)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetClassNameNeat.html#Albatross_Reflection_TypeExtensions_GetClassNameNeat_System_Type_">GetClassNameNeat(Type)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">resultType</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_GetTypeNameWithoutAssemblyVersion_" data-uid="Albatross.Reflection.TypeExtensions.GetTypeNameWithoutAssemblyVersion*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_GetTypeNameWithoutAssemblyVersion_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.GetTypeNameWithoutAssemblyVersion(System.Type)">GetTypeNameWithoutAssemblyVersion(Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetTypeNameWithoutAssemblyVersion(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_IsAnonymousType_" data-uid="Albatross.Reflection.TypeExtensions.IsAnonymousType*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_IsAnonymousType_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsAnonymousType(System.Type)">IsAnonymousType(Type)</h4>
-  <div class="markdown level1 summary"><p>Check if a type is anoymous</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsAnonymousType(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_IsConcreteType_" data-uid="Albatross.Reflection.TypeExtensions.IsConcreteType*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_IsConcreteType_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsConcreteType(System.Type)">IsConcreteType(Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsConcreteType(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_IsDerived_" data-uid="Albatross.Reflection.TypeExtensions.IsDerived*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_IsDerived_System_Type_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsDerived(System.Type,System.Type)">IsDerived(Type, Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsDerived(this Type type, Type baseType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetCollectionElementType_System_Type_System_Type__" data-uid="Albatross.Reflection.TypeExtensions.GetCollectionElementType(System.Type,System.Type@)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetCollectionElementType.html#Albatross_Reflection_TypeExtensions_GetCollectionElementType_System_Type_System_Type__">GetCollectionElementType(Type, out Type?)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">baseType</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_" data-uid="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute``2(``0)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td id="Albatross_Reflection_TypeExtensions_GetGenericTypeName_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetGenericTypeName(System.String)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetGenericTypeName.html#Albatross_Reflection_TypeExtensions_GetGenericTypeName_System_String_">GetGenericTypeName(string)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetNullableValueType_System_Type_System_Type__" data-uid="Albatross.Reflection.TypeExtensions.GetNullableValueType(System.Type,System.Type@)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetNullableValueType.html#Albatross_Reflection_TypeExtensions_GetNullableValueType_System_Type_System_Type__">GetNullableValueType(Type, out Type?)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_IsDerived_" data-uid="Albatross.Reflection.TypeExtensions.IsDerived*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_IsDerived__1_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsDerived``1(System.Type)">IsDerived&lt;T&gt;(Type)</h4>
-  <div class="markdown level1 summary"><p>return true if input parameter is derived from the generic type</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsDerived&lt;T&gt;(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
+        <td id="Albatross_Reflection_TypeExtensions_GetPropertyValue_System_Type_System_Object_System_String_" data-uid="Albatross.Reflection.TypeExtensions.GetPropertyValue(System.Type,System.Object,System.String)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetPropertyValue.html#Albatross_Reflection_TypeExtensions_GetPropertyValue_System_Type_System_Object_System_String_">GetPropertyValue(Type, object?, string)</a>
+        </td>
+        <td class="markdown level1 summary"><p>return the property value of an object using reflection.  Property name can be delimited using . to allow retrieval of nested object property value</p>
+</td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_GetTaskResultType_System_Type_System_Type__" data-uid="Albatross.Reflection.TypeExtensions.GetTaskResultType(System.Type,System.Type@)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetTaskResultType.html#Albatross_Reflection_TypeExtensions_GetTaskResultType_System_Type_System_Type__">GetTaskResultType(Type, out Type?)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td id="Albatross_Reflection_TypeExtensions_GetTypeNameWithoutAssemblyVersion_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.GetTypeNameWithoutAssemblyVersion(System.Type)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.GetTypeNameWithoutAssemblyVersion.html#Albatross_Reflection_TypeExtensions_GetTypeNameWithoutAssemblyVersion_System_Type_">GetTypeNameWithoutAssemblyVersion(Type)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_IsAnonymousType_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsAnonymousType(System.Type)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.IsAnonymousType.html#Albatross_Reflection_TypeExtensions_IsAnonymousType_System_Type_">IsAnonymousType(Type)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Check if a type is anoymous</p>
+</td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
+        <td id="Albatross_Reflection_TypeExtensions_IsConcreteType_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsConcreteType(System.Type)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.IsConcreteType.html#Albatross_Reflection_TypeExtensions_IsConcreteType_System_Type_">IsConcreteType(Type)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><span class="parametername">T</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_IsDerived_System_Type_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsDerived(System.Type,System.Type)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.IsDerived.html#Albatross_Reflection_TypeExtensions_IsDerived_System_Type_System_Type_">IsDerived(Type, Type)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_IsNullable_" data-uid="Albatross.Reflection.TypeExtensions.IsNullable*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_IsNullable_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsNullable(System.Type)">IsNullable(Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsNullable(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
+        <td id="Albatross_Reflection_TypeExtensions_IsDerived__1_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsDerived``1(System.Type)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.IsDerived.html#Albatross_Reflection_TypeExtensions_IsDerived__1_System_Type_">IsDerived&lt;T&gt;(Type)</a>
+        </td>
+        <td class="markdown level1 summary"><p>return true if input parameter is derived from the generic type</p>
+</td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
+        <td id="Albatross_Reflection_TypeExtensions_IsNullable_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsNullable(System.Type)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.IsNullable.html#Albatross_Reflection_TypeExtensions_IsNullable_System_Type_">IsNullable(Type)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td id="Albatross_Reflection_TypeExtensions_IsNumericType_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsNumericType(System.Type)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.IsNumericType.html#Albatross_Reflection_TypeExtensions_IsNumericType_System_Type_">IsNumericType(Type)</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_IsNumericType_" data-uid="Albatross.Reflection.TypeExtensions.IsNumericType*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_IsNumericType_System_Type_" data-uid="Albatross.Reflection.TypeExtensions.IsNumericType(System.Type)">IsNumericType(Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsNumericType(this Type type)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="Albatross_Reflection_TypeExtensions_TryGetClosedGenericType_" data-uid="Albatross.Reflection.TypeExtensions.TryGetClosedGenericType*"></a>
-  <h4 id="Albatross_Reflection_TypeExtensions_TryGetClosedGenericType_System_Type_System_Type_System_Type__" data-uid="Albatross.Reflection.TypeExtensions.TryGetClosedGenericType(System.Type,System.Type,System.Type@)">TryGetClosedGenericType(Type, Type, out Type?)</h4>
-  <div class="markdown level1 summary"><p>Provide with a class type and a generic type\interface definition, this methods will return true if the class derives\implements the generic type\interface.  It will
+        <td id="Albatross_Reflection_TypeExtensions_TryGetClosedGenericType_System_Type_System_Type_System_Type__" data-uid="Albatross.Reflection.TypeExtensions.TryGetClosedGenericType(System.Type,System.Type,System.Type@)">
+          <a class="xref" href="Albatross.Reflection.TypeExtensions.TryGetClosedGenericType.html#Albatross_Reflection_TypeExtensions_TryGetClosedGenericType_System_Type_System_Type_System_Type__">TryGetClosedGenericType(Type, Type, out Type?)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Provide with a class type and a generic type\interface definition, this methods will return true if the class derives\implements the generic type\interface.  It will
 also output the generic type.</p>
 <p>Example:
 public class Test: IEnumerable&lt;int&gt; { }</p>
 <p>var result = typeof(Test).TryGetClosedGenericTypes(typeof(IEnumerable&lt;&gt;), out Type type);
 Assert.True(result);
 Assert.AreSame(typeof(IEnumerable&lt;int&gt;), type);</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryGetClosedGenericType(this Type type, Type genericDefinition, out Type? genericType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">type</span></td>
-        <td><p>Input class type</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">genericDefinition</span></td>
-        <td><p>The definition of a generic type.  For example: typeof(IEnumerable&lt;&gt;)</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">genericType</span></td>
-        <td><p>If the class extends\implements the generic type\interface, its type will be set in this output parameter</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><p>Return true if the class implements the generic interface</p>
 </td>
       </tr>
     </tbody>
