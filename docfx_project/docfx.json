@@ -10,12 +10,13 @@
 				}
 			],
 			"dest": "api",
+			"filter": "filterConfig.yml",
 			"includePrivateMembers": false,
 			"disableGitFeatures": true,
 			"disableDefaultFilter": false,
 			"noRestore": false,
-			"namespaceLayout": "flattened",
-			"memberLayout": "samePage",
+			"namespaceLayout": "nested",
+			"memberLayout": "separatePages",
 			"allowCompilationErrors": false
 		}
 	],
