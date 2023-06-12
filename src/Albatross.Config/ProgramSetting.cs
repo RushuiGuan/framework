@@ -17,7 +17,7 @@ namespace Albatross.Config {
 		/// <summary>
 		/// Required: name of the application
 		/// </summary>
-		public string App { get; set; } = Assembly.GetEntryAssembly()?.FullName ?? "Unknown assembly";
+		public string App { get; set; } = Assembly.GetEntryAssembly()?.GetName().Name ?? "noname-assembly";
 		/// <summary>
 		/// Optional: the group of the application
 		/// </summary>
