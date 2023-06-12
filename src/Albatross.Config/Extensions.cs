@@ -26,13 +26,15 @@ namespace Albatross.Config {
 		public static IServiceCollection AddConfig<ConfigType>(this IServiceCollection services, bool singleton = false) where ConfigType : ConfigBase {
 			if (singleton) {
 				services.TryAddSingleton<ConfigType>(provider => {
-					var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
+					var cfg = (ConfigType)provider.GetRequiredService(typeof(ConfigType));
+					// var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
 					cfg.Validate();
 					return cfg;
 				});
 			} else {
 				services.TryAddScoped<ConfigType>(provider => {
-					var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
+					var cfg = (ConfigType)provider.GetRequiredService(typeof(ConfigType));
+					// var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
 					cfg.Validate();
 					return cfg;
 				});
