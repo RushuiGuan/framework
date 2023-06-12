@@ -8178,76 +8178,6 @@
       "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.Audience.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.IsBearerAuthentication.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.IsKerborosAuthentication.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.IsWindowsAuthentication.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.Validate.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.Policies.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Albatross.Hosting.AuthorizationSetting.BearerAuthenticationScheme.html"
         }
       },
@@ -8359,6 +8289,76 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Hosting.AuthorizationSetting.SwaggerScopes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.Audience.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.IsBearerAuthentication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.IsKerborosAuthentication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.IsWindowsAuthentication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.Validate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.Policies.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.AuthorizationSetting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.AuthorizationSetting.html"
         }
       },
       "version": ""
@@ -9558,26 +9558,6 @@
       "source_relative_path": "api/Albatross.Hosting.Test.TestCase-4.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Hosting.Test.TestCase-4.P1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.Test.TestCase-4.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Hosting.Test.TestCase-4.P2.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.Test.TestCase-4.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Albatross.Hosting.Test.TestCase-4.P3.html"
         }
       },
@@ -9609,6 +9589,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Hosting.Test.TestCase-4.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.Test.TestCase-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.Test.TestCase-4.P1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.Test.TestCase-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.Test.TestCase-4.P2.html"
         }
       },
       "version": ""
@@ -11488,6 +11488,16 @@
       "source_relative_path": "api/Albatross.Repository.DateLevelEntity.yml",
       "output": {
         ".html": {
+          "relative_path": "api/Albatross.Repository.DateLevelEntity.StartDate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Repository.DateLevelEntity.yml",
+      "output": {
+        ".html": {
           "relative_path": "api/Albatross.Repository.DateLevelEntity.EndDate.html"
         }
       },
@@ -11539,16 +11549,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Repository.DateLevelEntity.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.DateLevelEntity.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.DateLevelEntity.StartDate.html"
         }
       },
       "version": ""

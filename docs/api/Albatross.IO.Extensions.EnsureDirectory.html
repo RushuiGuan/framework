@@ -106,7 +106,8 @@
 
 <a id="Albatross_IO_Extensions_EnsureDirectory_" data-uid="Albatross.IO.Extensions.EnsureDirectory*"></a>
 <h4 id="Albatross_IO_Extensions_EnsureDirectory_System_String_" data-uid="Albatross.IO.Extensions.EnsureDirectory(System.String)">EnsureDirectory(string)</h4>
-<div class="markdown level1 summary"></div>
+<div class="markdown level1 summary"><p>Check if the parent directory of the file exists.  If not, create the directory</p>
+</div>
 <div class="markdown level1 conceptual"></div>
 <h5 class="declaration">Declaration</h5>
 <div class="codewrapper">
@@ -125,7 +126,24 @@
     <tr>
       <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
       <td><span class="parametername">file</span></td>
-      <td></td>
+      <td><p>expected a valid file path</p>
+</td>
+    </tr>
+  </tbody>
+</table>
+<h5 class="exceptions">Exceptions</h5>
+<table class="table table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
+      <td><p>throw the exception if the input file path is not valid</p>
+</td>
     </tr>
   </tbody>
 </table>
