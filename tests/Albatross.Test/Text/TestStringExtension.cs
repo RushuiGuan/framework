@@ -28,8 +28,9 @@ namespace Albatross.Test.Text {
 		}
 
 		[Theory]
-		[InlineData("a  b c d", ' ', "a.b.c.d")]
+		[InlineData("a  b c d", ' ', "a..b.c.d")]
 		[InlineData("a b c d", ' ', "a.b.c.d")]
+		[InlineData("abcd", ' ', "abcd")]
 		public void TestTryGetText(string input, char delimiter, string expected) {
 			List<string> list = new List<string>();
 			int offset = 0;
