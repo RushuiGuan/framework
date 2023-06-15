@@ -26,7 +26,7 @@
                         "ShowExceptionAttachments": false
                     },
                     "restrictedToMinimumLevel": "Error",
-                    "outputTemplate": "Albatross.Templates:{Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}"
+                    "outputTemplate": "Templates:{Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}"
                 }
             }
         }

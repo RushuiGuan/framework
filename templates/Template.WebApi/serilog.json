@@ -17,7 +17,7 @@
             "FileSink": {
                 "Name": "File",
                 "Args": {
-                    "path": "%LogDirectory%\\Albatross.Templates.WebApi\\Albatross.Templates.WebApi.log",
+                    "path": "%LogDirectory%\\Templates.WebApi\\Templates.WebApi.log",
                     "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{NewLine}{Exception}",
                     "rollingInterval": "Day"
                 }

@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Albatross.Templates\Albatross.Templates.csproj" />
+    <ProjectReference Include="..\Templates\Templates.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 {
     "profiles": {
-        "Albatross.Templates.Service": {
+        "Templates.Service": {
             "commandName": "Project",
             "environmentVariables": {}
         }

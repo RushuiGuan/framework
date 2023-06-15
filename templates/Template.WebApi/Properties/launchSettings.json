@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Albatross.Templates.WebApi": {
+    "Templates.WebApi": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
