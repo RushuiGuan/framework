@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+	  <TargetFramework>net7.0</TargetFramework>
+    <AssemblyName>sample-project-daemon</AssemblyName>
+	  <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Albatross.Hosting" Version="5.1.0-6064.staging" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Albatross.Messaging\Albatross.Messaging.csproj" />
+    <ProjectReference Include="..\SampleProject\SampleProject.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.staging.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\rushui2020\.nuget\packages\albatross.hosting\2.0.0-alpha.1\contentFiles\any\net5.0\serilog.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/appsscript.json" /></VisualStudio></ProjectExtensions>
+
+</Project>

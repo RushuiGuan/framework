@@ -1,0 +1,8 @@
+{
+	"profiles": {
+		"SampleProject.Daemon": {
+			"commandName": "Project",
+			"launchBrowser": false
+		}
+	}
+}

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CoenM.Encoding.Z85e" Version="1.2.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+		<PackageReference Include="NetMQ" Version="4.0.1.12" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
+	  <ProjectReference Include="..\Albatross.Serialization\Albatross.Serialization.csproj" />
+	  <ProjectReference Include="..\Albatross\Albatross.csproj" />
+	</ItemGroup>
+</Project>
