@@ -7,11 +7,13 @@ using NetMQ.Sockets;
 using NetMQ;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Albatross.Messaging.Services {
 	public class DealerClient : IMessagingService, IDisposable {
 		private readonly DealerClientConfiguration config;
-		private readonly IEnumerable<IDealerClientService> services;
+		private IEnumerable<IDealerClientService> receiveServices;
+		private IEnumerable<IDealerClientService> transmitServices;
 		private readonly IMessageFactory messageFactory;
 		private readonly IDataLogWriter dataWriter;
 		private readonly ILogger<DealerClient> logger;
@@ -27,7 +29,8 @@ namespace Albatross.Messaging.Services {
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, IDataLogWriter dataWriter, ILogger<DealerClient> logger) {
 			this.config = config;
-			this.services = services;
+			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
+			this.transmitServices = services.Where(args => args.CanTransmit).ToArray();
 			this.messageFactory = messageFactory;
 			this.dataWriter = dataWriter;
 			this.logger = logger;
@@ -51,7 +54,7 @@ namespace Albatross.Messaging.Services {
 					if (item is IMessage msg) {
 						this.Transmit(msg);
 					} else {
-						foreach (var service in this.services) {
+						foreach (var service in this.transmitServices) {
 							if (service.ProcessTransmitQueue(this, item)) {
 								return;
 							}
@@ -73,7 +76,7 @@ namespace Albatross.Messaging.Services {
 				// the only processing needed for Ack is to persist it in logs
 				if (msg is Ack) { return; }
 				if (running) {
-					foreach (var service in this.services) {
+					foreach (var service in this.receiveServices) {
 						if (service.ProcessReceivedMsg(this, msg)) {
 							return;
 						}
