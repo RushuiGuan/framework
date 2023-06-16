@@ -10,5 +10,11 @@ namespace Albatross.Messaging.Services {
 				return counter;
 			}
 		}
+
+		public void Set(T value) { 
+			lock (sync) {
+				counter = value;
+			}
+		}
 	}
 }
