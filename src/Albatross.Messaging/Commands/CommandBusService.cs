@@ -35,7 +35,8 @@ namespace Albatross.Messaging.Commands {
 			try {
 				var job = this.commandQueueFactory.CreateJob(cmd);
 				job.Queue.Submit(job);
-				if (cmd.FireAndForget) {
+				// internal route could be sent here due to replay, make sure it doesn't actually get sent to the socket
+				if (cmd.FireAndForget && cmd.Route != InternalCommand.Route) {
 					// ack the request and be done with it
 					messagingService.Transmit(new CommandRequestAck(cmd.Route, cmd.Id));
 				}
@@ -64,16 +65,26 @@ namespace Albatross.Messaging.Commands {
 		public bool ProcessTransmitQueue(IMessagingService messagingService, object msg) {
 			switch (msg) {
 				case CommandJob job:
-					if (!job.FireAndForget) {
-						messagingService.SubmitToQueue(job.Reply ?? new CommandErrorReply(job.Route, job.Id, "Error", "reply mia"));
-					} else {
+					if (job.FireAndForget) {
 						messagingService.DataLogger.Record(new CommandExecuted(job.Route, job.Id));
+					} else {
+						messagingService.SubmitToQueue(job.Reply ?? new CommandErrorReply(job.Route, job.Id, "Error", "reply mia"));
 					}
 					job.Queue.RunNextIfAvailable();
-					return true;
+					break;
+				case InternalCommand internalCommand:
+					try {
+						var newJob = this.commandQueueFactory.CreateJob(internalCommand.Request);
+						newJob.Queue.Submit(newJob);
+						internalCommand.SetResult();
+					}catch(Exception e) {
+						internalCommand.SetException(e);
+					}
+					break;
 				default:
 					return false;
 			}
+			return true;
 		}
 	}
 }

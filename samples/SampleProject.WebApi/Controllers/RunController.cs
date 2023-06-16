@@ -2,6 +2,7 @@
 using Albatross.Messaging.Eventing;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -91,6 +92,15 @@ namespace SampleProject.WebApi.Controllers {
 		public Task Unsubscribe([FromQuery] IEnumerable<string> topic) {
 			subscriptionClient.Unsubscribe(this.subscriber, topic.ToArray());
 			return Task.CompletedTask;
+		}
+
+		[HttpPost("play-ping")]
+		public Task Ping([FromQuery] int round) {
+			return commandClient.Submit<PingCommand>(new PingCommand(round));
+		}
+		[HttpPost("play-pong")]
+		public Task Pong([FromQuery] int round) {
+			return commandClient.Submit<PongCommand>(new PongCommand(round));
 		}
 	}
 }

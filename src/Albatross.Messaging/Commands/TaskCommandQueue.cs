@@ -23,7 +23,7 @@ namespace Albatross.Messaging.Commands {
 					logger.LogInformation("running {command} by {client}({id})", job.Registration.CommandType, job.Route, job.Id);
 					var result = await commandHandler.Handle(job.Command).ConfigureAwait(false);
 					logger.LogInformation("done {commandId}", job.Id);
-
+					
 					if (job.Registration.HasReturnType) {
 						var stream = new MemoryStream();
 						JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, jsonSerializationOption.Default);
