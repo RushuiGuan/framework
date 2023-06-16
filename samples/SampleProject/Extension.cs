@@ -6,10 +6,10 @@ namespace SampleProject {
 	public static class Extension {
 
 		public static IServiceCollection AddSampleProjectCommands(this IServiceCollection services) {
-			return services.AddCommand<DoMathWorkCommand>((_, provider) => "math-queue")
-					.AddCommand<ProcessDataCommand>((_, provider) => "math-queue")
-					.AddCommand<LongRunningCommand>((_, provider) => "show-running-queue")
-					.AddCommand<UnstableCommand>((_, provider) => "slow-running-queue")
+			return services.AddCommand<DoMathWorkCommand, long>((_, provider) => "math-queue")
+					.AddCommand<ProcessDataCommand, long>((_, provider) => "math-queue")
+					.AddCommand<LongRunningCommand, int>((_, provider) => "show-running-queue")
+					.AddCommand<UnstableCommand, int>((_, provider) => "slow-running-queue")
 					.AddCommand<PublishCommand>()
 					.AddCommand<FireAndForgetCommand>((_, provider) => "fire-and-forget-queue")
 					// use the same queue intentionally for this test

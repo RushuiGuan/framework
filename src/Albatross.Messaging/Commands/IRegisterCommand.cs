@@ -7,23 +7,40 @@ namespace Albatross.Messaging.Commands {
 		Type CommandHandlerType { get; }
 		string GetQueueName(object command, IServiceProvider provider);
 	}
-	public interface IRegisterCommand<T> : IRegisterCommand where T : ICommand { }
+	public interface IRegisterCommand<T> : IRegisterCommand where T : notnull { }
+	public interface IRegisterCommand<T, K> : IRegisterCommand where T : notnull where K:notnull { }
 
-	public class RegisterCommand<T> : IRegisterCommand<T> where T : ICommand {
+	public class RegisterCommand<T> : IRegisterCommand where T : notnull {
 		private readonly Func<T, IServiceProvider, string> getQueueName;
-
+		
+		public bool HasReturnType => false;
 		public Type CommandType => typeof(T);
-		public Type ResponseType => T.ResponseType;
-		public Type CommandHandlerType { get; init; }
-		public bool HasReturnType => T.ResponseType != typeof(void);
+		public Type ResponseType => typeof(void);
+		public Type CommandHandlerType => typeof(ICommandHandler<T>);
 
 		public RegisterCommand(Func<T, IServiceProvider, string> getQueueName) {
 			this.getQueueName = getQueueName;
-			if (ResponseType == typeof(void)) {
-				CommandHandlerType = typeof(ICommandHandler<>).MakeGenericType(typeof(T));
+		}
+
+		public string GetQueueName(object obj, IServiceProvider provider) {
+			if (obj is T command) {
+				return this.getQueueName(command, provider);
 			} else {
-				CommandHandlerType = typeof(ICommandHandler<,>).MakeGenericType(typeof(T), T.ResponseType);
+				throw new ArgumentException();
 			}
+		}
+	}
+
+	public class RegisterCommand<T, K> : IRegisterCommand where T : notnull where K:notnull {
+		private readonly Func<T, IServiceProvider, string> getQueueName;
+		
+		public bool HasReturnType => true;
+		public Type CommandType => typeof(T);
+		public Type ResponseType => typeof(K);
+		public Type CommandHandlerType => typeof(ICommandHandler<T, K>);
+
+		public RegisterCommand(Func<T, IServiceProvider, string> getQueueName) {
+			this.getQueueName = getQueueName;
 		}
 
 		public string GetQueueName(object obj, IServiceProvider provider) {

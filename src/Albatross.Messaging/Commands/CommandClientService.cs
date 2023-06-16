@@ -102,8 +102,7 @@ namespace Albatross.Messaging.Commands {
 		}
 
 		public Task<ResponseType> Submit<CommandType, ResponseType>(DealerClient dealerClient, CommandType command)
-			where CommandType : Command<ResponseType>
-			where ResponseType : notnull {
+			where CommandType : notnull where ResponseType : notnull {
 
 			var id = counter.NextId();
 			logger.LogInformation("the id is {id}, thread {threadid}", id, Environment.CurrentManagedThreadId);
@@ -119,7 +118,7 @@ namespace Albatross.Messaging.Commands {
 			}
 		}
 
-		public Task Submit<CommandType>(DealerClient dealerClient, CommandType command, bool fireAndForget = true) where CommandType : Command {
+		public Task Submit<CommandType>(DealerClient dealerClient, CommandType command, bool fireAndForget = true) where CommandType : notnull {
 			var id = counter.NextId();
 			CommandCallback callback = new CommandCallback(id);
 			if (!commandCallbacks.TryAdd(id, callback)) {

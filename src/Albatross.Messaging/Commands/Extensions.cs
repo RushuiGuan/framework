@@ -10,10 +10,15 @@ using Albatross.Messaging.DataLogging;
 
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
-		static string GetDefaultQueueName<CommandType>(CommandType _, IServiceProvider provider) where CommandType : ICommand => "default_queue";
+		static string GetDefaultQueueName<CommandType>(CommandType _, IServiceProvider provider) where CommandType : notnull => "default_queue";
 
-		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : ICommand {
+		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : notnull {
 			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T>(getQueueName ?? GetDefaultQueueName));
+			return services;
+		}
+
+		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : notnull where K: notnull{
+			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, K>(getQueueName ?? GetDefaultQueueName));
 			return services;
 		}
 

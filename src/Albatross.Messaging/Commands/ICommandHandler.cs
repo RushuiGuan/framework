@@ -6,15 +6,15 @@ namespace Albatross.Messaging.Commands {
 	public interface ICommandHandler {
 		Task<object> Handle(object command);
 	}
-	public interface ICommandHandler<CommandType, ResponseType> : ICommandHandler 
-		where CommandType : Command<ResponseType> 
-		where ResponseType : notnull{
+	public interface ICommandHandler<CommandType, ResponseType> : ICommandHandler
+		where CommandType : notnull
+		where ResponseType : notnull {
 
 		Task<ResponseType> Handle(CommandType command);
 	}
 	public interface ICommandHandler<CommandType> : ICommandHandler
-		where CommandType : Command  {
-		
+		where CommandType : notnull {
+
 		Task Handle(CommandType command);
 	}
 }

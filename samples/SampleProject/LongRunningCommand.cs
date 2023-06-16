@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	public class LongRunningCommand : Command<int> {
+	public class LongRunningCommand { 
 		public int Duration { get; init; }
 		public int Counter { get; init; }
 

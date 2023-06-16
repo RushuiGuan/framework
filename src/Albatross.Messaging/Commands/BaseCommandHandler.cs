@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	public abstract class BaseCommandHandler<CommandType, ResponseType> : ICommandHandler<CommandType, ResponseType> 
-		where CommandType : Command<ResponseType> 
-		where ResponseType : notnull{
+		where CommandType : notnull where ResponseType : notnull{
 		
 		public abstract Task<ResponseType> Handle(CommandType command);
 		public async Task<object> Handle(object obj) {
@@ -18,7 +16,7 @@ namespace Albatross.Messaging.Commands {
 		}
 	}
 
-	public abstract class BaseCommandHandler<CommandType> : ICommandHandler<CommandType> where CommandType : Command {
+	public abstract class BaseCommandHandler<CommandType> : ICommandHandler<CommandType> where CommandType : notnull {
 		private readonly static object any = new object();
 		public abstract Task Handle(CommandType command);
 		public async Task<object> Handle(object obj) {

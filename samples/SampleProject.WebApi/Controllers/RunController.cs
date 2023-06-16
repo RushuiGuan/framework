@@ -41,6 +41,12 @@ namespace SampleProject.WebApi.Controllers {
 			return task;
 		}
 
+		[HttpPost("fire-and-forget-math-work")]
+		public Task DoFireAndForgetMathWork([FromQuery] long counter) {
+			var task = commandClient.Submit<DoMathWorkCommand>(new DoMathWorkCommand(counter), true);
+			return task;
+		}
+
 		[HttpPost("process-data")]
 		public Task<long> ProcessData([FromQuery] long counter) {
 			var task = commandClient.Submit<ProcessDataCommand, long>(new ProcessDataCommand(counter));

@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	public class DoMathWorkCommand : Command<long> {
+	public class DoMathWorkCommand {
 		public long Counter { get; init; }
 
 		public DoMathWorkCommand(long counter) {

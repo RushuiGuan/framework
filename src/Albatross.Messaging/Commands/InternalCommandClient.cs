@@ -27,12 +27,11 @@ namespace Albatross.Messaging.Commands {
 		public Task<CommandQueueInfo[]> QueueStatus() => throw new NotSupportedException();
 
 		public Task<ResponseType> Submit<CommandType, ResponseType>(CommandType command)
-			where CommandType : Command<ResponseType>
-			where ResponseType : notnull {
+			where CommandType : notnull where ResponseType : notnull {
 			throw new NotSupportedException();
 		}
 
-		public Task Submit<CommandType>(CommandType command, bool fireAndForget) where CommandType : Command {
+		public Task Submit<CommandType>(CommandType command, bool fireAndForget) where CommandType : notnull {
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
 				JsonSerializer.Serialize<CommandType>(stream, command, this.serializationOption.Default);

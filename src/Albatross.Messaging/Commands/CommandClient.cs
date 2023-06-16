@@ -8,9 +8,9 @@ namespace Albatross.Messaging.Commands {
 	/// </summary>
 	public interface ICommandClient {
 		Task<ResponseType> Submit<CommandType, ResponseType>(CommandType command)
-			where CommandType : Command<ResponseType>
-			where ResponseType : notnull;
-		Task Submit<CommandType>(CommandType command, bool fireAndForget = true) where CommandType : Command;
+			where CommandType : notnull where ResponseType : notnull;
+
+		Task Submit<CommandType>(CommandType command, bool fireAndForget = true) where CommandType : notnull;
 		Task<CommandQueueInfo[]> QueueStatus();
 		Task Ping();
 	}
@@ -26,10 +26,10 @@ namespace Albatross.Messaging.Commands {
 		public Task Ping() => service.Ping(dealerClient);
 		public Task<CommandQueueInfo[]> QueueStatus() => service.QueueStatus(dealerClient);
 		public Task<ResponseType> Submit<CommandType, ResponseType>(CommandType command)
-			where CommandType : Command<ResponseType>
+			where CommandType : notnull
 			where ResponseType : notnull => service.Submit<CommandType, ResponseType>(dealerClient, command);
 
-		public Task Submit<CommandType>(CommandType command, bool fireAndForget) where CommandType : Command
+		public Task Submit<CommandType>(CommandType command, bool fireAndForget) where CommandType : notnull
 			=> service.Submit<CommandType>(dealerClient, command, fireAndForget);
 	}
 }

@@ -3,14 +3,14 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	public class PingCommand : Command{
+	public class PingCommand {
 		public PingCommand(int round) {
 			this.Round = round;
 		}
 
 		public int Round { get; set; }
 	}
-	public class PongCommand : Command {
+	public class PongCommand  {
 		public PongCommand(int round) {
 			this.Round = round;
 		}

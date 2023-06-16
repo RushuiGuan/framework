@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	public class ProcessDataCommand : Command<long> {
+	public class ProcessDataCommand {
 		public long Counter { get; init; }
 
 		public ProcessDataCommand(long counter) {

@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	public class UnstableCommand : Command<int> {
+	public class UnstableCommand {
 		public int Counter { get; }
 		public UnstableCommand(int counter) {
 			this.Counter = counter;
