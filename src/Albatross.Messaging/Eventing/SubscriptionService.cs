@@ -19,7 +19,7 @@ namespace Albatross.Messaging.Eventing {
 			this.logger = logger;
 		}
 
-		public bool ProcessReceivedMsg(DealerClient dealerClient, IMessage msg) {
+		public bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg) {
 			switch (msg) {
 				case SubscriptionReply sub_reply:
 					lock (sync) {
@@ -59,7 +59,7 @@ namespace Albatross.Messaging.Eventing {
 			}
 			return true;
 		}
-		public bool ProcessTransmitQueue(DealerClient dealerClient, object _) => false;
+		public bool ProcessTransmitQueue(IMessagingService dealerClient, object _) => false;
 		public bool CanTransmit => false;
 		public bool CanReceive => true;
 

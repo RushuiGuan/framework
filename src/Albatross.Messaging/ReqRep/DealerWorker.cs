@@ -30,7 +30,6 @@ namespace Albatross.Messaging.ReqRep {
 		public ISet<string> Services => config.Services;
 
 		IDataLogWriter IMessagingService.DataLogger => dataLogger;
-		NetMQSocket IMessagingService.Socket => socket;
 
 		public DealerWorker(DealerWorkerConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorker> logger, IDataLogWriter dataLogger) {
 			this.config = config;
@@ -120,6 +119,11 @@ namespace Albatross.Messaging.ReqRep {
 
 		public void SubmitToQueue(object message) {
 			throw new NotImplementedException();
+		}
+		public void Transmit(IMessage msg) {
+			var frames = msg.Create();
+			this.dataLogger.Outgoing(msg, frames);
+			this.socket.SendMultipartMessage(frames);
 		}
 	}
 }

@@ -24,7 +24,6 @@ namespace Albatross.Messaging.ReqRep {
 		private readonly NetMQPoller poller;
 
 		IDataLogWriter IMessagingService.DataLogger => persistence;
-		NetMQSocket IMessagingService.Socket => socket;
 
 		bool disposed = false;
 		public string Identity => config.Identity;
@@ -156,6 +155,11 @@ namespace Albatross.Messaging.ReqRep {
 
 		public void SubmitToQueue(object message) {
 			throw new NotImplementedException();
+		}
+		public void Transmit(IMessage msg) {
+			var frames = msg.Create();
+			persistence.Outgoing(msg, frames);
+			this.socket.SendMultipartMessage(frames);
 		}
 	}
 }

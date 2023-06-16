@@ -26,7 +26,6 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IRouterServerService> timerServices;
 
 
-		public NetMQSocket Socket => this.socket;
 		public IDataLogWriter DataLogger => this.dataLogWriter;
 
 		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, IDataLogWriter dataLogWriter, IDataLogReader dataLogReader) {
@@ -121,6 +120,12 @@ namespace Albatross.Messaging.Services {
 		}
 
 		public void SubmitToQueue(object result) => this.queue.Enqueue(result);
+
+		public void Transmit(IMessage msg) {
+			var frames = msg.Create();
+			this.dataLogWriter.Outgoing(msg, frames);
+			this.socket.SendMultipartMessage(frames);
+		}
 
 		public void Dispose() {
 			if (!disposed) {

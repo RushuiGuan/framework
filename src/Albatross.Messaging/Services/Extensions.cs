@@ -6,11 +6,6 @@ using System.Text;
 
 namespace Albatross.Messaging.Services {
 	public static class Extensions {
-		public static void Transmit(this IMessagingService svc, IMessage msg) {
-			var frames = msg.Create();
-			svc.DataLogger.Outgoing(msg, frames);
-			svc.Socket.SendMultipartMessage(frames);
-		}
 		public static void Ack(this IMessagingService svc, string route, ulong id) => svc.Transmit(new Ack(route, id));
 
 		public static byte[] ToUtf8Bytes(this string text) => Encoding.UTF8.GetBytes(text);

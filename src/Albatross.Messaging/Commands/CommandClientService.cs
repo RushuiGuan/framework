@@ -30,7 +30,7 @@ namespace Albatross.Messaging.Commands {
 		public bool CanTransmit => true;
 		public bool CanReceive => true;
 
-		public bool ProcessReceivedMsg(DealerClient dealerClient, IMessage msg) {
+		public bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg) {
 			switch (msg) {
 				case CommandReply response:
 					AcceptResponse(dealerClient, response);
@@ -50,9 +50,9 @@ namespace Albatross.Messaging.Commands {
 			}
 			return true;
 		}
-		public bool ProcessTransmitQueue(DealerClient dealerClient, object msg) => false;
+		public bool ProcessTransmitQueue(IMessagingService dealerClient, object msg) => false;
 
-		private void AcceptStatusReply(DealerClient _, CommandQueueStatusReply statusReply) {
+		private void AcceptStatusReply(IMessagingService _, CommandQueueStatusReply statusReply) {
 			if (commandCallbacks.Remove(statusReply.Id, out var callback)) {
 				var result = JsonSerializer.Deserialize<CommandQueueInfo[]>(statusReply.Payload, this.serializerOptions.Default)
 					?? Array.Empty<CommandQueueInfo>();
@@ -62,13 +62,13 @@ namespace Albatross.Messaging.Commands {
 			}
 		}
 
-		private void AcceptAckMsg(DealerClient _, IMessage reply) {
+		private void AcceptAckMsg(IMessagingService _, IMessage reply) {
 			if (commandCallbacks.Remove(reply.Id, out var callback)) {
 				callback.SetResult();
 			}
 		}
 
-		private void AcceptResponse(DealerClient dealerClient, CommandReply response) {
+		private void AcceptResponse(IMessagingService dealerClient, CommandReply response) {
 			try {
 				if (commandCallbacks.Remove(response.Id, out var callback)) {
 					if (callback.ResponseType == typeof(void)) {
@@ -89,7 +89,7 @@ namespace Albatross.Messaging.Commands {
 			}
 		}
 	
-		private void AcceptError(DealerClient dealerClient, CommandErrorReply errorMessage) {
+		private void AcceptError(IMessagingService dealerClient, CommandErrorReply errorMessage) {
 			try {
 				if (commandCallbacks.Remove(errorMessage.Id, out var callback)) {
 					callback.SetException(new CommandException(errorMessage.Id, errorMessage.ClassName, errorMessage.Message));

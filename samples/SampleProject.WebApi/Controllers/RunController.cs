@@ -1,5 +1,5 @@
-﻿using Albatross.Messaging.Commands;
-using Albatross.Messaging.Eventing;
+﻿using Albatross.Messaging.Eventing;
+using Albatross.Messaging.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;

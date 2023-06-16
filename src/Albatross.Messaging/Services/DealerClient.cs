@@ -25,7 +25,6 @@ namespace Albatross.Messaging.Services {
 		public string Identity { get; init; }
 
 		IDataLogWriter IMessagingService.DataLogger => this.dataWriter;
-		NetMQSocket IMessagingService.Socket => this.socket;
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, IDataLogWriter dataWriter, ILogger<DealerClient> logger) {
 			this.config = config;
@@ -100,6 +99,12 @@ namespace Albatross.Messaging.Services {
 		}
 
 		public void SubmitToQueue(object message) => this.queue.Enqueue(message);
+
+		public void Transmit(IMessage msg) {
+			var frames = msg.Create();
+			this.dataWriter.Outgoing(msg, frames);
+			this.socket.SendMultipartMessage(frames);
+		}
 
 		public void Dispose() {
 			if (!disposed) {

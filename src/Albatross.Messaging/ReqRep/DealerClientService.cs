@@ -24,7 +24,6 @@ namespace Albatross.Messaging.ReqRep {
 		public string Identity => config.Identity;
 
 		IDataLogWriter IMessagingService.DataLogger => persistence;
-		NetMQSocket IMessagingService.Socket => socket;
 		// Dictionary<uint, Command> commands = new Dictionary<uint, Command>();
 
 		public DealerClientService(ClientConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorker> logger,
@@ -107,6 +106,11 @@ namespace Albatross.Messaging.ReqRep {
 
 		public void SubmitToQueue(object message) {
 			throw new NotImplementedException();
+		}
+		public void Transmit(IMessage msg) {
+			var frames = msg.Create();
+			this.persistence.Outgoing(msg, frames);
+			this.socket.SendMultipartMessage(frames);
 		}
 	}
 }
