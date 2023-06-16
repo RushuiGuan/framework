@@ -16,7 +16,7 @@ namespace Albatross.Messaging.ReqRep {
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
 		private readonly NetMQTimer timer;
-		private readonly AtomicCounter counter;
+		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 		private readonly DealerWorkerConfiguration config;
 		private readonly IMessageFactory messageFactory;
 		private readonly NetMQQueue<IMessage> queue;
@@ -32,8 +32,7 @@ namespace Albatross.Messaging.ReqRep {
 		IDataLogWriter IMessagingService.DataLogger => dataLogger;
 		NetMQSocket IMessagingService.Socket => socket;
 
-		public DealerWorker(AtomicCounter counter, DealerWorkerConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorker> logger, IDataLogWriter dataLogger) {
-			this.counter = counter;
+		public DealerWorker(DealerWorkerConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorker> logger, IDataLogWriter dataLogger) {
 			this.config = config;
 			this.messageFactory = messageFactory;
 			this.logger = logger;

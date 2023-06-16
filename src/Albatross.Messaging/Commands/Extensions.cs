@@ -72,7 +72,6 @@ namespace Albatross.Messaging.Commands {
 			services.TryAddTransient<CommandQueue, TaskCommandQueue>();
 			// this should only be used if the TaskCommandQueue is used
 			services.TryAddSingleton<ICommandClient, InternalCommandClient>();
-			services.TryAddSingleton<AtomicCounter>();
 			services.AddDiskStorageDataLogging();
 			return services;
 		}

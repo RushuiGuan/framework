@@ -16,7 +16,7 @@ namespace Albatross.Messaging.Commands {
 		private readonly MessagingJsonSerializationOption serializerOptions;
 		private readonly Dictionary<Type, IRegisterCommand> registrations = new Dictionary<Type, IRegisterCommand>();
 		private readonly ConcurrentDictionary<ulong, ICommandCallback> commandCallbacks = new ConcurrentDictionary<ulong, ICommandCallback>();
-		private AtomicCounter counter = new AtomicCounter();
+		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 
 		public CommandClientService(IEnumerable<IRegisterCommand> registrations, ILogger<CommandClientService> logger, MessagingJsonSerializationOption serializerOptions) {

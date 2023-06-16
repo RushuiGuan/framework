@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Eventing {
 	public class SubscriptionService : IDealerClientService {
-		private AtomicCounter counter = new AtomicCounter();
+		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 		object sync = new object();
 		Dictionary<string, ISet<ISubscriber>> subscriptions = new Dictionary<string, ISet<ISubscriber>>();

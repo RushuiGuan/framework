@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace Albatross.Messaging.Services {
-	public class AtomicCounter {
+	public class AtomicCounter<T> where T:INumber<T>{
 		object sync = new object();
-		ulong counter = 0;
-		public ulong NextId() {
+		T counter = T.Zero;
+		public T NextId() {
 			lock (sync) {
-				return ++counter;
+				counter = counter + T.One;
+				return counter;
 			}
 		}
 	}

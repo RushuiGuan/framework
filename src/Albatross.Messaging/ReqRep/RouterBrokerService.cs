@@ -12,7 +12,7 @@ using Albatross.Messaging.ReqRep.Messages;
 
 namespace Albatross.Messaging.ReqRep {
 	public class RouterBrokerService : IBrokerService, IMessagingService, IDisposable {
-		private readonly AtomicCounter counter;
+		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 		private readonly BrokerConfiguration config;
 		private readonly IMessageFactory messageFactory;
 		private readonly ILogger<RouterBrokerService> logger;
@@ -30,8 +30,7 @@ namespace Albatross.Messaging.ReqRep {
 		public string Identity => config.Identity;
 
 
-		public RouterBrokerService(AtomicCounter counter, BrokerConfiguration config, WorkerRegistry registry, IDataLogWriter persistence, IMessageFactory messageFactory, ILogger<RouterBrokerService> logger) {
-			this.counter = counter;
+		public RouterBrokerService(BrokerConfiguration config, WorkerRegistry registry, IDataLogWriter persistence, IMessageFactory messageFactory, ILogger<RouterBrokerService> logger) {
 			this.config = config;
 			this.registry = registry;
 			this.persistence = persistence;

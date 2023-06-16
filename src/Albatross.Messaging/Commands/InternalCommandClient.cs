@@ -15,12 +15,11 @@ namespace Albatross.Messaging.Commands {
 	/// </summary>
 	public class InternalCommandClient : ICommandClient {
 		private readonly RouterServer routerServer;
-		private readonly AtomicCounter counter;
+		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 		private readonly MessagingJsonSerializationOption serializationOption;
 
-		public InternalCommandClient(RouterServer routerServer, AtomicCounter counter, MessagingJsonSerializationOption serializationOption) {
+		public InternalCommandClient(RouterServer routerServer, MessagingJsonSerializationOption serializationOption) {
 			this.routerServer = routerServer;
-			this.counter = counter;
 			this.serializationOption = serializationOption;
 		}
 
