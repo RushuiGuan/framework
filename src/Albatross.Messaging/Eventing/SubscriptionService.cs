@@ -7,28 +7,19 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Eventing {
-	public interface ISubscriptionService : IDealerClientService {
-		Task<Subscription> Subscribe(ISubscriber subscriber, params string[] topics);
-		Subscription Unsubscribe(ISubscriber subscriber, params string[] topics);
-	}
-
-	public class SubscriptionService : ISubscriptionService {
+	public class SubscriptionService : IDealerClientService {
 		private AtomicCounter counter = new AtomicCounter();
 
 		object sync = new object();
 		Dictionary<string, ISet<ISubscriber>> subscriptions = new Dictionary<string, ISet<ISubscriber>>();
 		Dictionary<ulong, SubscriberCallback> callbacks = new Dictionary<ulong, SubscriberCallback>();
-
-		IMessagingService? messagingService;
 		private readonly ILogger<SubscriptionService> logger;
-
-		public IMessagingService MessagingService => this.messagingService ?? throw new NotInitializedException();
 
 		public SubscriptionService(ILogger<SubscriptionService> logger) {
 			this.logger = logger;
 		}
 
-		public bool AcceptMessage(IMessage msg) {
+		public bool ProcessReceivedMsg(DealerClient dealerClient, IMessage msg) {
 			switch (msg) {
 				case SubscriptionReply sub_reply:
 					lock (sync) {
@@ -51,7 +42,7 @@ namespace Albatross.Messaging.Eventing {
 					}
 					break;
 				case Event eve:
-					this.MessagingService.Ack(eve.Route, eve.Id);
+					dealerClient.Ack(eve.Route, eve.Id);
 					ISet<ISubscriber>? subscribers = null;
 					lock (sync) {
 						subscriptions.TryGetValue(eve.Topic, out subscribers);
@@ -68,12 +59,11 @@ namespace Albatross.Messaging.Eventing {
 			}
 			return true;
 		}
+		public bool ProcessTransmitQueue(DealerClient dealerClient, object _) => false;
+		public bool CanTransmit => false;
+		public bool CanReceive => true;
 
-		public bool ProcessTransmitQueueItem(object msg) => false;
-
-		public void SetMessagingService(IMessagingService messagingService) => this.messagingService = messagingService;
-
-		public Task<Subscription> Subscribe(ISubscriber subscriber, params string[] topics) {
+		public Task<Subscription> Subscribe(DealerClient dealerClient, ISubscriber subscriber, params string[] topics) {
 			lock (sync) {
 				var currentTopics = new HashSet<string>();
 				List<string> newTopics = new List<string>();
@@ -90,15 +80,14 @@ namespace Albatross.Messaging.Eventing {
 					var id = counter.NextId();
 					var callback = new SubscriberCallback(id, result);
 					callbacks.TryAdd(id, callback);
-					this.MessagingService.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, newTopics));
+					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, newTopics));
 					return callback.Task;
 				} else {
 					return Task.FromResult(result);
 				}
 			}
 		}
-
-		public Subscription Unsubscribe(ISubscriber subscriber, params string[] topics) {
+		public Subscription Unsubscribe(DealerClient dealerClient, ISubscriber subscriber, params string[] topics) {
 			lock (sync) {
 				var currentTopics = new HashSet<string>();
 				var topics_to_unsubscribe = new HashSet<string>();
@@ -115,7 +104,7 @@ namespace Albatross.Messaging.Eventing {
 					var id = counter.NextId();
 					var callback = new SubscriberCallback(id, result);
 					callbacks.TryAdd(id, callback);
-					this.MessagingService.SubmitToQueue(new SubscriptionRequest(string.Empty, id, false, topics));
+					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, false, topics));
 				}
 				return result;
 			}

@@ -10,14 +10,14 @@ namespace Albatross.Messaging.Commands {
 	public class CommandReplayService : IRouterServerService {
 		Dictionary<string, CommandReplayMessageGroup> records = new Dictionary<string, CommandReplayMessageGroup>();
 		private readonly ILogger<CommandReplayService> logger;
-		private readonly ICommandBus commandBus;
+		private readonly ICommandBusService commandBus;
 		public static string GetKey(IMessage messsage) => $"{messsage.Route}.{messsage.Id}";
 
 		public bool CanReceive => false;
 		public bool CanTransmit => true;
 		public bool NeedTimer => false;
 
-		public CommandReplayService(ILogger<CommandReplayService> logger, ICommandBus commandBus) {
+		public CommandReplayService(ILogger<CommandReplayService> logger, ICommandBusService commandBus) {
 			this.logger = logger;
 			this.commandBus = commandBus;
 		}

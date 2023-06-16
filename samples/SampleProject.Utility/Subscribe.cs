@@ -9,10 +9,10 @@ namespace SampleProject.Utility {
 
 	[Verb("sub")]
 	public class SubscribeOption : BaseOption {
-		[Option('o')]
+		[Option('o', "on")]
 		public bool On { get; set; }
 
-		[Option('t', Required = true)]
+		[Option('t', "topic", Required = true)]
 		public IEnumerable<string> Topic { get; set; } = Array.Empty<string>();
 	}
 	public class Subscribe : MyUtilityBase<SubscribeOption> {

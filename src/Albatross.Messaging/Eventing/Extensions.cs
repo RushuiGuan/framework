@@ -39,8 +39,9 @@ namespace Albatross.Messaging.Eventing {
 			});
 
 			services.TryAddSingleton<DealerClient>();
-			services.TryAddSingleton<ISubscriptionService, SubscriptionService>();
-			services.AddSingleton<IDealerClientService>(provider => provider.GetRequiredService<ISubscriptionService>());
+			services.TryAddSingleton<ISubscriptionClient, SubscriptionClient>();
+			services.AddSingleton<SubscriptionService>();
+			services.AddSingleton<IDealerClientService>(args => args.GetRequiredService<SubscriptionService>());
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			services.TryAddSingleton<IDataLogWriter, DiskStorageLogWriter>();
 			return services;

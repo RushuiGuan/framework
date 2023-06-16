@@ -4,6 +4,7 @@
 	  <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>sample-project-webapi</AssemblyName>
 	  <IsPackable>false</IsPackable>
+	  <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,7 @@
     <ProjectReference Include="..\SampleProject\SampleProject.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <Content Update="appsettings.staging.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -8,8 +8,8 @@ using System.IO;
 using System.Text.Json;
 
 namespace Albatross.Messaging.Commands {
-	public interface ICommandBus : IRouterServerService { }
-	public class CommandBusService : ICommandBus {
+	public interface ICommandBusService : IRouterServerService { }
+	public class CommandBusService : ICommandBusService {
 		private readonly ICommandQueueFactory commandQueueFactory;
 		private readonly ILogger<CommandBusService> logger;
 		private readonly MessagingJsonSerializationOption jsonSerializationOption;

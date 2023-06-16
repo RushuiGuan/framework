@@ -5,7 +5,6 @@ using Albatross.Messaging.DataLogging;
 using Microsoft.Extensions.Logging;
 using NetMQ.Sockets;
 using NetMQ;
-using Albatross.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -29,7 +28,6 @@ namespace Albatross.Messaging.Services {
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, IDataLogWriter dataWriter, ILogger<DealerClient> logger) {
 			this.config = config;
 			this.services = services;
-			services.ForEach(args => args.SetMessagingService(this));
 			this.messageFactory = messageFactory;
 			this.dataWriter = dataWriter;
 			this.logger = logger;
@@ -54,7 +52,7 @@ namespace Albatross.Messaging.Services {
 						this.Transmit(msg);
 					} else {
 						foreach (var service in this.services) {
-							if (service.ProcessTransmitQueueItem(item)) {
+							if (service.ProcessTransmitQueue(this, item)) {
 								return;
 							}
 						}
@@ -76,7 +74,7 @@ namespace Albatross.Messaging.Services {
 				if (msg is Ack) { return; }
 				if (running) {
 					foreach (var service in this.services) {
-						if (service.AcceptMessage(msg)) {
+						if (service.ProcessReceivedMsg(this, msg)) {
 							return;
 						}
 					}

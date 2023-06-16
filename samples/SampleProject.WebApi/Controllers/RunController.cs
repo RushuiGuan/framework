@@ -10,13 +10,13 @@ namespace SampleProject.WebApi.Controllers {
 	[Route("api/run")]
 	[ApiController]
 	public class RunController : ControllerBase {
-		private readonly ICommandClientService commandClient;
-		private readonly ISubscriptionService subscriptionService;
+		private readonly ICommandClient commandClient;
+		private readonly ISubscriptionClient subscriptionClient;
 		private readonly ISubscriber subscriber;
 
-		public RunController(ICommandClientService commandClient, ISubscriptionService subscriptionService, ISubscriber subscriber) {
+		public RunController(ICommandClient commandClient, ISubscriptionClient subscriptionClient, ISubscriber subscriber) {
 			this.commandClient = commandClient;
-			this.subscriptionService = subscriptionService;
+			this.subscriptionClient = subscriptionClient;
 			this.subscriber = subscriber;
 		}
 
@@ -84,12 +84,12 @@ namespace SampleProject.WebApi.Controllers {
 
 		[HttpPost("sub")]
 		public Task Subscribe([FromQuery] IEnumerable<string> topic) {
-			subscriptionService.Subscribe(this.subscriber, topic.ToArray());
+			subscriptionClient.Subscribe(this.subscriber, topic.ToArray());
 			return Task.CompletedTask;
 		}
 		[HttpPost("unsub")]
 		public Task Unsubscribe([FromQuery] IEnumerable<string> topic) {
-			subscriptionService.Unsubscribe(this.subscriber, topic.ToArray());
+			subscriptionClient.Unsubscribe(this.subscriber, topic.ToArray());
 			return Task.CompletedTask;
 		}
 	}

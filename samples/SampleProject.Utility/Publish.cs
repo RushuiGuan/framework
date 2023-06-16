@@ -12,7 +12,7 @@ namespace SampleProject.Utility {
 		[Option("max", Required = true)]
 		public int Max { get; set; }
 
-		[Option('t', Required = true)]
+		[Option('t', "topic", Required = true)]
 		public string Topic { get; set; } = string.Empty;
 	}
 	public class Publish : MyUtilityBase<PublishOption> {

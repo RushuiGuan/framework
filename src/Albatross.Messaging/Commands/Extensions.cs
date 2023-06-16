@@ -28,8 +28,9 @@ namespace Albatross.Messaging.Commands {
 				return config.DealerClient.DiskStorage;
 			});
 			services.TryAddSingleton<DealerClient>();
-			services.TryAddSingleton<ICommandClientService, CommandClient>();
-			services.AddSingleton<IDealerClientService>(provider => provider.GetRequiredService<ICommandClientService>());
+			services.TryAddSingleton<CommandClientService>();
+			services.AddSingleton<IDealerClientService>(args=>args.GetRequiredService<CommandClientService>());
+			services.TryAddSingleton<ICommandClient, CommandClient>();
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			services.TryAddSingleton<MessagingJsonSerializationOption>();
 			services.AddDiskStorageDataLogging();
@@ -62,14 +63,13 @@ namespace Albatross.Messaging.Commands {
 				return config.DiskStorage;
 			});
 			services.TryAddSingleton<RouterServer>();
-			services.TryAddSingleton<ICommandBus, CommandBusService>();
-			services.AddSingleton<IRouterServerService>(provider => provider.GetRequiredService<ICommandBus>());
+			services.TryAddSingleton<ICommandBusService, CommandBusService>();
+			services.AddSingleton<IRouterServerService>(provider => provider.GetRequiredService<ICommandBusService>());
 			services.AddSingleton<IRouterServerService, CommandReplayService>();
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			services.TryAddSingleton<MessagingJsonSerializationOption>();
 			services.TryAddSingleton<ICommandQueueFactory, CommandQueueFactory>();
 			services.TryAddTransient<CommandQueue, TaskCommandQueue>();
-			services.TryAddSingleton<CommandReplayService>();
 			services.AddDiskStorageDataLogging();
 			return services;
 		}
