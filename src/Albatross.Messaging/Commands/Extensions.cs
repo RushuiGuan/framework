@@ -1,7 +1,4 @@
-﻿using Albatross.Config;
-using Albatross.Reflection;
-using Albatross.Messaging.Configurations;
-using Albatross.Messaging.Messages;
+﻿using Albatross.Reflection;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -23,29 +20,15 @@ namespace Albatross.Messaging.Commands {
 		}
 
 		public static IServiceCollection AddCommandClient(this IServiceCollection services) {
-			services.AddConfig<MessagingConfiguration>();
-			services.TryAddSingleton(provider => {
-				var config = provider.GetRequiredService<MessagingConfiguration>();
-				return config.DealerClient;
-			});
-			services.TryAddSingleton(provider => {
-				var config = provider.GetRequiredService<MessagingConfiguration>();
-				return config.DealerClient.DiskStorage;
-			});
-			services.TryAddSingleton<DealerClient>();
 			services.TryAddSingleton<CommandClientService>();
 			services.AddSingleton<IDealerClientService>(args=>args.GetRequiredService<CommandClientService>());
 			services.TryAddSingleton<ICommandClient, CommandClient>();
-			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			services.TryAddSingleton<MessagingJsonSerializationOption>();
 			services.AddDiskStorageDataLogging();
+			services.AddDealerClient();
 			return services;
 		}
 
-		public static void UseDealerClient(this IServiceProvider serviceProvider) {
-			var client = serviceProvider.GetRequiredService<DealerClient>();
-			client.Start();
-		}
 		public static IServiceCollection AddCommandHandler<H>(this IServiceCollection services) {
 			if (typeof(H).TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
 				services.TryAddScoped(genericType, typeof(H));
@@ -58,26 +41,16 @@ namespace Albatross.Messaging.Commands {
 		}
 
 		public static IServiceCollection AddCommandBus(this IServiceCollection services) {
-			services.AddConfig<MessagingConfiguration>();
-			services.TryAddSingleton(provider => {
-				var config = provider.GetRequiredService<MessagingConfiguration>();
-				return config.RouterServer;
-			});
-			services.TryAddSingleton(provider => {
-				var config = provider.GetRequiredService<RouterServerConfiguration>();
-				return config.DiskStorage;
-			});
-			services.TryAddSingleton<RouterServer>();
 			services.TryAddSingleton<ICommandBusService, CommandBusService>();
 			services.AddSingleton<IRouterServerService>(provider => provider.GetRequiredService<ICommandBusService>());
 			services.AddSingleton<IRouterServerService, CommandReplayService>();
-			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			services.TryAddSingleton<MessagingJsonSerializationOption>();
 			services.TryAddSingleton<ICommandQueueFactory, CommandQueueFactory>();
 			services.TryAddTransient<CommandQueue, TaskCommandQueue>();
 			// this should only be used if the TaskCommandQueue is used
 			services.TryAddSingleton<ICommandClient, InternalCommandClient>();
 			services.AddDiskStorageDataLogging();
+			services.AddRouterServer();
 			return services;
 		}
 	}

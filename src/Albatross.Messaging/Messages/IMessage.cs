@@ -1,5 +1,4 @@
-﻿using Albatross.Messaging.Services;
-using NetMQ;
+﻿using NetMQ;
 using System;
 
 namespace Albatross.Messaging.Messages {

@@ -1,55 +1,41 @@
-﻿using Albatross.Messaging.Messages;
-using Microsoft.Extensions.Logging;
-using NetMQ;
+﻿using Albatross.Config;
+using Albatross.Messaging.Configurations;
+using Albatross.Messaging.Messages;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using System.Text;
 
 namespace Albatross.Messaging.Services {
 	public static class Extensions {
-		public static void Ack(this IMessagingService svc, string route, ulong id) => svc.Transmit(new Ack(route, id));
-
-		public static byte[] ToUtf8Bytes(this string text) => Encoding.UTF8.GetBytes(text);
-		public static string ToUtf8String(this byte[] data) => Encoding.UTF8.GetString(data);
-		public static string PopUtf8String(this NetMQMessage frames) => Encoding.UTF8.GetString(frames.Pop().Buffer);
-		public static void AppendUtf8String(this NetMQMessage frames, string? text) {
-			if (string.IsNullOrEmpty(text)) {
-				frames.AppendEmptyFrame();
-			} else {
-				frames.Append(Encoding.UTF8.GetBytes(text));
-			}
+		public static void UseDealerClient(this IServiceProvider serviceProvider) {
+			var client = serviceProvider.GetRequiredService<DealerClient>();
+			client.Start();
 		}
-		
-		public static double PopDouble(this NetMQMessage frames) => BitConverter.ToDouble(frames.Pop().Buffer, 0);
-		public static void AppendDouble(this NetMQMessage frames, double value)
-			=> frames.Append(BitConverter.GetBytes(value));
-
-		public static bool PopBoolean(this NetMQMessage frames) => BitConverter.ToBoolean(frames.Pop().Buffer, 0);
-		public static void AppendBoolean(this NetMQMessage frames, bool value)
-			=> frames.Append(BitConverter.GetBytes(value));
-
-		public static int PopInt(this NetMQMessage frames) => BitConverter.ToInt32(frames.Pop().Buffer, 0);
-		public static void AppendInt(this NetMQMessage frames, int value)
-			=> frames.Append(BitConverter.GetBytes(value));
-
-		public static uint PopUInt(this NetMQMessage frames) => BitConverter.ToUInt32(frames.Pop().Buffer, 0);
-		public static void AppendUInt(this NetMQMessage frames, uint value)
-			=> frames.Append(BitConverter.GetBytes(value));
-
-		public static ulong PopULong(this NetMQMessage frames) => BitConverter.ToUInt64(frames.Pop().Buffer, 0);
-		public static void AppendULong(this NetMQMessage frames, ulong value)
-			=> frames.Append(BitConverter.GetBytes(value));
-
-		public static long PopLong(this NetMQMessage frames) => BitConverter.ToInt64(frames.Pop().Buffer, 0);
-		public static void AppendLong(this NetMQMessage frames, long value)
-			=> frames.Append(BitConverter.GetBytes(value));
-		
-		public static void QueueReceiveReady(this IMessagingService svc, NetMQQueueEventArgs<IMessage> args, ILogger logger) {
-			try {
-				var msg = args.Queue.Dequeue();
-				svc.Transmit(msg);
-			}catch(Exception ex) {
-				logger.LogError(ex, "error sending queue message");
-			}
+		public static void UseRouterServer(this IServiceProvider serviceProvider) {
+			var server = serviceProvider.GetRequiredService<RouterServer>();
+			server.Start();
+		}
+		public static IServiceCollection AddDealerClient(this IServiceCollection services) {
+			services.AddConfig<MessagingConfiguration>();
+			services.TryAddSingleton(provider => {
+				var config = provider.GetRequiredService<MessagingConfiguration>();
+				return config.DealerClient;
+			});
+			services.TryAddSingleton<DealerClientLogWriter>();
+			services.TryAddSingleton<DealerClient>();
+			services.TryAddSingleton<IMessageFactory, MessageFactory>();
+			return services;
+		}
+		public static IServiceCollection AddRouterServer(this IServiceCollection services) {
+			services.AddConfig<MessagingConfiguration>();
+			services.TryAddSingleton(provider => {
+				var config = provider.GetRequiredService<MessagingConfiguration>();
+				return config.RouterServer;
+			});
+			services.TryAddSingleton<RouterServerLogWriter>();
+			services.TryAddSingleton<RouterServer>();
+			services.TryAddSingleton<IMessageFactory, MessageFactory>();
+			return services;
 		}
 	}
 }

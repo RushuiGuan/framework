@@ -26,7 +26,7 @@ namespace Albatross.Messaging.Services {
 
 		IDataLogWriter IMessagingService.DataLogger => this.dataWriter;
 
-		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, IDataLogWriter dataWriter, ILogger<DealerClient> logger) {
+		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter dataWriter, ILogger<DealerClient> logger) {
 			this.config = config;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
 			this.transmitServices = services.Where(args => args.CanTransmit).ToArray();

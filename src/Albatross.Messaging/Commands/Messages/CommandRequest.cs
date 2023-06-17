@@ -1,7 +1,6 @@
 ﻿using Albatross.Text;
 using CoenM.Encoding;
 using Albatross.Messaging.Messages;
-using Albatross.Messaging.Services;
 using NetMQ;
 using System.IO;
 

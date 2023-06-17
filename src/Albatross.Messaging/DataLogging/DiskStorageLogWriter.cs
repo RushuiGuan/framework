@@ -12,7 +12,7 @@ namespace Albatross.Messaging.DataLogging {
 		StreamWriter writer;
 		bool disposed = false;
 
-		public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger<DiskStorageLogWriter> logger) : base(config, logger){
+		public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger) : base(config, logger){
 			logger.LogInformation("creating disk storage logger {name} at {path}", config.FileName, config.WorkingDirectory);
 			this.writer = GetWriter();
 		}
@@ -20,11 +20,11 @@ namespace Albatross.Messaging.DataLogging {
 		StreamWriter Open(FileInfo file) {
 			var stream = file.Open(new FileStreamOptions() { Access = FileAccess.ReadWrite, Mode = FileMode.OpenOrCreate, Share = FileShare.Read });
 			var writer = new StreamWriter(stream, utf8);
+			writer.AutoFlush = true;
 			if (stream.Length > 0) {
 				stream.Seek(0, SeekOrigin.End);
 			}
 			if(stream.Position == 0) {
-				writer.WriteLine($"# mode {config.Mode}");
 				writer.WriteLine($"# maxSize {config.MaxFileSize}");
 			}
 			return writer;
@@ -52,7 +52,6 @@ namespace Albatross.Messaging.DataLogging {
 				writer.Space().Append(Z85Extended.Encode(frames[i].Buffer));
 			}
 			writer.WriteLine();
-			writer.Flush();
 			CheckSize();
 		}
 		
@@ -64,7 +63,6 @@ namespace Albatross.Messaging.DataLogging {
 				writer.Space().Append(Z85Extended.Encode(item.Buffer));
 			}
 			writer.WriteLine();
-			writer.Flush();
 			CheckSize();
 		}
 		public void Record(IMessage message) {
@@ -72,7 +70,6 @@ namespace Albatross.Messaging.DataLogging {
 			WriteTimeStamp();
 			writer.Append(message.Header).Space().Append(message.Route ?? string.Empty).Space().Append(message.Id);
 			writer.WriteLine();
-			writer.Flush();
 			CheckSize();
 		}
 		void WriteTimeStamp() {

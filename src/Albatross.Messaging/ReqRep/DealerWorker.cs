@@ -43,7 +43,7 @@ namespace Albatross.Messaging.ReqRep {
 			socket.ReceiveReady += Socket_ReceiveReady;
 
 			queue = new NetMQQueue<IMessage>();
-			queue.ReceiveReady += (_, args) => this.QueueReceiveReady(args, logger);
+			queue.ReceiveReady += (_, args) => QueueReceiveReady(this, args, logger);
 
 			timer = new NetMQTimer(TimeSpan.FromMilliseconds(config.ActualHeartbeatInterval));
 			timer.Elapsed += Timer_Elapsed;
@@ -52,7 +52,14 @@ namespace Albatross.Messaging.ReqRep {
 				socket, queue, timer,
 			};
 		}
-
+		void QueueReceiveReady(IMessagingService svc, NetMQQueueEventArgs<IMessage> args, ILogger logger) {
+			try {
+				var msg = args.Queue.Dequeue();
+				svc.Transmit(msg);
+			} catch (Exception ex) {
+				logger.LogError(ex, "error sending queue message");
+			}
+		}
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
 			try {
 				if (state != WorkerState.Unavailable) {

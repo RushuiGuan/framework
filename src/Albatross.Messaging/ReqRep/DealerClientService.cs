@@ -37,7 +37,7 @@ namespace Albatross.Messaging.ReqRep {
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;
 			queue = new NetMQQueue<IMessage>();
-			queue.ReceiveReady += (_, args) => this.QueueReceiveReady(args, logger);
+			queue.ReceiveReady += (_, args) => QueueReceiveReady(this, args, logger);
 			poller = new NetMQPoller { socket, queue };
 		}
 
@@ -50,6 +50,15 @@ namespace Albatross.Messaging.ReqRep {
 				disposed = true;
 			}
 		}
+		void QueueReceiveReady(IMessagingService svc, NetMQQueueEventArgs<IMessage> args, ILogger logger) {
+			try {
+				var msg = args.Queue.Dequeue();
+				svc.Transmit(msg);
+			} catch (Exception ex) {
+				logger.LogError(ex, "error sending queue message");
+			}
+		}
+
 
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs e) {
 			try {
