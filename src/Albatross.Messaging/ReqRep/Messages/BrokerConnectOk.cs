@@ -8,7 +8,7 @@ namespace Albatross.Messaging.ReqRep.Messages {
 	/// Broker send back Ok after receiving the Connect msg
 	/// </summary>
 	public record class BrokerConnectOk : Message, IMessage {
-		public static string MessageHeader => "b:ok";
+		public static string MessageHeader => "connect_ok";
 		public static IMessage Accept(string route, ulong messageId, NetMQMessage frames)
 			=> new BrokerConnectOk(route, messageId, frames.PopDouble(), frames.PopDouble());
 

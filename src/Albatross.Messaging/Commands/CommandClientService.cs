@@ -27,9 +27,11 @@ namespace Albatross.Messaging.Commands {
 			}
 		}
 
-		public bool CanTransmit => true;
+		public bool HasCustomTransmitObject => true;
 		public bool CanReceive => true;
+		public bool NeedTimer => false;
 
+		public void Init(IMessagingService dealerClient) { }
 		public bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg) {
 			switch (msg) {
 				case CommandReply response:
@@ -51,7 +53,7 @@ namespace Albatross.Messaging.Commands {
 			return true;
 		}
 		public bool ProcessTransmitQueue(IMessagingService dealerClient, object msg) => false;
-
+		public void ProcessTimerElapsed(DealerClient dealerClient) { }
 		private void AcceptStatusReply(IMessagingService _, CommandQueueStatusReply statusReply) {
 			if (commandCallbacks.Remove(statusReply.Id, out var callback)) {
 				var result = JsonSerializer.Deserialize<CommandQueueInfo[]>(statusReply.Payload, this.serializerOptions.Default)
@@ -61,13 +63,11 @@ namespace Albatross.Messaging.Commands {
 				logger.LogError("command callback not found for message id: {id}", statusReply.Id);
 			}
 		}
-
 		private void AcceptAckMsg(IMessagingService _, IMessage reply) {
 			if (commandCallbacks.Remove(reply.Id, out var callback)) {
 				callback.SetResult();
 			}
 		}
-
 		private void AcceptResponse(IMessagingService dealerClient, CommandReply response) {
 			try {
 				if (commandCallbacks.Remove(response.Id, out var callback)) {
@@ -88,7 +88,6 @@ namespace Albatross.Messaging.Commands {
 				dealerClient.Ack(response.Route, response.Id);
 			}
 		}
-	
 		private void AcceptError(IMessagingService dealerClient, CommandErrorReply errorMessage) {
 			try {
 				if (commandCallbacks.Remove(errorMessage.Id, out var callback)) {
@@ -100,7 +99,6 @@ namespace Albatross.Messaging.Commands {
 				dealerClient.Ack(errorMessage.Route, errorMessage.Id);
 			}
 		}
-
 		public Task<ResponseType> Submit<CommandType, ResponseType>(DealerClient dealerClient, CommandType command)
 			where CommandType : notnull where ResponseType : notnull {
 
@@ -117,7 +115,6 @@ namespace Albatross.Messaging.Commands {
 				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
 			}
 		}
-
 		public Task Submit<CommandType>(DealerClient dealerClient, CommandType command, bool fireAndForget = true) where CommandType : notnull {
 			var id = counter.NextId();
 			CommandCallback callback = new CommandCallback(id);
@@ -136,7 +133,6 @@ namespace Albatross.Messaging.Commands {
 			dealerClient.SubmitToQueue(new PingRequest(string.Empty, id));
 			return callback.Task;
 		}
-
 		public Task<CommandQueueInfo[]> QueueStatus(DealerClient dealerClient) {
 			var id = counter.NextId();
 			var callback = new CommandCallback<CommandQueueInfo[]>(id);

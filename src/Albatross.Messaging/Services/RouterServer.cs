@@ -14,7 +14,7 @@ namespace Albatross.Messaging.Services {
 		private readonly RouterSocket socket;
 		private readonly NetMQPoller poller;
 		private readonly NetMQQueue<object> queue;
-		// private readonly NetMQTimer timer;
+		private readonly NetMQTimer timer;
 		private readonly ILogger<RouterServer> logger;
 		private readonly IMessageFactory messageFactory;
 		private readonly IDataLogWriter dataLogWriter;
@@ -32,7 +32,7 @@ namespace Albatross.Messaging.Services {
 			logger.LogInformation($"Creating {nameof(RouterServer)} instance");
 			this.config = config;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
-			this.transmitServices = services.Where(args=>args.CanTransmit).ToArray();
+			this.transmitServices = services.Where(args=>args.HasCustomTransmitObject).ToArray();
 			this.timerServices = services.Where(args=>args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
 			this.dataLogWriter = dataLogWriter;
@@ -44,14 +44,23 @@ namespace Albatross.Messaging.Services {
 			this.socket.Options.SendHighWatermark = config.SendHighWatermark;
 			this.queue = new NetMQQueue<object>();
 			this.queue.ReceiveReady += Queue_ReceiveReady;
-
-			//this.timer = new NetMQTimer(config.TimerInterval ?? RouterServerConfiguration.DefaultTimerInterval);
-			//this.timer.Elapsed += Timer_Elapsed;
+			this.timer = new NetMQTimer(config.TimerInterval ?? RouterServerConfiguration.DefaultTimerInterval);
+			this.timer.Elapsed += Timer_Elapsed;
 			this.poller = new NetMQPoller { socket, queue, };
+			if(timerServices.Any()) {
+				this.poller.Add(timer);
+			} else {
+				timer.Enable = false;
+			}
 		}
 
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
 			foreach(var service in this.timerServices) {
+				try {
+					service.ProcessTimerElapsed(this);
+				}catch(Exception ex) {
+					logger.LogError(ex, "error processing timer elapsed from {type}", service.GetType().FullName);
+				}
 			}
 		}
 

@@ -1,6 +1,6 @@
 using Albatross.Config;
-using Albatross.Messaging.Commands;
 using Albatross.Messaging.Eventing;
+using Albatross.Messaging.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

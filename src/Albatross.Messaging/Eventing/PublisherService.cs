@@ -10,11 +10,10 @@ namespace Albatross.Messaging.Eventing {
 	public class PublisherService : IRouterServerService {
 		Dictionary<string, ISet<string>> subscriptions = new Dictionary<string, ISet<string>>();
 		private readonly ILogger<PublisherService> logger;
-		static ulong Counter = 0;
-		private ulong NextId() => ++Counter;
+		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 		public bool CanReceive => true;
-		public bool CanTransmit => true;
+		public bool HasCustomTransmitObject => true;
 		public bool NeedTimer => true;
 
 		public PublisherService(ILogger<PublisherService> logger) {
@@ -43,18 +42,19 @@ namespace Albatross.Messaging.Eventing {
 			}
 			return true;
 		}
-
 		public bool ProcessTransmitQueue(IMessagingService messagingService, object msg) {
 			if(msg is PubEvent pub) {
 				if (subscriptions.TryGetValue(pub.Topic, out var subscribers) && subscribers.Count() > 0) {
 					foreach (var sub in subscribers) {
-						messagingService.Transmit(new Event(sub, NextId(), pub.Topic, pub.Payload));
+						messagingService.Transmit(new Event(sub, counter.NextId(), pub.Topic, pub.Payload));
 					}
 				}
 				return true;
 			} else {
 				return false;
 			}
+		}
+		public void ProcessTimerElapsed(IMessagingService routerServer) {
 		}
 	}
 }

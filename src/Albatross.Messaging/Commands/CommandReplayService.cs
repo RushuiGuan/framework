@@ -14,7 +14,7 @@ namespace Albatross.Messaging.Commands {
 		public static string GetKey(IMessage messsage) => $"{messsage.Route}.{messsage.Id}";
 
 		public bool CanReceive => false;
-		public bool CanTransmit => true;
+		public bool HasCustomTransmitObject => true;
 		public bool NeedTimer => false;
 
 		public CommandReplayService(ILogger<CommandReplayService> logger, ICommandBusService commandBus) {
@@ -95,5 +95,6 @@ namespace Albatross.Messaging.Commands {
 			}
 			return false;
 		}
+		public void ProcessTimerElapsed(IMessagingService routerServer) { }
 	}
 }

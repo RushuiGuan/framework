@@ -15,4 +15,4 @@ The pattern has two flows:
 1. command bus send back the result (cmd-rep or cmd-rep-err)
 1. client ack (ack)
 
-The preferred workflow is fire and forget.  Fire and callback flow can behavor like fire and forget if the consumer simply ignore the response.  But the lack of request ack means that there is a chance that the server didn't receive the request in the first place.
+The preferred workflow is fire and forget.  Fire and callback flow can behavor like fire and forget if the consumer simply ignore the response.  But the lack of request ack means that there is a chance that the server didn't receive the request in the first place.  Fire and forget flow allows a command to be submitted from within another command handler.  It is not something that Fire and callback can do because it will cause deadlocks if the caller choose to wait for the callback.

@@ -4,16 +4,13 @@ using System.Linq;
 
 namespace Albatross.Messaging.ReqRep.Messages {
 	public record class ClientRequest : Message, IMessage {
-		public static string MessageHeader => "c:req";
+		public static string MessageHeader => "client-req";
 		public static IMessage Accept(string route, ulong messageId, NetMQMessage frames) {
-			var service = string.Empty;
 			var payload = new byte[0];
 			var id = frames.PopUInt();
+			var service = frames.PopUtf8String();
 			if (frames.Any()) {
-				service = frames.PopUtf8String();
-				if (frames.Any()) {
-					payload = frames.Pop().Buffer;
-				}
+				payload = frames.Pop().Buffer;
 			}
 			return new ClientRequest(route, id, service, payload);
 		}
@@ -30,7 +27,9 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public override NetMQMessage Create() {
 			var msg = base.Create();
 			msg.AppendUtf8String(Service);
-			msg.Append(Payload);
+			if (Payload.Any()) {
+				msg.Append(Payload);
+			}
 			return msg;
 		}
 	}

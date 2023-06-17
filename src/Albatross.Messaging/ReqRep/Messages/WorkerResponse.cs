@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Albatross.Messaging.ReqRep.Messages {
 	public record class WorkerResponse : Message, IMessage {
-		public static string MessageHeader => "w:response";
+		public static string MessageHeader => "worker-response";
 		public static IMessage Accept(string route, ulong messageId, NetMQMessage frames) {
 			var payload = new byte[0];
 			if (frames.Any()) {

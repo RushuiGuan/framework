@@ -15,7 +15,7 @@ namespace Albatross.Messaging.Commands {
 		private readonly MessagingJsonSerializationOption jsonSerializationOption;
 
 		public bool CanReceive => true;
-		public bool CanTransmit => true;
+		public bool HasCustomTransmitObject => true;
 		public bool NeedTimer => false;
 
 		public CommandBusService(ICommandQueueFactory commandQueueFactory, ILogger<CommandBusService> logger, MessagingJsonSerializationOption jsonSerializationOption) {
@@ -86,5 +86,6 @@ namespace Albatross.Messaging.Commands {
 			}
 			return true;
 		}
+		public void ProcessTimerElapsed(IMessagingService routerServer) { }
 	}
 }

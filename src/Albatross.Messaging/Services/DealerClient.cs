@@ -14,12 +14,14 @@ namespace Albatross.Messaging.Services {
 		private readonly DealerClientConfiguration config;
 		private IEnumerable<IDealerClientService> receiveServices;
 		private IEnumerable<IDealerClientService> transmitServices;
+		private IEnumerable<IDealerClientService> timerServices;
 		private readonly IMessageFactory messageFactory;
 		private readonly IDataLogWriter dataWriter;
 		private readonly ILogger<DealerClient> logger;
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
 		private readonly NetMQQueue<object> queue;
+		private readonly NetMQTimer timer;
 		private bool running = false;
 		private bool disposed = false;
 		public string Identity { get; init; }
@@ -29,7 +31,8 @@ namespace Albatross.Messaging.Services {
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter dataWriter, ILogger<DealerClient> logger) {
 			this.config = config;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
-			this.transmitServices = services.Where(args => args.CanTransmit).ToArray();
+			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
+			this.timerServices = services.Where(args=>args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
 			this.dataWriter = dataWriter;
 			this.logger = logger;
@@ -44,6 +47,23 @@ namespace Albatross.Messaging.Services {
 			queue = new NetMQQueue<object>();
 			this.queue.ReceiveReady += Queue_ReceiveReady;
 			poller = new NetMQPoller { socket, queue };
+			timer = new NetMQTimer(config.TimerInterval ?? DealerClientConfiguration.DefaultTimerInterval);
+			timer.Elapsed += Timer_Elapsed;
+			if (timerServices.Any()) {
+				poller.Add(timer);
+			} else {
+				timer.Enable = false;
+			}
+		}
+
+		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
+			foreach(var service in this.timerServices) {
+				try {
+					service.ProcessTimerElapsed(this);
+				}catch(Exception ex) {
+					logger.LogError(ex, "error processing timer elapsed from {type}", service.GetType().FullName);
+				}
+			}
 		}
 
 		private void Queue_ReceiveReady(object? sender, NetMQQueueEventArgs<object> args) {

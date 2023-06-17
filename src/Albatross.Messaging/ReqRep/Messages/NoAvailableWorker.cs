@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Albatross.Messaging.ReqRep.Messages {
 	public record class NoAvailableWorker : Message, IMessage {
-		public static string MessageHeader => "b:noworker";
+		public static string MessageHeader => "noworker";
 		public static IMessage Accept(string route, ulong messageId, NetMQMessage frames) {
 			string? service = frames.Any() ? frames.PopUtf8String() : null;
 			return new NoAvailableWorker(route, messageId, service);

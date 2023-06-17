@@ -14,7 +14,7 @@ namespace Albatross.Messaging.ReqRep {
 	public class DealerClientService : IMessagingService, IClientService {
 		private readonly ClientConfiguration config;
 		private readonly IMessageFactory messageFactory;
-		private readonly ILogger<DealerWorker> logger;
+		private readonly ILogger<DealerWorkerService> logger;
 		private readonly IDataLogWriter persistence;
 		private readonly MessagingJsonSerializationOption serializerOptions;
 		private readonly DealerSocket socket;
@@ -26,7 +26,7 @@ namespace Albatross.Messaging.ReqRep {
 		IDataLogWriter IMessagingService.DataLogger => persistence;
 		// Dictionary<uint, Command> commands = new Dictionary<uint, Command>();
 
-		public DealerClientService(ClientConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorker> logger,
+		public DealerClientService(ClientConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorkerService> logger,
 			IDataLogWriter persistence,
 			MessagingJsonSerializationOption serializerOptions) {
 			this.config = config;

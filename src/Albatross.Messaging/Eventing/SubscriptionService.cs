@@ -19,6 +19,11 @@ namespace Albatross.Messaging.Eventing {
 			this.logger = logger;
 		}
 
+		public bool HasCustomTransmitObject => false;
+		public bool CanReceive => true;
+		public bool NeedTimer => false;
+
+		public void Init(IMessagingService dealerClient) { }
 		public bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg) {
 			switch (msg) {
 				case SubscriptionReply sub_reply:
@@ -60,8 +65,7 @@ namespace Albatross.Messaging.Eventing {
 			return true;
 		}
 		public bool ProcessTransmitQueue(IMessagingService dealerClient, object _) => false;
-		public bool CanTransmit => false;
-		public bool CanReceive => true;
+		public void ProcessTimerElapsed(DealerClient dealerClient) { }
 
 		public Task<Subscription> Subscribe(DealerClient dealerClient, ISubscriber subscriber, params string[] topics) {
 			lock (sync) {

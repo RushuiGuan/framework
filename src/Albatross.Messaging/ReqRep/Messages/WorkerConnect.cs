@@ -7,7 +7,7 @@ namespace Albatross.Messaging.ReqRep.Messages {
 	/// Messages for worker to connect to broker
 	/// </summary>
 	public record class WorkerConnect : Message, IMessage {
-		public static string MessageHeader => "w:connect";
+		public static string MessageHeader => "worker-connect";
 		public static IMessage Accept(string route, ulong messageId, NetMQMessage frames) {
 			var services = new HashSet<string>();
 			foreach (var item in frames) {

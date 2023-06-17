@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Albatross.Messaging.ReqRep.Messages {
 	public record class BrokerRequest : Message, IMessage {
-		public static string MessageHeader => "b:req";
+		public static string MessageHeader => "req";
 		public static IMessage Accept(string route, ulong messageId, NetMQMessage frames) {
 			var client = frames.PopUtf8String();
 			byte[] payload;
@@ -27,7 +27,7 @@ namespace Albatross.Messaging.ReqRep.Messages {
 
 		public override NetMQMessage Create() {
 			var msg = base.Create();
-			msg.AppendUtf8String(Client);
+			msg.AppendUtf8String(Route);
 			if (Payload.Length > 0) {
 				msg.Append(Payload);
 			}
