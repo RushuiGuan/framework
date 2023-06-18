@@ -24,7 +24,7 @@ namespace Albatross.Messaging.Eventing {
 			switch (msg) {
 				case SubscriptionRequest sub:
 					if (!string.IsNullOrEmpty(msg.Route)) {
-						foreach (var topic in sub.Topics) {
+						foreach (var topic in sub.Topic) {
 							var set = this.subscriptions.GetOrAdd(topic, () => new HashSet<string>());
 							if (sub.On) {
 								set.Add(msg.Route);
@@ -32,7 +32,7 @@ namespace Albatross.Messaging.Eventing {
 								set.Remove(msg.Route);
 							}
 						}
-						messagingService.Transmit(new SubscriptionReply(sub.Route, sub.Id, sub.On, sub.Topics));
+						messagingService.Transmit(new SubscriptionReply(sub.Route, sub.Id, sub.On, sub.Topic));
 					} else {
 						logger.LogError("receive a subscription msg without the subcriber identity: {msg}", msg);
 					}

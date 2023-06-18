@@ -29,18 +29,14 @@ namespace Albatross.Messaging.Eventing {
 				case SubscriptionReply sub_reply:
 					lock (sync) {
 						if (!sub_reply.On) {
-							foreach (var topic in sub_reply.Topics) {
-								if (subscriptions.TryGetValue(topic, out var set)) {
-									subscriptions.Remove(topic);
-								}
+							if (subscriptions.TryGetValue(sub_reply.Topic, out var set)) {
+								subscriptions.Remove(sub_reply.Topic);
 							}
 						} else {
 							if (callbacks.TryGetValue(sub_reply.Id, out var callback)) {
 								callbacks.Remove(sub_reply.Id);
-								foreach (var topic in sub_reply.Topics) {
-									var set = this.subscriptions.GetOrAdd(topic, () => new HashSet<ISubscriber>());
-									set.Add(callback.Subscriber);
-								}
+								var set = this.subscriptions.GetOrAdd(sub_reply.Topic, () => new HashSet<ISubscriber>());
+								set.Add(callback.Subscriber);
 								callback.SetResult();
 							}
 						}
@@ -67,27 +63,18 @@ namespace Albatross.Messaging.Eventing {
 		public bool ProcessTransmitQueue(IMessagingService dealerClient, object _) => false;
 		public void ProcessTimerElapsed(DealerClient dealerClient) { }
 
-		public Task<Subscription> Subscribe(DealerClient dealerClient, ISubscriber subscriber, params string[] topics) {
+		public Task<Subscription> Subscribe(DealerClient dealerClient, ISubscriber subscriber, string topic) {
 			lock (sync) {
-				var currentTopics = new HashSet<string>();
-				List<string> newTopics = new List<string>();
-				foreach (var topic in topics) {
-					if (subscriptions.TryGetValue(topic, out var subscribers)) {
-						currentTopics.Add(topic);
-						subscribers.Add(subscriber);
-					} else {
-						newTopics.Add(topic);
-					}
-				}
-				Subscription result = new Subscription(topics, subscriber, true);
-				if (newTopics.Count > 0) {
+					Subscription result = new Subscription(topic, subscriber, true);
+				if (subscriptions.TryGetValue(topic, out var subscribers)) {
+					subscribers.Add(subscriber);
+					return Task.FromResult(result);
+				} else {
 					var id = counter.NextId();
 					var callback = new SubscriberCallback(id, result);
 					callbacks.TryAdd(id, callback);
 					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, newTopics));
 					return callback.Task;
-				} else {
-					return Task.FromResult(result);
 				}
 			}
 		}

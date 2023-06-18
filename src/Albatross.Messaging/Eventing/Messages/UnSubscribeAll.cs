@@ -2,16 +2,16 @@
 using NetMQ;
 
 namespace Albatross.Messaging.Eventing.Messages {
-	public record class SubscriptionReply : Message, IMessage {
-		public static string MessageHeader => "sub-rep";
+	public record class UnSubscribeAllRequest : Message, IMessage {
+		public static string MessageHeader => "sub";
 		public static IMessage Accept(string route, ulong id, NetMQMessage frames) {
 			var on = frames.PopBoolean();
 			var isRegex = frames.PopBoolean();
 			var topic = frames.PopUtf8String();
-			return new SubscriptionReply(route, id, on, isRegex, topic);
+			return new UnSubscribeAllRequest(route, id, on, isRegex, topic);
 		}
 
-		public SubscriptionReply(string route, ulong id, bool on, bool isRegex, string topic) : base(MessageHeader, route, id) {
+		public UnSubscribeAllRequest(string route, ulong id, bool on, bool isRegex, string topic) : base(MessageHeader, route, id) {
 			this.On = on;
 			this.IsRegex = isRegex;
 			this.Topic = topic;
@@ -20,7 +20,6 @@ namespace Albatross.Messaging.Eventing.Messages {
 		public bool On { get; init; }
 		public bool IsRegex { get; init; }
 		public string Topic { get; init; }
-
 
 		public override NetMQMessage Create() {
 			var msg = base.Create();
