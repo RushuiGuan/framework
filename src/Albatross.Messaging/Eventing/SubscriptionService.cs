@@ -4,6 +4,7 @@ using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Eventing {
@@ -65,7 +66,7 @@ namespace Albatross.Messaging.Eventing {
 
 		public Task<Subscription> Subscribe(DealerClient dealerClient, ISubscriber subscriber, string topic) {
 			lock (sync) {
-					Subscription result = new Subscription(topic, subscriber, true);
+				Subscription result = new Subscription(topic, subscriber, true);
 				if (subscriptions.TryGetValue(topic, out var subscribers)) {
 					subscribers.Add(subscriber);
 					return Task.FromResult(result);
@@ -73,29 +74,26 @@ namespace Albatross.Messaging.Eventing {
 					var id = counter.NextId();
 					var callback = new SubscriberCallback(id, result);
 					callbacks.TryAdd(id, callback);
-					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, newTopics));
+					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, topic));
 					return callback.Task;
 				}
 			}
 		}
-		public Subscription Unsubscribe(DealerClient dealerClient, ISubscriber subscriber, params string[] topics) {
+		public Subscription Unsubscribe(DealerClient dealerClient, ISubscriber subscriber, string topic) {
 			lock (sync) {
-				var currentTopics = new HashSet<string>();
-				var topics_to_unsubscribe = new HashSet<string>();
-				foreach (var topic in topics) {
-					if (subscriptions.TryGetValue(topic, out var subscribers)) {
-						subscribers.Remove(subscriber);
-						if (subscriptions.Count == 0) {
-							topics_to_unsubscribe.Add(topic);
-						}
+				var unsubscribeFromServer = false;
+				if (subscriptions.TryGetValue(topic, out var subscribers)) {
+					subscribers.Remove(subscriber);
+					if (subscriptions.Count == 0) {
+						unsubscribeFromServer = true;
 					}
 				}
-				Subscription result = new Subscription(topics, subscriber, false);
-				if (topics_to_unsubscribe.Count > 0) {
+				Subscription result = new Subscription(topic, subscriber, false);
+				if (unsubscribeFromServer) {
 					var id = counter.NextId();
 					var callback = new SubscriberCallback(id, result);
 					callbacks.TryAdd(id, callback);
-					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, false, topics));
+					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, false, topic));
 				}
 				return result;
 			}

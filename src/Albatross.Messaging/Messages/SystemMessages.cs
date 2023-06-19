@@ -1,4 +1,6 @@
 ﻿namespace Albatross.Messaging.Messages {
+	public interface ISystemMessage { }
+
 	public class StartReplay : ISystemMessage { }
 	public class Replay : ISystemMessage {
 		public int Index { get; }
