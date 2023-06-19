@@ -11,7 +11,7 @@ namespace Albatross.Messaging.Eventing.Messages {
 			return new SubscriptionReply(route, id, on, isRegex, topic);
 		}
 
-		public SubscriptionReply(string route, ulong id, bool on, bool isRegex, string topic) : base(MessageHeader, route, id) {
+		public SubscriptionReply(string route, ulong id, bool on, string topic) : base(MessageHeader, route, id) {
 			this.On = on;
 			this.IsRegex = isRegex;
 			this.Topic = topic;

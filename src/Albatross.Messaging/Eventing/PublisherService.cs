@@ -9,6 +9,8 @@ using System.Linq;
 namespace Albatross.Messaging.Eventing {
 	public class PublisherService : IRouterServerService {
 		Dictionary<string, ISet<string>> subscriptions = new Dictionary<string, ISet<string>>();
+		Dictionary<RegexPattern, ISet<string>> regexSubscriptions = new Dictionary<RegexPattern, ISet<string>>();
+
 		private readonly ILogger<PublisherService> logger;
 		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
@@ -24,14 +26,12 @@ namespace Albatross.Messaging.Eventing {
 			switch (msg) {
 				case SubscriptionRequest sub:
 					if (!string.IsNullOrEmpty(msg.Route)) {
-						foreach (var topic in sub.Topic) {
-							var set = this.subscriptions.GetOrAdd(topic, () => new HashSet<string>());
+							var set = this.subscriptions.GetOrAdd(sub.Topic, () => new HashSet<string>());
 							if (sub.On) {
 								set.Add(msg.Route);
 							} else {
 								set.Remove(msg.Route);
 							}
-						}
 						messagingService.Transmit(new SubscriptionReply(sub.Route, sub.Id, sub.On, sub.Topic));
 					} else {
 						logger.LogError("receive a subscription msg without the subcriber identity: {msg}", msg);
