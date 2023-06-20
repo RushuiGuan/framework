@@ -1,7 +1,6 @@
 ﻿using Albatross.Messaging.Eventing.Sub;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SampleProject.WebApi {
@@ -16,5 +15,7 @@ namespace SampleProject.WebApi {
 			logger.LogInformation("received {topic}:{data}", topic, text);
 			return Task.CompletedTask;
 		}
+
+		public bool Equals(ISubscriber other) => object.ReferenceEquals(this, other);
 	}
 }

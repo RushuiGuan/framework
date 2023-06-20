@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Services {
 		private bool disposed = false;
 		public string Identity { get; init; }
 
-		IDataLogWriter IMessagingService.DataLogger => this.dataWriter;
+		public IDataLogWriter DataLogger => this.dataWriter;
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter dataWriter, ILogger<DealerClient> logger) {
 			this.config = config;
@@ -93,7 +93,7 @@ namespace Albatross.Messaging.Services {
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs e) {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
-				var msg = this.messageFactory.Create(false, frames);
+				var msg = this.messageFactory.Create(false, frames, this.dataWriter);
 				// the only processing needed for Ack is to persist it in logs
 				if (msg is Ack) { return; }
 				if (running) {

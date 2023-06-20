@@ -28,7 +28,7 @@ namespace Albatross.Messaging.Services {
 
 		public IDataLogWriter DataLogger => this.dataLogWriter;
 
-		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, IDataLogWriter dataLogWriter, IDataLogReader dataLogReader) {
+		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, RouterServerLogWriter dataLogWriter, RouterServerLogReader dataLogReader) {
 			logger.LogInformation($"Creating {nameof(RouterServer)} instance");
 			this.config = config;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
@@ -94,7 +94,7 @@ namespace Albatross.Messaging.Services {
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs e) {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
-				var msg = this.messageFactory.Create(true, frames);
+				var msg = this.messageFactory.Create(true, frames, this.DataLogger);
 				if(msg is Ack) { return; }
 				if (running) {
 					foreach (var service in receiveServices) {
@@ -115,8 +115,9 @@ namespace Albatross.Messaging.Services {
 			logger.LogInformation("running log replay");
 			int counter = 0;
 			this.queue.Enqueue(new StartReplay());
-			foreach (var record in this.dataLogReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
+			foreach (var dataLog in this.dataLogReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
 				counter++;
+				var record = this.messageFactory.Create(dataLog);
 				this.queue.Enqueue(new Replay(record, counter));
 			}
 			this.queue.Enqueue(new EndReplay());

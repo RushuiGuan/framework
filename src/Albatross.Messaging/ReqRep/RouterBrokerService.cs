@@ -15,22 +15,22 @@ namespace Albatross.Messaging.ReqRep {
 		private readonly IMessageFactory messageFactory;
 		private readonly ILogger<RouterBrokerService> logger;
 		private readonly WorkerRegistry registry;
-		private readonly IDataLogWriter persistence;
+		private readonly IDataLogWriter logWriter;
 		private readonly TimeSpan heartbeatThreshold;
 		private readonly RouterSocket socket;
 		private readonly NetMQTimer timer;
 		private readonly NetMQPoller poller;
 
-		IDataLogWriter IMessagingService.DataLogger => persistence;
+		IDataLogWriter IMessagingService.DataLogger => logWriter;
 
 		bool disposed = false;
 		public string Identity => config.Identity;
 
 
-		public RouterBrokerService(BrokerConfiguration config, WorkerRegistry registry, IDataLogWriter persistence, IMessageFactory messageFactory, ILogger<RouterBrokerService> logger) {
+		public RouterBrokerService(BrokerConfiguration config, WorkerRegistry registry, IDataLogWriter logWriter, IMessageFactory messageFactory, ILogger<RouterBrokerService> logger) {
 			this.config = config;
 			this.registry = registry;
-			this.persistence = persistence;
+			this.logWriter = logWriter;
 			this.messageFactory = messageFactory;
 			this.logger = logger;
 			heartbeatThreshold = TimeSpan.FromMilliseconds(config.ActualHeartbeatThreshold);
@@ -65,7 +65,7 @@ namespace Albatross.Messaging.ReqRep {
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs args) {
 			try {
 				var frames = args.Socket.ReceiveMultipartMessage();
-				var msg = messageFactory.Create(true, frames);
+				var msg = messageFactory.Create(true, frames, this.logWriter);
 				switch (msg) {
 					case WorkerConnect connect:
 						AcceptConnection(connect);
@@ -156,7 +156,7 @@ namespace Albatross.Messaging.ReqRep {
 		}
 		public void Transmit(IMessage msg) {
 			var frames = msg.Create();
-			persistence.Outgoing(msg, frames);
+			logWriter.Outgoing(msg, frames);
 			this.socket.SendMultipartMessage(frames);
 		}
 	}

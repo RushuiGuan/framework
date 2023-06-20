@@ -22,6 +22,7 @@ namespace Albatross.Messaging.Services {
 				return config.DealerClient;
 			});
 			services.TryAddSingleton<DealerClientLogWriter>();
+			services.TryAddSingleton<DealerClientLogReader>();
 			services.TryAddSingleton<DealerClient>();
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			return services;
@@ -33,6 +34,7 @@ namespace Albatross.Messaging.Services {
 				return config.RouterServer;
 			});
 			services.TryAddSingleton<RouterServerLogWriter>();
+			services.TryAddSingleton<RouterServerLogReader>();
 			services.TryAddSingleton<RouterServer>();
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			return services;

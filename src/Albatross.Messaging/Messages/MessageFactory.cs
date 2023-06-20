@@ -8,20 +8,17 @@ using System.Reflection;
 
 namespace Albatross.Messaging.Messages {
 	public class MessageFactory : IMessageFactory {
-		private readonly IDataLogWriter logWriter;
 		Dictionary<string, IMessageBuilder> builders = new Dictionary<string, IMessageBuilder>();
 
-		public MessageFactory(IDataLogWriter logWriter) {
+		public MessageFactory() {
 			var types = Assembly.GetExecutingAssembly().GetConcreteClasses<IMessage>();
 			foreach (var type in types) {
 				Type genericType = typeof(MessageBuilder<>).MakeGenericType(type) ?? throw new NotSupportedException();
 				var builder = (IMessageBuilder)(Activator.CreateInstance(genericType) ?? throw new NotSupportedException());
 				this.builders.Add(builder.Header, builder);
 			}
-
-			this.logWriter = logWriter;
 		}
-		public IMessage Create(bool hasRoute, NetMQMessage frames) {
+		public IMessage Create(bool hasRoute, NetMQMessage frames, IDataLogWriter logWriter) {
 			var route = string.Empty;
 			if (hasRoute) {
 				route = frames.PopUtf8String();
@@ -30,7 +27,7 @@ namespace Albatross.Messaging.Messages {
 			var header = frames.PopUtf8String();
 			var messageId = frames.PopULong();
 
-			this.logWriter.Incoming(route, header, messageId, frames);
+			logWriter.Incoming(route, header, messageId, frames);
 
 			if (this.builders.TryGetValue(header, out var builder)) {
 				return builder.Build(route, messageId, frames);
@@ -53,7 +50,7 @@ namespace Albatross.Messaging.Messages {
 	}
 
 	public interface IMessageFactory {
-		IMessage Create(bool hasRoute, NetMQMessage frames);
+		IMessage Create(bool hasRoute, NetMQMessage frames, IDataLogWriter logWriter);
 		IMessage Create(DataLog replay);
 	}
 }

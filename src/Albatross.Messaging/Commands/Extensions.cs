@@ -24,7 +24,6 @@ namespace Albatross.Messaging.Commands {
 			services.AddSingleton<IDealerClientService>(args=>args.GetRequiredService<CommandClientService>());
 			services.TryAddSingleton<ICommandClient, CommandClient>();
 			services.TryAddSingleton<MessagingJsonSerializationOption>();
-			services.AddDiskStorageDataLogging();
 			services.AddDealerClient();
 			return services;
 		}
@@ -49,7 +48,6 @@ namespace Albatross.Messaging.Commands {
 			services.TryAddTransient<CommandQueue, TaskCommandQueue>();
 			// this should only be used if the TaskCommandQueue is used
 			services.TryAddSingleton<ICommandClient, InternalCommandClient>();
-			services.AddDiskStorageDataLogging();
 			services.AddRouterServer();
 			return services;
 		}

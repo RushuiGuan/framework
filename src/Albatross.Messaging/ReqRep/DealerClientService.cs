@@ -63,7 +63,7 @@ namespace Albatross.Messaging.ReqRep {
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs e) {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
-				var msg = messageFactory.Create(false, frames);
+				var msg = messageFactory.Create(false, frames, persistence);
 				switch (msg) {
 					case NoAvailableWorker noAvailableWorker:
 						AcceptNoAvailableWorker(noAvailableWorker);

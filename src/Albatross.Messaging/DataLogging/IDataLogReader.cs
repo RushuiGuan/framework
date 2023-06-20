@@ -4,6 +4,6 @@ using System.Collections.Generic;
 
 namespace Albatross.Messaging.DataLogging {
 	public interface IDataLogReader {
-		IEnumerable<IMessage> ReadLast(TimeSpan span);
+		IEnumerable<DataLog> ReadLast(TimeSpan span);
 	}
 }

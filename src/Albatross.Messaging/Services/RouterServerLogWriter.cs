@@ -7,4 +7,9 @@ namespace Albatross.Messaging.Services {
 		public RouterServerLogWriter(RouterServerConfiguration config, ILogger<RouterServerLogWriter> logger) : base(config.DiskStorage, logger) {
 		}
 	}
+
+	public class RouterServerLogReader: DiskStorageLogReader {
+		public RouterServerLogReader(RouterServerConfiguration config, ILogger<RouterServerLogWriter> logger) : base(config.DiskStorage, logger) {
+		}
+	}
 }
