@@ -44,7 +44,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 					dealerClient.Ack(eve.Route, eve.Id);
 					ISet<ISubscriber>? subscribers = null;
 					lock (sync) {
-						subscriptions.TryGetValue(eve.Topic, out subscribers);
+						subscriptions.TryGetValue(eve.Pattern, out subscribers);
 					}
 					if (subscribers != null) {
 						foreach (var item in subscribers) {
