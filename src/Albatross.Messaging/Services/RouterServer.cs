@@ -44,7 +44,7 @@ namespace Albatross.Messaging.Services {
 			this.socket.Options.SendHighWatermark = config.SendHighWatermark;
 			this.queue = new NetMQQueue<object>();
 			this.queue.ReceiveReady += Queue_ReceiveReady;
-			this.timer = new NetMQTimer(config.TimerInterval ?? RouterServerConfiguration.DefaultTimerInterval);
+			this.timer = new NetMQTimer(config.ActualTimerInterval);
 			this.timer.Elapsed += Timer_Elapsed;
 			this.poller = new NetMQPoller { socket, queue, };
 			if(timerServices.Any()) {

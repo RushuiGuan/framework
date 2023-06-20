@@ -16,6 +16,8 @@ namespace Albatross.Messaging.Configurations {
 		public int? TimerInterval { get; set; }
 		public const int DefaultTimerInterval = 5000;
 
+		public int ActualTimerInterval => this.TimerInterval ?? DefaultTimerInterval;
+
 		public DiskStorageConfiguration DiskStorage { get; set; } = new DiskStorageConfiguration(null, "router-server");
 	}
 }

@@ -1,11 +1,14 @@
-﻿using Albatross.Messaging.Eventing.Messages;
+﻿using Albatross.Messaging.Configurations;
+using Albatross.Messaging.Eventing.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Albatross.Messaging.Eventing.Pub {
 	public class PublisherService : IRouterServerService {
 		private SubscriptionManagement subscriberManagement = new SubscriptionManagement();
+		private readonly RouterServerConfiguration config;
 		private readonly ILogger<PublisherService> logger;
 		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
@@ -13,7 +16,8 @@ namespace Albatross.Messaging.Eventing.Pub {
 		public bool HasCustomTransmitObject => true;
 		public bool NeedTimer => true;
 
-		public PublisherService(ILogger<PublisherService> logger) {
+		public PublisherService(RouterServerConfiguration config, ILogger<PublisherService> logger) {
+			this.config = config;
 			this.logger = logger;
 		}
 
@@ -23,10 +27,11 @@ namespace Albatross.Messaging.Eventing.Pub {
 					if (!string.IsNullOrEmpty(msg.Route)) {
 						if (req.On) {
 							logger.LogInformation("subscribing route {route} using pattern: {pattern}", req.Route, req.Pattern);
-							subscriberManagement.Add(req.Pattern, req.Route);
+							var sub = subscriberManagement.Add(req.Pattern, req.Route);
+							sub.SetState(SubscriberState.Connected).SetHeartBeat();
 						} else {
 							logger.LogInformation("unsubscribing route {route} using pattern: {pattern}", req.Route, req.Pattern);
-							subscriberManagement.Remove(req.Pattern, new Subscriber(req.Route));
+							subscriberManagement.Remove(req.Pattern, req.Route);
 						}
 						messagingService.Transmit(new SubscriptionReply(req.Route, req.Id, req.On, req.Pattern));
 					} else {
@@ -43,7 +48,13 @@ namespace Albatross.Messaging.Eventing.Pub {
 				foreach(var sub in subscriberManagement.Subscriptions) {
 					if (sub.Match(pub.Topic)) {
 						foreach(var subscriber in sub.Subscribers) {
-							messagingService.Transmit(new Event(subscriber.Route, counter.NextId(), pub.Topic, sub.Pattern, pub.Payload));
+							var eve = new Event(subscriber.Route, counter.NextId(), pub.Topic, sub.Pattern, pub.Payload);
+							// if a subscriber is no longer connected, record the msg but don't send it so that we don't overrun the buffer
+							if (subscriber.State == SubscriberState.Connected) {
+								messagingService.Transmit(eve);
+							} else {
+								messagingService.DataLogger.Outgoing(eve, eve.Create());
+							}
 						}
 					}
 				}
@@ -53,6 +64,9 @@ namespace Albatross.Messaging.Eventing.Pub {
 			}
 		}
 		public void ProcessTimerElapsed(IMessagingService routerServer) {
+			foreach(var sub in subscriberManagement.Subscribers) {
+				sub.CheckState(TimeSpan.FromMilliseconds(config.ActualTimerInterval * 1.2));
+			}
 		}
 	}
 }
