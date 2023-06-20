@@ -1,12 +1,10 @@
-﻿using Albatross.Messaging.Commands;
-using Albatross.Messaging.Configurations;
+﻿using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.DataLogging;
 using Microsoft.Extensions.Logging;
 using NetMQ;
 using NetMQ.Sockets;
 using System;
-using System.Text.Json;
 using Albatross.Messaging.Services;
 using Albatross.Messaging.ReqRep.Messages;
 
@@ -16,7 +14,6 @@ namespace Albatross.Messaging.ReqRep {
 		private readonly IMessageFactory messageFactory;
 		private readonly ILogger<DealerWorkerService> logger;
 		private readonly IDataLogWriter persistence;
-		private readonly MessagingJsonSerializationOption serializerOptions;
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
 		private readonly NetMQQueue<IMessage> queue;
@@ -24,16 +21,13 @@ namespace Albatross.Messaging.ReqRep {
 		public string Identity => config.Identity;
 
 		IDataLogWriter IMessagingService.DataLogger => persistence;
-		// Dictionary<uint, Command> commands = new Dictionary<uint, Command>();
 
 		public DealerClientService(ClientConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorkerService> logger,
-			IDataLogWriter persistence,
-			MessagingJsonSerializationOption serializerOptions) {
+			IDataLogWriter logWriter) {
 			this.config = config;
 			this.messageFactory = messageFactory;
 			this.logger = logger;
-			this.persistence = persistence;
-			this.serializerOptions = serializerOptions;
+			this.persistence = logWriter;
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;
 			queue = new NetMQQueue<IMessage>();
@@ -120,6 +114,10 @@ namespace Albatross.Messaging.ReqRep {
 			var frames = msg.Create();
 			this.persistence.Outgoing(msg, frames);
 			this.socket.SendMultipartMessage(frames);
+		}
+
+		public ClientState GetClientState(string identity) {
+			throw new NotImplementedException();
 		}
 	}
 }

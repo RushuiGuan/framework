@@ -25,7 +25,7 @@ namespace Albatross.Messaging.Services {
 		private readonly NetMQTimer timer;
 		private bool running = false;
 		private bool disposed = false;
-		public string Identity { get; init; }
+		private Client self;
 
 		public IDataLogWriter DataLogger => this.dataWriter;
 
@@ -34,24 +34,22 @@ namespace Albatross.Messaging.Services {
 			this.services = services;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
 			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
-			this.timerServices = services.Where(args=>args.NeedTimer).ToArray();
+			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
 			this.dataWriter = dataWriter;
 			this.logger = logger;
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;
-			if (string.IsNullOrEmpty(config.Identity)) {
-				this.Identity = Z85Extended.Encode(BitConverter.GetBytes(DateTime.UtcNow.Ticks));
-			} else {
-				this.Identity = config.Identity;
-			}
-			socket.Options.Identity = this.Identity.ToUtf8Bytes();
+			var identity = string.IsNullOrEmpty(config.Identity) ? Z85Extended.Encode(BitConverter.GetBytes(DateTime.UtcNow.Ticks)) : config.Identity;
+			socket.Options.Identity = identity.ToUtf8Bytes();
+			this.self = new Client(identity);
+			if (!config.MaintainConnection) { this.self.Connected(); }
 			queue = new NetMQQueue<object>();
 			this.queue.ReceiveReady += Queue_ReceiveReady;
 			poller = new NetMQPoller { socket, queue };
-			timer = new NetMQTimer(config.TimerInterval ?? DealerClientConfiguration.DefaultTimerInterval);
+			timer = new NetMQTimer(config.ActualTimerInterval);
 			timer.Elapsed += Timer_Elapsed;
-			if (timerServices.Any()) {
+			if (timerServices.Any() || config.MaintainConnection) {
 				poller.Add(timer);
 			} else {
 				timer.Enable = false;
@@ -59,10 +57,21 @@ namespace Albatross.Messaging.Services {
 		}
 
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
-			foreach(var service in this.timerServices) {
+			if(config.MaintainConnection) {
+				if (self.State != ClientState.Unknown) {
+					var elapsed = DateTime.Now - self.LastHeartbeat;
+					if (elapsed > config.HeartbeatThresholdTimeSpan) {
+						self.Lost();
+						logger.LogInformation("disconnect: {elapsed:#,#} > {threshold:#,#}", elapsed.TotalMilliseconds, config.HeartbeatThresholdTimeSpan.TotalMilliseconds);
+					} else {
+						this.Transmit(new Heartbeat(string.Empty));
+					}
+				}
+			}
+			foreach (var service in this.timerServices) {
 				try {
 					service.ProcessTimerElapsed(this);
-				}catch(Exception ex) {
+				} catch (Exception ex) {
 					logger.LogError(ex, "error processing timer elapsed from {type}", service.GetType().FullName);
 				}
 			}
@@ -97,6 +106,12 @@ namespace Albatross.Messaging.Services {
 				// the only processing needed for Ack is to persist it in logs
 				if (msg is Ack) { return; }
 				if (running) {
+					if(msg is ConnectOk) {
+						self.Connected();
+					}else if(msg is Reconnect) {
+						this.Transmit(new Reconnect(string.Empty));
+						return;
+					}
 					foreach (var service in this.receiveServices) {
 						if (service.ProcessReceivedMsg(this, msg)) {
 							return;
@@ -115,10 +130,10 @@ namespace Albatross.Messaging.Services {
 			if (!running) {
 				running = true;
 				logger.LogInformation("starting dealer client and connecting to broker: {endpoint}", config.EndPoint);
-				foreach(var service in this.services) {
+				foreach (var service in this.services) {
 					try {
 						service.Init(this);
-					}catch(Exception err) {
+					} catch (Exception err) {
 						logger.LogError(err, "error init dealer client service {name}", service.GetType().FullName);
 					}
 				}
@@ -145,6 +160,14 @@ namespace Albatross.Messaging.Services {
 				queue.Dispose();
 				disposed = true;
 				logger.LogInformation("dealer client disposed");
+			}
+		}
+
+		public ClientState GetClientState(string identity) {
+			if(string.IsNullOrEmpty(identity)) {
+				return this.self.State;
+			} else {
+				throw new NotSupportedException();
 			}
 		}
 	}

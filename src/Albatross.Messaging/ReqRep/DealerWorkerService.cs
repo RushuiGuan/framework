@@ -40,7 +40,7 @@ namespace Albatross.Messaging.ReqRep {
 
 		public bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg) {
 			switch (msg) {
-				case Reconnect _:
+				case AAReconnect _:
 					dealerClient.Transmit(new WorkerConnect(Identity, counter.NextId(), Services));
 					break;
 				case BrokerConnectOk _:

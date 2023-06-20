@@ -19,5 +19,7 @@ namespace Albatross.Messaging.Services {
 		/// </summary>
 		/// <param name="msg"></param>
 		void Transmit(IMessage msg);
+
+		ClientState GetClientState(string identity);
 	}
 }

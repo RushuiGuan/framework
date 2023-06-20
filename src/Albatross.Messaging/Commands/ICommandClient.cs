@@ -1,7 +1,6 @@
-﻿using Albatross.Messaging.Commands;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Albatross.Messaging.Services {
+namespace Albatross.Messaging.Commands {
 	/// <summary>
 	/// With the exception of the Start and Dispose method, which is used for initialization, 
 	/// all other methods in this call should be thread safe.

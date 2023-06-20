@@ -116,7 +116,7 @@ namespace Albatross.Messaging.ReqRep {
 				worker.LastHeartbeat = DateTime.Now;
 				this.Transmit(new ServerAck(heartbeat.Route, counter.NextId()));
 			} else {
-				this.Transmit(new Reconnect(heartbeat.Route, counter.NextId()));
+				this.Transmit(new AAReconnect(heartbeat.Route, counter.NextId()));
 			}
 		}
 
@@ -158,6 +158,10 @@ namespace Albatross.Messaging.ReqRep {
 			var frames = msg.Create();
 			logWriter.Outgoing(msg, frames);
 			this.socket.SendMultipartMessage(frames);
+		}
+
+		public ClientState GetClientState(string identity) {
+			throw new NotImplementedException();
 		}
 	}
 }

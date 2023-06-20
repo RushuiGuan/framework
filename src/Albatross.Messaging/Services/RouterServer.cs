@@ -1,4 +1,5 @@
-﻿using Albatross.Messaging.Configurations;
+﻿using Albatross.Collections;
+using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.DataLogging;
 using Microsoft.Extensions.Logging;
@@ -24,6 +25,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IRouterServerService> receiveServices;
 		private IEnumerable<IRouterServerService> transmitServices;
 		private IEnumerable<IRouterServerService> timerServices;
+		private Dictionary<string, Client> clients  = new Dictionary<string, Client>();
 
 
 		public IDataLogWriter DataLogger => this.dataLogWriter;
@@ -55,6 +57,15 @@ namespace Albatross.Messaging.Services {
 		}
 
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
+			if (config.MaintainConnection) {
+				foreach(var client in this.clients.Values) {
+					var elapsed = DateTime.Now - client.LastHeartbeat;
+					if(elapsed > config.HeartbeatThresholdTimeSpan) {
+						client.Lost();
+						logger.LogInformation("lost: {name}, {elapsed:#,#} > {threshold:#,#}", client.Identity, elapsed.TotalMilliseconds, config.HeartbeatThresholdTimeSpan.TotalMilliseconds);
+					}
+				}
+			}
 			foreach(var service in this.timerServices) {
 				try {
 					service.ProcessTimerElapsed(this);
@@ -97,6 +108,12 @@ namespace Albatross.Messaging.Services {
 				var msg = this.messageFactory.Create(true, frames, this.DataLogger);
 				if(msg is Ack) { return; }
 				if (running) {
+					if(msg is Connect connect) {
+						AcceptConnection(connect);
+					}else if(msg is Heartbeat heartbeat) {
+						AcceptHeartbeat(heartbeat);
+						return;
+					}
 					foreach (var service in receiveServices) {
 						if (service.ProcessReceivedMsg(this, msg)) {
 							return;
@@ -110,6 +127,22 @@ namespace Albatross.Messaging.Services {
 				logger.LogError(err, "error parsing router server message");
 			}
 		}
+		private void AcceptConnection(Connect msg) {
+			var client = clients.GetOrAdd(msg.Route, () => {
+				logger.LogInformation("new client: {name}", msg.Route);
+				return new Client(msg.Route);
+			});
+			client.Connected();
+		}
+
+		private void AcceptHeartbeat(Heartbeat heartbeat) {
+			if(clients.TryGetValue(heartbeat.Route, out var client)) {
+				client.Heartbeat();
+				Transmit(new HeartbeatAck(heartbeat.Route));
+			} else {
+				this.Transmit(new Reconnect(heartbeat.Route));
+			}
+		}
 
 		public void Start() {
 			logger.LogInformation("running log replay");
@@ -118,7 +151,9 @@ namespace Albatross.Messaging.Services {
 			foreach (var dataLog in this.dataLogReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
 				counter++;
 				var record = this.messageFactory.Create(dataLog);
-				this.queue.Enqueue(new Replay(record, counter));
+				if (!(record is ISystemMessage)) {
+					this.queue.Enqueue(new Replay(record, counter));
+				}
 			}
 			this.queue.Enqueue(new EndReplay());
 			if (!running) {
@@ -147,6 +182,18 @@ namespace Albatross.Messaging.Services {
 				queue.Dispose();
 				disposed = true;
 				logger.LogInformation("router server disposed");
+			}
+		}
+
+		public ClientState GetClientState(string identity) {
+			if (config.MaintainConnection) {
+				if(clients.TryGetValue(identity, out var client)) {
+					return client.State;
+				} else {
+					return ClientState.Unknown;
+				}
+			} else {
+				return ClientState.Connected;
 			}
 		}
 	}
