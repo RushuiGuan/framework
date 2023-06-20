@@ -1,7 +1,7 @@
 ﻿using Albatross.Messaging.Services;
 
-namespace Albatross.Messaging.Eventing {
-	public interface IPublisher  {
+namespace Albatross.Messaging.Eventing.Pub {
+	public interface IPublisher {
 		void Publish(string topic, byte[] payload);
 	}
 	public class Publisher : IPublisher {

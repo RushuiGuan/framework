@@ -1,16 +1,11 @@
-﻿using Albatross.Collections;
-using Albatross.Messaging.Eventing.Messages;
+﻿using Albatross.Messaging.Eventing.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Albatross.Messaging.Eventing {
+namespace Albatross.Messaging.Eventing.Pub {
 	public class PublisherService : IRouterServerService {
-		Dictionary<string, ISet<string>> subscriptions = new Dictionary<string, ISet<string>>();
-		Dictionary<RegexPattern, ISet<string>> regexSubscriptions = new Dictionary<RegexPattern, ISet<string>>();
-
+		private SubscriptionManagement subscriberManagement = new SubscriptionManagement();
 		private readonly ILogger<PublisherService> logger;
 		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
@@ -24,15 +19,16 @@ namespace Albatross.Messaging.Eventing {
 
 		public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg) {
 			switch (msg) {
-				case SubscriptionRequest sub:
+				case SubscriptionRequest req:
 					if (!string.IsNullOrEmpty(msg.Route)) {
-							var set = this.subscriptions.GetOrAdd(sub.Topic, () => new HashSet<string>());
-							if (sub.On) {
-								set.Add(msg.Route);
-							} else {
-								set.Remove(msg.Route);
-							}
-						messagingService.Transmit(new SubscriptionReply(sub.Route, sub.Id, sub.On, sub.Topic));
+						if (req.On) {
+							logger.LogInformation("subscribing route {route} using pattern: {pattern}", req.Route, req.Pattern);
+							subscriberManagement.Add(req.Pattern, req.Route);
+						} else {
+							logger.LogInformation("unsubscribing route {route} using pattern: {pattern}", req.Route, req.Pattern);
+							subscriberManagement.Remove(req.Pattern, new Subscriber(req.Route));
+						}
+						messagingService.Transmit(new SubscriptionReply(req.Route, req.Id, req.On, req.Pattern));
 					} else {
 						logger.LogError("receive a subscription msg without the subcriber identity: {msg}", msg);
 					}
@@ -43,10 +39,12 @@ namespace Albatross.Messaging.Eventing {
 			return true;
 		}
 		public bool ProcessTransmitQueue(IMessagingService messagingService, object msg) {
-			if(msg is PubEvent pub) {
-				if (subscriptions.TryGetValue(pub.Topic, out var subscribers) && subscribers.Count() > 0) {
-					foreach (var sub in subscribers) {
-						messagingService.Transmit(new Event(sub, counter.NextId(), pub.Topic, pub.Payload));
+			if (msg is PubEvent pub) {
+				foreach(var sub in subscriberManagement.Subscriptions) {
+					if (sub.Match(pub.Topic)) {
+						foreach(var subscriber in sub.Subscribers) {
+							messagingService.Transmit(new Event(subscriber.Route, counter.NextId(), pub.Topic, sub.Pattern, pub.Payload));
+						}
 					}
 				}
 				return true;

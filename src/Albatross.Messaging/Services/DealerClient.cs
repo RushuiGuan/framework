@@ -12,6 +12,7 @@ using System.Linq;
 namespace Albatross.Messaging.Services {
 	public class DealerClient : IMessagingService, IDisposable {
 		private readonly DealerClientConfiguration config;
+		private readonly IEnumerable<IDealerClientService> services;
 		private IEnumerable<IDealerClientService> receiveServices;
 		private IEnumerable<IDealerClientService> transmitServices;
 		private IEnumerable<IDealerClientService> timerServices;
@@ -30,6 +31,7 @@ namespace Albatross.Messaging.Services {
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter dataWriter, ILogger<DealerClient> logger) {
 			this.config = config;
+			this.services = services;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
 			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
 			this.timerServices = services.Where(args=>args.NeedTimer).ToArray();
@@ -113,6 +115,13 @@ namespace Albatross.Messaging.Services {
 			if (!running) {
 				running = true;
 				logger.LogInformation("starting dealer client and connecting to broker: {endpoint}", config.EndPoint);
+				foreach(var service in this.services) {
+					try {
+						service.Init(this);
+					}catch(Exception err) {
+						logger.LogError(err, "error init dealer client service {name}", service.GetType().FullName);
+					}
+				}
 				this.socket.Connect(config.EndPoint);
 				this.poller.RunAsync();
 			}

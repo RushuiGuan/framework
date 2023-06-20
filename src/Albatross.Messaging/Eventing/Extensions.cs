@@ -1,4 +1,6 @@
-﻿using Albatross.Messaging.Services;
+﻿using Albatross.Messaging.Eventing.Pub;
+using Albatross.Messaging.Eventing.Sub;
+using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 

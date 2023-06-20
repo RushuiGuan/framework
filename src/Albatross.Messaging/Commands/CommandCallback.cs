@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	public interface ICommandCallback {
-		DateTime? Acked { get; set; }
 		Task Task { get; }
 		public Type ResponseType { get; }
 		void SetResult(object result);
@@ -17,7 +16,6 @@ namespace Albatross.Messaging.Commands {
 		Task ICommandCallback.Task => taskCompletionSource.Task;
 		public Task<T> Task => taskCompletionSource.Task;
 		private TaskCompletionSource<T> taskCompletionSource = new TaskCompletionSource<T>();
-		public DateTime? Acked { get; set; }
 
 		public CommandCallback(ulong id) {
 			Id = id;
@@ -45,7 +43,6 @@ namespace Albatross.Messaging.Commands {
 		Task ICommandCallback.Task => taskCompletionSource.Task;
 		public Task Task => taskCompletionSource.Task;
 		public Type ResponseType => typeof(void);
-		public DateTime? Acked { get; set; }
 		private TaskCompletionSource taskCompletionSource = new TaskCompletionSource();
 
 		public CommandCallback(ulong id) {

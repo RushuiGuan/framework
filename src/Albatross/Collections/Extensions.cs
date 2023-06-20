@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +28,16 @@ namespace Albatross.Collections {
 			return value;
 		}
 
+		public static bool TryGetAndRemove<K, T>(this IDictionary<K, T> dict, K key, [NotNullWhen(true)] out T? value) where T : notnull {
+			if (dict.TryGetValue(key, out value)) {
+				dict.Remove(key);
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+
 		public static T GetOrAdd<T>(this ICollection<T> list, Func<T, bool> predicate, Func<T> func) {
 			var item = list.FirstOrDefault(predicate);
 			if (item == null) {
@@ -35,7 +46,17 @@ namespace Albatross.Collections {
 			}
 			return item;
 		}
-		
+
+		public static bool TryGetAndRemove<T>(this ICollection<T> list, Func<T, bool> predicate,[NotNullWhen(true)] out T? item) {
+			item = list.FirstOrDefault(predicate);
+			if (item != null) {
+				list.Remove(item);
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		public static void Merge<Src, Dst, TKey>(this IEnumerable<Dst> dst, IEnumerable<Src> src,
 			Func<Src, TKey> srcKeySelector, Func<Dst, TKey> dstKeySelector,
 			Action<Src, Dst>? matched, Action<Src>? notMatchedByDst, Action<Dst>? notMatchedBySrc) where TKey : notnull {

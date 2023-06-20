@@ -1,10 +1,10 @@
-﻿namespace Albatross.Messaging.Eventing {
+﻿namespace Albatross.Messaging.Eventing.Pub {
 	public class PubEvent {
 		public string Topic { get; set; }
 		public byte[] Payload { get; set; }
 		public PubEvent(string topic, byte[] payload) {
-			this.Topic = topic;
-			this.Payload = payload;
+			Topic = topic;
+			Payload = payload;
 		}
 	}
 }

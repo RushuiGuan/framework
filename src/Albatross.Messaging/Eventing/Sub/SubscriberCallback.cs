@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Albatross.Messaging.Eventing {
-	public interface ISubscriberCallback {
-		DateTime? Acked { get; set; }
+namespace Albatross.Messaging.Eventing.Sub {
+	public interface ISubscriptionCallback {
 		Task<Subscription> Task { get; }
 		void SetResult();
 		void SetException(Exception error);
 		ISubscriber Subscriber { get; }
 	}
 
-	public class SubscriberCallback : ISubscriberCallback {
+	public class SubscriptionCallback : ISubscriptionCallback {
 		public ulong Id { get; init; }
 		public Task<Subscription> Task => taskCompletionSource.Task;
-		public DateTime? Acked { get; set; }
 
-		public ISubscriber Subscriber => this.subscription.Subscriber;
+		public ISubscriber Subscriber => subscription.Subscriber;
 		private TaskCompletionSource<Subscription> taskCompletionSource = new TaskCompletionSource<Subscription>();
 		private readonly Subscription subscription;
 
-		public SubscriberCallback(ulong id, Subscription subscription) {
+		public SubscriptionCallback(ulong id, Subscription subscription) {
 			Id = id;
 			this.subscription = subscription;
 		}
@@ -29,6 +27,6 @@ namespace Albatross.Messaging.Eventing {
 			// SetException and SetResult is also a blocking call.  Will causes deadlocks if not kicked off using a different thread
 			System.Threading.Tasks.Task.Run(() => taskCompletionSource.SetException(err));
 		}
-		public void SetResult() => System.Threading.Tasks.Task.Run(() => this.taskCompletionSource.SetResult(this.subscription));
+		public void SetResult() => System.Threading.Tasks.Task.Run(() => taskCompletionSource.SetResult(subscription));
 	}
 }

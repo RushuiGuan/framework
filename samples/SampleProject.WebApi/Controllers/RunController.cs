@@ -1,4 +1,4 @@
-﻿using Albatross.Messaging.Eventing;
+﻿using Albatross.Messaging.Eventing.Sub;
 using Albatross.Messaging.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace SampleProject.WebApi.Controllers {
 				list.Add(task);
 			}
 			int data = 0;
-			foreach(var item in list) {
+			foreach (var item in list) {
 				data += await item;
 			}
 			return data / list.Count;
@@ -90,13 +90,13 @@ namespace SampleProject.WebApi.Controllers {
 		}
 
 		[HttpPost("sub")]
-		public Task Subscribe([FromQuery] IEnumerable<string> topic) {
-			subscriptionClient.Subscribe(this.subscriber, topic.ToArray());
+		public Task Subscribe([FromQuery] string topic) {
+			subscriptionClient.Subscribe(this.subscriber, topic);
 			return Task.CompletedTask;
 		}
 		[HttpPost("unsub")]
-		public Task Unsubscribe([FromQuery] IEnumerable<string> topic) {
-			subscriptionClient.Unsubscribe(this.subscriber, topic.ToArray());
+		public Task Unsubscribe([FromQuery] string topic) {
+			subscriptionClient.Unsubscribe(this.subscriber, topic);
 			return Task.CompletedTask;
 		}
 

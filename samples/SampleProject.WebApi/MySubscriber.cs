@@ -1,4 +1,4 @@
-﻿using Albatross.Messaging.Eventing;
+﻿using Albatross.Messaging.Eventing.Sub;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text;
