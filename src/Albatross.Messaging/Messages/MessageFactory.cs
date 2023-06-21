@@ -29,11 +29,13 @@ namespace Albatross.Messaging.Messages {
 
 			logWriter.Incoming(route, header, messageId, frames);
 
+			IMessage msg;
 			if (this.builders.TryGetValue(header, out var builder)) {
-				return builder.Build(route, messageId, frames);
+				msg = builder.Build(route, messageId, frames);
 			} else {
-				return new UnknownMsg(route, header, messageId, frames);
+				msg =new UnknownMsg(route, header, messageId, frames);
 			}
+			return msg;
 		}
 
 		public IMessage Create(DataLog replay) {

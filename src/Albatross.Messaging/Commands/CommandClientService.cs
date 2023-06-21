@@ -16,8 +16,6 @@ namespace Albatross.Messaging.Commands {
 		private readonly MessagingJsonSerializationOption serializerOptions;
 		private readonly Dictionary<Type, IRegisterCommand> registrations = new Dictionary<Type, IRegisterCommand>();
 		private readonly ConcurrentDictionary<ulong, ICommandCallback> commandCallbacks = new ConcurrentDictionary<ulong, ICommandCallback>();
-		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
-
 
 		public CommandClientService(IEnumerable<IRegisterCommand> registrations, ILogger<CommandClientService> logger, MessagingJsonSerializationOption serializerOptions) {
 			this.logger = logger;
@@ -102,7 +100,7 @@ namespace Albatross.Messaging.Commands {
 		public Task<ResponseType> Submit<CommandType, ResponseType>(DealerClient dealerClient, CommandType command)
 			where CommandType : notnull where ResponseType : notnull {
 
-			var id = counter.NextId();
+			var id = dealerClient.Counter.NextId();
 			logger.LogInformation("the id is {id}, thread {threadid}", id, Environment.CurrentManagedThreadId);
 			var callback = new CommandCallback<ResponseType>(id);
 			if (commandCallbacks.TryAdd(id, callback)) {
@@ -116,7 +114,7 @@ namespace Albatross.Messaging.Commands {
 			}
 		}
 		public Task Submit<CommandType>(DealerClient dealerClient, CommandType command, bool fireAndForget = true) where CommandType : notnull {
-			var id = counter.NextId();
+			var id = dealerClient.Counter.NextId();
 			CommandCallback callback = new CommandCallback(id);
 			if (!commandCallbacks.TryAdd(id, callback)) {
 				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
@@ -127,14 +125,14 @@ namespace Albatross.Messaging.Commands {
 			return callback.Task;
 		}
 		public Task Ping(DealerClient dealerClient) {
-			var id = counter.NextId();
+			var id = dealerClient.Counter.NextId();
 			var callback = new CommandCallback(id);
 			this.commandCallbacks.TryAdd(id, callback);
 			dealerClient.SubmitToQueue(new PingRequest(string.Empty, id));
 			return callback.Task;
 		}
 		public Task<CommandQueueInfo[]> QueueStatus(DealerClient dealerClient) {
-			var id = counter.NextId();
+			var id = dealerClient.Counter.NextId();
 			var callback = new CommandCallback<CommandQueueInfo[]>(id);
 			this.commandCallbacks.TryAdd(id, callback);
 			dealerClient.SubmitToQueue(new CommandQueueStatus(string.Empty, id));

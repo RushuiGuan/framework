@@ -15,7 +15,6 @@ namespace Albatross.Messaging.Commands {
 	/// </summary>
 	public class InternalCommandClient : ICommandClient {
 		private readonly RouterServer routerServer;
-		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 		private readonly MessagingJsonSerializationOption serializationOption;
 
 		public InternalCommandClient(RouterServer routerServer, MessagingJsonSerializationOption serializationOption) {
@@ -35,7 +34,7 @@ namespace Albatross.Messaging.Commands {
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
 				JsonSerializer.Serialize<CommandType>(stream, command, this.serializationOption.Default);
-				var request = new CommandRequest(InternalCommand.Route, counter.NextId(), typeof(CommandType).GetClassNameNeat(), true, stream.ToArray());
+				var request = new CommandRequest(InternalCommand.Route, routerServer.Counter.NextId(), typeof(CommandType).GetClassNameNeat(), true, stream.ToArray());
 				var internalCmd = new InternalCommand(request);
 				this.routerServer.SubmitToQueue(internalCmd);
 				return internalCmd.Task;

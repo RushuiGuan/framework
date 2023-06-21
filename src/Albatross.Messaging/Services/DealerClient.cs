@@ -26,8 +26,10 @@ namespace Albatross.Messaging.Services {
 		private bool running = false;
 		private bool disposed = false;
 		private Client self;
+		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 		public IDataLogWriter DataLogger => this.dataWriter;
+		public AtomicCounter<ulong> Counter => this.counter;
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter dataWriter, ILogger<DealerClient> logger) {
 			this.config = config;
@@ -64,7 +66,7 @@ namespace Albatross.Messaging.Services {
 						self.Lost();
 						logger.LogInformation("disconnect: {elapsed:#,#} > {threshold:#,#}", elapsed.TotalMilliseconds, config.HeartbeatThresholdTimeSpan.TotalMilliseconds);
 					} else {
-						this.Transmit(new Heartbeat(string.Empty));
+						this.Transmit(new Heartbeat(string.Empty, counter.NextId()));
 					}
 				}
 			}
@@ -109,7 +111,10 @@ namespace Albatross.Messaging.Services {
 					if(msg is ConnectOk) {
 						self.Connected();
 					}else if(msg is Reconnect) {
-						this.Transmit(new Reconnect(string.Empty));
+						this.Transmit(new Reconnect(string.Empty, counter.NextId()));
+						return;
+					}else if(msg is HeartbeatAck ack) {
+						self.Heartbeat();
 						return;
 					}
 					foreach (var service in this.receiveServices) {
@@ -117,7 +122,9 @@ namespace Albatross.Messaging.Services {
 							return;
 						}
 					}
-					logger.LogInformation("unhandled dealer client msg: {msg}", msg);
+					if (!(msg is ISystemMessage)) {
+						logger.LogInformation("unhandled dealer client msg: {msg}", msg);
+					}
 				} else {
 					logger.LogError("incoming message {msg} cannot get processed because the dealer client is being disposed", msg);
 				}
@@ -130,6 +137,9 @@ namespace Albatross.Messaging.Services {
 			if (!running) {
 				running = true;
 				logger.LogInformation("starting dealer client and connecting to broker: {endpoint}", config.EndPoint);
+				if (config.MaintainConnection) {
+					this.SubmitToQueue(new Connect(string.Empty, counter.NextId()));
+				}
 				foreach (var service in this.services) {
 					try {
 						service.Init(this);

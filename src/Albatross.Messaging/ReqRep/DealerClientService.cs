@@ -22,6 +22,8 @@ namespace Albatross.Messaging.ReqRep {
 
 		IDataLogWriter IMessagingService.DataLogger => persistence;
 
+		public AtomicCounter<ulong> Counter => throw new NotImplementedException();
+
 		public DealerClientService(ClientConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorkerService> logger,
 			IDataLogWriter logWriter) {
 			this.config = config;

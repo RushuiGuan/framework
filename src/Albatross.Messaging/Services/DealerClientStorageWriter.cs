@@ -1,6 +1,5 @@
 ﻿using Albatross.Messaging.Configurations;
 using Albatross.Messaging.DataLogging;
-using Albatross.Messaging.Messages;
 using Microsoft.Extensions.Logging;
 
 namespace Albatross.Messaging.Services {

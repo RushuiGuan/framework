@@ -10,7 +10,6 @@ namespace Albatross.Messaging.Eventing.Pub {
 		private SubscriptionManagement subscriberManagement = new SubscriptionManagement();
 		private readonly RouterServerConfiguration config;
 		private readonly ILogger<PublisherService> logger;
-		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 		public bool CanReceive => true;
 		public bool HasCustomTransmitObject => true;
@@ -48,7 +47,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 				foreach(var sub in subscriberManagement.Subscriptions) {
 					if (sub.Match(pub.Topic)) {
 						foreach(var subscriber in sub.Subscribers) {
-							var eve = new Event(subscriber.Route, counter.NextId(), pub.Topic, sub.Pattern, pub.Payload);
+							var eve = new Event(subscriber.Route, messagingService.Counter.NextId(), pub.Topic, sub.Pattern, pub.Payload);
 							// if a subscriber is no longer connected, record the msg but don't send it so that we don't overrun the buffer
 							if (subscriber.State == SubscriberState.Connected) {
 								messagingService.Transmit(eve);

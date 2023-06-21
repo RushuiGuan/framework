@@ -10,7 +10,6 @@ namespace Albatross.Messaging.DataLogging {
 		protected readonly DiskStorageConfiguration config;
 		protected readonly ILogger logger;
 		protected Encoding utf8 = new UTF8Encoding(false);
-		protected DateTime TimeStamp => DateTime.Now;
 		protected string FilePattern => $"{config.FileName}_*.txt";
 
 		public DiskStorageBase(DiskStorageConfiguration config, ILogger logger) {

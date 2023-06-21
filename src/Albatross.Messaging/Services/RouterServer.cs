@@ -26,9 +26,11 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IRouterServerService> transmitServices;
 		private IEnumerable<IRouterServerService> timerServices;
 		private Dictionary<string, Client> clients  = new Dictionary<string, Client>();
+		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 
 		public IDataLogWriter DataLogger => this.dataLogWriter;
+		public AtomicCounter<ulong> Counter => this.counter;
 
 		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, RouterServerLogWriter dataLogWriter, RouterServerLogReader dataLogReader) {
 			logger.LogInformation($"Creating {nameof(RouterServer)} instance");
@@ -119,7 +121,9 @@ namespace Albatross.Messaging.Services {
 							return;
 						}
 					}
-					logger.LogInformation("unhandled router server msg: {msg}", msg);
+					if (!(msg is ISystemMessage)) {
+						logger.LogInformation("unhandled router server msg: {msg}", msg);
+					}
 				} else {
 					logger.LogError("incoming message {msg} cannot get processed because the router server is being disposed", msg);
 				}
@@ -133,14 +137,15 @@ namespace Albatross.Messaging.Services {
 				return new Client(msg.Route);
 			});
 			client.Connected();
+			this.Transmit(new ConnectOk(msg.Route, counter.NextId()));
 		}
 
 		private void AcceptHeartbeat(Heartbeat heartbeat) {
 			if(clients.TryGetValue(heartbeat.Route, out var client)) {
 				client.Heartbeat();
-				Transmit(new HeartbeatAck(heartbeat.Route));
+				Transmit(new HeartbeatAck(heartbeat.Route, counter.NextId()));
 			} else {
-				this.Transmit(new Reconnect(heartbeat.Route));
+				this.Transmit(new Reconnect(heartbeat.Route, counter.NextId()));
 			}
 		}
 

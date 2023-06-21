@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace Albatross.Messaging.Eventing.Sub {
 	public class SubscriptionService : IDealerClientService {
 		private readonly object sync = new object();
-		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 		private readonly Dictionary<string, ISet<ISubscriber>> subscriptions = new Dictionary<string, ISet<ISubscriber>>();
 		private readonly Dictionary<ulong, SubscriptionCallback> callbacks = new Dictionary<ulong, SubscriptionCallback>();
 		private readonly ILogger<SubscriptionService> logger;
@@ -71,7 +70,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 					subscribers.Add(subscriber);
 					return Task.FromResult(result);
 				} else {
-					var id = counter.NextId();
+					var id = dealerClient.Counter.NextId();
 					var callback = new SubscriptionCallback(id, result);
 					callbacks.TryAdd(id, callback);
 					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, pattern));
@@ -87,13 +86,13 @@ namespace Albatross.Messaging.Eventing.Sub {
 				var unsubscribeFromServer = false;
 				if (subscriptions.TryGetValue(pattern, out var subscribers)) {
 					subscribers.Remove(subscriber);
-					if (subscriptions.Count == 0) {
+					if (subscribers.Count == 0) {
 						unsubscribeFromServer = true;
 					}
 				}
 				Subscription result = new Subscription(pattern, subscriber, false);
 				if (unsubscribeFromServer) {
-					var id = counter.NextId();
+					var id = dealerClient.Counter.NextId();
 					var callback = new SubscriptionCallback(id, result);
 					callbacks.TryAdd(id, callback);
 					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, false, pattern));
