@@ -1,8 +1,6 @@
 ﻿using Albatross.Hosting.Utility;
 using CommandLine;
 using SampleProject.Proxy;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SampleProject.Utility {
@@ -13,7 +11,7 @@ namespace SampleProject.Utility {
 		public bool On { get; set; }
 
 		[Option('t', "topic", Required = true)]
-		public IEnumerable<string> Topic { get; set; } = Array.Empty<string>();
+		public string Topic { get; set; } = string.Empty;
 	}
 	public class Subscribe : MyUtilityBase<SubscribeOption> {
 		public Subscribe(SubscribeOption option) : base(option) {

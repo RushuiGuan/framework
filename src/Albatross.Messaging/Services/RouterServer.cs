@@ -51,7 +51,7 @@ namespace Albatross.Messaging.Services {
 			this.timer = new NetMQTimer(config.ActualTimerInterval);
 			this.timer.Elapsed += Timer_Elapsed;
 			this.poller = new NetMQPoller { socket, queue, };
-			if(timerServices.Any()) {
+			if(timerServices.Any() || config.MaintainConnection) {
 				this.poller.Add(timer);
 			} else {
 				timer.Enable = false;
@@ -61,10 +61,12 @@ namespace Albatross.Messaging.Services {
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
 			if (config.MaintainConnection) {
 				foreach(var client in this.clients.Values) {
-					var elapsed = DateTime.Now - client.LastHeartbeat;
-					if(elapsed > config.HeartbeatThresholdTimeSpan) {
-						client.Lost();
-						logger.LogInformation("lost: {name}, {elapsed:#,#} > {threshold:#,#}", client.Identity, elapsed.TotalMilliseconds, config.HeartbeatThresholdTimeSpan.TotalMilliseconds);
+					if (client.State != ClientState.Dead) {
+						var elapsed = DateTime.Now - client.LastHeartbeat;
+						if (elapsed > config.HeartbeatThresholdTimeSpan) {
+							client.Lost();
+							logger.LogInformation("lost: {name}, {elapsed:#,#} > {threshold:#,#}", client.Identity, elapsed.TotalMilliseconds, config.HeartbeatThresholdTimeSpan.TotalMilliseconds);
+						}
 					}
 				}
 			}
@@ -108,7 +110,7 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(true, frames, this.DataLogger);
-				if(msg is Ack) { return; }
+				if(msg is ClientAck) { return; }
 				if (running) {
 					if(msg is Connect connect) {
 						AcceptConnection(connect);
@@ -142,9 +144,17 @@ namespace Albatross.Messaging.Services {
 
 		private void AcceptHeartbeat(Heartbeat heartbeat) {
 			if(clients.TryGetValue(heartbeat.Route, out var client)) {
-				client.Heartbeat();
-				Transmit(new HeartbeatAck(heartbeat.Route, counter.NextId()));
+				if (client.State == ClientState.Alive) {
+					client.UpdateHeartbeat();
+					Transmit(new HeartbeatAck(heartbeat.Route, counter.NextId()));
+				} else {
+					//TODO:
+					// receive a heartbeat from a dead client
+					// send out a resume signal to services
+				}
 			} else {
+				//TODO:
+				// receive a heartbeat from non existing client.  asking the client to reconnect
 				this.Transmit(new Reconnect(heartbeat.Route, counter.NextId()));
 			}
 		}
@@ -157,7 +167,7 @@ namespace Albatross.Messaging.Services {
 				counter++;
 				var record = this.messageFactory.Create(dataLog);
 				if (!(record is ISystemMessage)) {
-					this.queue.Enqueue(new Replay(record, counter));
+					this.queue.Enqueue(new Replay(record, counter, dataLog.Direction));
 				}
 			}
 			this.queue.Enqueue(new EndReplay());
@@ -195,10 +205,10 @@ namespace Albatross.Messaging.Services {
 				if(clients.TryGetValue(identity, out var client)) {
 					return client.State;
 				} else {
-					return ClientState.Unknown;
+					return ClientState.Dead;
 				}
 			} else {
-				return ClientState.Connected;
+				return ClientState.Alive;
 			}
 		}
 	}

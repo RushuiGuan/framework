@@ -3,16 +3,19 @@ using Albatross.Messaging.Eventing.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace Albatross.Messaging.Eventing.Pub {
-	public class PublisherService : IRouterServerService {
+	public interface IPublisherService : IRouterServerService { }
+	public class PublisherService : IPublisherService {
 		private SubscriptionManagement subscriberManagement = new SubscriptionManagement();
 		private readonly RouterServerConfiguration config;
 		private readonly ILogger<PublisherService> logger;
 
 		public bool CanReceive => true;
 		public bool HasCustomTransmitObject => true;
+		/// <summary>
+		///  need to periodically save all subscription
+		/// </summary>
 		public bool NeedTimer => true;
 
 		public PublisherService(RouterServerConfiguration config, ILogger<PublisherService> logger) {
@@ -22,12 +25,19 @@ namespace Albatross.Messaging.Eventing.Pub {
 
 		public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg) {
 			switch (msg) {
+				case Connect connect:
+					// need to replay messages here
+					return false;
+				case UnsubscribeAllRequest unsubAll:
+					logger.LogInformation("unsubscribing all for {route}", unsubAll.Route);
+					subscriberManagement.UnsubscribeAll(unsubAll.Route);
+					messagingService.Transmit(new ServerAck(unsubAll.Route, unsubAll.Id));
+					return true;
 				case SubscriptionRequest req:
 					if (!string.IsNullOrEmpty(msg.Route)) {
 						if (req.On) {
 							logger.LogInformation("subscribing route {route} using pattern: {pattern}", req.Route, req.Pattern);
-							var sub = subscriberManagement.Add(req.Pattern, req.Route);
-							sub.SetState(SubscriberState.Connected).SetHeartBeat();
+							subscriberManagement.Add(req.Pattern, req.Route);
 						} else {
 							logger.LogInformation("unsubscribing route {route} using pattern: {pattern}", req.Route, req.Pattern);
 							subscriberManagement.Remove(req.Pattern, req.Route);
@@ -36,20 +46,18 @@ namespace Albatross.Messaging.Eventing.Pub {
 					} else {
 						logger.LogError("receive a subscription msg without the subcriber identity: {msg}", msg);
 					}
-					break;
-				default:
-					return false;
+					return true;
 			}
-			return true;
+			return false;
 		}
 		public bool ProcessTransmitQueue(IMessagingService messagingService, object msg) {
 			if (msg is PubEvent pub) {
-				foreach(var sub in subscriberManagement.Subscriptions) {
+				foreach (var sub in subscriberManagement.Subscriptions) {
 					if (sub.Match(pub.Topic)) {
-						foreach(var subscriber in sub.Subscribers) {
-							var eve = new Event(subscriber.Route, messagingService.Counter.NextId(), pub.Topic, sub.Pattern, pub.Payload);
+						foreach (var subscriber in sub.Subscribers) {
+							var eve = new Event(subscriber, messagingService.Counter.NextId(), pub.Topic, sub.Pattern, pub.Payload);
 							// if a subscriber is no longer connected, record the msg but don't send it so that we don't overrun the buffer
-							if (subscriber.State == SubscriberState.Connected) {
+							if(messagingService.GetClientState(subscriber) == ClientState.Alive) { 
 								messagingService.Transmit(eve);
 							} else {
 								messagingService.DataLogger.Outgoing(eve, eve.Create());
@@ -63,8 +71,9 @@ namespace Albatross.Messaging.Eventing.Pub {
 			}
 		}
 		public void ProcessTimerElapsed(IMessagingService routerServer) {
-			foreach(var sub in subscriberManagement.Subscribers) {
-				sub.CheckState(TimeSpan.FromMilliseconds(config.ActualTimerInterval * 1.2));
+			if (subscriberManagement.ShouldSave) {
+				logger.LogInformation("saving publisher subscriptions");
+				this.subscriberManagement.Save(routerServer.DataLogger, routerServer.Counter);
 			}
 		}
 	}

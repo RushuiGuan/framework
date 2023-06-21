@@ -10,7 +10,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 	public class SubscriptionService : IDealerClientService {
 		private readonly object sync = new object();
 		private readonly Dictionary<string, ISet<ISubscriber>> subscriptions = new Dictionary<string, ISet<ISubscriber>>();
-		private readonly Dictionary<ulong, SubscriptionCallback> callbacks = new Dictionary<ulong, SubscriptionCallback>();
+		private readonly Dictionary<ulong, IMessageCallback> callbacks = new Dictionary<ulong, IMessageCallback>();
 		private readonly ILogger<SubscriptionService> logger;
 
 		public SubscriptionService(ILogger<SubscriptionService> logger) {
@@ -24,12 +24,24 @@ namespace Albatross.Messaging.Eventing.Sub {
 		public void Init(IMessagingService dealerClient) { }
 		public bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg) {
 			switch (msg) {
+				case ServerAck ack:
+					lock (sync) {
+						if(callbacks.TryGetAndRemove(ack.Id, out var callback)) {
+							callback.SetResult();
+							return true;
+						}
+					}
+					break;
 				case SubscriptionReply sub_reply:
 					lock (sync) {
 						if (callbacks.TryGetAndRemove(sub_reply.Id, out var callback)) {
 							if (sub_reply.On) {
-								var set = subscriptions.GetOrAdd(sub_reply.Pattern, () => new HashSet<ISubscriber>());
-								set.Add(callback.Subscriber);
+								if (callback is SubscriptionCallback subCallback) {
+									var set = subscriptions.GetOrAdd(sub_reply.Pattern, () => new HashSet<ISubscriber>());
+									set.Add(subCallback.Subscriber);
+								} else {
+									logger.LogError("Sub callback {id} is of the wrong type: {type}", callback.Id, callback.GetType().FullName);
+								}
 							} else {
 								if (subscriptions.TryGetAndRemove(sub_reply.Pattern, out var set)) {
 									logger.LogInformation("Sub pattern {pattern} has been removed from server", sub_reply.Pattern);
@@ -38,9 +50,9 @@ namespace Albatross.Messaging.Eventing.Sub {
 							callback.SetResult();
 						}
 					}
-					break;
+					return true;
 				case Event eve:
-					dealerClient.Ack(eve.Route, eve.Id);
+					dealerClient.ClientAck(eve.Route, eve.Id);
 					ISet<ISubscriber>? subscribers = null;
 					lock (sync) {
 						subscriptions.TryGetValue(eve.Pattern, out subscribers);
@@ -51,11 +63,9 @@ namespace Albatross.Messaging.Eventing.Sub {
 							_ = item.DataReceived(eve.Topic, eve.Payload);
 						}
 					}
-					break;
-				default:
-					return false;
+					return true;
 			}
-			return true;
+			return false;
 		}
 		public bool ProcessTransmitQueue(IMessagingService dealerClient, object _) => false;
 		public void ProcessTimerElapsed(DealerClient dealerClient) { }
@@ -63,41 +73,53 @@ namespace Albatross.Messaging.Eventing.Sub {
 		/// <summary>
 		/// thread safe call to subscribe to a pattern
 		/// </summary>
-		public Task<Subscription> Subscribe(DealerClient dealerClient, ISubscriber subscriber, string pattern) {
+		public Task Subscribe(DealerClient dealerClient, ISubscriber subscriber, string pattern) {
 			lock (sync) {
-				Subscription result = new Subscription(pattern, subscriber, true);
-				if (subscriptions.TryGetValue(pattern, out var subscribers)) {
-					subscribers.Add(subscriber);
-					return Task.FromResult(result);
-				} else {
-					var id = dealerClient.Counter.NextId();
-					var callback = new SubscriptionCallback(id, result);
-					callbacks.TryAdd(id, callback);
-					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, pattern));
-					return callback.Task;
-				}
+				var id = dealerClient.Counter.NextId();
+				var callback = new SubscriptionCallback(subscriber, id);
+				callbacks.TryAdd(id, callback);
+				dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, pattern));
+				return callback.Task;
 			}
 		}
 		/// <summary>
 		/// thread safe call to unsubscribe to a pattern
 		/// </summary>
-		public Subscription Unsubscribe(DealerClient dealerClient, ISubscriber subscriber, string pattern) {
+		public Task Unsubscribe(DealerClient dealerClient, ISubscriber subscriber, string pattern) {
 			lock (sync) {
 				var unsubscribeFromServer = false;
+				logger.LogInformation("trying to unsubscribe {pattern} for {subscriber}", pattern, subscriber);
 				if (subscriptions.TryGetValue(pattern, out var subscribers)) {
 					subscribers.Remove(subscriber);
 					if (subscribers.Count == 0) {
 						unsubscribeFromServer = true;
 					}
+				} else {
+					logger.LogInformation("subscription pattern not found");
 				}
-				Subscription result = new Subscription(pattern, subscriber, false);
 				if (unsubscribeFromServer) {
 					var id = dealerClient.Counter.NextId();
-					var callback = new SubscriptionCallback(id, result);
+					var callback = new MessageCallback(id);
 					callbacks.TryAdd(id, callback);
 					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, false, pattern));
+					return callback.Task;
+				} else {
+					return Task.CompletedTask;
 				}
-				return result;
+			}
+		}
+
+		/// <summary>
+		/// thread safe call to unsubscribe to a pattern
+		/// </summary>
+		public Task UnsubscribeAll(DealerClient dealerClient) {
+			lock (sync) {
+				subscriptions.Clear();
+				var id = dealerClient.Counter.NextId();
+				var callback = new MessageCallback(id);
+				callbacks.TryAdd(id, callback);
+				dealerClient.SubmitToQueue(new UnsubscribeAllRequest(string.Empty, id));
+				return callback.Task;
 			}
 		}
 	}

@@ -6,7 +6,7 @@ namespace Albatross.Messaging.Commands {
 		public int Index { get; set; }
 		public CommandRequest Request { get; init; }
 		public IMessage? Response { get; set; }
-		public Ack? Ack { get; set; }
+		public ClientAck? Ack { get; set; }
 		public IMessage? Executed { get; set; }
 
 		public CommandReplayMessageGroup(CommandRequest request, int index) {

@@ -8,7 +8,9 @@ namespace Albatross.Messaging.Eventing {
 	public static class Extensions {
 		public static IServiceCollection AddPublisher(this IServiceCollection services) {
 			services.TryAddSingleton<IPublisher, Publisher>();
-			services.AddSingleton<IRouterServerService, PublisherService>();
+			services.TryAddSingleton<IPublisherService, PublisherService>();
+			services.AddSingleton<IRouterServerService, PublisherReplayService>();
+			services.AddSingleton<IRouterServerService>(args=>args.GetRequiredService<IPublisherService>());
 			services.AddRouterServer();
 			return services;
 		}

@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Eventing.Sub {
 	public interface ISubscriptionClient {
-		Task<Subscription> Subscribe(ISubscriber subscriber, string pattern);
-		Subscription Unsubscribe(ISubscriber subscriber, string pattern);
+		Task Subscribe(ISubscriber subscriber, string pattern);
+		Task Unsubscribe(ISubscriber subscriber, string pattern);
+		Task UnsubscribeAll();
 	}
 
 	public class SubscriptionClient : ISubscriptionClient {
@@ -15,10 +16,12 @@ namespace Albatross.Messaging.Eventing.Sub {
 			this.dealerClient = dealerClient;
 			this.service = service;
 		}
-		public Task<Subscription> Subscribe(ISubscriber subscriber, string pattern)
+		public Task Subscribe(ISubscriber subscriber, string pattern)
 			=> service.Subscribe(dealerClient, subscriber, pattern);
 
-		public Subscription Unsubscribe(ISubscriber subscriber, string pattern)
+		public Task Unsubscribe(ISubscriber subscriber, string pattern)
 			=> service.Unsubscribe(dealerClient, subscriber, pattern);
+
+		public Task UnsubscribeAll() => service.UnsubscribeAll(dealerClient);
 	}
 }

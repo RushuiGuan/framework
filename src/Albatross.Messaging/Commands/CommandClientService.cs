@@ -15,7 +15,7 @@ namespace Albatross.Messaging.Commands {
 		private readonly ILogger<CommandClientService> logger;
 		private readonly MessagingJsonSerializationOption serializerOptions;
 		private readonly Dictionary<Type, IRegisterCommand> registrations = new Dictionary<Type, IRegisterCommand>();
-		private readonly ConcurrentDictionary<ulong, ICommandCallback> commandCallbacks = new ConcurrentDictionary<ulong, ICommandCallback>();
+		private readonly ConcurrentDictionary<ulong, IMessageCallback> commandCallbacks = new ConcurrentDictionary<ulong, IMessageCallback>();
 
 		public CommandClientService(IEnumerable<IRegisterCommand> registrations, ILogger<CommandClientService> logger, MessagingJsonSerializationOption serializerOptions) {
 			this.logger = logger;
@@ -34,21 +34,19 @@ namespace Albatross.Messaging.Commands {
 			switch (msg) {
 				case CommandReply response:
 					AcceptResponse(dealerClient, response);
-					break;
+					return true;
 				case CommandErrorReply error:
 					AcceptError(dealerClient, error);
-					break;
+					return true;
 				case CommandQueueStatusReply statusReply:
 					AcceptStatusReply(dealerClient, statusReply);
-					break;
+					return true;
 				case CommandRequestAck:
 				case PingReply:
 					AcceptAckMsg(dealerClient, msg);
-					break;
-				default:
-					return false;
+					return true;
 			}
-			return true;
+			return false;
 		}
 		public bool ProcessTransmitQueue(IMessagingService dealerClient, object msg) => false;
 		public void ProcessTimerElapsed(DealerClient dealerClient) { }
@@ -83,7 +81,7 @@ namespace Albatross.Messaging.Commands {
 					logger.LogError("command callback not found for message id: {id}", response.Id);
 				}
 			} finally {
-				dealerClient.Ack(response.Route, response.Id);
+				dealerClient.ClientAck(response.Route, response.Id);
 			}
 		}
 		private void AcceptError(IMessagingService dealerClient, CommandErrorReply errorMessage) {
@@ -94,7 +92,7 @@ namespace Albatross.Messaging.Commands {
 					logger.LogError("command callback not found for message id: {id}", errorMessage.Id);
 				}
 			} finally {
-				dealerClient.Ack(errorMessage.Route, errorMessage.Id);
+				dealerClient.ClientAck(errorMessage.Route, errorMessage.Id);
 			}
 		}
 		public Task<ResponseType> Submit<CommandType, ResponseType>(DealerClient dealerClient, CommandType command)
@@ -102,7 +100,7 @@ namespace Albatross.Messaging.Commands {
 
 			var id = dealerClient.Counter.NextId();
 			logger.LogInformation("the id is {id}, thread {threadid}", id, Environment.CurrentManagedThreadId);
-			var callback = new CommandCallback<ResponseType>(id);
+			var callback = new MessageCallback<ResponseType>(id);
 			if (commandCallbacks.TryAdd(id, callback)) {
 				var bytes = JsonSerializer.SerializeToUtf8Bytes<CommandType>(command, this.serializerOptions.Default);
 				var request = new CommandRequest(string.Empty, id, typeof(CommandType).GetClassNameNeat(), false, bytes);
@@ -115,7 +113,7 @@ namespace Albatross.Messaging.Commands {
 		}
 		public Task Submit<CommandType>(DealerClient dealerClient, CommandType command, bool fireAndForget = true) where CommandType : notnull {
 			var id = dealerClient.Counter.NextId();
-			CommandCallback callback = new CommandCallback(id);
+			MessageCallback callback = new MessageCallback(id);
 			if (!commandCallbacks.TryAdd(id, callback)) {
 				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
 			}
@@ -126,14 +124,14 @@ namespace Albatross.Messaging.Commands {
 		}
 		public Task Ping(DealerClient dealerClient) {
 			var id = dealerClient.Counter.NextId();
-			var callback = new CommandCallback(id);
+			var callback = new MessageCallback(id);
 			this.commandCallbacks.TryAdd(id, callback);
 			dealerClient.SubmitToQueue(new PingRequest(string.Empty, id));
 			return callback.Task;
 		}
 		public Task<CommandQueueInfo[]> QueueStatus(DealerClient dealerClient) {
 			var id = dealerClient.Counter.NextId();
-			var callback = new CommandCallback<CommandQueueInfo[]>(id);
+			var callback = new MessageCallback<CommandQueueInfo[]>(id);
 			this.commandCallbacks.TryAdd(id, callback);
 			dealerClient.SubmitToQueue(new CommandQueueStatus(string.Empty, id));
 			return callback.Task;

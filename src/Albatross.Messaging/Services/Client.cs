@@ -2,8 +2,8 @@
 
 namespace Albatross.Messaging.Services {
 	public enum ClientState {
-		Unknown = 0,
-		Connected = 1,
+		Dead = 0,
+		Alive = 1,
 	}
 
 	public class Client {
@@ -16,14 +16,14 @@ namespace Albatross.Messaging.Services {
 		}
 
 		public void Connected() {
-			this.State = ClientState.Connected;
+			this.State = ClientState.Alive;
 			this.LastHeartbeat = DateTime.UtcNow;
 		}
 		public void Lost() {
-			this.State = ClientState.Unknown;
+			this.State = ClientState.Dead;
 		}
 
-		public void Heartbeat() {
+		public void UpdateHeartbeat() {
 			LastHeartbeat = DateTime.Now;
 		}
 	}

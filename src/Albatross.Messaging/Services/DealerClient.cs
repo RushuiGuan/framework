@@ -60,7 +60,7 @@ namespace Albatross.Messaging.Services {
 
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
 			if(config.MaintainConnection) {
-				if (self.State != ClientState.Unknown) {
+				if (self.State != ClientState.Dead) {
 					var elapsed = DateTime.Now - self.LastHeartbeat;
 					if (elapsed > config.HeartbeatThresholdTimeSpan) {
 						self.Lost();
@@ -106,15 +106,14 @@ namespace Albatross.Messaging.Services {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(false, frames, this.dataWriter);
 				// the only processing needed for Ack is to persist it in logs
-				if (msg is Ack) { return; }
 				if (running) {
 					if(msg is ConnectOk) {
 						self.Connected();
 					}else if(msg is Reconnect) {
-						this.Transmit(new Reconnect(string.Empty, counter.NextId()));
+						this.Transmit(new Connect(string.Empty, counter.NextId()));
 						return;
 					}else if(msg is HeartbeatAck ack) {
-						self.Heartbeat();
+						self.UpdateHeartbeat();
 						return;
 					}
 					foreach (var service in this.receiveServices) {

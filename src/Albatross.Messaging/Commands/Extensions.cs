@@ -42,7 +42,7 @@ namespace Albatross.Messaging.Commands {
 		public static IServiceCollection AddCommandBus(this IServiceCollection services) {
 			services.TryAddSingleton<ICommandBusService, CommandBusService>();
 			services.AddSingleton<IRouterServerService>(provider => provider.GetRequiredService<ICommandBusService>());
-			services.AddSingleton<IRouterServerService, CommandReplayService>();
+			services.AddSingleton<IRouterServerService, CommandBusReplayService>();
 			services.TryAddSingleton<MessagingJsonSerializationOption>();
 			services.TryAddSingleton<ICommandQueueFactory, CommandQueueFactory>();
 			services.TryAddTransient<CommandQueue, TaskCommandQueue>();

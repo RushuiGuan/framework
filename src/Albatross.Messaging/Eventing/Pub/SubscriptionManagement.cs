@@ -1,77 +1,53 @@
 ﻿using Albatross.Collections;
+using Albatross.Messaging.DataLogging;
+using Albatross.Messaging.Eventing.Messages;
+using Albatross.Messaging.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Albatross.Messaging.Eventing.Pub {
-	public enum SubscriberState {
-		Connected, Lost,
-	}
-	public sealed record class Subscriber : IEquatable<Subscriber> {
-		public string Route { get; init; }
-		public Subscriber(string route) {
-			Route = route;
-			LastHeartbeat = DateTime.Now;
-			State = SubscriberState.Connected;
-		}
-		public SubscriberState State { get; private set; }
-		public DateTime LastHeartbeat { get; private set; }
-		public override int GetHashCode() => Route.GetHashCode();
-		public bool Equals(Subscriber? other) => Route.Equals(other?.Route);
-
-		public Subscriber SetState(SubscriberState state) {
-			this.State = state;
-			return this;
-		}
-		public Subscriber SetHeartBeat() {
-			this.LastHeartbeat = DateTime.Now;
-			return this;
-		}
-
-		public void CheckState(TimeSpan threshold) {
-			if(DateTime.Now - LastHeartbeat > threshold) {
-				this.State = SubscriberState.Lost;
-			}
-		}
-	}
-	public class Subscription {
-		public string Pattern { get; init; }
-		public Regex Regex { get; init; }
-		public Subscription(string pattern) {
-			Pattern = pattern;
-			Regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
-		}
-		public bool Match(string topic) => Regex.IsMatch(topic);
-		public override int GetHashCode() => Pattern.GetHashCode();
-		public ISet<Subscriber> Subscribers { get; init; } = new HashSet<Subscriber>();
-	}
-
 	public class SubscriptionManagement {
-		ISet<Subscription> subscriptions = new HashSet<Subscription>();
-		ISet<Subscriber> subscribers = new HashSet<Subscriber>();
+		public const int SubscriptionPersistentIntervalInMinutes = 30;
 
-		public IEnumerable<Subscriber> Subscribers => this.subscribers;
+		ISet<Subscription> subscriptions = new HashSet<Subscription>();
 		public IEnumerable<Subscription> Subscriptions => this.subscriptions;
 
-		public Subscriber Add(string pattern, string route) {
+		public void Add(string pattern, string route) {
 			var subscription = subscriptions.GetOrAdd(item => item.Pattern == pattern, () => new Subscription(pattern));
-			var subscriber = subscription.Subscribers.GetOrAdd(args=> args.Route == route, ()=> { 
-				var sub = new Subscriber(route);
-				subscribers.Add(sub);
-				return sub;
-			});
-			return subscriber;
+			subscription.Subscribers.Add(route);
 		}
-		public bool Remove(string pattern, string route) {
+		public void Remove(string pattern, string route) {
 			var item = subscriptions.Where(args => args.Pattern == pattern).FirstOrDefault();
 			if (item != null) {
-				if (item.Subscribers.TryGetAndRemove(args => args.Route == route, out var sub)) {
-					subscribers.Remove(sub);
-					return true;
+				item.Subscribers.Remove(route);
+			}
+		}
+
+		DateTime lastSaveTimeStamp;
+		public bool ShouldSave => DateTime.Now - lastSaveTimeStamp > TimeSpan.FromMinutes(SubscriptionPersistentIntervalInMinutes);
+		public void Save(IDataLogWriter writer, AtomicCounter<ulong> counter) {
+			foreach(var item in Subscriptions) {
+				foreach(var subscriber in item.Subscribers) {
+					var request = new SubscriptionRequest(subscriber, counter.NextId(), true, item.Pattern);
+					var frames = request.Create();
+					frames.Pop();
+					frames.Pop();
+					frames.Pop();
+					frames.Pop();
+					writer.Incoming(request.Route, request.Header, request.Id, frames);
 				}
 			}
-			return false;
+			this.lastSaveTimeStamp = DateTime.Now;
+		}
+
+		public void UnsubscribeAll(string route) {
+			foreach(var sub in subscriptions.ToArray()) {
+				sub.Subscribers.Remove(route);
+				if (!sub.Subscribers.Any()) {
+					subscriptions.Remove(sub);
+				}
+			}
 		}
 	}
 }

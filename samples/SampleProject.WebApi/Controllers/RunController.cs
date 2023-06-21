@@ -84,21 +84,18 @@ namespace SampleProject.WebApi.Controllers {
 		}
 
 		[HttpPost("pub")]
-		public Task Publish([FromQuery] string topic, [FromQuery] int min, [FromQuery] int max) {
-			commandClient.Submit<PublishCommand>(new PublishCommand(topic, min, max), true);
-			return Task.CompletedTask;
-		}
+		public Task Publish([FromQuery] string topic, [FromQuery] int min, [FromQuery] int max) 
+			=>  commandClient.Submit<PublishCommand>(new PublishCommand(topic, min, max), true);
 
 		[HttpPost("sub")]
-		public Task Subscribe([FromQuery] string topic) {
-			subscriptionClient.Subscribe(this.subscriber, topic);
-			return Task.CompletedTask;
-		}
+		public Task Subscribe([FromQuery] string topic) 
+			=> subscriptionClient.Subscribe(this.subscriber, topic);
+
 		[HttpPost("unsub")]
-		public Task Unsubscribe([FromQuery] string topic) {
-			subscriptionClient.Unsubscribe(this.subscriber, topic);
-			return Task.CompletedTask;
-		}
+		public Task Unsubscribe([FromQuery] string topic) => subscriptionClient.Unsubscribe(this.subscriber, topic);
+
+		[HttpPost("unsub-all")]
+		public Task UnsubscribeAll () => subscriptionClient.UnsubscribeAll();
 
 		[HttpPost("play-ping")]
 		public Task Ping([FromQuery] int round) {

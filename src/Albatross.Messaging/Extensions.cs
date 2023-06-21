@@ -7,7 +7,8 @@ using System.Text;
 
 namespace Albatross.Messaging {
 	public static class Extensions {
-		public static void Ack(this IMessagingService svc, string route, ulong id) => svc.Transmit(new Ack(route, id));
+		public static void ClientAck(this IMessagingService svc, string route, ulong id) => svc.Transmit(new ClientAck(route, id));
+		public static void ServerAck(this IMessagingService svc, string route, ulong id) => svc.Transmit(new ServerAck(route, id));
 
 		public static byte[] ToUtf8Bytes(this string text) => Encoding.UTF8.GetBytes(text);
 		public static string ToUtf8String(this byte[] data) => Encoding.UTF8.GetString(data);

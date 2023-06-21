@@ -8,9 +8,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace Albatross.Messaging.DataLogging {
 	public record class DataLog {
 		public const char Space = ' ';
-		public const string In = ">";
-		public const string Out = "<";
-		public const string Record = "r";
+		public const string In = "I";
+		public const string Out = "O";
+		public const string Record = "R";
 		public const string TimeStampFormat = "yyyyMMddHHmmssfff";
 
 		public MessageDirection Direction { get; set; }

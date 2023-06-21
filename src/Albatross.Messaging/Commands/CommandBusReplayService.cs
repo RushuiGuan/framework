@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.Messaging.Commands {
-	public class CommandReplayService : IRouterServerService {
+	public class CommandBusReplayService : IRouterServerService {
 		Dictionary<string, CommandReplayMessageGroup> records = new Dictionary<string, CommandReplayMessageGroup>();
-		private readonly ILogger<CommandReplayService> logger;
+		private readonly ILogger<CommandBusReplayService> logger;
 		private readonly ICommandBusService commandBus;
 		public static string GetKey(IMessage messsage) => $"{messsage.Route}.{messsage.Id}";
 
@@ -17,28 +17,28 @@ namespace Albatross.Messaging.Commands {
 		public bool HasCustomTransmitObject => true;
 		public bool NeedTimer => false;
 
-		public CommandReplayService(ILogger<CommandReplayService> logger, ICommandBusService commandBus) {
+		public CommandBusReplayService(ILogger<CommandBusReplayService> logger, ICommandBusService commandBus) {
 			this.logger = logger;
 			this.commandBus = commandBus;
 		}
 
-		bool Accept( Replay replay) {
+		bool Accept(Replay replay) {
 			string key = GetKey(replay.Message);
 			switch (replay.Message) {
 				case CommandRequest req:
 					var record = new CommandReplayMessageGroup(req, replay.Index);
 					records[key] = record;
-					break;
+					return true;
 				case CommandReply rep:
 					if (records.TryGetValue(key, out var value)) {
 						value.Response = rep;
 					}
-					break;
+					return true;
 				case CommandErrorReply err:
 					if (records.TryGetValue(key, out value)) {
 						value.Response = err;
 					}
-					break;
+					return true;
 				case CommandExecuted exec:
 					if (records.TryGetValue(key, out value)) {
 						value.Executed = exec;
@@ -46,8 +46,8 @@ namespace Albatross.Messaging.Commands {
 							records.Remove(key);
 						}
 					}
-					break;
-				case Ack ack:
+					return true;
+				case ClientAck ack:
 					if (records.TryGetValue(key, out value)) {
 						value.Ack = ack;
 						if (value.IsCompleted) {
@@ -57,13 +57,11 @@ namespace Albatross.Messaging.Commands {
 					} else {
 						return false;
 					}
-				default:
-					return false;
 			}
-			return true;
+			return false;
 		}
 		void End(IMessagingService messagingService) {
-			logger.LogInformation("rerun {count} messages after replay", records.Count);
+			logger.LogInformation("rerun {count} commandbus messages to replay", records.Count);
 			foreach (var msg in records.Values.OrderBy(args => args.Index)) {
 				if (msg.Request.FireAndForget) {
 					//for fire and forget commands.  missing executed record means that it was not executed
@@ -78,6 +76,7 @@ namespace Albatross.Messaging.Commands {
 					}
 				}
 			}
+			logger.LogInformation("command bus replay completed");
 		}
 
 		public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg) => throw new NotSupportedException();
