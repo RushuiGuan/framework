@@ -1,5 +1,5 @@
 using Albatross.Config;
-using Albatross.Messaging.Eventing.Sub;
+using Albatross.Messaging.Eventing;
 using Albatross.Messaging.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
