@@ -40,7 +40,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 									var set = subscriptions.GetOrAdd(sub_reply.Pattern, () => new HashSet<ISubscriber>());
 									set.Add(subCallback.Subscriber);
 								} else {
-									logger.LogError("Sub callback {id} is of the wrong type: {type}", callback.Id, callback.GetType().FullName);
+									logger.LogError("Sub callback {id} is of the wrong type: {type}", sub_reply.Id, callback.GetType().FullName);
 								}
 							} else {
 								if (subscriptions.TryGetAndRemove(sub_reply.Pattern, out var set)) {
@@ -76,7 +76,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 		public Task Subscribe(DealerClient dealerClient, ISubscriber subscriber, string pattern) {
 			lock (sync) {
 				var id = dealerClient.Counter.NextId();
-				var callback = new SubscriptionCallback(subscriber, id);
+				var callback = new SubscriptionCallback(subscriber);
 				callbacks.TryAdd(id, callback);
 				dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, true, pattern));
 				return callback.Task;
@@ -99,7 +99,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 				}
 				if (unsubscribeFromServer) {
 					var id = dealerClient.Counter.NextId();
-					var callback = new MessageCallback(id);
+					var callback = new MessageCallback();
 					callbacks.TryAdd(id, callback);
 					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, false, pattern));
 					return callback.Task;
@@ -116,7 +116,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 			lock (sync) {
 				subscriptions.Clear();
 				var id = dealerClient.Counter.NextId();
-				var callback = new MessageCallback(id);
+				var callback = new MessageCallback();
 				callbacks.TryAdd(id, callback);
 				dealerClient.SubmitToQueue(new UnsubscribeAllRequest(string.Empty, id));
 				return callback.Task;

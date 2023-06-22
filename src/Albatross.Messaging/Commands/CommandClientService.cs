@@ -100,7 +100,7 @@ namespace Albatross.Messaging.Commands {
 
 			var id = dealerClient.Counter.NextId();
 			logger.LogInformation("the id is {id}, thread {threadid}", id, Environment.CurrentManagedThreadId);
-			var callback = new MessageCallback<ResponseType>(id);
+			var callback = new MessageCallback<ResponseType>();
 			if (commandCallbacks.TryAdd(id, callback)) {
 				var bytes = JsonSerializer.SerializeToUtf8Bytes<CommandType>(command, this.serializerOptions.Default);
 				var request = new CommandRequest(string.Empty, id, typeof(CommandType).GetClassNameNeat(), false, bytes);
@@ -113,7 +113,7 @@ namespace Albatross.Messaging.Commands {
 		}
 		public Task Submit<CommandType>(DealerClient dealerClient, CommandType command, bool fireAndForget = true) where CommandType : notnull {
 			var id = dealerClient.Counter.NextId();
-			MessageCallback callback = new MessageCallback(id);
+			MessageCallback callback = new MessageCallback();
 			if (!commandCallbacks.TryAdd(id, callback)) {
 				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
 			}
@@ -124,14 +124,14 @@ namespace Albatross.Messaging.Commands {
 		}
 		public Task Ping(DealerClient dealerClient) {
 			var id = dealerClient.Counter.NextId();
-			var callback = new MessageCallback(id);
+			var callback = new MessageCallback();
 			this.commandCallbacks.TryAdd(id, callback);
 			dealerClient.SubmitToQueue(new PingRequest(string.Empty, id));
 			return callback.Task;
 		}
 		public Task<CommandQueueInfo[]> QueueStatus(DealerClient dealerClient) {
 			var id = dealerClient.Counter.NextId();
-			var callback = new MessageCallback<CommandQueueInfo[]>(id);
+			var callback = new MessageCallback<CommandQueueInfo[]>();
 			this.commandCallbacks.TryAdd(id, callback);
 			dealerClient.SubmitToQueue(new CommandQueueStatus(string.Empty, id));
 			return callback.Task;
