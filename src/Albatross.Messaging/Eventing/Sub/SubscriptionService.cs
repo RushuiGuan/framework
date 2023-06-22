@@ -60,7 +60,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 					if (subscribers != null) {
 						foreach (var item in subscribers) {
 							// this kick of a different thread.  therefore don't need a try catch block
-							_ = item.DataReceived(eve.Topic, eve.Payload);
+							Task.Run(() => item.DataReceived(eve.Topic, eve.Payload));
 						}
 					}
 					return true;
