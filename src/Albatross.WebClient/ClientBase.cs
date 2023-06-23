@@ -19,6 +19,9 @@ namespace Albatross.WebClient {
 		protected ILogger logger;
 		private TextWriter? writer;
 
+		[Obsolete]
+		public ClientBase(ILogger logger, HttpClient client) : this(logger, client, new DefaultJsonSerializationOption()) { }
+
 		public ClientBase(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) {
 			this.client = client;
 			this.defaultSerializationOptions = serializationOption.Default;

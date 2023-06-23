@@ -5,7 +5,8 @@ using System;
 
 #nullable enable
 namespace Albatross.Config {
-	public static class Extensions {
+	// the class name Extension cannot be renamed to Extensions (standard) because of backward compability reason.
+	public static class Extension {
 
 		public static string GetAssemblyLocation(this Type type) {
 			string location = type.Assembly.Location;

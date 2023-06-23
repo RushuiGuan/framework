@@ -2,8 +2,8 @@ $output = $env:InstallDirectory;
 
 $projects = `
 	"sampleproject.utility" `
-	 ,"sampleproject.daemon" `
-	 ,"sampleproject.webapi" `
+#	 ,"sampleproject.daemon" `
+#	 ,"sampleproject.webapi" `
 ;
 
 foreach($project in $projects){

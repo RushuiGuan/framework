@@ -10,7 +10,8 @@ using System.Linq;
 using System.Reflection;
 
 namespace Albatross.Caching {
-	public static class Extensions {
+	// class name should not be renamed to Extensions due to backward compatibilies issue
+	public static class Extension {
 		public static IServiceCollection AddCaching(this IServiceCollection services, IConfiguration configuration) {
 			var registry = new PolicyRegistry();
 			services.TryAdd(ServiceDescriptor.Singleton<IPolicyRegistry<string>>(registry));
