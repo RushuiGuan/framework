@@ -1,15 +1,12 @@
 ﻿using NetMQ;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Albatross.Messaging.Messages {
 	public record class UnknownMsg : Message, IMessage {
 		public static string MessageHeader => "unknown";
-		public static IMessage Accept(string route, ulong id, NetMQMessage frames) => throw new NotSupportedException();
-
-		public NetMQMessage Payload { get; }
-
-		public UnknownMsg(string header, string route, ulong id, NetMQMessage payload) : base(header, route, id) {
-			Payload = payload;
-		}
+		public UnknownMsg() { }
+		public List<byte[]> PayLoad { get; private set; } = new List<byte[]>();
 	}
 }

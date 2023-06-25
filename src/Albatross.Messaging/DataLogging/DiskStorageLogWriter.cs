@@ -1,24 +1,28 @@
 ﻿using Albatross.Messaging.Configurations;
-using Albatross.Messaging.Messages;
-using Albatross.Text;
-using CoenM.Encoding;
 using Microsoft.Extensions.Logging;
-using NetMQ;
 using System;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.Xml;
+using System.Text;
 
 namespace Albatross.Messaging.DataLogging {
-	public class DiskStorageLogWriter : DiskStorageBase, IDataLogWriter {
-		StreamWriter streamWriter;
+	public class DiskStorageLogWriter : ILogWriter, IDisposable {
+		private readonly Encoding utf8 = new UTF8Encoding(false);
+		private readonly DiskStorageConfiguration config;
+		private readonly ILogger logger;
+		private StreamWriter streamWriter;
 		bool disposed = false;
 
-		public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger) : base(config, logger){
+		public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger) {
+			this.config = config;
+			this.logger = logger;
+			if (!Directory.Exists(config.WorkingDirectory)) {
+				Directory.CreateDirectory(config.WorkingDirectory);
+			}
 			logger.LogInformation("creating disk storage logger {name} at {path}", config.FileName, config.WorkingDirectory);
 			this.streamWriter = GetWriter();
 		}
-		FileInfo NewFile()=> new FileInfo(Path.Join(config.WorkingDirectory, $"{config.FileName}_{DateTime.Now.Ticks}.txt"));
+		FileInfo NewFile() => new FileInfo(Path.Join(config.WorkingDirectory, config.FileName.GetLogFileName()));
 		StreamWriter Open(FileInfo file) {
 			var stream = file.Open(new FileStreamOptions() { Access = FileAccess.ReadWrite, Mode = FileMode.OpenOrCreate, Share = FileShare.Read });
 			var writer = new StreamWriter(stream, utf8);
@@ -35,7 +39,7 @@ namespace Albatross.Messaging.DataLogging {
 		private StreamWriter GetWriter() {
 			var directory = new DirectoryInfo(config.WorkingDirectory);
 			var file = directory
-				.GetFiles($"{config.FileName}_*.txt", SearchOption.TopDirectoryOnly)
+				.GetFiles(config.FileName.GetLogFilePattern(), SearchOption.TopDirectoryOnly)
 				.Where(args => args.Exists)
 				.OrderByDescending(args => args.Name)
 				.FirstOrDefault();
@@ -45,53 +49,12 @@ namespace Albatross.Messaging.DataLogging {
 			return Open(file);
 		}
 
-		public void Outgoing(IMessage message, NetMQMessage frames) {
-			var writers = new TextWriter[] {
-				this.streamWriter, Console.Out
-			};
-			foreach (var writer in writers) {
-				writer.Append(DataLog.Out).Space();
-				WriteTimeStamp(writer);
-				writer.Append(message.Header).Space().Append(message.Route ?? string.Empty).Space().Append(message.Id);
-				int index = string.IsNullOrEmpty(message.Route) ? 3 : 4;
-				for (int i = index; i < frames.Count(); i++) {
-					writer.Space().Append(Z85Extended.Encode(frames[i].Buffer));
-				}
-				writer.WriteLine();
-			}
+		public void WriteLogEntry(LogEntry logEntry) {
+			logEntry.Write(this.streamWriter);
+			logEntry.Write(Console.Out);
 			CheckSize();
 		}
-		
-		public void Incoming(string route, string header, ulong messageId, NetMQMessage frames) {
-			var writers = new TextWriter[] {
-				this.streamWriter, Console.Out
-			};
-			foreach (var writer in writers) {
-				writer.Append(DataLog.In).Space();
-				WriteTimeStamp(writer);
-				writer.Append(header).Space().Append(route).Space().Append(messageId);
-				foreach (var item in frames) {
-					writer.Space().Append(Z85Extended.Encode(item.Buffer));
-				}
-				writer.WriteLine();
-			}
-			CheckSize();
-		}
-		public void Record(IMessage message) {
-			var writers = new TextWriter[] {
-				this.streamWriter, Console.Out
-			};
-			foreach (var writer in writers) {
-				writer.Append(DataLog.Record).Space();
-				WriteTimeStamp(writer);
-				writer.Append(message.Header).Space().Append(message.Route ?? string.Empty).Space().Append(message.Id);
-				writer.WriteLine();
-			}
-			CheckSize();
-		}
-		void WriteTimeStamp(TextWriter writer) {
-			writer.Append(DateTime.Now.ToString(DataLog.TimeStampFormat)).Space();
-		}
+
 		void CheckSize() {
 			if(streamWriter.BaseStream.Length > config.MaxFileSize) {
 				streamWriter.Dispose();

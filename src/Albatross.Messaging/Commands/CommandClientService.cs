@@ -87,7 +87,7 @@ namespace Albatross.Messaging.Commands {
 		private void AcceptError(IMessagingService dealerClient, CommandErrorReply errorMessage) {
 			try {
 				if (commandCallbacks.Remove(errorMessage.Id, out var callback)) {
-					callback.SetException(new CommandException(errorMessage.Id, errorMessage.ClassName, errorMessage.Message));
+					callback.SetException(new CommandException(errorMessage.Id, errorMessage.ClassName, errorMessage.Message.ToUtf8String()));
 				} else {
 					logger.LogError("command callback not found for message id: {id}", errorMessage.Id);
 				}

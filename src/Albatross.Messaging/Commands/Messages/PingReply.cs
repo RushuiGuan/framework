@@ -5,8 +5,8 @@ using NetMQ;
 namespace Albatross.Messaging.Commands.Messages {
 	public record class PingReply : Message, IMessage {
 		public static string MessageHeader { get => "ping-rep"; }
-		public static IMessage Accept(string endpoint, ulong id, NetMQMessage frames) => new PingReply(endpoint, id);
 
 		public PingReply(string route, ulong id) : base(MessageHeader, route, id) { }
+		public PingReply() { }
 	}
 }

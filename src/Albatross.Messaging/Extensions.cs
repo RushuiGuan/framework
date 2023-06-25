@@ -1,6 +1,5 @@
 ﻿using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
-using Microsoft.Extensions.Logging;
 using NetMQ;
 using System;
 using System.Text;
@@ -11,7 +10,16 @@ namespace Albatross.Messaging {
 		public static void ServerAck(this IMessagingService svc, string route, ulong id) => svc.Transmit(new ServerAck(route, id));
 
 		public static byte[] ToUtf8Bytes(this string text) => Encoding.UTF8.GetBytes(text);
+
 		public static string ToUtf8String(this byte[] data) => Encoding.UTF8.GetString(data);
+		public static double ToDouble(this byte[] data) => BitConverter.ToDouble(data);
+		public static int ToInt(this byte[] data) => BitConverter.ToInt32(data);
+		public static ulong ToULong(this byte[] data) => BitConverter.ToUInt64(data);
+		public static long ToLong(this byte[] data) => BitConverter.ToInt64(data);
+		public static bool ToBoolean(this byte[] data) => BitConverter.ToBoolean(data);
+
+
+
 		public static string PopUtf8String(this NetMQMessage frames) => Encoding.UTF8.GetString(frames.Pop().Buffer);
 		public static void AppendUtf8String(this NetMQMessage frames, string? text) {
 			if (string.IsNullOrEmpty(text)) {

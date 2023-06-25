@@ -18,41 +18,32 @@ namespace Albatross.Messaging.Messages {
 				this.builders.Add(builder.Header, builder);
 			}
 		}
-		public IMessage Create(bool hasRoute, NetMQMessage frames, IDataLogWriter logWriter) {
-			var route = string.Empty;
-			if (hasRoute) {
-				route = frames.PopUtf8String();
-			}
-			frames.Pop();
-			var header = frames.PopUtf8String();
-			var messageId = frames.PopULong();
-
-			logWriter.Incoming(route, header, messageId, frames);
-
+		public IMessage Create(NetMQMessage frames) {
+			var header = frames.PeekMessageHeader();
 			IMessage msg;
 			if (this.builders.TryGetValue(header, out var builder)) {
-				msg = builder.Build(route, messageId, frames);
+				msg = builder.Build(frames);
 			} else {
-				msg =new UnknownMsg(route, header, messageId, frames);
+				msg = new UnknownMsg();
+				msg.ReadFromFrames(frames);
 			}
 			return msg;
 		}
 
-		public IMessage Create(DataLog replay) {
-			var frames = new NetMQMessage();
-			foreach(var bytes in replay.Payload) {
-				frames.Append(bytes);
-			}
-			if (this.builders.TryGetValue(replay.Header, out var builder)) {
-				return builder.Build(replay.Route, replay.MessageId, frames);
+		public IMessage Create(string line, int offset) {
+			var header = line.PeekMessageHeader(offset);
+			if (this.builders.TryGetValue(header, out var builder)) {
+				return builder.Build(line, offset);
 			} else {
-				return new UnknownMsg(replay.Header, replay.Route, replay.MessageId, frames);
+				var msg = new UnknownMsg();
+				msg.ReadFromText(line, ref offset);
+				return msg;
 			}
 		}
 	}
 
 	public interface IMessageFactory {
-		IMessage Create(bool hasRoute, NetMQMessage frames, IDataLogWriter logWriter);
-		IMessage Create(DataLog replay);
+		IMessage Create(NetMQMessage frames);
+		IMessage Create(string line, int offset);
 	}
 }

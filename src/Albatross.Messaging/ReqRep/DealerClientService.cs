@@ -13,19 +13,19 @@ namespace Albatross.Messaging.ReqRep {
 		private readonly ClientConfiguration config;
 		private readonly IMessageFactory messageFactory;
 		private readonly ILogger<DealerWorkerService> logger;
-		private readonly IDataLogWriter persistence;
+		private readonly ILogWriter persistence;
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
 		private readonly NetMQQueue<IMessage> queue;
 		private bool disposed = false;
 		public string Identity => config.Identity;
 
-		IDataLogWriter IMessagingService.DataLogger => persistence;
+		ILogWriter IMessagingService.DataLogger => persistence;
 
 		public AtomicCounter<ulong> Counter => throw new NotImplementedException();
 
 		public DealerClientService(ClientConfiguration config, IMessageFactory messageFactory, ILogger<DealerWorkerService> logger,
-			IDataLogWriter logWriter) {
+			ILogWriter logWriter) {
 			this.config = config;
 			this.messageFactory = messageFactory;
 			this.logger = logger;
@@ -59,7 +59,7 @@ namespace Albatross.Messaging.ReqRep {
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs e) {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
-				var msg = messageFactory.Create(false, frames, persistence);
+				var msg = messageFactory.Create(frames);
 				switch (msg) {
 					case NoAvailableWorker noAvailableWorker:
 						AcceptNoAvailableWorker(noAvailableWorker);
@@ -113,9 +113,8 @@ namespace Albatross.Messaging.ReqRep {
 			throw new NotImplementedException();
 		}
 		public void Transmit(IMessage msg) {
-			var frames = msg.Create();
-			this.persistence.Outgoing(msg, frames);
-			this.socket.SendMultipartMessage(frames);
+			this.persistence.WriteLogEntry(new LogEntry(LineType.Out, msg));
+			this.socket.SendMultipartMessage(msg.Create());
 		}
 
 		public ClientState GetClientState(string identity) {

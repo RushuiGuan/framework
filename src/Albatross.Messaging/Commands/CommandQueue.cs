@@ -73,7 +73,7 @@ namespace Albatross.Messaging.Commands {
 				routerServer.SubmitToQueue(job);
 			} catch (Exception err) {
 				logger.LogError(err, "error running command {id}", job.Id);
-				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "Error", err.Message);
+				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
 				routerServer.SubmitToQueue(job);
 			}
 		}

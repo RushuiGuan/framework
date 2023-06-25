@@ -18,11 +18,5 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public WorkerResponse(string route, ulong messageId, byte[] payload) : base(MessageHeader, route, messageId) {
 			Payload = payload;
 		}
-
-		public override NetMQMessage Create() {
-			var msg = base.Create();
-			msg.Append(Payload);
-			return msg;
-		}
 	}
 }

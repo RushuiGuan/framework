@@ -41,7 +41,7 @@ namespace Albatross.Messaging.Commands {
 					messagingService.Transmit(new CommandRequestAck(cmd.Route, cmd.Id));
 				}
 			} catch(Exception err) {
-				var msg = new CommandErrorReply(cmd.Route, cmd.Id, err.GetType().FullName ?? "Error", err.Message);
+				var msg = new CommandErrorReply(cmd.Route, cmd.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
 				messagingService.SubmitToQueue(msg);
 			}
 		}
@@ -66,9 +66,9 @@ namespace Albatross.Messaging.Commands {
 			switch (msg) {
 				case CommandJob job:
 					if (job.FireAndForget) {
-						messagingService.DataLogger.Record(new CommandExecuted(job.Route, job.Id));
+						messagingService.DataLogger.WriteLogEntry(new DataLogging.LogEntry(LineType.Record, new CommandExecuted(job.Route, job.Id)));
 					} else {
-						messagingService.SubmitToQueue(job.Reply ?? new CommandErrorReply(job.Route, job.Id, "Error", "reply mia"));
+						messagingService.SubmitToQueue(job.Reply ?? new CommandErrorReply(job.Route, job.Id, "Error", "reply mia".ToUtf8Bytes()));
 					}
 					job.Queue.RunNextIfAvailable();
 					break;

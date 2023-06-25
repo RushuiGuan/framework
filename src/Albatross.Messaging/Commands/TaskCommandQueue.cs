@@ -34,7 +34,7 @@ namespace Albatross.Messaging.Commands {
 					routerServer.SubmitToQueue(job);
 				});
 			} catch (Exception err) {
-				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "unknown class", err.Message);
+				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "unknown class", err.Message.ToUtf8Bytes());
 				routerServer.SubmitToQueue(job);
 				logger.LogError(err, "failed {commandId}", job.Id);
 			}

@@ -7,8 +7,7 @@ namespace Albatross.Messaging.Messages {
 	/// </summary>
 	public record class ServerAck : Message, IMessage, ISystemMessage {
 		public static string MessageHeader { get => "server-ack"; }
-		public static IMessage Accept(string endpoint, ulong id, NetMQMessage frames) => new ServerAck(endpoint, id);
-
 		public ServerAck(string route, ulong id) : base(MessageHeader, route, id) { }
+		public ServerAck() { }
 	}
 }

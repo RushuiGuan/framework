@@ -15,19 +15,19 @@ namespace Albatross.Messaging.ReqRep {
 		private readonly IMessageFactory messageFactory;
 		private readonly ILogger<RouterBrokerService> logger;
 		private readonly WorkerRegistry registry;
-		private readonly IDataLogWriter logWriter;
+		private readonly ILogWriter logWriter;
 		private readonly TimeSpan heartbeatThreshold;
 		private readonly RouterSocket socket;
 		private readonly NetMQTimer timer;
 		private readonly NetMQPoller poller;
 
-		IDataLogWriter IMessagingService.DataLogger => logWriter;
+		ILogWriter IMessagingService.DataLogger => logWriter;
 
 		bool disposed = false;
 		public string Identity => config.Identity;
 		public AtomicCounter<ulong> Counter => this.counter;
 
-		public RouterBrokerService(BrokerConfiguration config, WorkerRegistry registry, IDataLogWriter logWriter, IMessageFactory messageFactory, ILogger<RouterBrokerService> logger) {
+		public RouterBrokerService(BrokerConfiguration config, WorkerRegistry registry, ILogWriter logWriter, IMessageFactory messageFactory, ILogger<RouterBrokerService> logger) {
 			this.config = config;
 			this.registry = registry;
 			this.logWriter = logWriter;
@@ -65,7 +65,7 @@ namespace Albatross.Messaging.ReqRep {
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs args) {
 			try {
 				var frames = args.Socket.ReceiveMultipartMessage();
-				var msg = messageFactory.Create(true, frames, this.logWriter);
+				var msg = messageFactory.Create(frames);
 				switch (msg) {
 					case WorkerConnect connect:
 						AcceptConnection(connect);
@@ -155,8 +155,8 @@ namespace Albatross.Messaging.ReqRep {
 			throw new NotImplementedException();
 		}
 		public void Transmit(IMessage msg) {
+			logWriter.WriteLogEntry(new LogEntry(LineType.Out, msg));
 			var frames = msg.Create();
-			logWriter.Outgoing(msg, frames);
 			this.socket.SendMultipartMessage(frames);
 		}
 

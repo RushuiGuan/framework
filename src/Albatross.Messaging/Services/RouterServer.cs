@@ -18,8 +18,8 @@ namespace Albatross.Messaging.Services {
 		private readonly NetMQTimer timer;
 		private readonly ILogger<RouterServer> logger;
 		private readonly IMessageFactory messageFactory;
-		private readonly IDataLogWriter dataLogWriter;
-		private readonly IDataLogReader dataLogReader;
+		private readonly ILogWriter dataLogWriter;
+		private readonly ILogReader dataLogReader;
 		private bool running = false;
 		private bool disposed = false;
 		private IEnumerable<IRouterServerService> receiveServices;
@@ -29,7 +29,7 @@ namespace Albatross.Messaging.Services {
 		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 
-		public IDataLogWriter DataLogger => this.dataLogWriter;
+		public ILogWriter DataLogger => this.dataLogWriter;
 		public AtomicCounter<ulong> Counter => this.counter;
 
 		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, RouterServerLogWriter dataLogWriter, RouterServerLogReader dataLogReader) {
@@ -109,7 +109,7 @@ namespace Albatross.Messaging.Services {
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs e) {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
-				var msg = this.messageFactory.Create(true, frames, this.DataLogger);
+				var msg = this.messageFactory.Create(frames);
 				if(msg is ClientAck) { return; }
 				if (running) {
 					if(msg is Connect connect) {
@@ -165,9 +165,8 @@ namespace Albatross.Messaging.Services {
 			this.queue.Enqueue(new StartReplay());
 			foreach (var dataLog in this.dataLogReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
 				counter++;
-				var record = this.messageFactory.Create(dataLog);
-				if (!(record is ISystemMessage)) {
-					this.queue.Enqueue(new Replay(record, counter, dataLog.Direction));
+				if (!(dataLog.Message is ISystemMessage)) {
+					this.queue.Enqueue(new Replay(dataLog.Message, counter, dataLog.LineType));
 				}
 			}
 			this.queue.Enqueue(new EndReplay());
@@ -182,8 +181,8 @@ namespace Albatross.Messaging.Services {
 		public void SubmitToQueue(object result) => this.queue.Enqueue(result);
 
 		public void Transmit(IMessage msg) {
+			this.dataLogWriter.WriteLogEntry(new LogEntry(LineType.Out, msg));
 			var frames = msg.Create();
-			this.dataLogWriter.Outgoing(msg, frames);
 			this.socket.SendMultipartMessage(frames);
 		}
 

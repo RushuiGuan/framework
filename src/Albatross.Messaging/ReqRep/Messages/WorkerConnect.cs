@@ -21,13 +21,5 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public WorkerConnect(string route, ulong messageId, ISet<string> services) : base(MessageHeader, route, messageId) {
 			Services = services;
 		}
-
-		public override NetMQMessage Create() {
-			var msg = base.Create();
-			foreach (var service in Services) {
-				msg.AppendUtf8String(service);
-			}
-			return msg;
-		}
 	}
 }

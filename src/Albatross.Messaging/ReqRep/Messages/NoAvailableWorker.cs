@@ -16,11 +16,5 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public NoAvailableWorker(string route, ulong messageId, string? service) : base(MessageHeader, route, messageId) {
 			Service = service;
 		}
-
-		public override NetMQMessage Create() {
-			var msg = base.Create();
-			msg.AppendUtf8String(Service);
-			return msg;
-		}
 	}
 }

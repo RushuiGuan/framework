@@ -1,4 +1,5 @@
 ﻿using Albatross.Messaging.Configurations;
+using Albatross.Messaging.DataLogging;
 using Albatross.Messaging.Eventing.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
@@ -60,7 +61,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 							if(messagingService.GetClientState(subscriber) == ClientState.Alive) { 
 								messagingService.Transmit(eve);
 							} else {
-								messagingService.DataLogger.Outgoing(eve, eve.Create());
+								messagingService.DataLogger.WriteLogEntry(new LogEntry(LineType.Out, eve));
 							}
 						}
 					}

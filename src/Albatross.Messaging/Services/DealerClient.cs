@@ -17,7 +17,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IDealerClientService> transmitServices;
 		private IEnumerable<IDealerClientService> timerServices;
 		private readonly IMessageFactory messageFactory;
-		private readonly IDataLogWriter dataWriter;
+		private readonly ILogWriter dataWriter;
 		private readonly ILogger<DealerClient> logger;
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
@@ -28,7 +28,7 @@ namespace Albatross.Messaging.Services {
 		private Client self;
 		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
-		public IDataLogWriter DataLogger => this.dataWriter;
+		public ILogWriter DataLogger => this.dataWriter;
 		public AtomicCounter<ulong> Counter => this.counter;
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter dataWriter, ILogger<DealerClient> logger) {
@@ -104,7 +104,7 @@ namespace Albatross.Messaging.Services {
 		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs e) {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
-				var msg = this.messageFactory.Create(false, frames, this.dataWriter);
+				var msg = this.messageFactory.Create(frames);
 				// the only processing needed for Ack is to persist it in logs
 				if (running) {
 					if(msg is ConnectOk) {
@@ -155,7 +155,7 @@ namespace Albatross.Messaging.Services {
 
 		public void Transmit(IMessage msg) {
 			var frames = msg.Create();
-			this.dataWriter.Outgoing(msg, frames);
+			this.dataWriter.WriteLogEntry(new LogEntry(LineType.Out, msg));
 			this.socket.SendMultipartMessage(frames);
 		}
 
