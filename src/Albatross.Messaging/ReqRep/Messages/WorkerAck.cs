@@ -7,5 +7,6 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public static IMessage Accept(string route, ulong messageId, NetMQMessage frames) => new WorkerAck(route, messageId);
 
 		public WorkerAck(string route, ulong messageId) : base(MessageHeader, route, messageId) { }
+		public WorkerAck() { }
 	}
 }

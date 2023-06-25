@@ -13,7 +13,7 @@ namespace Albatross.Messaging.Messages {
 		public static bool HasRoute(this NetMQMessage message) => message.FrameCount == 0 ? false : message[0].BufferSize > 0;
 
 		public static string PeekMessageHeader(this NetMQMessage msg) {
-			var headerIndex = msg.HasRoute() ? 3 : 2;
+			var headerIndex = msg.HasRoute() ? 2 : 1;
 			if (headerIndex >= msg.FrameCount) {
 				throw new MissingMessageFrameException(msg.FrameCount, headerIndex + 1);
 			}

@@ -7,11 +7,12 @@ using System.IO;
 namespace Albatross.Messaging.Commands.Messages {
 	public record class CommandQueueStatusReply : Message, IMessage {
 		public static string MessageHeader => "queue-status-reply";
-		public byte[] Payload { get; private set; }
+		public byte[] Payload { get; private set; } = Array.Empty<byte>();
 
 		public CommandQueueStatusReply(string route, ulong id, byte[] payload) : base(MessageHeader, route, id) {
 			Payload = payload;
 		}
+		public CommandQueueStatusReply() { }
 
 		public override void ReadFromFrames(NetMQMessage msg) {
 			base.ReadFromFrames(msg);

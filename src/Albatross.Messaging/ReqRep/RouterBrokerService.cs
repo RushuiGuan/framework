@@ -155,7 +155,7 @@ namespace Albatross.Messaging.ReqRep {
 			throw new NotImplementedException();
 		}
 		public void Transmit(IMessage msg) {
-			logWriter.WriteLogEntry(new LogEntry(LineType.Out, msg));
+			logWriter.WriteLogEntry(new LogEntry(EntryType.Out, msg));
 			var frames = msg.Create();
 			this.socket.SendMultipartMessage(frames);
 		}

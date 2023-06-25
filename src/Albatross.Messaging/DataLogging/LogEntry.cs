@@ -11,31 +11,31 @@ namespace Albatross.Messaging.DataLogging {
 		public const string Record = "R";
 		public const string TimeStampFormat = "yyyy-MM-ddTHH:mm:ss:fffZ";
 
-		public LineType LineType { get; init; }
+		public EntryType EntryType { get; init; }
 		public DateTime TimeStamp { get; init; }
 		public IMessage Message { get; init; }
 
-		public LogEntry(LineType lineType, DateTime timeStamp, IMessage message) {
-			this.LineType = lineType;
+		public LogEntry(EntryType entryType, DateTime timeStamp, IMessage message) {
+			this.EntryType = entryType;
 			this.TimeStamp = timeStamp;
 			this.Message = message;
 		}
 
-		public LogEntry(LineType lineType, IMessage message) : this(lineType, DateTime.Now, message) { }
+		public LogEntry(EntryType entryType, IMessage message) : this(entryType, DateTime.Now, message) { }
 
 		public static bool TryParseLine(IMessageFactory messageFactory, string line, [NotNullWhen(true)] out LogEntry? replay) {
 			replay = null;
-			LineType type;
+			EntryType type;
 			DateTime timeStamp;
 
 			int offset = 0;
 			if (line.TryGetText(Messages.Message.LogDelimiter, ref offset, out var text)) {
 				if (text == Out) {
-					type = LineType.Out;
+					type = EntryType.Out;
 				} else if (text == In) {
-					type = LineType.In;
+					type = EntryType.In;
 				}else if(text == Record) {
-					type = LineType.Record;
+					type = EntryType.Record;
 				} else {
 					return false;
 				}
@@ -51,7 +51,13 @@ namespace Albatross.Messaging.DataLogging {
 		}
 
 		public void Write(TextWriter writer) {
-			writer.Append(LineType).Space()
+			switch (EntryType) {
+				case EntryType.Out: writer.Write(Out); break;
+				case EntryType.In: writer.Write(In); break;
+				case EntryType.Record: writer.Write(Record); break;
+				default: writer.Write('#');break;
+			}
+			writer.Space()
 				.Append(DateTime.Now.ToString(LogEntry.TimeStampFormat)).Space();
 			this.Message.WriteToText(writer);
 			writer.WriteLine();

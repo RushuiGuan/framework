@@ -4,11 +4,11 @@
 	public class StartReplay : ISystemMessage { }
 	public class Replay : ISystemMessage {
 		public int Index { get; }
-		public LineType Direction { get; }
-		public Replay(IMessage message, int order, LineType direction) {
+		public EntryType EntryType { get; }
+		public Replay(IMessage message, int order, EntryType entryType) {
 			Message = message;
 			Index = order;
-			Direction = direction;
+			EntryType = entryType;
 		}
 		public IMessage Message { get; }
 	}

@@ -16,6 +16,8 @@ namespace Albatross.Messaging.Eventing.Messages {
 			Pattern = pattern;
 			Payload = payload;
 		}
+		public Event() { }
+
 		public override void WriteToFrames(NetMQMessage msg) {
 			base.WriteToFrames(msg);
 			msg.AppendUtf8String(Topic);

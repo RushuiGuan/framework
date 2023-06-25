@@ -16,5 +16,6 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public NoAvailableWorker(string route, ulong messageId, string? service) : base(MessageHeader, route, messageId) {
 			Service = service;
 		}
+		public NoAvailableWorker() { }
 	}
 }

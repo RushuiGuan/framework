@@ -11,27 +11,28 @@ namespace Albatross.Messaging.Messages {
 		public string Header { get; private set; } = string.Empty;
 		public ulong Id { get; private set; }
 
-		public int StartingFrameIndex => 3;
-		public virtual int Size => 4;
+		public int StartingFrameIndex => HasRoute ? 4 : 3;
 		public bool HasRoute => !string.IsNullOrEmpty(this.Route);
 
 
-		public Message(string route, string header, ulong id) {
-			this.Route = route;
+		public Message(string header, string route, ulong id) {
 			this.Header = header;
+			this.Route = route;
 			this.Id = id;
 		}
 		public Message() { }
 
-		
+
 		public virtual void ReadFromFrames(NetMQMessage msg) {
+			var index = 0;
 			if (msg.HasRoute()) {
-				this.Route = msg[0].Buffer.ToUtf8String();
+				this.Route = msg[index++].Buffer.ToUtf8String();
 			} else {
 				this.Route = string.Empty;
 			}
-			this.Header = msg[2].Buffer.ToUtf8String();
-			this.Id = BitConverter.ToUInt64(msg[3].Buffer);
+			index++;
+			this.Header = msg[index++].Buffer.ToUtf8String();
+			this.Id = BitConverter.ToUInt64(msg[index++].Buffer);
 		}
 		public virtual void WriteToFrames(NetMQMessage msg) {
 			msg.Clear();

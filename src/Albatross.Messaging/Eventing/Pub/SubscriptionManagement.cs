@@ -31,7 +31,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 			foreach(var item in Subscriptions) {
 				foreach(var subscriber in item.Subscribers) {
 					var request = new SubscriptionRequest(subscriber, counter.NextId(), true, item.Pattern);
-					writer.WriteLogEntry(new LogEntry(LineType.In, request));
+					writer.WriteLogEntry(new LogEntry(EntryType.In, request));
 				}
 			}
 			this.lastSaveTimeStamp = DateTime.Now;

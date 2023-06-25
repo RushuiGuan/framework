@@ -1,5 +1,5 @@
 ﻿namespace Albatross.Messaging.Messages {
-	public enum LineType {
+	public enum EntryType {
 		In, Out, Record
 	}
 }

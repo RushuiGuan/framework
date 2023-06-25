@@ -12,9 +12,10 @@ namespace Albatross.Messaging.Eventing.Messages {
 			this.On = on;
 			this.Pattern = pattern;
 		}
+		public SubscriptionRequest() { }
 
 		public bool On { get; private set; }
-		public string Pattern { get; private set; }
+		public string Pattern { get; private set; } = string.Empty;
 
 		public override void ReadFromFrames(NetMQMessage msg) {
 			base.ReadFromFrames(msg);

@@ -155,7 +155,7 @@ namespace Albatross.Messaging.Services {
 
 		public void Transmit(IMessage msg) {
 			var frames = msg.Create();
-			this.dataWriter.WriteLogEntry(new LogEntry(LineType.Out, msg));
+			this.dataWriter.WriteLogEntry(new LogEntry(EntryType.Out, msg));
 			this.socket.SendMultipartMessage(frames);
 		}
 

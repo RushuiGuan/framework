@@ -16,10 +16,11 @@ namespace Albatross.Messaging.ReqRep.Messages {
 			return new WorkerConnect(route, messageId, services);
 		}
 
-		public ISet<string> Services { get; }
+		public ISet<string> Services { get; } = new HashSet<string>();
 
 		public WorkerConnect(string route, ulong messageId, ISet<string> services) : base(MessageHeader, route, messageId) {
 			Services = services;
 		}
+		public WorkerConnect	() { }
 	}
 }

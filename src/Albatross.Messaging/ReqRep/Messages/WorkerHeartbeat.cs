@@ -13,5 +13,6 @@ namespace Albatross.Messaging.ReqRep.Messages {
 
 		public WorkerHeartbeat(string route, ulong messageId) : base(MessageHeader, route, messageId) {
 		}
+		public WorkerHeartbeat() { }
 	}
 }

@@ -66,7 +66,7 @@ namespace Albatross.Messaging.Commands {
 			switch (msg) {
 				case CommandJob job:
 					if (job.FireAndForget) {
-						messagingService.DataLogger.WriteLogEntry(new DataLogging.LogEntry(LineType.Record, new CommandExecuted(job.Route, job.Id)));
+						messagingService.DataLogger.WriteLogEntry(new DataLogging.LogEntry(EntryType.Record, new CommandExecuted(job.Route, job.Id)));
 					} else {
 						messagingService.SubmitToQueue(job.Reply ?? new CommandErrorReply(job.Route, job.Id, "Error", "reply mia".ToUtf8Bytes()));
 					}

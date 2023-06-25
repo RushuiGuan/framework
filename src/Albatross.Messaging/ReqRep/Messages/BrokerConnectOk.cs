@@ -15,5 +15,6 @@ namespace Albatross.Messaging.ReqRep.Messages {
 			HeartbeatInterval = interval;
 			HeartbeatThreshold = threshold;
 		}
+		public BrokerConnectOk	() { }
 	}
 }

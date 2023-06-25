@@ -1,5 +1,6 @@
 ﻿using Albatross.Messaging.DataLogging;
 using Albatross.Reflection;
+using Microsoft.Extensions.Logging;
 using NetMQ;
 using System;
 using System.Collections.Generic;

@@ -11,5 +11,6 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public static IMessage Accept(string endpoint, ulong id, NetMQMessage frames) => new ServerAck(endpoint, id);
 
 		public AAServerAck(string route, ulong id) : base(MessageHeader, route, id) { }
+		public AAServerAck() { }	
 	}
 }

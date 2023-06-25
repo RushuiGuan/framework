@@ -18,8 +18,8 @@ namespace Albatross.Messaging.Services {
 		private readonly NetMQTimer timer;
 		private readonly ILogger<RouterServer> logger;
 		private readonly IMessageFactory messageFactory;
-		private readonly ILogWriter dataLogWriter;
-		private readonly ILogReader dataLogReader;
+		private readonly ILogWriter logWriter;
+		private readonly ILogReader logReader;
 		private bool running = false;
 		private bool disposed = false;
 		private IEnumerable<IRouterServerService> receiveServices;
@@ -29,18 +29,18 @@ namespace Albatross.Messaging.Services {
 		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 
-		public ILogWriter DataLogger => this.dataLogWriter;
+		public ILogWriter DataLogger => this.logWriter;
 		public AtomicCounter<ulong> Counter => this.counter;
 
-		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, RouterServerLogWriter dataLogWriter, RouterServerLogReader dataLogReader) {
+		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, RouterServerLogWriter logWriter, RouterServerLogReader logReader) {
 			logger.LogInformation($"Creating {nameof(RouterServer)} instance");
 			this.config = config;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
 			this.transmitServices = services.Where(args=>args.HasCustomTransmitObject).ToArray();
 			this.timerServices = services.Where(args=>args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
-			this.dataLogWriter = dataLogWriter;
-			this.dataLogReader = dataLogReader;
+			this.logWriter = logWriter;
+			this.logReader = logReader;
 			this.logger = logger;
 			this.socket = new RouterSocket();
 			this.socket.ReceiveReady += Socket_ReceiveReady;
@@ -163,10 +163,10 @@ namespace Albatross.Messaging.Services {
 			logger.LogInformation("running log replay");
 			int counter = 0;
 			this.queue.Enqueue(new StartReplay());
-			foreach (var dataLog in this.dataLogReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
+			foreach (var dataLog in this.logReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
 				counter++;
 				if (!(dataLog.Message is ISystemMessage)) {
-					this.queue.Enqueue(new Replay(dataLog.Message, counter, dataLog.LineType));
+					this.queue.Enqueue(new Replay(dataLog.Message, counter, dataLog.EntryType));
 				}
 			}
 			this.queue.Enqueue(new EndReplay());
@@ -181,7 +181,7 @@ namespace Albatross.Messaging.Services {
 		public void SubmitToQueue(object result) => this.queue.Enqueue(result);
 
 		public void Transmit(IMessage msg) {
-			this.dataLogWriter.WriteLogEntry(new LogEntry(LineType.Out, msg));
+			this.logWriter.WriteLogEntry(new LogEntry(EntryType.Out, msg));
 			var frames = msg.Create();
 			this.socket.SendMultipartMessage(frames);
 		}

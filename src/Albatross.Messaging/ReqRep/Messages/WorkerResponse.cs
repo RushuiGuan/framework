@@ -1,5 +1,6 @@
 ﻿using Albatross.Messaging.Messages;
 using NetMQ;
+using System;
 using System.Linq;
 
 namespace Albatross.Messaging.ReqRep.Messages {
@@ -13,10 +14,11 @@ namespace Albatross.Messaging.ReqRep.Messages {
 			return new WorkerResponse(route, messageId, payload);
 		}
 
-		public byte[] Payload { get; init; }
+		public byte[] Payload { get; init; } = Array.Empty<byte>();
 
 		public WorkerResponse(string route, ulong messageId, byte[] payload) : base(MessageHeader, route, messageId) {
 			Payload = payload;
 		}
+		public WorkerResponse() { }
 	}
 }

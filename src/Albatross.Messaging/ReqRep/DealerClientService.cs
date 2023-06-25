@@ -113,7 +113,7 @@ namespace Albatross.Messaging.ReqRep {
 			throw new NotImplementedException();
 		}
 		public void Transmit(IMessage msg) {
-			this.persistence.WriteLogEntry(new LogEntry(LineType.Out, msg));
+			this.persistence.WriteLogEntry(new LogEntry(EntryType.Out, msg));
 			this.socket.SendMultipartMessage(msg.Create());
 		}
 

@@ -6,5 +6,6 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public static string MessageHeader => "aareconnect";
 
 		public AAReconnect(string route, ulong messageId) : base(MessageHeader, route, messageId) { }
+		public AAReconnect() { }
 	}
 }
