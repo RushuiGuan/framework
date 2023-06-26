@@ -88,9 +88,6 @@ namespace Albatross.Messaging.Services {
 						case IMessage msg:
 							this.Transmit(msg);
 							break;
-						case Wakeup _:
-							logger.LogInformation("poller thread is: {id}", Environment.CurrentManagedThreadId);
-							break;
 						default:
 							foreach (var service in this.transmitServices) {
 								if (service.ProcessTransmitQueue(this, item)) {
@@ -167,12 +164,11 @@ namespace Albatross.Messaging.Services {
 		public async Task Start() {
 			this.logger.LogInformation("starting router server at {endpoint}", config.EndPoint);
 			this.socket.Bind(config.EndPoint);
-			// wait a second here.  if we start messages right away, it will get lost
+			// wait a second here.  if we start transmitting messages right away, it will get lost
 			await Task.Delay(1000);
 			
 			logger.LogInformation("running log replay");
 			int counter = 0;
-			this.queue.Enqueue(new Wakeup());
 			this.queue.Enqueue(new StartReplay());
 			foreach (var dataLog in this.logReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
 				counter++;
@@ -193,7 +189,6 @@ namespace Albatross.Messaging.Services {
 			this.logWriter.WriteLogEntry(new LogEntry(EntryType.Out, msg));
 			var frames = msg.Create();
 			this.socket.SendMultipartMessage(frames);
-			this.logger.LogInformation("my thread is: {id}", Environment.CurrentManagedThreadId);
 		}
 
 		public void Dispose() {
