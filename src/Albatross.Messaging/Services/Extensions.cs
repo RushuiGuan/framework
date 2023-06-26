@@ -15,12 +15,15 @@ namespace Albatross.Messaging.Services {
 			var server = serviceProvider.GetRequiredService<RouterServer>();
 			_ = server.Start();
 		}
-		public static IServiceCollection AddDealerClient(this IServiceCollection services) {
+		public static IServiceCollection AddDefaultDealerClientConfig(this IServiceCollection services) {
 			services.AddConfig<MessagingConfiguration>();
 			services.TryAddSingleton(provider => {
 				var config = provider.GetRequiredService<MessagingConfiguration>();
 				return config.DealerClient;
 			});
+			return services;
+		}
+		public static IServiceCollection AddDealerClient(this IServiceCollection services) {
 			services.TryAddSingleton<DealerClientLogWriter>();
 			services.TryAddSingleton<DealerClientLogReader>();
 			services.TryAddSingleton<DealerClient>();

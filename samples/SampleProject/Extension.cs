@@ -1,5 +1,6 @@
 ﻿using Albatross.Messaging.Commands;
 using Albatross.Messaging.Eventing;
+using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace SampleProject {
@@ -20,7 +21,8 @@ namespace SampleProject {
 		public static IServiceCollection AddSampleProjectClient(this IServiceCollection services) {
 			services.AddSampleProjectCommands()
 				.AddCommandClient()
-				.AddSubscriber();
+				.AddSubscriber()
+				.AddDefaultDealerClientConfig();
 			return services;
 		}
 
