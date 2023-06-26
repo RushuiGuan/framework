@@ -24,7 +24,7 @@ namespace Albatross.Messaging.Services {
 		}
 
 		public void UpdateHeartbeat() {
-			LastHeartbeat = DateTime.Now;
+			LastHeartbeat = DateTime.UtcNow;
 		}
 	}
 }

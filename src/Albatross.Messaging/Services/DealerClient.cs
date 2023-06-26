@@ -61,7 +61,7 @@ namespace Albatross.Messaging.Services {
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
 			if(config.MaintainConnection) {
 				if (self.State != ClientState.Dead) {
-					var elapsed = DateTime.Now - self.LastHeartbeat;
+					var elapsed = DateTime.UtcNow - self.LastHeartbeat;
 					if (elapsed > config.HeartbeatThresholdTimeSpan) {
 						self.Lost();
 						logger.LogInformation("disconnect: {elapsed:#,#} > {threshold:#,#}", elapsed.TotalMilliseconds, config.HeartbeatThresholdTimeSpan.TotalMilliseconds);

@@ -17,12 +17,12 @@ namespace Albatross.Messaging.DataLogging {
 		}
 
 		public IEnumerable<LogEntry> ReadLast(TimeSpan span) {
-			DateTime cutOff = DateTime.Now - span;
-			string filename = $"{config.FileName}_{cutOff.ToString(LogEntry.TimeStampFormat)}.txt";
+			DateTime cutOff = DateTime.UtcNow - span;
+			string filename = config.FileName.GetLogFileName(cutOff);
 			Stack<string> stack = new Stack<string>();
 			foreach (var file in Directory.GetFiles(config.WorkingDirectory, config.FileName.GetLogFilePattern()).OrderByDescending(args => args)) {
 				stack.Push(file);
-				if (string.Compare(file, filename) <= 0) {
+				if (string.Compare(Path.GetFileName(file), filename) <= 0) {
 					break;
 				}
 			}

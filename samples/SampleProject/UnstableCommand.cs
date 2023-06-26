@@ -18,11 +18,7 @@ namespace SampleProject {
 		}
 		public override Task<int> Handle(UnstableCommand command) {
 			logger.LogInformation("{value}, {thread}", command.Counter, Environment.CurrentManagedThreadId);
-			var value = new Random().Next();
-			if (value % 2 == 0) {
-				throw new Exception(command.Counter.ToString());
-			}
-			return Task.FromResult(command.Counter);
+			throw new Exception("this job has been failed successfully");
 		}
 	}
 }

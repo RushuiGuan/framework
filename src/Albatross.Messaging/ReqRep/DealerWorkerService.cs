@@ -44,16 +44,16 @@ namespace Albatross.Messaging.ReqRep {
 					dealerClient.Transmit(new WorkerConnect(Identity, counter.NextId(), Services));
 					break;
 				case BrokerConnectOk _:
-					lastHeartbeat = DateTime.Now;
+					lastHeartbeat = DateTime.UtcNow;
 					if (state == WorkerState.Unavailable) {
 						state = WorkerState.Connected;
 					}
 					break;
 				case ServerAck _:
-					lastHeartbeat = DateTime.Now;
+					lastHeartbeat = DateTime.UtcNow;
 					break;
 				case BrokerRequest command:
-					lastHeartbeat = DateTime.Now;
+					lastHeartbeat = DateTime.UtcNow;
 					break;
 				default:
 					return false;
@@ -65,7 +65,7 @@ namespace Albatross.Messaging.ReqRep {
 		public void ProcessTimerElapsed(DealerClient dealerClient) {
 			try {
 				if (state != WorkerState.Unavailable) {
-					var elapsed = DateTime.Now - lastHeartbeat;
+					var elapsed = DateTime.UtcNow - lastHeartbeat;
 					if (elapsed > heartbeatThreshold) {
 						state = WorkerState.Unavailable;
 						logger.LogInformation("disconnect: {elapsed:#,#} > {threshold:#,#}", elapsed.TotalMilliseconds, heartbeatThreshold.TotalMilliseconds);

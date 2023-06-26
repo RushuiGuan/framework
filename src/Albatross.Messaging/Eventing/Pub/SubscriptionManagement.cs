@@ -26,7 +26,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 		}
 
 		DateTime lastSaveTimeStamp;
-		public bool ShouldSave => DateTime.Now - lastSaveTimeStamp > TimeSpan.FromMinutes(SubscriptionPersistentIntervalInMinutes);
+		public bool ShouldSave => DateTime.UtcNow - lastSaveTimeStamp > TimeSpan.FromMinutes(SubscriptionPersistentIntervalInMinutes);
 		public void Save(ILogWriter writer, AtomicCounter<ulong> counter) {
 			foreach(var item in Subscriptions) {
 				foreach(var subscriber in item.Subscribers) {
@@ -34,7 +34,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 					writer.WriteLogEntry(new LogEntry(EntryType.In, request));
 				}
 			}
-			this.lastSaveTimeStamp = DateTime.Now;
+			this.lastSaveTimeStamp = DateTime.UtcNow;
 		}
 
 		public void UnsubscribeAll(string route) {

@@ -62,7 +62,7 @@ namespace Albatross.Messaging.Services {
 			if (config.MaintainConnection) {
 				foreach(var client in this.clients.Values) {
 					if (client.State != ClientState.Dead) {
-						var elapsed = DateTime.Now - client.LastHeartbeat;
+						var elapsed = DateTime.UtcNow - client.LastHeartbeat;
 						if (elapsed > config.HeartbeatThresholdTimeSpan) {
 							client.Lost();
 							logger.LogInformation("lost: {name}, {elapsed:#,#} > {threshold:#,#}", client.Identity, elapsed.TotalMilliseconds, config.HeartbeatThresholdTimeSpan.TotalMilliseconds);

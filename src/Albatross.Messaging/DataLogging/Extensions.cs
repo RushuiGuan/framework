@@ -11,7 +11,7 @@ namespace Albatross.Messaging.DataLogging {
 		}
 
 		public const string LogFileExtension = ".log";
-		public const string LogFileTimeStampFormat = "yyyyMMddHHmmssfff";
+		public const string LogFileTimeStampFormat = "yyyyMMddTHHmmssfff";
 		public static string GetLogFileName(this string filename, DateTime? timeStamp = null)
 			=> $"{filename}_{(timeStamp ?? DateTime.UtcNow).ToString(LogFileTimeStampFormat)}{LogFileExtension}";
 		public static string GetLogFilePattern(this string fileName) => $"{fileName}_*{LogFileExtension}";

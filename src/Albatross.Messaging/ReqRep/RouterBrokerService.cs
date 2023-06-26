@@ -51,7 +51,7 @@ namespace Albatross.Messaging.ReqRep {
 			try {
 				foreach (var worker in registry) {
 					if (worker.IsActive) {
-						var elapsed = DateTime.Now - worker.LastHeartbeat;
+						var elapsed = DateTime.UtcNow - worker.LastHeartbeat;
 						if (elapsed > heartbeatThreshold) {
 							worker.StateChange(WorkerState.Unavailable);
 							logger.LogInformation("lost: {name}, {elapsed:#,#} > {threshold:#,#}", worker.Identity, elapsed.TotalMilliseconds, heartbeatThreshold.TotalMilliseconds);
@@ -90,7 +90,7 @@ namespace Albatross.Messaging.ReqRep {
 
 		private void AcceptWorkerResponse(WorkerResponse response) {
 			if (registry.TryGetWorker(response.Route, out var worker)) {
-				worker.LastHeartbeat = DateTime.Now;
+				worker.LastHeartbeat = DateTime.UtcNow;
 				if (worker.IsActive) {
 					// run the next job in queue
 				} else {
@@ -113,7 +113,7 @@ namespace Albatross.Messaging.ReqRep {
 
 		private void AcceptHeartbeat(WorkerHeartbeat heartbeat) {
 			if (registry.TryGetWorker(heartbeat.Route, out var worker) && worker.IsActive) {
-				worker.LastHeartbeat = DateTime.Now;
+				worker.LastHeartbeat = DateTime.UtcNow;
 				this.Transmit(new ServerAck(heartbeat.Route, counter.NextId()));
 			} else {
 				this.Transmit(new AAReconnect(heartbeat.Route, counter.NextId()));
@@ -126,7 +126,7 @@ namespace Albatross.Messaging.ReqRep {
 		/// <param name="msg"></param>
 		private void AcceptConnection(WorkerConnect msg) {
 			var worker = registry.Add(msg.Route, msg.Services);
-			worker.LastHeartbeat = DateTime.Now;
+			worker.LastHeartbeat = DateTime.UtcNow;
 			worker.StateChange(WorkerState.Connected);
 			if (worker.Requests.Count > 0) {
 				var request = worker.Requests.Dequeue();
