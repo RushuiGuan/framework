@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using Xunit;
 
-namespace Albatross.Test.Serialization {
+namespace Albatross.Serialization.Test {
 	public class TestDateTime {
 		[Fact]
 		public void RunSample() {

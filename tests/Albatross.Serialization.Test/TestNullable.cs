@@ -2,7 +2,7 @@
 using Xunit;
 
 #nullable enable
-namespace Albatross.Test.Serialization {
+namespace Albatross.Serialization.Test {
 	public class JobDto {
 		public JobDto(string name) {
 			Name = name;

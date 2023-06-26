@@ -1,0 +1,20 @@
+{
+    "contains": [
+        {
+            "description": "A collection of snapshots.",
+            "identifier": "snapshots",
+            "title": "Snapshots"
+        },
+        {
+            "description": "A collection of archives.",
+            "identifier": "archives",
+            "title": "Archives"
+        }
+    ],
+    "description": "<p>The fields file contains the metadata for fields delivered or available to clients through the Data License product. Fields.csv and fields.ttl contain the same set of information.&nbsp; Each field in the file contains corresponding metadata as an entry within fields .csv / .ttl.&nbsp; Metadata entries are presented in an application ready format that makes it easy for both a person and a machine to read.<br /><br />Fields.csv and fields.ttl are generated weekly. A difference file (fields.dif) is also generated to indicate changes from version to version. It is delivered to the root directory, and is also available in the Bloomberg Customer Service Center and through DLSD on the terminal.</p>",
+    "earliestDelivery": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Bloomberg LP//Enterprise//\r\nSUMMARY:Earliest arrival 03:05 America/New_York\r\nBEGIN:VEVENT\r\nDTSTART;TZID=America/New_York;VALUE=DATE-TIME:19700101T030500\r\nRRULE:FREQ=WEEKLY;BYDAY=SU,MO,TU,WE,TH,FR,SA;WKST=SU\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n",
+    "identifier": "fields",
+    "latestDelivery": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Bloomberg LP//Enterprise//\r\nSUMMARY:Latest arrival 06:00 America/New_York\r\nBEGIN:VEVENT\r\nDTSTART;TZID=America/New_York;VALUE=DATE-TIME:19700101T060000\r\nRRULE:FREQ=WEEKLY;BYDAY=SU,MO,TU,WE,TH,FR,SA;WKST=SU\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n",
+    "primaryKey": "fieldId",
+    "title": "Fields"
+}

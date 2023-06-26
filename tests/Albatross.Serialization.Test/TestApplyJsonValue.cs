@@ -1,12 +1,7 @@
-﻿using Albatross.Serialization;
-using Microsoft.VisualBasic.CompilerServices;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Xunit;
 
-namespace Albatross.Test.Serialization {
+namespace Albatross.Serialization.Test {
 	public class TestApplyJsonValue {
 		[Theory]
 		 [InlineData("0", "1", "1")]
@@ -22,7 +17,7 @@ namespace Albatross.Test.Serialization {
 		public void RunTestCases(string src, string value, string expected) {
 			var srcValue = JsonSerializer.Deserialize<JsonElement>(src);
 			var overrideValue = JsonSerializer.Deserialize<JsonElement>(value);
-			var result = Extension.ApplyJsonValue(srcValue, overrideValue);
+			var result = Albatross.Serialization.Extensions.ApplyJsonValue(srcValue, overrideValue);
 			string text = JsonSerializer.Serialize(result);
 			Assert.Equal(expected, text);
 		}

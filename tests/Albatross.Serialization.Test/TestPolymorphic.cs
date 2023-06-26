@@ -4,17 +4,17 @@ using System.Text.Json.Serialization;
 using Xunit;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Albatross.Test.Serialization {
+namespace Albatross.Serialization.Test {
 
 	[JsonDerivedType(typeof(MyClass), "my-class")]
 	[JsonPolymorphic]
 	public class MyBase {
 		public string Name { get; set; }
 		public MyBase(string name) {
-			this.Name = name;
+			Name = name;
 		}
 	}
-	
+
 	public class MyClass : MyBase {
 		public string Type { get; set; }
 		public MyClass(string name, string type) : base(name) {
