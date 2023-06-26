@@ -17,7 +17,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IDealerClientService> transmitServices;
 		private IEnumerable<IDealerClientService> timerServices;
 		private readonly IMessageFactory messageFactory;
-		private readonly ILogWriter dataWriter;
+		private readonly ILogWriter logWriter;
 		private readonly ILogger<DealerClient> logger;
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
@@ -28,17 +28,17 @@ namespace Albatross.Messaging.Services {
 		private Client self;
 		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
-		public ILogWriter DataLogger => this.dataWriter;
+		public ILogWriter DataLogger => this.logWriter;
 		public AtomicCounter<ulong> Counter => this.counter;
 
-		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter dataWriter, ILogger<DealerClient> logger) {
+		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter logWriter, ILogger<DealerClient> logger) {
 			this.config = config;
 			this.services = services;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
 			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
-			this.dataWriter = dataWriter;
+			this.logWriter = logWriter;
 			this.logger = logger;
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;
@@ -105,6 +105,7 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
+				this.logWriter.WriteLogEntry(new LogEntry(EntryType.In, msg));
 				// the only processing needed for Ack is to persist it in logs
 				if (running) {
 					if(msg is ConnectOk) {
@@ -155,7 +156,7 @@ namespace Albatross.Messaging.Services {
 
 		public void Transmit(IMessage msg) {
 			var frames = msg.Create();
-			this.dataWriter.WriteLogEntry(new LogEntry(EntryType.Out, msg));
+			this.logWriter.WriteLogEntry(new LogEntry(EntryType.Out, msg));
 			this.socket.SendMultipartMessage(frames);
 		}
 

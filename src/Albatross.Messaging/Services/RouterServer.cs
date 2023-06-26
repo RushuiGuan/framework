@@ -110,6 +110,7 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
+				this.logWriter.WriteLogEntry(new LogEntry(EntryType.In, msg));
 				if(msg is ClientAck) { return; }
 				if (running) {
 					if(msg is Connect connect) {
