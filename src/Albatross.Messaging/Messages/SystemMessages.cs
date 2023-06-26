@@ -13,4 +13,5 @@
 		public IMessage Message { get; }
 	}
 	public class EndReplay : ISystemMessage { }
+	public class Wakeup: ISystemMessage { }
 }

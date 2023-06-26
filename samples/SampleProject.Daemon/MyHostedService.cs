@@ -14,10 +14,9 @@ namespace SampleProject.Daemon {
 			this.server = server;
 		}
 
-		public Task StartAsync(CancellationToken cancellationToken) {
-			server.Start();
+		public async Task StartAsync(CancellationToken cancellationToken) {
+			await server.Start();
 			NetMQConfig.Linger = TimeSpan.FromSeconds(60);
-			return Task.CompletedTask;
 		}
 
 		public Task StopAsync(CancellationToken cancellationToken) {
