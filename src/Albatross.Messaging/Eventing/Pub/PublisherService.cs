@@ -1,5 +1,4 @@
-﻿using Albatross.Messaging.Configurations;
-using Albatross.Messaging.DataLogging;
+﻿using Albatross.Messaging.DataLogging;
 using Albatross.Messaging.Eventing.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
@@ -9,7 +8,6 @@ namespace Albatross.Messaging.Eventing.Pub {
 	public interface IPublisherService : IRouterServerService { }
 	public class PublisherService : IPublisherService {
 		private SubscriptionManagement subscriberManagement = new SubscriptionManagement();
-		private readonly RouterServerConfiguration config;
 		private readonly ILogger<PublisherService> logger;
 
 		public bool CanReceive => true;
@@ -19,8 +17,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 		/// </summary>
 		public bool NeedTimer => true;
 
-		public PublisherService(RouterServerConfiguration config, ILogger<PublisherService> logger) {
-			this.config = config;
+		public PublisherService(ILogger<PublisherService> logger) {
 			this.logger = logger;
 		}
 
