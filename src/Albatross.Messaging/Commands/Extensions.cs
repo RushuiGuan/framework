@@ -3,7 +3,7 @@ using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using Albatross.Messaging.DataLogging;
+using System.Reflection;
 
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
@@ -14,14 +14,14 @@ namespace Albatross.Messaging.Commands {
 			return services;
 		}
 
-		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : notnull where K: notnull{
+		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : notnull where K : notnull {
 			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, K>(getQueueName ?? GetDefaultQueueName));
 			return services;
 		}
 
 		public static IServiceCollection AddCommandClient(this IServiceCollection services) {
 			services.TryAddSingleton<CommandClientService>();
-			services.AddSingleton<IDealerClientService>(args=>args.GetRequiredService<CommandClientService>());
+			services.AddSingleton<IDealerClientService>(args => args.GetRequiredService<CommandClientService>());
 			services.TryAddSingleton<ICommandClient, CommandClient>();
 			services.TryAddSingleton<MessagingJsonSerializationOption>();
 			services.AddDealerClient();
@@ -35,6 +35,17 @@ namespace Albatross.Messaging.Commands {
 				services.TryAddScoped(genericType, typeof(H));
 			} else {
 				throw new ArgumentException($"{typeof(H).FullName} is not a valid command handler type");
+			}
+			return services;
+		}
+		public static IServiceCollection AddAssemblyCommandHandlers(this IServiceCollection services, Assembly assembly) {
+			var types = assembly.GetConcreteClasses<ICommandHandler>();
+			foreach (var type in types) {
+				if (type.TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
+					services.TryAddScoped(genericType, type);
+				} else if (type.TryGetClosedGenericType(typeof(ICommandHandler<>), out genericType)) {
+					services.TryAddScoped(genericType, type);
+				}
 			}
 			return services;
 		}
