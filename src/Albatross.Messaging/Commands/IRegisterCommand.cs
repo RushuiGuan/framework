@@ -10,6 +10,26 @@ namespace Albatross.Messaging.Commands {
 	public interface IRegisterCommand<T> : IRegisterCommand where T : notnull { }
 	public interface IRegisterCommand<T, K> : IRegisterCommand where T : notnull where K:notnull { }
 
+	public class RegisterCommand : IRegisterCommand {
+		private readonly Func<object, IServiceProvider, string> getQueueName;
+		public bool HasReturnType => ResponseType != typeof(void);
+		public Type CommandType { get; init; }
+		public Type ResponseType { get; init; }
+		public Type CommandHandlerType {get;init; }
+
+		public string GetQueueName(object command, IServiceProvider provider) => this.getQueueName(command, provider);
+		public RegisterCommand(Type commandType, Type responseType, Func<object, IServiceProvider, string> getQueueName) {
+			this.CommandType = commandType;
+			this.ResponseType = responseType;
+			if (responseType == typeof(void)) {
+				this.CommandHandlerType = typeof(ICommandHandler<>).MakeGenericType(commandType);
+			}else {
+				this.CommandHandlerType = typeof(ICommandHandler<,>).MakeGenericType(commandType, responseType);
+			}
+			this.getQueueName = getQueueName;
+		}
+	}
+
 	public class RegisterCommand<T> : IRegisterCommand where T : notnull {
 		private readonly Func<T, IServiceProvider, string> getQueueName;
 		

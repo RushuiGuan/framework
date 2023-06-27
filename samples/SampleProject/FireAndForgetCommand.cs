@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
+	[Command]
 	public class FireAndForgetCommand {
 		public int Counter { get; }
 		public int? Duration { get; }

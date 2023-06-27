@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace SampleProject {
+	[Command]
 	public class PingCommand {
 		public PingCommand(int round) {
 			this.Round = round;
@@ -10,6 +11,7 @@ namespace SampleProject {
 
 		public int Round { get; set; }
 	}
+	[Command]
 	public class PongCommand  {
 		public PongCommand(int round) {
 			this.Round = round;

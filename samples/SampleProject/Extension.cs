@@ -2,21 +2,28 @@
 using Albatross.Messaging.Eventing;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace SampleProject {
-	public static class Extension {
-
-		public static IServiceCollection AddSampleProjectCommands(this IServiceCollection services) {
-			return services.AddCommand<DoMathWorkCommand, long>((_, provider) => "math-queue")
-					.AddCommand<ProcessDataCommand, long>((_, provider) => "math-queue")
-					.AddCommand<LongRunningCommand, int>((_, provider) => "show-running-queue")
-					.AddCommand<UnstableCommand, int>((_, provider) => "slow-running-queue")
-					.AddCommand<PublishCommand>()
-					.AddCommand<FireAndForgetCommand>((_, provider) => "fire-and-forget-queue")
-					// use the same queue intentionally for this test
-					.AddCommand<PingCommand>((_, args) => "ping pong")
-					.AddCommand<PongCommand>((_, args) => "ping pong");
+	public static class Extensions {
+		static string GetQueueName(object command, IServiceProvider provider) {
+			switch (command) {
+				case DoMathWorkCommand:
+				case ProcessDataCommand:
+					return "math-queue";
+				case LongRunningCommand:
+				case UnstableCommand:
+					return "show-running-queue";
+				case FireAndForgetCommand:
+					return "fire-and-forget-queue";
+				case PingCommand:
+				case PongCommand:
+					return "ping pong";
+			}
+			return Albatross.Messaging.Commands.Extensions.DefaultQueueName;
 		}
+		public static IServiceCollection AddSampleProjectCommands(this IServiceCollection services) 
+			=> services.AddAssemblyCommands(typeof(SampleProject.Extensions).Assembly, GetQueueName);
 
 		public static IServiceCollection AddSampleProjectClient(this IServiceCollection services) {
 			services.AddSampleProjectCommands()
@@ -28,14 +35,7 @@ namespace SampleProject {
 
 		public static IServiceCollection AddSampleProjectCommandBus(this IServiceCollection services) {
 			services.AddSampleProjectCommands()
-				.AddCommandHandler<DoMathWorkCommandHandler>()
-				.AddCommandHandler<ProcessDataCommandHandler>()
-				.AddCommandHandler<LongRunningCommandHandler>()
-				.AddCommandHandler<PublishCommandHandler>()
-				.AddCommandHandler<FireAndForgetCommandHandler>()
-				.AddCommandHandler<UnstableCommandHandler>()
-				.AddCommandHandler<PingCommandHandler>()
-				.AddCommandHandler<PongCommandHandler>()
+				.AddAssemblyCommandHandlers(typeof(SampleProject.Extensions).Assembly)
 				.AddCommandBus()
 				.AddPublisher();
 			return services;

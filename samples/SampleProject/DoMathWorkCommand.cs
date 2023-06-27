@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
+	[Command(typeof(long))]
 	public class DoMathWorkCommand {
 		public long Counter { get; init; }
 

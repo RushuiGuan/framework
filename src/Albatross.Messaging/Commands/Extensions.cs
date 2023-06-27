@@ -7,15 +7,25 @@ using System.Reflection;
 
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
-		static string GetDefaultQueueName<CommandType>(CommandType _, IServiceProvider provider) where CommandType : notnull => "default_queue";
+		public const string DefaultQueueName = "default_queue";
 
 		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : notnull {
-			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T>(getQueueName ?? GetDefaultQueueName));
+			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T>(getQueueName ?? ((_, provider) => DefaultQueueName)));
 			return services;
 		}
 
 		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : notnull where K : notnull {
-			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, K>(getQueueName ?? GetDefaultQueueName));
+			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, K>(getQueueName ?? ((_, provider) => DefaultQueueName)));
+			return services;
+		}
+
+		public static IServiceCollection AddAssemblyCommands(this IServiceCollection services, Assembly assembly, Func<object, IServiceProvider, string>? getQueueName = null) {
+			foreach(var type in assembly.GetConcreteClasses()) {
+				var attrib = type.GetCustomAttribute<CommandAttribute>();
+				if (attrib != null) {
+					services.AddSingleton<IRegisterCommand>(new RegisterCommand(type, attrib.ResponseType, getQueueName ?? ((_, provider) => DefaultQueueName)));
+				}
+			}
 			return services;
 		}
 

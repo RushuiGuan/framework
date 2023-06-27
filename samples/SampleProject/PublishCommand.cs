@@ -5,7 +5,8 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	public class PublishCommand  {
+	[Command]
+	public class PublishCommand {
 		public PublishCommand(string topic, int min, int max) {
 			Topic = topic;
 			Min = min;
