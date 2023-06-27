@@ -28,7 +28,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override async Task Handle(PingCommand command) {
+		public override async Task Handle(PingCommand command, string queue) {
 			if(command.Round == 0) {
 				logger.LogInformation("I won");
 				return;
@@ -47,7 +47,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override async Task Handle(PongCommand command) {
+		public override async Task Handle(PongCommand command, string queue) {
 			if (command.Round == 0) {
 				logger.LogInformation("I won");
 				return;

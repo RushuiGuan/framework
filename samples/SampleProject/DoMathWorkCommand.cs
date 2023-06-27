@@ -19,7 +19,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override Task<long> Handle(DoMathWorkCommand command) {
+		public override Task<long> Handle(DoMathWorkCommand command, string queue) {
 			logger.LogInformation("{counter}: {thread}", command.Counter, Environment.CurrentManagedThreadId);
 			return Task.FromResult(command.Counter + 1);
 		}

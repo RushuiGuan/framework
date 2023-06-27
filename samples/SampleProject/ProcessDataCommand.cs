@@ -18,7 +18,7 @@ namespace SampleProject {
 		public ProcessDataCommandHandler(ILogger<ProcessDataCommandHandler> logger) {
 			this.logger = logger;
 		}
-		public override Task<long> Handle(ProcessDataCommand command) {
+		public override Task<long> Handle(ProcessDataCommand command, string queue) {
 			logger.LogInformation("{value}, {thread}", command.Counter, Environment.CurrentManagedThreadId);
 			return Task.FromResult(command.Counter - 1);
 		}

@@ -22,7 +22,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override async Task Handle(FireAndForgetCommand command) {
+		public override async Task Handle(FireAndForgetCommand command, string queue) {
 			logger.LogInformation("executing fire and forget command: {value}, {thread}", command.Counter, Environment.CurrentManagedThreadId);
 			await Task.Delay(command.Duration ?? DefaultDuration);
 		}

@@ -21,7 +21,7 @@ namespace Albatross.Messaging.Commands {
 				// run everything else using a diff thread
 				await Task.Run(async () => {
 					logger.LogInformation("running {command} by {client}({id})", job.Registration.CommandType, job.Route, job.Id);
-					var result = await commandHandler.Handle(job.Command).ConfigureAwait(false);
+					var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
 					logger.LogInformation("done {commandId}", job.Id);
 					
 					if (job.Registration.HasReturnType) {

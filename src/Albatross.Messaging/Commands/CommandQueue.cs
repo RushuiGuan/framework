@@ -17,6 +17,7 @@ namespace Albatross.Messaging.Commands {
 		protected readonly MessagingJsonSerializationOption jsonSerializationOption;
 		protected readonly Queue<CommandJob> queue = new Queue<CommandJob>();
 		protected Task? current;
+		public string Name { get; private set; } = string.Empty;
 
 		public CommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory, MessagingJsonSerializationOption jsonSerializationOption) {
 			this.routerServer = routerServer;
@@ -24,6 +25,7 @@ namespace Albatross.Messaging.Commands {
 			this.jsonSerializationOption = jsonSerializationOption;
 		}
 		public void SetNewLogger(string queueName, ILogger logger) {
+			this.Name = queueName;
 			this.logger = logger;
 			logger.LogInformation("command queue {name} setup", queueName);
 		}
@@ -60,7 +62,7 @@ namespace Albatross.Messaging.Commands {
 				using var scope = scopeFactory.CreateScope();
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);
 				// logger.LogInformation("start: {commandId}", message.MessageId);
-				var result = await commandHandler.Handle(job.Command).ConfigureAwait(false);
+				var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
 				logger.LogInformation("end: {commandId}", job.Id);
 
 				if (job.Registration.HasReturnType) {
