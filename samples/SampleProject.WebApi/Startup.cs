@@ -27,7 +27,7 @@ namespace SampleProject.WebApi {
 
 		public override void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Albatross.Hosting.Startup> logger) {
 			base.Configure(app, programSetting, environmentSetting, logger);
-			app.ApplicationServices.UseDealerClient();
+			app.ApplicationServices.UseSampleProjectClient();
 		}
 	}
 }

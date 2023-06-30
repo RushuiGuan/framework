@@ -8,6 +8,7 @@ using NetMQ;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Services {
 	public class DealerClient : IMessagingService, IDisposable {
@@ -59,7 +60,7 @@ namespace Albatross.Messaging.Services {
 		}
 
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
-			if(config.MaintainConnection) {
+			if (config.MaintainConnection) {
 				if (self.State != ClientState.Dead) {
 					var elapsed = DateTime.UtcNow - self.LastHeartbeat;
 					if (elapsed > config.HeartbeatThresholdTimeSpan) {
@@ -108,12 +109,12 @@ namespace Albatross.Messaging.Services {
 				this.logWriter.WriteLogEntry(new LogEntry(EntryType.In, msg));
 				// the only processing needed for Ack is to persist it in logs
 				if (running) {
-					if(msg is ConnectOk) {
+					if (msg is ConnectOk) {
 						self.Connected();
-					}else if(msg is Reconnect) {
+					} else if (msg is Reconnect) {
 						this.Transmit(new Connect(string.Empty, counter.NextId()));
 						return;
-					}else if(msg is HeartbeatAck ack) {
+					} else if (msg is HeartbeatAck ack) {
 						self.UpdateHeartbeat();
 						return;
 					}
@@ -137,6 +138,10 @@ namespace Albatross.Messaging.Services {
 			if (!running) {
 				running = true;
 				logger.LogInformation("starting dealer client and connecting to broker: {endpoint}", config.EndPoint);
+				this.socket.Connect(config.EndPoint);
+				// wait a second here.  if we start transmitting messages right away, it will get lost
+				Task.Delay(1000).Wait();
+
 				if (config.MaintainConnection) {
 					this.SubmitToQueue(new Connect(string.Empty, counter.NextId()));
 				}
@@ -147,7 +152,6 @@ namespace Albatross.Messaging.Services {
 						logger.LogError(err, "error init dealer client service {name}", service.GetType().FullName);
 					}
 				}
-				this.socket.Connect(config.EndPoint);
 				this.poller.RunAsync();
 			}
 		}
@@ -174,7 +178,7 @@ namespace Albatross.Messaging.Services {
 		}
 
 		public ClientState GetClientState(string identity) {
-			if(string.IsNullOrEmpty(identity)) {
+			if (string.IsNullOrEmpty(identity)) {
 				return this.self.State;
 			} else {
 				throw new NotSupportedException();

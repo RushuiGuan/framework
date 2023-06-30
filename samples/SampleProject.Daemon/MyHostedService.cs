@@ -1,5 +1,4 @@
-﻿using Albatross.Messaging.Commands;
-using Albatross.Messaging.Services;
+﻿using Albatross.Messaging.Services;
 using Microsoft.Extensions.Hosting;
 using NetMQ;
 using System;
@@ -14,9 +13,10 @@ namespace SampleProject.Daemon {
 			this.server = server;
 		}
 
-		public async Task StartAsync(CancellationToken cancellationToken) {
-			await server.Start();
+		public Task StartAsync(CancellationToken cancellationToken) {
+			server.Start();
 			NetMQConfig.Linger = TimeSpan.FromSeconds(60);
+			return Task.CompletedTask;
 		}
 
 		public Task StopAsync(CancellationToken cancellationToken) {

@@ -13,7 +13,7 @@ namespace Albatross.Messaging.Services {
 		}
 		public static void UseRouterServer(this IServiceProvider serviceProvider) {
 			var server = serviceProvider.GetRequiredService<RouterServer>();
-			_ = server.Start();
+			server.Start();
 		}
 		public static IServiceCollection AddDefaultDealerClientConfig(this IServiceCollection services) {
 			services.AddConfig<MessagingConfiguration>();

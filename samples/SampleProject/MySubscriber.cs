@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace SampleProject.WebApi {
+namespace SampleProject {
 	public class MySubscriber : ISubscriber {
 		private readonly ILogger<MySubscriber> logger;
 
