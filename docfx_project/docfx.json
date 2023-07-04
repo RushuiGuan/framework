@@ -54,7 +54,8 @@
 		"fileMetadataFiles": [],
 		"template": [
 			"default",
-			"templates/discordfx"
+			"modern",
+			"template/material"
 		],
 		"postProcessors": [],
 		"keepFileLink": false,
