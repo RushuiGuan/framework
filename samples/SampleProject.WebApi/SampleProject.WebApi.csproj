@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+	  <TargetFramework>net7.0</TargetFramework>
+    <AssemblyName>sample-project-webapi</AssemblyName>
+	  <IsPackable>false</IsPackable>
+	  <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.Messaging\Albatross.Messaging.csproj" />
+    <ProjectReference Include="..\SampleProject\SampleProject.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+    <Content Update="appsettings.staging.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\rushui2020\.nuget\packages\albatross.hosting\2.0.0-alpha.1\contentFiles\any\net5.0\serilog.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

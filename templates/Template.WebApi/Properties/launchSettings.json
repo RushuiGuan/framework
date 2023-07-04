@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Templates.WebApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:40000"
+    }
+  }
+}

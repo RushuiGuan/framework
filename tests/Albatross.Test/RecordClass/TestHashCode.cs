@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Xunit;
 
 namespace Albatross.Test.RecordClass {
@@ -98,6 +99,13 @@ namespace Albatross.Test.RecordClass {
 			var a = new MyDerivedRecord(1, "a");
 			var b = new MyDerivedRecord(1, "a");
 			Assert.True(a == b);
+		}
+
+		[Fact]
+		public void TestRegexHashCode() {
+			var a = new Regex("abc", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
+			var b = new Regex("abc", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
+			Assert.True(a.GetHashCode() == b.GetHashCode());
 		}
 	}
 }

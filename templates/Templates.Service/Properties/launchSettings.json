@@ -1,0 +1,8 @@
+{
+    "profiles": {
+        "Templates.Service": {
+            "commandName": "Project",
+            "environmentVariables": {}
+        }
+    }
+}
