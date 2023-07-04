@@ -1,240 +1,364 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-  
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class TestCase&lt;T1, T2, T3, T4, T5&gt;
+      <title>Class TestCase&lt;T1, T2, T3, T4, T5&gt;
  | Albatross Framework Documentation </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class TestCase&lt;T1, T2, T3, T4, T5&gt;
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TestCase&lt;T1, T2, T3, T4, T5&gt;
  | Albatross Framework Documentation ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/night-owl.min.css">
-    <link rel="stylesheet" href="../styles/colors.css">
-    <link rel="stylesheet" href="../styles/discord.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  
-  
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
   </head>
 
-  <body>
-        <div class="top-navbar">
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
 
-            <a class="burger-icon" onclick="toggleMenu()">
-                <svg name="Hamburger" style="vertical-align: middle;" width="24" height="24" viewbox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M20 6H4V9H20V6ZM4 10.999H20V13.999H4V10.999ZM4 15.999H20V18.999H4V15.999Z"></path></svg>
-            </a>
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
 
 
-            <a class="brand" href="../index.html">
-              <img src="../logo.svg" alt="Albatross Framework" class="logomark">
-              <span class="brand-title">Albatross Framework</span>
-            </a>
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
 
-        <div class="body-content">
-
-            <div id="blackout" class="blackout" onclick="toggleMenu()"></div>
-
-            <nav id="sidebar" role="navigation">
-
-                <div class="sidebar">
-                    
-
-                    <div>
-                      <div class="mobile-hide">
-
-                        <a class="brand" href="../index.html">
-                          <img src="../logo.svg" alt="Albatross Framework" class="logomark">
-                          <span class="brand-title">Albatross Framework</span>
-                        </a>                      </div>
+        <article data-uid="Albatross.Hosting.Test.TestCase`5">
 
 
-                      <div id="navbar">
-                      </div>
 
-                    </div>
-
-
-                    <div class="sidebar-item-separator"></div>
-
-
-                        <div id="sidetoggle">
-                          <div id="sidetoc"></div>
-                        </div>
-
-                </div>
-
-                <div class="footer">
+  <h1 id="Albatross_Hosting_Test_TestCase_5" data-uid="Albatross.Hosting.Test.TestCase`5" class="text-break">
+    Class TestCase&lt;T1, T2, T3, T4, T5&gt;
   
-  <span>Generated by <strong>DocFX</strong></span>
-                </div>
-            </nav>
+  </h1>
 
-            <main class="main-panel">
-
-
-                <div role="main" class="main-panel-content hide-when-search">
-
-
-                        <div class="subnav navbar navbar-default">
-                          <div class="container hide-when-search" id="breadcrumb">
-                            <ul class="breadcrumb">
-                              <li></li>
-                            </ul>
-                          </div>
-                        </div>
-
-                    <article class="content wrap" id="_content" data-uid="Albatross.Hosting.Test.TestCase`5">
-
-
-
-  <h1 id="Albatross_Hosting_Test_TestCase_5" data-uid="Albatross.Hosting.Test.TestCase`5" class="text-break">Class TestCase&lt;T1, T2, T3, T4, T5&gt;
-</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><a class="xref" href="Albatross.Hosting.Test.TestCase.html">TestCase</a></div>
-    <div class="level2"><span class="xref">TestCase&lt;T1, T2, T3, T4, T5&gt;</span></div>
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Hosting.html">Hosting</a>.<a class="xref" href="Albatross.Hosting.Test.html">Test</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Hosting.Test.dll</dd></dl>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="Albatross.Hosting.Test.TestCase.Name.html#Albatross_Hosting_Test_TestCase_Name">TestCase.Name</a>
-    </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Hosting.html">Hosting</a>.<a class="xref" href="Albatross.Hosting.Test.html">Test</a></h6>
-  <h6><strong>Assembly</strong>: Albatross.Hosting.Test.dll</h6>
-  <h5 id="Albatross_Hosting_Test_TestCase_5_syntax">Syntax</h5>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class TestCase&lt;T1, T2, T3, T4, T5&gt; : TestCase</code></pre>
   </div>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T1</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T2</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T3</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T4</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="parametername">T5</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="constructors">Constructors
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Hosting_Test_TestCase_5__ctor_System_String_" data-uid="Albatross.Hosting.Test.TestCase`5.#ctor(System.String)">
-          <a class="xref" href="Albatross.Hosting.Test.TestCase-5.-ctor.html#Albatross_Hosting_Test_TestCase_5__ctor_System_String_">TestCase(string)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Hosting_Test_TestCase_5_P1" data-uid="Albatross.Hosting.Test.TestCase`5.P1">
-          <a class="xref" href="Albatross.Hosting.Test.TestCase-5.P1.html#Albatross_Hosting_Test_TestCase_5_P1">P1</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Test_TestCase_5_P2" data-uid="Albatross.Hosting.Test.TestCase`5.P2">
-          <a class="xref" href="Albatross.Hosting.Test.TestCase-5.P2.html#Albatross_Hosting_Test_TestCase_5_P2">P2</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Test_TestCase_5_P3" data-uid="Albatross.Hosting.Test.TestCase`5.P3">
-          <a class="xref" href="Albatross.Hosting.Test.TestCase-5.P3.html#Albatross_Hosting_Test_TestCase_5_P3">P3</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Test_TestCase_5_P4" data-uid="Albatross.Hosting.Test.TestCase`5.P4">
-          <a class="xref" href="Albatross.Hosting.Test.TestCase-5.P4.html#Albatross_Hosting_Test_TestCase_5_P4">P4</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Test_TestCase_5_P5" data-uid="Albatross.Hosting.Test.TestCase`5.P5">
-          <a class="xref" href="Albatross.Hosting.Test.TestCase-5.P5.html#Albatross_Hosting_Test_TestCase_5_P5">P5</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="extensionmethods">Extension Methods</h3>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T1</code></dt>
+    <dd></dd>
+    <dt><code>T2</code></dt>
+    <dd></dd>
+    <dt><code>T3</code></dt>
+    <dd></dd>
+    <dt><code>T4</code></dt>
+    <dd></dd>
+    <dt><code>T5</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Albatross.Hosting.Test.TestCase.html">TestCase</a></div>
+      <div><span class="xref">TestCase&lt;T1, T2, T3, T4, T5&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Albatross.Hosting.Test.TestCase.html#Albatross_Hosting_Test_TestCase_Name">TestCase.Name</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.ValidateByDataAnnotations.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Albatross_Hosting_Test_TestCase_5__ctor_" data-uid="Albatross.Hosting.Test.TestCase`5.#ctor*"></a>
+
+  <h3 id="Albatross_Hosting_Test_TestCase_5__ctor_System_String_" data-uid="Albatross.Hosting.Test.TestCase`5.#ctor(System.String)">
+  TestCase(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TestCase(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Hosting_Test_TestCase_5_P1_" data-uid="Albatross.Hosting.Test.TestCase`5.P1*"></a>
+
+  <h3 id="Albatross_Hosting_Test_TestCase_5_P1" data-uid="Albatross.Hosting.Test.TestCase`5.P1">
+  P1
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T1? P1 { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T1</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Test_TestCase_5_P2_" data-uid="Albatross.Hosting.Test.TestCase`5.P2*"></a>
+
+  <h3 id="Albatross_Hosting_Test_TestCase_5_P2" data-uid="Albatross.Hosting.Test.TestCase`5.P2">
+  P2
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T2? P2 { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T2</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Test_TestCase_5_P3_" data-uid="Albatross.Hosting.Test.TestCase`5.P3*"></a>
+
+  <h3 id="Albatross_Hosting_Test_TestCase_5_P3" data-uid="Albatross.Hosting.Test.TestCase`5.P3">
+  P3
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T3? P3 { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Test_TestCase_5_P4_" data-uid="Albatross.Hosting.Test.TestCase`5.P4*"></a>
+
+  <h3 id="Albatross_Hosting_Test_TestCase_5_P4" data-uid="Albatross.Hosting.Test.TestCase`5.P4">
+  P4
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T4? P4 { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T4</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Test_TestCase_5_P5_" data-uid="Albatross.Hosting.Test.TestCase`5.P5*"></a>
+
+  <h3 id="Albatross_Hosting_Test_TestCase_5_P5" data-uid="Albatross.Hosting.Test.TestCase`5.P5">
+  P5
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T5? P5 { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T5</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
 
 </article>
-              
-                </div>
-            </main>
+
+        <div class="contribution d-print-none">
         </div>
 
+        
+      </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
-        <script type="text/javascript" src="../styles/jquery.twbsPagination.js"></script>
-        <script type="text/javascript" src="../styles/url.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
-        <script type="text/javascript" src="../styles/docfx.js"></script>
-        <script type="text/javascript" src="../styles/main.js"></script>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    </body>
 
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>

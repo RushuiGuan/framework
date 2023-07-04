@@ -1,163 +1,305 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-  
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class DateLevelEntityExtensions
+      <title>Class DateLevelEntityExtensions
  | Albatross Framework Documentation </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class DateLevelEntityExtensions
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class DateLevelEntityExtensions
  | Albatross Framework Documentation ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/night-owl.min.css">
-    <link rel="stylesheet" href="../styles/colors.css">
-    <link rel="stylesheet" href="../styles/discord.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  
-  
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
   </head>
 
-  <body>
-        <div class="top-navbar">
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
 
-            <a class="burger-icon" onclick="toggleMenu()">
-                <svg name="Hamburger" style="vertical-align: middle;" width="24" height="24" viewbox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M20 6H4V9H20V6ZM4 10.999H20V13.999H4V10.999ZM4 15.999H20V18.999H4V15.999Z"></path></svg>
-            </a>
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
 
 
-            <a class="brand" href="../index.html">
-              <img src="../logo.svg" alt="Albatross Framework" class="logomark">
-              <span class="brand-title">Albatross Framework</span>
-            </a>
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
 
-        <div class="body-content">
-
-            <div id="blackout" class="blackout" onclick="toggleMenu()"></div>
-
-            <nav id="sidebar" role="navigation">
-
-                <div class="sidebar">
-                    
-
-                    <div>
-                      <div class="mobile-hide">
-
-                        <a class="brand" href="../index.html">
-                          <img src="../logo.svg" alt="Albatross Framework" class="logomark">
-                          <span class="brand-title">Albatross Framework</span>
-                        </a>                      </div>
+        <article data-uid="Albatross.Repository.DateLevelEntityExtensions">
 
 
-                      <div id="navbar">
-                      </div>
 
-                    </div>
-
-
-                    <div class="sidebar-item-separator"></div>
-
-
-                        <div id="sidetoggle">
-                          <div id="sidetoc"></div>
-                        </div>
-
-                </div>
-
-                <div class="footer">
+  <h1 id="Albatross_Repository_DateLevelEntityExtensions" data-uid="Albatross.Repository.DateLevelEntityExtensions" class="text-break">
+    Class DateLevelEntityExtensions
   
-  <span>Generated by <strong>DocFX</strong></span>
-                </div>
-            </nav>
+  </h1>
 
-            <main class="main-panel">
-
-
-                <div role="main" class="main-panel-content hide-when-search">
-
-
-                        <div class="subnav navbar navbar-default">
-                          <div class="container hide-when-search" id="breadcrumb">
-                            <ul class="breadcrumb">
-                              <li></li>
-                            </ul>
-                          </div>
-                        </div>
-
-                    <article class="content wrap" id="_content" data-uid="Albatross.Repository.DateLevelEntityExtensions">
-
-
-
-  <h1 id="Albatross_Repository_DateLevelEntityExtensions" data-uid="Albatross.Repository.DateLevelEntityExtensions" class="text-break">Class DateLevelEntityExtensions
-</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">DateLevelEntityExtensions</span></div>
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Repository.html">Repository</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Repository.dll</dd></dl>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Repository.html">Repository</a></h6>
-  <h6><strong>Assembly</strong>: Albatross.Repository.dll</h6>
-  <h5 id="Albatross_Repository_DateLevelEntityExtensions_syntax">Syntax</h5>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static class DateLevelEntityExtensions</code></pre>
   </div>
-  <h3 id="methods">Methods
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Repository_DateLevelEntityExtensions_DeleteDateLevel__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_Action___0__" data-uid="Albatross.Repository.DateLevelEntityExtensions.DeleteDateLevel``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.Action{``0})">
-          <a class="xref" href="Albatross.Repository.DateLevelEntityExtensions.DeleteDateLevel.html#Albatross_Repository_DateLevelEntityExtensions_DeleteDateLevel__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_Action___0__">DeleteDateLevel&lt;T&gt;(IEnumerable&lt;T&gt;, DateTime, Action&lt;T&gt;)</a>
-        </td>
-        <td class="markdown level1 summary"><p>Provided a date level series data for a single entity, the method will remove the datelevel item with the specified startDate.
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">DateLevelEntityExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Repository_DateLevelEntityExtensions_DeleteDateLevel_" data-uid="Albatross.Repository.DateLevelEntityExtensions.DeleteDateLevel*"></a>
+
+  <h3 id="Albatross_Repository_DateLevelEntityExtensions_DeleteDateLevel__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_Action___0__" data-uid="Albatross.Repository.DateLevelEntityExtensions.DeleteDateLevel``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.Action{``0})">
+  DeleteDateLevel&lt;T&gt;(IEnumerable&lt;T&gt;, DateTime, Action&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Provided a date level series data for a single entity, the method will remove the datelevel item with the specified startDate.
 The method will always extend the end date of the previous record if it exists.  The method will not move</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDate__1_System_Collections_Generic_IEnumerable___0__System_DateTime_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDate``1(System.Collections.Generic.IEnumerable{``0},System.DateTime)">
-          <a class="xref" href="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDate.html#Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDate__1_System_Collections_Generic_IEnumerable___0__System_DateTime_">GetDateLevelEntityByDate&lt;T&gt;(IEnumerable&lt;T&gt;, DateTime)</a>
-        </td>
-        <td class="markdown level1 summary"><p>Provided a date level series and effective date. This method will search and return the items
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DeleteDateLevel&lt;T&gt;(this IEnumerable&lt;T&gt; set, DateTime startDate, Action&lt;T&gt; remove) where T : DateLevelEntity</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>set</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>startDate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>remove</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDate_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDate*"></a>
+
+  <h3 id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDate__1_System_Collections_Generic_IEnumerable___0__System_DateTime_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDate``1(System.Collections.Generic.IEnumerable{``0},System.DateTime)">
+  GetDateLevelEntityByDate&lt;T&gt;(IEnumerable&lt;T&gt;, DateTime)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Provided a date level series and effective date. This method will search and return the items
 where the given date falls within the date range.</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelItemByDate__2_System_Collections_Generic_IEnumerable___0____1_System_DateTime_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelItemByDate``2(System.Collections.Generic.IEnumerable{``0},``1,System.DateTime)">
-          <a class="xref" href="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelItemByDate.html#Albatross_Repository_DateLevelEntityExtensions_GetDateLevelItemByDate__2_System_Collections_Generic_IEnumerable___0____1_System_DateTime_">GetDateLevelItemByDate&lt;T, K&gt;(IEnumerable&lt;T&gt;, K, DateTime)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Repository_DateLevelEntityExtensions_RebuildDateLevelSeries__1_System_Collections_Generic_IEnumerable___0__System_Action___0__" data-uid="Albatross.Repository.DateLevelEntityExtensions.RebuildDateLevelSeries``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
-          <a class="xref" href="Albatross.Repository.DateLevelEntityExtensions.RebuildDateLevelSeries.html#Albatross_Repository_DateLevelEntityExtensions_RebuildDateLevelSeries__1_System_Collections_Generic_IEnumerable___0__System_Action___0__">RebuildDateLevelSeries&lt;T&gt;(IEnumerable&lt;T&gt;, Action&lt;T&gt;)</a>
-        </td>
-        <td class="markdown level1 summary"><p>Provided a date level series data for a single entity, the method will rebuild the end dates and remove items if necessary</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Albatross_Repository_DateLevelEntityExtensions_SetDateLevel__2_System_Collections_Generic_ICollection___0____0_System_Boolean_" data-uid="Albatross.Repository.DateLevelEntityExtensions.SetDateLevel``2(System.Collections.Generic.ICollection{``0},``0,System.Boolean)">
-          <a class="xref" href="Albatross.Repository.DateLevelEntityExtensions.SetDateLevel.html#Albatross_Repository_DateLevelEntityExtensions_SetDateLevel__2_System_Collections_Generic_ICollection___0____0_System_Boolean_">SetDateLevel&lt;T, K&gt;(ICollection&lt;T&gt;, T, bool)</a>
-        </td>
-        <td class="markdown level1 summary"><p>/// For DateLevel entries, two rules apply</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; GetDateLevelEntityByDate&lt;T&gt;(this IEnumerable&lt;T&gt; source, DateTime effectiveDate) where T : DateLevelEntity</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>effectiveDate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelItemByDate_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelItemByDate*"></a>
+
+  <h3 id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelItemByDate__2_System_Collections_Generic_IEnumerable___0____1_System_DateTime_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelItemByDate``2(System.Collections.Generic.IEnumerable{``0},``1,System.DateTime)">
+  GetDateLevelItemByDate&lt;T, K&gt;(IEnumerable&lt;T&gt;, K, DateTime)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T? GetDateLevelItemByDate&lt;T, K&gt;(this IEnumerable&lt;T&gt; source, K key, DateTime effectiveDate) where T : DateLevelEntity&lt;K&gt; where K : IEquatable&lt;K&gt;</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>key</code> <span class="xref">K</span></dt>
+    <dd></dd>
+    <dt><code>effectiveDate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+    <dt><code>K</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Repository_DateLevelEntityExtensions_RebuildDateLevelSeries_" data-uid="Albatross.Repository.DateLevelEntityExtensions.RebuildDateLevelSeries*"></a>
+
+  <h3 id="Albatross_Repository_DateLevelEntityExtensions_RebuildDateLevelSeries__1_System_Collections_Generic_IEnumerable___0__System_Action___0__" data-uid="Albatross.Repository.DateLevelEntityExtensions.RebuildDateLevelSeries``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+  RebuildDateLevelSeries&lt;T&gt;(IEnumerable&lt;T&gt;, Action&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Provided a date level series data for a single entity, the method will rebuild the end dates and remove items if necessary</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RebuildDateLevelSeries&lt;T&gt;(this IEnumerable&lt;T&gt; source, Action&lt;T&gt; remove) where T : DateLevelEntity</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>remove</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Repository_DateLevelEntityExtensions_SetDateLevel_" data-uid="Albatross.Repository.DateLevelEntityExtensions.SetDateLevel*"></a>
+
+  <h3 id="Albatross_Repository_DateLevelEntityExtensions_SetDateLevel__2_System_Collections_Generic_ICollection___0____0_System_Boolean_" data-uid="Albatross.Repository.DateLevelEntityExtensions.SetDateLevel``2(System.Collections.Generic.ICollection{``0},``0,System.Boolean)">
+  SetDateLevel&lt;T, K&gt;(ICollection&lt;T&gt;, T, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>/// For DateLevel entries, two rules apply</p>
 <ol>
-<li>there should be no gap between the first StartDate and <a class="xref" href="Albatross.Repository.DateLevelEntity.MaxEndDate.html">MaxEndDate</a></li>
+<li>there should be no gap between the first StartDate and <a class="xref" href="Albatross.Repository.DateLevelEntity.html#Albatross_Repository_DateLevelEntity_MaxEndDate">MaxEndDate</a></li>
 <li>there should be no overlap of dates among entries.
 Assuming all operations abide these rules, the method below will not check if the EndDate is correct and simply assume that is the case
 this implementation is treating datelevel entity has immutable values and only its StartDate and EndDate can be changed</li>
@@ -169,32 +311,66 @@ if necessary.  There are 3 possible operations.</p>
 <li>insert operation with both start date and end date: create a record in the middle of time series.  Adjust the existing overrlapping entries accordingly.</li>
 <li>append operation with only start date: create an entry with a start date and max end date and remove any current overlapping entries.</li>
 </ol>
-<p>If the insert flag is false, the method will always append the record by setting the end date as the <a class="xref" href="Albatross.Repository.DateLevelEntity.MaxEndDate.html">MaxEndDate</a>
+<p>If the insert flag is false, the method will always append the record by setting the end date as the <a class="xref" href="Albatross.Repository.DateLevelEntity.html#Albatross_Repository_DateLevelEntity_MaxEndDate">MaxEndDate</a>
 The method will remove any existing record between the start date and the end date</p>
-<p>If the insert flag is true and the end date of the record equals <a class="xref" href="Albatross.Repository.DateLevelEntity.MaxEndDate.html">MaxEndDate</a>, the method will insert using the start date only.  If the end date of the
+<p>If the insert flag is true and the end date of the record equals <a class="xref" href="Albatross.Repository.DateLevelEntity.html#Albatross_Repository_DateLevelEntity_MaxEndDate">MaxEndDate</a>, the method will insert using the start date only.  If the end date of the
 record is specified, the method will insert only if it</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetDateLevel&lt;T, K&gt;(this ICollection&lt;T&gt; collection, T src, bool insert = false) where T : DateLevelEntity&lt;K&gt; where K : IEquatable&lt;K&gt;</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collection</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>src</code> <span class="xref">T</span></dt>
+    <dd></dd>
+    <dt><code>insert</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+    <dt><code>K</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
 
 </article>
-              
-                </div>
-            </main>
+
+        <div class="contribution d-print-none">
         </div>
 
+        
+      </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
-        <script type="text/javascript" src="../styles/jquery.twbsPagination.js"></script>
-        <script type="text/javascript" src="../styles/url.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
-        <script type="text/javascript" src="../styles/docfx.js"></script>
-        <script type="text/javascript" src="../styles/main.js"></script>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    </body>
 
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>

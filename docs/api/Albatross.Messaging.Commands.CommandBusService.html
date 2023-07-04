@@ -1,226 +1,404 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-  
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class CommandBusService
+      <title>Class CommandBusService
  | Albatross Framework Documentation </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class CommandBusService
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CommandBusService
  | Albatross Framework Documentation ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/night-owl.min.css">
-    <link rel="stylesheet" href="../styles/colors.css">
-    <link rel="stylesheet" href="../styles/discord.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  
-  
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
   </head>
 
-  <body>
-        <div class="top-navbar">
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
 
-            <a class="burger-icon" onclick="toggleMenu()">
-                <svg name="Hamburger" style="vertical-align: middle;" width="24" height="24" viewbox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M20 6H4V9H20V6ZM4 10.999H20V13.999H4V10.999ZM4 15.999H20V18.999H4V15.999Z"></path></svg>
-            </a>
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
 
 
-            <a class="brand" href="../index.html">
-              <img src="../logo.svg" alt="Albatross Framework" class="logomark">
-              <span class="brand-title">Albatross Framework</span>
-            </a>
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
 
-        <div class="body-content">
-
-            <div id="blackout" class="blackout" onclick="toggleMenu()"></div>
-
-            <nav id="sidebar" role="navigation">
-
-                <div class="sidebar">
-                    
-
-                    <div>
-                      <div class="mobile-hide">
-
-                        <a class="brand" href="../index.html">
-                          <img src="../logo.svg" alt="Albatross Framework" class="logomark">
-                          <span class="brand-title">Albatross Framework</span>
-                        </a>                      </div>
+        <article data-uid="Albatross.Messaging.Commands.CommandBusService">
 
 
-                      <div id="navbar">
-                      </div>
 
-                    </div>
-
-
-                    <div class="sidebar-item-separator"></div>
-
-
-                        <div id="sidetoggle">
-                          <div id="sidetoc"></div>
-                        </div>
-
-                </div>
-
-                <div class="footer">
+  <h1 id="Albatross_Messaging_Commands_CommandBusService" data-uid="Albatross.Messaging.Commands.CommandBusService" class="text-break">
+    Class CommandBusService
   
-  <span>Generated by <strong>DocFX</strong></span>
-                </div>
-            </nav>
+  </h1>
 
-            <main class="main-panel">
-
-
-                <div role="main" class="main-panel-content hide-when-search">
-
-
-                        <div class="subnav navbar navbar-default">
-                          <div class="container hide-when-search" id="breadcrumb">
-                            <ul class="breadcrumb">
-                              <li></li>
-                            </ul>
-                          </div>
-                        </div>
-
-                    <article class="content wrap" id="_content" data-uid="Albatross.Messaging.Commands.CommandBusService">
-
-
-
-  <h1 id="Albatross_Messaging_Commands_CommandBusService" data-uid="Albatross.Messaging.Commands.CommandBusService" class="text-break">Class CommandBusService
-</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">CommandBusService</span></div>
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Messaging.html">Messaging</a>.<a class="xref" href="Albatross.Messaging.Commands.html">Commands</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Messaging.dll</dd></dl>
   </div>
-  <div class="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="Albatross.Messaging.Commands.ICommandBusService.html">ICommandBusService</a></div>
-    <div><a class="xref" href="Albatross.Messaging.Services.IRouterServerService.html">IRouterServerService</a></div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Messaging.html">Messaging</a>.<a class="xref" href="Albatross.Messaging.Commands.html">Commands</a></h6>
-  <h6><strong>Assembly</strong>: Albatross.Messaging.dll</h6>
-  <h5 id="Albatross_Messaging_Commands_CommandBusService_syntax">Syntax</h5>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class CommandBusService : ICommandBusService, IRouterServerService</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Messaging_Commands_CommandBusService__ctor_Albatross_Messaging_Commands_ICommandQueueFactory_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Commands_CommandBusService__Albatross_Messaging_MessagingJsonSerializationOption_" data-uid="Albatross.Messaging.Commands.CommandBusService.#ctor(Albatross.Messaging.Commands.ICommandQueueFactory,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Commands.CommandBusService},Albatross.Messaging.MessagingJsonSerializationOption)">
-          <a class="xref" href="Albatross.Messaging.Commands.CommandBusService.-ctor.html#Albatross_Messaging_Commands_CommandBusService__ctor_Albatross_Messaging_Commands_ICommandQueueFactory_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Commands_CommandBusService__Albatross_Messaging_MessagingJsonSerializationOption_">CommandBusService(ICommandQueueFactory, ILogger&lt;CommandBusService&gt;, MessagingJsonSerializationOption)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Messaging_Commands_CommandBusService_CanReceive" data-uid="Albatross.Messaging.Commands.CommandBusService.CanReceive">
-          <a class="xref" href="Albatross.Messaging.Commands.CommandBusService.CanReceive.html#Albatross_Messaging_Commands_CommandBusService_CanReceive">CanReceive</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Messaging_Commands_CommandBusService_HasCustomTransmitObject" data-uid="Albatross.Messaging.Commands.CommandBusService.HasCustomTransmitObject">
-          <a class="xref" href="Albatross.Messaging.Commands.CommandBusService.HasCustomTransmitObject.html#Albatross_Messaging_Commands_CommandBusService_HasCustomTransmitObject">HasCustomTransmitObject</a>
-        </td>
-        <td class="markdown level1 summary"><p>When true, the service will need to process queued transmit object other than IMessage</p>
-</td>
-      </tr>
-      <tr>
-        <td id="Albatross_Messaging_Commands_CommandBusService_NeedTimer" data-uid="Albatross.Messaging.Commands.CommandBusService.NeedTimer">
-          <a class="xref" href="Albatross.Messaging.Commands.CommandBusService.NeedTimer.html#Albatross_Messaging_Commands_CommandBusService_NeedTimer">NeedTimer</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Messaging_Commands_CommandBusService_ProcessReceivedMsg_Albatross_Messaging_Services_IMessagingService_Albatross_Messaging_Messages_IMessage_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessReceivedMsg(Albatross.Messaging.Services.IMessagingService,Albatross.Messaging.Messages.IMessage)">
-          <a class="xref" href="Albatross.Messaging.Commands.CommandBusService.ProcessReceivedMsg.html#Albatross_Messaging_Commands_CommandBusService_ProcessReceivedMsg_Albatross_Messaging_Services_IMessagingService_Albatross_Messaging_Messages_IMessage_">ProcessReceivedMsg(IMessagingService, IMessage)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Messaging_Commands_CommandBusService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)">
-          <a class="xref" href="Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed.html#Albatross_Messaging_Commands_CommandBusService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_">ProcessTimerElapsed(IMessagingService)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Messaging_Commands_CommandBusService_ProcessTransmitQueue_Albatross_Messaging_Services_IMessagingService_System_Object_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessTransmitQueue(Albatross.Messaging.Services.IMessagingService,System.Object)">
-          <a class="xref" href="Albatross.Messaging.Commands.CommandBusService.ProcessTransmitQueue.html#Albatross_Messaging_Commands_CommandBusService_ProcessTransmitQueue_Albatross_Messaging_Services_IMessagingService_System_Object_">ProcessTransmitQueue(IMessagingService, object)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="extensionmethods">Extension Methods</h3>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CommandBusService</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Albatross.Messaging.Commands.ICommandBusService.html">ICommandBusService</a></div>
+      <div><a class="xref" href="Albatross.Messaging.Services.IRouterServerService.html">IRouterServerService</a></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.ValidateByDataAnnotations.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Albatross_Messaging_Commands_CommandBusService__ctor_" data-uid="Albatross.Messaging.Commands.CommandBusService.#ctor*"></a>
+
+  <h3 id="Albatross_Messaging_Commands_CommandBusService__ctor_Albatross_Messaging_Commands_ICommandQueueFactory_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Commands_CommandBusService__Albatross_Messaging_MessagingJsonSerializationOption_" data-uid="Albatross.Messaging.Commands.CommandBusService.#ctor(Albatross.Messaging.Commands.ICommandQueueFactory,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Commands.CommandBusService},Albatross.Messaging.MessagingJsonSerializationOption)">
+  CommandBusService(ICommandQueueFactory, ILogger&lt;CommandBusService&gt;, MessagingJsonSerializationOption)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CommandBusService(ICommandQueueFactory commandQueueFactory, ILogger&lt;CommandBusService&gt; logger, MessagingJsonSerializationOption jsonSerializationOption)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>commandQueueFactory</code> <a class="xref" href="Albatross.Messaging.Commands.ICommandQueueFactory.html">ICommandQueueFactory</a></dt>
+    <dd></dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Messaging.Commands.CommandBusService.html">CommandBusService</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>jsonSerializationOption</code> <a class="xref" href="Albatross.Messaging.MessagingJsonSerializationOption.html">MessagingJsonSerializationOption</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Messaging_Commands_CommandBusService_CanReceive_" data-uid="Albatross.Messaging.Commands.CommandBusService.CanReceive*"></a>
+
+  <h3 id="Albatross_Messaging_Commands_CommandBusService_CanReceive" data-uid="Albatross.Messaging.Commands.CommandBusService.CanReceive">
+  CanReceive
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanReceive { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_Commands_CommandBusService_HasCustomTransmitObject_" data-uid="Albatross.Messaging.Commands.CommandBusService.HasCustomTransmitObject*"></a>
+
+  <h3 id="Albatross_Messaging_Commands_CommandBusService_HasCustomTransmitObject" data-uid="Albatross.Messaging.Commands.CommandBusService.HasCustomTransmitObject">
+  HasCustomTransmitObject
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>When true, the service will need to process queued transmit object other than IMessage</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasCustomTransmitObject { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_Commands_CommandBusService_NeedTimer_" data-uid="Albatross.Messaging.Commands.CommandBusService.NeedTimer*"></a>
+
+  <h3 id="Albatross_Messaging_Commands_CommandBusService_NeedTimer" data-uid="Albatross.Messaging.Commands.CommandBusService.NeedTimer">
+  NeedTimer
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool NeedTimer { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Messaging_Commands_CommandBusService_ProcessReceivedMsg_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessReceivedMsg*"></a>
+
+  <h3 id="Albatross_Messaging_Commands_CommandBusService_ProcessReceivedMsg_Albatross_Messaging_Services_IMessagingService_Albatross_Messaging_Messages_IMessage_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessReceivedMsg(Albatross.Messaging.Services.IMessagingService,Albatross.Messaging.Messages.IMessage)">
+  ProcessReceivedMsg(IMessagingService, IMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>messagingService</code> <a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></dt>
+    <dd></dd>
+    <dt><code>msg</code> <a class="xref" href="Albatross.Messaging.Messages.IMessage.html">IMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_Commands_CommandBusService_ProcessTimerElapsed_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed*"></a>
+
+  <h3 id="Albatross_Messaging_Commands_CommandBusService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)">
+  ProcessTimerElapsed(IMessagingService)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ProcessTimerElapsed(IMessagingService routerServer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>routerServer</code> <a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_Commands_CommandBusService_ProcessTransmitQueue_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessTransmitQueue*"></a>
+
+  <h3 id="Albatross_Messaging_Commands_CommandBusService_ProcessTransmitQueue_Albatross_Messaging_Services_IMessagingService_System_Object_" data-uid="Albatross.Messaging.Commands.CommandBusService.ProcessTransmitQueue(Albatross.Messaging.Services.IMessagingService,System.Object)">
+  ProcessTransmitQueue(IMessagingService, object)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ProcessTransmitQueue(IMessagingService messagingService, object msg)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>messagingService</code> <a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></dt>
+    <dd></dd>
+    <dt><code>msg</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
-              
-                </div>
-            </main>
+
+        <div class="contribution d-print-none">
         </div>
 
+        
+      </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
-        <script type="text/javascript" src="../styles/jquery.twbsPagination.js"></script>
-        <script type="text/javascript" src="../styles/url.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
-        <script type="text/javascript" src="../styles/docfx.js"></script>
-        <script type="text/javascript" src="../styles/main.js"></script>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    </body>
 
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>

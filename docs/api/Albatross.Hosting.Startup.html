@@ -1,328 +1,912 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-  
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Startup
+      <title>Class Startup
  | Albatross Framework Documentation </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Startup
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Startup
  | Albatross Framework Documentation ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/night-owl.min.css">
-    <link rel="stylesheet" href="../styles/colors.css">
-    <link rel="stylesheet" href="../styles/discord.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  
-  
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
   </head>
 
-  <body>
-        <div class="top-navbar">
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
 
-            <a class="burger-icon" onclick="toggleMenu()">
-                <svg name="Hamburger" style="vertical-align: middle;" width="24" height="24" viewbox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M20 6H4V9H20V6ZM4 10.999H20V13.999H4V10.999ZM4 15.999H20V18.999H4V15.999Z"></path></svg>
-            </a>
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
 
 
-            <a class="brand" href="../index.html">
-              <img src="../logo.svg" alt="Albatross Framework" class="logomark">
-              <span class="brand-title">Albatross Framework</span>
-            </a>
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
 
-        <div class="body-content">
-
-            <div id="blackout" class="blackout" onclick="toggleMenu()"></div>
-
-            <nav id="sidebar" role="navigation">
-
-                <div class="sidebar">
-                    
-
-                    <div>
-                      <div class="mobile-hide">
-
-                        <a class="brand" href="../index.html">
-                          <img src="../logo.svg" alt="Albatross Framework" class="logomark">
-                          <span class="brand-title">Albatross Framework</span>
-                        </a>                      </div>
+        <article data-uid="Albatross.Hosting.Startup">
 
 
-                      <div id="navbar">
-                      </div>
 
-                    </div>
-
-
-                    <div class="sidebar-item-separator"></div>
-
-
-                        <div id="sidetoggle">
-                          <div id="sidetoc"></div>
-                        </div>
-
-                </div>
-
-                <div class="footer">
+  <h1 id="Albatross_Hosting_Startup" data-uid="Albatross.Hosting.Startup" class="text-break">
+    Class Startup
   
-  <span>Generated by <strong>DocFX</strong></span>
-                </div>
-            </nav>
+  </h1>
 
-            <main class="main-panel">
-
-
-                <div role="main" class="main-panel-content hide-when-search">
-
-
-                        <div class="subnav navbar navbar-default">
-                          <div class="container hide-when-search" id="breadcrumb">
-                            <ul class="breadcrumb">
-                              <li></li>
-                            </ul>
-                          </div>
-                        </div>
-
-                    <article class="content wrap" id="_content" data-uid="Albatross.Hosting.Startup">
-
-
-
-  <h1 id="Albatross_Hosting_Startup" data-uid="Albatross.Hosting.Startup" class="text-break">Class Startup
-</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">Startup</span></div>
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Hosting.html">Hosting</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Hosting.dll</dd></dl>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Hosting.html">Hosting</a></h6>
-  <h6><strong>Assembly</strong>: Albatross.Hosting.dll</h6>
-  <h5 id="Albatross_Hosting_Startup_syntax">Syntax</h5>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class Startup</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Hosting_Startup__ctor_Microsoft_Extensions_Configuration_IConfiguration_" data-uid="Albatross.Hosting.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
-          <a class="xref" href="Albatross.Hosting.Startup.-ctor.html#Albatross_Hosting_Startup__ctor_Microsoft_Extensions_Configuration_IConfiguration_">Startup(IConfiguration)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="fields">Fields
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Hosting_Startup_DefaultApp_RootPath" data-uid="Albatross.Hosting.Startup.DefaultApp_RootPath">
-          <a class="xref" href="Albatross.Hosting.Startup.DefaultApp_RootPath.html">DefaultApp_RootPath</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Hosting_Startup_AuthorizationSetting" data-uid="Albatross.Hosting.Startup.AuthorizationSetting">
-          <a class="xref" href="Albatross.Hosting.Startup.AuthorizationSetting.html#Albatross_Hosting_Startup_AuthorizationSetting">AuthorizationSetting</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_Caching" data-uid="Albatross.Hosting.Startup.Caching">
-          <a class="xref" href="Albatross.Hosting.Startup.Caching.html#Albatross_Hosting_Startup_Caching">Caching</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_Configuration" data-uid="Albatross.Hosting.Startup.Configuration">
-          <a class="xref" href="Albatross.Hosting.Startup.Configuration.html#Albatross_Hosting_Startup_Configuration">Configuration</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_Grpc" data-uid="Albatross.Hosting.Startup.Grpc">
-          <a class="xref" href="Albatross.Hosting.Startup.Grpc.html#Albatross_Hosting_Startup_Grpc">Grpc</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_Secured" data-uid="Albatross.Hosting.Startup.Secured">
-          <a class="xref" href="Albatross.Hosting.Startup.Secured.html#Albatross_Hosting_Startup_Secured">Secured</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_Spa" data-uid="Albatross.Hosting.Startup.Spa">
-          <a class="xref" href="Albatross.Hosting.Startup.Spa.html#Albatross_Hosting_Startup_Spa">Spa</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_Swagger" data-uid="Albatross.Hosting.Startup.Swagger">
-          <a class="xref" href="Albatross.Hosting.Startup.Swagger.html#Albatross_Hosting_Startup_Swagger">Swagger</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_WebApi" data-uid="Albatross.Hosting.Startup.WebApi">
-          <a class="xref" href="Albatross.Hosting.Startup.WebApi.html#Albatross_Hosting_Startup_WebApi">WebApi</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-</h3>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="Albatross_Hosting_Startup_AddAccessControl_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Hosting.Startup.AddAccessControl(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-          <a class="xref" href="Albatross.Hosting.Startup.AddAccessControl.html#Albatross_Hosting_Startup_AddAccessControl_Microsoft_Extensions_DependencyInjection_IServiceCollection_">AddAccessControl(IServiceCollection)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_AddSpa_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Hosting.Startup.AddSpa(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-          <a class="xref" href="Albatross.Hosting.Startup.AddSpa.html#Albatross_Hosting_Startup_AddSpa_Microsoft_Extensions_DependencyInjection_IServiceCollection_">AddSpa(IServiceCollection)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_AddSwagger_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Hosting.Startup.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-          <a class="xref" href="Albatross.Hosting.Startup.AddSwagger.html#Albatross_Hosting_Startup_AddSwagger_Microsoft_Extensions_DependencyInjection_IServiceCollection_">AddSwagger(IServiceCollection)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_Configure_Microsoft_AspNetCore_Builder_IApplicationBuilder_Albatross_Config_ProgramSetting_Albatross_Config_EnvironmentSetting_Microsoft_Extensions_Logging_ILogger_Albatross_Hosting_Startup__" data-uid="Albatross.Hosting.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Albatross.Config.ProgramSetting,Albatross.Config.EnvironmentSetting,Microsoft.Extensions.Logging.ILogger{Albatross.Hosting.Startup})">
-          <a class="xref" href="Albatross.Hosting.Startup.Configure.html#Albatross_Hosting_Startup_Configure_Microsoft_AspNetCore_Builder_IApplicationBuilder_Albatross_Config_ProgramSetting_Albatross_Config_EnvironmentSetting_Microsoft_Extensions_Logging_ILogger_Albatross_Hosting_Startup__">Configure(IApplicationBuilder, ProgramSetting, EnvironmentSetting, ILogger&lt;Startup&gt;)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_ConfigureAuthorization_Microsoft_AspNetCore_Authorization_AuthorizationOptions_" data-uid="Albatross.Hosting.Startup.ConfigureAuthorization(Microsoft.AspNetCore.Authorization.AuthorizationOptions)">
-          <a class="xref" href="Albatross.Hosting.Startup.ConfigureAuthorization.html#Albatross_Hosting_Startup_ConfigureAuthorization_Microsoft_AspNetCore_Authorization_AuthorizationOptions_">ConfigureAuthorization(AuthorizationOptions)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_ConfigureCors_Microsoft_AspNetCore_Cors_Infrastructure_CorsPolicyBuilder_" data-uid="Albatross.Hosting.Startup.ConfigureCors(Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder)">
-          <a class="xref" href="Albatross.Hosting.Startup.ConfigureCors.html#Albatross_Hosting_Startup_ConfigureCors_Microsoft_AspNetCore_Cors_Infrastructure_CorsPolicyBuilder_">ConfigureCors(CorsPolicyBuilder)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_ConfigureJsonOption_Microsoft_AspNetCore_Mvc_JsonOptions_" data-uid="Albatross.Hosting.Startup.ConfigureJsonOption(Microsoft.AspNetCore.Mvc.JsonOptions)">
-          <a class="xref" href="Albatross.Hosting.Startup.ConfigureJsonOption.html#Albatross_Hosting_Startup_ConfigureJsonOption_Microsoft_AspNetCore_Mvc_JsonOptions_">ConfigureJsonOption(JsonOptions)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Hosting.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-          <a class="xref" href="Albatross.Hosting.Startup.ConfigureServices.html#Albatross_Hosting_Startup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_">ConfigureServices(IServiceCollection)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_CreateExceptionMessage_System_Exception_" data-uid="Albatross.Hosting.Startup.CreateExceptionMessage(System.Exception)">
-          <a class="xref" href="Albatross.Hosting.Startup.CreateExceptionMessage.html#Albatross_Hosting_Startup_CreateExceptionMessage_System_Exception_">CreateExceptionMessage(Exception)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_HandleGlobalExceptions_Microsoft_AspNetCore_Http_HttpContext_" data-uid="Albatross.Hosting.Startup.HandleGlobalExceptions(Microsoft.AspNetCore.Http.HttpContext)">
-          <a class="xref" href="Albatross.Hosting.Startup.HandleGlobalExceptions.html#Albatross_Hosting_Startup_HandleGlobalExceptions_Microsoft_AspNetCore_Http_HttpContext_">HandleGlobalExceptions(HttpContext)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_MapGrpcServices_Microsoft_AspNetCore_Routing_IEndpointRouteBuilder_" data-uid="Albatross.Hosting.Startup.MapGrpcServices(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
-          <a class="xref" href="Albatross.Hosting.Startup.MapGrpcServices.html#Albatross_Hosting_Startup_MapGrpcServices_Microsoft_AspNetCore_Routing_IEndpointRouteBuilder_">MapGrpcServices(IEndpointRouteBuilder)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_UseSpa_Microsoft_AspNetCore_Builder_IApplicationBuilder_Microsoft_Extensions_Logging_ILogger_Albatross_Hosting_Startup__" data-uid="Albatross.Hosting.Startup.UseSpa(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Logging.ILogger{Albatross.Hosting.Startup})">
-          <a class="xref" href="Albatross.Hosting.Startup.UseSpa.html#Albatross_Hosting_Startup_UseSpa_Microsoft_AspNetCore_Builder_IApplicationBuilder_Microsoft_Extensions_Logging_ILogger_Albatross_Hosting_Startup__">UseSpa(IApplicationBuilder, ILogger&lt;Startup&gt;)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-      <tr>
-        <td id="Albatross_Hosting_Startup_UseSwagger_Microsoft_AspNetCore_Builder_IApplicationBuilder_Albatross_Config_ProgramSetting_" data-uid="Albatross.Hosting.Startup.UseSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,Albatross.Config.ProgramSetting)">
-          <a class="xref" href="Albatross.Hosting.Startup.UseSwagger.html#Albatross_Hosting_Startup_UseSwagger_Microsoft_AspNetCore_Builder_IApplicationBuilder_Albatross_Config_ProgramSetting_">UseSwagger(IApplicationBuilder, ProgramSetting)</a>
-        </td>
-        <td class="markdown level1 summary"></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="extensionmethods">Extension Methods</h3>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Startup</span></div>
+    </dd>
+  </dl>
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.GetEnumMemberAttribute.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.ValidateByDataAnnotations.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Albatross_Hosting_Startup__ctor_" data-uid="Albatross.Hosting.Startup.#ctor*"></a>
+
+  <h3 id="Albatross_Hosting_Startup__ctor_Microsoft_Extensions_Configuration_IConfiguration_" data-uid="Albatross.Hosting.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+  Startup(IConfiguration)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Startup(IConfiguration configuration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Albatross_Hosting_Startup_DefaultApp_RootPath" data-uid="Albatross.Hosting.Startup.DefaultApp_RootPath">
+  DefaultApp_RootPath
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string DefaultApp_RootPath = &quot;wwwroot&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Hosting_Startup_AuthorizationSetting_" data-uid="Albatross.Hosting.Startup.AuthorizationSetting*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_AuthorizationSetting" data-uid="Albatross.Hosting.Startup.AuthorizationSetting">
+  AuthorizationSetting
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected AuthorizationSetting AuthorizationSetting { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Hosting.AuthorizationSetting.html">AuthorizationSetting</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_Caching_" data-uid="Albatross.Hosting.Startup.Caching*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_Caching" data-uid="Albatross.Hosting.Startup.Caching">
+  Caching
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Caching { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_Configuration_" data-uid="Albatross.Hosting.Startup.Configuration*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_Configuration" data-uid="Albatross.Hosting.Startup.Configuration">
+  Configuration
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IConfiguration Configuration { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_Grpc_" data-uid="Albatross.Hosting.Startup.Grpc*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_Grpc" data-uid="Albatross.Hosting.Startup.Grpc">
+  Grpc
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Grpc { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_Secured_" data-uid="Albatross.Hosting.Startup.Secured*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_Secured" data-uid="Albatross.Hosting.Startup.Secured">
+  Secured
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Secured { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_Spa_" data-uid="Albatross.Hosting.Startup.Spa*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_Spa" data-uid="Albatross.Hosting.Startup.Spa">
+  Spa
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Spa { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_Swagger_" data-uid="Albatross.Hosting.Startup.Swagger*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_Swagger" data-uid="Albatross.Hosting.Startup.Swagger">
+  Swagger
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Swagger { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_WebApi_" data-uid="Albatross.Hosting.Startup.WebApi*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_WebApi" data-uid="Albatross.Hosting.Startup.WebApi">
+  WebApi
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool WebApi { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Hosting_Startup_AddAccessControl_" data-uid="Albatross.Hosting.Startup.AddAccessControl*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_AddAccessControl_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Hosting.Startup.AddAccessControl(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+  AddAccessControl(IServiceCollection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IServiceCollection AddAccessControl(IServiceCollection services)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_AddSpa_" data-uid="Albatross.Hosting.Startup.AddSpa*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_AddSpa_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Hosting.Startup.AddSpa(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+  AddSpa(IServiceCollection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IServiceCollection AddSpa(IServiceCollection services)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_AddSwagger_" data-uid="Albatross.Hosting.Startup.AddSwagger*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_AddSwagger_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Hosting.Startup.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+  AddSwagger(IServiceCollection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IServiceCollection AddSwagger(IServiceCollection services)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_Configure_" data-uid="Albatross.Hosting.Startup.Configure*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_Configure_Microsoft_AspNetCore_Builder_IApplicationBuilder_Albatross_Config_ProgramSetting_Albatross_Config_EnvironmentSetting_Microsoft_Extensions_Logging_ILogger_Albatross_Hosting_Startup__" data-uid="Albatross.Hosting.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Albatross.Config.ProgramSetting,Albatross.Config.EnvironmentSetting,Microsoft.Extensions.Logging.ILogger{Albatross.Hosting.Startup})">
+  Configure(IApplicationBuilder, ProgramSetting, EnvironmentSetting, ILogger&lt;Startup&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger&lt;Startup&gt; logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>app</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder">IApplicationBuilder</a></dt>
+    <dd></dd>
+    <dt><code>programSetting</code> <a class="xref" href="Albatross.Config.ProgramSetting.html">ProgramSetting</a></dt>
+    <dd></dd>
+    <dt><code>environmentSetting</code> <a class="xref" href="Albatross.Config.EnvironmentSetting.html">EnvironmentSetting</a></dt>
+    <dd></dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Hosting.Startup.html">Startup</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_ConfigureAuthorization_" data-uid="Albatross.Hosting.Startup.ConfigureAuthorization*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_ConfigureAuthorization_Microsoft_AspNetCore_Authorization_AuthorizationOptions_" data-uid="Albatross.Hosting.Startup.ConfigureAuthorization(Microsoft.AspNetCore.Authorization.AuthorizationOptions)">
+  ConfigureAuthorization(AuthorizationOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ConfigureAuthorization(AuthorizationOptions option)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>option</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions">AuthorizationOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_ConfigureCors_" data-uid="Albatross.Hosting.Startup.ConfigureCors*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_ConfigureCors_Microsoft_AspNetCore_Cors_Infrastructure_CorsPolicyBuilder_" data-uid="Albatross.Hosting.Startup.ConfigureCors(Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder)">
+  ConfigureCors(CorsPolicyBuilder)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ConfigureCors(CorsPolicyBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.cors.infrastructure.corspolicybuilder">CorsPolicyBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_ConfigureJsonOption_" data-uid="Albatross.Hosting.Startup.ConfigureJsonOption*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_ConfigureJsonOption_Microsoft_AspNetCore_Mvc_JsonOptions_" data-uid="Albatross.Hosting.Startup.ConfigureJsonOption(Microsoft.AspNetCore.Mvc.JsonOptions)">
+  ConfigureJsonOption(JsonOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ConfigureJsonOption(JsonOptions options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.jsonoptions">JsonOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_ConfigureServices_" data-uid="Albatross.Hosting.Startup.ConfigureServices*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Hosting.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+  ConfigureServices(IServiceCollection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ConfigureServices(IServiceCollection services)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_CreateExceptionMessage_" data-uid="Albatross.Hosting.Startup.CreateExceptionMessage*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_CreateExceptionMessage_System_Exception_" data-uid="Albatross.Hosting.Startup.CreateExceptionMessage(System.Exception)">
+  CreateExceptionMessage(Exception)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual ErrorMessage CreateExceptionMessage(Exception error)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>error</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Hosting.ErrorMessage.html">ErrorMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_HandleGlobalExceptions_" data-uid="Albatross.Hosting.Startup.HandleGlobalExceptions*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_HandleGlobalExceptions_Microsoft_AspNetCore_Http_HttpContext_" data-uid="Albatross.Hosting.Startup.HandleGlobalExceptions(Microsoft.AspNetCore.Http.HttpContext)">
+  HandleGlobalExceptions(HttpContext)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleGlobalExceptions(HttpContext context)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.http.httpcontext">HttpContext</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_MapGrpcServices_" data-uid="Albatross.Hosting.Startup.MapGrpcServices*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_MapGrpcServices_Microsoft_AspNetCore_Routing_IEndpointRouteBuilder_" data-uid="Albatross.Hosting.Startup.MapGrpcServices(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+  MapGrpcServices(IEndpointRouteBuilder)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>endpoints</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.routing.iendpointroutebuilder">IEndpointRouteBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_UseSpa_" data-uid="Albatross.Hosting.Startup.UseSpa*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_UseSpa_Microsoft_AspNetCore_Builder_IApplicationBuilder_Microsoft_Extensions_Logging_ILogger_Albatross_Hosting_Startup__" data-uid="Albatross.Hosting.Startup.UseSpa(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Logging.ILogger{Albatross.Hosting.Startup})">
+  UseSpa(IApplicationBuilder, ILogger&lt;Startup&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UseSpa(IApplicationBuilder app, ILogger&lt;Startup&gt; logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>app</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder">IApplicationBuilder</a></dt>
+    <dd></dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Hosting.Startup.html">Startup</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Startup_UseSwagger_" data-uid="Albatross.Hosting.Startup.UseSwagger*"></a>
+
+  <h3 id="Albatross_Hosting_Startup_UseSwagger_Microsoft_AspNetCore_Builder_IApplicationBuilder_Albatross_Config_ProgramSetting_" data-uid="Albatross.Hosting.Startup.UseSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,Albatross.Config.ProgramSetting)">
+  UseSwagger(IApplicationBuilder, ProgramSetting)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void UseSwagger(IApplicationBuilder app, ProgramSetting programSetting)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>app</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder">IApplicationBuilder</a></dt>
+    <dd></dd>
+    <dt><code>programSetting</code> <a class="xref" href="Albatross.Config.ProgramSetting.html">ProgramSetting</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
-              
-                </div>
-            </main>
+
+        <div class="contribution d-print-none">
         </div>
 
+        
+      </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
-        <script type="text/javascript" src="../styles/jquery.twbsPagination.js"></script>
-        <script type="text/javascript" src="../styles/url.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
-        <script type="text/javascript" src="../styles/docfx.js"></script>
-        <script type="text/javascript" src="../styles/main.js"></script>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    </body>
 
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
