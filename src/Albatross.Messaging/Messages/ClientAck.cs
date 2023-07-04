@@ -1,6 +1,6 @@
 ﻿namespace Albatross.Messaging.Messages {
 	/// <summary>
-	/// ack from client ot server
+	/// Ack from client to server. This is a generic ack used\shared by protocols.  It is not used by the services
 	/// </summary>
 	public record class ClientAck : Message, IMessage {
 		public static string MessageHeader { get => "client-ack"; }

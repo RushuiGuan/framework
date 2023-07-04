@@ -146,16 +146,16 @@ namespace Albatross.Messaging.Services {
 
 		private void AcceptHeartbeat(Heartbeat heartbeat) {
 			if (clients.TryGetValue(heartbeat.Route, out var client)) {
-				if (client.State == ClientState.Alive) {
-					client.UpdateHeartbeat();
-					Transmit(new HeartbeatAck(heartbeat.Route, counter.NextId()));
-				} else {
-					//TODO:
-					// receive a heartbeat from a dead client
-					// send out a resume signal to services
+				client.UpdateHeartbeat();
+				Transmit(new HeartbeatAck(heartbeat.Route, counter.NextId()));
+				if (client.State != ClientState.Alive) {
+					foreach (var service in receiveServices) {
+						if (service.ProcessReceivedMsg(this, new Resume(heartbeat.Route, counter.NextId()))) {
+							return;
+						}
+					}
 				}
 			} else {
-				//TODO:
 				// receive a heartbeat from non existing client.  asking the client to reconnect
 				this.Transmit(new Reconnect(heartbeat.Route, counter.NextId()));
 			}

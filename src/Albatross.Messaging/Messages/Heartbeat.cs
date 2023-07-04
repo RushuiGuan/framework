@@ -2,7 +2,7 @@
 
 namespace Albatross.Messaging.Messages {
 	/// <summary>
-	/// ack msg from a server socket such as router
+	/// A heartbeat message sent from the DealerClient to RouterServer.
 	/// </summary>
 	public record class Heartbeat : Message, IMessage, ISystemMessage {
 		public static string MessageHeader { get => "heartbeat"; }
