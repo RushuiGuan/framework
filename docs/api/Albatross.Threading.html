@@ -104,11 +104,15 @@
 Classes
 </h3>
       <h4><a class="xref" href="Albatross.Threading.AsyncLock.html">AsyncLock</a></h4>
-      <section></section>
+      <section><p>bad idea, causes deadlock, should not use</p>
+</section>
       <h4><a class="xref" href="Albatross.Threading.Extensions.html">Extensions</a></h4>
       <section></section>
       <h4><a class="xref" href="Albatross.Threading.ReaderLock.html">ReaderLock</a></h4>
-      <section></section>
+      <section><p>most of the time, Monitor (lock keyword) is faster than both read and write lock aquisition of ReaderWriterLockSlim.  Only use this when we have
+lots of read and some write and the write operation takes a long time.
+Always use a monitor when lock a shared resource such as increase a counter.</p>
+</section>
       <h4><a class="xref" href="Albatross.Threading.WriterLock.html">WriterLock</a></h4>
       <section></section>
 
