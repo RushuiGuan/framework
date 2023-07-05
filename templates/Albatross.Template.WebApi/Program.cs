@@ -1,7 +1,5 @@
-﻿using Albatross.Hosting;
-using System.Threading.Tasks;
-
-namespace Templates.Service {
+﻿
+namespace Albatross.Templates.WebApi {
 	internal class Program {
 		public static Task Main(string[] args) {
 			return new Albatross.Hosting.Setup(args)

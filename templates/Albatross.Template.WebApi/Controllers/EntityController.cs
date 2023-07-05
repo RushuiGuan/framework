@@ -1,8 +1,7 @@
-﻿using Templates.Core;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Templates.WebApi.Controllers {
+namespace Albatross.Templates.WebApi.Controllers {
 	[Route("api/entity")]
 	[ApiController]
 	[Authorize]

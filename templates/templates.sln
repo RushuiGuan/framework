@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Templates.Core", "Templates.Core\Templates.Core.csproj", "{FCF33388-1E4C-43C4-8C6D-D7E184EB6E36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Templates.Core", "Albatross.Templates.Core\Albatross.Templates.Core.csproj", "{FCF33388-1E4C-43C4-8C6D-D7E184EB6E36}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Templates", "Templates\Templates.csproj", "{97AA5D96-B54C-4A6F-ACBC-ED6D39FB4E76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Templates", "Albatross.Templates\Albatross.Templates.csproj", "{97AA5D96-B54C-4A6F-ACBC-ED6D39FB4E76}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Templates.Service", "Templates.Service\Templates.Service.csproj", "{CAA3AAF9-9CCD-4C79-96FE-82FB85B4CA88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Templates.Service", "Albatross.Templates.Service\Albatross.Templates.Service.csproj", "{CAA3AAF9-9CCD-4C79-96FE-82FB85B4CA88}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Templates.Utility", "Templates.Utility\Templates.Utility.csproj", "{6FB053F1-DAE9-47D8-9213-8C0AF4AD70CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Templates.Utility", "Albatross.Templates.Utility\Albatross.Templates.Utility.csproj", "{6FB053F1-DAE9-47D8-9213-8C0AF4AD70CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Templates.WebApi", "Template.WebApi\Templates.WebApi.csproj", "{FBC8E2E5-E024-4315-A979-FBB8009529BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Templates.WebApi", "Albatross.Template.WebApi\Albatross.Templates.WebApi.csproj", "{FBC8E2E5-E024-4315-A979-FBB8009529BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
