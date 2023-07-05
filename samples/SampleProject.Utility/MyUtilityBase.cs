@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SampleProject.Commands;
 using SampleProject.Proxy;
 using Serilog;
+using Serilog.Filters;
 using System;
 
 namespace SampleProject.Utility {
@@ -18,8 +19,8 @@ namespace SampleProject.Utility {
 			cfg.MinimumLevel.Debug()
 				.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Error)
 				.MinimumLevel.Override("System", Serilog.Events.LogEventLevel.Error)
-				.WriteTo
-				.Console(outputTemplate: SetupSerilog.DefaultOutputTemplate)
+				.WriteTo.Logger(log_cfg => log_cfg.Filter.ByExcluding(Matching.FromSource("message-entry")).WriteTo.Console(outputTemplate: SetupSerilog.DefaultOutputTemplate))
+				.WriteTo.Logger(log_cfg => log_cfg.Filter.ByIncludingOnly(Matching.FromSource("message-entry")).WriteTo.Console(outputTemplate: "msg-entry {Message:lj}"))
 				.Enrich.FromLogContext();
 		}
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environment, IServiceCollection services) {
