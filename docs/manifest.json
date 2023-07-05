@@ -4258,10 +4258,20 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "articles/intro.md",
+      "source_relative_path": "articles/albatross-config.md",
       "output": {
         ".html": {
-          "relative_path": "articles/intro.html"
+          "relative_path": "articles/albatross-config.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/config.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/config.html"
         }
       },
       "version": ""
@@ -4275,6 +4285,16 @@
         },
         ".json": {
           "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/webapi.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/webapi.html"
         }
       },
       "version": ""

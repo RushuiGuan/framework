@@ -1,2 +1,2 @@
 
-{"items":[{"name":"Introduction","href":"intro.html","topicHref":"intro.html"}]}
+{"items":[{"name":"Setup a new WebApi Application","href":"webapi.html","topicHref":"webapi.html"},{"name":"Configure the application","href":"config.html","topicHref":"config.html"},{"name":"Albatross.Config, ProgramSetting and EnvironmentSetting","href":"albatross-config.html","topicHref":"albatross-config.html"}]}

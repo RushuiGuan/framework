@@ -9679,19 +9679,6 @@ references:
   commentId: F:Albatross.Hosting.Startup.DefaultApp_RootPath
   fullName: Albatross.Hosting.Startup.DefaultApp_RootPath
   nameWithType: Startup.DefaultApp_RootPath
-- uid: Albatross.Hosting.Startup.Grpc
-  name: Grpc
-  href: api/Albatross.Hosting.Startup.html#Albatross_Hosting_Startup_Grpc
-  commentId: P:Albatross.Hosting.Startup.Grpc
-  fullName: Albatross.Hosting.Startup.Grpc
-  nameWithType: Startup.Grpc
-- uid: Albatross.Hosting.Startup.Grpc*
-  name: Grpc
-  href: api/Albatross.Hosting.Startup.html#Albatross_Hosting_Startup_Grpc_
-  commentId: Overload:Albatross.Hosting.Startup.Grpc
-  isSpec: "True"
-  fullName: Albatross.Hosting.Startup.Grpc
-  nameWithType: Startup.Grpc
 - uid: Albatross.Hosting.Startup.HandleGlobalExceptions(Microsoft.AspNetCore.Http.HttpContext)
   name: HandleGlobalExceptions(HttpContext)
   href: api/Albatross.Hosting.Startup.html#Albatross_Hosting_Startup_HandleGlobalExceptions_Microsoft_AspNetCore_Http_HttpContext_
@@ -9705,19 +9692,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Hosting.Startup.HandleGlobalExceptions
   nameWithType: Startup.HandleGlobalExceptions
-- uid: Albatross.Hosting.Startup.MapGrpcServices(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)
-  name: MapGrpcServices(IEndpointRouteBuilder)
-  href: api/Albatross.Hosting.Startup.html#Albatross_Hosting_Startup_MapGrpcServices_Microsoft_AspNetCore_Routing_IEndpointRouteBuilder_
-  commentId: M:Albatross.Hosting.Startup.MapGrpcServices(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)
-  fullName: Albatross.Hosting.Startup.MapGrpcServices(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)
-  nameWithType: Startup.MapGrpcServices(IEndpointRouteBuilder)
-- uid: Albatross.Hosting.Startup.MapGrpcServices*
-  name: MapGrpcServices
-  href: api/Albatross.Hosting.Startup.html#Albatross_Hosting_Startup_MapGrpcServices_
-  commentId: Overload:Albatross.Hosting.Startup.MapGrpcServices
-  isSpec: "True"
-  fullName: Albatross.Hosting.Startup.MapGrpcServices
-  nameWithType: Startup.MapGrpcServices
 - uid: Albatross.Hosting.Startup.Secured
   name: Secured
   href: api/Albatross.Hosting.Startup.html#Albatross_Hosting_Startup_Secured

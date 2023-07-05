@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Configure the applciation | Albatross Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Configure the applciation | Albatross Framework Documentation ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h2 id="configure-the-applciation">Configure the applciation</h2>
+
+<p>Now that we have a working aspnet application, we should work to configure it for different environments.  Albatross framework follows the concept of <strong>single code base deployment</strong>.  That means the deployed code should be exactly the same across different environments such as dev, staging, uat and production.  This methology simplifies the deployment process and minimize deployment errors.  It lets the host environment to have the control over what configuration should be run.</p>
+<p>The application uses environmental variable ASPNETCORE_ENVIRONMENT to determine the current environment.  When the variable is specified, the application will find a second configuration file: <code>appsettings.{environment}.json</code> and apply its value over the original appsettings.json file.  Here is an example of the original <code>appsettings.json</code> file</p>
+<pre><code class="lang-json">{
+    &quot;program&quot;: {
+        &quot;app&quot;: &quot;My domain web app&quot;,
+        &quot;group&quot;: &quot;My Domain&quot;
+    },
+    &quot;connectionStrings&quot;: {
+        &quot;mydb&quot;: &quot;Server=.;Database=mydb;Trusted_Connection=true;Encrypt=false&quot;
+    },
+    &quot;endpoints&quot;: {
+        &quot;messaging-server&quot;: &quot;tcp://localhost:31001&quot;
+    },
+    &quot;authorization&quot;: {
+        &quot;authentication&quot;: &quot;Negotiate&quot;
+    },
+    &quot;Azure:SignalR:ConnectionString&quot;: &quot;SECRETS ARE STORED IN ENVIRONMENTAL VARIABLES&quot;,
+    &quot;Azure:SignalR:ConnectionString:backup:secondary&quot;: &quot;SECRETS ARE STORED IN ENVIRONMENTAL VARIABLES&quot;
+}
+</code></pre>
+<p>Here is the appsettings.production.json file</p>
+<pre><code class="lang-json">{
+    &quot;connectionStrings&quot;: {
+        &quot;mydb&quot;: &quot;Server=prod-db-server;Database=mydb;Trusted_Connection=true;Encrypt=false&quot;
+    },
+    &quot;endpoints&quot;: {
+        &quot;messaging-server&quot;: &quot;tcp://prod-msg-server:31001&quot;
+    }
+}
+</code></pre>
+<p>As you can see, the production config file is much shorter than the original since it only needs to state the difference between the two.   While the environment variable ASPNETCORE_ENVIRONMENT is typically stored on the host, other configuration valures can also be stored using environment variables.  The configuration values can also be set by command prompt.  Here is the order of precedence in terms of how the configuration values are applied.  The command prompt override has the highest precedence.</p>
+<ol>
+<li>appsettings.json</li>
+<li>appsettings.environment.json override</li>
+<li>environment variable override</li>
+<li>command prompt override</li>
+</ol>
+<p>Environment variable override can be created using double underscore as the json property seperator.  For example. a variable name of <code>connectionString__mydb</code> will override the <code>mydb</code> connection string value in the config file.  Environment variable override are often used to store secrets since password and api keys should not be in source code.</p>
+<p>Command prompt overrides are not used often.  They can be handy for troubleshooting and testing.  It uses colon(:) as the property seperator.  For example:</p>
+<pre><code>my-webapi.exe endpoints:messaging-server=tcp://prod-msg-server:32001
+</code></pre>
+<p>will change the value of the messaging-server endpoint.  More information on how aspnetcore configuration works can be found in microsoft documentation <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-7.0">here</a>.</p>
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
