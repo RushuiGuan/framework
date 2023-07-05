@@ -1,4 +1,6 @@
-- name: Introduction
-  href: intro.md
-- name: Boot strapping
-  href: boot_strapping.md
+- name: Setup a new WebApi Application
+  href: webapi.md
+- name: Configure the application
+  href: config.md
+- name: Albatross.Config, ProgramSetting and EnvironmentSetting
+  href: albatross-config.md

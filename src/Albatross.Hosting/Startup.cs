@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -22,6 +21,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting {
+	/// <summary>
+	/// Default Startup class that setups the web server.
+	/// </summary>
 	public class Startup {
 		public const string DefaultApp_RootPath = "wwwroot";
 		
@@ -35,12 +37,11 @@ namespace Albatross.Hosting {
 		public virtual bool WebApi { get; } = true;
 		public virtual bool Secured { get; } = false;
 		public virtual bool Spa { get; } = false;
-		public virtual bool Grpc { get; } = false;
 		public virtual bool Caching { get; } = false;
 
 		public Startup(IConfiguration configuration) {
 			this.Configuration = configuration;
-			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, grpc={grpc}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, Grpc, WebApi, Caching);
+			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, WebApi, Caching);
 			AuthorizationSetting = new AuthorizationSetting(configuration);
 		}
 
@@ -138,15 +139,12 @@ namespace Albatross.Hosting {
 				}
 				app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			}
-			if (Grpc) { app.UseEndpoints(endpoints => MapGrpcServices(endpoints)); }
 			if (WebApi && Swagger) { UseSwagger(app, programSetting); }
 			if (Spa) { UseSpa(app, logger); }
 			if (Caching) {
 				Albatross.Caching.Extension.UseCache(app.ApplicationServices);
 			}
 		}
-
-		public virtual void MapGrpcServices(IEndpointRouteBuilder endpoints) { }
 
 		public void UseSpa(IApplicationBuilder app, ILogger<Startup> logger) {
 			var config = app.ApplicationServices.GetRequiredService<AngularConfig>();

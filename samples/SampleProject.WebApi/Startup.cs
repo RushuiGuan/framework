@@ -1,6 +1,5 @@
 using Albatross.Config;
 using Albatross.Messaging.Eventing;
-using Albatross.Messaging.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +9,6 @@ namespace SampleProject.WebApi {
 	public class Startup : Albatross.Hosting.Startup{
 		public override bool Swagger => true;
 		public override bool WebApi => true;
-		public override bool Grpc => false;
 		public override bool Secured => true;
 		public override bool Spa => false;
 		public override bool Caching => true;

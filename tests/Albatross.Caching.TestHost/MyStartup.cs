@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace Albatross.Caching.TestHost {
 	public class MyStartup : Startup {
-		public override bool Grpc => false;
 		public override bool Spa => false;
 		public override bool Secured => true;
 		public override bool Swagger => true;
