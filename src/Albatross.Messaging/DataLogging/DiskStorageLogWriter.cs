@@ -6,16 +6,23 @@ using System.Linq;
 using System.Text;
 
 namespace Albatross.Messaging.DataLogging {
+	/// <summary>
+	/// This class is responsible to write data logs to files.  The files are organized with UTC timestamps. The files has a configurable
+	/// max size limit.  Once reached, a new file will be created.  When writing the log entry, data are bufferred line by line using
+	/// a <see cref="BufferedTextWriter"/> class.
+	/// </summary>
 	public class DiskStorageLogWriter : ILogWriter, IDisposable {
 		private readonly Encoding utf8 = new UTF8Encoding(false);
 		private readonly DiskStorageConfiguration config;
 		private readonly ILogger logger;
+		private readonly BufferedTextWriter lineWriter;
 		private StreamWriter streamWriter;
 		bool disposed = false;
 
-		public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger) {
+		public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger, BufferedTextWriter lineWriter) {
 			this.config = config;
 			this.logger = logger;
+			this.lineWriter = lineWriter;
 			if (!Directory.Exists(config.WorkingDirectory)) {
 				Directory.CreateDirectory(config.WorkingDirectory);
 			}
@@ -50,8 +57,9 @@ namespace Albatross.Messaging.DataLogging {
 		}
 
 		public void WriteLogEntry(LogEntry logEntry) {
-			logEntry.Write(this.streamWriter);
-			logEntry.Write(Console.Out);
+			var writer = lineWriter.Begin();
+			logEntry.Write(writer);
+			this.streamWriter.Write(lineWriter.End());
 			CheckSize();
 		}
 

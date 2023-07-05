@@ -1,5 +1,6 @@
 ﻿using Albatross.Config;
 using Albatross.Messaging.Configurations;
+using Albatross.Messaging.DataLogging;
 using Albatross.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -24,6 +25,7 @@ namespace Albatross.Messaging.Services {
 			return services;
 		}
 		public static IServiceCollection AddDealerClient(this IServiceCollection services) {
+			services.TryAddSingleton<BufferedTextWriter>();
 			services.TryAddSingleton<DealerClientLogWriter>();
 			services.TryAddSingleton<DealerClientLogReader>();
 			services.TryAddSingleton<DealerClient>();
@@ -36,6 +38,7 @@ namespace Albatross.Messaging.Services {
 				var config = provider.GetRequiredService<MessagingConfiguration>();
 				return config.RouterServer;
 			});
+			services.TryAddSingleton<BufferedTextWriter>();
 			services.TryAddSingleton<RouterServerLogWriter>();
 			services.TryAddSingleton<RouterServerLogReader>();
 			services.TryAddSingleton<RouterServer>();

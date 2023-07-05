@@ -8,6 +8,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Serilog.Expressions" Version="3.4.1" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
 		<ProjectReference Include="..\..\src\Albatross.Messaging\Albatross.Messaging.csproj" />
 		<ProjectReference Include="..\SampleProject\SampleProject.csproj" />

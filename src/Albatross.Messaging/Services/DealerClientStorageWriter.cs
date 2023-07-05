@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Albatross.Messaging.Services {
 	public class DealerClientLogWriter : DiskStorageLogWriter {
-		public DealerClientLogWriter(DealerClientConfiguration config, ILogger<DealerClientLogWriter> logger) : base(config.DiskStorage, logger) {
+		public DealerClientLogWriter(DealerClientConfiguration config, ILogger<DealerClientLogWriter> logger, BufferedTextWriter lineWriter) : base(config.DiskStorage, logger, lineWriter) {
 		}
 	}
 

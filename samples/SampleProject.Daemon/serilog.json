@@ -1,20 +1,60 @@
 {
-	"Serilog": {
-		"MinimumLevel": {
-			"Default": "Debug",
-			"Override": {
-				"System": "Error",
-				"Microsoft": "Error"
-			}
-		},
-		"WriteTo": [
-			{
-				"Name": "Console",
-				"Args": {
-					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}"
-				}
-			}
-		],
-		"Enrich": [ "FromLogContext" ]
-	}
+    "Serilog": {
+        "MinimumLevel": {
+            "Default": "Debug",
+            "Override": {
+                "System": "Error",
+                "Microsoft": "Error"
+            }
+        },
+        "WriteTo": [
+            {
+                "Name": "Logger",
+                "Args": {
+                    "configureLogger": {
+                        "WriteTo": [
+                            {
+                                "Name": "Console",
+                                "Args": {
+                                    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}"
+                                }
+                            }
+                        ],
+                        "Filter": [
+                            {
+                                "Name": "ByExcluding",
+                                "Args": {
+                                    "expression": "StartsWith(SourceContext, 'log-entry')"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "Name": "Logger",
+                "Args": {
+                    "configureLogger": {
+                        "WriteTo": [
+                            {
+                                "Name": "Console",
+                                "Args": {
+                                    "outputTemplate": "LogEntry:{Message:lj}"
+                                }
+                            }
+                        ],
+                        "Filter": [
+                            {
+                                "Name": "ByIncludingOnly",
+                                "Args": {
+                                    "expression": "StartsWith(SourceContext, 'log-entry')"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "Enrich": [ "FromLogContext" ]
+    }
 }

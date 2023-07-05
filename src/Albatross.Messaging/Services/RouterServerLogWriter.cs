@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Albatross.Messaging.Services {
 	public class RouterServerLogWriter : DiskStorageLogWriter {
-		public RouterServerLogWriter(RouterServerConfiguration config, ILogger<RouterServerLogWriter> logger) : base(config.DiskStorage, logger) {
+		public RouterServerLogWriter(RouterServerConfiguration config, ILogger<RouterServerLogWriter> logger, BufferedTextWriter lineWriter) : base(config.DiskStorage, logger, lineWriter) {
 		}
 	}
 
