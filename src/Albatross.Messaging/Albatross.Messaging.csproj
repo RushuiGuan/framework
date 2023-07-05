@@ -9,6 +9,7 @@
 		<PackageReference Include="CoenM.Encoding.Z85e" Version="1.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
 		<PackageReference Include="NetMQ" Version="4.0.1.12" />
+		<PackageReference Include="Serilog.Expressions" Version="3.4.1" />
 	</ItemGroup>
 
 	<ItemGroup>
