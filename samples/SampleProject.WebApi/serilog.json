@@ -24,7 +24,7 @@
                             {
                                 "Name": "ByExcluding",
                                 "Args": {
-                                    "expression": "StartsWith(SourceContext, 'log-entry')"
+                                    "expression": "StartsWith(SourceContext, 'message-entry')"
                                 }
                             }
                         ]
@@ -47,7 +47,7 @@
                             {
                                 "Name": "ByIncludingOnly",
                                 "Args": {
-                                    "expression": "StartsWith(SourceContext, 'log-entry')"
+                                    "expression": "StartsWith(SourceContext, 'message-entry')"
                                 }
                             }
                         ]
@@ -72,7 +72,7 @@
                             {
                                 "Name": "ByExcluding",
                                 "Args": {
-                                    "expression": "StartsWith(SourceContext, 'log-entry')"
+                                    "expression": "StartsWith(SourceContext, 'message-entry')"
                                 }
                             }
                         ]

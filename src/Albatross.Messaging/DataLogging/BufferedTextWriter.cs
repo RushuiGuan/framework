@@ -7,8 +7,8 @@ namespace Albatross.Messaging.DataLogging {
 	/// This text writer buffers text on a string builder object.  The buffer is reset
 	/// when the <see cref="Begin"/> method is called.  The bufferred text will be returned when
 	/// the <see cref="End"/> method is called.  During the <see cref="End"/> method call,
-	/// a info log entry of the buffered text with the source context of "log-entry" will be created.  Special log configuration
-	/// should be created to format the log-entry lines differently from the normal logs.
+	/// a info log entry of the buffered text with the source context of "message-entry" will be created.  Special log configuration
+	/// should be created to format the message-entry lines differently from the normal logs.
 	/// This class is useful since it allows the caller to control the buffer mechanism.  In our situation, we want to buffer the write
 	/// line by line.  
 	/// </summary>
@@ -20,7 +20,7 @@ namespace Albatross.Messaging.DataLogging {
 		public BufferedTextWriter(ILoggerFactory loggerFactory) {
 			stringBuilder = new StringBuilder();
 			writer = new StringWriter(stringBuilder);
-			this.logger = loggerFactory.CreateLogger("log-entry");
+			this.logger = loggerFactory.CreateLogger("message-entry");
 		}
 		public TextWriter Begin() {
 			this.stringBuilder.Length = 0;
