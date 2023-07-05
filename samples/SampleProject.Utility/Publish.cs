@@ -1,5 +1,7 @@
 ﻿using Albatross.Hosting.Utility;
+using Albatross.Messaging.Commands;
 using CommandLine;
+using SampleProject.Commands;
 using SampleProject.Proxy;
 using System.Threading.Tasks;
 
@@ -18,8 +20,8 @@ namespace SampleProject.Utility {
 	public class Publish : MyUtilityBase<PublishOption> {
 		public Publish(PublishOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(RunProxyService svc) {
-			await svc.Publish(Options.Topic, Options.Min, Options.Max);
+		public async Task<int> RunUtility(ICommandClient client) {
+			await client.Submit(new PublishCommand(Options.Topic, Options.Min, Options.Max));
 			return 0;
 		}
 	}

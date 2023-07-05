@@ -1,16 +1,10 @@
 ﻿using Albatross.Messaging.Commands;
 using Microsoft.Extensions.Logging;
+using SampleProject.Commands;
 using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	[Command(typeof(int))]
-	public class UnstableCommand {
-		public int Counter { get; }
-		public UnstableCommand(int counter) {
-			this.Counter = counter;
-		}
-	}
 	public class UnstableCommandHandler : BaseCommandHandler<UnstableCommand, int> {
 		private readonly ILogger<UnstableCommandHandler> logger;
 

@@ -1,5 +1,6 @@
-﻿using CommandLine;
-using SampleProject.Proxy;
+﻿using Albatross.Messaging.Commands;
+using CommandLine;
+using SampleProject.Commands;
 using System.Threading.Tasks;
 
 namespace SampleProject.Utility {
@@ -7,9 +8,9 @@ namespace SampleProject.Utility {
 	public class RunProcessDataCommandOption : MyBaseOption { }
 	public class RunProcessDataCommand : MyUtilityBase<RunProcessDataCommandOption> {
 		public RunProcessDataCommand(RunProcessDataCommandOption option) : base(option) { }
-		public async Task<int> RunUtility(RunProxyService svc) {
+		public async Task<int> RunUtility(ICommandClient client) {
 			for (int i = 0; i < Options.Count; i++) {
-				var result = await svc.ProcessData(i);
+				var result = await client.Submit<ProcessDataCommand, long>(new ProcessDataCommand(i));
 				Options.WriteOutput(result);
 			}
 			return 0;

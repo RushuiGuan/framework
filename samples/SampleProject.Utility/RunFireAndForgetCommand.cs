@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using System.Threading.Tasks;
-using SampleProject.Proxy;
+using Albatross.Messaging.Commands;
+using SampleProject.Commands;
 
 namespace SampleProject.Utility {
 	[Verb("fire-and-forget")]
@@ -11,9 +12,9 @@ namespace SampleProject.Utility {
 	public class RunFireAndForgetCommand : MyUtilityBase<RunFireAndForgetCommandOption> {
 		public RunFireAndForgetCommand(RunFireAndForgetCommandOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(RunProxyService svc) {
+		public async Task<int> RunUtility(ICommandClient client) {
 			for (int i = 0; i < Options.Count; i++) {
-				await svc.FireAndForget(i, Options.Duration);
+				await client.Submit(new FireAndForgetCommand(i, Options.Duration));
 			}
 			return 0;
 		}

@@ -1,19 +1,10 @@
 ﻿using Albatross.Messaging.Commands;
 using Microsoft.Extensions.Logging;
+using SampleProject.Commands;
 using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	[Command]
-	public class FireAndForgetCommand {
-		public int Counter { get; }
-		public int? Duration { get; }
-		public FireAndForgetCommand(int counter, int? duration) {
-			this.Counter = counter;
-			Duration = duration;
-		}
-	}
-
 	public class FireAndForgetCommandHandler : BaseCommandHandler<FireAndForgetCommand> {
 		public const int DefaultDuration = 150;
 		private readonly ILogger<FireAndForgetCommand> logger;

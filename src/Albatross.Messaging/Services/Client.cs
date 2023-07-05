@@ -13,6 +13,8 @@ namespace Albatross.Messaging.Services {
 
 		public Client(string identity) {
 			this.Identity = identity;
+			this.State = ClientState.Alive;
+			this.LastHeartbeat = DateTime.UtcNow;
 		}
 
 		public void Connected() {

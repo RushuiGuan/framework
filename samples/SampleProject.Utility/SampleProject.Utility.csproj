@@ -12,6 +12,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
+	  <ProjectReference Include="..\SampleProject.Commands\SampleProject.Commands.csproj" />
 	  <ProjectReference Include="..\SampleProject.Proxy\SampleProject.Proxy.csproj" />
 	</ItemGroup>
 	<ItemGroup>

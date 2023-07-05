@@ -107,6 +107,8 @@ namespace Albatross.Messaging.Services {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
 				this.logWriter.WriteLogEntry(new LogEntry(EntryType.In, msg));
+				// any msg from router server will update the heartbeat
+				self.UpdateHeartbeat();
 				// the only processing needed for Ack is to persist it in logs
 				if (running) {
 					if (msg is ConnectOk) {
@@ -115,7 +117,6 @@ namespace Albatross.Messaging.Services {
 						this.Transmit(new Connect(string.Empty, counter.NextId()));
 						return;
 					} else if (msg is HeartbeatAck ack) {
-						self.UpdateHeartbeat();
 						return;
 					}
 					foreach (var service in this.receiveServices) {

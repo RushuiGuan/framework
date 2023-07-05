@@ -1,22 +1,11 @@
 ﻿using Albatross.Messaging.Commands;
 using Albatross.Messaging.Eventing;
 using Microsoft.Extensions.Logging;
+using SampleProject.Commands;
 using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	[Command]
-	public class PublishCommand {
-		public PublishCommand(string topic, int min, int max) {
-			Topic = topic;
-			Min = min;
-			Max = max;
-		}
-
-		public string Topic { get; }
-		public int Min { get; }
-		public int Max { get; }
-	}
 	public class PublishCommandHandler : BaseCommandHandler<PublishCommand> {
 		private readonly ILogger<PublishCommandHandler> logger;
 		private readonly IPublisher publisher;
@@ -27,6 +16,7 @@ namespace SampleProject {
 		}
 
 		public override Task Handle(PublishCommand command, string queue) {
+			logger.LogInformation("running pub command with topic={topic}, min={min}, max={max}", command.Topic, command.Min, command.Max);
 			for(int i=command.Min; i<=command.Max; i++) {
 				publisher.Publish(command.Topic, BitConverter.GetBytes(i));
 			}

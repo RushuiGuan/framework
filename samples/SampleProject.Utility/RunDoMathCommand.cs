@@ -1,5 +1,6 @@
-﻿using CommandLine;
-using SampleProject.Proxy;
+﻿using Albatross.Messaging.Commands;
+using CommandLine;
+using SampleProject.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,11 +11,10 @@ namespace SampleProject.Utility {
 	public class RunDoMathCommand : MyUtilityBase<RunAddCommandOption> {
 		public RunDoMathCommand(RunAddCommandOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(RunProxyService svc) {
-
+		public async Task<int> RunUtility(ICommandClient client) {
 			ISet<Task<long>> list = new HashSet<Task<long>>();
 			for (int i = 0; i < Options.Count; i++) {
-				var task = svc.DoMathWork(i);
+				var task = client.Submit<DoMathWorkCommand, long>(new DoMathWorkCommand(i));
 				list.Add(task);
 			}
 			Options.WriteOutput($"total task count: {list.Count}");

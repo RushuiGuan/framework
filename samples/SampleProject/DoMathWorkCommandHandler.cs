@@ -1,17 +1,10 @@
 ﻿using Albatross.Messaging.Commands;
 using Microsoft.Extensions.Logging;
+using SampleProject.Commands;
 using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	[Command(typeof(long))]
-	public class DoMathWorkCommand {
-		public long Counter { get; init; }
-
-		public DoMathWorkCommand(long counter) {
-			this.Counter = counter;
-		}
-	}
 	public class DoMathWorkCommandHandler : BaseCommandHandler<DoMathWorkCommand, long> {
 		private readonly ILogger<DoMathWorkCommandHandler> logger;
 

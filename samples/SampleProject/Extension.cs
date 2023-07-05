@@ -1,4 +1,5 @@
-﻿using Albatross.Messaging.Commands;
+﻿using SampleProject.Commands;
+using Albatross.Messaging.Commands;
 using Albatross.Messaging.Eventing;
 using Albatross.Messaging.Eventing.Sub;
 using Albatross.Messaging.Services;
@@ -8,25 +9,6 @@ using System;
 
 namespace SampleProject {
 	public static class Extensions {
-		static string GetQueueName(object command, IServiceProvider provider) {
-			switch (command) {
-				case DoMathWorkCommand:
-				case ProcessDataCommand:
-					return "math-queue";
-				case LongRunningCommand:
-				case UnstableCommand:
-					return "show-running-queue";
-				case FireAndForgetCommand:
-					return "fire-and-forget-queue";
-				case PingCommand:
-				case PongCommand:
-					return "ping pong";
-			}
-			return Albatross.Messaging.Commands.Extensions.DefaultQueueName;
-		}
-		public static IServiceCollection AddSampleProjectCommands(this IServiceCollection services) 
-			=> services.AddAssemblyCommands(typeof(SampleProject.Extensions).Assembly, GetQueueName);
-
 		public static IServiceCollection AddSampleProjectClient(this IServiceCollection services) {
 			services.AddSampleProjectCommands()
 				.AddCommandClient()

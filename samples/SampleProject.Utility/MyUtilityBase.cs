@@ -1,10 +1,14 @@
 ﻿using Albatross.Config;
 using Albatross.Hosting.Utility;
 using Albatross.Logging;
+using Albatross.Messaging.Commands;
+using Albatross.Messaging.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SampleProject.Commands;
 using SampleProject.Proxy;
 using Serilog;
+using System;
 
 namespace SampleProject.Utility {
 	public class MyUtilityBase<T> : UtilityBase<T> where T : BaseOption {
@@ -21,6 +25,13 @@ namespace SampleProject.Utility {
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environment, IServiceCollection services) {
 			base.RegisterServices(configuration, environment, services);
 			services.AddSampleProjectProxy();
+			services.AddSampleProjectCommands()
+				.AddCommandClient()
+				.AddDefaultDealerClientConfig();
+		}
+		public override void Init(IConfiguration configuration, IServiceProvider provider) {
+			base.Init(configuration, provider);
+			provider.UseDealerClient();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using System.Threading.Tasks;
-using SampleProject.Proxy;
+using Albatross.Messaging.Commands;
+using SampleProject.Commands;
 
 namespace SampleProject.Utility {
 	[Verb("fire-and-wait")]
@@ -11,8 +12,10 @@ namespace SampleProject.Utility {
 	public class RunFireAndWaitCommand : MyUtilityBase<RunFireAndWaitCommandOption> {
 		public RunFireAndWaitCommand(RunFireAndWaitCommandOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(RunProxyService svc) {
-			await svc.FireAndWait(Options.Count, Options.Duration);
+		public async Task<int> RunUtility(ICommandClient client) {
+			for (int i = 0; i < Options.Count; i++) {
+				await client.Submit(new FireAndForgetCommand(i, Options.Duration), false);
+			}
 			return 0;
 		}
 	}

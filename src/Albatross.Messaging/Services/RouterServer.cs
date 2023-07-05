@@ -34,7 +34,8 @@ namespace Albatross.Messaging.Services {
 		public AtomicCounter<ulong> Counter => this.counter;
 
 		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, RouterServerLogWriter logWriter, RouterServerLogReader logReader) {
-			logger.LogInformation($"Creating {nameof(RouterServer)} instance");
+			logger.LogInformation("Creating {name} instance w. maintainConnection={maintain}, receiveHighWatermark={rchw}, sendHighWatermark={sendhw}, timerInterval={timerintv}", 
+				nameof(RouterServer), config.MaintainConnection, config.ReceiveHighWatermark, config.SendHighWatermark, config.ActualTimerInterval);
 			this.config = config;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
 			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
@@ -140,8 +141,18 @@ namespace Albatross.Messaging.Services {
 				logger.LogInformation("new client: {name}", msg.Route);
 				return new Client(msg.Route);
 			});
-			client.Connected();
 			this.Transmit(new ConnectOk(msg.Route, counter.NextId()));
+			if (client.State == ClientState.Dead) {
+				client.Connected();
+				SendClientResumeMsgToService(client.Identity);
+			}
+		}
+
+		private void SendClientResumeMsgToService(string client) {
+			logger.LogInformation("client {name} came back from lost, sending resume signal", client);
+			foreach (var service in receiveServices) {
+				service.ProcessReceivedMsg(this, new Resume(client, counter.NextId()));
+			}
 		}
 
 		private void AcceptHeartbeat(Heartbeat heartbeat) {
@@ -149,11 +160,7 @@ namespace Albatross.Messaging.Services {
 				client.UpdateHeartbeat();
 				Transmit(new HeartbeatAck(heartbeat.Route, counter.NextId()));
 				if (client.State != ClientState.Alive) {
-					foreach (var service in receiveServices) {
-						if (service.ProcessReceivedMsg(this, new Resume(heartbeat.Route, counter.NextId()))) {
-							return;
-						}
-					}
+					SendClientResumeMsgToService(client.Identity);
 				}
 			} else {
 				// receive a heartbeat from non existing client.  asking the client to reconnect
