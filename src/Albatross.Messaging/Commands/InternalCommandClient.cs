@@ -30,13 +30,8 @@ namespace Albatross.Messaging.Commands {
 			throw new NotSupportedException();
 		}
 
-		public Task Submit<CommandType>(CommandType command, bool fireAndForget) where CommandType : notnull
-			=> this.Submit(typeof(CommandType), command, fireAndForget);
-
-		public Task Submit(object command, bool fireAndForget = true)
-			=> this.Submit(command.GetType(), command, fireAndForget);
-
-		private Task Submit(Type type, object command, bool fireAndForget) {
+		public Task Submit(object command, bool fireAndForget = true) {
+			var type = command.GetType();
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
 				JsonSerializer.Serialize(stream, command, type, this.serializationOption.Default);

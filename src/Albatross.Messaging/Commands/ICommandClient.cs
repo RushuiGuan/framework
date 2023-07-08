@@ -9,7 +9,6 @@ namespace Albatross.Messaging.Commands {
 		Task<ResponseType> Submit<CommandType, ResponseType>(CommandType command)
 			where CommandType : notnull where ResponseType : notnull;
 
-		Task Submit<CommandType>(CommandType command, bool fireAndForget = true) where CommandType : notnull;
 		Task Submit(object command, bool fireAndForget = true);
 		Task<CommandQueueInfo[]> QueueStatus();
 		Task Ping();
