@@ -30,11 +30,17 @@ namespace Albatross.Messaging.Commands {
 			throw new NotSupportedException();
 		}
 
-		public Task Submit<CommandType>(CommandType command, bool fireAndForget) where CommandType : notnull {
+		public Task Submit<CommandType>(CommandType command, bool fireAndForget) where CommandType : notnull
+			=> this.Submit(typeof(CommandType), command, fireAndForget);
+
+		public Task Submit(object command, bool fireAndForget = true)
+			=> this.Submit(command.GetType(), command, fireAndForget);
+
+		private Task Submit(Type type, object command, bool fireAndForget) {
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
-				JsonSerializer.Serialize<CommandType>(stream, command, this.serializationOption.Default);
-				var request = new CommandRequest(InternalCommand.Route, routerServer.Counter.NextId(), typeof(CommandType).GetClassNameNeat(), true, stream.ToArray());
+				JsonSerializer.Serialize(stream, command, type, this.serializationOption.Default);
+				var request = new CommandRequest(InternalCommand.Route, routerServer.Counter.NextId(), type.GetClassNameNeat(), true, stream.ToArray());
 				var internalCmd = new InternalCommand(request);
 				this.routerServer.SubmitToQueue(internalCmd);
 				return internalCmd.Task;

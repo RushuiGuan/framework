@@ -111,14 +111,20 @@ namespace Albatross.Messaging.Commands {
 				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
 			}
 		}
-		public Task Submit<CommandType>(DealerClient dealerClient, CommandType command, bool fireAndForget = true) where CommandType : notnull {
+		public Task Submit<CommandType>(DealerClient dealerClient, CommandType command, bool fireAndForget) where CommandType : notnull 
+			=> this.Submit(dealerClient, typeof(CommandType), command, fireAndForget);
+
+		public Task Submit(DealerClient dealerClient, object command, bool fireAndForget)
+			=> this.Submit(dealerClient, command.GetType(), command, fireAndForget);
+
+		private Task Submit(DealerClient dealerClient, Type type, object command, bool fireAndForget)  {
 			var id = dealerClient.Counter.NextId();
 			MessageCallback callback = new MessageCallback();
 			if (!commandCallbacks.TryAdd(id, callback)) {
 				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
 			}
-			var bytes = JsonSerializer.SerializeToUtf8Bytes(command, this.serializerOptions.Default);
-			var request = new CommandRequest(string.Empty, id, typeof(CommandType).GetClassNameNeat(), fireAndForget, bytes);
+			var bytes = JsonSerializer.SerializeToUtf8Bytes(command, type, this.serializerOptions.Default);
+			var request = new CommandRequest(string.Empty, id, type.GetClassNameNeat(), fireAndForget, bytes);
 			dealerClient.SubmitToQueue(request);
 			return callback.Task;
 		}

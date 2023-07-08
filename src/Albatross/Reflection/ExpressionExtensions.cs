@@ -18,7 +18,14 @@ namespace Albatross.Reflection {
 			}
 			return propInfo;
 		}
-
+		/// <summary>
+		/// Provided with a type, a member name and a value, this method will return an predicate expression that checks the equality
+		/// between instance member and the value.  The instance member can be a property or a field
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="propertyOrFieldName"></param>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static Expression<Func<T, bool>> GetPredicate<T>(string propertyOrFieldName, object? value) {
 			ParameterExpression parameter = Expression.Parameter(typeof(T), "args");
 			var body = Expression.Equal(Expression.PropertyOrField(parameter, propertyOrFieldName), Expression.Constant(value));

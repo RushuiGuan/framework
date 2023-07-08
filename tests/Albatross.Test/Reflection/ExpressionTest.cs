@@ -9,12 +9,24 @@ namespace Albatross.Test.Reflection {
 			public int Number { get; }
 		}
 
+		public class B {
+			public A A { get; set; }
+			public B(A a) {
+				A = a;
+			}
+		}
+
 		[Fact]
 		public void TestCase1() {
 			PropertyInfo p = ExpressionExtensions.GetPropertyInfo<A>(args => args.Test1!);
 			Assert.Equal(nameof(A.Test1), p.Name);
 		}
 
+		[Fact]
+		public void TestCase2() {
+			PropertyInfo p = ExpressionExtensions.GetPropertyInfo<B>(args => args.A.Test1!);
+			Assert.Equal(nameof(A.Test1), p.Name);
+		}
 
 		[Theory]
 		[InlineData("test1", null, "(args.Test1 == null)")]

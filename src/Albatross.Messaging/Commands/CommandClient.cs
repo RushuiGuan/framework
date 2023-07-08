@@ -17,7 +17,10 @@ namespace Albatross.Messaging.Commands {
 			where CommandType : notnull
 			where ResponseType : notnull => service.Submit<CommandType, ResponseType>(dealerClient, command);
 
-		public Task Submit<CommandType>(CommandType command, bool fireAndForget) where CommandType : notnull
+		public Task Submit<CommandType>(CommandType command, bool fireAndForget = true) where CommandType : notnull
 			=> service.Submit<CommandType>(dealerClient, command, fireAndForget);
+
+		public Task Submit(object command, bool fireAndForget = true)
+			=> service.Submit(dealerClient, command, fireAndForget);
 	}
 }
