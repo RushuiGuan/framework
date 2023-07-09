@@ -234,8 +234,8 @@
 
   <a id="Albatross_Messaging_Commands_CommandClient_Submit_" data-uid="Albatross.Messaging.Commands.CommandClient.Submit*"></a>
 
-  <h3 id="Albatross_Messaging_Commands_CommandClient_Submit__1___0_System_Boolean_" data-uid="Albatross.Messaging.Commands.CommandClient.Submit``1(``0,System.Boolean)">
-  Submit&lt;CommandType&gt;(CommandType, bool)
+  <h3 id="Albatross_Messaging_Commands_CommandClient_Submit_System_Object_System_Boolean_" data-uid="Albatross.Messaging.Commands.CommandClient.Submit(System.Object,System.Boolean)">
+  Submit(object, bool)
   
   </h3>
 
@@ -243,12 +243,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Submit&lt;CommandType&gt;(CommandType command, bool fireAndForget) where CommandType : notnull</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Submit(object command, bool fireAndForget = true)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>command</code> <span class="xref">CommandType</span></dt>
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
     <dd></dd>
     <dt><code>fireAndForget</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -260,11 +260,6 @@
     <dd></dd>
   </dl>
 
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>CommandType</code></dt>
-    <dd></dd>
-  </dl>
 
 
 

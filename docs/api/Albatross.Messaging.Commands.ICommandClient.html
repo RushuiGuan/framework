@@ -186,8 +186,8 @@ all other methods in this call should be thread safe.</p>
 
   <a id="Albatross_Messaging_Commands_ICommandClient_Submit_" data-uid="Albatross.Messaging.Commands.ICommandClient.Submit*"></a>
 
-  <h3 id="Albatross_Messaging_Commands_ICommandClient_Submit__1___0_System_Boolean_" data-uid="Albatross.Messaging.Commands.ICommandClient.Submit``1(``0,System.Boolean)">
-  Submit&lt;CommandType&gt;(CommandType, bool)
+  <h3 id="Albatross_Messaging_Commands_ICommandClient_Submit_System_Object_System_Boolean_" data-uid="Albatross.Messaging.Commands.ICommandClient.Submit(System.Object,System.Boolean)">
+  Submit(object, bool)
   
   </h3>
 
@@ -195,12 +195,12 @@ all other methods in this call should be thread safe.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task Submit&lt;CommandType&gt;(CommandType command, bool fireAndForget = true) where CommandType : notnull</code></pre>
+    <pre><code class="lang-csharp hljs">Task Submit(object command, bool fireAndForget = true)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>command</code> <span class="xref">CommandType</span></dt>
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
     <dd></dd>
     <dt><code>fireAndForget</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -212,11 +212,6 @@ all other methods in this call should be thread safe.</p>
     <dd></dd>
   </dl>
 
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>CommandType</code></dt>
-    <dd></dd>
-  </dl>
 
 
 

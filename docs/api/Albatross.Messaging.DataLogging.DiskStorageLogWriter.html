@@ -87,7 +87,10 @@
   <dl><dt>Assembly</dt><dd>Albatross.Messaging.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>This class is responsible to write data logs to files.  The files are organized with UTC timestamps. The files has a configurable
+max size limit.  Once reached, a new file will be created.  When writing the log entry, data are bufferred line by line using
+a <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html">BufferedTextWriter</a> class.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -143,8 +146,8 @@
 
   <a id="Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_" data-uid="Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_Albatross_Messaging_Configurations_DiskStorageConfiguration_Microsoft_Extensions_Logging_ILogger_" data-uid="Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor(Albatross.Messaging.Configurations.DiskStorageConfiguration,Microsoft.Extensions.Logging.ILogger)">
-  DiskStorageLogWriter(DiskStorageConfiguration, ILogger)
+  <h3 id="Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_Albatross_Messaging_Configurations_DiskStorageConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_DataLogging_BufferedTextWriter_" data-uid="Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor(Albatross.Messaging.Configurations.DiskStorageConfiguration,Microsoft.Extensions.Logging.ILogger,Albatross.Messaging.DataLogging.BufferedTextWriter)">
+  DiskStorageLogWriter(DiskStorageConfiguration, ILogger, BufferedTextWriter)
   
   </h3>
 
@@ -152,7 +155,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger, BufferedTextWriter lineWriter)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -160,6 +163,8 @@
     <dt><code>config</code> <a class="xref" href="Albatross.Messaging.Configurations.DiskStorageConfiguration.html">DiskStorageConfiguration</a></dt>
     <dd></dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd></dd>
+    <dt><code>lineWriter</code> <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html">BufferedTextWriter</a></dt>
     <dd></dd>
   </dl>
 

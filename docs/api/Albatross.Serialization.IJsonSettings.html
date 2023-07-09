@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class FormattedJsonSerializationOption
+      <title>Interface IJsonSettings
  | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class FormattedJsonSerializationOption
+      <meta name="title" content="Interface IJsonSettings
  | Albatross Framework Documentation ">
       
       <link rel="icon" href="../favicon.ico">
@@ -73,12 +73,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.Serialization.FormattedJsonSerializationOption">
+        <article data-uid="Albatross.Serialization.IJsonSettings">
 
 
 
-  <h1 id="Albatross_Serialization_FormattedJsonSerializationOption" data-uid="Albatross.Serialization.FormattedJsonSerializationOption" class="text-break">
-    Class FormattedJsonSerializationOption
+  <h1 id="Albatross_Serialization_IJsonSettings" data-uid="Albatross.Serialization.IJsonSettings" class="text-break">
+    Interface IJsonSettings
   
   </h1>
 
@@ -87,31 +87,19 @@
   <dl><dt>Assembly</dt><dd>Albatross.Serialization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Formatted json serialization option used by print outs</p>
+  <div class="markdown summary"><p><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> is a complex data type.  Caching and reuse is highly recommended.<br>
+Use the interface below to inject the serialization options.  A static property can also be use instead of dependency injection.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class FormattedJsonSerializationOption : IJsonSerializationOption</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IJsonSettings</code></pre>
   </div>
 
 
 
 
-  <dl class="typelist inheritance">
-    <dt>Inheritance</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">FormattedJsonSerializationOption</span></div>
-    </dd>
-  </dl>
 
-  <dl class="typelist implements">
-    <dt>Implements</dt>
-    <dd>
-      <div><a class="xref" href="Albatross.Serialization.IJsonSerializationOption.html">IJsonSerializationOption</a></div>
-    </dd>
-  </dl>
 
 
 
@@ -130,43 +118,13 @@
 
 
 
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="Albatross_Serialization_FormattedJsonSerializationOption__ctor_" data-uid="Albatross.Serialization.FormattedJsonSerializationOption.#ctor*"></a>
-
-  <h3 id="Albatross_Serialization_FormattedJsonSerializationOption__ctor" data-uid="Albatross.Serialization.FormattedJsonSerializationOption.#ctor">
-  FormattedJsonSerializationOption()
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public FormattedJsonSerializationOption()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="Albatross_Serialization_FormattedJsonSerializationOption_Alternate_" data-uid="Albatross.Serialization.FormattedJsonSerializationOption.Alternate*"></a>
+  <a id="Albatross_Serialization_IJsonSettings_Alternate_" data-uid="Albatross.Serialization.IJsonSettings.Alternate*"></a>
 
-  <h3 id="Albatross_Serialization_FormattedJsonSerializationOption_Alternate" data-uid="Albatross.Serialization.FormattedJsonSerializationOption.Alternate">
+  <h3 id="Albatross_Serialization_IJsonSettings_Alternate" data-uid="Albatross.Serialization.IJsonSettings.Alternate">
   Alternate
   
   </h3>
@@ -175,7 +133,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public JsonSerializerOptions Alternate { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">JsonSerializerOptions Alternate { get; }</code></pre>
   </div>
 
 
@@ -195,9 +153,9 @@
 
 
 
-  <a id="Albatross_Serialization_FormattedJsonSerializationOption_Default_" data-uid="Albatross.Serialization.FormattedJsonSerializationOption.Default*"></a>
+  <a id="Albatross_Serialization_IJsonSettings_Default_" data-uid="Albatross.Serialization.IJsonSettings.Default*"></a>
 
-  <h3 id="Albatross_Serialization_FormattedJsonSerializationOption_Default" data-uid="Albatross.Serialization.FormattedJsonSerializationOption.Default">
+  <h3 id="Albatross_Serialization_IJsonSettings_Default" data-uid="Albatross.Serialization.IJsonSettings.Default">
   Default
   
   </h3>
@@ -206,7 +164,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public JsonSerializerOptions Default { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">JsonSerializerOptions Default { get; }</code></pre>
   </div>
 
 

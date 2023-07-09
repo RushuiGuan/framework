@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class DefaultJsonSerializationOption
+      <title>Class ReducedFootprintJsonSettings
  | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class DefaultJsonSerializationOption
+      <meta name="title" content="Class ReducedFootprintJsonSettings
  | Albatross Framework Documentation ">
       
       <link rel="icon" href="../favicon.ico">
@@ -73,12 +73,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.Serialization.DefaultJsonSerializationOption">
+        <article data-uid="Albatross.Serialization.ReducedFootprintJsonSettings">
 
 
 
-  <h1 id="Albatross_Serialization_DefaultJsonSerializationOption" data-uid="Albatross.Serialization.DefaultJsonSerializationOption" class="text-break">
-    Class DefaultJsonSerializationOption
+  <h1 id="Albatross_Serialization_ReducedFootprintJsonSettings" data-uid="Albatross.Serialization.ReducedFootprintJsonSettings" class="text-break">
+    Class ReducedFootprintJsonSettings
   
   </h1>
 
@@ -87,12 +87,12 @@
   <dl><dt>Assembly</dt><dd>Albatross.Serialization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Default json serialization option used by webapi and http clients</p>
+  <div class="markdown summary"><p>Reduced footprint serialization option used by applications only where sender and receiver are both created internally.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DefaultJsonSerializationOption : IJsonSerializationOption</code></pre>
+    <pre><code class="lang-csharp hljs">public class ReducedFootprintJsonSettings : IJsonSettings</code></pre>
   </div>
 
 
@@ -102,14 +102,14 @@
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">DefaultJsonSerializationOption</span></div>
+      <div><span class="xref">ReducedFootprintJsonSettings</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.Serialization.IJsonSerializationOption.html">IJsonSerializationOption</a></div>
+      <div><a class="xref" href="Albatross.Serialization.IJsonSettings.html">IJsonSettings</a></div>
     </dd>
   </dl>
 
@@ -130,43 +130,12 @@
 
 
 
-  <h2 class="section" id="constructors">Constructors
+  <h2 class="section" id="fields">Fields
 </h2>
 
 
-  <a id="Albatross_Serialization_DefaultJsonSerializationOption__ctor_" data-uid="Albatross.Serialization.DefaultJsonSerializationOption.#ctor*"></a>
 
-  <h3 id="Albatross_Serialization_DefaultJsonSerializationOption__ctor" data-uid="Albatross.Serialization.DefaultJsonSerializationOption.#ctor">
-  DefaultJsonSerializationOption()
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DefaultJsonSerializationOption()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-
-  <a id="Albatross_Serialization_DefaultJsonSerializationOption_Alternate_" data-uid="Albatross.Serialization.DefaultJsonSerializationOption.Alternate*"></a>
-
-  <h3 id="Albatross_Serialization_DefaultJsonSerializationOption_Alternate" data-uid="Albatross.Serialization.DefaultJsonSerializationOption.Alternate">
+  <h3 id="Albatross_Serialization_ReducedFootprintJsonSettings_Alternate" data-uid="Albatross.Serialization.ReducedFootprintJsonSettings.Alternate">
   Alternate
   
   </h3>
@@ -175,14 +144,13 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public JsonSerializerOptions Alternate { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly JsonSerializerOptions Alternate</code></pre>
   </div>
 
 
 
 
-
-  <h4 class="section">Property Value</h4>
+  <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
     <dd></dd>
@@ -195,9 +163,9 @@
 
 
 
-  <a id="Albatross_Serialization_DefaultJsonSerializationOption_Default_" data-uid="Albatross.Serialization.DefaultJsonSerializationOption.Default*"></a>
 
-  <h3 id="Albatross_Serialization_DefaultJsonSerializationOption_Default" data-uid="Albatross.Serialization.DefaultJsonSerializationOption.Default">
+
+  <h3 id="Albatross_Serialization_ReducedFootprintJsonSettings_Default" data-uid="Albatross.Serialization.ReducedFootprintJsonSettings.Default">
   Default
   
   </h3>
@@ -206,18 +174,18 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public JsonSerializerOptions Default { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly JsonSerializerOptions Default</code></pre>
   </div>
 
 
 
 
-
-  <h4 class="section">Property Value</h4>
+  <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
     <dd></dd>
   </dl>
+
 
 
 

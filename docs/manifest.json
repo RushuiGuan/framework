@@ -2595,6 +2595,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Messaging.DataLogging.BufferedTextWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Messaging.DataLogging.BufferedTextWriter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Messaging.DataLogging.DiskStorageLogReader.yml",
       "output": {
         ".html": {
@@ -3925,10 +3935,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Serialization.DefaultJsonSerializationOption.yml",
+      "source_relative_path": "api/Albatross.Serialization.DefaultJsonSettings.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Serialization.DefaultJsonSerializationOption.html"
+          "relative_path": "api/Albatross.Serialization.DefaultJsonSettings.html"
         }
       },
       "version": ""
@@ -3945,30 +3955,30 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Serialization.FormattedJsonSerializationOption.yml",
+      "source_relative_path": "api/Albatross.Serialization.FormattedJsonSettings.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Serialization.FormattedJsonSerializationOption.html"
+          "relative_path": "api/Albatross.Serialization.FormattedJsonSettings.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Serialization.IJsonSerializationOption.yml",
+      "source_relative_path": "api/Albatross.Serialization.IJsonSettings.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Serialization.IJsonSerializationOption.html"
+          "relative_path": "api/Albatross.Serialization.IJsonSettings.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.yml",
+      "source_relative_path": "api/Albatross.Serialization.ReducedFootprintJsonSettings.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html"
+          "relative_path": "api/Albatross.Serialization.ReducedFootprintJsonSettings.html"
         }
       },
       "version": ""

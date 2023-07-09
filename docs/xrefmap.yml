@@ -13441,6 +13441,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.CommandClient.QueueStatus
   nameWithType: CommandClient.QueueStatus
+- uid: Albatross.Messaging.Commands.CommandClient.Submit(System.Object,System.Boolean)
+  name: Submit(object, bool)
+  href: api/Albatross.Messaging.Commands.CommandClient.html#Albatross_Messaging_Commands_CommandClient_Submit_System_Object_System_Boolean_
+  commentId: M:Albatross.Messaging.Commands.CommandClient.Submit(System.Object,System.Boolean)
+  name.vb: Submit(Object, Boolean)
+  fullName: Albatross.Messaging.Commands.CommandClient.Submit(object, bool)
+  fullName.vb: Albatross.Messaging.Commands.CommandClient.Submit(Object, Boolean)
+  nameWithType: CommandClient.Submit(object, bool)
+  nameWithType.vb: CommandClient.Submit(Object, Boolean)
 - uid: Albatross.Messaging.Commands.CommandClient.Submit*
   name: Submit
   href: api/Albatross.Messaging.Commands.CommandClient.html#Albatross_Messaging_Commands_CommandClient_Submit_
@@ -13448,15 +13457,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.CommandClient.Submit
   nameWithType: CommandClient.Submit
-- uid: Albatross.Messaging.Commands.CommandClient.Submit``1(``0,System.Boolean)
-  name: Submit<CommandType>(CommandType, bool)
-  href: api/Albatross.Messaging.Commands.CommandClient.html#Albatross_Messaging_Commands_CommandClient_Submit__1___0_System_Boolean_
-  commentId: M:Albatross.Messaging.Commands.CommandClient.Submit``1(``0,System.Boolean)
-  name.vb: Submit(Of CommandType)(CommandType, Boolean)
-  fullName: Albatross.Messaging.Commands.CommandClient.Submit<CommandType>(CommandType, bool)
-  fullName.vb: Albatross.Messaging.Commands.CommandClient.Submit(Of CommandType)(CommandType, Boolean)
-  nameWithType: CommandClient.Submit<CommandType>(CommandType, bool)
-  nameWithType.vb: CommandClient.Submit(Of CommandType)(CommandType, Boolean)
 - uid: Albatross.Messaging.Commands.CommandClient.Submit``2(``0)
   name: Submit<CommandType, ResponseType>(CommandType)
   href: api/Albatross.Messaging.Commands.CommandClient.html#Albatross_Messaging_Commands_CommandClient_Submit__2___0_
@@ -13611,6 +13611,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.CommandClientService.QueueStatus
   nameWithType: CommandClientService.QueueStatus
+- uid: Albatross.Messaging.Commands.CommandClientService.Submit(Albatross.Messaging.Services.DealerClient,System.Object,System.Boolean)
+  name: Submit(DealerClient, object, bool)
+  href: api/Albatross.Messaging.Commands.CommandClientService.html#Albatross_Messaging_Commands_CommandClientService_Submit_Albatross_Messaging_Services_DealerClient_System_Object_System_Boolean_
+  commentId: M:Albatross.Messaging.Commands.CommandClientService.Submit(Albatross.Messaging.Services.DealerClient,System.Object,System.Boolean)
+  name.vb: Submit(DealerClient, Object, Boolean)
+  fullName: Albatross.Messaging.Commands.CommandClientService.Submit(Albatross.Messaging.Services.DealerClient, object, bool)
+  fullName.vb: Albatross.Messaging.Commands.CommandClientService.Submit(Albatross.Messaging.Services.DealerClient, Object, Boolean)
+  nameWithType: CommandClientService.Submit(DealerClient, object, bool)
+  nameWithType.vb: CommandClientService.Submit(DealerClient, Object, Boolean)
 - uid: Albatross.Messaging.Commands.CommandClientService.Submit*
   name: Submit
   href: api/Albatross.Messaging.Commands.CommandClientService.html#Albatross_Messaging_Commands_CommandClientService_Submit_
@@ -13618,15 +13627,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.CommandClientService.Submit
   nameWithType: CommandClientService.Submit
-- uid: Albatross.Messaging.Commands.CommandClientService.Submit``1(Albatross.Messaging.Services.DealerClient,``0,System.Boolean)
-  name: Submit<CommandType>(DealerClient, CommandType, bool)
-  href: api/Albatross.Messaging.Commands.CommandClientService.html#Albatross_Messaging_Commands_CommandClientService_Submit__1_Albatross_Messaging_Services_DealerClient___0_System_Boolean_
-  commentId: M:Albatross.Messaging.Commands.CommandClientService.Submit``1(Albatross.Messaging.Services.DealerClient,``0,System.Boolean)
-  name.vb: Submit(Of CommandType)(DealerClient, CommandType, Boolean)
-  fullName: Albatross.Messaging.Commands.CommandClientService.Submit<CommandType>(Albatross.Messaging.Services.DealerClient, CommandType, bool)
-  fullName.vb: Albatross.Messaging.Commands.CommandClientService.Submit(Of CommandType)(Albatross.Messaging.Services.DealerClient, CommandType, Boolean)
-  nameWithType: CommandClientService.Submit<CommandType>(DealerClient, CommandType, bool)
-  nameWithType.vb: CommandClientService.Submit(Of CommandType)(DealerClient, CommandType, Boolean)
 - uid: Albatross.Messaging.Commands.CommandClientService.Submit``2(Albatross.Messaging.Services.DealerClient,``0)
   name: Submit<CommandType, ResponseType>(DealerClient, CommandType)
   href: api/Albatross.Messaging.Commands.CommandClientService.html#Albatross_Messaging_Commands_CommandClientService_Submit__2_Albatross_Messaging_Services_DealerClient___0_
@@ -14315,6 +14315,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.ICommandClient.QueueStatus
   nameWithType: ICommandClient.QueueStatus
+- uid: Albatross.Messaging.Commands.ICommandClient.Submit(System.Object,System.Boolean)
+  name: Submit(object, bool)
+  href: api/Albatross.Messaging.Commands.ICommandClient.html#Albatross_Messaging_Commands_ICommandClient_Submit_System_Object_System_Boolean_
+  commentId: M:Albatross.Messaging.Commands.ICommandClient.Submit(System.Object,System.Boolean)
+  name.vb: Submit(Object, Boolean)
+  fullName: Albatross.Messaging.Commands.ICommandClient.Submit(object, bool)
+  fullName.vb: Albatross.Messaging.Commands.ICommandClient.Submit(Object, Boolean)
+  nameWithType: ICommandClient.Submit(object, bool)
+  nameWithType.vb: ICommandClient.Submit(Object, Boolean)
 - uid: Albatross.Messaging.Commands.ICommandClient.Submit*
   name: Submit
   href: api/Albatross.Messaging.Commands.ICommandClient.html#Albatross_Messaging_Commands_ICommandClient_Submit_
@@ -14322,15 +14331,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.ICommandClient.Submit
   nameWithType: ICommandClient.Submit
-- uid: Albatross.Messaging.Commands.ICommandClient.Submit``1(``0,System.Boolean)
-  name: Submit<CommandType>(CommandType, bool)
-  href: api/Albatross.Messaging.Commands.ICommandClient.html#Albatross_Messaging_Commands_ICommandClient_Submit__1___0_System_Boolean_
-  commentId: M:Albatross.Messaging.Commands.ICommandClient.Submit``1(``0,System.Boolean)
-  name.vb: Submit(Of CommandType)(CommandType, Boolean)
-  fullName: Albatross.Messaging.Commands.ICommandClient.Submit<CommandType>(CommandType, bool)
-  fullName.vb: Albatross.Messaging.Commands.ICommandClient.Submit(Of CommandType)(CommandType, Boolean)
-  nameWithType: ICommandClient.Submit<CommandType>(CommandType, bool)
-  nameWithType.vb: ICommandClient.Submit(Of CommandType)(CommandType, Boolean)
 - uid: Albatross.Messaging.Commands.ICommandClient.Submit``2(``0)
   name: Submit<CommandType, ResponseType>(CommandType)
   href: api/Albatross.Messaging.Commands.ICommandClient.html#Albatross_Messaging_Commands_ICommandClient_Submit__2___0_
@@ -14499,6 +14499,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.InternalCommandClient.QueueStatus
   nameWithType: InternalCommandClient.QueueStatus
+- uid: Albatross.Messaging.Commands.InternalCommandClient.Submit(System.Object,System.Boolean)
+  name: Submit(object, bool)
+  href: api/Albatross.Messaging.Commands.InternalCommandClient.html#Albatross_Messaging_Commands_InternalCommandClient_Submit_System_Object_System_Boolean_
+  commentId: M:Albatross.Messaging.Commands.InternalCommandClient.Submit(System.Object,System.Boolean)
+  name.vb: Submit(Object, Boolean)
+  fullName: Albatross.Messaging.Commands.InternalCommandClient.Submit(object, bool)
+  fullName.vb: Albatross.Messaging.Commands.InternalCommandClient.Submit(Object, Boolean)
+  nameWithType: InternalCommandClient.Submit(object, bool)
+  nameWithType.vb: InternalCommandClient.Submit(Object, Boolean)
 - uid: Albatross.Messaging.Commands.InternalCommandClient.Submit*
   name: Submit
   href: api/Albatross.Messaging.Commands.InternalCommandClient.html#Albatross_Messaging_Commands_InternalCommandClient_Submit_
@@ -14506,15 +14515,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.InternalCommandClient.Submit
   nameWithType: InternalCommandClient.Submit
-- uid: Albatross.Messaging.Commands.InternalCommandClient.Submit``1(``0,System.Boolean)
-  name: Submit<CommandType>(CommandType, bool)
-  href: api/Albatross.Messaging.Commands.InternalCommandClient.html#Albatross_Messaging_Commands_InternalCommandClient_Submit__1___0_System_Boolean_
-  commentId: M:Albatross.Messaging.Commands.InternalCommandClient.Submit``1(``0,System.Boolean)
-  name.vb: Submit(Of CommandType)(CommandType, Boolean)
-  fullName: Albatross.Messaging.Commands.InternalCommandClient.Submit<CommandType>(CommandType, bool)
-  fullName.vb: Albatross.Messaging.Commands.InternalCommandClient.Submit(Of CommandType)(CommandType, Boolean)
-  nameWithType: InternalCommandClient.Submit<CommandType>(CommandType, bool)
-  nameWithType.vb: InternalCommandClient.Submit(Of CommandType)(CommandType, Boolean)
 - uid: Albatross.Messaging.Commands.InternalCommandClient.Submit``2(``0)
   name: Submit<CommandType, ResponseType>(CommandType)
   href: api/Albatross.Messaging.Commands.InternalCommandClient.html#Albatross_Messaging_Commands_InternalCommandClient_Submit__2___0_
@@ -16435,6 +16435,57 @@ references:
   commentId: N:Albatross.Messaging.DataLogging
   fullName: Albatross.Messaging.DataLogging
   nameWithType: Albatross.Messaging.DataLogging
+- uid: Albatross.Messaging.DataLogging.BufferedTextWriter
+  name: BufferedTextWriter
+  href: api/Albatross.Messaging.DataLogging.BufferedTextWriter.html
+  commentId: T:Albatross.Messaging.DataLogging.BufferedTextWriter
+  fullName: Albatross.Messaging.DataLogging.BufferedTextWriter
+  nameWithType: BufferedTextWriter
+- uid: Albatross.Messaging.DataLogging.BufferedTextWriter.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)
+  name: BufferedTextWriter(ILoggerFactory)
+  href: api/Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter__ctor_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:Albatross.Messaging.DataLogging.BufferedTextWriter.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(ILoggerFactory)
+  fullName: Albatross.Messaging.DataLogging.BufferedTextWriter.BufferedTextWriter(Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: Albatross.Messaging.DataLogging.BufferedTextWriter.New(Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: BufferedTextWriter.BufferedTextWriter(ILoggerFactory)
+  nameWithType.vb: BufferedTextWriter.New(ILoggerFactory)
+- uid: Albatross.Messaging.DataLogging.BufferedTextWriter.#ctor*
+  name: BufferedTextWriter
+  href: api/Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter__ctor_
+  commentId: Overload:Albatross.Messaging.DataLogging.BufferedTextWriter.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Albatross.Messaging.DataLogging.BufferedTextWriter.BufferedTextWriter
+  fullName.vb: Albatross.Messaging.DataLogging.BufferedTextWriter.New
+  nameWithType: BufferedTextWriter.BufferedTextWriter
+  nameWithType.vb: BufferedTextWriter.New
+- uid: Albatross.Messaging.DataLogging.BufferedTextWriter.Begin
+  name: Begin()
+  href: api/Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter_Begin
+  commentId: M:Albatross.Messaging.DataLogging.BufferedTextWriter.Begin
+  fullName: Albatross.Messaging.DataLogging.BufferedTextWriter.Begin()
+  nameWithType: BufferedTextWriter.Begin()
+- uid: Albatross.Messaging.DataLogging.BufferedTextWriter.Begin*
+  name: Begin
+  href: api/Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter_Begin_
+  commentId: Overload:Albatross.Messaging.DataLogging.BufferedTextWriter.Begin
+  isSpec: "True"
+  fullName: Albatross.Messaging.DataLogging.BufferedTextWriter.Begin
+  nameWithType: BufferedTextWriter.Begin
+- uid: Albatross.Messaging.DataLogging.BufferedTextWriter.End
+  name: End()
+  href: api/Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter_End
+  commentId: M:Albatross.Messaging.DataLogging.BufferedTextWriter.End
+  fullName: Albatross.Messaging.DataLogging.BufferedTextWriter.End()
+  nameWithType: BufferedTextWriter.End()
+- uid: Albatross.Messaging.DataLogging.BufferedTextWriter.End*
+  name: End
+  href: api/Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter_End_
+  commentId: Overload:Albatross.Messaging.DataLogging.BufferedTextWriter.End
+  isSpec: "True"
+  fullName: Albatross.Messaging.DataLogging.BufferedTextWriter.End
+  nameWithType: BufferedTextWriter.End
 - uid: Albatross.Messaging.DataLogging.DiskStorageLogReader
   name: DiskStorageLogReader
   href: api/Albatross.Messaging.DataLogging.DiskStorageLogReader.html
@@ -16479,15 +16530,15 @@ references:
   commentId: T:Albatross.Messaging.DataLogging.DiskStorageLogWriter
   fullName: Albatross.Messaging.DataLogging.DiskStorageLogWriter
   nameWithType: DiskStorageLogWriter
-- uid: Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor(Albatross.Messaging.Configurations.DiskStorageConfiguration,Microsoft.Extensions.Logging.ILogger)
-  name: DiskStorageLogWriter(DiskStorageConfiguration, ILogger)
-  href: api/Albatross.Messaging.DataLogging.DiskStorageLogWriter.html#Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_Albatross_Messaging_Configurations_DiskStorageConfiguration_Microsoft_Extensions_Logging_ILogger_
-  commentId: M:Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor(Albatross.Messaging.Configurations.DiskStorageConfiguration,Microsoft.Extensions.Logging.ILogger)
-  name.vb: New(DiskStorageConfiguration, ILogger)
-  fullName: Albatross.Messaging.DataLogging.DiskStorageLogWriter.DiskStorageLogWriter(Albatross.Messaging.Configurations.DiskStorageConfiguration, Microsoft.Extensions.Logging.ILogger)
-  fullName.vb: Albatross.Messaging.DataLogging.DiskStorageLogWriter.New(Albatross.Messaging.Configurations.DiskStorageConfiguration, Microsoft.Extensions.Logging.ILogger)
-  nameWithType: DiskStorageLogWriter.DiskStorageLogWriter(DiskStorageConfiguration, ILogger)
-  nameWithType.vb: DiskStorageLogWriter.New(DiskStorageConfiguration, ILogger)
+- uid: Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor(Albatross.Messaging.Configurations.DiskStorageConfiguration,Microsoft.Extensions.Logging.ILogger,Albatross.Messaging.DataLogging.BufferedTextWriter)
+  name: DiskStorageLogWriter(DiskStorageConfiguration, ILogger, BufferedTextWriter)
+  href: api/Albatross.Messaging.DataLogging.DiskStorageLogWriter.html#Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_Albatross_Messaging_Configurations_DiskStorageConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_DataLogging_BufferedTextWriter_
+  commentId: M:Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor(Albatross.Messaging.Configurations.DiskStorageConfiguration,Microsoft.Extensions.Logging.ILogger,Albatross.Messaging.DataLogging.BufferedTextWriter)
+  name.vb: New(DiskStorageConfiguration, ILogger, BufferedTextWriter)
+  fullName: Albatross.Messaging.DataLogging.DiskStorageLogWriter.DiskStorageLogWriter(Albatross.Messaging.Configurations.DiskStorageConfiguration, Microsoft.Extensions.Logging.ILogger, Albatross.Messaging.DataLogging.BufferedTextWriter)
+  fullName.vb: Albatross.Messaging.DataLogging.DiskStorageLogWriter.New(Albatross.Messaging.Configurations.DiskStorageConfiguration, Microsoft.Extensions.Logging.ILogger, Albatross.Messaging.DataLogging.BufferedTextWriter)
+  nameWithType: DiskStorageLogWriter.DiskStorageLogWriter(DiskStorageConfiguration, ILogger, BufferedTextWriter)
+  nameWithType.vb: DiskStorageLogWriter.New(DiskStorageConfiguration, ILogger, BufferedTextWriter)
 - uid: Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor*
   name: DiskStorageLogWriter
   href: api/Albatross.Messaging.DataLogging.DiskStorageLogWriter.html#Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_
@@ -21678,15 +21729,15 @@ references:
   commentId: T:Albatross.Messaging.Services.DealerClientLogWriter
   fullName: Albatross.Messaging.Services.DealerClientLogWriter
   nameWithType: DealerClientLogWriter
-- uid: Albatross.Messaging.Services.DealerClientLogWriter.#ctor(Albatross.Messaging.Configurations.DealerClientConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.DealerClientLogWriter})
-  name: DealerClientLogWriter(DealerClientConfiguration, ILogger<DealerClientLogWriter>)
-  href: api/Albatross.Messaging.Services.DealerClientLogWriter.html#Albatross_Messaging_Services_DealerClientLogWriter__ctor_Albatross_Messaging_Configurations_DealerClientConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_DealerClientLogWriter__
-  commentId: M:Albatross.Messaging.Services.DealerClientLogWriter.#ctor(Albatross.Messaging.Configurations.DealerClientConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.DealerClientLogWriter})
-  name.vb: New(DealerClientConfiguration, ILogger(Of DealerClientLogWriter))
-  fullName: Albatross.Messaging.Services.DealerClientLogWriter.DealerClientLogWriter(Albatross.Messaging.Configurations.DealerClientConfiguration, Microsoft.Extensions.Logging.ILogger<Albatross.Messaging.Services.DealerClientLogWriter>)
-  fullName.vb: Albatross.Messaging.Services.DealerClientLogWriter.New(Albatross.Messaging.Configurations.DealerClientConfiguration, Microsoft.Extensions.Logging.ILogger(Of Albatross.Messaging.Services.DealerClientLogWriter))
-  nameWithType: DealerClientLogWriter.DealerClientLogWriter(DealerClientConfiguration, ILogger<DealerClientLogWriter>)
-  nameWithType.vb: DealerClientLogWriter.New(DealerClientConfiguration, ILogger(Of DealerClientLogWriter))
+- uid: Albatross.Messaging.Services.DealerClientLogWriter.#ctor(Albatross.Messaging.Configurations.DealerClientConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.DealerClientLogWriter},Albatross.Messaging.DataLogging.BufferedTextWriter)
+  name: DealerClientLogWriter(DealerClientConfiguration, ILogger<DealerClientLogWriter>, BufferedTextWriter)
+  href: api/Albatross.Messaging.Services.DealerClientLogWriter.html#Albatross_Messaging_Services_DealerClientLogWriter__ctor_Albatross_Messaging_Configurations_DealerClientConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_DealerClientLogWriter__Albatross_Messaging_DataLogging_BufferedTextWriter_
+  commentId: M:Albatross.Messaging.Services.DealerClientLogWriter.#ctor(Albatross.Messaging.Configurations.DealerClientConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.DealerClientLogWriter},Albatross.Messaging.DataLogging.BufferedTextWriter)
+  name.vb: New(DealerClientConfiguration, ILogger(Of DealerClientLogWriter), BufferedTextWriter)
+  fullName: Albatross.Messaging.Services.DealerClientLogWriter.DealerClientLogWriter(Albatross.Messaging.Configurations.DealerClientConfiguration, Microsoft.Extensions.Logging.ILogger<Albatross.Messaging.Services.DealerClientLogWriter>, Albatross.Messaging.DataLogging.BufferedTextWriter)
+  fullName.vb: Albatross.Messaging.Services.DealerClientLogWriter.New(Albatross.Messaging.Configurations.DealerClientConfiguration, Microsoft.Extensions.Logging.ILogger(Of Albatross.Messaging.Services.DealerClientLogWriter), Albatross.Messaging.DataLogging.BufferedTextWriter)
+  nameWithType: DealerClientLogWriter.DealerClientLogWriter(DealerClientConfiguration, ILogger<DealerClientLogWriter>, BufferedTextWriter)
+  nameWithType.vb: DealerClientLogWriter.New(DealerClientConfiguration, ILogger(Of DealerClientLogWriter), BufferedTextWriter)
 - uid: Albatross.Messaging.Services.DealerClientLogWriter.#ctor*
   name: DealerClientLogWriter
   href: api/Albatross.Messaging.Services.DealerClientLogWriter.html#Albatross_Messaging_Services_DealerClientLogWriter__ctor_
@@ -22405,15 +22456,15 @@ references:
   commentId: T:Albatross.Messaging.Services.RouterServerLogWriter
   fullName: Albatross.Messaging.Services.RouterServerLogWriter
   nameWithType: RouterServerLogWriter
-- uid: Albatross.Messaging.Services.RouterServerLogWriter.#ctor(Albatross.Messaging.Configurations.RouterServerConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.RouterServerLogWriter})
-  name: RouterServerLogWriter(RouterServerConfiguration, ILogger<RouterServerLogWriter>)
-  href: api/Albatross.Messaging.Services.RouterServerLogWriter.html#Albatross_Messaging_Services_RouterServerLogWriter__ctor_Albatross_Messaging_Configurations_RouterServerConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_RouterServerLogWriter__
-  commentId: M:Albatross.Messaging.Services.RouterServerLogWriter.#ctor(Albatross.Messaging.Configurations.RouterServerConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.RouterServerLogWriter})
-  name.vb: New(RouterServerConfiguration, ILogger(Of RouterServerLogWriter))
-  fullName: Albatross.Messaging.Services.RouterServerLogWriter.RouterServerLogWriter(Albatross.Messaging.Configurations.RouterServerConfiguration, Microsoft.Extensions.Logging.ILogger<Albatross.Messaging.Services.RouterServerLogWriter>)
-  fullName.vb: Albatross.Messaging.Services.RouterServerLogWriter.New(Albatross.Messaging.Configurations.RouterServerConfiguration, Microsoft.Extensions.Logging.ILogger(Of Albatross.Messaging.Services.RouterServerLogWriter))
-  nameWithType: RouterServerLogWriter.RouterServerLogWriter(RouterServerConfiguration, ILogger<RouterServerLogWriter>)
-  nameWithType.vb: RouterServerLogWriter.New(RouterServerConfiguration, ILogger(Of RouterServerLogWriter))
+- uid: Albatross.Messaging.Services.RouterServerLogWriter.#ctor(Albatross.Messaging.Configurations.RouterServerConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.RouterServerLogWriter},Albatross.Messaging.DataLogging.BufferedTextWriter)
+  name: RouterServerLogWriter(RouterServerConfiguration, ILogger<RouterServerLogWriter>, BufferedTextWriter)
+  href: api/Albatross.Messaging.Services.RouterServerLogWriter.html#Albatross_Messaging_Services_RouterServerLogWriter__ctor_Albatross_Messaging_Configurations_RouterServerConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_RouterServerLogWriter__Albatross_Messaging_DataLogging_BufferedTextWriter_
+  commentId: M:Albatross.Messaging.Services.RouterServerLogWriter.#ctor(Albatross.Messaging.Configurations.RouterServerConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.RouterServerLogWriter},Albatross.Messaging.DataLogging.BufferedTextWriter)
+  name.vb: New(RouterServerConfiguration, ILogger(Of RouterServerLogWriter), BufferedTextWriter)
+  fullName: Albatross.Messaging.Services.RouterServerLogWriter.RouterServerLogWriter(Albatross.Messaging.Configurations.RouterServerConfiguration, Microsoft.Extensions.Logging.ILogger<Albatross.Messaging.Services.RouterServerLogWriter>, Albatross.Messaging.DataLogging.BufferedTextWriter)
+  fullName.vb: Albatross.Messaging.Services.RouterServerLogWriter.New(Albatross.Messaging.Configurations.RouterServerConfiguration, Microsoft.Extensions.Logging.ILogger(Of Albatross.Messaging.Services.RouterServerLogWriter), Albatross.Messaging.DataLogging.BufferedTextWriter)
+  nameWithType: RouterServerLogWriter.RouterServerLogWriter(RouterServerConfiguration, ILogger<RouterServerLogWriter>, BufferedTextWriter)
+  nameWithType.vb: RouterServerLogWriter.New(RouterServerConfiguration, ILogger(Of RouterServerLogWriter), BufferedTextWriter)
 - uid: Albatross.Messaging.Services.RouterServerLogWriter.#ctor*
   name: RouterServerLogWriter
   href: api/Albatross.Messaging.Services.RouterServerLogWriter.html#Albatross_Messaging_Services_RouterServerLogWriter__ctor_
@@ -24157,57 +24208,24 @@ references:
   commentId: F:Albatross.Serialization.ContentTypes.Text
   fullName: Albatross.Serialization.ContentTypes.Text
   nameWithType: ContentTypes.Text
-- uid: Albatross.Serialization.DefaultJsonSerializationOption
-  name: DefaultJsonSerializationOption
-  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html
-  commentId: T:Albatross.Serialization.DefaultJsonSerializationOption
-  fullName: Albatross.Serialization.DefaultJsonSerializationOption
-  nameWithType: DefaultJsonSerializationOption
-- uid: Albatross.Serialization.DefaultJsonSerializationOption.#ctor
-  name: DefaultJsonSerializationOption()
-  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption__ctor
-  commentId: M:Albatross.Serialization.DefaultJsonSerializationOption.#ctor
-  name.vb: New()
-  fullName: Albatross.Serialization.DefaultJsonSerializationOption.DefaultJsonSerializationOption()
-  fullName.vb: Albatross.Serialization.DefaultJsonSerializationOption.New()
-  nameWithType: DefaultJsonSerializationOption.DefaultJsonSerializationOption()
-  nameWithType.vb: DefaultJsonSerializationOption.New()
-- uid: Albatross.Serialization.DefaultJsonSerializationOption.#ctor*
-  name: DefaultJsonSerializationOption
-  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption__ctor_
-  commentId: Overload:Albatross.Serialization.DefaultJsonSerializationOption.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Serialization.DefaultJsonSerializationOption.DefaultJsonSerializationOption
-  fullName.vb: Albatross.Serialization.DefaultJsonSerializationOption.New
-  nameWithType: DefaultJsonSerializationOption.DefaultJsonSerializationOption
-  nameWithType.vb: DefaultJsonSerializationOption.New
-- uid: Albatross.Serialization.DefaultJsonSerializationOption.Alternate
+- uid: Albatross.Serialization.DefaultJsonSettings
+  name: DefaultJsonSettings
+  href: api/Albatross.Serialization.DefaultJsonSettings.html
+  commentId: T:Albatross.Serialization.DefaultJsonSettings
+  fullName: Albatross.Serialization.DefaultJsonSettings
+  nameWithType: DefaultJsonSettings
+- uid: Albatross.Serialization.DefaultJsonSettings.Alternate
   name: Alternate
-  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption_Alternate
-  commentId: P:Albatross.Serialization.DefaultJsonSerializationOption.Alternate
-  fullName: Albatross.Serialization.DefaultJsonSerializationOption.Alternate
-  nameWithType: DefaultJsonSerializationOption.Alternate
-- uid: Albatross.Serialization.DefaultJsonSerializationOption.Alternate*
-  name: Alternate
-  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption_Alternate_
-  commentId: Overload:Albatross.Serialization.DefaultJsonSerializationOption.Alternate
-  isSpec: "True"
-  fullName: Albatross.Serialization.DefaultJsonSerializationOption.Alternate
-  nameWithType: DefaultJsonSerializationOption.Alternate
-- uid: Albatross.Serialization.DefaultJsonSerializationOption.Default
+  href: api/Albatross.Serialization.DefaultJsonSettings.html#Albatross_Serialization_DefaultJsonSettings_Alternate
+  commentId: F:Albatross.Serialization.DefaultJsonSettings.Alternate
+  fullName: Albatross.Serialization.DefaultJsonSettings.Alternate
+  nameWithType: DefaultJsonSettings.Alternate
+- uid: Albatross.Serialization.DefaultJsonSettings.Default
   name: Default
-  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption_Default
-  commentId: P:Albatross.Serialization.DefaultJsonSerializationOption.Default
-  fullName: Albatross.Serialization.DefaultJsonSerializationOption.Default
-  nameWithType: DefaultJsonSerializationOption.Default
-- uid: Albatross.Serialization.DefaultJsonSerializationOption.Default*
-  name: Default
-  href: api/Albatross.Serialization.DefaultJsonSerializationOption.html#Albatross_Serialization_DefaultJsonSerializationOption_Default_
-  commentId: Overload:Albatross.Serialization.DefaultJsonSerializationOption.Default
-  isSpec: "True"
-  fullName: Albatross.Serialization.DefaultJsonSerializationOption.Default
-  nameWithType: DefaultJsonSerializationOption.Default
+  href: api/Albatross.Serialization.DefaultJsonSettings.html#Albatross_Serialization_DefaultJsonSettings_Default
+  commentId: F:Albatross.Serialization.DefaultJsonSettings.Default
+  fullName: Albatross.Serialization.DefaultJsonSettings.Default
+  nameWithType: DefaultJsonSettings.Default
 - uid: Albatross.Serialization.Extensions
   name: Extensions
   href: api/Albatross.Serialization.Extensions.html
@@ -24271,140 +24289,74 @@ references:
   isSpec: "True"
   fullName: Albatross.Serialization.Extensions.WriteJsonSingleRow
   nameWithType: Extensions.WriteJsonSingleRow
-- uid: Albatross.Serialization.FormattedJsonSerializationOption
-  name: FormattedJsonSerializationOption
-  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html
-  commentId: T:Albatross.Serialization.FormattedJsonSerializationOption
-  fullName: Albatross.Serialization.FormattedJsonSerializationOption
-  nameWithType: FormattedJsonSerializationOption
-- uid: Albatross.Serialization.FormattedJsonSerializationOption.#ctor
-  name: FormattedJsonSerializationOption()
-  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption__ctor
-  commentId: M:Albatross.Serialization.FormattedJsonSerializationOption.#ctor
-  name.vb: New()
-  fullName: Albatross.Serialization.FormattedJsonSerializationOption.FormattedJsonSerializationOption()
-  fullName.vb: Albatross.Serialization.FormattedJsonSerializationOption.New()
-  nameWithType: FormattedJsonSerializationOption.FormattedJsonSerializationOption()
-  nameWithType.vb: FormattedJsonSerializationOption.New()
-- uid: Albatross.Serialization.FormattedJsonSerializationOption.#ctor*
-  name: FormattedJsonSerializationOption
-  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption__ctor_
-  commentId: Overload:Albatross.Serialization.FormattedJsonSerializationOption.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Serialization.FormattedJsonSerializationOption.FormattedJsonSerializationOption
-  fullName.vb: Albatross.Serialization.FormattedJsonSerializationOption.New
-  nameWithType: FormattedJsonSerializationOption.FormattedJsonSerializationOption
-  nameWithType.vb: FormattedJsonSerializationOption.New
-- uid: Albatross.Serialization.FormattedJsonSerializationOption.Alternate
+- uid: Albatross.Serialization.FormattedJsonSettings
+  name: FormattedJsonSettings
+  href: api/Albatross.Serialization.FormattedJsonSettings.html
+  commentId: T:Albatross.Serialization.FormattedJsonSettings
+  fullName: Albatross.Serialization.FormattedJsonSettings
+  nameWithType: FormattedJsonSettings
+- uid: Albatross.Serialization.FormattedJsonSettings.Alternate
   name: Alternate
-  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption_Alternate
-  commentId: P:Albatross.Serialization.FormattedJsonSerializationOption.Alternate
-  fullName: Albatross.Serialization.FormattedJsonSerializationOption.Alternate
-  nameWithType: FormattedJsonSerializationOption.Alternate
-- uid: Albatross.Serialization.FormattedJsonSerializationOption.Alternate*
+  href: api/Albatross.Serialization.FormattedJsonSettings.html#Albatross_Serialization_FormattedJsonSettings_Alternate
+  commentId: F:Albatross.Serialization.FormattedJsonSettings.Alternate
+  fullName: Albatross.Serialization.FormattedJsonSettings.Alternate
+  nameWithType: FormattedJsonSettings.Alternate
+- uid: Albatross.Serialization.FormattedJsonSettings.Default
+  name: Default
+  href: api/Albatross.Serialization.FormattedJsonSettings.html#Albatross_Serialization_FormattedJsonSettings_Default
+  commentId: F:Albatross.Serialization.FormattedJsonSettings.Default
+  fullName: Albatross.Serialization.FormattedJsonSettings.Default
+  nameWithType: FormattedJsonSettings.Default
+- uid: Albatross.Serialization.IJsonSettings
+  name: IJsonSettings
+  href: api/Albatross.Serialization.IJsonSettings.html
+  commentId: T:Albatross.Serialization.IJsonSettings
+  fullName: Albatross.Serialization.IJsonSettings
+  nameWithType: IJsonSettings
+- uid: Albatross.Serialization.IJsonSettings.Alternate
   name: Alternate
-  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption_Alternate_
-  commentId: Overload:Albatross.Serialization.FormattedJsonSerializationOption.Alternate
-  isSpec: "True"
-  fullName: Albatross.Serialization.FormattedJsonSerializationOption.Alternate
-  nameWithType: FormattedJsonSerializationOption.Alternate
-- uid: Albatross.Serialization.FormattedJsonSerializationOption.Default
-  name: Default
-  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption_Default
-  commentId: P:Albatross.Serialization.FormattedJsonSerializationOption.Default
-  fullName: Albatross.Serialization.FormattedJsonSerializationOption.Default
-  nameWithType: FormattedJsonSerializationOption.Default
-- uid: Albatross.Serialization.FormattedJsonSerializationOption.Default*
-  name: Default
-  href: api/Albatross.Serialization.FormattedJsonSerializationOption.html#Albatross_Serialization_FormattedJsonSerializationOption_Default_
-  commentId: Overload:Albatross.Serialization.FormattedJsonSerializationOption.Default
-  isSpec: "True"
-  fullName: Albatross.Serialization.FormattedJsonSerializationOption.Default
-  nameWithType: FormattedJsonSerializationOption.Default
-- uid: Albatross.Serialization.IJsonSerializationOption
-  name: IJsonSerializationOption
-  href: api/Albatross.Serialization.IJsonSerializationOption.html
-  commentId: T:Albatross.Serialization.IJsonSerializationOption
-  fullName: Albatross.Serialization.IJsonSerializationOption
-  nameWithType: IJsonSerializationOption
-- uid: Albatross.Serialization.IJsonSerializationOption.Alternate
+  href: api/Albatross.Serialization.IJsonSettings.html#Albatross_Serialization_IJsonSettings_Alternate
+  commentId: P:Albatross.Serialization.IJsonSettings.Alternate
+  fullName: Albatross.Serialization.IJsonSettings.Alternate
+  nameWithType: IJsonSettings.Alternate
+- uid: Albatross.Serialization.IJsonSettings.Alternate*
   name: Alternate
-  href: api/Albatross.Serialization.IJsonSerializationOption.html#Albatross_Serialization_IJsonSerializationOption_Alternate
-  commentId: P:Albatross.Serialization.IJsonSerializationOption.Alternate
-  fullName: Albatross.Serialization.IJsonSerializationOption.Alternate
-  nameWithType: IJsonSerializationOption.Alternate
-- uid: Albatross.Serialization.IJsonSerializationOption.Alternate*
+  href: api/Albatross.Serialization.IJsonSettings.html#Albatross_Serialization_IJsonSettings_Alternate_
+  commentId: Overload:Albatross.Serialization.IJsonSettings.Alternate
+  isSpec: "True"
+  fullName: Albatross.Serialization.IJsonSettings.Alternate
+  nameWithType: IJsonSettings.Alternate
+- uid: Albatross.Serialization.IJsonSettings.Default
+  name: Default
+  href: api/Albatross.Serialization.IJsonSettings.html#Albatross_Serialization_IJsonSettings_Default
+  commentId: P:Albatross.Serialization.IJsonSettings.Default
+  fullName: Albatross.Serialization.IJsonSettings.Default
+  nameWithType: IJsonSettings.Default
+- uid: Albatross.Serialization.IJsonSettings.Default*
+  name: Default
+  href: api/Albatross.Serialization.IJsonSettings.html#Albatross_Serialization_IJsonSettings_Default_
+  commentId: Overload:Albatross.Serialization.IJsonSettings.Default
+  isSpec: "True"
+  fullName: Albatross.Serialization.IJsonSettings.Default
+  nameWithType: IJsonSettings.Default
+- uid: Albatross.Serialization.ReducedFootprintJsonSettings
+  name: ReducedFootprintJsonSettings
+  href: api/Albatross.Serialization.ReducedFootprintJsonSettings.html
+  commentId: T:Albatross.Serialization.ReducedFootprintJsonSettings
+  fullName: Albatross.Serialization.ReducedFootprintJsonSettings
+  nameWithType: ReducedFootprintJsonSettings
+- uid: Albatross.Serialization.ReducedFootprintJsonSettings.Alternate
   name: Alternate
-  href: api/Albatross.Serialization.IJsonSerializationOption.html#Albatross_Serialization_IJsonSerializationOption_Alternate_
-  commentId: Overload:Albatross.Serialization.IJsonSerializationOption.Alternate
-  isSpec: "True"
-  fullName: Albatross.Serialization.IJsonSerializationOption.Alternate
-  nameWithType: IJsonSerializationOption.Alternate
-- uid: Albatross.Serialization.IJsonSerializationOption.Default
+  href: api/Albatross.Serialization.ReducedFootprintJsonSettings.html#Albatross_Serialization_ReducedFootprintJsonSettings_Alternate
+  commentId: F:Albatross.Serialization.ReducedFootprintJsonSettings.Alternate
+  fullName: Albatross.Serialization.ReducedFootprintJsonSettings.Alternate
+  nameWithType: ReducedFootprintJsonSettings.Alternate
+- uid: Albatross.Serialization.ReducedFootprintJsonSettings.Default
   name: Default
-  href: api/Albatross.Serialization.IJsonSerializationOption.html#Albatross_Serialization_IJsonSerializationOption_Default
-  commentId: P:Albatross.Serialization.IJsonSerializationOption.Default
-  fullName: Albatross.Serialization.IJsonSerializationOption.Default
-  nameWithType: IJsonSerializationOption.Default
-- uid: Albatross.Serialization.IJsonSerializationOption.Default*
-  name: Default
-  href: api/Albatross.Serialization.IJsonSerializationOption.html#Albatross_Serialization_IJsonSerializationOption_Default_
-  commentId: Overload:Albatross.Serialization.IJsonSerializationOption.Default
-  isSpec: "True"
-  fullName: Albatross.Serialization.IJsonSerializationOption.Default
-  nameWithType: IJsonSerializationOption.Default
-- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption
-  name: ReducedFootprintJsonSerializationOption
-  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html
-  commentId: T:Albatross.Serialization.ReducedFootprintJsonSerializationOption
-  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption
-  nameWithType: ReducedFootprintJsonSerializationOption
-- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.#ctor
-  name: ReducedFootprintJsonSerializationOption()
-  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption__ctor
-  commentId: M:Albatross.Serialization.ReducedFootprintJsonSerializationOption.#ctor
-  name.vb: New()
-  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.ReducedFootprintJsonSerializationOption()
-  fullName.vb: Albatross.Serialization.ReducedFootprintJsonSerializationOption.New()
-  nameWithType: ReducedFootprintJsonSerializationOption.ReducedFootprintJsonSerializationOption()
-  nameWithType.vb: ReducedFootprintJsonSerializationOption.New()
-- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.#ctor*
-  name: ReducedFootprintJsonSerializationOption
-  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption__ctor_
-  commentId: Overload:Albatross.Serialization.ReducedFootprintJsonSerializationOption.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.ReducedFootprintJsonSerializationOption
-  fullName.vb: Albatross.Serialization.ReducedFootprintJsonSerializationOption.New
-  nameWithType: ReducedFootprintJsonSerializationOption.ReducedFootprintJsonSerializationOption
-  nameWithType.vb: ReducedFootprintJsonSerializationOption.New
-- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
-  name: Alternate
-  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption_Alternate
-  commentId: P:Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
-  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
-  nameWithType: ReducedFootprintJsonSerializationOption.Alternate
-- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate*
-  name: Alternate
-  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption_Alternate_
-  commentId: Overload:Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
-  isSpec: "True"
-  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Alternate
-  nameWithType: ReducedFootprintJsonSerializationOption.Alternate
-- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
-  name: Default
-  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption_Default
-  commentId: P:Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
-  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
-  nameWithType: ReducedFootprintJsonSerializationOption.Default
-- uid: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default*
-  name: Default
-  href: api/Albatross.Serialization.ReducedFootprintJsonSerializationOption.html#Albatross_Serialization_ReducedFootprintJsonSerializationOption_Default_
-  commentId: Overload:Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
-  isSpec: "True"
-  fullName: Albatross.Serialization.ReducedFootprintJsonSerializationOption.Default
-  nameWithType: ReducedFootprintJsonSerializationOption.Default
+  href: api/Albatross.Serialization.ReducedFootprintJsonSettings.html#Albatross_Serialization_ReducedFootprintJsonSettings_Default
+  commentId: F:Albatross.Serialization.ReducedFootprintJsonSettings.Default
+  fullName: Albatross.Serialization.ReducedFootprintJsonSettings.Default
+  nameWithType: ReducedFootprintJsonSettings.Default
 - uid: Albatross.Text
   name: Albatross.Text
   href: api/Albatross.Text.html
@@ -25303,15 +25255,15 @@ references:
   commentId: T:Albatross.WebClient.ClientBase
   fullName: Albatross.WebClient.ClientBase
   nameWithType: ClientBase
-- uid: Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient,Albatross.Serialization.IJsonSerializationOption)
-  name: ClientBase(ILogger, HttpClient, IJsonSerializationOption)
-  href: api/Albatross.WebClient.ClientBase.html#Albatross_WebClient_ClientBase__ctor_Microsoft_Extensions_Logging_ILogger_System_Net_Http_HttpClient_Albatross_Serialization_IJsonSerializationOption_
-  commentId: M:Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient,Albatross.Serialization.IJsonSerializationOption)
-  name.vb: New(ILogger, HttpClient, IJsonSerializationOption)
-  fullName: Albatross.WebClient.ClientBase.ClientBase(Microsoft.Extensions.Logging.ILogger, System.Net.Http.HttpClient, Albatross.Serialization.IJsonSerializationOption)
-  fullName.vb: Albatross.WebClient.ClientBase.New(Microsoft.Extensions.Logging.ILogger, System.Net.Http.HttpClient, Albatross.Serialization.IJsonSerializationOption)
-  nameWithType: ClientBase.ClientBase(ILogger, HttpClient, IJsonSerializationOption)
-  nameWithType.vb: ClientBase.New(ILogger, HttpClient, IJsonSerializationOption)
+- uid: Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient,Albatross.Serialization.IJsonSettings)
+  name: ClientBase(ILogger, HttpClient, IJsonSettings)
+  href: api/Albatross.WebClient.ClientBase.html#Albatross_WebClient_ClientBase__ctor_Microsoft_Extensions_Logging_ILogger_System_Net_Http_HttpClient_Albatross_Serialization_IJsonSettings_
+  commentId: M:Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient,Albatross.Serialization.IJsonSettings)
+  name.vb: New(ILogger, HttpClient, IJsonSettings)
+  fullName: Albatross.WebClient.ClientBase.ClientBase(Microsoft.Extensions.Logging.ILogger, System.Net.Http.HttpClient, Albatross.Serialization.IJsonSettings)
+  fullName.vb: Albatross.WebClient.ClientBase.New(Microsoft.Extensions.Logging.ILogger, System.Net.Http.HttpClient, Albatross.Serialization.IJsonSettings)
+  nameWithType: ClientBase.ClientBase(ILogger, HttpClient, IJsonSettings)
+  nameWithType.vb: ClientBase.New(ILogger, HttpClient, IJsonSettings)
 - uid: Albatross.WebClient.ClientBase.#ctor(Microsoft.Extensions.Logging.ILogger,System.Net.Http.HttpClient)
   name: ClientBase(ILogger, HttpClient)
   href: api/Albatross.WebClient.ClientBase.html#Albatross_WebClient_ClientBase__ctor_Microsoft_Extensions_Logging_ILogger_System_Net_Http_HttpClient_

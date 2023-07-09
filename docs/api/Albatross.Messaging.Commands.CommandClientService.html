@@ -484,8 +484,8 @@ related initialization.  Use SubmitToQueue to queue up messages.  Do not call tr
 
   <a id="Albatross_Messaging_Commands_CommandClientService_Submit_" data-uid="Albatross.Messaging.Commands.CommandClientService.Submit*"></a>
 
-  <h3 id="Albatross_Messaging_Commands_CommandClientService_Submit__1_Albatross_Messaging_Services_DealerClient___0_System_Boolean_" data-uid="Albatross.Messaging.Commands.CommandClientService.Submit``1(Albatross.Messaging.Services.DealerClient,``0,System.Boolean)">
-  Submit&lt;CommandType&gt;(DealerClient, CommandType, bool)
+  <h3 id="Albatross_Messaging_Commands_CommandClientService_Submit_Albatross_Messaging_Services_DealerClient_System_Object_System_Boolean_" data-uid="Albatross.Messaging.Commands.CommandClientService.Submit(Albatross.Messaging.Services.DealerClient,System.Object,System.Boolean)">
+  Submit(DealerClient, object, bool)
   
   </h3>
 
@@ -493,14 +493,14 @@ related initialization.  Use SubmitToQueue to queue up messages.  Do not call tr
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Submit&lt;CommandType&gt;(DealerClient dealerClient, CommandType command, bool fireAndForget = true) where CommandType : notnull</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Submit(DealerClient dealerClient, object command, bool fireAndForget)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>dealerClient</code> <a class="xref" href="Albatross.Messaging.Services.DealerClient.html">DealerClient</a></dt>
     <dd></dd>
-    <dt><code>command</code> <span class="xref">CommandType</span></dt>
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
     <dd></dd>
     <dt><code>fireAndForget</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -512,11 +512,6 @@ related initialization.  Use SubmitToQueue to queue up messages.  Do not call tr
     <dd></dd>
   </dl>
 
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>CommandType</code></dt>
-    <dd></dd>
-  </dl>
 
 
 

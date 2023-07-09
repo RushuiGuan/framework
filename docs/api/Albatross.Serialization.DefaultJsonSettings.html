@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class DealerClientLogWriter
+      <title>Class DefaultJsonSettings
  | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class DealerClientLogWriter
+      <meta name="title" content="Class DefaultJsonSettings
  | Albatross Framework Documentation ">
       
       <link rel="icon" href="../favicon.ico">
@@ -73,25 +73,26 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.Messaging.Services.DealerClientLogWriter">
+        <article data-uid="Albatross.Serialization.DefaultJsonSettings">
 
 
 
-  <h1 id="Albatross_Messaging_Services_DealerClientLogWriter" data-uid="Albatross.Messaging.Services.DealerClientLogWriter" class="text-break">
-    Class DealerClientLogWriter
+  <h1 id="Albatross_Serialization_DefaultJsonSettings" data-uid="Albatross.Serialization.DefaultJsonSettings" class="text-break">
+    Class DefaultJsonSettings
   
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Messaging.html">Messaging</a>.<a class="xref" href="Albatross.Messaging.Services.html">Services</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.Messaging.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Serialization.html">Serialization</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Serialization.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Default json serialization option used by webapi and http clients</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DealerClientLogWriter : DiskStorageLogWriter, ILogWriter, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class DefaultJsonSettings : IJsonSettings</code></pre>
   </div>
 
 
@@ -101,30 +102,18 @@
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="Albatross.Messaging.DataLogging.DiskStorageLogWriter.html">DiskStorageLogWriter</a></div>
-      <div><span class="xref">DealerClientLogWriter</span></div>
+      <div><span class="xref">DefaultJsonSettings</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.Messaging.DataLogging.ILogWriter.html">ILogWriter</a></div>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+      <div><a class="xref" href="Albatross.Serialization.IJsonSettings.html">IJsonSettings</a></div>
     </dd>
   </dl>
 
 
-  <dl class="typelist derived">
-    <dt>Inherited Members</dt>
-    <dd>
-    <div>
-      <a class="xref" href="Albatross.Messaging.DataLogging.DiskStorageLogWriter.html#Albatross_Messaging_DataLogging_DiskStorageLogWriter_WriteLogEntry_Albatross_Messaging_DataLogging_LogEntry_">DiskStorageLogWriter.WriteLogEntry(LogEntry)</a>
-    </div>
-    <div>
-      <a class="xref" href="Albatross.Messaging.DataLogging.DiskStorageLogWriter.html#Albatross_Messaging_DataLogging_DiskStorageLogWriter_Dispose">DiskStorageLogWriter.Dispose()</a>
-    </div>
-  </dd></dl>
 
   <dl class="typelist extensionMethods">
     <dt>Extension Methods</dt>
@@ -141,14 +130,13 @@
 
 
 
-  <h2 class="section" id="constructors">Constructors
+  <h2 class="section" id="fields">Fields
 </h2>
 
 
-  <a id="Albatross_Messaging_Services_DealerClientLogWriter__ctor_" data-uid="Albatross.Messaging.Services.DealerClientLogWriter.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_Services_DealerClientLogWriter__ctor_Albatross_Messaging_Configurations_DealerClientConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_DealerClientLogWriter__Albatross_Messaging_DataLogging_BufferedTextWriter_" data-uid="Albatross.Messaging.Services.DealerClientLogWriter.#ctor(Albatross.Messaging.Configurations.DealerClientConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.DealerClientLogWriter},Albatross.Messaging.DataLogging.BufferedTextWriter)">
-  DealerClientLogWriter(DealerClientConfiguration, ILogger&lt;DealerClientLogWriter&gt;, BufferedTextWriter)
+  <h3 id="Albatross_Serialization_DefaultJsonSettings_Alternate" data-uid="Albatross.Serialization.DefaultJsonSettings.Alternate">
+  Alternate
   
   </h3>
 
@@ -156,21 +144,47 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DealerClientLogWriter(DealerClientConfiguration config, ILogger&lt;DealerClientLogWriter&gt; logger, BufferedTextWriter lineWriter)</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly JsonSerializerOptions Alternate</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
+
+
+
+  <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><code>config</code> <a class="xref" href="Albatross.Messaging.Configurations.DealerClientConfiguration.html">DealerClientConfiguration</a></dt>
-    <dd></dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Messaging.Services.DealerClientLogWriter.html">DealerClientLogWriter</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>lineWriter</code> <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html">BufferedTextWriter</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
     <dd></dd>
   </dl>
 
 
 
+
+
+
+
+
+
+
+  <h3 id="Albatross_Serialization_DefaultJsonSettings_Default" data-uid="Albatross.Serialization.DefaultJsonSettings.Default">
+  Default
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly JsonSerializerOptions Default</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

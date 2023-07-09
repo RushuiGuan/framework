@@ -147,8 +147,8 @@
 
   <a id="Albatross_Messaging_Services_RouterServerLogWriter__ctor_" data-uid="Albatross.Messaging.Services.RouterServerLogWriter.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_Services_RouterServerLogWriter__ctor_Albatross_Messaging_Configurations_RouterServerConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_RouterServerLogWriter__" data-uid="Albatross.Messaging.Services.RouterServerLogWriter.#ctor(Albatross.Messaging.Configurations.RouterServerConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.RouterServerLogWriter})">
-  RouterServerLogWriter(RouterServerConfiguration, ILogger&lt;RouterServerLogWriter&gt;)
+  <h3 id="Albatross_Messaging_Services_RouterServerLogWriter__ctor_Albatross_Messaging_Configurations_RouterServerConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_RouterServerLogWriter__Albatross_Messaging_DataLogging_BufferedTextWriter_" data-uid="Albatross.Messaging.Services.RouterServerLogWriter.#ctor(Albatross.Messaging.Configurations.RouterServerConfiguration,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.RouterServerLogWriter},Albatross.Messaging.DataLogging.BufferedTextWriter)">
+  RouterServerLogWriter(RouterServerConfiguration, ILogger&lt;RouterServerLogWriter&gt;, BufferedTextWriter)
   
   </h3>
 
@@ -156,7 +156,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RouterServerLogWriter(RouterServerConfiguration config, ILogger&lt;RouterServerLogWriter&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public RouterServerLogWriter(RouterServerConfiguration config, ILogger&lt;RouterServerLogWriter&gt; logger, BufferedTextWriter lineWriter)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -164,6 +164,8 @@
     <dt><code>config</code> <a class="xref" href="Albatross.Messaging.Configurations.RouterServerConfiguration.html">RouterServerConfiguration</a></dt>
     <dd></dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Messaging.Services.RouterServerLogWriter.html">RouterServerLogWriter</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>lineWriter</code> <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html">BufferedTextWriter</a></dt>
     <dd></dd>
   </dl>
 

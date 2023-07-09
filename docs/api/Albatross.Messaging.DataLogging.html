@@ -85,12 +85,26 @@
 Classes
 </h3>
     <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html">BufferedTextWriter</a></dt>
+      <dd><p>This text writer buffers text on a string builder object.  The buffer is reset
+when the <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter_Begin">Begin()</a> method is called.  The bufferred text will be returned when
+the <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter_End">End()</a> method is called.  During the <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html#Albatross_Messaging_DataLogging_BufferedTextWriter_End">End()</a> method call,
+a info log entry of the buffered text with the source context of &quot;message-entry&quot; will be created.  Special log configuration
+should be created to format the message-entry lines differently from the normal logs.
+This class is useful since it allows the caller to control the buffer mechanism.  In our situation, we want to buffer the write
+line by line.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Albatross.Messaging.DataLogging.DiskStorageLogReader.html">DiskStorageLogReader</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Albatross.Messaging.DataLogging.DiskStorageLogWriter.html">DiskStorageLogWriter</a></dt>
-      <dd></dd>
+      <dd><p>This class is responsible to write data logs to files.  The files are organized with UTC timestamps. The files has a configurable
+max size limit.  Once reached, a new file will be created.  When writing the log entry, data are bufferred line by line using
+a <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html">BufferedTextWriter</a> class.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Albatross.Messaging.DataLogging.Extensions.html">Extensions</a></dt>
