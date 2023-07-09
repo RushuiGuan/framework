@@ -29,7 +29,7 @@ namespace Albatross.WebClient.Test {
 	public class PollyTestClient : ClientBase {
 		public const System.String ControllerPath = "home";
 
-		public PollyTestClient(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) : base(logger, client, serializationOption) {
+		public PollyTestClient(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
 		}
 
 		public async Task<string> GetData(int count) {
@@ -48,7 +48,7 @@ namespace Albatross.WebClient.Test {
 	public class PollyTestClient2 : ClientBase {
 		public const System.String ControllerPath = "home";
 
-		public PollyTestClient2(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) : base(logger, client, serializationOption) {
+		public PollyTestClient2(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
 		}
 
 		public async Task<string> GetData(int count) {

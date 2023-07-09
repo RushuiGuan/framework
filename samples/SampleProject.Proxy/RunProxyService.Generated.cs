@@ -8,7 +8,7 @@ using Albatross.Serialization;
 
 namespace SampleProject.Proxy {
 	public partial class RunProxyService : Albatross.WebClient.ClientBase {
-		public RunProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client, Albatross.Serialization.IJsonSerializationOption @serializationOptions) : base(@logger, @client, @serializationOptions) {
+		public RunProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client, Albatross.Serialization.IJsonSettings @serializationOptions) : base(@logger, @client, @serializationOptions) {
 		}
 		public const System.String ControllerPath = "api/run";
 		public async System.Threading.Tasks.Task Ping() {

@@ -2,7 +2,7 @@
 using System.Text.Json;
 
 namespace Albatross.Messaging {
-	public class MessagingJsonSerializationOption : Albatross.Serialization.IJsonSerializationOption {
+	public class MessagingJsonSerializationOption : Albatross.Serialization.IJsonSettings {
 		readonly JsonSerializerOptions @default;
 		public MessagingJsonSerializationOption() {
 			@default = new JsonSerializerOptions {

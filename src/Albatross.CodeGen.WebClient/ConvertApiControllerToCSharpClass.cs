@@ -45,7 +45,7 @@ namespace Albatross.CodeGen.WebClient {
 				new Parameter(Client, new DotNetType(typeof(HttpClient))){
 					Modifier = CSharp.Model.ParameterModifier.None,
 				},
-				new Parameter(SerializationOptions, new DotNetType(typeof(IJsonSerializationOption))){
+				new Parameter(SerializationOptions, new DotNetType(typeof(IJsonSettings))){
 					Modifier = CSharp.Model.ParameterModifier.None,
 				},
 			};

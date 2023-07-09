@@ -8,7 +8,7 @@ using Albatross.Serialization;
 
 namespace Albatross.WebClient.Test {
 	public partial class SecuredProxyService : Albatross.WebClient.ClientBase {
-		public SecuredProxyService(Microsoft.Extensions.Logging.ILogger<SecuredProxyService> @logger, System.Net.Http.HttpClient @client, IJsonSerializationOption serializationOption) : base(@logger, @client, serializationOption) {
+		public SecuredProxyService(Microsoft.Extensions.Logging.ILogger<SecuredProxyService> @logger, System.Net.Http.HttpClient @client, IJsonSettings serializationOption) : base(@logger, @client, serializationOption) {
 		}
 		public const System.String ControllerPath = "/api/secured";
 		public async System.Threading.Tasks.Task<PayLoad> GetJson() {

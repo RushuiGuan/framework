@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Albatross.WebClient.Test{
 	public class MyProxyService : WebClient.ClientBase {
-		public MyProxyService(ILogger logger, HttpClient client, IJsonSerializationOption serializationOption) : base(logger, client, serializationOption) {
+		public MyProxyService(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
 		}
 	}
 	public class TestMyProxyService {
@@ -22,7 +22,7 @@ namespace Albatross.WebClient.Test{
 			}
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost/mmmyyy-data");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSerializationOption());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
 			string path = $"api/w9-bar";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", string.Format("{0:yyyy-MM-dd}", DateTime.Today));
@@ -43,7 +43,7 @@ namespace Albatross.WebClient.Test{
 			}
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost/mmmyyy-data");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSerializationOption());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
 			string path = $"api/w9-bar";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", string.Format("{0:yyyy-MM-dd}", DateTime.Today));
@@ -67,7 +67,7 @@ namespace Albatross.WebClient.Test{
 		public void TestRequestGeneration3(int maxlength, int count, params string[] expected) {
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSerializationOption());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
 			string path = $"api/bar";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", "2022-10-10");
@@ -92,7 +92,7 @@ namespace Albatross.WebClient.Test{
 		public void TestInsufficientMaxLength(int maxlength, int count) {
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSerializationOption());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
 			string path = $"api/bar";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", "2022-10-10");
