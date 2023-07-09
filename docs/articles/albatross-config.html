@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title> | Albatross Framework Documentation </title>
+      <title>Albatross.Config assembly | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content=" | Albatross Framework Documentation ">
+      <meta name="title" content="Albatross.Config assembly | Albatross Framework Documentation ">
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -72,7 +72,65 @@
         </div>
 
         <article data-uid="">
+<h2 id="albatrossconfig-assembly">Albatross.Config assembly</h2>
 
+<p>Albatross framework has a configuration framework to simplify the setup of custom configuration values.  Its namespace is <a href="https://rushuiguan.github.io/framework/api/Albatross.Config.html">Albatross.Config</a>.</p>
+<h3 id="custom-configuration">Custom configuration:</h3>
+<ol>
+<li>Create a config class MySetting with its base class as <a href="https://rushuiguan.github.io/framework/api/Albatross.Config.ConfigBase.html">Albatross.Config.ConfigBase</a>.
+<pre><code class="lang-c#"> public class MySettings : ConfigBase {
+ 	public override string Key =&gt; &quot;my-settings&quot;;
+ 	public MySettings(IConfiguration configuration): base(configuration) {
+ 		this.ConnectionString = configuration.GetRequiredConnectionString(&quot;my-db&quot;);
+ 		this.GraphEndPoint = configuration.GetRequiredEndPoint(&quot;graph&quot;);
+ 	}
+
+ 	public int DbCommandTimeOut { get; set; }
+ 	public string ConnectionString { get; set; }
+ 	public string GraphEndPoint { get; set; }
+ }
+</code></pre>
+</li>
+<li>Create a new section called <code>my-settings</code> in the appsettings.json config file and add the configuration value within the section.  The values in <code>MySettings</code> class will be deserialized from the json section and populated automatically when the class instance is created.  In its constructor, it has access to the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfiguration?view=dotnet-plat-ext-7.0">IConfiguration</a> class and it can be used to get value from other shared sections such as ConnectionStrings and EndPoints.  Two <code>IConfiguration</code> extension methods named <code>GetRequiredConnectionString</code> and <code>GetRequiredEndPoint</code> are very handy in getting shared connection strings and endpoints.
+<pre><code class="lang-json"> {
+ 	&quot;connectionString&quot;: [
+ 		&quot;my-db&quot;: &quot;Server=.;Database=my-db;Trusted_Connection=true;Encrypt=false&quot;,
+ 		&quot;his-db&quot;: &quot;Server=.;Database=his-db;Trusted_Connection=true;Encrypt=false&quot;
+ 	],
+ 	&quot;endpoints&quot;:[
+ 		&quot;graph&quot;: &quot;http://dev-server/graph/api&quot;,
+ 		&quot;directory&quot;: &quot;http://dev-server/directory/api&quot;
+ 	],
+ 	&quot;my-settings&quot; : {
+ 		&quot;dbCommandTimeOut&quot; : 60
+ 	}
+ }
+</code></pre>
+</li>
+<li>Register the configuration class by using the <code>AddConifg</code> extension method located in <a href="https://rushuiguan.github.io/framework/api/Albatross.Config.Extension.html">Extension</a> class.  Once registered, the config class <code>MySettings</code> can be injected to any class as a dependency as shown in the example class <code>MyService</code> below.
+<pre><code class="lang-c#"> public static IServiceCollection AddMySettings(this IServiceCollection services) {
+ 	services.AddConfig&lt;MySettings&gt;();
+ 	return services;
+ }
+ public class MyService {
+ 	private readonly MySettings mySettings;
+ 	public class MyServiceClass(MySettings mySettings) {
+ 		this.mySettings = mySettings;
+ 	}
+ }
+</code></pre>
+</li>
+</ol>
+<h3 id="programsetting-config-class"><a href="https://rushuiguan.github.io/framework/api/Albatross.Config.ProgramSetting.html">ProgramSetting</a> Config Class</h3>
+<p><code>ProgramSetting</code> is a built in config class with the section name of <code>app</code> provided by the <a href="webapi.html">webapi</a>, <a href="service.html">service</a> and <a href="utility.html">utility</a> hosts.  The <code>Name</code> and <code>Group</code> properties are used to identify and organize the said application.  This is a useful functionality in a micro service environment when large numbers of applications have to be managed by an organization.  Another import property <code>ServiceManager</code> can have 2 possible values:</p>
+<ul>
+<li>windows</li>
+<li>systemd</li>
+</ul>
+<p><code>windows</code> is for creating a service in windows environment and <code>systemd</code> is for linux environment.  Please find details in the <a href="service.html">how to create services using the framework</a> article.</p>
+<h3 id="environmentsetting-config-class"><a href="https://rushuiguan.github.io/framework/api/Albatross.Config.EnvironmentSetting.html">EnvironmentSetting</a> Config Class</h3>
+<p>The <code>EnvironmentSetting</code> class provides the same functionality as the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostenvironment.environmentname?view=dotnet-plat-ext-7.0#microsoft-extensions-hosting-ihostenvironment-environmentname">IHostEnvironment.EnvironmentName</a> property from Microsoft with a different behavior when the <code>ASPNETCORE_ENVIRONMENT</code> or <code>DOTNET_ENVIRONMENT</code> variable is missing.  <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostenvironment.environmentname?view=dotnet-plat-ext-7.0#microsoft-extensions-hosting-ihostenvironment-environmentname">IHostEnvironment.EnvironmentName</a> will return PRODUCTION in that situation.  The reason from Microsoft is that developers will never have credentials for the production environment therefore it is the &quot;safest&quot; default environmental setting.  That might be the truth for Microsoft developers.  But it could be a dangerous thing to do for developers in small and medium enterprises.  To avoid the potentially disastrous problems of writing bad data to prod enviornment, <code>EnvironmentSetting</code> was created and it will simply return an empty string in this situation.</p>
+<p><code>EnvironmentSetting</code> is provided by the <a href="webapi.html">webapi</a>, <a href="service.html">service</a> and <a href="utility.html">utility</a> hosts.  For <a href="webapi.html">webapi</a> and <a href="service.html">service</a> hosts, it sets the Value property using environment variable <code>ASPNETCORE_ENVIRONMENT</code>.  For <a href="utility.html">utility</a> hosts, it uses <code>DOTNET_ENVIRONMENT</code>.  It has a IsProd property that returns true if the config value equals <code>production</code> (case insensitive comparison).  As mentioned in the chapter above, the Value property will be an empty string when the environmental variable is missing.</p>
 </article>
 
         <div class="contribution d-print-none">
