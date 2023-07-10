@@ -2,6 +2,7 @@
   href: webapi.md
 - name: Configure the application
   href: config.md
-- name: Albatross.Config, ProgramSetting and EnvironmentSetting
+- name: Custom Config Setup
   href: albatross-config.md
-
+- name: Logging Setup
+  href: logging.md

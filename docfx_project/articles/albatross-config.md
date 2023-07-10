@@ -33,7 +33,7 @@ Albatross framework has a configuration framework to simplify the setup of custo
 		}
 	}
 	```
-1. Register the configuration class by using the `AddConifg` extension method located in [Extension](https://rushuiguan.github.io/framework/api/Albatross.Config.Extension.html) class.  Once registered, the config class `MySettings` can be injected to any class as a dependency as shown in the example class `MyService` below.
+1. Register the configuration class by using the `AddConfig` extension method located in [Extension](https://rushuiguan.github.io/framework/api/Albatross.Config.Extension.html) class.  Once registered, the config class `MySettings` can be injected to any class as a dependency as shown in the example class `MyService` below.  By default, `AddConfig` will register config class as a singleton class.  Change the value of the parameter `singleton` to false and the class will be registered using scoped lifetime.  It could be useful if there is a requirement for the change of configuration value to be reflected without restarting the application.
 	```c#
 	public static IServiceCollection AddMySettings(this IServiceCollection services) {
 		services.AddConfig<MySettings>();
