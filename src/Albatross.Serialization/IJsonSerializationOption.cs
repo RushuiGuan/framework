@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Albatross.Serialization {
@@ -14,53 +15,61 @@ namespace Albatross.Serialization {
 	/// Default json serialization option used by webapi and http clients
 	/// </summary>
 	public class DefaultJsonSettings : IJsonSettings {
-		public static readonly JsonSerializerOptions Default = new JsonSerializerOptions {
+		private static readonly Lazy<JsonSerializerOptions> @default = new Lazy<JsonSerializerOptions>(()=> new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-		};
-		public static readonly JsonSerializerOptions Alternate = new JsonSerializerOptions {
+		});
+
+		private static readonly Lazy<JsonSerializerOptions> alternate = new Lazy<JsonSerializerOptions>(() => new JsonSerializerOptions {
 			PropertyNamingPolicy = null,
 			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-		};
+		});
+		public static JsonSerializerOptions Default => @default.Value ;
+		public static JsonSerializerOptions Alternate => alternate.Value;
 
-		JsonSerializerOptions IJsonSettings.Default => Default;
-		JsonSerializerOptions IJsonSettings.Alternate => Alternate;
+		JsonSerializerOptions IJsonSettings.Default => @default.Value;
+		JsonSerializerOptions IJsonSettings.Alternate => alternate.Value;
 	}
 
 	/// <summary>
 	/// Formatted json serialization option used by print outs
 	/// </summary>
 	public class FormattedJsonSettings : IJsonSettings {
-		public static readonly JsonSerializerOptions Default = new JsonSerializerOptions {
+		private static readonly Lazy<JsonSerializerOptions> @default = new Lazy<JsonSerializerOptions>(() => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 			WriteIndented = true,
-		};
-		public static readonly JsonSerializerOptions Alternate = new JsonSerializerOptions {
+		});
+
+		private static readonly Lazy<JsonSerializerOptions> alternate = new Lazy<JsonSerializerOptions>(() => new JsonSerializerOptions {
 			PropertyNamingPolicy = null,
 			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 			WriteIndented = true,
-		};
+		});
+		public static JsonSerializerOptions Default => @default.Value;
+		public static JsonSerializerOptions Alternate => alternate.Value;
 
-		JsonSerializerOptions IJsonSettings.Default => Default;
-		JsonSerializerOptions IJsonSettings.Alternate => Alternate;
+		JsonSerializerOptions IJsonSettings.Default => @default.Value;
+		JsonSerializerOptions IJsonSettings.Alternate => alternate.Value;
 	}
 
 	/// <summary>
 	/// Reduced footprint serialization option used by applications only where sender and receiver are both created internally.
 	/// </summary>
 	public class ReducedFootprintJsonSettings : IJsonSettings {
-		public static readonly JsonSerializerOptions Default = new JsonSerializerOptions {
+		private static readonly Lazy<JsonSerializerOptions> @default = new Lazy<JsonSerializerOptions>(() => new JsonSerializerOptions {
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-			WriteIndented = true,
-		};
-		public static readonly JsonSerializerOptions Alternate = new JsonSerializerOptions {
+		});
+
+		private static readonly Lazy<JsonSerializerOptions> alternate = new Lazy<JsonSerializerOptions>(() => new JsonSerializerOptions {
 			PropertyNamingPolicy = null,
 			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-			WriteIndented = true,
-		};
-		JsonSerializerOptions IJsonSettings.Default => Default;
-		JsonSerializerOptions IJsonSettings.Alternate => Alternate;
+		});
+		public static JsonSerializerOptions Default => @default.Value;
+		public static JsonSerializerOptions Alternate => alternate.Value;
+
+		JsonSerializerOptions IJsonSettings.Default => @default.Value;
+		JsonSerializerOptions IJsonSettings.Alternate => alternate.Value;
 	}
 }
