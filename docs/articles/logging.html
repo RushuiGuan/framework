@@ -106,7 +106,14 @@
     }
 }
 </code></pre>
-<p>For <code>utility</code> hosts, the default logging configuration is configured using a colored console sink.  To change, overwrite the <code>ConfigureLogging</code> method in the <a href="https://rushuiguan.github.io/framework/api/Albatross.Hosting.Utility.UtilityBase-1.html">UtilityBase</a> class.</p>
+<p>For <code>utility</code> hosts, the default logging configuration is configured using a colored console sink.  To change, overwrite the <code>ConfigureLogging</code> method in the <a href="https://rushuiguan.github.io/framework/api/Albatross.Hosting.Utility.UtilityBase-1.html">UtilityBase</a> class.  Here is an example of changing the logging config in the utility application:</p>
+<pre><code class="lang-c#">protected override void ConfigureLogging(LoggerConfiguration cfg) {
+	cfg.MinimumLevel.Information()
+		.WriteTo
+		.Console(outputTemplate: DefaultOutputTemplate)
+		.Enrich.FromLogContext();
+	}
+</code></pre>
 </article>
 
         <div class="contribution d-print-none">
