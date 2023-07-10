@@ -9,7 +9,7 @@ The application uses environmental variable ASPNETCORE_ENVIRONMENT to determine 
         "group": "My Domain"
     },
     "connectionStrings": {
-        "mydb": "Server=.;Database=mydb;Trusted_Connection=true;Encrypt=false"
+        "mydb": "Server=.;Database=my-db;Trusted_Connection=true;Encrypt=false"
     },
     "endpoints": {
         "messaging-server": "tcp://localhost:31001"
