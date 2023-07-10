@@ -107,7 +107,7 @@
  }
 </code></pre>
 </li>
-<li>Register the configuration class by using the <code>AddConifg</code> extension method located in <a href="https://rushuiguan.github.io/framework/api/Albatross.Config.Extension.html">Extension</a> class.  Once registered, the config class <code>MySettings</code> can be injected to any class as a dependency as shown in the example class <code>MyService</code> below.
+<li>Register the configuration class by using the <code>AddConfig</code> extension method located in <a href="https://rushuiguan.github.io/framework/api/Albatross.Config.Extension.html">Extension</a> class.  Once registered, the config class <code>MySettings</code> can be injected to any class as a dependency as shown in the example class <code>MyService</code> below.  By default, <code>AddConfig</code> will register config class as a singleton class.  Change the value of the parameter <code>singleton</code> to false and the class will be registered using scoped lifetime.  It could be useful if there is a requirement for the change of configuration value to be reflected without restarting the application.
 <pre><code class="lang-c#"> public static IServiceCollection AddMySettings(this IServiceCollection services) {
  	services.AddConfig&lt;MySettings&gt;();
  	return services;
