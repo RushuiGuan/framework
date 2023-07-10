@@ -42,6 +42,6 @@ protected override void ConfigureLogging(LoggerConfiguration cfg) {
 		.WriteTo
 		.Console(outputTemplate: DefaultOutputTemplate)
 		.Enrich.FromLogContext();
-	}
+}
 ```
 
