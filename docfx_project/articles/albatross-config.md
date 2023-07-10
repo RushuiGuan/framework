@@ -47,7 +47,7 @@ Albatross framework has a configuration framework to simplify the setup of custo
 	}
 	```
 ### [ProgramSetting](https://rushuiguan.github.io/framework/api/Albatross.Config.ProgramSetting.html) Config Class
-`ProgramSetting` is a built in config class with the section name of `app` provided by the [webapi](webapi.md), [service](service.md) and [utility](utility.md) hosts.  The `Name` and `Group` properties are used to identify and organize the said application.  This is a useful functionality in a micro service environment when large numbers of applications have to be managed by an organization.  Another import property `ServiceManager` can have 2 possible values:
+`ProgramSetting` is a built in config class with the section name of `app` provided by the [webapi](webapi.md), [service](service.md) and [utility](utility.md) hosts.  The `Name` and `Group` properties are used to identify and organize the said application.  This is a useful functionality in a micro service environment when large numbers of applications have to be managed by an organization.  Another important property is `ServiceManager`.  It can have 2 possible values:
 - windows
 - systemd
 
