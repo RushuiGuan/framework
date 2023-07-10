@@ -35,5 +35,13 @@ For `webapi` and `service` hosts, logging can be setup using the `serilog.json` 
 }
 ```
 
-For `utility` hosts, the default logging configuration is configured using a colored console sink.  To change, overwrite the `ConfigureLogging` method in the [UtilityBase](https://rushuiguan.github.io/framework/api/Albatross.Hosting.Utility.UtilityBase-1.html) class.
+For `utility` hosts, the default logging configuration is configured using a colored console sink.  To change, overwrite the `ConfigureLogging` method in the [UtilityBase](https://rushuiguan.github.io/framework/api/Albatross.Hosting.Utility.UtilityBase-1.html) class.  Here is an example of changing the logging config in the utility application:
+```c#
+protected override void ConfigureLogging(LoggerConfiguration cfg) {
+	cfg.MinimumLevel.Information()
+		.WriteTo
+		.Console(outputTemplate: DefaultOutputTemplate)
+		.Enrich.FromLogContext();
+	}
+```
 
