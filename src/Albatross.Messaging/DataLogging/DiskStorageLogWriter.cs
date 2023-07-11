@@ -19,10 +19,10 @@ namespace Albatross.Messaging.DataLogging {
 		private StreamWriter streamWriter;
 		bool disposed = false;
 
-		public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger, BufferedTextWriter lineWriter) {
+		public DiskStorageLogWriter(string name, DiskStorageConfiguration config, ILoggerFactory loggerFactory) {
 			this.config = config;
-			this.logger = logger;
-			this.lineWriter = lineWriter;
+			this.logger = loggerFactory.CreateLogger($"logwriter_{name}");
+			this.lineWriter = new BufferedTextWriter(name, loggerFactory);
 			if (!Directory.Exists(config.WorkingDirectory)) {
 				Directory.CreateDirectory(config.WorkingDirectory);
 			}

@@ -2,9 +2,10 @@
 
 namespace Albatross.Messaging.Configurations {
 	public record class DealerClientConfiguration {
+		public string Name { get => this.DiskStorage.FileName; set => this.DiskStorage.FileName = value; }
 		public string Identity { get; set; } = string.Empty;
 		public string EndPoint { get; set; } = string.Empty;
-		public int AckTimeout { get;set; }
+		public int AckTimeout { get; set; }
 
 		/// <summary>
 		/// Timer interval in milliseconds.  If not specifed, default to 3 seconds

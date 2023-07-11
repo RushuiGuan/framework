@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Albatross.Messaging.Commands {
 	// this class is not threadsafe and all methods can only be run by the netmq thread
 	public class TaskCommandQueue : CommandQueue {
-		public TaskCommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory, MessagingJsonSerializationOption jsonSerializationOption)
+		public TaskCommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory, MessagingJsonSettings jsonSerializationOption)
 			: base(routerServer, scopeFactory, jsonSerializationOption) {
 		}
 

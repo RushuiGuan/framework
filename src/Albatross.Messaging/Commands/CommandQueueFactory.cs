@@ -18,10 +18,10 @@ namespace Albatross.Messaging.Commands {
 		protected readonly Dictionary<string, IRegisterCommand> registrations = new Dictionary<string, IRegisterCommand>();
 		private readonly Dictionary<string, CommandQueue> commandQueues = new Dictionary<string, CommandQueue>();
 		private readonly IServiceProvider provider;
-		private readonly MessagingJsonSerializationOption jsonSerializationOption;
+		private readonly MessagingJsonSettings jsonSerializationOption;
 
 
-		public CommandQueueFactory(IEnumerable<IRegisterCommand> registrations, IServiceProvider provider, MessagingJsonSerializationOption jsonSerializationOption) {
+		public CommandQueueFactory(IEnumerable<IRegisterCommand> registrations, IServiceProvider provider, MessagingJsonSettings jsonSerializationOption) {
 			foreach (var item in registrations) {
 				this.registrations.Add(item.CommandType.GetClassNameNeat(), item);
 			}

@@ -16,9 +16,9 @@ namespace Albatross.Messaging.Eventing {
 		}
 
 		public static IServiceCollection AddSubscriber(this IServiceCollection services) {
+			services.TryAddSingleton<SubscriptionService>();
+			services.AddSingleton<IDealerClientService>(args=>args.GetRequiredService<SubscriptionService>());
 			services.TryAddSingleton<ISubscriptionClient, SubscriptionClient>();
-			services.AddSingleton<SubscriptionService>();
-			services.AddSingleton<IDealerClientService>(args => args.GetRequiredService<SubscriptionService>());
 			services.AddDealerClient();
 			return services;
 		}

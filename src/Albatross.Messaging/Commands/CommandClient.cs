@@ -7,7 +7,7 @@ namespace Albatross.Messaging.Commands {
 		private readonly CommandClientService service;
 		private readonly DealerClient dealerClient;
 
-		public CommandClient(CommandClientService service, DealerClient dealerClient) {
+		public CommandClient(DealerClient dealerClient, CommandClientService service) {
 			this.service = service;
 			this.dealerClient = dealerClient;
 		}

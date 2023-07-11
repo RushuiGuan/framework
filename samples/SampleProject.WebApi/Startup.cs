@@ -1,12 +1,15 @@
 using Albatross.Config;
+using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Eventing;
+using Albatross.Messaging.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace SampleProject.WebApi {
-	public class Startup : Albatross.Hosting.Startup{
+	public class Startup : Albatross.Hosting.Startup {
 		public override bool Swagger => true;
 		public override bool WebApi => true;
 		public override bool Secured => true;
@@ -19,13 +22,15 @@ namespace SampleProject.WebApi {
 
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
-			services.AddSampleProjectClient();
+			//services.AddDefaultSampleProjectClient();
+			services.AddCustomSampleProjectClient();
 			services.AddSingleton<ISubscriber, MySubscriber>();
 		}
 
 		public override void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Albatross.Hosting.Startup> logger) {
 			base.Configure(app, programSetting, environmentSetting, logger);
-			app.ApplicationServices.UseSampleProjectClient();
+			// app.ApplicationServices.UseDefaultSampleProjectClient();
+			app.ApplicationServices.UseCustomSampleProjectClient();
 		}
 	}
 }

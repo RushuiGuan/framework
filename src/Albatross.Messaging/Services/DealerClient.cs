@@ -32,15 +32,15 @@ namespace Albatross.Messaging.Services {
 		public ILogWriter DataLogger => this.logWriter;
 		public AtomicCounter<ulong> Counter => this.counter;
 
-		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, DealerClientLogWriter logWriter, ILogger<DealerClient> logger) {
+		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, ILoggerFactory loggerFactory) {
 			this.config = config;
 			this.services = services;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
 			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
-			this.logWriter = logWriter;
-			this.logger = logger;
+			this.logWriter = new DiskStorageLogWriter(config.DiskStorage.FileName, config.DiskStorage, loggerFactory);
+			this.logger = loggerFactory.CreateLogger<DealerClient>();
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;
 			var identity = string.IsNullOrEmpty(config.Identity) ? Z85Extended.Encode(BitConverter.GetBytes(DateTime.UtcNow.Ticks)) : config.Identity;

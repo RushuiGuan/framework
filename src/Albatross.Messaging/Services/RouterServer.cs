@@ -33,7 +33,8 @@ namespace Albatross.Messaging.Services {
 		public ILogWriter DataLogger => this.logWriter;
 		public AtomicCounter<ulong> Counter => this.counter;
 
-		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILogger<RouterServer> logger, IMessageFactory messageFactory, RouterServerLogWriter logWriter, RouterServerLogReader logReader) {
+		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILoggerFactory loggerFactory,  IMessageFactory messageFactory) {
+			this.logger = loggerFactory.CreateLogger<RouterServer>();
 			logger.LogInformation("Creating {name} instance w. maintainConnection={maintain}, receiveHighWatermark={rchw}, sendHighWatermark={sendhw}, timerInterval={timerintv}", 
 				nameof(RouterServer), config.MaintainConnection, config.ReceiveHighWatermark, config.SendHighWatermark, config.ActualTimerInterval);
 			this.config = config;
@@ -41,9 +42,8 @@ namespace Albatross.Messaging.Services {
 			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
-			this.logWriter = logWriter;
-			this.logReader = logReader;
-			this.logger = logger;
+			this.logWriter = new DiskStorageLogWriter("router-server", config.DiskStorage, loggerFactory);
+			this.logReader = new DiskStorageLogReader(config.DiskStorage, messageFactory, loggerFactory.CreateLogger("router-server-log-reader"));
 			this.socket = new RouterSocket();
 			this.socket.ReceiveReady += Socket_ReceiveReady;
 			this.socket.Options.ReceiveHighWatermark = config.ReceiveHighWatermark;

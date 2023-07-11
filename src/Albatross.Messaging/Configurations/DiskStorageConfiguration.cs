@@ -4,12 +4,12 @@ using System.Reflection;
 
 namespace Albatross.Messaging.Configurations {
 	public class DiskStorageConfiguration {
-		public string WorkingDirectory { get; init; }
-		public string FileName { get; init; }
+		public string WorkingDirectory { get; set; }
+		internal string FileName { get; set; }
 		/// <summary>
 		/// default max file size is 50MB
 		/// </summary>
-		public long MaxFileSize { get; init; }
+		public long MaxFileSize { get; set; }
 
 		string DefaultWorkingDirectory() {
 			var folder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);

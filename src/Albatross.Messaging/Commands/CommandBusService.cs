@@ -12,13 +12,13 @@ namespace Albatross.Messaging.Commands {
 	public class CommandBusService : ICommandBusService {
 		private readonly ICommandQueueFactory commandQueueFactory;
 		private readonly ILogger<CommandBusService> logger;
-		private readonly MessagingJsonSerializationOption jsonSerializationOption;
+		private readonly MessagingJsonSettings jsonSerializationOption;
 
 		public bool CanReceive => true;
 		public bool HasCustomTransmitObject => true;
 		public bool NeedTimer => false;
 
-		public CommandBusService(ICommandQueueFactory commandQueueFactory, ILogger<CommandBusService> logger, MessagingJsonSerializationOption jsonSerializationOption) {
+		public CommandBusService(ICommandQueueFactory commandQueueFactory, ILogger<CommandBusService> logger, MessagingJsonSettings jsonSerializationOption) {
 			this.commandQueueFactory = commandQueueFactory;
 			this.logger = logger;
 			this.jsonSerializationOption = jsonSerializationOption;

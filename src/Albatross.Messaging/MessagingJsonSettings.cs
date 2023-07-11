@@ -2,9 +2,9 @@
 using System.Text.Json;
 
 namespace Albatross.Messaging {
-	public class MessagingJsonSerializationOption : Albatross.Serialization.IJsonSettings {
+	public class MessagingJsonSettings : Serialization.IJsonSettings {
 		readonly JsonSerializerOptions @default;
-		public MessagingJsonSerializationOption() {
+		public MessagingJsonSettings() {
 			@default = new JsonSerializerOptions {
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,

@@ -15,9 +15,9 @@ namespace Albatross.Messaging.Commands {
 	/// </summary>
 	public class InternalCommandClient : ICommandClient {
 		private readonly RouterServer routerServer;
-		private readonly MessagingJsonSerializationOption serializationOption;
+		private readonly MessagingJsonSettings serializationOption;
 
-		public InternalCommandClient(RouterServer routerServer, MessagingJsonSerializationOption serializationOption) {
+		public InternalCommandClient(RouterServer routerServer, MessagingJsonSettings serializationOption) {
 			this.routerServer = routerServer;
 			this.serializationOption = serializationOption;
 		}

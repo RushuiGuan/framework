@@ -13,7 +13,7 @@ namespace SampleProject.WebApi.Controllers {
 		private readonly ISubscriptionClient subscriptionClient;
 		private readonly ISubscriber subscriber;
 
-		public RunController(ICommandClient commandClient, ISubscriptionClient subscriptionClient, ISubscriber subscriber) {
+		public RunController(IMyCommandClient commandClient, IMySubscriptionClient subscriptionClient, ISubscriber subscriber) {
 			this.commandClient = commandClient;
 			this.subscriptionClient = subscriptionClient;
 			this.subscriber = subscriber;

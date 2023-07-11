@@ -31,9 +31,9 @@ namespace Albatross.Messaging.Commands {
 
 		public static IServiceCollection AddCommandClient(this IServiceCollection services) {
 			services.TryAddSingleton<CommandClientService>();
-			services.AddSingleton<IDealerClientService>(args => args.GetRequiredService<CommandClientService>());
+			services.AddSingleton<IDealerClientService>(args=>args.GetRequiredService<CommandClientService>());
 			services.TryAddSingleton<ICommandClient, CommandClient>();
-			services.TryAddSingleton<MessagingJsonSerializationOption>();
+			services.TryAddSingleton<MessagingJsonSettings>();
 			services.AddDealerClient();
 			return services;
 		}
@@ -64,7 +64,7 @@ namespace Albatross.Messaging.Commands {
 			services.TryAddSingleton<ICommandBusService, CommandBusService>();
 			services.AddSingleton<IRouterServerService>(provider => provider.GetRequiredService<ICommandBusService>());
 			services.AddSingleton<IRouterServerService, CommandBusReplayService>();
-			services.TryAddSingleton<MessagingJsonSerializationOption>();
+			services.TryAddSingleton<MessagingJsonSettings>();
 			services.TryAddSingleton<ICommandQueueFactory, CommandQueueFactory>();
 			services.TryAddTransient<CommandQueue, TaskCommandQueue>();
 			// this should only be used if the TaskCommandQueue is used

@@ -17,10 +17,10 @@ namespace Albatross.Messaging.DataLogging {
 		StringWriter writer;
 		ILogger logger;
 
-		public BufferedTextWriter(ILoggerFactory loggerFactory) {
+		public BufferedTextWriter(string name, ILoggerFactory loggerFactory) {
 			stringBuilder = new StringBuilder();
 			writer = new StringWriter(stringBuilder);
-			this.logger = loggerFactory.CreateLogger("message-entry");
+			this.logger = loggerFactory.CreateLogger($"{name}-message-entry");
 		}
 		public TextWriter Begin() {
 			this.stringBuilder.Length = 0;

@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 namespace Albatross.Messaging.Commands {
 	public class CommandClientService : IDealerClientService {
 		private readonly ILogger<CommandClientService> logger;
-		private readonly MessagingJsonSerializationOption serializerOptions;
+		private readonly MessagingJsonSettings serializerOptions;
 		private readonly Dictionary<Type, IRegisterCommand> registrations = new Dictionary<Type, IRegisterCommand>();
 		private readonly ConcurrentDictionary<ulong, IMessageCallback> commandCallbacks = new ConcurrentDictionary<ulong, IMessageCallback>();
 
-		public CommandClientService(IEnumerable<IRegisterCommand> registrations, ILogger<CommandClientService> logger, MessagingJsonSerializationOption serializerOptions) {
+		public CommandClientService(IEnumerable<IRegisterCommand> registrations, ILogger<CommandClientService> logger, MessagingJsonSettings serializerOptions) {
 			this.logger = logger;
 			this.serializerOptions = serializerOptions;
 			foreach (var item in registrations) {

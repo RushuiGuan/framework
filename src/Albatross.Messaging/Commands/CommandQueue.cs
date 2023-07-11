@@ -14,12 +14,12 @@ namespace Albatross.Messaging.Commands {
 		protected ILogger logger = null!;
 		protected readonly RouterServer routerServer;
 		protected readonly IServiceScopeFactory scopeFactory;
-		protected readonly MessagingJsonSerializationOption jsonSerializationOption;
+		protected readonly MessagingJsonSettings jsonSerializationOption;
 		protected readonly Queue<CommandJob> queue = new Queue<CommandJob>();
 		protected Task? current;
 		public string Name { get; private set; } = string.Empty;
 
-		public CommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory, MessagingJsonSerializationOption jsonSerializationOption) {
+		public CommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory, MessagingJsonSettings jsonSerializationOption) {
 			this.routerServer = routerServer;
 			this.scopeFactory = scopeFactory;
 			this.jsonSerializationOption = jsonSerializationOption;
