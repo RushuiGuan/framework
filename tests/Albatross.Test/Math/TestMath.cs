@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Albatross.Math;
 using Xunit;
 
 namespace Albatross.Test.Math {
@@ -53,6 +54,22 @@ namespace Albatross.Test.Math {
 			HandleNonStandardPrice(price, out var int_price, out var int_precision);
 			var result = ConvertPriceToDouble(int_price, int_precision);
 			Assert.Equal(result, Albatross.Math.Extensions.ToDouble(price));
+		}
+
+		[Theory]
+		[InlineData(0, 10, "0")]
+		[InlineData(1, 10, "1")]
+		[InlineData(20, 10, "20")]
+		[InlineData(25, 10, "25")]
+		[InlineData(-1, 10, "-1")]
+		[InlineData(638248188868510123, 62, "l9BNHY4h3b")]
+		[InlineData(123456789, 36, "21I3V9")]
+		[InlineData(123456789, 16, "75BCD15")]
+		[InlineData(123456789, 8, "726746425")]
+		[InlineData(123456789, 2, "111010110111100110100010101")]
+		public void TestBaseConversion(long number, int radix, string expected) {
+			var result = number.ToBase(radix);
+			Assert.Equal(expected, result);
 		}
 	}
 }

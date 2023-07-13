@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Albatross.Dates
-{
+namespace Albatross.Dates {
 	public static class Extensions
 	{
 		public static DateTime PreviousWeekday(this DateTime date) {

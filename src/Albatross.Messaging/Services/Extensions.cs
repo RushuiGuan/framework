@@ -1,6 +1,5 @@
 ﻿using Albatross.Config;
 using Albatross.Messaging.Configurations;
-using Albatross.Messaging.DataLogging;
 using Albatross.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

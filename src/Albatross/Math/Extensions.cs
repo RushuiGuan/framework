@@ -24,5 +24,33 @@ namespace Albatross.Math {
 				return null;
 			}
 		}
+		const string BaseDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		public static string ToMaxBase(this long value) => ToBase(value, BaseDigits.Length);
+		public static string ToBase(this long value, int radix) {
+			const int BitsInLong = 64;
+
+			if (radix < 2 || radix > BaseDigits.Length) {
+				throw new ArgumentException($"The radix must be betweeb 2 and {BaseDigits.Length}");
+			}
+			if (value == 0) { return "0"; }
+			int index = BitsInLong - 1;
+			long currentNumber = System.Math.Abs(value);
+			char[] charArray = new char[BitsInLong];
+
+			while (currentNumber != 0) {
+				int remainder = (int)(currentNumber % radix);
+				charArray[index--] = BaseDigits[remainder];
+				currentNumber = currentNumber / radix;
+			}
+
+			string result = new String(charArray, index + 1, BitsInLong - index - 1);
+			if (value < 0) {
+				result = "-" + result;
+			}
+			return result;
+		}
+
+
+		public static string ShortUniqueString() => (DateTime.UtcNow.Ticks - DateTime.SpecifyKind(new DateTime(2023, 1, 1), DateTimeKind.Utc).Ticks).ToMaxBase();
 	}
 }
