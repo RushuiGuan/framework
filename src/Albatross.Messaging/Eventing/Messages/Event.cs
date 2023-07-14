@@ -3,6 +3,7 @@ using Albatross.Messaging.Messages;
 using NetMQ;
 using System;
 using System.IO;
+using System.Web;
 
 namespace Albatross.Messaging.Eventing.Messages {
 	public record class Event : Message, IMessage {
@@ -34,9 +35,9 @@ namespace Albatross.Messaging.Eventing.Messages {
 		public override void ReadFromText(string line, ref int offset) {
 			base.ReadFromText(line, ref offset);
 			if (line.TryGetText(LogDelimiter, ref offset, out var text)) {
-				this.Topic = text;
+				this.Topic = HttpUtility.UrlDecode(text);
 				if (line.TryGetText(LogDelimiter, ref offset, out text)) {
-					this.Pattern = text;
+					this.Pattern = HttpUtility.UrlDecode(text);
 					if (line.TryGetText(LogDelimiter, ref offset, out text)) {
 						this.Payload = this.Decode(text);
 						return;
@@ -47,8 +48,8 @@ namespace Albatross.Messaging.Eventing.Messages {
 		}
 		public override void WriteToText(TextWriter writer) {
 			base.WriteToText(writer);
-			writer.Space().Append(Topic)
-				.Space().Append(Pattern)
+			writer.Space().Append(HttpUtility.UrlEncode(Topic))
+				.Space().Append(HttpUtility.UrlEncode(Pattern))
 				.Space().Append(Encode(this.Payload));
 		}
 	}

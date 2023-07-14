@@ -71,5 +71,14 @@ namespace Albatross.Test.Math {
 			var result = number.ToBase(radix);
 			Assert.Equal(expected, result);
 		}
+
+		//34OrlkyD
+		//l9BSOauiPv
+		//lTe8cQsu
+		[Fact]
+		public void TestShortUniqueString() {
+			string text = Albatross.Math.Extensions.ShortUniqueString();
+			Assert.NotNull(text);
+		}
 	}
 }
