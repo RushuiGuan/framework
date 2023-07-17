@@ -1,4 +1,4 @@
-﻿using CoenM.Encoding;
+﻿using Albatross.Math;
 using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.DataLogging;
@@ -18,7 +18,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IDealerClientService> transmitServices;
 		private IEnumerable<IDealerClientService> timerServices;
 		private readonly IMessageFactory messageFactory;
-		private readonly ILogWriter logWriter;
+		private readonly DiskStorageLogWriter logWriter;
 		private readonly ILogger<DealerClient> logger;
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
@@ -43,7 +43,7 @@ namespace Albatross.Messaging.Services {
 			this.logger = loggerFactory.CreateLogger<DealerClient>();
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;
-			var identity = string.IsNullOrEmpty(config.Identity) ? Z85Extended.Encode(BitConverter.GetBytes(DateTime.UtcNow.Ticks)) : config.Identity;
+			var identity = string.IsNullOrEmpty(config.Identity) ? DateTime.UtcNow.Ticks.ToMaxBase() : config.Identity;
 			socket.Options.Identity = identity.ToUtf8Bytes();
 			this.self = new Client(identity);
 			if (!config.MaintainConnection) { this.self.Connected(); }
@@ -58,6 +58,7 @@ namespace Albatross.Messaging.Services {
 				timer.Enable = false;
 			}
 		}
+		public string Identity => this.self.Identity;
 
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
 			if (config.MaintainConnection) {
@@ -173,6 +174,7 @@ namespace Albatross.Messaging.Services {
 				poller.RemoveAndDispose(socket);
 				poller.Dispose();
 				queue.Dispose();
+				this.logWriter.Dispose();
 				disposed = true;
 				logger.LogInformation("dealer client disposed");
 			}

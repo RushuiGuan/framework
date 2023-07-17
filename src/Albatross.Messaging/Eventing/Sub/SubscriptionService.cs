@@ -114,6 +114,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 		/// </summary>
 		public Task UnsubscribeAll(DealerClient dealerClient) {
 			lock (sync) {
+				logger.LogInformation("Unsubscribing from {client}", dealerClient.Identity);
 				subscriptions.Clear();
 				var id = dealerClient.Counter.NextId();
 				var callback = new MessageCallback();

@@ -19,7 +19,7 @@ namespace Albatross.Messaging.Services {
 		private readonly NetMQTimer timer;
 		private readonly ILogger<RouterServer> logger;
 		private readonly IMessageFactory messageFactory;
-		private readonly ILogWriter logWriter;
+		private readonly DiskStorageLogWriter logWriter;
 		private readonly ILogReader logReader;
 		private bool running = false;
 		private bool disposed = false;
@@ -206,6 +206,7 @@ namespace Albatross.Messaging.Services {
 				poller.RemoveAndDispose(socket);
 				poller.Dispose();
 				queue.Dispose();
+				logWriter.Dispose();
 				disposed = true;
 				logger.LogInformation("router server disposed");
 			}
