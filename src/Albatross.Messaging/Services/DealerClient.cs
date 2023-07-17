@@ -169,14 +169,14 @@ namespace Albatross.Messaging.Services {
 		public void Dispose() {
 			if (!disposed) {
 				running = false;
-				logger.LogInformation("closing and disposing dealer client");
+				logger.LogInformation("closing and disposing dealer client {identity}", this.Identity);
 				poller.Stop();
 				poller.RemoveAndDispose(socket);
 				poller.Dispose();
 				queue.Dispose();
 				this.logWriter.Dispose();
 				disposed = true;
-				logger.LogInformation("dealer client disposed");
+				logger.LogInformation("dealer client {identity} disposed", this.Identity);
 			}
 		}
 
