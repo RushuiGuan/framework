@@ -8,7 +8,7 @@ namespace SampleProject {
 		private readonly ICommandClient commandClient;
 		private readonly ILogger<PingCommandHandler> logger;
 
-		public PingCommandHandler(ICommandClient commandClient, ILogger<PingCommandHandler> logger) {
+		public PingCommandHandler(InternalCommandClient commandClient, ILogger<PingCommandHandler> logger) {
 			this.commandClient = commandClient;
 			this.logger = logger;
 		}

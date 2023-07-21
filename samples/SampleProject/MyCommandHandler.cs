@@ -8,7 +8,7 @@ namespace SampleProject {
 		private readonly ICommandClient commandClient;
 		private readonly ILogger<MyCommandHandler> logger;
 
-		public MyCommandHandler(ICommandClient commandClient, ILogger<MyCommandHandler> logger) {
+		public MyCommandHandler(InternalCommandClient commandClient, ILogger<MyCommandHandler> logger) {
 			this.commandClient = commandClient;
 			this.logger = logger;
 		}
