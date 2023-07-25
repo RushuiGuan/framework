@@ -10,9 +10,7 @@ namespace Albatross.Hosting {
 			Url = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
 			Method = context.Request.Method;
 			RemoteIpAddress = context.Connection.RemoteIpAddress?.ToString() ?? "N.A.";
-			ContentType = context.Request.ContentType;
 		}
-		public string? ContentType { get; set; }
 		public string? User { get; set; }
 		public string Url { get; set; }
 		public string RemoteIpAddress { get; set; }
