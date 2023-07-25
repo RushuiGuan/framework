@@ -43,7 +43,7 @@ namespace Albatross.Messaging.Services {
 			this.logger = loggerFactory.CreateLogger<DealerClient>();
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;
-			var identity = string.IsNullOrEmpty(config.Identity) ? DateTime.UtcNow.Ticks.ToMaxBase() : config.Identity;
+			var identity = string.IsNullOrEmpty(config.Identity) ? DateTime.UtcNow.Ticks.ToMaxBase() : $"{config.Identity}_{System.Net.Dns.GetHostName()}";
 			socket.Options.Identity = identity.ToUtf8Bytes();
 			this.self = new Client(identity);
 			if (!config.MaintainConnection) { this.self.Connected(); }
