@@ -38,10 +38,11 @@ namespace Albatross.Hosting {
 		public virtual bool Secured { get; } = false;
 		public virtual bool Spa { get; } = false;
 		public virtual bool Caching { get; } = false;
+		public virtual bool LogUsage { get; } = true;
 
 		public Startup(IConfiguration configuration) {
 			this.Configuration = configuration;
-			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, webapi={webapi}, caching={caching}", Secured, Spa, Swagger, WebApi, Caching);
+			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, webapi={webapi}, caching={caching}, usage={usage}", Secured, Spa, Swagger, WebApi, Caching, LogUsage);
 			AuthorizationSetting = new AuthorizationSetting(configuration);
 		}
 
@@ -130,6 +131,9 @@ namespace Albatross.Hosting {
 
 		public virtual void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Startup> logger) {
 			logger.LogInformation("Initializing {@program} with environment {environment}", programSetting, environmentSetting.Value);
+			if(this.LogUsage) {
+				app.UseMiddleware<HttpRequestLoggingMiddleware>();
+			}
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions });
 			app.UseRouting();
 			if (WebApi) {
