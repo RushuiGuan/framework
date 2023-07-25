@@ -7,7 +7,7 @@ namespace Albatross.Hosting {
 	public record class UsageData {
 		public UsageData(HttpContext context) {
 			User = GetCurrentUserFromHttpContext.GetFromContext(context);
-			Url = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
+			Url = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}{context.Request.Path}{context.Request.QueryString}";
 			Method = context.Request.Method;
 			RemoteIpAddress = context.Connection.RemoteIpAddress?.ToString() ?? "N.A.";
 		}
