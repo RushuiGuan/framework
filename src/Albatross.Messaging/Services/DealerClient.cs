@@ -139,7 +139,7 @@ namespace Albatross.Messaging.Services {
 		public void Start() {
 			if (!running) {
 				running = true;
-				logger.LogInformation("starting dealer client {identity} and connecting to broker: {endpoint}", config.EndPoint);
+				logger.LogInformation("starting dealer client {identity} and connecting to broker: {endpoint}", this.Identity, config.EndPoint);
 				this.socket.Connect(config.EndPoint);
 				// wait a second here.  if we start transmitting messages right away, it will get lost
 				Task.Delay(1000).Wait();
