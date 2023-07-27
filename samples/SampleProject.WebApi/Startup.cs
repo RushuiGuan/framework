@@ -1,4 +1,5 @@
 using Albatross.Config;
+using Albatross.Hosting;
 using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Eventing;
 using Albatross.Messaging.Services;
@@ -25,6 +26,8 @@ namespace SampleProject.WebApi {
 			//services.AddDefaultSampleProjectClient();
 			services.AddCustomSampleProjectClient();
 			services.AddSingleton<ISubscriber, MySubscriber>();
+			 //services.AddMvc(options => options.InputFormatters.Add(new TextPlainInputFormatter()));
+			 services.AddControllers(options => options.InputFormatters.Add(new PlainTextInputFormatter()));
 		}
 
 		public override void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Albatross.Hosting.Startup> logger) {

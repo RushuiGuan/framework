@@ -18,7 +18,7 @@ namespace Albatross.Caching.TestHost {
 			services.AddCacheMgmt(this.GetType().Assembly);
 			services.AddRedisCaching(this.Configuration);
 			services.AddSignalR();
-			services.AddMvc(options => options.InputFormatters.Add(new TextPlainInputFormatter()));
+			services.AddControllers(options => options.InputFormatters.Add(new PlainTextInputFormatter()));
 		}
 		public override void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting envSetting, ILogger<Startup> logger) {
 			base.Configure(app, programSetting, envSetting, logger);

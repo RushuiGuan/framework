@@ -4,9 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting {
-	public class TextPlainInputFormatter : TextInputFormatter {
-		public TextPlainInputFormatter() {
+	public class PlainTextInputFormatter : TextInputFormatter {
+		public PlainTextInputFormatter() {
 			SupportedMediaTypes.Add("text/plain");
+			SupportedMediaTypes.Add("text/html");
 			SupportedEncodings.Add(UTF8EncodingWithoutBOM);
 			SupportedEncodings.Add(UTF16EncodingLittleEndian);
 		}

@@ -114,7 +114,8 @@ namespace Albatross.Hosting {
 			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 
 			if (WebApi) {
-				services.AddControllers().AddJsonOptions(ConfigureJsonOption);
+				services.AddControllers(options=>options.InputFormatters.Add(new PlainTextInputFormatter()))
+					.AddJsonOptions(ConfigureJsonOption);
 				services.AddCors(opt => opt.AddDefaultPolicy(ConfigureCors));
 				services.AddAspNetCorePrincipalProvider();
 				if (Swagger) {
