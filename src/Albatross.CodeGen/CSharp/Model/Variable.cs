@@ -1,18 +1,20 @@
 ﻿using Albatross.CodeGen.Core;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Albatross.CodeGen.CSharp.Model {
-	public class Variable : ICodeElement{
-		public Variable(string name) {
+	public class Variable : ICodeElement {
+		public const char VerbatimCharacter = '@';
+		public bool UseVerbatimCharacter { get; set; }
+		public Variable(string name, bool useVerbatimCharacter) {
 			this.Name = name;
+			UseVerbatimCharacter = useVerbatimCharacter;
 		}
 		public string Name { get; set; }
 
 		public TextWriter Generate(TextWriter writer) {
+			if (UseVerbatimCharacter && !Name.StartsWith(VerbatimCharacter)) {
+				writer.Write(VerbatimCharacter);
+			}
 			writer.Write(this.Name);
 			return writer;
 		}

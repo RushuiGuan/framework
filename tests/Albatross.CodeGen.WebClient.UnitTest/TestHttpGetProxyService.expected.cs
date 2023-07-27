@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Albatross.WebClient;
 using System.Collections.Generic;
+using Albatross.Serialization;
 
 namespace Albatross.CodeGen.WebClient.WebClient {
 	public partial class TestHttpGetProxyService : Albatross.WebClient.ClientBase {
-		public TestHttpGetProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
+		public TestHttpGetProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client, Albatross.Serialization.DefaultJsonSettings.Value) {
 		}
 		public const System.String ControllerPath = "api/test-get";
 		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> GetObject() {

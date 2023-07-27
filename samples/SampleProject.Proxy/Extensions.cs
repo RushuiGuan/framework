@@ -9,7 +9,6 @@ namespace SampleProject.Proxy {
 	public static class Extensions {
 		public static IServiceCollection AddSampleProjectProxy(this IServiceCollection services) {
 			services.AddConfig<SampleProjectProxyConfig>();
-			services.TryAddSingleton<IJsonSettings, DefaultJsonSettings>();
 			services.AddHttpClient("sample-project")
 				.AddTypedClient<RunProxyService>()
 				.ConfigureHttpClient((provider, client) => {

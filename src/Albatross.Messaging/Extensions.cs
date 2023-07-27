@@ -18,8 +18,6 @@ namespace Albatross.Messaging {
 		public static long ToLong(this byte[] data) => BitConverter.ToInt64(data);
 		public static bool ToBoolean(this byte[] data) => BitConverter.ToBoolean(data);
 
-
-
 		public static string PopUtf8String(this NetMQMessage frames) => Encoding.UTF8.GetString(frames.Pop().Buffer);
 		public static void AppendUtf8String(this NetMQMessage frames, string? text) {
 			if (string.IsNullOrEmpty(text)) {

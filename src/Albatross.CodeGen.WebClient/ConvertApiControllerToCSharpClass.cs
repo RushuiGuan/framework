@@ -1,7 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
 using Albatross.Reflection;
-using Albatross.Serialization;
 using Albatross.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -21,9 +20,8 @@ namespace Albatross.CodeGen.WebClient {
 		const string ProxyService = "ProxyService";
 		const string WebClient = "WebClient";
 		const string ControllerPath = "ControllerPath";
-		const string Logger = "logger";
-		const string Client = "client";
-		const string SerializationOptions = "serializationOptions";
+		const string VariableName_Logger = "logger";
+		const string VariableName_Client = "client";
 
 		public readonly static Regex ActionRouteRegex = new Regex(@"{(\*\*)?([a-z_]+[a-z0-9_]*)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
@@ -39,15 +37,19 @@ namespace Albatross.CodeGen.WebClient {
 
 		IEnumerable<Parameter> GetConstructorParameters(Type type) {
 			return new Parameter[]{
-				new Parameter(Logger,GetILoggerType(type)) {
+				new Parameter(VariableName_Logger, GetILoggerType(type)) {
 					Modifier = CSharp.Model.ParameterModifier.None,
 				},
-				new Parameter(Client, new DotNetType(typeof(HttpClient))){
+				new Parameter(VariableName_Client, new DotNetType(typeof(HttpClient))){
 					Modifier = CSharp.Model.ParameterModifier.None,
-				},
-				new Parameter(SerializationOptions, new DotNetType(typeof(IJsonSettings))){
-					Modifier = CSharp.Model.ParameterModifier.None,
-				},
+				}
+			};
+		}
+		IEnumerable<Variable> GetBaseContructorCallVariables() {
+			return new Variable[]{
+				new Variable(VariableName_Logger, true),
+				new Variable(VariableName_Client, true),
+				new Variable("Albatross.Serialization.DefaultJsonSettings.Value", false),
 			};
 		}
 
@@ -69,8 +71,8 @@ namespace Albatross.CodeGen.WebClient {
 					new Constructor(GetClassName(type)){
 						AccessModifier = AccessModifier.Public,
 						Parameters = GetConstructorParameters(type),
-						BaseConstructor = new Constructor("base"){
-							Parameters = GetConstructorParameters(type),
+						BaseConstructor = new MethodCall("base"){
+							Parameters = GetBaseContructorCallVariables(),
 						}
 					}
 				},

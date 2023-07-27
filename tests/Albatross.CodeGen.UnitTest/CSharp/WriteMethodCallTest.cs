@@ -8,7 +8,7 @@ using Xunit;
 namespace Albatross.CodeGen.UnitTest.CSharp {
 	public class WriteMethodCallTest {
 		public const string NormalMethodCall = @"Test()";
-		public const string ParameterizedMethodCall1= @"Test(a, b)";
+		public const string ParameterizedMethodCall1= @"Test(@a, @b)";
 		public const string ParameterizedMethodCall2 = @"Test(1, 2)";
 		public const string ParameterizedMethodCall3 = @"Test(""a"", ""b"")";
 		public const string AsyncMethodCall = @"await Test()";
@@ -22,8 +22,8 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 				new object[]{
 					new MethodCall("Test"){
 						Parameters = new ICodeElement[]{
-							new Variable("a"),
-							new Variable("b"),
+							new Variable("a", true),
+							new Variable("b", true),
 						},
 					},
 					ParameterizedMethodCall1.RemoveCarriageReturn(),
