@@ -3,6 +3,7 @@ using Albatross.Messaging.Eventing.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -60,7 +61,13 @@ namespace Albatross.Messaging.Eventing.Sub {
 					if (subscribers != null) {
 						foreach (var item in subscribers) {
 							// this kick of a different thread.  therefore don't need a try catch block
-							Task.Run(() => item.DataReceived(eve.Topic, eve.Payload));
+							Task.Run(async () => {
+								try {
+									await item.DataReceived(eve.Topic, eve.Payload);
+								} catch (Exception err) {
+									logger.LogError(err, "Error processing subscriber {name}", item.Name);
+								}
+							});
 						}
 					}
 					return true;
