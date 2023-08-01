@@ -14,15 +14,13 @@ namespace Albatross.Messaging.Commands {
 		protected ILogger logger = null!;
 		protected readonly RouterServer routerServer;
 		protected readonly IServiceScopeFactory scopeFactory;
-		protected readonly MessagingJsonSettings jsonSerializationOption;
 		protected readonly Queue<CommandJob> queue = new Queue<CommandJob>();
 		protected Task? current;
 		public string Name { get; private set; } = string.Empty;
 
-		public CommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory, MessagingJsonSettings jsonSerializationOption) {
+		public CommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory) {
 			this.routerServer = routerServer;
 			this.scopeFactory = scopeFactory;
-			this.jsonSerializationOption = jsonSerializationOption;
 		}
 		public void SetNewLogger(string queueName, ILogger logger) {
 			this.Name = queueName;
@@ -67,7 +65,7 @@ namespace Albatross.Messaging.Commands {
 
 				if (job.Registration.HasReturnType) {
 					var stream = new MemoryStream();
-					JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, jsonSerializationOption.Default);
+					JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, MessagingJsonSettings.Value.Default);
 					job.Reply = new CommandReply(job.Route, job.Id, stream.ToArray());
 				} else {
 					job.Reply = new CommandReply(job.Route, job.Id, Array.Empty<byte>());

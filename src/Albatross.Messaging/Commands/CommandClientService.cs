@@ -13,13 +13,11 @@ using System.Threading.Tasks;
 namespace Albatross.Messaging.Commands {
 	public class CommandClientService : IDealerClientService {
 		private readonly ILogger<CommandClientService> logger;
-		private readonly MessagingJsonSettings serializerOptions;
 		private readonly Dictionary<Type, IRegisterCommand> registrations = new Dictionary<Type, IRegisterCommand>();
 		private readonly ConcurrentDictionary<ulong, IMessageCallback> commandCallbacks = new ConcurrentDictionary<ulong, IMessageCallback>();
 
-		public CommandClientService(IEnumerable<IRegisterCommand> registrations, ILogger<CommandClientService> logger, MessagingJsonSettings serializerOptions) {
+		public CommandClientService(IEnumerable<IRegisterCommand> registrations, ILogger<CommandClientService> logger) {
 			this.logger = logger;
-			this.serializerOptions = serializerOptions;
 			foreach (var item in registrations) {
 				this.registrations[item.CommandType] = item;
 			}
@@ -52,7 +50,7 @@ namespace Albatross.Messaging.Commands {
 		public void ProcessTimerElapsed(DealerClient dealerClient) { }
 		private void AcceptStatusReply(IMessagingService _, CommandQueueStatusReply statusReply) {
 			if (commandCallbacks.Remove(statusReply.Id, out var callback)) {
-				var result = JsonSerializer.Deserialize<CommandQueueInfo[]>(statusReply.Payload, this.serializerOptions.Default)
+				var result = JsonSerializer.Deserialize<CommandQueueInfo[]>(statusReply.Payload, MessagingJsonSettings.Value.Default)
 					?? Array.Empty<CommandQueueInfo>();
 				callback.SetResult(result);
 			} else {
@@ -70,7 +68,7 @@ namespace Albatross.Messaging.Commands {
 					if (callback.ResponseType == typeof(void)) {
 						callback.SetResult();
 					} else {
-						var result = JsonSerializer.Deserialize(response.Payload, callback.ResponseType, this.serializerOptions.Default);
+						var result = JsonSerializer.Deserialize(response.Payload, callback.ResponseType, MessagingJsonSettings.Value.Default);
 						if (result != null) {
 							callback.SetResult(result);
 						} else {
@@ -102,7 +100,7 @@ namespace Albatross.Messaging.Commands {
 			logger.LogInformation("the id is {id}, thread {threadid}", id, Environment.CurrentManagedThreadId);
 			var callback = new MessageCallback<ResponseType>();
 			if (commandCallbacks.TryAdd(id, callback)) {
-				var bytes = JsonSerializer.SerializeToUtf8Bytes<CommandType>(command, this.serializerOptions.Default);
+				var bytes = JsonSerializer.SerializeToUtf8Bytes<CommandType>(command, MessagingJsonSettings.Value.Default);
 				var request = new CommandRequest(string.Empty, id, typeof(CommandType).GetClassNameNeat(), false, bytes);
 				dealerClient.SubmitToQueue(request);
 				return callback.Task;
@@ -119,7 +117,7 @@ namespace Albatross.Messaging.Commands {
 			if (!commandCallbacks.TryAdd(id, callback)) {
 				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
 			}
-			var bytes = JsonSerializer.SerializeToUtf8Bytes(command, type, this.serializerOptions.Default);
+			var bytes = JsonSerializer.SerializeToUtf8Bytes(command, type, MessagingJsonSettings.Value.Default);
 			var request = new CommandRequest(string.Empty, id, type.GetClassNameNeat(), fireAndForget, bytes);
 			dealerClient.SubmitToQueue(request);
 			return callback.Task;

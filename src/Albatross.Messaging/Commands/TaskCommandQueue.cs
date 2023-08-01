@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 namespace Albatross.Messaging.Commands {
 	// this class is not threadsafe and all methods can only be run by the netmq thread
 	public class TaskCommandQueue : CommandQueue {
-		public TaskCommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory, MessagingJsonSettings jsonSerializationOption)
-			: base(routerServer, scopeFactory, jsonSerializationOption) {
+		public TaskCommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory) : base(routerServer, scopeFactory) {
 		}
 
 		public async override Task Run(CommandJob job) {
@@ -23,10 +22,10 @@ namespace Albatross.Messaging.Commands {
 					logger.LogInformation("running {command} by {client}({id})", job.Registration.CommandType, job.Route, job.Id);
 					var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
 					logger.LogInformation("done {commandId}", job.Id);
-					
+
 					if (job.Registration.HasReturnType) {
 						var stream = new MemoryStream();
-						JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, jsonSerializationOption.Default);
+						JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, MessagingJsonSettings.Value.Default);
 						job.Reply = new CommandReply(job.Route, job.Id, stream.ToArray());
 					} else {
 						job.Reply = new CommandReply(job.Route, job.Id, Array.Empty<byte>());

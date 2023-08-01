@@ -18,20 +18,18 @@ namespace Albatross.Messaging.Commands {
 		protected readonly Dictionary<string, IRegisterCommand> registrations = new Dictionary<string, IRegisterCommand>();
 		private readonly Dictionary<string, CommandQueue> commandQueues = new Dictionary<string, CommandQueue>();
 		private readonly IServiceProvider provider;
-		private readonly MessagingJsonSettings jsonSerializationOption;
 
 
-		public CommandQueueFactory(IEnumerable<IRegisterCommand> registrations, IServiceProvider provider, MessagingJsonSettings jsonSerializationOption) {
+		public CommandQueueFactory(IEnumerable<IRegisterCommand> registrations, IServiceProvider provider) {
 			foreach (var item in registrations) {
 				this.registrations.Add(item.CommandType.GetClassNameNeat(), item);
 			}
 			this.provider = provider;
-			this.jsonSerializationOption = jsonSerializationOption;
 		}
 
 		public CommandJob CreateJob(CommandRequest request) {
 			if (registrations.TryGetValue(request.CommandType, out var registration)) {
-				var command = JsonSerializer.Deserialize(request.Payload, registration.CommandType, jsonSerializationOption.Default)
+				var command = JsonSerializer.Deserialize(request.Payload, registration.CommandType, MessagingJsonSettings.Value.Default)
 					?? throw new InvalidOperationException($"cannot deserialize command object of type {registration.CommandType.FullName} for {request.Id}");
 				var queueName = registration.GetQueueName(command, provider);
 				var queue = this.commandQueues.GetOrAdd(queueName, () => {

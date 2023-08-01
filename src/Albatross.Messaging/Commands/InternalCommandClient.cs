@@ -15,11 +15,9 @@ namespace Albatross.Messaging.Commands {
 	/// </summary>
 	public class InternalCommandClient : ICommandClient {
 		private readonly RouterServer routerServer;
-		private readonly MessagingJsonSettings serializationOption;
 
-		public InternalCommandClient(RouterServer routerServer, MessagingJsonSettings serializationOption) {
+		public InternalCommandClient(RouterServer routerServer) {
 			this.routerServer = routerServer;
-			this.serializationOption = serializationOption;
 		}
 
 		public Task Ping() => throw new NotSupportedException();
@@ -34,7 +32,7 @@ namespace Albatross.Messaging.Commands {
 			var type = command.GetType();
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
-				JsonSerializer.Serialize(stream, command, type, this.serializationOption.Default);
+				JsonSerializer.Serialize(stream, command, type, MessagingJsonSettings.Value.Default);
 				var request = new CommandRequest(InternalCommand.Route, routerServer.Counter.NextId(), type.GetClassNameNeat(), true, stream.ToArray());
 				var internalCmd = new InternalCommand(request);
 				this.routerServer.SubmitToQueue(internalCmd);

@@ -39,7 +39,6 @@ namespace SampleProject {
 
 		public static IServiceCollection AddCustomSampleProjectClient(this IServiceCollection services) {
 			services.AddConfig<MessagingConfiguration>();
-			services.TryAddSingleton<MessagingJsonSettings>();
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			services.TryAddSingleton(args => {
 				var builder = new MyDealerClientBuilder(args, args.GetRequiredService<MessagingConfiguration>().DealerClient);

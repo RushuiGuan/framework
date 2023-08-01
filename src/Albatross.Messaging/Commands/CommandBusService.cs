@@ -12,22 +12,20 @@ namespace Albatross.Messaging.Commands {
 	public class CommandBusService : ICommandBusService {
 		private readonly ICommandQueueFactory commandQueueFactory;
 		private readonly ILogger<CommandBusService> logger;
-		private readonly MessagingJsonSettings jsonSerializationOption;
 
 		public bool CanReceive => true;
 		public bool HasCustomTransmitObject => true;
 		public bool NeedTimer => false;
 
-		public CommandBusService(ICommandQueueFactory commandQueueFactory, ILogger<CommandBusService> logger, MessagingJsonSettings jsonSerializationOption) {
+		public CommandBusService(ICommandQueueFactory commandQueueFactory, ILogger<CommandBusService> logger) {
 			this.commandQueueFactory = commandQueueFactory;
 			this.logger = logger;
-			this.jsonSerializationOption = jsonSerializationOption;
 		}
 
 		private void ReplyCommandQueueStatus(IMessagingService messagingService, CommandQueueStatus status) {
 			var result = this.commandQueueFactory.QueueStatus();
 			using var stream = new MemoryStream();
-			JsonSerializer.Serialize<IEnumerable<CommandQueueInfo>>(stream, result, this.jsonSerializationOption.Default);
+			JsonSerializer.Serialize<IEnumerable<CommandQueueInfo>>(stream, result, MessagingJsonSettings.Value.Default);
 			messagingService.SubmitToQueue(new CommandQueueStatusReply(status.Route, status.Id, stream.ToArray()));
 		}
 

@@ -46,8 +46,7 @@ namespace Albatross.Messaging.Services {
 			if (!services.Any(args => args is CommandClientService)) {
 				var registrations = this.serviceProvider.GetRequiredService<IEnumerable<IRegisterCommand>>();
 				var logger = this.serviceProvider.GetRequiredService<ILogger<CommandClientService>>();
-				var jsonSettings = this.serviceProvider.GetRequiredService<MessagingJsonSettings>();
-				services.Add(new CommandClientService(registrations, logger, jsonSettings));
+				services.Add(new CommandClientService(registrations, logger));
 			}
 			return this;
 		}

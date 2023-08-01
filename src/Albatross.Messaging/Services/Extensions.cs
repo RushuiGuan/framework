@@ -38,7 +38,5 @@ namespace Albatross.Messaging.Services {
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			return services;
 		}
-
-
 	}
 }
