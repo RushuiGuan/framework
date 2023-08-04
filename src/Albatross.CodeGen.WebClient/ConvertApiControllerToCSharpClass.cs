@@ -87,6 +87,7 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 			converted.Methods = list.ToArray();
+			converted.UseNullablePreprocessor = true;
 			return converted;
 		}
 
@@ -188,7 +189,7 @@ namespace Albatross.CodeGen.WebClient {
 				if (!method.ReturnType.IsVoid) { writer.Write("return "); }
 
 				if (!method.ReturnType.IsVoid && !method.ReturnType.Equals(new DotNetType(typeof(string))) && !method.ReturnType.Equals(new DotNetType(typeof(Task<string>)))) {
-					writer.Write($"await this.GetJsonResponse<{method.ReturnType.RemoveAsync()}>");
+					writer.Write($"await this.GetRequiredJsonResponse<{method.ReturnType.RemoveAsync()}>");
 				} else {
 					writer.Write($"await this.GetRawResponse");
 				}

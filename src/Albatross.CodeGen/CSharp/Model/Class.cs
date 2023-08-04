@@ -27,6 +27,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public IEnumerable<Field> Fields { get; set; } = new Field[0];
 		public IEnumerable<Method> Methods { get; set; } = new Method[0];
 		public IEnumerable<MethodCall> Attributes { get; set; } = new MethodCall[0];
+		public bool UseNullablePreprocessor { get; set; }
 
 		public TextWriter Generate(TextWriter writer) {
 			if (Imports?.Count() > 0) {
@@ -35,7 +36,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 				}
 				writer.WriteLine();
 			}
-
+			if (UseNullablePreprocessor) { writer.AppendLine("#nullable enable"); }
 			using (var scope = writer.BeginScope($"namespace {Namespace}")) {
 				scope.Writer.WriteAttributes(this.Attributes);
 				scope.Writer.Code(new AccessModifierElement(AccessModifier));
@@ -71,6 +72,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 					}
 				}
 			}
+			if (UseNullablePreprocessor) { writer.AppendLine("#nullable disable"); }
 			return writer;
 		}
 	}
