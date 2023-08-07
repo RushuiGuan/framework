@@ -28,7 +28,7 @@ namespace Albatross.WebClient {
 		}
 
 		public static async Task Send(this WebSocket socket, byte[] data, WebSocketMessageType messageType, CancellationToken cancellation, int bufferSize = SendBufferSize) {
-			Memory<byte> buffer = new Memory<byte>(data);
+			var buffer = new Memory<byte>(data);
 			int left = data.Length, offset = 0;
 			do {
 				int count = Math.Min(bufferSize, left);
@@ -40,7 +40,7 @@ namespace Albatross.WebClient {
 
 		public static async Task<T?> Receive<T>(this WebSocket socket, CancellationToken cancellation, JsonSerializerOptions serializerOptions, ILogger logger, int bufferSize = ReceiveBufferSize) {
 			Memory<byte> buffer = new Memory<byte>(new byte[bufferSize]);
-			using MemoryStream stream = new MemoryStream();
+			using var stream = new MemoryStream();
 			var type = await socket.Receive(buffer, stream, cancellation);
 			if (type == WebSocketMessageType.Close) {
 				throw new WebSocketException(WebSocketError.ConnectionClosedPrematurely, "Connection closed during a read operation");

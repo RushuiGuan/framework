@@ -91,7 +91,7 @@ namespace Albatross.Text {
 		public static void PrintProperties<T>(this TextWriter writer, T?[] items, PrintPropertiesOption option) {
 			int columnCount = items.Length + 1;
 			int[] columnWidth = new int[columnCount];
-			List<string?[]> rows = new List<string?[]>();
+			var rows = new List<string?[]>();
 			string?[] row;
 			if (option.GetRowHeader != null) {
 				row = new string[columnCount];

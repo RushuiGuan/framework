@@ -21,7 +21,7 @@ namespace Albatross.CodeGen.Core {
 		public void Dispose() {
 			Writer.Flush();
 			StringReader reader = new StringReader(content.ToString());
-			string line = reader.ReadLine();
+			string? line = reader.ReadLine();
 			while (line != null) {
 				parentWriter.Tab().WriteLine(line);
 				line = reader.ReadLine();

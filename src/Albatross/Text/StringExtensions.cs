@@ -26,7 +26,7 @@ namespace Albatross.Text {
 					return text;
 				} else {
 					int marker = 0;
-					StringBuilder sb = new StringBuilder(text);
+					var sb = new StringBuilder(text);
 					for (int i = 0; i < sb.Length; i++) {
 						char c = sb[i];
 						if (char.IsUpper(c)) {

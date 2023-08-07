@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 
 		DateTime lastSaveTimeStamp;
 		public bool ShouldSave => DateTime.UtcNow - lastSaveTimeStamp > TimeSpan.FromMinutes(SubscriptionPersistentIntervalInMinutes);
-		public void Save(ILogWriter writer, AtomicCounter<ulong> counter) {
+		public void Save(ILogWriter writer, IAtomicCounter<ulong> counter) {
 			foreach(var item in Subscriptions) {
 				foreach(var subscriber in item.Subscribers) {
 					var request = new SubscriptionRequest(subscriber, counter.NextId(), true, item.Pattern);

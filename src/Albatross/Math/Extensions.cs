@@ -43,7 +43,7 @@ namespace Albatross.Math {
 				currentNumber = currentNumber / radix;
 			}
 
-			string result = new String(charArray, index + 1, BitsInLong - index - 1);
+			var result = new String(charArray, index + 1, BitsInLong - index - 1);
 			if (value < 0) {
 				result = "-" + result;
 			}

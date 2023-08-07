@@ -115,7 +115,7 @@ namespace Albatross.WebClient {
 
 		#region creating request
 		public IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
-			List<string> urls = new List<string>();
+			var urls = new List<string>();
 			int offset = 0;
 			do {
 				var sb = relativeUrl.CreateUrl(queryStringValues);

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Albatross.WebClient {
 	public static class Extensions {
 		public static StringBuilder CreateUrl(this string url, NameValueCollection queryStringValues) {
-			StringBuilder sb = new StringBuilder(url);
+			var sb = new StringBuilder(url);
 			if (queryStringValues?.Count > 0) {
 				sb.Append("?");
 				for (int i = 0; i < queryStringValues.Count; i++) {

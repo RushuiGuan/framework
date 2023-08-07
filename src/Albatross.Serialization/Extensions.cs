@@ -39,7 +39,7 @@ namespace Albatross.Serialization {
 		/// <param name="options"></param>
 		/// <returns>The result json element</returns>
 		public static JsonElement ApplyJsonValue(JsonElement src, JsonElement input, JsonSerializerOptions? options = null) {
-			ArrayBufferWriter<byte> bufferWriter = new ArrayBufferWriter<byte>();
+			var bufferWriter = new ArrayBufferWriter<byte>();
 			using (var writer = new Utf8JsonWriter(bufferWriter)) {
 				ApplyJsonValue(writer, src, input, options);
 			}

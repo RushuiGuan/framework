@@ -58,7 +58,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 		[Theory]
 		[MemberData(nameof(GetTestCases))]
 		public void Run(MethodCall method, string expected) {
-			StringWriter writer = new StringWriter();
+			var writer = new StringWriter();
 			writer.Code(method);
 			string actual = writer.ToString().RemoveCarriageReturn();
 			Assert.Equal(expected, actual);

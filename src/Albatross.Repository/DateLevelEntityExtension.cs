@@ -138,7 +138,7 @@ namespace Albatross.Repository {
 			where T : DateLevelEntity {
 
 			var items = source.OrderBy(args => args.StartDate).ToArray();
-			T current = null;
+			T? current = null;
 			foreach (var item in items.ToArray()) {
 				if (current == null) {
 					current = item;

@@ -8,7 +8,7 @@ namespace Albatross.Repository.Test {
 	public class TestSetDateLevelEntity {
 		[Fact]
 		public void Baseline() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Sep1_2022, 300), true);
@@ -36,7 +36,7 @@ namespace Albatross.Repository.Test {
 		/// set 1
 		[Fact]
 		public void Mar100_Jul200_Sep300_Nov300() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -65,7 +65,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Sep300() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -94,7 +94,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Aug300() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -123,7 +123,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Jul300() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -152,7 +152,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Jun300() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -186,7 +186,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Mar300() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -215,7 +215,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Feb300() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -250,7 +250,7 @@ namespace Albatross.Repository.Test {
 		/// set 2
 		[Fact]
 		public void Mar100_Jul200_Sep300_Nov400() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -284,7 +284,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Sep400() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -313,7 +313,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Aug400() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -347,7 +347,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Jul400() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -376,7 +376,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Jun400() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -410,7 +410,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Mar400() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -439,7 +439,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Feb400() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -474,7 +474,7 @@ namespace Albatross.Repository.Test {
 		/// set 3
 		[Fact]
 		public void Mar100_Jul200_Sep300_Jun100() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -503,7 +503,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Mar100() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -532,7 +532,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Feb100() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -567,7 +567,7 @@ namespace Albatross.Repository.Test {
 		///set 4
 		[Fact]
 		public void Mar100_Jul200_Sep300_Nov200() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -601,7 +601,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Sep200() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -625,7 +625,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Aug200() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -654,7 +654,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Jul200() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -683,7 +683,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Jun200() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
@@ -718,7 +718,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Mar200() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -747,7 +747,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Sep300_Feb200() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -781,7 +781,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Jul200() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -804,7 +804,7 @@ namespace Albatross.Repository.Test {
 
 		[Fact]
 		public void Mar100_Jul200_Feb150_Insert() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -831,7 +831,7 @@ namespace Albatross.Repository.Test {
 		}
 		[Fact]
 		public void Mar100_Jul200_Sep300_Apr150_Insert() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -864,7 +864,7 @@ namespace Albatross.Repository.Test {
 		}
 		[Fact]
 		public void Mar100_Jul200_Sep300_Nov400_Apr150_Insert() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -898,7 +898,7 @@ namespace Albatross.Repository.Test {
 		}
 		[Fact]
 		public void Mar100_Jul200_Sep300_Insert() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);
@@ -909,7 +909,7 @@ namespace Albatross.Repository.Test {
 		}
 		[Fact]
 		public void Mar100_Jul200_Jun300_Insert() {
-			List<TickSize> list = new List<TickSize>();
+			var list = new List<TickSize>();
 
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Mar1_2022, 100), true);
 			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jul1_2022, 200), true);

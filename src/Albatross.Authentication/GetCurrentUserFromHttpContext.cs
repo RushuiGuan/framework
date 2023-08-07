@@ -5,7 +5,7 @@ using System;
 namespace Albatross.Authentication {
 	public class GetCurrentUserFromHttpContext : IGetCurrentUser {
 		public static string GetFromContext(HttpContext? context) {
-			string name = context?.User?.Identity?.Name;
+			string? name = context?.User?.Identity?.Name;
 			if (string.IsNullOrEmpty(name)) {
 				name = context?.User?.FindFirst(ClaimType_Name)?.Value;
 			} else if (string.IsNullOrEmpty(name)) {

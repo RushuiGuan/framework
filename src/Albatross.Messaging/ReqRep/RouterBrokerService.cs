@@ -25,7 +25,7 @@ namespace Albatross.Messaging.ReqRep {
 
 		bool disposed = false;
 		public string Identity => config.Identity;
-		public AtomicCounter<ulong> Counter => this.counter;
+		public IAtomicCounter<ulong> Counter => this.counter;
 
 		public RouterBrokerService(BrokerConfiguration config, WorkerRegistry registry, ILogWriter logWriter, IMessageFactory messageFactory, ILogger<RouterBrokerService> logger) {
 			this.config = config;

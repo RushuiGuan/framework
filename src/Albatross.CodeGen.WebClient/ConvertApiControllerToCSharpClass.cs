@@ -54,7 +54,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		public Class Convert(Type type) {
-			Class converted = new Class(GetClassName(type)) {
+			var converted = new Class(GetClassName(type)) {
 				Partial = true,
 				Imports = new string[] { "System", "System.Net.Http", "System.Threading.Tasks", "Microsoft.Extensions.Logging", "Albatross.WebClient", "System.Collections.Generic", "Albatross.Serialization" },
 				AccessModifier = AccessModifier.Public,
@@ -77,7 +77,7 @@ namespace Albatross.CodeGen.WebClient {
 					}
 				},
 			};
-			List<Method> list = new List<Method>();
+			var list = new List<Method>();
 			foreach (MethodInfo methodInfo in type.GetMethods(BindingFlags.Public | BindingFlags.Instance)) {
 				foreach (var attrib in methodInfo.GetCustomAttributes()) {
 					if (attrib is HttpMethodAttribute) {
@@ -140,7 +140,7 @@ namespace Albatross.CodeGen.WebClient {
 				method.ReturnType = DotNetType.MakeAsync(method.ReturnType);
 			}
 
-			string actionTemplate = attrib.Template;
+			string? actionTemplate = attrib.Template;
 			if (string.IsNullOrEmpty(actionTemplate)) {
 				actionTemplate = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
 			}
@@ -167,7 +167,7 @@ namespace Albatross.CodeGen.WebClient {
 							// skip the routing parameter
 							continue;
 						} else if (item.Name != null) {
-							if (item.ParameterType.GetCollectionElementType(out Type elementType)) {
+							if (item.ParameterType.GetCollectionElementType(out Type? elementType)) {
 								writer.Code(new ForEachCodeBlock("item", item.Name) {
 									ForEachContent = new AddCSharpQueryStringParam(item.Name, "item", elementType)
 								});

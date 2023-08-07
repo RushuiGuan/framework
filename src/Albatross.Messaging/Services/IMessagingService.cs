@@ -22,6 +22,6 @@ namespace Albatross.Messaging.Services {
 
 		ClientState GetClientState(string identity);
 
-		AtomicCounter<ulong> Counter { get; }
+		IAtomicCounter<ulong> Counter { get; }
 	}
 }

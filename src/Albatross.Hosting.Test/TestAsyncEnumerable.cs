@@ -31,7 +31,7 @@ namespace Albatross.Hosting.Test {
 		// the result would be IEnumerable<DataType>
 		// we have to cast result back to TElement, which the compiler has no knowledge of type
 		public TElement ExecuteAsync<TElement>(Expression expression, CancellationToken cancellationToken = default) {
-			if (typeof(TElement).GetTaskResultType(out Type resultType)) {
+			if (typeof(TElement).GetTaskResultType(out Type? resultType)) {
 				var method = typeof(Task).GetMethod(nameof(Task.FromResult), System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public)
 						?? throw new NotSupportedException("Cannot find FromResult static method from Task class");
 				var methodInfo = method.MakeGenericMethod(resultType);

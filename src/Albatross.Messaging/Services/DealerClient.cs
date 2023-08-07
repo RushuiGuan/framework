@@ -30,7 +30,7 @@ namespace Albatross.Messaging.Services {
 		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
 
 		public ILogWriter DataLogger => this.logWriter;
-		public AtomicCounter<ulong> Counter => this.counter;
+		public IAtomicCounter<ulong> Counter => this.counter;
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, ILoggerFactory loggerFactory) {
 			this.config = config;

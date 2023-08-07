@@ -31,7 +31,7 @@ namespace Albatross.Messaging.Services {
 
 
 		public ILogWriter DataLogger => this.logWriter;
-		public AtomicCounter<ulong> Counter => this.counter;
+		public IAtomicCounter<ulong> Counter => this.counter;
 
 		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILoggerFactory loggerFactory,  IMessageFactory messageFactory) {
 			this.logger = loggerFactory.CreateLogger<RouterServer>();

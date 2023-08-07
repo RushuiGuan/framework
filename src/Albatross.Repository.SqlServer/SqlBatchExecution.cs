@@ -19,7 +19,7 @@ namespace Albatross.Repository.SqlServer {
 
 		public async Task Execute(IDbConnection db, System.IO.TextReader reader) {
 			StringBuilder sb = new StringBuilder();
-			for(string line = reader.ReadLine(); line != null; line = reader.ReadLine()){
+			for(string? line = reader.ReadLine(); line != null; line = reader.ReadLine()){
 				if (goRegex.IsMatch(line)) {
 					if (!string.IsNullOrWhiteSpace(sb.ToString())) {
 						logger.LogInformation("Executing: {query}", sb);
