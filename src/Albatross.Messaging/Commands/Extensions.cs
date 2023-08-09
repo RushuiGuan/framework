@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
@@ -72,7 +73,7 @@ namespace Albatross.Messaging.Commands {
 			return services;
 		}
 
-		public static async Task SubmitArray(this ICommandClient client, object[] commands) {
+		public static async Task SubmitCollection(this ICommandClient client, IEnumerable<object> commands) {
 			foreach(var cmd in commands) {
 				await client.Submit(cmd);
 			}
