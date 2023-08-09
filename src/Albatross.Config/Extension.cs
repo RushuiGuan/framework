@@ -62,7 +62,7 @@ namespace Albatross.Config {
 
 		public static string GetRequiredEndPoint(this IConfiguration configuration, string name, bool ensureTrailingSlash = true) {
 			string section = $"endpoints:{name}";
-			string value = configuration.GetSection(section)?.Value;
+			string? value = configuration.GetSection(section)?.Value;
 			if (value != null && !value.EndsWith(Slash) && ensureTrailingSlash) {
 				value = value + Slash;
 			}

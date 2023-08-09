@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
@@ -69,6 +70,12 @@ namespace Albatross.Messaging.Commands {
 			services.TryAddSingleton<InternalCommandClient>();
 			services.AddRouterServer();
 			return services;
+		}
+
+		public static async Task Submit(this ICommandClient client, object[] commands) {
+			foreach(var cmd in commands) {
+				await client.Submit(cmd);
+			}
 		}
 	}
 }
