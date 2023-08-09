@@ -72,7 +72,7 @@ namespace Albatross.Messaging.Commands {
 			return services;
 		}
 
-		public static async Task Submit(this ICommandClient client, object[] commands) {
+		public static async Task SubmitArray(this ICommandClient client, object[] commands) {
 			foreach(var cmd in commands) {
 				await client.Submit(cmd);
 			}
