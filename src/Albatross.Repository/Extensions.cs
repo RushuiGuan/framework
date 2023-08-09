@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
@@ -55,6 +56,12 @@ namespace Albatross.Repository {
 		public static PropertyBuilder<DateTime?> DateOnlyProperty(this PropertyBuilder<DateTime?> builder) {
 			builder.HasConversion(value => value, item => item.HasValue ? DateTime.SpecifyKind(item.Value, DateTimeKind.Unspecified) : null);
 			return builder;
+		}
+
+		public static void EnsureNavigationProperty(this object? value, string propertyName) {
+			if (value == null) {
+				throw new MissingNavigationPropertyException(propertyName);
+			}
 		}
 	}
 }
