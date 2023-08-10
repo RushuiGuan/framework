@@ -88,7 +88,7 @@ namespace Albatross.Repository {
 								// only 1 of this kind of record should be found
 								var changed = !item.HasSameValue(src);
 								if (changed) {
-									// if the value is differnt, set the start date of the current record to be the end date + 1 of the new record
+									// if the value is different, set the start date of the current record to be the end date + 1 of the new record
 									item.StartDate = src.EndDate.AddDays(1);
 									collection.Add(src);
 								} else {
