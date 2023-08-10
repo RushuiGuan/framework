@@ -1,3 +1,4 @@
+using Castle.Components.DictionaryAdapter.Xml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,8 @@ namespace Albatross.Repository {
 		/// If the insert flag is false, the method will always append the record by setting the end date as the <see cref="DateLevelEntity.MaxEndDate"/>
 		/// The method will remove any existing record between the start date and the end date
 		/// 
-		/// If the insert flag is true and the end date of the record equals <see cref="DateLevelEntity.MaxEndDate"/>, the method will insert using the start date only.  If the end date of the
-		/// record is specified, the method will insert only if it 
+		/// If the insert flag is true and the end date of the record equals <see cref="DateLevelEntity.MaxEndDate"/>, the method will insert using the start date only.  
+		/// If the end date of the record is specified, the method will insert only if the end date is one day before the start date of the next record
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <typeparam name="K"></typeparam>
@@ -31,60 +32,85 @@ namespace Albatross.Repository {
 		public static void SetDateLevel<T, K>(this ICollection<T> collection, T src, bool insert = false)
 			where K : IEquatable<K>
 			where T : DateLevelEntity<K> {
-
 			if (insert) {
+				// when insert flag is true and EndDate is MaxEndDate, the code below will try to auto determine the correct end date of the new record
 				if (src.EndDate == DateLevelEntity.MaxEndDate) {
+					// assuming that date leve series are correct, find the next record of the series
 					var after = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
 						.OrderBy(args => args.StartDate).FirstOrDefault();
+					// if not found, the new record will be inserted as the last record and its end date will be set to max
 					if (after == null) {
 						src.EndDate = DateLevelEntity.MaxEndDate;
 						collection.Add(src);
 					} else {
 						var changed = !after.HasSameValue(src);
-						if (changed && after.StartDate != src.StartDate) {
-							src.EndDate = after.StartDate.AddDays(-1);
-							collection.Add(src);
-						} else if (changed || after.StartDate != src.StartDate) {
-							src.EndDate = after.EndDate;
-							collection.Remove(after);
-							collection.Add(src);
+						if (changed) {
+							// if the next record is diff but they have the same start date, remove it and add the new record.  remember to set the end date of
+							// the new record to the end date of the next record
+							if(after.StartDate == src.StartDate) {
+								src.EndDate = after.EndDate;
+								collection.Remove(after);
+								collection.Add(src);
+							} else {
+								// if the start date is diff,  set the end date of the new record to the day before the start date of the next record
+								// add the new record
+								src.EndDate = after.StartDate.AddDays(-1);
+								collection.Add(src);
+							}
+						} else {
+							// if the next record has the same value, simply change the start date of the next record
+							// remember to set next record as the new record
+							after.StartDate = src.StartDate;
+							src = after;
 						}
 					}
 				} else {
-					// throw new NotSupportedException("Insert date level entity with an end date is not yet supported");
+					// code path here is for inserting a new record with the specified start date and end date.
+					// it assumes that the series is built correctly
+					// if the collection is empty, we cannot insert a new record with a specific end date, because it will break rule #1 and create an incorrect series.
+					// Also, inserting a new record within the start date and end date of an existing record is an impossible operation that cannot be addressed
+					// in this code path. Therefore an exception will be throw when this scenario is detected
+					// 
+					// first find all the records with the start date between the start date and the end date of the new record (inclusive)
+					// we should find at least 1 the series is built correctly.
 					var after = collection
-						.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate && args.StartDate <= src.EndDate).ToArray();
+						.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate && args.StartDate <= src.EndDate)
+						.ToArray();
 					if (after.Length == 0) {
-						throw new InvalidOperationException($"Cannot insert date level item at the end of time series or within a single date level entry");
+						throw new InvalidOperationException($"Cannot insert date level item at the end of time series or within the start date and the end date of an existing date level entry");
 					} else {
 						foreach (var item in after) {
+							// if the end date of the found record is before the end date of the new record, simply remove the found record
 							if (item.EndDate <= src.EndDate) {
 								collection.Remove(item);
 							} else {
+								// here a record has been found to overlap the end date of the new record
+								// only 1 of this kind of record should be found
 								var changed = !item.HasSameValue(src);
 								if (changed) {
-									// make a clone of the item, remove and insert the new.  This is
-									// due to the start date being part of the key
-									T newItem = (T)item.Clone();
-									newItem.StartDate = src.EndDate.AddDays(1);
-									collection.Remove(item);
-									collection.Add(newItem);
+									// if the value is differnt, set the start date of the current record to be the end date + 1 of the new record
+									item.StartDate = src.EndDate.AddDays(1);
+									collection.Add(src);
 								} else {
-									src.EndDate = item.EndDate;
-									collection.Remove(item);
+									// if the value is the same as the new record, simply change the start date of the current record
+									// remember to set it as the new record
+									item.StartDate = src.StartDate;
+									src = item;
 								}
-								collection.Add(src);
 							}
 						}
 					}
 				}
 			} else {
+				// this code path here will always have the end date of the new record to MaxEndDate
 				var items = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate).ToArray();
 				bool hasExisting = false;
 				foreach (var item in items) {
-					if (item.StartDate == src.StartDate && item.HasSameValue(src)) {
+					if (item.HasSameValue(src)) {
 						hasExisting = true;
 						item.EndDate = DateLevelEntity.MaxEndDate;
+						item.StartDate = src.StartDate;
+						src = item;
 					} else {
 						collection.Remove(item);
 					}

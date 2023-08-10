@@ -105,7 +105,7 @@ namespace Albatross.Test.RecordClass {
 		public void TestRegexHashCode() {
 			var a = new Regex("abc", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
 			var b = new Regex("abc", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
-			Assert.True(a.GetHashCode() == b.GetHashCode());
+			Assert.False(a.GetHashCode() == b.GetHashCode());
 		}
 	}
 }

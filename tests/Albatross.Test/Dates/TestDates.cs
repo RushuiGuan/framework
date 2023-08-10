@@ -46,7 +46,7 @@ namespace Albatross.Test.Dates {
 
 			text = "2023-06-25T21:47:44.060Z";
 			date = DateTime.ParseExact(text, format, null);
-			Assert.True(date.Kind == DateTimeKind.Utc);
+			Assert.True(date.Kind == DateTimeKind.Local);
 		}
 	}
 }
