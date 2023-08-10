@@ -5,6 +5,7 @@ using System;
 
 namespace Albatross.Repository.Test {
 	public class TickSize : DateLevelEntity<int> {
+		public int Id { get; set; }
 		public TickSize(int marketId, DateTime startDate, decimal value) : base(startDate) {
 			this.MarketId = marketId;
 			this.Value = value;
@@ -27,11 +28,11 @@ namespace Albatross.Repository.Test {
 		}
 	}
 	public class TickSizeEntityMap : EntityMap<TickSize> { 
-		public override void Map(EntityTypeBuilder<TickSize> entityTypeBuilder) {
-			base.Map(entityTypeBuilder);
-			entityTypeBuilder.HasKey(p => new { p.MarketId, p.StartDate }).IsClustered(false);
-			entityTypeBuilder.HasIndex(p => new { p.MarketId, p.StartDate, p.EndDate }).IsClustered(true);
-			entityTypeBuilder.HasOne(p => p.Market).WithMany(p => p.TickSizes).HasForeignKey(p => p.MarketId);
+		public override void Map(EntityTypeBuilder<TickSize> builder) {
+			base.Map(builder);
+			builder.HasKey(p => p.Id).IsClustered(false);
+			builder.HasIndex(p => new { p.MarketId, p.StartDate,}).IsUnique().IsClustered(true);
+			builder.HasOne(p => p.Market).WithMany(p => p.TickSizes).HasForeignKey(p => p.MarketId);
 		}
 	}
 }
