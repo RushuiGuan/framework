@@ -30,7 +30,7 @@ namespace Albatross.Caching.Redis {
 				case string text:
 					return text;
 				default:
-					return JsonSerializer.Serialize(obj);
+					return JsonSerializer.Serialize<T>(obj);
 			}
 		}
 	}

@@ -32,7 +32,7 @@ namespace Albatross.Caching.Redis {
 					return bytes; 
 				default:
 					var stream = new MemoryStream();
-					JsonSerializer.Serialize(stream, obj);
+					JsonSerializer.Serialize<T>(stream, obj);
 					return stream.ToArray();
 			}
 		}

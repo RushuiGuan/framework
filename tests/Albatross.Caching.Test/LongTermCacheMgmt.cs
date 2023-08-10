@@ -2,6 +2,7 @@
 using Polly.Caching;
 using Polly.Registry;
 using System;
+using System.Threading.Tasks;
 
 namespace Albatross.Caching.Test {
 	public record class MyData { 
@@ -26,6 +27,11 @@ namespace Albatross.Caching.Test {
 	}
 	public class LongTermCacheMgmt3 : CacheManagement<object> {
 		public LongTermCacheMgmt3(ILogger<LongTermCacheMgmt1> logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
+		}
+		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromDays(1));
+	}
+	public class LongTermCacheMgmt4 : CacheManagement<Lazy<Task<MyData>>> {
+		public LongTermCacheMgmt4(ILogger<LongTermCacheMgmt1> logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
 		}
 		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromDays(1));
 	}

@@ -40,7 +40,6 @@ namespace Albatross.CodeGen.WebClient {
 		void CreateImport(Class model) {
 			model.Imports.Add(new Import("@angular/common/http", "HttpClient"));
 			model.Imports.Add(new Import("@angular/core", "Injectable"));
-			model.Imports.Add(new Import("welton-core", "ConfigService", "DataService", "Logger"));
 		}
 
 		void CreateEndPointGetter(Class model, Type type, string endPointName) {
@@ -116,7 +115,7 @@ namespace Albatross.CodeGen.WebClient {
 			method.ReturnType = TypeScriptType.MakeAsync(method.ReturnType);
 
 			// figure out the relativeUrl
-			string route = attrib.Template;
+			string? route = attrib.Template;
 			if (string.IsNullOrEmpty(route)) {
 				route = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
 			}
@@ -138,7 +137,7 @@ namespace Albatross.CodeGen.WebClient {
 			}
 
 			List<ParameterInfo> queryParams = new List<ParameterInfo>();
-			ParameterInfo bodyParam = null;
+			ParameterInfo? bodyParam = null;
 			List<ParameterInfo> routingParams = new List<ParameterInfo>();
 
 			foreach (var item in methodInfo.GetParameters()) {

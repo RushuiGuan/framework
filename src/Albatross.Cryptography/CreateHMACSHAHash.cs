@@ -36,13 +36,13 @@ namespace Albatross.Cryptography {
 		}
 
 		public byte[] Create256(string signature, out byte[] salt) {
-			using (HMACSHA256 sha = new HMACSHA256()) {
+			using (var sha = new HMACSHA256()) {
 				return Create(sha, signature, out salt);
 			}
 		}
 
 		public byte[] Create512(string signature, out byte[] salt) {
-			using (HMACSHA512 sha = new HMACSHA512()) {
+			using (var sha = new HMACSHA512()) {
 				return Create(sha, signature, out salt);
 			}
 		}

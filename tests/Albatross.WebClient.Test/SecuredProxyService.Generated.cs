@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Albatross.WebClient;
 using System.Collections.Generic;
+using Albatross.Serialization;
 
 namespace Albatross.WebClient.Test {
 	public partial class SecuredProxyService : Albatross.WebClient.ClientBase {
-		public SecuredProxyService(Microsoft.Extensions.Logging.ILogger<SecuredProxyService> @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
+		public SecuredProxyService(Microsoft.Extensions.Logging.ILogger<SecuredProxyService> @logger, System.Net.Http.HttpClient @client, IJsonSettings serializationOption) : base(@logger, @client, serializationOption) {
 		}
 		public const System.String ControllerPath = "/api/secured";
 		public async System.Threading.Tasks.Task<PayLoad> GetJson() {

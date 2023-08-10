@@ -20,17 +20,17 @@ GO
 
 
 CREATE TABLE [test].[TickSize] (
-    [MarketId] int NOT NULL,
     [StartDate] datetime2 NOT NULL,
+    [MarketId] int NOT NULL,
     [Value] decimal(20,10) NOT NULL,
     [EndDate] datetime2 NOT NULL,
-    [CreatedUtc] datetime2 NOT NULL,
-    [CreatedBy] nvarchar(128) NOT NULL,
-    [ModifiedUtc] datetime2 NOT NULL,
-    [ModifiedBy] nvarchar(128) NOT NULL,
-    CONSTRAINT [PK_TickSize] PRIMARY KEY CLUSTERED ([MarketId], [StartDate]),
+    CONSTRAINT [PK_TickSize] PRIMARY KEY NONCLUSTERED ([MarketId], [StartDate]),
     CONSTRAINT [FK_TickSize_FutureMarket_MarketId] FOREIGN KEY ([MarketId]) REFERENCES [test].[FutureMarket] ([Id]) ON DELETE CASCADE
 );
+GO
+
+
+CREATE CLUSTERED INDEX [IX_TickSize_MarketId_StartDate_EndDate] ON [test].[TickSize] ([MarketId], [StartDate], [EndDate]);
 GO
 
 

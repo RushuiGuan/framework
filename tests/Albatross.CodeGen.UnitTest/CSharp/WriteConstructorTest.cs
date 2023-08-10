@@ -3,10 +3,11 @@ using Albatross.CodeGen.CSharp.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest.CSharp {
-	public class WriteConstructorTest{
+	public class WriteConstructorTest {
 		public const string NormalConstructor = @"public Test() {
 	int i = 100;
 }";
@@ -46,16 +47,16 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 					AccessModifier = AccessModifier.Public,
 					Parameters = parameters,
 					CodeBlock = new CodeBlock("int i = 100;"),
-					BaseConstructor = new Constructor("base"){
-						Parameters = parameters,
+					BaseConstructor = new MethodCall("base"){
+						Parameters = parameters.Select(args=>new Variable(args.Name, true))
 					}
 				},BaseConstructor.RemoveCarriageReturn(),               },
 				new object[]{new Constructor("Test"){
 					AccessModifier = AccessModifier.Public,
 					Parameters = parameters,
 					CodeBlock = new CodeBlock("int i = 100;"),
-					BaseConstructor = new Constructor("this"){
-						Parameters = parameters,
+					BaseConstructor = new MethodCall("this"){
+						Parameters = parameters.Select(args=>new Variable(args.Name, true))
 					}
 				}, ChainConstructor.RemoveCarriageReturn(),             },
 			};

@@ -1,0 +1,60 @@
+{
+    "Serilog": {
+        "MinimumLevel": {
+            "Default": "Debug",
+            "Override": {
+                "System": "Error",
+                "Microsoft": "Error"
+            }
+        },
+        "WriteTo": [
+            {
+                "Name": "Logger",
+                "Args": {
+                    "configureLogger": {
+                        "WriteTo": [
+                            {
+                                "Name": "Console",
+                                "Args": {
+                                    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}"
+                                }
+                            }
+                        ],
+                        "Filter": [
+                            {
+                                "Name": "ByExcluding",
+                                "Args": {
+                                    "expression": "StartsWith(SourceContext, 'message-entry')"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "Name": "Logger",
+                "Args": {
+                    "configureLogger": {
+                        "WriteTo": [
+                            {
+                                "Name": "Console",
+                                "Args": {
+                                    "outputTemplate": "msg-entry:{Message:lj}"
+                                }
+                            }
+                        ],
+                        "Filter": [
+                            {
+                                "Name": "ByIncludingOnly",
+                                "Args": {
+                                    "expression": "StartsWith(SourceContext, 'message-entry')"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "Enrich": [ "FromLogContext" ]
+    }
+}

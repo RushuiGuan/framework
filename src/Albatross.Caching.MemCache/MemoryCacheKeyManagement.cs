@@ -25,7 +25,7 @@ namespace Albatross.Caching {
 			get {
 				FieldInfo? field = typeof(MemoryCache).GetField("_coherentState", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 				var obj = field.GetValue(cache);
-				Type type = obj?.GetType();
+				Type? type = obj?.GetType();
 				FieldInfo? entryField = type?.GetField("_entries", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 				IDictionary? dictionary = (IDictionary?)(entryField?.GetValue(obj));
 				return dictionary?.Keys.Cast<object>() ?? new object[0];

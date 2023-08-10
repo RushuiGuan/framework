@@ -14,7 +14,7 @@ namespace Albatross.Hosting.Utility {
 
 		public Task<int> RunUtility(IConfiguration configuration) {
 
-			string environment = System.Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
+			string? environment = System.Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
 			logger.LogInformation("DOTNET_ENVIRONMENT Variable: {environment}", environment);
 
 			var section = configuration.GetSection("connectionStrings");

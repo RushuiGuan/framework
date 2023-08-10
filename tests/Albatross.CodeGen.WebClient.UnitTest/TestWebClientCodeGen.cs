@@ -22,7 +22,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				Type type = typeof(TestHttpGetController);
 				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
 				Class converted = handle.Convert(type);
-				StringBuilder sb = new StringBuilder();
+				var sb = new StringBuilder();
 				using (StringWriter writer = new StringWriter(sb)) {
 					writer.Code(converted);
 				}
@@ -40,12 +40,12 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				Type type = typeof(TestHttpPostController);
 				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
 				Class converted = handle.Convert(type);
-				StringBuilder sb = new StringBuilder();
-				using (StringWriter writer = new StringWriter(sb)) {
+				var sb = new StringBuilder();
+				using (var writer = new StringWriter(sb)) {
 					writer.Code(converted);
 				}
 				string expectedFile = Path.Join(this.GetType().GetAssemblyLocation(), "TestHttpPostProxyService.expected.cs");
-				using (StreamReader reader = new StreamReader(expectedFile)) {
+				using (var reader = new StreamReader(expectedFile)) {
 					string expected = reader.ReadToEnd();
 					Assert.Equal(expected, sb.ToString());
 				}
@@ -59,11 +59,11 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
 				Class converted = handle.Convert(type);
 				StringBuilder sb = new StringBuilder();
-				using (StringWriter writer = new StringWriter(sb)) {
+				using (var writer = new StringWriter(sb)) {
 					writer.Code(converted);
 				}
 				string expectedFile = Path.Join(this.GetType().GetAssemblyLocation(), "TestHttpDeleteProxyService.expected.cs");
-				using (StreamReader reader = new StreamReader(expectedFile)) {
+				using (var reader = new StreamReader(expectedFile)) {
 					string expected = reader.ReadToEnd();
 					Assert.Equal(expected, sb.ToString());
 				}
@@ -87,7 +87,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[InlineData("{**nam9e}", "nam9e")]
 		[InlineData("api/{id}/{**name}", "id name")]
 		public void TestRouteRegex(string input, string expected) {
-			List<string> list = new List<string>();
+			var list = new List<string>();
 			foreach (Match match in ConvertApiControllerToCSharpClass.ActionRouteRegex.Matches(input)) {
 				list.Add(match.Groups[2].Value);
 			}
@@ -110,7 +110,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[InlineData("snapshot/test{tradeDate}test2{xx}", @"string path = $""{ControllerPath}/snapshot/test{tradeDate:yyyy-MM-dd}test2{xx}"";")]
 		[InlineData("snapshot/wacky{tradeDate}doodle{xx}string", @"string path = $""{ControllerPath}/snapshot/wacky{tradeDate:yyyy-MM-dd}doodle{xx}string"";")]
 		public void TestAddCSharpRoutingParam(string input, string expected) {
-			StringWriter writer = new StringWriter();
+			var writer = new StringWriter();
 			var codeElement = new AddCSharpRouteUrl(input);
 			codeElement.Generate(writer);
 			writer.Flush();

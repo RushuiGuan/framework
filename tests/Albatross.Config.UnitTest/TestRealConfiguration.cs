@@ -26,7 +26,7 @@ namespace Albatross.Config.UnitTest {
 
 		IConfigurationSection? Get(IConfiguration config, string path) {
 			var keys = path.Split(':');
-			IConfigurationSection section = null;
+			IConfigurationSection? section = null;
 			for (int i = 0; i < keys.Length; i++) {
 				if (i == 0) {
 					section = config.GetSection(keys[i]);

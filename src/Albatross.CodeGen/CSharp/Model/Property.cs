@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.Text;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Albatross.CodeGen.CSharp.Model {
@@ -18,8 +19,10 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public bool CanRead { get; set; } = true;
 		public ICodeElement? GetCodeBlock { get; set; }
 		public ICodeElement? SetCodeBlock { get; set; }
+		public IEnumerable<MethodCall> Attributes { get; set; } = new MethodCall[0];
 
 		public TextWriter Generate(TextWriter writer) {
+			writer.WriteAttributes(Attributes);
 			writer.Code(new AccessModifierElement(Modifier)).Space();
 			if (Static) { writer.Static(); }
 			writer.Code(Type).Space().Append(Name);

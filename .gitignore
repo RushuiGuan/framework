@@ -24,6 +24,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+# docfx output folder
+docfx_out
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 .svn

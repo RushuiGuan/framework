@@ -5,6 +5,7 @@ using System;
 
 #nullable enable
 namespace Albatross.Config {
+	// the class name Extension cannot be renamed to Extensions (standard) because of backward compability reason.
 	public static class Extension {
 
 		public static string GetAssemblyLocation(this Type type) {
@@ -51,7 +52,7 @@ namespace Albatross.Config {
 		/// <param name="name"></param>
 		/// <returns></returns>
 		public static string? GetEndPoint(this IConfiguration configuration, string name, bool ensureTrailingSlash = true) {
-			string value = configuration.GetSection($"endpoints:{name}")?.Value;
+			string? value = configuration.GetSection($"endpoints:{name}")?.Value;
 			if (value != null && !value.EndsWith(Slash) && ensureTrailingSlash) {
 				value = value + Slash;
 			}
@@ -61,7 +62,7 @@ namespace Albatross.Config {
 
 		public static string GetRequiredEndPoint(this IConfiguration configuration, string name, bool ensureTrailingSlash = true) {
 			string section = $"endpoints:{name}";
-			string value = configuration.GetSection(section)?.Value;
+			string? value = configuration.GetSection(section)?.Value;
 			if (value != null && !value.EndsWith(Slash) && ensureTrailingSlash) {
 				value = value + Slash;
 			}
@@ -70,7 +71,7 @@ namespace Albatross.Config {
 		public static string GetRequiredEndPoint(this IConfiguration configuration, string name) => GetRequiredEndPoint(configuration, name, true);
 
 		public static string GetRequiredConnectionString(this IConfiguration configuration, string name) {
-			string value = configuration.GetConnectionString(name);
+			string? value = configuration.GetConnectionString(name);
 			return value ?? throw new ConfigurationException($"connectionStrings:{name}");
 		}
 	}

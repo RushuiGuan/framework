@@ -1,0 +1,1 @@
+## Albatross.WebClient provides an utility class (Albatross.WebClient.ClientBase) for the creation of http rest api client.  The class ClientBase should be used as the base class of the consumer custom http client classes.  The ClientBase class is used by the Albatross code gen framework to generate C# http client proxy.

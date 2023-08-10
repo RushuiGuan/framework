@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Threading.Tasks;
 
@@ -67,8 +68,8 @@ namespace Albatross.Hosting {
 		public virtual void ConfigureServices(IServiceCollection services) {
 			services.AddConfig<ProgramSetting>(true);
 			services.TryAddSingleton<EnvironmentSetting>(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
+			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 		}
-
 
 		public virtual async Task RunAsync() {
 			using Serilog.Core.Logger logger = new SetupSerilog().UseConfigFile(environment).Create();

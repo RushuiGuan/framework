@@ -1,4 +1,16 @@
-$output = "$env:InstallDirectory";
+$output = $env:InstallDirectory;
 
-Get-ChildItem $output\Albatross.Caching.Utility | Remove-Item -Force -Recurse;
-dotnet publish $PSScriptRoot\src\Albatross.Caching.Utility\Albatross.Caching.Utility.csproj -c release -o $output\Albatross.Caching.Utility
+$projects = `
+	"sampleproject.utility" `
+	 ,"sampleproject.daemon" `
+	 ,"sampleproject.webapi" `
+;
+
+foreach($project in $projects){
+	Get-ChildItem $output\$project | Remove-Item -Recurse -Force;
+}
+
+dotnet restore
+foreach($project in $projects){
+	dotnet publish $PSScriptRoot\samples\$project\$project.csproj -o $output\$project -c debug --no-restore
+}

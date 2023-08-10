@@ -1,10 +1,15 @@
 ﻿using System;
 
 namespace Albatross.Text {
-	public class PrintOption {
+	public record class PrintOption {
+		public PrintOption(params string[] properties) {
+			this.Properties = properties;
+		}
 		public delegate string FormatValueDelegate(string property, object? value);
-		public char HeaderSeperator { get; set; } = '-';
-		public FormatValueDelegate FormatValue { get; set; } = DefaultFormatValue;
+		public char RowHeaderSeperator { get; init; } = '-';
+		public FormatValueDelegate FormatValue { get; init; } = DefaultFormatValue;
+		public string[] Properties { get; init; }
+
 		public static string DefaultFormatValue(string property, object? value) {
 			switch (value) {
 				case DateTime date:
@@ -19,12 +24,16 @@ namespace Albatross.Text {
 		}
 	}
 
-	public class PrintPropertiesOption : PrintOption {
-		public Func<int, string?>? GetHeader { get; set; }
-		public bool HasHeaderSeperator => GetHeader != null;
+	public record class PrintPropertiesOption : PrintOption {
+		public Func<int, string?>? GetRowHeader { get; init; }
+		public Func<string, string> GetColumnHeader { get; init; } = args => args;
+		public bool HasRowHeaderSeperator => GetRowHeader != null;
+
+		public PrintPropertiesOption(params string[] properties) : base(properties) { }
 	}
 
-	public class PrintTableOption : PrintOption {
-		public Func<string, string> GetHeader { get; set; } = args => args;
+	public record class PrintTableOption : PrintOption {
+		public Func<string, string> GetRowHeader { get; init; } = args => args;
+		public PrintTableOption(params string[] properties) : base(properties) { }
 	}
 }

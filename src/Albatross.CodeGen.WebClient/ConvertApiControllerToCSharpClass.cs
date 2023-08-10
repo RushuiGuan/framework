@@ -20,12 +20,12 @@ namespace Albatross.CodeGen.WebClient {
 		const string ProxyService = "ProxyService";
 		const string WebClient = "WebClient";
 		const string ControllerPath = "ControllerPath";
-		const string Logger = "logger";
-		const string Client = "client";
+		const string VariableName_Logger = "logger";
+		const string VariableName_Client = "client";
 
 		public readonly static Regex ActionRouteRegex = new Regex(@"{(\*\*)?([a-z_]+[a-z0-9_]*)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private IConvertObject<MethodInfo, Method> convertMethod;
+		private IConvertObject<MethodInfo, Method> convertMethod;
 
 		public ConvertApiControllerToCSharpClass(IConvertObject<MethodInfo, Method> convertMethod) {
 			this.convertMethod = convertMethod;
@@ -37,19 +37,26 @@ namespace Albatross.CodeGen.WebClient {
 
 		IEnumerable<Parameter> GetConstructorParameters(Type type) {
 			return new Parameter[]{
-				new Parameter(Logger,GetILoggerType(type)) {
+				new Parameter(VariableName_Logger, GetILoggerType(type)) {
 					Modifier = CSharp.Model.ParameterModifier.None,
 				},
-				new Parameter(Client, new DotNetType(typeof(HttpClient))){
+				new Parameter(VariableName_Client, new DotNetType(typeof(HttpClient))){
 					Modifier = CSharp.Model.ParameterModifier.None,
-				},
+				}
+			};
+		}
+		IEnumerable<Variable> GetBaseContructorCallVariables() {
+			return new Variable[]{
+				new Variable(VariableName_Logger, true),
+				new Variable(VariableName_Client, true),
+				new Variable("Albatross.Serialization.DefaultJsonSettings.Value", false),
 			};
 		}
 
 		public Class Convert(Type type) {
-			Class converted = new Class(GetClassName(type)) {
-                Partial = true,
-				Imports = new string[] { "System", "System.Net.Http", "System.Threading.Tasks", "Microsoft.Extensions.Logging", "Albatross.WebClient", "System.Collections.Generic" },
+			var converted = new Class(GetClassName(type)) {
+				Partial = true,
+				Imports = new string[] { "System", "System.Net.Http", "System.Threading.Tasks", "Microsoft.Extensions.Logging", "Albatross.WebClient", "System.Collections.Generic", "Albatross.Serialization" },
 				AccessModifier = AccessModifier.Public,
 				Namespace = GetNamespace(type),
 				BaseClass = GetBaseClass(),
@@ -64,13 +71,13 @@ namespace Albatross.CodeGen.WebClient {
 					new Constructor(GetClassName(type)){
 						AccessModifier = AccessModifier.Public,
 						Parameters = GetConstructorParameters(type),
-						BaseConstructor = new Constructor("base"){
-							Parameters = GetConstructorParameters(type),
+						BaseConstructor = new MethodCall("base"){
+							Parameters = GetBaseContructorCallVariables(),
 						}
 					}
 				},
 			};
-			List<Method> list = new List<Method>();
+			var list = new List<Method>();
 			foreach (MethodInfo methodInfo in type.GetMethods(BindingFlags.Public | BindingFlags.Instance)) {
 				foreach (var attrib in methodInfo.GetCustomAttributes()) {
 					if (attrib is HttpMethodAttribute) {
@@ -80,13 +87,14 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 			converted.Methods = list.ToArray();
+			converted.UseNullablePreprocessor = true;
 			return converted;
 		}
 
 		DotNetType GetILoggerType(Type type) {
 			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, false, new DotNetType[0]);
 		}
-		
+
 		DotNetType GetGenericILoggerType(Type type) {
 			return new DotNetType("Microsoft.Extensions.Logging.ILogger", false, true, new DotNetType[] { new DotNetType(GetClassName(type)), });
 		}
@@ -111,7 +119,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		string GetNamespace(Type type) {
-			string[] list = type.Namespace?.Split('.')?? new string[1];
+			string[] list = type.Namespace?.Split('.') ?? new string[1];
 			list[list.Length - 1] = WebClient;
 			return string.Join(".", list);
 		}
@@ -126,13 +134,13 @@ namespace Albatross.CodeGen.WebClient {
 
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
 			Method method = convertMethod.Convert(methodInfo);
-			
+
 			/// make async void void and the rest async
 			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {
 				method.ReturnType = DotNetType.MakeAsync(method.ReturnType);
 			}
 
-			string actionTemplate = attrib.Template;
+			string? actionTemplate = attrib.Template;
 			if (string.IsNullOrEmpty(actionTemplate)) {
 				actionTemplate = methodInfo.GetCustomAttribute<RouteAttribute>()?.Template;
 			}
@@ -148,7 +156,7 @@ namespace Albatross.CodeGen.WebClient {
 						actionRoutes.Add(match.Groups[2].Value);
 					}
 				}
-				
+
 				ParameterInfo? fromBody = null;
 				foreach (var item in methodInfo.GetParameters()) {
 					if (item.Name != null) {
@@ -159,7 +167,7 @@ namespace Albatross.CodeGen.WebClient {
 							// skip the routing parameter
 							continue;
 						} else if (item.Name != null) {
-							if (item.ParameterType.GetCollectionElementType(out Type elementType)) {
+							if (item.ParameterType.GetCollectionElementType(out Type? elementType)) {
 								writer.Code(new ForEachCodeBlock("item", item.Name) {
 									ForEachContent = new AddCSharpQueryStringParam(item.Name, "item", elementType)
 								});
@@ -176,12 +184,12 @@ namespace Albatross.CodeGen.WebClient {
 				} else {
 					writer.WriteLine($"using (var request = this.CreateJsonRequest<{new DotNetType(fromBody.ParameterType)}>({attrib.GetMethod()}, path, queryString, @{fromBody.Name})) {{");
 				}
-                writer.Tab();
-                //skip "return" if return type is void or Task
-                if (!method.ReturnType.IsVoid) { writer.Write("return "); }
+				writer.Tab();
+				//skip "return" if return type is void or Task
+				if (!method.ReturnType.IsVoid) { writer.Write("return "); }
 
-                if (!method.ReturnType.IsVoid && !method.ReturnType.Equals(new DotNetType(typeof(string))) && !method.ReturnType.Equals(new DotNetType(typeof(Task<string>)))) {
-                    writer.Write($"await this.GetJsonResponse<{method.ReturnType.RemoveAsync()}>");
+				if (!method.ReturnType.IsVoid && !method.ReturnType.Equals(new DotNetType(typeof(string))) && !method.ReturnType.Equals(new DotNetType(typeof(Task<string>)))) {
+					writer.Write($"await this.GetRequiredJsonResponse<{method.ReturnType.RemoveAsync()}>");
 				} else {
 					writer.Write($"await this.GetRawResponse");
 				}
@@ -189,7 +197,7 @@ namespace Albatross.CodeGen.WebClient {
 				writer.Write("}");
 			}
 			method.CodeBlock = new CodeBlock(sb.ToString());
-            method.Async = true;
+			method.Async = true;
 			return method;
 		}
 	}

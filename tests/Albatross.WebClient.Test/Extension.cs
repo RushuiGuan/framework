@@ -13,7 +13,6 @@ namespace Albatross.WebClient.Test {
 				   client.Timeout = TimeSpan.FromSeconds(2);
 				   client.BaseAddress = new Uri(provider.GetRequiredService<MyConfig>().TestUrl);
 			   });
-
 			services.AddConfig<MyConfig>();
 			return services;
 		}

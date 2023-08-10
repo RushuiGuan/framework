@@ -27,7 +27,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 				new object[]{DotNetType.Void(),"void", },
 				new object[]{DotNetType.MakeIEnumerable(DotNetType.String()),"System.Collections.Generic.IEnumerable<System.String>" },
 				new object[]{new DotNetType("System.Int32", true, false, null),"System.Int32[]" },
-				new object[]{DotNetType.MakeNullable(DotNetType.Integer()),"System.Nullable<System.Int32>" },
+				new object[]{DotNetType.MakeNullable(DotNetType.Integer()),"System.Int32?" },
 			};
 		}
 

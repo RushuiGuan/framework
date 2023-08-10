@@ -8,7 +8,7 @@ namespace Albatross.Text  {
 	}
 
 	public class StringInterpolationService : IStringInterpolationService{
-		public StringInterpolationService(ILogger<StringInterpolationService> logger) {
+		public StringInterpolationService(ILogger logger) {
 			this.logger = logger;
 		}
 		/// <summary>
@@ -16,7 +16,7 @@ namespace Albatross.Text  {
 		/// </summary>
 		public const string ExpressionSearchPattern = @"\$\{(?!\s)(.+?)(?<![\s])}";
 		public static readonly Regex ExpressionSearchRegex = new Regex(ExpressionSearchPattern, RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
-		private readonly ILogger<StringInterpolationService> logger;
+		private readonly ILogger logger;
 
 		public string Interpolate<T>(string input, Func<string, T, string> func, T value, bool throwException=false) {
 			return ExpressionSearchRegex.Replace(input, (match) => {
@@ -24,10 +24,10 @@ namespace Albatross.Text  {
 				try {
 					return func(expression, value);
 				} catch (Exception err) {
-					logger.LogError(err, "expression parsing exception: {expression}", expression);
 					if (throwException) {
 						throw new InvalidOperationException($"expression parsing exception: {expression}, {err.Message}");
 					} else {
+						logger.LogError(err, "expression parsing exception: {expression}", expression);
 						return match.Groups[0].Value;
 					}
 				}

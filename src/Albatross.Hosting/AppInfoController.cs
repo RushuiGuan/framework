@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Linq;
 using Albatross.Authentication.Core;
 using Albatross.Config;
 using Microsoft.AspNetCore.Authorization;

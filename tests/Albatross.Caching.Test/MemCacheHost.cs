@@ -17,7 +17,7 @@ namespace Albatross.Caching.Test {
 			base.RegisterServices(configuration, services);
 			services.AddCaching(configuration);
 			services.AddCacheMgmt(typeof(SlidingTtlCacheMgmt).Assembly);
-			services.AddMemCache();
+			services.AddMemCaching();
 		}
 
 		public override async Task InitAsync(IConfiguration configuration, ILogger logger) {

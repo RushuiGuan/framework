@@ -10,7 +10,7 @@ namespace Albatross.Caching.Redis {
 	public class RedisConfig : ConfigBase {
 		public override string Key => "redis";
 		public RedisConfig(IConfiguration configuration) : base(configuration) {
-			RedisConnectionString = configuration.GetRequiredConnectionString("redis");
+			RedisConnectionString = configuration.GetRequiredEndPoint("redis", false);
 			if (string.IsNullOrEmpty(InstanceName)) {
 				throw new ConfigurationException("redis:instanceName");
 			}

@@ -27,7 +27,7 @@ namespace Albatross.Hosting.Utility {
 		private Serilog.Core.Logger serilogLogger;
 
 		protected virtual void ConfigureLogging(LoggerConfiguration cfg) {
-			if(this.Options is BaseOption) {
+			if (this.Options is BaseOption) {
 				(this.Options as BaseOption)?.ConfigureLogging(cfg);
 			} else {
 				SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
@@ -47,7 +47,7 @@ namespace Albatross.Hosting.Utility {
 				.AddJsonFile("appsettings.json", false, true);
 			if (!string.IsNullOrEmpty(env.Value)) { configBuilder.AddJsonFile($"appsettings.{env.Value}.json", true, true); }
 			var configuration = configBuilder.AddEnvironmentVariables().Build();
-			
+
 			host = hostBuilder.ConfigureAppConfiguration(builder => {
 				builder.Sources.Clear();
 				builder.AddConfiguration(configuration);
@@ -61,7 +61,7 @@ namespace Albatross.Hosting.Utility {
 		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			services.AddConfig<ProgramSetting>();
 			services.AddSingleton(envSetting);
-			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName??"default"));
+			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName ?? "default"));
 		}
 		public const string RunUtilityMethod = "RunUtility";
 
@@ -88,14 +88,13 @@ namespace Albatross.Hosting.Utility {
 				} else {
 					throw new InvalidOperationException("RunUtility method is not defined in this class");
 				}
-			} catch(Exception err) {
+			} catch (Exception err) {
 				logger.LogError(err, string.Empty);
 				return -1;
 			}
 		}
 		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
-
-		public void Dispose() {
+		public virtual void Dispose() {
 			logger.LogDebug("Disposing UtilityBase");
 			this.host.Dispose();
 			logger.LogDebug("CloseAndFlush Logging");

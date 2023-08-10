@@ -3,16 +3,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Polly;
 using Polly.Registry;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Xml.Linq;
 
 namespace Albatross.Caching {
+	// class name should not be renamed to Extensions due to backward compatibilies issue
 	public static class Extension {
 		public static IServiceCollection AddCaching(this IServiceCollection services, IConfiguration configuration) {
 			var registry = new PolicyRegistry();
@@ -55,7 +53,7 @@ namespace Albatross.Caching {
 		}
 
 
-		static ICacheManagement Get(this ICacheManagementFactory factory, string name) {
+		public static ICacheManagement Get(this ICacheManagementFactory factory, string name) {
 			if (factory.TryGetValue(name, out ICacheManagement result)) {
 				return result;
 			} else {
@@ -66,6 +64,10 @@ namespace Albatross.Caching {
 		public static ICacheManagement<CacheFormat> Get<CacheFormat>(this ICacheManagementFactory factory, string name) {
 			ICacheManagement cache = factory.Get(name);
 			return (ICacheManagement<CacheFormat>)cache;
+		}
+
+		public static void Remove(this ICacheManagement cache, IEnumerable<string> keys) {
+			cache.Remove(keys.Select(args => new Polly.Context(args)).ToArray());
 		}
 	}
 }

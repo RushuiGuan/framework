@@ -1,42 +1,38 @@
-﻿using Albatross.Repository.ByEFCore;
-using Albatross.Repository.Core;
+﻿using Albatross.Repository.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Albatross.Repository.Test {
-	public sealed record class TickSize : DateLevelEntity{
-		public TickSize(int id, DateTime startDate, DateTime endDate, DateTime createdUtc, string createdBy, DateTime modifiedUtc, string modifiedBy) : base(id, startDate, endDate, createdUtc, createdBy, modifiedUtc, modifiedBy) {
-		}
-		public TickSize(int id, DateTime startDate, DateTime? endDate, decimal value, string user) : base(id, startDate, endDate, user){
+	public class TickSize : DateLevelEntity<int> {
+		public int Id { get; set; }
+		public TickSize(int marketId, DateTime startDate, decimal value) : base(startDate) {
+			this.MarketId = marketId;
 			this.Value = value;
 		}
 
+		public int MarketId { get; set; }
 		public FutureMarket Market { get; set; } = default!;
 		[Precision(20, 10)]
-		public decimal Value { get; set; }
+		public decimal Value { get; init; }
 
-		public override void Update(DateLevelEntity src) {
-			if(src is TickSize newValue) {
-				Value = newValue.Value;
-			} else {
-				throw new ArgumentException();
-			}
-		}
+		public override int Key => MarketId;
+
+
 		public override bool HasSameValue(DateLevelEntity src) {
-			if(src is TickSize other) {
+			if (src is TickSize other) {
 				return other.Value == this.Value;
 			} else {
 				return false;
 			}
 		}
 	}
-	public class TickSizeEntityMap: DateLevelEntityEntityMap<TickSize> {
-		public override void Map(EntityTypeBuilder<TickSize> entityTypeBuilder) {
-			base.Map(entityTypeBuilder);
-			entityTypeBuilder.HasOne(p => p.Market).WithMany(p => p.TickSizes).HasForeignKey(p => p.Id);
-			entityTypeBuilder.Property(p => p.Id).HasColumnName("MarketId");
+	public class TickSizeEntityMap : EntityMap<TickSize> { 
+		public override void Map(EntityTypeBuilder<TickSize> builder) {
+			base.Map(builder);
+			builder.HasKey(p => p.Id).IsClustered(false);
+			builder.HasIndex(p => new { p.MarketId, p.StartDate,}).IsUnique().IsClustered(true);
+			builder.HasOne(p => p.Market).WithMany(p => p.TickSizes).HasForeignKey(p => p.MarketId);
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using Albatross.Hosting.Test;
-using Albatross.Repository.Core;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +8,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using Albatross.Repository.SqlServer;
-using Albatross.Repository.ByEFCore;
 
 namespace Albatross.Repository.Test {
 	public class MyTestHost : TestHost {

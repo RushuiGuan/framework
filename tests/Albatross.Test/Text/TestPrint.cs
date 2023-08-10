@@ -48,7 +48,7 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
 		public void PrintPropertiesWithDefaultOptions() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			writer.PrintProperties<Product>(products, new PrintPropertiesOption(), nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired));
+			writer.PrintProperties<Product>(products, new PrintPropertiesOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
 			Assert.Equal(expectedPrintPropertiesDefaultOptions, writer.ToString());
 		}
 		
@@ -65,8 +65,8 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
 		public void PrintPropertiesWithHeader() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			writer.PrintProperties<Product>(products, new PrintPropertiesOption {
-				GetHeader = args => {
+			writer.PrintProperties<Product>(products, new PrintPropertiesOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)) {
+				GetRowHeader = args => {
 					switch (args) {
 						case 0:
 							return "My Product";
@@ -78,7 +78,7 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
 							return null;
 					}
 				}
-			}, nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired));
+			});
 			Assert.Equal(expectedPrintPropertiesWithHeaders, writer.ToString());
 		}
 
@@ -94,8 +94,7 @@ desk   furniture 200    2000-02-01 05:05:04-5 2000-07-04
 		public void PrintTableWithDefaultOptions() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			writer.PrintTable<Product>(products, new PrintTableOption(), 
-				nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired));
+			writer.PrintTable<Product>(products, new PrintTableOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
 			Assert.Equal(expectedPrintTableWithDefault, writer.ToString());
 		}
 	}

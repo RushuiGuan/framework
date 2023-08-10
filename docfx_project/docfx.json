@@ -1,0 +1,64 @@
+{
+	"metadata": [
+		{
+			"src": [
+				{
+					"files": [
+						"src/**.csproj"
+					],
+					"src": ".."
+				}
+			],
+			"dest": "api",
+			"filter": "filterConfig.yml",
+			"includePrivateMembers": false,
+			"disableGitFeatures": true,
+			"disableDefaultFilter": false,
+			"noRestore": false,
+			"namespaceLayout": "nested",
+			"memberLayout": "samePage",
+			"allowCompilationErrors": false
+		}
+	],
+	"build": {
+		"content": [
+			{
+				"files": [
+					"api/**.yml",
+					"api/index.md"
+				]
+			},
+			{
+				"files": [
+					"articles/**.md",
+					"articles/**/toc.yml",
+					"toc.yml",
+					"*.md"
+				]
+			}
+		],
+		"resource": [
+			{
+				"files": [
+					"images/**"
+				]
+			}
+		],
+		"dest": "../../docfx_out",
+		"output": "_site",
+		"globalMetadata":{
+			"_appName": "Albatross Framework",
+      		"_appTitle": "Albatross Framework Documentation"
+		},
+		"globalMetadataFiles": [],
+		"fileMetadataFiles": [],
+		"template": [
+			"default",
+			"modern",
+			"template/material"
+		],
+		"postProcessors": [],
+		"keepFileLink": false,
+		"disableGitFeatures": true
+	}
+}

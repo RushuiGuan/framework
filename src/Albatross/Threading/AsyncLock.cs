@@ -2,6 +2,10 @@
 using System.Threading;
 
 namespace Albatross.Threading {
+	/// <summary>
+	/// bad idea, causes deadlock, should not use
+	/// </summary>
+	[Obsolete]
 	public sealed class AsyncLock: IDisposable {
 		private readonly SemaphoreSlim semaphore;
 

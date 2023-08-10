@@ -14,8 +14,8 @@ using System.Text.Json;
 
 namespace Albatross.Hosting.Utility {
 	public class BaseOption {
-		[Option("console-out", Required = false, HelpText = "Console output file name")]
-		public string? LogFile { get; set; }
+		[Option("console-out", HelpText = "The filename to save the console output")]
+		public string? Output { get; set; }
 
 		[Option("clipboard", HelpText ="Set this flag to copy the output to clipboard")]
 		public bool Clipboard { get; set; }
@@ -33,15 +33,15 @@ namespace Albatross.Hosting.Utility {
 			}else if (Verbose) {
 				SetupSerilog.UseConsole(cfg, LogEventLevel.Information);
 			} else {
-				SetupSerilog.UseConsole(cfg, LogEventLevel.Error);
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Warning);
 			}
 		}
 
 		void SendResult(string result) {
 			Console.WriteLine(result);
 
-			if (!string.IsNullOrEmpty(LogFile)) {
-				using var stream = System.IO.File.OpenWrite(LogFile);
+			if (!string.IsNullOrEmpty(Output)) {
+				using var stream = System.IO.File.OpenWrite(Output);
 				using var fileWriter = new StreamWriter(stream);
 				fileWriter.Write(result);
 				fileWriter.Flush();
@@ -59,15 +59,15 @@ namespace Albatross.Hosting.Utility {
 			SendResult(writer.ToString());
 		}
 
-		public void WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option, params string[] properties) {
+		public void WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option) {
 			StringWriter writer = new StringWriter();
-			writer.PrintProperties<T>(data.ToArray(), option,  properties);
+			writer.PrintProperties<T>(data.ToArray(), option);
 			SendResult(writer.ToString());
 		}
 
-		public void WriteTable<T>(IEnumerable<T> data, PrintTableOption option, params string[] properties) {
+		public void WriteTable<T>(IEnumerable<T> data, PrintTableOption option) {
 			StringWriter writer = new StringWriter();
-			writer.PrintTable<T>(data.ToArray(), option, properties);
+			writer.PrintTable<T>(data.ToArray(), option);
 			SendResult(writer.ToString());
 		}
 
@@ -96,6 +96,11 @@ namespace Albatross.Hosting.Utility {
 				}
 			}
 			SendResult(sb.ToString());
+		}
+
+		public string? Prompt(string message) {
+			Console.Write(message);
+			return Console.ReadLine();
 		}
 	}
 }
