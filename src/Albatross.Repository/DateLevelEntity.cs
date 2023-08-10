@@ -1,16 +1,12 @@
 ﻿using System;
 
 namespace Albatross.Repository {
-	public abstract class DateLevelEntity : ICloneable {
+	public abstract class DateLevelEntity  {
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; } = MaxEndDate;
 		public readonly static DateTime MaxEndDate = new DateTime(9999, 12, 31);
 
 		public abstract bool HasSameValue(DateLevelEntity src);
-
-		public virtual object Clone() {
-			return MemberwiseClone();
-		}
 
 		public DateLevelEntity(DateTime startDate) {
 			StartDate = startDate;
