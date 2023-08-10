@@ -88,6 +88,20 @@
   </div>
 
   <div class="markdown summary"><p>Default json serialization option used by webapi and http clients</p>
+<ul>
+<li>default
+<ul>
+<li>camel case property name</li>
+<li>ignore when writing null</li>
+</ul>
+</li>
+<li>alternate
+<ul>
+<li>proper case property name</li>
+<li>ignore when writing null</li>
+</ul>
+</li>
+</ul>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -122,6 +136,9 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
   </dd></dl>
@@ -130,10 +147,41 @@
 
 
 
-  <h2 class="section" id="fields">Fields
+  <h2 class="section" id="constructors">Constructors
 </h2>
 
 
+  <a id="Albatross_Serialization_DefaultJsonSettings__ctor_" data-uid="Albatross.Serialization.DefaultJsonSettings.#ctor*"></a>
+
+  <h3 id="Albatross_Serialization_DefaultJsonSettings__ctor" data-uid="Albatross.Serialization.DefaultJsonSettings.#ctor">
+  DefaultJsonSettings()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DefaultJsonSettings()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Serialization_DefaultJsonSettings_Alternate_" data-uid="Albatross.Serialization.DefaultJsonSettings.Alternate*"></a>
 
   <h3 id="Albatross_Serialization_DefaultJsonSettings_Alternate" data-uid="Albatross.Serialization.DefaultJsonSettings.Alternate">
   Alternate
@@ -144,13 +192,14 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly JsonSerializerOptions Alternate</code></pre>
+    <pre><code class="lang-csharp hljs">public JsonSerializerOptions Alternate { get; }</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
     <dd></dd>
@@ -163,7 +212,7 @@
 
 
 
-
+  <a id="Albatross_Serialization_DefaultJsonSettings_Default_" data-uid="Albatross.Serialization.DefaultJsonSettings.Default*"></a>
 
   <h3 id="Albatross_Serialization_DefaultJsonSettings_Default" data-uid="Albatross.Serialization.DefaultJsonSettings.Default">
   Default
@@ -174,18 +223,49 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly JsonSerializerOptions Default</code></pre>
+    <pre><code class="lang-csharp hljs">public JsonSerializerOptions Default { get; }</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+  <a id="Albatross_Serialization_DefaultJsonSettings_Value_" data-uid="Albatross.Serialization.DefaultJsonSettings.Value*"></a>
+
+  <h3 id="Albatross_Serialization_DefaultJsonSettings_Value" data-uid="Albatross.Serialization.DefaultJsonSettings.Value">
+  Value
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DefaultJsonSettings Value { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Serialization.DefaultJsonSettings.html">DefaultJsonSettings</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

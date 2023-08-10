@@ -128,6 +128,9 @@
       <a class="xref" href="Albatross.Messaging.Extensions.html#Albatross_Messaging_Extensions_ServerAck_Albatross_Messaging_Services_IMessagingService_System_String_System_UInt64_">Extensions.ServerAck(IMessagingService, string, ulong)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
   </dd></dl>
@@ -142,8 +145,8 @@
 
   <a id="Albatross_Messaging_Services_DealerClient__ctor_" data-uid="Albatross.Messaging.Services.DealerClient.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_Services_DealerClient__ctor_Albatross_Messaging_Configurations_DealerClientConfiguration_System_Collections_Generic_IEnumerable_Albatross_Messaging_Services_IDealerClientService__Albatross_Messaging_Messages_IMessageFactory_Albatross_Messaging_Services_DealerClientLogWriter_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_DealerClient__" data-uid="Albatross.Messaging.Services.DealerClient.#ctor(Albatross.Messaging.Configurations.DealerClientConfiguration,System.Collections.Generic.IEnumerable{Albatross.Messaging.Services.IDealerClientService},Albatross.Messaging.Messages.IMessageFactory,Albatross.Messaging.Services.DealerClientLogWriter,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.DealerClient})">
-  DealerClient(DealerClientConfiguration, IEnumerable&lt;IDealerClientService&gt;, IMessageFactory, DealerClientLogWriter, ILogger&lt;DealerClient&gt;)
+  <h3 id="Albatross_Messaging_Services_DealerClient__ctor_Albatross_Messaging_Configurations_DealerClientConfiguration_System_Collections_Generic_IEnumerable_Albatross_Messaging_Services_IDealerClientService__Albatross_Messaging_Messages_IMessageFactory_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="Albatross.Messaging.Services.DealerClient.#ctor(Albatross.Messaging.Configurations.DealerClientConfiguration,System.Collections.Generic.IEnumerable{Albatross.Messaging.Services.IDealerClientService},Albatross.Messaging.Messages.IMessageFactory,Microsoft.Extensions.Logging.ILoggerFactory)">
+  DealerClient(DealerClientConfiguration, IEnumerable&lt;IDealerClientService&gt;, IMessageFactory, ILoggerFactory)
   
   </h3>
 
@@ -151,7 +154,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DealerClient(DealerClientConfiguration config, IEnumerable&lt;IDealerClientService&gt; services, IMessageFactory messageFactory, DealerClientLogWriter logWriter, ILogger&lt;DealerClient&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public DealerClient(DealerClientConfiguration config, IEnumerable&lt;IDealerClientService&gt; services, IMessageFactory messageFactory, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -162,9 +165,7 @@
     <dd></dd>
     <dt><code>messageFactory</code> <a class="xref" href="Albatross.Messaging.Messages.IMessageFactory.html">IMessageFactory</a></dt>
     <dd></dd>
-    <dt><code>logWriter</code> <a class="xref" href="Albatross.Messaging.Services.DealerClientLogWriter.html">DealerClientLogWriter</a></dt>
-    <dd></dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Messaging.Services.DealerClient.html">DealerClient</a>&gt;</dt>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
     <dd></dd>
   </dl>
 
@@ -194,7 +195,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AtomicCounter&lt;ulong&gt; Counter { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public IAtomicCounter&lt;ulong&gt; Counter { get; }</code></pre>
   </div>
 
 
@@ -203,7 +204,7 @@
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.Messaging.Services.AtomicCounter-1.html">AtomicCounter</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;</dt>
+    <dt><a class="xref" href="Albatross.Messaging.Services.IAtomicCounter-1.html">IAtomicCounter</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -235,6 +236,37 @@
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Albatross.Messaging.DataLogging.ILogWriter.html">ILogWriter</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_Services_DealerClient_Identity_" data-uid="Albatross.Messaging.Services.DealerClient.Identity*"></a>
+
+  <h3 id="Albatross_Messaging_Services_DealerClient_Identity" data-uid="Albatross.Messaging.Services.DealerClient.Identity">
+  Identity
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Identity { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 

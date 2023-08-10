@@ -91,7 +91,7 @@
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class DateLevelEntity&lt;K&gt; : DateLevelEntity, ICloneable where K : IEquatable&lt;K&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class DateLevelEntity&lt;K&gt; : DateLevelEntity where K : IEquatable&lt;K&gt;</code></pre>
   </div>
 
 
@@ -111,12 +111,6 @@
     </dd>
   </dl>
 
-  <dl class="typelist implements">
-    <dt>Implements</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">ICloneable</a></div>
-    </dd>
-  </dl>
 
 
   <dl class="typelist derived">
@@ -134,9 +128,6 @@
     <div>
       <a class="xref" href="Albatross.Repository.DateLevelEntity.html#Albatross_Repository_DateLevelEntity_HasSameValue_Albatross_Repository_DateLevelEntity_">DateLevelEntity.HasSameValue(DateLevelEntity)</a>
     </div>
-    <div>
-      <a class="xref" href="Albatross.Repository.DateLevelEntity.html#Albatross_Repository_DateLevelEntity_Clone">DateLevelEntity.Clone()</a>
-    </div>
   </dd></dl>
 
   <dl class="typelist extensionMethods">
@@ -144,6 +135,9 @@
     <dd>
   <div>
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>

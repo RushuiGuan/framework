@@ -128,6 +128,9 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
   </dd></dl>
@@ -142,8 +145,8 @@
 
   <a id="Albatross_Messaging_Services_RouterServer__ctor_" data-uid="Albatross.Messaging.Services.RouterServer.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_Services_RouterServer__ctor_Albatross_Messaging_Configurations_RouterServerConfiguration_System_Collections_Generic_IEnumerable_Albatross_Messaging_Services_IRouterServerService__Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_Services_RouterServer__Albatross_Messaging_Messages_IMessageFactory_Albatross_Messaging_Services_RouterServerLogWriter_Albatross_Messaging_Services_RouterServerLogReader_" data-uid="Albatross.Messaging.Services.RouterServer.#ctor(Albatross.Messaging.Configurations.RouterServerConfiguration,System.Collections.Generic.IEnumerable{Albatross.Messaging.Services.IRouterServerService},Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.Services.RouterServer},Albatross.Messaging.Messages.IMessageFactory,Albatross.Messaging.Services.RouterServerLogWriter,Albatross.Messaging.Services.RouterServerLogReader)">
-  RouterServer(RouterServerConfiguration, IEnumerable&lt;IRouterServerService&gt;, ILogger&lt;RouterServer&gt;, IMessageFactory, RouterServerLogWriter, RouterServerLogReader)
+  <h3 id="Albatross_Messaging_Services_RouterServer__ctor_Albatross_Messaging_Configurations_RouterServerConfiguration_System_Collections_Generic_IEnumerable_Albatross_Messaging_Services_IRouterServerService__Microsoft_Extensions_Logging_ILoggerFactory_Albatross_Messaging_Messages_IMessageFactory_" data-uid="Albatross.Messaging.Services.RouterServer.#ctor(Albatross.Messaging.Configurations.RouterServerConfiguration,System.Collections.Generic.IEnumerable{Albatross.Messaging.Services.IRouterServerService},Microsoft.Extensions.Logging.ILoggerFactory,Albatross.Messaging.Messages.IMessageFactory)">
+  RouterServer(RouterServerConfiguration, IEnumerable&lt;IRouterServerService&gt;, ILoggerFactory, IMessageFactory)
   
   </h3>
 
@@ -151,7 +154,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RouterServer(RouterServerConfiguration config, IEnumerable&lt;IRouterServerService&gt; services, ILogger&lt;RouterServer&gt; logger, IMessageFactory messageFactory, RouterServerLogWriter logWriter, RouterServerLogReader logReader)</code></pre>
+    <pre><code class="lang-csharp hljs">public RouterServer(RouterServerConfiguration config, IEnumerable&lt;IRouterServerService&gt; services, ILoggerFactory loggerFactory, IMessageFactory messageFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -160,13 +163,9 @@
     <dd></dd>
     <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.Messaging.Services.IRouterServerService.html">IRouterServerService</a>&gt;</dt>
     <dd></dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Messaging.Services.RouterServer.html">RouterServer</a>&gt;</dt>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
     <dd></dd>
     <dt><code>messageFactory</code> <a class="xref" href="Albatross.Messaging.Messages.IMessageFactory.html">IMessageFactory</a></dt>
-    <dd></dd>
-    <dt><code>logWriter</code> <a class="xref" href="Albatross.Messaging.Services.RouterServerLogWriter.html">RouterServerLogWriter</a></dt>
-    <dd></dd>
-    <dt><code>logReader</code> <a class="xref" href="Albatross.Messaging.Services.RouterServerLogReader.html">RouterServerLogReader</a></dt>
     <dd></dd>
   </dl>
 
@@ -196,7 +195,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AtomicCounter&lt;ulong&gt; Counter { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public IAtomicCounter&lt;ulong&gt; Counter { get; }</code></pre>
   </div>
 
 
@@ -205,7 +204,7 @@
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.Messaging.Services.AtomicCounter-1.html">AtomicCounter</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;</dt>
+    <dt><a class="xref" href="Albatross.Messaging.Services.IAtomicCounter-1.html">IAtomicCounter</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;</dt>
     <dd></dd>
   </dl>
 

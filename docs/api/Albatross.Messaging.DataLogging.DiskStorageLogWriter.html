@@ -119,8 +119,7 @@ a <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html"
   <dl class="typelist derived">
     <dt>Derived</dt>
     <dd>
-      <div><a class="xref" href="Albatross.Messaging.Services.DealerClientLogWriter.html">DealerClientLogWriter</a></div>
-      <div><a class="xref" href="Albatross.Messaging.Services.RouterServerLogWriter.html">RouterServerLogWriter</a></div>
+      <div><a class="xref" href="Albatross.Messaging.DataLogging.RouterServerLogWriter.html">RouterServerLogWriter</a></div>
     </dd>
   </dl>
 
@@ -130,6 +129,9 @@ a <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html"
     <dd>
   <div>
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -146,8 +148,8 @@ a <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html"
 
   <a id="Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_" data-uid="Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_Albatross_Messaging_Configurations_DiskStorageConfiguration_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_DataLogging_BufferedTextWriter_" data-uid="Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor(Albatross.Messaging.Configurations.DiskStorageConfiguration,Microsoft.Extensions.Logging.ILogger,Albatross.Messaging.DataLogging.BufferedTextWriter)">
-  DiskStorageLogWriter(DiskStorageConfiguration, ILogger, BufferedTextWriter)
+  <h3 id="Albatross_Messaging_DataLogging_DiskStorageLogWriter__ctor_System_String_Albatross_Messaging_Configurations_DiskStorageConfiguration_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="Albatross.Messaging.DataLogging.DiskStorageLogWriter.#ctor(System.String,Albatross.Messaging.Configurations.DiskStorageConfiguration,Microsoft.Extensions.Logging.ILoggerFactory)">
+  DiskStorageLogWriter(string, DiskStorageConfiguration, ILoggerFactory)
   
   </h3>
 
@@ -155,16 +157,16 @@ a <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html"
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DiskStorageLogWriter(DiskStorageConfiguration config, ILogger logger, BufferedTextWriter lineWriter)</code></pre>
+    <pre><code class="lang-csharp hljs">public DiskStorageLogWriter(string name, DiskStorageConfiguration config, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
     <dt><code>config</code> <a class="xref" href="Albatross.Messaging.Configurations.DiskStorageConfiguration.html">DiskStorageConfiguration</a></dt>
     <dd></dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
-    <dd></dd>
-    <dt><code>lineWriter</code> <a class="xref" href="Albatross.Messaging.DataLogging.BufferedTextWriter.html">BufferedTextWriter</a></dt>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
     <dd></dd>
   </dl>
 

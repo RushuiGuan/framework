@@ -1685,10 +1685,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.HttpRequestLoggingMiddleware.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.HttpRequestLoggingMiddleware.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Hosting.ITransformAngularConfig.yml",
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Hosting.ITransformAngularConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.PlainTextInputFormatter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.PlainTextInputFormatter.html"
         }
       },
       "version": ""
@@ -1955,20 +1975,20 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.TextPlainInputFormatter.yml",
+      "source_relative_path": "api/Albatross.Hosting.TransformAngularConfig.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Hosting.TextPlainInputFormatter.html"
+          "relative_path": "api/Albatross.Hosting.TransformAngularConfig.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.TransformAngularConfig.yml",
+      "source_relative_path": "api/Albatross.Hosting.UsageData.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Hosting.TransformAngularConfig.html"
+          "relative_path": "api/Albatross.Hosting.UsageData.html"
         }
       },
       "version": ""
@@ -2605,6 +2625,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Messaging.DataLogging.DealerClientLogReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Messaging.DataLogging.DealerClientLogReader.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Messaging.DataLogging.DiskStorageLogReader.yml",
       "output": {
         ".html": {
@@ -2679,6 +2709,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Messaging.DataLogging.NoOpDataLogWriter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Messaging.DataLogging.RouterServerLogReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Messaging.DataLogging.RouterServerLogReader.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Messaging.DataLogging.RouterServerLogWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Messaging.DataLogging.RouterServerLogWriter.html"
         }
       },
       "version": ""
@@ -3185,10 +3235,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.MessagingJsonSerializationOption.yml",
+      "source_relative_path": "api/Albatross.Messaging.MessagingJsonSettings.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Messaging.MessagingJsonSerializationOption.html"
+          "relative_path": "api/Albatross.Messaging.MessagingJsonSettings.html"
         }
       },
       "version": ""
@@ -3475,20 +3525,20 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.Services.DealerClientLogReader.yml",
+      "source_relative_path": "api/Albatross.Messaging.Services.DealerClientBuilder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Messaging.Services.DealerClientLogReader.html"
+          "relative_path": "api/Albatross.Messaging.Services.DealerClientBuilder.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.Services.DealerClientLogWriter.yml",
+      "source_relative_path": "api/Albatross.Messaging.Services.DurableAtomicCounter.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Messaging.Services.DealerClientLogWriter.html"
+          "relative_path": "api/Albatross.Messaging.Services.DurableAtomicCounter.html"
         }
       },
       "version": ""
@@ -3499,6 +3549,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Messaging.Services.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Messaging.Services.IAtomicCounter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Messaging.Services.IAtomicCounter-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Messaging.Services.IDealerClientBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Messaging.Services.IDealerClientBuilder.html"
         }
       },
       "version": ""
@@ -3569,26 +3639,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Messaging.Services.RouterServer.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.Services.RouterServerLogReader.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.Services.RouterServerLogReader.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.Services.RouterServerLogWriter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.Services.RouterServerLogWriter.html"
         }
       },
       "version": ""

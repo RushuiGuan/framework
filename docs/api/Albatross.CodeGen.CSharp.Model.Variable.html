@@ -121,6 +121,9 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
   </dd></dl>
@@ -135,8 +138,8 @@
 
   <a id="Albatross_CodeGen_CSharp_Model_Variable__ctor_" data-uid="Albatross.CodeGen.CSharp.Model.Variable.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Model_Variable__ctor_System_String_" data-uid="Albatross.CodeGen.CSharp.Model.Variable.#ctor(System.String)">
-  Variable(string)
+  <h3 id="Albatross_CodeGen_CSharp_Model_Variable__ctor_System_String_System_Boolean_" data-uid="Albatross.CodeGen.CSharp.Model.Variable.#ctor(System.String,System.Boolean)">
+  Variable(string, bool)
   
   </h3>
 
@@ -144,17 +147,53 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Variable(string name)</code></pre>
+    <pre><code class="lang-csharp hljs">public Variable(string name, bool useVerbatimCharacter)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
+    <dt><code>useVerbatimCharacter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
   </dl>
 
 
 
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Albatross_CodeGen_CSharp_Model_Variable_VerbatimCharacter" data-uid="Albatross.CodeGen.CSharp.Model.Variable.VerbatimCharacter">
+  VerbatimCharacter
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const char VerbatimCharacter = &#39;@&#39;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -189,6 +228,37 @@
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeGen_CSharp_Model_Variable_UseVerbatimCharacter_" data-uid="Albatross.CodeGen.CSharp.Model.Variable.UseVerbatimCharacter*"></a>
+
+  <h3 id="Albatross_CodeGen_CSharp_Model_Variable_UseVerbatimCharacter" data-uid="Albatross.CodeGen.CSharp.Model.Variable.UseVerbatimCharacter">
+  UseVerbatimCharacter
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseVerbatimCharacter { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 

@@ -313,8 +313,8 @@ if necessary.  There are 3 possible operations.</p>
 </ol>
 <p>If the insert flag is false, the method will always append the record by setting the end date as the <a class="xref" href="Albatross.Repository.DateLevelEntity.html#Albatross_Repository_DateLevelEntity_MaxEndDate">MaxEndDate</a>
 The method will remove any existing record between the start date and the end date</p>
-<p>If the insert flag is true and the end date of the record equals <a class="xref" href="Albatross.Repository.DateLevelEntity.html#Albatross_Repository_DateLevelEntity_MaxEndDate">MaxEndDate</a>, the method will insert using the start date only.  If the end date of the
-record is specified, the method will insert only if it</p>
+<p>If the insert flag is true and the end date of the record equals <a class="xref" href="Albatross.Repository.DateLevelEntity.html#Albatross_Repository_DateLevelEntity_MaxEndDate">MaxEndDate</a>, the method will insert using the start date only.<br>
+If the end date of the record is specified, the method will insert only if the end date is one day before the start date of the next record</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
