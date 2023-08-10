@@ -6,6 +6,7 @@ using Albatross.WebClient;
 using System.Collections.Generic;
 using Albatross.Serialization;
 
+#nullable enable
 namespace Albatross.CodeGen.WebClient.WebClient {
 	public partial class TestHttpPostProxyService : Albatross.WebClient.ClientBase {
 		public TestHttpPostProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client, Albatross.Serialization.DefaultJsonSettings.Value) {
@@ -15,7 +16,7 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 			string path = $"{ControllerPath}/from-body";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateJsonRequest<Albatross.WebClient.Test.Messages.Dto>(HttpMethod.Post, path, queryString, @dto)) {
-				return await this.GetJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> PostStringOnly(System.String @body) {
@@ -58,3 +59,4 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 		}
 	}
 }
+#nullable disable

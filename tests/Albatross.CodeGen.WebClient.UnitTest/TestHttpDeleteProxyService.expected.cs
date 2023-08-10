@@ -6,6 +6,7 @@ using Albatross.WebClient;
 using System.Collections.Generic;
 using Albatross.Serialization;
 
+#nullable enable
 namespace Albatross.CodeGen.WebClient.WebClient {
 	public partial class TestHttpDeleteProxyService : Albatross.WebClient.ClientBase {
 		public TestHttpDeleteProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client, Albatross.Serialization.DefaultJsonSettings.Value) {
@@ -78,3 +79,4 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 		}
 	}
 }
+#nullable disable
