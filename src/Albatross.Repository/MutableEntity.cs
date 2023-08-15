@@ -6,13 +6,13 @@ namespace Albatross.Repository {
 		public DateTime ModifiedUtc { get; protected set; }
 
 		[Required]
-		[MaxLength(Constant.UserNameLength)]
+		[MaxLength(128)]
 		public string ModifiedBy { get; protected set; } = string.Empty;
 
 		public DateTime CreatedUtc { get; protected set; }
 
 		[Required]
-		[MaxLength(Constant.UserNameLength)]
+		[MaxLength(128)]
 		public string CreatedBy { get; protected set; } = string.Empty;
 
 		public void Audit(string user, IDbSession session) {

@@ -6,7 +6,7 @@ namespace Albatross.Repository {
 		public DateTime CreatedUtc { get; protected set; }
 
 		[Required]
-		[MaxLength(Constant.UserNameLength)]
+		[MaxLength(128)]
 		public string CreatedBy { get; protected set; } = string.Empty;
 
 		protected void Audit(string user) {
