@@ -61,7 +61,7 @@ namespace Albatross.Caching {
 		}
 
 		// dash below is intentional so that it can be used as part of the prefix to evict all cache created by this class
-		public virtual string GetCacheKey(Context context) => $"{Name}{Constant.CacheKeyDelimiter}{context.OperationKey}".ToLowerInvariant();
+		public virtual string GetCacheKey(Context context) => $"{Name}{ICacheManagement.CacheKeyDelimiter}{context.OperationKey}".ToLowerInvariant();
 
 		public void Remove(params Context[] contexts) {
 			var keys = contexts.Select(args => GetCacheKey(args));

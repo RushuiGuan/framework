@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Caching {
 	public interface ICacheManagement {
+		public const char CacheKeyDelimiter = ':';
 		string Name { get; }
 		ITtlStrategy TtlStrategy { get; }
 		string GetCacheKey(Context context);
