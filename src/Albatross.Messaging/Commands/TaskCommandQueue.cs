@@ -19,13 +19,15 @@ namespace Albatross.Messaging.Commands {
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);
 				// run everything else using a diff thread
 				await Task.Run(async () => {
-					if (job.Command is ILogExtraData logExtra) {
-						logger.LogInformation("running {command} by {client}({id}), parameter: {@parameter}", job.Registration.CommandType, job.Route, job.Id, logExtra.Target);
+					if (job.Command is ILogDetail logDetail) {
+						logger.LogInformation("Running {command} by {client}({id}), parameter: {@parameter}", 
+							job.Registration.CommandType, job.Route, job.Id, logDetail.Target);
 					} else {
-						logger.LogInformation("running {command} by {client}({id})", job.Registration.CommandType, job.Route, job.Id);
+						logger.LogInformation("Running {command} by {client}({id})", 
+							job.Registration.CommandType, job.Route, job.Id);
 					}
 					var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
-					logger.LogInformation("done {commandId}", job.Id);
+					logger.LogInformation("Done {commandId}", job.Id);
 
 					if (job.Registration.HasReturnType) {
 						var stream = new MemoryStream();
@@ -39,7 +41,7 @@ namespace Albatross.Messaging.Commands {
 			} catch (Exception err) {
 				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "unknown class", err.Message.ToUtf8Bytes());
 				routerServer.SubmitToQueue(job);
-				logger.LogError(err, "failed {commandId}", job.Id);
+				logger.LogError(err, "Failed {commandId}", job.Id);
 			}
 		}
 	}
