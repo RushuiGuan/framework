@@ -19,7 +19,7 @@ namespace Albatross.Messaging.Commands {
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);
 				// run everything else using a diff thread
 				await Task.Run(async () => {
-					logger.LogInformation("running {command} by {client}({id})", job.Registration.CommandType, job.Route, job.Id);
+					logger.LogInformation("running {command} by {client}({id})\n{@parameter}", job.Registration.CommandType, job.Route, job.Id, job.Command);
 					var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
 					logger.LogInformation("done {commandId}", job.Id);
 
