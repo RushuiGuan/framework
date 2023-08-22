@@ -204,5 +204,24 @@ namespace Albatross.Repository {
 				&& args.EndDate >= effectiveDate).FirstOrDefault();
 			return item;
 		}
+
+		/// <summary>
+		/// Provided a date level series and a date range, this method will search and return items
+		/// where the date range falls between the start and end dates.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="source"></param>
+		/// <param name="fromDate"></param>
+		/// <param name="toDate"></param>
+		/// <returns></returns>
+		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateTime fromDate, DateTime toDate)
+			where T : DateLevelEntity {
+			var items = source.Where(args => (
+				((args.StartDate >= fromDate && args.StartDate <= toDate) || (args.EndDate >= fromDate && args.EndDate <= toDate))
+				|| ((fromDate >= args.StartDate && fromDate <= args.EndDate) || (toDate >= args.StartDate && toDate <= args.EndDate))
+			));
+
+			return items;
+		}
 	}
 }
