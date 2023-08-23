@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Services {
 		private bool running = false;
 		private bool disposed = false;
 		private Client self;
-		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
+		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>(0);
 
 		public ILogWriter DataLogger => this.logWriter;
 		public IAtomicCounter<ulong> Counter => this.counter;

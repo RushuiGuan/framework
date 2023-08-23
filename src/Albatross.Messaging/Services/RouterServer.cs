@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IRouterServerService> transmitServices;
 		private IEnumerable<IRouterServerService> timerServices;
 		private Dictionary<string, Client> clients = new Dictionary<string, Client>();
-		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>();
+		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>(0);
 
 
 		public ILogWriter DataLogger => this.logWriter;

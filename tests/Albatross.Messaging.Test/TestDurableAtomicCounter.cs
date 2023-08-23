@@ -14,7 +14,7 @@ namespace Albatross.Messaging.Test {
 			if (File.Exists(file)) {
 				File.Delete(file);
 			}
-			var counter = new DurableAtomicCounter(directory, name, new Mock<ILogger>().Object);
+			var counter = new DurableAtomicCounter(directory, name, 1, new Mock<ILogger>().Object);
 			Assert.Equal(0UL, counter.Counter);
 			Assert.Equal(1UL, counter.NextId());
 		}
@@ -27,31 +27,57 @@ namespace Albatross.Messaging.Test {
 			if (File.Exists(file)) {
 				File.Delete(file);
 			}
-			var counter = new DurableAtomicCounter(directory, name, new Mock<ILogger>().Object);
+			var counter = new DurableAtomicCounter(directory, name, 1, new Mock<ILogger>().Object);
 			Assert.Equal(0UL, counter.Counter);
 			Assert.Equal(1UL, counter.NextId());
 			Assert.Equal(2UL, counter.NextId());
 			counter.Dispose();
-			counter = new DurableAtomicCounter(directory, name, new Mock<ILogger>().Object);
+			counter = new DurableAtomicCounter(directory, name, 1, new Mock<ILogger>().Object);
 			Assert.Equal(2UL, counter.Counter);
 		}
 
 		[Fact]
-		public void TestSetValue () {
+		public void TestWriteWithNextId() {
 			string directory = @"c:\temp";
 			string name = "my-counter3.txt";
 			string file = Path.Combine(directory, name);
 			if (File.Exists(file)) {
 				File.Delete(file);
 			}
-			var counter = new DurableAtomicCounter(directory, name, new Mock<ILogger>().Object);
+			var counter = new DurableAtomicCounter(directory, name, 3, new Mock<ILogger>().Object);
 			Assert.Equal(0UL, counter.Counter);
-			counter.Set(999);
-			Assert.Equal(999UL, counter.Counter);
+			Assert.Equal(1UL, counter.NextId());
+			Assert.Equal(2UL, counter.NextId());
+			Assert.Equal(3UL, counter.NextId());
 			counter.Dispose();
 
-			counter = new DurableAtomicCounter(directory, name, new Mock<ILogger>().Object);
-			Assert.Equal(999UL, counter.Counter);
+			counter = new DurableAtomicCounter(directory, name, 1, new Mock<ILogger>().Object);
+			Assert.Equal(3UL, counter.Counter);
+			Assert.Equal(4UL, counter.NextId());
+		}
+
+		[Fact]
+		public void TestTheFirstWriteAfterReadInTheConstructor() {
+			string directory = @"c:\temp";
+			string name = "my-counter3.txt";
+			string file = Path.Combine(directory, name);
+			if (File.Exists(file)) {
+				File.Delete(file);
+			}
+			var counter = new DurableAtomicCounter(directory, name, 10, new Mock<ILogger>().Object);
+			Assert.Equal(0UL, counter.Counter);
+			Assert.Equal(1UL, counter.NextId());
+			counter.Dispose();
+
+			counter = new DurableAtomicCounter(directory, name, 10, new Mock<ILogger>().Object);
+			Assert.Equal(10UL, counter.Counter);
+			Assert.Equal(11UL, counter.NextId());
+			counter.Dispose();
+
+			counter = new DurableAtomicCounter(directory, name, 10, new Mock<ILogger>().Object);
+			Assert.Equal(20UL, counter.Counter);
+			Assert.Equal(21UL, counter.NextId());
+			counter.Dispose();
 		}
 	}
 }
