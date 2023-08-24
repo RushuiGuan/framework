@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
@@ -58,7 +58,7 @@ namespace Albatross.Repository {
 			return builder;
 		}
 
-		public static void EnsureNavigationProperty(this object? value, params string[] propertyNames) {
+		public static void EnsureNavigationProperty([NotNull]this object? value, params string[] propertyNames) {
 			if (value == null) {
 				throw new MissingNavigationPropertyException(propertyNames);
 			}
