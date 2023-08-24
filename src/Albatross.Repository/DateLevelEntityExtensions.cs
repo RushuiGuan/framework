@@ -1,7 +1,10 @@
 using Castle.Components.DictionaryAdapter.Xml;
+using Castle.Core.Logging;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Albatross.Repository {
 	public static class DateLevelEntityExtensions {
@@ -216,11 +219,26 @@ namespace Albatross.Repository {
 		/// <returns></returns>
 		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateTime fromDate, DateTime toDate)
 			where T : DateLevelEntity {
-			var items = source.Where(args => (
-				((args.StartDate >= fromDate && args.StartDate <= toDate) || (args.EndDate >= fromDate && args.EndDate <= toDate))
-				|| ((fromDate >= args.StartDate && fromDate <= args.EndDate) || (toDate >= args.StartDate && toDate <= args.EndDate))
-			));
+			//var items = source.Where(args => (
+			//	((args.StartDate >= fromDate && args.StartDate <= toDate) || (args.EndDate >= fromDate && args.EndDate <= toDate))
+			//	|| ((fromDate >= args.StartDate && fromDate <= args.EndDate) || (toDate >= args.StartDate && toDate <= args.EndDate))
+			//));
 
+			var items = source.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate));
+			return items;
+		}
+
+
+		/// <summary>
+		/// example: Session.DbContext.GetDateLevelEntityByDateRange<Child>(fromDate, toDate, "Parent");
+		/// </summary>
+		public static async Task<IEnumerable<T>> GetDateLevelEntityByDateRange<T>(this DbContext context, DateTime fromDate, DateTime toDate, params string[] includes)
+			where T : DateLevelEntity {
+			IQueryable<T> query = context.Set<T>();
+			foreach(var item in includes) {
+				query = query.Include(item);
+			}
+			var items = await query.Where(args => (fromDate > args.EndDate || toDate < args.StartDate)).ToArrayAsync();
 			return items;
 		}
 	}
