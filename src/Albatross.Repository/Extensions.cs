@@ -58,9 +58,9 @@ namespace Albatross.Repository {
 			return builder;
 		}
 
-		public static void EnsureNavigationProperty(this object? value, string propertyName) {
+		public static void EnsureNavigationProperty(this object? value, params string[] propertyNames) {
 			if (value == null) {
-				throw new MissingNavigationPropertyException(propertyName);
+				throw new MissingNavigationPropertyException(propertyNames);
 			}
 		}
 	}

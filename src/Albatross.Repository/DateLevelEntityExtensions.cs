@@ -219,13 +219,7 @@ namespace Albatross.Repository {
 		/// <returns></returns>
 		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateTime fromDate, DateTime toDate)
 			where T : DateLevelEntity {
-			//var items = source.Where(args => (
-			//	((args.StartDate >= fromDate && args.StartDate <= toDate) || (args.EndDate >= fromDate && args.EndDate <= toDate))
-			//	|| ((fromDate >= args.StartDate && fromDate <= args.EndDate) || (toDate >= args.StartDate && toDate <= args.EndDate))
-			//));
-
-			var items = source.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate));
-			return items;
+			return source.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate));
 		}
 
 
@@ -238,7 +232,7 @@ namespace Albatross.Repository {
 			foreach(var item in includes) {
 				query = query.Include(item);
 			}
-			var items = await query.Where(args => (fromDate > args.EndDate || toDate < args.StartDate)).ToArrayAsync();
+			var items = await query.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate)).ToArrayAsync();
 			return items;
 		}
 	}
