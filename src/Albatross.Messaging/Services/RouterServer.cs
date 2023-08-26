@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IRouterServerService> transmitServices;
 		private IEnumerable<IRouterServerService> timerServices;
 		private Dictionary<string, Client> clients = new Dictionary<string, Client>();
-		private AtomicCounter<ulong> counter = new AtomicCounter<ulong>(0);
+		private IAtomicCounter<ulong> counter;
 
 
 		public ILogWriter DataLogger => this.logWriter;
@@ -42,6 +42,7 @@ namespace Albatross.Messaging.Services {
 			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
+			this.counter = new DurableAtomicCounter(config.DiskStorage.WorkingDirectory, loggerFactory.CreateLogger("router-server-counter"));
 			this.logWriter = new DiskStorageLogWriter("router-server", config.DiskStorage, loggerFactory);
 			this.logReader = new DiskStorageLogReader(config.DiskStorage, messageFactory, loggerFactory.CreateLogger("router-server-log-reader"));
 			this.socket = new RouterSocket();
@@ -207,6 +208,7 @@ namespace Albatross.Messaging.Services {
 				poller.Dispose();
 				queue.Dispose();
 				logWriter.Dispose();
+				((IDisposable)counter).Dispose();
 				disposed = true;
 				logger.LogInformation("router server disposed");
 			}

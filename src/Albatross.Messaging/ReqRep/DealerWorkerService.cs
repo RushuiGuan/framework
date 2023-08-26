@@ -1,7 +1,6 @@
 ﻿using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
 using Microsoft.Extensions.Logging;
-using NetMQ;
 using System;
 using System.Collections.Generic;
 using Albatross.Messaging.Services;
@@ -10,7 +9,7 @@ using Albatross.Messaging.ReqRep.Messages;
 namespace Albatross.Messaging.ReqRep {
 	public class DealerWorkerService : IDealerClientService {
 		private readonly ILogger<DealerWorkerService> logger;
-		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>(0);
+		private readonly IAtomicCounter<ulong> counter = new AtomicCounter<ulong>(0);
 		private readonly DealerWorkerConfiguration config;
 		private readonly IMessageFactory messageFactory;
 		private readonly TimeSpan heartbeatThreshold;
