@@ -68,7 +68,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 				return false;
 			}
 		}
-		public void ProcessTimerElapsed(IMessagingService routerServer) {
+		public void ProcessTimerElapsed(IMessagingService routerServer, ulong count) {
 			if (subscriberManagement.ShouldSave) {
 				logger.LogInformation("saving publisher subscriptions");
 				this.subscriberManagement.Save(routerServer.DataLogger, routerServer.Counter);

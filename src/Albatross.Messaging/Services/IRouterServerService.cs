@@ -4,7 +4,7 @@ namespace Albatross.Messaging.Services {
 	public interface IRouterServerService {
 		bool ProcessReceivedMsg(IMessagingService routerServer, IMessage msg);
 		bool ProcessTransmitQueue(IMessagingService routerServer, object msg);
-		void ProcessTimerElapsed(IMessagingService routerServer);
+		void ProcessTimerElapsed(IMessagingService routerServer, ulong count);
 
 		bool CanReceive { get; }
 		/// <summary>

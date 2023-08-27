@@ -1,167 +1,73 @@
-﻿using NetMQ.Sockets;
-using NetMQ;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Albatross.Messaging.Messages;
-using Albatross.Messaging.Configurations;
-using Albatross.Messaging.DataLogging;
 using System;
 using Albatross.Messaging.Services;
 using Albatross.Messaging.ReqRep.Messages;
 
 namespace Albatross.Messaging.ReqRep {
-	public class RouterBrokerService : IBrokerService, IMessagingService, IDisposable {
-		private readonly AtomicCounter<ulong> counter = new AtomicCounter<ulong>(0);
-		private readonly BrokerConfiguration config;
-		private readonly IMessageFactory messageFactory;
+	public class RouterBrokerService : IRouterServerService {
 		private readonly ILogger<RouterBrokerService> logger;
 		private readonly WorkerRegistry registry;
-		private readonly ILogWriter logWriter;
-		private readonly TimeSpan heartbeatThreshold;
-		private readonly RouterSocket socket;
-		private readonly NetMQTimer timer;
-		private readonly NetMQPoller poller;
 
-		ILogWriter IMessagingService.DataLogger => logWriter;
+		public bool CanReceive => true;
+		public bool HasCustomTransmitObject => throw new NotImplementedException();
+		public bool NeedTimer => throw new NotImplementedException();
 
-		bool disposed = false;
-		public string Identity => config.Identity;
-		public IAtomicCounter<ulong> Counter => this.counter;
-
-		public RouterBrokerService(BrokerConfiguration config, WorkerRegistry registry, ILogWriter logWriter, IMessageFactory messageFactory, ILogger<RouterBrokerService> logger) {
-			this.config = config;
+		public RouterBrokerService(WorkerRegistry registry, ILogger<RouterBrokerService> logger) {
 			this.registry = registry;
-			this.logWriter = logWriter;
-			this.messageFactory = messageFactory;
 			this.logger = logger;
-			heartbeatThreshold = TimeSpan.FromMilliseconds(config.ActualHeartbeatThreshold);
-			socket = new RouterSocket();
-			socket.ReceiveReady += Socket_ReceiveReady;
-			timer = new NetMQTimer(TimeSpan.FromMilliseconds(config.ActualHeartbeatInterval));
-			timer.Elapsed += TimerElapsed;
-			poller = new NetMQPoller { socket, timer };
 		}
 
-
-		/// <summary>
-		/// TODO: when a worker is lost in the middle of a job.  how should the dealer behave?
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="args"></param>
-		protected void TimerElapsed(object? sender, NetMQTimerEventArgs args) {
-			try {
-				foreach (var worker in registry) {
-					if (worker.IsActive) {
-						var elapsed = DateTime.UtcNow - worker.LastHeartbeat;
-						if (elapsed > heartbeatThreshold) {
-							worker.StateChange(WorkerState.Unavailable);
-							logger.LogInformation("lost: {name}, {elapsed:#,#} > {threshold:#,#}", worker.Identity, elapsed.TotalMilliseconds, heartbeatThreshold.TotalMilliseconds);
-						}
-					}
-				}
-			} catch (Exception err) {
-				logger.LogError(err, "error processing broker service timer event");
-			}
-		}
-		private void Socket_ReceiveReady(object? sender, NetMQSocketEventArgs args) {
-			try {
-				var frames = args.Socket.ReceiveMultipartMessage();
-				var msg = messageFactory.Create(frames);
-				switch (msg) {
-					case WorkerConnect connect:
-						AcceptConnection(connect);
-						break;
-					case WorkerHeartbeat heartbeat:
-						AcceptHeartbeat(heartbeat);
-						break;
-					case ClientRequest request:
-						AcceptCommand(request);
-						break;
-					case WorkerResponse response:
-						AcceptWorkerResponse(response);
-						break;
-					default:
-						logger.LogInformation("unhandled router broker msg: {msg}", msg);
-						break;
-				}
-			} catch (Exception err) {
-				logger.LogError(err, "error processing broker message");
-			}
-		}
-
-		private void AcceptWorkerResponse(WorkerResponse response) {
-			if (registry.TryGetWorker(response.Route, out var worker)) {
-				worker.LastHeartbeat = DateTime.UtcNow;
-				if (worker.IsActive) {
-					// run the next job in queue
-				} else {
-
-				}
-			}
-		}
-
-		private void AcceptCommand(ClientRequest request) {
-			if (registry.TryFindNextAvailableWorker(request.Service, out var worker)) {
-				if (config.AllowParallelExecution || worker.State == WorkerState.Ready) {
-					this.Transmit(new BrokerRequest(worker.Identity, counter.NextId(), request.Route, request.Payload));
-				} else {
-					worker.Requests.Enqueue(request);
-				}
-			} else {
-				this.Transmit(new NoAvailableWorker(request.Route, request.Id, request.Service));
-			}
-		}
-
-		private void AcceptHeartbeat(WorkerHeartbeat heartbeat) {
-			if (registry.TryGetWorker(heartbeat.Route, out var worker) && worker.IsActive) {
-				worker.LastHeartbeat = DateTime.UtcNow;
-				this.Transmit(new ServerAck(heartbeat.Route, counter.NextId()));
-			} else {
-				this.Transmit(new AAReconnect(heartbeat.Route, counter.NextId()));
-			}
-		}
-
-		/// <summary>
-		/// when a worker is reconnected, if there are any request in its queue, the broker will send the request instead of a ConnectOk message.
-		/// </summary>
-		/// <param name="msg"></param>
-		private void AcceptConnection(WorkerConnect msg) {
+		private void AcceptConnection(WorkerConnect msg, IMessagingService routerServer) {
 			var worker = registry.Add(msg.Route, msg.Services);
 			worker.LastHeartbeat = DateTime.UtcNow;
-			worker.StateChange(WorkerState.Connected);
-			if (worker.Requests.Count > 0) {
-				var request = worker.Requests.Dequeue();
-				this.Transmit(new BrokerRequest(worker.Identity, counter.NextId(), request.Route, request.Payload));
+			worker.State = WorkerState.Connected;
+			routerServer.Transmit(new BrokerConnected(msg.Route, msg.Id));
+		}
+
+		private void AcceptRequest(ClientRequest request, IMessagingService routerServer) {
+			if (registry.TryFindNextAvailableWorker(request.Service, out var worker)) {
+				var brokerRequest = new BrokerRequest(worker.Identity, routerServer.Counter.NextId(), request.Route, request.Id, request.Payload);
+				routerServer.Transmit(brokerRequest);
+				worker.Requests.Add(request);
 			} else {
-				this.Transmit(new BrokerConnectOk(msg.Route, counter.NextId(), config.ActualHeartbeatInterval, config.ActualHeartbeatThreshold));
+				routerServer.Transmit(new NoAvailableWorker(request.Route, request.Id, request.Service));
 			}
 		}
 
-		public void Start() {
-			logger.LogInformation("starting broker and binding to router socket at {endpoint} as {identity}", config.EndPoint, Identity);
-			socket.Bind(config.EndPoint);
-			poller.RunAsync();
-		}
 
-		public void Dispose() {
-			if (!disposed) {
-				logger.LogInformation("closing and disposing broker socket");
-				poller.Dispose();
-				socket.Dispose();
-				disposed = true;
+		private void AcceptWorkerResponse(WorkerResponse response, IMessagingService routerServer) {
+			// forward it back to client
+			routerServer.Transmit(new BrokerResponse(response.ClientId, response.RequestId, response.Payload));
+			if (registry.TryGetWorker(response.Route, out var worker)) {
+				worker.LastHeartbeat = DateTime.UtcNow;
+			} else {
+				// if the worker is not found. send a reconnect command
+				routerServer.Transmit(new Messages.BrokerReconnect(response.Route, routerServer.Counter.NextId()));
 			}
 		}
 
-		public void SubmitToQueue(object message) {
-			throw new NotImplementedException();
-		}
-		public void Transmit(IMessage msg) {
-			logWriter.WriteLogEntry(new LogEntry(EntryType.Out, msg));
-			var frames = msg.Create();
-			this.socket.SendMultipartMessage(frames);
+		public bool ProcessReceivedMsg(IMessagingService routerServer, IMessage msg) {
+			switch (msg) {
+				case WorkerConnect connect:
+					AcceptConnection(connect, routerServer);
+					return true;
+				case ClientRequest request:
+					AcceptRequest(request, routerServer);
+					return true;
+				case WorkerResponse response:
+					AcceptWorkerResponse(response, routerServer);
+					return true;
+				default:
+					return false;
+			}
 		}
 
-		public ClientState GetClientState(string identity) {
-			throw new NotImplementedException();
+		public bool ProcessTransmitQueue(IMessagingService routerServer, object msg) {
+			return false;
+		}
+		public void ProcessTimerElapsed(IMessagingService routerServer, ulong count) {
+			// check workers and see if any one of them is dead
 		}
 	}
 }

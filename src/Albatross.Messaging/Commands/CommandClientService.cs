@@ -47,7 +47,7 @@ namespace Albatross.Messaging.Commands {
 			return false;
 		}
 		public bool ProcessTransmitQueue(IMessagingService dealerClient, object msg) => false;
-		public void ProcessTimerElapsed(DealerClient dealerClient) { }
+		public void ProcessTimerElapsed(DealerClient dealerClient, ulong counter) { }
 		private void AcceptStatusReply(IMessagingService _, CommandQueueStatusReply statusReply) {
 			if (commandCallbacks.Remove(statusReply.Id, out var callback)) {
 				var result = JsonSerializer.Deserialize<CommandQueueInfo[]>(statusReply.Payload, MessagingJsonSettings.Value.Default)

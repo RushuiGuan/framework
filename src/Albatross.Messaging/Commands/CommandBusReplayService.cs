@@ -94,6 +94,6 @@ namespace Albatross.Messaging.Commands {
 			}
 			return false;
 		}
-		public void ProcessTimerElapsed(IMessagingService routerServer) { }
+		public void ProcessTimerElapsed(IMessagingService routerServer, ulong count) { }
 	}
 }

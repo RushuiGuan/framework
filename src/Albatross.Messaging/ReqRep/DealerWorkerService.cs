@@ -39,10 +39,10 @@ namespace Albatross.Messaging.ReqRep {
 
 		public bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg) {
 			switch (msg) {
-				case AAReconnect _:
+				case Messages.BrokerReconnect _:
 					dealerClient.Transmit(new WorkerConnect(Identity, counter.NextId(), Services));
 					break;
-				case BrokerConnectOk _:
+				case BrokerConnected _:
 					lastHeartbeat = DateTime.UtcNow;
 					if (state == WorkerState.Unavailable) {
 						state = WorkerState.Connected;
@@ -61,7 +61,7 @@ namespace Albatross.Messaging.ReqRep {
 		}
 
 		public bool ProcessTransmitQueue(IMessagingService dealerClient, object msg) => false;
-		public void ProcessTimerElapsed(DealerClient dealerClient) {
+		public void ProcessTimerElapsed(DealerClient dealerClient, ulong counter) {
 			try {
 				if (state != WorkerState.Unavailable) {
 					var elapsed = DateTime.UtcNow - lastHeartbeat;
@@ -69,7 +69,7 @@ namespace Albatross.Messaging.ReqRep {
 						state = WorkerState.Unavailable;
 						logger.LogInformation("disconnect: {elapsed:#,#} > {threshold:#,#}", elapsed.TotalMilliseconds, heartbeatThreshold.TotalMilliseconds);
 					} else {
-						dealerClient.Transmit(new WorkerHeartbeat(Identity, counter.NextId()));
+						dealerClient.Transmit(new Heartbeat(Identity, this.counter.NextId()));
 					}
 				}
 			} catch (Exception err) {

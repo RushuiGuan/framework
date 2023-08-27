@@ -75,7 +75,7 @@ namespace Albatross.Messaging.Eventing.Sub {
 			return false;
 		}
 		public bool ProcessTransmitQueue(IMessagingService dealerClient, object _) => false;
-		public void ProcessTimerElapsed(DealerClient dealerClient) { }
+		public void ProcessTimerElapsed(DealerClient dealerClient, ulong counter) { }
 
 		/// <summary>
 		/// thread safe call to subscribe to a pattern

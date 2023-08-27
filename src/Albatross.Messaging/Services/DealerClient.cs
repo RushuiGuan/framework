@@ -28,6 +28,7 @@ namespace Albatross.Messaging.Services {
 		private bool disposed = false;
 		private Client self;
 		private IAtomicCounter<ulong> counter;
+		private ulong timerCounter;
 
 		public ILogWriter DataLogger => this.logWriter;
 		public IAtomicCounter<ulong> Counter => this.counter;
@@ -62,6 +63,7 @@ namespace Albatross.Messaging.Services {
 		public string Identity => this.self.Identity;
 
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
+			timerCounter++;
 			if (config.MaintainConnection) {
 				if (self.State != ClientState.Dead) {
 					var elapsed = DateTime.UtcNow - self.LastHeartbeat;
@@ -75,7 +77,7 @@ namespace Albatross.Messaging.Services {
 			}
 			foreach (var service in this.timerServices) {
 				try {
-					service.ProcessTimerElapsed(this);
+					service.ProcessTimerElapsed(this, timerCounter);
 				} catch (Exception ex) {
 					logger.LogError(ex, "error processing timer elapsed from {type}", service.GetType().FullName);
 				}

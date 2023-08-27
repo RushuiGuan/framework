@@ -2,37 +2,39 @@
 using Albatross.Messaging.Messages;
 using NetMQ;
 using System.IO;
+using System.Linq;
 
 namespace Albatross.Messaging.ReqRep.Messages {
-	public record class NoAvailableWorker : Message, IMessage {
-		public static string MessageHeader => "no-worker";
-		public string Service { get; private set; } = string.Empty;
+	public record class BrokerAck : Message, IMessage {
+		public static string MessageHeader => "broker-ack";
+		public string Worker { get; private set; } = string.Empty;
 
-		public NoAvailableWorker(string route, ulong messageId, string service) : base(MessageHeader, route, messageId) {
-			Service = service;
+
+		public BrokerAck(string route, ulong id, string worker) : base(MessageHeader, route, id) {
+			this.Worker = worker;
 		}
-		public NoAvailableWorker() { }
+		public BrokerAck() { }
 
 		public override void ReadFromFrames(NetMQMessage msg) {
 			base.ReadFromFrames(msg);
 			var index = base.StartingFrameIndex;
-			this.Service = msg[index++].Buffer.ToUtf8String();
+			this.Worker = msg[index++].Buffer.ToUtf8String();
 		}
 		public override void WriteToFrames(NetMQMessage msg) {
 			base.WriteToFrames(msg);
-			msg.AppendUtf8String(this.Service);
+			msg.AppendUtf8String(this.Worker);
 		}
 		public override void ReadFromText(string line, ref int offset) {
 			base.ReadFromText(line, ref offset);
 			if (line.TryGetText(LogDelimiter, ref offset, out var text)) {
-				this.Service = text;
+				this.Worker = text;
 				return;
 			}
 			throw new InvalidMsgLogException(line);
 		}
 		public override void WriteToText(TextWriter writer) {
 			base.WriteToText(writer);
-			writer.Space().Append(this.Service);
+			writer.Space().Append(this.Worker);
 		}
 	}
 }

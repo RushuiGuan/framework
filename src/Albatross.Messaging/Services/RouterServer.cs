@@ -28,6 +28,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IRouterServerService> timerServices;
 		private Dictionary<string, Client> clients = new Dictionary<string, Client>();
 		private IAtomicCounter<ulong> counter;
+		private ulong timerCounter;
 
 
 		public ILogWriter DataLogger => this.logWriter;
@@ -62,6 +63,7 @@ namespace Albatross.Messaging.Services {
 		}
 
 		private void Timer_Elapsed(object? sender, NetMQTimerEventArgs e) {
+			timerCounter++;
 			if (config.MaintainConnection) {
 				foreach (var client in this.clients.Values) {
 					if (client.State != ClientState.Dead) {
@@ -75,7 +77,7 @@ namespace Albatross.Messaging.Services {
 			}
 			foreach (var service in this.timerServices) {
 				try {
-					service.ProcessTimerElapsed(this);
+					service.ProcessTimerElapsed(this, timerCounter);
 				} catch (Exception ex) {
 					logger.LogError(ex, "error processing timer elapsed from {type}", service.GetType().FullName);
 				}

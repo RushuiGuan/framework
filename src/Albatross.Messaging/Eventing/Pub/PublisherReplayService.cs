@@ -32,7 +32,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 		}
 
 		public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg) => throw new NotSupportedException();
-		public void ProcessTimerElapsed(IMessagingService routerServer) => throw new NotSupportedException();
+		public void ProcessTimerElapsed(IMessagingService routerServer, ulong count) => throw new NotSupportedException();
 		public bool ProcessTransmitQueue(IMessagingService messagingService, object msg) {
 			switch (msg) {
 				case StartReplay _:

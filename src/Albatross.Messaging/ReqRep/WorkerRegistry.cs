@@ -1,15 +1,19 @@
 ﻿using Albatross.Collections;
 using Microsoft.Extensions.Logging;
-using NetMQ;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.Messaging.ReqRep {
-	public class WorkerRegistry : IEnumerable<Worker> {
+	public class WorkerRegistry {
 		public const string DefaultService = "default";
-		private readonly Dictionary<string, Worker> registry = new Dictionary<string, Worker>();
-		private readonly Dictionary<string, Queue<Worker>> queues = new Dictionary<string, Queue<Worker>>();
+		/// <summary>
+		/// worker dictionary with its identity as the key
+		/// </summary>
+		private readonly Dictionary<string, Worker> workerDict = new Dictionary<string, Worker>();
+		/// <summary>
+		/// a dictionary with the service name as the key and worker queue as the value
+		/// </summary>
+		private readonly Dictionary<string, Queue<Worker>> serviceDict = new Dictionary<string, Queue<Worker>>();
 		private readonly ILogger<WorkerRegistry> logger;
 
 		public WorkerRegistry(ILogger<WorkerRegistry> logger) {
@@ -18,7 +22,7 @@ namespace Albatross.Messaging.ReqRep {
 
 		public Worker Add(string identity, IEnumerable<string> services) {
 			bool newWorker = false;
-			var worker = registry.GetOrAdd(identity, () => {
+			var worker = workerDict.GetOrAdd(identity, () => {
 				logger.LogInformation("new worker: {name}", identity);
 				newWorker = true;
 				return new Worker(identity);
@@ -39,11 +43,9 @@ namespace Albatross.Messaging.ReqRep {
 			}
 			return worker;
 		}
-
-
 		private IEnumerable<string> GetCurrentServices(Worker worker) {
 			List<string> list = new List<string>();
-			foreach (var item in queues) {
+			foreach (var item in serviceDict) {
 				if (item.Value.Contains(worker)) {
 					list.Add(item.Key);
 				}
@@ -51,7 +53,7 @@ namespace Albatross.Messaging.ReqRep {
 			return list;
 		}
 		private void RegisterNewService(string service, Worker worker) {
-			var queue = queues.GetOrAdd(service, () => new Queue<Worker>());
+			var queue = serviceDict.GetOrAdd(service, () => new Queue<Worker>());
 			queue.Enqueue(worker);
 		}
 		private void RegisterNewServices(IEnumerable<string> services, Worker worker) {
@@ -60,9 +62,9 @@ namespace Albatross.Messaging.ReqRep {
 			}
 		}
 		private void RemoveService(string service, Worker worker) {
-			if (queues.TryGetValue(service, out var queue)) {
+			if (serviceDict.TryGetValue(service, out var queue)) {
 				if (queue.Count == 1) {
-					queues.Remove(service);
+					serviceDict.Remove(service);
 				} else {
 					var newQueue = new Queue<Worker>();
 					while (queue.TryDequeue(out var item)) {
@@ -70,7 +72,7 @@ namespace Albatross.Messaging.ReqRep {
 							newQueue.Enqueue(item);
 						}
 					}
-					queues[service] = newQueue;
+					serviceDict[service] = newQueue;
 				}
 			}
 		}
@@ -79,21 +81,24 @@ namespace Albatross.Messaging.ReqRep {
 			if (string.IsNullOrEmpty(service)) {
 				service = DefaultService;
 			}
-			if (queues.TryGetValue(service, out var queue)) {
+			if (serviceDict.TryGetValue(service, out var queue)) {
+				// go through the worker queue and look for an active worker
+				// if found put it in the end of the queue and return
+				// if none is found, remove the queue from the service dict
 				while (queue.Count > 0) {
-					worker = queue.Dequeue();
-					if (worker.IsActive) {
-						queue.Enqueue(worker);
+					var item = queue.Dequeue();
+					if (item.State == WorkerState.Connected) {
+						queue.Enqueue(item);
+						worker = item;
 						return true;
 					}
 				}
-				queues.Remove(service);
+				// code will only reach here if no worker is active
+				serviceDict.Remove(service);
 			}
 			worker = null;
 			return false;
 		}
-		public bool TryGetWorker(string identity, [NotNullWhen(true)] out Worker? worker) => registry.TryGetValue(identity, out worker);
-		public IEnumerator<Worker> GetEnumerator() => registry.Values.GetEnumerator();
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		public bool TryGetWorker(string identity, [NotNullWhen(true)] out Worker? worker) => workerDict.TryGetValue(identity, out worker);
 	}
 }
