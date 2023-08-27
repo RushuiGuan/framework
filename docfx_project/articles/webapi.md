@@ -1,5 +1,5 @@
 ## New WebApi Application
-Albatross Hosting library provides a quick way of setting up a new aspnet core web application with logging, config and caching capabilities.  Besides the standard mvc and webapi controllers, it can also host SPAs (single page applications) such as SPAs created using Angular.  This documentation will focus on creation of a WebApi application using the Albatross.Hosting framework.  Follow the steps below using visual studio 2022 to create a new WebApi project.
+Albatross Hosting library provides a quick way of setting up a new aspnet core web application with logging, config and caching capabilities.  Besides the standard mvc and webapi controllers, it can also host SPAs (single page applications) such as SPAs created using Angular.  This article will focus on creation of a WebApi application using the Albatross.Hosting framework.  Follow the steps below using visual studio 2022 to create a new WebApi project.
 
 1. Create a new Console App using .NET 7.0
 1. Right click and edit the project file 
