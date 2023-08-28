@@ -102,7 +102,12 @@ Classes
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Albatross.Messaging.Services.DurableAtomicCounter.html">DurableAtomicCounter</a></dt>
-      <dd></dd>
+      <dd><p>durable counter will return true unique ids even in the case of process crashing.  The returned Id will always get bigger but it is not garanteed to be
+sequential.  Most of the time, the nextId() method will return the next ulong value, but in case of the process crashing, it will return the next
+integer number dividable by 10000.
+Under the hood, the class use a file to keep track of the id value.  For efficiency reason, it only updates the file when the Id % 10000 == 0.</p>
+<p>TODO: NEED TESTING.  NEXT ID IS RETURNING THE WRONG ID</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Albatross.Messaging.Services.Extensions.html">Extensions</a></dt>

@@ -145,16 +145,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Caching.Constant.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Caching.Constant.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Caching.Extension.yml",
       "output": {
         ".html": {
@@ -2995,6 +2985,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Messaging.ILogDetail.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Messaging.ILogDetail.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Messaging.Messages.ClientAck.yml",
       "output": {
         ".html": {
@@ -3245,30 +3245,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.DealerClientService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.DealerClientService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Messaging.ReqRep.DealerWorkerService.yml",
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Messaging.ReqRep.DealerWorkerService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.IBrokerService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.IBrokerService.html"
         }
       },
       "version": ""
@@ -3295,50 +3275,30 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.AAConnect.yml",
+      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerAck.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.AAConnect.html"
+          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.AAConnectOk.yml",
+      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.AAConnectOk.html"
+          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.AAReconnect.yml",
+      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.AAReconnect.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.AAServerAck.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html"
+          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.html"
         }
       },
       "version": ""
@@ -3349,6 +3309,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html"
         }
       },
       "version": ""
@@ -3389,16 +3359,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html"
         }
       },
       "version": ""
@@ -3699,16 +3659,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Reflection.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.Constant.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.Constant.html"
         }
       },
       "version": ""
@@ -4045,16 +3995,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Text.Constant.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Text.Constant.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Text.Extensions.yml",
       "output": {
         ".html": {
@@ -4129,6 +4069,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Text.StringInterpolationService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Text.TextConstant.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Text.TextConstant.html"
         }
       },
       "version": ""

@@ -625,18 +625,6 @@ references:
   fullName.vb: Albatross.Caching.CacheManagement(Of CacheFormat).logger
   nameWithType: CacheManagement<CacheFormat>.logger
   nameWithType.vb: CacheManagement(Of CacheFormat).logger
-- uid: Albatross.Caching.Constant
-  name: Constant
-  href: api/Albatross.Caching.Constant.html
-  commentId: T:Albatross.Caching.Constant
-  fullName: Albatross.Caching.Constant
-  nameWithType: Constant
-- uid: Albatross.Caching.Constant.CacheKeyDelimiter
-  name: CacheKeyDelimiter
-  href: api/Albatross.Caching.Constant.html#Albatross_Caching_Constant_CacheKeyDelimiter
-  commentId: F:Albatross.Caching.Constant.CacheKeyDelimiter
-  fullName: Albatross.Caching.Constant.CacheKeyDelimiter
-  nameWithType: Constant.CacheKeyDelimiter
 - uid: Albatross.Caching.Extension
   name: Extension
   href: api/Albatross.Caching.Extension.html
@@ -792,6 +780,12 @@ references:
   commentId: T:Albatross.Caching.ICacheManagement
   fullName: Albatross.Caching.ICacheManagement
   nameWithType: ICacheManagement
+- uid: Albatross.Caching.ICacheManagement.CacheKeyDelimiter
+  name: CacheKeyDelimiter
+  href: api/Albatross.Caching.ICacheManagement.html#Albatross_Caching_ICacheManagement_CacheKeyDelimiter
+  commentId: F:Albatross.Caching.ICacheManagement.CacheKeyDelimiter
+  fullName: Albatross.Caching.ICacheManagement.CacheKeyDelimiter
+  nameWithType: ICacheManagement.CacheKeyDelimiter
 - uid: Albatross.Caching.ICacheManagement.GetCacheKey(Polly.Context)
   name: GetCacheKey(Context)
   href: api/Albatross.Caching.ICacheManagement.html#Albatross_Caching_ICacheManagement_GetCacheKey_Polly_Context_
@@ -9575,12 +9569,12 @@ references:
   fullName.vb: Albatross.Hosting.Setup.ConfigureServiceHost(Of T)()
   nameWithType: Setup.ConfigureServiceHost<T>()
   nameWithType.vb: Setup.ConfigureServiceHost(Of T)()
-- uid: Albatross.Hosting.Setup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)
-  name: ConfigureServices(IServiceCollection)
-  href: api/Albatross.Hosting.Setup.html#Albatross_Hosting_Setup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_
-  commentId: M:Albatross.Hosting.Setup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)
-  fullName: Albatross.Hosting.Setup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)
-  nameWithType: Setup.ConfigureServices(IServiceCollection)
+- uid: Albatross.Hosting.Setup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+  name: ConfigureServices(IServiceCollection, IConfiguration)
+  href: api/Albatross.Hosting.Setup.html#Albatross_Hosting_Setup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_
+  commentId: M:Albatross.Hosting.Setup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+  fullName: Albatross.Hosting.Setup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfiguration)
+  nameWithType: Setup.ConfigureServices(IServiceCollection, IConfiguration)
 - uid: Albatross.Hosting.Setup.ConfigureServices*
   name: ConfigureServices
   href: api/Albatross.Hosting.Setup.html#Albatross_Hosting_Setup_ConfigureServices_
@@ -13492,12 +13486,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.CommandBusReplayService.ProcessReceivedMsg
   nameWithType: CommandBusReplayService.ProcessReceivedMsg
-- uid: Albatross.Messaging.Commands.CommandBusReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  name: ProcessTimerElapsed(IMessagingService)
-  href: api/Albatross.Messaging.Commands.CommandBusReplayService.html#Albatross_Messaging_Commands_CommandBusReplayService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_
-  commentId: M:Albatross.Messaging.Commands.CommandBusReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  fullName: Albatross.Messaging.Commands.CommandBusReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  nameWithType: CommandBusReplayService.ProcessTimerElapsed(IMessagingService)
+- uid: Albatross.Messaging.Commands.CommandBusReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name: ProcessTimerElapsed(IMessagingService, ulong)
+  href: api/Albatross.Messaging.Commands.CommandBusReplayService.html#Albatross_Messaging_Commands_CommandBusReplayService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_System_UInt64_
+  commentId: M:Albatross.Messaging.Commands.CommandBusReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name.vb: ProcessTimerElapsed(IMessagingService, ULong)
+  fullName: Albatross.Messaging.Commands.CommandBusReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ulong)
+  fullName.vb: Albatross.Messaging.Commands.CommandBusReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ULong)
+  nameWithType: CommandBusReplayService.ProcessTimerElapsed(IMessagingService, ulong)
+  nameWithType.vb: CommandBusReplayService.ProcessTimerElapsed(IMessagingService, ULong)
 - uid: Albatross.Messaging.Commands.CommandBusReplayService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.Commands.CommandBusReplayService.html#Albatross_Messaging_Commands_CommandBusReplayService_ProcessTimerElapsed_
@@ -13598,12 +13595,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.CommandBusService.ProcessReceivedMsg
   nameWithType: CommandBusService.ProcessReceivedMsg
-- uid: Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  name: ProcessTimerElapsed(IMessagingService)
-  href: api/Albatross.Messaging.Commands.CommandBusService.html#Albatross_Messaging_Commands_CommandBusService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_
-  commentId: M:Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  fullName: Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  nameWithType: CommandBusService.ProcessTimerElapsed(IMessagingService)
+- uid: Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name: ProcessTimerElapsed(IMessagingService, ulong)
+  href: api/Albatross.Messaging.Commands.CommandBusService.html#Albatross_Messaging_Commands_CommandBusService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_System_UInt64_
+  commentId: M:Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name.vb: ProcessTimerElapsed(IMessagingService, ULong)
+  fullName: Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ulong)
+  fullName.vb: Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ULong)
+  nameWithType: CommandBusService.ProcessTimerElapsed(IMessagingService, ulong)
+  nameWithType.vb: CommandBusService.ProcessTimerElapsed(IMessagingService, ULong)
 - uid: Albatross.Messaging.Commands.CommandBusService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.Commands.CommandBusService.html#Albatross_Messaging_Commands_CommandBusService_ProcessTimerElapsed_
@@ -13806,12 +13806,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Commands.CommandClientService.ProcessReceivedMsg
   nameWithType: CommandClientService.ProcessReceivedMsg
-- uid: Albatross.Messaging.Commands.CommandClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  name: ProcessTimerElapsed(DealerClient)
-  href: api/Albatross.Messaging.Commands.CommandClientService.html#Albatross_Messaging_Commands_CommandClientService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_
-  commentId: M:Albatross.Messaging.Commands.CommandClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  fullName: Albatross.Messaging.Commands.CommandClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  nameWithType: CommandClientService.ProcessTimerElapsed(DealerClient)
+- uid: Albatross.Messaging.Commands.CommandClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)
+  name: ProcessTimerElapsed(DealerClient, ulong)
+  href: api/Albatross.Messaging.Commands.CommandClientService.html#Albatross_Messaging_Commands_CommandClientService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_System_UInt64_
+  commentId: M:Albatross.Messaging.Commands.CommandClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)
+  name.vb: ProcessTimerElapsed(DealerClient, ULong)
+  fullName: Albatross.Messaging.Commands.CommandClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient, ulong)
+  fullName.vb: Albatross.Messaging.Commands.CommandClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient, ULong)
+  nameWithType: CommandClientService.ProcessTimerElapsed(DealerClient, ulong)
+  nameWithType.vb: CommandClientService.ProcessTimerElapsed(DealerClient, ULong)
 - uid: Albatross.Messaging.Commands.CommandClientService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.Commands.CommandClientService.html#Albatross_Messaging_Commands_CommandClientService_ProcessTimerElapsed_
@@ -17965,12 +17968,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessReceivedMsg
   nameWithType: PublisherReplayService.ProcessReceivedMsg
-- uid: Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  name: ProcessTimerElapsed(IMessagingService)
-  href: api/Albatross.Messaging.Eventing.Pub.PublisherReplayService.html#Albatross_Messaging_Eventing_Pub_PublisherReplayService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_
-  commentId: M:Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  fullName: Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  nameWithType: PublisherReplayService.ProcessTimerElapsed(IMessagingService)
+- uid: Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name: ProcessTimerElapsed(IMessagingService, ulong)
+  href: api/Albatross.Messaging.Eventing.Pub.PublisherReplayService.html#Albatross_Messaging_Eventing_Pub_PublisherReplayService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_System_UInt64_
+  commentId: M:Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name.vb: ProcessTimerElapsed(IMessagingService, ULong)
+  fullName: Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ulong)
+  fullName.vb: Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ULong)
+  nameWithType: PublisherReplayService.ProcessTimerElapsed(IMessagingService, ulong)
+  nameWithType.vb: PublisherReplayService.ProcessTimerElapsed(IMessagingService, ULong)
 - uid: Albatross.Messaging.Eventing.Pub.PublisherReplayService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.Eventing.Pub.PublisherReplayService.html#Albatross_Messaging_Eventing_Pub_PublisherReplayService_ProcessTimerElapsed_
@@ -18071,12 +18077,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Eventing.Pub.PublisherService.ProcessReceivedMsg
   nameWithType: PublisherService.ProcessReceivedMsg
-- uid: Albatross.Messaging.Eventing.Pub.PublisherService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  name: ProcessTimerElapsed(IMessagingService)
-  href: api/Albatross.Messaging.Eventing.Pub.PublisherService.html#Albatross_Messaging_Eventing_Pub_PublisherService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_
-  commentId: M:Albatross.Messaging.Eventing.Pub.PublisherService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  fullName: Albatross.Messaging.Eventing.Pub.PublisherService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  nameWithType: PublisherService.ProcessTimerElapsed(IMessagingService)
+- uid: Albatross.Messaging.Eventing.Pub.PublisherService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name: ProcessTimerElapsed(IMessagingService, ulong)
+  href: api/Albatross.Messaging.Eventing.Pub.PublisherService.html#Albatross_Messaging_Eventing_Pub_PublisherService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_System_UInt64_
+  commentId: M:Albatross.Messaging.Eventing.Pub.PublisherService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name.vb: ProcessTimerElapsed(IMessagingService, ULong)
+  fullName: Albatross.Messaging.Eventing.Pub.PublisherService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ulong)
+  fullName.vb: Albatross.Messaging.Eventing.Pub.PublisherService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ULong)
+  nameWithType: PublisherService.ProcessTimerElapsed(IMessagingService, ulong)
+  nameWithType.vb: PublisherService.ProcessTimerElapsed(IMessagingService, ULong)
 - uid: Albatross.Messaging.Eventing.Pub.PublisherService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.Eventing.Pub.PublisherService.html#Albatross_Messaging_Eventing_Pub_PublisherService_ProcessTimerElapsed_
@@ -18614,12 +18623,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessReceivedMsg
   nameWithType: SubscriptionService.ProcessReceivedMsg
-- uid: Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  name: ProcessTimerElapsed(DealerClient)
-  href: api/Albatross.Messaging.Eventing.Sub.SubscriptionService.html#Albatross_Messaging_Eventing_Sub_SubscriptionService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_
-  commentId: M:Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  fullName: Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  nameWithType: SubscriptionService.ProcessTimerElapsed(DealerClient)
+- uid: Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)
+  name: ProcessTimerElapsed(DealerClient, ulong)
+  href: api/Albatross.Messaging.Eventing.Sub.SubscriptionService.html#Albatross_Messaging_Eventing_Sub_SubscriptionService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_System_UInt64_
+  commentId: M:Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)
+  name.vb: ProcessTimerElapsed(DealerClient, ULong)
+  fullName: Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient, ulong)
+  fullName.vb: Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient, ULong)
+  nameWithType: SubscriptionService.ProcessTimerElapsed(DealerClient, ulong)
+  nameWithType.vb: SubscriptionService.ProcessTimerElapsed(DealerClient, ULong)
 - uid: Albatross.Messaging.Eventing.Sub.SubscriptionService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.Eventing.Sub.SubscriptionService.html#Albatross_Messaging_Eventing_Sub_SubscriptionService_ProcessTimerElapsed_
@@ -19041,6 +19053,25 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Extensions.ToUtf8String
   nameWithType: Extensions.ToUtf8String
+- uid: Albatross.Messaging.ILogDetail
+  name: ILogDetail
+  href: api/Albatross.Messaging.ILogDetail.html
+  commentId: T:Albatross.Messaging.ILogDetail
+  fullName: Albatross.Messaging.ILogDetail
+  nameWithType: ILogDetail
+- uid: Albatross.Messaging.ILogDetail.Target
+  name: Target
+  href: api/Albatross.Messaging.ILogDetail.html#Albatross_Messaging_ILogDetail_Target
+  commentId: P:Albatross.Messaging.ILogDetail.Target
+  fullName: Albatross.Messaging.ILogDetail.Target
+  nameWithType: ILogDetail.Target
+- uid: Albatross.Messaging.ILogDetail.Target*
+  name: Target
+  href: api/Albatross.Messaging.ILogDetail.html#Albatross_Messaging_ILogDetail_Target_
+  commentId: Overload:Albatross.Messaging.ILogDetail.Target
+  isSpec: "True"
+  fullName: Albatross.Messaging.ILogDetail.Target
+  nameWithType: ILogDetail.Target
 - uid: Albatross.Messaging.Messages
   name: Albatross.Messaging.Messages
   href: api/Albatross.Messaging.Messages.html
@@ -20227,128 +20258,6 @@ references:
   commentId: N:Albatross.Messaging.ReqRep
   fullName: Albatross.Messaging.ReqRep
   nameWithType: Albatross.Messaging.ReqRep
-- uid: Albatross.Messaging.ReqRep.DealerClientService
-  name: DealerClientService
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html
-  commentId: T:Albatross.Messaging.ReqRep.DealerClientService
-  fullName: Albatross.Messaging.ReqRep.DealerClientService
-  nameWithType: DealerClientService
-- uid: Albatross.Messaging.ReqRep.DealerClientService.#ctor(Albatross.Messaging.Configurations.ClientConfiguration,Albatross.Messaging.Messages.IMessageFactory,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.DealerWorkerService},Albatross.Messaging.DataLogging.ILogWriter)
-  name: DealerClientService(ClientConfiguration, IMessageFactory, ILogger<DealerWorkerService>, ILogWriter)
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService__ctor_Albatross_Messaging_Configurations_ClientConfiguration_Albatross_Messaging_Messages_IMessageFactory_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_ReqRep_DealerWorkerService__Albatross_Messaging_DataLogging_ILogWriter_
-  commentId: M:Albatross.Messaging.ReqRep.DealerClientService.#ctor(Albatross.Messaging.Configurations.ClientConfiguration,Albatross.Messaging.Messages.IMessageFactory,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.DealerWorkerService},Albatross.Messaging.DataLogging.ILogWriter)
-  name.vb: New(ClientConfiguration, IMessageFactory, ILogger(Of DealerWorkerService), ILogWriter)
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.DealerClientService(Albatross.Messaging.Configurations.ClientConfiguration, Albatross.Messaging.Messages.IMessageFactory, Microsoft.Extensions.Logging.ILogger<Albatross.Messaging.ReqRep.DealerWorkerService>, Albatross.Messaging.DataLogging.ILogWriter)
-  fullName.vb: Albatross.Messaging.ReqRep.DealerClientService.New(Albatross.Messaging.Configurations.ClientConfiguration, Albatross.Messaging.Messages.IMessageFactory, Microsoft.Extensions.Logging.ILogger(Of Albatross.Messaging.ReqRep.DealerWorkerService), Albatross.Messaging.DataLogging.ILogWriter)
-  nameWithType: DealerClientService.DealerClientService(ClientConfiguration, IMessageFactory, ILogger<DealerWorkerService>, ILogWriter)
-  nameWithType.vb: DealerClientService.New(ClientConfiguration, IMessageFactory, ILogger(Of DealerWorkerService), ILogWriter)
-- uid: Albatross.Messaging.ReqRep.DealerClientService.#ctor*
-  name: DealerClientService
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService__ctor_
-  commentId: Overload:Albatross.Messaging.ReqRep.DealerClientService.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.DealerClientService
-  fullName.vb: Albatross.Messaging.ReqRep.DealerClientService.New
-  nameWithType: DealerClientService.DealerClientService
-  nameWithType.vb: DealerClientService.New
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Counter
-  name: Counter
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Counter
-  commentId: P:Albatross.Messaging.ReqRep.DealerClientService.Counter
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Counter
-  nameWithType: DealerClientService.Counter
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Counter*
-  name: Counter
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Counter_
-  commentId: Overload:Albatross.Messaging.ReqRep.DealerClientService.Counter
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Counter
-  nameWithType: DealerClientService.Counter
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Dispose
-  name: Dispose()
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Dispose
-  commentId: M:Albatross.Messaging.ReqRep.DealerClientService.Dispose
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Dispose()
-  nameWithType: DealerClientService.Dispose()
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Dispose*
-  name: Dispose
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Dispose_
-  commentId: Overload:Albatross.Messaging.ReqRep.DealerClientService.Dispose
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Dispose
-  nameWithType: DealerClientService.Dispose
-- uid: Albatross.Messaging.ReqRep.DealerClientService.GetClientState(System.String)
-  name: GetClientState(string)
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_GetClientState_System_String_
-  commentId: M:Albatross.Messaging.ReqRep.DealerClientService.GetClientState(System.String)
-  name.vb: GetClientState(String)
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.GetClientState(string)
-  fullName.vb: Albatross.Messaging.ReqRep.DealerClientService.GetClientState(String)
-  nameWithType: DealerClientService.GetClientState(string)
-  nameWithType.vb: DealerClientService.GetClientState(String)
-- uid: Albatross.Messaging.ReqRep.DealerClientService.GetClientState*
-  name: GetClientState
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_GetClientState_
-  commentId: Overload:Albatross.Messaging.ReqRep.DealerClientService.GetClientState
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.GetClientState
-  nameWithType: DealerClientService.GetClientState
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Identity
-  name: Identity
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Identity
-  commentId: P:Albatross.Messaging.ReqRep.DealerClientService.Identity
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Identity
-  nameWithType: DealerClientService.Identity
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Identity*
-  name: Identity
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Identity_
-  commentId: Overload:Albatross.Messaging.ReqRep.DealerClientService.Identity
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Identity
-  nameWithType: DealerClientService.Identity
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Start
-  name: Start()
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Start
-  commentId: M:Albatross.Messaging.ReqRep.DealerClientService.Start
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Start()
-  nameWithType: DealerClientService.Start()
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Start*
-  name: Start
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Start_
-  commentId: Overload:Albatross.Messaging.ReqRep.DealerClientService.Start
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Start
-  nameWithType: DealerClientService.Start
-- uid: Albatross.Messaging.ReqRep.DealerClientService.SubmitToQueue(System.Object)
-  name: SubmitToQueue(object)
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_SubmitToQueue_System_Object_
-  commentId: M:Albatross.Messaging.ReqRep.DealerClientService.SubmitToQueue(System.Object)
-  name.vb: SubmitToQueue(Object)
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.SubmitToQueue(object)
-  fullName.vb: Albatross.Messaging.ReqRep.DealerClientService.SubmitToQueue(Object)
-  nameWithType: DealerClientService.SubmitToQueue(object)
-  nameWithType.vb: DealerClientService.SubmitToQueue(Object)
-- uid: Albatross.Messaging.ReqRep.DealerClientService.SubmitToQueue*
-  name: SubmitToQueue
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_SubmitToQueue_
-  commentId: Overload:Albatross.Messaging.ReqRep.DealerClientService.SubmitToQueue
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.SubmitToQueue
-  nameWithType: DealerClientService.SubmitToQueue
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Transmit(Albatross.Messaging.Messages.IMessage)
-  name: Transmit(IMessage)
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Transmit_Albatross_Messaging_Messages_IMessage_
-  commentId: M:Albatross.Messaging.ReqRep.DealerClientService.Transmit(Albatross.Messaging.Messages.IMessage)
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Transmit(Albatross.Messaging.Messages.IMessage)
-  nameWithType: DealerClientService.Transmit(IMessage)
-- uid: Albatross.Messaging.ReqRep.DealerClientService.Transmit*
-  name: Transmit
-  href: api/Albatross.Messaging.ReqRep.DealerClientService.html#Albatross_Messaging_ReqRep_DealerClientService_Transmit_
-  commentId: Overload:Albatross.Messaging.ReqRep.DealerClientService.Transmit
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.DealerClientService.Transmit
-  nameWithType: DealerClientService.Transmit
 - uid: Albatross.Messaging.ReqRep.DealerWorkerService
   name: DealerWorkerService
   href: api/Albatross.Messaging.ReqRep.DealerWorkerService.html
@@ -20452,12 +20361,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.DealerWorkerService.ProcessReceivedMsg
   nameWithType: DealerWorkerService.ProcessReceivedMsg
-- uid: Albatross.Messaging.ReqRep.DealerWorkerService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  name: ProcessTimerElapsed(DealerClient)
-  href: api/Albatross.Messaging.ReqRep.DealerWorkerService.html#Albatross_Messaging_ReqRep_DealerWorkerService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_
-  commentId: M:Albatross.Messaging.ReqRep.DealerWorkerService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  fullName: Albatross.Messaging.ReqRep.DealerWorkerService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  nameWithType: DealerWorkerService.ProcessTimerElapsed(DealerClient)
+- uid: Albatross.Messaging.ReqRep.DealerWorkerService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)
+  name: ProcessTimerElapsed(DealerClient, ulong)
+  href: api/Albatross.Messaging.ReqRep.DealerWorkerService.html#Albatross_Messaging_ReqRep_DealerWorkerService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_System_UInt64_
+  commentId: M:Albatross.Messaging.ReqRep.DealerWorkerService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)
+  name.vb: ProcessTimerElapsed(DealerClient, ULong)
+  fullName: Albatross.Messaging.ReqRep.DealerWorkerService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient, ulong)
+  fullName.vb: Albatross.Messaging.ReqRep.DealerWorkerService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient, ULong)
+  nameWithType: DealerWorkerService.ProcessTimerElapsed(DealerClient, ulong)
+  nameWithType.vb: DealerWorkerService.ProcessTimerElapsed(DealerClient, ULong)
 - uid: Albatross.Messaging.ReqRep.DealerWorkerService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.ReqRep.DealerWorkerService.html#Albatross_Messaging_ReqRep_DealerWorkerService_ProcessTimerElapsed_
@@ -20494,25 +20406,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.DealerWorkerService.Services
   nameWithType: DealerWorkerService.Services
-- uid: Albatross.Messaging.ReqRep.IBrokerService
-  name: IBrokerService
-  href: api/Albatross.Messaging.ReqRep.IBrokerService.html
-  commentId: T:Albatross.Messaging.ReqRep.IBrokerService
-  fullName: Albatross.Messaging.ReqRep.IBrokerService
-  nameWithType: IBrokerService
-- uid: Albatross.Messaging.ReqRep.IBrokerService.Start
-  name: Start()
-  href: api/Albatross.Messaging.ReqRep.IBrokerService.html#Albatross_Messaging_ReqRep_IBrokerService_Start
-  commentId: M:Albatross.Messaging.ReqRep.IBrokerService.Start
-  fullName: Albatross.Messaging.ReqRep.IBrokerService.Start()
-  nameWithType: IBrokerService.Start()
-- uid: Albatross.Messaging.ReqRep.IBrokerService.Start*
-  name: Start
-  href: api/Albatross.Messaging.ReqRep.IBrokerService.html#Albatross_Messaging_ReqRep_IBrokerService_Start_
-  commentId: Overload:Albatross.Messaging.ReqRep.IBrokerService.Start
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.IBrokerService.Start
-  nameWithType: IBrokerService.Start
 - uid: Albatross.Messaging.ReqRep.IClientService
   name: IClientService
   href: api/Albatross.Messaging.ReqRep.IClientService.html
@@ -20557,283 +20450,215 @@ references:
   commentId: N:Albatross.Messaging.ReqRep.Messages
   fullName: Albatross.Messaging.ReqRep.Messages
   nameWithType: Albatross.Messaging.ReqRep.Messages
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnect
-  name: AAConnect
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnect.html
-  commentId: T:Albatross.Messaging.ReqRep.Messages.AAConnect
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnect
-  nameWithType: AAConnect
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnect.#ctor
-  name: AAConnect()
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnect.html#Albatross_Messaging_ReqRep_Messages_AAConnect__ctor
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAConnect.#ctor
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck
+  name: BrokerAck
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html
+  commentId: T:Albatross.Messaging.ReqRep.Messages.BrokerAck
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck
+  nameWithType: BrokerAck
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.#ctor
+  name: BrokerAck()
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck__ctor
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerAck.#ctor
   name.vb: New()
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnect.AAConnect()
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAConnect.New()
-  nameWithType: AAConnect.AAConnect()
-  nameWithType.vb: AAConnect.New()
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnect.#ctor(System.String,System.UInt64)
-  name: AAConnect(string, ulong)
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnect.html#Albatross_Messaging_ReqRep_Messages_AAConnect__ctor_System_String_System_UInt64_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAConnect.#ctor(System.String,System.UInt64)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.BrokerAck()
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerAck.New()
+  nameWithType: BrokerAck.BrokerAck()
+  nameWithType.vb: BrokerAck.New()
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.#ctor(System.String,System.UInt64,System.String)
+  name: BrokerAck(string, ulong, string)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck__ctor_System_String_System_UInt64_System_String_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerAck.#ctor(System.String,System.UInt64,System.String)
+  name.vb: New(String, ULong, String)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.BrokerAck(string, ulong, string)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerAck.New(String, ULong, String)
+  nameWithType: BrokerAck.BrokerAck(string, ulong, string)
+  nameWithType.vb: BrokerAck.New(String, ULong, String)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.#ctor*
+  name: BrokerAck
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck__ctor_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerAck.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.BrokerAck
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerAck.New
+  nameWithType: BrokerAck.BrokerAck
+  nameWithType.vb: BrokerAck.New
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.MessageHeader
+  name: MessageHeader
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_MessageHeader
+  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerAck.MessageHeader
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.MessageHeader
+  nameWithType: BrokerAck.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.MessageHeader*
+  name: MessageHeader
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_MessageHeader_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerAck.MessageHeader
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.MessageHeader
+  nameWithType: BrokerAck.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromFrames(NetMQ.NetMQMessage)
+  name: ReadFromFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_ReadFromFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromFrames(NetMQ.NetMQMessage)
+  nameWithType: BrokerAck.ReadFromFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromFrames*
+  name: ReadFromFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_ReadFromFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromFrames
+  nameWithType: BrokerAck.ReadFromFrames
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromText(System.String,System.Int32@)
+  name: ReadFromText(string, ref int)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_ReadFromText_System_String_System_Int32__
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromText(System.String,System.Int32@)
+  name.vb: ReadFromText(String, Integer)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromText(string, ref int)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromText(String, Integer)
+  nameWithType: BrokerAck.ReadFromText(string, ref int)
+  nameWithType.vb: BrokerAck.ReadFromText(String, Integer)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromText*
+  name: ReadFromText
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_ReadFromText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.ReadFromText
+  nameWithType: BrokerAck.ReadFromText
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.Worker
+  name: Worker
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_Worker
+  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerAck.Worker
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.Worker
+  nameWithType: BrokerAck.Worker
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.Worker*
+  name: Worker
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_Worker_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerAck.Worker
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.Worker
+  nameWithType: BrokerAck.Worker
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToFrames(NetMQ.NetMQMessage)
+  name: WriteToFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_WriteToFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToFrames(NetMQ.NetMQMessage)
+  nameWithType: BrokerAck.WriteToFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToFrames*
+  name: WriteToFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_WriteToFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToFrames
+  nameWithType: BrokerAck.WriteToFrames
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToText(System.IO.TextWriter)
+  name: WriteToText(TextWriter)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_WriteToText_System_IO_TextWriter_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToText(System.IO.TextWriter)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToText(System.IO.TextWriter)
+  nameWithType: BrokerAck.WriteToText(TextWriter)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToText*
+  name: WriteToText
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerAck.html#Albatross_Messaging_ReqRep_Messages_BrokerAck_WriteToText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerAck.WriteToText
+  nameWithType: BrokerAck.WriteToText
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnected
+  name: BrokerConnected
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.html
+  commentId: T:Albatross.Messaging.ReqRep.Messages.BrokerConnected
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnected
+  nameWithType: BrokerConnected
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnected.#ctor
+  name: BrokerConnected()
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.html#Albatross_Messaging_ReqRep_Messages_BrokerConnected__ctor
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerConnected.#ctor
+  name.vb: New()
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnected.BrokerConnected()
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerConnected.New()
+  nameWithType: BrokerConnected.BrokerConnected()
+  nameWithType.vb: BrokerConnected.New()
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnected.#ctor(System.String,System.UInt64)
+  name: BrokerConnected(string, ulong)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.html#Albatross_Messaging_ReqRep_Messages_BrokerConnected__ctor_System_String_System_UInt64_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerConnected.#ctor(System.String,System.UInt64)
   name.vb: New(String, ULong)
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnect.AAConnect(string, ulong)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAConnect.New(String, ULong)
-  nameWithType: AAConnect.AAConnect(string, ulong)
-  nameWithType.vb: AAConnect.New(String, ULong)
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnect.#ctor*
-  name: AAConnect
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnect.html#Albatross_Messaging_ReqRep_Messages_AAConnect__ctor_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAConnect.#ctor
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnected.BrokerConnected(string, ulong)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerConnected.New(String, ULong)
+  nameWithType: BrokerConnected.BrokerConnected(string, ulong)
+  nameWithType.vb: BrokerConnected.New(String, ULong)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnected.#ctor*
+  name: BrokerConnected
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.html#Albatross_Messaging_ReqRep_Messages_BrokerConnected__ctor_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerConnected.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnect.AAConnect
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAConnect.New
-  nameWithType: AAConnect.AAConnect
-  nameWithType.vb: AAConnect.New
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnect.MessageHeader
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnected.BrokerConnected
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerConnected.New
+  nameWithType: BrokerConnected.BrokerConnected
+  nameWithType.vb: BrokerConnected.New
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnected.MessageHeader
   name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnect.html#Albatross_Messaging_ReqRep_Messages_AAConnect_MessageHeader
-  commentId: P:Albatross.Messaging.ReqRep.Messages.AAConnect.MessageHeader
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnect.MessageHeader
-  nameWithType: AAConnect.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnect.MessageHeader*
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.html#Albatross_Messaging_ReqRep_Messages_BrokerConnected_MessageHeader
+  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerConnected.MessageHeader
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnected.MessageHeader
+  nameWithType: BrokerConnected.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnected.MessageHeader*
   name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnect.html#Albatross_Messaging_ReqRep_Messages_AAConnect_MessageHeader_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAConnect.MessageHeader
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.html#Albatross_Messaging_ReqRep_Messages_BrokerConnected_MessageHeader_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerConnected.MessageHeader
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnect.MessageHeader
-  nameWithType: AAConnect.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnectOk
-  name: AAConnectOk
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnectOk.html
-  commentId: T:Albatross.Messaging.ReqRep.Messages.AAConnectOk
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnectOk
-  nameWithType: AAConnectOk
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnectOk.#ctor
-  name: AAConnectOk()
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnectOk.html#Albatross_Messaging_ReqRep_Messages_AAConnectOk__ctor
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAConnectOk.#ctor
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnected.MessageHeader
+  nameWithType: BrokerConnected.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerReconnect
+  name: BrokerReconnect
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.html
+  commentId: T:Albatross.Messaging.ReqRep.Messages.BrokerReconnect
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerReconnect
+  nameWithType: BrokerReconnect
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.#ctor
+  name: BrokerReconnect()
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.html#Albatross_Messaging_ReqRep_Messages_BrokerReconnect__ctor
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerReconnect.#ctor
   name.vb: New()
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnectOk.AAConnectOk()
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAConnectOk.New()
-  nameWithType: AAConnectOk.AAConnectOk()
-  nameWithType.vb: AAConnectOk.New()
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnectOk.#ctor(System.String,System.UInt64)
-  name: AAConnectOk(string, ulong)
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnectOk.html#Albatross_Messaging_ReqRep_Messages_AAConnectOk__ctor_System_String_System_UInt64_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAConnectOk.#ctor(System.String,System.UInt64)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.BrokerReconnect()
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.New()
+  nameWithType: BrokerReconnect.BrokerReconnect()
+  nameWithType.vb: BrokerReconnect.New()
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.#ctor(System.String,System.UInt64)
+  name: BrokerReconnect(string, ulong)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.html#Albatross_Messaging_ReqRep_Messages_BrokerReconnect__ctor_System_String_System_UInt64_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerReconnect.#ctor(System.String,System.UInt64)
   name.vb: New(String, ULong)
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnectOk.AAConnectOk(string, ulong)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAConnectOk.New(String, ULong)
-  nameWithType: AAConnectOk.AAConnectOk(string, ulong)
-  nameWithType.vb: AAConnectOk.New(String, ULong)
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnectOk.#ctor*
-  name: AAConnectOk
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnectOk.html#Albatross_Messaging_ReqRep_Messages_AAConnectOk__ctor_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAConnectOk.#ctor
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.BrokerReconnect(string, ulong)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.New(String, ULong)
+  nameWithType: BrokerReconnect.BrokerReconnect(string, ulong)
+  nameWithType.vb: BrokerReconnect.New(String, ULong)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.#ctor*
+  name: BrokerReconnect
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.html#Albatross_Messaging_ReqRep_Messages_BrokerReconnect__ctor_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerReconnect.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnectOk.AAConnectOk
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAConnectOk.New
-  nameWithType: AAConnectOk.AAConnectOk
-  nameWithType.vb: AAConnectOk.New
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnectOk.MessageHeader
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.BrokerReconnect
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.New
+  nameWithType: BrokerReconnect.BrokerReconnect
+  nameWithType.vb: BrokerReconnect.New
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.MessageHeader
   name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnectOk.html#Albatross_Messaging_ReqRep_Messages_AAConnectOk_MessageHeader
-  commentId: P:Albatross.Messaging.ReqRep.Messages.AAConnectOk.MessageHeader
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnectOk.MessageHeader
-  nameWithType: AAConnectOk.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.AAConnectOk.MessageHeader*
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.html#Albatross_Messaging_ReqRep_Messages_BrokerReconnect_MessageHeader
+  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerReconnect.MessageHeader
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.MessageHeader
+  nameWithType: BrokerReconnect.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.MessageHeader*
   name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.AAConnectOk.html#Albatross_Messaging_ReqRep_Messages_AAConnectOk_MessageHeader_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAConnectOk.MessageHeader
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.html#Albatross_Messaging_ReqRep_Messages_BrokerReconnect_MessageHeader_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerReconnect.MessageHeader
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.AAConnectOk.MessageHeader
-  nameWithType: AAConnectOk.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.AAReconnect
-  name: AAReconnect
-  href: api/Albatross.Messaging.ReqRep.Messages.AAReconnect.html
-  commentId: T:Albatross.Messaging.ReqRep.Messages.AAReconnect
-  fullName: Albatross.Messaging.ReqRep.Messages.AAReconnect
-  nameWithType: AAReconnect
-- uid: Albatross.Messaging.ReqRep.Messages.AAReconnect.#ctor
-  name: AAReconnect()
-  href: api/Albatross.Messaging.ReqRep.Messages.AAReconnect.html#Albatross_Messaging_ReqRep_Messages_AAReconnect__ctor
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAReconnect.#ctor
-  name.vb: New()
-  fullName: Albatross.Messaging.ReqRep.Messages.AAReconnect.AAReconnect()
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAReconnect.New()
-  nameWithType: AAReconnect.AAReconnect()
-  nameWithType.vb: AAReconnect.New()
-- uid: Albatross.Messaging.ReqRep.Messages.AAReconnect.#ctor(System.String,System.UInt64)
-  name: AAReconnect(string, ulong)
-  href: api/Albatross.Messaging.ReqRep.Messages.AAReconnect.html#Albatross_Messaging_ReqRep_Messages_AAReconnect__ctor_System_String_System_UInt64_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAReconnect.#ctor(System.String,System.UInt64)
-  name.vb: New(String, ULong)
-  fullName: Albatross.Messaging.ReqRep.Messages.AAReconnect.AAReconnect(string, ulong)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAReconnect.New(String, ULong)
-  nameWithType: AAReconnect.AAReconnect(string, ulong)
-  nameWithType.vb: AAReconnect.New(String, ULong)
-- uid: Albatross.Messaging.ReqRep.Messages.AAReconnect.#ctor*
-  name: AAReconnect
-  href: api/Albatross.Messaging.ReqRep.Messages.AAReconnect.html#Albatross_Messaging_ReqRep_Messages_AAReconnect__ctor_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAReconnect.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Messaging.ReqRep.Messages.AAReconnect.AAReconnect
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAReconnect.New
-  nameWithType: AAReconnect.AAReconnect
-  nameWithType.vb: AAReconnect.New
-- uid: Albatross.Messaging.ReqRep.Messages.AAReconnect.MessageHeader
-  name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.AAReconnect.html#Albatross_Messaging_ReqRep_Messages_AAReconnect_MessageHeader
-  commentId: P:Albatross.Messaging.ReqRep.Messages.AAReconnect.MessageHeader
-  fullName: Albatross.Messaging.ReqRep.Messages.AAReconnect.MessageHeader
-  nameWithType: AAReconnect.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.AAReconnect.MessageHeader*
-  name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.AAReconnect.html#Albatross_Messaging_ReqRep_Messages_AAReconnect_MessageHeader_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAReconnect.MessageHeader
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.AAReconnect.MessageHeader
-  nameWithType: AAReconnect.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.AAServerAck
-  name: AAServerAck
-  href: api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html
-  commentId: T:Albatross.Messaging.ReqRep.Messages.AAServerAck
-  fullName: Albatross.Messaging.ReqRep.Messages.AAServerAck
-  nameWithType: AAServerAck
-- uid: Albatross.Messaging.ReqRep.Messages.AAServerAck.#ctor
-  name: AAServerAck()
-  href: api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html#Albatross_Messaging_ReqRep_Messages_AAServerAck__ctor
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAServerAck.#ctor
-  name.vb: New()
-  fullName: Albatross.Messaging.ReqRep.Messages.AAServerAck.AAServerAck()
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAServerAck.New()
-  nameWithType: AAServerAck.AAServerAck()
-  nameWithType.vb: AAServerAck.New()
-- uid: Albatross.Messaging.ReqRep.Messages.AAServerAck.#ctor(System.String,System.UInt64)
-  name: AAServerAck(string, ulong)
-  href: api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html#Albatross_Messaging_ReqRep_Messages_AAServerAck__ctor_System_String_System_UInt64_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAServerAck.#ctor(System.String,System.UInt64)
-  name.vb: New(String, ULong)
-  fullName: Albatross.Messaging.ReqRep.Messages.AAServerAck.AAServerAck(string, ulong)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAServerAck.New(String, ULong)
-  nameWithType: AAServerAck.AAServerAck(string, ulong)
-  nameWithType.vb: AAServerAck.New(String, ULong)
-- uid: Albatross.Messaging.ReqRep.Messages.AAServerAck.#ctor*
-  name: AAServerAck
-  href: api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html#Albatross_Messaging_ReqRep_Messages_AAServerAck__ctor_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAServerAck.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Messaging.ReqRep.Messages.AAServerAck.AAServerAck
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAServerAck.New
-  nameWithType: AAServerAck.AAServerAck
-  nameWithType.vb: AAServerAck.New
-- uid: Albatross.Messaging.ReqRep.Messages.AAServerAck.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name: Accept(string, ulong, NetMQMessage)
-  href: api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html#Albatross_Messaging_ReqRep_Messages_AAServerAck_Accept_System_String_System_UInt64_NetMQ_NetMQMessage_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.AAServerAck.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name.vb: Accept(String, ULong, NetMQMessage)
-  fullName: Albatross.Messaging.ReqRep.Messages.AAServerAck.Accept(string, ulong, NetMQ.NetMQMessage)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.AAServerAck.Accept(String, ULong, NetMQ.NetMQMessage)
-  nameWithType: AAServerAck.Accept(string, ulong, NetMQMessage)
-  nameWithType.vb: AAServerAck.Accept(String, ULong, NetMQMessage)
-- uid: Albatross.Messaging.ReqRep.Messages.AAServerAck.Accept*
-  name: Accept
-  href: api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html#Albatross_Messaging_ReqRep_Messages_AAServerAck_Accept_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAServerAck.Accept
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.AAServerAck.Accept
-  nameWithType: AAServerAck.Accept
-- uid: Albatross.Messaging.ReqRep.Messages.AAServerAck.MessageHeader
-  name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html#Albatross_Messaging_ReqRep_Messages_AAServerAck_MessageHeader
-  commentId: P:Albatross.Messaging.ReqRep.Messages.AAServerAck.MessageHeader
-  fullName: Albatross.Messaging.ReqRep.Messages.AAServerAck.MessageHeader
-  nameWithType: AAServerAck.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.AAServerAck.MessageHeader*
-  name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.AAServerAck.html#Albatross_Messaging_ReqRep_Messages_AAServerAck_MessageHeader_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.AAServerAck.MessageHeader
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.AAServerAck.MessageHeader
-  nameWithType: AAServerAck.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk
-  name: BrokerConnectOk
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html
-  commentId: T:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk
-  nameWithType: BrokerConnectOk
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.#ctor
-  name: BrokerConnectOk()
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk__ctor
-  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.#ctor
-  name.vb: New()
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.BrokerConnectOk()
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.New()
-  nameWithType: BrokerConnectOk.BrokerConnectOk()
-  nameWithType.vb: BrokerConnectOk.New()
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.#ctor(System.String,System.UInt64,System.Double,System.Double)
-  name: BrokerConnectOk(string, ulong, double, double)
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk__ctor_System_String_System_UInt64_System_Double_System_Double_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.#ctor(System.String,System.UInt64,System.Double,System.Double)
-  name.vb: New(String, ULong, Double, Double)
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.BrokerConnectOk(string, ulong, double, double)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.New(String, ULong, Double, Double)
-  nameWithType: BrokerConnectOk.BrokerConnectOk(string, ulong, double, double)
-  nameWithType.vb: BrokerConnectOk.New(String, ULong, Double, Double)
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.#ctor*
-  name: BrokerConnectOk
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk__ctor_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.BrokerConnectOk
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.New
-  nameWithType: BrokerConnectOk.BrokerConnectOk
-  nameWithType.vb: BrokerConnectOk.New
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatInterval
-  name: HeartbeatInterval
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk_HeartbeatInterval
-  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatInterval
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatInterval
-  nameWithType: BrokerConnectOk.HeartbeatInterval
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatInterval*
-  name: HeartbeatInterval
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk_HeartbeatInterval_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatInterval
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatInterval
-  nameWithType: BrokerConnectOk.HeartbeatInterval
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatThreshold
-  name: HeartbeatThreshold
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk_HeartbeatThreshold
-  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatThreshold
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatThreshold
-  nameWithType: BrokerConnectOk.HeartbeatThreshold
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatThreshold*
-  name: HeartbeatThreshold
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk_HeartbeatThreshold_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatThreshold
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.HeartbeatThreshold
-  nameWithType: BrokerConnectOk.HeartbeatThreshold
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.MessageHeader
-  name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk_MessageHeader
-  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.MessageHeader
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.MessageHeader
-  nameWithType: BrokerConnectOk.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.MessageHeader*
-  name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.html#Albatross_Messaging_ReqRep_Messages_BrokerConnectOk_MessageHeader_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.MessageHeader
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerConnectOk.MessageHeader
-  nameWithType: BrokerConnectOk.MessageHeader
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerReconnect.MessageHeader
+  nameWithType: BrokerReconnect.MessageHeader
 - uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest
   name: BrokerRequest
   href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html
@@ -20849,15 +20674,15 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerRequest.New()
   nameWithType: BrokerRequest.BrokerRequest()
   nameWithType.vb: BrokerRequest.New()
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.#ctor(System.String,System.UInt64,System.String,System.Byte[])
-  name: BrokerRequest(string, ulong, string, byte[])
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest__ctor_System_String_System_UInt64_System_String_System_Byte___
-  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerRequest.#ctor(System.String,System.UInt64,System.String,System.Byte[])
-  name.vb: New(String, ULong, String, Byte())
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.BrokerRequest(string, ulong, string, byte[])
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerRequest.New(String, ULong, String, Byte())
-  nameWithType: BrokerRequest.BrokerRequest(string, ulong, string, byte[])
-  nameWithType.vb: BrokerRequest.New(String, ULong, String, Byte())
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.#ctor(System.String,System.UInt64,System.String,System.UInt64,System.Byte[])
+  name: BrokerRequest(string, ulong, string, ulong, byte[])
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest__ctor_System_String_System_UInt64_System_String_System_UInt64_System_Byte___
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerRequest.#ctor(System.String,System.UInt64,System.String,System.UInt64,System.Byte[])
+  name.vb: New(String, ULong, String, ULong, Byte())
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.BrokerRequest(string, ulong, string, ulong, byte[])
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerRequest.New(String, ULong, String, ULong, Byte())
+  nameWithType: BrokerRequest.BrokerRequest(string, ulong, string, ulong, byte[])
+  nameWithType.vb: BrokerRequest.New(String, ULong, String, ULong, Byte())
 - uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.#ctor*
   name: BrokerRequest
   href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest__ctor_
@@ -20868,19 +20693,19 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerRequest.New
   nameWithType: BrokerRequest.BrokerRequest
   nameWithType.vb: BrokerRequest.New
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.Client
-  name: Client
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_Client
-  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerRequest.Client
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.Client
-  nameWithType: BrokerRequest.Client
-- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.Client*
-  name: Client
-  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_Client_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerRequest.Client
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ClientId
+  name: ClientId
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_ClientId
+  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerRequest.ClientId
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ClientId
+  nameWithType: BrokerRequest.ClientId
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ClientId*
+  name: ClientId
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_ClientId_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerRequest.ClientId
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.Client
-  nameWithType: BrokerRequest.Client
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ClientId
+  nameWithType: BrokerRequest.ClientId
 - uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.MessageHeader
   name: MessageHeader
   href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_MessageHeader
@@ -20907,6 +20732,189 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.Payload
   nameWithType: BrokerRequest.Payload
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromFrames(NetMQ.NetMQMessage)
+  name: ReadFromFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_ReadFromFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromFrames(NetMQ.NetMQMessage)
+  nameWithType: BrokerRequest.ReadFromFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromFrames*
+  name: ReadFromFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_ReadFromFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromFrames
+  nameWithType: BrokerRequest.ReadFromFrames
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromText(System.String,System.Int32@)
+  name: ReadFromText(string, ref int)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_ReadFromText_System_String_System_Int32__
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromText(System.String,System.Int32@)
+  name.vb: ReadFromText(String, Integer)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromText(string, ref int)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromText(String, Integer)
+  nameWithType: BrokerRequest.ReadFromText(string, ref int)
+  nameWithType.vb: BrokerRequest.ReadFromText(String, Integer)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromText*
+  name: ReadFromText
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_ReadFromText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.ReadFromText
+  nameWithType: BrokerRequest.ReadFromText
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.RequestId
+  name: RequestId
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_RequestId
+  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerRequest.RequestId
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.RequestId
+  nameWithType: BrokerRequest.RequestId
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.RequestId*
+  name: RequestId
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_RequestId_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerRequest.RequestId
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.RequestId
+  nameWithType: BrokerRequest.RequestId
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToFrames(NetMQ.NetMQMessage)
+  name: WriteToFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_WriteToFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToFrames(NetMQ.NetMQMessage)
+  nameWithType: BrokerRequest.WriteToFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToFrames*
+  name: WriteToFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_WriteToFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToFrames
+  nameWithType: BrokerRequest.WriteToFrames
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToText(System.IO.TextWriter)
+  name: WriteToText(TextWriter)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_WriteToText_System_IO_TextWriter_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToText(System.IO.TextWriter)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToText(System.IO.TextWriter)
+  nameWithType: BrokerRequest.WriteToText(TextWriter)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToText*
+  name: WriteToText
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.html#Albatross_Messaging_ReqRep_Messages_BrokerRequest_WriteToText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerRequest.WriteToText
+  nameWithType: BrokerRequest.WriteToText
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse
+  name: BrokerResponse
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html
+  commentId: T:Albatross.Messaging.ReqRep.Messages.BrokerResponse
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse
+  nameWithType: BrokerResponse
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.#ctor
+  name: BrokerResponse()
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse__ctor
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerResponse.#ctor
+  name.vb: New()
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.BrokerResponse()
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerResponse.New()
+  nameWithType: BrokerResponse.BrokerResponse()
+  nameWithType.vb: BrokerResponse.New()
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.#ctor(System.String,System.UInt64,System.Byte[])
+  name: BrokerResponse(string, ulong, byte[])
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse__ctor_System_String_System_UInt64_System_Byte___
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerResponse.#ctor(System.String,System.UInt64,System.Byte[])
+  name.vb: New(String, ULong, Byte())
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.BrokerResponse(string, ulong, byte[])
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerResponse.New(String, ULong, Byte())
+  nameWithType: BrokerResponse.BrokerResponse(string, ulong, byte[])
+  nameWithType.vb: BrokerResponse.New(String, ULong, Byte())
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.#ctor*
+  name: BrokerResponse
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse__ctor_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerResponse.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.BrokerResponse
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerResponse.New
+  nameWithType: BrokerResponse.BrokerResponse
+  nameWithType.vb: BrokerResponse.New
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.MessageHeader
+  name: MessageHeader
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_MessageHeader
+  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerResponse.MessageHeader
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.MessageHeader
+  nameWithType: BrokerResponse.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.MessageHeader*
+  name: MessageHeader
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_MessageHeader_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerResponse.MessageHeader
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.MessageHeader
+  nameWithType: BrokerResponse.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.Payload
+  name: Payload
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_Payload
+  commentId: P:Albatross.Messaging.ReqRep.Messages.BrokerResponse.Payload
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.Payload
+  nameWithType: BrokerResponse.Payload
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.Payload*
+  name: Payload
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_Payload_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerResponse.Payload
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.Payload
+  nameWithType: BrokerResponse.Payload
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromFrames(NetMQ.NetMQMessage)
+  name: ReadFromFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_ReadFromFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromFrames(NetMQ.NetMQMessage)
+  nameWithType: BrokerResponse.ReadFromFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromFrames*
+  name: ReadFromFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_ReadFromFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromFrames
+  nameWithType: BrokerResponse.ReadFromFrames
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromText(System.String,System.Int32@)
+  name: ReadFromText(string, ref int)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_ReadFromText_System_String_System_Int32__
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromText(System.String,System.Int32@)
+  name.vb: ReadFromText(String, Integer)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromText(string, ref int)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromText(String, Integer)
+  nameWithType: BrokerResponse.ReadFromText(string, ref int)
+  nameWithType.vb: BrokerResponse.ReadFromText(String, Integer)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromText*
+  name: ReadFromText
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_ReadFromText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.ReadFromText
+  nameWithType: BrokerResponse.ReadFromText
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToFrames(NetMQ.NetMQMessage)
+  name: WriteToFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_WriteToFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToFrames(NetMQ.NetMQMessage)
+  nameWithType: BrokerResponse.WriteToFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToFrames*
+  name: WriteToFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_WriteToFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToFrames
+  nameWithType: BrokerResponse.WriteToFrames
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToText(System.IO.TextWriter)
+  name: WriteToText(TextWriter)
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_WriteToText_System_IO_TextWriter_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToText(System.IO.TextWriter)
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToText(System.IO.TextWriter)
+  nameWithType: BrokerResponse.WriteToText(TextWriter)
+- uid: Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToText*
+  name: WriteToText
+  href: api/Albatross.Messaging.ReqRep.Messages.BrokerResponse.html#Albatross_Messaging_ReqRep_Messages_BrokerResponse_WriteToText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.BrokerResponse.WriteToText
+  nameWithType: BrokerResponse.WriteToText
 - uid: Albatross.Messaging.ReqRep.Messages.ClientRequest
   name: ClientRequest
   href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html
@@ -20922,15 +20930,15 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.Messages.ClientRequest.New()
   nameWithType: ClientRequest.ClientRequest()
   nameWithType.vb: ClientRequest.New()
-- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.#ctor(System.String,System.UInt32,System.String,System.Byte[])
-  name: ClientRequest(string, uint, string?, byte[])
-  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest__ctor_System_String_System_UInt32_System_String_System_Byte___
-  commentId: M:Albatross.Messaging.ReqRep.Messages.ClientRequest.#ctor(System.String,System.UInt32,System.String,System.Byte[])
-  name.vb: New(String, UInteger, String, Byte())
-  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.ClientRequest(string, uint, string?, byte[])
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.ClientRequest.New(String, UInteger, String, Byte())
-  nameWithType: ClientRequest.ClientRequest(string, uint, string?, byte[])
-  nameWithType.vb: ClientRequest.New(String, UInteger, String, Byte())
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.#ctor(System.String,System.UInt64,System.String,System.Byte[])
+  name: ClientRequest(string, ulong, string, byte[])
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest__ctor_System_String_System_UInt64_System_String_System_Byte___
+  commentId: M:Albatross.Messaging.ReqRep.Messages.ClientRequest.#ctor(System.String,System.UInt64,System.String,System.Byte[])
+  name.vb: New(String, ULong, String, Byte())
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.ClientRequest(string, ulong, string, byte[])
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.ClientRequest.New(String, ULong, String, Byte())
+  nameWithType: ClientRequest.ClientRequest(string, ulong, string, byte[])
+  nameWithType.vb: ClientRequest.New(String, ULong, String, Byte())
 - uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.#ctor*
   name: ClientRequest
   href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest__ctor_
@@ -20967,6 +20975,35 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.Payload
   nameWithType: ClientRequest.Payload
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromFrames(NetMQ.NetMQMessage)
+  name: ReadFromFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_ReadFromFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromFrames(NetMQ.NetMQMessage)
+  nameWithType: ClientRequest.ReadFromFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromFrames*
+  name: ReadFromFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_ReadFromFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromFrames
+  nameWithType: ClientRequest.ReadFromFrames
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromText(System.String,System.Int32@)
+  name: ReadFromText(string, ref int)
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_ReadFromText_System_String_System_Int32__
+  commentId: M:Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromText(System.String,System.Int32@)
+  name.vb: ReadFromText(String, Integer)
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromText(string, ref int)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromText(String, Integer)
+  nameWithType: ClientRequest.ReadFromText(string, ref int)
+  nameWithType.vb: ClientRequest.ReadFromText(String, Integer)
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromText*
+  name: ReadFromText
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_ReadFromText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.ReadFromText
+  nameWithType: ClientRequest.ReadFromText
 - uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.Service
   name: Service
   href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_Service
@@ -20980,6 +21017,32 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.Service
   nameWithType: ClientRequest.Service
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToFrames(NetMQ.NetMQMessage)
+  name: WriteToFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_WriteToFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToFrames(NetMQ.NetMQMessage)
+  nameWithType: ClientRequest.WriteToFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToFrames*
+  name: WriteToFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_WriteToFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToFrames
+  nameWithType: ClientRequest.WriteToFrames
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToText(System.IO.TextWriter)
+  name: WriteToText(TextWriter)
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_WriteToText_System_IO_TextWriter_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToText(System.IO.TextWriter)
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToText(System.IO.TextWriter)
+  nameWithType: ClientRequest.WriteToText(TextWriter)
+- uid: Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToText*
+  name: WriteToText
+  href: api/Albatross.Messaging.ReqRep.Messages.ClientRequest.html#Albatross_Messaging_ReqRep_Messages_ClientRequest_WriteToText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.ClientRequest.WriteToText
+  nameWithType: ClientRequest.WriteToText
 - uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker
   name: NoAvailableWorker
   href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html
@@ -20996,13 +21059,13 @@ references:
   nameWithType: NoAvailableWorker.NoAvailableWorker()
   nameWithType.vb: NoAvailableWorker.New()
 - uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.#ctor(System.String,System.UInt64,System.String)
-  name: NoAvailableWorker(string, ulong, string?)
+  name: NoAvailableWorker(string, ulong, string)
   href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker__ctor_System_String_System_UInt64_System_String_
   commentId: M:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.#ctor(System.String,System.UInt64,System.String)
   name.vb: New(String, ULong, String)
-  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.NoAvailableWorker(string, ulong, string?)
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.NoAvailableWorker(string, ulong, string)
   fullName.vb: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.New(String, ULong, String)
-  nameWithType: NoAvailableWorker.NoAvailableWorker(string, ulong, string?)
+  nameWithType: NoAvailableWorker.NoAvailableWorker(string, ulong, string)
   nameWithType.vb: NoAvailableWorker.New(String, ULong, String)
 - uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.#ctor*
   name: NoAvailableWorker
@@ -21014,22 +21077,6 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.New
   nameWithType: NoAvailableWorker.NoAvailableWorker
   nameWithType.vb: NoAvailableWorker.New
-- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name: Accept(string, ulong, NetMQMessage)
-  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_Accept_System_String_System_UInt64_NetMQ_NetMQMessage_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name.vb: Accept(String, ULong, NetMQMessage)
-  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Accept(string, ulong, NetMQ.NetMQMessage)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Accept(String, ULong, NetMQ.NetMQMessage)
-  nameWithType: NoAvailableWorker.Accept(string, ulong, NetMQMessage)
-  nameWithType.vb: NoAvailableWorker.Accept(String, ULong, NetMQMessage)
-- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Accept*
-  name: Accept
-  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_Accept_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Accept
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Accept
-  nameWithType: NoAvailableWorker.Accept
 - uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.MessageHeader
   name: MessageHeader
   href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_MessageHeader
@@ -21043,6 +21090,35 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.MessageHeader
   nameWithType: NoAvailableWorker.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromFrames(NetMQ.NetMQMessage)
+  name: ReadFromFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_ReadFromFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromFrames(NetMQ.NetMQMessage)
+  nameWithType: NoAvailableWorker.ReadFromFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromFrames*
+  name: ReadFromFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_ReadFromFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromFrames
+  nameWithType: NoAvailableWorker.ReadFromFrames
+- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromText(System.String,System.Int32@)
+  name: ReadFromText(string, ref int)
+  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_ReadFromText_System_String_System_Int32__
+  commentId: M:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromText(System.String,System.Int32@)
+  name.vb: ReadFromText(String, Integer)
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromText(string, ref int)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromText(String, Integer)
+  nameWithType: NoAvailableWorker.ReadFromText(string, ref int)
+  nameWithType.vb: NoAvailableWorker.ReadFromText(String, Integer)
+- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromText*
+  name: ReadFromText
+  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_ReadFromText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.ReadFromText
+  nameWithType: NoAvailableWorker.ReadFromText
 - uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Service
   name: Service
   href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_Service
@@ -21056,6 +21132,32 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.Service
   nameWithType: NoAvailableWorker.Service
+- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToFrames(NetMQ.NetMQMessage)
+  name: WriteToFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_WriteToFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToFrames(NetMQ.NetMQMessage)
+  nameWithType: NoAvailableWorker.WriteToFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToFrames*
+  name: WriteToFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_WriteToFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToFrames
+  nameWithType: NoAvailableWorker.WriteToFrames
+- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToText(System.IO.TextWriter)
+  name: WriteToText(TextWriter)
+  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_WriteToText_System_IO_TextWriter_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToText(System.IO.TextWriter)
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToText(System.IO.TextWriter)
+  nameWithType: NoAvailableWorker.WriteToText(TextWriter)
+- uid: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToText*
+  name: WriteToText
+  href: api/Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.html#Albatross_Messaging_ReqRep_Messages_NoAvailableWorker_WriteToText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.NoAvailableWorker.WriteToText
+  nameWithType: NoAvailableWorker.WriteToText
 - uid: Albatross.Messaging.ReqRep.Messages.WorkerAck
   name: WorkerAck
   href: api/Albatross.Messaging.ReqRep.Messages.WorkerAck.html
@@ -21153,22 +21255,6 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerConnect.New
   nameWithType: WorkerConnect.WorkerConnect
   nameWithType.vb: WorkerConnect.New
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name: Accept(string, ulong, NetMQMessage)
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_Accept_System_String_System_UInt64_NetMQ_NetMQMessage_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name.vb: Accept(String, ULong, NetMQMessage)
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept(string, ulong, NetMQ.NetMQMessage)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept(String, ULong, NetMQ.NetMQMessage)
-  nameWithType: WorkerConnect.Accept(string, ulong, NetMQMessage)
-  nameWithType.vb: WorkerConnect.Accept(String, ULong, NetMQMessage)
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept*
-  name: Accept
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_Accept_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept
-  nameWithType: WorkerConnect.Accept
 - uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.MessageHeader
   name: MessageHeader
   href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_MessageHeader
@@ -21182,6 +21268,35 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.MessageHeader
   nameWithType: WorkerConnect.MessageHeader
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromFrames(NetMQ.NetMQMessage)
+  name: ReadFromFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_ReadFromFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromFrames(NetMQ.NetMQMessage)
+  nameWithType: WorkerConnect.ReadFromFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromFrames*
+  name: ReadFromFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_ReadFromFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromFrames
+  nameWithType: WorkerConnect.ReadFromFrames
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText(System.String,System.Int32@)
+  name: ReadFromText(string, ref int)
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_ReadFromText_System_String_System_Int32__
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText(System.String,System.Int32@)
+  name.vb: ReadFromText(String, Integer)
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText(string, ref int)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText(String, Integer)
+  nameWithType: WorkerConnect.ReadFromText(string, ref int)
+  nameWithType.vb: WorkerConnect.ReadFromText(String, Integer)
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText*
+  name: ReadFromText
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_ReadFromText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText
+  nameWithType: WorkerConnect.ReadFromText
 - uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.Services
   name: Services
   href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_Services
@@ -21195,69 +21310,32 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.Services
   nameWithType: WorkerConnect.Services
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat
-  name: WorkerHeartbeat
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html
-  commentId: T:Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat
-  nameWithType: WorkerHeartbeat
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.#ctor
-  name: WorkerHeartbeat()
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html#Albatross_Messaging_ReqRep_Messages_WorkerHeartbeat__ctor
-  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.#ctor
-  name.vb: New()
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.WorkerHeartbeat()
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.New()
-  nameWithType: WorkerHeartbeat.WorkerHeartbeat()
-  nameWithType.vb: WorkerHeartbeat.New()
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.#ctor(System.String,System.UInt64)
-  name: WorkerHeartbeat(string, ulong)
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html#Albatross_Messaging_ReqRep_Messages_WorkerHeartbeat__ctor_System_String_System_UInt64_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.#ctor(System.String,System.UInt64)
-  name.vb: New(String, ULong)
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.WorkerHeartbeat(string, ulong)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.New(String, ULong)
-  nameWithType: WorkerHeartbeat.WorkerHeartbeat(string, ulong)
-  nameWithType.vb: WorkerHeartbeat.New(String, ULong)
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.#ctor*
-  name: WorkerHeartbeat
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html#Albatross_Messaging_ReqRep_Messages_WorkerHeartbeat__ctor_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.#ctor
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToFrames(NetMQ.NetMQMessage)
+  name: WriteToFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_WriteToFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToFrames(NetMQ.NetMQMessage)
+  nameWithType: WorkerConnect.WriteToFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToFrames*
+  name: WriteToFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_WriteToFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToFrames
   isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.WorkerHeartbeat
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.New
-  nameWithType: WorkerHeartbeat.WorkerHeartbeat
-  nameWithType.vb: WorkerHeartbeat.New
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name: Accept(string, ulong, NetMQMessage)
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html#Albatross_Messaging_ReqRep_Messages_WorkerHeartbeat_Accept_System_String_System_UInt64_NetMQ_NetMQMessage_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name.vb: Accept(String, ULong, NetMQMessage)
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.Accept(string, ulong, NetMQ.NetMQMessage)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.Accept(String, ULong, NetMQ.NetMQMessage)
-  nameWithType: WorkerHeartbeat.Accept(string, ulong, NetMQMessage)
-  nameWithType.vb: WorkerHeartbeat.Accept(String, ULong, NetMQMessage)
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.Accept*
-  name: Accept
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html#Albatross_Messaging_ReqRep_Messages_WorkerHeartbeat_Accept_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.Accept
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToFrames
+  nameWithType: WorkerConnect.WriteToFrames
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToText(System.IO.TextWriter)
+  name: WriteToText(TextWriter)
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_WriteToText_System_IO_TextWriter_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToText(System.IO.TextWriter)
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToText(System.IO.TextWriter)
+  nameWithType: WorkerConnect.WriteToText(TextWriter)
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToText*
+  name: WriteToText
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html#Albatross_Messaging_ReqRep_Messages_WorkerConnect_WriteToText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToText
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.Accept
-  nameWithType: WorkerHeartbeat.Accept
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.MessageHeader
-  name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html#Albatross_Messaging_ReqRep_Messages_WorkerHeartbeat_MessageHeader
-  commentId: P:Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.MessageHeader
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.MessageHeader
-  nameWithType: WorkerHeartbeat.MessageHeader
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.MessageHeader*
-  name: MessageHeader
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.html#Albatross_Messaging_ReqRep_Messages_WorkerHeartbeat_MessageHeader_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.MessageHeader
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerHeartbeat.MessageHeader
-  nameWithType: WorkerHeartbeat.MessageHeader
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToText
+  nameWithType: WorkerConnect.WriteToText
 - uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse
   name: WorkerResponse
   href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html
@@ -21273,15 +21351,15 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerResponse.New()
   nameWithType: WorkerResponse.WorkerResponse()
   nameWithType.vb: WorkerResponse.New()
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.#ctor(System.String,System.UInt64,System.Byte[])
-  name: WorkerResponse(string, ulong, byte[])
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse__ctor_System_String_System_UInt64_System_Byte___
-  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerResponse.#ctor(System.String,System.UInt64,System.Byte[])
-  name.vb: New(String, ULong, Byte())
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WorkerResponse(string, ulong, byte[])
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerResponse.New(String, ULong, Byte())
-  nameWithType: WorkerResponse.WorkerResponse(string, ulong, byte[])
-  nameWithType.vb: WorkerResponse.New(String, ULong, Byte())
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.#ctor(System.String,System.UInt64,System.String,System.UInt64,System.Byte[])
+  name: WorkerResponse(string, ulong, string, ulong, byte[])
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse__ctor_System_String_System_UInt64_System_String_System_UInt64_System_Byte___
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerResponse.#ctor(System.String,System.UInt64,System.String,System.UInt64,System.Byte[])
+  name.vb: New(String, ULong, String, ULong, Byte())
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WorkerResponse(string, ulong, string, ulong, byte[])
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerResponse.New(String, ULong, String, ULong, Byte())
+  nameWithType: WorkerResponse.WorkerResponse(string, ulong, string, ulong, byte[])
+  nameWithType.vb: WorkerResponse.New(String, ULong, String, ULong, Byte())
 - uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.#ctor*
   name: WorkerResponse
   href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse__ctor_
@@ -21292,22 +21370,19 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerResponse.New
   nameWithType: WorkerResponse.WorkerResponse
   nameWithType.vb: WorkerResponse.New
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name: Accept(string, ulong, NetMQMessage)
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_Accept_System_String_System_UInt64_NetMQ_NetMQMessage_
-  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerResponse.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)
-  name.vb: Accept(String, ULong, NetMQMessage)
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.Accept(string, ulong, NetMQ.NetMQMessage)
-  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerResponse.Accept(String, ULong, NetMQ.NetMQMessage)
-  nameWithType: WorkerResponse.Accept(string, ulong, NetMQMessage)
-  nameWithType.vb: WorkerResponse.Accept(String, ULong, NetMQMessage)
-- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.Accept*
-  name: Accept
-  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_Accept_
-  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerResponse.Accept
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ClientId
+  name: ClientId
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_ClientId
+  commentId: P:Albatross.Messaging.ReqRep.Messages.WorkerResponse.ClientId
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ClientId
+  nameWithType: WorkerResponse.ClientId
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ClientId*
+  name: ClientId
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_ClientId_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerResponse.ClientId
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.Accept
-  nameWithType: WorkerResponse.Accept
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ClientId
+  nameWithType: WorkerResponse.ClientId
 - uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.MessageHeader
   name: MessageHeader
   href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_MessageHeader
@@ -21334,6 +21409,74 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.Payload
   nameWithType: WorkerResponse.Payload
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromFrames(NetMQ.NetMQMessage)
+  name: ReadFromFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_ReadFromFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromFrames(NetMQ.NetMQMessage)
+  nameWithType: WorkerResponse.ReadFromFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromFrames*
+  name: ReadFromFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_ReadFromFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromFrames
+  nameWithType: WorkerResponse.ReadFromFrames
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromText(System.String,System.Int32@)
+  name: ReadFromText(string, ref int)
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_ReadFromText_System_String_System_Int32__
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromText(System.String,System.Int32@)
+  name.vb: ReadFromText(String, Integer)
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromText(string, ref int)
+  fullName.vb: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromText(String, Integer)
+  nameWithType: WorkerResponse.ReadFromText(string, ref int)
+  nameWithType.vb: WorkerResponse.ReadFromText(String, Integer)
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromText*
+  name: ReadFromText
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_ReadFromText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.ReadFromText
+  nameWithType: WorkerResponse.ReadFromText
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.RequestId
+  name: RequestId
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_RequestId
+  commentId: P:Albatross.Messaging.ReqRep.Messages.WorkerResponse.RequestId
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.RequestId
+  nameWithType: WorkerResponse.RequestId
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.RequestId*
+  name: RequestId
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_RequestId_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerResponse.RequestId
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.RequestId
+  nameWithType: WorkerResponse.RequestId
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToFrames(NetMQ.NetMQMessage)
+  name: WriteToFrames(NetMQMessage)
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_WriteToFrames_NetMQ_NetMQMessage_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToFrames(NetMQ.NetMQMessage)
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToFrames(NetMQ.NetMQMessage)
+  nameWithType: WorkerResponse.WriteToFrames(NetMQMessage)
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToFrames*
+  name: WriteToFrames
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_WriteToFrames_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToFrames
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToFrames
+  nameWithType: WorkerResponse.WriteToFrames
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToText(System.IO.TextWriter)
+  name: WriteToText(TextWriter)
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_WriteToText_System_IO_TextWriter_
+  commentId: M:Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToText(System.IO.TextWriter)
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToText(System.IO.TextWriter)
+  nameWithType: WorkerResponse.WriteToText(TextWriter)
+- uid: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToText*
+  name: WriteToText
+  href: api/Albatross.Messaging.ReqRep.Messages.WorkerResponse.html#Albatross_Messaging_ReqRep_Messages_WorkerResponse_WriteToText_
+  commentId: Overload:Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToText
+  isSpec: "True"
+  fullName: Albatross.Messaging.ReqRep.Messages.WorkerResponse.WriteToText
+  nameWithType: WorkerResponse.WriteToText
 - uid: Albatross.Messaging.ReqRep.NoAvailableWorkerException
   name: NoAvailableWorkerException
   href: api/Albatross.Messaging.ReqRep.NoAvailableWorkerException.html
@@ -21365,15 +21508,15 @@ references:
   commentId: T:Albatross.Messaging.ReqRep.RouterBrokerService
   fullName: Albatross.Messaging.ReqRep.RouterBrokerService
   nameWithType: RouterBrokerService
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.#ctor(Albatross.Messaging.Configurations.BrokerConfiguration,Albatross.Messaging.ReqRep.WorkerRegistry,Albatross.Messaging.DataLogging.ILogWriter,Albatross.Messaging.Messages.IMessageFactory,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.RouterBrokerService})
-  name: RouterBrokerService(BrokerConfiguration, WorkerRegistry, ILogWriter, IMessageFactory, ILogger<RouterBrokerService>)
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService__ctor_Albatross_Messaging_Configurations_BrokerConfiguration_Albatross_Messaging_ReqRep_WorkerRegistry_Albatross_Messaging_DataLogging_ILogWriter_Albatross_Messaging_Messages_IMessageFactory_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_ReqRep_RouterBrokerService__
-  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.#ctor(Albatross.Messaging.Configurations.BrokerConfiguration,Albatross.Messaging.ReqRep.WorkerRegistry,Albatross.Messaging.DataLogging.ILogWriter,Albatross.Messaging.Messages.IMessageFactory,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.RouterBrokerService})
-  name.vb: New(BrokerConfiguration, WorkerRegistry, ILogWriter, IMessageFactory, ILogger(Of RouterBrokerService))
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.RouterBrokerService(Albatross.Messaging.Configurations.BrokerConfiguration, Albatross.Messaging.ReqRep.WorkerRegistry, Albatross.Messaging.DataLogging.ILogWriter, Albatross.Messaging.Messages.IMessageFactory, Microsoft.Extensions.Logging.ILogger<Albatross.Messaging.ReqRep.RouterBrokerService>)
-  fullName.vb: Albatross.Messaging.ReqRep.RouterBrokerService.New(Albatross.Messaging.Configurations.BrokerConfiguration, Albatross.Messaging.ReqRep.WorkerRegistry, Albatross.Messaging.DataLogging.ILogWriter, Albatross.Messaging.Messages.IMessageFactory, Microsoft.Extensions.Logging.ILogger(Of Albatross.Messaging.ReqRep.RouterBrokerService))
-  nameWithType: RouterBrokerService.RouterBrokerService(BrokerConfiguration, WorkerRegistry, ILogWriter, IMessageFactory, ILogger<RouterBrokerService>)
-  nameWithType.vb: RouterBrokerService.New(BrokerConfiguration, WorkerRegistry, ILogWriter, IMessageFactory, ILogger(Of RouterBrokerService))
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.#ctor(Albatross.Messaging.ReqRep.WorkerRegistry,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.RouterBrokerService})
+  name: RouterBrokerService(WorkerRegistry, ILogger<RouterBrokerService>)
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService__ctor_Albatross_Messaging_ReqRep_WorkerRegistry_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_ReqRep_RouterBrokerService__
+  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.#ctor(Albatross.Messaging.ReqRep.WorkerRegistry,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.RouterBrokerService})
+  name.vb: New(WorkerRegistry, ILogger(Of RouterBrokerService))
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.RouterBrokerService(Albatross.Messaging.ReqRep.WorkerRegistry, Microsoft.Extensions.Logging.ILogger<Albatross.Messaging.ReqRep.RouterBrokerService>)
+  fullName.vb: Albatross.Messaging.ReqRep.RouterBrokerService.New(Albatross.Messaging.ReqRep.WorkerRegistry, Microsoft.Extensions.Logging.ILogger(Of Albatross.Messaging.ReqRep.RouterBrokerService))
+  nameWithType: RouterBrokerService.RouterBrokerService(WorkerRegistry, ILogger<RouterBrokerService>)
+  nameWithType.vb: RouterBrokerService.New(WorkerRegistry, ILogger(Of RouterBrokerService))
 - uid: Albatross.Messaging.ReqRep.RouterBrokerService.#ctor*
   name: RouterBrokerService
   href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService__ctor_
@@ -21384,119 +21527,90 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.RouterBrokerService.New
   nameWithType: RouterBrokerService.RouterBrokerService
   nameWithType.vb: RouterBrokerService.New
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Counter
-  name: Counter
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Counter
-  commentId: P:Albatross.Messaging.ReqRep.RouterBrokerService.Counter
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Counter
-  nameWithType: RouterBrokerService.Counter
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Counter*
-  name: Counter
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Counter_
-  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.Counter
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.CanReceive
+  name: CanReceive
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_CanReceive
+  commentId: P:Albatross.Messaging.ReqRep.RouterBrokerService.CanReceive
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.CanReceive
+  nameWithType: RouterBrokerService.CanReceive
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.CanReceive*
+  name: CanReceive
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_CanReceive_
+  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.CanReceive
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Counter
-  nameWithType: RouterBrokerService.Counter
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Dispose
-  name: Dispose()
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Dispose
-  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.Dispose
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Dispose()
-  nameWithType: RouterBrokerService.Dispose()
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Dispose*
-  name: Dispose
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Dispose_
-  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.Dispose
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.CanReceive
+  nameWithType: RouterBrokerService.CanReceive
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.HasCustomTransmitObject
+  name: HasCustomTransmitObject
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_HasCustomTransmitObject
+  commentId: P:Albatross.Messaging.ReqRep.RouterBrokerService.HasCustomTransmitObject
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.HasCustomTransmitObject
+  nameWithType: RouterBrokerService.HasCustomTransmitObject
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.HasCustomTransmitObject*
+  name: HasCustomTransmitObject
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_HasCustomTransmitObject_
+  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.HasCustomTransmitObject
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Dispose
-  nameWithType: RouterBrokerService.Dispose
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState(System.String)
-  name: GetClientState(string)
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_GetClientState_System_String_
-  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState(System.String)
-  name.vb: GetClientState(String)
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState(string)
-  fullName.vb: Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState(String)
-  nameWithType: RouterBrokerService.GetClientState(string)
-  nameWithType.vb: RouterBrokerService.GetClientState(String)
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState*
-  name: GetClientState
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_GetClientState_
-  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.HasCustomTransmitObject
+  nameWithType: RouterBrokerService.HasCustomTransmitObject
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.NeedTimer
+  name: NeedTimer
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_NeedTimer
+  commentId: P:Albatross.Messaging.ReqRep.RouterBrokerService.NeedTimer
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.NeedTimer
+  nameWithType: RouterBrokerService.NeedTimer
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.NeedTimer*
+  name: NeedTimer
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_NeedTimer_
+  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.NeedTimer
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState
-  nameWithType: RouterBrokerService.GetClientState
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Identity
-  name: Identity
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Identity
-  commentId: P:Albatross.Messaging.ReqRep.RouterBrokerService.Identity
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Identity
-  nameWithType: RouterBrokerService.Identity
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Identity*
-  name: Identity
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Identity_
-  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.Identity
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.NeedTimer
+  nameWithType: RouterBrokerService.NeedTimer
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg(Albatross.Messaging.Services.IMessagingService,Albatross.Messaging.Messages.IMessage)
+  name: ProcessReceivedMsg(IMessagingService, IMessage)
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_ProcessReceivedMsg_Albatross_Messaging_Services_IMessagingService_Albatross_Messaging_Messages_IMessage_
+  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg(Albatross.Messaging.Services.IMessagingService,Albatross.Messaging.Messages.IMessage)
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg(Albatross.Messaging.Services.IMessagingService, Albatross.Messaging.Messages.IMessage)
+  nameWithType: RouterBrokerService.ProcessReceivedMsg(IMessagingService, IMessage)
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg*
+  name: ProcessReceivedMsg
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_ProcessReceivedMsg_
+  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Identity
-  nameWithType: RouterBrokerService.Identity
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Start
-  name: Start()
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Start
-  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.Start
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Start()
-  nameWithType: RouterBrokerService.Start()
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Start*
-  name: Start
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Start_
-  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.Start
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg
+  nameWithType: RouterBrokerService.ProcessReceivedMsg
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name: ProcessTimerElapsed(IMessagingService, ulong)
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_System_UInt64_
+  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name.vb: ProcessTimerElapsed(IMessagingService, ULong)
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ulong)
+  fullName.vb: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ULong)
+  nameWithType: RouterBrokerService.ProcessTimerElapsed(IMessagingService, ulong)
+  nameWithType.vb: RouterBrokerService.ProcessTimerElapsed(IMessagingService, ULong)
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed*
+  name: ProcessTimerElapsed
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTimerElapsed_
+  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Start
-  nameWithType: RouterBrokerService.Start
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue(System.Object)
-  name: SubmitToQueue(object)
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_SubmitToQueue_System_Object_
-  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue(System.Object)
-  name.vb: SubmitToQueue(Object)
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue(object)
-  fullName.vb: Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue(Object)
-  nameWithType: RouterBrokerService.SubmitToQueue(object)
-  nameWithType.vb: RouterBrokerService.SubmitToQueue(Object)
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue*
-  name: SubmitToQueue
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_SubmitToQueue_
-  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed
+  nameWithType: RouterBrokerService.ProcessTimerElapsed
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue(Albatross.Messaging.Services.IMessagingService,System.Object)
+  name: ProcessTransmitQueue(IMessagingService, object)
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTransmitQueue_Albatross_Messaging_Services_IMessagingService_System_Object_
+  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue(Albatross.Messaging.Services.IMessagingService,System.Object)
+  name.vb: ProcessTransmitQueue(IMessagingService, Object)
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue(Albatross.Messaging.Services.IMessagingService, object)
+  fullName.vb: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue(Albatross.Messaging.Services.IMessagingService, Object)
+  nameWithType: RouterBrokerService.ProcessTransmitQueue(IMessagingService, object)
+  nameWithType.vb: RouterBrokerService.ProcessTransmitQueue(IMessagingService, Object)
+- uid: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue*
+  name: ProcessTransmitQueue
+  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTransmitQueue_
+  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue
   isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue
-  nameWithType: RouterBrokerService.SubmitToQueue
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed(System.Object,NetMQ.NetMQTimerEventArgs)
-  name: TimerElapsed(object?, NetMQTimerEventArgs)
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_TimerElapsed_System_Object_NetMQ_NetMQTimerEventArgs_
-  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed(System.Object,NetMQ.NetMQTimerEventArgs)
-  name.vb: TimerElapsed(Object, NetMQTimerEventArgs)
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed(object?, NetMQ.NetMQTimerEventArgs)
-  fullName.vb: Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed(Object, NetMQ.NetMQTimerEventArgs)
-  nameWithType: RouterBrokerService.TimerElapsed(object?, NetMQTimerEventArgs)
-  nameWithType.vb: RouterBrokerService.TimerElapsed(Object, NetMQTimerEventArgs)
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed*
-  name: TimerElapsed
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_TimerElapsed_
-  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed
-  nameWithType: RouterBrokerService.TimerElapsed
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Transmit(Albatross.Messaging.Messages.IMessage)
-  name: Transmit(IMessage)
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Transmit_Albatross_Messaging_Messages_IMessage_
-  commentId: M:Albatross.Messaging.ReqRep.RouterBrokerService.Transmit(Albatross.Messaging.Messages.IMessage)
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Transmit(Albatross.Messaging.Messages.IMessage)
-  nameWithType: RouterBrokerService.Transmit(IMessage)
-- uid: Albatross.Messaging.ReqRep.RouterBrokerService.Transmit*
-  name: Transmit
-  href: api/Albatross.Messaging.ReqRep.RouterBrokerService.html#Albatross_Messaging_ReqRep_RouterBrokerService_Transmit_
-  commentId: Overload:Albatross.Messaging.ReqRep.RouterBrokerService.Transmit
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.Transmit
-  nameWithType: RouterBrokerService.Transmit
+  fullName: Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue
+  nameWithType: RouterBrokerService.ProcessTransmitQueue
 - uid: Albatross.Messaging.ReqRep.Worker
   name: Worker
   href: api/Albatross.Messaging.ReqRep.Worker.html
@@ -21522,19 +21636,6 @@ references:
   fullName.vb: Albatross.Messaging.ReqRep.Worker.New
   nameWithType: Worker.Worker
   nameWithType.vb: Worker.New
-- uid: Albatross.Messaging.ReqRep.Worker.Accept(Albatross.Messaging.ReqRep.Messages.ClientRequest)
-  name: Accept(ClientRequest)
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_Accept_Albatross_Messaging_ReqRep_Messages_ClientRequest_
-  commentId: M:Albatross.Messaging.ReqRep.Worker.Accept(Albatross.Messaging.ReqRep.Messages.ClientRequest)
-  fullName: Albatross.Messaging.ReqRep.Worker.Accept(Albatross.Messaging.ReqRep.Messages.ClientRequest)
-  nameWithType: Worker.Accept(ClientRequest)
-- uid: Albatross.Messaging.ReqRep.Worker.Accept*
-  name: Accept
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_Accept_
-  commentId: Overload:Albatross.Messaging.ReqRep.Worker.Accept
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Worker.Accept
-  nameWithType: Worker.Accept
 - uid: Albatross.Messaging.ReqRep.Worker.Identity
   name: Identity
   href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_Identity
@@ -21548,32 +21649,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Worker.Identity
   nameWithType: Worker.Identity
-- uid: Albatross.Messaging.ReqRep.Worker.IsActive
-  name: IsActive
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_IsActive
-  commentId: P:Albatross.Messaging.ReqRep.Worker.IsActive
-  fullName: Albatross.Messaging.ReqRep.Worker.IsActive
-  nameWithType: Worker.IsActive
-- uid: Albatross.Messaging.ReqRep.Worker.IsActive*
-  name: IsActive
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_IsActive_
-  commentId: Overload:Albatross.Messaging.ReqRep.Worker.IsActive
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Worker.IsActive
-  nameWithType: Worker.IsActive
-- uid: Albatross.Messaging.ReqRep.Worker.IsNotBusy
-  name: IsNotBusy
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_IsNotBusy
-  commentId: P:Albatross.Messaging.ReqRep.Worker.IsNotBusy
-  fullName: Albatross.Messaging.ReqRep.Worker.IsNotBusy
-  nameWithType: Worker.IsNotBusy
-- uid: Albatross.Messaging.ReqRep.Worker.IsNotBusy*
-  name: IsNotBusy
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_IsNotBusy_
-  commentId: Overload:Albatross.Messaging.ReqRep.Worker.IsNotBusy
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Worker.IsNotBusy
-  nameWithType: Worker.IsNotBusy
 - uid: Albatross.Messaging.ReqRep.Worker.LastHeartbeat
   name: LastHeartbeat
   href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_LastHeartbeat
@@ -21613,25 +21688,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.ReqRep.Worker.State
   nameWithType: Worker.State
-- uid: Albatross.Messaging.ReqRep.Worker.StateChange(Albatross.Messaging.ReqRep.WorkerState)
-  name: StateChange(WorkerState)
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_StateChange_Albatross_Messaging_ReqRep_WorkerState_
-  commentId: M:Albatross.Messaging.ReqRep.Worker.StateChange(Albatross.Messaging.ReqRep.WorkerState)
-  fullName: Albatross.Messaging.ReqRep.Worker.StateChange(Albatross.Messaging.ReqRep.WorkerState)
-  nameWithType: Worker.StateChange(WorkerState)
-- uid: Albatross.Messaging.ReqRep.Worker.StateChange*
-  name: StateChange
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_StateChange_
-  commentId: Overload:Albatross.Messaging.ReqRep.Worker.StateChange
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.Worker.StateChange
-  nameWithType: Worker.StateChange
-- uid: Albatross.Messaging.ReqRep.Worker.ValidStateChanges
-  name: ValidStateChanges
-  href: api/Albatross.Messaging.ReqRep.Worker.html#Albatross_Messaging_ReqRep_Worker_ValidStateChanges
-  commentId: F:Albatross.Messaging.ReqRep.Worker.ValidStateChanges
-  fullName: Albatross.Messaging.ReqRep.Worker.ValidStateChanges
-  nameWithType: Worker.ValidStateChanges
 - uid: Albatross.Messaging.ReqRep.WorkerRegistry
   name: WorkerRegistry
   href: api/Albatross.Messaging.ReqRep.WorkerRegistry.html
@@ -21679,19 +21735,6 @@ references:
   commentId: F:Albatross.Messaging.ReqRep.WorkerRegistry.DefaultService
   fullName: Albatross.Messaging.ReqRep.WorkerRegistry.DefaultService
   nameWithType: WorkerRegistry.DefaultService
-- uid: Albatross.Messaging.ReqRep.WorkerRegistry.GetEnumerator
-  name: GetEnumerator()
-  href: api/Albatross.Messaging.ReqRep.WorkerRegistry.html#Albatross_Messaging_ReqRep_WorkerRegistry_GetEnumerator
-  commentId: M:Albatross.Messaging.ReqRep.WorkerRegistry.GetEnumerator
-  fullName: Albatross.Messaging.ReqRep.WorkerRegistry.GetEnumerator()
-  nameWithType: WorkerRegistry.GetEnumerator()
-- uid: Albatross.Messaging.ReqRep.WorkerRegistry.GetEnumerator*
-  name: GetEnumerator
-  href: api/Albatross.Messaging.ReqRep.WorkerRegistry.html#Albatross_Messaging_ReqRep_WorkerRegistry_GetEnumerator_
-  commentId: Overload:Albatross.Messaging.ReqRep.WorkerRegistry.GetEnumerator
-  isSpec: "True"
-  fullName: Albatross.Messaging.ReqRep.WorkerRegistry.GetEnumerator
-  nameWithType: WorkerRegistry.GetEnumerator
 - uid: Albatross.Messaging.ReqRep.WorkerRegistry.TryFindNextAvailableWorker(System.String,Albatross.Messaging.ReqRep.Worker@)
   name: TryFindNextAvailableWorker(string?, out Worker?)
   href: api/Albatross.Messaging.ReqRep.WorkerRegistry.html#Albatross_Messaging_ReqRep_WorkerRegistry_TryFindNextAvailableWorker_System_String_Albatross_Messaging_ReqRep_Worker__
@@ -21730,24 +21773,12 @@ references:
   commentId: T:Albatross.Messaging.ReqRep.WorkerState
   fullName: Albatross.Messaging.ReqRep.WorkerState
   nameWithType: WorkerState
-- uid: Albatross.Messaging.ReqRep.WorkerState.Busy
-  name: Busy
-  href: api/Albatross.Messaging.ReqRep.WorkerState.html#Albatross_Messaging_ReqRep_WorkerState_Busy
-  commentId: F:Albatross.Messaging.ReqRep.WorkerState.Busy
-  fullName: Albatross.Messaging.ReqRep.WorkerState.Busy
-  nameWithType: WorkerState.Busy
 - uid: Albatross.Messaging.ReqRep.WorkerState.Connected
   name: Connected
   href: api/Albatross.Messaging.ReqRep.WorkerState.html#Albatross_Messaging_ReqRep_WorkerState_Connected
   commentId: F:Albatross.Messaging.ReqRep.WorkerState.Connected
   fullName: Albatross.Messaging.ReqRep.WorkerState.Connected
   nameWithType: WorkerState.Connected
-- uid: Albatross.Messaging.ReqRep.WorkerState.Ready
-  name: Ready
-  href: api/Albatross.Messaging.ReqRep.WorkerState.html#Albatross_Messaging_ReqRep_WorkerState_Ready
-  commentId: F:Albatross.Messaging.ReqRep.WorkerState.Ready
-  fullName: Albatross.Messaging.ReqRep.WorkerState.Ready
-  nameWithType: WorkerState.Ready
 - uid: Albatross.Messaging.ReqRep.WorkerState.Unavailable
   name: Unavailable
   href: api/Albatross.Messaging.ReqRep.WorkerState.html#Albatross_Messaging_ReqRep_WorkerState_Unavailable
@@ -21769,6 +21800,25 @@ references:
   fullName.vb: Albatross.Messaging.Services.AtomicCounter(Of T)
   nameWithType: AtomicCounter<T>
   nameWithType.vb: AtomicCounter(Of T)
+- uid: Albatross.Messaging.Services.AtomicCounter`1.#ctor(`0)
+  name: AtomicCounter(T)
+  href: api/Albatross.Messaging.Services.AtomicCounter-1.html#Albatross_Messaging_Services_AtomicCounter_1__ctor__0_
+  commentId: M:Albatross.Messaging.Services.AtomicCounter`1.#ctor(`0)
+  name.vb: New(T)
+  fullName: Albatross.Messaging.Services.AtomicCounter<T>.AtomicCounter(T)
+  fullName.vb: Albatross.Messaging.Services.AtomicCounter(Of T).New(T)
+  nameWithType: AtomicCounter<T>.AtomicCounter(T)
+  nameWithType.vb: AtomicCounter(Of T).New(T)
+- uid: Albatross.Messaging.Services.AtomicCounter`1.#ctor*
+  name: AtomicCounter
+  href: api/Albatross.Messaging.Services.AtomicCounter-1.html#Albatross_Messaging_Services_AtomicCounter_1__ctor_
+  commentId: Overload:Albatross.Messaging.Services.AtomicCounter`1.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Albatross.Messaging.Services.AtomicCounter<T>.AtomicCounter
+  fullName.vb: Albatross.Messaging.Services.AtomicCounter(Of T).New
+  nameWithType: AtomicCounter<T>.AtomicCounter
+  nameWithType.vb: AtomicCounter(Of T).New
 - uid: Albatross.Messaging.Services.AtomicCounter`1.Counter
   name: Counter
   href: api/Albatross.Messaging.Services.AtomicCounter-1.html#Albatross_Messaging_Services_AtomicCounter_1_Counter
@@ -21803,23 +21853,6 @@ references:
   fullName.vb: Albatross.Messaging.Services.AtomicCounter(Of T).NextId
   nameWithType: AtomicCounter<T>.NextId
   nameWithType.vb: AtomicCounter(Of T).NextId
-- uid: Albatross.Messaging.Services.AtomicCounter`1.Set(`0)
-  name: Set(T)
-  href: api/Albatross.Messaging.Services.AtomicCounter-1.html#Albatross_Messaging_Services_AtomicCounter_1_Set__0_
-  commentId: M:Albatross.Messaging.Services.AtomicCounter`1.Set(`0)
-  fullName: Albatross.Messaging.Services.AtomicCounter<T>.Set(T)
-  fullName.vb: Albatross.Messaging.Services.AtomicCounter(Of T).Set(T)
-  nameWithType: AtomicCounter<T>.Set(T)
-  nameWithType.vb: AtomicCounter(Of T).Set(T)
-- uid: Albatross.Messaging.Services.AtomicCounter`1.Set*
-  name: Set
-  href: api/Albatross.Messaging.Services.AtomicCounter-1.html#Albatross_Messaging_Services_AtomicCounter_1_Set_
-  commentId: Overload:Albatross.Messaging.Services.AtomicCounter`1.Set
-  isSpec: "True"
-  fullName: Albatross.Messaging.Services.AtomicCounter<T>.Set
-  fullName.vb: Albatross.Messaging.Services.AtomicCounter(Of T).Set
-  nameWithType: AtomicCounter<T>.Set
-  nameWithType.vb: AtomicCounter(Of T).Set
 - uid: Albatross.Messaging.Services.Client
   name: Client
   href: api/Albatross.Messaging.Services.Client.html
@@ -22185,15 +22218,24 @@ references:
   commentId: T:Albatross.Messaging.Services.DurableAtomicCounter
   fullName: Albatross.Messaging.Services.DurableAtomicCounter
   nameWithType: DurableAtomicCounter
-- uid: Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,System.String,Microsoft.Extensions.Logging.ILogger)
-  name: DurableAtomicCounter(string, string, ILogger)
-  href: api/Albatross.Messaging.Services.DurableAtomicCounter.html#Albatross_Messaging_Services_DurableAtomicCounter__ctor_System_String_System_String_Microsoft_Extensions_Logging_ILogger_
-  commentId: M:Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,System.String,Microsoft.Extensions.Logging.ILogger)
-  name.vb: New(String, String, ILogger)
-  fullName: Albatross.Messaging.Services.DurableAtomicCounter.DurableAtomicCounter(string, string, Microsoft.Extensions.Logging.ILogger)
-  fullName.vb: Albatross.Messaging.Services.DurableAtomicCounter.New(String, String, Microsoft.Extensions.Logging.ILogger)
-  nameWithType: DurableAtomicCounter.DurableAtomicCounter(string, string, ILogger)
-  nameWithType.vb: DurableAtomicCounter.New(String, String, ILogger)
+- uid: Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,Microsoft.Extensions.Logging.ILogger)
+  name: DurableAtomicCounter(string, ILogger)
+  href: api/Albatross.Messaging.Services.DurableAtomicCounter.html#Albatross_Messaging_Services_DurableAtomicCounter__ctor_System_String_Microsoft_Extensions_Logging_ILogger_
+  commentId: M:Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,Microsoft.Extensions.Logging.ILogger)
+  name.vb: New(String, ILogger)
+  fullName: Albatross.Messaging.Services.DurableAtomicCounter.DurableAtomicCounter(string, Microsoft.Extensions.Logging.ILogger)
+  fullName.vb: Albatross.Messaging.Services.DurableAtomicCounter.New(String, Microsoft.Extensions.Logging.ILogger)
+  nameWithType: DurableAtomicCounter.DurableAtomicCounter(string, ILogger)
+  nameWithType.vb: DurableAtomicCounter.New(String, ILogger)
+- uid: Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,System.String,System.UInt32,Microsoft.Extensions.Logging.ILogger)
+  name: DurableAtomicCounter(string, string, uint, ILogger)
+  href: api/Albatross.Messaging.Services.DurableAtomicCounter.html#Albatross_Messaging_Services_DurableAtomicCounter__ctor_System_String_System_String_System_UInt32_Microsoft_Extensions_Logging_ILogger_
+  commentId: M:Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,System.String,System.UInt32,Microsoft.Extensions.Logging.ILogger)
+  name.vb: New(String, String, UInteger, ILogger)
+  fullName: Albatross.Messaging.Services.DurableAtomicCounter.DurableAtomicCounter(string, string, uint, Microsoft.Extensions.Logging.ILogger)
+  fullName.vb: Albatross.Messaging.Services.DurableAtomicCounter.New(String, String, UInteger, Microsoft.Extensions.Logging.ILogger)
+  nameWithType: DurableAtomicCounter.DurableAtomicCounter(string, string, uint, ILogger)
+  nameWithType.vb: DurableAtomicCounter.New(String, String, UInteger, ILogger)
 - uid: Albatross.Messaging.Services.DurableAtomicCounter.#ctor*
   name: DurableAtomicCounter
   href: api/Albatross.Messaging.Services.DurableAtomicCounter.html#Albatross_Messaging_Services_DurableAtomicCounter__ctor_
@@ -22243,22 +22285,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Services.DurableAtomicCounter.NextId
   nameWithType: DurableAtomicCounter.NextId
-- uid: Albatross.Messaging.Services.DurableAtomicCounter.Set(System.UInt64)
-  name: Set(ulong)
-  href: api/Albatross.Messaging.Services.DurableAtomicCounter.html#Albatross_Messaging_Services_DurableAtomicCounter_Set_System_UInt64_
-  commentId: M:Albatross.Messaging.Services.DurableAtomicCounter.Set(System.UInt64)
-  name.vb: Set(ULong)
-  fullName: Albatross.Messaging.Services.DurableAtomicCounter.Set(ulong)
-  fullName.vb: Albatross.Messaging.Services.DurableAtomicCounter.Set(ULong)
-  nameWithType: DurableAtomicCounter.Set(ulong)
-  nameWithType.vb: DurableAtomicCounter.Set(ULong)
-- uid: Albatross.Messaging.Services.DurableAtomicCounter.Set*
-  name: Set
-  href: api/Albatross.Messaging.Services.DurableAtomicCounter.html#Albatross_Messaging_Services_DurableAtomicCounter_Set_
-  commentId: Overload:Albatross.Messaging.Services.DurableAtomicCounter.Set
-  isSpec: "True"
-  fullName: Albatross.Messaging.Services.DurableAtomicCounter.Set
-  nameWithType: DurableAtomicCounter.Set
 - uid: Albatross.Messaging.Services.Extensions
   name: Extensions
   href: api/Albatross.Messaging.Services.Extensions.html
@@ -22373,23 +22399,6 @@ references:
   fullName.vb: Albatross.Messaging.Services.IAtomicCounter(Of T).NextId
   nameWithType: IAtomicCounter<T>.NextId
   nameWithType.vb: IAtomicCounter(Of T).NextId
-- uid: Albatross.Messaging.Services.IAtomicCounter`1.Set(`0)
-  name: Set(T)
-  href: api/Albatross.Messaging.Services.IAtomicCounter-1.html#Albatross_Messaging_Services_IAtomicCounter_1_Set__0_
-  commentId: M:Albatross.Messaging.Services.IAtomicCounter`1.Set(`0)
-  fullName: Albatross.Messaging.Services.IAtomicCounter<T>.Set(T)
-  fullName.vb: Albatross.Messaging.Services.IAtomicCounter(Of T).Set(T)
-  nameWithType: IAtomicCounter<T>.Set(T)
-  nameWithType.vb: IAtomicCounter(Of T).Set(T)
-- uid: Albatross.Messaging.Services.IAtomicCounter`1.Set*
-  name: Set
-  href: api/Albatross.Messaging.Services.IAtomicCounter-1.html#Albatross_Messaging_Services_IAtomicCounter_1_Set_
-  commentId: Overload:Albatross.Messaging.Services.IAtomicCounter`1.Set
-  isSpec: "True"
-  fullName: Albatross.Messaging.Services.IAtomicCounter<T>.Set
-  fullName.vb: Albatross.Messaging.Services.IAtomicCounter(Of T).Set
-  nameWithType: IAtomicCounter<T>.Set
-  nameWithType.vb: IAtomicCounter(Of T).Set
 - uid: Albatross.Messaging.Services.IDealerClientBuilder
   name: IDealerClientBuilder
   href: api/Albatross.Messaging.Services.IDealerClientBuilder.html
@@ -22506,12 +22515,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Services.IDealerClientService.ProcessReceivedMsg
   nameWithType: IDealerClientService.ProcessReceivedMsg
-- uid: Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  name: ProcessTimerElapsed(DealerClient)
-  href: api/Albatross.Messaging.Services.IDealerClientService.html#Albatross_Messaging_Services_IDealerClientService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_
-  commentId: M:Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  fullName: Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)
-  nameWithType: IDealerClientService.ProcessTimerElapsed(DealerClient)
+- uid: Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)
+  name: ProcessTimerElapsed(DealerClient, ulong)
+  href: api/Albatross.Messaging.Services.IDealerClientService.html#Albatross_Messaging_Services_IDealerClientService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_System_UInt64_
+  commentId: M:Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)
+  name.vb: ProcessTimerElapsed(DealerClient, ULong)
+  fullName: Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient, ulong)
+  fullName.vb: Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient, ULong)
+  nameWithType: IDealerClientService.ProcessTimerElapsed(DealerClient, ulong)
+  nameWithType.vb: IDealerClientService.ProcessTimerElapsed(DealerClient, ULong)
 - uid: Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.Services.IDealerClientService.html#Albatross_Messaging_Services_IDealerClientService_ProcessTimerElapsed_
@@ -22737,12 +22749,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Messaging.Services.IRouterServerService.ProcessReceivedMsg
   nameWithType: IRouterServerService.ProcessReceivedMsg
-- uid: Albatross.Messaging.Services.IRouterServerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  name: ProcessTimerElapsed(IMessagingService)
-  href: api/Albatross.Messaging.Services.IRouterServerService.html#Albatross_Messaging_Services_IRouterServerService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_
-  commentId: M:Albatross.Messaging.Services.IRouterServerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  fullName: Albatross.Messaging.Services.IRouterServerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService)
-  nameWithType: IRouterServerService.ProcessTimerElapsed(IMessagingService)
+- uid: Albatross.Messaging.Services.IRouterServerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name: ProcessTimerElapsed(IMessagingService, ulong)
+  href: api/Albatross.Messaging.Services.IRouterServerService.html#Albatross_Messaging_Services_IRouterServerService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_System_UInt64_
+  commentId: M:Albatross.Messaging.Services.IRouterServerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)
+  name.vb: ProcessTimerElapsed(IMessagingService, ULong)
+  fullName: Albatross.Messaging.Services.IRouterServerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ulong)
+  fullName.vb: Albatross.Messaging.Services.IRouterServerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService, ULong)
+  nameWithType: IRouterServerService.ProcessTimerElapsed(IMessagingService, ulong)
+  nameWithType.vb: IRouterServerService.ProcessTimerElapsed(IMessagingService, ULong)
 - uid: Albatross.Messaging.Services.IRouterServerService.ProcessTimerElapsed*
   name: ProcessTimerElapsed
   href: api/Albatross.Messaging.Services.IRouterServerService.html#Albatross_Messaging_Services_IRouterServerService_ProcessTimerElapsed_
@@ -23417,18 +23432,6 @@ references:
   commentId: N:Albatross.Repository
   fullName: Albatross.Repository
   nameWithType: Albatross.Repository
-- uid: Albatross.Repository.Constant
-  name: Constant
-  href: api/Albatross.Repository.Constant.html
-  commentId: T:Albatross.Repository.Constant
-  fullName: Albatross.Repository.Constant
-  nameWithType: Constant
-- uid: Albatross.Repository.Constant.UserNameLength
-  name: UserNameLength
-  href: api/Albatross.Repository.Constant.html#Albatross_Repository_Constant_UserNameLength
-  commentId: F:Albatross.Repository.Constant.UserNameLength
-  fullName: Albatross.Repository.Constant.UserNameLength
-  nameWithType: Constant.UserNameLength
 - uid: Albatross.Repository.DateLevelEntity
   name: DateLevelEntity
   href: api/Albatross.Repository.DateLevelEntity.html
@@ -23528,6 +23531,31 @@ references:
   isSpec: "True"
   fullName: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDate
   nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDate
+- uid: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange*
+  name: GetDateLevelEntityByDateRange
+  href: api/Albatross.Repository.DateLevelEntityExtensions.html#Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDateRange_
+  commentId: Overload:Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange
+  isSpec: "True"
+  fullName: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange
+  nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDateRange
+- uid: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(Microsoft.EntityFrameworkCore.DbContext,System.DateTime,System.DateTime,System.String[])
+  name: GetDateLevelEntityByDateRange<T>(DbContext, DateTime, DateTime, params string[])
+  href: api/Albatross.Repository.DateLevelEntityExtensions.html#Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDateRange__1_Microsoft_EntityFrameworkCore_DbContext_System_DateTime_System_DateTime_System_String___
+  commentId: M:Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(Microsoft.EntityFrameworkCore.DbContext,System.DateTime,System.DateTime,System.String[])
+  name.vb: GetDateLevelEntityByDateRange(Of T)(DbContext, Date, Date, ParamArray String())
+  fullName: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(Microsoft.EntityFrameworkCore.DbContext, System.DateTime, System.DateTime, params string[])
+  fullName.vb: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(Microsoft.EntityFrameworkCore.DbContext, Date, Date, ParamArray String())
+  nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(DbContext, DateTime, DateTime, params string[])
+  nameWithType.vb: DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(DbContext, Date, Date, ParamArray String())
+- uid: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.DateTime)
+  name: GetDateLevelEntityByDateRange<T>(IEnumerable<T>, DateTime, DateTime)
+  href: api/Albatross.Repository.DateLevelEntityExtensions.html#Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDateRange__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_DateTime_
+  commentId: M:Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.DateTime)
+  name.vb: GetDateLevelEntityByDateRange(Of T)(IEnumerable(Of T), Date, Date)
+  fullName: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(System.Collections.Generic.IEnumerable<T>, System.DateTime, System.DateTime)
+  fullName.vb: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(System.Collections.Generic.IEnumerable(Of T), Date, Date)
+  nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(IEnumerable<T>, DateTime, DateTime)
+  nameWithType.vb: DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(IEnumerable(Of T), Date, Date)
 - uid: Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDate``1(System.Collections.Generic.IEnumerable{``0},System.DateTime)
   name: GetDateLevelEntityByDate<T>(IEnumerable<T>, DateTime)
   href: api/Albatross.Repository.DateLevelEntityExtensions.html#Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDate__1_System_Collections_Generic_IEnumerable___0__System_DateTime_
@@ -23948,15 +23976,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Repository.Extensions.DateOnlyProperty
   nameWithType: Extensions.DateOnlyProperty
-- uid: Albatross.Repository.Extensions.EnsureNavigationProperty(System.Object,System.String)
-  name: EnsureNavigationProperty(object?, string)
-  href: api/Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_
-  commentId: M:Albatross.Repository.Extensions.EnsureNavigationProperty(System.Object,System.String)
-  name.vb: EnsureNavigationProperty(Object, String)
-  fullName: Albatross.Repository.Extensions.EnsureNavigationProperty(object?, string)
-  fullName.vb: Albatross.Repository.Extensions.EnsureNavigationProperty(Object, String)
-  nameWithType: Extensions.EnsureNavigationProperty(object?, string)
-  nameWithType.vb: Extensions.EnsureNavigationProperty(Object, String)
+- uid: Albatross.Repository.Extensions.EnsureNavigationProperty(System.Object,System.String[])
+  name: EnsureNavigationProperty(object?, params string[])
+  href: api/Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String___
+  commentId: M:Albatross.Repository.Extensions.EnsureNavigationProperty(System.Object,System.String[])
+  name.vb: EnsureNavigationProperty(Object, ParamArray String())
+  fullName: Albatross.Repository.Extensions.EnsureNavigationProperty(object?, params string[])
+  fullName.vb: Albatross.Repository.Extensions.EnsureNavigationProperty(Object, ParamArray String())
+  nameWithType: Extensions.EnsureNavigationProperty(object?, params string[])
+  nameWithType.vb: Extensions.EnsureNavigationProperty(Object, ParamArray String())
 - uid: Albatross.Repository.Extensions.EnsureNavigationProperty*
   name: EnsureNavigationProperty
   href: api/Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_
@@ -25070,24 +25098,6 @@ references:
   commentId: N:Albatross.Text
   fullName: Albatross.Text
   nameWithType: Albatross.Text
-- uid: Albatross.Text.Constant
-  name: Constant
-  href: api/Albatross.Text.Constant.html
-  commentId: T:Albatross.Text.Constant
-  fullName: Albatross.Text.Constant
-  nameWithType: Constant
-- uid: Albatross.Text.Constant.DefaultDateTimeFormat
-  name: DefaultDateTimeFormat
-  href: api/Albatross.Text.Constant.html#Albatross_Text_Constant_DefaultDateTimeFormat
-  commentId: F:Albatross.Text.Constant.DefaultDateTimeFormat
-  fullName: Albatross.Text.Constant.DefaultDateTimeFormat
-  nameWithType: Constant.DefaultDateTimeFormat
-- uid: Albatross.Text.Constant.DefaultNumericFormat
-  name: DefaultNumericFormat
-  href: api/Albatross.Text.Constant.html#Albatross_Text_Constant_DefaultNumericFormat
-  commentId: F:Albatross.Text.Constant.DefaultNumericFormat
-  fullName: Albatross.Text.Constant.DefaultNumericFormat
-  nameWithType: Constant.DefaultNumericFormat
 - uid: Albatross.Text.Extensions
   name: Extensions
   href: api/Albatross.Text.Extensions.html
@@ -25456,6 +25466,24 @@ references:
   fullName.vb: Albatross.Text.StringInterpolationService.Interpolate(Of T)(String, System.Func(Of String, T, String), T, Boolean)
   nameWithType: StringInterpolationService.Interpolate<T>(string, Func<string, T, string>, T, bool)
   nameWithType.vb: StringInterpolationService.Interpolate(Of T)(String, Func(Of String, T, String), T, Boolean)
+- uid: Albatross.Text.TextConstant
+  name: TextConstant
+  href: api/Albatross.Text.TextConstant.html
+  commentId: T:Albatross.Text.TextConstant
+  fullName: Albatross.Text.TextConstant
+  nameWithType: TextConstant
+- uid: Albatross.Text.TextConstant.DefaultDateTimeFormat
+  name: DefaultDateTimeFormat
+  href: api/Albatross.Text.TextConstant.html#Albatross_Text_TextConstant_DefaultDateTimeFormat
+  commentId: F:Albatross.Text.TextConstant.DefaultDateTimeFormat
+  fullName: Albatross.Text.TextConstant.DefaultDateTimeFormat
+  nameWithType: TextConstant.DefaultDateTimeFormat
+- uid: Albatross.Text.TextConstant.DefaultNumericFormat
+  name: DefaultNumericFormat
+  href: api/Albatross.Text.TextConstant.html#Albatross_Text_TextConstant_DefaultNumericFormat
+  commentId: F:Albatross.Text.TextConstant.DefaultNumericFormat
+  fullName: Albatross.Text.TextConstant.DefaultNumericFormat
+  nameWithType: TextConstant.DefaultNumericFormat
 - uid: Albatross.Text.TextWriterExtensions
   name: TextWriterExtensions
   href: api/Albatross.Text.TextWriterExtensions.html

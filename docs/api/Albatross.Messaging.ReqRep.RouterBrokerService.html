@@ -91,7 +91,7 @@
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RouterBrokerService : IBrokerService, IMessagingService, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class RouterBrokerService : IRouterServerService</code></pre>
   </div>
 
 
@@ -108,9 +108,7 @@
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.Messaging.ReqRep.IBrokerService.html">IBrokerService</a></div>
-      <div><a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></div>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+      <div><a class="xref" href="Albatross.Messaging.Services.IRouterServerService.html">IRouterServerService</a></div>
     </dd>
   </dl>
 
@@ -123,13 +121,7 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Messaging.Extensions.html#Albatross_Messaging_Extensions_ClientAck_Albatross_Messaging_Services_IMessagingService_System_String_System_UInt64_">Extensions.ClientAck(IMessagingService, string, ulong)</a>
-  </div>
-  <div>
-      <a class="xref" href="Albatross.Messaging.Extensions.html#Albatross_Messaging_Extensions_ServerAck_Albatross_Messaging_Services_IMessagingService_System_String_System_UInt64_">Extensions.ServerAck(IMessagingService, string, ulong)</a>
-  </div>
-  <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -146,8 +138,8 @@
 
   <a id="Albatross_Messaging_ReqRep_RouterBrokerService__ctor_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService__ctor_Albatross_Messaging_Configurations_BrokerConfiguration_Albatross_Messaging_ReqRep_WorkerRegistry_Albatross_Messaging_DataLogging_ILogWriter_Albatross_Messaging_Messages_IMessageFactory_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_ReqRep_RouterBrokerService__" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.#ctor(Albatross.Messaging.Configurations.BrokerConfiguration,Albatross.Messaging.ReqRep.WorkerRegistry,Albatross.Messaging.DataLogging.ILogWriter,Albatross.Messaging.Messages.IMessageFactory,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.RouterBrokerService})">
-  RouterBrokerService(BrokerConfiguration, WorkerRegistry, ILogWriter, IMessageFactory, ILogger&lt;RouterBrokerService&gt;)
+  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService__ctor_Albatross_Messaging_ReqRep_WorkerRegistry_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_ReqRep_RouterBrokerService__" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.#ctor(Albatross.Messaging.ReqRep.WorkerRegistry,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.RouterBrokerService})">
+  RouterBrokerService(WorkerRegistry, ILogger&lt;RouterBrokerService&gt;)
   
   </h3>
 
@@ -155,18 +147,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RouterBrokerService(BrokerConfiguration config, WorkerRegistry registry, ILogWriter logWriter, IMessageFactory messageFactory, ILogger&lt;RouterBrokerService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public RouterBrokerService(WorkerRegistry registry, ILogger&lt;RouterBrokerService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>config</code> <a class="xref" href="Albatross.Messaging.Configurations.BrokerConfiguration.html">BrokerConfiguration</a></dt>
-    <dd></dd>
     <dt><code>registry</code> <a class="xref" href="Albatross.Messaging.ReqRep.WorkerRegistry.html">WorkerRegistry</a></dt>
-    <dd></dd>
-    <dt><code>logWriter</code> <a class="xref" href="Albatross.Messaging.DataLogging.ILogWriter.html">ILogWriter</a></dt>
-    <dd></dd>
-    <dt><code>messageFactory</code> <a class="xref" href="Albatross.Messaging.Messages.IMessageFactory.html">IMessageFactory</a></dt>
     <dd></dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Messaging.ReqRep.RouterBrokerService.html">RouterBrokerService</a>&gt;</dt>
     <dd></dd>
@@ -187,10 +173,10 @@
 </h2>
 
 
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_Counter_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Counter*"></a>
+  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_CanReceive_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.CanReceive*"></a>
 
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_Counter" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Counter">
-  Counter
+  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_CanReceive" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.CanReceive">
+  CanReceive
   
   </h3>
 
@@ -198,7 +184,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IAtomicCounter&lt;ulong&gt; Counter { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool CanReceive { get; }</code></pre>
   </div>
 
 
@@ -207,7 +193,7 @@
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.Messaging.Services.IAtomicCounter-1.html">IAtomicCounter</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 
@@ -218,18 +204,19 @@
 
 
 
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_Identity_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Identity*"></a>
+  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_HasCustomTransmitObject_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.HasCustomTransmitObject*"></a>
 
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_Identity" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Identity">
-  Identity
+  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_HasCustomTransmitObject" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.HasCustomTransmitObject">
+  HasCustomTransmitObject
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>When true, the service will need to process queued transmit object other than IMessage</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Identity { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool HasCustomTransmitObject { get; }</code></pre>
   </div>
 
 
@@ -238,7 +225,38 @@
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_NeedTimer_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.NeedTimer*"></a>
+
+  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_NeedTimer" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.NeedTimer">
+  NeedTimer
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool NeedTimer { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 
@@ -253,37 +271,10 @@
 </h2>
 
 
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_Dispose_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Dispose*"></a>
+  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessReceivedMsg_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg*"></a>
 
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_Dispose" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Dispose">
-  Dispose()
-  
-  </h3>
-
-  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_GetClientState_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_GetClientState_System_String_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.GetClientState(System.String)">
-  GetClientState(string)
+  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessReceivedMsg_Albatross_Messaging_Services_IMessagingService_Albatross_Messaging_Messages_IMessage_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg(Albatross.Messaging.Services.IMessagingService,Albatross.Messaging.Messages.IMessage)">
+  ProcessReceivedMsg(IMessagingService, IMessage)
   
   </h3>
 
@@ -291,18 +282,20 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ClientState GetClientState(string identity)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool ProcessReceivedMsg(IMessagingService routerServer, IMessage msg)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>identity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>routerServer</code> <a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></dt>
+    <dd></dd>
+    <dt><code>msg</code> <a class="xref" href="Albatross.Messaging.Messages.IMessage.html">IMessage</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.Messaging.Services.ClientState.html">ClientState</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 
@@ -316,10 +309,10 @@
 
 
 
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_Start_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Start*"></a>
+  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTimerElapsed_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed*"></a>
 
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_Start" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Start">
-  Start()
+  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTimerElapsed_Albatross_Messaging_Services_IMessagingService_System_UInt64_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTimerElapsed(Albatross.Messaging.Services.IMessagingService,System.UInt64)">
+  ProcessTimerElapsed(IMessagingService, ulong)
   
   </h3>
 
@@ -327,39 +320,14 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Start()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_SubmitToQueue_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_SubmitToQueue_System_Object_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.SubmitToQueue(System.Object)">
-  SubmitToQueue(object)
-  
-  </h3>
-
-  <div class="markdown level1 summary"><p>A thread safe call to send an object to queue for processing.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void SubmitToQueue(object message)</code></pre>
+    <pre><code class="lang-csharp hljs">public void ProcessTimerElapsed(IMessagingService routerServer, ulong count)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dt><code>routerServer</code> <a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></dt>
     <dd></dd>
   </dl>
 
@@ -374,61 +342,33 @@
 
 
 
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_TimerElapsed_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed*"></a>
+  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTransmitQueue_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue*"></a>
 
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_TimerElapsed_System_Object_NetMQ_NetMQTimerEventArgs_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.TimerElapsed(System.Object,NetMQ.NetMQTimerEventArgs)">
-  TimerElapsed(object?, NetMQTimerEventArgs)
+  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTransmitQueue_Albatross_Messaging_Services_IMessagingService_System_Object_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue(Albatross.Messaging.Services.IMessagingService,System.Object)">
+  ProcessTransmitQueue(IMessagingService, object)
   
   </h3>
 
-  <div class="markdown level1 summary"><p>TODO: when a worker is lost in the middle of a job.  how should the dealer behave?</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void TimerElapsed(object? sender, NetMQTimerEventArgs args)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool ProcessTransmitQueue(IMessagingService routerServer, object msg)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>sender</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dt><code>routerServer</code> <a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></dt>
     <dd></dd>
-    <dt><code>args</code> <span class="xref">NetMQTimerEventArgs</span></dt>
+    <dt><code>msg</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
     <dd></dd>
   </dl>
 
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_Transmit_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Transmit*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_Transmit_Albatross_Messaging_Messages_IMessage_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.Transmit(Albatross.Messaging.Messages.IMessage)">
-  Transmit(IMessage)
-  
-  </h3>
-
-  <div class="markdown level1 summary"><p>Transmit the outgoing message via socket.  Not thread safe.  Should only be run on the poller thread.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Transmit(IMessage msg)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
+  <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><code>msg</code> <a class="xref" href="Albatross.Messaging.Messages.IMessage.html">IMessage</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
-
 
 
 

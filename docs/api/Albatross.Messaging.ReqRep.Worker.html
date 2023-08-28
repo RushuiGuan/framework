@@ -115,7 +115,7 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -161,40 +161,6 @@
 
 
 
-  <h2 class="section" id="fields">Fields
-</h2>
-
-
-
-  <h3 id="Albatross_Messaging_ReqRep_Worker_ValidStateChanges" data-uid="Albatross.Messaging.ReqRep.Worker.ValidStateChanges">
-  ValidStateChanges
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly IReadOnlySet&lt;(WorkerState, WorkerState)&gt; ValidStateChanges</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlyset-1">IReadOnlySet</a>&lt;(<a class="xref" href="Albatross.Messaging.ReqRep.WorkerState.html">WorkerState</a>, <a class="xref" href="Albatross.Messaging.ReqRep.WorkerState.html">WorkerState</a>)&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="properties">Properties
 </h2>
 
@@ -220,68 +186,6 @@
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_ReqRep_Worker_IsActive_" data-uid="Albatross.Messaging.ReqRep.Worker.IsActive*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_Worker_IsActive" data-uid="Albatross.Messaging.ReqRep.Worker.IsActive">
-  IsActive
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsActive { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_ReqRep_Worker_IsNotBusy_" data-uid="Albatross.Messaging.ReqRep.Worker.IsNotBusy*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_Worker_IsNotBusy" data-uid="Albatross.Messaging.ReqRep.Worker.IsNotBusy">
-  IsNotBusy
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsNotBusy { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 
@@ -334,7 +238,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Queue&lt;ClientRequest&gt; Requests { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;ClientRequest&gt; Requests { get; init; }</code></pre>
   </div>
 
 
@@ -343,7 +247,7 @@
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.queue-1">Queue</a>&lt;<a class="xref" href="Albatross.Messaging.ReqRep.Messages.ClientRequest.html">ClientRequest</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Albatross.Messaging.ReqRep.Messages.ClientRequest.html">ClientRequest</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -377,82 +281,6 @@
     <dt><a class="xref" href="Albatross.Messaging.ReqRep.WorkerState.html">WorkerState</a></dt>
     <dd></dd>
   </dl>
-
-
-
-
-
-
-
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-
-  <a id="Albatross_Messaging_ReqRep_Worker_Accept_" data-uid="Albatross.Messaging.ReqRep.Worker.Accept*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_Worker_Accept_Albatross_Messaging_ReqRep_Messages_ClientRequest_" data-uid="Albatross.Messaging.ReqRep.Worker.Accept(Albatross.Messaging.ReqRep.Messages.ClientRequest)">
-  Accept(ClientRequest)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BrokerRequest Accept(ClientRequest command)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>command</code> <a class="xref" href="Albatross.Messaging.ReqRep.Messages.ClientRequest.html">ClientRequest</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Albatross.Messaging.ReqRep.Messages.BrokerRequest.html">BrokerRequest</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_ReqRep_Worker_StateChange_" data-uid="Albatross.Messaging.ReqRep.Worker.StateChange*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_Worker_StateChange_Albatross_Messaging_ReqRep_WorkerState_" data-uid="Albatross.Messaging.ReqRep.Worker.StateChange(Albatross.Messaging.ReqRep.WorkerState)">
-  StateChange(WorkerState)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool StateChange(WorkerState newState)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>newState</code> <a class="xref" href="Albatross.Messaging.ReqRep.WorkerState.html">WorkerState</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
 
 
 

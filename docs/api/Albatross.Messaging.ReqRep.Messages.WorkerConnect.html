@@ -139,18 +139,6 @@
       <a class="xref" href="Albatross.Messaging.Messages.Message.html#Albatross_Messaging_Messages_Message_HasRoute">Message.HasRoute</a>
     </div>
     <div>
-      <a class="xref" href="Albatross.Messaging.Messages.Message.html#Albatross_Messaging_Messages_Message_ReadFromFrames_NetMQ_NetMQMessage_">Message.ReadFromFrames(NetMQMessage)</a>
-    </div>
-    <div>
-      <a class="xref" href="Albatross.Messaging.Messages.Message.html#Albatross_Messaging_Messages_Message_WriteToFrames_NetMQ_NetMQMessage_">Message.WriteToFrames(NetMQMessage)</a>
-    </div>
-    <div>
-      <a class="xref" href="Albatross.Messaging.Messages.Message.html#Albatross_Messaging_Messages_Message_ReadFromText_System_String_System_Int32__">Message.ReadFromText(string, ref int)</a>
-    </div>
-    <div>
-      <a class="xref" href="Albatross.Messaging.Messages.Message.html#Albatross_Messaging_Messages_Message_WriteToText_System_IO_TextWriter_">Message.WriteToText(TextWriter)</a>
-    </div>
-    <div>
       <a class="xref" href="Albatross.Messaging.Messages.Message.html#Albatross_Messaging_Messages_Message_Encode_System_Byte___">Message.Encode(byte[])</a>
     </div>
     <div>
@@ -168,7 +156,7 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -314,10 +302,10 @@
 </h2>
 
 
-  <a id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_Accept_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept*"></a>
+  <a id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_ReadFromFrames_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromFrames*"></a>
 
-  <h3 id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_Accept_System_String_System_UInt64_NetMQ_NetMQMessage_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.Accept(System.String,System.UInt64,NetMQ.NetMQMessage)">
-  Accept(string, ulong, NetMQMessage)
+  <h3 id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_ReadFromFrames_NetMQ_NetMQMessage_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromFrames(NetMQ.NetMQMessage)">
+  ReadFromFrames(NetMQMessage)
   
   </h3>
 
@@ -325,24 +313,110 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IMessage Accept(string route, ulong messageId, NetMQMessage frames)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void ReadFromFrames(NetMQMessage msg)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>route</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>messageId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></dt>
-    <dd></dd>
-    <dt><code>frames</code> <span class="xref">NetMQMessage</span></dt>
+    <dt><code>msg</code> <span class="xref">NetMQMessage</span></dt>
     <dd></dd>
   </dl>
 
-  <h4 class="section">Returns</h4>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_ReadFromText_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText*"></a>
+
+  <h3 id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_ReadFromText_System_String_System_Int32__" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.ReadFromText(System.String,System.Int32@)">
+  ReadFromText(string, ref int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void ReadFromText(string line, ref int offset)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.Messaging.Messages.IMessage.html">IMessage</a></dt>
+    <dt><code>line</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>offset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_WriteToFrames_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToFrames*"></a>
+
+  <h3 id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_WriteToFrames_NetMQ_NetMQMessage_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToFrames(NetMQ.NetMQMessage)">
+  WriteToFrames(NetMQMessage)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void WriteToFrames(NetMQMessage msg)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>msg</code> <span class="xref">NetMQMessage</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_WriteToText_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToText*"></a>
+
+  <h3 id="Albatross_Messaging_ReqRep_Messages_WorkerConnect_WriteToText_System_IO_TextWriter_" data-uid="Albatross.Messaging.ReqRep.Messages.WorkerConnect.WriteToText(System.IO.TextWriter)">
+  WriteToText(TextWriter)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void WriteToText(TextWriter writer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>writer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
+    <dd></dd>
+  </dl>
+
 
 
 

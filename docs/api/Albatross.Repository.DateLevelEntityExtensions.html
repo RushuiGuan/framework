@@ -159,6 +159,100 @@ The method will always extend the end date of the previous record if it exists. 
 
 
 
+  <a id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDateRange_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange*"></a>
+
+  <h3 id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDateRange__1_Microsoft_EntityFrameworkCore_DbContext_System_DateTime_System_DateTime_System_String___" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(Microsoft.EntityFrameworkCore.DbContext,System.DateTime,System.DateTime,System.String[])">
+  GetDateLevelEntityByDateRange&lt;T&gt;(DbContext, DateTime, DateTime, params string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;T&gt;&gt; GetDateLevelEntityByDateRange&lt;T&gt;(this DbContext context, DateTime fromDate, DateTime toDate, params string[] includes) where T : DateLevelEntity</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a></dt>
+    <dd></dd>
+    <dt><code>fromDate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>toDate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>includes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDateRange_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange*"></a>
+
+  <h3 id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDateRange__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_DateTime_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.DateTime)">
+  GetDateLevelEntityByDateRange&lt;T&gt;(IEnumerable&lt;T&gt;, DateTime, DateTime)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Provided a date level series and a date range, this method will search and return items
+where the date range falls between the start and end dates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; GetDateLevelEntityByDateRange&lt;T&gt;(this IEnumerable&lt;T&gt; source, DateTime fromDate, DateTime toDate) where T : DateLevelEntity</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>fromDate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>toDate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDate_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDate*"></a>
 
   <h3 id="Albatross_Repository_DateLevelEntityExtensions_GetDateLevelEntityByDate__1_System_Collections_Generic_IEnumerable___0__System_DateTime_" data-uid="Albatross.Repository.DateLevelEntityExtensions.GetDateLevelEntityByDate``1(System.Collections.Generic.IEnumerable{``0},System.DateTime)">

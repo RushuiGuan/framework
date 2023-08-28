@@ -108,7 +108,7 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String_">Extensions.EnsureNavigationProperty(object?, string)</a>
+      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
       <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -294,8 +294,8 @@ related initialization.  Use SubmitToQueue to queue up messages.  Do not call tr
 
   <a id="Albatross_Messaging_Services_IDealerClientService_ProcessTimerElapsed_" data-uid="Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed*"></a>
 
-  <h3 id="Albatross_Messaging_Services_IDealerClientService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_" data-uid="Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient)">
-  ProcessTimerElapsed(DealerClient)
+  <h3 id="Albatross_Messaging_Services_IDealerClientService_ProcessTimerElapsed_Albatross_Messaging_Services_DealerClient_System_UInt64_" data-uid="Albatross.Messaging.Services.IDealerClientService.ProcessTimerElapsed(Albatross.Messaging.Services.DealerClient,System.UInt64)">
+  ProcessTimerElapsed(DealerClient, ulong)
   
   </h3>
 
@@ -303,12 +303,14 @@ related initialization.  Use SubmitToQueue to queue up messages.  Do not call tr
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void ProcessTimerElapsed(DealerClient dealerClient)</code></pre>
+    <pre><code class="lang-csharp hljs">void ProcessTimerElapsed(DealerClient dealerClient, ulong counter)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>dealerClient</code> <a class="xref" href="Albatross.Messaging.Services.DealerClient.html">DealerClient</a></dt>
+    <dd></dd>
+    <dt><code>counter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></dt>
     <dd></dd>
   </dl>
 

@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title> | Albatross Framework Documentation </title>
+      <title>New Service Application | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content=" | Albatross Framework Documentation ">
+      <meta name="title" content="New Service Application | Albatross Framework Documentation ">
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -72,7 +72,65 @@
         </div>
 
         <article data-uid="">
+<h2 id="new-service-application">New Service Application</h2>
 
+<p>The main difference between a service appication and a web api application is how the app is hosted.  Web apps are hosted by a web server such as IIS and service apps are hosted by windows services or unix systemd.  The setup of service app using the framework is similar to web api setup with a few differences.</p>
+<ol>
+<li>If the service application doesn't have any web api controllers, creation of <code>hostsettings.json</code> file can be skipped.
+<ul>
+<li>Creation of the Startup Class at the project root can also be skipped.</li>
+</ul>
+</li>
+<li>Create the application specific Setup class at the project root:</li>
+</ol>
+<pre><code class="lang-c#">	public class MySetup : Setup {
+		public MySetup(string[] args) : base(args) { }
+		public override void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
+			base.ConfigureServices(services, configuration);
+			// register your DI services here
+		}
+	}
+</code></pre>
+<ol>
+<li>Create the HostedService class at the project root:</li>
+</ol>
+<pre><code class="lang-c#">	public class MyHostedService : IHostedService {
+		public MyHostedService(/* inject the service dependency here*/) {
+		}
+
+		public Task StartAsync(CancellationToken cancellationToken) {
+            // add the startup code here
+			return Task.CompletedTask;
+		}
+
+		public Task StopAsync(CancellationToken cancellationToken) {
+            // add the shutdown code here
+			return Task.CompletedTask;
+		}
+	}
+</code></pre>
+<ol>
+<li>Update the program.cs file with the following code</li>
+</ol>
+<pre><code class="lang-c#">	public class Program {
+		public static Task Main(string[] args) {
+			return new Albatross.MySetup(args)
+                // uncomment the line below if you are hosting web controllers
+				//.ConfigureWebHost&lt;MyStartup&gt;()
+                .ConfigureServiceHost&lt;MyHostedService&gt;()
+                .RunAsService()
+				.RunAsync();
+		}
+	}
+</code></pre>
+<ol>
+<li>In the <code>appsettings.json</code> file, create the <code>program</code> property.  The value of its child property <code>serviceManager</code> can be either <code>windows</code> or <code>systemd</code>.  <code>windows</code> is for windows service deployment and <code>systemd</code> is for unix systemd deployment.</li>
+</ol>
+<pre><code class="lang-json">  &quot;program&quot;: {
+      &quot;app&quot;: &quot;your application name&quot;,
+      &quot;serviceManager&quot;: &quot;windows&quot;
+  },
+</code></pre>
 </article>
 
         <div class="contribution d-print-none">
