@@ -14,3 +14,7 @@
   href: angular.md
 - name: Messaging
   href: messaging.md
+- name: WebApi C# Proxy CodeGen
+  href: webapi-csharp-proxy-codegen.md
+- name: Angular TypeScript Proxy CodeGen
+  href: angular-typescript-proxy-codegen.md
