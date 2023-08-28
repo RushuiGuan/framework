@@ -74,5 +74,22 @@ namespace Albatross.Messaging.Test {
 			Assert.Equal(20UL, counter.Counter);
 			Assert.Equal(21UL, counter.NextId());
 		}
+
+		[Fact]
+		public void TestBadFileFormat() {
+			string directory = @"c:\temp";
+			string name = "my-counter4.txt";
+			var filename = Path.Join(directory, name);
+			if (File.Exists(filename)) {
+				File.Delete(filename);
+			}
+			using(var writer = new StreamWriter(filename)) {
+				writer.WriteLine("abcdefg");
+				writer.WriteLine("abcdefg");
+			}
+			var counter = new DurableAtomicCounter(directory, name, 1);
+			Assert.Equal(0UL, counter.Counter);
+			Assert.Equal(1ul, counter.NextId());
+		}
 	}
 }
