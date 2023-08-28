@@ -40,7 +40,7 @@ namespace Albatross.Messaging.Services {
 			this.transmitServices = services.Where(args => args.HasCustomTransmitObject).ToArray();
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
-			this.counter = new DurableAtomicCounter(config.DiskStorage.WorkingDirectory, loggerFactory.CreateLogger("dealer-client-counter"));
+			this.counter = new DurableAtomicCounter(config.DiskStorage.WorkingDirectory);
 			this.logWriter = new DiskStorageLogWriter(config.DiskStorage.FileName, config.DiskStorage, loggerFactory);
 			this.logger = loggerFactory.CreateLogger<DealerClient>();
 			socket = new DealerSocket();

@@ -14,7 +14,7 @@ namespace Albatross.Messaging.Test {
 			if (File.Exists(file)) {
 				File.Delete(file);
 			}
-			var counter = new DurableAtomicCounter(directory, name, 1, new Mock<ILogger>().Object);
+			var counter = new DurableAtomicCounter(directory, name, 1);
 			Assert.Equal(0UL, counter.Counter);
 			Assert.Equal(1UL, counter.NextId());
 		}
@@ -27,12 +27,11 @@ namespace Albatross.Messaging.Test {
 			if (File.Exists(file)) {
 				File.Delete(file);
 			}
-			var counter = new DurableAtomicCounter(directory, name, 1, new Mock<ILogger>().Object);
+			var counter = new DurableAtomicCounter(directory, name, 1);
 			Assert.Equal(0UL, counter.Counter);
 			Assert.Equal(1UL, counter.NextId());
 			Assert.Equal(2UL, counter.NextId());
-			counter.Dispose();
-			counter = new DurableAtomicCounter(directory, name, 1, new Mock<ILogger>().Object);
+			counter = new DurableAtomicCounter(directory, name, 1);
 			Assert.Equal(2UL, counter.Counter);
 		}
 
@@ -44,14 +43,13 @@ namespace Albatross.Messaging.Test {
 			if (File.Exists(file)) {
 				File.Delete(file);
 			}
-			var counter = new DurableAtomicCounter(directory, name, 3, new Mock<ILogger>().Object);
+			var counter = new DurableAtomicCounter(directory, name, 3);
 			Assert.Equal(0UL, counter.Counter);
 			Assert.Equal(1UL, counter.NextId());
 			Assert.Equal(2UL, counter.NextId());
 			Assert.Equal(3UL, counter.NextId());
-			counter.Dispose();
 
-			counter = new DurableAtomicCounter(directory, name, 1, new Mock<ILogger>().Object);
+			counter = new DurableAtomicCounter(directory, name, 1);
 			Assert.Equal(3UL, counter.Counter);
 			Assert.Equal(4UL, counter.NextId());
 		}
@@ -64,20 +62,17 @@ namespace Albatross.Messaging.Test {
 			if (File.Exists(file)) {
 				File.Delete(file);
 			}
-			var counter = new DurableAtomicCounter(directory, name, 10, new Mock<ILogger>().Object);
+			var counter = new DurableAtomicCounter(directory, name, 10);
 			Assert.Equal(0UL, counter.Counter);
 			Assert.Equal(1UL, counter.NextId());
-			counter.Dispose();
 
-			counter = new DurableAtomicCounter(directory, name, 10, new Mock<ILogger>().Object);
+			counter = new DurableAtomicCounter(directory, name, 10);
 			Assert.Equal(10UL, counter.Counter);
 			Assert.Equal(11UL, counter.NextId());
-			counter.Dispose();
 
-			counter = new DurableAtomicCounter(directory, name, 10, new Mock<ILogger>().Object);
+			counter = new DurableAtomicCounter(directory, name, 10);
 			Assert.Equal(20UL, counter.Counter);
 			Assert.Equal(21UL, counter.NextId());
-			counter.Dispose();
 		}
 	}
 }
