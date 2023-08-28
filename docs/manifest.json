@@ -4278,6 +4278,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "articles/angular-typescript-proxy-codegen.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/angular-typescript-proxy-codegen.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "articles/angular.md",
       "output": {
         ".html": {
@@ -4345,6 +4355,16 @@
       "output": {
         ".html": {
           "relative_path": "articles/utility.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/webapi-csharp-proxy-codegen.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/webapi-csharp-proxy-codegen.html"
         }
       },
       "version": ""
