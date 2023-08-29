@@ -178,7 +178,6 @@ namespace Albatross.Messaging.Services {
 				poller.Dispose();
 				queue.Dispose();
 				this.logWriter.Dispose();
-				((IDisposable)counter).Dispose();
 				disposed = true;
 				logger.LogInformation("dealer client {identity} disposed", this.Identity);
 			}

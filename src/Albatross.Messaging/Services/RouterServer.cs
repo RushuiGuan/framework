@@ -210,7 +210,6 @@ namespace Albatross.Messaging.Services {
 				poller.Dispose();
 				queue.Dispose();
 				logWriter.Dispose();
-				((IDisposable)counter).Dispose();
 				disposed = true;
 				logger.LogInformation("router server disposed");
 			}
