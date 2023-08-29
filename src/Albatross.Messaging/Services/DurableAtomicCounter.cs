@@ -20,6 +20,7 @@ namespace Albatross.Messaging.Services {
 			if(writeInterval == 0) {
 				throw new ArgumentException("Write Interval cannot be 0");
 			}
+			if (!Directory.Exists(directory)) { Directory.CreateDirectory(directory); }
 			fileName = Path.Join(directory, $"{name}");
 			this.WriteInterval = writeInterval;
 			this.counter = Read();
