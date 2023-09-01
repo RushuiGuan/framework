@@ -93,11 +93,11 @@ namespace Albatross.Text {
 			int[] columnWidth = new int[columnCount];
 			var rows = new List<string?[]>();
 			string?[] row;
-			if (option.GetRowHeader != null) {
+			if (option.GetColumnHeader != null) {
 				row = new string[columnCount];
 				row[0] = null;
 				for (int i = 1; i < columnCount; i++) {
-					row[i] = option.GetRowHeader(i - 1);
+					row[i] = option.GetColumnHeader(i - 1);
 					columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 				}
 				rows.Add(row);
@@ -106,7 +106,7 @@ namespace Albatross.Text {
 			foreach (var name in option.Properties) {
 				row = new string[columnCount];
 				rows.Add(row);
-				row[0] = option.GetColumnHeader?.Invoke(name) ?? name;
+				row[0] = option.GetRowHeader?.Invoke(name) ?? name;
 				columnWidth[0] = System.Math.Max(columnWidth[0], name.Length);
 				for (int i = 0; i < items.Length; i++) {
 					var value = type.GetPropertyValue(items[i], name);
@@ -118,7 +118,7 @@ namespace Albatross.Text {
 					columnWidth[i + 1] = System.Math.Max(columnWidth[i + 1], row[i + 1]?.Length ?? 0);
 				}
 			}
-			bool rowHeaderSeperator = false;
+			bool columnHeaderSeperator = false;
 			foreach (var r in rows) {
 				for (int i = 0; i < columnCount; i++) {
 					if (i == 0) {
@@ -132,9 +132,9 @@ namespace Albatross.Text {
 						writer.Space();
 					}
 				}
-				if(option.HasRowHeaderSeperator == true && !rowHeaderSeperator) {
-					rowHeaderSeperator = true;
-					writer.AppendChar(option.RowHeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
+				if (option.HasColumnHeaderLine && !columnHeaderSeperator) {
+					columnHeaderSeperator = true;
+					writer.AppendChar(option.ColumnHeaderLineCharacter, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
 				}
 			}
 		}
@@ -147,21 +147,21 @@ namespace Albatross.Text {
 			row = new string[columnCount];
 			rows.Add(row);
 			for (int i = 0; i < columnCount; i++) {
-				row[i] = option.GetRowHeader(option.Properties[i]);
+				row[i] = option.GetColumnHeader(option.Properties[i]);
 				columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 			}
 			Type type = typeof(T);
-			foreach(var item in items) {
+			foreach (var item in items) {
 				row = new string[columnCount];
 				rows.Add(row);
-				for(int i =0; i<columnCount; i++) {
+				for (int i = 0; i < columnCount; i++) {
 					var value = type.GetPropertyValue(item, option.Properties[i]);
 					row[i] = option.FormatValue(option.Properties[i], value);
 					columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 				}
 			}
-			
-			bool headerSeperator = false;
+
+			bool columnHeaderLine = false;
 			foreach (var r in rows) {
 				for (int i = 0; i < columnCount; i++) {
 					writer.Append((r[i] ?? string.Empty).PadRight(columnWidth[i]));
@@ -171,9 +171,9 @@ namespace Albatross.Text {
 						writer.Space();
 					}
 				}
-				if (!headerSeperator) {
-					headerSeperator = true;
-					writer.AppendChar(option.RowHeaderSeperator, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
+				if (!columnHeaderLine) {
+					columnHeaderLine = true;
+					writer.AppendChar(option.ColumnHeaderLineCharacter, columnWidth.Sum(args => args) + columnWidth.Length - 1).WriteLine();
 				}
 			}
 		}

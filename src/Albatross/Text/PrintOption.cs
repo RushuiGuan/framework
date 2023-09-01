@@ -6,7 +6,7 @@ namespace Albatross.Text {
 			this.Properties = properties;
 		}
 		public delegate string FormatValueDelegate(string property, object? value);
-		public char RowHeaderSeperator { get; init; } = '-';
+		public char ColumnHeaderLineCharacter { get; init; } = '-';
 		public FormatValueDelegate FormatValue { get; init; } = DefaultFormatValue;
 		public string[] Properties { get; init; }
 
@@ -25,15 +25,15 @@ namespace Albatross.Text {
 	}
 
 	public record class PrintPropertiesOption : PrintOption {
-		public Func<int, string?>? GetRowHeader { get; init; }
-		public Func<string, string> GetColumnHeader { get; init; } = args => args;
-		public bool HasRowHeaderSeperator => GetRowHeader != null;
+		public Func<int, string?>? GetColumnHeader { get; init; }
+		public Func<string, string> GetRowHeader { get; init; } = args => args;
+		public bool HasColumnHeaderLine => GetColumnHeader != null;
 
 		public PrintPropertiesOption(params string[] properties) : base(properties) { }
 	}
 
 	public record class PrintTableOption : PrintOption {
-		public Func<string, string> GetRowHeader { get; init; } = args => args;
+		public Func<string, string> GetColumnHeader { get; init; } = args => args;
 		public PrintTableOption(params string[] properties) : base(properties) { }
 	}
 }
