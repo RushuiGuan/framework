@@ -1,25 +1,26 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Albatross.Text {
 	public record class PrintOption {
 		public PrintOption(params string[] properties) {
 			this.Properties = properties;
 		}
-		public delegate string FormatValueDelegate(string property, object? value);
+		public delegate Task<string> FormatValueDelegate(string property, object? value);
 		public char ColumnHeaderLineCharacter { get; init; } = '-';
 		public FormatValueDelegate FormatValue { get; init; } = DefaultFormatValue;
 		public string[] Properties { get; init; }
 
-		public static string DefaultFormatValue(string property, object? value) {
+		public static Task<string> DefaultFormatValue(string property, object? value) {
 			switch (value) {
 				case DateTime date:
 					if (property.Contains("datetime", StringComparison.InvariantCultureIgnoreCase)) {
-						return $"{date:yyyy-MM-dd HH:mm:ssz}";
+						return Task.FromResult($"{date:yyyy-MM-dd HH:mm:ssz}");
 					} else {
-						return $"{date:yyyy-MM-dd}";
+						return Task.FromResult($"{date:yyyy-MM-dd}");
 					}
 				default:
-					return Convert.ToString(value);
+					return Task.FromResult(Convert.ToString(value));
 			}
 		}
 	}

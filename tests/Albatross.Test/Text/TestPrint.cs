@@ -1,6 +1,7 @@
 ﻿using Albatross.Text;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.Test.Text {
@@ -45,10 +46,10 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
         Expired 2000-07-02            2000-07-03            2000-07-04           
 ";
 		[Fact]
-		public void PrintPropertiesWithDefaultOptions() {
+		public async Task PrintPropertiesWithDefaultOptions() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			writer.PrintProperties<Product>(products, new PrintPropertiesOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
+			await writer.PrintProperties<Product>(products, new PrintPropertiesOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
 			Assert.Equal(expectedPrintPropertiesDefaultOptions, writer.ToString());
 		}
 		
@@ -62,10 +63,10 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
         Expired 2000-07-02            2000-07-03            2000-07-04           
 ";
 		[Fact]
-		public void PrintPropertiesWithHeader() {
+		public async Task PrintPropertiesWithHeader() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			writer.PrintProperties<Product>(products, new PrintPropertiesOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)) {
+			await writer.PrintProperties<Product>(products, new PrintPropertiesOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)) {
 				ColumnHeaderLineCharacter = '-',
 				GetColumnHeader = args => {
 					switch (args) {
@@ -92,10 +93,10 @@ desk   furniture 200    2000-02-01 05:05:04-5 2000-07-04
 ";
 
 		[Fact]
-		public void PrintTableWithDefaultOptions() {
+		public async Task PrintTableWithDefaultOptions() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			writer.PrintTable<Product>(products, new PrintTableOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
+			await writer.PrintTable<Product>(products, new PrintTableOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
 			Assert.Equal(expectedPrintTableWithDefault, writer.ToString());
 		}
 	}
