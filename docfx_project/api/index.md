@@ -13,7 +13,7 @@
 		* create utility to write out in tabular format and list format
 	- clean Albatross.Hosting.Utility.BaseOption class so that its verb doesn't use single character.
 		* verbose flag will trigger 
-* Albatross.Repository
+* Albatross.EFCore
 	- add datelevel data support
 #### v4.1.0 - 2022-10-18
 * upgrade to efcore 7

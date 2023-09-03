@@ -9,7 +9,7 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Albatross.Repository\Albatross.EFCore.csproj" />
+        <ProjectReference Include="..\Albatross.EFCore\Albatross.EFCore.csproj" />
     </ItemGroup>
     <ItemGroup>
         <None Include="..\..\LICENSE">

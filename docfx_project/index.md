@@ -5,7 +5,7 @@ Albatross is a .Net development framework that allow developers to quickly boots
 
 |Area|Technology|Assembly|
 |-|-|-|
-|CRM|EF Core|Albatross.Repository|
+|CRM|EF Core|Albatross.EFCore|
 |Logging|Serilog|Albatross.Logging|
 |Messaging|ZeroMQ\NetMQ|Albatross.Messaging|
 |Serialization|System.Text.Json|
@@ -29,9 +29,9 @@ Albatross is a .Net development framework that allow developers to quickly boots
 |Albatross.CodeGen.WebClient|CodeGen Implementation for WebApi Proxy|Net7.0|
 |Albatross.Config|Utility for configuration management|NetStandard2.1|
 |Albatross.Logging|Utility for logging|NetStandard2.1|
-|Albatross.Repository|ORM setup using EFCore|Net7.0, EFCore7.0|
-|Albatross.Repository.SqlServer|ORM Sql server setup|Net7.0, EFCore7.0|
-|Albatross.Repository.PostgreSQL|ORM PostgreSQL server setup|Net7.0, EFCore7.0|
+|Albatross.EFCore|ORM setup using EFCore|Net7.0, EFCore7.0|
+|Albatross.EFCore.SqlServer|ORM Sql server setup|Net7.0, EFCore7.0|
+|Albatross.EFCore.PostgreSQL|ORM PostgreSQL server setup|Net7.0, EFCore7.0|
 |Albatross|Utility assembly for shared code base that is not big enough to have its own assembly|NetStandard2.1|
 |Albatross.WebClient|Utility for creation of http rest client|NetStandard2.1|
 |Albatross.Messaging|Assembly for durable stream processing system|NetStandard2.1|

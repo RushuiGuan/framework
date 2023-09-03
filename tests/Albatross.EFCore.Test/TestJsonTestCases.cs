@@ -16,7 +16,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1")]
 		public void TestParam1(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -25,7 +25,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2")]
 		public void TestParam2(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -35,7 +35,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3")]
 		public void TestParam3(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -46,7 +46,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3 4")]
 		public void TestParam4(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -58,7 +58,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3 4 5")]
 		public void TestParam5(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -71,7 +71,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3 4 5 6")]
 		public void TestParam6(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -86,7 +86,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3 4 5 6 7")]
 		public void TestParam7(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -101,7 +101,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3 4 5 6 7 8")]
 		public void TestParam8(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -117,7 +117,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3 4 5 6 7 8 9")]
 		public void TestParam9(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int, int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int, int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -134,7 +134,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3 4 5 6 7 8 9 10")]
 		public void TestParam10(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int, int , int, int>("Albatross.Repository.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int, int , int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);
@@ -153,7 +153,7 @@ namespace Albatross.EFCore.Test {
 		[InlineData("a invalid test case name")]
 		public void TestInvalidParam1(string testCaseName) {
 			Assert.Throws<ArgumentException>(() =>
-			Assembly.GetExecutingAssembly().GetJsonTestCases<int>("Albatross.Repository.Test.TestCases.data.json", testCaseName));
+			Assembly.GetExecutingAssembly().GetJsonTestCases<int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName));
 		}
 	}
 }

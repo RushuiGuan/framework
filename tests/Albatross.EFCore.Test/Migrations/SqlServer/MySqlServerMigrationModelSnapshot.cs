@@ -23,7 +23,7 @@ namespace Albatross.EFCore.Test.Migrations.SqlServer
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Albatross.Repository.Test.FutureMarket", b =>
+            modelBuilder.Entity("Albatross.EFCore.Test.FutureMarket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace Albatross.EFCore.Test.Migrations.SqlServer
                         .HasAnnotation("SqlServer:TemporalPeriodStartPropertyName", null);
                 });
 
-            modelBuilder.Entity("Albatross.Repository.Test.JsonData", b =>
+            modelBuilder.Entity("Albatross.EFCore.Test.JsonData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace Albatross.EFCore.Test.Migrations.SqlServer
                         .HasAnnotation("SqlServer:TemporalPeriodStartPropertyName", null);
                 });
 
-            modelBuilder.Entity("Albatross.Repository.Test.TickSize", b =>
+            modelBuilder.Entity("Albatross.EFCore.Test.TickSize", b =>
                 {
                     b.Property<int>("MarketId")
                         .HasColumnType("int");
@@ -103,9 +103,9 @@ namespace Albatross.EFCore.Test.Migrations.SqlServer
                         .HasAnnotation("SqlServer:TemporalPeriodStartPropertyName", null);
                 });
 
-            modelBuilder.Entity("Albatross.Repository.Test.TickSize", b =>
+            modelBuilder.Entity("Albatross.EFCore.Test.TickSize", b =>
                 {
-                    b.HasOne("Albatross.Repository.Test.FutureMarket", "Market")
+                    b.HasOne("Albatross.EFCore.Test.FutureMarket", "Market")
                         .WithMany("TickSizes")
                         .HasForeignKey("MarketId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -114,7 +114,7 @@ namespace Albatross.EFCore.Test.Migrations.SqlServer
                     b.Navigation("Market");
                 });
 
-            modelBuilder.Entity("Albatross.Repository.Test.FutureMarket", b =>
+            modelBuilder.Entity("Albatross.EFCore.Test.FutureMarket", b =>
                 {
                     b.Navigation("TickSizes");
                 });

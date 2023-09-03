@@ -25,10 +25,10 @@ namespace Albatross.EFCore.Test.MyNamespace {
 			var items = this.GetType().Assembly.GetEntityModels(null);
 			Assert.NotEmpty(items);
 
-			items = this.GetType().Assembly.GetEntityModels("Albatross.Repository.Test.MyNamespace");
+			items = this.GetType().Assembly.GetEntityModels("Albatross.EFCore.Test.MyNamespace");
 			Assert.Single(items);
 
-			items = this.GetType().Assembly.GetEntityModels("Albatross.Repository.Test.MyNamespace.");
+			items = this.GetType().Assembly.GetEntityModels("Albatross.EFCore.Test.MyNamespace.");
 			Assert.Single(items);
 		}
 
