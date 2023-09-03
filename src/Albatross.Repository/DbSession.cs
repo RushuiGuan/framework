@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Reflection;
 
-namespace Albatross.Repository {
+namespace Albatross.EFCore {
 	public abstract class DbSession : DbContext, IDbSession {
 		#region constants
 		public const string Any = "any";

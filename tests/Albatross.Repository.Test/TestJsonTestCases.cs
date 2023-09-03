@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Xunit;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class TestJsonTestCases {
 
 		int[] ParseName(string name) {

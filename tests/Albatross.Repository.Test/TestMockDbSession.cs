@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class TestMockDbSession {
 		readonly static FutureMarket[] Markets = new FutureMarket[] { 
 			new FutureMarket("L"),

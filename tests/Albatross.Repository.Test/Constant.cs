@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public static class Constant {
 		public const int NameLength = 256;
 		public const string Schema = "test";

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class TestGetDateLevelEntityByDateRange {
 		[Fact]
 		public void No_Row() {

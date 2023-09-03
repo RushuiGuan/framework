@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class TestRebuildDateLevelSeries {
 		[Fact]
 		public void NoOp() {

@@ -25,8 +25,8 @@
     <ProjectReference Include="..\Albatross.Authentication\Albatross.Authentication.csproj" />
     <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
     <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
-    <ProjectReference Include="..\Albatross.Repository.SqlServer\Albatross.Repository.SqlServer.csproj" />
-    <ProjectReference Include="..\Albatross.Repository\Albatross.Repository.csproj" />
+    <ProjectReference Include="..\Albatross.Repository.SqlServer\Albatross.EFCore.SqlServer.csproj" />
+    <ProjectReference Include="..\Albatross.Repository\Albatross.EFCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">

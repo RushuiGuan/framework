@@ -7,9 +7,9 @@ using Moq;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
-using Albatross.Repository.SqlServer;
+using Albatross.EFCore.SqlServer;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class MyTestHost : TestHost {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);

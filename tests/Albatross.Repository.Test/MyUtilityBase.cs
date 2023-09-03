@@ -1,12 +1,12 @@
 ﻿using Albatross.Config;
 using Albatross.Hosting.Utility;
 using Albatross.Logging;
-using Albatross.Repository.SqlServer;
+using Albatross.EFCore.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public abstract class MyUtilityBase<T> : UtilityBase<T> {
 		protected MyUtilityBase(T option) : base(option) {
 		}

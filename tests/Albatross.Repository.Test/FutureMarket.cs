@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class FutureMarket {
 		public int Id { get; set; }
 		[MaxLength(Constant.NameLength)]

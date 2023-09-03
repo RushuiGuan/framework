@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Albatross.Repository {
+namespace Albatross.EFCore {
 	public interface IEntityMap<T> where T : class {
 		void Map(EntityTypeBuilder<T> builder);
 	}

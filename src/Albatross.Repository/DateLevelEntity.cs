@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Albatross.Repository {
+namespace Albatross.EFCore {
 	public abstract class DateLevelEntity  {
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; } = MaxEndDate;

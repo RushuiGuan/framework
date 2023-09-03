@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Xunit;
 
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class TestSetDateLevelEntity {
 		[Fact]
 		public void Baseline() {

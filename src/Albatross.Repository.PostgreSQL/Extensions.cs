@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Albatross.Repository.PostgreSQL {
+namespace Albatross.EFCore.PostgreSQL {
 	public static class Extensions {
 		public static void BuildDefaultOption(DbContextOptionsBuilder builder, string connectionString) {
 			builder.EnableDetailedErrors(true);

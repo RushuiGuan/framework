@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class TestQueryExecution {
 		public static readonly int[] Array = new int[] {
 			1, 2, 3, 4, 5,

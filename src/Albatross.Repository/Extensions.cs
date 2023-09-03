@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
-namespace Albatross.Repository {
+namespace Albatross.EFCore {
 	public static class Extensions {
 		static JsonSerializerOptions jsonColumnSerializationOptions = new JsonSerializerOptions {
 			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,

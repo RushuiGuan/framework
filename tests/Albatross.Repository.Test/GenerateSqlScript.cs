@@ -9,7 +9,7 @@ using Albatross.Hosting.Utility;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	[Verb("create-sql-script", HelpText = "Generate sql script for database")]
 	public class GenerateSqlScriptOption :BaseOption{
 		[Option('o', "output-file", Required = false, HelpText = "Set the output file")]

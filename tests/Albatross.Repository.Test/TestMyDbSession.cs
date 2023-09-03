@@ -1,4 +1,4 @@
-﻿using Albatross.Repository.SqlServer;
+﻿using Albatross.EFCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Repository.Test.MyNamespace {
+namespace Albatross.EFCore.Test.MyNamespace {
 	public class FutureMarketEntityMap : EntityMap<FutureMarket> {
 		public override void Map(EntityTypeBuilder<FutureMarket> builder) {
 			base.Map(builder);

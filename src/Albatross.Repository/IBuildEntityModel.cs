@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Albatross.Repository {
+namespace Albatross.EFCore {
 	public interface IBuildEntityModel {
 		void Build(ModelBuilder builder);
 	}

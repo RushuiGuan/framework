@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Albatross.Repository {
+namespace Albatross.EFCore {
 	public static class DateLevelEntityExtensions {
 		/// <summary>
 		/// /// For DateLevel entries, two rules apply

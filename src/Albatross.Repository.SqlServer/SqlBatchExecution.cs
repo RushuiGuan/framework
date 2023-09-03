@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Albatross.Repository.SqlServer {
+namespace Albatross.EFCore.SqlServer {
 	public interface ISqlBatchExecution {
 		Task Execute(IDbConnection dbConnection, System.IO.TextReader reader);
 	}

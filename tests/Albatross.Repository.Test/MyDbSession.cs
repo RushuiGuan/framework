@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public interface IMyDbSession : IDbSession { }
 	public class MyDbSession : DbSession, IMyDbSession {
 		public MyDbSession(DbContextOptions<MyDbSession> option) : base(option) {

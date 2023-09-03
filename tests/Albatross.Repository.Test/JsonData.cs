@@ -1,10 +1,10 @@
-﻿using Albatross.Repository.SqlServer;
+﻿using Albatross.EFCore.SqlServer;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public record class MyJsonData : IJsonData {
 		public MyJsonData(string prefix, string algo, string broker) {
 			this.Prefix = prefix;

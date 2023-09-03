@@ -1,9 +1,9 @@
-﻿using Albatross.Repository.SqlServer;
+﻿using Albatross.EFCore.SqlServer;
 using Dapper;
 using System.Collections.Generic;
 using System.Data;
 
-namespace Albatross.Repository.SqlServer {
+namespace Albatross.EFCore.SqlServer {
 	public static class DapperExtensions {
 		public static SqlMapper.ICustomQueryParameter AsTableValuedParameter(this IEnumerable<int> values) {
 			DataTable table = new DataTable();

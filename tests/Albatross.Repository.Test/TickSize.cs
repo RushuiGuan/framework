@@ -1,9 +1,9 @@
-﻿using Albatross.Repository.SqlServer;
+﻿using Albatross.EFCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class TickSize : DateLevelEntity<int> {
 		public int Id { get; set; }
 		public TickSize(int marketId, DateTime startDate, decimal value) : base(startDate) {

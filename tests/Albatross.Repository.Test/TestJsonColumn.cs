@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	public class TestJsonColumn : IClassFixture<MyTestHost> {
 		private readonly MyTestHost host;
 

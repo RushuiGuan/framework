@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Albatross.Repository.Test.Migrations.SqlServer
+namespace Albatross.EFCore.Test.Migrations.SqlServer
 {
     /// <inheritdoc />
     public partial class MySqlServerMigrationv1 : Migration

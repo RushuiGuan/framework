@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Albatross.Repository.SqlServer {
+namespace Albatross.EFCore.SqlServer {
 	public class SqlServerMigration<T> where T: DbSession {
 		private readonly ISqlBatchExecution batchExecution;
 		private readonly T session;

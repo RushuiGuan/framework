@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using CommandLine;
-using Albatross.Repository.SqlServer;
+using Albatross.EFCore.SqlServer;
 
-namespace Albatross.Repository.Test {
+namespace Albatross.EFCore.Test {
 	[Verb("ef-migrate", HelpText = "Migrate database using dotnet ef tool")]
 	public class EFMigrationOption { }
 
