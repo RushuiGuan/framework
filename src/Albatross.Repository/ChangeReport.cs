@@ -32,10 +32,10 @@ namespace Albatross.Repository {
 		public object? OriginalValue { get; }
 		public object? CurrentValue { get; }
 	}
-	public class Change<T> : IChange where T : class {
+	public class ChangeReport<T> : IChange where T : class {
 		public T Entity { get; set; }
 		public ChangeType Type { get; set; }
-		public Change(T entity, string property) {
+		public ChangeReport(T entity, string property) {
 			this.Entity = entity;
 			this.Property = property;
 		}
@@ -59,18 +59,18 @@ namespace Albatross.Repository {
 	}
 	public static class ChangeExtensions {
 		const string ColumnPrefix = "Entity.";
-		public static void GetChanges<T>(this EntityEntry<T> entry, List<Change<T>> changes, ChangeType type) where T : class {
+		public static void GetChanges<T>(this EntityEntry<T> entry, List<ChangeReport<T>> changes, ChangeType type) where T : class {
 			if (entry.State == EntityState.Added && (type & ChangeType.Added) > 0
 				|| entry.State == EntityState.Modified && (type & ChangeType.Modified) > 0
 				|| entry.State == EntityState.Deleted && (type & ChangeType.Deleted) > 0) {
-				changes.AddRange(entry.Properties.Where(args => args.IsModified).Select(args => new Change<T>(entry.Entity, args.Metadata.Name) {
+				changes.AddRange(entry.Properties.Where(args => args.IsModified).Select(args => new ChangeReport<T>(entry.Entity, args.Metadata.Name) {
 					OriginalValue = args.OriginalValue,
 					CurrentValue = args.CurrentValue,
 				}));
 			}
 		}
-		public static async Task GetChangeText<T>(this TextWriter writer, IEnumerable<Change<T>> changes, PrintOption.FormatValueDelegate? formatValueFunc = null, params string[] additionalProperties) where T : class {
-			var columns = additionalProperties.Select(args => $"{ColumnPrefix}{args}").Union(new string[] { nameof(Change<object>.Property), nameof(Change<object>.OriginalValue), nameof(Change<object>.CurrentValue) }).ToArray();
+		public static async Task GetChangeText<T>(this TextWriter writer, IEnumerable<ChangeReport<T>> changes, PrintOption.FormatValueDelegate? formatValueFunc = null, params string[] additionalProperties) where T : class {
+			var columns = additionalProperties.Select(args => $"{ColumnPrefix}{args}").Union(new string[] { nameof(ChangeReport<object>.Property), nameof(ChangeReport<object>.OriginalValue), nameof(ChangeReport<object>.CurrentValue) }).ToArray();
 			var option = new PrintTableOption(columns) {
 				GetColumnHeader = args => args.StartsWith(ColumnPrefix) ? args.Substring(ColumnPrefix.Length) : args,
 				FormatValue = formatValueFunc ?? PrintOption.DefaultFormatValue,
@@ -78,13 +78,13 @@ namespace Albatross.Repository {
 			await writer.PrintTable(changes.ToArray(), option);
 		}
 		public static async Task GetChangeText<T>(this EntityEntry<T> entry, TextWriter writer, ChangeReportingOptions options) where T : class {
-			var changes = new List<Change<T>>();
+			var changes = new List<ChangeReport<T>>();
 			entry.GetChanges(changes, options.Type);
 			await writer.GetChangeText(changes, options.FormatValueFunc, options.Properties.ToArray());
 		}
 		public static async Task<ChangeReportingResult> SaveAndAuditChanges<T>(this IDbSession session, ChangeReportingOptions options, string? user) where T : class {
 			try {
-				var changes = new List<Change<T>>();
+				var changes = new List<ChangeReport<T>>();
 				foreach (var entry in session.DbContext.ChangeTracker.Entries<T>()) {
 					if (entry.State == EntityState.Modified) {
 						if (entry.Entity is IModifiedBy audit1 && !string.IsNullOrEmpty(user)) { audit1.ModifiedBy = user; }

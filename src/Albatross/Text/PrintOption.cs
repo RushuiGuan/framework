@@ -6,12 +6,12 @@ namespace Albatross.Text {
 		public PrintOption(params string[] properties) {
 			this.Properties = properties;
 		}
-		public delegate Task<string> FormatValueDelegate(string property, object? value);
+		public delegate Task<string> FormatValueDelegate(object? entity, string property, object? value);
 		public char ColumnHeaderLineCharacter { get; init; } = '-';
 		public FormatValueDelegate FormatValue { get; init; } = DefaultFormatValue;
 		public string[] Properties { get; init; }
 
-		public static Task<string> DefaultFormatValue(string property, object? value) {
+		public static Task<string> DefaultFormatValue(object? _, string property, object? value) {
 			switch (value) {
 				case DateTime date:
 					if (property.Contains("datetime", StringComparison.InvariantCultureIgnoreCase)) {

@@ -112,7 +112,7 @@ namespace Albatross.Text {
 				for (int i = 0; i < items.Length; i++) {
 					var value = type.GetPropertyValue(items[i], name);
 					if (option.FormatValue != null) {
-						row[i + 1] = await option.FormatValue(name, value);
+						row[i + 1] = await option.FormatValue(items[i], name, value);
 					} else {
 						row[i + 1] = Convert.ToString(value);
 					}
@@ -157,7 +157,7 @@ namespace Albatross.Text {
 				rows.Add(row);
 				for (int i = 0; i < columnCount; i++) {
 					var value = type.GetPropertyValue(item, option.Properties[i]);
-					row[i] = await option.FormatValue(option.Properties[i], value);
+					row[i] = await option.FormatValue(item, option.Properties[i], value);
 					columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 				}
 			}
