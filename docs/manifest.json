@@ -1605,6 +1605,326 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeReport-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeReport-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeReportingOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeReportingOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeReportingResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeReportingResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.IChangeReport.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ChangeReporting.IChangeReport.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ChangeReporting.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.DateLevelEntity-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.DateLevelEntity-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.DateLevelEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.DateLevelEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.DateLevelEntityExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.DateLevelEntityExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.DbSession.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.DbSession.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.DbSessionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.DbSessionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.EntityMap-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.EntityMap-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.IBuildEntityModel-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.IBuildEntityModel-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.IBuildEntityModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.IBuildEntityModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ICreatedBy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ICreatedBy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ICreatedUtc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ICreatedUtc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.IDbSession.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.IDbSession.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.IEntityMap-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.IEntityMap-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.IModifiedBy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.IModifiedBy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.IModifiedUtc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.IModifiedUtc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.MissingNavigationPropertyException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.MissingNavigationPropertyException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.PostgreSQL.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.PostgreSQL.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.PostgreSQL.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.PostgreSQL.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.SqlServer.DapperExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.SqlServer.DapperExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.SqlServer.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.SqlServer.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.SqlServer.ISqlBatchExecution.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.SqlServer.ISqlBatchExecution.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.SqlServer.SqlBatchExecution.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.SqlServer.SqlBatchExecution.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.SqlServer.SqlServerMigration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.SqlServer.SqlServerMigration-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.SqlServer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.SqlServer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Extensions.yml",
       "output": {
         ".html": {
@@ -3285,26 +3605,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerConnected.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerReconnect.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.BrokerRequest.yml",
       "output": {
         ".html": {
@@ -3349,16 +3649,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Messaging.ReqRep.Messages.WorkerAck.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Messaging.ReqRep.Messages.WorkerConnect.html"
         }
       },
       "version": ""
@@ -3659,256 +3949,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Reflection.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.DateLevelEntity-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.DateLevelEntity-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.DateLevelEntity.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.DateLevelEntity.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.DateLevelEntityExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.DateLevelEntityExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.DbSession.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.DbSession.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.DbSessionExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.DbSessionExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.EntityMap-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.EntityMap-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.Extensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.Extensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.IBuildEntityModel-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.IBuildEntityModel-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.IBuildEntityModel.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.IBuildEntityModel.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.IDbSession.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.IDbSession.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.IEntityMap-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.IEntityMap-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.ImmutableEntity.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.ImmutableEntity.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.ImmutableEntityMap-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.ImmutableEntityMap-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.MissingNavigationPropertyException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.MissingNavigationPropertyException.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.MutableEntity.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.MutableEntity.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.MutableEntityMap-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.MutableEntityMap-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.PostgreSQL.Extensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.PostgreSQL.Extensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.PostgreSQL.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.PostgreSQL.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.SqlServer.DapperExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.SqlServer.DapperExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.SqlServer.Extensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.SqlServer.Extensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.SqlServer.ISqlBatchExecution.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.SqlServer.ISqlBatchExecution.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.SqlServer.SqlBatchExecution.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.SqlServer.SqlBatchExecution.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.SqlServer.SqlServerMigration-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.SqlServer.SqlServerMigration-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.SqlServer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.SqlServer.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Repository.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Repository.html"
         }
       },
       "version": ""

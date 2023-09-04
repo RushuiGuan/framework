@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -18,6 +18,17 @@
       
       
       
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
   </head>
 
   <script type="module">
@@ -121,10 +132,10 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
   </dd></dl>
 
@@ -138,8 +149,8 @@
 
   <a id="Albatross_Messaging_ReqRep_DealerWorkerService__ctor_" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_ReqRep_DealerWorkerService__ctor_Albatross_Messaging_Configurations_DealerWorkerConfiguration_Albatross_Messaging_Messages_IMessageFactory_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_ReqRep_DealerWorkerService__" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.#ctor(Albatross.Messaging.Configurations.DealerWorkerConfiguration,Albatross.Messaging.Messages.IMessageFactory,Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.DealerWorkerService})">
-  DealerWorkerService(DealerWorkerConfiguration, IMessageFactory, ILogger&lt;DealerWorkerService&gt;)
+  <h3 id="Albatross_Messaging_ReqRep_DealerWorkerService__ctor_Microsoft_Extensions_Logging_ILogger_Albatross_Messaging_ReqRep_DealerWorkerService__" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.#ctor(Microsoft.Extensions.Logging.ILogger{Albatross.Messaging.ReqRep.DealerWorkerService})">
+  DealerWorkerService(ILogger&lt;DealerWorkerService&gt;)
   
   </h3>
 
@@ -147,15 +158,11 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DealerWorkerService(DealerWorkerConfiguration config, IMessageFactory messageFactory, ILogger&lt;DealerWorkerService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public DealerWorkerService(ILogger&lt;DealerWorkerService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>config</code> <a class="xref" href="Albatross.Messaging.Configurations.DealerWorkerConfiguration.html">DealerWorkerConfiguration</a></dt>
-    <dd></dd>
-    <dt><code>messageFactory</code> <a class="xref" href="Albatross.Messaging.Messages.IMessageFactory.html">IMessageFactory</a></dt>
-    <dd></dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Messaging.ReqRep.DealerWorkerService.html">DealerWorkerService</a>&gt;</dt>
     <dd></dd>
   </dl>
@@ -238,37 +245,6 @@
 
 
 
-  <a id="Albatross_Messaging_ReqRep_DealerWorkerService_Identity_" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.Identity*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_DealerWorkerService_Identity" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.Identity">
-  Identity
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Identity { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
   <a id="Albatross_Messaging_ReqRep_DealerWorkerService_NeedTimer_" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.NeedTimer*"></a>
 
   <h3 id="Albatross_Messaging_ReqRep_DealerWorkerService_NeedTimer" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.NeedTimer">
@@ -290,37 +266,6 @@
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_ReqRep_DealerWorkerService_Services_" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.Services*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_DealerWorkerService_Services" data-uid="Albatross.Messaging.ReqRep.DealerWorkerService.Services">
-  Services
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ISet&lt;string&gt; Services { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1">ISet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
     <dd></dd>
   </dl>
 

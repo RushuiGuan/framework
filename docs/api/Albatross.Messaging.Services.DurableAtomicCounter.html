@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -18,6 +18,17 @@
       
       
       
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
   </head>
 
   <script type="module">
@@ -91,12 +102,11 @@
 sequential.  Most of the time, the nextId() method will return the next ulong value, but in case of the process crashing, it will return the next
 integer number dividable by 10000.
 Under the hood, the class use a file to keep track of the id value.  For efficiency reason, it only updates the file when the Id % 10000 == 0.</p>
-<p>TODO: NEED TESTING.  NEXT ID IS RETURNING THE WRONG ID</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DurableAtomicCounter : IAtomicCounter&lt;ulong&gt;, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class DurableAtomicCounter : IAtomicCounter&lt;ulong&gt;</code></pre>
   </div>
 
 
@@ -114,7 +124,6 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
     <dt>Implements</dt>
     <dd>
       <div><a class="xref" href="Albatross.Messaging.Services.IAtomicCounter-1.html">IAtomicCounter</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a>&gt;</div>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
     </dd>
   </dl>
 
@@ -127,10 +136,10 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
   </dd></dl>
 
@@ -144,8 +153,8 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
 
   <a id="Albatross_Messaging_Services_DurableAtomicCounter__ctor_" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_Services_DurableAtomicCounter__ctor_System_String_Microsoft_Extensions_Logging_ILogger_" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,Microsoft.Extensions.Logging.ILogger)">
-  DurableAtomicCounter(string, ILogger)
+  <h3 id="Albatross_Messaging_Services_DurableAtomicCounter__ctor_System_String_" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String)">
+  DurableAtomicCounter(string)
   
   </h3>
 
@@ -153,14 +162,12 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DurableAtomicCounter(string directory, ILogger logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public DurableAtomicCounter(string directory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
     <dd></dd>
   </dl>
 
@@ -177,8 +184,8 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
 
   <a id="Albatross_Messaging_Services_DurableAtomicCounter__ctor_" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.#ctor*"></a>
 
-  <h3 id="Albatross_Messaging_Services_DurableAtomicCounter__ctor_System_String_System_String_System_UInt32_Microsoft_Extensions_Logging_ILogger_" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,System.String,System.UInt32,Microsoft.Extensions.Logging.ILogger)">
-  DurableAtomicCounter(string, string, uint, ILogger)
+  <h3 id="Albatross_Messaging_Services_DurableAtomicCounter__ctor_System_String_System_String_System_UInt32_" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.#ctor(System.String,System.String,System.UInt32)">
+  DurableAtomicCounter(string, string, uint)
   
   </h3>
 
@@ -186,7 +193,7 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DurableAtomicCounter(string directory, string name, uint writeInterval, ILogger logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public DurableAtomicCounter(string directory, string name, uint writeInterval)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -196,8 +203,6 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
     <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>writeInterval</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd></dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
     <dd></dd>
   </dl>
 
@@ -249,33 +254,6 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
 
   <h2 class="section" id="methods">Methods
 </h2>
-
-
-  <a id="Albatross_Messaging_Services_DurableAtomicCounter_Dispose_" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.Dispose*"></a>
-
-  <h3 id="Albatross_Messaging_Services_DurableAtomicCounter_Dispose" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.Dispose">
-  Dispose()
-  
-  </h3>
-
-  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
   <a id="Albatross_Messaging_Services_DurableAtomicCounter_NextId_" data-uid="Albatross.Messaging.Services.DurableAtomicCounter.NextId*"></a>

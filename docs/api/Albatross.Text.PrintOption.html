@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -18,6 +18,17 @@
       
       
       
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
   </head>
 
   <script type="module">
@@ -128,10 +139,10 @@
       <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.Repository.Extensions.html#Albatross_Repository_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
   </div>
   </dd></dl>
 
@@ -176,6 +187,37 @@
 
   <h2 class="section" id="properties">Properties
 </h2>
+
+
+  <a id="Albatross_Text_PrintOption_ColumnHeaderLineCharacter_" data-uid="Albatross.Text.PrintOption.ColumnHeaderLineCharacter*"></a>
+
+  <h3 id="Albatross_Text_PrintOption_ColumnHeaderLineCharacter" data-uid="Albatross.Text.PrintOption.ColumnHeaderLineCharacter">
+  ColumnHeaderLineCharacter
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public char ColumnHeaderLineCharacter { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
 
 
   <a id="Albatross_Text_PrintOption_FormatValue_" data-uid="Albatross.Text.PrintOption.FormatValue*"></a>
@@ -240,45 +282,14 @@
 
 
 
-  <a id="Albatross_Text_PrintOption_RowHeaderSeperator_" data-uid="Albatross.Text.PrintOption.RowHeaderSeperator*"></a>
-
-  <h3 id="Albatross_Text_PrintOption_RowHeaderSeperator" data-uid="Albatross.Text.PrintOption.RowHeaderSeperator">
-  RowHeaderSeperator
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public char RowHeaderSeperator { get; init; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
   <h2 class="section" id="methods">Methods
 </h2>
 
 
   <a id="Albatross_Text_PrintOption_DefaultFormatValue_" data-uid="Albatross.Text.PrintOption.DefaultFormatValue*"></a>
 
-  <h3 id="Albatross_Text_PrintOption_DefaultFormatValue_System_String_System_Object_" data-uid="Albatross.Text.PrintOption.DefaultFormatValue(System.String,System.Object)">
-  DefaultFormatValue(string, object?)
+  <h3 id="Albatross_Text_PrintOption_DefaultFormatValue_System_Object_System_String_System_Object_" data-uid="Albatross.Text.PrintOption.DefaultFormatValue(System.Object,System.String,System.Object)">
+  DefaultFormatValue(object?, string, object?)
   
   </h3>
 
@@ -286,11 +297,13 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string DefaultFormatValue(string property, object? value)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;string&gt; DefaultFormatValue(object? _, string property, object? value)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>_</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
     <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
@@ -299,7 +312,7 @@
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
     <dd></dd>
   </dl>
 
