@@ -44,7 +44,7 @@ namespace Albatross.Caching {
 			if (assembly != null) {
 				Type genericDefinition = typeof(ICacheManagement<>);
 				foreach (Type type in assembly.GetConcreteClasses()) {
-					if (type.TryGetClosedGenericType(genericDefinition, out Type _)) {
+					if (type.TryGetClosedGenericType(genericDefinition, out Type? _)) {
 						services.AddSingleton(typeof(ICacheManagement), type);
 					}
 				}

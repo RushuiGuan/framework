@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "crypto", "crypto", "{E18EB2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosting", "hosting", "{F7268AF8-35EC-4301-814F-B204590EABCA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "repository", "repository", "{0D0A8505-9722-46F1-A6C1-C7D61BDFED07}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "efcore", "efcore", "{0D0A8505-9722-46F1-A6C1-C7D61BDFED07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository", "src\Albatross.Repository\Albatross.Repository.csproj", "{D940A88A-E3C1-454F-96D4-FFC2A5FE35E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore", "src\Albatross.EFCore\Albatross.EFCore.csproj", "{D940A88A-E3C1-454F-96D4-FFC2A5FE35E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "webclient", "webclient", "{64DD75D5-BE93-446B-B74F-0D5AE8DCCB06}"
 EndProject
@@ -37,9 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen", "src\Al
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.UnitTest", "tests\Albatross.CodeGen.UnitTest\Albatross.CodeGen.UnitTest.csproj", "{55F4B24D-1406-41F4-B2A5-2DEF155C1D05}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository.PostgreSQL", "src\Albatross.Repository.PostgreSQL\Albatross.Repository.PostgreSQL.csproj", "{9AFC6C12-1D2A-4CBB-B83A-64E145A21498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.PostgreSQL", "src\Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj", "{9AFC6C12-1D2A-4CBB-B83A-64E145A21498}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository.SqlServer", "src\Albatross.Repository.SqlServer\Albatross.Repository.SqlServer.csproj", "{F126450A-8230-40E9-80D0-5102D592D4FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.SqlServer", "src\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj", "{F126450A-8230-40E9-80D0-5102D592D4FB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Utility", "src\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj", "{A6153010-3622-46C3-9C20-1149F3620BF7}"
 EndProject
@@ -78,7 +78,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution Items", "solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "messaging", "messaging", "{1595A14F-C041-4D20-91A6-A1388CED57BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Repository.Test", "tests\Albatross.Repository.Test\Albatross.Repository.Test.csproj", "{4B77B8E9-E2B5-4492-8F3C-AC75DB832224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.Test", "tests\Albatross.EFCore.Test\Albatross.EFCore.Test.csproj", "{4B77B8E9-E2B5-4492-8F3C-AC75DB832224}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure", "azure", "{BAC8F2E5-912F-41A7-9C4D-37B96D552F3A}"
 EndProject
@@ -120,7 +120,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Daemon", "sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Commands", "samples\SampleProject.Commands\SampleProject.Commands.csproj", "{4CD2F234-E6E0-468F-8AC9-EF72FBE6A6A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Messaging.Test", "tests\Albatross.Messaging.Test\Albatross.Messaging.Test.csproj", "{8B7EC157-5BA2-4751-9C2F-5AF2E34CB44F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Messaging.Test", "tests\Albatross.Messaging.Test\Albatross.Messaging.Test.csproj", "{8B7EC157-5BA2-4751-9C2F-5AF2E34CB44F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

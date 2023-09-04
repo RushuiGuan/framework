@@ -82,8 +82,8 @@ namespace Albatross.WebClient.Test {
 		}
 
 		public async Task<MyResponse?> PostDataWithRetry(MyRequest @myRequest) {
-			var policy = this.GetDefaultRetryPolicy<MyResponse>(args => false, nameof(PostData), true, 3, int.MaxValue);
-			return await policy.ExecuteAsync(async () => await this.PostData(myRequest));
+			var policy = this.GetDefaultRetryPolicy<MyResponse?>(args => false, nameof(PostData), true, 3, int.MaxValue);
+			return await policy.ExecuteAsync(() => this.PostData(myRequest));
 		}
 	}
 

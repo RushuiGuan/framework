@@ -18,11 +18,11 @@ namespace Albatross.Messaging.ReqRep {
 			this.logger = logger;
 		}
 
-		private void AcceptConnection(WorkerConnect msg, IMessagingService routerServer) {
-			var worker = registry.Add(msg.Route, msg.Services);
-			worker.LastHeartbeat = DateTime.UtcNow;
-			worker.State = WorkerState.Connected;
-			routerServer.Transmit(new BrokerConnected(msg.Route, msg.Id));
+		private void AcceptConnection(Connect msg, IMessagingService routerServer) {
+			//var worker = registry.Add(msg.Route, msg.Services);
+			//worker.LastHeartbeat = DateTime.UtcNow;
+			//worker.State = WorkerState.Connected;
+			//routerServer.Transmit(new ConnectOk(msg.Route, msg.Id));
 		}
 
 		private void AcceptRequest(ClientRequest request, IMessagingService routerServer) {
@@ -35,7 +35,6 @@ namespace Albatross.Messaging.ReqRep {
 			}
 		}
 
-
 		private void AcceptWorkerResponse(WorkerResponse response, IMessagingService routerServer) {
 			// forward it back to client
 			routerServer.Transmit(new BrokerResponse(response.ClientId, response.RequestId, response.Payload));
@@ -43,13 +42,13 @@ namespace Albatross.Messaging.ReqRep {
 				worker.LastHeartbeat = DateTime.UtcNow;
 			} else {
 				// if the worker is not found. send a reconnect command
-				routerServer.Transmit(new Messages.BrokerReconnect(response.Route, routerServer.Counter.NextId()));
+				routerServer.Transmit(new Reconnect(response.Route, routerServer.Counter.NextId()));
 			}
 		}
 
 		public bool ProcessReceivedMsg(IMessagingService routerServer, IMessage msg) {
 			switch (msg) {
-				case WorkerConnect connect:
+				case Connect connect:
 					AcceptConnection(connect, routerServer);
 					return true;
 				case ClientRequest request:

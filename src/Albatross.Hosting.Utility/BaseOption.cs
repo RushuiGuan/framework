@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Utility {
 	public class BaseOption {
@@ -53,21 +54,21 @@ namespace Albatross.Hosting.Utility {
 			}
 		}
 
-		public void WriteProperties<T>(T? data, params string[] properties) {
+		public async Task WriteProperties<T>(T? data, params string[] properties) {
 			StringWriter writer = new StringWriter();
-			writer.PrintProperties(data, properties);
+			await writer.PrintProperties(data, properties);
 			SendResult(writer.ToString());
 		}
 
-		public void WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option) {
+		public async Task WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option) {
 			StringWriter writer = new StringWriter();
-			writer.PrintProperties<T>(data.ToArray(), option);
+			await writer.PrintProperties<T>(data.ToArray(), option);
 			SendResult(writer.ToString());
 		}
 
-		public void WriteTable<T>(IEnumerable<T> data, PrintTableOption option) {
+		public async Task WriteTable<T>(IEnumerable<T> data, PrintTableOption option) {
 			StringWriter writer = new StringWriter();
-			writer.PrintTable<T>(data.ToArray(), option);
+			await writer.PrintTable<T>(data.ToArray(), option);
 			SendResult(writer.ToString());
 		}
 

@@ -15,7 +15,7 @@ namespace Albatross.Caching.Utility {
 		}
 		public async Task<int> RunUtility(IRedisConnection svc) {
 			var value = await svc.Database.StringGetAsync(new RedisKey(Options.Key));
-			Options.WriteProperties(value.Cast<string>());
+			await Options.WriteProperties(value.Cast<string>());
 			return 0;
 		}
 	}
