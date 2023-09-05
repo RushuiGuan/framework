@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System;
 
 namespace Albatross.EFCore.ChangeReporting {
-	public static class ChangeExtensions {
+	public static class Extensions {
 		const string ColumnPrefix = "Entity.";
 		public static void GetChanges<T>(this EntityEntry<T> entry, List<ChangeReport<T>> changes, ChangeType type, string[] skippingProperties) where T : class {
 			if (entry.State == EntityState.Modified && (type & ChangeType.Modified) > 0) {
@@ -65,13 +65,19 @@ namespace Albatross.EFCore.ChangeReporting {
 				if (options.Prefix != null) { writer.Append(options.Prefix); }
 				await writer.GetChangeText(changes, options.FormatValueFunc, options.Properties.ToArray());
 				if (options.Postfix != null) { writer.Append(options.Postfix); }
+				if (options.DoNotSave) {
+					writer.WriteLine();
+					writer.Append("*Changes not saved*");
+				}
 				var result = new ChangeReportingResult {
 					Changes = changes,
 					Text = writer.ToString(),
 				};
 				return result;
 			} finally {
-				await session.SaveChangesAsync();
+				if (!options.DoNotSave) {
+					await session.SaveChangesAsync();
+				}
 			}
 		}
 	}
