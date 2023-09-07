@@ -26,11 +26,12 @@ namespace Albatross.EFCore.ChangeReporting {
 						var id = Convert.ToInt32(value);
 						return await func(id);
 					}
-				} catch { }
-				if (value is DateTime) {
-					return $"{value:yyyy-MM-dd HH:mm:ssz}";
-				} else if (value is DateOnly) {
+				} catch { 
+				}
+				if (value is DateOnly || value is DateTime dateTime && dateTime.TimeOfDay == TimeSpan.Zero) {
 					return $"{value:yyyy-MM-dd}";
+				} else if (value is DateTime) {
+					return $"{value:yyyy-MM-dd HH:mm:ssz}";
 				} else {
 					return Convert.ToString(value) ?? string.Empty;
 				}
