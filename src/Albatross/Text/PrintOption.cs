@@ -12,15 +12,14 @@ namespace Albatross.Text {
 		public string[] Properties { get; init; }
 
 		public static Task<string> DefaultFormatValue(object? _, string property, object? value) {
-			switch (value) {
-				case DateTime date:
-					if (property.Contains("datetime", StringComparison.InvariantCultureIgnoreCase)) {
-						return Task.FromResult($"{date:yyyy-MM-dd HH:mm:ssz}");
-					} else {
-						return Task.FromResult($"{date:yyyy-MM-dd}");
-					}
-				default:
-					return Task.FromResult(Convert.ToString(value));
+			if (value is DateTime dateTime) {
+				if (dateTime.TimeOfDay == TimeSpan.Zero) {
+					return Task.FromResult($"{value:yyyy-MM-dd}");
+				} else {
+					return Task.FromResult($"{value:yyyy-MM-dd HH:mm:ssz}");
+				}
+			} else {
+				return Task.FromResult(Convert.ToString(value) ?? string.Empty);
 			}
 		}
 	}
