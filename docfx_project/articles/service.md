@@ -3,7 +3,7 @@ The main difference between a service appication and a web api application is ho
 1. If the service application doesn't have any web api controllers, creation of `hostsettings.json` file can be skipped.
     * Creation of the Startup Class at the project root can also be skipped.
 1. Create the application specific Setup class at the project root:
-```c#
+	```c#
 	public class MySetup : Setup {
 		public MySetup(string[] args) : base(args) { }
 		public override void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
@@ -11,9 +11,9 @@ The main difference between a service appication and a web api application is ho
 			// register your DI services here
 		}
 	}
-```
+	```
 1. Create the HostedService class at the project root:
-```c#
+	```c#
 	public class MyHostedService : IHostedService {
 		public MyHostedService(/* inject the service dependency here*/) {
 		}
@@ -28,9 +28,9 @@ The main difference between a service appication and a web api application is ho
 			return Task.CompletedTask;
 		}
 	}
-```
+	```
 1. Update the program.cs file with the following code
-```c#
+	```c#
 	public class Program {
 		public static Task Main(string[] args) {
 			return new Albatross.MySetup(args)
@@ -41,11 +41,11 @@ The main difference between a service appication and a web api application is ho
 				.RunAsync();
 		}
 	}
-```
+	```
 1. In the `appsettings.json` file, create the `program` property.  The value of its child property `serviceManager` can be either `windows` or `systemd`.  `windows` is for windows service deployment and `systemd` is for unix systemd deployment.
-```json
-  "program": {
-      "app": "your application name",
-      "serviceManager": "windows"
-  },
-```
+	```json
+	"program": {
+		"app": "your application name",
+		"serviceManager": "windows"
+	},
+	```
