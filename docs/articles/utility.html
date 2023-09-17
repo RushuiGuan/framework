@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -85,6 +85,57 @@
         <article data-uid="">
 <h1 id="new-utility-application">New Utility Application</h1>
 
+<p><a href="https://rushuiguan.github.io/framework/api/Albatross.Hosting.Utility.html">Albatross.Hosting.Utility</a> assembly can be used to create a console program with DI and logging support.  Other functionalities such as messaging can be plugged in via the DI framework.</p>
+<p>Albatross.Hosting.Utility uses <a href="https://www.nuget.org/packages/CommandLineParser">CommandLineParser</a> to parse console input parameters.  Here is the <a href="https://github.com/commandlineparser/commandline/wiki">CommandLineParser documentation</a>.  Each utility program can support multiple commands (verbs).  Follow the steps below to create a new utility.</p>
+<ol>
+<li>Create a new .Net 7 Console program.</li>
+<li>Reference package <a href="https://www.nuget.org/packages/Albatross.Hosting.Utility">Albatross.Hosting.Utility</a>.</li>
+<li>Replace the Program.cs file with the code below.  Remember to change the namespace.
+<pre><code class="lang-csharp"> using Albatross.Hosting.Utility;
+ using CommandLine;
+ using System.Threading.Tasks;
+ namespace MyNameSpace.Utility {
+ 	class Program {
+ 		static Task&lt;int&gt; Main(string[] args) {
+ 			return Parser.Default.Run(args, typeof(Program).Assembly);
+ 		}
+ 	}
+ }
+</code></pre>
+</li>
+<li>Create a command class <code>RunMyCommand</code> and its matching Option class <code>RunMyCommandOption</code> below.  Command class contains the implementation class.  Option class contains the verb and options that will be used for command line parameter parsing.  The comments on each method of teh <code>RunMyCommand</code> class indicates the life cycle of the utility.  <strong>Note that the <code>RunUtility</code> method is by convention and can be defined with any injectable parameters.  However, its name and return parameters should remain unchanged.</strong>
+<pre><code class="lang-csharp"> [Verb(&quot;run-my-command&quot;)]
+ public class RunMyCommandOption {
+ 	[Option('n', &quot;name&quot;, Required =	true)]
+ 	public string Name { get; set; } = String.Empty;
+ }
+ public class RunMyCommand: UtilityBase&lt;RunMyCommandOption&gt; {
+ 	// step 0, constructor
+ 	public RunMyCommand(RunMyCommandOption option) : base(option) {
+ 	}
+ 	// step 1, di registration
+ 	public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environmentSetting, IServiceCollection services) {
+ 		base.RegisterServices(configuration, environmentSetting, services);
+ 	}
+ 	// step 2, initialization
+ 	public override void Init(IConfiguration configuration, IServiceProvider provider) {
+ 		base.Init(configuration, provider);
+ 	}
+ 	// step 3, command logic
+ 	public async Task&lt;int&gt; RunUtility(SomeProxyService svc) {
+ 		var data = await svc.GetData(Options.Name);
+ 		Console.WriteLine(data);
+ 		return 0;
+ 	}
+ 	// step 4, clean up
+ 	public override void Dispose() {
+ 		base.Dispose();
+ 	}
+ }
+</code></pre>
+</li>
+<li>the <a href="https://rushuiguan.github.io/framework/api/Albatross.Hosting.Utility.BaseOption.html">Albatross.Hosting.Utility.BaseOption</a> class comes with some commonly used options and command line output methods.   <code>verbose</code> and <code>debug</code> option interact directly with serilog and therefore changes the logging level.  <code>clipboard</code> option will save the output print outs to clipboard when set to true.  <code>console-out</code> option will save the output to the file name specified by the parameter.</li>
+</ol>
 </article>
 
         <div class="contribution d-print-none">

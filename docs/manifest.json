@@ -1605,16 +1605,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeReport-1.yml",
       "output": {
         ".html": {
@@ -1649,6 +1639,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.EFCore.ChangeReporting.ChangeType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.ChangeReporting.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.ChangeReporting.Extensions.html"
         }
       },
       "version": ""

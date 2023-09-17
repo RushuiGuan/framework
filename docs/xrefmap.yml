@@ -8795,69 +8795,6 @@ references:
   commentId: N:Albatross.EFCore.ChangeReporting
   fullName: Albatross.EFCore.ChangeReporting
   nameWithType: Albatross.EFCore.ChangeReporting
-- uid: Albatross.EFCore.ChangeReporting.ChangeExtensions
-  name: ChangeExtensions
-  href: api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html
-  commentId: T:Albatross.EFCore.ChangeReporting.ChangeExtensions
-  fullName: Albatross.EFCore.ChangeReporting.ChangeExtensions
-  nameWithType: ChangeExtensions
-- uid: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText*
-  name: GetChangeText
-  href: api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html#Albatross_EFCore_ChangeReporting_ChangeExtensions_GetChangeText_
-  commentId: Overload:Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText
-  isSpec: "True"
-  fullName: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText
-  nameWithType: ChangeExtensions.GetChangeText
-- uid: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.IO.TextWriter,Albatross.EFCore.ChangeReporting.ChangeReportingOptions)
-  name: GetChangeText<T>(EntityEntry<T>, TextWriter, ChangeReportingOptions)
-  href: api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html#Albatross_EFCore_ChangeReporting_ChangeExtensions_GetChangeText__1_Microsoft_EntityFrameworkCore_ChangeTracking_EntityEntry___0__System_IO_TextWriter_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_
-  commentId: M:Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.IO.TextWriter,Albatross.EFCore.ChangeReporting.ChangeReportingOptions)
-  name.vb: GetChangeText(Of T)(EntityEntry(Of T), TextWriter, ChangeReportingOptions)
-  fullName: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText<T>(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<T>, System.IO.TextWriter, Albatross.EFCore.ChangeReporting.ChangeReportingOptions)
-  fullName.vb: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText(Of T)(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry(Of T), System.IO.TextWriter, Albatross.EFCore.ChangeReporting.ChangeReportingOptions)
-  nameWithType: ChangeExtensions.GetChangeText<T>(EntityEntry<T>, TextWriter, ChangeReportingOptions)
-  nameWithType.vb: ChangeExtensions.GetChangeText(Of T)(EntityEntry(Of T), TextWriter, ChangeReportingOptions)
-- uid: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText``1(System.IO.TextWriter,System.Collections.Generic.IEnumerable{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.Text.PrintOption.FormatValueDelegate,System.String[])
-  name: GetChangeText<T>(TextWriter, IEnumerable<ChangeReport<T>>, FormatValueDelegate?, params string[])
-  href: api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html#Albatross_EFCore_ChangeReporting_ChangeExtensions_GetChangeText__1_System_IO_TextWriter_System_Collections_Generic_IEnumerable_Albatross_EFCore_ChangeReporting_ChangeReport___0___Albatross_Text_PrintOption_FormatValueDelegate_System_String___
-  commentId: M:Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText``1(System.IO.TextWriter,System.Collections.Generic.IEnumerable{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.Text.PrintOption.FormatValueDelegate,System.String[])
-  name.vb: GetChangeText(Of T)(TextWriter, IEnumerable(Of ChangeReport(Of T)), FormatValueDelegate, ParamArray String())
-  fullName: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText<T>(System.IO.TextWriter, System.Collections.Generic.IEnumerable<Albatross.EFCore.ChangeReporting.ChangeReport<T>>, Albatross.Text.PrintOption.FormatValueDelegate?, params string[])
-  fullName.vb: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChangeText(Of T)(System.IO.TextWriter, System.Collections.Generic.IEnumerable(Of Albatross.EFCore.ChangeReporting.ChangeReport(Of T)), Albatross.Text.PrintOption.FormatValueDelegate, ParamArray String())
-  nameWithType: ChangeExtensions.GetChangeText<T>(TextWriter, IEnumerable<ChangeReport<T>>, PrintOption.FormatValueDelegate?, params string[])
-  nameWithType.vb: ChangeExtensions.GetChangeText(Of T)(TextWriter, IEnumerable(Of ChangeReport(Of T)), PrintOption.FormatValueDelegate, ParamArray String())
-- uid: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChanges*
-  name: GetChanges
-  href: api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html#Albatross_EFCore_ChangeReporting_ChangeExtensions_GetChanges_
-  commentId: Overload:Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChanges
-  isSpec: "True"
-  fullName: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChanges
-  nameWithType: ChangeExtensions.GetChanges
-- uid: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChanges``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.Collections.Generic.List{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.EFCore.ChangeReporting.ChangeType,System.String[])
-  name: GetChanges<T>(EntityEntry<T>, List<ChangeReport<T>>, ChangeType, string[])
-  href: api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html#Albatross_EFCore_ChangeReporting_ChangeExtensions_GetChanges__1_Microsoft_EntityFrameworkCore_ChangeTracking_EntityEntry___0__System_Collections_Generic_List_Albatross_EFCore_ChangeReporting_ChangeReport___0___Albatross_EFCore_ChangeReporting_ChangeType_System_String___
-  commentId: M:Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChanges``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.Collections.Generic.List{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.EFCore.ChangeReporting.ChangeType,System.String[])
-  name.vb: GetChanges(Of T)(EntityEntry(Of T), List(Of ChangeReport(Of T)), ChangeType, String())
-  fullName: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChanges<T>(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<T>, System.Collections.Generic.List<Albatross.EFCore.ChangeReporting.ChangeReport<T>>, Albatross.EFCore.ChangeReporting.ChangeType, string[])
-  fullName.vb: Albatross.EFCore.ChangeReporting.ChangeExtensions.GetChanges(Of T)(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry(Of T), System.Collections.Generic.List(Of Albatross.EFCore.ChangeReporting.ChangeReport(Of T)), Albatross.EFCore.ChangeReporting.ChangeType, String())
-  nameWithType: ChangeExtensions.GetChanges<T>(EntityEntry<T>, List<ChangeReport<T>>, ChangeType, string[])
-  nameWithType.vb: ChangeExtensions.GetChanges(Of T)(EntityEntry(Of T), List(Of ChangeReport(Of T)), ChangeType, String())
-- uid: Albatross.EFCore.ChangeReporting.ChangeExtensions.SaveAndAuditChanges*
-  name: SaveAndAuditChanges
-  href: api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html#Albatross_EFCore_ChangeReporting_ChangeExtensions_SaveAndAuditChanges_
-  commentId: Overload:Albatross.EFCore.ChangeReporting.ChangeExtensions.SaveAndAuditChanges
-  isSpec: "True"
-  fullName: Albatross.EFCore.ChangeReporting.ChangeExtensions.SaveAndAuditChanges
-  nameWithType: ChangeExtensions.SaveAndAuditChanges
-- uid: Albatross.EFCore.ChangeReporting.ChangeExtensions.SaveAndAuditChanges``1(Albatross.EFCore.IDbSession,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)
-  name: SaveAndAuditChanges<T>(IDbSession, ChangeReportingOptions, string?)
-  href: api/Albatross.EFCore.ChangeReporting.ChangeExtensions.html#Albatross_EFCore_ChangeReporting_ChangeExtensions_SaveAndAuditChanges__1_Albatross_EFCore_IDbSession_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_System_String_
-  commentId: M:Albatross.EFCore.ChangeReporting.ChangeExtensions.SaveAndAuditChanges``1(Albatross.EFCore.IDbSession,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)
-  name.vb: SaveAndAuditChanges(Of T)(IDbSession, ChangeReportingOptions, String)
-  fullName: Albatross.EFCore.ChangeReporting.ChangeExtensions.SaveAndAuditChanges<T>(Albatross.EFCore.IDbSession, Albatross.EFCore.ChangeReporting.ChangeReportingOptions, string?)
-  fullName.vb: Albatross.EFCore.ChangeReporting.ChangeExtensions.SaveAndAuditChanges(Of T)(Albatross.EFCore.IDbSession, Albatross.EFCore.ChangeReporting.ChangeReportingOptions, String)
-  nameWithType: ChangeExtensions.SaveAndAuditChanges<T>(IDbSession, ChangeReportingOptions, string?)
-  nameWithType.vb: ChangeExtensions.SaveAndAuditChanges(Of T)(IDbSession, ChangeReportingOptions, String)
 - uid: Albatross.EFCore.ChangeReporting.ChangeReport`1
   name: ChangeReport<T>
   href: api/Albatross.EFCore.ChangeReporting.ChangeReport-1.html
@@ -9012,6 +8949,19 @@ references:
   isSpec: "True"
   fullName: Albatross.EFCore.ChangeReporting.ChangeReportingOptions.DefaultFormatValue
   nameWithType: ChangeReportingOptions.DefaultFormatValue
+- uid: Albatross.EFCore.ChangeReporting.ChangeReportingOptions.DoNotSave
+  name: DoNotSave
+  href: api/Albatross.EFCore.ChangeReporting.ChangeReportingOptions.html#Albatross_EFCore_ChangeReporting_ChangeReportingOptions_DoNotSave
+  commentId: P:Albatross.EFCore.ChangeReporting.ChangeReportingOptions.DoNotSave
+  fullName: Albatross.EFCore.ChangeReporting.ChangeReportingOptions.DoNotSave
+  nameWithType: ChangeReportingOptions.DoNotSave
+- uid: Albatross.EFCore.ChangeReporting.ChangeReportingOptions.DoNotSave*
+  name: DoNotSave
+  href: api/Albatross.EFCore.ChangeReporting.ChangeReportingOptions.html#Albatross_EFCore_ChangeReporting_ChangeReportingOptions_DoNotSave_
+  commentId: Overload:Albatross.EFCore.ChangeReporting.ChangeReportingOptions.DoNotSave
+  isSpec: "True"
+  fullName: Albatross.EFCore.ChangeReporting.ChangeReportingOptions.DoNotSave
+  nameWithType: ChangeReportingOptions.DoNotSave
 - uid: Albatross.EFCore.ChangeReporting.ChangeReportingOptions.FormatValueFunc
   name: FormatValueFunc
   href: api/Albatross.EFCore.ChangeReporting.ChangeReportingOptions.html#Albatross_EFCore_ChangeReporting_ChangeReportingOptions_FormatValueFunc
@@ -9160,6 +9110,12 @@ references:
   commentId: F:Albatross.EFCore.ChangeReporting.ChangeType.Added
   fullName: Albatross.EFCore.ChangeReporting.ChangeType.Added
   nameWithType: ChangeType.Added
+- uid: Albatross.EFCore.ChangeReporting.ChangeType.All
+  name: All
+  href: api/Albatross.EFCore.ChangeReporting.ChangeType.html#Albatross_EFCore_ChangeReporting_ChangeType_All
+  commentId: F:Albatross.EFCore.ChangeReporting.ChangeType.All
+  fullName: Albatross.EFCore.ChangeReporting.ChangeType.All
+  nameWithType: ChangeType.All
 - uid: Albatross.EFCore.ChangeReporting.ChangeType.Deleted
   name: Deleted
   href: api/Albatross.EFCore.ChangeReporting.ChangeType.html#Albatross_EFCore_ChangeReporting_ChangeType_Deleted
@@ -9178,6 +9134,69 @@ references:
   commentId: F:Albatross.EFCore.ChangeReporting.ChangeType.None
   fullName: Albatross.EFCore.ChangeReporting.ChangeType.None
   nameWithType: ChangeType.None
+- uid: Albatross.EFCore.ChangeReporting.Extensions
+  name: Extensions
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html
+  commentId: T:Albatross.EFCore.ChangeReporting.Extensions
+  fullName: Albatross.EFCore.ChangeReporting.Extensions
+  nameWithType: Extensions
+- uid: Albatross.EFCore.ChangeReporting.Extensions.GetChangeText*
+  name: GetChangeText
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_GetChangeText_
+  commentId: Overload:Albatross.EFCore.ChangeReporting.Extensions.GetChangeText
+  isSpec: "True"
+  fullName: Albatross.EFCore.ChangeReporting.Extensions.GetChangeText
+  nameWithType: Extensions.GetChangeText
+- uid: Albatross.EFCore.ChangeReporting.Extensions.GetChangeText``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.IO.TextWriter,Albatross.EFCore.ChangeReporting.ChangeReportingOptions)
+  name: GetChangeText<T>(EntityEntry<T>, TextWriter, ChangeReportingOptions)
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_GetChangeText__1_Microsoft_EntityFrameworkCore_ChangeTracking_EntityEntry___0__System_IO_TextWriter_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_
+  commentId: M:Albatross.EFCore.ChangeReporting.Extensions.GetChangeText``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.IO.TextWriter,Albatross.EFCore.ChangeReporting.ChangeReportingOptions)
+  name.vb: GetChangeText(Of T)(EntityEntry(Of T), TextWriter, ChangeReportingOptions)
+  fullName: Albatross.EFCore.ChangeReporting.Extensions.GetChangeText<T>(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<T>, System.IO.TextWriter, Albatross.EFCore.ChangeReporting.ChangeReportingOptions)
+  fullName.vb: Albatross.EFCore.ChangeReporting.Extensions.GetChangeText(Of T)(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry(Of T), System.IO.TextWriter, Albatross.EFCore.ChangeReporting.ChangeReportingOptions)
+  nameWithType: Extensions.GetChangeText<T>(EntityEntry<T>, TextWriter, ChangeReportingOptions)
+  nameWithType.vb: Extensions.GetChangeText(Of T)(EntityEntry(Of T), TextWriter, ChangeReportingOptions)
+- uid: Albatross.EFCore.ChangeReporting.Extensions.GetChangeText``1(System.IO.TextWriter,System.Collections.Generic.IEnumerable{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.Text.PrintOption.FormatValueDelegate,System.String[])
+  name: GetChangeText<T>(TextWriter, IEnumerable<ChangeReport<T>>, FormatValueDelegate?, params string[])
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_GetChangeText__1_System_IO_TextWriter_System_Collections_Generic_IEnumerable_Albatross_EFCore_ChangeReporting_ChangeReport___0___Albatross_Text_PrintOption_FormatValueDelegate_System_String___
+  commentId: M:Albatross.EFCore.ChangeReporting.Extensions.GetChangeText``1(System.IO.TextWriter,System.Collections.Generic.IEnumerable{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.Text.PrintOption.FormatValueDelegate,System.String[])
+  name.vb: GetChangeText(Of T)(TextWriter, IEnumerable(Of ChangeReport(Of T)), FormatValueDelegate, ParamArray String())
+  fullName: Albatross.EFCore.ChangeReporting.Extensions.GetChangeText<T>(System.IO.TextWriter, System.Collections.Generic.IEnumerable<Albatross.EFCore.ChangeReporting.ChangeReport<T>>, Albatross.Text.PrintOption.FormatValueDelegate?, params string[])
+  fullName.vb: Albatross.EFCore.ChangeReporting.Extensions.GetChangeText(Of T)(System.IO.TextWriter, System.Collections.Generic.IEnumerable(Of Albatross.EFCore.ChangeReporting.ChangeReport(Of T)), Albatross.Text.PrintOption.FormatValueDelegate, ParamArray String())
+  nameWithType: Extensions.GetChangeText<T>(TextWriter, IEnumerable<ChangeReport<T>>, PrintOption.FormatValueDelegate?, params string[])
+  nameWithType.vb: Extensions.GetChangeText(Of T)(TextWriter, IEnumerable(Of ChangeReport(Of T)), PrintOption.FormatValueDelegate, ParamArray String())
+- uid: Albatross.EFCore.ChangeReporting.Extensions.GetChanges*
+  name: GetChanges
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_GetChanges_
+  commentId: Overload:Albatross.EFCore.ChangeReporting.Extensions.GetChanges
+  isSpec: "True"
+  fullName: Albatross.EFCore.ChangeReporting.Extensions.GetChanges
+  nameWithType: Extensions.GetChanges
+- uid: Albatross.EFCore.ChangeReporting.Extensions.GetChanges``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.Collections.Generic.List{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.EFCore.ChangeReporting.ChangeType,System.String[])
+  name: GetChanges<T>(EntityEntry<T>, List<ChangeReport<T>>, ChangeType, string[])
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_GetChanges__1_Microsoft_EntityFrameworkCore_ChangeTracking_EntityEntry___0__System_Collections_Generic_List_Albatross_EFCore_ChangeReporting_ChangeReport___0___Albatross_EFCore_ChangeReporting_ChangeType_System_String___
+  commentId: M:Albatross.EFCore.ChangeReporting.Extensions.GetChanges``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.Collections.Generic.List{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.EFCore.ChangeReporting.ChangeType,System.String[])
+  name.vb: GetChanges(Of T)(EntityEntry(Of T), List(Of ChangeReport(Of T)), ChangeType, String())
+  fullName: Albatross.EFCore.ChangeReporting.Extensions.GetChanges<T>(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<T>, System.Collections.Generic.List<Albatross.EFCore.ChangeReporting.ChangeReport<T>>, Albatross.EFCore.ChangeReporting.ChangeType, string[])
+  fullName.vb: Albatross.EFCore.ChangeReporting.Extensions.GetChanges(Of T)(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry(Of T), System.Collections.Generic.List(Of Albatross.EFCore.ChangeReporting.ChangeReport(Of T)), Albatross.EFCore.ChangeReporting.ChangeType, String())
+  nameWithType: Extensions.GetChanges<T>(EntityEntry<T>, List<ChangeReport<T>>, ChangeType, string[])
+  nameWithType.vb: Extensions.GetChanges(Of T)(EntityEntry(Of T), List(Of ChangeReport(Of T)), ChangeType, String())
+- uid: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges*
+  name: SaveAndAuditChanges
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges_
+  commentId: Overload:Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges
+  isSpec: "True"
+  fullName: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges
+  nameWithType: Extensions.SaveAndAuditChanges
+- uid: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Albatross.EFCore.IDbSession,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)
+  name: SaveAndAuditChanges<T>(IDbSession, ChangeReportingOptions, string?)
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges__1_Albatross_EFCore_IDbSession_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_System_String_
+  commentId: M:Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Albatross.EFCore.IDbSession,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)
+  name.vb: SaveAndAuditChanges(Of T)(IDbSession, ChangeReportingOptions, String)
+  fullName: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges<T>(Albatross.EFCore.IDbSession, Albatross.EFCore.ChangeReporting.ChangeReportingOptions, string?)
+  fullName.vb: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges(Of T)(Albatross.EFCore.IDbSession, Albatross.EFCore.ChangeReporting.ChangeReportingOptions, String)
+  nameWithType: Extensions.SaveAndAuditChanges<T>(IDbSession, ChangeReportingOptions, string?)
+  nameWithType.vb: Extensions.SaveAndAuditChanges(Of T)(IDbSession, ChangeReportingOptions, String)
 - uid: Albatross.EFCore.ChangeReporting.IChangeReport
   name: IChangeReport
   href: api/Albatross.EFCore.ChangeReporting.IChangeReport.html
