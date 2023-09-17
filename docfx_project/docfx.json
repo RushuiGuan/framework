@@ -44,7 +44,6 @@
 				]
 			}
 		],
-		"dest": "../../docfx_out",
 		"output": "_site",
 		"globalMetadata":{
 			"_appName": "Albatross Framework",
