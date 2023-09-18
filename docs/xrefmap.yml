@@ -25,28 +25,6 @@ references:
   commentId: T:Albatross.Authentication.Core.AuthenticationException
   fullName: Albatross.Authentication.Core.AuthenticationException
   nameWithType: AuthenticationException
-- uid: Albatross.Authentication.Core.IGetAccess
-  name: IGetAccess
-  href: api/Albatross.Authentication.Core.IGetAccess.html
-  commentId: T:Albatross.Authentication.Core.IGetAccess
-  fullName: Albatross.Authentication.Core.IGetAccess
-  nameWithType: IGetAccess
-- uid: Albatross.Authentication.Core.IGetAccess.HasAccess(System.String,System.String)
-  name: HasAccess(string, string)
-  href: api/Albatross.Authentication.Core.IGetAccess.html#Albatross_Authentication_Core_IGetAccess_HasAccess_System_String_System_String_
-  commentId: M:Albatross.Authentication.Core.IGetAccess.HasAccess(System.String,System.String)
-  name.vb: HasAccess(String, String)
-  fullName: Albatross.Authentication.Core.IGetAccess.HasAccess(string, string)
-  fullName.vb: Albatross.Authentication.Core.IGetAccess.HasAccess(String, String)
-  nameWithType: IGetAccess.HasAccess(string, string)
-  nameWithType.vb: IGetAccess.HasAccess(String, String)
-- uid: Albatross.Authentication.Core.IGetAccess.HasAccess*
-  name: HasAccess
-  href: api/Albatross.Authentication.Core.IGetAccess.html#Albatross_Authentication_Core_IGetAccess_HasAccess_
-  commentId: Overload:Albatross.Authentication.Core.IGetAccess.HasAccess
-  isSpec: "True"
-  fullName: Albatross.Authentication.Core.IGetAccess.HasAccess
-  nameWithType: IGetAccess.HasAccess
 - uid: Albatross.Authentication.Core.IGetCurrentUser
   name: IGetCurrentUser
   href: api/Albatross.Authentication.Core.IGetCurrentUser.html
@@ -79,31 +57,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Authentication.Core.IGetCurrentUser.Provider
   nameWithType: IGetCurrentUser.Provider
-- uid: Albatross.Authentication.Core.InactiveUserException
-  name: InactiveUserException
-  href: api/Albatross.Authentication.Core.InactiveUserException.html
-  commentId: T:Albatross.Authentication.Core.InactiveUserException
-  fullName: Albatross.Authentication.Core.InactiveUserException
-  nameWithType: InactiveUserException
-- uid: Albatross.Authentication.Core.InactiveUserException.#ctor(System.String)
-  name: InactiveUserException(string)
-  href: api/Albatross.Authentication.Core.InactiveUserException.html#Albatross_Authentication_Core_InactiveUserException__ctor_System_String_
-  commentId: M:Albatross.Authentication.Core.InactiveUserException.#ctor(System.String)
-  name.vb: New(String)
-  fullName: Albatross.Authentication.Core.InactiveUserException.InactiveUserException(string)
-  fullName.vb: Albatross.Authentication.Core.InactiveUserException.New(String)
-  nameWithType: InactiveUserException.InactiveUserException(string)
-  nameWithType.vb: InactiveUserException.New(String)
-- uid: Albatross.Authentication.Core.InactiveUserException.#ctor*
-  name: InactiveUserException
-  href: api/Albatross.Authentication.Core.InactiveUserException.html#Albatross_Authentication_Core_InactiveUserException__ctor_
-  commentId: Overload:Albatross.Authentication.Core.InactiveUserException.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Authentication.Core.InactiveUserException.InactiveUserException
-  fullName.vb: Albatross.Authentication.Core.InactiveUserException.New
-  nameWithType: InactiveUserException.InactiveUserException
-  nameWithType.vb: InactiveUserException.New
 - uid: Albatross.Authentication.Core.InvalidUserException
   name: InvalidUserException
   href: api/Albatross.Authentication.Core.InvalidUserException.html
@@ -9188,15 +9141,15 @@ references:
   isSpec: "True"
   fullName: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges
   nameWithType: Extensions.SaveAndAuditChanges
-- uid: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Albatross.EFCore.IDbSession,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)
-  name: SaveAndAuditChanges<T>(IDbSession, ChangeReportingOptions, string?)
-  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges__1_Albatross_EFCore_IDbSession_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_System_String_
-  commentId: M:Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Albatross.EFCore.IDbSession,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)
-  name.vb: SaveAndAuditChanges(Of T)(IDbSession, ChangeReportingOptions, String)
-  fullName: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges<T>(Albatross.EFCore.IDbSession, Albatross.EFCore.ChangeReporting.ChangeReportingOptions, string?)
-  fullName.vb: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges(Of T)(Albatross.EFCore.IDbSession, Albatross.EFCore.ChangeReporting.ChangeReportingOptions, String)
-  nameWithType: Extensions.SaveAndAuditChanges<T>(IDbSession, ChangeReportingOptions, string?)
-  nameWithType.vb: Extensions.SaveAndAuditChanges(Of T)(IDbSession, ChangeReportingOptions, String)
+- uid: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Microsoft.EntityFrameworkCore.DbContext,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)
+  name: SaveAndAuditChanges<T>(DbContext, ChangeReportingOptions, string?)
+  href: api/Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges__1_Microsoft_EntityFrameworkCore_DbContext_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_System_String_
+  commentId: M:Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Microsoft.EntityFrameworkCore.DbContext,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)
+  name.vb: SaveAndAuditChanges(Of T)(DbContext, ChangeReportingOptions, String)
+  fullName: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges<T>(Microsoft.EntityFrameworkCore.DbContext, Albatross.EFCore.ChangeReporting.ChangeReportingOptions, string?)
+  fullName.vb: Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges(Of T)(Microsoft.EntityFrameworkCore.DbContext, Albatross.EFCore.ChangeReporting.ChangeReportingOptions, String)
+  nameWithType: Extensions.SaveAndAuditChanges<T>(DbContext, ChangeReportingOptions, string?)
+  nameWithType.vb: Extensions.SaveAndAuditChanges(Of T)(DbContext, ChangeReportingOptions, String)
 - uid: Albatross.EFCore.ChangeReporting.IChangeReport
   name: IChangeReport
   href: api/Albatross.EFCore.ChangeReporting.IChangeReport.html
@@ -9268,230 +9221,236 @@ references:
   isSpec: "True"
   fullName: Albatross.EFCore.ChangeReporting.IChangeReport.Type
   nameWithType: IChangeReport.Type
-- uid: Albatross.EFCore.DateLevelEntity
+- uid: Albatross.EFCore.DateLevel
+  name: Albatross.EFCore.DateLevel
+  href: api/Albatross.EFCore.DateLevel.html
+  commentId: N:Albatross.EFCore.DateLevel
+  fullName: Albatross.EFCore.DateLevel
+  nameWithType: Albatross.EFCore.DateLevel
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity
   name: DateLevelEntity
-  href: api/Albatross.EFCore.DateLevelEntity.html
-  commentId: T:Albatross.EFCore.DateLevelEntity
-  fullName: Albatross.EFCore.DateLevelEntity
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html
+  commentId: T:Albatross.EFCore.DateLevel.DateLevelEntity
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity
   nameWithType: DateLevelEntity
-- uid: Albatross.EFCore.DateLevelEntity.#ctor(System.DateTime)
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.#ctor(System.DateTime)
   name: DateLevelEntity(DateTime)
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity__ctor_System_DateTime_
-  commentId: M:Albatross.EFCore.DateLevelEntity.#ctor(System.DateTime)
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity__ctor_System_DateTime_
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntity.#ctor(System.DateTime)
   name.vb: New(Date)
-  fullName: Albatross.EFCore.DateLevelEntity.DateLevelEntity(System.DateTime)
-  fullName.vb: Albatross.EFCore.DateLevelEntity.New(Date)
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.DateLevelEntity(System.DateTime)
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntity.New(Date)
   nameWithType: DateLevelEntity.DateLevelEntity(DateTime)
   nameWithType.vb: DateLevelEntity.New(Date)
-- uid: Albatross.EFCore.DateLevelEntity.#ctor*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.#ctor*
   name: DateLevelEntity
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity__ctor_
-  commentId: Overload:Albatross.EFCore.DateLevelEntity.#ctor
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity__ctor_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntity.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: Albatross.EFCore.DateLevelEntity.DateLevelEntity
-  fullName.vb: Albatross.EFCore.DateLevelEntity.New
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.DateLevelEntity
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntity.New
   nameWithType: DateLevelEntity.DateLevelEntity
   nameWithType.vb: DateLevelEntity.New
-- uid: Albatross.EFCore.DateLevelEntity.EndDate
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.EndDate
   name: EndDate
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity_EndDate
-  commentId: P:Albatross.EFCore.DateLevelEntity.EndDate
-  fullName: Albatross.EFCore.DateLevelEntity.EndDate
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity_EndDate
+  commentId: P:Albatross.EFCore.DateLevel.DateLevelEntity.EndDate
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.EndDate
   nameWithType: DateLevelEntity.EndDate
-- uid: Albatross.EFCore.DateLevelEntity.EndDate*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.EndDate*
   name: EndDate
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity_EndDate_
-  commentId: Overload:Albatross.EFCore.DateLevelEntity.EndDate
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity_EndDate_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntity.EndDate
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntity.EndDate
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.EndDate
   nameWithType: DateLevelEntity.EndDate
-- uid: Albatross.EFCore.DateLevelEntity.HasSameValue(Albatross.EFCore.DateLevelEntity)
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.HasSameValue(Albatross.EFCore.DateLevel.DateLevelEntity)
   name: HasSameValue(DateLevelEntity)
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity_HasSameValue_Albatross_EFCore_DateLevelEntity_
-  commentId: M:Albatross.EFCore.DateLevelEntity.HasSameValue(Albatross.EFCore.DateLevelEntity)
-  fullName: Albatross.EFCore.DateLevelEntity.HasSameValue(Albatross.EFCore.DateLevelEntity)
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity_HasSameValue_Albatross_EFCore_DateLevel_DateLevelEntity_
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntity.HasSameValue(Albatross.EFCore.DateLevel.DateLevelEntity)
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.HasSameValue(Albatross.EFCore.DateLevel.DateLevelEntity)
   nameWithType: DateLevelEntity.HasSameValue(DateLevelEntity)
-- uid: Albatross.EFCore.DateLevelEntity.HasSameValue*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.HasSameValue*
   name: HasSameValue
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity_HasSameValue_
-  commentId: Overload:Albatross.EFCore.DateLevelEntity.HasSameValue
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity_HasSameValue_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntity.HasSameValue
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntity.HasSameValue
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.HasSameValue
   nameWithType: DateLevelEntity.HasSameValue
-- uid: Albatross.EFCore.DateLevelEntity.MaxEndDate
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.MaxEndDate
   name: MaxEndDate
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity_MaxEndDate
-  commentId: F:Albatross.EFCore.DateLevelEntity.MaxEndDate
-  fullName: Albatross.EFCore.DateLevelEntity.MaxEndDate
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity_MaxEndDate
+  commentId: F:Albatross.EFCore.DateLevel.DateLevelEntity.MaxEndDate
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.MaxEndDate
   nameWithType: DateLevelEntity.MaxEndDate
-- uid: Albatross.EFCore.DateLevelEntity.StartDate
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.StartDate
   name: StartDate
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity_StartDate
-  commentId: P:Albatross.EFCore.DateLevelEntity.StartDate
-  fullName: Albatross.EFCore.DateLevelEntity.StartDate
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity_StartDate
+  commentId: P:Albatross.EFCore.DateLevel.DateLevelEntity.StartDate
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.StartDate
   nameWithType: DateLevelEntity.StartDate
-- uid: Albatross.EFCore.DateLevelEntity.StartDate*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity.StartDate*
   name: StartDate
-  href: api/Albatross.EFCore.DateLevelEntity.html#Albatross_EFCore_DateLevelEntity_StartDate_
-  commentId: Overload:Albatross.EFCore.DateLevelEntity.StartDate
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity.html#Albatross_EFCore_DateLevel_DateLevelEntity_StartDate_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntity.StartDate
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntity.StartDate
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity.StartDate
   nameWithType: DateLevelEntity.StartDate
-- uid: Albatross.EFCore.DateLevelEntityExtensions
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions
   name: DateLevelEntityExtensions
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html
-  commentId: T:Albatross.EFCore.DateLevelEntityExtensions
-  fullName: Albatross.EFCore.DateLevelEntityExtensions
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html
+  commentId: T:Albatross.EFCore.DateLevel.DateLevelEntityExtensions
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions
   nameWithType: DateLevelEntityExtensions
-- uid: Albatross.EFCore.DateLevelEntityExtensions.DeleteDateLevel*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.DeleteDateLevel*
   name: DeleteDateLevel
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_DeleteDateLevel_
-  commentId: Overload:Albatross.EFCore.DateLevelEntityExtensions.DeleteDateLevel
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_DeleteDateLevel_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.DeleteDateLevel
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.DeleteDateLevel
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.DeleteDateLevel
   nameWithType: DateLevelEntityExtensions.DeleteDateLevel
-- uid: Albatross.EFCore.DateLevelEntityExtensions.DeleteDateLevel``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.Action{``0})
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.DeleteDateLevel``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.Action{``0})
   name: DeleteDateLevel<T>(IEnumerable<T>, DateTime, Action<T>)
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_DeleteDateLevel__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_Action___0__
-  commentId: M:Albatross.EFCore.DateLevelEntityExtensions.DeleteDateLevel``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.Action{``0})
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_DeleteDateLevel__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_Action___0__
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.DeleteDateLevel``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.Action{``0})
   name.vb: DeleteDateLevel(Of T)(IEnumerable(Of T), Date, Action(Of T))
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.DeleteDateLevel<T>(System.Collections.Generic.IEnumerable<T>, System.DateTime, System.Action<T>)
-  fullName.vb: Albatross.EFCore.DateLevelEntityExtensions.DeleteDateLevel(Of T)(System.Collections.Generic.IEnumerable(Of T), Date, System.Action(Of T))
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.DeleteDateLevel<T>(System.Collections.Generic.IEnumerable<T>, System.DateTime, System.Action<T>)
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.DeleteDateLevel(Of T)(System.Collections.Generic.IEnumerable(Of T), Date, System.Action(Of T))
   nameWithType: DateLevelEntityExtensions.DeleteDateLevel<T>(IEnumerable<T>, DateTime, Action<T>)
   nameWithType.vb: DateLevelEntityExtensions.DeleteDateLevel(Of T)(IEnumerable(Of T), Date, Action(Of T))
-- uid: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDate*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDate*
   name: GetDateLevelEntityByDate
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_GetDateLevelEntityByDate_
-  commentId: Overload:Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDate
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_GetDateLevelEntityByDate_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDate
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDate
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDate
   nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDate
-- uid: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange*
   name: GetDateLevelEntityByDateRange
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_GetDateLevelEntityByDateRange_
-  commentId: Overload:Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_GetDateLevelEntityByDateRange_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange
   nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDateRange
-- uid: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(Microsoft.EntityFrameworkCore.DbContext,System.DateTime,System.DateTime,System.String[])
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(Microsoft.EntityFrameworkCore.DbContext,System.DateTime,System.DateTime,System.String[])
   name: GetDateLevelEntityByDateRange<T>(DbContext, DateTime, DateTime, params string[])
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_GetDateLevelEntityByDateRange__1_Microsoft_EntityFrameworkCore_DbContext_System_DateTime_System_DateTime_System_String___
-  commentId: M:Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(Microsoft.EntityFrameworkCore.DbContext,System.DateTime,System.DateTime,System.String[])
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_GetDateLevelEntityByDateRange__1_Microsoft_EntityFrameworkCore_DbContext_System_DateTime_System_DateTime_System_String___
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(Microsoft.EntityFrameworkCore.DbContext,System.DateTime,System.DateTime,System.String[])
   name.vb: GetDateLevelEntityByDateRange(Of T)(DbContext, Date, Date, ParamArray String())
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(Microsoft.EntityFrameworkCore.DbContext, System.DateTime, System.DateTime, params string[])
-  fullName.vb: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(Microsoft.EntityFrameworkCore.DbContext, Date, Date, ParamArray String())
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(Microsoft.EntityFrameworkCore.DbContext, System.DateTime, System.DateTime, params string[])
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(Microsoft.EntityFrameworkCore.DbContext, Date, Date, ParamArray String())
   nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(DbContext, DateTime, DateTime, params string[])
   nameWithType.vb: DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(DbContext, Date, Date, ParamArray String())
-- uid: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.DateTime)
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.DateTime)
   name: GetDateLevelEntityByDateRange<T>(IEnumerable<T>, DateTime, DateTime)
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_GetDateLevelEntityByDateRange__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_DateTime_
-  commentId: M:Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.DateTime)
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_GetDateLevelEntityByDateRange__1_System_Collections_Generic_IEnumerable___0__System_DateTime_System_DateTime_
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange``1(System.Collections.Generic.IEnumerable{``0},System.DateTime,System.DateTime)
   name.vb: GetDateLevelEntityByDateRange(Of T)(IEnumerable(Of T), Date, Date)
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(System.Collections.Generic.IEnumerable<T>, System.DateTime, System.DateTime)
-  fullName.vb: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(System.Collections.Generic.IEnumerable(Of T), Date, Date)
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(System.Collections.Generic.IEnumerable<T>, System.DateTime, System.DateTime)
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(System.Collections.Generic.IEnumerable(Of T), Date, Date)
   nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDateRange<T>(IEnumerable<T>, DateTime, DateTime)
   nameWithType.vb: DateLevelEntityExtensions.GetDateLevelEntityByDateRange(Of T)(IEnumerable(Of T), Date, Date)
-- uid: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDate``1(System.Collections.Generic.IEnumerable{``0},System.DateTime)
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDate``1(System.Collections.Generic.IEnumerable{``0},System.DateTime)
   name: GetDateLevelEntityByDate<T>(IEnumerable<T>, DateTime)
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_GetDateLevelEntityByDate__1_System_Collections_Generic_IEnumerable___0__System_DateTime_
-  commentId: M:Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDate``1(System.Collections.Generic.IEnumerable{``0},System.DateTime)
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_GetDateLevelEntityByDate__1_System_Collections_Generic_IEnumerable___0__System_DateTime_
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDate``1(System.Collections.Generic.IEnumerable{``0},System.DateTime)
   name.vb: GetDateLevelEntityByDate(Of T)(IEnumerable(Of T), Date)
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDate<T>(System.Collections.Generic.IEnumerable<T>, System.DateTime)
-  fullName.vb: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelEntityByDate(Of T)(System.Collections.Generic.IEnumerable(Of T), Date)
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDate<T>(System.Collections.Generic.IEnumerable<T>, System.DateTime)
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelEntityByDate(Of T)(System.Collections.Generic.IEnumerable(Of T), Date)
   nameWithType: DateLevelEntityExtensions.GetDateLevelEntityByDate<T>(IEnumerable<T>, DateTime)
   nameWithType.vb: DateLevelEntityExtensions.GetDateLevelEntityByDate(Of T)(IEnumerable(Of T), Date)
-- uid: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelItemByDate*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelItemByDate*
   name: GetDateLevelItemByDate
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_GetDateLevelItemByDate_
-  commentId: Overload:Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelItemByDate
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_GetDateLevelItemByDate_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelItemByDate
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelItemByDate
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelItemByDate
   nameWithType: DateLevelEntityExtensions.GetDateLevelItemByDate
-- uid: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelItemByDate``2(System.Collections.Generic.IEnumerable{``0},``1,System.DateTime)
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelItemByDate``2(System.Collections.Generic.IEnumerable{``0},``1,System.DateTime)
   name: GetDateLevelItemByDate<T, K>(IEnumerable<T>, K, DateTime)
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_GetDateLevelItemByDate__2_System_Collections_Generic_IEnumerable___0____1_System_DateTime_
-  commentId: M:Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelItemByDate``2(System.Collections.Generic.IEnumerable{``0},``1,System.DateTime)
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_GetDateLevelItemByDate__2_System_Collections_Generic_IEnumerable___0____1_System_DateTime_
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelItemByDate``2(System.Collections.Generic.IEnumerable{``0},``1,System.DateTime)
   name.vb: GetDateLevelItemByDate(Of T, K)(IEnumerable(Of T), K, Date)
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelItemByDate<T, K>(System.Collections.Generic.IEnumerable<T>, K, System.DateTime)
-  fullName.vb: Albatross.EFCore.DateLevelEntityExtensions.GetDateLevelItemByDate(Of T, K)(System.Collections.Generic.IEnumerable(Of T), K, Date)
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelItemByDate<T, K>(System.Collections.Generic.IEnumerable<T>, K, System.DateTime)
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.GetDateLevelItemByDate(Of T, K)(System.Collections.Generic.IEnumerable(Of T), K, Date)
   nameWithType: DateLevelEntityExtensions.GetDateLevelItemByDate<T, K>(IEnumerable<T>, K, DateTime)
   nameWithType.vb: DateLevelEntityExtensions.GetDateLevelItemByDate(Of T, K)(IEnumerable(Of T), K, Date)
-- uid: Albatross.EFCore.DateLevelEntityExtensions.RebuildDateLevelSeries*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.RebuildDateLevelSeries*
   name: RebuildDateLevelSeries
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_RebuildDateLevelSeries_
-  commentId: Overload:Albatross.EFCore.DateLevelEntityExtensions.RebuildDateLevelSeries
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_RebuildDateLevelSeries_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.RebuildDateLevelSeries
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.RebuildDateLevelSeries
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.RebuildDateLevelSeries
   nameWithType: DateLevelEntityExtensions.RebuildDateLevelSeries
-- uid: Albatross.EFCore.DateLevelEntityExtensions.RebuildDateLevelSeries``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.RebuildDateLevelSeries``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
   name: RebuildDateLevelSeries<T>(IEnumerable<T>, Action<T>)
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_RebuildDateLevelSeries__1_System_Collections_Generic_IEnumerable___0__System_Action___0__
-  commentId: M:Albatross.EFCore.DateLevelEntityExtensions.RebuildDateLevelSeries``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_RebuildDateLevelSeries__1_System_Collections_Generic_IEnumerable___0__System_Action___0__
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.RebuildDateLevelSeries``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
   name.vb: RebuildDateLevelSeries(Of T)(IEnumerable(Of T), Action(Of T))
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.RebuildDateLevelSeries<T>(System.Collections.Generic.IEnumerable<T>, System.Action<T>)
-  fullName.vb: Albatross.EFCore.DateLevelEntityExtensions.RebuildDateLevelSeries(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Action(Of T))
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.RebuildDateLevelSeries<T>(System.Collections.Generic.IEnumerable<T>, System.Action<T>)
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.RebuildDateLevelSeries(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Action(Of T))
   nameWithType: DateLevelEntityExtensions.RebuildDateLevelSeries<T>(IEnumerable<T>, Action<T>)
   nameWithType.vb: DateLevelEntityExtensions.RebuildDateLevelSeries(Of T)(IEnumerable(Of T), Action(Of T))
-- uid: Albatross.EFCore.DateLevelEntityExtensions.SetDateLevel*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.SetDateLevel*
   name: SetDateLevel
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_SetDateLevel_
-  commentId: Overload:Albatross.EFCore.DateLevelEntityExtensions.SetDateLevel
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_SetDateLevel_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.SetDateLevel
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.SetDateLevel
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.SetDateLevel
   nameWithType: DateLevelEntityExtensions.SetDateLevel
-- uid: Albatross.EFCore.DateLevelEntityExtensions.SetDateLevel``2(System.Collections.Generic.ICollection{``0},``0,System.Boolean)
+- uid: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.SetDateLevel``2(System.Collections.Generic.ICollection{``0},``0,System.Boolean)
   name: SetDateLevel<T, K>(ICollection<T>, T, bool)
-  href: api/Albatross.EFCore.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevelEntityExtensions_SetDateLevel__2_System_Collections_Generic_ICollection___0____0_System_Boolean_
-  commentId: M:Albatross.EFCore.DateLevelEntityExtensions.SetDateLevel``2(System.Collections.Generic.ICollection{``0},``0,System.Boolean)
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html#Albatross_EFCore_DateLevel_DateLevelEntityExtensions_SetDateLevel__2_System_Collections_Generic_ICollection___0____0_System_Boolean_
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntityExtensions.SetDateLevel``2(System.Collections.Generic.ICollection{``0},``0,System.Boolean)
   name.vb: SetDateLevel(Of T, K)(ICollection(Of T), T, Boolean)
-  fullName: Albatross.EFCore.DateLevelEntityExtensions.SetDateLevel<T, K>(System.Collections.Generic.ICollection<T>, T, bool)
-  fullName.vb: Albatross.EFCore.DateLevelEntityExtensions.SetDateLevel(Of T, K)(System.Collections.Generic.ICollection(Of T), T, Boolean)
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.SetDateLevel<T, K>(System.Collections.Generic.ICollection<T>, T, bool)
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntityExtensions.SetDateLevel(Of T, K)(System.Collections.Generic.ICollection(Of T), T, Boolean)
   nameWithType: DateLevelEntityExtensions.SetDateLevel<T, K>(ICollection<T>, T, bool)
   nameWithType.vb: DateLevelEntityExtensions.SetDateLevel(Of T, K)(ICollection(Of T), T, Boolean)
-- uid: Albatross.EFCore.DateLevelEntity`1
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity`1
   name: DateLevelEntity<K>
-  href: api/Albatross.EFCore.DateLevelEntity-1.html
-  commentId: T:Albatross.EFCore.DateLevelEntity`1
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity-1.html
+  commentId: T:Albatross.EFCore.DateLevel.DateLevelEntity`1
   name.vb: DateLevelEntity(Of K)
-  fullName: Albatross.EFCore.DateLevelEntity<K>
-  fullName.vb: Albatross.EFCore.DateLevelEntity(Of K)
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity<K>
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntity(Of K)
   nameWithType: DateLevelEntity<K>
   nameWithType.vb: DateLevelEntity(Of K)
-- uid: Albatross.EFCore.DateLevelEntity`1.#ctor(System.DateTime)
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity`1.#ctor(System.DateTime)
   name: DateLevelEntity(DateTime)
-  href: api/Albatross.EFCore.DateLevelEntity-1.html#Albatross_EFCore_DateLevelEntity_1__ctor_System_DateTime_
-  commentId: M:Albatross.EFCore.DateLevelEntity`1.#ctor(System.DateTime)
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity-1.html#Albatross_EFCore_DateLevel_DateLevelEntity_1__ctor_System_DateTime_
+  commentId: M:Albatross.EFCore.DateLevel.DateLevelEntity`1.#ctor(System.DateTime)
   name.vb: New(Date)
-  fullName: Albatross.EFCore.DateLevelEntity<K>.DateLevelEntity(System.DateTime)
-  fullName.vb: Albatross.EFCore.DateLevelEntity(Of K).New(Date)
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity<K>.DateLevelEntity(System.DateTime)
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntity(Of K).New(Date)
   nameWithType: DateLevelEntity<K>.DateLevelEntity(DateTime)
   nameWithType.vb: DateLevelEntity(Of K).New(Date)
-- uid: Albatross.EFCore.DateLevelEntity`1.#ctor*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity`1.#ctor*
   name: DateLevelEntity
-  href: api/Albatross.EFCore.DateLevelEntity-1.html#Albatross_EFCore_DateLevelEntity_1__ctor_
-  commentId: Overload:Albatross.EFCore.DateLevelEntity`1.#ctor
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity-1.html#Albatross_EFCore_DateLevel_DateLevelEntity_1__ctor_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntity`1.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: Albatross.EFCore.DateLevelEntity<K>.DateLevelEntity
-  fullName.vb: Albatross.EFCore.DateLevelEntity(Of K).New
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity<K>.DateLevelEntity
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntity(Of K).New
   nameWithType: DateLevelEntity<K>.DateLevelEntity
   nameWithType.vb: DateLevelEntity(Of K).New
-- uid: Albatross.EFCore.DateLevelEntity`1.Key
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity`1.Key
   name: Key
-  href: api/Albatross.EFCore.DateLevelEntity-1.html#Albatross_EFCore_DateLevelEntity_1_Key
-  commentId: P:Albatross.EFCore.DateLevelEntity`1.Key
-  fullName: Albatross.EFCore.DateLevelEntity<K>.Key
-  fullName.vb: Albatross.EFCore.DateLevelEntity(Of K).Key
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity-1.html#Albatross_EFCore_DateLevel_DateLevelEntity_1_Key
+  commentId: P:Albatross.EFCore.DateLevel.DateLevelEntity`1.Key
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity<K>.Key
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntity(Of K).Key
   nameWithType: DateLevelEntity<K>.Key
   nameWithType.vb: DateLevelEntity(Of K).Key
-- uid: Albatross.EFCore.DateLevelEntity`1.Key*
+- uid: Albatross.EFCore.DateLevel.DateLevelEntity`1.Key*
   name: Key
-  href: api/Albatross.EFCore.DateLevelEntity-1.html#Albatross_EFCore_DateLevelEntity_1_Key_
-  commentId: Overload:Albatross.EFCore.DateLevelEntity`1.Key
+  href: api/Albatross.EFCore.DateLevel.DateLevelEntity-1.html#Albatross_EFCore_DateLevel_DateLevelEntity_1_Key_
+  commentId: Overload:Albatross.EFCore.DateLevel.DateLevelEntity`1.Key
   isSpec: "True"
-  fullName: Albatross.EFCore.DateLevelEntity<K>.Key
-  fullName.vb: Albatross.EFCore.DateLevelEntity(Of K).Key
+  fullName: Albatross.EFCore.DateLevel.DateLevelEntity<K>.Key
+  fullName.vb: Albatross.EFCore.DateLevel.DateLevelEntity(Of K).Key
   nameWithType: DateLevelEntity<K>.Key
   nameWithType.vb: DateLevelEntity(Of K).Key
 - uid: Albatross.EFCore.DbSession

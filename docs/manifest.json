@@ -15,30 +15,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Authentication.Core.IGetAccess.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Authentication.Core.IGetAccess.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Authentication.Core.IGetCurrentUser.yml",
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Authentication.Core.IGetCurrentUser.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Authentication.Core.InactiveUserException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Authentication.Core.InactiveUserException.html"
         }
       },
       "version": ""
@@ -1675,30 +1655,40 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.EFCore.DateLevelEntity-1.yml",
+      "source_relative_path": "api/Albatross.EFCore.DateLevel.DateLevelEntity-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.EFCore.DateLevelEntity-1.html"
+          "relative_path": "api/Albatross.EFCore.DateLevel.DateLevelEntity-1.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.EFCore.DateLevelEntity.yml",
+      "source_relative_path": "api/Albatross.EFCore.DateLevel.DateLevelEntity.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.EFCore.DateLevelEntity.html"
+          "relative_path": "api/Albatross.EFCore.DateLevel.DateLevelEntity.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.EFCore.DateLevelEntityExtensions.yml",
+      "source_relative_path": "api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.EFCore.DateLevelEntityExtensions.html"
+          "relative_path": "api/Albatross.EFCore.DateLevel.DateLevelEntityExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.EFCore.DateLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.EFCore.DateLevel.html"
         }
       },
       "version": ""

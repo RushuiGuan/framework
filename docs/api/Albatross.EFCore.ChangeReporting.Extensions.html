@@ -95,7 +95,7 @@
 
   <div class="facts text-secondary">
     <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.EFCore.html">EFCore</a>.<a class="xref" href="Albatross.EFCore.ChangeReporting.html">ChangeReporting</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.EFCore.dll</dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.EFCore.ChangeReporting.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
@@ -264,8 +264,8 @@
 
   <a id="Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges*"></a>
 
-  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges__1_Albatross_EFCore_IDbSession_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Albatross.EFCore.IDbSession,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)">
-  SaveAndAuditChanges&lt;T&gt;(IDbSession, ChangeReportingOptions, string?)
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges__1_Microsoft_EntityFrameworkCore_DbContext_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Microsoft.EntityFrameworkCore.DbContext,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)">
+  SaveAndAuditChanges&lt;T&gt;(DbContext, ChangeReportingOptions, string?)
   
   </h3>
 
@@ -273,12 +273,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;ChangeReportingResult&gt; SaveAndAuditChanges&lt;T&gt;(this IDbSession session, ChangeReportingOptions options, string? user) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;ChangeReportingResult&gt; SaveAndAuditChanges&lt;T&gt;(this DbContext dbContext, ChangeReportingOptions options, string? user) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>session</code> <a class="xref" href="Albatross.EFCore.IDbSession.html">IDbSession</a></dt>
+    <dt><code>dbContext</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a></dt>
     <dd></dd>
     <dt><code>options</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportingOptions.html">ChangeReportingOptions</a></dt>
     <dd></dd>
