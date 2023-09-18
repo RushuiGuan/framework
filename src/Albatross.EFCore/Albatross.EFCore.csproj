@@ -6,6 +6,7 @@
         <Description>This assembly contains convenient classes that allow users to get EFCore up and running quickly.  It also contains entity ChangeReporting functionality and implementation of DateLevelEntity pattern.</Description>
         <Authors>Rushui Guan</Authors>
         <Nullable>enable</Nullable>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.9" />

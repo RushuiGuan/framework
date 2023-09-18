@@ -5,6 +5,7 @@
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
         <Nullable>enable</Nullable>
         <Description>PostgresSQL Setup for Albatross.EFCore</Description>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />

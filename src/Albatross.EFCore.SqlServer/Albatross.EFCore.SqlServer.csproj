@@ -6,6 +6,7 @@
         <Description>SqlServer Setup for Albatross.EFCore</Description>
         <Authors>Rushui Guan</Authors>
         <Nullable>enable</Nullable>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.0.143" />

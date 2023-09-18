@@ -73,6 +73,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution Items", "solution 
 		azure-pipelines.yml = azure-pipelines.yml
 		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
+		pack.ps1 = pack.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -122,9 +123,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Commands", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Messaging.Test", "tests\Albatross.Messaging.Test\Albatross.Messaging.Test.csproj", "{8B7EC157-5BA2-4751-9C2F-5AF2E34CB44F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.EFCore.ChangeReporting", "src\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj", "{AFDDF1D7-55FA-4560-8770-F48BF28834B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.ChangeReporting", "src\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj", "{AFDDF1D7-55FA-4560-8770-F48BF28834B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.EFCore.DateLevel", "src\Albatross.EFCore.DateLevel\Albatross.EFCore.DateLevel.csproj", "{0BCD83E5-1DA2-417E-A431-E446A6FE014A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.DateLevel", "src\Albatross.EFCore.DateLevel\Albatross.EFCore.DateLevel.csproj", "{0BCD83E5-1DA2-417E-A431-E446A6FE014A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

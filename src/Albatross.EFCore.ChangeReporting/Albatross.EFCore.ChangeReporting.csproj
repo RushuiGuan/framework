@@ -3,6 +3,8 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.EFCore\Albatross.EFCore.csproj" />
@@ -12,5 +14,12 @@
 	    <PackagePath>\</PackagePath>
 	    <Pack>True</Pack>
 	  </None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>
+			</PackagePath>
+		</None>
 	</ItemGroup>
 </Project>

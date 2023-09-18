@@ -8,6 +8,7 @@
         <Authors>Rushui Guan</Authors>
         <Description>This assembly is a catch all utility assembly.  It exists because the different utilities within are not big enough to have its own assembly.</Description>
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -23,5 +24,11 @@
             <Pack>True</Pack>
             <PackagePath></PackagePath>
         </None>
+    </ItemGroup>
+    <ItemGroup>
+      <None Update="readme.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 </Project>

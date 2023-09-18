@@ -4,6 +4,8 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<Description>This assembly contains messaging implementation using ZeroMQ.  Currently it supports pubsub and command queue pattern.</Description>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -23,6 +25,13 @@
 		<None Update="readme.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>
+			</PackagePath>
 		</None>
 	</ItemGroup>
 </Project>
