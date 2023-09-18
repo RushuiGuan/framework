@@ -2,7 +2,6 @@
 #### v6.1.1 - Current
 * Rename Albatross.Repository namespace to Albatross.EFCore
 * Add Albatross.Messaging library with reliable messaging capabilities.
-* From now on, the release notes will be at the assembly level
 #### v5.1.0 - Not release to public
 * secured Albatross prefix in nuget.org
 * create a prod release prior the inclusion of messaging capability
