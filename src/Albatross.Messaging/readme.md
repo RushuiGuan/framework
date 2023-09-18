@@ -1,0 +1,1 @@
+Albatross.Messaging assembly implenments messaging patterns using ZeroMQ.  Currently it supports Durable Subscription PubSub and Durable Command Queue pattern.

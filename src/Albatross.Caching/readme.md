@@ -1,0 +1,1 @@
+This assembly contains the interfaces and extension classes for the consumer to hook up caching mechanism using Polly.  The actual implementation of caching can be found in Albatross.Caching.MemCache or Albatross.Caching.Redis assembly.

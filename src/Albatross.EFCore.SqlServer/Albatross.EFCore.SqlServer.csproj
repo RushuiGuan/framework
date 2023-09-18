@@ -3,7 +3,7 @@
 		<TargetFramework>net7.0</TargetFramework>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-        <Description>efcore repository setup</Description>
+        <Description>SqlServer Setup for Albatross.EFCore</Description>
         <Authors>Rushui Guan</Authors>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -19,5 +19,11 @@
             <Pack>True</Pack>
             <PackagePath></PackagePath>
         </None>
+    </ItemGroup>
+    <ItemGroup>
+      <None Update="readme.md">
+        <PackagePath>\</PackagePath>
+        <Pack>True</Pack>
+      </None>
     </ItemGroup>
 </Project>

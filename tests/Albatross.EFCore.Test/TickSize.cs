@@ -1,4 +1,4 @@
-﻿using Albatross.EFCore.SqlServer;
+﻿using Albatross.EFCore.DateLevel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

@@ -1,0 +1,1 @@
+Albatross.CodeGen.WebClient contains logic that can generate C# and TypeScript proxies from AspNetCore controller classes.  Its resulting C# proxy uses assembly Albatross.WebClient and class ClientBase as its base class.

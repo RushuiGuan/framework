@@ -1,8 +1,7 @@
-﻿using Albatross.Hosting.Test;
-using System;
+﻿using Albatross.EFCore.DateLevel;
+using Albatross.Hosting.Test;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.EFCore.Test {

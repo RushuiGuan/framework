@@ -5,7 +5,7 @@
 	  <Nullable>enable</Nullable>
 
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Description>Provide extention methods and base classe to for HttpClient proxy classes</Description>
+    <Description>The assembly provides extention methods and a base class to for HttpClient proxy classes</Description>
     <Authors>Rushui Guan</Authors>
     <PackageProjectUrl>https://github.com/RushuiGuan/framework</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>

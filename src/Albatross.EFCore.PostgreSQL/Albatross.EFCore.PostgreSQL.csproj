@@ -4,6 +4,7 @@
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
         <Nullable>enable</Nullable>
+        <Description>PostgresSQL Setup for Albatross.EFCore</Description>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
@@ -16,5 +17,11 @@
             <Pack>True</Pack>
             <PackagePath></PackagePath>
         </None>
+    </ItemGroup>
+    <ItemGroup>
+      <None Update="readme.md">
+        <PackagePath>\</PackagePath>
+        <Pack>True</Pack>
+      </None>
     </ItemGroup>
 </Project>

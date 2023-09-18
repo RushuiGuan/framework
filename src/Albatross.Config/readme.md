@@ -1,0 +1,1 @@
+Albatross.Config works with IConfiguration interface.  It performs configuration validations and allows configuration classes to be directly injected using dependency injection.

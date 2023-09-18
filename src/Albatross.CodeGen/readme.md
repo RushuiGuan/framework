@@ -1,0 +1,1 @@
+Albatross.CodeGen is customizable code generator engine with built in support for C# and TypeScript.

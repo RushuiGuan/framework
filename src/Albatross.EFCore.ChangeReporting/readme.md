@@ -1,0 +1,1 @@
+Albatross.EFCore.ChangeReporting assembly can be used to produce a change report for an entity type within the db context.

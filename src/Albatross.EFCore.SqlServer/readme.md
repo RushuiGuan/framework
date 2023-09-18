@@ -1,0 +1,1 @@
+Albatross.EFCore.SqlServer contains SqlServer Setup for Albatross.EFCore

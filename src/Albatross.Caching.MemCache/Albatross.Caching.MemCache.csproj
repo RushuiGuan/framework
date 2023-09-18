@@ -2,6 +2,8 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<Nullable>enable</Nullable>
+		<Description>Albatross.Caching Implementation using Microsoft.Extensions.Caching.Memory.MemoryCache</Description>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -14,5 +16,11 @@
 		<ProjectReference Include="..\Albatross.Caching\Albatross.Caching.csproj" />
 		<ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
 		<ProjectReference Include="..\Albatross\Albatross.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="readme.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
 	</ItemGroup>
 </Project>

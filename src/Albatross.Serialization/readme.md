@@ -1,0 +1,1 @@
+Albatross.Serialization assembly contains utility classes that support serialization using System.Text.Json.

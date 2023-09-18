@@ -1,11 +1,6 @@
 ﻿using Albatross.Text;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System;
 
 namespace Albatross.EFCore.ChangeReporting {
 	public static class Extensions {
@@ -47,10 +42,10 @@ namespace Albatross.EFCore.ChangeReporting {
 			entry.GetChanges(changes, options.Type, options.SkippedProperties);
 			await writer.GetChangeText(changes, options.FormatValueFunc, options.Properties.ToArray());
 		}
-		public static async Task<ChangeReportingResult> SaveAndAuditChanges<T>(this IDbSession session, ChangeReportingOptions options, string? user) where T : class {
+		public static async Task<ChangeReportingResult> SaveAndAuditChanges<T>(this DbContext dbContext, ChangeReportingOptions options, string? user) where T : class {
 			try {
 				var changes = new List<ChangeReport<T>>();
-				foreach (var entry in session.DbContext.ChangeTracker.Entries<T>()) {
+				foreach (var entry in dbContext.ChangeTracker.Entries<T>()) {
 					if (entry.State == EntityState.Modified) {
 						if (entry.Entity is IModifiedBy audit1 && !string.IsNullOrEmpty(user)) { audit1.ModifiedBy = user; }
 						if (entry.Entity is IModifiedUtc audit2) { audit2.ModifiedUtc = DateTime.UtcNow; }
@@ -76,7 +71,7 @@ namespace Albatross.EFCore.ChangeReporting {
 				return result;
 			} finally {
 				if (!options.DoNotSave) {
-					await session.SaveChangesAsync();
+					await dbContext.SaveChangesAsync();
 				}
 			}
 		}

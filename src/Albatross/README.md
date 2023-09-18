@@ -1,8 +1,1 @@
-* v5.1.0
-	- Albatross.Serialization.Extension
-		* Remove the following extension methods since they are now directly supported by .net framework
-			1. T? ToObject<T>(this JsonElement element, JsonSerializerOptions? options = null)
-			1. object? ToObject(this JsonElement element, Type type, JsonSerializerOptions? options = null)
-			1. JsonElement ToJsonElement<T>(this T t, JsonSerializerOptions? options =null)
-		* Mark WriteJson extension method as obsolete
-
+Albatross assembly is a catch all utility assembly.  It exists because the different utilities within are not big enough to have its own assembly.

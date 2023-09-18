@@ -6,7 +6,7 @@
 
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
         <Authors>Rushui Guan</Authors>
-        <Description>Combined assembly on utility classes for serilzation, validation and reflection</Description>
+        <Description>This assembly is a catch all utility assembly.  It exists because the different utilities within are not big enough to have its own assembly.</Description>
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup>

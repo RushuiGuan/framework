@@ -25,6 +25,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj" />
+    <ProjectReference Include="..\..\src\Albatross.EFCore.DateLevel\Albatross.EFCore.DateLevel.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
     <ProjectReference Include="..\..\src\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
