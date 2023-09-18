@@ -1,5 +1,9 @@
 ### Release Notes
-#### v5.1.0 - Current and WIP
+#### v6.1.1 - Current
+* Rename Albatross.Repository namespace to Albatross.EFCore
+* Add Albatross.Messaging library with reliable messaging capabilities.
+* From now on, the release notes will be at the assembly level
+#### v5.1.0 - Not release to public
 * secured Albatross prefix in nuget.org
 * create a prod release prior the inclusion of messaging capability
 * web client improvement
@@ -12,7 +16,7 @@
 	- Improved console output capability
 		* create utility to write out in tabular format and list format
 	- clean Albatross.Hosting.Utility.BaseOption class so that its verb doesn't use single character.
-		* verbose flag will trigger 
+		* use of the verbose option will change the logging output level to debug
 * Albatross.EFCore
 	- add datelevel data support
 #### v4.1.0 - 2022-10-18
