@@ -9,7 +9,7 @@ resources:
   - repository: devops
     type: git
     name: devops\devops
-    ref: refs/heads/production
+    ref: refs/heads/staging
 
 
 extends:
