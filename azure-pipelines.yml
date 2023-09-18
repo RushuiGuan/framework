@@ -20,4 +20,5 @@ extends:
     hasApp: false
     hasDocFx: true
     octopusProject: framework
+    octopusProjectGitRef:
 
