@@ -1,6 +1,8 @@
 ﻿using System;
 using Xunit;
 using Albatross.Dates;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Albatross.Test.Dates {
 	public class TestDates {
@@ -141,25 +143,33 @@ namespace Albatross.Test.Dates {
 			return date;
 		}
 		[Fact]
-		public void BlanketNextWeekDayTest() {
+		public async Task BlanketNextWeekDayTest() {
+			Stopwatch stopwatch = Stopwatch.StartNew();
 			for (int i = 0; i < 366 * 3; i++) {
 				var date = new DateTime(2000, 1, 1).AddDays(i);
 				for (int numberOfWeekDays = 0; numberOfWeekDays < 366 * 3; numberOfWeekDays++) {
+					stopwatch.Restart();
 					var actual = date.NextWeekday(numberOfWeekDays);
+
 					var expected = NextWeekDayStupidWay(date, numberOfWeekDays);
+					stopwatch.Restart();
+
+					var actual2 = await date.NextBusinessDay(numberOfWeekDays);
 					Assert.Equal(expected, actual);
+					Assert.Equal(expected, actual2);
 				}
 			}
 		}
-
 		[Fact]
-		public void BlanketPreviousWeekDayTest() {
+		public async Task BlanketPreviousWeekDayTest() {
 			for (int i = 0; i < 366 * 3; i++) {
 				var date = new DateTime(2000, 1, 1).AddDays(i);
 				for (int numberOfWeekDays = 0; numberOfWeekDays < 366 * 3; numberOfWeekDays++) {
 					var actual = date.PreviousWeekday(numberOfWeekDays);
 					var expected = PreviousWeekDayStupidWay(date, numberOfWeekDays);
+					var actual2 = await date.PreviousBusinessDay(numberOfWeekDays);
 					Assert.Equal(expected, actual);
+					Assert.Equal(expected, actual2);
 				}
 			}
 		}

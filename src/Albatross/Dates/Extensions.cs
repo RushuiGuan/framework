@@ -1,17 +1,28 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Albatross.Dates {
 	public static class Extensions {
+		/// <summary>
+		/// Return the next weekday from a provided date.  If the provided date is Monday, the next 0 weekday is the same date and the 
+		/// next 1 weekday would be Tuesday.  If the provided date falls on the weekend, the next 0 weekday and the next 1 weekday are both
+		/// Monday.  If the provided date is Friday, the next 0 weekday would be the same day and the next 1 weekday would be Monday.
+		/// This method use math to figure out the correct next weekday.  It is more performant compare to the NextBusinessDay implementation where
+		/// it loops each day and check if it is a business day.
+		/// </summary>
+		/// <param name="date">the starting date</param>
+		/// <param name="numberOfWeekDays">number of week days to count</param>
+		/// <exception cref="ArgumentException">exception will be thrown if the numberOfWeekDays parameter is less than 0</exception>
 		public static DateTime NextWeekday(this DateTime date, int numberOfWeekDays = 1) {
-			if(numberOfWeekDays == 0) {
-				if(date.DayOfWeek == DayOfWeek.Sunday) {
+			if (numberOfWeekDays == 0) {
+				if (date.DayOfWeek == DayOfWeek.Sunday) {
 					return date.Date.AddDays(1);
-				}else if(date.DayOfWeek == DayOfWeek.Saturday) {
+				} else if (date.DayOfWeek == DayOfWeek.Saturday) {
 					return date.Date.AddDays(2);
 				} else {
 					return date.Date;
 				}
-			}else if(numberOfWeekDays > 0) {
+			} else if (numberOfWeekDays > 0) {
 				if (date.DayOfWeek == DayOfWeek.Sunday) {
 					date = date.AddDays(-2);
 				} else if (date.DayOfWeek == DayOfWeek.Saturday) {
@@ -31,9 +42,17 @@ namespace Albatross.Dates {
 				throw new ArgumentException($"{nameof(numberOfWeekDays)} parameter has to be greater or equal to 0");
 			}
 		}
-
+		/// <summary>
+		/// Return the previous weekday from a provided date.  If the provided date is Monday, the previous 0 weekday is the same date and the 
+		/// previous 1 weekday would be Friday.  If the provided date falls on the weekend, the previous 0 weekday and the previous 1 weekday are both
+		/// Friday.  
+		/// </summary>
+		/// <param name="date"></param>
+		/// <param name="numberOfWeekDays"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException">exception will be thrown if the numberOfWeekDays parameter is less than 0</exception>
 		public static DateTime PreviousWeekday(this DateTime date, int numberOfWeekDays = 1) {
-			if(numberOfWeekDays == 0) {
+			if (numberOfWeekDays == 0) {
 				if (date.DayOfWeek == DayOfWeek.Sunday) {
 					return date.Date.AddDays(-2);
 				} else if (date.DayOfWeek == DayOfWeek.Saturday) {
@@ -41,7 +60,7 @@ namespace Albatross.Dates {
 				} else {
 					return date.Date;
 				}
-			}else if (numberOfWeekDays > 0) {
+			} else if (numberOfWeekDays > 0) {
 				if (date.DayOfWeek == DayOfWeek.Sunday) {
 					date = date.AddDays(1);
 				} else if (date.DayOfWeek == DayOfWeek.Saturday) {
@@ -60,6 +79,43 @@ namespace Albatross.Dates {
 			} else {
 				throw new ArgumentException($"{nameof(numberOfWeekDays)} parameter has to be greater or equal to 0");
 			}
+		}
+		
+		public static bool IsWeekDay(this DateTime date) => date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday;
+
+		/// <summary>
+		/// Similar to NextWeekDay method but the caller can pass in a predicate to check if a date is a business day.  The method is also async, because
+		/// holiday data could comes from external resource.  This method is not performant since it has to check every day to see if it is a business day.
+		/// </summary>
+		/// <param name="date"></param>
+		/// <param name="numberOfBusinessDays"></param>
+		/// <param name="isBusinessDay"></param>
+		/// <returns></returns>
+		public static async Task<DateTime> NextBusinessDay(this DateTime date, int numberOfBusinessDays = 1, Func<DateTime, Task<bool>>? isBusinessDay = null) {
+			if (isBusinessDay == null) { isBusinessDay = args=> Task.FromResult(IsWeekDay(args)); }
+			for (int i = 0; i < numberOfBusinessDays; i++) {
+				date = date.AddDays(1);
+				while (!await isBusinessDay(date)) {
+					date = date.AddDays(1);
+				}
+			}
+			while (!await isBusinessDay(date)) {
+				date = date.AddDays(1);
+			}
+			return date;
+		}
+		public static async Task<DateTime> PreviousBusinessDay(this DateTime date, int numberOfBusinessDays = 1, Func<DateTime, Task<bool>>? isBusinessDay = null) {
+			if (isBusinessDay == null) { isBusinessDay = args => Task.FromResult(IsWeekDay(args)); }
+			for (int i = 0; i < numberOfBusinessDays; i++) {
+				date = date.AddDays(-1);
+				while (!await isBusinessDay(date)) {
+					date = date.AddDays(-1);
+				}
+			}
+			while (!await isBusinessDay(date)) {
+				date = date.AddDays(-1);
+			}
+			return date;
 		}
 	}
 }

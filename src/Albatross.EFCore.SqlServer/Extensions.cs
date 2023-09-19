@@ -12,7 +12,7 @@ namespace Albatross.EFCore.SqlServer {
 		public static void BuildDefaultOption(this DbContextOptionsBuilder builder, string connectionString, Action<SqlServerDbContextOptionsBuilder>? dbcontextOptionBuilder = null) {
 			builder.EnableDetailedErrors(true);
 			builder.EnableSensitiveDataLogging(true);
-			builder.UseLazyLoadingProxies(false);
+			// builder.UseLazyLoadingProxies(false);
 			builder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 			builder.UseSqlServer(connectionString, dbcontextOptionBuilder ?? DefaultDbContextOptionBuilder);
 		}
@@ -20,7 +20,7 @@ namespace Albatross.EFCore.SqlServer {
 		public static DbContextOptions<T> BuildMigrationOption<T>(string historyTableSchema, string connectionString = DbSession.Any) where T : DbContext {
 			DbContextOptionsBuilder<T> builder = new DbContextOptionsBuilder<T>();
 			builder.EnableDetailedErrors(true);
-			builder.UseLazyLoadingProxies(false);
+			// builder.UseLazyLoadingProxies(false);
 			builder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 			builder.UseSqlServer(connectionString, opt => {
 				opt.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds);
