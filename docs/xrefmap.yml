@@ -8704,6 +8704,38 @@ references:
   commentId: T:Albatross.Dates.Extensions
   fullName: Albatross.Dates.Extensions
   nameWithType: Extensions
+- uid: Albatross.Dates.Extensions.IsWeekDay(System.DateTime)
+  name: IsWeekDay(DateTime)
+  href: api/Albatross.Dates.Extensions.html#Albatross_Dates_Extensions_IsWeekDay_System_DateTime_
+  commentId: M:Albatross.Dates.Extensions.IsWeekDay(System.DateTime)
+  name.vb: IsWeekDay(Date)
+  fullName: Albatross.Dates.Extensions.IsWeekDay(System.DateTime)
+  fullName.vb: Albatross.Dates.Extensions.IsWeekDay(Date)
+  nameWithType: Extensions.IsWeekDay(DateTime)
+  nameWithType.vb: Extensions.IsWeekDay(Date)
+- uid: Albatross.Dates.Extensions.IsWeekDay*
+  name: IsWeekDay
+  href: api/Albatross.Dates.Extensions.html#Albatross_Dates_Extensions_IsWeekDay_
+  commentId: Overload:Albatross.Dates.Extensions.IsWeekDay
+  isSpec: "True"
+  fullName: Albatross.Dates.Extensions.IsWeekDay
+  nameWithType: Extensions.IsWeekDay
+- uid: Albatross.Dates.Extensions.NextBusinessDay(System.DateTime,System.Int32,System.Func{System.DateTime,System.Threading.Tasks.Task{System.Boolean}})
+  name: NextBusinessDay(DateTime, int, Func<DateTime, Task<bool>>?)
+  href: api/Albatross.Dates.Extensions.html#Albatross_Dates_Extensions_NextBusinessDay_System_DateTime_System_Int32_System_Func_System_DateTime_System_Threading_Tasks_Task_System_Boolean___
+  commentId: M:Albatross.Dates.Extensions.NextBusinessDay(System.DateTime,System.Int32,System.Func{System.DateTime,System.Threading.Tasks.Task{System.Boolean}})
+  name.vb: NextBusinessDay(Date, Integer, Func(Of Date, Task(Of Boolean)))
+  fullName: Albatross.Dates.Extensions.NextBusinessDay(System.DateTime, int, System.Func<System.DateTime, System.Threading.Tasks.Task<bool>>?)
+  fullName.vb: Albatross.Dates.Extensions.NextBusinessDay(Date, Integer, System.Func(Of Date, System.Threading.Tasks.Task(Of Boolean)))
+  nameWithType: Extensions.NextBusinessDay(DateTime, int, Func<DateTime, Task<bool>>?)
+  nameWithType.vb: Extensions.NextBusinessDay(Date, Integer, Func(Of Date, Task(Of Boolean)))
+- uid: Albatross.Dates.Extensions.NextBusinessDay*
+  name: NextBusinessDay
+  href: api/Albatross.Dates.Extensions.html#Albatross_Dates_Extensions_NextBusinessDay_
+  commentId: Overload:Albatross.Dates.Extensions.NextBusinessDay
+  isSpec: "True"
+  fullName: Albatross.Dates.Extensions.NextBusinessDay
+  nameWithType: Extensions.NextBusinessDay
 - uid: Albatross.Dates.Extensions.NextWeekday(System.DateTime,System.Int32)
   name: NextWeekday(DateTime, int)
   href: api/Albatross.Dates.Extensions.html#Albatross_Dates_Extensions_NextWeekday_System_DateTime_System_Int32_
@@ -8720,6 +8752,22 @@ references:
   isSpec: "True"
   fullName: Albatross.Dates.Extensions.NextWeekday
   nameWithType: Extensions.NextWeekday
+- uid: Albatross.Dates.Extensions.PreviousBusinessDay(System.DateTime,System.Int32,System.Func{System.DateTime,System.Threading.Tasks.Task{System.Boolean}})
+  name: PreviousBusinessDay(DateTime, int, Func<DateTime, Task<bool>>?)
+  href: api/Albatross.Dates.Extensions.html#Albatross_Dates_Extensions_PreviousBusinessDay_System_DateTime_System_Int32_System_Func_System_DateTime_System_Threading_Tasks_Task_System_Boolean___
+  commentId: M:Albatross.Dates.Extensions.PreviousBusinessDay(System.DateTime,System.Int32,System.Func{System.DateTime,System.Threading.Tasks.Task{System.Boolean}})
+  name.vb: PreviousBusinessDay(Date, Integer, Func(Of Date, Task(Of Boolean)))
+  fullName: Albatross.Dates.Extensions.PreviousBusinessDay(System.DateTime, int, System.Func<System.DateTime, System.Threading.Tasks.Task<bool>>?)
+  fullName.vb: Albatross.Dates.Extensions.PreviousBusinessDay(Date, Integer, System.Func(Of Date, System.Threading.Tasks.Task(Of Boolean)))
+  nameWithType: Extensions.PreviousBusinessDay(DateTime, int, Func<DateTime, Task<bool>>?)
+  nameWithType.vb: Extensions.PreviousBusinessDay(Date, Integer, Func(Of Date, Task(Of Boolean)))
+- uid: Albatross.Dates.Extensions.PreviousBusinessDay*
+  name: PreviousBusinessDay
+  href: api/Albatross.Dates.Extensions.html#Albatross_Dates_Extensions_PreviousBusinessDay_
+  commentId: Overload:Albatross.Dates.Extensions.PreviousBusinessDay
+  isSpec: "True"
+  fullName: Albatross.Dates.Extensions.PreviousBusinessDay
+  nameWithType: Extensions.PreviousBusinessDay
 - uid: Albatross.Dates.Extensions.PreviousWeekday(System.DateTime,System.Int32)
   name: PreviousWeekday(DateTime, int)
   href: api/Albatross.Dates.Extensions.html#Albatross_Dates_Extensions_PreviousWeekday_System_DateTime_System_Int32_

@@ -128,6 +128,84 @@
 </h2>
 
 
+  <a id="Albatross_Dates_Extensions_IsWeekDay_" data-uid="Albatross.Dates.Extensions.IsWeekDay*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_IsWeekDay_System_DateTime_" data-uid="Albatross.Dates.Extensions.IsWeekDay(System.DateTime)">
+  IsWeekDay(DateTime)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsWeekDay(this DateTime date)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_NextBusinessDay_" data-uid="Albatross.Dates.Extensions.NextBusinessDay*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_NextBusinessDay_System_DateTime_System_Int32_System_Func_System_DateTime_System_Threading_Tasks_Task_System_Boolean___" data-uid="Albatross.Dates.Extensions.NextBusinessDay(System.DateTime,System.Int32,System.Func{System.DateTime,System.Threading.Tasks.Task{System.Boolean}})">
+  NextBusinessDay(DateTime, int, Func&lt;DateTime, Task&lt;bool&gt;&gt;?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Similar to NextWeekDay method but the caller can pass in a predicate to check if a date is a business day.  The method is also async, because
+holiday data could comes from external resource.  This method is not performant since it has to check every day to see if it is a business day.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;DateTime&gt; NextBusinessDay(this DateTime date, int numberOfBusinessDays = 1, Func&lt;DateTime, Task&lt;bool&gt;&gt;? isBusinessDay = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>numberOfBusinessDays</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>isBusinessDay</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Albatross_Dates_Extensions_NextWeekday_" data-uid="Albatross.Dates.Extensions.NextWeekday*"></a>
 
   <h3 id="Albatross_Dates_Extensions_NextWeekday_System_DateTime_System_Int32_" data-uid="Albatross.Dates.Extensions.NextWeekday(System.DateTime,System.Int32)">
@@ -135,7 +213,12 @@
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Return the next weekday from a provided date.  If the provided date is Monday, the next 0 weekday is the same date and the
+next 1 weekday would be Tuesday.  If the provided date falls on the weekend, the next 0 weekday and the next 1 weekday are both
+Monday.  If the provided date is Friday, the next 0 weekday would be the same day and the next 1 weekday would be Monday.
+This method use math to figure out the correct next weekday.  It is more performant compare to the NextBusinessDay implementation where
+it loops each day and check if it is a business day.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -145,14 +228,62 @@
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
-    <dd></dd>
+    <dd><p>the starting date</p>
+</dd>
     <dt><code>numberOfWeekDays</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
+    <dd><p>number of week days to count</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>exception will be thrown if the numberOfWeekDays parameter is less than 0</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Albatross_Dates_Extensions_PreviousBusinessDay_" data-uid="Albatross.Dates.Extensions.PreviousBusinessDay*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_PreviousBusinessDay_System_DateTime_System_Int32_System_Func_System_DateTime_System_Threading_Tasks_Task_System_Boolean___" data-uid="Albatross.Dates.Extensions.PreviousBusinessDay(System.DateTime,System.Int32,System.Func{System.DateTime,System.Threading.Tasks.Task{System.Boolean}})">
+  PreviousBusinessDay(DateTime, int, Func&lt;DateTime, Task&lt;bool&gt;&gt;?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;DateTime&gt; PreviousBusinessDay(this DateTime date, int numberOfBusinessDays = 1, Func&lt;DateTime, Task&lt;bool&gt;&gt;? isBusinessDay = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>numberOfBusinessDays</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>isBusinessDay</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -173,7 +304,10 @@
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Return the previous weekday from a provided date.  If the provided date is Monday, the previous 0 weekday is the same date and the
+previous 1 weekday would be Friday.  If the provided date falls on the weekend, the previous 0 weekday and the previous 1 weekday are both
+Friday.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -201,6 +335,12 @@
 
 
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>exception will be thrown if the numberOfWeekDays parameter is less than 0</p>
+</dd>
+  </dl>
 
 
 
