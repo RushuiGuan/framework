@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -26,7 +27,7 @@ namespace Albatross.Hosting {
 	/// </summary>
 	public class Startup {
 		public const string DefaultApp_RootPath = "wwwroot";
-		
+
 		protected AuthorizationSetting AuthorizationSetting { get; }
 		protected IConfiguration Configuration { get; }
 		JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions {
@@ -52,7 +53,7 @@ namespace Albatross.Hosting {
 				.AllowAnyHeader()
 				.AllowAnyMethod()
 				.AllowCredentials();
-			Log.Logger.Information("Cors configuration: {cors}", cors.Length == 0 ? "None": String.Join(",", cors));
+			Log.Logger.Information("Cors configuration: {cors}", cors.Length == 0 ? "None" : String.Join(",", cors));
 		}
 
 		#region swagger
@@ -114,7 +115,7 @@ namespace Albatross.Hosting {
 			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 
 			if (WebApi) {
-				services.AddControllers(options=>options.InputFormatters.Add(new PlainTextInputFormatter()))
+				services.AddControllers(options => options.InputFormatters.Add(new PlainTextInputFormatter()))
 					.AddJsonOptions(ConfigureJsonOption);
 				services.AddCors(opt => opt.AddDefaultPolicy(ConfigureCors));
 				services.AddAspNetCorePrincipalProvider();
@@ -132,16 +133,13 @@ namespace Albatross.Hosting {
 
 		public virtual void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Startup> logger) {
 			logger.LogInformation("Initializing {@program} with environment {environment}", programSetting, environmentSetting.Value);
-			if(this.LogUsage) {
-				app.UseMiddleware<HttpRequestLoggingMiddleware>();
-			}
+
 			app.UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = HandleGlobalExceptions });
 			app.UseRouting();
 			if (WebApi) {
 				app.UseCors();
-				if (Secured) {
-					app.UseAuthentication().UseAuthorization();
-				}
+				if (Secured) { app.UseAuthentication().UseAuthorization(); }
+				if (this.LogUsage) { app.UseMiddleware<HttpRequestLoggingMiddleware>(); }
 				app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 			}
 			if (WebApi && Swagger) { UseSwagger(app, programSetting); }
@@ -154,8 +152,8 @@ namespace Albatross.Hosting {
 		public void UseSpa(IApplicationBuilder app, ILogger<Startup> logger) {
 			var config = app.ApplicationServices.GetRequiredService<AngularConfig>();
 			logger.LogInformation("Initializing SPA with request path of '{requestPath}' and baseHref of '{baseRef}'", config.RequestPath, config.BaseHref);
-			var options = new StaticFileOptions { 
-				 RequestPath = config.RequestPath,
+			var options = new StaticFileOptions {
+				RequestPath = config.RequestPath,
 			};
 			app.UseSpaStaticFiles(new StaticFileOptions { RequestPath = config.RequestPath });
 			app.Map(config.RequestPath ?? string.Empty, web => web.UseSpa(spa => { }));
@@ -179,7 +177,7 @@ namespace Albatross.Hosting {
 				Message = error.Message,
 				Type = error.GetType().FullName,
 			};
-			if(error.InnerException != null) {
+			if (error.InnerException != null) {
 				msg.InnerError = CreateExceptionMessage(error.InnerException);
 			}
 			return msg;

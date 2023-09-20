@@ -1,4 +1,5 @@
 ﻿using Albatross.Caching;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace Albatross.Hosting {
 	[Route("api/caching")]
 	[ApiController]
+	[Authorize]
 	public class CachingController : ControllerBase {
 		private readonly ICacheKeyManagement keyMgmt;
 		private readonly ICacheProviderAdapter cacheProviderConverter;

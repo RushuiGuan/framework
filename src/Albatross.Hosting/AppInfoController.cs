@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace Albatross.Hosting {
 	[Route("api/app-info")]
 	[ApiController]
+	[Authorize]
 	public class AppInfoController : ControllerBase {
 		private readonly ProgramSetting programSetting;
 		private readonly IGetCurrentUser getCurrentUser;
