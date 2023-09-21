@@ -4358,6 +4358,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "articles/patterns/date-level-entity.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/patterns/date-level-entity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "articles/service.md",
       "output": {
         ".html": {
