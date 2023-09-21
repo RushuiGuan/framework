@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Albatross.EFCore.DateLevel {
 	public static class DateLevelEntityExtensions {
 		/// <summary>
-		/// /// For DateLevel entries, two rules apply
+		/// For DateLevel entries, two rules apply
 		/// 1. there should be no gap between the first StartDate and <see cref="DateLevelEntity.MaxEndDate"/>
 		/// 2. there should be no overlap of dates among entries.
-		/// Assuming all operations abide these rules, the method below will not check if the EndDate is correct and simply assume that is the case
-		/// this implementation is treating datelevel entity has immutable values and only its StartDate and EndDate can be changed
-		/// 
+		
 		/// Provided the data level collection for a single entity, this method will create a new entry for the series and adjust the end date for other items within the the same entity 
 		/// if necessary.  There are 3 possible operations.
 		/// 1. insert operation with start date only: create a record in the middle of the time series with only a start date.  End date is determined automatically.

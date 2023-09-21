@@ -18,3 +18,5 @@
   href: webapi-csharp-proxy-codegen.md
 - name: Angular TypeScript Proxy CodeGen
   href: angular-typescript-proxy-codegen.md
+- name: Patterns
+  href: ./patterns/toc.yml  
