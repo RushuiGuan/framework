@@ -8,6 +8,7 @@ DateLevelEntity is a pattern that manages efcore entity in a date series. It tra
 A date level entity can be reprensented by a single date column: `StartDate`.  Consider the following `ProductIdentifier` table.  The product with the Id of 1 has the VendorProductCode of `AZ2222` on 2023-01-01.  But on 2023-09-22, its VendorProductCode was changed to `AZX222`.  The date level 1 entity has a relative simple write model because the end date of an entity is determined automatically by the next entry.  However, it has a relatively complex read model.  To determine the VendorProductCode of product 1 on 2023-05-01, the system has to sort the table by start date and read at least 2 records.  
 
 `ProductIdentifier` Table
+
 |ProductId|VendorProductCode|StartDate|
 |---|---|---|
 |1|AZ2222|2023-01-01|
@@ -18,6 +19,7 @@ A date level entity can be reprensented by a single date column: `StartDate`.  C
 The date level 2 approach put both `StartDate` and `EndDate` on the entity as the example is shown below.  This is the preferred approach where there are few writes and many reads.  **Albatross.EFCore.DataLevel namespace implements the DateLevel pattern using the DataLevel2 approach!**
 
 `ProductIdentifier` Table
+
 |ProductId|VendorProductCode|StartDate|EndDate|
 |---|---|---|---|
 |1|AZ2222|2023-01-01|2023-09-21|
@@ -36,13 +38,15 @@ where Id = 1
 ### Who wants to make the changes tomorrow at 12am?
 A program talks to a vendor api to download the price of products.  The vendor made an anouncement that there will be a product name change effective tonight at 12am.  To ensure that the program works 24/7 without a glitch, your boss has asked you to wake up at 12am and make that change in the database.  But since you have the foresight to implement the product identifier as a date level entity, you simply create a new entry in the system with a start date of tomorrow and everything should work as expected!
 
-`Product Table`
+`Product` Table
+
 |Id|Name|
 |---|---|
 |1|Product A|
 |2|Product B|
 
-`ProductIdentifier Table`
+`ProductIdentifier` Table
+
 |ProductId|VendorProductCode|StartDate|EndDate|
 |---|---|---|---|
 |1|AZ2222|2023-01-01|2023-09-21|
@@ -63,14 +67,16 @@ It will always return the correct VendorProductCode for the date asked.
 Two Rules exists for Date Level Entities
 1. **A date level entity should have no gap between the first StartDate and the max end date (9999-12-31).**  
 The `ProductIdentifier` entity for `Product A` below broke the rule since it is missing data after `2023-03-21`.  There is no clarity from the data to figure out what happens after 2023-03-21.  While it is possible that program logic can be used in its place.  The design mandates that data must provide clarity.
+
 	|ProductId|VendorProductCode|StartDate|EndDate|
 	|---|---|---|---|
 	|1|AZ2222|2023-01-01|2023-02-21|
 	|1|AZX222|2023-02-22|2023-03-21|
 
 
-1. **A date level entity should not have overlap of dates among its values.**
+1. **A date level entity should not have overlap of dates among its values.**  
 The date level entry for an entity doesn't make sense if its dates are overlapped.  In the example below, the VendorProductCode for `Product A` on 2023-02-21 has two values since the end date of the first entry overlaps with the start date of the second entry.  
+
 	|ProductId|VendorProductCode|StartDate|EndDate|
 	|---|---|---|---|
 	|1|AZ2222|2023-01-01|2023-02-21|
