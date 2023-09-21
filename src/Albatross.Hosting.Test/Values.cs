@@ -5,9 +5,11 @@ namespace Albatross.Hosting.Test {
 	public static class Values {
 		public const string Any = "any";
 		public static readonly DateTime Jan1_2022 = new DateTime(2022, 1, 1);
+		public static readonly DateTime Jan2_2022 = new DateTime(2022, 1, 2);
 		public static readonly DateTime Jan31_2022 = new DateTime(2022, 1, 31);
 
 		public static readonly DateTime Feb1_2022 = new DateTime(2022, 2, 1);
+		public static readonly DateTime Feb2_2022 = new DateTime(2022, 2, 2);
 		public static readonly DateTime Feb28_2022 = new DateTime(2022, 2, 28);
 
 		public static readonly DateTime Mar1_2022 = new DateTime(2022, 3, 1);

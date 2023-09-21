@@ -103,7 +103,7 @@ namespace Albatross.EFCore.DateLevel {
 				var items = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate).ToArray();
 				bool hasExisting = false;
 				foreach (var item in items) {
-					if (item.HasSameValue(src)) {
+					if (!hasExisting && item.HasSameValue(src)) {
 						hasExisting = true;
 						item.EndDate = DateLevelEntity.MaxEndDate;
 						item.StartDate = src.StartDate;

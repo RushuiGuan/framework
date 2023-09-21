@@ -919,5 +919,126 @@ namespace Albatross.EFCore.Test {
 				EndDate = Values.Jun30_2022,
 			}, true));
 		}
+
+		[Fact]
+		public void SameValue_Insert() {
+			var list = new List<TickSize> {
+				new TickSize(1, Values.Jan1_2022, 100) {
+					EndDate = Values.Mar31_2022
+				},
+				new TickSize(1, Values.Apr1_2022, 100) {
+					EndDate = Values.Jun30_2022,
+				},
+				new TickSize(1, Values.Jul1_2022, 100) {
+					EndDate = Values.Oct31_2022,
+				},
+				new TickSize(1, Values.Nov1_2022, 100) {
+					EndDate = Values.MaxSqlDate
+				},
+			};
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.May1_2022, 100), true);
+			list.Sort(Compare);
+			Assert.Collection(list, args => { 
+				Assert.Equal(Values.Jan1_2022, args.StartDate);
+				Assert.Equal(Values.Mar31_2022, args.EndDate);
+			},
+			args => { 
+				Assert.Equal(Values.Apr1_2022, args.StartDate);
+				Assert.Equal(Values.Oct31_2022, args.EndDate);
+			},
+			args => {
+				Assert.Equal(Values.Nov1_2022, args.StartDate);
+				Assert.Equal(Values.MaxSqlDate, args.EndDate);
+			});
+		}
+		[Fact]
+		public void SameValue_Insert2() {
+			var list = new List<TickSize> {
+				new TickSize(1, Values.Jan1_2022, 100) {
+					EndDate = Values.Mar31_2022
+				},
+				new TickSize(1, Values.Apr1_2022, 100) {
+					EndDate = Values.Jun30_2022,
+				},
+				new TickSize(1, Values.Jul1_2022, 100) {
+					EndDate = Values.Oct31_2022,
+				},
+				new TickSize(1, Values.Nov1_2022, 100) {
+					EndDate = Values.MaxSqlDate
+				},
+			};
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.May1_2022, 100) {
+				EndDate = Values.Aug1_2022
+			}, true);
+			list.Sort(Compare);
+			Assert.Collection(list, args => {
+				Assert.Equal(Values.Jan1_2022, args.StartDate);
+				Assert.Equal(Values.Mar31_2022, args.EndDate);
+			},
+			args => {
+				Assert.Equal(Values.Apr1_2022, args.StartDate);
+				Assert.Equal(Values.Oct31_2022, args.EndDate);
+			},
+			args => {
+				Assert.Equal(Values.Nov1_2022, args.StartDate);
+				Assert.Equal(Values.MaxSqlDate, args.EndDate);
+			});
+		}
+		[Fact]
+		public void SameValue_Append() {
+			var list = new List<TickSize> {
+				new TickSize(1, Values.Jan1_2022, 100) {
+					EndDate = Values.Mar31_2022
+				},
+				new TickSize(1, Values.Apr1_2022, 100) {
+					EndDate = Values.Jun30_2022,
+				},
+				new TickSize(1, Values.Jul1_2022, 100) {
+					EndDate = Values.Oct31_2022,
+				},
+				new TickSize(1, Values.Nov1_2022, 100) {
+					EndDate = Values.MaxSqlDate
+				},
+			};
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.May1_2022, 100), false);
+			list.Sort(Compare);
+			Assert.Collection(list, args => {
+				Assert.Equal(Values.Jan1_2022, args.StartDate);
+				Assert.Equal(Values.Mar31_2022, args.EndDate);
+			},
+			args => {
+				Assert.Equal(Values.Apr1_2022, args.StartDate);
+				Assert.Equal(Values.MaxSqlDate, args.EndDate);
+			});
+		}
+
+		[Fact]
+		public void SingleValue_Insert() {
+			var list = new List<TickSize> {
+				new TickSize(1, Values.Feb1_2022, 1) {
+					EndDate = Values.Feb1_2022
+				},
+				new TickSize(1, Values.Feb2_2022, 2) {
+					EndDate = Values.MaxSqlDate
+				},
+			};
+			list.SetDateLevel<TickSize, int>(new TickSize(1, Values.Jan1_2022, 3), true);
+			list.Sort(Compare);
+			Assert.Collection(list, args => {
+				Assert.Equal(3, args.Value);
+				Assert.Equal(Values.Jan1_2022, args.StartDate);
+				Assert.Equal(Values.Jan31_2022, args.EndDate);
+			},
+			args => {
+				Assert.Equal(1, args.Value);
+				Assert.Equal(Values.Feb1_2022, args.StartDate);
+				Assert.Equal(Values.Feb1_2022, args.EndDate);
+			},
+			args => {
+				Assert.Equal(2, args.Value);
+				Assert.Equal(Values.Feb2_2022, args.StartDate);
+				Assert.Equal(Values.MaxSqlDate, args.EndDate);
+			});
+		}
 	}
 }
