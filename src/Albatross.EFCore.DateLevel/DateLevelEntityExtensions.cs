@@ -129,7 +129,7 @@ namespace Albatross.EFCore.DateLevel {
 
 		/// <summary>
 		/// Provided a date level series data for a single entity, the method will remove the datelevel item with the specified startDate.
-		/// The method will always extend the end date of the previous record if it exists.  The method will not move 
+		/// The method will always extend the end date of the previous record if it exists.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="set"></param>

@@ -215,7 +215,7 @@ namespace Albatross.Test.Reflection {
 		[Theory]
 		[InlineData("Albatross.Test.Reflection.Tests,xxxxxx", "Albatross.Test.Reflection.Tests,xxxxxx")]
 		public void TestGetClassNameNeat(string className, string expected) {
-			var result = className.GetClass().GetClassNameNeat();
+			var result = className.GetRequiredType().GetClassNameNeat();
 			Assert.Equal(expected, result);
 		}
 	}

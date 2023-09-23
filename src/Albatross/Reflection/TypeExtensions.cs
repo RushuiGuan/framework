@@ -118,12 +118,15 @@ namespace Albatross.Reflection {
 			return genericType != null;
 		}
 
+		[Obsolete($"Use {nameof(GetRequiredType)} instead")]
+		public static Type GetClass(this string? className) => GetRequiredType(className);
+
 		/// <summary>
 		/// Type.GetType method returns null if class is not found.  This method will throw ArgumentException
 		/// </summary>
 		/// <param name="className"></param>
 		/// <returns></returns>
-		public static Type GetClass(this string? className) {
+		public static Type GetRequiredType(this string? className) {
 			if (string.IsNullOrEmpty(className)) {
 				throw new ArgumentException("Type not found: empty class name");
 			} else {
