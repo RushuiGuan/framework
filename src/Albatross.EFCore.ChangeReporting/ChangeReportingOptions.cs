@@ -14,7 +14,7 @@ namespace Albatross.EFCore.ChangeReporting {
 		public string[] SkippedProperties { get; set; } = new string[] { "PeriodStart", "PeriodEnd" };
 		public string? Prefix { get; set; }
 		public string? Postfix { get; set; }
-		public Dictionary<string, Func<int, Task<string>>> Lookups { get; set; } = new Dictionary<string, Func<int, Task<string>>>();
+		public IDictionary<string, Func<int, Task<string>>> Lookups { get; set; } = new Dictionary<string, Func<int, Task<string>>>();
 		public bool DoNotSave { get; set; }
 		public async Task<string> DefaultFormatValue(object? entity, string property, object? value) {
 			if (entity == null) {

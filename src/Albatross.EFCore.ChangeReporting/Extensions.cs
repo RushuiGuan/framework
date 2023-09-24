@@ -1,6 +1,11 @@
 ﻿using Albatross.Text;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 namespace Albatross.EFCore.ChangeReporting {
 	public static class Extensions {
