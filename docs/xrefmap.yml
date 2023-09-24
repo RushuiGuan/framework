@@ -24758,6 +24758,22 @@ references:
   isSpec: "True"
   fullName: Albatross.Reflection.TypeExtensions.GetPropertyValue
   nameWithType: TypeExtensions.GetPropertyValue
+- uid: Albatross.Reflection.TypeExtensions.GetRequiredType(System.String)
+  name: GetRequiredType(string?)
+  href: api/Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetRequiredType_System_String_
+  commentId: M:Albatross.Reflection.TypeExtensions.GetRequiredType(System.String)
+  name.vb: GetRequiredType(String)
+  fullName: Albatross.Reflection.TypeExtensions.GetRequiredType(string?)
+  fullName.vb: Albatross.Reflection.TypeExtensions.GetRequiredType(String)
+  nameWithType: TypeExtensions.GetRequiredType(string?)
+  nameWithType.vb: TypeExtensions.GetRequiredType(String)
+- uid: Albatross.Reflection.TypeExtensions.GetRequiredType*
+  name: GetRequiredType
+  href: api/Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetRequiredType_
+  commentId: Overload:Albatross.Reflection.TypeExtensions.GetRequiredType
+  isSpec: "True"
+  fullName: Albatross.Reflection.TypeExtensions.GetRequiredType
+  nameWithType: TypeExtensions.GetRequiredType
 - uid: Albatross.Reflection.TypeExtensions.GetTaskResultType(System.Type,System.Type@)
   name: GetTaskResultType(Type, out Type?)
   href: api/Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetTaskResultType_System_Type_System_Type__
