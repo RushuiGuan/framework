@@ -279,8 +279,8 @@
 
   <a id="Albatross_Logging_SetupSerilog_UseConfigFile_" data-uid="Albatross.Logging.SetupSerilog.UseConfigFile*"></a>
 
-  <h3 id="Albatross_Logging_SetupSerilog_UseConfigFile_Serilog_LoggerConfiguration_System_String_System_String_" data-uid="Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration,System.String,System.String)">
-  UseConfigFile(LoggerConfiguration, string, string?)
+  <h3 id="Albatross_Logging_SetupSerilog_UseConfigFile_Serilog_LoggerConfiguration_System_String_System_String_System_String___" data-uid="Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration,System.String,System.String,System.String[])">
+  UseConfigFile(LoggerConfiguration, string, string?, string[]?)
   
   </h3>
 
@@ -288,7 +288,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void UseConfigFile(LoggerConfiguration cfg, string environment, string? basePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void UseConfigFile(LoggerConfiguration cfg, string environment, string? basePath, string[]? commandlineArgs)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -298,6 +298,8 @@
     <dt><code>environment</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>basePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>commandlineArgs</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
     <dd></dd>
   </dl>
 
@@ -314,8 +316,8 @@
 
   <a id="Albatross_Logging_SetupSerilog_UseConfigFile_" data-uid="Albatross.Logging.SetupSerilog.UseConfigFile*"></a>
 
-  <h3 id="Albatross_Logging_SetupSerilog_UseConfigFile_System_String_System_String_" data-uid="Albatross.Logging.SetupSerilog.UseConfigFile(System.String,System.String)">
-  UseConfigFile(string, string?)
+  <h3 id="Albatross_Logging_SetupSerilog_UseConfigFile_System_String_System_String_System_String___" data-uid="Albatross.Logging.SetupSerilog.UseConfigFile(System.String,System.String,System.String[])">
+  UseConfigFile(string, string?, string[]?)
   
   </h3>
 
@@ -323,7 +325,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SetupSerilog UseConfigFile(string environment, string? basePath = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public SetupSerilog UseConfigFile(string environment, string? basePath, string[]? commandLineArgs)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -331,6 +333,8 @@
     <dt><code>environment</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>basePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>commandLineArgs</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
     <dd></dd>
   </dl>
 

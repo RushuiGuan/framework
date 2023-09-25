@@ -11298,12 +11298,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Hosting.Setup.RunAsService
   nameWithType: Setup.RunAsService
-- uid: Albatross.Hosting.Setup.RunAsync
-  name: RunAsync()
-  href: api/Albatross.Hosting.Setup.html#Albatross_Hosting_Setup_RunAsync
-  commentId: M:Albatross.Hosting.Setup.RunAsync
-  fullName: Albatross.Hosting.Setup.RunAsync()
-  nameWithType: Setup.RunAsync()
+- uid: Albatross.Hosting.Setup.RunAsync(System.String[])
+  name: RunAsync(string[])
+  href: api/Albatross.Hosting.Setup.html#Albatross_Hosting_Setup_RunAsync_System_String___
+  commentId: M:Albatross.Hosting.Setup.RunAsync(System.String[])
+  name.vb: RunAsync(String())
+  fullName: Albatross.Hosting.Setup.RunAsync(string[])
+  fullName.vb: Albatross.Hosting.Setup.RunAsync(String())
+  nameWithType: Setup.RunAsync(string[])
+  nameWithType.vb: Setup.RunAsync(String())
 - uid: Albatross.Hosting.Setup.RunAsync*
   name: RunAsync
   href: api/Albatross.Hosting.Setup.html#Albatross_Hosting_Setup_RunAsync_
@@ -14822,24 +14825,24 @@ references:
   commentId: F:Albatross.Logging.SetupSerilog.DefaultOutputTemplate
   fullName: Albatross.Logging.SetupSerilog.DefaultOutputTemplate
   nameWithType: SetupSerilog.DefaultOutputTemplate
-- uid: Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration,System.String,System.String)
-  name: UseConfigFile(LoggerConfiguration, string, string?)
-  href: api/Albatross.Logging.SetupSerilog.html#Albatross_Logging_SetupSerilog_UseConfigFile_Serilog_LoggerConfiguration_System_String_System_String_
-  commentId: M:Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration,System.String,System.String)
-  name.vb: UseConfigFile(LoggerConfiguration, String, String)
-  fullName: Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration, string, string?)
-  fullName.vb: Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration, String, String)
-  nameWithType: SetupSerilog.UseConfigFile(LoggerConfiguration, string, string?)
-  nameWithType.vb: SetupSerilog.UseConfigFile(LoggerConfiguration, String, String)
-- uid: Albatross.Logging.SetupSerilog.UseConfigFile(System.String,System.String)
-  name: UseConfigFile(string, string?)
-  href: api/Albatross.Logging.SetupSerilog.html#Albatross_Logging_SetupSerilog_UseConfigFile_System_String_System_String_
-  commentId: M:Albatross.Logging.SetupSerilog.UseConfigFile(System.String,System.String)
-  name.vb: UseConfigFile(String, String)
-  fullName: Albatross.Logging.SetupSerilog.UseConfigFile(string, string?)
-  fullName.vb: Albatross.Logging.SetupSerilog.UseConfigFile(String, String)
-  nameWithType: SetupSerilog.UseConfigFile(string, string?)
-  nameWithType.vb: SetupSerilog.UseConfigFile(String, String)
+- uid: Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration,System.String,System.String,System.String[])
+  name: UseConfigFile(LoggerConfiguration, string, string?, string[]?)
+  href: api/Albatross.Logging.SetupSerilog.html#Albatross_Logging_SetupSerilog_UseConfigFile_Serilog_LoggerConfiguration_System_String_System_String_System_String___
+  commentId: M:Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration,System.String,System.String,System.String[])
+  name.vb: UseConfigFile(LoggerConfiguration, String, String, String())
+  fullName: Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration, string, string?, string[]?)
+  fullName.vb: Albatross.Logging.SetupSerilog.UseConfigFile(Serilog.LoggerConfiguration, String, String, String())
+  nameWithType: SetupSerilog.UseConfigFile(LoggerConfiguration, string, string?, string[]?)
+  nameWithType.vb: SetupSerilog.UseConfigFile(LoggerConfiguration, String, String, String())
+- uid: Albatross.Logging.SetupSerilog.UseConfigFile(System.String,System.String,System.String[])
+  name: UseConfigFile(string, string?, string[]?)
+  href: api/Albatross.Logging.SetupSerilog.html#Albatross_Logging_SetupSerilog_UseConfigFile_System_String_System_String_System_String___
+  commentId: M:Albatross.Logging.SetupSerilog.UseConfigFile(System.String,System.String,System.String[])
+  name.vb: UseConfigFile(String, String, String())
+  fullName: Albatross.Logging.SetupSerilog.UseConfigFile(string, string?, string[]?)
+  fullName.vb: Albatross.Logging.SetupSerilog.UseConfigFile(String, String, String())
+  nameWithType: SetupSerilog.UseConfigFile(string, string?, string[]?)
+  nameWithType.vb: SetupSerilog.UseConfigFile(String, String, String())
 - uid: Albatross.Logging.SetupSerilog.UseConfigFile*
   name: UseConfigFile
   href: api/Albatross.Logging.SetupSerilog.html#Albatross_Logging_SetupSerilog_UseConfigFile_
