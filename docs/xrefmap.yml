@@ -14869,6 +14869,25 @@ references:
   isSpec: "True"
   fullName: Albatross.Logging.SetupSerilog.UseConsole
   nameWithType: SetupSerilog.UseConsole
+- uid: Albatross.Logging.SinkOptions
+  name: SinkOptions
+  href: api/Albatross.Logging.SinkOptions.html
+  commentId: T:Albatross.Logging.SinkOptions
+  fullName: Albatross.Logging.SinkOptions
+  nameWithType: SinkOptions
+- uid: Albatross.Logging.SinkOptions.SlackSink
+  name: SlackSink
+  href: api/Albatross.Logging.SinkOptions.html#Albatross_Logging_SinkOptions_SlackSink
+  commentId: P:Albatross.Logging.SinkOptions.SlackSink
+  fullName: Albatross.Logging.SinkOptions.SlackSink
+  nameWithType: SinkOptions.SlackSink
+- uid: Albatross.Logging.SinkOptions.SlackSink*
+  name: SlackSink
+  href: api/Albatross.Logging.SinkOptions.html#Albatross_Logging_SinkOptions_SlackSink_
+  commentId: Overload:Albatross.Logging.SinkOptions.SlackSink
+  isSpec: "True"
+  fullName: Albatross.Logging.SinkOptions.SlackSink
+  nameWithType: SinkOptions.SlackSink
 - uid: Albatross.Math
   name: Albatross.Math
   href: api/Albatross.Math.html

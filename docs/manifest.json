@@ -2415,6 +2415,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Logging.SinkOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Logging.SinkOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Logging.yml",
       "output": {
         ".html": {
