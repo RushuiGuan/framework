@@ -1,0 +1,32 @@
+{
+	"Serilog": {
+		"WriteTo": [
+			{},
+			{},
+			{},
+			{
+				"Name": "Logger",
+				"Args": {
+					"configureLogger": {
+						"WriteTo": {
+							"SlackSink": {
+								"Name": "Slack",
+								"Args": {
+									"SlackSinkOptions": {
+										"WebHookUrl": "slack webhook url is stored in the host environment variables",
+										"BatchSizeLimit": 20,
+										"ShowDefaultAttachments": false,
+										"ShowPropertyAttachments": false,
+										"ShowExceptionAttachments": true
+									},
+									"restrictedToMinimumLevel": "Error",
+									"outputTemplate": "ProjectTemplateWebApi: {Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{NewLine}{Exception}"
+								}
+							}
+						}
+					}
+				}
+			}
+		]
+	}
+}

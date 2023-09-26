@@ -6,7 +6,7 @@ namespace Albatross.Caching.TestHost {
 		public static Task Main(string[] args) {
 			return new Setup(args)
 				.ConfigureWebHost<MyStartup>()
-				.RunAsync();
+				.RunAsync(args);
 		}
 	}
 }

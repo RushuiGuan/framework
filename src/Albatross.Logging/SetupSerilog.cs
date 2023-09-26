@@ -12,8 +12,8 @@ namespace Albatross.Logging {
 		public SetupSerilog() {
 		}
 
-		public SetupSerilog UseConfigFile(string environment, string? basePath = null) {
-			Action<LoggerConfiguration> action = cfg => UseConfigFile(cfg, environment, basePath);
+		public SetupSerilog UseConfigFile(string environment, string? basePath, string[]? commandLineArgs) {
+			Action<LoggerConfiguration> action = cfg => UseConfigFile(cfg, environment, basePath, commandLineArgs);
 			configActions += action;
 			return this;
 		}
@@ -39,7 +39,7 @@ namespace Albatross.Logging {
 			return logger;
 		}
 
-		public static void UseConfigFile(LoggerConfiguration cfg, string environment, string? basePath) {
+		public static void UseConfigFile(LoggerConfiguration cfg, string environment, string? basePath, string[]? commandlineArgs) {
 			if (string.IsNullOrEmpty(basePath)) {
 				basePath = System.IO.Directory.GetCurrentDirectory();
 			}
@@ -47,8 +47,7 @@ namespace Albatross.Logging {
 				.SetBasePath(basePath!)
 				.AddJsonFile("serilog.json", false, true);
 			if (!string.IsNullOrEmpty(environment)) { configBuilder.AddJsonFile($"serilog.{environment}.json", true, true); }
-			configBuilder.AddEnvironmentVariables();
-
+			configBuilder.AddEnvironmentVariables().AddCommandLine(commandlineArgs ?? new string[0]);
 			var configuration = configBuilder.Build();
 			cfg.ReadFrom.Configuration(configuration);
 		}

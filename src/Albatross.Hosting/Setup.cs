@@ -71,8 +71,8 @@ namespace Albatross.Hosting {
 			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 		}
 
-		public virtual async Task RunAsync() {
-			using Serilog.Core.Logger logger = new SetupSerilog().UseConfigFile(environment).Create();
+		public virtual async Task RunAsync(string[] args) {
+			using Serilog.Core.Logger logger = new SetupSerilog().UseConfigFile(environment, null, args).Create();
 			this.hostBuilder.ConfigureServices((context, services)=>this.ConfigureServices(services, context.Configuration));
 			await this.hostBuilder.Build().RunAsync();
 		}

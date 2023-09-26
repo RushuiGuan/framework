@@ -8,7 +8,7 @@ namespace SampleProject.WebApi {
 			System.Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location);
 			return new Setup(args)
 				.ConfigureWebHost<Startup>()
-				.RunAsync();
+				.RunAsync(args);
 		}
 	}
 }

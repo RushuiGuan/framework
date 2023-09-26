@@ -8,7 +8,7 @@ namespace SampleProject.Daemon {
 			return new MySetup(args)
 				.ConfigureServiceHost<MyHostedService>()
 				.RunAsService()
-				.RunAsync();
+				.RunAsync(args);
 		}
 	}
 }
