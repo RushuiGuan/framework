@@ -99,5 +99,21 @@ desk   furniture 200    2000-02-01 05:05:04-5 2000-07-04
 			await writer.PrintTable<Product>(products, new PrintTableOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
 			Assert.Equal(expectedPrintTableWithDefault, writer.ToString());
 		}
+
+		const string expectedPrintTableWithoutHeader =
+@"apple  fruits    1000 2000-01-01 23:01:50-5 2000-07-02
+orange           800  2000-07-01 02:03:03-4 2000-07-03
+desk   furniture 200  2000-02-01 05:05:04-5 2000-07-04
+";
+		[Fact]
+		public async Task PrintTableWithoutHeader() {
+			StringWriter writer = new StringWriter();
+			var products = GetProducts();
+			await writer.PrintTable<Product>(products, 
+				new PrintTableOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)){ 
+					PrintHeader = false,
+				});
+			Assert.Equal(expectedPrintTableWithoutHeader, writer.ToString());
+		}
 	}
 }

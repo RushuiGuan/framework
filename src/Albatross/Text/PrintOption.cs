@@ -33,6 +33,7 @@ namespace Albatross.Text {
 	}
 
 	public record class PrintTableOption : PrintOption {
+		public bool PrintHeader { get; set; } = true;
 		public Func<string, string> GetColumnHeader { get; init; } = args => args;
 		public PrintTableOption(params string[] properties) : base(properties) { }
 	}
