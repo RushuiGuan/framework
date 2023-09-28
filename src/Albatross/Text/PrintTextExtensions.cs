@@ -67,7 +67,7 @@ namespace Albatross.Text {
 			int[] columnWidth = new int[columnCount];
 			List<string?[]> rows = new List<string?[]>();
 			string?[] row;
-			
+
 			if (option.PrintHeader) {
 				row = new string[columnCount];
 				rows.Add(row);
@@ -105,7 +105,7 @@ namespace Albatross.Text {
 			}
 		}
 
-		public static void PrintSideBySide(this string leftSideText, string rightSideText, TextWriter writer, char seperator = ' ', int seperatorWidth = 1) {
+		public static void PrintSideBySide(this TextWriter writer, string leftSideText, string rightSideText, char seperator = ' ', int seperatorWidth = 1) {
 			int maxWidth = 0;
 			var leftSideReader = new StringReader(leftSideText);
 			var rightSideReader = new StringReader(rightSideText);
@@ -124,5 +124,7 @@ namespace Albatross.Text {
 				writer.Space(maxWidth).AppendChar(seperator, seperatorWidth).AppendLine(line);
 			}
 		}
+		public static void Indent(this TextWriter writer, string text, char letter = ' ', int seperatorWidth = 4)
+			=> writer.PrintSideBySide("", text, letter, seperatorWidth);
 	}
 }
