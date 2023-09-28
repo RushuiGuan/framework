@@ -104,5 +104,25 @@ namespace Albatross.Text {
 				}
 			}
 		}
+
+		public static void PrintSideBySide(this string leftSideText, string rightSideText, TextWriter writer, char seperator = ' ', int seperatorWidth = 1) {
+			int maxWidth = 0;
+			var leftSideReader = new StringReader(leftSideText);
+			var rightSideReader = new StringReader(rightSideText);
+
+			List<string> leftSideList = new List<string>();
+			for (string? line = leftSideReader.ReadLine(); line != null; line = leftSideReader.ReadLine()) {
+				leftSideList.Add(line);
+				maxWidth = line.Length > maxWidth ? line.Length : maxWidth;
+			}
+			foreach (var line in leftSideList) {
+				writer.Append(line.PadRight(maxWidth));
+				writer.AppendChar(seperator, seperatorWidth);
+				writer.AppendLine(rightSideReader.ReadLine() ?? string.Empty);
+			}
+			for (string? line = rightSideReader.ReadLine(); line != null; line = rightSideReader.ReadLine()) {
+				writer.Space(maxWidth).AppendChar(seperator, seperatorWidth).AppendLine(line);
+			}
+		}
 	}
 }
