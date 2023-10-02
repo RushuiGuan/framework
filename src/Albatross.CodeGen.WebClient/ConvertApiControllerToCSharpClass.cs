@@ -189,7 +189,13 @@ namespace Albatross.CodeGen.WebClient {
 				if (!method.ReturnType.IsVoid) { writer.Write("return "); }
 
 				if (!method.ReturnType.IsVoid && !method.ReturnType.Equals(new DotNetType(typeof(string))) && !method.ReturnType.Equals(new DotNetType(typeof(Task<string>)))) {
-					writer.Write($"await this.GetRequiredJsonResponse<{method.ReturnType.RemoveAsync()}>");
+					if (method.ReturnType.IsNullableReferenceType || method.ReturnType.IsNullableValueType 
+						|| method.ReturnType.IsAsync && method.ReturnType.GenericTypeArguments[0].IsNullableReferenceType
+						|| method.ReturnType.IsAsync && method.ReturnType.GenericTypeArguments[0].IsNullableValueType) {
+						writer.Write($"await this.GetJsonResponse<{method.ReturnType.RemoveAsync().RemoveNullable()}>");
+					} else {
+						writer.Write($"await this.GetRequiredJsonResponse<{method.ReturnType.RemoveAsync()}>");
+					}
 				} else {
 					writer.Write($"await this.GetRawResponse");
 				}

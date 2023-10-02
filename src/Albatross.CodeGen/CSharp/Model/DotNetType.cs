@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CSharp.Model {
 	public class DotNetType: ICodeElement {
-		const string VoidType = "System.Void";
+		public const string VoidType = "System.Void";
+		public const string NullableValueType = "System.Nullable";
 
 		public string Name { get; }
 		public bool IsGeneric { get; }
@@ -18,7 +19,8 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public bool IsAsync => this.Name == typeof(Task).FullName;
 		public bool IsVoid => Name == VoidType || IsAsync && !IsGeneric;
 		public bool IsValueType { get; set; } = false;
-		public bool IsNullable { get; set; } = false;
+		public bool IsNullableReferenceType { get; set; } = false;
+		public bool IsNullableValueType => this.Name == NullableValueType;
 
 		public DotNetType(string name) : this(name, false, false, new DotNetType[0]) { }
 		public DotNetType(string name, bool isArray, bool isGeneric, DotNetType[]? genericTypeArguments) {
@@ -48,7 +50,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 			this.IsArray = original.IsArray;
 			GenericTypeArguments = original.GenericTypeArguments?.Select(args => new DotNetType(args)).ToArray() ?? new DotNetType[0];
 			IsValueType = original.IsValueType;
-			IsNullable = original.IsNullable;
+			IsNullableReferenceType = original.IsNullableReferenceType;
 		}
 
 		public override string? ToString() {
@@ -102,14 +104,13 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public static DotNetType IDbConnection() => new DotNetType("System.Data.IDbConnection");
 
 		public static DotNetType MakeNullable(DotNetType dotNetType) {
-			return new DotNetType(dotNetType) {
-				IsNullable = true,
-			};
-			//if (dotNetType.IsValueType) {
-			//	return new DotNetType("System.Nullable", false, true, new DotNetType[] { dotNetType });
-			//} else {
-			//	return dotNetType;
-			//}
+			if (dotNetType.IsValueType) {
+				return new DotNetType(NullableValueType, false, true, new DotNetType[] { dotNetType });
+			} else {
+				return new DotNetType(dotNetType) {
+					IsNullableReferenceType = true,
+				};
+			}
 		}
 		public static DotNetType MakeIEnumerable(DotNetType dotNetType) {
 			return new DotNetType("System.Collections.Generic.IEnumerable", false, true, new DotNetType[] { dotNetType });
@@ -128,6 +129,15 @@ namespace Albatross.CodeGen.CSharp.Model {
 				} else {
 					return GenericTypeArguments.First();
 				}
+			} else {
+				return this;
+			}
+		}
+		public DotNetType RemoveNullable() {
+			if(IsNullableReferenceType) {
+				return new DotNetType(this) { IsNullableReferenceType = false };
+			}else if(IsNullableValueType) {
+				return this.GenericTypeArguments.First();
 			} else {
 				return this;
 			}
@@ -158,7 +168,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 				if (IsArray) {
 					writer.Append("[]");
 				}
-				if (IsNullable) {
+				if (IsNullableReferenceType) {
 					writer.Append("?");
 				}
 			}

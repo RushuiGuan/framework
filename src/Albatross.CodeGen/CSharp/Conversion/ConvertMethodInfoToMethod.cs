@@ -19,6 +19,13 @@ namespace Albatross.CodeGen.CSharp.Conversion {
 				Virtual = info.IsVirtual,
 				AccessModifier = info.GetAccessModifier(),
 			};
+
+			if (!info.ReturnType.IsValueType) {
+				var isNullableReferenceType = new NullabilityInfoContext().Create(info.ReturnParameter).WriteState is NullabilityState.Nullable;
+				if (isNullableReferenceType) {
+					method.ReturnType.IsNullableReferenceType = true;
+				}
+			}
 			return method;
 		}
 

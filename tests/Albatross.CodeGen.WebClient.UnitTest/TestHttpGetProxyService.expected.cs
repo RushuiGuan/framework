@@ -119,6 +119,21 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 				return await this.GetRawResponse(request);
 			}
 		}
+		public async System.Threading.Tasks.Task<System.Nullable<System.Int32>> TestNullableValueType(System.Nullable<System.Int32> @id) {
+			string path = $"{ControllerPath}/nullable-value-type";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return await this.GetJsonResponse<System.Int32>(request);
+			}
+		}
+		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto?> TestNullableReferenceType(Albatross.WebClient.Test.Messages.Dto? @dto) {
+			string path = $"{ControllerPath}/nullable-reference-type";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return await this.GetJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+			}
+		}
 	}
 }
 #nullable disable
+

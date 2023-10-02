@@ -51,5 +51,15 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		public string TestWildCardRoute([FromRoute] string name) {
 			return name;
 		}
+
+		[HttpGet("nullable-value-type")]
+		public int? TestNullableValueType([FromRoute] int? id) {
+			return id;
+		}
+
+		[HttpGet("nullable-reference-type")]
+		public Dto? TestNullableReferenceType([FromRoute] Dto? dto) {
+			return dto;
+		}
 	}
 }
