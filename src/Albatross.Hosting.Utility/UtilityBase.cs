@@ -54,8 +54,6 @@ namespace Albatross.Hosting.Utility {
 			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, env, svc)).Build();
 
 			logger = host.Services.GetRequiredService<Microsoft.Extensions.Logging.ILogger>();
-			logger.LogDebug("Logging initialized for {type} instance", this.GetType().Name);
-			Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 		}
 
 		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
@@ -67,6 +65,8 @@ namespace Albatross.Hosting.Utility {
 
 		public async Task<int> Run() {
 			try {
+				logger.LogDebug("Logging initialized for {type} instance", this.GetType().Name);
+				await Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 				var method = this.GetType().GetMethod(RunUtilityMethod, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 				if (method != null) {
 					if (method.ReturnType == typeof(Task<int>)) {
@@ -93,7 +93,7 @@ namespace Albatross.Hosting.Utility {
 				return -1;
 			}
 		}
-		public virtual void Init(IConfiguration configuration, IServiceProvider provider) { }
+		public virtual Task Init(IConfiguration configuration, IServiceProvider provider) => Task.CompletedTask;
 		public virtual void Dispose() {
 			logger.LogDebug("Disposing UtilityBase");
 			this.host.Dispose();

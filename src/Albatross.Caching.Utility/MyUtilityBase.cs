@@ -23,8 +23,5 @@ namespace Albatross.Caching.Utility {
 			services.AddConfig<RedisConfig>();
 			services.AddSingleton<IRedisConnection, RedisConnection>();
 		}
-		public override void Init(IConfiguration configuration, IServiceProvider provider) {
-			base.Init(configuration, provider);
-		}
 	}
 }

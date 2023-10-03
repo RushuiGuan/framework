@@ -1,6 +1,7 @@
 ﻿using Albatross.CodeGen.Core;
 using Albatross.CodeGen.CSharp.Model;
 using Albatross.Config;
+using Albatross.Hosting.Test;
 using System;
 using System.Collections.Generic;
 using System.IO;

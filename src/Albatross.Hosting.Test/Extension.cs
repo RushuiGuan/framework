@@ -3,6 +3,7 @@ using CsvHelper;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -70,5 +71,7 @@ namespace Albatross.Hosting.Test {
 			var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture, false);
 			return csvReader.GetRecords<T>();
 		}
+
+		public static T Get<T>(this IServiceScope scope) where T : notnull => scope.ServiceProvider.GetRequiredService<T>();
 	}
 }

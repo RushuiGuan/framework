@@ -1,4 +1,5 @@
 ﻿using Albatross.EFCore.DateLevel;
+using Albatross.Hosting.Test;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

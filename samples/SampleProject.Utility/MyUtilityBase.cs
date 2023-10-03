@@ -10,6 +10,7 @@ using SampleProject.Proxy;
 using Serilog;
 using Serilog.Filters;
 using System;
+using System.Threading.Tasks;
 
 namespace SampleProject.Utility {
 	public class MyUtilityBase<T> : UtilityBase<T> where T : BaseOption {
@@ -30,9 +31,10 @@ namespace SampleProject.Utility {
 				.AddCommandClient()
 				.AddDefaultDealerClientConfig();
 		}
-		public override void Init(IConfiguration configuration, IServiceProvider provider) {
+		public override Task Init(IConfiguration configuration, IServiceProvider provider) {
 			base.Init(configuration, provider);
 			provider.UseDealerClient();
+			return Task.CompletedTask;
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using Albatross.Hosting.Test;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 

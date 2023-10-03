@@ -46,12 +46,10 @@ namespace Albatross.Hosting.Test {
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			services.AddSingleton(new EnvironmentSetting(Environment));
 			services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
-			services.AddTransient(provider => provider.CreateScope());
-			services.AddTransient<TestScope>();
 		}
 
-		public TestScope Create() {
-			return Provider.GetRequiredService<TestScope>();
+		public IServiceScope Create() {
+			return Provider.CreateAsyncScope();
 		}
 
 		public void Dispose() {

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Albatross.Hosting.Test;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Xunit;
 
