@@ -12,7 +12,6 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public string Name { get; set; }
 		public DotNetType Type { get; set; }
 		public ParameterModifier Modifier { get; set; }
-		public bool IsNullable { get; set; }
 
 		public TextWriter Generate(TextWriter writer) {
 			if (Modifier == ParameterModifier.Out) {
@@ -23,9 +22,6 @@ namespace Albatross.CodeGen.CSharp.Model {
 				writer.Append("in ");
 			}
 			writer.Code(Type);
-			if (IsNullable && !Type.IsValueType) {
-				writer.Append("?");
-			}
 			writer.Space().Append("@").Append(Name);
 			return writer;
 		}

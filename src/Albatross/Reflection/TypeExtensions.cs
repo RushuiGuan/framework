@@ -139,7 +139,7 @@ namespace Albatross.Reflection {
 		}
 
 
-		public static bool IsNullable(this Type type) => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+		public static bool IsNullableValueType(this Type type) => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
 		public static bool IsNumericType(this Type type) {
 			switch (Type.GetTypeCode(type)) {
 				case TypeCode.Byte:

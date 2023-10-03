@@ -6,9 +6,8 @@ using System.Reflection;
 namespace Albatross.CodeGen.CSharp.Conversion {
 	public class ConvertParameterInfoToParameter : IConvertObject<ParameterInfo, Parameter> {
 		public Parameter Convert(ParameterInfo info) {
-			var p = new Parameter(info.Name ?? throw new Exception(), new DotNetType(info.ParameterType)) {
+			var p = new Parameter(info.Name ?? throw new Exception(), new DotNetType(info.ParameterType, info)) {
 				Modifier = info.IsOut ? Model.ParameterModifier.Out : info.IsIn ? Model.ParameterModifier.In : Model.ParameterModifier.Ref,
-				IsNullable = new NullabilityInfoContext().Create(info).WriteState is NullabilityState.Nullable,
 			};
 
 			if (info.IsOut) {

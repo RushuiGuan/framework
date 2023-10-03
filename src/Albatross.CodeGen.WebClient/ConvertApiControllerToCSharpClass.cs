@@ -133,6 +133,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
+			string name = methodInfo.Name;
 			Method method = convertMethod.Convert(methodInfo);
 
 			/// make async void void and the rest async

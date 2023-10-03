@@ -126,8 +126,22 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 				return await this.GetJsonResponse<System.Int32>(request);
 			}
 		}
+		public async System.Threading.Tasks.Task<System.Nullable<System.Int32>> TestAsyncNullableValueType(System.Nullable<System.Int32> @id) {
+			string path = $"{ControllerPath}/async-nullable-value-type";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return await this.GetJsonResponse<System.Int32>(request);
+			}
+		}
 		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto?> TestNullableReferenceType(Albatross.WebClient.Test.Messages.Dto? @dto) {
 			string path = $"{ControllerPath}/nullable-reference-type";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return await this.GetJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+			}
+		}
+		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto?> TestAsyncNullableReferenceType(Albatross.WebClient.Test.Messages.Dto? @dto) {
+			string path = $"{ControllerPath}/async-nullable-reference-type";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return await this.GetJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
@@ -136,4 +150,3 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 	}
 }
 #nullable disable
-

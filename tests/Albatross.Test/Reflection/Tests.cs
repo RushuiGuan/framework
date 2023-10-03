@@ -145,8 +145,8 @@ namespace Albatross.Test.Reflection {
 
 		[Fact]
 		public void TestIsNullable() {
-			Assert.True(typeof(int?).IsNullable());
-			Assert.False(this.GetType().IsNullable());
+			Assert.True(typeof(int?).IsNullableValueType());
+			Assert.False(this.GetType().IsNullableValueType());
 		}
 
 		[Fact]

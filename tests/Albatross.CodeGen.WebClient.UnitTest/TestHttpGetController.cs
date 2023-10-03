@@ -57,9 +57,18 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 			return id;
 		}
 
+		[HttpGet("async-nullable-value-type")]
+		public Task<int?> TestAsyncNullableValueType([FromRoute] int? id) {
+			return Task.FromResult(id);
+		}
+
 		[HttpGet("nullable-reference-type")]
 		public Dto? TestNullableReferenceType([FromRoute] Dto? dto) {
 			return dto;
+		}
+		[HttpGet("async-nullable-reference-type")]
+		public Task<Dto?> TestAsyncNullableReferenceType([FromRoute] Dto? dto) {
+			return Task.FromResult<Dto?>(dto);
 		}
 	}
 }

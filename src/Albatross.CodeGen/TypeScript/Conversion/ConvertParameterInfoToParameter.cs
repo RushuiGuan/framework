@@ -15,7 +15,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 		public ParameterDeclaration Convert(ParameterInfo info) {
 			var p = new ParameterDeclaration(info.Name ?? throw new Exception("impossible"), 
 				typeConverter.Convert(info.ParameterType), AccessModifier.None) {
-				Optional = info.ParameterType.IsNullable(),
+				Optional = info.ParameterType.IsNullableValueType(),
 			};
 			return p;
 		}

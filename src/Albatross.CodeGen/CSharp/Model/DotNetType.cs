@@ -4,10 +4,11 @@ using Albatross.Text;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CSharp.Model {
-	public class DotNetType: ICodeElement {
+	public class DotNetType : ICodeElement {
 		public const string VoidType = "System.Void";
 		public const string NullableValueType = "System.Nullable";
 
@@ -27,7 +28,17 @@ namespace Albatross.CodeGen.CSharp.Model {
 			this.Name = name;
 			this.IsArray = isArray;
 			this.IsGeneric = isGeneric;
-			this.GenericTypeArguments = genericTypeArguments?.ToArray()?? new DotNetType[0];
+			this.GenericTypeArguments = genericTypeArguments?.ToArray() ?? new DotNetType[0];
+		}
+		public DotNetType(Type type, ParameterInfo parameterInfo) : this(type) {
+			if (IsAsync && IsGeneric) {
+				var subType = this.GenericTypeArguments.First();
+				if (!subType.IsValueType) {
+					subType.IsNullableReferenceType = new NullabilityInfoContext().Create(parameterInfo).GenericTypeArguments.First().WriteState is NullabilityState.Nullable;
+				}
+			} else if (!type.IsValueType) {
+				IsNullableReferenceType = new NullabilityInfoContext().Create(parameterInfo).WriteState is NullabilityState.Nullable;
+			}
 		}
 		public DotNetType(Type type) {
 			IsArray = type.IsArray;
@@ -58,14 +69,14 @@ namespace Albatross.CodeGen.CSharp.Model {
 			return writer.Code(this).ToString();
 		}
 		public override bool Equals(object? obj) {
-			if(obj != null && obj is DotNetType) {
+			if (obj != null && obj is DotNetType) {
 				DotNetType input = (DotNetType)obj;
 				bool result = input.Name == Name && input.IsArray == IsArray
 					&& input.IsGeneric == IsGeneric && input.IsVoid == IsVoid
 					&& input.GenericTypeArguments.Length == GenericTypeArguments.Length;
 				if (result) {
-					for(int i=0; i<GenericTypeArguments.Length; i++) {
-						if(input.GenericTypeArguments[i]?.Equals(GenericTypeArguments[i])!=true) {
+					for (int i = 0; i < GenericTypeArguments.Length; i++) {
+						if (input.GenericTypeArguments[i]?.Equals(GenericTypeArguments[i]) != true) {
 							return false;
 						}
 					}
@@ -134,9 +145,9 @@ namespace Albatross.CodeGen.CSharp.Model {
 			}
 		}
 		public DotNetType RemoveNullable() {
-			if(IsNullableReferenceType) {
+			if (IsNullableReferenceType) {
 				return new DotNetType(this) { IsNullableReferenceType = false };
-			}else if(IsNullableValueType) {
+			} else if (IsNullableValueType) {
 				return this.GenericTypeArguments.First();
 			} else {
 				return this;
