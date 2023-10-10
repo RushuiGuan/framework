@@ -1,1 +1,2 @@
-# Messaging
+# Albatross.Messaging
+The messaging assembly implements three messaging patterns: command queue, pub sub and request response.  It uses ZeroMQ as the transport layer.  Specifically, it uses the ZeroMQ's router socket for servers and dealer socket for clients.  On the server side, RouterServerService 
