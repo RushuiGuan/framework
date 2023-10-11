@@ -81,3 +81,6 @@ The date level entry for an entity doesn't make sense if its dates are overlappe
 	|---|---|---|---|
 	|1|AZ2222|2023-01-01|2023-02-21|
 	|1|AZX222|2023-02-21|9999-12-31|
+
+## Model
+[DateLevelEntity](xref:Albatross.EFCore.DateLevel.DateLevelEntity) should be used as the base class of any date level entity.  
