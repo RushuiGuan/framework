@@ -1698,23 +1698,6 @@ references:
   fullName.vb: Albatross.Caching.Utility.MyUtilityBase(Of T).ConfigureLogging
   nameWithType: MyUtilityBase<T>.ConfigureLogging
   nameWithType.vb: MyUtilityBase(Of T).ConfigureLogging
-- uid: Albatross.Caching.Utility.MyUtilityBase`1.Init(Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider)
-  name: Init(IConfiguration, IServiceProvider)
-  href: api/Albatross.Caching.Utility.MyUtilityBase-1.html#Albatross_Caching_Utility_MyUtilityBase_1_Init_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_
-  commentId: M:Albatross.Caching.Utility.MyUtilityBase`1.Init(Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider)
-  fullName: Albatross.Caching.Utility.MyUtilityBase<T>.Init(Microsoft.Extensions.Configuration.IConfiguration, System.IServiceProvider)
-  fullName.vb: Albatross.Caching.Utility.MyUtilityBase(Of T).Init(Microsoft.Extensions.Configuration.IConfiguration, System.IServiceProvider)
-  nameWithType: MyUtilityBase<T>.Init(IConfiguration, IServiceProvider)
-  nameWithType.vb: MyUtilityBase(Of T).Init(IConfiguration, IServiceProvider)
-- uid: Albatross.Caching.Utility.MyUtilityBase`1.Init*
-  name: Init
-  href: api/Albatross.Caching.Utility.MyUtilityBase-1.html#Albatross_Caching_Utility_MyUtilityBase_1_Init_
-  commentId: Overload:Albatross.Caching.Utility.MyUtilityBase`1.Init
-  isSpec: "True"
-  fullName: Albatross.Caching.Utility.MyUtilityBase<T>.Init
-  fullName.vb: Albatross.Caching.Utility.MyUtilityBase(Of T).Init
-  nameWithType: MyUtilityBase<T>.Init
-  nameWithType.vb: MyUtilityBase(Of T).Init
 - uid: Albatross.Caching.Utility.MyUtilityBase`1.RegisterServices(Microsoft.Extensions.Configuration.IConfiguration,Albatross.Config.EnvironmentSetting,Microsoft.Extensions.DependencyInjection.IServiceCollection)
   name: RegisterServices(IConfiguration, EnvironmentSetting, IServiceCollection)
   href: api/Albatross.Caching.Utility.MyUtilityBase-1.html#Albatross_Caching_Utility_MyUtilityBase_1_RegisterServices_Microsoft_Extensions_Configuration_IConfiguration_Albatross_Config_EnvironmentSetting_Microsoft_Extensions_DependencyInjection_IServiceCollection_
@@ -2606,6 +2589,15 @@ references:
   fullName.vb: Albatross.CodeGen.CSharp.Model.DotNetType.New(System.Type)
   nameWithType: DotNetType.DotNetType(Type)
   nameWithType.vb: DotNetType.New(Type)
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.#ctor(System.Type,System.Reflection.ParameterInfo)
+  name: DotNetType(Type, ParameterInfo)
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType__ctor_System_Type_System_Reflection_ParameterInfo_
+  commentId: M:Albatross.CodeGen.CSharp.Model.DotNetType.#ctor(System.Type,System.Reflection.ParameterInfo)
+  name.vb: New(Type, ParameterInfo)
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.DotNetType(System.Type, System.Reflection.ParameterInfo)
+  fullName.vb: Albatross.CodeGen.CSharp.Model.DotNetType.New(System.Type, System.Reflection.ParameterInfo)
+  nameWithType: DotNetType.DotNetType(Type, ParameterInfo)
+  nameWithType.vb: DotNetType.New(Type, ParameterInfo)
 - uid: Albatross.CodeGen.CSharp.Model.DotNetType.#ctor*
   name: DotNetType
   href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType__ctor_
@@ -2853,19 +2845,32 @@ references:
   isSpec: "True"
   fullName: Albatross.CodeGen.CSharp.Model.DotNetType.IsGeneric
   nameWithType: DotNetType.IsGeneric
-- uid: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullable
-  name: IsNullable
-  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_IsNullable
-  commentId: P:Albatross.CodeGen.CSharp.Model.DotNetType.IsNullable
-  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullable
-  nameWithType: DotNetType.IsNullable
-- uid: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullable*
-  name: IsNullable
-  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_IsNullable_
-  commentId: Overload:Albatross.CodeGen.CSharp.Model.DotNetType.IsNullable
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableReferenceType
+  name: IsNullableReferenceType
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_IsNullableReferenceType
+  commentId: P:Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableReferenceType
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableReferenceType
+  nameWithType: DotNetType.IsNullableReferenceType
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableReferenceType*
+  name: IsNullableReferenceType
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_IsNullableReferenceType_
+  commentId: Overload:Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableReferenceType
   isSpec: "True"
-  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullable
-  nameWithType: DotNetType.IsNullable
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableReferenceType
+  nameWithType: DotNetType.IsNullableReferenceType
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableValueType
+  name: IsNullableValueType
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_IsNullableValueType
+  commentId: P:Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableValueType
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableValueType
+  nameWithType: DotNetType.IsNullableValueType
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableValueType*
+  name: IsNullableValueType
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_IsNullableValueType_
+  commentId: Overload:Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableValueType
+  isSpec: "True"
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.IsNullableValueType
+  nameWithType: DotNetType.IsNullableValueType
 - uid: Albatross.CodeGen.CSharp.Model.DotNetType.IsValueType
   name: IsValueType
   href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_IsValueType
@@ -2957,6 +2962,12 @@ references:
   isSpec: "True"
   fullName: Albatross.CodeGen.CSharp.Model.DotNetType.Name
   nameWithType: DotNetType.Name
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.NullableValueType
+  name: NullableValueType
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_NullableValueType
+  commentId: F:Albatross.CodeGen.CSharp.Model.DotNetType.NullableValueType
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.NullableValueType
+  nameWithType: DotNetType.NullableValueType
 - uid: Albatross.CodeGen.CSharp.Model.DotNetType.Object
   name: Object()
   href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_Object
@@ -2983,6 +2994,19 @@ references:
   isSpec: "True"
   fullName: Albatross.CodeGen.CSharp.Model.DotNetType.RemoveAsync
   nameWithType: DotNetType.RemoveAsync
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.RemoveNullable
+  name: RemoveNullable()
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_RemoveNullable
+  commentId: M:Albatross.CodeGen.CSharp.Model.DotNetType.RemoveNullable
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.RemoveNullable()
+  nameWithType: DotNetType.RemoveNullable()
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.RemoveNullable*
+  name: RemoveNullable
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_RemoveNullable_
+  commentId: Overload:Albatross.CodeGen.CSharp.Model.DotNetType.RemoveNullable
+  isSpec: "True"
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.RemoveNullable
+  nameWithType: DotNetType.RemoveNullable
 - uid: Albatross.CodeGen.CSharp.Model.DotNetType.Short
   name: Short()
   href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_Short
@@ -3061,6 +3085,12 @@ references:
   isSpec: "True"
   fullName: Albatross.CodeGen.CSharp.Model.DotNetType.Void
   nameWithType: DotNetType.Void
+- uid: Albatross.CodeGen.CSharp.Model.DotNetType.VoidType
+  name: VoidType
+  href: api/Albatross.CodeGen.CSharp.Model.DotNetType.html#Albatross_CodeGen_CSharp_Model_DotNetType_VoidType
+  commentId: F:Albatross.CodeGen.CSharp.Model.DotNetType.VoidType
+  fullName: Albatross.CodeGen.CSharp.Model.DotNetType.VoidType
+  nameWithType: DotNetType.VoidType
 - uid: Albatross.CodeGen.CSharp.Model.Extensions
   name: Extensions
   href: api/Albatross.CodeGen.CSharp.Model.Extensions.html
@@ -3762,19 +3792,6 @@ references:
   isSpec: "True"
   fullName: Albatross.CodeGen.CSharp.Model.Parameter.Generate
   nameWithType: Parameter.Generate
-- uid: Albatross.CodeGen.CSharp.Model.Parameter.IsNullable
-  name: IsNullable
-  href: api/Albatross.CodeGen.CSharp.Model.Parameter.html#Albatross_CodeGen_CSharp_Model_Parameter_IsNullable
-  commentId: P:Albatross.CodeGen.CSharp.Model.Parameter.IsNullable
-  fullName: Albatross.CodeGen.CSharp.Model.Parameter.IsNullable
-  nameWithType: Parameter.IsNullable
-- uid: Albatross.CodeGen.CSharp.Model.Parameter.IsNullable*
-  name: IsNullable
-  href: api/Albatross.CodeGen.CSharp.Model.Parameter.html#Albatross_CodeGen_CSharp_Model_Parameter_IsNullable_
-  commentId: Overload:Albatross.CodeGen.CSharp.Model.Parameter.IsNullable
-  isSpec: "True"
-  fullName: Albatross.CodeGen.CSharp.Model.Parameter.IsNullable
-  nameWithType: Parameter.IsNullable
 - uid: Albatross.CodeGen.CSharp.Model.Parameter.Modifier
   name: Modifier
   href: api/Albatross.CodeGen.CSharp.Model.Parameter.html#Albatross_CodeGen_CSharp_Model_Parameter_Modifier
@@ -12067,6 +12084,13 @@ references:
   fullName.vb: Albatross.Hosting.Test.Extension.DumpCsv(Of T)(System.Collections.Generic.IEnumerable(Of T), String)
   nameWithType: Extension.DumpCsv<T>(IEnumerable<T>, string)
   nameWithType.vb: Extension.DumpCsv(Of T)(IEnumerable(Of T), String)
+- uid: Albatross.Hosting.Test.Extension.Get*
+  name: Get
+  href: api/Albatross.Hosting.Test.Extension.html#Albatross_Hosting_Test_Extension_Get_
+  commentId: Overload:Albatross.Hosting.Test.Extension.Get
+  isSpec: "True"
+  fullName: Albatross.Hosting.Test.Extension.Get
+  nameWithType: Extension.Get
 - uid: Albatross.Hosting.Test.Extension.GetSourceCodeDirectory(System.String)
   name: GetSourceCodeDirectory(string)
   href: api/Albatross.Hosting.Test.Extension.html#Albatross_Hosting_Test_Extension_GetSourceCodeDirectory_System_String_
@@ -12083,6 +12107,15 @@ references:
   isSpec: "True"
   fullName: Albatross.Hosting.Test.Extension.GetSourceCodeDirectory
   nameWithType: Extension.GetSourceCodeDirectory
+- uid: Albatross.Hosting.Test.Extension.Get``1(Microsoft.Extensions.DependencyInjection.IServiceScope)
+  name: Get<T>(IServiceScope)
+  href: api/Albatross.Hosting.Test.Extension.html#Albatross_Hosting_Test_Extension_Get__1_Microsoft_Extensions_DependencyInjection_IServiceScope_
+  commentId: M:Albatross.Hosting.Test.Extension.Get``1(Microsoft.Extensions.DependencyInjection.IServiceScope)
+  name.vb: Get(Of T)(IServiceScope)
+  fullName: Albatross.Hosting.Test.Extension.Get<T>(Microsoft.Extensions.DependencyInjection.IServiceScope)
+  fullName.vb: Albatross.Hosting.Test.Extension.Get(Of T)(Microsoft.Extensions.DependencyInjection.IServiceScope)
+  nameWithType: Extension.Get<T>(IServiceScope)
+  nameWithType.vb: Extension.Get(Of T)(IServiceScope)
 - uid: Albatross.Hosting.Test.Extension.ReadCsv*
   name: ReadCsv
   href: api/Albatross.Hosting.Test.Extension.html#Albatross_Hosting_Test_Extension_ReadCsv_
@@ -13812,86 +13845,6 @@ references:
   commentId: F:Albatross.Hosting.Test.TestHost.host
   fullName: Albatross.Hosting.Test.TestHost.host
   nameWithType: TestHost.host
-- uid: Albatross.Hosting.Test.TestScope
-  name: TestScope
-  href: api/Albatross.Hosting.Test.TestScope.html
-  commentId: T:Albatross.Hosting.Test.TestScope
-  fullName: Albatross.Hosting.Test.TestScope
-  nameWithType: TestScope
-- uid: Albatross.Hosting.Test.TestScope.#ctor(Microsoft.Extensions.DependencyInjection.IServiceScope)
-  name: TestScope(IServiceScope)
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope__ctor_Microsoft_Extensions_DependencyInjection_IServiceScope_
-  commentId: M:Albatross.Hosting.Test.TestScope.#ctor(Microsoft.Extensions.DependencyInjection.IServiceScope)
-  name.vb: New(IServiceScope)
-  fullName: Albatross.Hosting.Test.TestScope.TestScope(Microsoft.Extensions.DependencyInjection.IServiceScope)
-  fullName.vb: Albatross.Hosting.Test.TestScope.New(Microsoft.Extensions.DependencyInjection.IServiceScope)
-  nameWithType: TestScope.TestScope(IServiceScope)
-  nameWithType.vb: TestScope.New(IServiceScope)
-- uid: Albatross.Hosting.Test.TestScope.#ctor*
-  name: TestScope
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope__ctor_
-  commentId: Overload:Albatross.Hosting.Test.TestScope.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Albatross.Hosting.Test.TestScope.TestScope
-  fullName.vb: Albatross.Hosting.Test.TestScope.New
-  nameWithType: TestScope.TestScope
-  nameWithType.vb: TestScope.New
-- uid: Albatross.Hosting.Test.TestScope.Dispose
-  name: Dispose()
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope_Dispose
-  commentId: M:Albatross.Hosting.Test.TestScope.Dispose
-  fullName: Albatross.Hosting.Test.TestScope.Dispose()
-  nameWithType: TestScope.Dispose()
-- uid: Albatross.Hosting.Test.TestScope.Dispose*
-  name: Dispose
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope_Dispose_
-  commentId: Overload:Albatross.Hosting.Test.TestScope.Dispose
-  isSpec: "True"
-  fullName: Albatross.Hosting.Test.TestScope.Dispose
-  nameWithType: TestScope.Dispose
-- uid: Albatross.Hosting.Test.TestScope.Get*
-  name: Get
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope_Get_
-  commentId: Overload:Albatross.Hosting.Test.TestScope.Get
-  isSpec: "True"
-  fullName: Albatross.Hosting.Test.TestScope.Get
-  nameWithType: TestScope.Get
-- uid: Albatross.Hosting.Test.TestScope.Get``1
-  name: Get<T>()
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope_Get__1
-  commentId: M:Albatross.Hosting.Test.TestScope.Get``1
-  name.vb: Get(Of T)()
-  fullName: Albatross.Hosting.Test.TestScope.Get<T>()
-  fullName.vb: Albatross.Hosting.Test.TestScope.Get(Of T)()
-  nameWithType: TestScope.Get<T>()
-  nameWithType.vb: TestScope.Get(Of T)()
-- uid: Albatross.Hosting.Test.TestScope.Provider
-  name: Provider
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope_Provider
-  commentId: P:Albatross.Hosting.Test.TestScope.Provider
-  fullName: Albatross.Hosting.Test.TestScope.Provider
-  nameWithType: TestScope.Provider
-- uid: Albatross.Hosting.Test.TestScope.Provider*
-  name: Provider
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope_Provider_
-  commentId: Overload:Albatross.Hosting.Test.TestScope.Provider
-  isSpec: "True"
-  fullName: Albatross.Hosting.Test.TestScope.Provider
-  nameWithType: TestScope.Provider
-- uid: Albatross.Hosting.Test.TestScope.scope
-  name: scope
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope_scope
-  commentId: P:Albatross.Hosting.Test.TestScope.scope
-  fullName: Albatross.Hosting.Test.TestScope.scope
-  nameWithType: TestScope.scope
-- uid: Albatross.Hosting.Test.TestScope.scope*
-  name: scope
-  href: api/Albatross.Hosting.Test.TestScope.html#Albatross_Hosting_Test_TestScope_scope_
-  commentId: Overload:Albatross.Hosting.Test.TestScope.scope
-  isSpec: "True"
-  fullName: Albatross.Hosting.Test.TestScope.scope
-  nameWithType: TestScope.scope
 - uid: Albatross.Hosting.Test.Values
   name: Values
   href: api/Albatross.Hosting.Test.Values.html
@@ -24873,19 +24826,19 @@ references:
   fullName.vb: Albatross.Reflection.TypeExtensions.IsDerived(Of T)(System.Type)
   nameWithType: TypeExtensions.IsDerived<T>(Type)
   nameWithType.vb: TypeExtensions.IsDerived(Of T)(Type)
-- uid: Albatross.Reflection.TypeExtensions.IsNullable(System.Type)
-  name: IsNullable(Type)
-  href: api/Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_IsNullable_System_Type_
-  commentId: M:Albatross.Reflection.TypeExtensions.IsNullable(System.Type)
-  fullName: Albatross.Reflection.TypeExtensions.IsNullable(System.Type)
-  nameWithType: TypeExtensions.IsNullable(Type)
-- uid: Albatross.Reflection.TypeExtensions.IsNullable*
-  name: IsNullable
-  href: api/Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_IsNullable_
-  commentId: Overload:Albatross.Reflection.TypeExtensions.IsNullable
+- uid: Albatross.Reflection.TypeExtensions.IsNullableValueType(System.Type)
+  name: IsNullableValueType(Type)
+  href: api/Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_IsNullableValueType_System_Type_
+  commentId: M:Albatross.Reflection.TypeExtensions.IsNullableValueType(System.Type)
+  fullName: Albatross.Reflection.TypeExtensions.IsNullableValueType(System.Type)
+  nameWithType: TypeExtensions.IsNullableValueType(Type)
+- uid: Albatross.Reflection.TypeExtensions.IsNullableValueType*
+  name: IsNullableValueType
+  href: api/Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_IsNullableValueType_
+  commentId: Overload:Albatross.Reflection.TypeExtensions.IsNullableValueType
   isSpec: "True"
-  fullName: Albatross.Reflection.TypeExtensions.IsNullable
-  nameWithType: TypeExtensions.IsNullable
+  fullName: Albatross.Reflection.TypeExtensions.IsNullableValueType
+  nameWithType: TypeExtensions.IsNullableValueType
 - uid: Albatross.Reflection.TypeExtensions.IsNumericType(System.Type)
   name: IsNumericType(Type)
   href: api/Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_IsNumericType_System_Type_
@@ -25531,6 +25484,98 @@ references:
   isSpec: "True"
   fullName: Albatross.Text.PrintTableOption.GetColumnHeader
   nameWithType: PrintTableOption.GetColumnHeader
+- uid: Albatross.Text.PrintTableOption.PrintHeader
+  name: PrintHeader
+  href: api/Albatross.Text.PrintTableOption.html#Albatross_Text_PrintTableOption_PrintHeader
+  commentId: P:Albatross.Text.PrintTableOption.PrintHeader
+  fullName: Albatross.Text.PrintTableOption.PrintHeader
+  nameWithType: PrintTableOption.PrintHeader
+- uid: Albatross.Text.PrintTableOption.PrintHeader*
+  name: PrintHeader
+  href: api/Albatross.Text.PrintTableOption.html#Albatross_Text_PrintTableOption_PrintHeader_
+  commentId: Overload:Albatross.Text.PrintTableOption.PrintHeader
+  isSpec: "True"
+  fullName: Albatross.Text.PrintTableOption.PrintHeader
+  nameWithType: PrintTableOption.PrintHeader
+- uid: Albatross.Text.PrintTextExtensions
+  name: PrintTextExtensions
+  href: api/Albatross.Text.PrintTextExtensions.html
+  commentId: T:Albatross.Text.PrintTextExtensions
+  fullName: Albatross.Text.PrintTextExtensions
+  nameWithType: PrintTextExtensions
+- uid: Albatross.Text.PrintTextExtensions.Indent(System.IO.TextWriter,System.String,System.Char,System.Int32)
+  name: Indent(TextWriter, string, char, int)
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_Indent_System_IO_TextWriter_System_String_System_Char_System_Int32_
+  commentId: M:Albatross.Text.PrintTextExtensions.Indent(System.IO.TextWriter,System.String,System.Char,System.Int32)
+  name.vb: Indent(TextWriter, String, Char, Integer)
+  fullName: Albatross.Text.PrintTextExtensions.Indent(System.IO.TextWriter, string, char, int)
+  fullName.vb: Albatross.Text.PrintTextExtensions.Indent(System.IO.TextWriter, String, Char, Integer)
+  nameWithType: PrintTextExtensions.Indent(TextWriter, string, char, int)
+  nameWithType.vb: PrintTextExtensions.Indent(TextWriter, String, Char, Integer)
+- uid: Albatross.Text.PrintTextExtensions.Indent*
+  name: Indent
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_Indent_
+  commentId: Overload:Albatross.Text.PrintTextExtensions.Indent
+  isSpec: "True"
+  fullName: Albatross.Text.PrintTextExtensions.Indent
+  nameWithType: PrintTextExtensions.Indent
+- uid: Albatross.Text.PrintTextExtensions.PrintProperties*
+  name: PrintProperties
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_PrintProperties_
+  commentId: Overload:Albatross.Text.PrintTextExtensions.PrintProperties
+  isSpec: "True"
+  fullName: Albatross.Text.PrintTextExtensions.PrintProperties
+  nameWithType: PrintTextExtensions.PrintProperties
+- uid: Albatross.Text.PrintTextExtensions.PrintProperties``1(System.IO.TextWriter,``0,System.String[])
+  name: PrintProperties<T>(TextWriter, T?, params string[])
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_PrintProperties__1_System_IO_TextWriter___0_System_String___
+  commentId: M:Albatross.Text.PrintTextExtensions.PrintProperties``1(System.IO.TextWriter,``0,System.String[])
+  name.vb: PrintProperties(Of T)(TextWriter, T, ParamArray String())
+  fullName: Albatross.Text.PrintTextExtensions.PrintProperties<T>(System.IO.TextWriter, T?, params string[])
+  fullName.vb: Albatross.Text.PrintTextExtensions.PrintProperties(Of T)(System.IO.TextWriter, T, ParamArray String())
+  nameWithType: PrintTextExtensions.PrintProperties<T>(TextWriter, T?, params string[])
+  nameWithType.vb: PrintTextExtensions.PrintProperties(Of T)(TextWriter, T, ParamArray String())
+- uid: Albatross.Text.PrintTextExtensions.PrintProperties``1(System.IO.TextWriter,``0[],Albatross.Text.PrintPropertiesOption)
+  name: PrintProperties<T>(TextWriter, T?[], PrintPropertiesOption)
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_PrintProperties__1_System_IO_TextWriter___0___Albatross_Text_PrintPropertiesOption_
+  commentId: M:Albatross.Text.PrintTextExtensions.PrintProperties``1(System.IO.TextWriter,``0[],Albatross.Text.PrintPropertiesOption)
+  name.vb: PrintProperties(Of T)(TextWriter, T(), PrintPropertiesOption)
+  fullName: Albatross.Text.PrintTextExtensions.PrintProperties<T>(System.IO.TextWriter, T?[], Albatross.Text.PrintPropertiesOption)
+  fullName.vb: Albatross.Text.PrintTextExtensions.PrintProperties(Of T)(System.IO.TextWriter, T(), Albatross.Text.PrintPropertiesOption)
+  nameWithType: PrintTextExtensions.PrintProperties<T>(TextWriter, T?[], PrintPropertiesOption)
+  nameWithType.vb: PrintTextExtensions.PrintProperties(Of T)(TextWriter, T(), PrintPropertiesOption)
+- uid: Albatross.Text.PrintTextExtensions.PrintSideBySide(System.IO.TextWriter,System.String,System.String,System.Char,System.Int32)
+  name: PrintSideBySide(TextWriter, string, string, char, int)
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_PrintSideBySide_System_IO_TextWriter_System_String_System_String_System_Char_System_Int32_
+  commentId: M:Albatross.Text.PrintTextExtensions.PrintSideBySide(System.IO.TextWriter,System.String,System.String,System.Char,System.Int32)
+  name.vb: PrintSideBySide(TextWriter, String, String, Char, Integer)
+  fullName: Albatross.Text.PrintTextExtensions.PrintSideBySide(System.IO.TextWriter, string, string, char, int)
+  fullName.vb: Albatross.Text.PrintTextExtensions.PrintSideBySide(System.IO.TextWriter, String, String, Char, Integer)
+  nameWithType: PrintTextExtensions.PrintSideBySide(TextWriter, string, string, char, int)
+  nameWithType.vb: PrintTextExtensions.PrintSideBySide(TextWriter, String, String, Char, Integer)
+- uid: Albatross.Text.PrintTextExtensions.PrintSideBySide*
+  name: PrintSideBySide
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_PrintSideBySide_
+  commentId: Overload:Albatross.Text.PrintTextExtensions.PrintSideBySide
+  isSpec: "True"
+  fullName: Albatross.Text.PrintTextExtensions.PrintSideBySide
+  nameWithType: PrintTextExtensions.PrintSideBySide
+- uid: Albatross.Text.PrintTextExtensions.PrintTable*
+  name: PrintTable
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_PrintTable_
+  commentId: Overload:Albatross.Text.PrintTextExtensions.PrintTable
+  isSpec: "True"
+  fullName: Albatross.Text.PrintTextExtensions.PrintTable
+  nameWithType: PrintTextExtensions.PrintTable
+- uid: Albatross.Text.PrintTextExtensions.PrintTable``1(System.IO.TextWriter,``0[],Albatross.Text.PrintTableOption)
+  name: PrintTable<T>(TextWriter, T?[], PrintTableOption)
+  href: api/Albatross.Text.PrintTextExtensions.html#Albatross_Text_PrintTextExtensions_PrintTable__1_System_IO_TextWriter___0___Albatross_Text_PrintTableOption_
+  commentId: M:Albatross.Text.PrintTextExtensions.PrintTable``1(System.IO.TextWriter,``0[],Albatross.Text.PrintTableOption)
+  name.vb: PrintTable(Of T)(TextWriter, T(), PrintTableOption)
+  fullName: Albatross.Text.PrintTextExtensions.PrintTable<T>(System.IO.TextWriter, T?[], Albatross.Text.PrintTableOption)
+  fullName.vb: Albatross.Text.PrintTextExtensions.PrintTable(Of T)(System.IO.TextWriter, T(), Albatross.Text.PrintTableOption)
+  nameWithType: PrintTextExtensions.PrintTable<T>(TextWriter, T?[], PrintTableOption)
+  nameWithType.vb: PrintTextExtensions.PrintTable(Of T)(TextWriter, T(), PrintTableOption)
 - uid: Albatross.Text.StringExtensions
   name: StringExtensions
   href: api/Albatross.Text.StringExtensions.html
@@ -25870,47 +25915,6 @@ references:
   isSpec: "True"
   fullName: Albatross.Text.TextWriterExtensions.OpenSquareBracket
   nameWithType: TextWriterExtensions.OpenSquareBracket
-- uid: Albatross.Text.TextWriterExtensions.PrintProperties*
-  name: PrintProperties
-  href: api/Albatross.Text.TextWriterExtensions.html#Albatross_Text_TextWriterExtensions_PrintProperties_
-  commentId: Overload:Albatross.Text.TextWriterExtensions.PrintProperties
-  isSpec: "True"
-  fullName: Albatross.Text.TextWriterExtensions.PrintProperties
-  nameWithType: TextWriterExtensions.PrintProperties
-- uid: Albatross.Text.TextWriterExtensions.PrintProperties``1(System.IO.TextWriter,``0,System.String[])
-  name: PrintProperties<T>(TextWriter, T?, params string[])
-  href: api/Albatross.Text.TextWriterExtensions.html#Albatross_Text_TextWriterExtensions_PrintProperties__1_System_IO_TextWriter___0_System_String___
-  commentId: M:Albatross.Text.TextWriterExtensions.PrintProperties``1(System.IO.TextWriter,``0,System.String[])
-  name.vb: PrintProperties(Of T)(TextWriter, T, ParamArray String())
-  fullName: Albatross.Text.TextWriterExtensions.PrintProperties<T>(System.IO.TextWriter, T?, params string[])
-  fullName.vb: Albatross.Text.TextWriterExtensions.PrintProperties(Of T)(System.IO.TextWriter, T, ParamArray String())
-  nameWithType: TextWriterExtensions.PrintProperties<T>(TextWriter, T?, params string[])
-  nameWithType.vb: TextWriterExtensions.PrintProperties(Of T)(TextWriter, T, ParamArray String())
-- uid: Albatross.Text.TextWriterExtensions.PrintProperties``1(System.IO.TextWriter,``0[],Albatross.Text.PrintPropertiesOption)
-  name: PrintProperties<T>(TextWriter, T?[], PrintPropertiesOption)
-  href: api/Albatross.Text.TextWriterExtensions.html#Albatross_Text_TextWriterExtensions_PrintProperties__1_System_IO_TextWriter___0___Albatross_Text_PrintPropertiesOption_
-  commentId: M:Albatross.Text.TextWriterExtensions.PrintProperties``1(System.IO.TextWriter,``0[],Albatross.Text.PrintPropertiesOption)
-  name.vb: PrintProperties(Of T)(TextWriter, T(), PrintPropertiesOption)
-  fullName: Albatross.Text.TextWriterExtensions.PrintProperties<T>(System.IO.TextWriter, T?[], Albatross.Text.PrintPropertiesOption)
-  fullName.vb: Albatross.Text.TextWriterExtensions.PrintProperties(Of T)(System.IO.TextWriter, T(), Albatross.Text.PrintPropertiesOption)
-  nameWithType: TextWriterExtensions.PrintProperties<T>(TextWriter, T?[], PrintPropertiesOption)
-  nameWithType.vb: TextWriterExtensions.PrintProperties(Of T)(TextWriter, T(), PrintPropertiesOption)
-- uid: Albatross.Text.TextWriterExtensions.PrintTable*
-  name: PrintTable
-  href: api/Albatross.Text.TextWriterExtensions.html#Albatross_Text_TextWriterExtensions_PrintTable_
-  commentId: Overload:Albatross.Text.TextWriterExtensions.PrintTable
-  isSpec: "True"
-  fullName: Albatross.Text.TextWriterExtensions.PrintTable
-  nameWithType: TextWriterExtensions.PrintTable
-- uid: Albatross.Text.TextWriterExtensions.PrintTable``1(System.IO.TextWriter,``0[],Albatross.Text.PrintTableOption)
-  name: PrintTable<T>(TextWriter, T?[], PrintTableOption)
-  href: api/Albatross.Text.TextWriterExtensions.html#Albatross_Text_TextWriterExtensions_PrintTable__1_System_IO_TextWriter___0___Albatross_Text_PrintTableOption_
-  commentId: M:Albatross.Text.TextWriterExtensions.PrintTable``1(System.IO.TextWriter,``0[],Albatross.Text.PrintTableOption)
-  name.vb: PrintTable(Of T)(TextWriter, T(), PrintTableOption)
-  fullName: Albatross.Text.TextWriterExtensions.PrintTable<T>(System.IO.TextWriter, T?[], Albatross.Text.PrintTableOption)
-  fullName.vb: Albatross.Text.TextWriterExtensions.PrintTable(Of T)(System.IO.TextWriter, T(), Albatross.Text.PrintTableOption)
-  nameWithType: TextWriterExtensions.PrintTable<T>(TextWriter, T?[], PrintTableOption)
-  nameWithType.vb: TextWriterExtensions.PrintTable(Of T)(TextWriter, T(), PrintTableOption)
 - uid: Albatross.Text.TextWriterExtensions.Semicolon(System.IO.TextWriter,System.Int32)
   name: Semicolon(TextWriter, int)
   href: api/Albatross.Text.TextWriterExtensions.html#Albatross_Text_TextWriterExtensions_Semicolon_System_IO_TextWriter_System_Int32_

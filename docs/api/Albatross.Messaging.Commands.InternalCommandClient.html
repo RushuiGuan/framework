@@ -98,7 +98,7 @@
   <dl><dt>Assembly</dt><dd>Albatross.Messaging.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>InternalCommandClient allows commands to be routed with the server itself.  It uses a special route called <a class="xref" href="Albatross.Messaging.Commands.InternalCommand.html#Albatross.Messaging.Commands.InternalCommand.Route">Route</a>.  If used, avoid routes of the
+  <div class="markdown summary"><p>InternalCommandClient allows commands to be routed with the server itself.  It uses a special route called <a class="xref" href="Albatross.Messaging.Commands.InternalCommand.html#Albatross_Messaging_Commands_InternalCommand_Route">Route</a>.  If used, avoid routes of the
 same name.  It only supports FireAndForget command requests because risk of dead lock is high if caller is waiting for a response.
 IMPORTANT: this class should only be used if TaskCommandQueue is being used, which is the default setup.  The default implementation of CommandQueue
 could run on the poller thread and block itself when waiting for an Ack.</p>

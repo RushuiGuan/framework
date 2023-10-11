@@ -1,5 +1,4 @@
 {
-  "homepages": [],
   "source_base_path": "/home/runner/work/framework/framework/docfx_project",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -2245,16 +2244,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.Hosting.Test.TestScope.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.Hosting.Test.TestScope.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Hosting.Test.Values.yml",
       "output": {
         ".html": {
@@ -4095,6 +4084,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Text.PrintTextExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Text.PrintTextExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Text.StringExtensions.yml",
       "output": {
         ".html": {
@@ -4453,7 +4452,6 @@
       "version": ""
     }
   ],
-  "version_info": {},
   "groups": [
     {
       "xrefmap": "xrefmap.yml"
