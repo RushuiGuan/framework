@@ -2,14 +2,26 @@
 using System.IO;
 using System.Reflection;
 using Albatross.CodeGen.Core;
+using Serilog.Enrichers;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {
 	public class NullableParameterTest {
+		public string? Name { get; set; }
+		public string Name1 { get; set; }
+
 		void MyMethod(string? a, Nullable<int> b) { }
 		int? MyMethod2(string? a, Nullable<int> b) { return null; }
 		string? MyMethod3(string? a, Nullable<int> b) { return null; }
 
+
+		[Fact] public void TestNullableProperty() {
+			var propertyInfo = this.GetType().GetProperty(nameof(Name));
+			Assert.True(new NullabilityInfoContext().Create(propertyInfo).WriteState == NullabilityState.Nullable);
+			propertyInfo = this.GetType().GetProperty(nameof(Name1));
+			Assert.False(new NullabilityInfoContext().Create(propertyInfo).WriteState == NullabilityState.Nullable);
+		}
+		
 		[Fact]
 		public void TestNullability1() {
 			var method = typeof(NullableParameterTest).GetMethod(nameof(MyMethod), BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new Exception();
