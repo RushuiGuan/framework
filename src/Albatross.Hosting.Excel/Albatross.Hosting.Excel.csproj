@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ribbon.xml" />
+  </ItemGroup>
+	<ItemGroup>
+
+		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
+		<PackageReference Include="ExcelDna.Integration" Version="1.6.0" />
+		<PackageReference Include="ExcelDna.IntelliSense" Version="1.6.0" />
+		<PackageReference Include="ExcelDna.Registration" Version="1.6.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
+	  <ProjectReference Include="..\Albatross.Excel\Albatross.Excel.csproj" />
+	  <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
+	  <ProjectReference Include="..\Albatross\Albatross.csproj" />
+	</ItemGroup>
+</Project>

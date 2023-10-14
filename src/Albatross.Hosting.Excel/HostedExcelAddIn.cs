@@ -1,0 +1,84 @@
+﻿using Albatross.Logging;
+using ExcelDna.Integration;
+using ExcelDna.IntelliSense;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using System;
+using Albatross.Config;
+using Microsoft.Extensions.Logging;
+using ExcelDna.Integration.CustomUI;
+using System.Collections.Generic;
+
+namespace Albatross.Hosting.Excel {
+	public abstract class HostedExcelAddIn : IExcelAddIn {
+		public Microsoft.Extensions.Logging.ILogger logger;
+		private IServiceProvider provider => host.Services;
+		private IHost host;
+		private IConfiguration configuration;
+		private Serilog.Core.Logger serilogLogger;
+		private bool closed = false;
+
+		protected virtual void Start(IConfiguration configuration, IServiceProvider provider) {
+			RegisterRibbons(provider);
+			IntelliSenseServer.Install();
+		}
+		protected virtual void Stop() => IntelliSenseServer.Uninstall();
+		public virtual string CurrentDirectory => System.IO.Path.GetDirectoryName(typeof(HostedExcelAddIn).Assembly.Location)!;
+
+		public HostedExcelAddIn() {
+			var env = EnvironmentSetting.DOTNET_ENVIRONMENT;
+			serilogLogger = new SetupSerilog().UseConfigFile(env.Value, CurrentDirectory, new string[0]).Create();
+			IHostBuilder hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
+			var configBuilder = new ConfigurationBuilder()
+				.SetBasePath(CurrentDirectory)
+				.AddJsonFile("appsettings.json", false, true);
+			if (!string.IsNullOrEmpty(env.Value)) { configBuilder.AddJsonFile($"appsettings.{env.Value}.json", true, true); }
+			this.configuration = configBuilder
+				.AddEnvironmentVariables()
+				.Build();
+			host = hostBuilder.ConfigureAppConfiguration(builder => {
+				builder.Sources.Clear();
+				builder.AddConfiguration(configuration);
+			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, env, svc)).Build();
+			logger = host.Services.GetRequiredService<Microsoft.Extensions.Logging.ILogger>();
+		}
+		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
+			services.AddConfig<ProgramSetting>();
+			services.AddSingleton(envSetting);
+			services.AddSingleton<ShowConfigService>();
+			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName ?? "default"));
+		}
+		void RegisterRibbons(IServiceProvider provider) {
+			var ribbons = provider.GetRequiredService<IEnumerable<ExcelRibbon>>();
+			foreach (ExcelRibbon item in ribbons) {
+				logger.LogInformation("Loading excel ribbon: {name}", item.GetType().Name);
+				ExcelComAddInHelper.LoadComAddIn(item);
+			}
+		}
+		void IExcelAddIn.AutoOpen() {
+			try {
+				logger.LogInformation("startup excel addin");
+				Start(configuration, provider);
+			} catch (Exception err) {
+				logger.LogError(err, "error during startup");
+			}
+		}
+		void IExcelAddIn.AutoClose() {
+			try {
+				if (!closed) {
+					logger.LogInformation("stopping excel addin");
+					Stop();
+					logger.LogDebug("Disposing UtilityBase");
+					this.host.Dispose();
+					logger.LogDebug("CloseAndFlush Logging");
+					serilogLogger.Dispose();
+					closed = true;
+				}
+			} catch (Exception e) {
+				logger.LogError(e, "error during shutdown");
+			}
+		}
+	}
+}
