@@ -4,6 +4,7 @@ using Albatross.Excel.Table;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Reflection;
+using Albatross.Text;
 
 namespace Albatross.Hosting.Excel {
 	public record class ConfigurationValue {
@@ -34,7 +35,7 @@ namespace Albatross.Hosting.Excel {
 		private readonly IConfiguration configuration;
 
 		public ShowConfigService(EnvironmentSetting environment, IConfiguration configuration) {
-			this.Environment = $"Config {environment.Value}";
+			this.Environment = $"{environment.Value.ProperCase()} config";
 			this.configuration = configuration;
 		}
 		public void ShowConfig(string appName) {
