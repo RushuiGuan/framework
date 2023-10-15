@@ -38,13 +38,11 @@ namespace Albatross.Hosting.Excel {
 			this.Environment = $"{environment.Value.ProperCase()} config";
 			this.configuration = configuration;
 		}
-		public void ShowConfig(string appName) {
-			var sheetName = $"{appName}_config";
+		public void ShowConfig(string sheetName) {
 			var sheet = My.ActiveWorkbook(sheetName).GetOrCreateSheet(sheetName);
 			this.GetConfigValues().WriteTable(sheet, configTableOptions);
 		}
-		public void ShowVerison(string appName, Assembly assembly) {
-			var sheetName = $"{appName}_config";
+		public void ShowVerison(string sheetName, Assembly assembly) {
 			var sheet = My.ActiveWorkbook(sheetName).GetOrCreateSheet(sheetName);
 			GetAssemblyVersions(assembly).WriteTable(sheet, versionTableOptions);
 		}

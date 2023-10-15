@@ -8,6 +8,7 @@ using Albatross.Hosting.Excel;
 namespace Albatross.Excel.SampleAddIn {
 	[ComVisible(true)]
 	public class SampleRibbon : HostedExcelRibbon {
+		const string ConfigSheetName = "SampleCfg";
 		public override string GetCustomUI(string ribbonId) => this.GetType().GetEmbeddedFile("ribbon.xml");
 		private readonly ILogger<SampleRibbon> logger;
 		private readonly CellFormatDemo cellFormatDemoService;
@@ -33,10 +34,10 @@ namespace Albatross.Excel.SampleAddIn {
 
 		public string GetEnvironment(IRibbonControl _) => showConfigSvc.Environment;
 		public void Btn_GetConfiguration(IRibbonControl _) {
-			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.showConfigSvc.ShowConfig("SampleAddIn")));
+			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.showConfigSvc.ShowConfig(ConfigSheetName)));
 		}
 		public void Btn_GetVersion(IRibbonControl _) {
-			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.showConfigSvc.ShowVerison("SampleAddIn", this.GetType().Assembly)));
+			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.showConfigSvc.ShowVerison(ConfigSheetName, this.GetType().Assembly)));
 		}
 	}
 }
