@@ -1,7 +1,7 @@
 ﻿using Albatross.Excel.Table;
 using System;
 
-namespace Albatross.Excel.Sample.Models {
+namespace Albatross.Excel.SampleAddIn.Models {
 	public class Price {
 		public int Id { get; set; }
 		public int InstrumentId { get; set; }

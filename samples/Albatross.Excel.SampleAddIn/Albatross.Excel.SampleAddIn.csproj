@@ -6,7 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Albatross.Excel.Sample.dna" />
+		<None Remove="Albatross.Excel.SampleAddIn.dna" />
 		<None Remove="appsettings.json" />
 		<None Remove="appsettings.production.json" />
 		<None Remove="ribbon.xml" />
@@ -20,7 +20,7 @@
 		<Content Include="appsettings.production.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Albatross.Excel.Sample.dna">
+		<Content Include="Albatross.Excel.SampleAddIn.dna">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="serilog.json">

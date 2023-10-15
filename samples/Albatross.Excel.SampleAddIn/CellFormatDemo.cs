@@ -4,7 +4,7 @@ using ExcelDna.Integration.CustomUI;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace Albatross.Excel.Sample {
+namespace Albatross.Excel.SampleAddIn {
 	public class CellFormatDemo {
 		const string SampleSheetName = "sample";
 

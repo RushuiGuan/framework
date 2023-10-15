@@ -8,12 +8,16 @@
 					<button id='FontProperties' label='FontProperties' onAction='Btn_FontProperties'/>
 					<button id='NumberFormat' label='NumberFormats' onAction='Btn_NumberFormats'/>
 					<button id='Background' label='Background' onAction='Btn_Background'/>
-				</group >
+				</group>
 				<group id='group2' label='Table Demo'>
 					<button id='LoadTestData' label='Load TestData' onAction='Btn_LoadTestData'/>
 					<button id='LoadInstrumentData' label='Load Instrument Data' onAction='Btn_LoadInstrumentData'/>
 					<button id='SavePrice' label='Save Price' onAction='Btn_SavePrice'/>
-				</group >
+				</group>
+				<group id='group3' label='Configuration'>
+					<button id='GetConfigBtn' getLabel='GetEnvironment' onAction='Btn_GetConfiguration'/>
+					<button id='GetVersionBtn' label='Versions' onAction='Btn_GetVersion'/>
+				</group>
 			</tab>
 		</tabs>
 	</ribbon>

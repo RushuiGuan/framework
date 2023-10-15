@@ -1,16 +1,11 @@
-﻿using interop = Microsoft.Office.Interop.Excel;
-using ExcelDna.Integration.CustomUI;
+﻿using ExcelDna.Integration.CustomUI;
 using System.Runtime.InteropServices;
 using Albatross.Reflection;
 using ExcelDna.Integration;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using Albatross.Excel.Table;
 using Albatross.Hosting.Excel;
-using Albatross.Excel.Sample.Models;
 
-namespace Albatross.Excel.Sample {
+namespace Albatross.Excel.SampleAddIn {
 	[ComVisible(true)]
 	public class SampleRibbon : HostedExcelRibbon {
 		public override string GetCustomUI(string ribbonId) => this.GetType().GetEmbeddedFile("ribbon.xml");
@@ -18,12 +13,14 @@ namespace Albatross.Excel.Sample {
 		private readonly CellFormatDemo cellFormatDemoService;
 		private readonly TableWriteDemo tableDemo;
 		private readonly TableReadWriteDemo readWriteDemo;
+		private readonly ShowConfigService showConfigSvc;
 
-		public SampleRibbon(ILogger<SampleRibbon> logger, CellFormatDemo cellFormatDemoService, TableWriteDemo tableDemo, TableReadWriteDemo readWriteDemo) : base(logger) {
+		public SampleRibbon(ILogger<SampleRibbon> logger, CellFormatDemo cellFormatDemoService, TableWriteDemo tableDemo, TableReadWriteDemo readWriteDemo, ShowConfigService showConfigSvc) : base(logger) {
 			this.logger = logger;
 			this.cellFormatDemoService = cellFormatDemoService;
 			this.tableDemo = tableDemo;
 			this.readWriteDemo = readWriteDemo;
+			this.showConfigSvc = showConfigSvc;
 		}
 
 		public async void Btn_LoadTestData(IRibbonControl _) => await this.tableDemo.WriteToExcel();
@@ -33,5 +30,13 @@ namespace Albatross.Excel.Sample {
 		public void Btn_Background(IRibbonControl _) => this.cellFormatDemoService.BackgroundDemo();
 		public void Btn_FontProperties(IRibbonControl _) => this.cellFormatDemoService.FontPropertiesDemo();
 		public void Btn_PrintColor(IRibbonControl _) => this.cellFormatDemoService.PrintColorDemo();
+
+		public string GetEnvironment(IRibbonControl _) => showConfigSvc.Environment;
+		public void Btn_GetConfiguration(IRibbonControl _) {
+			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.showConfigSvc.ShowConfig("SampleAddIn")));
+		}
+		public void Btn_GetVersion(IRibbonControl _) {
+			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.showConfigSvc.ShowVerison("SampleAddIn", this.GetType().Assembly)));
+		}
 	}
 }

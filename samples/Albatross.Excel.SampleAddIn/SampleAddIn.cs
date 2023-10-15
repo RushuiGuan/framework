@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Albatross.Excel.Sample{
+namespace Albatross.Excel.SampleAddIn{
 	public class SampleAddIn : HostedExcelAddIn {
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			base.RegisterServices(configuration, envSetting, services);

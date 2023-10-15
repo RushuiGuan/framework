@@ -1,10 +1,10 @@
-﻿using Albatross.Excel.Sample.Models;
+﻿using Albatross.Excel.SampleAddIn.Models;
 using ExcelDna.Integration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Albatross.Excel.Sample {
+namespace Albatross.Excel.SampleAddIn {
 	public class InstrumentService {
 		Dictionary<int, Instrument> instruments;
 		public InstrumentService() {

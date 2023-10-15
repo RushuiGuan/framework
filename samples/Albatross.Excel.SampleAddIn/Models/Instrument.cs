@@ -1,6 +1,6 @@
 ﻿using Albatross.Excel.Table;
 
-namespace Albatross.Excel.Sample.Models {
+namespace Albatross.Excel.SampleAddIn.Models {
 	public class Instrument {
 		public Instrument(string name, string ticker) {
 			Name = name;

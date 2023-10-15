@@ -2,24 +2,61 @@
 using Albatross.Excel;
 using Albatross.Excel.Table;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Albatross.Hosting.Excel {
-	public record ConfigurationValue {
+	public record class ConfigurationValue {
 		public string Type { get; set; } = string.Empty;
 		public string Key { get; set; } = string.Empty;
 		public string? Value { get; set; }
 	}
+	public record class VersionValue {
+		public VersionValue(AssemblyName assemblyName) {
+			this.AssemblyName = assemblyName.Name ?? "Anonymous";
+			this.AssemblyVersion = assemblyName.Version?.ToString() ?? "Unknown";
+		}
+
+		public string AssemblyName { get; set; } = string.Empty;
+		public string AssemblyVersion { get; set; } = string.Empty;
+	}
+	
 	public class ShowConfigService {
 		public string Environment { get; set; }
-		public ConfigurationValue[] Values { get; } = Array.Empty<ConfigurationValue>();
 		TableOptions configTableOptions = new TableOptionsBuilder()
 			.AddColumns<ConfigurationValue>()
 			.Build();
 
+		TableOptions versionTableOptions = new TableOptionsBuilder()
+			.Offset(0, 4)
+			.AddColumns<VersionValue>()
+			.Build();
+		private readonly IConfiguration configuration;
+
 		public ShowConfigService(EnvironmentSetting environment, IConfiguration configuration) {
-			this.Environment = environment.Value;
+			this.Environment = $"Config {environment.Value}";
+			this.configuration = configuration;
+		}
+		public void ShowConfig(string appName) {
+			var sheetName = $"{appName}_config";
+			var sheet = My.ActiveWorkbook(sheetName).GetOrCreateSheet(sheetName);
+			this.GetConfigValues().WriteTable(sheet, configTableOptions);
+		}
+		public void ShowVerison(string appName, Assembly assembly) {
+			var sheetName = $"{appName}_config";
+			var sheet = My.ActiveWorkbook(sheetName).GetOrCreateSheet(sheetName);
+			GetAssemblyVersions(assembly).WriteTable(sheet, versionTableOptions);
+		}
+		VersionValue[] GetAssemblyVersions(Assembly assembly) {
+			List<VersionValue> versions = new List<VersionValue> {
+				new VersionValue(assembly.GetName())
+			};
+			foreach (var referenced in assembly.GetReferencedAssemblies()) {
+				versions.Add(new VersionValue(referenced));
+			}
+			return versions.ToArray();
+		}
+		ConfigurationValue[] GetConfigValues() {
 			var list = new List<ConfigurationValue>();
 			var section = configuration.GetSection("ConnectionStrings");
 			foreach (var item in section.GetChildren()) {
@@ -29,12 +66,7 @@ namespace Albatross.Hosting.Excel {
 			foreach (var item in section.GetChildren()) {
 				list.Add(new ConfigurationValue { Type = "EndPoint", Key = item.Key, Value = item.Value });
 			}
-			Values = list.ToArray();
-		}
-		public void ShowConfig(string appName) {
-			var sheetName = $"{appName}_config";
-			var sheet = My.ActiveWorkbook(sheetName).GetOrCreateSheet(sheetName);
-			Values.WriteTable(sheet, configTableOptions);
+			return list.ToArray();
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Albatross.Excel.Sample.Models {
+namespace Albatross.Excel.SampleAddIn.Models {
 	public class PriceViewModel : ExcelViewModel {
 		public int? Id { get; set; }
 		public int InstrumentId { get; set; }

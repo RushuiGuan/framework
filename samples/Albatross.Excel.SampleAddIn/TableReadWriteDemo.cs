@@ -1,5 +1,5 @@
 ﻿using interop = Microsoft.Office.Interop.Excel;
-using Albatross.Excel.Sample.Models;
+using Albatross.Excel.SampleAddIn.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ using Albatross.Authentication.Core;
 using System;
 using Albatross.Collections;
 
-namespace Albatross.Excel.Sample {
+namespace Albatross.Excel.SampleAddIn {
 	public class TableReadWriteDemo {
 		const string MySheetName = "instrument-price";
 		private readonly ILogger<TableReadWriteDemo> logger;

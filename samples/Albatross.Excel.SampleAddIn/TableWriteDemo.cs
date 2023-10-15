@@ -1,5 +1,5 @@
 ﻿using interop = Microsoft.Office.Interop.Excel;
-using Albatross.Excel.Sample.Models;
+using Albatross.Excel.SampleAddIn.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ using ExcelDna.Integration;
 using Albatross.Excel.Table;
 using Humanizer;
 
-namespace Albatross.Excel.Sample {
+namespace Albatross.Excel.SampleAddIn {
 	public class TableWriteDemo {
 		const string MySheetName = "test-data";
 		private readonly ILogger<TableWriteDemo> logger;

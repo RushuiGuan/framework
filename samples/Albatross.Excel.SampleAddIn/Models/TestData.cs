@@ -1,7 +1,7 @@
 ﻿using Albatross.Excel.Table;
 using System;
 
-namespace Albatross.Excel.Sample.Models {
+namespace Albatross.Excel.SampleAddIn.Models {
 	public class TestData {
 		public int Id { get; set; }
 		public string Text { get; set; } = string.Empty;
