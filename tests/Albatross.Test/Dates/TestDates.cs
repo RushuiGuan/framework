@@ -173,5 +173,15 @@ namespace Albatross.Test.Dates {
 				}
 			}
 		}
+
+		[Theory]
+		[InlineData("2023-10-03", 3, DayOfWeek.Wednesday, "2023-10-18")]
+		[InlineData("2023-10-02", 1, DayOfWeek.Monday, "2023-10-02")]
+		[InlineData("2023-10-01", 1, DayOfWeek.Monday, "2023-10-02")]
+		[InlineData("2023-10-03", 1, DayOfWeek.Monday, "2023-10-09")]
+		public void TestGetNthDayOfWeek(string date, int n, DayOfWeek dayOfWeek, string expected) {
+			var result = DateTime.Parse(date).GetNthDayOfWeek(n, dayOfWeek);
+			Assert.Equal(DateTime.Parse(expected), result);
+		}
 	}
 }

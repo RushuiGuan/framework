@@ -117,5 +117,15 @@ namespace Albatross.Dates {
 			}
 			return date;
 		}
+		/// <summary>
+		/// find the nth day of week from the given date
+		/// </summary>
+		public static DateTime GetNthDayOfWeek(this DateTime date, int n, DayOfWeek dayOfWeek) {
+			var diff = dayOfWeek - date.DayOfWeek;
+			if (diff < 0) {
+				diff = 7 - System.Math.Abs(diff);
+			}
+			return date.AddDays(diff + (n - 1) * 7);
+		}
 	}
 }
