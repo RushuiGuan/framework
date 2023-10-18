@@ -32,7 +32,7 @@ namespace Albatross.Messaging.Commands {
 		void AcceptRequest(IMessagingService messagingService, CommandRequest cmd) {
 			try {
 				var job = this.commandQueueFactory.CreateJob(cmd);
-				logger.LogInformation("submitting job {id}", job.Id);
+				logger.LogInformation("AcceptingRequest => {id}", job.Id);
 				job.Queue.Submit(job);
 				// internal route could be sent here due to replay, make sure it doesn't actually get sent to the socket
 				if (cmd.FireAndForget && cmd.Route != InternalCommand.Route) {
@@ -74,6 +74,7 @@ namespace Albatross.Messaging.Commands {
 				case InternalCommand internalCommand:
 					try {
 						var newJob = this.commandQueueFactory.CreateJob(internalCommand.Request);
+						logger.LogInformation("ProcessTransmitQueue, InternalCommand => {id}", newJob.Id);
 						newJob.Queue.Submit(newJob);
 						internalCommand.SetResult();
 					}catch(Exception e) {

@@ -28,6 +28,7 @@ namespace Albatross.Messaging.Commands {
 			logger.LogInformation("command queue {name} setup", queueName);
 		}
 		public void Submit(CommandJob job) {
+			logger.LogInformation("Submitting => {id}", job.Id);
 			this.queue.Enqueue(job);
 			this.RunNextIfNotBusy();
 		}
@@ -37,6 +38,7 @@ namespace Albatross.Messaging.Commands {
 		public void RunNextIfNotBusy() {
 			if (current == null || current.IsCompleted == true) {
 				if (this.queue.TryDequeue(out var next)) {
+					logger.LogInformation("RunNextIfNotBusy => {id}", next.Id);
 					this.current = Run(next);
 				}
 			}
@@ -49,6 +51,7 @@ namespace Albatross.Messaging.Commands {
 		/// </summary>
 		internal void RunNextIfAvailable() {
 			if (this.queue.TryDequeue(out var next)) {
+				logger.LogInformation("RunNextIfAvailable => {id}", next.Id);
 				this.current = Run(next);
 			} else {
 				this.current = null;
@@ -57,6 +60,7 @@ namespace Albatross.Messaging.Commands {
 
 		public async virtual Task Run(CommandJob job) {
 			try {
+				logger.LogInformation("Running => {id}", job.Id);
 				using var scope = scopeFactory.CreateScope();
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);
 				// logger.LogInformation("start: {commandId}", message.MessageId);
