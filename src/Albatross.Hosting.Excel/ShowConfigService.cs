@@ -13,9 +13,9 @@ namespace Albatross.Hosting.Excel {
 		public string? Value { get; set; }
 	}
 	public record class VersionValue {
-		public VersionValue(AssemblyName assemblyName) {
+		public VersionValue(AssemblyName assemblyName, AssemblyInformationalVersionAttribute? informationalVersionAttribute) {
 			this.AssemblyName = assemblyName.Name ?? "Anonymous";
-			this.AssemblyVersion = assemblyName.Version?.ToString() ?? "Unknown";
+			this.AssemblyVersion = informationalVersionAttribute?.InformationalVersion ?? assemblyName.Version?.ToString() ?? "Unknown";
 		}
 
 		public string AssemblyName { get; set; } = string.Empty;
@@ -48,10 +48,10 @@ namespace Albatross.Hosting.Excel {
 		}
 		VersionValue[] GetAssemblyVersions(Assembly assembly) {
 			List<VersionValue> versions = new List<VersionValue> {
-				new VersionValue(assembly.GetName())
+				new VersionValue(assembly.GetName(), assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>())
 			};
 			foreach (var referenced in assembly.GetReferencedAssemblies()) {
-				versions.Add(new VersionValue(referenced));
+				versions.Add(new VersionValue(referenced, null));
 			}
 			return versions.ToArray();
 		}

@@ -175,7 +175,10 @@ namespace Albatross.Test.Dates {
 		}
 
 		[Theory]
-		[InlineData("2023-10-03", 3, DayOfWeek.Wednesday, "2023-10-18")]
+		[InlineData("2023-10-01", 1, DayOfWeek.Wednesday, "2023-10-04")]
+		[InlineData("2023-10-05", 1, DayOfWeek.Wednesday, "2023-10-11")]
+		[InlineData("2023-10-05", 2, DayOfWeek.Wednesday, "2023-10-18")]
+		[InlineData("2023-10-03", 2, DayOfWeek.Wednesday, "2023-10-11")]
 		[InlineData("2023-10-02", 1, DayOfWeek.Monday, "2023-10-02")]
 		[InlineData("2023-10-01", 1, DayOfWeek.Monday, "2023-10-02")]
 		[InlineData("2023-10-03", 1, DayOfWeek.Monday, "2023-10-09")]
