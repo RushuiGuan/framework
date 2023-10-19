@@ -28,7 +28,7 @@ namespace Albatross.Messaging.Commands {
 			logger.LogInformation("command queue {name} setup", queueName);
 		}
 		public void Submit(CommandJob job) {
-			logger.LogInformation("Submitting => {id}", job.Id);
+			logger.LogDebug("Submitting => {id}", job.Id);
 			this.queue.Enqueue(job);
 			this.RunNextIfNotBusy();
 		}
@@ -38,7 +38,7 @@ namespace Albatross.Messaging.Commands {
 		public void RunNextIfNotBusy() {
 			if (current == null || current.IsCompleted) {
 				if (this.queue.TryDequeue(out var next)) {
-					logger.LogInformation("RunNextIfNotBusy => {id}", next.Id);
+					logger.LogDebug("RunNextIfNotBusy => {id}", next.Id);
 					this.current = next;
 					_ = Run(next);
 				}

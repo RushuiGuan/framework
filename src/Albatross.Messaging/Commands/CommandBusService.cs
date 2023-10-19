@@ -32,7 +32,7 @@ namespace Albatross.Messaging.Commands {
 		void AcceptRequest(IMessagingService messagingService, CommandRequest cmd) {
 			try {
 				var job = this.commandQueueFactory.CreateJob(cmd);
-				logger.LogInformation("AcceptingRequest => {id}", job.Id);
+				logger.LogDebug("AcceptingRequest => {id}", job.Id);
 				job.Queue.Submit(job);
 				// internal route could be sent here due to replay, make sure it doesn't actually get sent to the socket
 				if (cmd.FireAndForget && cmd.Route != InternalCommand.Route) {
@@ -78,7 +78,7 @@ namespace Albatross.Messaging.Commands {
 					// the internal commands are sent here to be queued on its command queue using the netmq main thread.  no locking is required
 					try {
 						var newJob = this.commandQueueFactory.CreateJob(internalCommand.Request);
-						logger.LogInformation("ProcessTransmitQueue, InternalCommand => {id}", newJob.Id);
+						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newJob.Id);
 						newJob.Queue.Submit(newJob);
 						internalCommand.SetResult();
 					}catch(Exception e) {

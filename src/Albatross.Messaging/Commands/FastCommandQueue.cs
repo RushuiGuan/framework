@@ -18,7 +18,7 @@ namespace Albatross.Messaging.Commands {
 
 		public async override Task Run(CommandJob job) {
 			try {
-				logger.LogInformation("Running => {id}", job.Id);
+				logger.LogDebug("Running => {id}", job.Id);
 				using var scope = scopeFactory.CreateScope();
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);
 				var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
