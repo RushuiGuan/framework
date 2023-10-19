@@ -1,10 +1,9 @@
 $output = $env:InstallDirectory;
 
-$projects = `
-	"sampleproject.utility" `
-	 ,"sampleproject.daemon" `
-	 ,"sampleproject.webapi" `
-;
+$projects = @(
+	"sampleproject.utility"
+#	,"sampleproject.webapi"
+);
 
 foreach($project in $projects){
 	Get-ChildItem $output\$project | Remove-Item -Recurse -Force;

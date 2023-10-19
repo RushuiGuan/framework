@@ -81,7 +81,7 @@ namespace Albatross.Messaging.Commands {
 
 		public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg) => throw new NotSupportedException();
 
-		public bool ProcessTransmitQueue(IMessagingService messagingService, object msg) {
+		public bool ProcessQueue(IMessagingService messagingService, object msg) {
 			switch (msg) {
 				case StartReplay _:
 					this.records.Clear();

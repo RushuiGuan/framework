@@ -1,7 +1,7 @@
 {
     "Serilog": {
         "MinimumLevel": {
-            "Default": "Debug",
+            "Default": "Information",
             "Override": {
                 "System": "Error",
                 "Microsoft": "Error"
@@ -24,7 +24,7 @@
                             {
                                 "Name": "ByExcluding",
                                 "Args": {
-                                    "expression": "StartsWith(SourceContext, 'message-entry')"
+                                    "expression": "EndsWith(SourceContext, 'message-entry')"
                                 }
                             }
                         ]
@@ -39,7 +39,7 @@
                             {
                                 "Name": "Console",
                                 "Args": {
-                                    "outputTemplate": "msg-entry:{Message:lj}"
+                                    "outputTemplate": "{SourceContext}:{Message:lj}"
                                 }
                             }
                         ],
@@ -47,7 +47,32 @@
                             {
                                 "Name": "ByIncludingOnly",
                                 "Args": {
-                                    "expression": "StartsWith(SourceContext, 'message-entry')"
+                                    "expression": "EndsWith(SourceContext, 'message-entry')"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "Name": "Logger",
+                "Args": {
+                    "configureLogger": {
+                        "WriteTo": [
+                            {
+                                "Name": "File",
+                                "Args": {
+                                    "path": "%LogDirectory%\\Sample.Daemon\\SampleDaemon.log",
+                                    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{NewLine}{Exception}",
+                                    "rollingInterval": "Day"
+                                }
+                            }
+                        ],
+                        "Filter": [
+                            {
+                                "Name": "ByExcluding",
+                                "Args": {
+                                    "expression": "EndsWith(SourceContext, 'message-entry')"
                                 }
                             }
                         ]
@@ -55,6 +80,10 @@
                 }
             }
         ],
-        "Enrich": [ "FromLogContext" ]
+        "Enrich": [
+            "FromLogContext",
+            "WithThreadId",
+            "WithMachineName"
+        ]
     }
 }

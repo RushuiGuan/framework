@@ -6,6 +6,10 @@ namespace SampleProject.Commands {
 	public static class Extensions {
 		static string GetQueueName(object command, IServiceProvider provider) {
 			switch (command) {
+				case KickOffDoNothingCommand kickoff:
+					return $"kickoff - {kickoff.Id}";
+				case DoNothingCommand doNothing:
+					return $"donothing - {doNothing.Id % 10}";
 				case DoMathWorkCommand:
 				case ProcessDataCommand:
 					return "math-queue";

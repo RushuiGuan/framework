@@ -15,7 +15,7 @@ namespace Albatross.Messaging.Commands {
 		protected readonly RouterServer routerServer;
 		protected readonly IServiceScopeFactory scopeFactory;
 		protected readonly Queue<CommandJob> queue = new Queue<CommandJob>();
-		protected Task? current;
+		protected CommandJob? current;
 		public string Name { get; private set; } = string.Empty;
 
 		public CommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory) {
@@ -36,49 +36,43 @@ namespace Albatross.Messaging.Commands {
 		public int Count { get => this.queue.Count; }
 
 		public void RunNextIfNotBusy() {
-			if (current == null || current.IsCompleted == true) {
+			if (current == null || current.IsCompleted) {
 				if (this.queue.TryDequeue(out var next)) {
 					logger.LogInformation("RunNextIfNotBusy => {id}", next.Id);
-					this.current = Run(next);
+					this.current = next;
+					_ = Run(next);
 				}
 			}
 		}
-		/// <summary>
-		/// this call doesn't care if the queue is busy.  should only be called by the run function itself.
-		/// it is should still be called on the netmq thread, therefore not invoked by the Run method.
-		/// if this method doesn't kick off a new command, it will set the current to null.  This garantees
-		/// the next RunNext call to kick of a new command if the queue is not empty
-		/// </summary>
-		internal void RunNextIfAvailable() {
-			if (this.queue.TryDequeue(out var next)) {
-				logger.LogInformation("RunNextIfAvailable => {id}", next.Id);
-				this.current = Run(next);
-			} else {
-				this.current = null;
-			}
-		}
-
 		public async virtual Task Run(CommandJob job) {
 			try {
-				logger.LogInformation("Running => {id}", job.Id);
 				using var scope = scopeFactory.CreateScope();
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);
-				// logger.LogInformation("start: {commandId}", message.MessageId);
-				var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
-				logger.LogInformation("end: {commandId}", job.Id);
+				// run everything else using a diff thread
+				await Task.Run(async () => {
+					if (job.Command is ILogDetail logDetail) {
+						logger.LogInformation("Running {command} by {client}({id}), parameter: {@parameter}",
+							job.Registration.CommandType, job.Route, job.Id, logDetail.Target);
+					} else {
+						logger.LogInformation("Running {command} by {client}({id})",
+							job.Registration.CommandType, job.Route, job.Id);
+					}
+					var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
+					logger.LogInformation("Done {commandId}", job.Id);
 
-				if (job.Registration.HasReturnType) {
-					var stream = new MemoryStream();
-					JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, MessagingJsonSettings.Value.Default);
-					job.Reply = new CommandReply(job.Route, job.Id, stream.ToArray());
-				} else {
-					job.Reply = new CommandReply(job.Route, job.Id, Array.Empty<byte>());
-				}
-				routerServer.SubmitToQueue(job);
+					if (job.Registration.HasReturnType) {
+						var stream = new MemoryStream();
+						JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, MessagingJsonSettings.Value.Default);
+						job.Reply = new CommandReply(job.Route, job.Id, stream.ToArray());
+					} else {
+						job.Reply = new CommandReply(job.Route, job.Id, Array.Empty<byte>());
+					}
+					routerServer.SubmitToQueue(job);
+				});
 			} catch (Exception err) {
-				logger.LogError(err, "error running command {id}", job.Id);
-				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
+				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "unknown class", err.Message.ToUtf8Bytes());
 				routerServer.SubmitToQueue(job);
+				logger.LogError(err, "Failed {commandId}", job.Id);
 			}
 		}
 	}

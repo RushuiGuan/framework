@@ -62,7 +62,7 @@ namespace Albatross.Messaging.ReqRep {
 			}
 		}
 
-		public bool ProcessTransmitQueue(IMessagingService routerServer, object msg) {
+		public bool ProcessQueue(IMessagingService routerServer, object msg) {
 			return false;
 		}
 		public void ProcessTimerElapsed(IMessagingService routerServer, ulong count) {

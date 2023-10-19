@@ -61,17 +61,21 @@ namespace Albatross.Messaging.Commands {
 			}
 		}
 
-		public bool ProcessTransmitQueue(IMessagingService messagingService, object msg) {
+		public bool ProcessQueue(IMessagingService messagingService, object msg) {
 			switch (msg) {
 				case CommandJob job:
+					// the command job is sent here when it has finished its execution
 					if (job.FireAndForget) {
 						messagingService.DataLogger.WriteLogEntry(new DataLogging.LogEntry(EntryType.Record, new CommandExecuted(job.Route, job.Id)));
 					} else {
 						messagingService.SubmitToQueue(job.Reply ?? new CommandErrorReply(job.Route, job.Id, "Error", "reply mia".ToUtf8Bytes()));
 					}
-					job.Queue.RunNextIfAvailable();
+					job.IsCompleted = true;
+					// after a job has finished, kick off the next job
+					job.Queue.RunNextIfNotBusy();
 					break;
 				case InternalCommand internalCommand:
+					// the internal commands are sent here to be queued on its command queue using the netmq main thread.  no locking is required
 					try {
 						var newJob = this.commandQueueFactory.CreateJob(internalCommand.Request);
 						logger.LogInformation("ProcessTransmitQueue, InternalCommand => {id}", newJob.Id);

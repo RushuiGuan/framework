@@ -6,6 +6,7 @@ namespace Albatross.Messaging.Commands {
 		public string Route => request.Route;
 		public ulong Id => request.Id;
 		public bool FireAndForget => request.FireAndForget;
+		public bool IsCompleted { get; internal set; }
 
 		private readonly CommandRequest request;
 		public CommandQueue Queue { get; init; }

@@ -94,7 +94,7 @@ namespace Albatross.Messaging.Services {
 							break;
 						default:
 							foreach (var service in this.transmitServices) {
-								if (service.ProcessTransmitQueue(this, item)) {
+								if (service.ProcessQueue(this, item)) {
 									return;
 								}
 							}

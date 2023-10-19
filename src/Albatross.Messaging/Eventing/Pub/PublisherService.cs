@@ -48,7 +48,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 			}
 			return false;
 		}
-		public bool ProcessTransmitQueue(IMessagingService messagingService, object msg) {
+		public bool ProcessQueue(IMessagingService messagingService, object msg) {
 			if (msg is PubEvent pub) {
 				foreach (var sub in subscriberManagement.Subscriptions) {
 					if (sub.Match(pub.Topic)) {

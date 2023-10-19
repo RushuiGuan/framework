@@ -66,7 +66,8 @@ namespace Albatross.Messaging.Commands {
 			services.AddSingleton<IRouterServerService>(provider => provider.GetRequiredService<ICommandBusService>());
 			services.AddSingleton<IRouterServerService, CommandBusReplayService>();
 			services.TryAddSingleton<ICommandQueueFactory, CommandQueueFactory>();
-			services.TryAddTransient<CommandQueue, TaskCommandQueue>();
+			// services.TryAddTransient<CommandQueue, TaskCommandQueue>();
+			services.TryAddTransient<CommandQueue>();
 			// this should only be used if the TaskCommandQueue is used
 			services.TryAddSingleton<InternalCommandClient>();
 			services.AddRouterServer();

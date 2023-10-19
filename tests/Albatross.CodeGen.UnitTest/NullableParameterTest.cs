@@ -17,9 +17,9 @@ namespace Albatross.CodeGen.UnitTest {
 
 		[Fact] public void TestNullableProperty() {
 			var propertyInfo = this.GetType().GetProperty(nameof(Name));
-			Assert.True(new NullabilityInfoContext().Create(propertyInfo).WriteState == NullabilityState.Nullable);
+			Assert.True(new NullabilityInfoContext().Create(propertyInfo!).WriteState == NullabilityState.Nullable);
 			propertyInfo = this.GetType().GetProperty(nameof(Name1));
-			Assert.False(new NullabilityInfoContext().Create(propertyInfo).WriteState == NullabilityState.Nullable);
+			Assert.False(new NullabilityInfoContext().Create(propertyInfo!).WriteState == NullabilityState.Nullable);
 		}
 		
 		[Fact]
