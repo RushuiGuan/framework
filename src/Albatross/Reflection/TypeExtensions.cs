@@ -195,19 +195,23 @@ namespace Albatross.Reflection {
 		/// return the property value of an object using reflection.  Property name can be delimited using . to allow retrieval of nested object property value
 		/// </summary>
 		/// <exception cref="ArgumentException"></exception>
-		public static object? GetPropertyValue(this Type type, object? data, string name) {
+		public static object? GetPropertyValue(this Type type, object? data, string name, bool ignoreCase = false) {
+			var bindingFlag = BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty;
+			if (ignoreCase) {
+				bindingFlag = bindingFlag | BindingFlags.IgnoreCase;
+			}
 			if (data == null) { return null; }
 			var index = name.IndexOf('.');
 			if(index == -1) {
-				var property = type.GetProperty(name) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
+				var property = type.GetProperty(name, bindingFlag) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
 				return property.GetValue(data);
 			} else {
 				var firstProperty = name.Substring(0, index);
-				var property = type.GetProperty(firstProperty) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
+				var property = type.GetProperty(firstProperty, bindingFlag) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
 				var value = property.GetValue(data);
 				if(value != null) {
 					var remainingProperty = name.Substring(index + 1);
-					return GetPropertyValue(value.GetType(), value, remainingProperty);
+					return GetPropertyValue(value.GetType(), value, remainingProperty, ignoreCase);
 				} else {
 					return null;
 				}

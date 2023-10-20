@@ -196,6 +196,28 @@ namespace Albatross.Test.Reflection {
 			};
 			Assert.Equal(typeof(Style).GetPropertyValue(obj, propertyName), expected);
 		}
+
+		[Theory]
+		[InlineData(nameof(Style.Name), "box")]
+		[InlineData(nameof(Style.Color), "red")]
+		[InlineData("width.unit", "px")]
+		[InlineData("Width.number", 100)]
+		[InlineData("Width.stroke", null)]
+		[InlineData("padding", null)]
+		[InlineData("padding.left", null)]
+		[InlineData("Padding.Right", null)]
+		[InlineData("Padding.x", null)] // the method will return null here even when x is not a valid property because the Padding property is null
+		public void TestGetPropertyValueIgnoreCase(string propertyName, object expected) {
+			var obj = new Style {
+				Name = "box",
+				Color = "red",
+				Width = new Width {
+					Unit = "px",
+					Number = 100,
+				}
+			};
+			Assert.Equal(typeof(Style).GetPropertyValue(obj, propertyName, true), expected);
+		}
 		[Theory]
 		[InlineData("Name1")]
 		[InlineData("Color1")]
