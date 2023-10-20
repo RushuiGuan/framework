@@ -97,5 +97,15 @@ namespace Albatross.Excel {
 			XlCall.Excel(XlCall.xlcSelect, range);
 			XlCall.Excel(XlCall.xlcClear);
 		}
+		public static bool HasData(this object[,] values) {
+			for (int i = 0; i < values.GetLength(0); i++) {
+				for (int j = 0; j < values.GetLength(1); j++) {
+					if (values[i, j] != ExcelEmpty.Value) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 	}
 }

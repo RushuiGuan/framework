@@ -1,13 +1,11 @@
 ﻿using Albatross.Reflection;
 using ExcelDna.Integration;
-using ExcelDna.Registration;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Windows;
 using excel = Microsoft.Office.Interop.Excel;
 
 namespace Albatross.Excel.Table {
@@ -249,6 +247,25 @@ namespace Albatross.Excel.Table {
 		public static TableColumn Required(this TableColumn tableColumn, bool required = true) {
 			tableColumn.Required = required;
 			return tableColumn;
+		}
+		public static bool TryUseCurrentSelection(this TableOptions options, int rowCount) {
+			var sheet = My.ActiveWorksheet();
+			var selection = My.ActiveSelection();
+			if (sheet != null && selection != null) {
+				options.FirstColumn = selection.ColumnFirst;
+				options.FirstRow = selection.RowFirst;
+				var targetRange = new ExcelReference(options.FirstRow, options.FirstRow + rowCount, options.FirstColumn, options.FirstColumn + options.Columns.Length - 1, sheet.Name);
+				var values = (object[,])targetRange.GetValue();
+				if (values.HasData()) {
+					var result = MessageBox.Show("Target range contains data that will be overwritten and the process cannot be undone.  Do you want to proceed?", "Warning", MessageBoxButton.YesNo);
+					if (result == MessageBoxResult.Yes) {
+						return true;
+					}
+				} else {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

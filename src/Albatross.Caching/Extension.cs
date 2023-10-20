@@ -30,7 +30,7 @@ namespace Albatross.Caching {
 		}
 
 		public static IServiceCollection AddCacheMgmt<T>(this IServiceCollection services) where T : class, ICacheManagement {
-			services.AddSingleton<ICacheManagement, T>();
+			services.TryAddEnumerable(ServiceDescriptor.Singleton<ICacheManagement, T>());
 			return services;
 		}
 
@@ -45,7 +45,7 @@ namespace Albatross.Caching {
 				Type genericDefinition = typeof(ICacheManagement<>);
 				foreach (Type type in assembly.GetConcreteClasses()) {
 					if (type.TryGetClosedGenericType(genericDefinition, out Type? _)) {
-						services.AddSingleton(typeof(ICacheManagement), type);
+						services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(ICacheManagement), type));
 					}
 				}
 			}
