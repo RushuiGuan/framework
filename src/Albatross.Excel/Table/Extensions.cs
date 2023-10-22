@@ -197,7 +197,7 @@ namespace Albatross.Excel.Table {
 			var type = entity.GetType();
 			PropertyInfo propertyInfo = type.GetProperty(column.Name);
 			if (propertyInfo != null) {
-				if (cellValue == null || cellValue == ExcelMissing.Value || cellValue == ExcelEmpty.Value || cellValue is ExcelError && column.UseNullForError) {
+				if (cellValue == ExcelMissing.Value || cellValue == ExcelEmpty.Value || cellValue is ExcelError && column.UseNullForError) {
 					if (column.IsNullable) {
 						propertyInfo.SetValue(entity, null);
 						return true;
@@ -214,7 +214,19 @@ namespace Albatross.Excel.Table {
 				} else {
 					try {
 						if (column.Type == typeof(DateTime)) {
-							cellValue = cellValue.GetDateTime();
+							if (CellValue.TryReadDateTime(cellValue, out var dateTimeValue)) {
+								cellValue = dateTimeValue;
+							} else {
+								error = "Cell value is not of DateTime type";
+								return false;
+							}
+						}else if(column.Type == typeof(DateOnly)) {
+							if (CellValue.TryReadDateOnly(cellValue, out var dateValue)) {
+								cellValue = dateValue;
+							} else {
+								error = "Cell value is not of DateOnly type";
+								return false;
+							}
 						} else {
 							cellValue = Convert.ChangeType(cellValue, column.Type);
 						}
@@ -266,6 +278,12 @@ namespace Albatross.Excel.Table {
 				}
 			}
 			return false;
+		}
+		public static TableOptionsBuilder AddColumns(this TableOptionsBuilder builder, params TableColumn[] columns) {
+			foreach (var item in columns) {
+				builder.Add(item);
+			}
+			return builder;
 		}
 	}
 }

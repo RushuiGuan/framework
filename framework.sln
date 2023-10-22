@@ -135,9 +135,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Excel", "src\Alba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Excel.SampleAddIn", "samples\Albatross.Excel.SampleAddIn\Albatross.Excel.SampleAddIn.csproj", "{01856080-86F8-4F20-944A-FDAD2FD91306}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Eventing", "src\Albatross.Eventing\Albatross.Eventing.csproj", "{879BCEE5-6052-41E0-ADA6-53381C1BF0DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Eventing", "src\Albatross.Eventing\Albatross.Eventing.csproj", "{879BCEE5-6052-41E0-ADA6-53381C1BF0DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Eventing.SignalR", "src\Albatross.Eventing.SignalR\Albatross.Eventing.SignalR.csproj", "{57BEC10B-86BA-4A18-91C3-6BAFF290FFC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Eventing.SignalR", "src\Albatross.Eventing.SignalR\Albatross.Eventing.SignalR.csproj", "{57BEC10B-86BA-4A18-91C3-6BAFF290FFC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Excel.Test", "tests\Albatross.Excel.Test\Albatross.Excel.Test.csproj", "{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -725,6 +727,18 @@ Global
 		{57BEC10B-86BA-4A18-91C3-6BAFF290FFC3}.Release|x64.Build.0 = Release|Any CPU
 		{57BEC10B-86BA-4A18-91C3-6BAFF290FFC3}.Release|x86.ActiveCfg = Release|Any CPU
 		{57BEC10B-86BA-4A18-91C3-6BAFF290FFC3}.Release|x86.Build.0 = Release|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Debug|x64.Build.0 = Debug|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Debug|x86.Build.0 = Debug|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Release|x64.ActiveCfg = Release|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Release|x64.Build.0 = Release|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -778,6 +792,7 @@ Global
 		{01856080-86F8-4F20-944A-FDAD2FD91306} = {A2E04AFB-A4D5-4E10-B909-0E4613EF57E2}
 		{879BCEE5-6052-41E0-ADA6-53381C1BF0DF} = {1595A14F-C041-4D20-91A6-A1388CED57BC}
 		{57BEC10B-86BA-4A18-91C3-6BAFF290FFC3} = {1595A14F-C041-4D20-91A6-A1388CED57BC}
+		{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975} = {A2E04AFB-A4D5-4E10-B909-0E4613EF57E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5BF586D-98FA-49EC-9D9F-A17A029ED341}
