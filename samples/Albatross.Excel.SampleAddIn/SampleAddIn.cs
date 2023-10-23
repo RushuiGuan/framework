@@ -1,9 +1,13 @@
 ﻿using Albatross.Authentication;
 using Albatross.Config;
 using Albatross.Hosting.Excel;
+using ExcelDna.Integration;
+using ExcelDna.Registration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Albatross.Excel.SampleAddIn{
 	public class SampleAddIn : HostedExcelAddIn {
@@ -18,7 +22,14 @@ namespace Albatross.Excel.SampleAddIn{
 			services.AddWindowsPrincipalProvider();
 		}
 		protected override void Start(IConfiguration configuration, IServiceProvider provider) {
-			provider.UseExcelFunctions<InstrumentService>();
+			Macro.Logger = this.logger;
+			ExcelRegistration.GetExcelFunctions().ProcessAsyncRegistrations().RegisterFunctions();
+			// provider.UseExcelFunctions<InstrumentService>();
+			//var methods = new MethodInfo[] {
+			//	typeof(Macro).GetMethod(nameof(Macro.GetName)),
+			//	typeof(Macro).GetMethod(nameof(Macro.GetId)),
+			//};
+			//ExcelIntegration.RegisterMethods(methods.ToList());
 			base.Start(configuration, provider);
 		}
 	}

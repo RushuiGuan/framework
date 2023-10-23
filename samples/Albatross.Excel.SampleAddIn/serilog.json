@@ -11,7 +11,7 @@
 			"FileSink": {
 				"Name": "File",
 				"Args": {
-					"path": "sample.log",
+					"path": "%LogDirectory%\\SampleAddIn\\SampleAddIn.log",
 					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{NewLine}{Exception}",
 					"rollingInterval": "Day"
 				}

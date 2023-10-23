@@ -260,6 +260,7 @@ namespace Albatross.Excel.Table {
 			tableColumn.Required = required;
 			return tableColumn;
 		}
+
 		public static bool TryUseCurrentSelection(this TableOptions options, int rowCount) {
 			var sheet = My.ActiveWorksheet();
 			var selection = My.ActiveSelection();
@@ -268,13 +269,13 @@ namespace Albatross.Excel.Table {
 				options.FirstRow = selection.RowFirst;
 				var targetRange = new ExcelReference(options.FirstRow, options.FirstRow + rowCount, options.FirstColumn, options.FirstColumn + options.Columns.Length - 1, sheet.Name);
 				var values = (object[,])targetRange.GetValue();
-				if (values.HasData()) {
+				if (CellValue.IsEmptyArray(values)) {
+					return true;
+				} else { 
 					var result = MessageBox.Show("Target range contains data that will be overwritten and the process cannot be undone.  Do you want to proceed?", "Warning", MessageBoxButton.YesNo);
 					if (result == MessageBoxResult.Yes) {
 						return true;
 					}
-				} else {
-					return true;
 				}
 			}
 			return false;
