@@ -20,7 +20,7 @@ namespace Albatross.Hosting {
 		}
 
 		[HttpGet("keys")]
-		public IEnumerable<string> Keys() => keyMgmt.FindKeys("*");
+		public Task<IEnumerable<string>> Keys() => keyMgmt.FindKeys("*");
 
 		[HttpGet]
 		public async Task<string?> Get(string key) {

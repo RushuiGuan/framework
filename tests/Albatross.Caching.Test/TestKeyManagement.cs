@@ -24,10 +24,7 @@ namespace Albatross.Caching.Test {
 			foreach(var key in keys) { 
 				await cache.PutAsync(new Polly.Context(key), data);
 			}
-
-			var allKeys = keyMgmt.FindKeys("*");
-
-
+			var allKeys = await keyMgmt.FindKeys("*");
 			foreach(var key in keys) {
 				Assert.Contains(cache.GetCacheKey(new Context(key)), allKeys);
 			}
@@ -50,14 +47,12 @@ namespace Albatross.Caching.Test {
 			foreach (var key in keys) {
 				await cache.PutAsync(new Polly.Context(key), data);
 			}
-
-			var allKeys = keyMgmt.FindKeys("*");
+			var allKeys = await keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
 				Assert.Contains(cache.GetCacheKey(new Context(key)), allKeys);
 			}
 			cache.Remove(keys.Select(args => new Context(args)).ToArray());
-
-			allKeys = keyMgmt.FindKeys("*");
+			allKeys = await keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
 				Assert.DoesNotContain(cache.GetCacheKey(new Context(key)), allKeys);
 			}
@@ -82,13 +77,13 @@ namespace Albatross.Caching.Test {
 				await cache2.PutAsync(new Polly.Context(key), data);
 			}
 
-			var allKeys = keyMgmt.FindKeys("*");
+			var allKeys = await keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
 				Assert.Contains(cache.GetCacheKey(new Context(key)), allKeys);
 			}
-			cache.Reset();
+			await cache.Reset();
 			
-			allKeys = keyMgmt.FindKeys("*");
+			allKeys = await keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
 				Assert.DoesNotContain(cache.GetCacheKey(new Context(key)), allKeys);
 			}

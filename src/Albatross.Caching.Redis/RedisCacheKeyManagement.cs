@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Albatross.Caching.Redis {
 	public class RedisCacheKeyManagement : ICacheKeyManagement {
@@ -24,23 +25,23 @@ namespace Albatross.Caching.Redis {
 			this.cache = cache;
 		}
 
-		private void Connect() {
-			CheckDisposed();
+		private async Task ConnectAsync() {
+			if (disposed) { throw new ObjectDisposedException(GetType().FullName); }
 			if (servers.Count > 0) {
 				Debug.Assert(connection != null);
 				return;
 			}
-			connectionLock.Wait();
+			await connectionLock.WaitAsync();
 			try {
 				if (servers.Count == 0) {
 					if (options.ConnectionMultiplexerFactory == null) {
 						if (options.ConfigurationOptions is not null) {
-							connection = ConnectionMultiplexer.Connect(options.ConfigurationOptions);
+							connection = await ConnectionMultiplexer.ConnectAsync(options.ConfigurationOptions);
 						} else {
-							connection = ConnectionMultiplexer.Connect(options.Configuration);
+							connection = await ConnectionMultiplexer.ConnectAsync(options.Configuration);
 						}
 					} else {
-						connection = options.ConnectionMultiplexerFactory().GetAwaiter().GetResult();
+						connection = await options.ConnectionMultiplexerFactory();
 					}
 					var endpoints = connection.GetEndPoints();
 					foreach (var item in endpoints) {
@@ -64,11 +65,11 @@ namespace Albatross.Caching.Redis {
 		/// <param name="pattern"></param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentException"></exception>
-		public IEnumerable<string> FindKeys(string pattern) {
+		public async Task<IEnumerable<string>> FindKeys(string pattern) {
 			if (string.IsNullOrEmpty(pattern)) {
 				throw new ArgumentException("Key pattern cannot be null or empty string");
 			}
-			Connect();
+			await ConnectAsync();
 			pattern = instance + pattern;
 			List<string> keys = new List<string>();
 			foreach (var server in servers) {
@@ -79,8 +80,8 @@ namespace Albatross.Caching.Redis {
 			return keys;
 		}
 
-		public void FindAndRemoveKeys(string pattern) {
-			var keys = FindKeys(pattern);
+		public async Task FindAndRemoveKeys(string pattern) {
+			var keys = await FindKeys(pattern);
 			foreach (var item in keys) {
 				cache.Remove(item);
 			}
@@ -88,11 +89,6 @@ namespace Albatross.Caching.Redis {
 		public void Remove(IEnumerable<string> keys) {
 			foreach (var key in keys) {
 				cache.Remove(key);
-			}
-		}
-		private void CheckDisposed() {
-			if (disposed) {
-				throw new ObjectDisposedException(GetType().FullName);
 			}
 		}
 		public void Dispose() {

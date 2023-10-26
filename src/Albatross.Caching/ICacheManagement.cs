@@ -12,7 +12,7 @@ namespace Albatross.Caching {
 		string GetCacheKey(Context context);
 		void Register();
 		void Remove(params Context[] contexts);
-		void Reset();
+		Task Reset();
 		
 		void OnCacheGet(Context context, string cacheKey);
 		void OnCacheMiss(Context context, string cacheKey);

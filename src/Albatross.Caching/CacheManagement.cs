@@ -69,9 +69,9 @@ namespace Albatross.Caching {
 			keyMgmt.Remove(keys.ToArray());
 		}
 
-		public void Reset() {
+		public Task Reset() {
 			var pattern = GetCacheKey(new Context()) + "*";
-			this.keyMgmt.FindAndRemoveKeys(pattern);
+			return this.keyMgmt.FindAndRemoveKeys(pattern);
 		}
 
 		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, Context context, CancellationToken cancellationToken) {

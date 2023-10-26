@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Albatross.Caching {
 	/// <summary>
@@ -32,14 +33,13 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public void FindAndRemoveKeys(string pattern) {
-			var keys = FindKeys(pattern);
+		public async Task FindAndRemoveKeys(string pattern) {
+			var keys = await FindKeys(pattern);
 			Remove(keys);
 		}
-		public IEnumerable<string> FindKeys(string pattern) {
-			return this.Keys.Select(args=>Convert.ToString(args))
-				.Where(args => args.Like(pattern))
-				.ToArray();
+		public Task<IEnumerable<string>> FindKeys(string pattern) {
+			return Task.FromResult<IEnumerable<string>>(this.Keys.Select(args => Convert.ToString(args))
+				.Where(args => args.Like(pattern)).ToArray());
 		}
 
 		public void Remove(IEnumerable<string> keys) {
