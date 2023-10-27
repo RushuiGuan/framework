@@ -229,11 +229,11 @@ namespace Albatross.Excel.Table {
 		}
 
 		public static TableColumn UseDefaultReadEntityPropertyHandler(this TableColumn tableColumn) {
-			tableColumn.ReadEntityPropertyHandler = (column, entity) => entity.GetType().GetPropertyValue(entity, column.Name);
+			tableColumn.ReadEntityPropertyHandler = (column, entity) => entity.GetType().GetPropertyValue(entity, column.Name, true);
 			return tableColumn;
 		}
 		public static object? ReadEntityPropertyDefaultHandler(TableColumn column, object entity) {
-			return entity.GetType().GetPropertyValue(entity, column.Name);
+			return entity.GetType().GetPropertyValue(entity, column.Name, true);
 		}
 
 		public static TableColumn Required(this TableColumn tableColumn, bool required = true) {

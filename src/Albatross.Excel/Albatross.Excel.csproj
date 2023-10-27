@@ -6,11 +6,13 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="Albatross" Version="6.2.1-6853.staging" />
 		
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
 	  <PackageReference Include="ExcelDna.Integration" Version="1.6.0" />
 	  <PackageReference Include="ExcelDna.IntelliSense" Version="1.6.0" />
 	  <PackageReference Include="ExcelDna.Registration" Version="1.6.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Albatross\Albatross.csproj" />
 	</ItemGroup>
 </Project>
