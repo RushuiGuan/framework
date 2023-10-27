@@ -213,34 +213,14 @@ namespace Albatross.Excel.Table {
 					return true;
 				} else {
 					try {
-						if (column.Type == typeof(DateTime)) {
-							if (CellValue.TryReadDateTime(cellValue, out var dateTimeValue)) {
-								cellValue = dateTimeValue;
-							} else {
-								error = "Cell value is not of DateTime type";
-								return false;
-							}
-						}else if(column.Type == typeof(DateOnly)) {
-							if (CellValue.TryReadDateOnly(cellValue, out var dateValue)) {
-								cellValue = dateValue;
-							} else {
-								error = "Cell value is not of DateOnly type";
-								return false;
-							}
-						} else {
-							cellValue = Convert.ChangeType(cellValue, column.Type);
-						}
-						if (cellValue == null && !column.IsNullable) {
-							error = $"Property {column.Name} cannot be null";
-							return false;
-						} else {
-							propertyInfo.SetValue(entity, cellValue);
+						if (CellValue.TryReadValue(cellValue, column.Type, out var convertedValue)) {
+							propertyInfo.SetValue(entity, convertedValue);
 							return true;
 						}
 					} catch {
-						error = $"cannot change {cellValue} to {column.Type.Name}";
-						return false;
 					}
+					error = $"{cellValue} cannot be converted to {column.Type.Name}";
+					return false;
 				}
 			} else {
 				error = $"{column.Name} is not a property of type {type.Name}";

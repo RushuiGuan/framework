@@ -1,5 +1,7 @@
-﻿using ExcelDna.Integration;
+﻿using Albatross.Reflection;
+using ExcelDna.Integration;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.Excel {
 	public static class CellValue {
@@ -21,7 +23,7 @@ namespace Albatross.Excel {
 			value = 0;
 			if (IsError(input) || IsEmpty(input)) {
 				return false;
-				} else if (input is double) {
+			} else if (input is double) {
 				value = (double)input;
 				return true;
 			} else {
@@ -56,7 +58,7 @@ namespace Albatross.Excel {
 			date = DateOnly.MinValue;
 			if (IsError(input) || IsEmpty(input)) {
 				return false;
-				} else if (input is double value) {
+			} else if (input is double value) {
 				date = DateOnly.FromDateTime(DateTime.FromOADate(value));
 				return true;
 			} else if (input is DateTime dateTimeValue) {
@@ -129,19 +131,73 @@ namespace Albatross.Excel {
 			value = string.Empty;
 			if (IsError(input)) {
 				return false;
-			}else if(IsEmpty(input)) {
+			} else if (IsEmpty(input)) {
 				return true;
-			} else { 
+			} else {
 				value = Convert.ToString(value) ?? string.Empty;
 				return true;
 			}
 		}
+		public static bool TryReadValue(object input, Type type, [NotNullWhen(true)] out object? value) {
+			if (type.IsNullableValueType()) { throw new ArgumentException("Nullable value type cannot be used as the type parameter"); }
+			value = null;
+			if(input.GetType() == type) {
+				value = input;
+				return true;
+			}else if (type == typeof(DateTime)) {
+				if (TryReadDateTime(input, out var dateTime)) {
+					value = dateTime;
+					return true;
+				}
+			} else if (type == typeof(DateOnly)) {
+				if (TryReadDateOnly(input, out var date)) {
+					value = date;
+					return true;
+				}
+			} else if (type == typeof(TimeOnly)) {
+				if (TryReadTimeOnly(input, out var time)) {
+					value = time;
+					return true;
+				}
+			} else if (type == typeof(string)) {
+				if (TryReadString(input, out var text)) {
+					value = text;
+					return true;
+				}
+			} else if (type == typeof(bool)) {
+				if (TryReadBoolean(input, out var boolValue)) {
+					value = boolValue;
+					return true;
+				}
+			} else if (type == typeof(double)) {
+				if (TryReadDouble(input, out var doubleValue)) {
+					value = doubleValue;
+					return true;
+				}
+			}else if(type == typeof(int)) {
+				if(TryReadInteger(input, out var intValue)) { 
+					value = intValue;
+					return true;
+				}
+			} else {
+				try {
+					value = Convert.ChangeType(input, type);
+					return true;
+				} catch {
+					return false;
+				}
+			}
+			return false;
+		}
+		public static bool TryReadValue<T>(object input, [NotNullWhen(true)]out object ? value)
+			=> TryReadValue(input, typeof(T), out value);
+
 		public static bool IsError(object cellValue) => cellValue is ExcelError;
 		public static bool IsEmpty(object cellValue) => cellValue == ExcelMissing.Value || cellValue == ExcelEmpty.Value;
 		public static bool IsEmptyArray(object[,] values) {
 			for (int rowIndex = 0; rowIndex < values.GetLength(0); rowIndex++) {
 				for (int columnIndex = 0; columnIndex < values.GetLength(1); columnIndex++) {
-					if(!IsEmpty(values[rowIndex, columnIndex])) {
+					if (!IsEmpty(values[rowIndex, columnIndex])) {
 						return false;
 					}
 				}
