@@ -1,6 +1,5 @@
 ﻿using Albatross.Excel.Table;
 using ExcelDna.Integration;
-using ExcelDna.Integration.CustomUI;
 using Microsoft.Extensions.Logging;
 using System;
 

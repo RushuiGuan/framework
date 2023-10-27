@@ -20,6 +20,25 @@ namespace Albatross.Excel.SampleAddIn {
 			this.logger = logger;
 		}
 
+		[ExcelFunction]
+		public async Task<object> Instruments() {
+			var support = new FunctionSupport();
+			try {
+				await Task.Delay(100);
+				return instruments.Values.ToArray().GetArrayByReflection();
+			} finally {
+				support.Queue(caller => new CellBuilder(caller.RowFirst, caller.RowFirst, caller.ColumnFirst, caller.ColumnFirst + 2)
+					.FontProperties(x => x.Bold()).Apply())
+					.RestoreSelectionToCaller().Execute();
+			}
+		}
+
+		[ExcelFunction]
+		public async Task<object> Instruments2() {
+			await Task.Delay(100);
+			return instruments.Values.GetArray(new string[] {"id", "name", "ticker" }, x => x.Id, x => x.Name, x => x.Ticker);
+		}
+
 		[ExcelFunction(IsMacroType = true)]
 		public object InstrumentName([ExcelArgument(Description = "Instrument Id")] object idCell) {
 			var functionName = nameof(InstrumentId);
