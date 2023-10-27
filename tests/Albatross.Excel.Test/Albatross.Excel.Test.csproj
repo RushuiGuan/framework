@@ -10,6 +10,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Albatross.Excel\Albatross.Excel.csproj" />
 	  <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
+	  <ProjectReference Include="..\..\src\Albatross\Albatross.csproj" />
 	</ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 using ExcelDna.Integration;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 
 namespace Albatross.Excel {
 	public static class CellValue {
@@ -15,6 +16,8 @@ namespace Albatross.Excel {
 			} else if (input is int intValue) {
 				value = intValue;
 				return true;
+			} else if (input is string) {
+				return int.TryParse(Convert.ToString(input), out value);
 			} else {
 				return false;
 			}
@@ -26,6 +29,13 @@ namespace Albatross.Excel {
 			} else if (input is double) {
 				value = (double)input;
 				return true;
+			} else if (input is int || input is string) {
+				try {
+					value = Convert.ToDouble(input);
+					return true;
+				} catch {
+					return false;
+				}
 			} else {
 				return false;
 			}
@@ -34,8 +44,11 @@ namespace Albatross.Excel {
 			dateTime = DateTime.MinValue;
 			if (IsError(input) || IsEmpty(input)) {
 				return false;
-			} else if (input is double value) {
-				dateTime = DateTime.FromOADate(value);
+			} else if (input is double doubleValue) {
+				dateTime = DateTime.FromOADate(doubleValue);
+				return true;
+			} else if (input is int intValue) {
+				dateTime = DateTime.FromOADate(intValue);
 				return true;
 			} else if (input is DateTime dateTimeValue) {
 				dateTime = dateTimeValue;
@@ -47,7 +60,7 @@ namespace Albatross.Excel {
 				} else {
 					try {
 						dateTime = DateTime.Parse(text);
-						return false;
+						return true;
 					} catch {
 						return false;
 					}
@@ -56,26 +69,11 @@ namespace Albatross.Excel {
 		}
 		public static bool TryReadDateOnly(object input, out DateOnly date) {
 			date = DateOnly.MinValue;
-			if (IsError(input) || IsEmpty(input)) {
-				return false;
-			} else if (input is double value) {
-				date = DateOnly.FromDateTime(DateTime.FromOADate(value));
-				return true;
-			} else if (input is DateTime dateTimeValue) {
-				date = DateOnly.FromDateTime(dateTimeValue);
+			if (TryReadDateTime(input, out var dateValue)) {
+				date = DateOnly.FromDateTime(dateValue);
 				return true;
 			} else {
-				var text = Convert.ToString(input);
-				if (string.IsNullOrEmpty(text)) {
-					return false;
-				} else {
-					try {
-						date = DateOnly.Parse(text);
-						return false;
-					} catch {
-						return false;
-					}
-				}
+				return false;
 			}
 		}
 		public static bool TryReadTimeOnly(object input, out TimeOnly date) {
@@ -115,11 +113,13 @@ namespace Albatross.Excel {
 					case "1":
 					case "true":
 					case "yes":
+					case "y":
 						value = true;
 						return true;
 					case "0":
 					case "false":
 					case "no":
+					case "n":
 						value = false;
 						return true;
 					default:
@@ -141,10 +141,10 @@ namespace Albatross.Excel {
 		public static bool TryReadValue(object input, Type type, [NotNullWhen(true)] out object? value) {
 			if (type.IsNullableValueType()) { throw new ArgumentException("Nullable value type cannot be used as the type parameter"); }
 			value = null;
-			if(input.GetType() == type) {
+			if (input.GetType() == type) {
 				value = input;
 				return true;
-			}else if (type == typeof(DateTime)) {
+			} else if (type == typeof(DateTime)) {
 				if (TryReadDateTime(input, out var dateTime)) {
 					value = dateTime;
 					return true;
@@ -174,9 +174,16 @@ namespace Albatross.Excel {
 					value = doubleValue;
 					return true;
 				}
-			}else if(type == typeof(int)) {
-				if(TryReadInteger(input, out var intValue)) { 
+			} else if (type == typeof(int)) {
+				if (TryReadInteger(input, out var intValue)) {
 					value = intValue;
+					return true;
+				}
+			} else if (!type.IsValueType && input is string) {
+				value = JsonSerializer.Deserialize((string)input, type);
+				if(value == null) {
+					return false;
+				} else {
 					return true;
 				}
 			} else {
@@ -189,7 +196,7 @@ namespace Albatross.Excel {
 			}
 			return false;
 		}
-		public static bool TryReadValue<T>(object input, [NotNullWhen(true)]out object ? value)
+		public static bool TryReadValue<T>(object input, [NotNullWhen(true)] out object? value)
 			=> TryReadValue(input, typeof(T), out value);
 
 		public static bool IsError(object cellValue) => cellValue is ExcelError;
