@@ -25,7 +25,7 @@ namespace Albatross.Excel.SampleAddIn {
 			var support = new FunctionSupport();
 			try {
 				await Task.Delay(100);
-				return instruments.Values.ToArray().GetArrayByReflection();
+				return instruments.Values.ToArray().CreateRangeValueByReflection();
 			} finally {
 				support.Queue(caller => new CellBuilder(caller.RowFirst, caller.RowFirst, caller.ColumnFirst, caller.ColumnFirst + 2)
 					.FontProperties(x => x.Bold()).Apply())
@@ -36,7 +36,7 @@ namespace Albatross.Excel.SampleAddIn {
 		[ExcelFunction]
 		public async Task<object> Instruments2() {
 			await Task.Delay(100);
-			return instruments.Values.GetArray(new string[] {"id", "name", "ticker" }, x => x.Id, x => x.Name, x => x.Ticker);
+			return instruments.Values.CreateRangeValue(new string[] {"id", "name", "ticker" }, x => x.Id, x => x.Name, x => x.Ticker);
 		}
 
 		[ExcelFunction(IsMacroType = true)]

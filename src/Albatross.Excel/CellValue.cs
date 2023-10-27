@@ -211,5 +211,24 @@ namespace Albatross.Excel {
 			}
 			return true;
 		}
+
+		public static object Write(object? value) {
+			if(value == null) {
+				return ExcelEmpty.Value;
+			} else {
+				var type = value.GetType();
+				if (type.IsEnum) {
+					return Enum.GetName(type, value)!;
+				} else if (value is DateOnly date) {
+					return new DateTime(date.Year, date.Month, date.Day);
+				} else if (value is TimeOnly time) {
+					return new DateTime(0, 0, 0, time.Hour, time.Minute, time.Second, time.Millisecond);
+				}else if(type.IsClass && type != typeof(string)) {
+					return JsonSerializer.Serialize(value, type);
+				} else {
+					return value;
+				}
+			}
+		}
 	}
 }
