@@ -18,6 +18,7 @@ namespace Albatross.Excel {
 			XlCall.Excel(XlCall.xlcSelect, range);
 			XlCall.Excel(XlCall.xlcClear);
 		}
+		[Obsolete]
 		public static object[,] CreateRangeValue<T>(this IEnumerable<T> items, string[] headers, params Func<T, object?>[] getValues) {
 			var data = items.ToArray();
 			if(headers.Length < getValues.Length) {
@@ -34,7 +35,7 @@ namespace Albatross.Excel {
 			}
 			return result;
 		}
-
+		[Obsolete]
 		public static object[,] CreateRangeValueByReflection<T>(this IEnumerable<T> items, params string[] fields) {
 			var data = items.ToArray();
 			var type = typeof(T);

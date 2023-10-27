@@ -22,15 +22,10 @@ namespace Albatross.Excel.SampleAddIn {
 
 		[ExcelFunction]
 		public async Task<object> Instruments() {
-			var support = new FunctionSupport();
-			try {
-				await Task.Delay(100);
-				return instruments.Values.ToArray().CreateRangeValueByReflection();
-			} finally {
-				support.Queue(caller => new CellBuilder(caller.RowFirst, caller.RowFirst, caller.ColumnFirst, caller.ColumnFirst + 2)
-					.FontProperties(x => x.Bold()).Apply())
-					.RestoreSelectionToCaller().Execute();
-			}
+			var builder = new ArrayFunctionBuilder<Instrument>().AddColumnsByReflection();
+			await Task.Delay(100);
+			builder.BoldHeader().RestoreSelection().QueuePostReturnActions();
+			return builder.SetValue(instruments.Values);
 		}
 
 		[ExcelFunction]
