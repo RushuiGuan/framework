@@ -10,7 +10,6 @@ namespace Albatross.Excel {
 			this.caller = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
 		}
 
-
 		public FunctionSupport Queue(Action<ExcelReference> action) {
 			if(actions == null) {
 				actions = () => action(this.caller);
@@ -22,6 +21,12 @@ namespace Albatross.Excel {
 
 		public FunctionSupport RestoreSelectionToCaller() {
 			this.Queue(caller => this.caller.Select());
+			return this;
+		}
+
+		public FunctionSupport BoldCaller(int width) {
+			this.Queue(caller => new CellBuilder(caller.RowFirst, caller.RowFirst, caller.ColumnFirst, caller.ColumnFirst + width - 1)
+				.FontProperties(x => x.Bold()).Apply());
 			return this;
 		}
 
