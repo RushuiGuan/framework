@@ -194,7 +194,7 @@ namespace Albatross.Test.Reflection {
 					Number = 100,
 				}
 			};
-			Assert.Equal(typeof(Style).GetPropertyValue(obj, propertyName), expected);
+			Assert.Equal(typeof(Style).GetPropertyValue(obj, propertyName, false), expected);
 		}
 
 		[Theory]
@@ -231,7 +231,7 @@ namespace Albatross.Test.Reflection {
 					Number = 100,
 				}
 			};
-			Assert.Throws<ArgumentException>(() => typeof(Style).GetPropertyValue(obj, propertyName));
+			Assert.Throws<ArgumentException>(() => typeof(Style).GetPropertyValue(obj, propertyName, false));
 		}
 
 		[Theory]

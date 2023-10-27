@@ -195,7 +195,7 @@ namespace Albatross.Reflection {
 		/// return the property value of an object using reflection.  Property name can be delimited using . to allow retrieval of nested object property value
 		/// </summary>
 		/// <exception cref="ArgumentException"></exception>
-		public static object? GetPropertyValue(this Type type, object? data, string name, bool ignoreCase = false) {
+		public static object? GetPropertyValue(this Type type, object? data, string name, bool ignoreCase) {
 			var bindingFlag = BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty;
 			if (ignoreCase) {
 				bindingFlag = bindingFlag | BindingFlags.IgnoreCase;

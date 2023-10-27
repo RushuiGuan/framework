@@ -31,7 +31,7 @@ namespace Albatross.Text {
 				row[0] = option.GetRowHeader?.Invoke(name) ?? name;
 				columnWidth[0] = System.Math.Max(columnWidth[0], name.Length);
 				for (int i = 0; i < items.Length; i++) {
-					var value = type.GetPropertyValue(items[i], name);
+					var value = type.GetPropertyValue(items[i], name, true);
 					if (option.FormatValue != null) {
 						row[i + 1] = await option.FormatValue(items[i], name, value);
 					} else {
@@ -83,7 +83,7 @@ namespace Albatross.Text {
 				row = new string[columnCount];
 				rows.Add(row);
 				for (int i = 0; i < columnCount; i++) {
-					var value = type.GetPropertyValue(item, option.Properties[i]);
+					var value = type.GetPropertyValue(item, option.Properties[i], true);
 					row[i] = await option.FormatValue(item, option.Properties[i], value);
 					columnWidth[i] = System.Math.Max(row[i]?.Length ?? 0, columnWidth[i]);
 				}
