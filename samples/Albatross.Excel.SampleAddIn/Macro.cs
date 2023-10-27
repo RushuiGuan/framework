@@ -1,60 +1,40 @@
 ﻿using ExcelDna.Integration;
 using ExcelDna.Registration;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Albatross.Excel.SampleAddIn {
 	public static class Macro {
-		public static ILogger Logger { get; internal set; } = null!;
-
-		[ExcelAsyncFunction]
-		public static async Task<object> GetName([ExcelArgument(Description = "Instrument Id")] int idCell) {
-			Logger.LogInformation("Called {name} with {@param}", nameof(GetName), idCell);
-			await Task.Delay(1000);
-			return "apple";
-		}
-
-
-
-		[ExcelAsyncFunction]
-		public static async Task<object> GetId([ExcelArgument(Description = "Instrument Name")] string nameCell) {
-			Logger.LogInformation("Called {name} with {@param}", nameof(GetId), nameCell);
-			await Task.Delay(1000);
-			return 1;
-		}
-
-
-
-		[ExcelFunction()]
-		public static object GetId2([ExcelArgument(Description = "Instrument Name")] object nameCell) {
-			Logger.LogInformation("Called {name} with {@param}", nameof(GetId2), nameCell);
-			if (nameCell is ExcelError) {
-				return nameCell;
-			}
-			return 1;
-		}
-
-		[ExcelFunction()]
-		public static object GetArray() {
-			object[,] array = new object[10, 1];
-			for(int i=0;i< 10;i++) {
-				array[i, 0] = i;
-			}
-			return array;
-		}
-
-
-		[ExcelAsyncFunction]
-		[ExcelFunction()]
-		public static async Task<object> GetAsyncArray() {
-			await Task.Delay(5000);
-			object[,] array = new object[10, 10];
-			for (int i = 0; i < 10; i++) {
-				for (int j = 0; j < 10; j++) {
-					array[i, j] = i;
+		public static void Use<T>(this IServiceProvider provider) where T : class {
+			var service = provider.GetRequiredService<T>();
+			List<ExcelFunctionRegistration> registrations = new List<ExcelFunctionRegistration>();
+			foreach (var item in typeof(T).GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public)) {
+				var attrib = item.GetCustomAttribute<ExcelFunctionAttribute>();
+				if (attrib != null) {
+					if (item.IsStatic) {
+						registrations.Add(new ExcelFunctionRegistration(item));
+					} else {
+						var registration = CreateInstanceFunctionRegistration(service, item, attrib);
+						registrations.Add(registration);
+					}
 				}
 			}
-			return array;
+			registrations.ProcessAsyncRegistrations().RegisterFunctions();
+		}
+
+		static ExcelFunctionRegistration CreateInstanceFunctionRegistration<T>(T service, MethodInfo methodInfo, ExcelFunctionAttribute functionAttribute) where T : class {
+			if (string.IsNullOrEmpty(functionAttribute.Name)) { functionAttribute.Name = methodInfo.Name; }
+			List<ExcelParameterRegistration> parameterRegistrations = new List<ExcelParameterRegistration>();
+			List<ParameterExpression> list = new List<ParameterExpression>();
+			foreach (var parameter in methodInfo.GetParameters()) {
+				parameterRegistrations.Add(new ExcelParameterRegistration(parameter));
+				list.Add(Expression.Parameter(parameter.ParameterType, parameter.Name));
+			}
+			var lambda = Expression.Lambda(Expression.Call(Expression.Constant(service), methodInfo, list), methodInfo.Name, list);
+			return new ExcelFunctionRegistration(lambda, functionAttribute, parameterRegistrations);
 		}
 	}
 }

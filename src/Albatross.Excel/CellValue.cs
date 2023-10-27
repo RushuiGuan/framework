@@ -134,7 +134,7 @@ namespace Albatross.Excel {
 			} else if (IsEmpty(input)) {
 				return true;
 			} else {
-				value = Convert.ToString(value) ?? string.Empty;
+				value = Convert.ToString(input) ?? string.Empty;
 				return true;
 			}
 		}

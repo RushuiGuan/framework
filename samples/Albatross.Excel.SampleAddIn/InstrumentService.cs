@@ -2,7 +2,6 @@
 using ExcelDna.Integration;
 using ExcelDna.Registration.Utils;
 using Microsoft.Extensions.Logging;
-using Microsoft.Office.Interop.Excel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,22 +36,18 @@ namespace Albatross.Excel.SampleAddIn {
 			});
 		}
 
-		[ExcelFunction(IsMacroType = true)]
-		public object InstrumentId([ExcelArgument(Description = "Instrument Name")] object nameCell) {
-			var functionName = nameof(InstrumentId);
-			var parameters = new object[] { nameCell };
-			logger.LogInformation("Calling {name} w. {@param}", functionName, parameters);
-			return AsyncTaskUtil.RunTask<object>(functionName, parameters, async () => {
-				await Task.Delay(100);
-				if (CellValue.TryReadString(nameCell, out var name)){
-					var item = instruments.Values.Where(args => string.Equals(args.Name, name, System.StringComparison.InvariantCultureIgnoreCase))
-					.FirstOrDefault();
-					if (item != null) {
-						return item.Id;
-					}
+		[ExcelFunction]
+		public async Task<object> InstrumentId([ExcelArgument(Description = "Instrument Name")] object nameCell) {
+			logger.LogInformation("Calling {name} w. {@param}", nameof(InstrumentId), nameCell);
+			await Task.Delay(100);
+			if (CellValue.TryReadString(nameCell, out var name)) {
+				var item = instruments.Values.Where(args => string.Equals(args.Name, name, System.StringComparison.InvariantCultureIgnoreCase))
+				.FirstOrDefault();
+				if (item != null) {
+					return item.Id;
 				}
-				return ExcelError.ExcelErrorValue;
-			});
+			}
+			return ExcelError.ExcelErrorValue;
 		}
 
 		public async Task<IEnumerable<Instrument>> GetInstruments() {

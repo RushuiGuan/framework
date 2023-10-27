@@ -22,14 +22,8 @@ namespace Albatross.Excel.SampleAddIn{
 			services.AddWindowsPrincipalProvider();
 		}
 		protected override void Start(IConfiguration configuration, IServiceProvider provider) {
-			Macro.Logger = this.logger;
-			ExcelRegistration.GetExcelFunctions().ProcessAsyncRegistrations().RegisterFunctions();
-			// provider.UseExcelFunctions<InstrumentService>();
-			//var methods = new MethodInfo[] {
-			//	typeof(Macro).GetMethod(nameof(Macro.GetName)),
-			//	typeof(Macro).GetMethod(nameof(Macro.GetId)),
-			//};
-			//ExcelIntegration.RegisterMethods(methods.ToList());
+			//ExcelRegistration.GetExcelFunctions().ProcessAsyncRegistrations().RegisterFunctions();
+			provider.UseExcelFunctions<InstrumentService>();
 			base.Start(configuration, provider);
 		}
 	}
