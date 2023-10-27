@@ -197,7 +197,7 @@ namespace Albatross.Excel.Table {
 			var type = entity.GetType();
 			PropertyInfo propertyInfo = type.GetProperty(column.Name);
 			if (propertyInfo != null) {
-				if (cellValue == null || cellValue == ExcelMissing.Value || cellValue == ExcelEmpty.Value || cellValue is ExcelError && column.UseNullForError) {
+				if (cellValue == ExcelMissing.Value || cellValue == ExcelEmpty.Value || cellValue is ExcelError && column.UseNullForError) {
 					if (column.IsNullable) {
 						propertyInfo.SetValue(entity, null);
 						return true;
@@ -214,7 +214,19 @@ namespace Albatross.Excel.Table {
 				} else {
 					try {
 						if (column.Type == typeof(DateTime)) {
-							cellValue = cellValue.GetDateTime();
+							if (CellValue.TryReadDateTime(cellValue, out var dateTimeValue)) {
+								cellValue = dateTimeValue;
+							} else {
+								error = "Cell value is not of DateTime type";
+								return false;
+							}
+						}else if(column.Type == typeof(DateOnly)) {
+							if (CellValue.TryReadDateOnly(cellValue, out var dateValue)) {
+								cellValue = dateValue;
+							} else {
+								error = "Cell value is not of DateOnly type";
+								return false;
+							}
 						} else {
 							cellValue = Convert.ChangeType(cellValue, column.Type);
 						}
@@ -248,6 +260,7 @@ namespace Albatross.Excel.Table {
 			tableColumn.Required = required;
 			return tableColumn;
 		}
+
 		public static bool TryUseCurrentSelection(this TableOptions options, int rowCount) {
 			var sheet = My.ActiveWorksheet();
 			var selection = My.ActiveSelection();
@@ -256,16 +269,22 @@ namespace Albatross.Excel.Table {
 				options.FirstRow = selection.RowFirst;
 				var targetRange = new ExcelReference(options.FirstRow, options.FirstRow + rowCount, options.FirstColumn, options.FirstColumn + options.Columns.Length - 1, sheet.Name);
 				var values = (object[,])targetRange.GetValue();
-				if (values.HasData()) {
+				if (CellValue.IsEmptyArray(values)) {
+					return true;
+				} else { 
 					var result = MessageBox.Show("Target range contains data that will be overwritten and the process cannot be undone.  Do you want to proceed?", "Warning", MessageBoxButton.YesNo);
 					if (result == MessageBoxResult.Yes) {
 						return true;
 					}
-				} else {
-					return true;
 				}
 			}
 			return false;
+		}
+		public static TableOptionsBuilder AddColumns(this TableOptionsBuilder builder, params TableColumn[] columns) {
+			foreach (var item in columns) {
+				builder.Add(item);
+			}
+			return builder;
 		}
 	}
 }
