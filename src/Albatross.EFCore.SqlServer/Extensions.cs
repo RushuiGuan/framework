@@ -12,7 +12,6 @@ namespace Albatross.EFCore.SqlServer {
 		public static void BuildDefaultOption(this DbContextOptionsBuilder builder, string connectionString, Action<SqlServerDbContextOptionsBuilder>? dbcontextOptionBuilder = null) {
 			builder.EnableDetailedErrors(true);
 			builder.EnableSensitiveDataLogging(true);
-			// builder.UseLazyLoadingProxies(false);
 			builder.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 			builder.UseSqlServer(connectionString, dbcontextOptionBuilder ?? DefaultDbContextOptionBuilder);
 		}

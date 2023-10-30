@@ -57,11 +57,13 @@ namespace Albatross.Excel {
 			return this;
 		}
 		public void QueuePostReturnActions() => ExcelAsyncUtil.QueueAsMacro(this.postReturnActions);
+		public void QueueDefaultPostReturnActions() => this.BoldHeader().RestoreSelection().QueuePostReturnActions();
 
 		public ArrayFunctionBuilder<T> AddColumn(string name, string? title, Func<T, object?> func) {
 			columns.Add(new ArrayFunctionColumn<T>(name, title, func));
 			return this;
 		}
+
 		public ArrayFunctionBuilder<T> AddColumnsByReflection(params string[] fields) {
 			var type = typeof(T);
 			if (fields.Length != 0) {
