@@ -74,7 +74,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution Items", "solution 
 		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
 		pack.ps1 = pack.ps1
-		README.md = README.md
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "messaging", "messaging", "{1595A14F-C041-4D20-91A6-A1388CED57BC}"
@@ -139,7 +139,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Eventing", "src\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Eventing.SignalR", "src\Albatross.Eventing.SignalR\Albatross.Eventing.SignalR.csproj", "{57BEC10B-86BA-4A18-91C3-6BAFF290FFC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Excel.Test", "tests\Albatross.Excel.Test\Albatross.Excel.Test.csproj", "{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Excel.Test", "tests\Albatross.Excel.Test\Albatross.Excel.Test.csproj", "{EB6A1A3E-2D66-4EEB-9D66-F5FBF69C8975}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
