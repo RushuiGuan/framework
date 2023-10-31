@@ -3,6 +3,7 @@ using ExcelDna.Integration;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
+using System.Windows.Media.Animation;
 
 namespace Albatross.Excel {
 	public static class CellValue {
@@ -24,7 +25,10 @@ namespace Albatross.Excel {
 		}
 		public static bool TryReadDouble(object input, out double value) {
 			value = 0;
-			if (IsError(input) || IsEmpty(input)) {
+			if (input is double) {
+				value = (double)input;
+				return true;
+			} else if (IsError(input) || IsEmpty(input)) {
 				return false;
 			} else if (input is double) {
 				value = (double)input;
@@ -102,7 +106,10 @@ namespace Albatross.Excel {
 		}
 		public static bool TryReadBoolean(object input, out bool value) {
 			value = false;
-			if (IsError(input) || IsEmpty(input)) {
+			if (input is bool) {
+				value = (bool)input;
+				return true;
+			} else if (IsError(input) || IsEmpty(input)) {
 				return false;
 			} else if (input is bool cellValue) {
 				value = cellValue;
@@ -129,7 +136,10 @@ namespace Albatross.Excel {
 		}
 		public static bool TryReadString(object input, out string value) {
 			value = string.Empty;
-			if (IsError(input)) {
+			if (input is string) {
+				value = (string)input;
+				return true;
+			} else if (IsError(input)) {
 				return false;
 			} else if (IsEmpty(input)) {
 				return true;
@@ -138,10 +148,42 @@ namespace Albatross.Excel {
 				return true;
 			}
 		}
+		public static bool TryReadEnum<T>(object input, out T value) where T : struct {
+			value = default(T);
+			if (TryReadInteger(input, out var intValue)) {
+				if (Enum.IsDefined(typeof(T), intValue)) {
+					value = (T)(object)intValue;
+					return true;
+				} else { return false; }
+			} else if (TryReadString(input, out var textValue)) {
+				value = (T)Enum.Parse(typeof(T), textValue, true);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		public static bool TryReadEnum(object input, Type enumType, [NotNullWhen(true)] out object? value) {
+			if (TryReadInteger(input, out var intValue)) {
+				if (Enum.IsDefined(enumType, intValue)) {
+					value = Enum.ToObject(enumType, intValue);
+					return true;
+				}
+			} else if (TryReadString(input, out var textValue)) {
+				value = Enum.Parse(enumType, textValue, true);
+				return true;
+			}
+			value = null;
+			return false;
+		}
 		public static bool TryReadValue(object input, Type type, [NotNullWhen(true)] out object? value) {
 			if (type.IsNullableValueType()) { throw new ArgumentException("Nullable value type cannot be used as the type parameter"); }
 			value = null;
-			if (input.GetType() == type) {
+			if (type.IsEnum) {
+				if (TryReadEnum(input, type, out var enumValue)) {
+					value = enumValue;
+					return true;
+				}
+			} else if (input.GetType() == type) {
 				value = input;
 				return true;
 			} else if (type == typeof(DateTime)) {
@@ -181,7 +223,7 @@ namespace Albatross.Excel {
 				}
 			} else if (!type.IsValueType && input is string) {
 				value = JsonSerializer.Deserialize((string)input, type);
-				if(value == null) {
+				if (value == null) {
 					return false;
 				} else {
 					return true;
@@ -198,7 +240,6 @@ namespace Albatross.Excel {
 		}
 		public static bool TryReadValue<T>(object input, [NotNullWhen(true)] out object? value)
 			=> TryReadValue(input, typeof(T), out value);
-
 		public static bool IsError(object cellValue) => cellValue is ExcelError;
 		public static bool IsEmpty(object cellValue) => cellValue == ExcelMissing.Value || cellValue == ExcelEmpty.Value;
 		public static bool IsEmptyArray(object[,] values) {
@@ -213,7 +254,7 @@ namespace Albatross.Excel {
 		}
 
 		public static object Write(object? value) {
-			if(value == null) {
+			if (value == null) {
 				return ExcelEmpty.Value;
 			} else {
 				var type = value.GetType();
@@ -223,7 +264,7 @@ namespace Albatross.Excel {
 					return new DateTime(date.Year, date.Month, date.Day);
 				} else if (value is TimeOnly time) {
 					return new DateTime(0, 0, 0, time.Hour, time.Minute, time.Second, time.Millisecond);
-				}else if(type.IsClass && type != typeof(string)) {
+				} else if (type.IsClass && type != typeof(string)) {
 					return JsonSerializer.Serialize(value, type);
 				} else {
 					return value;

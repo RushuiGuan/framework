@@ -115,6 +115,25 @@ namespace Albatross.Excel.Test {
 		}
 
 		[Theory]
+		[InlineData("red", true, Color.Red)]
+		[InlineData(3, true, Color.Red)]
+		[InlineData(3.0, true, Color.Red)]
+		[InlineData(99999, false, null)]
+		public void TestTryReadEnum(object input, bool shouldRead, object result) {
+			var hasValue = CellValue.TryReadEnum<Color>(input, out var value1);
+			Assert.Equal(shouldRead, hasValue);
+			if (shouldRead) {
+				Assert.Equal(result, value1);
+			}
+
+			hasValue = CellValue.TryReadEnum(input, typeof(Color), out var value2);
+			Assert.Equal(shouldRead, hasValue);
+			if (shouldRead) {
+				Assert.Equal(result, value2);
+			}
+		}
+
+		[Theory]
 		[InlineData(ExcelError.ExcelErrorNull, "System.Int32", false, null)]
 		[InlineData("", "System.String", true, "")]
 		[InlineData("a", "System.String", true, "a")]
