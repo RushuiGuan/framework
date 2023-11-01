@@ -88,7 +88,7 @@ namespace Albatross.Excel {
 			return this;
 		}
 		public ArrayFunctionBuilder AddColumn(string name, string? title, Func<object?, object?> func) => AddColumn(new ArrayFunctionColumn(name, title, func));
-		public ArrayFunctionBuilder AddColumnsByReflection(bool includeInheritedProperties, params string[] fields) {
+		public ArrayFunctionBuilder AddColumnsByReflection(bool includeInheritedProperties = false, params string[] fields) {
 			if (fields.Length != 0) {
 				foreach (var field in fields) {
 					var option = BindingFlags.Public | BindingFlags.Instance;
@@ -149,9 +149,9 @@ namespace Albatross.Excel {
 			return this;
 		}
 		private void Build() {
-			for(int i=0; i<orderedColumnNames.Length; i++) {
+			for (int i = 0; i < orderedColumnNames.Length; i++) {
 				var name = orderedColumnNames[i];
-				if(columns.TryGetValue(name, out var column)) {
+				if (columns.TryGetValue(name, out var column)) {
 					column.Index = i;
 				} else {
 					throw new InvalidOperationException($"{name} is not a valid column name");
@@ -162,7 +162,7 @@ namespace Albatross.Excel {
 				.OrderBy(x => x.Index).ThenBy(x => x.Name).ThenBy(x => x.Title)
 				.ToArray();
 
-			for(int j = 0; j < remainingColumns.Length; j++) {
+			for (int j = 0; j < remainingColumns.Length; j++) {
 				remainingColumns[j].Index = j + orderedColumnNames.Length;
 			}
 		}
