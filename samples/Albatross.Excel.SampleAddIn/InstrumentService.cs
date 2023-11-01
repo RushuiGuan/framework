@@ -2,6 +2,7 @@
 using ExcelDna.Integration;
 using ExcelDna.Registration.Utils;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,25 +14,32 @@ namespace Albatross.Excel.SampleAddIn {
 
 		public InstrumentService(ILogger<InstrumentService> logger) {
 			instruments = new Instrument[] {
-				new Instrument("apple", "a"){ Id = 1 },
-				new Instrument("microsoft", "m"){ Id = 2 },
-				new Instrument("tesla", "t"){ Id = 3 }
+				new Instrument("apple", "a"){ Id = 8888, Number = 9999, Date = DateTime.Today, },
+				new Instrument("microsoft", "m"){ Id = 8887, Number = 9998 },
+				new Instrument("tesla", "t"){ Id = 8884, Number = 9997 },
+				new Instrument("tesla", "t"){ Id = 8881, Number = 9996 }
 			}.ToDictionary(x => x.Id, x => x);
 			this.logger = logger;
 		}
 
 		[ExcelFunction(Description ="test me")]
 		public async Task<object> Instruments() {
-			var builder = new ArrayFunctionBuilder(typeof(Instrument), true).AddColumnsByReflection();
+			var builder = new ArrayFunctionBuilder(typeof(Instrument), true)
+				.AddColumnsByReflection()
+					.SetOrder("Id", -2)
+					.SetOrder("Name", -1)
+					.SetOrder("Date", 0)
+				.DefaultFormatHeader().FormatColumns(builder => builder.NumberFormat(x => x.StandardDate()), "Date");
 			await Task.Delay(100);
-			builder.BoldHeader().RestoreSelection().QueuePostReturnActions();
 			return builder.SetValue(instruments.Values);
 		}
 		[ExcelFunction(HelpTopic = "test you")]
 		public async Task<object> Instruments2() {
-			var builder = new ArrayFunctionBuilder(typeof(Instrument), false).AddColumnsByReflection();
+			var builder = new ArrayFunctionBuilder(typeof(Instrument), false).AddColumnsByReflection()
+				.DefaultFormatHeader().FormatColumns(builder => builder.NumberFormat(x => x.StandardDate()), "Date")
+				.FormatColumns(builder => builder.NumberFormat(x => x.StandardNumber()), "Id", "Number")
+				.BoldHeader().RestoreSelection().SetOrder("Id", -1);
 			await Task.Delay(100);
-			builder.BoldHeader().RestoreSelection().QueuePostReturnActions();
 			return builder.SetValue(instruments.Values);
 		}
 

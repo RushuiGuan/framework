@@ -1,4 +1,5 @@
 ﻿using Albatross.Excel.Table;
+using System;
 
 namespace Albatross.Excel.SampleAddIn.Models {
 	public class Instrument {
@@ -7,9 +8,11 @@ namespace Albatross.Excel.SampleAddIn.Models {
 			Ticker = ticker;
 		}
 
-		public int Id { get; set; }
+		public DateTime Date { get; set; }
 		public string Name { get; set; }
 		public string Ticker { get; set; }
 		public string? Description { get; set; }
+		public int Id { get; set; }
+		public int Number { get; set; }
 	}
 }

@@ -5,7 +5,8 @@ using System.Linq;
 using System.Reflection;
 
 namespace Albatross.Excel {
-	public record ArrayFunctionColumn {
+	public record class ArrayFunctionColumn {
+		public int Index { get; set; }
 		public string Name { get; set; }
 		public string Title { get; set; }
 		public Func<object?, object?> Func { get; set; }
@@ -17,69 +18,73 @@ namespace Albatross.Excel {
 	}
 	public class ArrayFunctionBuilder {
 		Type type;
-		bool showHeader;
-		ExcelReference caller { get; }
-		ExcelAction? postReturnActions;
-		List<ArrayFunctionColumn> columns = new List<ArrayFunctionColumn>();
+		bool hasHeader;
+		public ExcelReference Caller { get; }
+		ExcelAction? actions;
+		Dictionary<string, ArrayFunctionColumn> columns = new Dictionary<string, ArrayFunctionColumn>();
 		public object[,] Result { get; private set; } = new object[0, 0];
+		public int ItemCount { get; private set; }
 
-		public ArrayFunctionBuilder(Type type, bool showHeader) {
+		public ArrayFunctionBuilder(Type type, bool hasHeader) {
 			this.type = type;
-			this.showHeader = showHeader;
-			this.caller = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
+			this.hasHeader = hasHeader;
+			this.Caller = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
 		}
-		public ArrayFunctionBuilder Queue(Action<ExcelReference> postReturnAction) {
-			if (postReturnActions == null) {
-				postReturnActions = () => postReturnAction(this.caller);
+		public ArrayFunctionBuilder Queue(ExcelAction action) {
+			if (actions == null) {
+				actions = action;
 			} else {
-				postReturnActions += () => postReturnAction(this.caller);
+				actions += action;
 			}
 			return this;
 		}
-		public ArrayFunctionBuilder ShowHeader(bool show) {
-			this.showHeader = show;
+		public ArrayFunctionBuilder HasHeader(bool has) {
+			this.hasHeader = has;
 			return this;
 		}
 		public ArrayFunctionBuilder RestoreSelection() {
-			this.Queue(caller => this.caller.Select());
+			this.Queue(() => this.Caller.Select());
 			return this;
 		}
 
 		public object[,] SetValue<T>(IEnumerable<T> values) {
+			this.Build();
 			if (type.IsAssignableTo(typeof(T))) {
 				var array = values.ToArray();
 				int offset = 0;
-				if (showHeader) { offset = 1; }
+				if (hasHeader) { offset = 1; }
 				Result = new object[array.Length + offset, this.columns.Count];
-				if (showHeader) {
-					for (int i = 0; i < columns.Count; i++) {
-						Result[0, i] = columns[i].Title;
+				if (hasHeader) {
+					foreach (var column in columns.Values) {
+						Result[0, column.Index] = column.Title;
 					}
 				}
 				for (int rowIndex = 0; rowIndex < array.Length; rowIndex++) {
-					for (int columnIndex = 0; columnIndex < columns.Count; columnIndex++) {
-						var srcValue = array[rowIndex];
-						var value = columns[columnIndex].Func(array[rowIndex]);
-						Result[rowIndex + offset, columnIndex] = CellValue.Write(value);
+					var rowValue = array[rowIndex];
+					foreach (var column in columns.Values) {
+						var value = column.Func(rowValue);
+						Result[rowIndex + offset, column.Index] = CellValue.Write(value);
 					}
 				}
+				this.ItemCount = array.Length;
+				ApplyActions();
 				return Result;
 			} else {
 				throw new ArgumentException($"ArrayFunction value has to be assignable from type {type.FullName}");
 			}
 		}
-		public ArrayFunctionBuilder BoldHeader() {
-			if (showHeader) {
-				this.Queue(caller => new CellBuilder(caller.RowFirst, caller.RowFirst, caller.ColumnFirst, caller.ColumnFirst + columns.Count - 1)
-					.FontProperties(x => x.Bold()).Apply());
+		private void ApplyActions() {
+			if (this.actions != null) {
+				ExcelAsyncUtil.QueueAsMacro(this.actions);
 			}
-			return this;
 		}
-		public void QueuePostReturnActions() => ExcelAsyncUtil.QueueAsMacro(this.postReturnActions);
-		public void QueueDefaultPostReturnActions() => this.BoldHeader().RestoreSelection().QueuePostReturnActions();
+		public ArrayFunctionBuilder BoldHeader() => this.FormatHeader(cellBuilder => cellBuilder.FontProperties(x => x.Bold()));
+		public ArrayFunctionBuilder DefaultFormatHeader() => this.BoldHeader().RestoreSelection();
 
 		public ArrayFunctionBuilder AddColumn(string name, string? title, Func<object?, object?> func) {
-			columns.Add(new ArrayFunctionColumn(name, title, func));
+			columns.Add(name, new ArrayFunctionColumn(name, title, func) {
+				Index = columns.Count,
+			});
 			return this;
 		}
 		public ArrayFunctionBuilder AddColumnsByReflection(params string[] fields) {
@@ -95,6 +100,57 @@ namespace Albatross.Excel {
 				}
 			}
 			return this;
+		}
+		public ArrayFunctionBuilder SetOrder(string name, int order) {
+			if(columns.TryGetValue(name, out var column)) {
+				column.Index = order;
+				return this;
+			} else {
+				throw new ArgumentException($"{name} is not an existing column");
+			}
+		}
+		public ArrayFunctionBuilder FormatColumns(Action<CellBuilder> action, params string[] items) {
+			var selected = new List<ArrayFunctionColumn>();
+			foreach (var item in items) {
+				if (columns.TryGetValue(item, out var column)) {
+					selected.Add(column);
+				} else {
+					throw new ArgumentException($"{item} is not an existing column");
+				}
+			}
+			this.Queue(() => {
+				var ranges = new List<ExcelReference>();
+				var offset = this.hasHeader ? 1 : 0;
+				foreach (var column in selected) {
+					ranges.Add(new ExcelReference(this.Caller.RowFirst + offset, this.Caller.RowFirst + offset + this.ItemCount - 1,
+						this.Caller.ColumnFirst + column.Index, this.Caller.ColumnFirst + column.Index));
+				}
+				CellBuilder cellBuilder;
+				if (ranges.Count == 1) {
+					cellBuilder = new CellBuilder(ranges.First());
+				} else {
+					cellBuilder = new CellBuilder(new ExcelReference(ranges));
+				}
+				action(cellBuilder);
+				cellBuilder.Apply();
+			});
+			return this;
+		}
+		public ArrayFunctionBuilder FormatHeader(Action<CellBuilder> action) {
+			this.Queue(() => {
+				if (this.hasHeader) {
+					var cellBuilder = new CellBuilder(Caller.RowFirst, Caller.RowFirst, Caller.ColumnFirst, Caller.ColumnFirst + columns.Count - 1);
+					action(cellBuilder);
+					cellBuilder.Apply();
+				}
+			});
+			return this;
+		}
+		private void Build() {
+			var items = this.columns.Values.OrderBy(x => x.Index).ThenBy(x => x.Name).ThenBy(x => x.Title).ToArray();
+			for (int i = 0; i < items.Length; i++) {
+				items[i].Index = i;
+			}
 		}
 	}
 }
