@@ -57,20 +57,10 @@ namespace Albatross.Excel.Table {
 
 		public object? ReadEntityProperty(object entity) {
 			var value = ReadEntityPropertyHandler(this, entity);
-			if (value == null && this.IsKey) {
+			if (value == null && (this.IsKey || Required)) {
 				return ExcelError.ExcelErrorNull;
 			} else {
-				if (value != null) {
-					var type = value.GetType();
-					if (type != this.GetType()) {
-						value = Convert.ChangeType(value, this.Type);
-					}
-				} else {
-					if (Required) {
-						value = ExcelError.ExcelErrorNull;
-					}
-				}
-				return value;
+				return CellValue.Write(value);
 			}
 		}
 		public bool TrySetEntityProperty(object entity, object value, [NotNullWhen(false)] out string? error) {

@@ -3,7 +3,6 @@ using ExcelDna.Integration;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using System.Windows.Media.Animation;
 
 namespace Albatross.Excel {
 	public static class CellValue {
