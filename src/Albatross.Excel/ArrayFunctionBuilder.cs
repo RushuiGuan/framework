@@ -8,8 +8,8 @@ namespace Albatross.Excel {
 	public record ArrayFunctionColumn {
 		public string Name { get; set; }
 		public string Title { get; set; }
-		public Func<object, object?> Func { get; set; }
-		public ArrayFunctionColumn(string name, string? title, Func<object, object?> func) {
+		public Func<object?, object?> Func { get; set; }
+		public ArrayFunctionColumn(string name, string? title, Func<object?, object?> func) {
 			this.Name = name;
 			this.Title = title ?? name;
 			this.Func = func;
@@ -44,6 +44,7 @@ namespace Albatross.Excel {
 			this.Queue(caller => this.caller.Select());
 			return this;
 		}
+
 		public object[,] SetValue<T>(IEnumerable<T> values) where T : notnull {
 			if (typeof(T) == this.type) {
 				var array = values.ToArray();
@@ -67,6 +68,24 @@ namespace Albatross.Excel {
 				throw new ArgumentException($"ArrayFunction value has to be of type {type.FullName}");
 			}
 		}
+		public object[,] SetValue(Array array) {
+			int offset = 0;
+			if (showHeader) { offset = 1; }
+			Result = new object[array.Length + offset, this.columns.Count];
+			if (showHeader) {
+				for (int i = 0; i < columns.Count; i++) {
+					Result[0, i] = columns[i].Title;
+				}
+			}
+			for (int rowIndex = 0; rowIndex < array.Length; rowIndex++) {
+				for (int columnIndex = 0; columnIndex < columns.Count; columnIndex++) {
+					var srcValue = array.GetValue(rowIndex);
+					var value = columns[columnIndex].Func(array.GetValue(rowIndex));
+					Result[rowIndex + offset, columnIndex] = CellValue.Write(value);
+				}
+			}
+			return Result;
+		}
 		public ArrayFunctionBuilder BoldHeader() {
 			if (showHeader) {
 				this.Queue(caller => new CellBuilder(caller.RowFirst, caller.RowFirst, caller.ColumnFirst, caller.ColumnFirst + columns.Count - 1)
@@ -77,7 +96,7 @@ namespace Albatross.Excel {
 		public void QueuePostReturnActions() => ExcelAsyncUtil.QueueAsMacro(this.postReturnActions);
 		public void QueueDefaultPostReturnActions() => this.BoldHeader().RestoreSelection().QueuePostReturnActions();
 
-		public ArrayFunctionBuilder AddColumn(string name, string? title, Func<object, object?> func) {
+		public ArrayFunctionBuilder AddColumn(string name, string? title, Func<object?, object?> func) {
 			columns.Add(new ArrayFunctionColumn(name, title, func));
 			return this;
 		}
