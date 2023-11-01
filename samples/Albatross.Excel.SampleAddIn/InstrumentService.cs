@@ -25,11 +25,8 @@ namespace Albatross.Excel.SampleAddIn {
 		[ExcelFunction(Description ="test me")]
 		public async Task<object> Instruments() {
 			var builder = new ArrayFunctionBuilder(typeof(Instrument), true)
-				.AddColumnsByReflection()
-					.SetOrder("Id", -2)
-					.SetOrder("Name", -1)
-					.SetOrder("Date", 0)
-				.DefaultFormatHeader().FormatColumns(builder => builder.NumberFormat(x => x.StandardDate()), "Date");
+				.AddColumnsByReflection().SetOrder("Id", "Name", "Date")
+				.DefaultFormatHeader().FormatColumns(builder => builder.NumberFormat(x => x.StandardDate()), "Date").RestoreSelection();
 			await Task.Delay(100);
 			return builder.SetValue(instruments.Values);
 		}
@@ -38,7 +35,7 @@ namespace Albatross.Excel.SampleAddIn {
 			var builder = new ArrayFunctionBuilder(typeof(Instrument), false).AddColumnsByReflection()
 				.DefaultFormatHeader().FormatColumns(builder => builder.NumberFormat(x => x.StandardDate()), "Date")
 				.FormatColumns(builder => builder.NumberFormat(x => x.StandardNumber()), "Id", "Number")
-				.BoldHeader().RestoreSelection().SetOrder("Id", -1);
+				.BoldHeader().RestoreSelection().SetOrder("Id");
 			await Task.Delay(100);
 			return builder.SetValue(instruments.Values);
 		}

@@ -20,6 +20,7 @@ namespace Albatross.Excel {
 		Type type;
 		bool hasHeader;
 		public ExcelReference Caller { get; }
+		string[] orderedColumnNames = Array.Empty<string>();
 		ExcelAction? actions;
 		Dictionary<string, ArrayFunctionColumn> columns = new Dictionary<string, ArrayFunctionColumn>();
 		public object[,] Result { get; private set; } = new object[0, 0];
@@ -81,12 +82,12 @@ namespace Albatross.Excel {
 		public ArrayFunctionBuilder BoldHeader() => this.FormatHeader(cellBuilder => cellBuilder.FontProperties(x => x.Bold()));
 		public ArrayFunctionBuilder DefaultFormatHeader() => this.BoldHeader().RestoreSelection();
 
-		public ArrayFunctionBuilder AddColumn(string name, string? title, Func<object?, object?> func) {
-			columns.Add(name, new ArrayFunctionColumn(name, title, func) {
-				Index = columns.Count,
-			});
+		public ArrayFunctionBuilder AddColumn(ArrayFunctionColumn column) {
+			columns.Add(column.Name, column);
+			column.Index = columns.Count;
 			return this;
 		}
+		public ArrayFunctionBuilder AddColumn(string name, string? title, Func<object?, object?> func) => AddColumn(new ArrayFunctionColumn(name, title, func));
 		public ArrayFunctionBuilder AddColumnsByReflection(params string[] fields) {
 			if (fields.Length != 0) {
 				foreach (var field in fields) {
@@ -101,27 +102,26 @@ namespace Albatross.Excel {
 			}
 			return this;
 		}
-		public ArrayFunctionBuilder SetOrder(string name, int order) {
-			if(columns.TryGetValue(name, out var column)) {
-				column.Index = order;
-				return this;
-			} else {
-				throw new ArgumentException($"{name} is not an existing column");
-			}
+		/// <summary>
+		/// set the order the columns.  the specified columns will be created ahead of the remaining columns.  the remaining columns will be displayed
+		/// based on the original insertion order.
+		/// </summary>
+		/// <param name="names"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException"></exception>
+		public ArrayFunctionBuilder SetOrder(params string[] names) {
+			if (names.Distinct().Count() != names.Length) { throw new ArgumentException("Duplicate column names found"); }
+			this.orderedColumnNames = names;
+			return this;
 		}
-		public ArrayFunctionBuilder FormatColumns(Action<CellBuilder> action, params string[] items) {
-			var selected = new List<ArrayFunctionColumn>();
-			foreach (var item in items) {
-				if (columns.TryGetValue(item, out var column)) {
-					selected.Add(column);
-				} else {
-					throw new ArgumentException($"{item} is not an existing column");
-				}
-			}
+		public ArrayFunctionBuilder FormatColumns(Action<CellBuilder> action, params string[] columnNames) {
 			this.Queue(() => {
 				var ranges = new List<ExcelReference>();
 				var offset = this.hasHeader ? 1 : 0;
-				foreach (var column in selected) {
+				foreach (var name in columnNames) {
+					if (!columns.TryGetValue(name, out var column)) {
+						throw new InvalidOperationException($"{name} is not an existing column");
+					}
 					ranges.Add(new ExcelReference(this.Caller.RowFirst + offset, this.Caller.RowFirst + offset + this.ItemCount - 1,
 						this.Caller.ColumnFirst + column.Index, this.Caller.ColumnFirst + column.Index));
 				}
@@ -147,9 +147,21 @@ namespace Albatross.Excel {
 			return this;
 		}
 		private void Build() {
-			var items = this.columns.Values.OrderBy(x => x.Index).ThenBy(x => x.Name).ThenBy(x => x.Title).ToArray();
-			for (int i = 0; i < items.Length; i++) {
-				items[i].Index = i;
+			for(int i=0; i<orderedColumnNames.Length; i++) {
+				var name = orderedColumnNames[i];
+				if(columns.TryGetValue(name, out var column)) {
+					column.Index = i;
+				} else {
+					throw new InvalidOperationException($"{name} is not a valid column name");
+				}
+			}
+			var remainingColumns = this.columns.Values
+				.Where(x => !orderedColumnNames.Contains(x.Name))
+				.OrderBy(x => x.Index).ThenBy(x => x.Name).ThenBy(x => x.Title)
+				.ToArray();
+
+			for(int j = 0; j < remainingColumns.Length; j++) {
+				remainingColumns[j].Index = j + orderedColumnNames.Length;
 			}
 		}
 	}
