@@ -32,7 +32,7 @@ namespace Albatross.Excel.SampleAddIn {
 		public void Btn_FontProperties(IRibbonControl _) => this.cellFormatDemoService.FontPropertiesDemo();
 		public void Btn_PrintColor(IRibbonControl _) => this.cellFormatDemoService.PrintColorDemo();
 
-		public string GetEnvironment(IRibbonControl _) => helpService.Environment;
+		public string GetEnvironment(IRibbonControl _) => helpService.GetEnvironment();
 		public void Btn_ShowHelp(IRibbonControl _) {
 			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.helpService.ShowHelp(ConfigSheetName)));
 		}

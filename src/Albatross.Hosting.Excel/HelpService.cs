@@ -5,13 +5,13 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Reflection;
 using Albatross.Text;
-using System.Diagnostics.Contracts;
 
 namespace Albatross.Hosting.Excel {
 	public record class HelpEntry {
 		public string Type { get; set; } = string.Empty;
-		public string Key { get; set; } = string.Empty;
-		public string? Value { get; set; }
+		public string Entry { get; set; } = string.Empty;
+		public string? Description { get; set; }
+		public string? AdditionalComments { get; set; }
 	}
 	public record class VersionValue {
 		public VersionValue(AssemblyName assemblyName, AssemblyInformationalVersionAttribute? informationalVersionAttribute) {
@@ -22,18 +22,21 @@ namespace Albatross.Hosting.Excel {
 		public string AssemblyName { get; set; } = string.Empty;
 		public string AssemblyVersion { get; set; } = string.Empty;
 	}
-	
+
 	public class HelpService {
-		public string Environment { get; set; }
 		TableOptions helpItemsTableOptions = new TableOptionsBuilder()
 			.AddColumns<HelpEntry>()
 			.Build();
 
+		private readonly EnvironmentSetting environment;
 		private readonly IConfiguration configuration;
 		private readonly FunctionRegistrationService functionRegistrationService;
+		
+		public string GetEnvironment() => $"Env = {this.environment.Value.ProperCase()}";
+		public List<HelpEntry> OtherEntries { get; set; } = new List<HelpEntry>();
 
 		public HelpService(EnvironmentSetting environment, IConfiguration configuration, FunctionRegistrationService functionRegistrationService) {
-			this.Environment = $"Env = {environment.Value.ProperCase()}";
+			this.environment = environment;
 			this.configuration = configuration;
 			this.functionRegistrationService = functionRegistrationService;
 		}
@@ -42,13 +45,14 @@ namespace Albatross.Hosting.Excel {
 			var list = new List<HelpEntry>();
 			this.GetConfigValues(list);
 			list.Add(GetAssemblyVersionHelpEntry(Assembly.GetCallingAssembly()));
-			foreach(var entry in functionRegistrationService.Registrations) {
-				list.Add(new HelpEntry { 
+			foreach (var entry in functionRegistrationService.Registrations) {
+				list.Add(new HelpEntry {
 					Type = "Custom Function",
-					Key = entry.FunctionAttribute.Name,
-					Value = entry.FunctionAttribute.Description ?? entry.FunctionAttribute.HelpTopic,
+					Entry = entry.FunctionAttribute.Name,
+					Description = entry.FunctionAttribute.Description ?? entry.FunctionAttribute.HelpTopic,
 				});
 			}
+			list.AddRange(OtherEntries);
 			list.ToArray().WriteTable(sheet, helpItemsTableOptions);
 		}
 		HelpEntry GetAssemblyVersionHelpEntry(Assembly assembly) {
@@ -56,18 +60,28 @@ namespace Albatross.Hosting.Excel {
 			var attrib = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 			return new HelpEntry {
 				Type = "AssemblyVersion",
-				Key = name.Name ?? "Anonymous",
-				Value = attrib?.InformationalVersion ?? name.Version?.ToString() ?? "Unknown",
+				Entry = name.Name ?? "Anonymous",
+				Description = attrib?.InformationalVersion ?? name.Version?.ToString() ?? "Unknown",
 			};
 		}
 		void GetConfigValues(List<HelpEntry> list) {
+			list.Add(new HelpEntry {
+				Type = "Configuration",
+				Entry = "Environment",
+				Description = this.environment.Value
+			});
 			var section = configuration.GetSection("ConnectionStrings");
 			foreach (var item in section.GetChildren()) {
-				list.Add(new HelpEntry { Type = "ConnectionString", Key = item.Key, Value = item.Value });
+				list.Add(new HelpEntry { 
+					Type = "Configuration", 
+					Entry = "ConnectionString", 
+					Description = item.Key, 
+					AdditionalComments = item.Value
+				});
 			}
 			section = configuration.GetSection("EndPoints");
 			foreach (var item in section.GetChildren()) {
-				list.Add(new HelpEntry { Type = "EndPoint", Key = item.Key, Value = item.Value });
+				list.Add(new HelpEntry { Type = "Configuration", Entry = "EndPoint", Description = $"{item.Key}={item.Value}" });
 			}
 		}
 	}
