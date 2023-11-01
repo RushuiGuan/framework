@@ -22,16 +22,10 @@ namespace Albatross.Excel.SampleAddIn {
 
 		[ExcelFunction]
 		public async Task<object> Instruments() {
-			var builder = new ArrayFunctionBuilder<Instrument>().AddColumnsByReflection();
+			var builder = new ArrayFunctionBuilder(typeof(Instrument), true).AddColumnsByReflection();
 			await Task.Delay(100);
 			builder.BoldHeader().RestoreSelection().QueuePostReturnActions();
 			return builder.SetValue(instruments.Values);
-		}
-
-		[ExcelFunction]
-		public async Task<object> Instruments2() {
-			await Task.Delay(100);
-			return instruments.Values.CreateRangeValue(new string[] {"id", "name", "ticker" }, x => x.Id, x => x.Name, x => x.Ticker);
 		}
 
 		[ExcelFunction(IsMacroType = true)]

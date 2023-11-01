@@ -257,6 +257,9 @@ namespace Albatross.Excel {
 			if (value == null) {
 				return ExcelEmpty.Value;
 			} else {
+				// don't have to worry about nullable value type here because of the boxing
+				// see the answer for this question
+				// https://stackoverflow.com/questions/5194465/how-to-get-value-of-a-nullable-type-via-reflection
 				var type = value.GetType();
 				if (type.IsEnum) {
 					return Enum.GetName(type, value)!;
