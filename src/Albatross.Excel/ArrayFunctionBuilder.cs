@@ -45,8 +45,8 @@ namespace Albatross.Excel {
 			return this;
 		}
 
-		public object[,] SetValue<T>(IEnumerable<T> values) where T : notnull {
-			if (typeof(T) == this.type) {
+		public object[,] SetValue<T>(IEnumerable<T> values) {
+			if (type.IsAssignableTo(typeof(T))) {
 				var array = values.ToArray();
 				int offset = 0;
 				if (showHeader) { offset = 1; }
@@ -65,26 +65,8 @@ namespace Albatross.Excel {
 				}
 				return Result;
 			} else {
-				throw new ArgumentException($"ArrayFunction value has to be of type {type.FullName}");
+				throw new ArgumentException($"ArrayFunction value has to be assignable from type {type.FullName}");
 			}
-		}
-		public object[,] SetValue(Array array) {
-			int offset = 0;
-			if (showHeader) { offset = 1; }
-			Result = new object[array.Length + offset, this.columns.Count];
-			if (showHeader) {
-				for (int i = 0; i < columns.Count; i++) {
-					Result[0, i] = columns[i].Title;
-				}
-			}
-			for (int rowIndex = 0; rowIndex < array.Length; rowIndex++) {
-				for (int columnIndex = 0; columnIndex < columns.Count; columnIndex++) {
-					var srcValue = array.GetValue(rowIndex);
-					var value = columns[columnIndex].Func(array.GetValue(rowIndex));
-					Result[rowIndex + offset, columnIndex] = CellValue.Write(value);
-				}
-			}
-			return Result;
 		}
 		public ArrayFunctionBuilder BoldHeader() {
 			if (showHeader) {

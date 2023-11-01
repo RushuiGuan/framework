@@ -8,7 +8,7 @@ using Xunit;
 namespace Albatross.CodeGen.UnitTest {
 	public class NullableParameterTest {
 		public string? Name { get; set; }
-		public string Name1 { get; set; }
+		public string Name1 { get; set; } = null!;
 
 		void MyMethod(string? a, Nullable<int> b) { }
 		int? MyMethod2(string? a, Nullable<int> b) { return null; }
