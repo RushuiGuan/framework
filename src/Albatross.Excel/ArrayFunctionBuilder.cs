@@ -118,23 +118,25 @@ namespace Albatross.Excel {
 		}
 		public ArrayFunctionBuilder FormatColumns(Action<CellBuilder> action, params string[] columnNames) {
 			this.Queue(() => {
-				var ranges = new List<ExcelReference>();
-				var offset = this.hasHeader ? 1 : 0;
-				foreach (var name in columnNames) {
-					if (!columns.TryGetValue(name, out var column)) {
-						throw new InvalidOperationException($"{name} is not an existing column");
+				if (this.ItemCount > 0) {
+					var ranges = new List<ExcelReference>();
+					var offset = this.hasHeader ? 1 : 0;
+					foreach (var name in columnNames) {
+						if (!columns.TryGetValue(name, out var column)) {
+							throw new InvalidOperationException($"{name} is not an existing column");
+						}
+						ranges.Add(new ExcelReference(this.Caller.RowFirst + offset, this.Caller.RowFirst + offset + this.ItemCount - 1,
+							this.Caller.ColumnFirst + column.Index, this.Caller.ColumnFirst + column.Index));
 					}
-					ranges.Add(new ExcelReference(this.Caller.RowFirst + offset, this.Caller.RowFirst + offset + this.ItemCount - 1,
-						this.Caller.ColumnFirst + column.Index, this.Caller.ColumnFirst + column.Index));
+					CellBuilder cellBuilder;
+					if (ranges.Count == 1) {
+						cellBuilder = new CellBuilder(ranges.First());
+					} else {
+						cellBuilder = new CellBuilder(new ExcelReference(ranges));
+					}
+					action(cellBuilder);
+					cellBuilder.Apply();
 				}
-				CellBuilder cellBuilder;
-				if (ranges.Count == 1) {
-					cellBuilder = new CellBuilder(ranges.First());
-				} else {
-					cellBuilder = new CellBuilder(new ExcelReference(ranges));
-				}
-				action(cellBuilder);
-				cellBuilder.Apply();
 			});
 			return this;
 		}
