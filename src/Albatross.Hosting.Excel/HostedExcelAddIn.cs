@@ -47,7 +47,8 @@ namespace Albatross.Hosting.Excel {
 		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			services.AddConfig<ProgramSetting>();
 			services.AddSingleton(envSetting);
-			services.AddSingleton<ShowConfigService>();
+			services.AddSingleton<FunctionRegistrationService>();
+			services.AddSingleton<HelpService>();
 			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName ?? "default"));
 		}
 		void RegisterRibbons(IServiceProvider provider) {

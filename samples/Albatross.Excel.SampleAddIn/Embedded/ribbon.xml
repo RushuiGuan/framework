@@ -15,8 +15,8 @@
 					<button id='SavePrice' label='Save Price' onAction='Btn_SavePrice'/>
 				</group>
 				<group id='group3' label='Configuration'>
-					<button id='GetConfigBtn' getLabel='GetEnvironment' onAction='Btn_GetConfiguration'/>
-					<button id='GetVersionBtn' label='Versions' onAction='Btn_GetVersion'/>
+					<labelControl id='envLabel' getLabel='GetEnvironment' />
+					<button id='ShowHelpBtn' label='Show Help' onAction='Btn_ShowHelp'/>
 				</group>
 			</tab>
 		</tabs>

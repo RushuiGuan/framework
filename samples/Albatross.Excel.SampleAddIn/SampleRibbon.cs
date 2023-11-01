@@ -14,14 +14,14 @@ namespace Albatross.Excel.SampleAddIn {
 		private readonly CellFormatDemo cellFormatDemoService;
 		private readonly TableWriteDemo tableDemo;
 		private readonly TableReadWriteDemo readWriteDemo;
-		private readonly ShowConfigService showConfigSvc;
+		private readonly HelpService helpService;
 
-		public SampleRibbon(ILogger<SampleRibbon> logger, CellFormatDemo cellFormatDemoService, TableWriteDemo tableDemo, TableReadWriteDemo readWriteDemo, ShowConfigService showConfigSvc) : base(logger) {
+		public SampleRibbon(ILogger<SampleRibbon> logger, CellFormatDemo cellFormatDemoService, TableWriteDemo tableDemo, TableReadWriteDemo readWriteDemo, HelpService helpService) : base(logger) {
 			this.logger = logger;
 			this.cellFormatDemoService = cellFormatDemoService;
 			this.tableDemo = tableDemo;
 			this.readWriteDemo = readWriteDemo;
-			this.showConfigSvc = showConfigSvc;
+			this.helpService = helpService;
 		}
 
 		public async void Btn_LoadTestData(IRibbonControl _) => await this.tableDemo.WriteToExcel();
@@ -32,12 +32,9 @@ namespace Albatross.Excel.SampleAddIn {
 		public void Btn_FontProperties(IRibbonControl _) => this.cellFormatDemoService.FontPropertiesDemo();
 		public void Btn_PrintColor(IRibbonControl _) => this.cellFormatDemoService.PrintColorDemo();
 
-		public string GetEnvironment(IRibbonControl _) => showConfigSvc.Environment;
-		public void Btn_GetConfiguration(IRibbonControl _) {
-			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.showConfigSvc.ShowConfig(ConfigSheetName)));
-		}
-		public void Btn_GetVersion(IRibbonControl _) {
-			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.showConfigSvc.ShowVerison(ConfigSheetName, this.GetType().Assembly)));
+		public string GetEnvironment(IRibbonControl _) => helpService.Environment;
+		public void Btn_ShowHelp(IRibbonControl _) {
+			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.helpService.ShowHelp(ConfigSheetName)));
 		}
 	}
 }

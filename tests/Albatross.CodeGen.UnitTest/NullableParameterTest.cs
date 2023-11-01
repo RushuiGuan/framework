@@ -1,8 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Reflection;
-using Albatross.CodeGen.Core;
-using Serilog.Enrichers;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {

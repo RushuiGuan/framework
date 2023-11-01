@@ -20,14 +20,14 @@ namespace Albatross.Excel.SampleAddIn {
 			this.logger = logger;
 		}
 
-		[ExcelFunction]
+		[ExcelFunction(Description ="test me")]
 		public async Task<object> Instruments() {
 			var builder = new ArrayFunctionBuilder(typeof(Instrument), true).AddColumnsByReflection();
 			await Task.Delay(100);
 			builder.BoldHeader().RestoreSelection().QueuePostReturnActions();
 			return builder.SetValue(instruments.Values);
 		}
-		[ExcelFunction]
+		[ExcelFunction(HelpTopic = "test you")]
 		public async Task<object> Instruments2() {
 			var builder = new ArrayFunctionBuilder(typeof(Instrument), false).AddColumnsByReflection();
 			await Task.Delay(100);
