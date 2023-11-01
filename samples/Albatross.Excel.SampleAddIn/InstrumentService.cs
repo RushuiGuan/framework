@@ -27,6 +27,14 @@ namespace Albatross.Excel.SampleAddIn {
 			builder.BoldHeader().RestoreSelection().QueuePostReturnActions();
 			return builder.SetValue(instruments.Values);
 		}
+		[ExcelFunction]
+		public async Task<object> Instruments2() {
+			var builder = new ArrayFunctionBuilder(typeof(Instrument), false).AddColumnsByReflection();
+			await Task.Delay(100);
+			builder.BoldHeader().RestoreSelection().QueuePostReturnActions();
+			return builder.SetValue(instruments.Values);
+		}
+
 
 		[ExcelFunction(IsMacroType = true)]
 		public object InstrumentName([ExcelArgument(Description = "Instrument Id")] object idCell) {

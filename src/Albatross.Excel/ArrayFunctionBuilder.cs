@@ -64,7 +64,7 @@ namespace Albatross.Excel {
 				}
 				return Result;
 			} else {
-				throw new ArgumentException();
+				throw new ArgumentException($"ArrayFunction value has to be of type {type.FullName}");
 			}
 		}
 		public ArrayFunctionBuilder BoldHeader() {
