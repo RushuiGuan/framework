@@ -88,10 +88,12 @@ namespace Albatross.Excel {
 			return this;
 		}
 		public ArrayFunctionBuilder AddColumn(string name, string? title, Func<object?, object?> func) => AddColumn(new ArrayFunctionColumn(name, title, func));
-		public ArrayFunctionBuilder AddColumnsByReflection(params string[] fields) {
+		public ArrayFunctionBuilder AddColumnsByReflection(bool includeInheritedProperties, params string[] fields) {
 			if (fields.Length != 0) {
 				foreach (var field in fields) {
-					var info = this.type.GetProperty(field, BindingFlags.Public | BindingFlags.Instance)
+					var option = BindingFlags.Public | BindingFlags.Instance;
+					if (includeInheritedProperties) { option = option | BindingFlags.FlattenHierarchy; }
+					var info = this.type.GetProperty(field, option)
 						?? throw new ArgumentException($"{field} is not a valid public, instance property for {type.Name}");
 					AddColumn(info.Name, null, entity => info.GetValue(entity));
 				}
