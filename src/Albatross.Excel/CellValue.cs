@@ -114,7 +114,7 @@ namespace Albatross.Excel {
 				value = cellValue;
 				return true;
 			} else {
-				string text = Convert.ToString(input);
+				string? text = Convert.ToString(input);
 				switch (text?.ToLower() ?? string.Empty) {
 					case "1":
 					case "true":

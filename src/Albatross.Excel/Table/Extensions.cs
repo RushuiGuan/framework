@@ -195,7 +195,7 @@ namespace Albatross.Excel.Table {
 		public static bool TrySetEntityPropertyByReflection(object entity, TableColumn column, object cellValue, [NotNullWhen(false)] out string? error) {
 			error = null;
 			var type = entity.GetType();
-			PropertyInfo propertyInfo = type.GetProperty(column.Name);
+			PropertyInfo? propertyInfo = type.GetProperty(column.Name);
 			if (propertyInfo != null) {
 				if (cellValue == ExcelMissing.Value || cellValue == ExcelEmpty.Value || cellValue is ExcelError && column.UseNullForError) {
 					if (column.IsNullable) {
