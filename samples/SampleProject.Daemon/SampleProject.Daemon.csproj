@@ -5,6 +5,7 @@
 		<AssemblyName>sample-project-daemon</AssemblyName>
 		<IsPackable>false</IsPackable>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+		<EnableNETAnalyzers>False</EnableNETAnalyzers>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,6 +20,12 @@
 		</Content>
 		<Content Update="C:\Users\rushui2020\.nuget\packages\albatross.hosting\2.0.0-alpha.1\contentFiles\any\net5.0\serilog.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="serilog.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="serilog.local.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 

@@ -80,10 +80,14 @@
                 }
             }
         ],
+        "Using": [
+            "Albatross.Logging"
+        ],
         "Enrich": [
             "FromLogContext",
             "WithThreadId",
-            "WithMachineName"
+            "WithMachineName",
+            "WithErrorMessage"
         ]
     }
 }

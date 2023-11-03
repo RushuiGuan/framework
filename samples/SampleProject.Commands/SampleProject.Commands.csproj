@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>.Net7.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
 
   <ItemGroup>

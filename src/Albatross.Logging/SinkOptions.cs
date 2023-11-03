@@ -10,7 +10,7 @@ namespace Albatross.Logging {
 			BatchSizeLimit = 20,
 			ShowDefaultAttachments = false,
 			ShowPropertyAttachments = false,
-			ShowExceptionAttachments = true,
+			ShowExceptionAttachments = false,
 		});
 	}
 }

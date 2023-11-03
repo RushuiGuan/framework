@@ -1,0 +1,14 @@
+{
+	"Serilog": {
+		"WriteTo": {
+			"SlackSink": {
+				"Name": "Slack",
+				"Args": {
+					"SlackSinkOptions": "Albatross.Logging.SinkOptions::SlackSink, Albatross.Logging",
+					"restrictedToMinimumLevel": "Error",
+					"outputTemplate": ":cow: {Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{ErrorMessage}"
+				}
+			}
+		}
+	}
+}

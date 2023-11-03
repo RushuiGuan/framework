@@ -8,6 +8,7 @@
     <Description>Wrapper library to quickly create a combination of web api, spa or service with serilog logging, swagger and bearer token authentication\authorization support.</Description>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />

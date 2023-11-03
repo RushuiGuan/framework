@@ -5,6 +5,7 @@
     <AssemblyName>sample-project-webapi</AssemblyName>
 	  <IsPackable>false</IsPackable>
 	  <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+	  <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
 
   <ItemGroup>
