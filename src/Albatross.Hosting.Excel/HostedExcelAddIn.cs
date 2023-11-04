@@ -25,28 +25,32 @@ namespace Albatross.Hosting.Excel {
 			IntelliSenseServer.Install();
 		}
 		protected virtual void Stop() => IntelliSenseServer.Uninstall();
+		EnvironmentSetting envSetting => EnvironmentSetting.DOTNET_ENVIRONMENT;
+		public string Environment => this.envSetting.Value;
 		public virtual string CurrentDirectory => System.IO.Path.GetDirectoryName(typeof(HostedExcelAddIn).Assembly.Location)!;
 
 		public HostedExcelAddIn() {
-			var env = EnvironmentSetting.DOTNET_ENVIRONMENT;
-			serilogLogger = new SetupSerilog().UseConfigFile(env.Value, CurrentDirectory, new string[0]).Create();
+			serilogLogger = new SetupSerilog().Configure(ConfigureLogging).Create();
 			IHostBuilder hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			var configBuilder = new ConfigurationBuilder()
 				.SetBasePath(CurrentDirectory)
 				.AddJsonFile("appsettings.json", false, true);
-			if (!string.IsNullOrEmpty(env.Value)) { configBuilder.AddJsonFile($"appsettings.{env.Value}.json", true, true); }
+			if (!string.IsNullOrEmpty(Environment)) { configBuilder.AddJsonFile($"appsettings.{Environment}.json", true, true); }
 			this.configuration = configBuilder
 				.AddEnvironmentVariables()
 				.Build();
 			host = hostBuilder.ConfigureAppConfiguration(builder => {
 				builder.Sources.Clear();
 				builder.AddConfiguration(configuration);
-			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, env, svc)).Build();
+			}).ConfigureServices((ctx, svc) => RegisterServices(ctx.Configuration, svc)).Build();
 			logger = host.Services.GetRequiredService<Microsoft.Extensions.Logging.ILogger>();
 		}
-		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
+		public virtual void ConfigureLogging(LoggerConfiguration cfg) {
+			SetupSerilog.UseConfigFile(cfg, this.Environment, CurrentDirectory, new string[0]);
+		}
+		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			services.AddConfig<ProgramSetting>();
-			services.AddSingleton(envSetting);
+			services.AddSingleton(this.envSetting);
 			services.AddSingleton<FunctionRegistrationService>();
 			services.AddSingleton<HelpService>();
 			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName ?? "default"));

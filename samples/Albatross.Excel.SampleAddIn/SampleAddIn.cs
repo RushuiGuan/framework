@@ -7,8 +7,8 @@ using System;
 
 namespace Albatross.Excel.SampleAddIn {
 	public class SampleAddIn : HostedExcelAddIn {
-		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
-			base.RegisterServices(configuration, envSetting, services);
+		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+			base.RegisterServices(configuration, services);
 			services.AddConfig<SampleConfig>();
 			services.AddExcelRibbon<SampleRibbon>();
 			services.AddSingleton<CellFormatDemo>();
@@ -17,6 +17,7 @@ namespace Albatross.Excel.SampleAddIn {
 			services.AddSingleton<InstrumentService>();
 			services.AddWindowsPrincipalProvider();
 		}
+
 		protected override void Start(IConfiguration configuration, IServiceProvider provider) {
 			provider.UseExcelFunctions<InstrumentService>();
 			base.Start(configuration, provider);
