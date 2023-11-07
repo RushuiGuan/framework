@@ -13,5 +13,6 @@ namespace Albatross.Messaging.Configurations {
 
 		public RouterServerConfiguration RouterServer { get; set; } = new RouterServerConfiguration();
 		public DealerClientConfiguration DealerClient { get; set; } = new DealerClientConfiguration();
+		public SubscriptionManagementConfiguration SubscriptionManagement { get; set; } = new SubscriptionManagementConfiguration();
 	}
 }

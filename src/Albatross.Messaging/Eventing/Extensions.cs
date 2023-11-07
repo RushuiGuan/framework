@@ -11,6 +11,7 @@ namespace Albatross.Messaging.Eventing {
 			services.TryAddSingleton<IPublisherService, PublisherService>();
 			services.AddSingleton<IRouterServerService, PublisherReplayService>();
 			services.AddSingleton<IRouterServerService>(args=>args.GetRequiredService<IPublisherService>());
+			services.TryAddSingleton<ISubscriptionManagement, SubscriptionManagement>();
 			services.AddRouterServer();
 			return services;
 		}
