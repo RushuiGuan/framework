@@ -1,7 +1,7 @@
 using Albatross.Config;
 using Albatross.Hosting;
 using Albatross.Messaging.Configurations;
-using Albatross.Messaging.Eventing;
+using Albatross.Messaging.PubSub;
 using Albatross.Messaging.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;

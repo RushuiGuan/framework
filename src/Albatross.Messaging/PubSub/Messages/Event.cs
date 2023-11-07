@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Web;
 
-namespace Albatross.Messaging.Eventing.Messages {
+namespace Albatross.Messaging.PubSub.Messages {
 	public record class Event : Message, IMessage {
 		public static string MessageHeader => "eve";
 		public string Topic { get; private set; } = string.Empty;

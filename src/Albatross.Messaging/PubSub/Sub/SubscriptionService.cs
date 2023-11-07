@@ -1,5 +1,5 @@
 ﻿using Albatross.Collections;
-using Albatross.Messaging.Eventing.Messages;
+using Albatross.Messaging.PubSub.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Albatross.Messaging.Eventing.Sub {
+namespace Albatross.Messaging.PubSub.Sub {
 	public class SubscriptionService : IDealerClientService {
 		private readonly object sync = new object();
 		private readonly Dictionary<string, ISet<ISubscriber>> subscriptions = new Dictionary<string, ISet<ISubscriber>>();

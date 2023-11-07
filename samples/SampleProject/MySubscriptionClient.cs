@@ -1,5 +1,5 @@
 ﻿using Albatross.Messaging.Commands;
-using Albatross.Messaging.Eventing.Sub;
+using Albatross.Messaging.PubSub.Sub;
 
 namespace SampleProject  {
 	public interface IMySubscriptionClient : ISubscriptionClient { }

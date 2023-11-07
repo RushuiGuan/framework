@@ -1,4 +1,4 @@
-﻿using Albatross.Messaging.Eventing;
+﻿using Albatross.Messaging.PubSub;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;

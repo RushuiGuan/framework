@@ -1,6 +1,6 @@
 ﻿using Albatross.Messaging.Services;
 
-namespace Albatross.Messaging.Eventing.Pub {
+namespace Albatross.Messaging.PubSub.Pub {
 	public class Publisher : IPublisher {
 		private readonly RouterServer routerServer;
 

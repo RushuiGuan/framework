@@ -1,8 +1,8 @@
 ﻿using Albatross.Config;
 using SampleProject.Commands;
 using Albatross.Messaging.Commands;
-using Albatross.Messaging.Eventing;
-using Albatross.Messaging.Eventing.Sub;
+using Albatross.Messaging.PubSub;
+using Albatross.Messaging.PubSub.Sub;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

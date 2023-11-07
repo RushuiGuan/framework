@@ -1,4 +1,4 @@
-﻿using Albatross.Messaging.Eventing.Messages;
+﻿using Albatross.Messaging.PubSub.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.Messaging.Eventing.Pub {
+namespace Albatross.Messaging.PubSub.Pub {
 	public class PublisherReplayMessageGroup {
 		public int Index { get; set; }
 		public IMessage Request { get; init; }

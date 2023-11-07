@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Albatross.Messaging.Eventing.Pub {
+namespace Albatross.Messaging.PubSub.Pub {
 	public class Subscription {
 		public string Pattern { get; init; }
 		public Regex Regex { get; init; }

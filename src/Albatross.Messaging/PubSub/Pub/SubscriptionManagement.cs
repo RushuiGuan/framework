@@ -5,7 +5,7 @@ using Albatross.Messaging.Configurations;
 using System.Text.Json;
 using System.IO;
 
-namespace Albatross.Messaging.Eventing.Pub {
+namespace Albatross.Messaging.PubSub.Pub {
 	public interface ISubscriptionManagement {
 		IEnumerable<Subscription> Subscriptions { get; }
 		void Add(string pattern, string route);

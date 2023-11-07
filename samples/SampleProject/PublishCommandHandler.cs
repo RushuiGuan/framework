@@ -1,5 +1,5 @@
 ﻿using Albatross.Messaging.Commands;
-using Albatross.Messaging.Eventing;
+using Albatross.Messaging.PubSub;
 using Microsoft.Extensions.Logging;
 using SampleProject.Commands;
 using System;

@@ -1,16 +1,18 @@
-﻿using Albatross.Messaging.Eventing.Pub;
-using Albatross.Messaging.Eventing.Sub;
+﻿using Albatross.Messaging.Configurations;
+using Albatross.Messaging.PubSub.Pub;
+using Albatross.Messaging.PubSub.Sub;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Albatross.Messaging.Eventing {
+namespace Albatross.Messaging.PubSub {
 	public static class Extensions {
 		public static IServiceCollection AddPublisher(this IServiceCollection services) {
 			services.TryAddSingleton<IPublisher, Publisher>();
 			services.TryAddSingleton<IPublisherService, PublisherService>();
 			services.AddSingleton<IRouterServerService, PublisherReplayService>();
 			services.AddSingleton<IRouterServerService>(args=>args.GetRequiredService<IPublisherService>());
+			services.TryAddSingleton(args => args.GetRequiredService<MessagingConfiguration>().SubscriptionManagement);
 			services.TryAddSingleton<ISubscriptionManagement, SubscriptionManagement>();
 			services.AddRouterServer();
 			return services;

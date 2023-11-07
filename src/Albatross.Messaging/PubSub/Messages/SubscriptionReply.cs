@@ -1,19 +1,18 @@
 ﻿using Albatross.Text;
 using Albatross.Messaging.Messages;
 using NetMQ;
-using System.IO;
 using System;
+using System.IO;
 using System.Web;
 
-namespace Albatross.Messaging.Eventing.Messages {
-	public record class SubscriptionRequest : Message, IMessage {
-		public static string MessageHeader => "sub";
-
-		public SubscriptionRequest(string route, ulong id, bool on, string pattern) : base(MessageHeader, route, id) {
+namespace Albatross.Messaging.PubSub.Messages {
+	public record class SubscriptionReply : Message, IMessage {
+		public static string MessageHeader => "sub-rep";
+		public SubscriptionReply(string route, ulong id, bool on, string pattern) : base(MessageHeader, route, id) {
 			this.On = on;
 			this.Pattern = pattern;
 		}
-		public SubscriptionRequest() { }
+		public SubscriptionReply() { }
 
 		public bool On { get; private set; }
 		public string Pattern { get; private set; } = string.Empty;
@@ -22,7 +21,7 @@ namespace Albatross.Messaging.Eventing.Messages {
 			base.ReadFromFrames(msg);
 			var index = this.StartingFrameIndex;
 			this.On = msg[index++].Buffer.ToBoolean();
-			this.Pattern = msg[index++].Buffer.ToUtf8String();
+			this.Pattern= msg[index++].Buffer.ToUtf8String();
 		}
 		public override void WriteToFrames(NetMQMessage msg) {
 			base.WriteToFrames(msg);
@@ -33,7 +32,7 @@ namespace Albatross.Messaging.Eventing.Messages {
 			base.ReadFromText(line, ref offset);
 			if (line.TryGetText(LogDelimiter, ref offset, out var text) && bool.TryParse(text, out var booleanValue)) {
 				this.On = booleanValue;
-				if (line.TryGetText(LogDelimiter, ref offset, out text)) {
+				if(line.TryGetText(LogDelimiter, ref offset, out text)) {
 					this.Pattern = HttpUtility.UrlDecode(text);
 					return;
 				}

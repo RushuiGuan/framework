@@ -1,10 +1,10 @@
 ﻿using Albatross.Messaging.EventSource;
-using Albatross.Messaging.Eventing.Messages;
+using Albatross.Messaging.PubSub.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Albatross.Messaging.Eventing.Pub {
+namespace Albatross.Messaging.PubSub.Pub {
 	public interface IPublisherService : IRouterServerService { }
 	public class PublisherService : IPublisherService {
 		private readonly ILogger<PublisherService> logger;

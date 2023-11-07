@@ -1,7 +1,7 @@
 ﻿using Albatross.Messaging.Services;
 using System.Threading.Tasks;
 
-namespace Albatross.Messaging.Eventing.Sub {
+namespace Albatross.Messaging.PubSub.Sub {
 	public interface ISubscriptionClient {
 		Task Subscribe(ISubscriber subscriber, string pattern);
 		Task Unsubscribe(ISubscriber subscriber, string pattern);

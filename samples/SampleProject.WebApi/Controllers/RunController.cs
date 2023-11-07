@@ -1,6 +1,6 @@
 ﻿using Albatross.Messaging.Commands;
-using Albatross.Messaging.Eventing;
-using Albatross.Messaging.Eventing.Sub;
+using Albatross.Messaging.PubSub;
+using Albatross.Messaging.PubSub.Sub;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Threading.Tasks;

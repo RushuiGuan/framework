@@ -1,4 +1,4 @@
-﻿namespace Albatross.Messaging.Eventing.Sub {
+﻿namespace Albatross.Messaging.PubSub.Sub {
 	public record class Subscription {
 		public bool On { get; init; }
 		public string Pattern { get; init; }
