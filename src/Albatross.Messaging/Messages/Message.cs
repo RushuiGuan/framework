@@ -11,7 +11,7 @@ namespace Albatross.Messaging.Messages {
 		public string Header { get; private set; } = string.Empty;
 		public ulong Id { get; private set; }
 
-		public int StartingFrameIndex => HasRoute ? 4 : 3;
+		public virtual int StartingFrameIndex => HasRoute ? 4 : 3;
 		public bool HasRoute => !string.IsNullOrEmpty(this.Route);
 
 
