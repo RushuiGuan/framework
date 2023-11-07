@@ -1,5 +1,5 @@
 ﻿namespace Albatross.Messaging.EventSource {
 	public interface IEventWriter {
-		void WriteLogEntry(LogEntry logEntry);
+		void WriteLogEntry(EventEntry logEntry);
 	}
 }

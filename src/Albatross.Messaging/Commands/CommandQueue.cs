@@ -15,7 +15,7 @@ namespace Albatross.Messaging.Commands {
 		protected readonly RouterServer routerServer;
 		protected readonly IServiceScopeFactory scopeFactory;
 		protected readonly Queue<CommandQueueItem> queue = new Queue<CommandQueueItem>();
-		protected CommandQueueItem? current;
+		protected CommandQueueItem? currentItem;
 		public string Name { get; private set; } = string.Empty;
 
 		public CommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory) {
@@ -27,52 +27,52 @@ namespace Albatross.Messaging.Commands {
 			this.logger = logger;
 			logger.LogInformation("command queue {name} setup", queueName);
 		}
-		public void Submit(CommandQueueItem job) {
-			logger.LogDebug("Submitting => {id}", job.Id);
-			this.queue.Enqueue(job);
+		public void Submit(CommandQueueItem item) {
+			logger.LogDebug("Submitting => {id}", item.Id);
+			this.queue.Enqueue(item);
 			this.RunNextIfNotBusy();
 		}
 
 		public int Count { get => this.queue.Count; }
 
 		public void RunNextIfNotBusy() {
-			if (current == null || current.IsCompleted) {
+			if (currentItem == null || currentItem.IsCompleted) {
 				if (this.queue.TryDequeue(out var next)) {
 					logger.LogDebug("RunNextIfNotBusy => {id}", next.Id);
-					this.current = next;
+					this.currentItem = next;
 					_ = Run(next);
 				}
 			}
 		}
-		public async virtual Task Run(CommandQueueItem job) {
+		public async virtual Task Run(CommandQueueItem item) {
 			try {
 				using var scope = scopeFactory.CreateScope();
-				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);
+				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(item.Registration.CommandHandlerType);
 				// run everything else using a diff thread
 				await Task.Run(async () => {
-					if (job.Command is ILogDetail logDetail) {
+					if (item.Command is ILogDetail logDetail) {
 						logger.LogInformation("Running {command} by {client}({id}), parameter: {@parameter}",
-							job.Registration.CommandType, job.Route, job.Id, logDetail.Target);
+							item.Registration.CommandType, item.Route, item.Id, logDetail.Target);
 					} else {
 						logger.LogInformation("Running {command} by {client}({id})",
-							job.Registration.CommandType, job.Route, job.Id);
+							item.Registration.CommandType, item.Route, item.Id);
 					}
-					var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
-					logger.LogInformation("Done {commandId}", job.Id);
+					var result = await commandHandler.Handle(item.Command, this.Name).ConfigureAwait(false);
+					logger.LogInformation("Done {commandId}", item.Id);
 
-					if (job.Registration.HasReturnType) {
+					if (item.Registration.HasReturnType) {
 						var stream = new MemoryStream();
-						JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, MessagingJsonSettings.Value.Default);
-						job.Reply = new CommandReply(job.Route, job.Id, stream.ToArray());
+						JsonSerializer.Serialize(stream, result, item.Registration.ResponseType, MessagingJsonSettings.Value.Default);
+						item.Reply = new CommandReply(item.Route, item.Id, stream.ToArray());
 					} else {
-						job.Reply = new CommandReply(job.Route, job.Id, Array.Empty<byte>());
+						item.Reply = new CommandReply(item.Route, item.Id, Array.Empty<byte>());
 					}
-					routerServer.SubmitToQueue(job);
+					routerServer.SubmitToQueue(item);
 				});
 			} catch (Exception err) {
-				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "unknown class", err.Message.ToUtf8Bytes());
-				routerServer.SubmitToQueue(job);
-				logger.LogError(err, "Failed {commandId}", job.Id);
+				item.Reply = new CommandErrorReply(item.Route, item.Id, err.GetType().FullName ?? "unknown class", err.Message.ToUtf8Bytes());
+				routerServer.SubmitToQueue(item);
+				logger.LogError(err, "Failed {commandId}", item.Id);
 			}
 		}
 	}

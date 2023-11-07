@@ -31,7 +31,7 @@ namespace Albatross.Messaging.Commands {
 
 		void AcceptRequest(IMessagingService messagingService, CommandRequest cmd) {
 			try {
-				var job = this.commandQueueFactory.CreateJob(cmd);
+				var job = this.commandQueueFactory.CreateItem(cmd);
 				logger.LogDebug("AcceptingRequest => {id}", job.Id);
 				job.Queue.Submit(job);
 				// internal route could be sent here due to replay, make sure it doesn't actually get sent to the socket
@@ -63,21 +63,21 @@ namespace Albatross.Messaging.Commands {
 
 		public bool ProcessQueue(IMessagingService messagingService, object msg) {
 			switch (msg) {
-				case CommandQueueItem job:
+				case CommandQueueItem item:
 					// the command job is sent here when it has finished its execution
-					if (job.FireAndForget) {
-						messagingService.DataLogger.WriteLogEntry(new EventSource.LogEntry(EntryType.Record, new CommandExecuted(job.Route, job.Id)));
+					if (item.FireAndForget) {
+						messagingService.DataLogger.WriteLogEntry(new EventSource.EventEntry(EntryType.Record, new CommandExecuted(item.Route, item.Id)));
 					} else {
-						messagingService.SubmitToQueue(job.Reply ?? new CommandErrorReply(job.Route, job.Id, "Error", "reply mia".ToUtf8Bytes()));
+						messagingService.SubmitToQueue(item.Reply ?? new CommandErrorReply(item.Route, item.Id, "Error", "reply mia".ToUtf8Bytes()));
 					}
-					job.IsCompleted = true;
+					item.IsCompleted = true;
 					// after a job has finished, kick off the next job
-					job.Queue.RunNextIfNotBusy();
+					item.Queue.RunNextIfNotBusy();
 					break;
 				case InternalCommand internalCommand:
 					// the internal commands are sent here to be queued on its command queue using the netmq main thread.  no locking is required
 					try {
-						var newJob = this.commandQueueFactory.CreateJob(internalCommand.Request);
+						var newJob = this.commandQueueFactory.CreateItem(internalCommand.Request);
 						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newJob.Id);
 						newJob.Queue.Submit(newJob);
 						internalCommand.SetResult();

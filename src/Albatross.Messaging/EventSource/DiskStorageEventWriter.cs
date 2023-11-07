@@ -29,7 +29,7 @@ namespace Albatross.Messaging.EventSource {
 			logger.LogInformation("creating disk storage logger {name} at {path}", config.FileName, config.WorkingDirectory);
 			this.streamWriter = GetWriter();
 		}
-		FileInfo NewFile() => new FileInfo(Path.Join(config.WorkingDirectory, config.FileName.GetLogFileName()));
+		FileInfo NewFile() => new FileInfo(Path.Join(config.WorkingDirectory, config.FileName.GetEventSourceFileName()));
 		StreamWriter Open(FileInfo file) {
 			var stream = file.Open(new FileStreamOptions() { Access = FileAccess.ReadWrite, Mode = FileMode.OpenOrCreate, Share = FileShare.Read });
 			var writer = new StreamWriter(stream, utf8);
@@ -46,7 +46,7 @@ namespace Albatross.Messaging.EventSource {
 		private StreamWriter GetWriter() {
 			var directory = new DirectoryInfo(config.WorkingDirectory);
 			var file = directory
-				.GetFiles(config.FileName.GetLogFilePattern(), SearchOption.TopDirectoryOnly)
+				.GetFiles(config.FileName.GetEventSourceFilePattern(), SearchOption.TopDirectoryOnly)
 				.Where(args => args.Exists)
 				.OrderByDescending(args => args.Name)
 				.FirstOrDefault();
@@ -56,7 +56,7 @@ namespace Albatross.Messaging.EventSource {
 			return Open(file);
 		}
 
-		public void WriteLogEntry(LogEntry logEntry) {
+		public void WriteLogEntry(EventEntry logEntry) {
 			var writer = lineWriter.Begin();
 			logEntry.Write(writer);
 			this.streamWriter.Write(lineWriter.End());

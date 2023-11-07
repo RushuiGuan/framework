@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace Albatross.Messaging.Commands {
 	public interface ICommandQueueFactory {
-		CommandQueueItem CreateJob(CommandRequest request);
+		CommandQueueItem CreateItem(CommandRequest request);
 		IEnumerable<CommandQueueInfo> QueueStatus();
 	}
 
@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Commands {
 			this.provider = provider;
 		}
 
-		public CommandQueueItem CreateJob(CommandRequest request) {
+		public CommandQueueItem CreateItem(CommandRequest request) {
 			if (registrations.TryGetValue(request.CommandType, out var registration)) {
 				var command = JsonSerializer.Deserialize(request.Payload, registration.CommandType, MessagingJsonSettings.Value.Default)
 					?? throw new InvalidOperationException($"cannot deserialize command object of type {registration.CommandType.FullName} for {request.Id}");
@@ -37,8 +37,8 @@ namespace Albatross.Messaging.Commands {
 					item.SetNewLogger(queueName, provider.GetRequiredService<ILoggerFactory>().CreateLogger($"queue-{queueName}"));
 					return item;
 				});
-				var job = new CommandQueueItem(request, queue, registration, command);
-				return job;
+				var item = new CommandQueueItem(request, queue, registration, command);
+				return item;
 			} else {
 				throw new InvalidOperationException($"registration not found for command type {request.CommandType}");
 			}

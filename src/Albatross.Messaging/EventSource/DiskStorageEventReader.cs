@@ -18,11 +18,11 @@ namespace Albatross.Messaging.EventSource {
 			this.logger = logger;
 		}
 
-		public IEnumerable<LogEntry> ReadLast(TimeSpan span) {
+		public IEnumerable<EventEntry> ReadLast(TimeSpan span) {
 			DateTime cutOff = DateTime.UtcNow - span;
-			string filename = config.FileName.GetLogFileName(cutOff);
+			string filename = config.FileName.GetEventSourceFileName(cutOff);
 			Stack<string> stack = new Stack<string>();
-			foreach (var file in Directory.GetFiles(config.WorkingDirectory, config.FileName.GetLogFilePattern()).OrderByDescending(args => args)) {
+			foreach (var file in Directory.GetFiles(config.WorkingDirectory, config.FileName.GetEventSourceFilePattern()).OrderByDescending(args => args)) {
 				stack.Push(file);
 				if (string.Compare(Path.GetFileName(file), filename) <= 0) {
 					break;
@@ -35,9 +35,9 @@ namespace Albatross.Messaging.EventSource {
 					while (!reader.EndOfStream) {
 						var line = reader.ReadLine();
 						if (line != null) {
-							LogEntry? replay = null;
+							EventEntry? replay = null;
 							try {
-								LogEntry.TryParseLine(messageFactory, line, out replay);
+								EventEntry.TryParseLine(messageFactory, line, out replay);
 							}catch(Exception ex) {
 								logger.LogError(ex, "Error parsing log entry: {line}", line);
 							}

@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace Albatross.Messaging.EventSource {
-	public record class LogEntry {
+	public record class EventEntry {
 		public const string In = "I";
 		public const string Out = "O";
 		public const string Record = "R";
@@ -15,15 +15,15 @@ namespace Albatross.Messaging.EventSource {
 		public DateTime TimeStamp { get; init; }
 		public IMessage Message { get; init; }
 
-		public LogEntry(EntryType entryType, DateTime timeStamp, IMessage message) {
+		public EventEntry(EntryType entryType, DateTime timeStamp, IMessage message) {
 			this.EntryType = entryType;
 			this.TimeStamp = timeStamp;
 			this.Message = message;
 		}
 
-		public LogEntry(EntryType entryType, IMessage message) : this(entryType, DateTime.UtcNow, message) { }
+		public EventEntry(EntryType entryType, IMessage message) : this(entryType, DateTime.UtcNow, message) { }
 
-		public static bool TryParseLine(IMessageFactory messageFactory, string line, [NotNullWhen(true)] out LogEntry? replay) {
+		public static bool TryParseLine(IMessageFactory messageFactory, string line, [NotNullWhen(true)] out EventEntry? replay) {
 			replay = null;
 			EntryType type;
 			DateTime timeStamp;
@@ -40,10 +40,10 @@ namespace Albatross.Messaging.EventSource {
 					return false;
 				}
 				if (line.TryGetText(Messages.Message.LogDelimiter, ref offset, out text)) {
-					if (DateTime.TryParseExact(text, LogEntry.TimeStampFormat, null, System.Globalization.DateTimeStyles.None, out timeStamp)) {
+					if (DateTime.TryParseExact(text, EventEntry.TimeStampFormat, null, System.Globalization.DateTimeStyles.None, out timeStamp)) {
 						timeStamp = timeStamp.ToUniversalTime();
 						var msg = messageFactory.Create(line, offset);
-						replay = new LogEntry(type, timeStamp, msg);
+						replay = new EventEntry(type, timeStamp, msg);
 						return true;
 					}
 				}
@@ -59,7 +59,7 @@ namespace Albatross.Messaging.EventSource {
 				default: writer.Write('#');break;
 			}
 			writer.Space()
-				.Append(DateTime.UtcNow.ToString(LogEntry.TimeStampFormat)).Space();
+				.Append(DateTime.UtcNow.ToString(EventEntry.TimeStampFormat)).Space();
 			this.Message.WriteToText(writer);
 			writer.WriteLine();
 		}

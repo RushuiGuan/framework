@@ -12,8 +12,8 @@ namespace Albatross.Messaging.EventSource {
 
 		public const string LogFileExtension = ".log";
 		public const string LogFileTimeStampFormat = "yyyyMMddTHHmmssfff";
-		public static string GetLogFileName(this string filename, DateTime? timeStamp = null)
+		public static string GetEventSourceFileName(this string filename, DateTime? timeStamp = null)
 			=> $"{filename}_{(timeStamp ?? DateTime.UtcNow).ToString(LogFileTimeStampFormat)}{LogFileExtension}";
-		public static string GetLogFilePattern(this string fileName) => $"{fileName}_*{LogFileExtension}";
+		public static string GetEventSourceFilePattern(this string fileName) => $"{fileName}_*{LogFileExtension}";
 	}
 }

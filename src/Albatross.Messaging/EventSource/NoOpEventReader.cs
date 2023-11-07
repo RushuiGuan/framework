@@ -4,6 +4,6 @@ using System.Collections.Generic;
 
 namespace Albatross.Messaging.EventSource {
 	public class NoOpEventReader : IEventReader {
-		public IEnumerable<LogEntry> ReadLast(TimeSpan span) => Array.Empty<LogEntry>();
+		public IEnumerable<EventEntry> ReadLast(TimeSpan span) => Array.Empty<EventEntry>();
 	}
 }
