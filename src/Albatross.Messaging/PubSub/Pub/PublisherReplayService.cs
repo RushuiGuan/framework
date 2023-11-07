@@ -17,7 +17,6 @@ namespace Albatross.Messaging.PubSub.Pub {
 		public ClientAck? Ack { get; set; }
 	}
 	public class PublisherReplayService : IRouterServerService {
-		private readonly IPublisherService publisherService;
 		private readonly ILogger<PublisherReplayService> logger;
 		private Dictionary<string, PublisherReplayMessageGroup> records = new Dictionary<string, PublisherReplayMessageGroup>();
 		public static string GetKey(IMessage messsage) => $"{messsage.Route}.{messsage.Id}";
@@ -26,8 +25,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 		public bool HasCustomTransmitObject => true;
 		public bool NeedTimer => false;
 
-		public PublisherReplayService(IPublisherService publisherService, ILogger<PublisherReplayService> logger) {
-			this.publisherService = publisherService;
+		public PublisherReplayService(ILogger<PublisherReplayService> logger) {
 			this.logger = logger;
 		}
 
@@ -75,9 +73,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 		void End(IMessagingService messagingService) {
 			logger.LogInformation("rerun {count} publisher messages to replay", records.Count);
 			foreach (var msg in records.Values.OrderBy(args => args.Index)) {
-				if(msg.Request is SubscriptionRequest) {
-					publisherService.ProcessReceivedMsg(messagingService, msg.Request);
-				} else if(msg.Request is Event){
+				if(msg.Request is Event){
 					messagingService.Transmit(msg.Request);
 				}
 			}

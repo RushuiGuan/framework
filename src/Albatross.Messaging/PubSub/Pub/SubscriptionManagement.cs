@@ -4,6 +4,8 @@ using System.Linq;
 using Albatross.Messaging.Configurations;
 using System.Text.Json;
 using System.IO;
+using System;
+using Microsoft.Extensions.Logging;
 
 namespace Albatross.Messaging.PubSub.Pub {
 	public interface ISubscriptionManagement {
@@ -13,8 +15,11 @@ namespace Albatross.Messaging.PubSub.Pub {
 		void UnsubscribeAll(string route);
 	}
 	public class SubscriptionManagement : ISubscriptionManagement {
+		private readonly ILogger<SubscriptionManagement> logger;
 		private readonly SubscriptionManagementConfiguration config;
-		public SubscriptionManagement(SubscriptionManagementConfiguration config) {
+		public string SubscriptionFilename => Path.Join(config.DiskStorage.WorkingDirectory, config.DiskStorage.FileName);
+		public SubscriptionManagement(ILogger<SubscriptionManagement> logger, SubscriptionManagementConfiguration config) {
+			this.logger = logger;
 			this.config = config;
 			Load();
 		}
@@ -47,16 +52,22 @@ namespace Albatross.Messaging.PubSub.Pub {
 		}
 
 		public void Save() {
-			using (var stream = File.OpenWrite(this.config.DiskStorage.FileName)) {
-				JsonSerializer.Serialize<IEnumerable<Subscription>>(subscriptions);
+			using (var stream = File.OpenWrite(SubscriptionFilename)) {
+				JsonSerializer.Serialize<IEnumerable<Subscription>>(stream, subscriptions);
+				stream.Flush();
+				stream.SetLength(stream.Position);
 			}
 		}
 		public void Load() {
-			if (File.Exists(this.config.DiskStorage.FileName)) {
-				using (var stream = File.OpenRead(this.config.DiskStorage.FileName)) {
-					var items = JsonSerializer.Deserialize<IEnumerable<Subscription>>(stream) 
-						?? new List<Subscription>();
-					this.subscriptions = new HashSet<Subscription>(items);
+			var filename = SubscriptionFilename;
+			if (File.Exists(filename)) {
+				using (var stream = File.OpenRead(filename)) {
+					try {
+						var items = JsonSerializer.Deserialize<IEnumerable<Subscription>>(stream) ?? new List<Subscription>();
+						this.subscriptions = new HashSet<Subscription>(items);
+					}catch(Exception err) {
+						logger.LogError(err, "Error reading subscription management info from {file}", filename);
+					}
 				}
 			} else {
 				this.subscriptions.Clear();
