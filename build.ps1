@@ -1,9 +1,9 @@
 $output = $env:InstallDirectory;
 
 $projects = @(
-	"sampleproject.utility",
-	"sampleproject.daemon"
-#	,"sampleproject.webapi"
+	"sampleproject.utility"
+	,"sampleproject.daemon"
+	,"sampleproject.webapi"
 );
 
 foreach($project in $projects){
@@ -14,3 +14,4 @@ dotnet restore
 foreach($project in $projects){
 	dotnet publish $PSScriptRoot\samples\$project\$project.csproj -o $output\$project -c debug --no-restore
 }
+
