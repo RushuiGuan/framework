@@ -14,8 +14,8 @@ namespace Albatross.Messaging.Commands {
 		protected ILogger logger = null!;
 		protected readonly RouterServer routerServer;
 		protected readonly IServiceScopeFactory scopeFactory;
-		protected readonly Queue<CommandJob> queue = new Queue<CommandJob>();
-		protected CommandJob? current;
+		protected readonly Queue<CommandQueueItem> queue = new Queue<CommandQueueItem>();
+		protected CommandQueueItem? current;
 		public string Name { get; private set; } = string.Empty;
 
 		public CommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory) {
@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Commands {
 			this.logger = logger;
 			logger.LogInformation("command queue {name} setup", queueName);
 		}
-		public void Submit(CommandJob job) {
+		public void Submit(CommandQueueItem job) {
 			logger.LogDebug("Submitting => {id}", job.Id);
 			this.queue.Enqueue(job);
 			this.RunNextIfNotBusy();
@@ -44,7 +44,7 @@ namespace Albatross.Messaging.Commands {
 				}
 			}
 		}
-		public async virtual Task Run(CommandJob job) {
+		public async virtual Task Run(CommandQueueItem job) {
 			try {
 				using var scope = scopeFactory.CreateScope();
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);

@@ -2,7 +2,7 @@
 using Albatross.Messaging.Messages;
 
 namespace Albatross.Messaging.Commands {
-	public class CommandJob {
+	public class CommandQueueItem {
 		public string Route => request.Route;
 		public ulong Id => request.Id;
 		public bool FireAndForget => request.FireAndForget;
@@ -14,7 +14,7 @@ namespace Albatross.Messaging.Commands {
 		public object Command { get; init; }
 		public IMessage? Reply { get; set; }
 
-		public CommandJob(CommandRequest request, CommandQueue queue, IRegisterCommand registration, object command) {
+		public CommandQueueItem(CommandRequest request, CommandQueue queue, IRegisterCommand registration, object command) {
 			this.request = request;
 			Queue = queue;
 			Registration = registration;

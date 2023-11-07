@@ -1,4 +1,4 @@
-﻿using Albatross.Messaging.DataLogging;
+﻿using Albatross.Messaging.EventSource;
 using Albatross.Messaging.Messages;
 using NetMQ;
 using System;
@@ -8,7 +8,7 @@ namespace Albatross.Messaging.Services {
 	/// A messaging service that runs a zeromq socket and netmq queue.
 	/// </summary>
 	public interface IMessagingService {
-		ILogWriter DataLogger { get; }
+		IEventWriter DataLogger { get; }
 		/// <summary>
 		/// A thread safe call to send an object to queue for processing.
 		/// </summary>

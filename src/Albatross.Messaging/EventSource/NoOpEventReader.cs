@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace Albatross.Messaging.DataLogging {
-	public class NoOpDataLogReader : ILogReader {
+namespace Albatross.Messaging.EventSource {
+	public class NoOpEventReader : IEventReader {
 		public IEnumerable<LogEntry> ReadLast(TimeSpan span) => Array.Empty<LogEntry>();
 	}
 }

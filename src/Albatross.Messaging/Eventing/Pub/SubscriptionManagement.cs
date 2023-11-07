@@ -1,5 +1,5 @@
 ﻿using Albatross.Collections;
-using Albatross.Messaging.DataLogging;
+using Albatross.Messaging.EventSource;
 using Albatross.Messaging.Eventing.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Eventing.Pub {
 
 		DateTime lastSaveTimeStamp;
 		public bool ShouldSave => DateTime.UtcNow - lastSaveTimeStamp > TimeSpan.FromMinutes(SubscriptionPersistentIntervalInMinutes);
-		public void Save(ILogWriter writer, IAtomicCounter<ulong> counter) {
+		public void Save(IEventWriter writer, IAtomicCounter<ulong> counter) {
 			foreach(var item in Subscriptions) {
 				foreach(var subscriber in item.Subscribers) {
 					var request = new SubscriptionRequest(subscriber, counter.NextId(), true, item.Pattern);

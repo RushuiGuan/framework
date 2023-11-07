@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
-namespace Albatross.Messaging.DataLogging {
+namespace Albatross.Messaging.EventSource {
 	public record class LogEntry {
 		public const string In = "I";
 		public const string Out = "O";

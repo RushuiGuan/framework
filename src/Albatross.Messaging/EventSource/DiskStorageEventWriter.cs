@@ -5,13 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Albatross.Messaging.DataLogging {
+namespace Albatross.Messaging.EventSource {
 	/// <summary>
 	/// This class is responsible to write data logs to files.  The files are organized with UTC timestamps. The files has a configurable
 	/// max size limit.  Once reached, a new file will be created.  When writing the log entry, data are bufferred line by line using
 	/// a <see cref="BufferedTextWriter"/> class.
 	/// </summary>
-	public class DiskStorageLogWriter : ILogWriter, IDisposable {
+	public class DiskStorageEventWriter : IEventWriter, IDisposable {
 		private readonly Encoding utf8 = new UTF8Encoding(false);
 		private readonly DiskStorageConfiguration config;
 		private readonly ILogger logger;
@@ -19,7 +19,7 @@ namespace Albatross.Messaging.DataLogging {
 		private StreamWriter streamWriter;
 		bool disposed = false;
 
-		public DiskStorageLogWriter(string name, DiskStorageConfiguration config, ILoggerFactory loggerFactory) {
+		public DiskStorageEventWriter(string name, DiskStorageConfiguration config, ILoggerFactory loggerFactory) {
 			this.config = config;
 			this.logger = loggerFactory.CreateLogger($"logwriter_{name}");
 			this.lineWriter = new BufferedTextWriter(name, loggerFactory);

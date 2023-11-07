@@ -1,4 +1,4 @@
-﻿using Albatross.Messaging.DataLogging;
+﻿using Albatross.Messaging.EventSource;
 using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
 using NetMQ;

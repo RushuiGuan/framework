@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Albatross.Messaging.DataLogging {
-	public class DiskStorageLogReader :  ILogReader {
+namespace Albatross.Messaging.EventSource {
+	public class DiskStorageEventReader :  IEventReader {
 		private readonly DiskStorageConfiguration config;
 		private readonly IMessageFactory messageFactory;
 		private readonly ILogger logger;
 
-		public DiskStorageLogReader(DiskStorageConfiguration config, IMessageFactory messageFactory, ILogger logger)  {
+		public DiskStorageEventReader(DiskStorageConfiguration config, IMessageFactory messageFactory, ILogger logger)  {
 			this.config = config;
 			this.messageFactory = messageFactory;
 			this.logger = logger;

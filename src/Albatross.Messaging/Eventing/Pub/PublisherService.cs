@@ -1,4 +1,4 @@
-﻿using Albatross.Messaging.DataLogging;
+﻿using Albatross.Messaging.EventSource;
 using Albatross.Messaging.Eventing.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Albatross.Messaging.DataLogging {
+namespace Albatross.Messaging.EventSource {
 	/// <summary>
 	/// This text writer buffers text on a string builder object.  The buffer is reset
 	/// when the <see cref="Begin"/> method is called.  The bufferred text will be returned when

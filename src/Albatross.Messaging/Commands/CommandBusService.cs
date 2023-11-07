@@ -63,10 +63,10 @@ namespace Albatross.Messaging.Commands {
 
 		public bool ProcessQueue(IMessagingService messagingService, object msg) {
 			switch (msg) {
-				case CommandJob job:
+				case CommandQueueItem job:
 					// the command job is sent here when it has finished its execution
 					if (job.FireAndForget) {
-						messagingService.DataLogger.WriteLogEntry(new DataLogging.LogEntry(EntryType.Record, new CommandExecuted(job.Route, job.Id)));
+						messagingService.DataLogger.WriteLogEntry(new EventSource.LogEntry(EntryType.Record, new CommandExecuted(job.Route, job.Id)));
 					} else {
 						messagingService.SubmitToQueue(job.Reply ?? new CommandErrorReply(job.Route, job.Id, "Error", "reply mia".ToUtf8Bytes()));
 					}

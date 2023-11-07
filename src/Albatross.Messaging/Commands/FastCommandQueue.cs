@@ -16,7 +16,7 @@ namespace Albatross.Messaging.Commands {
 		public FastCommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory) : base(routerServer, scopeFactory) {
 		}
 
-		public async override Task Run(CommandJob job) {
+		public async override Task Run(CommandQueueItem job) {
 			try {
 				logger.LogDebug("Running => {id}", job.Id);
 				using var scope = scopeFactory.CreateScope();

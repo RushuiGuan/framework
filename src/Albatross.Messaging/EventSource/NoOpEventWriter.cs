@@ -1,8 +1,8 @@
 ﻿using Albatross.Messaging.Messages;
 using NetMQ;
 
-namespace Albatross.Messaging.DataLogging {
-	public class NoOpDataLogWriter : ILogWriter {
+namespace Albatross.Messaging.EventSource {
+	public class NoOpEventWriter : IEventWriter {
 		public void WriteLogEntry(LogEntry logEntry) { }
 	}
 }

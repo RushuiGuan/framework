@@ -1,7 +1,7 @@
 ﻿using Albatross.Collections;
 using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
-using Albatross.Messaging.DataLogging;
+using Albatross.Messaging.EventSource;
 using Microsoft.Extensions.Logging;
 using NetMQ.Sockets;
 using NetMQ;
@@ -19,8 +19,8 @@ namespace Albatross.Messaging.Services {
 		private readonly NetMQTimer timer;
 		private readonly ILogger<RouterServer> logger;
 		private readonly IMessageFactory messageFactory;
-		private readonly DiskStorageLogWriter logWriter;
-		private readonly ILogReader logReader;
+		private readonly DiskStorageEventWriter logWriter;
+		private readonly IEventReader logReader;
 		private bool running = false;
 		private bool disposed = false;
 		private IEnumerable<IRouterServerService> receiveServices;
@@ -31,7 +31,7 @@ namespace Albatross.Messaging.Services {
 		private ulong timerCounter;
 
 
-		public ILogWriter DataLogger => this.logWriter;
+		public IEventWriter DataLogger => this.logWriter;
 		public IAtomicCounter<ulong> Counter => this.counter;
 
 		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILoggerFactory loggerFactory,  IMessageFactory messageFactory) {
@@ -44,8 +44,8 @@ namespace Albatross.Messaging.Services {
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
 			this.counter = new DurableAtomicCounter(config.DiskStorage.WorkingDirectory);
-			this.logWriter = new DiskStorageLogWriter("router-server", config.DiskStorage, loggerFactory);
-			this.logReader = new DiskStorageLogReader(config.DiskStorage, messageFactory, loggerFactory.CreateLogger("router-server-log-reader"));
+			this.logWriter = new DiskStorageEventWriter("router-server", config.DiskStorage, loggerFactory);
+			this.logReader = new DiskStorageEventReader(config.DiskStorage, messageFactory, loggerFactory.CreateLogger("router-server-log-reader"));
 			this.socket = new RouterSocket();
 			this.socket.ReceiveReady += Socket_ReceiveReady;
 			this.socket.Options.ReceiveHighWatermark = config.ReceiveHighWatermark;

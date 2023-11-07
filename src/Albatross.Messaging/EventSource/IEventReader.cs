@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Albatross.Messaging.DataLogging {
-	public interface ILogReader {
+namespace Albatross.Messaging.EventSource {
+	public interface IEventReader {
 		IEnumerable<LogEntry> ReadLast(TimeSpan span);
 	}
 }

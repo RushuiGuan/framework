@@ -1,7 +1,7 @@
 ﻿using Albatross.Math;
 using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
-using Albatross.Messaging.DataLogging;
+using Albatross.Messaging.EventSource;
 using Microsoft.Extensions.Logging;
 using NetMQ.Sockets;
 using NetMQ;
@@ -18,7 +18,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IDealerClientService> transmitServices;
 		private IEnumerable<IDealerClientService> timerServices;
 		private readonly IMessageFactory messageFactory;
-		private readonly DiskStorageLogWriter logWriter;
+		private readonly DiskStorageEventWriter logWriter;
 		private readonly ILogger<DealerClient> logger;
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
@@ -30,7 +30,7 @@ namespace Albatross.Messaging.Services {
 		private IAtomicCounter<ulong> counter;
 		private ulong timerCounter;
 
-		public ILogWriter DataLogger => this.logWriter;
+		public IEventWriter DataLogger => this.logWriter;
 		public IAtomicCounter<ulong> Counter => this.counter;
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, ILoggerFactory loggerFactory) {
@@ -41,7 +41,7 @@ namespace Albatross.Messaging.Services {
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
 			this.counter = new DurableAtomicCounter(config.DiskStorage.WorkingDirectory);
-			this.logWriter = new DiskStorageLogWriter(config.DiskStorage.FileName, config.DiskStorage, loggerFactory);
+			this.logWriter = new DiskStorageEventWriter(config.DiskStorage.FileName, config.DiskStorage, loggerFactory);
 			this.logger = loggerFactory.CreateLogger<DealerClient>();
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;

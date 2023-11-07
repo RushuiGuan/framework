@@ -2,11 +2,11 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
-namespace Albatross.Messaging.DataLogging {
+namespace Albatross.Messaging.EventSource {
 	public static class Extensions {
 		public static IServiceCollection AddNoOpDataLogging(this IServiceCollection services) {
-			services.TryAddSingleton<ILogReader, NoOpDataLogReader>();
-			services.TryAddSingleton<ILogWriter, NoOpDataLogWriter>();
+			services.TryAddSingleton<IEventReader, NoOpEventReader>();
+			services.TryAddSingleton<IEventWriter, NoOpEventWriter>();
 			return services;
 		}
 
