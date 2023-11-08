@@ -74,7 +74,7 @@ namespace Albatross.Messaging.PubSub.Sub {
 			}
 			return false;
 		}
-		public bool ProcessTransmitQueue(IMessagingService dealerClient, object _) => false;
+		public bool ProcessQueue(IMessagingService dealerClient, object _) => false;
 		public void ProcessTimerElapsed(DealerClient dealerClient, ulong counter) { }
 
 		/// <summary>

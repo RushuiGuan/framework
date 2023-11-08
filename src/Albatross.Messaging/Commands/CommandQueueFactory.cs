@@ -5,13 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 
 namespace Albatross.Messaging.Commands {
 	public interface ICommandQueueFactory {
 		CommandQueueItem CreateItem(CommandRequest request);
-		IEnumerable<CommandQueueInfo> QueueStatus();
+		CommandQueueItem CreateInternalCommand(string originalRoute, ulong originalId, CommandRequest request);
 	}
 
 	public class CommandQueueFactory : ICommandQueueFactory {
@@ -25,6 +24,13 @@ namespace Albatross.Messaging.Commands {
 				this.registrations.Add(item.CommandType.GetClassNameNeat(), item);
 			}
 			this.provider = provider;
+		}
+
+		public CommandQueueItem CreateInternalCommand(string originalRoute, ulong originalId, CommandRequest request) {
+			var item = CreateItem(request);
+			item.OriginalId = originalId;
+			item.OriginalRoute = originalRoute;
+			return item;
 		}
 
 		public CommandQueueItem CreateItem(CommandRequest request) {
@@ -43,7 +49,5 @@ namespace Albatross.Messaging.Commands {
 				throw new InvalidOperationException($"registration not found for command type {request.CommandType}");
 			}
 		}
-
-		public IEnumerable<CommandQueueInfo> QueueStatus() => this.commandQueues.Select(args => new CommandQueueInfo(args.Key, args.Value.Count)).ToArray();
 	}
 }

@@ -20,15 +20,7 @@ namespace Albatross.Messaging.Commands {
 			this.routerServer = routerServer;
 		}
 
-		public Task Ping() => throw new NotSupportedException();
-		public Task<CommandQueueInfo[]> QueueStatus() => throw new NotSupportedException();
-
-		public Task<ResponseType> Submit<CommandType, ResponseType>(CommandType command)
-			where CommandType : notnull where ResponseType : notnull {
-			throw new NotSupportedException();
-		}
-
-		public Task Submit(object command, bool fireAndForget = true) {
+		public ulong Submit(object command, bool fireAndForget = true) {
 			var type = command.GetType();
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
@@ -36,7 +28,7 @@ namespace Albatross.Messaging.Commands {
 				var request = new CommandRequest(InternalCommand.Route, routerServer.Counter.NextId(), type.GetClassNameNeat(), true, stream.ToArray());
 				var internalCmd = new InternalCommand(request);
 				this.routerServer.SubmitToQueue(internalCmd);
-				return internalCmd.Task;
+				return request.Id;
 			} else {
 				throw new NotSupportedException();
 			}

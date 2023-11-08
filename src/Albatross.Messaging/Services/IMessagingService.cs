@@ -8,7 +8,7 @@ namespace Albatross.Messaging.Services {
 	/// A messaging service that runs a zeromq socket and netmq queue.
 	/// </summary>
 	public interface IMessagingService {
-		IEventWriter DataLogger { get; }
+		IEventWriter EventWriter { get; }
 		/// <summary>
 		/// A thread safe call to send an object to queue for processing.
 		/// </summary>

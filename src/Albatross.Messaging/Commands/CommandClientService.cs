@@ -4,20 +4,21 @@ using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
+	public delegate void CommandCallbackDelegate(ulong id, string commandType, byte[] message);
+	public delegate void CommandErrorCallbackDelegate(ulong id, string commandType, string errorType, byte[] message);
+
 	public class CommandClientService : IDealerClientService {
 		private readonly ILogger<CommandClientService> logger;
-		private readonly ConcurrentDictionary<ulong, IMessageCallback> commandCallbacks = new ConcurrentDictionary<ulong, IMessageCallback>();
-
 		public CommandClientService(ILogger<CommandClientService> logger) {
 			this.logger = logger;
 		}
+
+		public CommandCallbackDelegate? OnCommandCompleted { get; set; }
+		public CommandErrorCallbackDelegate? OnCommandError { get; set; }
 
 		public bool HasCustomTransmitObject => true;
 		public bool CanReceive => true;
@@ -26,111 +27,60 @@ namespace Albatross.Messaging.Commands {
 		public void Init(IMessagingService dealerClient) { }
 		public bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg) {
 			switch (msg) {
-				case CommandReply response:
-					AcceptResponse(dealerClient, response);
-					return true;
-				case CommandErrorReply error:
-					AcceptError(dealerClient, error);
-					return true;
-				case CommandQueueStatusReply statusReply:
-					AcceptStatusReply(dealerClient, statusReply);
-					return true;
+				/// server will send an ack to confirm the acceptance of the request
 				case CommandRequestAck:
-				case PingReply:
-					AcceptAckMsg(dealerClient, msg);
+					return true;
+				/// legacy command support.  
+				/// Send back a client ack to maintain backward compatibility.  
+				/// "Fire and Wait" mode is no longer supported
+				case CommandReply:
+				case CommandErrorReply:
+					var commandMsg = (Message)msg;
+					dealerClient.ClientAck(commandMsg.Route, commandMsg.Id);
+					return true;
+				case CommandReply2 reply:
+					AcceptResponse(dealerClient, reply);
+					return true;
+				case CommandErrorReply2 error:
+					AcceptError(dealerClient, error);
 					return true;
 			}
 			return false;
 		}
-		public bool ProcessTransmitQueue(IMessagingService dealerClient, object msg) => false;
+		public bool ProcessQueue(IMessagingService dealerClient, object msg) => false;
 		public void ProcessTimerElapsed(DealerClient dealerClient, ulong counter) { }
-		private void AcceptStatusReply(IMessagingService _, CommandQueueStatusReply statusReply) {
-			if (commandCallbacks.Remove(statusReply.Id, out var callback)) {
-				var result = JsonSerializer.Deserialize<CommandQueueInfo[]>(statusReply.Payload, MessagingJsonSettings.Value.Default)
-					?? Array.Empty<CommandQueueInfo>();
-				callback.SetResult(result);
-			} else {
-				logger.LogError("command callback not found for message id: {id}", statusReply.Id);
-			}
-		}
-		private void AcceptAckMsg(IMessagingService _, IMessage reply) {
-			if (commandCallbacks.Remove(reply.Id, out var callback)) {
-				callback.SetResult();
-			}
-		}
-		private void AcceptResponse(IMessagingService dealerClient, CommandReply response) {
-			try {
-				if (commandCallbacks.Remove(response.Id, out var callback)) {
-					if (callback.ResponseType == typeof(void)) {
-						callback.SetResult();
-					} else {
-						var result = JsonSerializer.Deserialize(response.Payload, callback.ResponseType, MessagingJsonSettings.Value.Default);
-						if (result != null) {
-							callback.SetResult(result);
-						} else {
-							callback.SetException(new InvalidDataException($"command {response.Id} didn't return any response"));
-						}
+		private void AcceptResponse(IMessagingService dealerClient, CommandReply2 response) {
+			dealerClient.ClientAck(response.Route, response.Id);
+			if (this.OnCommandCompleted != null) {
+				Task.Run(() => {
+					try {
+						this.OnCommandCompleted(response.Id, response.CommandType, response.Payload);
+					} catch (Exception err) {
+						logger.LogError(err, "Error running command callback for command {type}({id})", response.CommandType, response.Id);
 					}
-				} else {
-					logger.LogError("command callback not found for message id: {id}", response.Id);
-				}
-			} finally {
-				dealerClient.ClientAck(response.Route, response.Id);
+				});
 			}
 		}
-		private void AcceptError(IMessagingService dealerClient, CommandErrorReply errorMessage) {
-			try {
-				if (commandCallbacks.Remove(errorMessage.Id, out var callback)) {
-					callback.SetException(new CommandException(errorMessage.Id, errorMessage.ClassName, errorMessage.Message.ToUtf8String()));
-				} else {
-					logger.LogError("command callback not found for message id: {id}", errorMessage.Id);
-				}
-			} finally {
-				dealerClient.ClientAck(errorMessage.Route, errorMessage.Id);
+		private void AcceptError(IMessagingService dealerClient, CommandErrorReply2 errorMessage) {
+			dealerClient.ClientAck(errorMessage.Route, errorMessage.Id);
+			if(this.OnCommandError != null) {
+				Task.Run(() => {
+					try {
+						this.OnCommandError(errorMessage.Id, errorMessage.CommandType, errorMessage.ClassName, errorMessage.Message);
+					}catch(Exception err) {
+						logger.LogError(err, "Error running command error callback for {type}({id})", errorMessage.CommandType, errorMessage.Id);
+					}
+				});
 			}
 		}
-		public Task<ResponseType> Submit<CommandType, ResponseType>(DealerClient dealerClient, CommandType command)
-			where CommandType : notnull where ResponseType : notnull {
-
-			var id = dealerClient.Counter.NextId();
-			logger.LogInformation("the id is {id}, thread {threadid}", id, Environment.CurrentManagedThreadId);
-			var callback = new MessageCallback<ResponseType>();
-			if (commandCallbacks.TryAdd(id, callback)) {
-				var bytes = JsonSerializer.SerializeToUtf8Bytes<CommandType>(command, MessagingJsonSettings.Value.Default);
-				var request = new CommandRequest(string.Empty, id, typeof(CommandType).GetClassNameNeat(), false, bytes);
-				dealerClient.SubmitToQueue(request);
-				return callback.Task;
-			} else {
-				// this would never happen
-				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
-			}
-		}
-
-		public Task Submit(DealerClient dealerClient, object command, bool fireAndForget) {
+		
+		public ulong Submit(DealerClient dealerClient, object command, bool fireAndForget) {
 			var type = command.GetType();
 			var id = dealerClient.Counter.NextId();
-			MessageCallback callback = new MessageCallback();
-			if (!commandCallbacks.TryAdd(id, callback)) {
-				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
-			}
 			var bytes = JsonSerializer.SerializeToUtf8Bytes(command, type, MessagingJsonSettings.Value.Default);
 			var request = new CommandRequest(string.Empty, id, type.GetClassNameNeat(), fireAndForget, bytes);
 			dealerClient.SubmitToQueue(request);
-			return callback.Task;
-		}
-		public Task Ping(DealerClient dealerClient) {
-			var id = dealerClient.Counter.NextId();
-			var callback = new MessageCallback();
-			this.commandCallbacks.TryAdd(id, callback);
-			dealerClient.SubmitToQueue(new PingRequest(string.Empty, id));
-			return callback.Task;
-		}
-		public Task<CommandQueueInfo[]> QueueStatus(DealerClient dealerClient) {
-			var id = dealerClient.Counter.NextId();
-			var callback = new MessageCallback<CommandQueueInfo[]>();
-			this.commandCallbacks.TryAdd(id, callback);
-			dealerClient.SubmitToQueue(new CommandQueueStatus(string.Empty, id));
-			return callback.Task;
+			return id;
 		}
 	}
 }

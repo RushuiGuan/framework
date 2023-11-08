@@ -47,6 +47,7 @@ namespace Albatross.Messaging.Commands {
 		public async virtual Task Run(CommandQueueItem item) {
 			try {
 				using var scope = scopeFactory.CreateScope();
+				scope.ServiceProvider.CreateCommandContext(item);
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(item.Registration.CommandHandlerType);
 				// run everything else using a diff thread
 				await Task.Run(async () => {
@@ -70,7 +71,7 @@ namespace Albatross.Messaging.Commands {
 					routerServer.SubmitToQueue(item);
 				});
 			} catch (Exception err) {
-				item.Reply = new CommandErrorReply(item.Route, item.Id, err.GetType().FullName ?? "unknown class", err.Message.ToUtf8Bytes());
+				item.Reply = new CommandErrorReply(item.Route, item.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
 				routerServer.SubmitToQueue(item);
 				logger.LogError(err, "Failed {commandId}", item.Id);
 			}

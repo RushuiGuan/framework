@@ -18,7 +18,7 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IDealerClientService> transmitServices;
 		private IEnumerable<IDealerClientService> timerServices;
 		private readonly IMessageFactory messageFactory;
-		private readonly DiskStorageEventWriter logWriter;
+		private readonly DiskStorageEventWriter eventWriter;
 		private readonly ILogger<DealerClient> logger;
 		private readonly DealerSocket socket;
 		private readonly NetMQPoller poller;
@@ -30,7 +30,7 @@ namespace Albatross.Messaging.Services {
 		private IAtomicCounter<ulong> counter;
 		private ulong timerCounter;
 
-		public IEventWriter DataLogger => this.logWriter;
+		public IEventWriter EventWriter => this.eventWriter;
 		public IAtomicCounter<ulong> Counter => this.counter;
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, ILoggerFactory loggerFactory) {
@@ -41,7 +41,7 @@ namespace Albatross.Messaging.Services {
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
 			this.counter = new DurableAtomicCounter(config.DiskStorage.WorkingDirectory);
-			this.logWriter = new DiskStorageEventWriter(config.DiskStorage.FileName, config.DiskStorage, loggerFactory);
+			this.eventWriter = new DiskStorageEventWriter(config.DiskStorage.FileName, config.DiskStorage, loggerFactory);
 			this.logger = loggerFactory.CreateLogger<DealerClient>();
 			socket = new DealerSocket();
 			socket.ReceiveReady += Socket_ReceiveReady;
@@ -92,7 +92,7 @@ namespace Albatross.Messaging.Services {
 						this.Transmit(msg);
 					} else {
 						foreach (var service in this.transmitServices) {
-							if (service.ProcessTransmitQueue(this, item)) {
+							if (service.ProcessQueue(this, item)) {
 								return;
 							}
 						}
@@ -110,7 +110,7 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
-				this.logWriter.WriteLogEntry(new EventEntry(EntryType.In, msg));
+				this.eventWriter.WriteLogEntry(new EventEntry(EntryType.In, msg));
 				// any msg from router server will update the heartbeat
 				self.UpdateHeartbeat();
 				// the only processing needed for Ack is to persist it in logs
@@ -165,7 +165,7 @@ namespace Albatross.Messaging.Services {
 
 		public void Transmit(IMessage msg) {
 			var frames = msg.Create();
-			this.logWriter.WriteLogEntry(new EventEntry(EntryType.Out, msg));
+			this.eventWriter.WriteLogEntry(new EventEntry(EntryType.Out, msg));
 			this.socket.SendMultipartMessage(frames);
 		}
 
@@ -177,7 +177,7 @@ namespace Albatross.Messaging.Services {
 				poller.RemoveAndDispose(socket);
 				poller.Dispose();
 				queue.Dispose();
-				this.logWriter.Dispose();
+				this.eventWriter.Dispose();
 				disposed = true;
 				logger.LogInformation("dealer client {identity} disposed", this.Identity);
 			}

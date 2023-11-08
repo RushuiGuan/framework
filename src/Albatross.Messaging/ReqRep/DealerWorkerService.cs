@@ -32,7 +32,7 @@ namespace Albatross.Messaging.ReqRep {
 			}
 			return true;
 		}
-		public bool ProcessTransmitQueue(IMessagingService dealerClient, object msg) => false;
+		public bool ProcessQueue(IMessagingService dealerClient, object msg) => false;
 		public void ProcessTimerElapsed(DealerClient dealerClient, ulong counter) {
 			//try {
 			//	if (state != WorkerState.Unavailable) {

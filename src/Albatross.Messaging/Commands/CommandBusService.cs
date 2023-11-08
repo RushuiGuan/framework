@@ -3,9 +3,6 @@ using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
 
 namespace Albatross.Messaging.Commands {
 	public interface ICommandBusService : IRouterServerService { }
@@ -22,42 +19,25 @@ namespace Albatross.Messaging.Commands {
 			this.logger = logger;
 		}
 
-		private void ReplyCommandQueueStatus(IMessagingService messagingService, CommandQueueStatus status) {
-			var result = this.commandQueueFactory.QueueStatus();
-			using var stream = new MemoryStream();
-			JsonSerializer.Serialize<IEnumerable<CommandQueueInfo>>(stream, result, MessagingJsonSettings.Value.Default);
-			messagingService.SubmitToQueue(new CommandQueueStatusReply(status.Route, status.Id, stream.ToArray()));
-		}
-
-		void AcceptRequest(IMessagingService messagingService, CommandRequest cmd) {
-			try {
-				var job = this.commandQueueFactory.CreateItem(cmd);
-				logger.LogDebug("AcceptingRequest => {id}", job.Id);
-				job.Queue.Submit(job);
-				// internal route could be sent here due to replay, make sure it doesn't actually get sent to the socket
-				if (cmd.FireAndForget && cmd.Route != InternalCommand.Route) {
-					// ack the request and be done with it
-					messagingService.Transmit(new CommandRequestAck(cmd.Route, cmd.Id));
-				}
-			} catch(Exception err) {
-				var msg = new CommandErrorReply(cmd.Route, cmd.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
-				messagingService.SubmitToQueue(msg);
-			}
-		}
-
 		public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg) {
-			switch (msg) {
-				case CommandRequest cmd:
-					this.AcceptRequest(messagingService, cmd);
-					return true;
-				case PingRequest ping:
-					messagingService.SubmitToQueue(new PingReply(ping.Route, ping.Id));
-					return true;
-				case CommandQueueStatus status:
-					this.ReplyCommandQueueStatus(messagingService, status);
-					return true;
-				default:
-					return false;
+			if(msg is CommandRequest cmd) {
+				try {
+					var item = this.commandQueueFactory.CreateItem(cmd);
+					logger.LogDebug("AcceptingRequest => {id}", item.Id);
+					item.Queue.Submit(item);
+					// internal route could be sent here due to replay, make sure it doesn't actually get sent to the socket
+					if (cmd.Route != InternalCommand.Route) {
+						// send an ack back to the client if it is not an internal command
+						messagingService.Transmit(new CommandRequestAck(cmd.Route, cmd.Id));
+					}
+				} catch (Exception err) {
+
+					var errMsg = new CommandErrorReply(cmd.Route, cmd.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
+					messagingService.SubmitToQueue(errMsg);
+				}
+				return true;
+			} else {
+				return false;
 			}
 		}
 
@@ -66,7 +46,7 @@ namespace Albatross.Messaging.Commands {
 				case CommandQueueItem item:
 					// the command job is sent here when it has finished its execution
 					if (item.FireAndForget) {
-						messagingService.DataLogger.WriteLogEntry(new EventSource.EventEntry(EntryType.Record, new CommandExecuted(item.Route, item.Id)));
+						messagingService.EventWriter.WriteLogEntry(new EventSource.EventEntry(EntryType.Record, new CommandExecuted(item.Route, item.Id)));
 					} else {
 						messagingService.SubmitToQueue(item.Reply ?? new CommandErrorReply(item.Route, item.Id, "Error", "reply mia".ToUtf8Bytes()));
 					}
@@ -75,14 +55,17 @@ namespace Albatross.Messaging.Commands {
 					item.Queue.RunNextIfNotBusy();
 					break;
 				case InternalCommand internalCommand:
-					// the internal commands are sent here to be queued on its command queue using the netmq main thread.  no locking is required
+					// the internal commands are sent here to be queued for execution
+					// internal command is simplified and it no longer use Task to notify caller if there is a failure in command creation.
+					// [TODO] instead it should send a command error to the original client [TODO]
 					try {
-						var newJob = this.commandQueueFactory.CreateItem(internalCommand.Request);
-						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newJob.Id);
-						newJob.Queue.Submit(newJob);
-						internalCommand.SetResult();
-					}catch(Exception e) {
-						internalCommand.SetException(e);
+						// record the internal command as receiving message since it bypass the Socket_ReceiveReady of the router server.
+						messagingService.EventWriter.WriteLogEntry(new EventSource.EventEntry(EntryType.In, internalCommand.Request));
+						var newItem = this.commandQueueFactory.CreateItem(internalCommand.Request);
+						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newItem.Id);
+						newItem.Queue.Submit(newItem);
+					}catch(Exception err) {
+						logger.LogError(err, "Error submitting internal command {@cmd}", internalCommand);
 					}
 					break;
 				default:

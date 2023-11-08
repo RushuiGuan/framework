@@ -66,18 +66,26 @@ namespace Albatross.Messaging.Commands {
 			services.AddSingleton<IRouterServerService>(provider => provider.GetRequiredService<ICommandBusService>());
 			services.AddSingleton<IRouterServerService, CommandBusReplayService>();
 			services.TryAddSingleton<ICommandQueueFactory, CommandQueueFactory>();
-			// services.TryAddTransient<CommandQueue, TaskCommandQueue>();
 			services.TryAddTransient<CommandQueue>();
 			// this should only be used if the TaskCommandQueue is used
 			services.TryAddSingleton<InternalCommandClient>();
+			services.TryAddScoped<CommandContext>();
 			services.AddRouterServer();
 			return services;
 		}
 
-		public static async Task SubmitCollection(this ICommandClient client, IEnumerable<object> commands) {
+		public static IEnumerable<ulong> SubmitCollection(this ICommandClient client, IEnumerable<object> commands) {
 			foreach(var cmd in commands) {
-				await client.Submit(cmd);
+				yield return client.Submit(cmd);
 			}
+		}
+
+		public static void CreateCommandContext(this IServiceProvider provider, CommandQueueItem item) {
+			var context = provider.GetRequiredService<CommandContext>();
+			context.OriginalRoute = item.Route;
+			context.OriginalId = item.Id;
+			context.Queue = item.Queue.Name;
+			context.IsInternal = item.Route == InternalCommand.Route;
 		}
 	}
 }

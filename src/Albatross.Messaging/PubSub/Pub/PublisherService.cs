@@ -56,7 +56,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 							if (messagingService.GetClientState(subscriber) == ClientState.Alive) {
 								messagingService.Transmit(eve);
 							} else {
-								messagingService.DataLogger.WriteLogEntry(new EventEntry(EntryType.Out, eve));
+								messagingService.EventWriter.WriteLogEntry(new EventEntry(EntryType.Out, eve));
 							}
 						}
 					}

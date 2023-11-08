@@ -19,8 +19,8 @@ namespace Albatross.Messaging.Services {
 		private readonly NetMQTimer timer;
 		private readonly ILogger<RouterServer> logger;
 		private readonly IMessageFactory messageFactory;
-		private readonly DiskStorageEventWriter logWriter;
-		private readonly IEventReader logReader;
+		private readonly DiskStorageEventWriter eventWriter;
+		private readonly IEventReader eventReader;
 		private bool running = false;
 		private bool disposed = false;
 		private IEnumerable<IRouterServerService> receiveServices;
@@ -31,7 +31,7 @@ namespace Albatross.Messaging.Services {
 		private ulong timerCounter;
 
 
-		public IEventWriter DataLogger => this.logWriter;
+		public IEventWriter EventWriter => this.eventWriter;
 		public IAtomicCounter<ulong> Counter => this.counter;
 
 		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILoggerFactory loggerFactory,  IMessageFactory messageFactory) {
@@ -44,8 +44,8 @@ namespace Albatross.Messaging.Services {
 			this.timerServices = services.Where(args => args.NeedTimer).ToArray();
 			this.messageFactory = messageFactory;
 			this.counter = new DurableAtomicCounter(config.DiskStorage.WorkingDirectory);
-			this.logWriter = new DiskStorageEventWriter("router-server", config.DiskStorage, loggerFactory);
-			this.logReader = new DiskStorageEventReader(config.DiskStorage, messageFactory, loggerFactory.CreateLogger("router-server-log-reader"));
+			this.eventWriter = new DiskStorageEventWriter("router-server", config.DiskStorage, loggerFactory);
+			this.eventReader = new DiskStorageEventReader(config.DiskStorage, messageFactory, loggerFactory.CreateLogger("router-server-log-reader"));
 			this.socket = new RouterSocket();
 			this.socket.ReceiveReady += Socket_ReceiveReady;
 			this.socket.Options.ReceiveHighWatermark = config.ReceiveHighWatermark;
@@ -115,7 +115,7 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
-				this.logWriter.WriteLogEntry(new EventEntry(EntryType.In, msg));
+				this.eventWriter.WriteLogEntry(new EventEntry(EntryType.In, msg));
 				if (msg is ClientAck) { return; }
 				if (running) {
 					if (msg is Connect connect) {
@@ -182,10 +182,10 @@ namespace Albatross.Messaging.Services {
 				logger.LogInformation("running log replay");
 				int counter = 0;
 				this.queue.Enqueue(new StartReplay());
-				foreach (var dataLog in this.logReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
+				foreach (var eventEntry in this.eventReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
 					counter++;
-					if (!(dataLog.Message is ISystemMessage)) {
-						this.queue.Enqueue(new Replay(dataLog.Message, counter, dataLog.EntryType));
+					if (!(eventEntry.Message is ISystemMessage)) {
+						this.queue.Enqueue(new Replay(eventEntry.Message, counter, eventEntry.EntryType));
 					}
 				}
 				this.queue.Enqueue(new EndReplay());
@@ -196,7 +196,7 @@ namespace Albatross.Messaging.Services {
 		public void SubmitToQueue(object result) => this.queue.Enqueue(result);
 
 		public void Transmit(IMessage msg) {
-			this.logWriter.WriteLogEntry(new EventEntry(EntryType.Out, msg));
+			this.eventWriter.WriteLogEntry(new EventEntry(EntryType.Out, msg));
 			var frames = msg.Create();
 			this.socket.SendMultipartMessage(frames);
 		}
@@ -209,7 +209,7 @@ namespace Albatross.Messaging.Services {
 				poller.RemoveAndDispose(socket);
 				poller.Dispose();
 				queue.Dispose();
-				logWriter.Dispose();
+				eventWriter.Dispose();
 				disposed = true;
 				logger.LogInformation("router server disposed");
 			}
