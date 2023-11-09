@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Albatross.Reflection {
@@ -160,18 +159,6 @@ namespace Albatross.Reflection {
 		}
 
 		public static string GetTypeNameWithoutAssemblyVersion(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
-
-		public static A GetEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute where EnumType : notnull {
-			var type = typeof(EnumType);
-			if (type.IsEnum) {
-				var value = enumValue.ToString();
-				var members = type.GetMember(value);
-				return members[0].GetCustomAttribute<A>() 
-					?? throw new ArgumentException($"Enum field {enumValue} doesn't have attribute {typeof(A).Name}");
-			} else {
-				throw new ArgumentException($"Type {type.FullName} is not an enum");
-			}
-		}
 
 		public static string GetAssemblyLocation(this Assembly asm, string path) {
 			string location = System.IO.Path.GetDirectoryName(asm.Location)??throw new Exception($"Cannot find the location of assembly {asm.FullName}");
