@@ -161,16 +161,13 @@ namespace Albatross.Reflection {
 
 		public static string GetTypeNameWithoutAssemblyVersion(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
 
-		public static A? GetEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute where EnumType: notnull {
+		public static A GetEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute where EnumType : notnull {
 			var type = typeof(EnumType);
 			if (type.IsEnum) {
 				var value = enumValue.ToString();
-				if (value != null) {
-					var members = type.GetMember(value);
-					return members[0].GetCustomAttribute<A>();
-				} else {
-					return null;
-				}
+				var members = type.GetMember(value);
+				return members[0].GetCustomAttribute<A>() 
+					?? throw new ArgumentException($"Enum field {enumValue} doesn't have attribute {typeof(A).Name}");
 			} else {
 				throw new ArgumentException($"Type {type.FullName} is not an enum");
 			}
