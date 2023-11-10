@@ -21,8 +21,20 @@ namespace Albatross.Reflection {
 				throw new ArgumentException($"Type {type.FullName} is not an enum");
 			}
 		}
+		public static A? GetEnumMemberAttribute<A>(Type type, object enumValue) where A : Attribute  {
+			if (type.IsEnum) {
+				var name = Enum.GetName(type, enumValue);
+				var members = type.GetMember(name);
+				return members[0].GetCustomAttribute<A>();
+			} else {
+				throw new ArgumentException($"Type {type.FullName} is not an enum");
+			}
+		}
 		public static string GetEnumText<EnumType>(this EnumType value) where EnumType : struct
 			=> value.GetEnumMemberAttribute<EnumType, EnumTextAttribute>()?.Text 
+				?? throw new ArgumentException($"{value} is missing the {typeof(EnumTextAttribute)}");
+		public static string GetEnumText(Type enumType, object value)
+			=> GetEnumMemberAttribute<EnumTextAttribute>(enumType, value)?.Text
 				?? throw new ArgumentException($"{value} is missing the {typeof(EnumTextAttribute)}");
 	}
 }
