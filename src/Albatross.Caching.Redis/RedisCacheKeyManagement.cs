@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using System;
@@ -18,11 +19,14 @@ namespace Albatross.Caching.Redis {
 		private readonly string instance;
 		private readonly SemaphoreSlim connectionLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
 		private readonly IDistributedCache cache;
+		private readonly ILogger<RedisCacheKeyManagement> logger;
 
-		public RedisCacheKeyManagement(IOptions<RedisCacheOptions> options, IDistributedCache cache) {
+		public RedisCacheKeyManagement(IOptions<RedisCacheOptions> options, IDistributedCache cache, ILogger<RedisCacheKeyManagement> logger) {
 			this.options = options.Value;
 			instance = this.options.InstanceName ?? string.Empty;
 			this.cache = cache;
+			this.logger = logger;
+			logger.LogInformation("RedisCacheKeyManagement instance ({name}) has been created", instance);
 		}
 
 		private async Task ConnectAsync() {
@@ -31,6 +35,7 @@ namespace Albatross.Caching.Redis {
 				Debug.Assert(connection != null);
 				return;
 			}
+			logger.LogInformation("Connecting to redis server");
 			await connectionLock.WaitAsync();
 			try {
 				if (servers.Count == 0) {
@@ -47,8 +52,10 @@ namespace Albatross.Caching.Redis {
 					foreach (var item in endpoints) {
 						var server = connection.GetServer(item);
 						if (server.IsReplica) {
+							logger.LogInformation("Connected to replica {name}", server);
 							replicas.Add(server);
 						} else {
+							logger.LogInformation("Connected to server {name}", server);
 							servers.Add(server);
 						}
 					}
@@ -83,16 +90,19 @@ namespace Albatross.Caching.Redis {
 		public async Task FindAndRemoveKeys(string pattern) {
 			var keys = await FindKeys(pattern);
 			foreach (var item in keys) {
+				logger.LogInformation("Removing redis cache key: {key}", item);
 				cache.Remove(item);
 			}
 		}
 		public void Remove(IEnumerable<string> keys) {
 			foreach (var key in keys) {
+				logger.LogInformation("Removing redis cache key: {key}", key);
 				cache.Remove(key);
 			}
 		}
 		public void Dispose() {
 			if (disposed) { return; }
+			logger.LogInformation("Closing redis connection");
 			disposed = true;
 			connection?.Close();
 		}
