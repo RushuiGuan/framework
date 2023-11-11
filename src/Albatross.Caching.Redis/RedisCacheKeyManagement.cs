@@ -77,8 +77,8 @@ namespace Albatross.Caching.Redis {
 				throw new ArgumentException("Key pattern cannot be null or empty string");
 			}
 			await ConnectAsync();
-			pattern = instance + pattern;
 			logger.LogInformation("Searching keys with pattern: {value}", pattern);
+			pattern = instance + pattern;
 			List<string> keys = new List<string>();
 			foreach (var server in servers) {
 				foreach (var key in server.Keys(pattern: pattern)) {
