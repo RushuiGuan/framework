@@ -26,10 +26,10 @@ namespace Albatross.Caching.Redis {
 			instance = this.options.InstanceName ?? string.Empty;
 			this.cache = cache;
 			this.logger = logger;
-			logger.LogInformation("RedisCacheKeyManagement instance ({name}) has been created", instance);
+			logger.LogInformation("RedisCacheInstance has been created with instance={instance}", instance.TrimEnd(':'));
 		}
 
-		private async Task ConnectAsync() {
+		private async ValueTask ConnectAsync() {
 			if (disposed) { throw new ObjectDisposedException(GetType().FullName); }
 			if (servers.Count > 0) {
 				Debug.Assert(connection != null);
@@ -72,12 +72,13 @@ namespace Albatross.Caching.Redis {
 		/// <param name="pattern"></param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentException"></exception>
-		public async Task<IEnumerable<string>> FindKeys(string pattern) {
+		public async ValueTask<IEnumerable<string>> FindKeys(string pattern) {
 			if (string.IsNullOrEmpty(pattern)) {
 				throw new ArgumentException("Key pattern cannot be null or empty string");
 			}
 			await ConnectAsync();
 			pattern = instance + pattern;
+			logger.LogInformation("Searching keys with pattern: {value}", pattern);
 			List<string> keys = new List<string>();
 			foreach (var server in servers) {
 				foreach (var key in server.Keys(pattern: pattern)) {
@@ -87,16 +88,16 @@ namespace Albatross.Caching.Redis {
 			return keys;
 		}
 
-		public async Task FindAndRemoveKeys(string pattern) {
+		public async ValueTask FindAndRemoveKeys(string pattern) {
 			var keys = await FindKeys(pattern);
+			logger.LogInformation("Removing redis cache keys: {@key}", keys);
 			foreach (var item in keys) {
-				logger.LogInformation("Removing redis cache key: {key}", item);
 				cache.Remove(item);
 			}
 		}
 		public void Remove(IEnumerable<string> keys) {
+			logger.LogInformation("Removing redis cache keys: {@key}", keys);
 			foreach (var key in keys) {
-				logger.LogInformation("Removing redis cache key: {key}", key);
 				cache.Remove(key);
 			}
 		}

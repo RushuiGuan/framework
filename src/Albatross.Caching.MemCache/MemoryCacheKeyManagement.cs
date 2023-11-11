@@ -33,12 +33,12 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public async Task FindAndRemoveKeys(string pattern) {
+		public async ValueTask FindAndRemoveKeys(string pattern) {
 			var keys = await FindKeys(pattern);
 			Remove(keys);
 		}
-		public Task<IEnumerable<string>> FindKeys(string pattern) {
-			return Task.FromResult<IEnumerable<string>>(this.Keys.Select(args => Convert.ToString(args))
+		public ValueTask<IEnumerable<string>> FindKeys(string pattern) {
+			return new ValueTask<IEnumerable<string>>(this.Keys.Select(args => Convert.ToString(args))
 				.Where(args => args.Like(pattern)).ToArray());
 		}
 

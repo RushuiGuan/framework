@@ -14,7 +14,7 @@
 								"Args": {
 									"SlackSinkOptions": "Albatross.Logging.SinkOptions::SlackSink, Albatross.Logging",
 									"restrictedToMinimumLevel": "Error",
-									"outputTemplate": "ProjectTemplateWebApi: {Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{NewLine}{Exception}"
+									"outputTemplate": "SampleProjectWebApi: {Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{NewLine}{Exception}"
 								}
 							}
 						}

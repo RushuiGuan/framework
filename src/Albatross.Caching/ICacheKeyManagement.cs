@@ -8,8 +8,8 @@ namespace Albatross.Caching {
 		/// </summary>
 		/// <param name="pattern"></param>
 		/// <returns></returns>
-		Task<IEnumerable<string>> FindKeys(string pattern);
-		Task FindAndRemoveKeys(string pattern);
+		ValueTask<IEnumerable<string>> FindKeys(string pattern);
+		ValueTask FindAndRemoveKeys(string pattern);
 
 		/// <summary>
 		/// the remove operation should be quick and intentionally not async

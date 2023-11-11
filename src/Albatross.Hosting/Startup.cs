@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -112,7 +111,8 @@ namespace Albatross.Hosting {
 		}
 		public virtual void ConfigureJsonOption(JsonOptions options) { }
 		public virtual void ConfigureServices(IServiceCollection services) {
-			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
+			services.TryAddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
+			services.TryAddSingleton(provider => new UsageWriter(provider.GetRequiredService<ILoggerFactory>().CreateLogger("Usage")));
 
 			if (WebApi) {
 				services.AddControllers(options => options.InputFormatters.Add(new PlainTextInputFormatter()))

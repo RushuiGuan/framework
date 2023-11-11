@@ -69,7 +69,7 @@ namespace Albatross.Caching {
 			keyMgmt.Remove(keys.ToArray());
 		}
 
-		public Task Reset() {
+		public ValueTask Reset() {
 			var pattern = GetCacheKey(new Context()) + "*";
 			return this.keyMgmt.FindAndRemoveKeys(pattern);
 		}
