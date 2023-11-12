@@ -86,13 +86,10 @@ namespace Albatross.Caching.Redis {
 			return keys.ToArray();
 		}
 
-		RedisKey RedisKey(string key) => new RedisKey(instance + key);
 		public void Remove(string[] keys) {
-			logger.LogInformation("Removing redis cache keys: {keys}", keys);
-			if (keys.Length == 1) {
-				this.Cache.KeyDelete(RedisKey(keys[0]));
-			} else if (keys.Length > 1) {
-				this.Cache.KeyDelete(keys.Select(RedisKey).ToArray());
+			if (keys.Length > 0) {
+				logger.LogInformation("Removing redis cache keys: {@keys}", keys);
+				this.Cache.KeyDelete(keys.Select(key => new RedisKey(instance + key)).ToArray());
 			}
 		}
 		public void Dispose() {
