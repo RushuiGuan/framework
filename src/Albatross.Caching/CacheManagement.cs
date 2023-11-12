@@ -56,8 +56,8 @@ namespace Albatross.Caching {
 				keyMgmt.Remove(key);
 			}
 		}
-		public void Reset() {
-			var key = new CompositeKeyBuilder(this).Build(true);
+		public void RemoveAll(params object[] compositeKey) {
+			var key = new CompositeKeyBuilder(this).Add(compositeKey).Build(true);
 			var keys = keyMgmt.FindKeys(key);
 			keyMgmt.Remove(keys);
 		}

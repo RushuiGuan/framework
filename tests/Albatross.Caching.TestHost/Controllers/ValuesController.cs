@@ -28,7 +28,7 @@ namespace Albatross.Caching.TestHost.Controllers {
 		[HttpPost("reset-mine")]
 		public void ResetMine() {
 			var cacheMgmt = factory.Get<string>(nameof(MyCacheMgmt));
-			cacheMgmt.Reset();
+			cacheMgmt.RemoveAll();
 		}
 
 		[HttpGet("yours")]
@@ -45,7 +45,7 @@ namespace Albatross.Caching.TestHost.Controllers {
 		[HttpPost("reset-yours")]
 		public void ResetYours() {
 			var cacheMgmt = factory.Get<byte[]>(nameof(YourCacheMgmt));
-			cacheMgmt.Reset();
+			cacheMgmt.RemoveAll();
 		}
 
 		[HttpGet("his")]
@@ -62,7 +62,7 @@ namespace Albatross.Caching.TestHost.Controllers {
 		[HttpPost("reset-his")]
 		public void ResetHis() {
 			var cacheMgmt = factory.Get<HisHerData>(nameof(HisCacheMgmt));
-			cacheMgmt.Reset();
+			cacheMgmt.RemoveAll();
 		}
 
 		[HttpGet("her")]
@@ -79,7 +79,7 @@ namespace Albatross.Caching.TestHost.Controllers {
 		[HttpPost("reset-her")]
 		public void ResetHer() {
 			var cacheMgmt = factory.Get<HisHerData>(nameof(HerCacheMgmt));
-			cacheMgmt.Reset();
+			cacheMgmt.RemoveAll();
 		}
 	}
 }

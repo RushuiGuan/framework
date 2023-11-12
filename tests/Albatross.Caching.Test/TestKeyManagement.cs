@@ -83,7 +83,7 @@ namespace Albatross.Caching.Test {
 			foreach (var key in keys) {
 				Assert.Contains(cache1.GetCacheKey(new Context(key)), allKeys);
 			}
-			cache1.Reset();
+			cache1.RemoveAll();
 			
 			allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {

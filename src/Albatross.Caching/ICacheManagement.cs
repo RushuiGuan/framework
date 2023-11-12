@@ -18,7 +18,7 @@ namespace Albatross.Caching {
 		void OnCachePutError(Context context, string cacheKey, Exception error);
 
 		void Remove(params object[] compositeKey);
-		void Reset();
+		void RemoveAll(params object[] compositeKey);
 	}
 	public interface ICacheManagement<CacheFormat> : ICacheManagement {
 		Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, Context context, CancellationToken cancellationToken);
