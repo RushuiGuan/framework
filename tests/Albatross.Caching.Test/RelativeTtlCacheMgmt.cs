@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Polly.Caching;
 using Polly.Registry;
 using System;
@@ -10,7 +9,6 @@ namespace Albatross.Caching.Test {
 		}
 
 		public override string Name => nameof(RelativeTtlCacheMgmt);
-
 		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromSeconds(1));
 	}
 }

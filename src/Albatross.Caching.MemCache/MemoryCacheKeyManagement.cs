@@ -21,6 +21,7 @@ namespace Albatross.Caching {
 
 			this.cache = (MemoryCache)cache;
 		}
+		public Task Init() => Task.CompletedTask;
 
 		public IEnumerable<object> Keys {
 			get {
@@ -33,17 +34,13 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public async ValueTask FindAndRemoveKeys(string pattern) {
-			var keys = await FindKeys(pattern);
-			Remove(keys);
+		public string[] FindKeys(string pattern) {
+			return this.Keys.Select(args => Convert.ToString(args)).Where(args => args.Like(pattern)).ToArray();
 		}
-		public ValueTask<IEnumerable<string>> FindKeys(string pattern) {
-			return new ValueTask<IEnumerable<string>>(this.Keys.Select(args => Convert.ToString(args))
-				.Where(args => args.Like(pattern)).ToArray());
-		}
-
-		public void Remove(IEnumerable<string> keys) {
-			foreach (string key in keys) { this.cache.Remove(key); }
+		public void Remove(string[] keys) {
+			foreach (var item in keys) {
+				this.cache.Remove(item);
+			}
 		}
 	}
 }

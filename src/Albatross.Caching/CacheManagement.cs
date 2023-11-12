@@ -3,7 +3,6 @@ using Polly;
 using Polly.Caching;
 using Polly.Registry;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +18,6 @@ namespace Albatross.Caching {
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
 		private readonly ICacheKeyManagement keyMgmt;
-		public const string Context_Init = "init";
 
 		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter, ICacheKeyManagement keyMgmt) {
 			this.logger = logger;
@@ -32,23 +30,10 @@ namespace Albatross.Caching {
 		public abstract ITtlStrategy TtlStrategy { get; }
 
 		public virtual void OnCacheGet(Context context, string cacheKey) { }
-		public virtual void OnCacheMiss(Context context, string cacheKey) {
-			if (!context.ContainsKey(Context_Init)) {
-				logger.LogInformation("Cache miss: {key}", cacheKey);
-			}
-		}
-		public virtual void OnCachePut(Context context, string cacheKey) {
-			if (!context.ContainsKey(Context_Init)) {
-				logger.LogInformation("Cache put: {key}", cacheKey);
-			}
-		}
-		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) {
-			logger.LogError(error, "Cache get error for {name}", this.Name);
-		}
-		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) {
-			logger.LogError(error, "Cache put error for {name}", this.Name);
-
-		}
+		public virtual void OnCacheMiss(Context context, string cacheKey) => logger.LogInformation("Cache miss: {key}", cacheKey);
+		public virtual void OnCachePut(Context context, string cacheKey) => logger.LogInformation("Cache put: {key}", cacheKey);
+		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error getting cache {name}", this.Name);
+		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", this.Name);
 
 		public void Register() {
 			if (!registry.ContainsKey(Name)) {
@@ -56,22 +41,25 @@ namespace Albatross.Caching {
 					OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
 				registry.Add(Name, policy);
 			} else {
-				logger.LogError("CacheManagement {cacheName} has already been registered", Name);
+				logger.LogError("CacheManagement {name} has already been registered", Name);
 			}
 		}
 
-		// dash below is intentional so that it can be used as part of the prefix to evict all cache created by this class
-		public virtual string GetCacheKey(Context context) => $"{Name}{ICacheManagement.CacheKeyDelimiter}{context.OperationKey}".ToLowerInvariant();
+		public virtual string GetCacheKey(Context context) => new CompositeKeyBuilder(this).Add(context.OperationKey).Build(false);
 
-		public void Remove(params Context[] contexts) {
-			var keys = contexts.Select(args => GetCacheKey(args));
-			logger.LogInformation("Removing cache: {@key}", keys);
-			keyMgmt.Remove(keys.ToArray());
+		public void Remove(params object[] compositeKey) {
+			var key = new CompositeKeyBuilder(this).Add(compositeKey).Build(false);
+			if (keyMgmt.IsPattern(key)) {
+				var keys = keyMgmt.FindKeys(key);
+				keyMgmt.Remove(keys);
+			} else {
+				keyMgmt.Remove(key);
+			}
 		}
-
-		public ValueTask Reset() {
-			var pattern = GetCacheKey(new Context()) + "*";
-			return this.keyMgmt.FindAndRemoveKeys(pattern);
+		public void Reset() {
+			var key = new CompositeKeyBuilder(this).Build(true);
+			var keys = keyMgmt.FindKeys(key);
+			keyMgmt.Remove(keys);
 		}
 
 		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, Context context, CancellationToken cancellationToken) {

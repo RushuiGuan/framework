@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Albatross.Caching {
 	public interface ICacheManagement {
-		public const char CacheKeyDelimiter = ':';
 		string Name { get; }
 		ITtlStrategy TtlStrategy { get; }
 		string GetCacheKey(Context context);
 		void Register();
-		void Remove(params Context[] contexts);
-		ValueTask Reset();
 		
 		void OnCacheGet(Context context, string cacheKey);
 		void OnCacheMiss(Context context, string cacheKey);
 		void OnCachePut(Context context, string cacheKey);
 		void OnCacheGetError(Context context, string cacheKey, Exception error);
 		void OnCachePutError(Context context, string cacheKey, Exception error);
+
+		void Remove(params object[] compositeKey);
+		void Reset();
 	}
 	public interface ICacheManagement<CacheFormat> : ICacheManagement {
 		Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, Context context, CancellationToken cancellationToken);

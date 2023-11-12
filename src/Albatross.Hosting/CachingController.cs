@@ -12,19 +12,19 @@ namespace Albatross.Hosting {
 	[Authorize]
 	public class CachingController : ControllerBase {
 		private readonly ICacheKeyManagement keyMgmt;
-		private readonly ICacheProviderAdapter cacheProviderConverter;
+		private readonly ICacheProviderAdapter cacheProviderAdapter;
 
-		public CachingController(ICacheKeyManagement keyMgmt, ICacheProviderAdapter cacheProviderConverter) {
+		public CachingController(ICacheKeyManagement keyMgmt, ICacheProviderAdapter cacheProviderAdapter) {
 			this.keyMgmt = keyMgmt;
-			this.cacheProviderConverter = cacheProviderConverter;
+			this.cacheProviderAdapter = cacheProviderAdapter;
 		}
 
 		[HttpGet("keys")]
-		public ValueTask<IEnumerable<string>> Keys() => keyMgmt.FindKeys("*");
+		public IEnumerable<string> Keys() => keyMgmt.FindKeys("*");
 
 		[HttpGet]
 		public async Task<string?> Get(string key) {
-			var provider = cacheProviderConverter.Create<string>();
+			var provider = cacheProviderAdapter.Create<string>();
 			var result = await provider.TryGetAsync(key, CancellationToken.None, false);
 			if (result.Item1) {
 				return result.Item2;
@@ -40,7 +40,7 @@ namespace Albatross.Hosting {
 
 		[HttpPost("reset")]
 		public void Reset() {
-			this.keyMgmt.FindAndRemoveKeys("*");
+			this.keyMgmt.FindAndRemove("*");
 		}
 	}
 }

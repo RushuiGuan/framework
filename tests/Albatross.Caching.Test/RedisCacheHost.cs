@@ -21,6 +21,7 @@ namespace Albatross.Caching.Test {
 		public override async Task InitAsync(IConfiguration configuration, ILogger logger) {
 			await base.InitAsync(configuration, logger);
 			this.Provider.UseCache();
+			this.Provider.UseRedisCaching();
 			this.CacheFactory = this.Provider.GetRequiredService<ICacheManagementFactory>();
 		}
 	}

@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Polly.Registry;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Albatross.Caching {
@@ -50,24 +49,6 @@ namespace Albatross.Caching {
 				}
 			}
 			return services;
-		}
-
-
-		public static ICacheManagement Get(this ICacheManagementFactory factory, string name) {
-			if (factory.TryGetValue(name, out ICacheManagement result)) {
-				return result;
-			} else {
-				throw new ArgumentException($"CacheManagement {name} is not registered");
-			}
-		}
-
-		public static ICacheManagement<CacheFormat> Get<CacheFormat>(this ICacheManagementFactory factory, string name) {
-			ICacheManagement cache = factory.Get(name);
-			return (ICacheManagement<CacheFormat>)cache;
-		}
-
-		public static void Remove(this ICacheManagement cache, IEnumerable<string> keys) {
-			cache.Remove(keys.Select(args => new Polly.Context(args)).ToArray());
 		}
 	}
 }

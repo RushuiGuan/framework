@@ -71,9 +71,9 @@ namespace Albatross.Caching.Test {
 		[Theory]
 		[InlineData(MemCacheHost.HostType, nameof(SlidingTtlCacheMgmt), "", "slidingttlcachemgmt:")]
 		[InlineData(MemCacheHost.HostType, nameof(SlidingTtlCacheMgmt), null, "slidingttlcachemgmt:")]
-		[InlineData(MemCacheHost.HostType, nameof(SlidingTtlCacheMgmt), "red", "slidingttlcachemgmt:red")]
-		[InlineData(MemCacheHost.HostType, nameof(LongTermCacheMgmt1), "red", "longtermcachemgmt1:red")]
-		[InlineData(MemCacheHost.HostType, nameof(LongTermCacheMgmt1), "test", "longtermcachemgmt1:test")]
+		[InlineData(MemCacheHost.HostType, nameof(SlidingTtlCacheMgmt), "red", "slidingttlcachemgmt:red:")]
+		[InlineData(MemCacheHost.HostType, nameof(LongTermCacheMgmt1), "red", "longtermcachemgmt1:red:")]
+		[InlineData(MemCacheHost.HostType, nameof(LongTermCacheMgmt1), "test", "longtermcachemgmt1:test:")]
 		public void TestCacheKeyGeneration(string hostType, string name, string key, string expected) {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();

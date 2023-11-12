@@ -24,7 +24,7 @@ namespace Albatross.Caching.Test {
 			foreach(var key in keys) { 
 				await cache.PutAsync(new Polly.Context(key), data);
 			}
-			var allKeys = await keyMgmt.FindKeys("*");
+			var allKeys = keyMgmt.FindKeys("*");
 			foreach(var key in keys) {
 				Assert.Contains(cache.GetCacheKey(new Context(key)), allKeys);
 			}
@@ -47,12 +47,14 @@ namespace Albatross.Caching.Test {
 			foreach (var key in keys) {
 				await cache.PutAsync(new Polly.Context(key), data);
 			}
-			var allKeys = await keyMgmt.FindKeys("*");
+			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
 				Assert.Contains(cache.GetCacheKey(new Context(key)), allKeys);
 			}
-			cache.Remove(keys.Select(args => new Context(args)).ToArray());
-			allKeys = await keyMgmt.FindKeys("*");
+			foreach (var key in keys) {
+				cache.Remove(key);
+			}
+			allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
 				Assert.DoesNotContain(cache.GetCacheKey(new Context(key)), allKeys);
 			}
@@ -65,7 +67,7 @@ namespace Albatross.Caching.Test {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();
 			var factory = scope.Get<ICacheManagementFactory>();
-			var cache = factory.Get<MyData>(nameof(LongTermCacheMgmt1));
+			var cache1 = factory.Get<MyData>(nameof(LongTermCacheMgmt1));
 			var cache2 = factory.Get<MyData>(nameof(LongTermCacheMgmt2));
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
@@ -73,19 +75,19 @@ namespace Albatross.Caching.Test {
 			var keys = new string[] { "", "1", "2", "3" };
 
 			foreach (var key in keys) {
-				await cache.PutAsync(new Polly.Context(key), data);
+				await cache1.PutAsync(new Polly.Context(key), data);
 				await cache2.PutAsync(new Polly.Context(key), data);
 			}
 
-			var allKeys = await keyMgmt.FindKeys("*");
+			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
-				Assert.Contains(cache.GetCacheKey(new Context(key)), allKeys);
+				Assert.Contains(cache1.GetCacheKey(new Context(key)), allKeys);
 			}
-			await cache.Reset();
+			cache1.Reset();
 			
-			allKeys = await keyMgmt.FindKeys("*");
+			allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
-				Assert.DoesNotContain(cache.GetCacheKey(new Context(key)), allKeys);
+				Assert.DoesNotContain(cache1.GetCacheKey(new Context(key)), allKeys);
 			}
 			foreach (var key in keys) {
 				Assert.Contains(cache2.GetCacheKey(new Context(key)), allKeys);
