@@ -22,7 +22,7 @@ namespace Albatross.Caching.TestHost {
 		}
 		public override void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting envSetting, ILogger<Startup> logger) {
 			base.Configure(app, programSetting, envSetting, logger);
-			app.ApplicationServices.UseRedisCaching();
+			// app.ApplicationServices.UseRedisCaching();
 		}
 		protected override void ConfigureCors(CorsPolicyBuilder builder) {
 			base.ConfigureCors(builder);

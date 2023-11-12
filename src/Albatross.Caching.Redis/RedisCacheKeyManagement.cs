@@ -74,6 +74,8 @@ namespace Albatross.Caching.Redis {
 		public string[] FindKeys(string pattern) {
 			if (string.IsNullOrEmpty(pattern)) {
 				throw new ArgumentException("Key pattern cannot be null or empty string");
+			}else if(servers.Count == 0) {
+				throw new InvalidOperationException("Redis connection not initialized");
 			}
 			logger.LogInformation("Searching keys with pattern: {value}", pattern);
 			pattern = instance + pattern;
