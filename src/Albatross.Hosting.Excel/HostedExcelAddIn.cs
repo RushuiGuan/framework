@@ -30,6 +30,7 @@ namespace Albatross.Hosting.Excel {
 		public virtual string CurrentDirectory => System.IO.Path.GetDirectoryName(typeof(HostedExcelAddIn).Assembly.Location)!;
 
 		public HostedExcelAddIn() {
+			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();
 			serilogLogger = new SetupSerilog().Configure(ConfigureLogging).Create();
 			IHostBuilder hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			var configBuilder = new ConfigurationBuilder()
