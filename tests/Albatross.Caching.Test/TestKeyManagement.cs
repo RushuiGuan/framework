@@ -18,7 +18,7 @@ namespace Albatross.Caching.Test {
 			var keys = new string[] { "", "1", "2", "3" };
 
 			foreach(var key in keys) { 
-				await cache.PutAsync(new Polly.Context(key), data);
+				await cache.PutAsync(new object[] { key }, data);
 			}
 			var allKeys = keyMgmt.FindKeys("*");
 			foreach(var key in keys) {
@@ -40,7 +40,7 @@ namespace Albatross.Caching.Test {
 			var keys = new string[] { "", "1", "2", "3" };
 
 			foreach (var key in keys) {
-				await cache.PutAsync(new Polly.Context(key), data);
+				await cache.PutAsync(new object[] { key }, data);
 			}
 			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
@@ -69,8 +69,8 @@ namespace Albatross.Caching.Test {
 			var keys = new string[] { "", "1", "2", "3" };
 
 			foreach (var key in keys) {
-				await cache1.PutAsync(new Polly.Context(key), data);
-				await cache2.PutAsync(new Polly.Context(key), data);
+				await cache1.PutAsync(new object[]{ key }, data);
+				await cache2.PutAsync(new object[]{ key }, data);
 			}
 
 			var allKeys = keyMgmt.FindKeys("*");

@@ -50,7 +50,7 @@ namespace Albatross.Caching {
 		public virtual string BuildKey(params object[] compositeKey) => new CompositeKeyBuilder(this).Add(compositeKey).Build(false);
 
 		public void Remove(params object[] compositeKey) {
-			var key = new CompositeKeyBuilder(this).Add(compositeKey).Build(false);
+			var key = BuildKey(compositeKey);
 			if (keyMgmt.IsPattern(key)) {
 				var keys = keyMgmt.FindKeys(key);
 				keyMgmt.Remove(keys);
