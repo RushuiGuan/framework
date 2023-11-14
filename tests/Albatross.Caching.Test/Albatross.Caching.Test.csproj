@@ -21,5 +21,6 @@
     <ProjectReference Include="..\..\src\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
     <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
+    <ProjectReference Include="..\Albatross.Caching.TestApi\Albatross.Caching.TestApi.csproj" />
   </ItemGroup>
 </Project>

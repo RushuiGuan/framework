@@ -13,7 +13,7 @@ namespace Albatross.Caching {
 	/// the default implementation that returns the class name.
 	/// </summary>
 	/// <typeparam name="CacheFormat"></typeparam>
-	public abstract class CacheManagement<CacheFormat> : ICacheManagement<CacheFormat>, ICacheKeyStrategy {
+	public abstract class CacheManagement<CacheFormat> : ICacheManagement<CacheFormat, object[]> {
 		protected readonly ILogger logger;
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
@@ -26,7 +26,8 @@ namespace Albatross.Caching {
 			this.cacheProvider = cacheProviderAdapter.Create<CacheFormat>();
 		}
 
-		public virtual string Name => this.GetType().Name;
+		public string Name => this.GetType().Name;
+		public virtual string KeyPrefix => this.Name;
 		public abstract ITtlStrategy TtlStrategy { get; }
 
 		public virtual void OnCacheGet(Context context, string cacheKey) { }
@@ -45,7 +46,8 @@ namespace Albatross.Caching {
 			}
 		}
 
-		public virtual string GetCacheKey(Context context) => new CompositeKeyBuilder(this).Add(context.OperationKey).Build(false);
+		public string GetCacheKey(Context context) => BuildKey(context.OperationKey);
+		public virtual string BuildKey(params object[] compositeKey) => new CompositeKeyBuilder(this).Add(compositeKey).Build(false);
 
 		public void Remove(params object[] compositeKey) {
 			var key = new CompositeKeyBuilder(this).Add(compositeKey).Build(false);
@@ -72,12 +74,14 @@ namespace Albatross.Caching {
 			return policy.ExecuteAsync(func, context);
 		}
 
-		public Task<(bool, CacheFormat)> TryGetAsync(Context context, CancellationToken cancellationToken) {
-			string key = GetCacheKey(context);
+		public Task<(bool, CacheFormat)> TryGetAsync(object[] compositeKey, CancellationToken cancellationToken) {
+			string key = this.BuildKey(compositeKey);
 			return this.cacheProvider.TryGetAsync(key, cancellationToken, false);
 		}
 
-		public Task PutAsync(Context context, CacheFormat value, CancellationToken cancellationToken = default) =>
-			this.cacheProvider.PutAsync(GetCacheKey(context), value, this.TtlStrategy.GetTtl(context, value), cancellationToken, false);
+		public async Task PutAsync(object[] compositeKey, CacheFormat value, CancellationToken cancellationToken = default) {
+			var key = this.BuildKey(compositeKey);
+			await this.cacheProvider.PutAsync(key, value, this.TtlStrategy.GetTtl(new Context(key), value), cancellationToken, false);
+		}
 	}
 }

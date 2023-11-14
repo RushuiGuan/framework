@@ -24,8 +24,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestRelativeCacheManagement(string hostType, int delay_ms, int loopCount, int expected_cacheMiss) {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();
-			var factory = scope.Get<ICacheManagementFactory>();
-			var cacheMgmt = factory.Get<object>(nameof(RelativeTtlCacheMgmt));
+			var cacheMgmt = scope.Get<RelativeTtlCacheMgmt>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			for (int i = 0; i < loopCount; i++) {
@@ -53,8 +52,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestSlidingCacheManagement(string hostType, int delay_ms, int loopCount, int expected_cacheMiss) {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();
-			var factory = scope.Get<ICacheManagementFactory>();
-			var cacheMgmt = factory.Get<MyData>(nameof(SlidingTtlCacheMgmt));
+			var cacheMgmt = scope.Get<SlidingTtlCacheMgmt>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			for (int i = 0; i < loopCount; i++) {
@@ -77,8 +75,7 @@ namespace Albatross.Caching.Test {
 		public void TestCacheKeyGeneration(string hostType, string name, string key, string expected) {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();
-			var factory = scope.Get<ICacheManagementFactory>();
-			var cache = factory.Get<MyData>(name);
+			var cache = scope.Get<IEnumerable<ICacheManagement>>().Where(x => x.Name == name).First();
 			var fullKey = cache.GetCacheKey(new Context(key));
 			Assert.Equal(expected, fullKey);
 			if (string.IsNullOrEmpty(key)) {
@@ -103,8 +100,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestParallelBahavior(string hostType, int expected_cacheMiss, int loopCount) {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();
-			var factory = scope.Get<ICacheManagementFactory>();
-			var cacheMgmt = factory.Get<MyData>(nameof(LongTermCacheMgmt1));
+			var cacheMgmt = scope.Get<LongTermCacheMgmt1>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			List<Task> tasks = new List<Task>();
@@ -135,8 +131,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestParallelBahaviorWithLazy(string hostType, int expected_cacheMiss, int loopCount) {
 			using var host = hostType.GetTestHost();
 			var scope = host.Create();
-			var factory = scope.Get<ICacheManagementFactory>();
-			var cacheMgmt = factory.Get<Lazy<Task<MyData>>>(nameof(LongTermCacheMgmt4));
+			var cacheMgmt = scope.Get<LongTermCacheMgmt4>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			var tasks = new List<Task<Lazy<Task<MyData>>>>();

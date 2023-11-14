@@ -11,9 +11,5 @@ namespace Albatross.Caching {
 				throw new ArgumentException($"CacheManagement {name} is not registered");
 			}
 		}
-		public static ICacheManagement<CacheFormat> Get<CacheFormat>(this ICacheManagementFactory factory, string name) {
-			ICacheManagement cache = factory.Get(name);
-			return (ICacheManagement<CacheFormat>)cache;
-		}
 	}
 }

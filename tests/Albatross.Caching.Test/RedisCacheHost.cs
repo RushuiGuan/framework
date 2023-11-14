@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace Albatross.Caching.Test {
 	public class RedisCacheHost : TestHost {
 		public const string HostType = "redis";
-		public ICacheManagementFactory CacheFactory { get; private set; } = null!;
 
 
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
@@ -22,7 +21,6 @@ namespace Albatross.Caching.Test {
 			await base.InitAsync(configuration, logger);
 			this.Provider.UseCache();
 			this.Provider.UseRedisCaching();
-			this.CacheFactory = this.Provider.GetRequiredService<ICacheManagementFactory>();
 		}
 	}
 }

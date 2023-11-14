@@ -6,7 +6,7 @@ namespace Albatross.Caching {
 		List<object> parts = new List<object>();
 
 		public CompositeKeyBuilder(ICacheManagement cacheManagement) {
-			Add(cacheManagement.Name);
+			Add(cacheManagement.KeyPrefix);
 		}
 
 		public CompositeKeyBuilder(params object[] compositeKeys) {

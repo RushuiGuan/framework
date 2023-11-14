@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 namespace Albatross.Caching.Test {
 	public class MemCacheHost : TestHost {
 		public const string HostType = "memcache";
-		public ICacheManagementFactory CacheFactory { get; private set; } = null!;
-
 
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
@@ -23,7 +21,6 @@ namespace Albatross.Caching.Test {
 		public override async Task InitAsync(IConfiguration configuration, ILogger logger) {
 			await base.InitAsync(configuration, logger);
 			this.Provider.UseCache();
-			this.CacheFactory = this.Provider.GetRequiredService<ICacheManagementFactory>();
 		}
 	}
 }

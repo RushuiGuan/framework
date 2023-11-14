@@ -1,0 +1,41 @@
+{
+	"Serilog": {
+		"MinimumLevel": {
+			"Default": "Debug",
+			"Override": {
+				"System": "Error",
+				"Microsoft": "Error"
+			}
+		},
+		"WriteTo": {
+			"ConsoleSink": {
+				"Name": "Console",
+				"Args": {
+					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}"
+				}
+			},
+			"FileSink": {
+				"Name": "File",
+				"Args": {
+					"path": "%LogDirectory%\\Caching.TestHost\\Caching.log",
+					"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}",
+					"rollingInterval": "Day"
+				}
+			},
+			"SlackSink": {
+				"Name": "Slack",
+				"Args": {
+					"SlackSinkOptions": "Albatross.Logging.SinkOptions::SlackSink, Albatross.Logging",
+					"restrictedToMinimumLevel": "Error",
+					"outputTemplate": ":owl: {Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{ErrorMessage}"
+				}
+			}
+		},
+		"Enrich": [
+			"FromLogContext",
+			"WithThreadId",
+			"WithMachineName",
+			"WithErrorMessage"
+		]
+	}
+}
