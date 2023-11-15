@@ -14,8 +14,5 @@ namespace Albatross.Caching {
 		/// </summary>
 		/// <param name="keys"></param>
 		void Remove(params string[] keys);
-		public bool IsPattern(string keyText) {
-			return keyText.Any(c => c == Asterisk || c == QuestionMark);
-		}
 	}
 }

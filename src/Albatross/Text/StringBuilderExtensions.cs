@@ -13,5 +13,11 @@ namespace Albatross.Text {
 			}
 			return false;
 		}
+		public static bool EndsWith(this StringBuilder sb, char c) {
+			if (sb.Length >= 1) {
+				return sb[sb.Length - 1] == c;
+			}
+			return false;
+		}
 	}
 }

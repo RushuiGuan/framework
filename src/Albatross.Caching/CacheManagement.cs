@@ -13,7 +13,7 @@ namespace Albatross.Caching {
 	/// the default implementation that returns the class name.
 	/// </summary>
 	/// <typeparam name="CacheFormat"></typeparam>
-	public abstract class CacheManagement<CacheFormat> : ICacheManagement<CacheFormat, object[]> {
+	public abstract class CacheManagement<CacheFormat, KeyFormat> : ICacheManagement<CacheFormat, KeyFormat> where KeyFormat : notnull {
 		protected readonly ILogger logger;
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
@@ -45,42 +45,45 @@ namespace Albatross.Caching {
 				logger.LogError("CacheManagement {name} has already been registered", Name);
 			}
 		}
-
-		public string GetCacheKey(Context context) => BuildKey(context.OperationKey);
-		public virtual string BuildKey(params object[] compositeKey) => new CompositeKeyBuilder(this).Add(compositeKey).Build(false);
-
-		public void Remove(params object[] compositeKey) {
-			var key = BuildKey(compositeKey);
-			if (keyMgmt.IsPattern(key)) {
-				var keys = keyMgmt.FindKeys(key);
-				keyMgmt.Remove(keys);
-			} else {
-				keyMgmt.Remove(key);
-			}
+		public string GetCacheKey(Context context) => context.OperationKey;
+		public virtual void BuildKey(KeyBuilder builder, KeyFormat key) {
+			builder.Add(this, key);
 		}
-		public void RemoveAll(params object[] compositeKey) {
-			var key = new CompositeKeyBuilder(this).Add(compositeKey).Build(true);
+
+		public string CreateKey(KeyFormat key, bool postfixWildCard = false) {
+			var builder = new KeyBuilder();
+			BuildKey(builder, key);
+			return builder.Build(postfixWildCard);
+		}
+		public void Remove(KeyFormat compositeKey) {
+			var key = CreateKey(compositeKey, false);
+			keyMgmt.Remove(key);
+		}
+		public void RemoveSelfAndChildren(KeyFormat compositeKey) {
+			var key = CreateKey(compositeKey, true);
 			var keys = keyMgmt.FindKeys(key);
 			keyMgmt.Remove(keys);
 		}
 
-		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, Context context, CancellationToken cancellationToken) {
+		public void Reset() {
+
+		}
+
+		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, KeyFormat key, CancellationToken cancellationToken) {
 			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
-			return policy.ExecuteAsync(func, context, cancellationToken);
+			return policy.ExecuteAsync(func, new Context(CreateKey(key)), cancellationToken);
 		}
-
-		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, Context context) {
+		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, KeyFormat key) {
 			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
-			return policy.ExecuteAsync(func, context);
+			return policy.ExecuteAsync(func, new Context(CreateKey(key)));
 		}
 
-		public Task<(bool, CacheFormat)> TryGetAsync(object[] compositeKey, CancellationToken cancellationToken) {
-			string key = this.BuildKey(compositeKey);
-			return this.cacheProvider.TryGetAsync(key, cancellationToken, false);
+		public Task<(bool, CacheFormat)> TryGetAsync(KeyFormat key, CancellationToken cancellationToken) {
+			string keyText = this.CreateKey(key);
+			return this.cacheProvider.TryGetAsync(keyText, cancellationToken, false);
 		}
-
-		public async Task PutAsync(object[] compositeKey, CacheFormat value, CancellationToken cancellationToken = default) {
-			var key = this.BuildKey(compositeKey);
+		public async Task PutAsync(KeyFormat compositeKey, CacheFormat value, CancellationToken cancellationToken = default) {
+			var key = this.CreateKey(compositeKey);
 			await this.cacheProvider.PutAsync(key, value, this.TtlStrategy.GetTtl(new Context(key), value), cancellationToken, false);
 		}
 	}

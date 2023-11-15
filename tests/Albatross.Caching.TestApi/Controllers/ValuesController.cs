@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace Albatross.Caching.TestApi.Controllers {
 	[Route("api/[controller]")]
@@ -20,43 +19,41 @@ namespace Albatross.Caching.TestApi.Controllers {
 		[HttpGet("keys")]
 		public string[] GetKeys() => keyMgmt.FindKeys("*");
 
-		[HttpGet("tier1")]
-		public async Task<string> GetTier1(string key) {
-			var result = await t1Cache.ExecuteAsync(context => Task.FromResult(key.GetHashCode().ToString()), My.Context(key));
+		[HttpGet("t1")]
+		public async Task<string> GetTier1(int key) {
+			var result = await t1Cache.ExecuteAsync(context => Task.FromResult(Random.Shared.Next().ToString()), new MultiTierKey(key));
 			return result;
 		}
-		
-		[HttpPost("remove-tier1-item")]
-		public void RemoveTier1Item(string key) => t1Cache.Remove(key);
-		[HttpPost("reset-tier1-item")]
-		public void ResetTier1Item(string key) => t1Cache.RemoveAll(key);
-		[HttpPost("reset-tier1")]
-		public void ResetTier1() => t1Cache.RemoveAll();
+		[HttpPost("remove-t1-item")]
+		public void RemoveTier1Item(int key) => t1Cache.Remove(new MultiTierKey(key));
+		[HttpPost("reset-t1-item")]
+		public void ResetTier1Item(int key) => t1Cache.RemoveSelfAndChildren(new MultiTierKey(key));
+		[HttpPost("reset-t1")]
+		public void ResetTier1() => t1Cache.RemoveSelfAndChildren(new MultiTierKey());
 
 
-		[HttpGet("tier2")]
-		public async Task<byte[]> GetTier2(string t1Key, string key) {
-			var result = await t2Cache.ExecuteAsync(context => Task.FromResult(Encoding.UTF8.GetBytes(key)), My.Context(t1Key, key));
+		[HttpGet("t2")]
+		public async Task<string> GetTier2(int t1Key, int key) {
+			var result = await t2Cache.ExecuteAsync(context => Task.FromResult(Random.Shared.Next().ToString()), new MultiTierKey(t1Key, key));
 			return result;
 		}
 		[HttpPost("remove-t2-item")]
-		public void RemoveTier2(string t1Key, string key) => t2Cache.Remove(t1Key, key);
+		public void RemoveTier2Item(int t1Key, int key) => t2Cache.Remove(new MultiTierKey(t1Key, key));
 		[HttpPost("reset-t2-item")]
-		public void ResetTier2(string t1Key, string key) => t2Cache.RemoveAll(t1Key, key);
-		[HttpPost("reset-yours")]
-		public void ResetYours() => t2Cache.RemoveAll();
+		public void ResetTier2Item(int t1Key, int key) => t2Cache.RemoveSelfAndChildren(new MultiTierKey(t1Key, key));
+		[HttpPost("reset-t2")]
+		public void ResetTier2(int t1Key) => t2Cache.RemoveSelfAndChildren(new MultiTierKey(t1Key));
 
-		[HttpGet("tier3")]
-		public async Task<HisHerData> GetHis(string t1Key, string t2Key, string key) {
-			var result = await t3Cache.ExecuteAsync(context => Task.FromResult(new HisHerData(key, Random.Shared.Next(0, 100))),
-				My.Context(t1Key, t2Key, key));
+		[HttpGet("t3")]
+		public async Task<string> GetTier3(int t1Key, int t2Key, int key) {
+			var result = await t3Cache.ExecuteAsync(context => Task.FromResult(Random.Shared.Next().ToString()), new MultiTierKey(t1Key, t2Key, key));
 			return result;
 		}
 		[HttpPost("remove-t3-item")]
-		public void RemoveTier3Item(string t1Key, string t2Key, string key) => t3Cache.Remove(t1Key, t2Key, key);
+		public void RemoveTier3Item(int t1Key, int t2Key, int key) => t3Cache.Remove(new MultiTierKey(t1Key, t2Key, key));
 		[HttpPost("reset-t3-item")]
-		public void ResetTier3Item(string t1Key, string t2Key, string key) => t3Cache.RemoveAll(t1Key, t2Key, key);
+		public void ResetTier3Item(int t1Key, int t2Key, int key) => t3Cache.RemoveSelfAndChildren(new MultiTierKey(t1Key, t2Key, key));
 		[HttpPost("reset-t3")]
-		public void ResetTier3(string t1Key, string t2Key, string key) => t3Cache.RemoveAll(t1Key, t2Key);
+		public void ResetTier3(int t1Key, int t2Key) => t3Cache.RemoveSelfAndChildren(new MultiTierKey(t1Key, t2Key));
 	}
 }

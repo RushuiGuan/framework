@@ -1,5 +1,5 @@
-﻿using Albatross.Hosting.Test;
-using Polly;
+﻿using Albatross.Caching.Test.CacheMgmt;
+using Albatross.Hosting.Test;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -8,50 +8,49 @@ namespace Albatross.Caching.Test {
 		[Theory]
 		[InlineData(MemCacheHost.HostType)]
 		[InlineData(RedisCacheHost.HostType)]
-		public async Task TestKeyCreation(string hostType) {
+		public async Task TestStringKeyCreation(string hostType) {
 			using var host = hostType.GetTestHost();
-			var scope = host.Create();
-			var cache = scope.Get<LongTermCacheMgmt1>();
+			using var scope = host.Create();
+			var cache1 = scope.Get<StringKeyCacheMgmt>();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
 			var data = new MyData("a");
 			var keys = new string[] { "", "1", "2", "3" };
 
-			foreach(var key in keys) { 
-				await cache.PutAsync(new object[] { key }, data);
+			foreach (var key in keys) {
+				await cache1.PutAsync(key, data);
 			}
 			var allKeys = keyMgmt.FindKeys("*");
-			foreach(var key in keys) {
-				Assert.Contains(cache.GetCacheKey(new Context(key)), allKeys);
+			foreach (var key in keys) {
+				Assert.Contains(cache1.CreateKey(key), allKeys);
 			}
 		}
-
 
 		[Theory]
 		[InlineData(MemCacheHost.HostType)]
 		[InlineData(RedisCacheHost.HostType)]
 		public async Task TestKeyRemoval(string hostType) {
 			using var host = hostType.GetTestHost();
-			var scope = host.Create();
-			var cache = scope.Get<LongTermCacheMgmt1>();
+			using var scope = host.Create();
+			var cache = scope.Get<StringKeyCacheMgmt>();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
 			var data = new MyData("a");
 			var keys = new string[] { "", "1", "2", "3" };
 
 			foreach (var key in keys) {
-				await cache.PutAsync(new object[] { key }, data);
+				await cache.PutAsync(key, data);
 			}
 			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
-				Assert.Contains(cache.GetCacheKey(new Context(key)), allKeys);
+				Assert.Contains(cache.CreateKey(key), allKeys);
 			}
 			foreach (var key in keys) {
 				cache.Remove(key);
 			}
 			allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
-				Assert.DoesNotContain(cache.GetCacheKey(new Context(key)), allKeys);
+				Assert.DoesNotContain(cache.CreateKey(key), allKeys);
 			}
 		}
 
@@ -60,31 +59,31 @@ namespace Albatross.Caching.Test {
 		[InlineData(RedisCacheHost.HostType)]
 		public async Task TestKeyReset(string hostType) {
 			using var host = hostType.GetTestHost();
-			var scope = host.Create();
-			var cache1 = scope.Get<LongTermCacheMgmt1>();
-			var cache2 = scope.Get<LongTermCacheMgmt2>(); 
+			using var scope = host.Create();
+			var compositeKeycache = scope.Get<StringKey2CacheMgmt>();
+			var stringKeyCache = scope.Get<StringKeyCacheMgmt>();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
 			var data = new MyData("a");
 			var keys = new string[] { "", "1", "2", "3" };
 
 			foreach (var key in keys) {
-				await cache1.PutAsync(new object[]{ key }, data);
-				await cache2.PutAsync(new object[]{ key }, data);
+				await compositeKeycache.PutAsync(key, data);
+				await stringKeyCache.PutAsync(key, data);
 			}
 
 			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
-				Assert.Contains(cache1.GetCacheKey(new Context(key)), allKeys);
+				Assert.Contains(compositeKeycache.CreateKey(key), allKeys);
 			}
-			cache1.RemoveAll();
-			
+			compositeKeycache.RemoveSelfAndChildren(string.Empty);
+
 			allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
-				Assert.DoesNotContain(cache1.GetCacheKey(new Context(key)), allKeys);
+				Assert.DoesNotContain(compositeKeycache.CreateKey(key), allKeys);
 			}
 			foreach (var key in keys) {
-				Assert.Contains(cache2.GetCacheKey(new Context(key)), allKeys);
+				Assert.Contains(stringKeyCache.CreateKey(key), allKeys);
 			}
 		}
 	}
