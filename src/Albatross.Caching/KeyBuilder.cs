@@ -15,8 +15,16 @@ namespace Albatross.Caching {
 			foreach (var item in items) { parts.Add(item); }
 			return this;
 		}
-		public KeyBuilder Add(ICacheManagement cacheManagement, object key) {
+		public KeyBuilder Add<T>(ICacheManagement cacheManagement, T key) where T : notnull {
 			parts.Add(cacheManagement.KeyPrefix);
+			parts.Add(key);
+			return this;
+		}
+		public KeyBuilder Add(ICacheManagement cacheManagement) {
+			parts.Add(cacheManagement.KeyPrefix);
+			return this;
+		}
+		public KeyBuilder Add<T>(T key) where T : notnull {
 			parts.Add(key);
 			return this;
 		}
