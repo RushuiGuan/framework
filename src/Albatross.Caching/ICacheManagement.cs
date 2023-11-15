@@ -18,13 +18,11 @@ namespace Albatross.Caching {
 		void OnCachePutError(Context context, string cacheKey, Exception error);
 	}
 
-	public interface ICacheKeyBuilder<KeyFormat> {
-		void BuildKey(KeyBuilder builder, KeyFormat key);
-	}
 
-	public interface ICacheManagement<CacheFormat, KeyFormat> : ICacheManagement, ICacheKeyBuilder<KeyFormat> {
+	public interface ICacheManagement<CacheFormat, KeyFormat> : ICacheManagement {
 		void Remove(KeyFormat compositeKey);
 		void RemoveSelfAndChildren(KeyFormat compositeKey);
+		void BuildKey(KeyBuilder builder, KeyFormat key);
 
 		Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, KeyFormat key, CancellationToken cancellationToken);
 		Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, KeyFormat key);
