@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Caching {
-
 	/// <summary>
 	/// a abstract cache management class.  All cache created by this class should have a prefix of $"{Name}:".  The name of the cache management is a virtual property with
 	/// the default implementation that returns the class name.
@@ -64,12 +63,12 @@ namespace Albatross.Caching {
 			var keys = keyMgmt.FindKeys(key);
 			keyMgmt.Remove(keys);
 		}
-
 		public void Reset() {
-
+			var pattern = new KeyBuilder().BuildCacheResetKeyPattern(this);
+			keyMgmt.FindAndRemove(pattern);
 		}
 
-		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, KeyFormat key, CancellationToken cancellationToken) {
+		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, KeyFormat key, CancellationToken cancellationToken = default) {
 			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
 			return policy.ExecuteAsync(func, new Context(CreateKey(key)), cancellationToken);
 		}
@@ -78,7 +77,7 @@ namespace Albatross.Caching {
 			return policy.ExecuteAsync(func, new Context(CreateKey(key)));
 		}
 
-		public Task<(bool, CacheFormat)> TryGetAsync(KeyFormat key, CancellationToken cancellationToken) {
+		public Task<(bool, CacheFormat)> TryGetAsync(KeyFormat key, CancellationToken cancellationToken = default) {
 			string keyText = this.CreateKey(key);
 			return this.cacheProvider.TryGetAsync(keyText, cancellationToken, false);
 		}

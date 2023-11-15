@@ -15,7 +15,6 @@ namespace Albatross.Caching {
 			var registry = new PolicyRegistry();
 			services.TryAdd(ServiceDescriptor.Singleton<IPolicyRegistry<string>>(registry));
 			services.TryAdd(ServiceDescriptor.Singleton<IReadOnlyPolicyRegistry<string>>(registry));
-			services.TryAdd(ServiceDescriptor.Singleton<ICacheManagementFactory, CacheManagementFactory>());
 			return services;
 		}
 

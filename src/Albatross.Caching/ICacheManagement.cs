@@ -16,12 +16,10 @@ namespace Albatross.Caching {
 		void OnCachePut(Context context, string cacheKey);
 		void OnCacheGetError(Context context, string cacheKey, Exception error);
 		void OnCachePutError(Context context, string cacheKey, Exception error);
-
-		
 	}
+
 	public interface ICacheKeyBuilder<KeyFormat> {
-		// ICacheKeyBuilder<KeyFormat>? Parent { get; }
-		string CreateKey(KeyFormat key, bool postfixWildCard);
+		void BuildKey(KeyBuilder builder, KeyFormat key);
 	}
 
 	public interface ICacheManagement<CacheFormat, KeyFormat> : ICacheManagement, ICacheKeyBuilder<KeyFormat> {

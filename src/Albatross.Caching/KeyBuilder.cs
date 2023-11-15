@@ -20,6 +20,10 @@ namespace Albatross.Caching {
 			parts.Add(key);
 			return this;
 		}
+		public string BuildCacheResetKeyPattern(ICacheManagement cacheKeyManagement) {
+			Add(cacheKeyManagement, string.Empty);
+			return Build(true);
+		}
 		public string Build(bool postfixWildCard) {
 			var sb = new StringBuilder();
 			foreach (var item in parts) {

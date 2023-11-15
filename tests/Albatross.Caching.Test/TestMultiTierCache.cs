@@ -7,7 +7,7 @@ using Xunit;
 using System.Collections.Generic;
 
 namespace Albatross.Caching.Test {
-	public class TestCustomKeyCache {
+	public class TestMultiTierCache {
 		[Fact]
 		public void TestKeyGeneration() {
 			using var host = "redis".GetTestHost();
