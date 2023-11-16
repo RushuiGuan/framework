@@ -77,8 +77,8 @@ namespace Albatross.Caching.Redis {
 			}else if(servers.Count == 0) {
 				throw new InvalidOperationException("Redis connection not initialized");
 			}
-			logger.LogInformation("Searching keys with pattern: {value}", pattern);
 			pattern = instance + pattern;
+			logger.LogInformation("Searching keys with pattern: {value}", pattern);
 			List<string> keys = new List<string>();
 			foreach (var server in servers) {
 				foreach (var key in server.Keys(pattern: pattern)) {
