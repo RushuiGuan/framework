@@ -30,10 +30,10 @@ namespace Albatross.Caching {
 		public abstract ITtlStrategy TtlStrategy { get; }
 
 		public virtual void OnCacheGet(Context context, string cacheKey) { }
-		public virtual void OnCacheMiss(Context context, string cacheKey) => logger.LogInformation("Cache miss: {key}", cacheKey);
-		public virtual void OnCachePut(Context context, string cacheKey) => logger.LogInformation("Cache put: {key}", cacheKey);
-		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error getting cache {name}", this.Name);
-		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", this.Name);
+		public virtual void OnCacheMiss(Context context, string cacheKey) => logger.LogInformation("cache miss: {key}", cacheKey);
+		public virtual void OnCachePut(Context context, string cacheKey) => logger.LogInformation("cache put: {key}", cacheKey);
+		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error getting cache {name}", cacheKey);
+		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", cacheKey);
 
 		public void Register() {
 			if (!registry.ContainsKey(Name)) {

@@ -78,7 +78,7 @@ namespace Albatross.Caching.Redis {
 				throw new InvalidOperationException("Redis connection not initialized");
 			}
 			pattern = instance + pattern;
-			logger.LogInformation("Searching keys with pattern: {value}", pattern);
+			logger.LogInformation("Searching redis keys with pattern: {value}", pattern);
 			List<string> keys = new List<string>();
 			foreach (var server in servers) {
 				foreach (var key in server.Keys(pattern: pattern)) {
@@ -89,9 +89,10 @@ namespace Albatross.Caching.Redis {
 		}
 
 		public void Remove(string[] keys) {
-			if (keys.Length > 0) {
-				logger.LogInformation("Removing redis cache keys: {@keys}", keys);
-				this.Cache.KeyDelete(keys.Select(key => new RedisKey(instance + key)).ToArray());
+			foreach (var key in keys) {
+				var fullKey = instance + key;
+				logger.LogInformation("Removing redis cache: {key}", fullKey);
+				this.Cache.KeyDelete(new RedisKey(fullKey));
 			}
 		}
 		public void Dispose() {
