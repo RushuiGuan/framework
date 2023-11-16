@@ -9,7 +9,7 @@ namespace Albatross.Caching.Test {
 		[InlineData("A", "B:", "a:b:")]
 		[InlineData("A:", "B:", "a:b:")]
 		public void CreateCompositeKey1(string key1, string key2, string expected) {
-			var result = new KeyBuilder().Add(new string[] { key1, key2 }).Build(false);
+			var result = new KeyBuilder().AddKeys(new string[] { key1, key2 }).Build(false);
 			Assert.Equal(expected, result);
 		}
 
@@ -22,7 +22,7 @@ namespace Albatross.Caching.Test {
 		[InlineData("A", "B:", "a:b:")]
 		[InlineData("A:", "B:", "a:b:")]
 		public void CreateCompositeKey2(string key1, string key2, string expected) {
-			var result = new KeyBuilder().Add(new object[] { key1 }).Add(new object[] { key2 }).Build(false);
+			var result = new KeyBuilder().AddKey(key1).AddKey(key2).Build(false);
 			Assert.Equal(expected, result);
 		}
 	}
