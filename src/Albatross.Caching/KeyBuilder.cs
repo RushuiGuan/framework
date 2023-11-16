@@ -20,7 +20,7 @@ namespace Albatross.Caching {
 			parts.Add(key);
 			return this;
 		}
-		public KeyBuilder Add(ICacheManagement cacheManagement) {
+		public KeyBuilder AddCache(ICacheManagement cacheManagement) {
 			parts.Add(cacheManagement.KeyPrefix);
 			return this;
 		}
