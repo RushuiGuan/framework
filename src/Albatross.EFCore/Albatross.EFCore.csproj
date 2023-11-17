@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
+	<PropertyGroup>
 		<TargetFrameworks>net8.0;net6.0</TargetFrameworks>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-        <Description>This assembly contains convenient classes that allow users to get EFCore up and running quickly.  It also contains entity ChangeReporting functionality and implementation of DateLevelEntity pattern.</Description>
-        <Authors>Rushui Guan</Authors>
-        <Nullable>enable</Nullable>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
-    </PropertyGroup>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+		<Description>This assembly contains convenient classes that allow users to get EFCore up and running quickly.  It also contains entity ChangeReporting functionality and implementation of DateLevelEntity pattern.</Description>
+		<Authors>Rushui Guan</Authors>
+		<Nullable>enable</Nullable>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+	</PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
@@ -18,19 +18,17 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 	</ItemGroup>
-    <ItemGroup>
-        <None Include="..\..\LICENSE">
-            <Pack>True</Pack>
-            <PackagePath></PackagePath>
-        </None>
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Albatross\Albatross.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Update="readme.md">
-        <PackagePath>\</PackagePath>
-        <Pack>True</Pack>
-      </None>
-    </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\readme.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Albatross\Albatross.csproj" />
+	</ItemGroup>
 </Project>
