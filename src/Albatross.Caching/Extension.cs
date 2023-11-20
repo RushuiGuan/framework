@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Polly.Registry;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Albatross.Caching {
@@ -16,7 +15,6 @@ namespace Albatross.Caching {
 			var registry = new PolicyRegistry();
 			services.TryAdd(ServiceDescriptor.Singleton<IPolicyRegistry<string>>(registry));
 			services.TryAdd(ServiceDescriptor.Singleton<IReadOnlyPolicyRegistry<string>>(registry));
-			services.TryAdd(ServiceDescriptor.Singleton<ICacheManagementFactory, CacheManagementFactory>());
 			return services;
 		}
 
@@ -30,7 +28,8 @@ namespace Albatross.Caching {
 		}
 
 		public static IServiceCollection AddCacheMgmt<T>(this IServiceCollection services) where T : class, ICacheManagement {
-			services.TryAddEnumerable(ServiceDescriptor.Singleton<ICacheManagement, T>());
+			services.TryAddSingleton<T>();
+			services.TryAddEnumerable(ServiceDescriptor.Singleton<ICacheManagement>(provider => provider.GetRequiredService<T>()));
 			return services;
 		}
 
@@ -42,32 +41,15 @@ namespace Albatross.Caching {
 		/// <returns></returns>
 		public static IServiceCollection AddCacheMgmt(this IServiceCollection services, Assembly assembly) {
 			if (assembly != null) {
-				Type genericDefinition = typeof(ICacheManagement<>);
+				Type genericDefinition = typeof(ICacheManagement<,>);
 				foreach (Type type in assembly.GetConcreteClasses()) {
 					if (type.TryGetClosedGenericType(genericDefinition, out Type? _)) {
-						services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(ICacheManagement), type));
+						services.TryAddSingleton(type);
+						services.AddSingleton<ICacheManagement>(provider => (ICacheManagement)provider.GetRequiredService(type));
 					}
 				}
 			}
 			return services;
-		}
-
-
-		public static ICacheManagement Get(this ICacheManagementFactory factory, string name) {
-			if (factory.TryGetValue(name, out ICacheManagement result)) {
-				return result;
-			} else {
-				throw new ArgumentException($"CacheManagement {name} is not registered");
-			}
-		}
-
-		public static ICacheManagement<CacheFormat> Get<CacheFormat>(this ICacheManagementFactory factory, string name) {
-			ICacheManagement cache = factory.Get(name);
-			return (ICacheManagement<CacheFormat>)cache;
-		}
-
-		public static void Remove(this ICacheManagement cache, IEnumerable<string> keys) {
-			cache.Remove(keys.Select(args => new Polly.Context(args)).ToArray());
 		}
 	}
 }

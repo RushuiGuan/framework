@@ -87,7 +87,7 @@ namespace Albatross.WebClient.Test {
 		}
 	}
 
-	public class PollyTestHost : TestHost {
+	public class PollyTestHost : Hosting.Test.TestHost {
 		public static readonly AsyncRetryPolicy<HttpResponseMessage> retryPolicy = Policy.Handle<HttpRequestException>()
 				.OrResult<HttpResponseMessage>(response => (int)response.StatusCode >= 500 || response.StatusCode == System.Net.HttpStatusCode.RequestTimeout)
 				.WaitAndRetryAsync(new[] {

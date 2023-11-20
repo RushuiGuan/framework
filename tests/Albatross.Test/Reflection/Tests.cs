@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using System.Collections;
 using Xunit;
 using System.IO;
-using System.Linq;
 using Albatross.Config;
 using System.Threading.Tasks;
-using Org.BouncyCastle.Crypto.Agreement.JPake;
 
 namespace Albatross.Test.Reflection {
-    public struct GenericStruct<T> {
+	public struct GenericStruct<T> {
         public T ID { get; set; }
     }
 

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using Polly.Caching;
 using System;
 
@@ -12,7 +13,8 @@ namespace Albatross.Caching.Redis {
 			config.Validate();
 
 			services.AddConfig<RedisConfig>();
-			services.AddSingleton<ICacheKeyManagement, RedisCacheKeyManagement>();
+			services.AddSingleton<RedisCacheKeyManagement>();
+			services.AddSingleton<ICacheKeyManagement>(provider => provider.GetRequiredService<RedisCacheKeyManagement>());
 			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider<string>, Polly.Caching.Distributed.NetStandardIDistributedCacheStringProvider>());
 			services.TryAdd(ServiceDescriptor.Singleton<IAsyncCacheProvider<byte[]>, Polly.Caching.Distributed.NetStandardIDistributedCacheByteArrayProvider>());
 			services.AddStackExchangeRedisCache(option => {
@@ -37,6 +39,14 @@ namespace Albatross.Caching.Redis {
 					throw new NotSupportedException();
 			}
 			return services;
+		}
+		public static void UseRedisCaching(this IServiceProvider serviceProvider) {
+			var logger = serviceProvider.GetRequiredService<ILogger>();
+			try {
+				serviceProvider.GetRequiredService<RedisCacheKeyManagement>().Init().Wait();
+			}catch(Exception err) {
+				logger.LogError(err, "Error connecting to redis server");
+			}
 		}
 	}
 }

@@ -94,7 +94,7 @@ namespace Albatross.WebClient {
 		/// <returns></returns>
 		public AsyncRetryPolicy<T> GetDefaultRetryPolicy<T>(Func<T, bool> predicate, Action<DelegateResult<T>, TimeSpan> onRetry, bool retryInternalServerError, int count, int? maxDelayInSeconds) {
 			var array = new TimeSpan[count];
-			var delay = 1; 
+			var delay = 1;
 			for (int i = 0; i < count; i++) {
 				array[i] = TimeSpan.FromSeconds(delay);
 				delay = delay * 2;
@@ -193,37 +193,37 @@ namespace Albatross.WebClient {
 			}
 		}
 		public async Task<string> GetRawResponse(HttpRequestMessage request) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsText(response);
 			}
 		}
 		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsText<ErrorType>(response);
 			}
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsJson<ResultType, ErrorType>(response);
 			}
 		}
 		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsJson<ResultType>(response);
 			}
 		}
 		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				await this.Download<ErrorType>(response, stream);
 			}
 		}
 		public async Task Download(HttpRequestMessage request, Stream stream) {
-			logger.LogDebug("{method}: {url}", request.Method, $"{new Uri(BaseUrl, request.RequestUri!)}");
+			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				await this.Download(response, stream);
 			}

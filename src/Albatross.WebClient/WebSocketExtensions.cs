@@ -31,7 +31,7 @@ namespace Albatross.WebClient {
 			var buffer = new Memory<byte>(data);
 			int left = data.Length, offset = 0;
 			do {
-				int count = Math.Min(bufferSize, left);
+				int count = System.Math.Min(bufferSize, left);
 				left -= count;
 				await socket.SendAsync(buffer.Slice(offset, count), messageType, left == 0, cancellation);
 				offset += count;

@@ -6,14 +6,26 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.WebClient.Test{
 	public class MyProxyService : WebClient.ClientBase {
 		public MyProxyService(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
 		}
+		public async Task<string> RunMe() {
+			using var request = CreateRequest(HttpMethod.Get, string.Empty, new NameValueCollection());
+			return await this.GetRawResponse(request);
+		}
 	}
 	public class TestMyProxyService {
+		[Fact]
+		public async void TestNoRelativeAddress() {
+			var client = new HttpClient();
+			client.BaseAddress = new Uri("http://myyyhost/mmmyyy-data");
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
+			await proxy.RunMe();
+		}
 		[Fact]
 		public void TestRequestGeneration1() {
 			List<int> ids = new List<int>();

@@ -15,7 +15,7 @@ namespace Albatross.Serialization.Test {
 		public void TestDefaultOptions() {
 			var option = new JsonSerializerOptions() {
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-				 DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault
+				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault
 			};
 			var value = new TestClass("abc");
 			var text = JsonSerializer.Serialize(value, option);

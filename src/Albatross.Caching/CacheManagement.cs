@@ -3,23 +3,20 @@ using Polly;
 using Polly.Caching;
 using Polly.Registry;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Albatross.Caching {
-
 	/// <summary>
 	/// a abstract cache management class.  All cache created by this class should have a prefix of $"{Name}:".  The name of the cache management is a virtual property with
 	/// the default implementation that returns the class name.
 	/// </summary>
 	/// <typeparam name="CacheFormat"></typeparam>
-	public abstract class CacheManagement<CacheFormat> : ICacheManagement<CacheFormat>, ICacheKeyStrategy {
+	public abstract class CacheManagement<CacheFormat, KeyFormat> : ICacheManagement<CacheFormat, KeyFormat> where KeyFormat : notnull {
 		protected readonly ILogger logger;
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
 		private readonly ICacheKeyManagement keyMgmt;
-		public const string Context_Init = "init";
 
 		public CacheManagement(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter, ICacheKeyManagement keyMgmt) {
 			this.logger = logger;
@@ -28,27 +25,15 @@ namespace Albatross.Caching {
 			this.cacheProvider = cacheProviderAdapter.Create<CacheFormat>();
 		}
 
-		public virtual string Name => this.GetType().Name;
+		public string Name => this.GetType().Name;
+		public virtual string KeyPrefix => this.Name;
 		public abstract ITtlStrategy TtlStrategy { get; }
 
 		public virtual void OnCacheGet(Context context, string cacheKey) { }
-		public virtual void OnCacheMiss(Context context, string cacheKey) {
-			if (!context.ContainsKey(Context_Init)) {
-				logger.LogInformation("Cache miss: {key}", cacheKey);
-			}
-		}
-		public virtual void OnCachePut(Context context, string cacheKey) {
-			if (!context.ContainsKey(Context_Init)) {
-				logger.LogInformation("Cache put: {key}", cacheKey);
-			}
-		}
-		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) {
-			logger.LogError(error, "Cache get error for {name}", this.Name);
-		}
-		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) {
-			logger.LogError(error, "Cache put error for {name}", this.Name);
-
-		}
+		public virtual void OnCacheMiss(Context context, string cacheKey) => logger.LogInformation("cache miss: {key}", cacheKey);
+		public virtual void OnCachePut(Context context, string cacheKey) => logger.LogInformation("cache put: {key}", cacheKey);
+		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error getting cache {name}", cacheKey);
+		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", cacheKey);
 
 		public void Register() {
 			if (!registry.ContainsKey(Name)) {
@@ -56,40 +41,49 @@ namespace Albatross.Caching {
 					OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
 				registry.Add(Name, policy);
 			} else {
-				logger.LogError("CacheManagement {cacheName} has already been registered", Name);
+				logger.LogError("CacheManagement {name} has already been registered", Name);
 			}
 		}
-
-		// dash below is intentional so that it can be used as part of the prefix to evict all cache created by this class
-		public virtual string GetCacheKey(Context context) => $"{Name}{ICacheManagement.CacheKeyDelimiter}{context.OperationKey}".ToLowerInvariant();
-
-		public void Remove(params Context[] contexts) {
-			var keys = contexts.Select(args => GetCacheKey(args));
-			logger.LogInformation("Removing cache: {@key}", keys);
-			keyMgmt.Remove(keys.ToArray());
+		public string GetCacheKey(Context context) => context.OperationKey;
+		public virtual void BuildKey(KeyBuilder builder, KeyFormat key) {
+			builder.Add(this, key);
 		}
 
-		public Task Reset() {
-			var pattern = GetCacheKey(new Context()) + "*";
-			return this.keyMgmt.FindAndRemoveKeys(pattern);
+		public string CreateKey(KeyFormat key, bool postfixWildCard = false) {
+			var builder = new KeyBuilder();
+			BuildKey(builder, key);
+			return builder.Build(postfixWildCard);
+		}
+		public void Remove(KeyFormat compositeKey) {
+			var key = CreateKey(compositeKey, false);
+			keyMgmt.Remove(key);
+		}
+		public void RemoveSelfAndChildren(KeyFormat compositeKey) {
+			var key = CreateKey(compositeKey, true);
+			var keys = keyMgmt.FindKeys(key);
+			keyMgmt.Remove(keys);
+		}
+		public void Reset() {
+			var pattern = new KeyBuilder().BuildCacheResetKeyPattern(this);
+			keyMgmt.FindAndRemove(pattern);
 		}
 
-		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, Context context, CancellationToken cancellationToken) {
+		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, KeyFormat key, CancellationToken cancellationToken = default) {
 			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
-			return policy.ExecuteAsync(func, context, cancellationToken);
+			return policy.ExecuteAsync(func, new Context(CreateKey(key)), cancellationToken);
 		}
-
-		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, Context context) {
+		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, KeyFormat key) {
 			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
-			return policy.ExecuteAsync(func, context);
+			return policy.ExecuteAsync(func, new Context(CreateKey(key)));
 		}
 
-		public Task<(bool, CacheFormat)> TryGetAsync(Context context, CancellationToken cancellationToken) {
-			string key = GetCacheKey(context);
-			return this.cacheProvider.TryGetAsync(key, cancellationToken, false);
+		public Task<(bool, CacheFormat)> TryGetAsync(KeyFormat key, CancellationToken cancellationToken = default) {
+			string keyText = this.CreateKey(key);
+			return this.cacheProvider.TryGetAsync(keyText, cancellationToken, false);
 		}
-
-		public Task PutAsync(Context context, CacheFormat value, CancellationToken cancellationToken = default) =>
-			this.cacheProvider.PutAsync(GetCacheKey(context), value, this.TtlStrategy.GetTtl(context, value), cancellationToken, false);
+		public async Task PutAsync(KeyFormat compositeKey, CacheFormat value, CancellationToken cancellationToken = default) {
+			var key = this.CreateKey(compositeKey);
+			await this.cacheProvider.PutAsync(key, value, this.TtlStrategy.GetTtl(new Context(key), value), cancellationToken, false);
+		}
 	}
 }

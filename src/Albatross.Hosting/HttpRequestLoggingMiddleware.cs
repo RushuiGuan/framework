@@ -4,6 +4,17 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting {
+	public class UsageWriter{ 
+		public ILogger Logger { get; }
+
+		public UsageWriter(ILogger logger) {
+			Logger = logger;
+		}
+
+		public void Write(UsageData usageData) {
+			Logger.LogInformation("{@data}", usageData);
+		}
+	}
 	public record class UsageData {
 		public UsageData(HttpContext context) {
 			User = GetCurrentUserFromHttpContext.GetFromContext(context);
@@ -23,8 +34,8 @@ namespace Albatross.Hosting {
 			this.next = next;
 		}
 
-		public async Task InvokeAsync(HttpContext context, ILogger<HttpRequestLoggingMiddleware> logger) {
-			logger.LogInformation("{@data}", new UsageData(context));
+		public async Task InvokeAsync(HttpContext context, UsageWriter writer) {
+			writer.Write(new UsageData(context));
 			await next(context);
 		}
 	}

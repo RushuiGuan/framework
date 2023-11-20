@@ -45,7 +45,7 @@ namespace Albatross.Text {
 
 		/// <summary>
 		/// match a string against a glob pattern.  ? matches any single character and * matches any characters
-		/// If dealing with file systems directly, please use Microsoft.Extensions.FileSystemGlobbing instead.
+		/// If dealing with file systems directly, please use <see cref="Microsoft.Extensions.FileSystemGlobbing"/> instead.
 		/// The method will return false for null or empty text string.  It will throw an ArgumentException if the 
 		/// parameter <paramref name="globPattern"/> is null.
 		/// </summary>

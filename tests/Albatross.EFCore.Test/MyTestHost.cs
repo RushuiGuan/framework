@@ -10,7 +10,7 @@ using System.Threading;
 using Albatross.EFCore.SqlServer;
 
 namespace Albatross.EFCore.Test {
-	public class MyTestHost : TestHost {
+	public class MyTestHost : Hosting.Test.TestHost {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
 			services.AddSqlServerWithContextPool<MyDbSession>(provider => Constant.ConnectionString);

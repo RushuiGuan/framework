@@ -18,7 +18,5 @@ extends:
     project: framework
     nugetPattern: 'framework/src/**/*.csproj'
     hasApp: false
-    hasDocFx: true
-    octopusProject: framework
-    octopusProjectGitRef:
+    hasDocFx: false
 
