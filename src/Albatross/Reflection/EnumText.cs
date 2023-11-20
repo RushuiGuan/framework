@@ -11,16 +11,6 @@ namespace Albatross.Reflection {
 	}
 
 	public static class EnumTextExtensions {
-		public static A? GetEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute where EnumType : struct {
-			var type = typeof(EnumType);
-			if (type.IsEnum) {
-				var value = enumValue.ToString();
-				var members = type.GetMember(value);
-				return members[0].GetCustomAttribute<A>();
-			} else {
-				throw new ArgumentException($"Type {type.FullName} is not an enum");
-			}
-		}
 		public static A? GetEnumMemberAttribute<A>(Type type, object enumValue) where A : Attribute  {
 			if (type.IsEnum) {
 				var name = Enum.GetName(type, enumValue);
@@ -30,11 +20,19 @@ namespace Albatross.Reflection {
 				throw new ArgumentException($"Type {type.FullName} is not an enum");
 			}
 		}
+		public static A? GetEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute where EnumType : struct
+			=> GetEnumMemberAttribute<A>(typeof(EnumType), enumValue);
+
+		public static A GetRequiredEnumMemberAttribute<A>(Type type, object enumValue) where A : Attribute
+			=> GetEnumMemberAttribute<A>(type, enumValue) ?? throw new ArgumentException($"{enumValue} is missing the {typeof(EnumTextAttribute)}");
+
+		public static A GetRequiredEnumMemberAttribute<EnumType, A>(this EnumType enumValue) where A : Attribute where EnumType : struct
+			=> GetRequiredEnumMemberAttribute<A>(typeof(EnumType), enumValue);
+
 		public static string GetEnumText<EnumType>(this EnumType value) where EnumType : struct
-			=> value.GetEnumMemberAttribute<EnumType, EnumTextAttribute>()?.Text 
-				?? throw new ArgumentException($"{value} is missing the {typeof(EnumTextAttribute)}");
+			=> value.GetRequiredEnumMemberAttribute<EnumType, EnumTextAttribute>().Text;
+
 		public static string GetEnumText(Type enumType, object value)
-			=> GetEnumMemberAttribute<EnumTextAttribute>(enumType, value)?.Text
-				?? throw new ArgumentException($"{value} is missing the {typeof(EnumTextAttribute)}");
+			=> GetRequiredEnumMemberAttribute<EnumTextAttribute>(enumType, value).Text;
 	}
 }
