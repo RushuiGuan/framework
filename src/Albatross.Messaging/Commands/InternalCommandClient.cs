@@ -4,6 +4,7 @@ using Albatross.Messaging.Services;
 using System;
 using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	/// <summary>
@@ -21,7 +22,7 @@ namespace Albatross.Messaging.Commands {
 			this.context = context;
 		}
 
-		public ulong Submit(object command, bool fireAndForget = true) {
+		public Task Submit(object command, bool fireAndForget = true) {
 			var type = command.GetType();
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
@@ -29,7 +30,7 @@ namespace Albatross.Messaging.Commands {
 				var request = new CommandRequest(context.Route, context.Id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
 				var internalCmd = new InternalCommand(request);
 				this.routerServer.SubmitToQueue(internalCmd);
-				return request.Id;
+				return Task.FromResult(request.Id);
 			} else {
 				throw new NotSupportedException();
 			}

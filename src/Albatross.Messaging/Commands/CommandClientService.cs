@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Albatross.Messaging.Commands {
 	public delegate void CommandCallbackDelegate(ulong id, string commandType, byte[] message);
@@ -13,6 +15,8 @@ namespace Albatross.Messaging.Commands {
 
 	public class CommandClientService : IDealerClientService {
 		private readonly ILogger<CommandClientService> logger;
+		private readonly ConcurrentDictionary<ulong, IMessageCallback> commandCallbacks = new ConcurrentDictionary<ulong, IMessageCallback>();
+
 		public CommandClientService(ILogger<CommandClientService> logger) {
 			this.logger = logger;
 		}
@@ -29,6 +33,7 @@ namespace Albatross.Messaging.Commands {
 			switch (msg) {
 				/// server will send an ack to confirm the acceptance of the request
 				case CommandRequestAck:
+					AcceptAckMsg(dealerClient, msg);
 					return true;
 				case CommandReply reply:
 					AcceptResponse(dealerClient, reply);
@@ -65,14 +70,22 @@ namespace Albatross.Messaging.Commands {
 				});
 			}
 		}
-		
-		public ulong Submit(IMessagingService dealerClient, object command, bool fireAndForget) {
+		private void AcceptAckMsg(IMessagingService _, IMessage reply) {
+			if (commandCallbacks.Remove(reply.Id, out var callback)) {
+				callback.SetResult();
+			}
+		}
+		public Task Submit(IMessagingService dealerClient, object command, bool fireAndForget) {
 			var type = command.GetType();
 			var id = dealerClient.Counter.NextId();
+			MessageCallback callback = new MessageCallback();
+			if (!commandCallbacks.TryAdd(id, callback)) {
+				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
+			}
 			var bytes = JsonSerializer.SerializeToUtf8Bytes(command, type, MessagingJsonSettings.Value.Default);
-			var request = new CommandRequest(string.Empty, id, type.GetClassNameNeat(), fireAndForget ? CommandMode.FireAndForget : CommandMode.Callback , bytes);
+			var request = new CommandRequest(string.Empty, id, type.GetClassNameNeat(), fireAndForget ? CommandMode.FireAndForget : CommandMode.Callback, bytes);
 			dealerClient.SubmitToQueue(request);
-			return id;
+			return callback.Task;
 		}
 	}
 }

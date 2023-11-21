@@ -8,9 +8,9 @@ namespace Albatross.Messaging.Commands {
 	/// all other methods in this call should be thread safe.
 	/// </summary>
 	public interface ICommandClient {
-		ulong Submit(object command, bool fireAndForget = true);
+		Task Submit(object command, bool fireAndForget = true);
 	}
-	public class CommandClient : ICommandClient {
+	public class CommandClient : ICommandClient , IDisposable{
 		private readonly CommandClientService service;
 		private readonly IMessagingService dealerClient;
 
@@ -18,9 +18,12 @@ namespace Albatross.Messaging.Commands {
 			this.service = service;
 			this.dealerClient = dealerClient;
 		}
-
-		public ulong Submit(object command, bool fireAndForget = true)
+		public Task Submit(object command, bool fireAndForget = true)
 			=> service.Submit(dealerClient, command, fireAndForget);
+
+		public void Dispose() {
+			throw new NotImplementedException();
+		}
 	}
 
 	public abstract class CallbackCommandClient : ICommandClient , IDisposable{
