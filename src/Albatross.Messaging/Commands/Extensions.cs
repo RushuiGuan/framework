@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
@@ -73,10 +74,12 @@ namespace Albatross.Messaging.Commands {
 			return services;
 		}
 
-		public static IEnumerable<ulong> SubmitCollection(this ICommandClient client, IEnumerable<object> commands) {
+		public static Task SubmitCollection(this ICommandClient client, IEnumerable<object> commands) {
+			var tasks = new List<Task>();
 			foreach(var cmd in commands) {
-				yield return client.Submit(cmd);
+				tasks.Add(client.Submit(cmd));
 			}
+			return Task.WhenAll(tasks);
 		}
 	}
 }

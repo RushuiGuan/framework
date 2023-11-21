@@ -40,7 +40,7 @@ namespace Albatross.Messaging.Commands {
 			service.OnCommandError += OnCommandErrorCallback;
 		}
 		
-		public ulong Submit(object command, bool fireAndForget = true)
+		public Task Submit(object command, bool fireAndForget = true)
 			=> service.Submit(dealerClient, command, fireAndForget);
 
 		public void Dispose() {

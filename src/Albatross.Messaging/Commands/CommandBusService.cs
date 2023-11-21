@@ -56,16 +56,19 @@ namespace Albatross.Messaging.Commands {
 					break;
 				case InternalCommand internalCommand:
 					// the internal commands are sent here to be queued for execution
-					// internal command is simplified and it no longer use Task to notify caller if there is a failure in command creation.
-					// [TODO] instead it should send a command error to the original client [TODO]
 					try {
 						// record the internal command as receiving message since it bypass the Socket_ReceiveReady of the router server.
 						messagingService.EventWriter.WriteEvent(new EventSource.EventEntry(EntryType.In, internalCommand.Request));
 						var newItem = this.commandQueueFactory.CreateItem(internalCommand.Request);
 						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newItem.Id);
 						newItem.Queue.Submit(newItem);
+						internalCommand.SetResult();
 					}catch(Exception err) {
-						logger.LogError(err, "Error submitting internal command {@cmd}", internalCommand);
+						if (internalCommand is InternalCommandWithCallback) {
+							internalCommand.SetException(err);
+						} else {
+							logger.LogError(err, "Error submitting internal command {@request}", internalCommand.Request);
+						}
 					}
 					break;
 				default:

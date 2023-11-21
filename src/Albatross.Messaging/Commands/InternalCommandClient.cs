@@ -28,7 +28,7 @@ namespace Albatross.Messaging.Commands {
 				using var stream = new MemoryStream();
 				JsonSerializer.Serialize(stream, command, type, MessagingJsonSettings.Value.Default);
 				var request = new CommandRequest(context.Route, context.Id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
-				var internalCmd = new InternalCommand(request);
+				var internalCmd = new InternalCommandWithCallback(request);
 				this.routerServer.SubmitToQueue(internalCmd);
 				return Task.FromResult(request.Id);
 			} else {
