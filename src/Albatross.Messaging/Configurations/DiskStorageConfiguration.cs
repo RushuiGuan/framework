@@ -20,7 +20,7 @@ namespace Albatross.Messaging.Configurations {
 		public DiskStorageConfiguration(string? workingDirectory, string filename) {
 			WorkingDirectory = workingDirectory ?? DefaultWorkingDirectory();
 			FileName = filename;
-			MaxFileSize = 1024L * 1024L * 1024L * 50;
+			MaxFileSize = 1024L * 1024L * 50;
 		}
 	}
 }
