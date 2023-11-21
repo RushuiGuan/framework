@@ -30,7 +30,6 @@ namespace Albatross.Messaging.Services {
 		private IAtomicCounter<ulong> counter;
 		private ulong timerCounter;
 
-
 		public IEventWriter EventWriter => this.eventWriter;
 		public IAtomicCounter<ulong> Counter => this.counter;
 
@@ -139,6 +138,7 @@ namespace Albatross.Messaging.Services {
 				logger.LogError(err, "error parsing router server message");
 			}
 		}
+
 		private void AcceptConnection(Connect msg) {
 			var client = clients.GetOrAdd(msg.Route, () => {
 				logger.LogInformation("new client: {name}", msg.Route);

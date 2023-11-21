@@ -64,9 +64,6 @@ namespace Albatross.Messaging.Test {
 			Assert.Equal(expectedFileCount, Directory.GetFiles(folder).Length);
 		}
 
-		/// <summary>
-		/// Test file creation by max file size
-		/// </summary>
 		[Theory]
 		[InlineData(25, 10, 0)]
 		[InlineData(1000, 50, 0)]

@@ -44,11 +44,13 @@ namespace Albatross.Messaging.Commands {
 		public bool ProcessQueue(IMessagingService messagingService, object msg) {
 			switch (msg) {
 				case CommandQueueItem item:
-					// the command job is sent here when it has finished its execution
-					if (item.FireAndForget) {
-						messagingService.EventWriter.WriteEvent(new EventSource.EventEntry(EntryType.Record, new CommandExecuted(item.Route, item.Id)));
+					// the CommandQueueItem is sent here when it has finished its execution
+					if(item.Reply == null) {
+						logger.LogError("CommandQueueItem {type} for {queue} arrived without a reply message: {@command}", item.CommandType, item.Queue, item.Command);
+					}else if (item.FireAndForget) {
+						messagingService.EventWriter.WriteEvent(new EventSource.EventEntry(EntryType.Record, item.Reply));
 					} else {
-						messagingService.SubmitToQueue(item.Reply ?? new CommandErrorReply(item.OriginalRoute, item.OriginalId, item.CommandType, "Error", "reply mia".ToUtf8Bytes()));
+						messagingService.SubmitToQueue(item.Reply);
 					}
 					item.IsCompleted = true;
 					// after a job has finished, kick off the next job

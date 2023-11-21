@@ -24,6 +24,7 @@ namespace Albatross.Messaging.Commands {
 
 		bool Accept(Replay replay) {
 			string key = GetKey(replay.Message);
+
 			switch (replay.Message) {
 				case CommandRequest req:
 					var record = new CommandReplayMessageGroup(req, replay.Index);
@@ -32,16 +33,14 @@ namespace Albatross.Messaging.Commands {
 				case CommandReply rep:
 					if (records.TryGetValue(key, out var value)) {
 						value.Response = rep;
+						if (value.IsCompleted) {
+							records.Remove(key);
+						}
 					}
 					return true;
 				case CommandErrorReply err:
 					if (records.TryGetValue(key, out value)) {
 						value.Response = err;
-					}
-					return true;
-				case CommandExecuted exec:
-					if (records.TryGetValue(key, out value)) {
-						value.Executed = exec;
 						if (value.IsCompleted) {
 							records.Remove(key);
 						}
@@ -63,17 +62,12 @@ namespace Albatross.Messaging.Commands {
 		void End(IMessagingService messagingService) {
 			logger.LogInformation("rerun {count} commandbus messages to replay", records.Count);
 			foreach (var msg in records.Values.OrderBy(args => args.Index)) {
-				if (msg.Request.FireAndForget) {
-					//for fire and forget commands.  missing executed record means that it was not executed
-					if (msg.Executed == null) {
-						this.commandBus.ProcessReceivedMsg(messagingService, msg.Request);
-					}
-				} else {
-					if (msg.Response == null) {
-						this.commandBus.ProcessReceivedMsg(messagingService, msg.Request);
-					} else if (msg.Ack == null) {
-						messagingService.Transmit(msg.Response);
-					}
+				// if response is missing then the command has not completed correctly
+				if (msg.Response == null) {
+					this.commandBus.ProcessReceivedMsg(messagingService, msg.Request);
+				} else if (!msg.Request.FireAndForget && msg.Ack == null) {
+					// if an ack is absent and the command is not fire and forget, resend the response
+					messagingService.Transmit(msg.Response);
 				}
 			}
 			logger.LogInformation("command bus replay completed");

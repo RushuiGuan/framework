@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Test {
-	public class MyRouterServer : IMessagingService {
+	public class MockRouterServer : IMessagingService {
 		public IEventWriter EventWriter => throw new NotImplementedException();
+
 		public IAtomicCounter<ulong> Counter => throw new NotImplementedException();
 
 		public ClientState GetClientState(string identity) {
@@ -19,6 +20,7 @@ namespace Albatross.Messaging.Test {
 		public void SubmitToQueue(object message) {
 			throw new NotImplementedException();
 		}
+
 		public void Transmit(IMessage msg) {
 			throw new NotImplementedException();
 		}
