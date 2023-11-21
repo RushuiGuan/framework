@@ -11,7 +11,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override async Task Handle(DoNothingCommand command, string queue) {
+		public override async Task Handle(DoNothingCommand command) {
 			await Task.Delay(1000);
 			logger.LogInformation("{id}, I am done", command.Id);
 		}

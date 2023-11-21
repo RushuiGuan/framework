@@ -11,16 +11,16 @@ namespace SampleProject.Utility {
 	public class RunUnstableCommand : MyUtilityBase<RunUnstableCommandOption> {
 		public RunUnstableCommand(RunUnstableCommandOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
+		public Task<int> RunUtility(ICommandClient client) {
 			for (int i = 0; i < Options.Count; i++) {
 				try {
-					var result = await client.Submit<UnstableCommand, int>(new UnstableCommand(i));
+					var result = client.Submit(new UnstableCommand(i));
 					Options.WriteOutput(result);
 				} catch (Exception err) {
 					Options.WriteOutput(err.Message);
 				}
 			}
-			return 0;
+			return Task.FromResult(0);
 		}
 	}
 }

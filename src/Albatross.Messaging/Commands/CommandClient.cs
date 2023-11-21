@@ -1,4 +1,5 @@
 ﻿using Albatross.Messaging.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
@@ -17,7 +18,31 @@ namespace Albatross.Messaging.Commands {
 			this.service = service;
 			this.dealerClient = dealerClient;
 		}
+
 		public ulong Submit(object command, bool fireAndForget = true)
 			=> service.Submit(dealerClient, command, fireAndForget);
+	}
+
+	public abstract class CallbackCommandClient : ICommandClient , IDisposable{
+		private readonly CommandClientService service;
+		private readonly IMessagingService dealerClient;
+
+		public abstract void OnCommandCallback(ulong id, string commandType, byte[] message);
+		public abstract void OnCommandErrorCallback(ulong id, string commandType, string errorType, byte[] message);
+
+		public CallbackCommandClient(IMessagingService dealerClient, CommandClientService service) {
+			this.service = service;
+			this.dealerClient = dealerClient;
+			service.OnCommandCompleted += OnCommandCallback;
+			service.OnCommandError += OnCommandErrorCallback;
+		}
+		
+		public ulong Submit(object command, bool fireAndForget = true)
+			=> service.Submit(dealerClient, command, fireAndForget);
+
+		public void Dispose() {
+			this.service.OnCommandCompleted -= OnCommandCallback;
+			this.service.OnCommandError -= OnCommandErrorCallback;
+		}
 	}
 }

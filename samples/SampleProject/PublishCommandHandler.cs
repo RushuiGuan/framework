@@ -15,7 +15,7 @@ namespace SampleProject {
 			this.publisher = publisher;
 		}
 
-		public override Task Handle(PublishCommand command, string queue) {
+		public override Task Handle(PublishCommand command) {
 			logger.LogInformation("running pub command with topic={topic}, min={min}, max={max}", command.Topic, command.Min, command.Max);
 			for(int i=command.Min; i<=command.Max; i++) {
 				publisher.Publish(command.Topic, BitConverter.GetBytes(i));

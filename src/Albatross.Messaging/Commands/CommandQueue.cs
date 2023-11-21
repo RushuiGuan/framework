@@ -45,10 +45,10 @@ namespace Albatross.Messaging.Commands {
 			}
 		}
 		public async virtual Task Run(CommandQueueItem item) {
+			using var scope = scopeFactory.CreateScope();
+			var context = scope.ServiceProvider.GetRequiredService<CommandContext>();
+			item.SetContext(context);
 			try {
-				using var scope = scopeFactory.CreateScope();
-				var context = scope.ServiceProvider.GetRequiredService<CommandContext>();
-				item.SetContext(context);
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(item.Registration.CommandHandlerType);
 				// run everything else using a diff thread
 				await Task.Run(async () => {
@@ -59,20 +59,20 @@ namespace Albatross.Messaging.Commands {
 						logger.LogInformation("Running {command} by {client}({id})",
 							item.Registration.CommandType, item.Route, item.Id);
 					}
-					var result = await commandHandler.Handle(item.Command, this.Name).ConfigureAwait(false);
+					var result = await commandHandler.Handle(item.Command).ConfigureAwait(false);
 					logger.LogInformation("Done {commandId}", item.Id);
 
 					if (item.Registration.HasReturnType) {
 						var stream = new MemoryStream();
 						JsonSerializer.Serialize(stream, result, item.Registration.ResponseType, MessagingJsonSettings.Value.Default);
-						item.Reply = new CommandReply(item.OriginalRoute, item.OriginalId, item.CommandType, stream.ToArray());
+						item.Reply = new CommandReply(item.Route, item.Id, item.CommandType, stream.ToArray());
 					} else {
-						item.Reply = new CommandReply(item.OriginalRoute, item.OriginalId, item.CommandType, Array.Empty<byte>());
+						item.Reply = new CommandReply(item.Route, item.Id, item.CommandType, Array.Empty<byte>());
 					}
 					routerServer.SubmitToQueue(item);
 				});
 			} catch (Exception err) {
-				item.Reply = new CommandErrorReply(item.OriginalRoute, item.OriginalId, item.CommandType, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
+				item.Reply = new CommandErrorReply(item.Route, item.Id, item.CommandType, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
 				routerServer.SubmitToQueue(item);
 				logger.LogError(err, "Failed {commandId}", item.Id);
 			}

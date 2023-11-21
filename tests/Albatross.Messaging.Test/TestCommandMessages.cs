@@ -32,28 +32,6 @@ namespace Albatross.Messaging.Test {
 		}
 
 		[Theory]
-		[InlineData(true, "xxabc", 99)]
-		[InlineData(false, "xxabc", 99)]
-		public void ReadWriteCommandExecuted(bool useText, string route, ulong id) {
-			var msg = new CommandExecuted(route, id);
-			var result = new CommandExecuted();
-			if (useText) {
-				StringWriter writer = new StringWriter();
-				msg.WriteToText(writer);
-				int offset = 0;
-				result.ReadFromText(writer.ToString(), ref offset);
-			} else {
-				var frames = new NetMQMessage();
-				msg.WriteToFrames(frames);
-				result.ReadFromFrames(frames);
-			}
-
-			Assert.Equal(msg.Header, result.Header);
-			Assert.Equal(msg.Route, result.Route);
-			Assert.Equal(msg.Id, result.Id);
-		}
-
-		[Theory]
 		[InlineData(true, "xxabc", 99, "mytype", "mydata")]
 		[InlineData(false, "xxabc", 99, "mytype", "mydata")]
 		public void ReadWriteCommandReply(bool useText, string route, ulong id, string commandType, string message) {
@@ -78,12 +56,14 @@ namespace Albatross.Messaging.Test {
 		}
 
 		[Theory]
-		[InlineData(true, "xxabc", 99, "mytype", true, "mydata")]
-		[InlineData(true, "xxabc", 99, "mytype", false, "mydata")]
-		[InlineData(false, "xxabc", 99, "mytype", true, "mydata")]
-		[InlineData(false, "xxabc", 99, "mytype", false, "mydata")]
-		public void ReadWriteCommandRequest(bool useText, string route, ulong id, string commandType, bool fireAndForgot, string message) {
-			var msg = new CommandRequest(route, id, commandType, fireAndForgot, message.ToUtf8Bytes());
+		[InlineData(true, "xxabc", 99, "mytype", CommandMode.Internal, "mydata")]
+		[InlineData(true, "xxabc", 99, "mytype", CommandMode.Callback, "mydata")]
+		[InlineData(true, "xxabc", 99, "mytype", CommandMode.FireAndForget, "mydata")]
+		[InlineData(false, "xxabc", 99, "mytype", CommandMode.Internal, "mydata")]
+		[InlineData(false, "xxabc", 99, "mytype", CommandMode.Callback, "mydata")]
+		[InlineData(false, "xxabc", 99, "mytype", CommandMode.FireAndForget, "mydata")]
+		public void ReadWriteCommandRequest(bool useText, string route, ulong id, string commandType, CommandMode mode, string message) {
+			var msg = new CommandRequest(route, id, commandType, mode, message.ToUtf8Bytes());
 			var result = new CommandRequest();
 			if (useText) {
 				StringWriter writer = new StringWriter();
@@ -100,7 +80,7 @@ namespace Albatross.Messaging.Test {
 			Assert.Equal(msg.Route, result.Route);
 			Assert.Equal(msg.Id, result.Id);
 			Assert.Equal(msg.CommandType, result.CommandType);
-			Assert.Equal(msg.FireAndForget, result.FireAndForget);
+			Assert.Equal(msg.Mode, result.Mode);
 			Assert.Equal(msg.Payload, result.Payload);
 		}
 

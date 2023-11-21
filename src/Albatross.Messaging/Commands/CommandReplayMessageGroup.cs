@@ -6,7 +6,7 @@ namespace Albatross.Messaging.Commands {
 		public int Index { get; set; }
 		public CommandRequest Request { get; init; }
 		public IMessage? Response { get; set; }
-		public ClientAck? Ack { get; set; }
+		public ClientAck? Acked { get; set; }
 
 		public CommandReplayMessageGroup(CommandRequest request, int index) {
 			this.Request = request;
@@ -15,10 +15,10 @@ namespace Albatross.Messaging.Commands {
 
 		public bool IsCompleted {
 			get {
-				if (Request.FireAndForget) {
-					return Response != null;
+				if (Request.Mode == CommandMode.Callback) {
+					return Response != null && Acked != null;
 				} else {
-					return Response != null && Ack != null;
+					return Response != null;
 				}
 			}
 		}

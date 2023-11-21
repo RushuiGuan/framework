@@ -12,7 +12,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override Task Handle(TestExceptionCommand command, string queue) {
+		public override Task Handle(TestExceptionCommand command) {
 			logger.LogInformation("this is a normal msg with value {value}", 2);
 			logger.LogError("error message with {variable} value", 1);
 			logger.LogError(new Exception("test"), "error msg with {variable}", 1);

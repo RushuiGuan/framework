@@ -9,10 +9,10 @@ namespace SampleProject.Utility {
 	public class TestException : MyUtilityBase<TestExceptionOption> {
 		public TestException(TestExceptionOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
+		public Task<int> RunUtility(ICommandClient client) {
 			var myCmd = new TestExceptionCommand();
-			await client.Submit(myCmd);
-			return 0;
+			client.Submit(myCmd);
+			return Task.FromResult(0);
 		}
 	}
 }

@@ -21,7 +21,7 @@ namespace Albatross.Messaging.Commands {
 				logger.LogDebug("Running => {id}", item.Id);
 				using var scope = scopeFactory.CreateScope();
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(item.Registration.CommandHandlerType);
-				var result = await commandHandler.Handle(item.Command, this.Name).ConfigureAwait(false);
+				var result = await commandHandler.Handle(item.Command).ConfigureAwait(false);
 				logger.LogInformation("end: {commandId}", item.Id);
 
 				if (item.Registration.HasReturnType) {

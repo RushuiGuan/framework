@@ -12,7 +12,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override async Task<int> Handle(LongRunningCommand command, string queue) {
+		public override async Task<int> Handle(LongRunningCommand command) {
 			logger.LogInformation("{counter}: {thread}", command.Counter, Environment.CurrentManagedThreadId);
 			await Task.Delay(command.Duration);
 			return command.Counter;

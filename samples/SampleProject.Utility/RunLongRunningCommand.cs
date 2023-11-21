@@ -1,7 +1,5 @@
 ﻿using CommandLine;
 using System.Threading.Tasks;
-using SampleProject.Proxy;
-using Albatross.Messaging.Services;
 using SampleProject.Commands;
 using Albatross.Messaging.Commands;
 
@@ -14,11 +12,11 @@ namespace SampleProject.Utility {
 	public class RunLongRunningCommand : MyUtilityBase<RunLongRunningCommandOption> {
 		public RunLongRunningCommand(RunLongRunningCommandOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
+		public Task<int> RunUtility(ICommandClient client) {
 			for (int i = 0; i < Options.Count; i++) {
-				await client.Submit(new LongRunningCommand(Options.Duration, i));
+				client.Submit(new LongRunningCommand(Options.Duration, i));
 			}
-			return 0;
+			return Task.FromResult(0);
 		}
 	}
 }

@@ -2,15 +2,8 @@
 
 namespace Albatross.Messaging.Commands {
 	internal class InternalCommand {
-		public ulong OriginalId { get; }
-		public string OriginalRoute { get; } 
-
-
-		public const string Route = "internal";
-		public InternalCommand(ulong originalId, string originalRoute, CommandRequest request) {
+		public InternalCommand(CommandRequest request) {
 			Request = request;
-			OriginalId = originalId;
-			OriginalRoute = originalRoute;
 		}
 		public CommandRequest Request { get; }
 	}

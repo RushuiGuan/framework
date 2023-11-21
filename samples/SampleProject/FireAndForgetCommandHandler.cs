@@ -13,7 +13,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override async Task Handle(FireAndForgetCommand command, string queue) {
+		public override async Task Handle(FireAndForgetCommand command) {
 			logger.LogInformation("executing fire and forget command: {value}, {thread}", command.Counter, Environment.CurrentManagedThreadId);
 			await Task.Delay(command.Duration ?? DefaultDuration);
 		}

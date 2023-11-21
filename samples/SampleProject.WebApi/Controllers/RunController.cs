@@ -2,7 +2,6 @@
 using Albatross.Messaging.PubSub;
 using Albatross.Messaging.PubSub.Sub;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SampleProject.WebApi.Controllers {
@@ -19,15 +18,6 @@ namespace SampleProject.WebApi.Controllers {
 			this.subscriber = subscriber;
 		}
 
-
-		[HttpPost("ping")]
-		public Task Ping() => commandClient.Ping();
-
-		[HttpPost("queue-status")]
-		public async Task<string> QueueStatus() {
-			var result = await commandClient.QueueStatus();
-			return JsonSerializer.Serialize(result);
-		}
 
 		[HttpPost("sub")]
 		public Task Subscribe([FromQuery] string topic) 

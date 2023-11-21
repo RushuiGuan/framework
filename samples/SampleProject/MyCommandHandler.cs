@@ -13,7 +13,7 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override Task Handle(MyCommand command, string queue) {
+		public override Task Handle(MyCommand command) {
 			logger.LogInformation("i work ok");
 			return Task.CompletedTask;
 		}

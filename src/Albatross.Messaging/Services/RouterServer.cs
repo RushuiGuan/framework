@@ -98,7 +98,7 @@ namespace Albatross.Messaging.Services {
 								}
 							}
 							if (!(item is ISystemMessage)) {
-								logger.LogError("transmit queue item @{item} not processed", item);
+								logger.LogError("transmit queue item {@item} not processed", item);
 							}
 							break;
 					}
@@ -201,6 +201,17 @@ namespace Albatross.Messaging.Services {
 			this.socket.SendMultipartMessage(frames);
 		}
 
+		public ClientState GetClientState(string identity) {
+			if (config.MaintainConnection) {
+				if (clients.TryGetValue(identity, out var client)) {
+					return client.State;
+				} else {
+					return ClientState.Dead;
+				}
+			} else {
+				return ClientState.Alive;
+			}
+		}
 		public void Dispose() {
 			if (!disposed) {
 				running = false;
@@ -212,18 +223,6 @@ namespace Albatross.Messaging.Services {
 				eventWriter.Dispose();
 				disposed = true;
 				logger.LogInformation("router server disposed");
-			}
-		}
-
-		public ClientState GetClientState(string identity) {
-			if (config.MaintainConnection) {
-				if (clients.TryGetValue(identity, out var client)) {
-					return client.State;
-				} else {
-					return ClientState.Dead;
-				}
-			} else {
-				return ClientState.Alive;
 			}
 		}
 	}

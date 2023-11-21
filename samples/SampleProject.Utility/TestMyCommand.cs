@@ -9,10 +9,10 @@ namespace SampleProject.Utility {
 	public class RunMyCommand : MyUtilityBase<RunMyCommandOption> {
 		public RunMyCommand(RunMyCommandOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
+		public Task<int> RunUtility(ICommandClient client) {
 			BaseCommand myCmd = new MyCommand(1, "test");
-			await client.Submit(myCmd);
-			return 0;
+			client.Submit(myCmd);
+			return Task.FromResult(0);
 		}
 	}
 }

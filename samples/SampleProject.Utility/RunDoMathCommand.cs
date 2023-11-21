@@ -12,10 +12,10 @@ namespace SampleProject.Utility {
 		public RunDoMathCommand(RunAddCommandOption option) : base(option) {
 		}
 		public async Task<int> RunUtility(ICommandClient client) {
-			ISet<Task<long>> list = new HashSet<Task<long>>();
+			ISet<ulong> list = new HashSet<ulong>();
 			for (int i = 0; i < Options.Count; i++) {
-				var task = client.Submit<DoMathWorkCommand, long>(new DoMathWorkCommand(i));
-				list.Add(task);
+				var id = client.Submit(new DoMathWorkCommand(i));
+				list.Add(id);
 			}
 			Options.WriteOutput($"total task count: {list.Count}");
 			do {

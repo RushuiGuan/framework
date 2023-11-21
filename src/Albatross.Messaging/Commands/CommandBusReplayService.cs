@@ -48,7 +48,7 @@ namespace Albatross.Messaging.Commands {
 					return true;
 				case ClientAck ack:
 					if (records.TryGetValue(key, out value)) {
-						value.Ack = ack;
+						value.Acked = ack;
 						if (value.IsCompleted) {
 							records.Remove(key);
 						}
@@ -64,9 +64,13 @@ namespace Albatross.Messaging.Commands {
 			foreach (var msg in records.Values.OrderBy(args => args.Index)) {
 				// if response is missing then the command has not completed correctly
 				if (msg.Response == null) {
-					this.commandBus.ProcessReceivedMsg(messagingService, msg.Request);
-				} else if (!msg.Request.FireAndForget && msg.Ack == null) {
-					// if an ack is absent and the command is not fire and forget, resend the response
+					if (msg.Request.Mode == CommandMode.Internal) {
+						this.commandBus.ProcessQueue(messagingService, new InternalCommand(msg.Request));
+					} else {
+						this.commandBus.ProcessReceivedMsg(messagingService, msg.Request);
+					}
+				} else if (msg.Request.Mode == CommandMode.Callback && msg.Acked == null) {
+					// if the client did not ack the command mode is callback, resend the response
 					messagingService.Transmit(msg.Response);
 				}
 			}

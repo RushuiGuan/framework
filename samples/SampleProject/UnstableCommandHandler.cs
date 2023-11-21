@@ -11,7 +11,7 @@ namespace SampleProject {
 		public UnstableCommandHandler(ILogger<UnstableCommandHandler> logger) {
 			this.logger = logger;
 		}
-		public override Task<int> Handle(UnstableCommand command, string queue) {
+		public override Task<int> Handle(UnstableCommand command) {
 			logger.LogInformation("{value}, {thread}", command.Counter, Environment.CurrentManagedThreadId);
 			throw new Exception("this job has been failed successfully");
 		}

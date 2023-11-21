@@ -13,14 +13,14 @@ namespace SampleProject {
 			this.logger = logger;
 		}
 
-		public override async Task Handle(PongCommand command, string queue) {
+		public override Task Handle(PongCommand command) {
 			if (command.Round == 0) {
 				logger.LogInformation("I won");
-				return;
 			} else {
 				logger.LogInformation($"round :{command.Round}");
-				await commandClient.Submit(new PingCommand(command.Round - 1), true);
+				commandClient.Submit(new PingCommand(command.Round - 1), true);
 			}
+			return Task.CompletedTask;
 		}
 	}
 }

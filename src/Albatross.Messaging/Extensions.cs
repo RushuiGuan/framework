@@ -43,6 +43,9 @@ namespace Albatross.Messaging {
 		public static void AppendUInt(this NetMQMessage frames, uint value)
 			=> frames.Append(BitConverter.GetBytes(value));
 
+		public static void AppendInt16(this NetMQMessage frames, short value)
+			=> frames.Append(BitConverter.GetBytes(value));
+
 		public static ulong PopULong(this NetMQMessage frames) => BitConverter.ToUInt64(frames.Pop().Buffer, 0);
 		public static void AppendULong(this NetMQMessage frames, ulong value)
 			=> frames.Append(BitConverter.GetBytes(value));

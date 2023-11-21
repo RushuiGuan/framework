@@ -12,11 +12,11 @@ namespace SampleProject.Utility {
 	public class RunFireAndForgetCommand : MyUtilityBase<RunFireAndForgetCommandOption> {
 		public RunFireAndForgetCommand(RunFireAndForgetCommandOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
+		public Task<int> RunUtility(ICommandClient client) {
 			for (int i = 0; i < Options.Count; i++) {
-				await client.Submit(new FireAndForgetCommand(i, Options.Duration));
+				client.Submit(new FireAndForgetCommand(i, Options.Duration));
 			}
-			return 0;
+			return Task.FromResult(0);
 		}
 	}
 }

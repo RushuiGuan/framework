@@ -70,7 +70,7 @@ namespace Albatross.Messaging.Commands {
 			var type = command.GetType();
 			var id = dealerClient.Counter.NextId();
 			var bytes = JsonSerializer.SerializeToUtf8Bytes(command, type, MessagingJsonSettings.Value.Default);
-			var request = new CommandRequest(string.Empty, id, type.GetClassNameNeat(), fireAndForget, bytes);
+			var request = new CommandRequest(string.Empty, id, type.GetClassNameNeat(), fireAndForget ? CommandMode.FireAndForget : CommandMode.Callback , bytes);
 			dealerClient.SubmitToQueue(request);
 			return id;
 		}

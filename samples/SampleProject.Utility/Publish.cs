@@ -20,9 +20,9 @@ namespace SampleProject.Utility {
 	public class Publish : MyUtilityBase<PublishOption> {
 		public Publish(PublishOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
-			await client.Submit(new PublishCommand(Options.Topic, Options.Min, Options.Max));
-			return 0;
+		public Task<int> RunUtility(ICommandClient client) {
+			client.Submit(new PublishCommand(Options.Topic, Options.Min, Options.Max));
+			return Task.FromResult(0);
 		}
 	}
 
