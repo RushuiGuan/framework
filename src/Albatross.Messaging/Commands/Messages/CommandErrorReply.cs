@@ -5,13 +5,13 @@ using System.IO;
 using System;
 
 namespace Albatross.Messaging.Commands.Messages {
-	public record class CommandErrorReply : Message, IMessage {
+	public record class CommandErrorReply : CommandMessage {
 		public static string MessageHeader => "cmd-err";
 		public string ClassName { get; private set; } = string.Empty;
 		public byte[] Message { get; private set; } = Array.Empty<byte>();
 
-		public CommandErrorReply(string route, ulong id, string className, byte[] message) : base(MessageHeader, route, id) {
-			ClassName = className;
+		public CommandErrorReply(string route, ulong id, string commandType, string errorClassName, byte[] message) : base(MessageHeader, route, id, commandType) {
+			ClassName = errorClassName;
 			Message = message;
 		}
 		public CommandErrorReply() { }

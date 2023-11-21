@@ -9,10 +9,10 @@ namespace Albatross.Messaging.PubSub.Sub {
 	}
 
 	public class SubscriptionClient : ISubscriptionClient {
-		private readonly DealerClient dealerClient;
+		private readonly IMessagingService dealerClient;
 		private readonly SubscriptionService service;
 
-		public SubscriptionClient(DealerClient dealerClient, SubscriptionService service) {
+		public SubscriptionClient(IMessagingService dealerClient, SubscriptionService service) {
 			this.dealerClient = dealerClient;
 			this.service = service;
 		}

@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace Albatross.Messaging.Commands {
@@ -78,14 +77,6 @@ namespace Albatross.Messaging.Commands {
 			foreach(var cmd in commands) {
 				yield return client.Submit(cmd);
 			}
-		}
-
-		public static void CreateCommandContext(this IServiceProvider provider, CommandQueueItem item) {
-			var context = provider.GetRequiredService<CommandContext>();
-			context.OriginalRoute = item.Route;
-			context.OriginalId = item.Id;
-			context.Queue = item.Queue.Name;
-			context.IsInternal = item.Route == InternalCommand.Route;
 		}
 	}
 }

@@ -16,26 +16,26 @@ namespace Albatross.Messaging.Commands {
 		public FastCommandQueue(RouterServer routerServer, IServiceScopeFactory scopeFactory) : base(routerServer, scopeFactory) {
 		}
 
-		public async override Task Run(CommandQueueItem job) {
+		public async override Task Run(CommandQueueItem item) {
 			try {
-				logger.LogDebug("Running => {id}", job.Id);
+				logger.LogDebug("Running => {id}", item.Id);
 				using var scope = scopeFactory.CreateScope();
-				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(job.Registration.CommandHandlerType);
-				var result = await commandHandler.Handle(job.Command, this.Name).ConfigureAwait(false);
-				logger.LogInformation("end: {commandId}", job.Id);
+				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(item.Registration.CommandHandlerType);
+				var result = await commandHandler.Handle(item.Command, this.Name).ConfigureAwait(false);
+				logger.LogInformation("end: {commandId}", item.Id);
 
-				if (job.Registration.HasReturnType) {
+				if (item.Registration.HasReturnType) {
 					var stream = new MemoryStream();
-					JsonSerializer.Serialize(stream, result, job.Registration.ResponseType, MessagingJsonSettings.Value.Default);
-					job.Reply = new CommandReply(job.Route, job.Id, stream.ToArray());
+					JsonSerializer.Serialize(stream, result, item.Registration.ResponseType, MessagingJsonSettings.Value.Default);
+					item.Reply = new CommandReply(item.Route, item.Id, item.CommandType, stream.ToArray());
 				} else {
-					job.Reply = new CommandReply(job.Route, job.Id, Array.Empty<byte>());
+					item.Reply = new CommandReply(item.Route, item.Id, item.CommandType, Array.Empty<byte>());
 				}
-				routerServer.SubmitToQueue(job);
+				routerServer.SubmitToQueue(item);
 			} catch (Exception err) {
-				logger.LogError(err, "error running command {id}", job.Id);
-				job.Reply = new CommandErrorReply(job.Route, job.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
-				routerServer.SubmitToQueue(job);
+				logger.LogError(err, "error running command {id}", item.Id);
+				item.Reply = new CommandErrorReply(item.Route, item.Id, item.CommandType, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
+				routerServer.SubmitToQueue(item);
 			}
 		}
 	}

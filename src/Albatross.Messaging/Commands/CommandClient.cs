@@ -11,9 +11,9 @@ namespace Albatross.Messaging.Commands {
 	}
 	public class CommandClient : ICommandClient {
 		private readonly CommandClientService service;
-		private readonly DealerClient dealerClient;
+		private readonly IMessagingService dealerClient;
 
-		public CommandClient(DealerClient dealerClient, CommandClientService service) {
+		public CommandClient(IMessagingService dealerClient, CommandClientService service) {
 			this.service = service;
 			this.dealerClient = dealerClient;
 		}

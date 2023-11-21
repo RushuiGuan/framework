@@ -1,12 +1,16 @@
 ﻿using Albatross.Messaging.Commands.Messages;
-using System;
-using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	internal class InternalCommand {
+		public ulong OriginalId { get; }
+		public string OriginalRoute { get; } 
+
+
 		public const string Route = "internal";
-		public InternalCommand(CommandRequest request) {
+		public InternalCommand(ulong originalId, string originalRoute, CommandRequest request) {
 			Request = request;
+			OriginalId = originalId;
+			OriginalRoute = originalRoute;
 		}
 		public CommandRequest Request { get; }
 	}

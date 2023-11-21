@@ -47,7 +47,8 @@ namespace Albatross.Messaging.Commands {
 		public async virtual Task Run(CommandQueueItem item) {
 			try {
 				using var scope = scopeFactory.CreateScope();
-				scope.ServiceProvider.CreateCommandContext(item);
+				var context = scope.ServiceProvider.GetRequiredService<CommandContext>();
+				item.SetContext(context);
 				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(item.Registration.CommandHandlerType);
 				// run everything else using a diff thread
 				await Task.Run(async () => {
@@ -64,14 +65,14 @@ namespace Albatross.Messaging.Commands {
 					if (item.Registration.HasReturnType) {
 						var stream = new MemoryStream();
 						JsonSerializer.Serialize(stream, result, item.Registration.ResponseType, MessagingJsonSettings.Value.Default);
-						item.Reply = new CommandReply(item.Route, item.Id, stream.ToArray());
+						item.Reply = new CommandReply(item.OriginalRoute, item.OriginalId, item.CommandType, stream.ToArray());
 					} else {
-						item.Reply = new CommandReply(item.Route, item.Id, Array.Empty<byte>());
+						item.Reply = new CommandReply(item.OriginalRoute, item.OriginalId, item.CommandType, Array.Empty<byte>());
 					}
 					routerServer.SubmitToQueue(item);
 				});
 			} catch (Exception err) {
-				item.Reply = new CommandErrorReply(item.Route, item.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
+				item.Reply = new CommandErrorReply(item.OriginalRoute, item.OriginalId, item.CommandType, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
 				routerServer.SubmitToQueue(item);
 				logger.LogError(err, "Failed {commandId}", item.Id);
 			}

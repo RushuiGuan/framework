@@ -5,11 +5,11 @@ using System;
 using System.IO;
 
 namespace Albatross.Messaging.Commands.Messages {
-	public record class CommandReply : Message, IMessage {
+	public record class CommandReply : CommandMessage {
 		public static string MessageHeader => "cmd-rep";
 		public byte[] Payload { get; private set; } = Array.Empty<byte>();
 
-		public CommandReply(string route, ulong id, byte[] payload) : base(MessageHeader, route, id) {
+		public CommandReply(string route, ulong id, string commandType, byte[] payload) : base(MessageHeader, route, id, commandType) {
 			Payload = payload;
 		}
 		public CommandReply() { }

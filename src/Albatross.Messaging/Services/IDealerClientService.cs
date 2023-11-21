@@ -11,7 +11,7 @@ namespace Albatross.Messaging.Services {
 		void Init(IMessagingService dealerClient);
 		bool ProcessReceivedMsg(IMessagingService dealerClient, IMessage msg);
 		bool ProcessQueue(IMessagingService dealerClient, object msg);
-		void ProcessTimerElapsed(DealerClient dealerClient, ulong counter);
+		void ProcessTimerElapsed(IMessagingService dealerClient, ulong counter);
 
 		bool CanReceive { get; }
 		/// <summary>

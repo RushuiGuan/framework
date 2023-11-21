@@ -5,13 +5,7 @@ using System;
 using System.IO;
 
 namespace Albatross.Messaging.Commands.Messages {
-	public interface ICommandRequest {
-		public ulong Id { get; }
-		public ulong ServerId { get; }
-		public string Route { get; }
-		public string CommandType { get; }
-	}
-	public record class CommandRequest : Message, IMessage , ICommandRequest{
+	public record class CommandRequest : Message, IMessage {
 		public static string MessageHeader => "cmd-req";
 		public ulong ServerId => 0;
 		public string CommandType { get; private set; } = string.Empty;

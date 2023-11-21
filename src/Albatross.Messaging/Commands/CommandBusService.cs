@@ -22,7 +22,7 @@ namespace Albatross.Messaging.Commands {
 		public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg) {
 			if(msg is CommandRequest cmd) {
 				try {
-					var item = this.commandQueueFactory.CreateItem(cmd);
+					var item = this.commandQueueFactory.CreateItem(null, null, cmd);
 					logger.LogDebug("AcceptingRequest => {id}", item.Id);
 					item.Queue.Submit(item);
 					// internal route could be sent here due to replay, make sure it doesn't actually get sent to the socket
@@ -32,7 +32,7 @@ namespace Albatross.Messaging.Commands {
 					}
 				} catch (Exception err) {
 
-					var errMsg = new CommandErrorReply(cmd.Route, cmd.Id, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
+					var errMsg = new CommandErrorReply(cmd.Route, cmd.Id, cmd.CommandType, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
 					messagingService.SubmitToQueue(errMsg);
 				}
 				return true;
@@ -48,7 +48,7 @@ namespace Albatross.Messaging.Commands {
 					if (item.FireAndForget) {
 						messagingService.EventWriter.WriteLogEntry(new EventSource.EventEntry(EntryType.Record, new CommandExecuted(item.Route, item.Id)));
 					} else {
-						messagingService.SubmitToQueue(item.Reply ?? new CommandErrorReply(item.Route, item.Id, "Error", "reply mia".ToUtf8Bytes()));
+						messagingService.SubmitToQueue(item.Reply ?? new CommandErrorReply(item.OriginalRoute, item.OriginalId, item.CommandType, "Error", "reply mia".ToUtf8Bytes()));
 					}
 					item.IsCompleted = true;
 					// after a job has finished, kick off the next job
@@ -61,7 +61,7 @@ namespace Albatross.Messaging.Commands {
 					try {
 						// record the internal command as receiving message since it bypass the Socket_ReceiveReady of the router server.
 						messagingService.EventWriter.WriteLogEntry(new EventSource.EventEntry(EntryType.In, internalCommand.Request));
-						var newItem = this.commandQueueFactory.CreateItem(internalCommand.Request);
+						var newItem = this.commandQueueFactory.CreateItem(internalCommand.OriginalId, internalCommand.OriginalRoute, internalCommand.Request);
 						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newItem.Id);
 						newItem.Queue.Submit(newItem);
 					}catch(Exception err) {

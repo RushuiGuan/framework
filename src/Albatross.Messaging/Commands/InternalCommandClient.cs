@@ -4,7 +4,6 @@ using Albatross.Messaging.Services;
 using System;
 using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	/// <summary>
@@ -15,9 +14,11 @@ namespace Albatross.Messaging.Commands {
 	/// </summary>
 	public class InternalCommandClient : ICommandClient {
 		private readonly RouterServer routerServer;
+		private readonly CommandContext context;
 
-		public InternalCommandClient(RouterServer routerServer) {
+		public InternalCommandClient(RouterServer routerServer, CommandContext context) {
 			this.routerServer = routerServer;
+			this.context = context;
 		}
 
 		public ulong Submit(object command, bool fireAndForget = true) {
@@ -26,7 +27,7 @@ namespace Albatross.Messaging.Commands {
 				using var stream = new MemoryStream();
 				JsonSerializer.Serialize(stream, command, type, MessagingJsonSettings.Value.Default);
 				var request = new CommandRequest(InternalCommand.Route, routerServer.Counter.NextId(), type.GetClassNameNeat(), true, stream.ToArray());
-				var internalCmd = new InternalCommand(request);
+				var internalCmd = new InternalCommand(context.OriginalId, context.OriginalRoute, request);
 				this.routerServer.SubmitToQueue(internalCmd);
 				return request.Id;
 			} else {

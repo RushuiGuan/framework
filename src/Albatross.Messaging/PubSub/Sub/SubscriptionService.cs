@@ -75,12 +75,12 @@ namespace Albatross.Messaging.PubSub.Sub {
 			return false;
 		}
 		public bool ProcessQueue(IMessagingService dealerClient, object _) => false;
-		public void ProcessTimerElapsed(DealerClient dealerClient, ulong counter) { }
+		public void ProcessTimerElapsed(IMessagingService dealerClient, ulong counter) { }
 
 		/// <summary>
 		/// thread safe call to subscribe to a pattern
 		/// </summary>
-		public Task Subscribe(DealerClient dealerClient, ISubscriber subscriber, string pattern) {
+		public Task Subscribe(IMessagingService dealerClient, ISubscriber subscriber, string pattern) {
 			lock (sync) {
 				var id = dealerClient.Counter.NextId();
 				var callback = new SubscriptionCallback(subscriber);
@@ -92,7 +92,7 @@ namespace Albatross.Messaging.PubSub.Sub {
 		/// <summary>
 		/// thread safe call to unsubscribe to a pattern
 		/// </summary>
-		public Task Unsubscribe(DealerClient dealerClient, ISubscriber subscriber, string pattern) {
+		public Task Unsubscribe(IMessagingService dealerClient, ISubscriber subscriber, string pattern) {
 			lock (sync) {
 				var unsubscribeFromServer = false;
 				logger.LogInformation("trying to unsubscribe {pattern} for {subscriber}", pattern, subscriber);
@@ -119,9 +119,9 @@ namespace Albatross.Messaging.PubSub.Sub {
 		/// <summary>
 		/// thread safe call to unsubscribe to a pattern
 		/// </summary>
-		public Task UnsubscribeAll(DealerClient dealerClient) {
+		public Task UnsubscribeAll(IMessagingService dealerClient) {
 			lock (sync) {
-				logger.LogInformation("UnsubscribAll from {client}", dealerClient.Identity);
+				logger.LogInformation("Unsubscribing all topics");
 				subscriptions.Clear();
 				var id = dealerClient.Counter.NextId();
 				var callback = new MessageCallback();

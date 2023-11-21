@@ -2,13 +2,17 @@
 
 namespace Albatross.Messaging.Commands {
 	public class CommandContext {
-		public Guid Id { get; }
+		public Guid ContextId { get; }
 		public CommandContext() { 
-			Id = Guid.NewGuid();
+			ContextId = Guid.NewGuid();
 		}
-		public string Queue { get; internal set; } = string.Empty;
+
+
 		public ulong OriginalId { get; internal set; }
 		public string OriginalRoute { get; internal set; } = string.Empty;
+		public ulong Id { get;internal set; }
+		public string Route { get; internal set; } = string.Empty;
+		public string Queue { get; internal set; } = string.Empty;
 		public bool IsInternal { get; internal set; }
 	}
 }

@@ -30,26 +30,18 @@ namespace Albatross.Messaging.Commands {
 				/// server will send an ack to confirm the acceptance of the request
 				case CommandRequestAck:
 					return true;
-				/// legacy command support.  
-				/// Send back a client ack to maintain backward compatibility.  
-				/// "Fire and Wait" mode is no longer supported
-				case CommandReply:
-				case CommandErrorReply:
-					var commandMsg = (Message)msg;
-					dealerClient.ClientAck(commandMsg.Route, commandMsg.Id);
-					return true;
-				case CommandReply2 reply:
+				case CommandReply reply:
 					AcceptResponse(dealerClient, reply);
 					return true;
-				case CommandErrorReply2 error:
+				case CommandErrorReply error:
 					AcceptError(dealerClient, error);
 					return true;
 			}
 			return false;
 		}
 		public bool ProcessQueue(IMessagingService dealerClient, object msg) => false;
-		public void ProcessTimerElapsed(DealerClient dealerClient, ulong counter) { }
-		private void AcceptResponse(IMessagingService dealerClient, CommandReply2 response) {
+		public void ProcessTimerElapsed(IMessagingService dealerClient, ulong counter) { }
+		private void AcceptResponse(IMessagingService dealerClient, CommandReply response) {
 			dealerClient.ClientAck(response.Route, response.Id);
 			if (this.OnCommandCompleted != null) {
 				Task.Run(() => {
@@ -61,7 +53,7 @@ namespace Albatross.Messaging.Commands {
 				});
 			}
 		}
-		private void AcceptError(IMessagingService dealerClient, CommandErrorReply2 errorMessage) {
+		private void AcceptError(IMessagingService dealerClient, CommandErrorReply errorMessage) {
 			dealerClient.ClientAck(errorMessage.Route, errorMessage.Id);
 			if(this.OnCommandError != null) {
 				Task.Run(() => {
@@ -74,7 +66,7 @@ namespace Albatross.Messaging.Commands {
 			}
 		}
 		
-		public ulong Submit(DealerClient dealerClient, object command, bool fireAndForget) {
+		public ulong Submit(IMessagingService dealerClient, object command, bool fireAndForget) {
 			var type = command.GetType();
 			var id = dealerClient.Counter.NextId();
 			var bytes = JsonSerializer.SerializeToUtf8Bytes(command, type, MessagingJsonSettings.Value.Default);
