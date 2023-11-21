@@ -58,7 +58,7 @@ namespace Albatross.Messaging.Test {
 
 			int count = messageCount;
 			for (int i = 0; i < count; i++) {
-				writer.WriteLogEntry(new EventEntry(EntryType.Record, new TestMsg()));
+				writer.WriteEvent(new EventEntry(EntryType.Record, new TestMsg()));
 				await Task.Delay(100);
 			}
 			Assert.Equal(expectedFileCount, Directory.GetFiles(folder).Length);

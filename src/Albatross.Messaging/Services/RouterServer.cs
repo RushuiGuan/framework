@@ -115,7 +115,7 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
-				this.eventWriter.WriteLogEntry(new EventEntry(EntryType.In, msg));
+				this.eventWriter.WriteEvent(new EventEntry(EntryType.In, msg));
 				if (msg is ClientAck) { return; }
 				if (running) {
 					if (msg is Connect connect) {
@@ -196,7 +196,7 @@ namespace Albatross.Messaging.Services {
 		public void SubmitToQueue(object result) => this.queue.Enqueue(result);
 
 		public void Transmit(IMessage msg) {
-			this.eventWriter.WriteLogEntry(new EventEntry(EntryType.Out, msg));
+			this.eventWriter.WriteEvent(new EventEntry(EntryType.Out, msg));
 			var frames = msg.Create();
 			this.socket.SendMultipartMessage(frames);
 		}

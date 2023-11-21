@@ -56,7 +56,7 @@ namespace Albatross.Messaging.EventSource {
 			return Open(file);
 		}
 
-		public void WriteLogEntry(EventEntry logEntry) {
+		public void WriteEvent(EventEntry logEntry) {
 			var writer = lineWriter.Begin();
 			logEntry.Write(writer);
 			this.streamWriter.Write(lineWriter.End());

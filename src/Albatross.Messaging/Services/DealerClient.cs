@@ -110,7 +110,7 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
-				this.eventWriter.WriteLogEntry(new EventEntry(EntryType.In, msg));
+				this.eventWriter.WriteEvent(new EventEntry(EntryType.In, msg));
 				// any msg from router server will update the heartbeat
 				self.UpdateHeartbeat();
 				// the only processing needed for Ack is to persist it in logs
@@ -165,7 +165,7 @@ namespace Albatross.Messaging.Services {
 
 		public void Transmit(IMessage msg) {
 			var frames = msg.Create();
-			this.eventWriter.WriteLogEntry(new EventEntry(EntryType.Out, msg));
+			this.eventWriter.WriteEvent(new EventEntry(EntryType.Out, msg));
 			this.socket.SendMultipartMessage(frames);
 		}
 

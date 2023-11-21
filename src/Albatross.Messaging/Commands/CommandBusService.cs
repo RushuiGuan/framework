@@ -46,7 +46,7 @@ namespace Albatross.Messaging.Commands {
 				case CommandQueueItem item:
 					// the command job is sent here when it has finished its execution
 					if (item.FireAndForget) {
-						messagingService.EventWriter.WriteLogEntry(new EventSource.EventEntry(EntryType.Record, new CommandExecuted(item.Route, item.Id)));
+						messagingService.EventWriter.WriteEvent(new EventSource.EventEntry(EntryType.Record, new CommandExecuted(item.Route, item.Id)));
 					} else {
 						messagingService.SubmitToQueue(item.Reply ?? new CommandErrorReply(item.OriginalRoute, item.OriginalId, item.CommandType, "Error", "reply mia".ToUtf8Bytes()));
 					}
@@ -60,7 +60,7 @@ namespace Albatross.Messaging.Commands {
 					// [TODO] instead it should send a command error to the original client [TODO]
 					try {
 						// record the internal command as receiving message since it bypass the Socket_ReceiveReady of the router server.
-						messagingService.EventWriter.WriteLogEntry(new EventSource.EventEntry(EntryType.In, internalCommand.Request));
+						messagingService.EventWriter.WriteEvent(new EventSource.EventEntry(EntryType.In, internalCommand.Request));
 						var newItem = this.commandQueueFactory.CreateItem(internalCommand.OriginalId, internalCommand.OriginalRoute, internalCommand.Request);
 						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newItem.Id);
 						newItem.Queue.Submit(newItem);
