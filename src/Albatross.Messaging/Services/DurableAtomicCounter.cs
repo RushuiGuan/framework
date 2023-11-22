@@ -8,7 +8,7 @@ namespace Albatross.Messaging.Services {
 	/// integer number dividable by 10000.
 	/// Under the hood, the class use a file to keep track of the id value.  For efficiency reason, it only updates the file when the Id % 10000 == 0.
 	/// </summary>
-	public class DurableAtomicCounter : IAtomicCounter<ulong> {
+	public class DurableAtomicCounter : IAtomicCounter {
 		string fileName;
 		ulong counter;
 		object sync = new object();

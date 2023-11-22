@@ -27,11 +27,11 @@ namespace Albatross.Messaging.Services {
 		private bool running = false;
 		private bool disposed = false;
 		private Client self;
-		private IAtomicCounter<ulong> counter;
+		private IAtomicCounter counter;
 		private ulong timerCounter;
 
 		public IEventWriter EventWriter => this.eventWriter;
-		public IAtomicCounter<ulong> Counter => this.counter;
+		public IAtomicCounter Counter => this.counter;
 
 		public DealerClient(DealerClientConfiguration config, IEnumerable<IDealerClientService> services, IMessageFactory messageFactory, ILoggerFactory loggerFactory) {
 			this.config = config;

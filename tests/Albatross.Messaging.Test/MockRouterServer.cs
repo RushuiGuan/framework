@@ -11,7 +11,7 @@ namespace Albatross.Messaging.Test {
 	public class MockRouterServer : IMessagingService {
 		public IEventWriter EventWriter => throw new NotImplementedException();
 
-		public IAtomicCounter<ulong> Counter => throw new NotImplementedException();
+		public IAtomicCounter Counter => throw new NotImplementedException();
 
 		public ClientState GetClientState(string identity) {
 			throw new NotImplementedException();

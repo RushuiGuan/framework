@@ -141,7 +141,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Excel.Test", "tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.TestApi", "tests\Albatross.Caching.TestApi\Albatross.Caching.TestApi.csproj", "{157DF2F2-74CC-4095-9739-0B4BAA86EADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Dates", "src\Albatross.Dates\Albatross.Dates.csproj", "{D8536CF7-F5AD-4D0D-A20F-A85D91F11745}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Dates", "src\Albatross.Dates\Albatross.Dates.csproj", "{D8536CF7-F5AD-4D0D-A20F-A85D91F11745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

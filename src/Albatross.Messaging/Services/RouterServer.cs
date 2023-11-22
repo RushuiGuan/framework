@@ -27,11 +27,11 @@ namespace Albatross.Messaging.Services {
 		private IEnumerable<IRouterServerService> transmitServices;
 		private IEnumerable<IRouterServerService> timerServices;
 		private Dictionary<string, Client> clients = new Dictionary<string, Client>();
-		private IAtomicCounter<ulong> counter;
+		private IAtomicCounter counter;
 		private ulong timerCounter;
 
 		public IEventWriter EventWriter => this.eventWriter;
-		public IAtomicCounter<ulong> Counter => this.counter;
+		public IAtomicCounter Counter => this.counter;
 
 		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILoggerFactory loggerFactory,  IMessageFactory messageFactory) {
 			this.logger = loggerFactory.CreateLogger<RouterServer>();

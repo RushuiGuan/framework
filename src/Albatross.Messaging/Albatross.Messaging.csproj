@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<Description>This assembly contains messaging implementation using ZeroMQ.  Currently it supports pubsub and command queue pattern.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<LangVersion>Latest</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -1,23 +1,23 @@
-﻿using System.Numerics;
-
+﻿
 namespace Albatross.Messaging.Services {
-	public interface IAtomicCounter<T> where T : INumber<T> {
-		T NextId();
-		T Counter {get;}
+	public interface IAtomicCounter {
+		ulong NextId();
+		ulong Counter { get; }
 	}
-	public class AtomicCounter<T> : IAtomicCounter<T> where T : INumber<T> {
+	public class AtomicCounter : IAtomicCounter {
 		object sync = new object();
-		T counter = T.Zero;
-		public AtomicCounter(T counter) {
+		ulong counter = 0;
+
+		public AtomicCounter(ulong counter) {
 			this.counter = counter;
 		}
 
-		public T NextId() {
+		public ulong NextId() {
 			lock (sync) {
-				counter = counter + T.One;
+				counter = counter + 1;
 				return counter;
 			}
 		}
-		public T Counter => this.counter;
+		public ulong Counter => this.counter;
 	}
 }
