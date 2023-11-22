@@ -47,12 +47,11 @@ namespace Albatross.Messaging.PubSub.Pub {
 		bool AcceptReplay(Replay replay) {
 			var key = GetKey(replay.Message);
 			switch (replay.Message) {
-				case SubscriptionRequest sub:
-					var record = new PublisherReplayMessageGroup(sub, replay.Index);
-					records[key] = record;
-					break;
+				case SubscriptionRequest:
+				case SubscriptionReply:
+					return true;
 				case Event eve:
-					record = new PublisherReplayMessageGroup(eve, replay.Index);
+					var record = new PublisherReplayMessageGroup(eve, replay.Index);
 					records[key] = record;
 					break;
 				case ClientAck ack:

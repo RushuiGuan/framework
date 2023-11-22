@@ -65,7 +65,10 @@ namespace Albatross.Messaging.PubSub.Pub {
 				using (var stream = File.OpenRead(filename)) {
 					try {
 						var items = JsonSerializer.Deserialize<IEnumerable<Subscription>>(stream) ?? new List<Subscription>();
-						logger.LogInformation("Loading subscribers: {@items}", items);
+						logger.LogInformation("Loading subscribers");
+						foreach (var item in items) {
+							logger.LogInformation("Pattern: {pattern}; Subscriber: {subscriber}", item.Pattern, string.Join(',', item.Subscribers));
+						}
 						this.subscriptions = new HashSet<Subscription>(items);
 					}catch(Exception err) {
 						logger.LogError(err, "Error reading subscription management info from {file}", filename);
