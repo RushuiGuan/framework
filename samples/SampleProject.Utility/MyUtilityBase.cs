@@ -14,6 +14,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject.Utility {
+
 	public class MyUtilityBase<T> : UtilityBase<T> where T : BaseOption {
 		protected MyUtilityBase(T option) : base(option) {
 		}
@@ -30,13 +31,13 @@ namespace SampleProject.Utility {
 			base.RegisterServices(configuration, environment, services);
 			services.AddSampleProjectProxy();
 			services.AddSampleProjectCommands()
-				.AddCommandClient()
+				.AddCommandClient<MyCommandClient>()
 				.AddDefaultDealerClientConfig();
 		}
-		public override Task Init(IConfiguration configuration, IServiceProvider provider) {
-			base.Init(configuration, provider);
+		public override async Task Init(IConfiguration configuration, IServiceProvider provider) {
+			await base.Init(configuration, provider);
 			provider.UseDealerClient();
-			return Task.CompletedTask;
+			
 		}
 	}
 }

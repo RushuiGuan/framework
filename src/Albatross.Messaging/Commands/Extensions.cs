@@ -1,4 +1,5 @@
-﻿using Albatross.Reflection;
+﻿using Albatross.Threading;
+using Albatross.Reflection;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -22,7 +23,7 @@ namespace Albatross.Messaging.Commands {
 		}
 
 		public static IServiceCollection AddAssemblyCommands(this IServiceCollection services, Assembly assembly, Func<object, IServiceProvider, string>? getQueueName = null) {
-			foreach(var type in assembly.GetConcreteClasses()) {
+			foreach (var type in assembly.GetConcreteClasses()) {
 				var attrib = type.GetCustomAttribute<CommandAttribute>();
 				if (attrib != null) {
 					services.AddSingleton<IRegisterCommand>(new RegisterCommand(type, attrib.ResponseType, getQueueName ?? ((_, provider) => DefaultQueueName)));
@@ -31,13 +32,15 @@ namespace Albatross.Messaging.Commands {
 			return services;
 		}
 
-		public static IServiceCollection AddCommandClient(this IServiceCollection services) {
+		public static IServiceCollection AddCommandClient<T>(this IServiceCollection services) where T : class, ICommandClient {
 			services.TryAddSingleton<CommandClientService>();
-			services.AddSingleton<IDealerClientService>(args=>args.GetRequiredService<CommandClientService>());
-			services.TryAddSingleton<ICommandClient, CommandClient>();
+			services.AddSingleton<IDealerClientService>(args => args.GetRequiredService<CommandClientService>());
+			services.TryAddSingleton<ICommandClient, T>();
 			services.AddDealerClient();
 			return services;
 		}
+
+		public static IServiceCollection AddCommandClient(this IServiceCollection services) => AddCommandClient<CommandClient>(services);
 
 		public static IServiceCollection AddCommandHandler<H>(this IServiceCollection services) {
 			if (typeof(H).TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
@@ -74,15 +77,12 @@ namespace Albatross.Messaging.Commands {
 			return services;
 		}
 
-		public static Task SubmitCollection(this ICommandClient client, IEnumerable<object> commands, int timeout = 2000) {
+		public static Task SubmitCollection(this ICommandClient client, IEnumerable<object> commands, bool fireAndForget = true, int timeout = 2000) {
 			var tasks = new List<Task>();
-			foreach(var cmd in commands) {
-				tasks.Add(client.Submit(cmd));
+			foreach (var cmd in commands) {
+				tasks.Add(client.Submit(cmd, fireAndForget, 0));
 			}
-			if(timeout > 0) {
-				tasks.Add(Task.Delay(timeout));
-			}
-			return Task.WhenAll(tasks);
+			return tasks.WithTimeOut(TimeSpan.FromMilliseconds(timeout));
 		}
 	}
 }

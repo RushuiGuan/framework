@@ -45,7 +45,6 @@ namespace SampleProject {
 				return builder;
 			});
 			services.TryAddSingleton<IMySubscriptionClient, MySubscriptionClient>();
-			services.TryAddSingleton<IMyCommandClient, MyCommandClient>();
 			services.AddSampleProjectCommands();
 			services.TryAddSingleton<MySubscriber>();
 			return services;

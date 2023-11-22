@@ -2,7 +2,6 @@
 using Albatross.Messaging.Commands;
 using CommandLine;
 using SampleProject.Commands;
-using SampleProject.Proxy;
 using System.Threading.Tasks;
 
 namespace SampleProject.Utility {

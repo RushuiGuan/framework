@@ -52,6 +52,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 		}
 
 		public void Save() {
+			Albatross.IO.Extensions.EnsureDirectory(SubscriptionFilename);
 			using (var stream = File.OpenWrite(SubscriptionFilename)) {
 				JsonSerializer.Serialize<IEnumerable<Subscription>>(stream, subscriptions);
 				stream.Flush();
@@ -64,6 +65,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 				using (var stream = File.OpenRead(filename)) {
 					try {
 						var items = JsonSerializer.Deserialize<IEnumerable<Subscription>>(stream) ?? new List<Subscription>();
+						logger.LogInformation("Loading subscribers: {@items}", items);
 						this.subscriptions = new HashSet<Subscription>(items);
 					}catch(Exception err) {
 						logger.LogError(err, "Error reading subscription management info from {file}", filename);

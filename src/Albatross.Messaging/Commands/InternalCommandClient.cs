@@ -1,4 +1,5 @@
-﻿using Albatross.Reflection;
+﻿using Albatross.Threading;
+using Albatross.Reflection;
 using Albatross.Messaging.Commands.Messages;
 using Albatross.Messaging.Services;
 using System;
@@ -22,7 +23,7 @@ namespace Albatross.Messaging.Commands {
 			this.context = context;
 		}
 
-		public Task Submit(object command, bool fireAndForget = true) {
+		public Task Submit(object command, bool fireAndForget = true, int timeout = 2000) {
 			var type = command.GetType();
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
@@ -30,7 +31,7 @@ namespace Albatross.Messaging.Commands {
 				var request = new CommandRequest(context.Route, context.Id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
 				var internalCmd = new InternalCommandWithCallback(request);
 				this.routerServer.SubmitToQueue(internalCmd);
-				return Task.FromResult(request.Id);
+				return internalCmd.Task.WithTimeOut(TimeSpan.FromMilliseconds(timeout));
 			} else {
 				throw new NotSupportedException();
 			}

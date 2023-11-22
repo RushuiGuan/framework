@@ -8,12 +8,10 @@ namespace SampleProject.WebApi.Controllers {
 	[Route("api/run")]
 	[ApiController]
 	public class RunController : ControllerBase {
-		private readonly ICommandClient commandClient;
 		private readonly ISubscriptionClient subscriptionClient;
 		private readonly ISubscriber subscriber;
 
-		public RunController(IMyCommandClient commandClient, IMySubscriptionClient subscriptionClient, ISubscriber subscriber) {
-			this.commandClient = commandClient;
+		public RunController(IMySubscriptionClient subscriptionClient, ISubscriber subscriber) {
 			this.subscriptionClient = subscriptionClient;
 			this.subscriber = subscriber;
 		}

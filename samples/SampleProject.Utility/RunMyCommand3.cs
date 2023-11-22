@@ -1,6 +1,7 @@
 ﻿using Albatross.Messaging.Commands;
 using CommandLine;
 using SampleProject.Commands;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -37,7 +38,8 @@ namespace SampleProject.Utility {
 					}
 				}
 			}
-			await client.SubmitCollection(commands);
+			await client.SubmitCollection(commands, false);
+			Console.ReadLine();
 			return 0;
 		}
 	}

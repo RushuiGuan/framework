@@ -1,4 +1,5 @@
-﻿using Albatross.Messaging.Services;
+﻿using Albatross.Threading;
+using Albatross.Messaging.Services;
 using System;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace Albatross.Messaging.Commands {
 	/// all other methods in this call should be thread safe.
 	/// </summary>
 	public interface ICommandClient {
-		Task Submit(object command, bool fireAndForget = true);
+		Task Submit(object command, bool fireAndForget = true, int timeout = 2000);
 	}
 	public class CommandClient : ICommandClient {
 		private readonly CommandClientService service;
@@ -18,9 +19,8 @@ namespace Albatross.Messaging.Commands {
 			this.service = service;
 			this.dealerClient = dealerClient;
 		}
-		public Task Submit(object command, bool fireAndForget = true)
-			=> service.Submit(dealerClient, command, fireAndForget);
-
+		public Task Submit(object command, bool fireAndForget = true, int timeout = 2000)
+			=> service.Submit(dealerClient, command, fireAndForget).WithTimeOut(TimeSpan.FromMilliseconds(timeout));
 	}
 
 	public abstract class CallbackCommandClient : ICommandClient, IDisposable {
@@ -37,8 +37,8 @@ namespace Albatross.Messaging.Commands {
 			service.OnCommandError += OnCommandErrorCallback;
 		}
 
-		public Task Submit(object command, bool fireAndForget = true)
-			=> service.Submit(dealerClient, command, fireAndForget);
+		public Task Submit(object command, bool fireAndForget = true, int timeout = 2000)
+			=> service.Submit(dealerClient, command, fireAndForget).WithTimeOut(TimeSpan.FromMilliseconds(timeout));
 
 		public void Dispose() {
 			this.service.OnCommandCompleted -= OnCommandCallback;
