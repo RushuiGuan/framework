@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SampleProject.Utility {
-	[Verb("my-cmd2")]
-	public class RunMyCommand2Option : MyBaseOption {
+	[Verb("my-cmd3")]
+	public class RunMyCommand3Option : MyBaseOption {
 		[Option('d', "delay")]
 		public int Delay { get; set; }
 
@@ -19,13 +19,13 @@ namespace SampleProject.Utility {
 		[Option("child-count")]
 		public int ChildCount { get; set; }
 	}
-	public class RunMyCommand2 : MyUtilityBase<RunMyCommand2Option> {
-		public RunMyCommand2(RunMyCommand2Option option) : base(option) {
+	public class RunMyCommand3 : MyUtilityBase<RunMyCommand3Option> {
+		public RunMyCommand3(RunMyCommand3Option option) : base(option) {
 		}
 		public async Task<int> RunUtility(ICommandClient client) {
 			var commands = new List<object>();
 			for (int i = 0; i < Options.Count; i++) {
-				var cmd = new MyCommand2($"test command: {i}") {
+				var cmd = new MyCommand3($"test command: {i}") {
 					Error = Options.Error,
 					Delay = Options.Delay,
 				};

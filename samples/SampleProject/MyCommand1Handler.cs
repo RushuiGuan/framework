@@ -5,25 +5,26 @@ using System;
 using System.Threading.Tasks;
 
 namespace SampleProject {
-	public class MyCommandHandler : BaseCommandHandler<MyCommand1> {
+	public class MyCommand1Handler : BaseCommandHandler<MyCommand1> {
 		private readonly CommandContext context;
 		private readonly ICommandClient client;
-		private readonly ILogger<MyCommandHandler> logger;
+		private readonly ILogger<MyCommand1Handler> logger;
 
-		public MyCommandHandler(CommandContext context, InternalCommandClient commandClient, ILogger<MyCommandHandler> logger) {
+		public MyCommand1Handler(CommandContext context, InternalCommandClient commandClient, ILogger<MyCommand1Handler> logger) {
 			this.context = context;
 			this.client = commandClient;
 			this.logger = logger;
 		}
 
 		public override async Task Handle(MyCommand1 command) {
-			logger.LogInformation("Running MyCommand {cmd} with context {context}", command, context);
+			logger.LogInformation("Running: {cmd}", command.Name);
+			logger.LogInformation("Context: {context}", context);
 			if (command.Delay > 0) {
 				await Task.Delay(command.Delay);
 			}
 			await client.SubmitCollection(command.Commands);
 			if (command.Error) {
-				throw new InvalidOperationException($"Error executing command {command}");
+				throw new InvalidOperationException($"Error executing command {command.Name}");
 			}
 		}
 	}

@@ -74,10 +74,13 @@ namespace Albatross.Messaging.Commands {
 			return services;
 		}
 
-		public static Task SubmitCollection(this ICommandClient client, IEnumerable<object> commands) {
+		public static Task SubmitCollection(this ICommandClient client, IEnumerable<object> commands, int timeout = 2000) {
 			var tasks = new List<Task>();
 			foreach(var cmd in commands) {
 				tasks.Add(client.Submit(cmd));
+			}
+			if(timeout > 0) {
+				tasks.Add(Task.Delay(timeout));
 			}
 			return Task.WhenAll(tasks);
 		}

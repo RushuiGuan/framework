@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SampleProject.Commands;
 using SampleProject.Proxy;
 using Serilog;
+using Serilog.Core;
 using Serilog.Filters;
 using System;
 using System.Threading.Tasks;
@@ -17,11 +18,12 @@ namespace SampleProject.Utility {
 		protected MyUtilityBase(T option) : base(option) {
 		}
 		protected override void ConfigureLogging(LoggerConfiguration cfg) {
-			cfg.MinimumLevel.Debug()
+			cfg.MinimumLevel.Information()
 				.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Error)
-				.MinimumLevel.Override("System", Serilog.Events.LogEventLevel.Error)
-				.WriteTo.Logger(log_cfg => log_cfg.Filter.ByExcluding(Matching.FromSource("message-entry")).WriteTo.Console(outputTemplate: SetupSerilog.DefaultOutputTemplate))
-				.WriteTo.Logger(log_cfg => log_cfg.Filter.ByIncludingOnly(Matching.FromSource("message-entry")).WriteTo.Console(outputTemplate: "msg-entry {Message:lj}"))
+				.WriteTo.Logger(log_cfg => log_cfg.Filter.ByExcluding(Matching.WithProperty<string>(Constants.SourceContextPropertyName, source => source != null && source.EndsWith("message-entry")))
+				.WriteTo.Console(outputTemplate: SetupSerilog.DefaultOutputTemplate))
+				.WriteTo.Logger(log_cfg => log_cfg.Filter.ByIncludingOnly(Matching.WithProperty<string>(Constants.SourceContextPropertyName, source => source != null && source.EndsWith("message-entry")))
+				.WriteTo.Console(outputTemplate: "{SourceContext}:{Message:lj}"))
 				.Enrich.FromLogContext();
 		}
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environment, IServiceCollection services) {

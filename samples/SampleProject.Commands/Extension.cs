@@ -6,6 +6,7 @@ namespace SampleProject.Commands {
 	public static class Extensions {
 		static string GetQueueName(object command, IServiceProvider provider) {
 			switch (command) {
+				case SelfDestructCommand:
 				case MyCommand1:
 					return "my-command-queue1";
 				case MyCommand2:

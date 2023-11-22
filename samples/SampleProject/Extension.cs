@@ -14,8 +14,7 @@ using Albatross.Messaging.Messages;
 namespace SampleProject {
 	public static class Extensions {
 		public static IServiceCollection AddDefaultSampleProjectClient(this IServiceCollection services) {
-			services.AddSampleProjectCommands()
-				.AddCommandClient()
+			services.AddCommandClient()
 				.AddSubscriber()
 				.AddDefaultDealerClientConfig();
 			services.TryAddSingleton<MySubscriber>();

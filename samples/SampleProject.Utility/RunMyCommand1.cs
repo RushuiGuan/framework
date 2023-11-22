@@ -23,16 +23,14 @@ namespace SampleProject.Utility {
 		}
 		public async Task<int> RunUtility(ICommandClient client) {
 			for(int i=0; i<Options.Count; i++) {
-				var cmd = new MyCommand1 {
+				var cmd = new MyCommand1($"test command {i}") {
 					Error = Options.Error,
-					Text = Options.Text ?? $"test command: {i}",
+					Delay = Options.Delay,
 				};
 
 				if (Options.ChildCount > 0) {
 					for (int j = 0; j < Options.ChildCount; j++) {
-						cmd.Commands.Add(new MyCommand2() {
-							Text = $"child command {j} of {i}",
-						});
+						cmd.Commands.Add(new MyCommand2($"test command {j}"));
 					}
 				}
 				await client.Submit(cmd);
