@@ -24,11 +24,11 @@ namespace SampleProject {
 		public static void UseDefaultSampleProjectClient(this IServiceProvider provider) {
 			provider.GetRequiredService<DealerClient>().Start();
 			var subscriber = provider.GetRequiredService<MySubscriber>();
-			var client = provider.GetRequiredService<ISubscriptionClient>();
+			var client = provider.GetRequiredService<IMySubscriptionClient>();
 			client.Subscribe(subscriber, "^default$");
 		}
 
-		public static IServiceCollection AddSampleProjectCommandBus(this IServiceCollection services) {
+		public static IServiceCollection AddSampleProjectDaemon(this IServiceCollection services) {
 			services.AddSampleProjectCommands()
 				.AddAssemblyCommandHandlers(typeof(SampleProject.Extensions).Assembly)
 				.AddCommandBus()
@@ -36,7 +36,7 @@ namespace SampleProject {
 			return services;
 		}
 
-		public static IServiceCollection AddCustomSampleProjectClient(this IServiceCollection services) {
+		public static IServiceCollection AddSampleProjectClientApi(this IServiceCollection services) {
 			services.AddConfig<MessagingConfiguration>();
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			services.TryAddSingleton(args => {
@@ -44,12 +44,13 @@ namespace SampleProject {
 				builder.TryAddCommandClientService().TryAddSubscriptionService().Build();
 				return builder;
 			});
+			// Use a custom ISubscriptionClient if need to connect to multiplie subscription endpoint
 			services.TryAddSingleton<IMySubscriptionClient, MySubscriptionClient>();
-			services.AddSampleProjectCommands();
 			services.TryAddSingleton<MySubscriber>();
+			services.TryAddSingleton<ISubscriber>(x => x.GetRequiredService<MySubscriber>());
 			return services;
 		}
-		public static void UseCustomSampleProjectClient(this IServiceProvider provider) {
+		public static void UseSampleProjectWebApi(this IServiceProvider provider) {
 			provider.GetRequiredService<MyDealerClientBuilder>().DealerClient.Start();
 			var subscriber = provider.GetRequiredService<MySubscriber>();
 			var client = provider.GetRequiredService<IMySubscriptionClient>();

@@ -1,4 +1,5 @@
-﻿using Albatross.Config;
+﻿		
+using Albatross.Config;
 using Albatross.Hosting.Utility;
 using Albatross.Logging;
 using Albatross.Messaging.Commands;
@@ -30,8 +31,7 @@ namespace SampleProject.Utility {
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environment, IServiceCollection services) {
 			base.RegisterServices(configuration, environment, services);
 			services.AddSampleProjectProxy();
-			services.AddSampleProjectCommands()
-				.AddCommandClient<MyCommandClient>()
+			services.AddCommandClient<MyCommandClient>()
 				.AddDefaultDealerClientConfig();
 		}
 		public override async Task Init(IConfiguration configuration, IServiceProvider provider) {

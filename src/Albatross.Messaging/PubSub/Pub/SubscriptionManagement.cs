@@ -16,9 +16,9 @@ namespace Albatross.Messaging.PubSub.Pub {
 	}
 	public class SubscriptionManagement : ISubscriptionManagement {
 		private readonly ILogger<SubscriptionManagement> logger;
-		private readonly SubscriptionManagementConfiguration config;
-		public string SubscriptionFilename => Path.Join(config.DiskStorage.WorkingDirectory, config.DiskStorage.FileName);
-		public SubscriptionManagement(ILogger<SubscriptionManagement> logger, SubscriptionManagementConfiguration config) {
+		private readonly RouterServerConfiguration config;
+		public string SubscriptionFilename => Path.Join(config.DiskStorage.WorkingDirectory, "subscriptions.json");
+		public SubscriptionManagement(ILogger<SubscriptionManagement> logger, RouterServerConfiguration config) {
 			this.logger = logger;
 			this.config = config;
 			Load();

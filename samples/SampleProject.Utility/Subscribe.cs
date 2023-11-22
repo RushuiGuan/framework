@@ -1,6 +1,7 @@
 ﻿using Albatross.Hosting.Utility;
 using CommandLine;
 using SampleProject.Proxy;
+using System;
 using System.Threading.Tasks;
 
 namespace SampleProject.Utility {

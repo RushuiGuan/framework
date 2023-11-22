@@ -9,7 +9,7 @@ namespace SampleProject.Daemon {
 
 		public override void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
 			base.ConfigureServices(services, configuration);
-			services.AddSampleProjectCommandBus();
+			services.AddSampleProjectDaemon();
 		}
 	}
 }
