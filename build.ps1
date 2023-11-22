@@ -2,7 +2,7 @@ $output = $env:InstallDirectory;
 
 $projects = @(
 	"sampleproject.utility"
-	,"sampleproject.daemon"
+#	,"sampleproject.daemon"
 	,"sampleproject.webapi"
 );
 

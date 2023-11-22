@@ -5,7 +5,7 @@ using System.IO;
 using System;
 
 namespace Albatross.Messaging.Commands.Messages {
-	public record class CommandErrorReply : CommandMessage {
+	public record class CommandErrorReply : CommandMessage, IMessage {
 		public static string MessageHeader => "cmd-err";
 		public string ClassName { get; private set; } = string.Empty;
 		public byte[] Message { get; private set; } = Array.Empty<byte>();

@@ -10,36 +10,33 @@ namespace Albatross.Messaging.Commands {
 	public interface ICommandClient {
 		Task Submit(object command, bool fireAndForget = true);
 	}
-	public class CommandClient : ICommandClient , IDisposable{
+	public class CommandClient : ICommandClient {
 		private readonly CommandClientService service;
 		private readonly IMessagingService dealerClient;
 
-		public CommandClient(IMessagingService dealerClient, CommandClientService service) {
+		public CommandClient(DealerClient dealerClient, CommandClientService service) {
 			this.service = service;
 			this.dealerClient = dealerClient;
 		}
 		public Task Submit(object command, bool fireAndForget = true)
 			=> service.Submit(dealerClient, command, fireAndForget);
 
-		public void Dispose() {
-			throw new NotImplementedException();
-		}
 	}
 
-	public abstract class CallbackCommandClient : ICommandClient , IDisposable{
+	public abstract class CallbackCommandClient : ICommandClient, IDisposable {
 		private readonly CommandClientService service;
 		private readonly IMessagingService dealerClient;
 
 		public abstract void OnCommandCallback(ulong id, string commandType, byte[] message);
 		public abstract void OnCommandErrorCallback(ulong id, string commandType, string errorType, byte[] message);
 
-		public CallbackCommandClient(IMessagingService dealerClient, CommandClientService service) {
+		public CallbackCommandClient(DealerClient dealerClient, CommandClientService service) {
 			this.service = service;
 			this.dealerClient = dealerClient;
 			service.OnCommandCompleted += OnCommandCallback;
 			service.OnCommandError += OnCommandErrorCallback;
 		}
-		
+
 		public Task Submit(object command, bool fireAndForget = true)
 			=> service.Submit(dealerClient, command, fireAndForget);
 

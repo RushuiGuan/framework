@@ -4,7 +4,7 @@ using NetMQ;
 using System.IO;
 
 namespace Albatross.Messaging.Commands.Messages {
-	public record class CommandMessage : Message, IMessage {
+	public record class CommandMessage : Message{
 		public string CommandType { get; private set; } = string.Empty;
 		public override int StartingFrameIndex => base.StartingFrameIndex + 1;
 		public CommandMessage(string messageHeader, string route, ulong id, string commandType) : base(messageHeader, route, id) {

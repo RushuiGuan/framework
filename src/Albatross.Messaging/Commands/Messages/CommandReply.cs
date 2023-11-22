@@ -5,7 +5,7 @@ using System;
 using System.IO;
 
 namespace Albatross.Messaging.Commands.Messages {
-	public record class CommandReply : CommandMessage {
+	public record class CommandReply : CommandMessage, IMessage {
 		public static string MessageHeader => "cmd-rep";
 		public byte[] Payload { get; private set; } = Array.Empty<byte>();
 
