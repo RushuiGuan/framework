@@ -53,11 +53,11 @@ namespace Albatross.Messaging.Commands {
 				// run everything else using a diff thread
 				await Task.Run(async () => {
 					if (item.Command is ILogDetail logDetail) {
-						logger.LogInformation("Running {command} by {client}({id}), parameter: {@parameter}",
-							item.Registration.CommandType, item.Route, item.Id, logDetail.Target);
+						logger.LogInformation("Running {id}, type:{type}, mode:{mode}, client:{client}, parameter:{@parameter}",
+							item.Id, item.Registration.CommandType, item.Mode, item.Route, logDetail.Target);
 					} else {
-						logger.LogInformation("Running {command} by {client}({id})",
-							item.Registration.CommandType, item.Route, item.Id);
+						logger.LogInformation("Running {id}, type:{type}, mode:{mode}, client:{client}",
+							item.Id, item.Registration.CommandType, item.Mode, item.Route);
 					}
 					var result = await commandHandler.Handle(item.Command).ConfigureAwait(false);
 					logger.LogInformation("Done {commandId}", item.Id);

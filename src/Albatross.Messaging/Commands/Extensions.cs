@@ -71,7 +71,7 @@ namespace Albatross.Messaging.Commands {
 			services.TryAddSingleton<ICommandQueueFactory, CommandQueueFactory>();
 			services.TryAddTransient<CommandQueue>();
 			// this should only be used if the TaskCommandQueue is used
-			services.TryAddSingleton<InternalCommandClient>();
+			services.TryAddScoped<InternalCommandClient>();
 			services.TryAddScoped<CommandContext>();
 			services.AddRouterServer();
 			return services;
