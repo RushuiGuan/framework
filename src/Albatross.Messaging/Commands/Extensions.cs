@@ -11,27 +11,13 @@ using System.Threading.Tasks;
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
 		public const string DefaultQueueName = "default_queue";
+		static string GetDefaultQueueName(object command, IServiceProvider provider) => DefaultQueueName;
 
-		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : notnull {
-			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T>(getQueueName ?? ((_, provider) => DefaultQueueName)));
+		static IServiceCollection AddCommand(this IServiceCollection services, Type commandType, Type? responseType, Func<object, IServiceProvider, string> getQueueName) {
+			services.AddSingleton<IRegisterCommand>(new RegisterCommand(commandType, responseType ?? typeof(void), getQueueName));
 			return services;
 		}
-
-		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, Func<T, IServiceProvider, string>? getQueueName = null) where T : notnull where K : notnull {
-			services.AddSingleton<IRegisterCommand>(provider => new RegisterCommand<T, K>(getQueueName ?? ((_, provider) => DefaultQueueName)));
-			return services;
-		}
-
-		public static IServiceCollection AddAssemblyCommands(this IServiceCollection services, Assembly assembly, Func<object, IServiceProvider, string>? getQueueName = null) {
-			foreach (var type in assembly.GetConcreteClasses()) {
-				var attrib = type.GetCustomAttribute<CommandAttribute>();
-				if (attrib != null) {
-					services.AddSingleton<IRegisterCommand>(new RegisterCommand(type, attrib.ResponseType, getQueueName ?? ((_, provider) => DefaultQueueName)));
-				}
-			}
-			return services;
-		}
-
+		
 		public static IServiceCollection AddCommandClient<T>(this IServiceCollection services) where T : class, ICommandClient {
 			services.TryAddSingleton<CommandClientService>();
 			services.AddSingleton<IDealerClientService>(args => args.GetRequiredService<CommandClientService>());
@@ -42,24 +28,26 @@ namespace Albatross.Messaging.Commands {
 
 		public static IServiceCollection AddCommandClient(this IServiceCollection services) => AddCommandClient<CommandClient>(services);
 
-		public static IServiceCollection AddCommandHandler<H>(this IServiceCollection services) {
-			if (typeof(H).TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
-				services.TryAddScoped(genericType, typeof(H));
-			} else if (typeof(H).TryGetClosedGenericType(typeof(ICommandHandler<>), out genericType)) {
-				services.TryAddScoped(genericType, typeof(H));
+		public static bool TryAddCommandHandler(this IServiceCollection services, Type commandHandlerType, Func<object, IServiceProvider, string>? getQueueName = null) {
+			getQueueName = getQueueName ?? GetDefaultQueueName;
+			if (commandHandlerType.TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
+				var genericArguments = genericType.GetGenericArguments();
+				services.AddCommand(genericArguments[0], genericArguments[1], getQueueName);
+				services.TryAddScoped(genericType, commandHandlerType);
+			} else if (commandHandlerType.TryGetClosedGenericType(typeof(ICommandHandler<>), out genericType)) {
+				var genericArguments = genericType.GetGenericArguments();
+				services.AddCommand(genericArguments[0], null, getQueueName);
+				services.TryAddScoped(genericType, commandHandlerType);
 			} else {
-				throw new ArgumentException($"{typeof(H).FullName} is not a valid command handler type");
+				return false;
 			}
-			return services;
+			return true;
 		}
-		public static IServiceCollection AddAssemblyCommandHandlers(this IServiceCollection services, Assembly assembly) {
+		public static IServiceCollection AddAssemblyCommandHandlers(this IServiceCollection services, Assembly assembly, Func<object, IServiceProvider, string>? getQueueName = null) {
+			getQueueName = getQueueName ?? GetDefaultQueueName;
 			var types = assembly.GetConcreteClasses<ICommandHandler>();
 			foreach (var type in types) {
-				if (type.TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
-					services.TryAddScoped(genericType, type);
-				} else if (type.TryGetClosedGenericType(typeof(ICommandHandler<>), out genericType)) {
-					services.TryAddScoped(genericType, type);
-				}
+				TryAddCommandHandler(services, type, getQueueName);
 			}
 			return services;
 		}
@@ -70,7 +58,6 @@ namespace Albatross.Messaging.Commands {
 			services.AddSingleton<IRouterServerService, CommandBusReplayService>();
 			services.TryAddSingleton<ICommandQueueFactory, CommandQueueFactory>();
 			services.TryAddTransient<CommandQueue>();
-			// this should only be used if the TaskCommandQueue is used
 			services.TryAddScoped<InternalCommandClient>();
 			services.TryAddScoped<CommandContext>();
 			services.AddRouterServer();

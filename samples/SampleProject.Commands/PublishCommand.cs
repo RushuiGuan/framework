@@ -1,7 +1,7 @@
 ﻿using Albatross.Messaging.Commands;
 
 namespace SampleProject.Commands {
-	[Command]
+	
 	public class PublishCommand {
 		public PublishCommand(string topic, int min, int max) {
 			Topic = topic;

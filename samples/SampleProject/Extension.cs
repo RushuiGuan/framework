@@ -13,6 +13,19 @@ using Albatross.Messaging.Messages;
 
 namespace SampleProject {
 	public static class Extensions {
+		public static string GetQueueName(object command, IServiceProvider provider) {
+			switch (command) {
+				case SelfDestructCommand:
+				case MyCommand1:
+					return "my-command-queue1";
+				case MyCommand2:
+					return "my-command-queue2";
+				case PingCommand:
+				case PongCommand:
+					return "ping pong";
+			}
+			return Albatross.Messaging.Commands.Extensions.DefaultQueueName;
+		}
 		public static IServiceCollection AddDefaultSampleProjectClient(this IServiceCollection services) {
 			services.AddCommandClient()
 				.AddSubscriber()
@@ -29,8 +42,8 @@ namespace SampleProject {
 		}
 
 		public static IServiceCollection AddSampleProjectDaemon(this IServiceCollection services) {
-			services.AddSampleProjectCommands()
-				.AddAssemblyCommandHandlers(typeof(SampleProject.Extensions).Assembly)
+			services
+				.AddAssemblyCommandHandlers(typeof(SampleProject.Extensions).Assembly, GetQueueName)
 				.AddCommandBus()
 				.AddPublisher();
 			return services;
