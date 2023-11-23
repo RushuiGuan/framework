@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
 		public const string DefaultQueueName = "default_queue";
-		static string GetDefaultQueueName(object command, IServiceProvider provider) => DefaultQueueName;
+		public static string GetDefaultQueueName(object _, IServiceProvider provider) => DefaultQueueName;
 
 		static IServiceCollection AddCommand(this IServiceCollection services, Type commandType, Type? responseType, Func<object, IServiceProvider, string> getQueueName) {
 			services.AddSingleton<IRegisterCommand>(new RegisterCommand(commandType, responseType ?? typeof(void), getQueueName));
@@ -28,8 +28,7 @@ namespace Albatross.Messaging.Commands {
 
 		public static IServiceCollection AddCommandClient(this IServiceCollection services) => AddCommandClient<CommandClient>(services);
 
-		public static bool TryAddCommandHandler(this IServiceCollection services, Type commandHandlerType, Func<object, IServiceProvider, string>? getQueueName = null) {
-			getQueueName = getQueueName ?? GetDefaultQueueName;
+		public static bool TryAddCommandHandler(this IServiceCollection services, Type commandHandlerType, Func<object, IServiceProvider, string> getQueueName) {
 			if (commandHandlerType.TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
 				var genericArguments = genericType.GetGenericArguments();
 				services.AddCommand(genericArguments[0], genericArguments[1], getQueueName);
@@ -43,8 +42,7 @@ namespace Albatross.Messaging.Commands {
 			}
 			return true;
 		}
-		public static IServiceCollection AddAssemblyCommandHandlers(this IServiceCollection services, Assembly assembly, Func<object, IServiceProvider, string>? getQueueName = null) {
-			getQueueName = getQueueName ?? GetDefaultQueueName;
+		public static IServiceCollection AddAssemblyCommandHandlers(this IServiceCollection services, Assembly assembly, Func<object, IServiceProvider, string> getQueueName) {
 			var types = assembly.GetConcreteClasses<ICommandHandler>();
 			foreach (var type in types) {
 				TryAddCommandHandler(services, type, getQueueName);
