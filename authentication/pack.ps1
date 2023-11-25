@@ -8,6 +8,6 @@ $projects = @(
 
 Run-Pack -projects $projects `
 	-directory $PSScriptRoot `
-	-nugetSource $env:DefaultNugetSource `
+	-nugetSource test `  #$env:DefaultNugetSource
 	-localSymbolServer $env:LocalSymbolServer `
 	-remoteSymbolServer $env:RemoteSymbolServer;
