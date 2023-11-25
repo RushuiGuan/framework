@@ -6,4 +6,8 @@ $projects = @(
 	"albatross.authentication"
 );
 
-Run-Pack $projects $PSScriptRoot;
+Run-Pack -projects $projects `
+	-directory $PSScriptRoot `
+	-nugetSource staging `
+	-localSymbolServer $env:LocalSymbolServer `
+	-remoteSymbolServer $env:RemoteSymbolServer;
