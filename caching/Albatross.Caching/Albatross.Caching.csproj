@@ -23,8 +23,6 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
-		<ProjectReference Include="..\Albatross.WebClient\Albatross.WebClient.csproj" />
 		<ProjectReference Include="..\Albatross\Albatross.csproj" />
 	</ItemGroup>
 	<ItemGroup>
