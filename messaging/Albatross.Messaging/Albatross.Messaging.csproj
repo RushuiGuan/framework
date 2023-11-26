@@ -10,16 +10,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="albatross" Version="6.4.0" />
+		<PackageReference Include="albatross.config" Version="6.4.0" />
+		<PackageReference Include="Albatross.Serialization" Version="6.4.0" />
 		<PackageReference Include="CoenM.Encoding.Z85e" Version="1.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
 		<PackageReference Include="NetMQ" Version="4.0.1.13" />
 		<PackageReference Include="Serilog.Expressions" Version="3.4.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
-	  <ProjectReference Include="..\Albatross.Serialization\Albatross.Serialization.csproj" />
-	  <ProjectReference Include="..\Albatross\Albatross.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
