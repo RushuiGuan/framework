@@ -1,32 +1,66 @@
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
 
+function Set-Directory {
+    param(
+        [parameter(Mandatory, Position = 0)]
+        [string]$path
+    )
+
+    [System.IO.DirectoryInfo]$folder = New-Object System.IO.DirectoryInfo -ArgumentList $path;
+
+    if (-not $folder.Exists) {
+        $stack = New-Object System.Collections.Stack;
+        do {
+            $stack.Push($folder);
+            $folder = $folder.Parent;
+        }while (!$folder.Exists)
+
+        while ($stack.Count -gt 0) {
+            New-Item $stack.Pop().FullName -ItemType Container > $null;
+        }
+    }
+    return $path;
+}
+
 <#
 returns $true if there is any uncommitted change in the directory
 #>
-function Test-GitDiff ([string]$path) {
-	if ($path) {
-		$check = (git status $path -s);
-		return ($check.Count -ne 0);
-	}
-	else {
-		return $false;
-	}
+function Test-GitDiff {
+    param(
+        [Parameter(Mandatory)]
+        [string]$path
+    )
+    if ($path) {
+        $check = (git status $path -s);
+        return ($check.Count -ne 0);
+    }
+    else {
+        return $false;
+    }
 }
 function Get-GitCount {
-    return (git rev-list --count HEAD);
+    param(
+        [Parameter(Mandatory)]
+        [string]$path
+    )
+    return (git rev-list --count HEAD -- $path);
 }
 
-function Get-GitBranch(){
-	return (git rev-parse --abbrev-ref HEAD);
+function Get-GitBranch {
+    return (git rev-parse --abbrev-ref HEAD);
 }
 
-function Get-GitHash(){
-	return (git rev-parse --short HEAD)
+function Get-GitHash {
+    return (git rev-parse --short HEAD)
 }
 
-function Get-LastModifiedGitHash([string]$path){
-
+function Get-GitFolderHash {
+    param(
+        [Parameter(Mandatory)]
+        [string]$path
+    )
+    return (git log --pretty=tformat:"%h" -n1 $path);
 }
 
 function Get-ProjectVersion {
@@ -45,11 +79,13 @@ function Get-ProjectVersion {
             $version = "1.0.0";
         }
         $branch = Get-GitBranch;
-        $hash = get-GitHash
-        if($branch -eq "production"){
+        $folder = [System.IO.Path]::GetDirectoryName($csproj);
+        $hash = get-GitFolderHash $folder;
+        if ($branch -eq "production") {
             write-Output "$version+$hash";
-        }else{
-            $count = Get-GitCount;
+        }
+        else {
+            $count = Get-GitCount $folder;
             write-Output "$version-$count.$branch+$hash";
         }
     }
@@ -71,36 +107,63 @@ function Set-ProjectVersion {
     }
 }
 
-function Run-Pack{
+function Run-Pack {
     param(
         [Parameter(Mandatory)]
         [string[]]$projects,
         [Parameter(Mandatory)]
-        [string]$directory
+        [string]$directory,
+        [string]$nugetSource,
+        [string]$localSymbolServer,
+        [string]$remoteSymbolServer
     )
-    process{
-        if(Test-GitDiff $directory){
+    process {
+        if (Test-GitDiff $directory) {
             Write-Error "Please commit your changes before packing";
         }
         $install = "$directory\artifacts";
         $versionFile = "$directory\Directory.Build.props";
-        if(-not (Test-Path $versionFile -type Leaf)){
+        if (-not (Test-Path $versionFile -type Leaf)) {
             Write-Error "Missing Directory.Build.props file";
         }
-        foreach($project in $projects){
+        foreach ($project in $projects) {
             Write-Information "Deleting existing artifacts for $project";
             Get-ChildItem $install\$item | Remove-Item -Recurse -Force;
         }
         $version = Get-ProjectVersion $versionFile;
         Set-ProjectVersion -csproj $versionFile -version $version;
+        Write-Information "Project version updated to: $version";
         dotnet restore $directory;
-        foreach($project in $projects){
+        foreach ($project in $projects) {
             Write-Information "Building $project";
             dotnet pack $directory\$project\$project.csproj `
                 --output $install\$project `
                 --configuration release `
                 --no-restore
         }
+        Write-Information "Reverting version file";
         git checkout $versionFile;
+
+        foreach ($project in $projects) {
+            if ($nugetSource) { 
+                get-item $install\$project\*.nupkg | foreach-Object {
+                    nuget push $_.FullName -source $nugetSource -apiKey az
+                }
+            }
+
+            
+            if ($localSymbolServer) {
+                $path = (Set-Directory "$localSymbolServer\$project\")
+                write-Information "copy local symbol => $path";
+                copy-item $install\$project\*.snupkg $path;
+            }
+            if ($remoteSymbolServer -and (Test-Path $remoteSymbolServer -type Container)) {
+                $path = (Set-Directory "$remoteSymbolServer\$project")
+                write-Information "copy remote symbol => $path";
+                copy-item $install\$project\*.snupkg $path;
+            }
+
+           
+        }
     }
 }
