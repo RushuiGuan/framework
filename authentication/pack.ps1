@@ -1,6 +1,6 @@
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
-. ..\scripts.ps1;
+. ..\scripts\pack.ps1;
 
 $projects = @(
 	"albatross.authentication"
@@ -9,9 +9,6 @@ $projects = @(
 Run-Pack -projects $projects `
 	-directory $PSScriptRoot `
 	-localSymbolServer $env:LocalSymbolServer `
-	-remoteSymbolServer $env:RemoteSymbolServer;
-
-
-
-#	-nugetSource test `
+	-remoteSymbolServer $env:RemoteSymbolServer `
+	-nugetSource test `
 #	-nugetSource $env:DefaultNugetSource `
