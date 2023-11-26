@@ -13,6 +13,7 @@
     <RepositoryType></RepositoryType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Albatross.Serialization" Version="6.4.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.9" />
   </ItemGroup>
@@ -27,9 +28,6 @@
       <PackagePath>
       </PackagePath>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Albatross.Serialization\Albatross.Serialization.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="readme.md">
