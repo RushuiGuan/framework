@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore", "Albatross.EFCore\Albatross.EFCore.csproj", "{9AA639D2-D6DD-43B2-AD7F-276557483FF1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.ChangeReporting", "Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj", "{6DAA7DAB-5C40-451C-A555-991464F04178}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.DateLevel", "Albatross.EFCore.DateLevel\Albatross.EFCore.DateLevel.csproj", "{60C885B1-0BC7-4073-B96C-69FAEC9B3F44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.PostgreSQL", "Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj", "{1E102619-D029-46BF-A6FF-3D8EC9C2F7D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.SqlServer", "Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj", "{EE2BE28B-5F8A-4007-96BF-DABC0AD4A939}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AA639D2-D6DD-43B2-AD7F-276557483FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA639D2-D6DD-43B2-AD7F-276557483FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA639D2-D6DD-43B2-AD7F-276557483FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AA639D2-D6DD-43B2-AD7F-276557483FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DAA7DAB-5C40-451C-A555-991464F04178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DAA7DAB-5C40-451C-A555-991464F04178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DAA7DAB-5C40-451C-A555-991464F04178}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DAA7DAB-5C40-451C-A555-991464F04178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C885B1-0BC7-4073-B96C-69FAEC9B3F44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C885B1-0BC7-4073-B96C-69FAEC9B3F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C885B1-0BC7-4073-B96C-69FAEC9B3F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C885B1-0BC7-4073-B96C-69FAEC9B3F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E102619-D029-46BF-A6FF-3D8EC9C2F7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E102619-D029-46BF-A6FF-3D8EC9C2F7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E102619-D029-46BF-A6FF-3D8EC9C2F7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E102619-D029-46BF-A6FF-3D8EC9C2F7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2BE28B-5F8A-4007-96BF-DABC0AD4A939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2BE28B-5F8A-4007-96BF-DABC0AD4A939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2BE28B-5F8A-4007-96BF-DABC0AD4A939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2BE28B-5F8A-4007-96BF-DABC0AD4A939}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9A59FB39-0DD5-4F91-A558-7FFDCBB7BCA6}
+	EndGlobalSection
+EndGlobal

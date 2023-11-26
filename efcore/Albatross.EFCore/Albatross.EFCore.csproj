@@ -29,6 +29,6 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Albatross\Albatross.csproj" />
+	  <PackageReference Include="albatross" Version="6.4.0" />
 	</ItemGroup>
 </Project>
