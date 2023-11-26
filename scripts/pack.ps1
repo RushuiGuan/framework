@@ -28,6 +28,7 @@ function Run-Pack {
 		}
 		foreach ($project in $projects) {
 			Write-Information "Deleting existing artifacts for $project";
+			Set-Directory "$install\$item";
 			Get-ChildItem $install\$item | Remove-Item -Recurse -Force;
 		}
 		$currentVersion = Get-ProjectVersion $versionFile;
