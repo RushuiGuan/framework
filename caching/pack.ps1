@@ -7,9 +7,9 @@ $ErrorActionPreference = "Stop";
 . ..\scripts\pack.ps1;
 
 $projects = @(
-	"albatross.caching",
-	"albatross.caching.redis",
-	"albatross.caching.memcache"
+	"Albatross.Caching",
+	"Albatross.Caching.Redis",
+	"Albatross.Caching.MemCache"
 );
 
 Run-Pack -projects $projects `

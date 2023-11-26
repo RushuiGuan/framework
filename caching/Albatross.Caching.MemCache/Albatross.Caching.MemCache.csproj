@@ -14,11 +14,6 @@
 		<PackageReference Include="Polly.Caching.Memory" Version="3.0.2" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Albatross.Caching\Albatross.Caching.csproj" />
-		<ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
-		<ProjectReference Include="..\Albatross\Albatross.csproj" />
-	</ItemGroup>
-	<ItemGroup>
 	  <None Update="readme.md">
 	    <PackagePath>\</PackagePath>
 	    <Pack>True</Pack>
@@ -30,5 +25,8 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Albatross.Caching\Albatross.Caching.csproj" />
 	</ItemGroup>
 </Project>

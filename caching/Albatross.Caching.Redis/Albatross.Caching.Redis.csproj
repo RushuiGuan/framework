@@ -11,9 +11,6 @@
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.9" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Albatross.Caching\Albatross.Caching.csproj" />
-	</ItemGroup>
-	<ItemGroup>
 	  <None Update="readme.md">
 	    <PackagePath>\</PackagePath>
 	    <Pack>True</Pack>
@@ -25,5 +22,8 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Albatross.Caching\Albatross.Caching.csproj" />
 	</ItemGroup>
 </Project>

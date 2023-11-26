@@ -10,6 +10,8 @@
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="albatross" Version="6.4.0" />
+		<PackageReference Include="albatross.config" Version="6.4.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
 		<PackageReference Include="Polly" Version="7.2.4" />
@@ -21,9 +23,6 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\Albatross\Albatross.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="readme.md">
