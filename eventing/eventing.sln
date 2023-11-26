@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Eventing", "Albatross.Eventing\Albatross.Eventing.csproj", "{8FF9E3CB-DD83-4070-B096-4729E6F4B4D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Eventing.SignalR", "Albatross.Eventing.SignalR\Albatross.Eventing.SignalR.csproj", "{98350179-9405-4C59-9F6C-FEDD8D1C2EA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E5E9EE3-F042-4834-85EF-50984B185CFF}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		pack.ps1 = pack.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FF9E3CB-DD83-4070-B096-4729E6F4B4D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FF9E3CB-DD83-4070-B096-4729E6F4B4D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FF9E3CB-DD83-4070-B096-4729E6F4B4D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FF9E3CB-DD83-4070-B096-4729E6F4B4D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98350179-9405-4C59-9F6C-FEDD8D1C2EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98350179-9405-4C59-9F6C-FEDD8D1C2EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98350179-9405-4C59-9F6C-FEDD8D1C2EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98350179-9405-4C59-9F6C-FEDD8D1C2EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99C7E9A5-943A-46C1-8B52-91E5F9B3AEB0}
+	EndGlobalSection
+EndGlobal
