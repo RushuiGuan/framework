@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="albatross" Version="6.4.0" />
     <PackageReference Include="System.Text.Json" Version="7.0.3" />
   </ItemGroup>
 
@@ -25,8 +26,5 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-	  <ProjectReference Include="..\Albatross\Albatross.csproj" />
 	</ItemGroup>
 </Project>
