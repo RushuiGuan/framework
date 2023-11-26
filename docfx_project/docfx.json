@@ -4,7 +4,29 @@
 			"src": [
 				{
 					"files": [
-						"src/**.csproj"
+						"authentication/albatross.authentication/*.csproj",
+						"caching/albatross.caching/*.csproj",
+						"caching/albatross.caching.redis/*.csproj",
+						"caching/albatross.caching.memcache/*.csproj",
+						"codegen/albatross.codegen/*.csproj",
+						"codegen/albatross.codegen.webclient/*.csproj",
+						"config/albatross.config/*.csproj",
+						"dates/albatross.dates/*.csproj",
+						"efcore/albatross.efcore/*.csproj",
+						"efcore/albatross.efcore.changereporting/*.csproj",
+						"efcore/albatross.efcore.datelevel/*.csproj",
+						"efcore/albatross.efcore.postgresql/*.csproj",
+						"efcore/albatross.efcore.sqlserver/*.csproj",
+						"excel/albatross.excel/*.csproj",
+						"excel/albatross.hosting.excel/*.csproj",
+						"hosting/albatross.hosting/*.csproj",
+						"hosting/albatross.hosting.test/*.csproj",
+						"hosting/albatross.hosting.utility/*.csproj",
+						"logging/albatross.logging/*.csproj",
+						"messaging/albatross.messaging/*.csproj",
+						"serialization/albatross.serialization/*.csproj",
+						"albatross/albatross/*.csproj",
+						"webclient/webclient/*.csproj"
 					],
 					"src": ".."
 				}
