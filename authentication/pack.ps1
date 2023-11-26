@@ -1,3 +1,7 @@
+param(
+	[switch]
+	[bool]$prod
+)
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
 . ..\scripts\pack.ps1;
@@ -11,4 +15,5 @@ Run-Pack -projects $projects `
 	-localSymbolServer $env:LocalSymbolServer `
 	-remoteSymbolServer $env:RemoteSymbolServer `
 	-nugetSource test `
+	-prod:$prod
 #	-nugetSource $env:DefaultNugetSource `
