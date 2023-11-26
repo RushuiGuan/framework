@@ -8,8 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
-    <ProjectReference Include="..\Albatross.Serialization\Albatross.Serialization.csproj" />
+	  <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
@@ -17,6 +16,9 @@
       <PackagePath>
       </PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Albatross.Serialization" Version="6.4.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="readme.md">
