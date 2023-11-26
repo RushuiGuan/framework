@@ -10,6 +10,12 @@
   </ItemGroup>
 	<ItemGroup>
 
+		<PackageReference Include="albatross" Version="6.4.0" />
+
+		<PackageReference Include="albatross.config" Version="6.4.0" />
+
+		<PackageReference Include="Albatross.Logging" Version="6.4.0" />
+
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
 		<PackageReference Include="ExcelDna.Integration" Version="1.6.0" />
 		<PackageReference Include="ExcelDna.IntelliSense" Version="1.6.0" />
@@ -18,9 +24,6 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
 	  <ProjectReference Include="..\Albatross.Excel\Albatross.Excel.csproj" />
-	  <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
-	  <ProjectReference Include="..\Albatross\Albatross.csproj" />
 	</ItemGroup>
 </Project>

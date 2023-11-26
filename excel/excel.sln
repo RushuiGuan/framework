@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Excel", "Albatross.Hosting.Excel\Albatross.Hosting.Excel.csproj", "{A91951D0-582F-43A5-9F62-4B3924664819}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3B40380-B358-4CFB-8167-90E28811255B}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		pack.ps1 = pack.ps1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Excel", "Albatross.Excel\Albatross.Excel.csproj", "{E137CA87-25BA-4711-A7B2-7021E4CE2042}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A91951D0-582F-43A5-9F62-4B3924664819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91951D0-582F-43A5-9F62-4B3924664819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91951D0-582F-43A5-9F62-4B3924664819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91951D0-582F-43A5-9F62-4B3924664819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E137CA87-25BA-4711-A7B2-7021E4CE2042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E137CA87-25BA-4711-A7B2-7021E4CE2042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E137CA87-25BA-4711-A7B2-7021E4CE2042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E137CA87-25BA-4711-A7B2-7021E4CE2042}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34B25083-2C3B-4630-B387-D0A3F6F36554}
+	EndGlobalSection
+EndGlobal
