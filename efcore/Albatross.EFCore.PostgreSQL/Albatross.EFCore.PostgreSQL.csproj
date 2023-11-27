@@ -6,6 +6,8 @@
         <Nullable>enable</Nullable>
         <Description>PostgresSQL Setup for Albatross.EFCore</Description>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />

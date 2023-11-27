@@ -12,6 +12,8 @@
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
 		<Nullable>enable</Nullable>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="albatross" Version="6.4.0" />

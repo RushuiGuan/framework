@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://github.com/RushuiGuan/framework</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <RepositoryType></RepositoryType>
+    <IncludeSymbols>True</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Albatross.Serialization" Version="6.4.0" />

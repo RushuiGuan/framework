@@ -20,7 +20,7 @@ function Run-Pack {
 		if (Test-GitDiff $directory) {
 			Write-Error "Please commit your changes before packing";
 		}
-		$install = "$directory\artifacts";
+		$artifacts = "$directory\artifacts";
 		$name = (Get-Item $directory).Name.ToLower();
 		$versionFile = "$directory\Directory.Build.props";
 		if (-not (Test-Path $versionFile -type Leaf)) {
@@ -28,8 +28,8 @@ function Run-Pack {
 		}
 		foreach ($project in $projects) {
 			Write-Information "Deleting existing artifacts for $project";
-			Set-Directory "$install\$item";
-			Get-ChildItem $install\$item | Remove-Item -Recurse -Force;
+			Set-Directory "$artifacts\$project";
+			Get-ChildItem $artifacts\$project | Remove-Item -Recurse -Force;
 		}
 		$currentVersion = Get-ProjectVersion $versionFile;
 		$version = Get-NewProjectVersion $versionFile -prod:$prod;
@@ -39,7 +39,7 @@ function Run-Pack {
 		foreach ($project in $projects) {
 			Write-Information "Building $project";
 			dotnet pack $directory\$project\$project.csproj `
-				--output $install\$project `
+				--output $artifacts\$project `
 				--configuration release `
 				--no-restore
 		}
@@ -49,7 +49,7 @@ function Run-Pack {
 		$hasNugetPush = $false;
 		foreach ($project in $projects) {
 			if ($nugetSource) { 
-				get-item $install\$project\*.nupkg | foreach-Object {
+				get-item $artifacts\$project\*.nupkg | foreach-Object {
 					nuget push $_.FullName -source $nugetSource -apiKey az
 					if ($exitcode -ne 0){
 					#	Write-Error "Error push nuget package $($_.Name)";
@@ -60,13 +60,13 @@ function Run-Pack {
 			try {
 				if ($localSymbolServer) {
 					$path = (Set-Directory $localSymbolServer)
-					write-Information "copy local symbol => $path";
-					copy-item $install\$project\*.snupkg $path;
+					write-Information "copy local symbol for $project => $path";
+					copy-item -Path $artifacts\$project\*.snupkg -Destination $path -Verbose;
 				}
 				if ($remoteSymbolServer -and (Test-Path $remoteSymbolServer -type Container)) {
 					$path = (Set-Directory $remoteSymbolServer)
-					write-Information "copy remote symbol => $path";
-					copy-item $install\$project\*.snupkg $path;
+					write-Information "copy remote symbol for $project => $path";
+					copy-item -Path $artifacts\$project\*.snupkg -Destination $path -Verbose;
 				}
 			}
 			catch {}

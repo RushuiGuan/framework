@@ -7,6 +7,8 @@
 	  <LangVersion>Latest</LangVersion>
 	  <Description>This assembly contains utility classes that support serialization via System.Text.Json namespace</Description>
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>
+	  <IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>

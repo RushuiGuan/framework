@@ -4,6 +4,8 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
 		<UseWPF>true</UseWPF>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
 		

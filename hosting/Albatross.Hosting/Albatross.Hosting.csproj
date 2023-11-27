@@ -8,7 +8,8 @@
     <Description>Wrapper library to quickly create a combination of web api, spa or service with serilog logging, swagger and bearer token authentication\authorization support.</Description>
     <Nullable>enable</Nullable>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <EnableNETAnalyzers>False</EnableNETAnalyzers>
+	<IncludeSymbols>True</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="albatross.authentication" Version="6.4.0" />

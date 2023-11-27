@@ -6,5 +6,9 @@ param(
 $location = Get-Location;
 set-location $PSScriptRoot;
 $env:DefaultNugetSource = $null;
-get-childitem pack.ps1 -recurse | foreach-object { & $_.FullName }
+
+get-childitem pack.ps1 -recurse | `
+	where-object { $_.FullName -notlike "*\scripts\*" } | `
+	foreach-object { & $_.FullName -prod:$prod }
+	
 set-location $location;
