@@ -35,7 +35,7 @@ function Run-Pack {
 		$version = Get-NewProjectVersion $versionFile -prod:$prod;
 		Set-ProjectVersion -csproj $versionFile -version $version;
 		Write-Information "Project version updated to: $version";
-		dotnet restore $directory;
+		dotnet restore $directory --interactive;
 		foreach ($project in $projects) {
 			Write-Information "Building $project";
 			dotnet pack $directory\$project\$project.csproj `
@@ -59,12 +59,12 @@ function Run-Pack {
 			}
 			try {
 				if ($localSymbolServer) {
-					$path = (Set-Directory "$localSymbolServer\$project\")
+					$path = (Set-Directory $localSymbolServer)
 					write-Information "copy local symbol => $path";
 					copy-item $install\$project\*.snupkg $path;
 				}
 				if ($remoteSymbolServer -and (Test-Path $remoteSymbolServer -type Container)) {
-					$path = (Set-Directory "$remoteSymbolServer\$project")
+					$path = (Set-Directory $remoteSymbolServer)
 					write-Information "copy remote symbol => $path";
 					copy-item $install\$project\*.snupkg $path;
 				}

@@ -4,7 +4,8 @@ param(
 )
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
-. ..\scripts\pack.ps1;
+
+. $PSScriptRoot\..\scripts\pack.ps1;
 
 $projects = @(
 	"Albatross.Authentication"
