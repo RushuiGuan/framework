@@ -14,6 +14,5 @@ Run-Pack -projects $projects `
 	-directory $PSScriptRoot `
 	-localSymbolServer $env:LocalSymbolServer `
 	-remoteSymbolServer $env:RemoteSymbolServer `
-#	-nugetSource $env:DefaultNugetSource `
-	-nugetSource "test" `
+	-nugetSource $env:DefaultNugetSource `
 	-prod:$prod
