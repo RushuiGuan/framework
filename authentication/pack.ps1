@@ -15,5 +15,5 @@ Run-Pack -projects $projects `
 	-localSymbolServer $env:LocalSymbolServer `
 	-remoteSymbolServer $env:RemoteSymbolServer `
 #	-nugetSource $env:DefaultNugetSource `
-	-nugetSource test `
+	-nugetSource "test" `
 	-prod:$prod
