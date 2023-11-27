@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop";
 . ..\scripts\pack.ps1;
 
 $projects = @(
-	"albatross.config"
+	"Albatross.Config"
 );
 
 Run-Pack -projects $projects `

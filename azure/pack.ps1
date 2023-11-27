@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop";
 . ..\scripts\pack.ps1;
 
 $projects = @(
-	"albatross.azurestorage"
+	"Albatross.AzureStorage"
 );
 
 Run-Pack -projects $projects `

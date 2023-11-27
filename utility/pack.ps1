@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop";
 . ..\scripts\pack.ps1;
 
 $projects = @(
-	"albatross"
+	"Albatross"
 );
 
 Run-Pack -projects $projects `
