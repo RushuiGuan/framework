@@ -6,8 +6,4 @@
     <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Albatross.Messaging\Albatross.Messaging.csproj" />
-  </ItemGroup>
-
 </Project>

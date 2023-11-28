@@ -1,6 +1,4 @@
-﻿using Albatross.Messaging.Commands;
-
-namespace SampleProject.Commands {
+﻿namespace SampleProject.Commands {
 	
 	public class PublishCommand {
 		public PublishCommand(string topic, int min, int max) {

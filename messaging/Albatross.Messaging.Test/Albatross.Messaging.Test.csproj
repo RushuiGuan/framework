@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="Albatross.Hosting.Test" Version="6.4.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.0" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
 			<PrivateAssets>all</PrivateAssets>
@@ -13,7 +14,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
-	  <ProjectReference Include="..\..\src\Albatross.Messaging\Albatross.Messaging.csproj" />
+	  <ProjectReference Include="..\Albatross.Messaging\Albatross.Messaging.csproj" />
 	</ItemGroup>
 </Project>

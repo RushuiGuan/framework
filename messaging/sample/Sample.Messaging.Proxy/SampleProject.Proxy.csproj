@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Albatross.Config\Albatross.Config.csproj" />
-    <ProjectReference Include="..\..\src\Albatross.WebClient\Albatross.WebClient.csproj" />
+    <PackageReference Include="albatross.config" Version="6.4.0" />
+    <PackageReference Include="Albatross.WebClient" Version="6.4.0" />
   </ItemGroup>
 </Project>

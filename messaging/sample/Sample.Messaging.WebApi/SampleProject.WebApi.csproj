@@ -9,10 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
-    <ProjectReference Include="..\..\src\Albatross.Messaging\Albatross.Messaging.csproj" />
-    <ProjectReference Include="..\SampleProject.Commands\SampleProject.Commands.csproj" />
-    <ProjectReference Include="..\SampleProject\SampleProject.csproj" />
+    <PackageReference Include="Albatross.Hosting" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sample.Messaging\SampleProject.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

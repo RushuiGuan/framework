@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <EnableNETAnalyzers>False</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Albatross.CodeGen.WebClient" Version="6.4.0" />
+    <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.0" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Sample.Messaging.WebApi\SampleProject.WebApi.csproj" />
+	</ItemGroup>
+</Project>
+

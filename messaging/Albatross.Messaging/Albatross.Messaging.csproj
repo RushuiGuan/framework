@@ -12,7 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="albatross" Version="6.4.0" />
+		<PackageReference Include="albatross" Version="6.4.1" />
 		<PackageReference Include="albatross.config" Version="6.4.0" />
 		<PackageReference Include="Albatross.Serialization" Version="6.4.0" />
 		<PackageReference Include="CoenM.Encoding.Z85e" Version="1.2.1" />

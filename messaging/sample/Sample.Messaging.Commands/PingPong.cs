@@ -1,6 +1,4 @@
-﻿using Albatross.Messaging.Commands;
-
-namespace SampleProject.Commands {
+﻿namespace SampleProject.Commands {
 	
 	public class PingCommand {
 		public PingCommand(int round) {

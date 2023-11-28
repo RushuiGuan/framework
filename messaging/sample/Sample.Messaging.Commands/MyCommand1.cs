@@ -1,5 +1,4 @@
-﻿using Albatross.Messaging.Commands;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SampleProject.Commands {
 	
