@@ -1,14 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Albatross.Messaging\Albatross.Messaging.csproj" />
-    <ProjectReference Include="..\Sample.Messaging.Commands\SampleProject.Commands.csproj" />
+    <ProjectReference Include="..\Sample.Messaging.Commands\Sample.Messaging.Commands.csproj" />
   </ItemGroup>
 
 </Project>

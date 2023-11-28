@@ -3,7 +3,7 @@ using Albatross.Messaging.Commands;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 
-namespace SampleProject.Utility {
+namespace Sample.Messaging.Utility {
 	public class MyCommandClient : CallbackCommandClient {
 		private readonly ILogger<MyCommandClient> logger;
 

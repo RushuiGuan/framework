@@ -1,4 +1,4 @@
-﻿namespace SampleProject.Commands {
+﻿namespace Sample.Messaging.Commands {
 	
 	public class PublishCommand {
 		public PublishCommand(string topic, int min, int max) {

@@ -1,4 +1,4 @@
-﻿namespace SampleProject.Commands {
+﻿namespace Sample.Messaging.Commands {
 	
 	public class PingCommand {
 		public PingCommand(int round) {

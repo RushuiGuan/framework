@@ -1,12 +1,12 @@
 ﻿using Albatross.Messaging.Commands;
 using CommandLine;
 using Microsoft.Extensions.Logging;
-using SampleProject.Commands;
+using Sample.Messaging.Commands;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SampleProject.Utility {
+namespace Sample.Messaging.Utility {
 	[Verb("self-destruct")]
 	public class RunSelfDestructOption : MyBaseOption {
 		[Option('d', "delay")]

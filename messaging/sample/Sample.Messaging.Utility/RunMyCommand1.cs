@@ -1,9 +1,9 @@
 ﻿using Albatross.Messaging.Commands;
 using CommandLine;
-using SampleProject.Commands;
+using Sample.Messaging.Commands;
 using System.Threading.Tasks;
 
-namespace SampleProject.Utility {
+namespace Sample.Messaging.Utility {
 	[Verb("my-cmd1")]
 	public class RunMyCommand1Option : MyBaseOption {
 		[Option('d', "delay")]

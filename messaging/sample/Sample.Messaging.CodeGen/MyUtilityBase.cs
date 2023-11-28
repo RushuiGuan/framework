@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace SampleProject.CodeGen {
+namespace Sample.Messaging.CodeGen {
 	public abstract class MyUtilityBase<T> : UtilityBase<T> {
 		protected MyUtilityBase(T option) : base(option) {
 		}

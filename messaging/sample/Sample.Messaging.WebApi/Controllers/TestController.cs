@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace SampleProject.WebApi.Controllers {
+namespace Sample.Messaging.WebApi.Controllers {
 	[Route("api/test")]
 	[ApiController]
 	public class TestController : ControllerBase {

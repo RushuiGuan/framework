@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SampleProject.Core {
+namespace Sample.Messaging.Core {
 	public class Class1 {
 
 	}

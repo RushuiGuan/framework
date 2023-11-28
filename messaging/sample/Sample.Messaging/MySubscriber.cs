@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace SampleProject {
+namespace Sample.Messaging {
 	public class MySubscriber : ISubscriber {
 		private readonly ILogger<MySubscriber> logger;
 

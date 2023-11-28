@@ -1,9 +1,9 @@
 ﻿using Albatross.Hosting.Utility;
 using CommandLine;
-using SampleProject.Proxy;
+using Sample.Messaging.Proxy;
 using System.Threading.Tasks;
 
-namespace SampleProject.Utility {
+namespace Sample.Messaging.Utility {
 
 	[Verb("unsub-all")]
 	public class UnsubscribeAllOption : BaseOption { }

@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SampleProject.Daemon {
+namespace Sample.Messaging.Daemon {
 	public class MyHostedService : IHostedService {
 		private readonly RouterServer server;
 

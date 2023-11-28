@@ -9,21 +9,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Messaging.Test", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{EADB4A9E-D933-4A03-8F88-1A0427FFECA9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Commands", "sample\Sample.Messaging.Commands\SampleProject.Commands.csproj", "{30BB25DD-14EE-4DA9-9553-00C4F6C0B4DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Commands", "sample\Sample.Messaging.Commands\Sample.Messaging.Commands.csproj", "{30BB25DD-14EE-4DA9-9553-00C4F6C0B4DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Core", "sample\Sample.Messaging.Core\SampleProject.Core.csproj", "{959E98DA-8D92-4EA0-BCA7-E1800666C3C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Core", "sample\Sample.Messaging.Core\Sample.Messaging.Core.csproj", "{959E98DA-8D92-4EA0-BCA7-E1800666C3C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject", "sample\Sample.Messaging\SampleProject.csproj", "{C4D770E8-9633-4358-B878-6DAFB7077E7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging", "sample\Sample.Messaging\Sample.Messaging.csproj", "{C4D770E8-9633-4358-B878-6DAFB7077E7F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.WebApi", "sample\Sample.Messaging.WebApi\SampleProject.WebApi.csproj", "{46CBCE10-57CC-4BF2-BE24-3CEC6813C8A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.WebApi", "sample\Sample.Messaging.WebApi\Sample.Messaging.WebApi.csproj", "{46CBCE10-57CC-4BF2-BE24-3CEC6813C8A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Daemon", "sample\Sample.Messaging.Daemon\SampleProject.Daemon.csproj", "{10B0FC08-5882-416B-A12D-DE33E93C7F50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Daemon", "sample\Sample.Messaging.Daemon\Sample.Messaging.Daemon.csproj", "{10B0FC08-5882-416B-A12D-DE33E93C7F50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.CodeGen", "sample\Sample.Messaging.CodeGen\SampleProject.CodeGen.csproj", "{80C90502-1201-4068-A5C2-8BC6246BFB14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.CodeGen", "sample\Sample.Messaging.CodeGen\Sample.Messaging.CodeGen.csproj", "{80C90502-1201-4068-A5C2-8BC6246BFB14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Proxy", "sample\Sample.Messaging.Proxy\SampleProject.Proxy.csproj", "{A701E116-3D9B-48E5-A4E8-D864D2C09246}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Proxy", "sample\Sample.Messaging.Proxy\Sample.Messaging.Proxy.csproj", "{A701E116-3D9B-48E5-A4E8-D864D2C09246}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Utility", "sample\Sample.Messaging.Utility\SampleProject.Utility.csproj", "{A7583573-BBB6-47CD-9B66-E1A7E8410175}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Utility", "sample\Sample.Messaging.Utility\Sample.Messaging.Utility.csproj", "{A7583573-BBB6-47CD-9B66-E1A7E8410175}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

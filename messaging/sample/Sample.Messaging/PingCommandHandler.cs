@@ -1,9 +1,9 @@
 ﻿using Albatross.Messaging.Commands;
 using Microsoft.Extensions.Logging;
-using SampleProject.Commands;
+using Sample.Messaging.Commands;
 using System.Threading.Tasks;
 
-namespace SampleProject {
+namespace Sample.Messaging {
 	public class PingCommandHandler : BaseCommandHandler<PingCommand> {
 		private readonly ICommandClient commandClient;
 		private readonly ILogger<PingCommandHandler> logger;

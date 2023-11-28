@@ -6,7 +6,7 @@ using Albatross.WebClient;
 using System.Collections.Generic;
 using Albatross.Serialization;
 
-namespace SampleProject.Proxy {
+namespace Sample.Messaging.Proxy {
 	public partial class RunProxyService : Albatross.WebClient.ClientBase {
 		public RunProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(logger, client, Albatross.Serialization.DefaultJsonSettings.Value) {
 		}

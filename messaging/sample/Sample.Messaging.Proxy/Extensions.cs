@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Net.Http;
 
-namespace SampleProject.Proxy {
+namespace Sample.Messaging.Proxy {
 	public static class Extensions {
 		public static IServiceCollection AddSampleProjectProxy(this IServiceCollection services) {
 			services.AddConfig<SampleProjectProxyConfig>();

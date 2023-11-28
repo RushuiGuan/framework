@@ -4,7 +4,7 @@ using Albatross.Messaging.PubSub.Sub;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace SampleProject.WebApi.Controllers {
+namespace Sample.Messaging.WebApi.Controllers {
 	[Route("api/run")]
 	[ApiController]
 	public class RunController : ControllerBase {

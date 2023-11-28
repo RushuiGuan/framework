@@ -2,10 +2,9 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<AssemblyName>sample-project-daemon</AssemblyName>
+		<AssemblyName>sample-messaging-daemon</AssemblyName>
 		<IsPackable>false</IsPackable>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
-		<EnableNETAnalyzers>False</EnableNETAnalyzers>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -13,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Sample.Messaging\SampleProject.csproj" />
+	  <ProjectReference Include="..\Sample.Messaging\Sample.Messaging.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

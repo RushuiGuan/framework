@@ -1,11 +1,11 @@
 ﻿using Albatross.Messaging.Commands;
 using Albatross.Messaging.PubSub;
 using Microsoft.Extensions.Logging;
-using SampleProject.Commands;
+using Sample.Messaging.Commands;
 using System;
 using System.Threading.Tasks;
 
-namespace SampleProject {
+namespace Sample.Messaging {
 	public class PublishCommandHandler : BaseCommandHandler<PublishCommand> {
 		private readonly ILogger<PublishCommandHandler> logger;
 		private readonly IPublisher publisher;

@@ -1,10 +1,10 @@
 ﻿using Albatross.Hosting.Utility;
 using Albatross.Messaging.Commands;
 using CommandLine;
-using SampleProject.Commands;
+using Sample.Messaging.Commands;
 using System.Threading.Tasks;
 
-namespace SampleProject.Utility {
+namespace Sample.Messaging.Utility {
 	[Verb("pub")]
 	public class PublishOption : BaseOption {
 		[Option("min", Required = true)]

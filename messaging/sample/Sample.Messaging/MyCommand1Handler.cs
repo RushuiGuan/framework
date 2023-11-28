@@ -1,10 +1,10 @@
 ﻿using Albatross.Messaging.Commands;
 using Microsoft.Extensions.Logging;
-using SampleProject.Commands;
+using Sample.Messaging.Commands;
 using System;
 using System.Threading.Tasks;
 
-namespace SampleProject {
+namespace Sample.Messaging {
 	public class MyCommand1Handler : BaseCommandHandler<MyCommand1> {
 		private readonly CommandContext context;
 		private readonly ICommandClient client;

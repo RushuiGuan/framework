@@ -1,17 +1,15 @@
 ﻿using Albatross.Config;
-using SampleProject.Commands;
+using Sample.Messaging.Commands;
 using Albatross.Messaging.Commands;
 using Albatross.Messaging.PubSub;
-using Albatross.Messaging.PubSub.Sub;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using Albatross.Messaging.Configurations;
-using Albatross.Messaging;
 using Albatross.Messaging.Messages;
 
-namespace SampleProject {
+namespace Sample.Messaging {
 	public static class Extensions {
 		public static string GetQueueName(object command, IServiceProvider provider) {
 			switch (command) {
@@ -43,7 +41,7 @@ namespace SampleProject {
 
 		public static IServiceCollection AddSampleProjectDaemon(this IServiceCollection services) {
 			services
-				.AddAssemblyCommandHandlers(typeof(SampleProject.Extensions).Assembly, GetQueueName)
+				.AddAssemblyCommandHandlers(typeof(Sample.Messaging.Extensions).Assembly, GetQueueName)
 				.AddCommandBus()
 				.AddPublisher();
 			return services;

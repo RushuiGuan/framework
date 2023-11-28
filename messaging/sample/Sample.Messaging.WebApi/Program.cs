@@ -2,7 +2,7 @@ using Albatross.Hosting;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace SampleProject.WebApi {
+namespace Sample.Messaging.WebApi {
 	public class Program {
 		public static Task Main(string[] args) {
 			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();

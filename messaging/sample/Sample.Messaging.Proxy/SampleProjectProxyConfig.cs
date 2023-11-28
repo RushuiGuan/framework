@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
 
-namespace SampleProject.Proxy {
+namespace Sample.Messaging.Proxy {
 	public class SampleProjectProxyConfig : ConfigBase {
 		public SampleProjectProxyConfig(IConfiguration configuration) : base(configuration) {
 			EndPoint = configuration.GetRequiredEndPoint("sample-project")!;

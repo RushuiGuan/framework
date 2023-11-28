@@ -6,15 +6,15 @@ using Albatross.Messaging.Commands;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SampleProject.Commands;
-using SampleProject.Proxy;
+using Sample.Messaging.Commands;
+using Sample.Messaging.Proxy;
 using Serilog;
 using Serilog.Core;
 using Serilog.Filters;
 using System;
 using System.Threading.Tasks;
 
-namespace SampleProject.Utility {
+namespace Sample.Messaging.Utility {
 
 	public class MyUtilityBase<T> : UtilityBase<T> where T : BaseOption {
 		protected MyUtilityBase(T option) : base(option) {

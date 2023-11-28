@@ -5,11 +5,11 @@ using Albatross.Hosting.Utility;
 using CommandLine;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SampleProject.WebApi.Controllers;
+using Sample.Messaging.WebApi.Controllers;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace SampleProject.CodeGen {
+namespace Sample.Messaging.CodeGen {
 	[Verb("create-api-csharp-proxy", HelpText = "Generate Api CSharp Proxy")]
 	public class CreateApiCSharpProxyOption {
 		[Option('o', "out", Required = true, HelpText = "Set the output folder")]

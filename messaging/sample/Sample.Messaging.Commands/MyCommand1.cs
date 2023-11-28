@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SampleProject.Commands {
+namespace Sample.Messaging.Commands {
 	
 	public record class MyCommand1  {
 		public MyCommand1(string name) {

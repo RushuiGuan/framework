@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 
-namespace SampleProject.Daemon {
+namespace Sample.Messaging.Daemon {
 	public class MySetup : Setup {
 		public MySetup(string[] args) : base(args) {
 		}

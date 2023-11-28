@@ -1,7 +1,7 @@
 ﻿using Albatross.Hosting.Utility;
 using CommandLine;
 
-namespace SampleProject.Utility {
+namespace Sample.Messaging.Utility {
 	public class MyBaseOption : BaseOption {
 		[Option('c', "count")]
 		public int Count { get; set; } = 10;

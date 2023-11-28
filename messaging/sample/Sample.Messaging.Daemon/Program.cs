@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace SampleProject.Daemon {
+namespace Sample.Messaging.Daemon {
 	public class Program {
 		public static Task Main(string[] args) {
 			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();
