@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		pack.ps1 = pack.ps1
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Test", "Albatross.Test\Albatross.Test.csproj", "{3684C3E8-1BF9-4164-A39D-52B9C5968415}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1A83340F-3944-46FE-AC2B-38AB4C7B9715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A83340F-3944-46FE-AC2B-38AB4C7B9715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A83340F-3944-46FE-AC2B-38AB4C7B9715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3684C3E8-1BF9-4164-A39D-52B9C5968415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3684C3E8-1BF9-4164-A39D-52B9C5968415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3684C3E8-1BF9-4164-A39D-52B9C5968415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3684C3E8-1BF9-4164-A39D-52B9C5968415}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

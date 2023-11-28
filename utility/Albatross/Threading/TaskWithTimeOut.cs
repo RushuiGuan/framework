@@ -10,7 +10,7 @@ namespace Albatross.Threading {
 			} else if (await Task.WhenAny(operation, Task.Delay(timeout)) == operation) {
 				await operation;
 			} else {
-				throw new TimeoutException($"Task timeout after {timeout.Milliseconds:#,#0} milliseconds");
+				throw new TimeoutException($"Task timeout after {timeout.TotalMilliseconds:#,#0} milliseconds");
 			}
 		}
 
@@ -20,7 +20,7 @@ namespace Albatross.Threading {
 			} else if (await Task.WhenAny(operation, Task.Delay(timeout)) == operation) {
 				return await operation;
 			} else {
-				throw new TimeoutException($"Task timeout after {timeout.Milliseconds:#,#0} milliseconds");
+				throw new TimeoutException($"Task timeout after {timeout.TotalMilliseconds:#,#0} milliseconds");
 			}
 		}
 
