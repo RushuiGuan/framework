@@ -11,7 +11,6 @@ function Run-Pack {
 		[Parameter(Mandatory)]
 		[string[]]$projects,
 		[string]$nugetSource,
-		[string]$localSymbolServer,
 		[string]$remoteSymbolServer,
 		[switch]
 		[bool]$prod
@@ -58,11 +57,6 @@ function Run-Pack {
 				}
 			}
 			try {
-				if ($localSymbolServer) {
-					$path = (Set-Directory $localSymbolServer)
-					write-Information "copy local symbol for $project => $path";
-					copy-item -Path $artifacts\$project\*.snupkg -Destination $path -Verbose;
-				}
 				if ($remoteSymbolServer -and (Test-Path $remoteSymbolServer -type Container)) {
 					$path = (Set-Directory $remoteSymbolServer)
 					write-Information "copy remote symbol for $project => $path";
