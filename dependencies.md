@@ -1,0 +1,11 @@
+* Albatross
+* Albatross.Config
+* Albatross.Dates
+* Albatross.Logging
+* Albatross.Caching
+	1. Albatross
+	1. Albatross.Config
+* Albatross.Serialization
+	1. Albatross
+* Albatross.EFCore
+	1. Albatross
