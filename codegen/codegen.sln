@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.WebClient", "Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj", "{929C98CB-AA06-439E-AB2F-D4EF9A2B61F4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.UnitTest", "Albatross.CodeGen.UnitTest\Albatross.CodeGen.UnitTest.csproj", "{917FCBDB-E2FD-41CD-A6A3-66C4BF78E551}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.WebClient.UnitTest", "Albatross.CodeGen.WebClient.UnitTest\Albatross.CodeGen.WebClient.UnitTest.csproj", "{339BD57B-B8F5-4957-844F-BF2154B4B9E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{929C98CB-AA06-439E-AB2F-D4EF9A2B61F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{929C98CB-AA06-439E-AB2F-D4EF9A2B61F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{929C98CB-AA06-439E-AB2F-D4EF9A2B61F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{917FCBDB-E2FD-41CD-A6A3-66C4BF78E551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{917FCBDB-E2FD-41CD-A6A3-66C4BF78E551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{917FCBDB-E2FD-41CD-A6A3-66C4BF78E551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{917FCBDB-E2FD-41CD-A6A3-66C4BF78E551}.Release|Any CPU.Build.0 = Release|Any CPU
+		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
