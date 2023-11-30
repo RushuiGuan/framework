@@ -21,7 +21,7 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("", null)]
 		[InlineData("a:b", "any")]
 		[InlineData("ConnectionStrings:a", "any")]
-		public void TestAnyConfiguration(string path, string expectedValue) {
+		public void TestAnyConfiguration(string path, string? expectedValue) {
 			var config = new AnyConfiguration();
 			var section = Get(config, path);
 			Assert.Equal(expectedValue, section?.Value);

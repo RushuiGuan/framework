@@ -1,7 +1,6 @@
 ﻿using Albatross.Hosting.Test;
 using Microsoft.Extensions.Configuration;
 using Xunit;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Albatross.Config.UnitTest {
 	public class TestRealConfiguration : IClassFixture<MyTestHost> {
@@ -43,7 +42,7 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("program", null)]
 		[InlineData("program:app", "config-unittest")]
 		[InlineData("ConnectionStrings:my-database", "azure-db")]
-		public void TestGetValue(string path, string expectedValue) {
+		public void TestGetValue(string path, string? expectedValue) {
 			var scope = host.Create();
 			var config = scope.Get<IConfiguration>();
 			var section = config.GetSection(path);
@@ -55,7 +54,7 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("program", null)]
 		[InlineData("program:app", "config-unittest")]
 		[InlineData("ConnectionStrings:my-database", "azure-db")]
-		public void TestGetValueByIndex(string path, string expectedValue) {
+		public void TestGetValueByIndex(string path, string? expectedValue) {
 			var scope = host.Create();
 			var config = scope.Get<IConfiguration>();
 			var value = config[path];
