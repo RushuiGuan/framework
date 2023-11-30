@@ -1,7 +1,6 @@
 ﻿using ExcelDna.Integration.CustomUI;
 using System.Runtime.InteropServices;
 using Albatross.Reflection;
-using ExcelDna.Integration;
 using Microsoft.Extensions.Logging;
 using Albatross.Hosting.Excel;
 
@@ -33,8 +32,6 @@ namespace Albatross.Excel.SampleAddIn {
 		public void Btn_PrintColor(IRibbonControl _) => this.cellFormatDemoService.PrintColorDemo();
 
 		public string GetEnvironment(IRibbonControl _) => helpService.GetEnvironment();
-		public void Btn_ShowHelp(IRibbonControl _) {
-			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => this.helpService.ShowHelp(ConfigSheetName)));
-		}
+		public void Btn_ShowHelp(IRibbonControl _) => helpService.ShowHelp(ConfigSheetName);
 	}
 }

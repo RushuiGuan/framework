@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Reflection;
 using Albatross.Text;
+using ExcelDna.Integration;
 
 namespace Albatross.Hosting.Excel {
 	public record class HelpEntry {
@@ -31,7 +32,7 @@ namespace Albatross.Hosting.Excel {
 		private readonly EnvironmentSetting environment;
 		private readonly IConfiguration configuration;
 		private readonly FunctionRegistrationService functionRegistrationService;
-		
+
 		public string GetEnvironment() => $"Env = {this.environment.Value.ProperCase()}";
 		public List<HelpEntry> OtherEntries { get; set; } = new List<HelpEntry>();
 
@@ -42,18 +43,20 @@ namespace Albatross.Hosting.Excel {
 		}
 		public void ShowHelp(string sheetName) {
 			var sheet = My.ActiveWorkbook(sheetName).GetOrCreateSheet(sheetName);
-			var list = new List<HelpEntry>();
-			this.GetConfigValues(list);
-			list.Add(GetAssemblyVersionHelpEntry(Assembly.GetCallingAssembly()));
-			foreach (var entry in functionRegistrationService.Registrations) {
-				list.Add(new HelpEntry {
-					Type = "Custom Function",
-					Entry = entry.FunctionAttribute.Name,
-					Description = entry.FunctionAttribute.Description ?? entry.FunctionAttribute.HelpTopic,
-				});
-			}
-			list.AddRange(OtherEntries);
-			list.ToArray().WriteTable(sheet, helpItemsTableOptions);
+			ExcelAsyncUtil.QueueAsMacro(new ExcelAction(() => {
+				var list = new List<HelpEntry>();
+				this.GetConfigValues(list);
+				list.Add(GetAssemblyVersionHelpEntry(Assembly.GetCallingAssembly()));
+				foreach (var entry in functionRegistrationService.Registrations) {
+					list.Add(new HelpEntry {
+						Type = "Custom Function",
+						Entry = entry.FunctionAttribute.Name,
+						Description = entry.FunctionAttribute.Description ?? entry.FunctionAttribute.HelpTopic,
+					});
+				}
+				list.AddRange(OtherEntries);
+				list.ToArray().WriteTable(sheet, helpItemsTableOptions);
+			}));
 		}
 		HelpEntry GetAssemblyVersionHelpEntry(Assembly assembly) {
 			var name = assembly.GetName();
@@ -72,10 +75,10 @@ namespace Albatross.Hosting.Excel {
 			});
 			var section = configuration.GetSection("ConnectionStrings");
 			foreach (var item in section.GetChildren()) {
-				list.Add(new HelpEntry { 
-					Type = "Configuration", 
-					Entry = "ConnectionString", 
-					Description = item.Key, 
+				list.Add(new HelpEntry {
+					Type = "Configuration",
+					Entry = "ConnectionString",
+					Description = item.Key,
 					AdditionalComments = item.Value
 				});
 			}

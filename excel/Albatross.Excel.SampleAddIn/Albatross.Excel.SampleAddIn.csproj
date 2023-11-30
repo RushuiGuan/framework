@@ -32,13 +32,13 @@
 		<EmbeddedResource Include="Embedded\ribbon.xml" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="ExcelDna.AddIn" Version="1.6.0" />
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
+		<PackageReference Include="Albatross.Authentication" Version="6.4.1" />
+		<PackageReference Include="ExcelDna.AddIn" Version="1.7.0" />
 		<PackageReference Include="Humanizer" Version="2.14.1" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Albatross.Authentication\Albatross.Authentication.csproj" />
-	  <ProjectReference Include="..\..\src\Albatross.Excel\Albatross.Excel.csproj" />
-	  <ProjectReference Include="..\..\src\Albatross.Hosting.Excel\Albatross.Hosting.Excel.csproj" />
+	  <ProjectReference Include="..\Albatross.Excel\Albatross.Excel.csproj" />
+	  <ProjectReference Include="..\Albatross.Hosting.Excel\Albatross.Hosting.Excel.csproj" />
 	</ItemGroup>
 </Project>

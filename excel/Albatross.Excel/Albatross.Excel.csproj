@@ -9,11 +9,11 @@
 	</PropertyGroup>
 	<ItemGroup>
 		
-		<PackageReference Include="albatross" Version="6.4.0" />
+		<PackageReference Include="Albatross" Version="6.4.2" />
 		
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
-	  <PackageReference Include="ExcelDna.Integration" Version="1.6.0" />
-	  <PackageReference Include="ExcelDna.IntelliSense" Version="1.6.0" />
-	  <PackageReference Include="ExcelDna.Registration" Version="1.6.0" />
+	  <PackageReference Include="ExcelDna.Integration" Version="1.7.0" />
+	  <PackageReference Include="ExcelDna.IntelliSense" Version="1.7.0" />
+	  <PackageReference Include="ExcelDna.Registration" Version="1.7.0" />
 	</ItemGroup>
 </Project>
