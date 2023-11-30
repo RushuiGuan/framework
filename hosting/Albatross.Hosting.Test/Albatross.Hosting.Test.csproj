@@ -10,6 +10,7 @@
 		<Authors>Rushui Guan</Authors>
 		<Description>hosting framework for test projects</Description>
 		<Nullable>enable</Nullable>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -33,5 +34,11 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="readme.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 </Project>
