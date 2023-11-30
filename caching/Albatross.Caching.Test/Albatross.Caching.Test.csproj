@@ -15,12 +15,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Albatross.Hosting.Test" Version="6.4.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
-    <ProjectReference Include="..\..\src\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
-    <ProjectReference Include="..\..\src\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
+    <ProjectReference Include="..\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
+    <ProjectReference Include="..\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
     <ProjectReference Include="..\Albatross.Caching.TestApi\Albatross.Caching.TestApi.csproj" />
   </ItemGroup>
 </Project>

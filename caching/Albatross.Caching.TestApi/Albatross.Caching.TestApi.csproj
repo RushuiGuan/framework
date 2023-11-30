@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
-    <ProjectReference Include="..\..\src\Albatross.Hosting\Albatross.Hosting.csproj" />
-    <ProjectReference Include="..\..\src\Albatross\Albatross.csproj" />
+    <PackageReference Include="Albatross" Version="6.4.1" />
+    <PackageReference Include="Albatross.Hosting" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
+    <ProjectReference Include="..\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
   </ItemGroup>
 
   <ItemGroup>

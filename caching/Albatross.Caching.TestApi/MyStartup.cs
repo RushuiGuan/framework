@@ -1,4 +1,5 @@
-﻿using Albatross.Caching.Redis;
+﻿using Albatross.Caching.MemCache;
+using Albatross.Caching.Redis;
 using Albatross.Config;
 using Albatross.Hosting;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -17,6 +18,7 @@ namespace Albatross.Caching.TestApi {
 			base.ConfigureServices(services);
 			services.AddCacheMgmt(this.GetType().Assembly);
 			services.AddRedisCaching(this.Configuration);
+			services.AddMemCachingAsSecondary();
 			services.AddSignalR();
 			services.AddControllers(options => options.InputFormatters.Add(new PlainTextInputFormatter()));
 		}

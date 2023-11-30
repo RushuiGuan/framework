@@ -1,4 +1,5 @@
-﻿using Albatross.Caching.Redis;
+﻿using Albatross.Caching.MemCache;
+using Albatross.Caching.Redis;
 using Albatross.Caching.Test.CacheMgmt;
 using Albatross.Caching.TestApi;
 using Albatross.Hosting.Test;
@@ -18,6 +19,7 @@ namespace Albatross.Caching.Test {
 			services.AddCacheMgmt(typeof(SlidingTtlCacheMgmt).Assembly);
 			services.AddCacheMgmt(typeof(MultiTierKey).Assembly);
 			services.AddRedisCaching(configuration);
+			services.AddMemCachingAsSecondary();
 		}
 
 		public override async Task InitAsync(IConfiguration configuration, ILogger logger) {
