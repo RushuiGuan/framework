@@ -38,7 +38,8 @@ namespace Albatross.Serialization.Test {
 
 		[Fact]
 		public void Test() {
-			JsonSerializer.Deserialize<HisEnum>("\"\"");
+			JsonSerializer.Deserialize<HisEnum>("\"A\"");
+
 		}
 	}
 }
