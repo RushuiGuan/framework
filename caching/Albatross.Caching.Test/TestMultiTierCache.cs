@@ -67,9 +67,8 @@ namespace Albatross.Caching.Test {
 			var tier2 = scope.ServiceProvider.GetRequiredService<Tier2CacheMgmt>();
 			var tier3 = scope.ServiceProvider.GetRequiredService<Tier3CacheMgmt>();
 
-			keyMgmt.Remove("*");
-
-
+			tier1.Reset();
+			
 			var keys = new List<MultiTierKey>();
 			for (int x = 0; x < 3; x++) {
 				for (int y = 0; y < 3; y++) {
@@ -118,7 +117,8 @@ namespace Albatross.Caching.Test {
 			var tier2 = scope.ServiceProvider.GetRequiredService<Tier2CacheMgmt>();
 			var tier3 = scope.ServiceProvider.GetRequiredService<Tier3CacheMgmt>();
 
-			keyMgmt.Remove("*");
+			tier1.Reset();
+
 			var keys = new List<MultiTierKey>();
 			for (int x = 0; x < 3; x++) {
 				for (int y = 0; y < 3; y++) {

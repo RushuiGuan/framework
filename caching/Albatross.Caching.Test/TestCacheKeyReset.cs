@@ -14,8 +14,8 @@ namespace Albatross.Caching.Test {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
-			var cache = scope.ServiceProvider.GetRequiredService<StringKeyCacheMgmt>();
-			keyMgmt.Remove("*");
+			var cache = scope.ServiceProvider.GetRequiredService<StringKey2CacheMgmt>();
+			cache.Reset();
 
 			var keys = new List<string>();
 			for (int x = 0; x < 10; x++) {
@@ -24,13 +24,13 @@ namespace Albatross.Caching.Test {
 			}
 
 			// base verification that all keys are created
-			var allKeys = keyMgmt.FindKeys("*");
+			var allKeys = keyMgmt.FindKeys(cache.CreateKey(string.Empty, true));
 			foreach (var item in keys) {
 				Assert.Contains(cache.CreateKey(item), allKeys);
 			}
 			// reset the key
 			cache.Reset();
-			allKeys = keyMgmt.FindKeys("*");
+			allKeys = keyMgmt.FindKeys(cache.CreateKey(string.Empty, true));
 			foreach (var item in keys) {
 				Assert.DoesNotContain(cache.CreateKey(item), allKeys);
 			}

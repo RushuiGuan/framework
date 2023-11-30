@@ -12,10 +12,10 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="albatross" Version="6.4.0" />
-		<PackageReference Include="albatross.config" Version="6.4.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.4" />
+		<PackageReference Include="Albatross" Version="6.4.2" />
+		<PackageReference Include="Albatross.Config" Version="6.4.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
 		<PackageReference Include="Polly" Version="7.2.4" />
 		<PackageReference Include="Polly.Caching.Distributed" Version="3.0.1" />
 	</ItemGroup>
