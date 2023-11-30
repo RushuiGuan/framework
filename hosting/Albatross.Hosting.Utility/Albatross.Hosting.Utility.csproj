@@ -26,9 +26,5 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
-		<None Include="..\Albatross.Hosting.Utility\readme.md">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
-		</None>
 	</ItemGroup>
 </Project>
