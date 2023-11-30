@@ -15,8 +15,8 @@ namespace Albatross.Caching.Redis {
 			services.AddConfig<RedisConfig>();
 			services.TryAddSingleton<RedisCacheKeyManagement>();
 			services.AddSingleton<ICacheKeyManagement>(provider => provider.GetRequiredService<RedisCacheKeyManagement>());
-			services.Add(ServiceDescriptor.Singleton<IAsyncCacheProvider<string>, Polly.Caching.Distributed.NetStandardIDistributedCacheStringProvider>());
-			services.Add(ServiceDescriptor.Singleton<IAsyncCacheProvider<byte[]>, Polly.Caching.Distributed.NetStandardIDistributedCacheByteArrayProvider>());
+			services.AddSingleton<IAsyncCacheProvider<string>, Polly.Caching.Distributed.NetStandardIDistributedCacheStringProvider>();
+			services.AddSingleton<IAsyncCacheProvider<byte[]>, Polly.Caching.Distributed.NetStandardIDistributedCacheByteArrayProvider>();
 			services.AddStackExchangeRedisCache(option => {
 				option.InstanceName = config.InstanceName;
 				option.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions {
