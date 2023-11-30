@@ -1,7 +1,10 @@
 * Albatross
+* Albatross.Authentication
 * Albatross.Config
 * Albatross.Dates
 * Albatross.Logging
+* Albatross.CodeGen
+	1. Albatross
 * Albatross.Caching
 	1. Albatross
 	1. Albatross.Config
@@ -9,3 +12,21 @@
 	1. Albatross
 * Albatross.EFCore
 	1. Albatross
+* Albatross.WebClient
+	1. Albatross.Serialization	
+* Albatross.Messaging
+	1. Albatross
+	1. Albatross.Config
+	1. Albatross.Serialization
+* Albatross.Excel
+	1. Albatross
+	1. Albatross.Config
+	1. Albatross.Logging
+* Albatross.Hosting
+	1. Albatross
+	1. Albatross.Authentication
+	1. Albatross.Caching
+	1. Albatross.Config
+	1. Albatross.Logging
+	1. Albatross.Serialization
+	1. Albatross.EFCore.SqlServer
