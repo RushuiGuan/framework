@@ -6,7 +6,6 @@
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
 		<Description>Wrapper api to create a command line utility using CommandLineParser with dependency injection and serilog logging support.</Description>
 		<Nullable>enable</Nullable>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
@@ -30,12 +29,6 @@
 		<None Include="..\Albatross.Hosting.Test\readme.md">
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<None Update="readme.md">
-			<PackagePath>\</PackagePath>
-			<Pack>True</Pack>
 		</None>
 	</ItemGroup>
 </Project>
