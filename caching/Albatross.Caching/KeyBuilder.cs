@@ -1,4 +1,5 @@
 ﻿using Albatross.Text;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +8,16 @@ namespace Albatross.Caching {
 		List<object> parts = new List<object>();
 
 		public KeyBuilder() { }
+
+		public Func<object?, string> CreateKeyText { get; set; } = CreateDefaultKeyText;
+
+		public static string CreateDefaultKeyText(object? key) {
+			if(key is DateTime dateTime) {
+				return $"{dateTime:yyyyMMddHHmmssfff}";
+			}else {
+				return key?.ToString()?.Replace(':', '_') ?? string.Empty;
+			}
+		}
 
 		public KeyBuilder(ICacheManagement cacheManagement, object key) {
 			Add(cacheManagement, key);
@@ -35,7 +46,7 @@ namespace Albatross.Caching {
 		public string Build(bool postfixWildCard) {
 			var sb = new StringBuilder();
 			foreach (var item in parts) {
-				sb.Append(item);
+				sb.Append(CreateKeyText(item));
 				if (!sb.EndsWith(ICacheKeyManagement.CacheKeyDelimiter)) {
 					sb.Append(ICacheKeyManagement.CacheKeyDelimiter);
 				}
