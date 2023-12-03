@@ -3,9 +3,10 @@ using Albatross.Logging;
 using CommandLine;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using System.Threading.Tasks;
 
 namespace Sample.Logging.Utility {
-	[Verb("cfg-by-code")]
+	[Verb("config-by-code")]
 	public class ConfigByCodeOption: BaseOption {
 	}
 	public class ConfigByCode : UtilityBase<ConfigByCodeOption> {

@@ -1,5 +1,6 @@
 ﻿using Albatross.Hosting.Utility;
 using CommandLine;
+using System.Threading.Tasks;
 
 namespace Sample.Logging.Utility {
 	internal class Program {

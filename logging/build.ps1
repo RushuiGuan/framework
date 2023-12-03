@@ -17,8 +17,8 @@ foreach($item in $projects){
 dotnet restore  $PSScriptRoot
 foreach($project in $projects){
 	"Building $project";
-	dotnet publish $PSScriptRoot\src\$project\$project.csproj -o $install\$project -c debug --no-restore
+	dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c debug
 }
 
-set-alias -name logging-sample -Value $env:InstallDirectory\sample.logging.utility\sample.logging.utility.exe
-set-alias -name logging-sample-api -Value $env:InstallDirectory\sample.logging.webapi\sample.logging.webapi.exe
+set-alias -name sample-logging -Value $env:InstallDirectory\sample.logging.utility\sample.logging.utility.exe
+set-alias -name sample-logging-api -Value $env:InstallDirectory\sample.logging.webapi\sample.logging.webapi.exe
