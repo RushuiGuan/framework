@@ -1,0 +1,44 @@
+{
+    "Serilog": {
+        "MinimumLevel": {
+            "Default": "Information",
+            "Override": {
+                "System": "Information",
+                "Microsoft": "Information"
+            }
+        },
+        "WriteTo": {
+            "Console": {
+                "Name": "Console",
+                "Args": {
+                    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}"
+                }
+            },
+            "File": {
+                "Name": "File",
+                "Args": {
+                    "path": "%LogDirectory%\\Sample.Hosting.WebApi\\Sample.Hosting.WebApi.log",
+                    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{NewLine}{Exception}",
+                    "rollingInterval": "Day"
+                }
+            },
+            "SlackSink": {
+                "Name": "Slack",
+                "Args": {
+                    "SlackSinkOptions": "Albatross.Logging.SinkOptions::SlackSink, Albatross.Logging",
+                    "restrictedToMinimumLevel": "Error",
+                    "outputTemplate": ":turkey: sample.Hosting.api {Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{ErrorMessage}"
+                }
+            }
+        },
+        "Using": [
+            "Albatross.Logging"
+        ],
+        "Enrich": [
+            "FromLogContext",
+            "WithThreadId",
+            "WithMachineName",
+            "WithErrorMessage"
+        ]
+    }
+}

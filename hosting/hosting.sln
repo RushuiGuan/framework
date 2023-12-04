@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting", "Albatr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1099E6C7-472C-4C23-BE56-C00019E891D5}"
 	ProjectSection(SolutionItems) = preProject
+		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
 		pack.ps1 = pack.ps1
 	EndProjectSection
@@ -14,6 +15,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Test", "Albatross.Hosting.Test\Albatross.Hosting.Test.csproj", "{E0577E45-4C6F-483D-8425-AB6FDA512182}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Utility", "Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj", "{172670B2-0541-4BDF-ACE0-D8A5282E42ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Hosting.WebApi", "Sample.Hosting.WebApi\Sample.Hosting.WebApi.csproj", "{FD15E117-A2D8-4E42-A47E-839C246F413E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Hosting.Utility", "Sample.Hosting.Utility\Sample.Hosting.Utility.csproj", "{10F00843-66DC-4BA1-8E2E-B77555DE71A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Hosting.Test", "Sample.Hosting.Test\Sample.Hosting.Test.csproj", "{3481FFB2-F8E9-4049-BDAA-30B1B6500DC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Hosting.Daemon", "Sample.Hosting.Daemon\Sample.Hosting.Daemon.csproj", "{6E8DB81C-6AD8-4134-9094-A63AFF8D7F1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +42,22 @@ Global
 		{172670B2-0541-4BDF-ACE0-D8A5282E42ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{172670B2-0541-4BDF-ACE0-D8A5282E42ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{172670B2-0541-4BDF-ACE0-D8A5282E42ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD15E117-A2D8-4E42-A47E-839C246F413E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD15E117-A2D8-4E42-A47E-839C246F413E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD15E117-A2D8-4E42-A47E-839C246F413E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD15E117-A2D8-4E42-A47E-839C246F413E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10F00843-66DC-4BA1-8E2E-B77555DE71A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F00843-66DC-4BA1-8E2E-B77555DE71A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F00843-66DC-4BA1-8E2E-B77555DE71A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F00843-66DC-4BA1-8E2E-B77555DE71A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3481FFB2-F8E9-4049-BDAA-30B1B6500DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3481FFB2-F8E9-4049-BDAA-30B1B6500DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3481FFB2-F8E9-4049-BDAA-30B1B6500DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3481FFB2-F8E9-4049-BDAA-30B1B6500DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E8DB81C-6AD8-4134-9094-A63AFF8D7F1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E8DB81C-6AD8-4134-9094-A63AFF8D7F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E8DB81C-6AD8-4134-9094-A63AFF8D7F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E8DB81C-6AD8-4134-9094-A63AFF8D7F1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
