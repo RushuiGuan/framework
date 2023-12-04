@@ -21,4 +21,4 @@ foreach($project in $projects){
 }
 
 set-alias -name sample-logging -Value $env:InstallDirectory\sample.logging.utility\sample.logging.utility.exe
-set-alias -name sample-logging-api -Value $env:InstallDirectory\sample.logging.webapi\sample.logging.webapi.exe
+set-alias -name sample-logging-webapi -Value $env:InstallDirectory\sample.logging.webapi\sample.logging.webapi.exe
