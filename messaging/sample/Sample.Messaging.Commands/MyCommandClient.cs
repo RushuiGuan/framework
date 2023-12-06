@@ -3,11 +3,11 @@ using Albatross.Messaging.Commands;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Sample.Messaging.Utility {
+namespace Sample.Messaging.Commands {
 	public class MyCommandClient : CallbackCommandClient {
 		private readonly ILogger<MyCommandClient> logger;
 
-		public MyCommandClient(ILogger<MyCommandClient> logger, DealerClient dealerClient, CommandClientService service) : base(dealerClient, service) {
+		public MyCommandClient(ILogger<MyCommandClient> logger, MyDealerClientBuilder builder) : base(builder.DealerClient, builder.CommandClientService) {
 			this.logger = logger;
 		}
 

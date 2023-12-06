@@ -4,4 +4,8 @@
     <TargetFramework>.Net7.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Albatross.Messaging\Albatross.Messaging.csproj" />
+  </ItemGroup>
 </Project>

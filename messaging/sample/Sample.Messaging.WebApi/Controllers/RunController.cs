@@ -2,6 +2,7 @@
 using Albatross.Messaging.PubSub;
 using Albatross.Messaging.PubSub.Sub;
 using Microsoft.AspNetCore.Mvc;
+using Sample.Messaging.Commands;
 using System.Threading.Tasks;
 
 namespace Sample.Messaging.WebApi.Controllers {

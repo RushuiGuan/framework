@@ -23,6 +23,10 @@
     "my-cmd3": {
       "commandName": "Project",
       "commandLineArgs": "my-cmd3"
+    },
+    "custom-dealer-client": {
+      "commandName": "Project",
+      "commandLineArgs": "test-custom-dealer-client"
     }
   }
 }

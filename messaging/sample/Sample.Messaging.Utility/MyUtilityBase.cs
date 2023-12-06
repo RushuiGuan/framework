@@ -1,5 +1,4 @@
-﻿		
-using Albatross.Config;
+﻿using Albatross.Config;
 using Albatross.Hosting.Utility;
 using Albatross.Logging;
 using Albatross.Messaging.Commands;

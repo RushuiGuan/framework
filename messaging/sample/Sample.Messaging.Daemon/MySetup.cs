@@ -9,7 +9,7 @@ namespace Sample.Messaging.Daemon {
 
 		public override void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
 			base.ConfigureServices(services, configuration);
-			services.AddSampleProjectDaemon();
+			services.AddMessagingDaemonServices();
 		}
 	}
 }

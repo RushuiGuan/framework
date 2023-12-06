@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 
 namespace Sample.Messaging.WebApi {
 	public class Program {
-		public static Task Main(string[] args) {
+		public static async Task Main(string[] args) {
 			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();
 			System.Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location);
-			return new Setup(args)
+			await new Setup(args)
 				.ConfigureWebHost<Startup>()
 				.RunAsync(args);
+
+			System.Console.WriteLine("Exiting program");
 		}
 	}
 }

@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Albatross.Messaging.PubSub.Sub;
 
 namespace Sample.Messaging {
 	public static class Extensions {
@@ -24,48 +27,17 @@ namespace Sample.Messaging {
 			}
 			return Albatross.Messaging.Commands.Extensions.DefaultQueueName;
 		}
-		public static IServiceCollection AddDefaultSampleProjectClient(this IServiceCollection services) {
-			services.AddCommandClient()
-				.AddSubscriber()
-				.AddDefaultDealerClientConfig();
-			services.TryAddSingleton<MySubscriber>();
-			return services;
-		}
 
-		public static void UseDefaultSampleProjectClient(this IServiceProvider provider) {
-			provider.GetRequiredService<DealerClient>().Start();
-			var subscriber = provider.GetRequiredService<MySubscriber>();
-			var client = provider.GetRequiredService<IMySubscriptionClient>();
-			client.Subscribe(subscriber, "^default$");
-		}
 
-		public static IServiceCollection AddSampleProjectDaemon(this IServiceCollection services) {
-			services
+
+
+
+		public static IServiceCollection AddMessagingDaemonServices(this IServiceCollection services) {
+			services.AddCommandBus()
 				.AddAssemblyCommandHandlers(typeof(Sample.Messaging.Extensions).Assembly, GetQueueName)
-				.AddCommandBus()
 				.AddPublisher();
 			return services;
 		}
 
-		public static IServiceCollection AddSampleProjectClientApi(this IServiceCollection services) {
-			services.AddConfig<MessagingConfiguration>();
-			services.TryAddSingleton<IMessageFactory, MessageFactory>();
-			services.TryAddSingleton(args => {
-				var builder = new MyDealerClientBuilder(args, args.GetRequiredService<MessagingConfiguration>().DealerClient);
-				builder.TryAddCommandClientService().TryAddSubscriptionService().Build();
-				return builder;
-			});
-			// Use a custom ISubscriptionClient if need to connect to multiplie subscription endpoint
-			services.TryAddSingleton<IMySubscriptionClient, MySubscriptionClient>();
-			services.TryAddSingleton<MySubscriber>();
-			services.TryAddSingleton<ISubscriber>(x => x.GetRequiredService<MySubscriber>());
-			return services;
-		}
-		public static void UseSampleProjectWebApi(this IServiceProvider provider) {
-			provider.GetRequiredService<MyDealerClientBuilder>().DealerClient.Start();
-			var subscriber = provider.GetRequiredService<MySubscriber>();
-			var client = provider.GetRequiredService<IMySubscriptionClient>();
-			client.Subscribe(subscriber, "^default$");
-		}
 	}
 }

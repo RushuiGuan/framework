@@ -14,7 +14,8 @@ namespace Albatross.Messaging.Services {
 		IDealerClientBuilder TryAddCommandClientService();
 		void Build();
 	}
-	public class DealerClientBuilder : IDealerClientBuilder {
+	public class DealerClientBuilder : IDealerClientBuilder, IDisposable {
+		bool disposed = false;
 		IServiceProvider serviceProvider;
 		DealerClientConfiguration configuration;
 		DealerClient? dealerClient;
@@ -55,6 +56,14 @@ namespace Albatross.Messaging.Services {
 			var messageFactory = this.serviceProvider.GetRequiredService<IMessageFactory>();
 			var logFactory = this.serviceProvider.GetRequiredService<ILoggerFactory>();
 			this.dealerClient = new DealerClient(this.configuration, this.services, messageFactory, logFactory);
+		}
+
+		public void Dispose() {
+			if (!disposed) {
+				this.dealerClient?.Dispose();
+				this.disposed = true;
+				this.dealerClient = null;
+			}
 		}
 	}
 }
