@@ -49,8 +49,9 @@ namespace Albatross.Messaging.Test {
 		[InlineData(25, 10, 11)]
 		[InlineData(1000, 50, 2)]
 		public async Task TestOutputFileSizeCheck(int maxFileSize, int messageCount, int expectedFileCount) {
-			var folder = $"c:\\temp\\{nameof(TestOutputFileSizeCheck)}";
+			var folder = $"c:\\temp\\{nameof(TestOutputFileSizeCheck)}\\{maxFileSize}-{messageCount}-{expectedFileCount}";
 			CleanFolder(folder);
+
 			var config = new DiskStorageConfiguration(folder, "test-output") {
 				MaxFileSize = maxFileSize,
 			};
