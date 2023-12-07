@@ -18,18 +18,17 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="..\..\readme.md">
-			<PackagePath>\</PackagePath>
-			<Pack>True</Pack>
-		</None>
-	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>
 			</PackagePath>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="readme.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
 	</ItemGroup>
 </Project>
