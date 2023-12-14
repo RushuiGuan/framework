@@ -104,6 +104,7 @@ namespace Albatross.CodeGen.CSharp.Model {
 		public static DotNetType Object() => new DotNetType(typeof(object));
 
 		public static DotNetType DateTime() => new DotNetType(typeof(DateTime));
+		public static DotNetType DateOnly() => new DotNetType(typeof(DateOnly));
 		public static DotNetType DateTimeOffset() => new DotNetType(typeof(DateTimeOffset));
 		public static DotNetType TimeSpan() => new DotNetType(typeof(TimeSpan));
 

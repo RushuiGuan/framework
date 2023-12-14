@@ -18,6 +18,8 @@ namespace Albatross.CodeGen.UnitTest {
 				new object[]{typeof(byte[]), new TypeScriptType("string") },
 				new object[]{typeof(DateTime), new TypeScriptType("Date") },
 				new object[]{typeof(DateTime?), new TypeScriptType("Date") },
+				new object[]{typeof(DateOnly), new TypeScriptType("Date") },
+				new object[]{typeof(DateOnly?), new TypeScriptType("Date") },
 				new object[]{typeof(Guid), new TypeScriptType("Guid") },
 				new object[]{typeof(ConvertTypeToTypeScriptTypeTest), new TypeScriptType("ConvertTypeToTypeScriptTypeTest") },
 				new object[]{typeof(int[]), new TypeScriptType("number"){ IsArray = true } },

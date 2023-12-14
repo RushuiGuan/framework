@@ -13,6 +13,7 @@ namespace Albatross.CodeGen.UnitTest.CSharp {
 				new object[]{DotNetType.ByteArray(),"System.Byte[]"},
 				new object[]{DotNetType.Char(),"System.Char",  },
 				new object[]{DotNetType.DateTime(),"System.DateTime",  },
+				new object[]{DotNetType.DateOnly(),"System.DateOnly",  },
 				new object[]{DotNetType.DateTimeOffset(),"System.DateTimeOffset",  },
 				new object[]{DotNetType.Decimal(),"System.Decimal",},
 				new object[]{DotNetType.Double(),"System.Double",  },

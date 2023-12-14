@@ -17,7 +17,7 @@ namespace Albatross.CodeGen.TypeScript.Conversion {
 				return TypeScriptType.Boolean();
 			} else if (type == typeof(void)) {
 				return TypeScriptType.Void();
-			} else if (type == typeof(DateTime)) {
+			} else if (type == typeof(DateOnly) || type == typeof(DateTime)) {
 				return TypeScriptType.Date();
 			} else if (type == typeof(TimeSpan)) {
 				return TypeScriptType.String();

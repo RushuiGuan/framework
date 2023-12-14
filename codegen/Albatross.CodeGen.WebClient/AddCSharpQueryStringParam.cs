@@ -19,7 +19,9 @@ namespace Albatross.CodeGen.WebClient {
 
 		public TextWriter Generate(TextWriter writer) {
 			writer.Append("queryString.Add(").Code(new StringLiteral(Key)).Comma().Space();
-			if (ValueType == typeof(DateTime) || ValueType == typeof(DateTime?)) {
+			if (ValueType == typeof(DateOnly) || ValueType == typeof(DateOnly?)) {
+				writer.WriteLine($"string.Format(\"{{0:yyyy-MM-dd}}\", @{ValueVariableName}));");
+			} else if (ValueType == typeof(DateTime) || ValueType == typeof(DateTime?)) {
 				if (ValueVariableName?.EndsWith("date", StringComparison.InvariantCultureIgnoreCase) == true) {
 					writer.WriteLine($"string.Format(\"{{0:yyyy-MM-dd}}\", @{ValueVariableName}));");
 				} else {
