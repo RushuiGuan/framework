@@ -10,7 +10,7 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross" Version="6.4.2" />
+		<PackageReference Include="Albatross" Version="6.4.3" />
 		<PackageReference Include="Albatross.Config" Version="6.4.1" />
 		<PackageReference Include="Albatross.Logging" Version="6.4.1" />
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />

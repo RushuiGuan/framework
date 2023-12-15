@@ -144,9 +144,6 @@ namespace Albatross.Hosting {
 			}
 			if (WebApi && Swagger) { UseSwagger(app, programSetting); }
 			if (Spa) { UseSpa(app, logger); }
-			if (Caching) {
-				Albatross.Caching.Extension.UseCache(app.ApplicationServices);
-			}
 		}
 
 		public void UseSpa(IApplicationBuilder app, ILogger<Startup> logger) {
