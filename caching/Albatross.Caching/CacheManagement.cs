@@ -23,6 +23,7 @@ namespace Albatross.Caching {
 			this.registry = registry;
 			this.keyMgmt = keyMgmt;
 			this.cacheProvider = cacheProviderAdapter.Create<CacheFormat>();
+			this.Register();
 		}
 
 		public string Name => this.GetType().Name;
@@ -37,6 +38,7 @@ namespace Albatross.Caching {
 
 		public void Register() {
 			if (!registry.ContainsKey(Name)) {
+				logger.LogInformation("Register Cache Management {cacheName}", Name);
 				var policy = Policy.CacheAsync<CacheFormat>(cacheProvider, TtlStrategy, this,
 					OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
 				registry.Add(Name, policy);
