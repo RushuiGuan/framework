@@ -18,10 +18,5 @@ namespace Albatross.Caching.Test {
 			services.AddCacheMgmt(typeof(MultiTierKey).Assembly);
 			services.AddMemCaching();
 		}
-
-		public override async Task InitAsync(IConfiguration configuration, ILogger logger) {
-			await base.InitAsync(configuration, logger);
-			this.Provider.UseCache();
-		}
 	}
 }
