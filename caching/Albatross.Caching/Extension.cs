@@ -29,7 +29,7 @@ namespace Albatross.Caching {
 
 		public static IServiceCollection AddCacheMgmt<T>(this IServiceCollection services) where T : class, ICacheManagement {
 			services.TryAddSingleton<T>();
-			services.TryAddEnumerable(ServiceDescriptor.Singleton<ICacheManagement>(provider => provider.GetRequiredService<T>()));
+			services.AddSingleton<ICacheManagement>(provider => provider.GetRequiredService<T>());
 			return services;
 		}
 
