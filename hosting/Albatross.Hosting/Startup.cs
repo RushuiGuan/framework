@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mime;
 using System.Text.Json;
@@ -64,7 +65,9 @@ namespace Albatross.Hosting {
 		}
 		public virtual void UseSwagger(IApplicationBuilder app, ProgramSetting programSetting) {
 			app.UseSwagger();
-			app.UseSwaggerUI();
+			app.UseSwaggerUI(c => c.ConfigObject.AdditionalItems["syntaxHighlight"] = new Dictionary<string, object> {
+				["activated"] = false
+			});
 		}
 		#endregion
 
