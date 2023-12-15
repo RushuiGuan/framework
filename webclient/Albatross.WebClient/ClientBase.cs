@@ -170,6 +170,13 @@ namespace Albatross.WebClient {
 			request.Content = content;
 			return request;
 		}
+		public HttpRequestMessage CreateFormUrlEncodedRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, IDictionary<string, string> formUrlEncodedValues) {
+			var request = CreateRequest(method, relativeUrl, queryStringValues);
+			var content = new FormUrlEncodedContent(formUrlEncodedValues);
+			request.Content = content;
+			return request;
+		}
+
 		#endregion
 
 		#region get response
