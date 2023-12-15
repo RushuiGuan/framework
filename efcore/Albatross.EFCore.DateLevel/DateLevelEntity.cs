@@ -1,20 +1,22 @@
-﻿using System;
+﻿#if NET8_0_OR_GREATER
+using System;
 
 namespace Albatross.EFCore.DateLevel {
 	public abstract class DateLevelEntity  {
-		public DateTime StartDate { get; set; }
-		public DateTime EndDate { get; set; } = MaxEndDate;
-		public readonly static DateTime MaxEndDate = new DateTime(9999, 12, 31);
+		public DateOnly StartDate { get; set; }
+		public DateOnly EndDate { get; set; } = MaxEndDate;
+		public readonly static DateOnly MaxEndDate = DateOnly.MaxValue;
 
 		public abstract bool HasSameValue(DateLevelEntity src);
 
-		public DateLevelEntity(DateTime startDate) {
+		public DateLevelEntity(DateOnly startDate) {
 			StartDate = startDate;
 		}
 	}
 
 	public abstract class DateLevelEntity<K> : DateLevelEntity where K : IEquatable<K> {
 		public abstract K Key { get; }
-		public DateLevelEntity(DateTime startDate) : base(startDate) { }
+		public DateLevelEntity(DateOnly startDate) : base(startDate) { }
 	}
 }
+#endif

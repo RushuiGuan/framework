@@ -1,4 +1,4 @@
-#if NET8_0_OR_GREATER
+#if NET6_0 || NET7_0
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -140,7 +140,7 @@ namespace Albatross.EFCore.DateLevel {
 		/// <param name="set"></param>
 		/// <param name="startDate"></param>
 		/// <param name="remove"></param>
-		public static void DeleteDateLevel<T>(this IEnumerable<T> set, DateOnly startDate, Action<T> remove)
+		public static void DeleteDateLevel<T>(this IEnumerable<T> set, DateTime startDate, Action<T> remove)
 			where T : DateLevelEntity {
 			var current = set.Where(args => args.StartDate == startDate).FirstOrDefault();
 			if (current != null) {
@@ -191,13 +191,13 @@ namespace Albatross.EFCore.DateLevel {
 		/// <param name="source"></param>
 		/// <param name="startDate"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> GetDateLevelEntityByDate<T>(this IEnumerable<T> source, DateOnly effectiveDate)
+		public static IEnumerable<T> GetDateLevelEntityByDate<T>(this IEnumerable<T> source, DateTime effectiveDate)
 			where T : DateLevelEntity {
 			var items = source.Where(args => args.StartDate <= effectiveDate && args.EndDate >= effectiveDate).ToArray();
 			return items;
 		}
 
-		public static T? GetDateLevelItemByDate<T, K>(this IEnumerable<T> source, K key, DateOnly effectiveDate)
+		public static T? GetDateLevelItemByDate<T, K>(this IEnumerable<T> source, K key, DateTime effectiveDate)
 			where T : DateLevelEntity<K> where K : IEquatable<K> {
 			var item = source.Where(args => args.Key.Equals(key)
 				&& args.StartDate <= effectiveDate
@@ -214,7 +214,7 @@ namespace Albatross.EFCore.DateLevel {
 		/// <param name="fromDate"></param>
 		/// <param name="toDate"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateOnly fromDate, DateOnly toDate)
+		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateTime fromDate, DateTime toDate)
 			where T : DateLevelEntity {
 			return source.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate));
 		}
@@ -223,7 +223,7 @@ namespace Albatross.EFCore.DateLevel {
 		/// <summary>
 		/// example: Session.DbContext.GetDateLevelEntityByDateRange<Child>(fromDate, toDate, "Parent");
 		/// </summary>
-		public static async Task<IEnumerable<T>> GetDateLevelEntityByDateRange<T>(this DbContext context, DateOnly fromDate, DateOnly toDate, params string[] includes)
+		public static async Task<IEnumerable<T>> GetDateLevelEntityByDateRange<T>(this DbContext context, DateTime fromDate, DateTime toDate, params string[] includes)
 			where T : DateLevelEntity {
 			IQueryable<T> query = context.Set<T>();
 			foreach(var item in includes) {
