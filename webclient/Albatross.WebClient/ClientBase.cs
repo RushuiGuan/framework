@@ -114,15 +114,15 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region creating request
-		public IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues) {
+		public IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, params string[] arrayQueryStringValues) {
 			var urls = new List<string>();
 			int offset = 0;
 			do {
-				var sb = relativeUrl.CreateUrl(queryStringValues);
+				var sb = relativeUrl.CreateUrl(queryStrings);
 				int index;
-				for (index = offset; index < arrayQueryValues.Length; index++) {
+				for (index = offset; index < arrayQueryStringValues.Length; index++) {
 					int current = sb.Length;
-					sb.AddQueryParam(arrayQueryKey, arrayQueryValues[index]!);
+					sb.AddQueryParam(arrayQueryStringKey, arrayQueryStringValues[index]!);
 					if (sb.Length > maxUrlLength - this.BaseUrl.AbsoluteUri.Length) {
 						sb.Length = current;
 						if (index == 0) {
@@ -133,7 +133,33 @@ namespace Albatross.WebClient {
 				}
 				urls.Add(sb.ToString());
 				offset = index;
-			} while (offset < arrayQueryValues.Length);
+			} while (offset < arrayQueryStringValues.Length);
+			return urls;
+		}
+		public IEnumerable<string> CreateRequestUrlsByDelimitedQueryString(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, string arrayQueryStringDelimiter, params string[] arrayQueryStringValues) {
+			var urls = new List<string>();
+			int offset = 0;
+			do {
+				var sb = relativeUrl.CreateUrl(queryStrings);
+				sb.Append(Uri.EscapeDataString(arrayQueryStringKey)).Append('=');
+				int index;
+				for (index = offset; index < arrayQueryStringValues.Length; index++) {
+					int current = sb.Length;
+					if(index > offset) {
+						sb.Append(Uri.EscapeDataString(arrayQueryStringDelimiter));
+					}
+					sb.Append(Uri.EscapeDataString(arrayQueryStringValues[index]));
+					if (sb.Length > maxUrlLength - this.BaseUrl.AbsoluteUri.Length) {
+						sb.Length = current;
+						if (index == 0) {
+							throw new InvalidOperationException("Cannot create requests because url max length is smaller than the minimum length required for a single request");
+						}
+						break;
+					}
+				}
+				urls.Add(sb.ToString());
+				offset = index;
+			} while (offset < arrayQueryStringValues.Length);
 			return urls;
 		}
 		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
