@@ -182,11 +182,15 @@ namespace Albatross.Messaging.Services {
 				logger.LogInformation("running log replay");
 				int counter = 0;
 				this.queue.Enqueue(new StartReplay());
-				foreach (var eventEntry in this.eventReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
-					counter++;
-					if (!(eventEntry.Message is ISystemMessage)) {
-						this.queue.Enqueue(new Replay(eventEntry.Message, counter, eventEntry.EntryType));
+				if (config.LogCatchUpPeriod > 0) {
+					foreach (var eventEntry in this.eventReader.ReadLast(TimeSpan.FromMinutes(config.LogCatchUpPeriod))) {
+						counter++;
+						if (!(eventEntry.Message is ISystemMessage)) {
+							this.queue.Enqueue(new Replay(eventEntry.Message, counter, eventEntry.EntryType));
+						}
 					}
+				} else {
+					logger.LogWarning("Log catch up period is configured to be 0.  Therefore log catch up functionality is disabled");
 				}
 				this.queue.Enqueue(new EndReplay());
 				this.poller.RunAsync();
