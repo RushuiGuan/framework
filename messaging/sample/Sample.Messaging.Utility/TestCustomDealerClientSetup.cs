@@ -17,7 +17,7 @@ namespace Sample.Messaging.Utility {
 	[Verb("test-custom-dealer-client")]
 	public class TestCustomDealerClientSetupOption : MyBaseOption {
 	}
-	public class TestCustomDealerClientSetup : UtilityBase<TestCustomDealerClientSetupOption> {
+	public class TestCustomDealerClientSetup : MyUtilityBase<TestCustomDealerClientSetupOption> {
 		public TestCustomDealerClientSetup(TestCustomDealerClientSetupOption option) : base(option) {
 		}
 		protected override void ConfigureLogging(LoggerConfiguration cfg) {
@@ -29,13 +29,7 @@ namespace Sample.Messaging.Utility {
 			.WriteTo.Console(outputTemplate: "{SourceContext}:{Message:lj}"))
 			.Enrich.FromLogContext();
 		}
-		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
-			base.RegisterServices(configuration, envSetting, services);
-			services.AddCustomMessagingClient();
-		}
-		public override async Task Init(IConfiguration configuration, IServiceProvider provider) {
-			await provider.UseCustomMessagingClient(logger);
-		}
+		protected override bool CustomMessaging => true;
 
 		public async Task<int> RunUtility(ICommandClient client, ILogger<TestCustomDealerClientSetup> logger) {
 			await client.Submit(new MyCommand1("test command 1"));

@@ -35,6 +35,9 @@ namespace Albatross.Messaging.Commands {
 				case CommandRequestAck:
 					AcceptAckMsg(dealerClient, msg);
 					return true;
+				case CommandRequestError requestError:
+					AcceptRequestError(dealerClient, requestError);
+					return true;
 				case CommandReply reply:
 					AcceptResponse(dealerClient, reply);
 					return true;
@@ -75,6 +78,11 @@ namespace Albatross.Messaging.Commands {
 		private void AcceptAckMsg(IMessagingService _, IMessage reply) {
 			if (commandCallbacks.Remove(reply.Id, out var callback)) {
 				callback.SetResult();
+			}
+		}
+		private void AcceptRequestError(IMessagingService _, CommandRequestError requestError) {
+			if (commandCallbacks.Remove(requestError.Id, out var callback)) {
+				callback.SetException(new CommandException(requestError.Id, requestError.ClassName, requestError.Message.ToUtf8String()));
 			}
 		}
 		public Task Submit(IMessagingService dealerClient, object command, bool fireAndForget) {

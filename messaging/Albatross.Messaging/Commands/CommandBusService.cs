@@ -30,7 +30,7 @@ namespace Albatross.Messaging.Commands {
 					Debug.Assert(item.Mode != CommandMode.Internal);
 					messagingService.Transmit(new CommandRequestAck(cmd.Route, cmd.Id));
 				} catch (Exception err) {
-					var errMsg = new CommandErrorReply(cmd.Route, cmd.Id, cmd.CommandType, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
+					var errMsg = new CommandRequestError(cmd.Route, cmd.Id, cmd.CommandType, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
 					messagingService.SubmitToQueue(errMsg);
 				}
 				return true;

@@ -9,8 +9,8 @@ $install = $env:InstallDirectory;
 if(-not $alias) {
 	$projects = @(
 		"sample.messaging.utility"
-		,"sample.messaging.webapi"
-		,"sample.messaging.daemon"
+#		,"sample.messaging.webapi"
+#		,"sample.messaging.daemon"
 	);
 
 	foreach($item in $projects){

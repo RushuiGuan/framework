@@ -27,6 +27,10 @@
     "custom-dealer-client": {
       "commandName": "Project",
       "commandLineArgs": "test-custom-dealer-client"
+    },
+    "bad-cmd": {
+      "commandName": "Project",
+      "commandLineArgs": "bad-cmd"
     }
   }
 }
