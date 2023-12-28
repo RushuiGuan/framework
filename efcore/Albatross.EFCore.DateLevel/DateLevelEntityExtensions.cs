@@ -11,7 +11,7 @@ namespace Albatross.EFCore.DateLevel {
 		/// For DateLevel entries, two rules apply
 		/// 1. there should be no gap between the first StartDate and <see cref="DateLevelEntity.MaxEndDate"/>
 		/// 2. there should be no overlap of dates among entries.
-		
+
 		/// Provided the data level collection for a single entity, this method will create a new entry for the series and adjust the end date for other items within the the same entity 
 		/// if necessary.  There are 3 possible operations.
 		/// 1. insert operation with start date only: create a record in the middle of the time series with only a start date.  End date is determined automatically.
@@ -23,6 +23,9 @@ namespace Albatross.EFCore.DateLevel {
 		/// 
 		/// If the insert flag is true and the end date of the record equals <see cref="DateLevelEntity.MaxEndDate"/>, the method will insert using the start date only.  
 		/// If the end date of the record is specified, the method will insert only if the end date is one day before the start date of the next record
+		/// 
+		/// If a parent entity is used, the DeleteBehavior between the DateLevelEntity and the parent entity should be DeleteBehavior.ClientCascade or DeleteBehavior.Cascade
+		/// This is because of the mismatch of behavior EFCore Cascade delete and sql server cascade delete.  <see href="https://github.com/dotnet/efcore/issues/10066"/>
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <typeparam name="K"></typeparam>
