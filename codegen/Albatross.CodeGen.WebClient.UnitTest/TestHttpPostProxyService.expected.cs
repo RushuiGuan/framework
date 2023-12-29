@@ -34,6 +34,14 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 				return await this.GetRawResponse(request);
 			}
 		}
+		public async System.Threading.Tasks.Task<System.String> NamedQueryString(System.String @name) {
+			string path = $"{ControllerPath}/named-query-string";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			queryString.Add("n", @name);
+			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
+				return await this.GetRawResponse(request);
+			}
+		}
 		public async System.Threading.Tasks.Task<System.String> RouteParam(System.String @name) {
 			string path = $"{ControllerPath}/route-param/{name}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();

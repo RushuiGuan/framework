@@ -168,12 +168,13 @@ namespace Albatross.CodeGen.WebClient {
 							// skip the routing parameter
 							continue;
 						} else if (item.Name != null) {
+							var attribute = item.GetCustomAttribute<FromQueryAttribute>();
 							if (item.ParameterType.GetCollectionElementType(out Type? elementType)) {
 								writer.Code(new ForEachCodeBlock("item", item.Name) {
-									ForEachContent = new AddCSharpQueryStringParam(item.Name, "item", elementType)
+									ForEachContent = new AddCSharpQueryStringParam(attribute?.Name ?? item.Name, "item", elementType)
 								});
 							} else {
-								writer.Code(new AddCSharpQueryStringParam(item.Name, item.Name, item.ParameterType));
+								writer.Code(new AddCSharpQueryStringParam(attribute?.Name ?? item.Name, item.Name, item.ParameterType));
 							}
 						}
 					}

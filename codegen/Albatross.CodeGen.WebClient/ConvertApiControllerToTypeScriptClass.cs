@@ -150,7 +150,10 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 
-			var array = queryParams.Select(args => new TypeScriptValue(TypeScript.Model.ValueType.Variable, args.Name!.CamelCase())).ToArray();
+			var array = queryParams.Select(args => {
+				var attribute = args.GetCustomAttribute<FromQueryAttribute>();
+				return new TypeScriptValue(TypeScript.Model.ValueType.Variable, attribute?.Name ?? args.Name!.CamelCase());
+			}).ToArray();
 			var queryParamValue = new TypeScriptValueArray(array);
 
 			if (attrib is HttpGetAttribute) {
