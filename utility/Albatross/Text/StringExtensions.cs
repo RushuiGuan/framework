@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -72,6 +73,26 @@ namespace Albatross.Text {
 			} else {
 				return text;
 			}
+		}
+
+		/// <summary>
+		/// utility function to replace multiple characters in a string with a single character
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="replacementCharacter"></param>
+		/// <param name="targetCharacters"></param>
+		/// <returns></returns>
+		public static string ReplaceMultipleChars(this string text, char replacementCharacter, params char[] targetCharacters) {
+			var array = new char[text.Length];
+			var set = new HashSet<char>(targetCharacters);
+			for(int i=0; i<text.Length; i++) {
+				if (set.Contains(text[i])) {
+					array[i] = replacementCharacter;
+				} else {
+					array[i] = text[i];
+				}
+			}	
+			return new string(array);
 		}
 	}
 }

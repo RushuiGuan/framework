@@ -40,5 +40,13 @@ namespace Albatross.Test.Text {
 			var result = string.Join('.', list);
 			Assert.Equal(expected, result);
 		}
+
+		[Theory]
+		[InlineData("abcd", "abcd", ' ', 'x')]
+		[InlineData(" bcd", "abcd", ' ', 'a')]
+		public void TestReplaceMultiCharacters(string expected, string input, char replacedWith, params char[] targets) {
+			var result = input.ReplaceMultipleChars(replacedWith, targets);
+			Assert.Equal(expected, result);
+		}
 	}
 }
