@@ -17,8 +17,8 @@ namespace Albatross.CodeGen.Python.Models {
 		}
 
 		public void InsertSelfWhenMissing() {
-			if (!Parameters.Any() || Parameters.First().Name != "self") {
-				Parameters.Insert(0, new Parameter("self", null));
+			if (!Parameters.Any() || Parameters.First().Name != My.Keywords.Self) {
+				Parameters.Insert(0, new Parameter(My.Keywords.Self, null));
 			}
 		}
 	}
