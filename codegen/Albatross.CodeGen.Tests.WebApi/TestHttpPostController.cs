@@ -1,12 +1,12 @@
-﻿using Albatross.WebClient.Test.Messages;
+﻿using Albatross.CodeGen.Tests.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Albatross.CodeGen.WebClient.UnitTest {
+namespace Albatross.CodeGen.Tests.WebApi {
 	[Route("api/test-post")]
 	public class TestHttpPostController : ControllerBase {
 		[HttpPost("from-body")]
-		public Dto FromBody([FromBody] Dto dto) => dto;
+		public MyDto FromBody([FromBody] MyDto dto) => dto;
 
 		[HttpPost("post-string")]
 		public string PostStringOnly([FromBody] string body) => body;
@@ -21,7 +21,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		public string RouteParam(string name) => name;
 
 		[HttpPost("mixed/{name}")]
-		public string Mixed([FromRoute] string name, int id, [FromBody] Dto dto) => name;
+		public string Mixed([FromRoute] string name, int id, [FromBody] MyDto dto) => name;
 
 		[HttpPost("async-void")]
 		public async void AsyncVoid(int i) {

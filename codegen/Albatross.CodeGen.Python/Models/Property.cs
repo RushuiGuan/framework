@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.Python.Models {
 			Value = value;
 		}
 		public TextWriter Generate(TextWriter writer) {
-			throw new NotImplementedException();
+			return writer;
 		}
 	}
 }

@@ -13,18 +13,27 @@ namespace Albatross.CodeGen.Python.Models {
 			Name = name;
 		}
 
+		public Constructor Constructor { get; set; } = new Constructor();
 		public List<Method> Methods { get; set; } = new List<Method>();
 		public List<Property> Properties { get; set; } = new List<Property>();
 		public List<Field> Fields { get; set; } = new List<Field>();
 
 		public TextWriter Generate(TextWriter writer) {
+			this.Constructor.Fields.AddRange(this.Fields.Where(x => !x.Static));
 			writer.Append("class ").Append(Name);
 			if (BaseClass.Any()) {
-				writer.OpenParenthesis().WriteItems(BaseClass.Select(x=>x.Name), ", ").CloseParenthesis();
+				writer.OpenParenthesis().WriteItems(BaseClass.Select(x => x.Name), ", ").CloseParenthesis();
 			}
-			using(var scope = writer.BeginPythonScope()) {
-				foreach(var item in Methods) {
-					item.Generate(scope.Writer);
+			using (var scope = writer.BeginPythonScope()) {
+				scope.Writer.Code(Constructor);
+				foreach (var item in Fields.Where(x => x.Static)) {
+					scope.Writer.Code(item);
+				}
+				foreach (var item in Properties) {
+					scope.Writer.Code(item);
+				}
+				foreach (var item in Methods) {
+					scope.Writer.Code(item);
 				}
 			}
 			return writer;

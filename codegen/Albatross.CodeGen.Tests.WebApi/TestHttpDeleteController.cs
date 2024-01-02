@@ -1,11 +1,10 @@
-﻿using Albatross.WebClient.Test.Messages;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace Albatross.CodeGen.WebClient.UnitTest {
+namespace Albatross.CodeGen.Tests.WebApi {
 	[Route("api/test-delete")]
-	public class TestHttpDeleteController : ControllerBase {
+		public class TestHttpDeleteController : ControllerBase {
 		[HttpDelete("route-only/{name}/{id}")]
 		public void RouteOnly([FromRoute] string name, [FromRoute] int id) { }
 

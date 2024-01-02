@@ -3,17 +3,14 @@ using Albatross.CodeGen.Python.Models;
 using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 
 namespace Albatross.CodeGen.WebClient {
 	public interface IConvertDtoToPythonClass {
 		void ConvertEnum(Type type, Module module);
 		void ConvertEnum<T>(Module module) where T :struct;
 		void ConvertEnums(Module module, params System.Reflection.Assembly[] assemblies);
-		void ConvertClass(Type type, Module module, IEnumerable<Module> dependancies);
-		void ConvertClasses(Module module, IEnumerable<Module> dependancies, 
-			Func<Type, bool>? isValidType,
-			params System.Reflection.Assembly[] assemblies);
+		void ConvertClass(Type type, Module module);
+		void ConvertClasses(Module module, Func<Type, bool>? isValidType, params System.Reflection.Assembly[] assemblies);
 	}
 
 	public class ConvertDtoToPythonClass : IConvertDtoToPythonClass {
@@ -34,8 +31,7 @@ namespace Albatross.CodeGen.WebClient {
 			&& !type.IsDerived<Attribute>() && !type.IsDerived<Exception>()
 			&& predicate(type);
 
-		public void ConvertClasses(Module module, IEnumerable<Module> dependancies, 
-			Func<Type, bool>? isValidType, params System.Reflection.Assembly[] assemblies) {
+		public void ConvertClasses(Module module,  Func<Type, bool>? isValidType, params System.Reflection.Assembly[] assemblies) {
 			isValidType = isValidType ?? (args => true);
 			foreach (var assembly in assemblies) {
 				var types = assembly.GetTypes();
@@ -68,7 +64,7 @@ namespace Albatross.CodeGen.WebClient {
 				throw new InvalidOperationException($"Class {enumType.Name} is not an enum");
 			}
 		}
-		public void ConvertClass(Type type, Module module, IEnumerable<Module> dependancies) {
+		public void ConvertClass(Type type, Module module) { 
 			var item = convertType.Convert(type);
 			module.Classes.Add(item);
 		}

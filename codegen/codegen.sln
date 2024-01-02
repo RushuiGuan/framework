@@ -23,7 +23,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.TypeScrip
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Python", "Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj", "{3AD21F93-638B-4619-ADC9-5784E78E4CD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Utility", "Albatross.CodeGen.Utility\Albatross.CodeGen.Utility.csproj", "{6B920DA8-9BC1-40AF-B1B5-08009B85947F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Tests.Utility", "Albatross.CodeGen.Utility\Albatross.CodeGen.Tests.Utility.csproj", "{6B920DA8-9BC1-40AF-B1B5-08009B85947F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{106E138F-304F-426D-8BB3-3625D8FFD9B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Tests.Dto", "Albatross.CodeGen.Tests.Dto\Albatross.CodeGen.Tests.Dto.csproj", "{BF7566EF-A3EE-4115-AA8E-79756D464450}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Tests.WebApi", "Albatross.CodeGen.Tests.WebApi\Albatross.CodeGen.Tests.WebApi.csproj", "{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,9 +69,24 @@ Global
 		{6B920DA8-9BC1-40AF-B1B5-08009B85947F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B920DA8-9BC1-40AF-B1B5-08009B85947F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B920DA8-9BC1-40AF-B1B5-08009B85947F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF7566EF-A3EE-4115-AA8E-79756D464450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF7566EF-A3EE-4115-AA8E-79756D464450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF7566EF-A3EE-4115-AA8E-79756D464450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF7566EF-A3EE-4115-AA8E-79756D464450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{917FCBDB-E2FD-41CD-A6A3-66C4BF78E551} = {106E138F-304F-426D-8BB3-3625D8FFD9B6}
+		{339BD57B-B8F5-4957-844F-BF2154B4B9E7} = {106E138F-304F-426D-8BB3-3625D8FFD9B6}
+		{6B920DA8-9BC1-40AF-B1B5-08009B85947F} = {106E138F-304F-426D-8BB3-3625D8FFD9B6}
+		{BF7566EF-A3EE-4115-AA8E-79756D464450} = {106E138F-304F-426D-8BB3-3625D8FFD9B6}
+		{EBDE62F6-6FCC-446C-8B61-B32B98B88A50} = {106E138F-304F-426D-8BB3-3625D8FFD9B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E390C787-E7AE-4338-964B-DA9915316459}

@@ -7,23 +7,23 @@ using System.Collections.Generic;
 using Albatross.Serialization;
 
 #nullable enable
-namespace Albatross.CodeGen.WebClient.WebClient {
+namespace Albatross.CodeGen.Tests.WebClient {
 	public partial class TestHttpGetProxyService : Albatross.WebClient.ClientBase {
 		public TestHttpGetProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client, Albatross.Serialization.DefaultJsonSettings.Value) {
 		}
 		public const System.String ControllerPath = "api/test-get";
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> GetObject() {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> GetObject() {
 			string path = $"{ControllerPath}/object";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> GetObjectAsync() {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> GetObjectAsync() {
 			string path = $"{ControllerPath}/object-async";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
 		public async void GetVoid() {
@@ -54,52 +54,52 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 				return await this.GetRawResponse(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> RouteOnly(System.String @name, System.Int32 @id) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> RouteOnly(System.String @name, System.Int32 @id) {
 			string path = $"{ControllerPath}/route-only/{name}/{id}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> RouteWithDate(System.DateTime @date, System.Int32 @id) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> RouteWithDate(System.DateTime @date, System.Int32 @id) {
 			string path = $"{ControllerPath}/route-with-date/{date:yyyy-MM-dd}/{id}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> QueryStringOnly(System.String @name, System.Int32 @id) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> QueryStringOnly(System.String @name, System.Int32 @id) {
 			string path = $"{ControllerPath}/query-string-only";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("name", @name);
 			queryString.Add("id", System.Convert.ToString(@id));
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> QueryStringWithDate(System.DateTime @date, System.Int32 @id) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> QueryStringWithDate(System.DateTime @date, System.Int32 @id) {
 			string path = $"{ControllerPath}/query-string-with-date";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("date", string.Format("{0:yyyy-MM-dd}", @date));
 			queryString.Add("id", System.Convert.ToString(@id));
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> Mixed(System.String @name, System.Int32 @id) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> Mixed(System.String @name, System.Int32 @id) {
 			string path = $"{ControllerPath}/mixed/{name}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("id", System.Convert.ToString(@id));
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> MixedDates(System.DateTime @tradeDate, System.DateTime @settlementDate) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> MixedDates(System.DateTime @tradeDate, System.DateTime @settlementDate) {
 			string path = $"{ControllerPath}/mixed-dates/{tradeDate:yyyy-MM-dd}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("settlementDate", string.Format("{0:yyyy-MM-dd}", @settlementDate));
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> TestArrayInput(System.String[] @items) {
@@ -133,18 +133,18 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 				return await this.GetJsonResponse<System.Int32>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto?> TestNullableReferenceType(Albatross.WebClient.Test.Messages.Dto? @dto) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto?> TestNullableReferenceType(Albatross.CodeGen.Tests.Dto.MyDto? @dto) {
 			string path = $"{ControllerPath}/nullable-reference-type";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto?> TestAsyncNullableReferenceType(Albatross.WebClient.Test.Messages.Dto? @dto) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto?> TestAsyncNullableReferenceType(Albatross.CodeGen.Tests.Dto.MyDto? @dto) {
 			string path = $"{ControllerPath}/async-nullable-reference-type";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+				return await this.GetJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
 	}

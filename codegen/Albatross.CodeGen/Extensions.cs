@@ -14,11 +14,6 @@ namespace Albatross.CodeGen {
 			return services;
 		}
 
-		public static IServiceCollection AddDefaultCodeGen(this IServiceCollection services) {
-			services.AddCodeGen(typeof(Extensions).Assembly);
-			return services;
-		}
-
 		public static bool TryAddConverter(this IServiceCollection services, Type converterType) {
 			if (converterType.TryGetClosedGenericType(typeof(IConvertObject<>), out Type genericInterfaceType)) {
 				services.AddTransient(converterType);

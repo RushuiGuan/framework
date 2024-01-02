@@ -16,19 +16,20 @@ namespace Albatross.CodeGen.Python.Models {
 
 		public TextWriter Generate(TextWriter writer) {
 			if (IsStatic) {
-				Decorators.Add(My.StaticMethod);
+				Decorators.Add(My.Decorators.StaticMethod);
 			} else {
 				Parameters.InsertSelfWhenMissing();
 			}
 			foreach(var decorator in Decorators) {
 				writer.Code(decorator).WriteLine();
 			}
-			writer.Append(My.Keywords.Self).Space().Append(Name).OpenParenthesis().Code(Parameters).CloseParenthesis();
+			writer.Append(My.Keywords.Def).Space().Append(Name).OpenParenthesis().Code(Parameters).CloseParenthesis();
 			using(var scope = writer.BeginPythonScope()) {
-				scope.Writer.Code(CodeBlock);
+				scope.Writer.Code(BuildBody());
 			}
 			writer.WriteLine();
 			return writer;
 		}
+		public virtual ICodeElement BuildBody() => this.CodeBlock;
 	}
 }

@@ -10,6 +10,8 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj" />
+	  <ProjectReference Include="..\Albatross.CodeGen.Tests.Dto\Albatross.CodeGen.Tests.Dto.csproj" />
+	  <ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="appsettings.json">

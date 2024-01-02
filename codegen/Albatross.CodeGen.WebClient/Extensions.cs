@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using Albatross.CodeGen.CSharp;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Albatross.CodeGen.TypeScript;
+using Albatross.CodeGen.Python;
 
 namespace Albatross.CodeGen.WebClient {
-	public static class Extension {
+	public static class Extensions {
 		public static string GetMethod(this HttpMethodAttribute attribute) {
 			if (attribute is HttpPatchAttribute) {
 				return "GetPatchMethod()";
@@ -14,12 +17,13 @@ namespace Albatross.CodeGen.WebClient {
 			}
 		}
 		public static IServiceCollection AddWebClientCodeGen(this IServiceCollection services) {
-			services.AddCodeGen(typeof(Extension).Assembly);
+			services.AddCSharpCodeGen().AddTypeScriptCodeGen().AddPythonCodeGen();
 			services.AddSingleton<ICreateApiCSharpProxy, CreateApiCSharpProxy>();
 			services.AddSingleton<ICreateApiTypeScriptProxy, CreateApiTypeScriptProxy>();
 			services.AddSingleton<ICreateTypeScriptDto, CreateTypeScriptDto>();
 			services.AddSingleton<IConvertDtoToTypeScriptInterface, ConvertDtoToTypeScriptInterface>();
 			services.AddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
+			services.AddSingleton<IConvertDtoToPythonClass, ConvertDtoToPythonClass>();
 			return services;
 		}
     }

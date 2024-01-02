@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "python code gen": {
+      "commandName": "Project",
+      "commandLineArgs": "python-dto"
+    }
+  }
+}

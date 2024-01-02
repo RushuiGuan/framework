@@ -1,16 +1,16 @@
-﻿using Albatross.WebClient.Test.Messages;
+﻿using Albatross.CodeGen.Tests.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace Albatross.CodeGen.WebClient.UnitTest {
+namespace Albatross.CodeGen.Tests.WebApi {
 	[Route("api/test-get")]
 	public class TestHttpGetController : ControllerBase {
 		[HttpGet("object")]
-		public Dto GetObject() => new Dto();
+		public MyDto GetObject() => new MyDto();
 
 		[HttpGet("object-async")]
-		public Task<Dto> GetObjectAsync() => Task.FromResult(new Dto());
+		public Task<MyDto> GetObjectAsync() => Task.FromResult(new MyDto());
 
 		[HttpGet("void")]
 		public void GetVoid() { }
@@ -25,22 +25,22 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		public Task<string> GetStringAsync() => Task.FromResult(DateTime.Now.ToString());
 
 		[HttpGet("route-only/{name}/{id}")]
-		public Dto RouteOnly([FromRoute] string name, [FromRoute] int id) => new Dto { Name = name, Id = id, };
+		public MyDto RouteOnly([FromRoute] string name, [FromRoute] int id) => new MyDto { Name = name, Id = id, };
 
 		[HttpGet("route-with-date/{date}/{id}")]
-		public Dto RouteWithDate([FromRoute] DateTime date, [FromRoute] int id) => new Dto { Date = date, Id = id, };
+		public MyDto RouteWithDate([FromRoute] DateTime date, [FromRoute] int id) => new MyDto { Date = date, Id = id, };
 
 		[HttpGet("query-string-only")]
-		public Dto QueryStringOnly(string name, int id) => new Dto { Name = name, Id = id, };
+		public MyDto QueryStringOnly(string name, int id) => new MyDto { Name = name, Id = id, };
 
 		[HttpGet("query-string-with-date")]
-		public Dto QueryStringWithDate(DateTime date, int id) => new Dto { Date = date, Id = id, };
+		public MyDto QueryStringWithDate(DateTime date, int id) => new MyDto { Date = date, Id = id, };
 
 		[HttpGet("mixed/{name}")]
-		public Dto Mixed([FromRoute] string name, int id) => new Dto { Name = name, Id = id, };
+		public MyDto Mixed([FromRoute] string name, int id) => new MyDto { Name = name, Id = id, };
 
 		[HttpGet("mixed-dates/{tradeDate}")]
-		public Dto MixedDates([FromRoute] DateTime tradeDate, DateTime settlementDate) => new Dto { Date = tradeDate, DateTimeOffset = settlementDate, };
+		public MyDto MixedDates([FromRoute] DateTime tradeDate, DateTime settlementDate) => new MyDto { Date = tradeDate, DateTimeOffset = settlementDate, };
 
 		[HttpGet("array-query-string")]
 		public string TestArrayInput([FromQuery] string[] items) {
@@ -63,12 +63,12 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		}
 
 		[HttpGet("nullable-reference-type")]
-		public Dto? TestNullableReferenceType([FromRoute] Dto? dto) {
+		public MyDto? TestNullableReferenceType([FromRoute] MyDto? dto) {
 			return dto;
 		}
 		[HttpGet("async-nullable-reference-type")]
-		public Task<Dto?> TestAsyncNullableReferenceType([FromRoute] Dto? dto) {
-			return Task.FromResult<Dto?>(dto);
+		public Task<MyDto?> TestAsyncNullableReferenceType([FromRoute] MyDto? dto) {
+			return Task.FromResult<MyDto?>(dto);
 		}
 	}
 }

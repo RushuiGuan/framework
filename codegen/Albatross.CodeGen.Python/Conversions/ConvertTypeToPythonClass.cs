@@ -5,10 +5,10 @@ using System.Reflection;
 
 namespace Albatross.CodeGen.Python.Conversions {
 	public class ConvertTypeToPythonClass : IConvertObject<Type, Class> {
-		IConvertObject<PropertyInfo, Property> convertProperty;
+		IConvertObject<PropertyInfo, Field> convertProperty;
 		IConvertObject<FieldInfo, Field> convertField;
 
-		public ConvertTypeToPythonClass(IConvertObject<PropertyInfo, Property> convertProperty, IConvertObject<FieldInfo, Field> convertField) {
+		public ConvertTypeToPythonClass(IConvertObject<PropertyInfo, Field> convertProperty, IConvertObject<FieldInfo, Field> convertField) {
 			this.convertProperty = convertProperty;
 			this.convertField = convertField;
 		}
@@ -19,8 +19,8 @@ namespace Albatross.CodeGen.Python.Conversions {
 				result.BaseClass = [Convert(type.BaseType)];
 			}
 
-			result.Properties = (from p in type.GetProperties() select convertProperty.Convert(p)).ToList();
 			result.Fields = (from f in type.GetFields() select convertField.Convert(f)).ToList();
+			result.Fields.AddRange(from p in type.GetProperties() select convertProperty.Convert(p));
 			return result;
 		}
 

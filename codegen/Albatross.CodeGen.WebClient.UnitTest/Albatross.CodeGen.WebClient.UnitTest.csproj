@@ -45,6 +45,7 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\Albatross.CodeGen.Tests.WebApi\Albatross.CodeGen.Tests.WebApi.csproj" />
 		<ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
 	</ItemGroup>
 </Project>

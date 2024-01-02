@@ -7,16 +7,16 @@ using System.Collections.Generic;
 using Albatross.Serialization;
 
 #nullable enable
-namespace Albatross.CodeGen.WebClient.WebClient {
+namespace Albatross.CodeGen.Tests.WebClient {
 	public partial class TestHttpPostProxyService : Albatross.WebClient.ClientBase {
 		public TestHttpPostProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client, Albatross.Serialization.DefaultJsonSettings.Value) {
 		}
 		public const System.String ControllerPath = "api/test-post";
-		public async System.Threading.Tasks.Task<Albatross.WebClient.Test.Messages.Dto> FromBody(Albatross.WebClient.Test.Messages.Dto @dto) {
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> FromBody(Albatross.CodeGen.Tests.Dto.MyDto @dto) {
 			string path = $"{ControllerPath}/from-body";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
-			using (var request = this.CreateJsonRequest<Albatross.WebClient.Test.Messages.Dto>(HttpMethod.Post, path, queryString, @dto)) {
-				return await this.GetRequiredJsonResponse<Albatross.WebClient.Test.Messages.Dto>(request);
+			using (var request = this.CreateJsonRequest<Albatross.CodeGen.Tests.Dto.MyDto>(HttpMethod.Post, path, queryString, @dto)) {
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
 		public async System.Threading.Tasks.Task<System.String> PostStringOnly(System.String @body) {
@@ -49,11 +49,11 @@ namespace Albatross.CodeGen.WebClient.WebClient {
 				return await this.GetRawResponse(request);
 			}
 		}
-		public async System.Threading.Tasks.Task<System.String> Mixed(System.String @name, System.Int32 @id, Albatross.WebClient.Test.Messages.Dto @dto) {
+		public async System.Threading.Tasks.Task<System.String> Mixed(System.String @name, System.Int32 @id, Albatross.CodeGen.Tests.Dto.MyDto @dto) {
 			string path = $"{ControllerPath}/mixed/{name}";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("id", System.Convert.ToString(@id));
-			using (var request = this.CreateJsonRequest<Albatross.WebClient.Test.Messages.Dto>(HttpMethod.Post, path, queryString, @dto)) {
+			using (var request = this.CreateJsonRequest<Albatross.CodeGen.Tests.Dto.MyDto>(HttpMethod.Post, path, queryString, @dto)) {
 				return await this.GetRawResponse(request);
 			}
 		}
