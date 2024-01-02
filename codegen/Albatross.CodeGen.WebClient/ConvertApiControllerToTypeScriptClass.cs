@@ -1,5 +1,4 @@
-﻿using Albatross.CodeGen.Core;
-using Albatross.CodeGen.TypeScript.Model;
+﻿using Albatross.CodeGen.TypeScript.Models;
 using Albatross.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -31,7 +30,7 @@ namespace Albatross.CodeGen.WebClient {
 					new ParameterDeclaration("logger", new TypeScriptType("Logger"), AccessModifier.None),
 				},
 			};
-			model.Constructor.Body.Add(new Super(new TypeScriptValue(TypeScript.Model.ValueType.Variable, "logger")));
+			model.Constructor.Body.Add(new Super(new TypeScriptValue(TypeScript.Models.ValueType.Variable, "logger")));
 			model.Constructor.Body.Add(new Termination());
 			model.Constructor.Body.Add(new LoggerInfo($"{model.Name} instance created"));
 			model.Constructor.Body.Add(new Termination());
@@ -152,18 +151,18 @@ namespace Albatross.CodeGen.WebClient {
 
 			var array = queryParams.Select(args => {
 				var attribute = args.GetCustomAttribute<FromQueryAttribute>();
-				return new TypeScriptValue(TypeScript.Model.ValueType.Variable, attribute?.Name ?? args.Name!.CamelCase());
+				return new TypeScriptValue(TypeScript.Models.ValueType.Variable, attribute?.Name ?? args.Name!.CamelCase());
 			}).ToArray();
 			var queryParamValue = new TypeScriptValueArray(array);
 
 			if (attrib is HttpGetAttribute) {
 				if (method.ReturnType.GenericTypeArguments.First().Equals(TypeScriptType.String())) {
-					var call = new MethodCall(true, "this.doGetStringAsync", new TypeScriptValue(TypeScript.Model.ValueType.Variable, relativeUrl.Name), queryParamValue);
+					var call = new MethodCall(true, "this.doGetStringAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
 					var resultVariable = new VariableDeclaration("result", true, null);
 					resultVariable.Assignment = call;
 					method.Body.Add(resultVariable);
 				} else {
-					var call = new MethodCall(true, "this.doGetAsync", new TypeScriptValue(TypeScript.Model.ValueType.Variable, relativeUrl.Name), queryParamValue);
+					var call = new MethodCall(true, "this.doGetAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
 					call.GenericArguments.Add(method.ReturnType.GenericTypeArguments.First());
 					var resultVariable = new VariableDeclaration("result", true, null);
 					resultVariable.Assignment = call;
@@ -172,7 +171,7 @@ namespace Albatross.CodeGen.WebClient {
 				method.Body.Add("return result;");
 			} else if (attrib is HttpPostAttribute) {
 				if (method.ReturnType.GenericTypeArguments.First().Equals(TypeScriptType.String())) {
-					var call = new MethodCall(true, "this.doPostStringAsync", new TypeScriptValue(TypeScript.Model.ValueType.Variable, relativeUrl.Name), new TypeScriptValue(TypeScript.Model.ValueType.Variable, bodyParam!.Name!), queryParamValue);
+					var call = new MethodCall(true, "this.doPostStringAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), new TypeScriptValue(TypeScript.Models.ValueType.Variable, bodyParam!.Name!), queryParamValue);
 					call.GenericArguments.Add(method.ReturnType.GenericTypeArguments.First());
 					if (bodyParam == null) {
 						call.GenericArguments.Add(TypeScriptType.Any());
@@ -184,8 +183,8 @@ namespace Albatross.CodeGen.WebClient {
 					method.Body.Add(resultVariable);
 				} else {
 					var call = new MethodCall(true, "this.doPostAsync",
-						new TypeScriptValue(TypeScript.Model.ValueType.Variable, relativeUrl.Name),
-						new TypeScriptValue(TypeScript.Model.ValueType.Variable, bodyParam?.Name),
+						new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name),
+						new TypeScriptValue(TypeScript.Models.ValueType.Variable, bodyParam?.Name),
 						queryParamValue);
 					call.GenericArguments.Add(method.ReturnType.GenericTypeArguments.First());
 					if (bodyParam == null) {
@@ -199,7 +198,7 @@ namespace Albatross.CodeGen.WebClient {
 				}
 				method.Body.Add("return result;");
 			} else if (attrib is HttpDeleteAttribute) {
-				var call = new MethodCall(true, "this.doDeleteAsync", new TypeScriptValue(TypeScript.Model.ValueType.Variable, relativeUrl.Name), queryParamValue);
+				var call = new MethodCall(true, "this.doDeleteAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
 				method.Body.Add(call);
 			}
 			return method;

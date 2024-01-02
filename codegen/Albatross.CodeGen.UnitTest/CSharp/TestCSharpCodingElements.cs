@@ -1,6 +1,5 @@
 ﻿using System.IO;
-using Albatross.CodeGen.Core;
-using Albatross.CodeGen.CSharp.Model;
+using Albatross.CodeGen.CSharp.Models;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest.CSharp {

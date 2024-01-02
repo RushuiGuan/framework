@@ -1,5 +1,5 @@
-﻿using Albatross.CodeGen.TypeScript.Conversion;
-using Albatross.CodeGen.TypeScript.Model;
+﻿using Albatross.CodeGen.TypeScript.Conversions;
+using Albatross.CodeGen.TypeScript.Models;
 using System.IO;
 using Xunit;
 

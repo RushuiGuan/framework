@@ -1,5 +1,4 @@
-﻿using Albatross.CodeGen.Core;
-using Albatross.CodeGen.TypeScript.Model;
+﻿using Albatross.CodeGen.TypeScript.Models;
 using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
 using System;

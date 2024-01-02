@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
+	  <ProjectReference Include="..\Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj" />
+	  <ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
   </ItemGroup>
   <ItemGroup>

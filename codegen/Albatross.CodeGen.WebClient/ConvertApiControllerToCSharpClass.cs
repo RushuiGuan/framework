@@ -1,5 +1,4 @@
-﻿using Albatross.CodeGen.Core;
-using Albatross.CodeGen.CSharp.Model;
+﻿using Albatross.CodeGen.CSharp.Models;
 using Albatross.Reflection;
 using Albatross.Text;
 using Microsoft.AspNetCore.Mvc;
@@ -38,10 +37,10 @@ namespace Albatross.CodeGen.WebClient {
 		IEnumerable<Parameter> GetConstructorParameters(Type type) {
 			return new Parameter[]{
 				new Parameter(VariableName_Logger, GetILoggerType(type)) {
-					Modifier = CSharp.Model.ParameterModifier.None,
+					Modifier = CSharp.Models.ParameterModifier.None,
 				},
 				new Parameter(VariableName_Client, new DotNetType(typeof(HttpClient))){
-					Modifier = CSharp.Model.ParameterModifier.None,
+					Modifier = CSharp.Models.ParameterModifier.None,
 				}
 			};
 		}

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Albatross.CodeGen.Core;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest {

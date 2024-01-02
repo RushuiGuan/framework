@@ -17,6 +17,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.UnitTest"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.WebClient.UnitTest", "Albatross.CodeGen.WebClient.UnitTest\Albatross.CodeGen.WebClient.UnitTest.csproj", "{339BD57B-B8F5-4957-844F-BF2154B4B9E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.CSharp", "Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj", "{8594A25A-BC56-422A-8142-7F127991638F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.TypeScript", "Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj", "{AF626D8C-A697-4131-8C83-4329A20BBF61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Python", "Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj", "{3AD21F93-638B-4619-ADC9-5784E78E4CD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Utility", "Albatross.CodeGen.Utility\Albatross.CodeGen.Utility.csproj", "{6B920DA8-9BC1-40AF-B1B5-08009B85947F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +47,22 @@ Global
 		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8594A25A-BC56-422A-8142-7F127991638F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8594A25A-BC56-422A-8142-7F127991638F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8594A25A-BC56-422A-8142-7F127991638F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8594A25A-BC56-422A-8142-7F127991638F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B920DA8-9BC1-40AF-B1B5-08009B85947F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B920DA8-9BC1-40AF-B1B5-08009B85947F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B920DA8-9BC1-40AF-B1B5-08009B85947F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B920DA8-9BC1-40AF-B1B5-08009B85947F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

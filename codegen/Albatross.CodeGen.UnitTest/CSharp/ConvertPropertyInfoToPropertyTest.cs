@@ -1,5 +1,5 @@
-﻿using Albatross.CodeGen.CSharp.Conversion;
-using Albatross.CodeGen.CSharp.Model;
+﻿using Albatross.CodeGen.CSharp.Conversions;
+using Albatross.CodeGen.CSharp.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

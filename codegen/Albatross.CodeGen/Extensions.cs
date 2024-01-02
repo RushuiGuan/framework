@@ -1,7 +1,8 @@
-﻿using Albatross.CodeGen.Core;
-using Albatross.Reflection;
+﻿using Albatross.Reflection;
+using Albatross.Text;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Reflection;
 
 namespace Albatross.CodeGen {
@@ -29,6 +30,9 @@ namespace Albatross.CodeGen {
 			} else {
 				return false;
 			}
+		}
+		public static CodeGeneratorScope BeginScope(this TextWriter writer, string? text = null) {
+			return new CodeGeneratorScope(writer, args => args.AppendLine($"{text} {{"), args => args.Append("}"));
 		}
 	}
 }

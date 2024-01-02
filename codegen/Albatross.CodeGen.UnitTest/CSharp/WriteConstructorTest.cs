@@ -1,5 +1,4 @@
-﻿using Albatross.CodeGen.Core;
-using Albatross.CodeGen.CSharp.Model;
+﻿using Albatross.CodeGen.CSharp.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.IO;

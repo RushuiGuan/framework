@@ -13,6 +13,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj" />
+    <ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
     <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
   </ItemGroup>
 </Project>
