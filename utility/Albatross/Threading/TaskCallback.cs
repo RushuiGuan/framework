@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Albatross.Messaging.Services {
+namespace Albatross.Threading {
 	public class TaskCallback<T> {
 		public Task<T> Task => taskCompletionSource.Task;
 		private TaskCompletionSource<T> taskCompletionSource = new TaskCompletionSource<T>();
@@ -11,8 +11,14 @@ namespace Albatross.Messaging.Services {
 		public TaskCallback(CancellationToken cancellationToken) {
 			cancellationToken.Register(() => SetException(new OperationCanceledException(cancellationToken)));
 		}
-		public TaskCallback(CancellationToken cancellationToken, Action cancellationCallback) {
-			cancellationToken.Register(() => cancellationCallback());
+		public TaskCallback(CancellationToken cancellationToken, Action<TaskCallback<T>> cancellationCallback) {
+			cancellationToken.Register(() => {
+				try {
+					cancellationCallback(this);
+				} catch (Exception err) {
+					this.SetException(err);
+				}
+			});
 		}
 		public void SetException(Exception err) {
 			taskCompletionSource.TrySetException(err);
@@ -29,8 +35,14 @@ namespace Albatross.Messaging.Services {
 		public TaskCallback(CancellationToken cancellationToken) {
 			cancellationToken.Register(() => SetException(new OperationCanceledException(cancellationToken)));
 		}
-		public TaskCallback(CancellationToken cancellationToken, Action cancellationCallback) {
-			cancellationToken.Register(() => cancellationCallback());
+		public TaskCallback(CancellationToken cancellationToken, Action<TaskCallback> cancellationCallback) {
+			cancellationToken.Register(() => {
+				try {
+					cancellationCallback(this);
+				} catch (Exception err) {
+					SetException(err);
+				}
+			});
 		}
 		public void SetException(Exception err) {
 			taskCompletionSource.TrySetException(err);
