@@ -1,4 +1,6 @@
+using Albatross.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Sample.Logging.WebApi {
 	public class Startup : Albatross.Hosting.Startup {
@@ -9,5 +11,9 @@ namespace Sample.Logging.WebApi {
 		public override bool Caching => false;
 
 		public Startup(IConfiguration configuration) : base(configuration) { }
+		public override void ConfigureServices(IServiceCollection services) {
+			base.ConfigureServices(services);
+			services.AddCustomLogger();
+		}
 	}
 }
