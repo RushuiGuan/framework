@@ -24,7 +24,7 @@ namespace Albatross.CodeGen.WebClient {
 			string outputDirectory, string name, Func<Type, bool>? isValidType) {
 
 			string dtoFileName = System.IO.Path.Join(outputDirectory, $"{name}.py");
-			PythonModule module = new PythonModule(Path.GetFileNameWithoutExtension(dtoFileName));
+			PythonModule module = new PythonModule(name);
 			converter.ConvertEnums(module, assemblies.ToArray());
 			foreach (var type in additionalDtoClass) {
 				if (type.IsEnum) {

@@ -10,6 +10,8 @@ namespace Albatross.CodeGen.Python.Models {
 		public List<Decorator> Decorators { get; set; } = new List<Decorator>();
 		public ICodeElement CodeBlock { get; set; } = new CodeBlock(new Pass());
 		public ParameterCollection Parameters { get; set; } = new ParameterCollection(Enumerable.Empty<Parameter>());
+		public PythonType ReturnType { get; set; } = My.Types.AnyType;
+
 		public Method(string name) {
 			Name = name;
 		}

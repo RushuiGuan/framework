@@ -4,11 +4,11 @@ using System.Linq;
 using System.Reflection;
 
 namespace Albatross.CodeGen.Python.Conversions {
-	public class ConvertTypeToPythonClass : IConvertObject<Type, Class> {
+	public class ConvertTypeToPythonDataClass : IConvertObject<Type, Class> {
 		IConvertObject<PropertyInfo, Field> convertProperty;
 		IConvertObject<FieldInfo, Field> convertField;
 
-		public ConvertTypeToPythonClass(IConvertObject<PropertyInfo, Field> convertProperty, IConvertObject<FieldInfo, Field> convertField) {
+		public ConvertTypeToPythonDataClass(IConvertObject<PropertyInfo, Field> convertProperty, IConvertObject<FieldInfo, Field> convertField) {
 			this.convertProperty = convertProperty;
 			this.convertField = convertField;
 		}
@@ -19,8 +19,12 @@ namespace Albatross.CodeGen.Python.Conversions {
 				result.BaseClass = [Convert(type.BaseType)];
 			}
 
-			result.Fields = (from f in type.GetFields() select convertField.Convert(f)).ToList();
+			result.Fields = (from f in type.GetFields().Where(x=>!x.IsStatic) select convertField.Convert(f)).ToList();
 			result.Fields.AddRange(from p in type.GetProperties() select convertProperty.Convert(p));
+			foreach(var item in result.Fields) {
+				item.Static = true;
+			}
+			result.Decorators.Add(My.Decorators.DataClass);
 			return result;
 		}
 

@@ -7,6 +7,7 @@ using CommandLine;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ReferenceData.Core.Sustainalytics;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.Tests.Utility {
@@ -23,9 +24,12 @@ namespace Albatross.CodeGen.Tests.Utility {
 		}
 		public Python(PythonOptions option) : base(option) { }
 		public Task<int> RunUtility(ILogger logger, ICreatePythonDto converter) {
-			var module = converter.Generate([typeof(ReferenceData.Core.EsgScoreDto).Assembly], new System.Type[0], new PythonModule[0], Options.Directory, "dto", x => true);
+			var module = converter.Generate([typeof(ReferenceData.Core.EsgScoreDto).Assembly], new System.Type[0], new PythonModule[0], Options.Directory, "dto", IsValidType);
 			module.Generate(System.Console.Out);
 			return Task.FromResult(0);
 		}
+		bool IsValidType(System.Type type) => type != typeof(ApiValueConverter) 
+			&& type != typeof(String2IntConverter) 
+			&& type != typeof(HistoryFileValueConverter);
 	}
 }

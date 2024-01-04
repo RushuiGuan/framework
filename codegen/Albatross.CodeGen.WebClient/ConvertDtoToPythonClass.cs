@@ -15,10 +15,10 @@ namespace Albatross.CodeGen.WebClient {
 
 	public class ConvertDtoToPythonClass : IConvertDtoToPythonClass {
 		private readonly ILogger<ConvertDtoToPythonClass> logger;
-		private readonly ConvertTypeToPythonClass convertType;
+		private readonly ConvertTypeToPythonDataClass convertType;
 		private readonly ConvertEnumToClass convertEnum;
 
-		public ConvertDtoToPythonClass(ILogger<ConvertDtoToPythonClass> logger, ConvertTypeToPythonClass convertType, 
+		public ConvertDtoToPythonClass(ILogger<ConvertDtoToPythonClass> logger, ConvertTypeToPythonDataClass convertType, 
 			ConvertEnumToClass convertEnum) {
 			this.logger = logger;
 			this.convertType = convertType;
@@ -49,7 +49,9 @@ namespace Albatross.CodeGen.WebClient {
 				var types = assembly.GetTypes();
 				foreach (Type type in types) {
 					if (type.IsEnum) {
-						module.Classes.Add(convertEnum.Convert(type));
+						var item = convertEnum.Convert(type);
+						item.Module = module.Name;
+						module.Classes.Add(item);
 					}
 				}
 			}
@@ -66,6 +68,7 @@ namespace Albatross.CodeGen.WebClient {
 		}
 		public void ConvertClass(Type type, PythonModule module) { 
 			var item = convertType.Convert(type);
+			item.Module = module.Name;
 			module.Classes.Add(item);
 		}
 	}

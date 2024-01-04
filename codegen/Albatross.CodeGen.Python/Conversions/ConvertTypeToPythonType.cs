@@ -33,7 +33,7 @@ namespace Albatross.CodeGen.Python.Conversions {
 			} else if (type.IsAssignableTo(typeof(IDictionary))) {
 				return My.Types.Dictionary;
 			} else {
-				return My.Types.NoType;
+				return My.Types.AnyType;
 			}
 		}
 

@@ -3,9 +3,10 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public record class PythonType : ICodeElement{
+	public record class PythonType : ICodeElement, IHasModule {
 		public string Name { get; set; }
 		public ICodeElement DefaultValue { get; set; } = new NoneValue();
+		public string Module { get; set; } = string.Empty;
 		public PythonType(string name) {
 			Name = name;
 		}
@@ -16,7 +17,7 @@ namespace Albatross.CodeGen.Python.Models {
 			}
 			return writer;
 		}
-		
+
 		public override string? ToString() {
 			StringWriter writer = new StringWriter();
 			return writer.Code(this).ToString();

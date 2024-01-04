@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.Tests.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReferenceData.Core", "..\..\ReferenceData\src\ReferenceData.Core\ReferenceData.Core.csproj", "{59998F62-32CD-44B7-8D54-CF6787E873AA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReferenceData.Api", "..\..\ReferenceData\src\ReferenceData.Api\ReferenceData.Api.csproj", "{AFE3F882-9410-469A-9D77-375C1AD23478}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{59998F62-32CD-44B7-8D54-CF6787E873AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59998F62-32CD-44B7-8D54-CF6787E873AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59998F62-32CD-44B7-8D54-CF6787E873AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE3F882-9410-469A-9D77-375C1AD23478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE3F882-9410-469A-9D77-375C1AD23478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE3F882-9410-469A-9D77-375C1AD23478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE3F882-9410-469A-9D77-375C1AD23478}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
