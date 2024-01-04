@@ -8,6 +8,9 @@ $ErrorActionPreference = "Stop";
 
 $projects = @(
 	"Albatross.CodeGen",
+	"Albatross.CodeGen.CSharp",
+	"Albatross.CodeGen.Python",
+	"Albatross.CodeGen.TypeScript",
 	"Albatross.CodeGen.WebClient"
 );
 

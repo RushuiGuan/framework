@@ -1,11 +1,14 @@
 ﻿using Albatross.CodeGen.Python.Models;
+using Albatross.Reflection;
 using System;
 using System.Collections;
 
 namespace Albatross.CodeGen.Python.Conversions {
 	public class ConvertTypeToPythonType : IConvertObject<Type, PythonType> {
 		public PythonType Convert(Type type) {
-			if (type == typeof(string) || type == typeof(char)) {
+			if(type.IsNullableValueType()) {
+				return this.Convert(type.GetGenericArguments()[0]);
+			}else if (type == typeof(string) || type == typeof(char)) {
 				return My.Types.String;
 			} else if (type == typeof(int) || type == typeof(long) || type == typeof(short) || type == typeof(byte)) {
 				return My.Types.Int;
@@ -25,10 +28,12 @@ namespace Albatross.CodeGen.Python.Conversions {
 				return My.Types.Time;
 			} else if (type == typeof(TimeSpan)) {
 				return My.Types.TimeDelta;
-			}else if(type.IsArray || type is IEnumerable) {
+			} else if (type.IsArray || type is IEnumerable) {
 				return My.Types.List;
+			} else if (type.IsAssignableTo(typeof(IDictionary))) {
+				return My.Types.Dictionary;
 			} else {
-				return new PythonType(type.Name);
+				return My.Types.NoType;
 			}
 		}
 

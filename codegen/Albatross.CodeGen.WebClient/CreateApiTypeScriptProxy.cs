@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateApiTypeScriptProxy {
-		IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, 
+		IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies,
 			IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Type, bool>? isValidType, Action<Class>? modifyProxyClass = null);
 	}
 	public class CreateApiTypeScriptProxy : ICreateApiTypeScriptProxy {
@@ -24,7 +24,7 @@ namespace Albatross.CodeGen.WebClient {
 			this.logger = logger;
 		}
 
-		public IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies, 
+		public IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies,
 			IEnumerable<TypeScriptFile> dependancies, string outputDirectory, Func<Type, bool>? isValidType, Action<Class>? modifyProxyClass = null) {
 			isValidType = isValidType ?? (args => true);
 			this.converter.EndpointName = endpoint;
@@ -59,14 +59,15 @@ namespace Albatross.CodeGen.WebClient {
 			return files;
 		}
 
-		string GetApiFileName(string className) {
+		public string GetApiFileName(string className) {
 			const string postFix = "Service";
 			if (className.EndsWith(postFix)) {
 				StringBuilder sb = new StringBuilder();
 				className = className.Substring(0, className.Length - postFix.Length);
-				foreach (var c in className) {
-					if (char.IsUpper(c)) {
-						if (sb.Length > 0) {
+				for (int i = 0; i < className.Length; i++) {
+					char c = className[i];
+					if (i > 0 && char.IsUpper(c)) {
+						if (!char.IsUpper(className[i - 1]) || i != className.Length - 1 && !char.IsUpper(className[i + 1])) {
 							sb.Append('-');
 						}
 					}

@@ -17,19 +17,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.UnitTest"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.WebClient.UnitTest", "Albatross.CodeGen.WebClient.UnitTest\Albatross.CodeGen.WebClient.UnitTest.csproj", "{339BD57B-B8F5-4957-844F-BF2154B4B9E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.CSharp", "Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj", "{8594A25A-BC56-422A-8142-7F127991638F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.CSharp", "Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj", "{8594A25A-BC56-422A-8142-7F127991638F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.TypeScript", "Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj", "{AF626D8C-A697-4131-8C83-4329A20BBF61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.TypeScript", "Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj", "{AF626D8C-A697-4131-8C83-4329A20BBF61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Python", "Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj", "{3AD21F93-638B-4619-ADC9-5784E78E4CD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.Python", "Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj", "{3AD21F93-638B-4619-ADC9-5784E78E4CD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Tests.Utility", "Albatross.CodeGen.Utility\Albatross.CodeGen.Tests.Utility.csproj", "{6B920DA8-9BC1-40AF-B1B5-08009B85947F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.Tests.Utility", "Albatross.CodeGen.Utility\Albatross.CodeGen.Tests.Utility.csproj", "{6B920DA8-9BC1-40AF-B1B5-08009B85947F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{106E138F-304F-426D-8BB3-3625D8FFD9B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Tests.Dto", "Albatross.CodeGen.Tests.Dto\Albatross.CodeGen.Tests.Dto.csproj", "{BF7566EF-A3EE-4115-AA8E-79756D464450}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.Tests.Dto", "Albatross.CodeGen.Tests.Dto\Albatross.CodeGen.Tests.Dto.csproj", "{BF7566EF-A3EE-4115-AA8E-79756D464450}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeGen.Tests.WebApi", "Albatross.CodeGen.Tests.WebApi\Albatross.CodeGen.Tests.WebApi.csproj", "{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.Tests.WebApi", "Albatross.CodeGen.Tests.WebApi\Albatross.CodeGen.Tests.WebApi.csproj", "{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReferenceData.Core", "..\..\ReferenceData\src\ReferenceData.Core\ReferenceData.Core.csproj", "{59998F62-32CD-44B7-8D54-CF6787E873AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBDE62F6-6FCC-446C-8B61-B32B98B88A50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59998F62-32CD-44B7-8D54-CF6787E873AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59998F62-32CD-44B7-8D54-CF6787E873AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59998F62-32CD-44B7-8D54-CF6787E873AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59998F62-32CD-44B7-8D54-CF6787E873AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

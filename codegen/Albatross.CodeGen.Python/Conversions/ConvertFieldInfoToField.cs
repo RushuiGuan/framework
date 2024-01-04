@@ -12,7 +12,8 @@ namespace Albatross.CodeGen.Python.Conversions {
 
 		public Field Convert(FieldInfo from) {
 			var pythonType = typeConverter.Convert(from.FieldType);
-			return new Field(from.Name, pythonType, pythonType.DefaultValue);
+			var name = Extensions.GetPythonFieldName(from.Name);
+			return new Field(name, pythonType, pythonType.DefaultValue);
 		}
 
 		object IConvertObject<FieldInfo>.Convert(FieldInfo from) {

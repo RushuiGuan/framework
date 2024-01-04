@@ -13,5 +13,6 @@ namespace Albatross.CodeGen.Python.Models {
 			}
 			return block;
 		}
+		public bool HasBody => Fields.Count > 0;
 	}
 }

@@ -6,7 +6,7 @@
     },
     "python code gen": {
       "commandName": "Project",
-      "commandLineArgs": "python-dto"
+      "commandLineArgs": "python-dto -d c:\\temp"
     }
   }
 }

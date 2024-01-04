@@ -9,6 +9,7 @@
 	  <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.7" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\ReferenceData\src\ReferenceData.Core\ReferenceData.Core.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen.Tests.Dto\Albatross.CodeGen.Tests.Dto.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />

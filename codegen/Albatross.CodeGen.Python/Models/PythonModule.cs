@@ -2,9 +2,9 @@
 using System.IO;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class Module : ICodeElement {
+	public class PythonModule : ICodeElement {
 		public string Name { get; set; }
-		public Module(string name) {
+		public PythonModule(string name) {
 			Name = name;
 		}
 

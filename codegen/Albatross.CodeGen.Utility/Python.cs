@@ -1,6 +1,5 @@
 ﻿using Albatross.CodeGen.Python;
 using Albatross.CodeGen.Python.Models;
-using Albatross.CodeGen.Tests.Dto;
 using Albatross.CodeGen.WebClient;
 using Albatross.Config;
 using Albatross.Hosting.Utility;
@@ -12,7 +11,9 @@ using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.Tests.Utility {
 	[Verb("python-dto")]
-	public class PythonOptions :BaseOption{
+	public class PythonOptions : BaseOption {
+		[Option('d', "directory", Required = true, HelpText = "directory to save the generated code")]
+		public string Directory { get; set; } = string.Empty;
 	}
 	public class Python : UtilityBase<PythonOptions> {
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
@@ -20,11 +21,9 @@ namespace Albatross.CodeGen.Tests.Utility {
 			services.AddPythonCodeGen();
 			services.AddWebClientCodeGen();
 		}
-		public Python(PythonOptions option) : base(option) {
-		}
-		public Task<int> RunUtility(ILogger logger, IConvertDtoToPythonClass converter) {
-			var module = new Module("test");
-			converter.ConvertClass(typeof(MyDto), module);
+		public Python(PythonOptions option) : base(option) { }
+		public Task<int> RunUtility(ILogger logger, ICreatePythonDto converter) {
+			var module = converter.Generate([typeof(ReferenceData.Core.EsgScoreDto).Assembly], new System.Type[0], new PythonModule[0], Options.Directory, "dto", x => true);
 			module.Generate(System.Console.Out);
 			return Task.FromResult(0);
 		}

@@ -7,9 +7,9 @@ namespace Albatross.CodeGen.Python.Models {
 
 		public bool Static { get; set; }
 		public string Name { get; set; }
-		public PythonType? Type { get; set; }
+		public PythonType Type { get; set; }
 
-		public Field(string name, PythonType? type, ICodeElement value) {
+		public Field(string name, PythonType type, ICodeElement value) {
 			this.Name = name;
 			Type = type;
 			this.Value = value;
@@ -18,10 +18,8 @@ namespace Albatross.CodeGen.Python.Models {
 			if(!Static) {
 				writer.Append(My.Keywords.Self).Append(".");
 			}
-			writer.Append(Name);
-			if (Type != null) {
-				writer.Append(":").Code(Type).Append(" = ").Code(Value);
-			}
+			writer.Append(Name).Code(Type);
+			writer.Append(" = ").Code(Value);
 			return writer;
 		}
 	}

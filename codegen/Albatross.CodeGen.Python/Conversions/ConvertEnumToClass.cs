@@ -10,7 +10,9 @@ namespace Albatross.CodeGen.Python.Conversions {
 					BaseClass = [My.Classes.Enum],
 					Fields = Enum.GetValues(type)
 						.Cast<object>()
-						.Select(x => new Field(Enum.GetName(type, x)?.ToUpper() ?? throw new Exception(), null, new Literal((int)x)))
+						.Select(x => new Field(Enum.GetName(type, x)?.ToUpper() ?? throw new Exception(), My.Types.NoType, new Literal((int)x)) {
+							Static = true,
+						})
 						.ToList(),
 				};
 				return model;

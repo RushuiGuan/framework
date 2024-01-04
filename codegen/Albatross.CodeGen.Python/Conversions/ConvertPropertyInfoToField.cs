@@ -1,6 +1,7 @@
 ﻿using Albatross.CodeGen.Python.Models;
 using System;
 using System.Reflection;
+using System.Text;
 
 namespace Albatross.CodeGen.Python.Conversions {
 	public class ConvertPropertyInfoToField : IConvertObject<PropertyInfo, Field> {
@@ -12,11 +13,13 @@ namespace Albatross.CodeGen.Python.Conversions {
 
 		public Field Convert(PropertyInfo from) {
 			var pythonType = typeConverter.Convert(from.PropertyType);
-			return new Field(from.Name, pythonType, pythonType.DefaultValue);
+			var name = Extensions.GetPythonFieldName(from.Name);
+			return new Field(name, pythonType, pythonType.DefaultValue);
 		}
 
 		object IConvertObject<PropertyInfo>.Convert(PropertyInfo from) {
 			return this.Convert(from);
 		}
+
 	}
 }

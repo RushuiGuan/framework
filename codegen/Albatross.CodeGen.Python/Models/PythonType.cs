@@ -11,7 +11,9 @@ namespace Albatross.CodeGen.Python.Models {
 		}
 
 		public TextWriter Generate(TextWriter writer) {
-			writer.Append(Name);
+			if (!string.IsNullOrEmpty(Name)) {
+				writer.Append(":").Append(Name);
+			}
 			return writer;
 		}
 		
