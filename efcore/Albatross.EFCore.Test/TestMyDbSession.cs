@@ -36,7 +36,6 @@ namespace Albatross.EFCore.Test.MyNamespace {
 		[Fact(Skip = "require database")]
 		public async Task TestTickSizePersistance() {
 			string marketName = "test";
-			DateTime startDate = new DateTime(1980, 1, 1);
 			using var scope = host.Create();
 			var session = scope.Get<MyDbSession>();
 			var set = session.DbContext.Set<FutureMarket>();
@@ -48,6 +47,9 @@ namespace Albatross.EFCore.Test.MyNamespace {
 				set.Add(market);
 				await session.SaveChangesAsync();
 			}
+
+#if NET6_0 || NET7_0
+			DateTime startDate = new DateTime(1980, 1, 1);
 			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, startDate, 1));
 			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 2, 1), 2));
 			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 3, 1), 3));
@@ -55,6 +57,18 @@ namespace Albatross.EFCore.Test.MyNamespace {
 			await session.SaveChangesAsync();
 			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 3, 1), 2));
 			await session.SaveChangesAsync();
+#endif
+
+#if NET8_0
+			DateOnly startDate = new DateOnly(1980, 1, 1);
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, startDate, 1));
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateOnly(1980, 2, 1), 2));
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateOnly(1980, 3, 1), 3));
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateOnly(1980, 4, 1), 3));
+			await session.SaveChangesAsync();
+			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateOnly(1980, 3, 1), 2));
+			await session.SaveChangesAsync();
+#endif
 		}
 	}
 }

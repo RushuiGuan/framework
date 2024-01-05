@@ -6,10 +6,18 @@ using System;
 namespace Albatross.EFCore.Test {
 	public class TickSize : DateLevelEntity<int> {
 		public int Id { get; set; }
+#if NET6_0 || NET7_0
 		public TickSize(int marketId, DateTime startDate, decimal value) : base(startDate) {
 			this.MarketId = marketId;
 			this.Value = value;
 		}
+#endif
+#if NET8_0
+		public TickSize(int marketId, DateOnly startDate, decimal value) : base(startDate) {
+			this.MarketId = marketId;
+			this.Value = value;
+		}
+#endif
 
 		public int MarketId { get; set; }
 		public FutureMarket Market { get; set; } = default!;
@@ -27,11 +35,11 @@ namespace Albatross.EFCore.Test {
 			}
 		}
 	}
-	public class TickSizeEntityMap : EntityMap<TickSize> { 
+	public class TickSizeEntityMap : EntityMap<TickSize> {
 		public override void Map(EntityTypeBuilder<TickSize> builder) {
 			base.Map(builder);
 			builder.HasKey(p => p.Id).IsClustered(false);
-			builder.HasIndex(p => new { p.MarketId, p.StartDate,}).IsUnique().IsClustered(true);
+			builder.HasIndex(p => new { p.MarketId, p.StartDate, }).IsUnique().IsClustered(true);
 			builder.HasOne(p => p.Market).WithMany(p => p.TickSizes).HasForeignKey(p => p.MarketId);
 		}
 	}
