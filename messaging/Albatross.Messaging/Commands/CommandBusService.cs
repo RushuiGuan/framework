@@ -62,7 +62,7 @@ namespace Albatross.Messaging.Commands {
 						var newItem = this.commandQueueFactory.CreateItem(internalCommand.Request);
 						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newItem.Id);
 						newItem.Queue.Submit(newItem);
-						internalCommand.SetResult();
+						internalCommand.SetResult(newItem.Id);
 					}catch(Exception err) {
 						if (internalCommand is InternalCommandWithCallback) {
 							internalCommand.SetException(err);

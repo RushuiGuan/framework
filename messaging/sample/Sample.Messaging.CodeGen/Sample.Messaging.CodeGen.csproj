@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.CodeGen.WebClient" Version="6.4.1" />
-    <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.2" />
+    <PackageReference Include="Albatross.CodeGen.WebClient" Version="7.0.1" />
+    <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.12" />
   </ItemGroup>
 
 	<ItemGroup>

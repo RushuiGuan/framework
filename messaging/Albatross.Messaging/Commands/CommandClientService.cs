@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Albatross.Threading;
 
 namespace Albatross.Messaging.Commands {
 	public delegate void CommandCallbackDelegate(ulong id, string commandType, byte[] message);
@@ -15,7 +16,7 @@ namespace Albatross.Messaging.Commands {
 
 	public class CommandClientService : IDealerClientService {
 		private readonly ILogger<CommandClientService> logger;
-		private readonly ConcurrentDictionary<ulong, IMessageCallback> commandCallbacks = new ConcurrentDictionary<ulong, IMessageCallback>();
+		private readonly ConcurrentDictionary<ulong, TaskCallback<ulong>> commandCallbacks = new ConcurrentDictionary<ulong, TaskCallback<ulong>>();
 
 		public CommandClientService(ILogger<CommandClientService> logger) {
 			this.logger = logger;
@@ -77,7 +78,7 @@ namespace Albatross.Messaging.Commands {
 		}
 		private void AcceptAckMsg(IMessagingService _, IMessage reply) {
 			if (commandCallbacks.Remove(reply.Id, out var callback)) {
-				callback.SetResult();
+				callback.SetResult(reply.Id);
 			}
 		}
 		private void AcceptRequestError(IMessagingService _, CommandRequestError requestError) {
@@ -85,10 +86,10 @@ namespace Albatross.Messaging.Commands {
 				callback.SetException(new CommandException(requestError.Id, requestError.ClassName, requestError.Message.ToUtf8String()));
 			}
 		}
-		public Task Submit(IMessagingService dealerClient, object command, bool fireAndForget) {
+		public Task<ulong> Submit(IMessagingService dealerClient, object command, bool fireAndForget) {
 			var type = command.GetType();
 			var id = dealerClient.Counter.NextId();
-			MessageCallback callback = new MessageCallback();
+			TaskCallback<ulong> callback = new TaskCallback<ulong>();
 			if (!commandCallbacks.TryAdd(id, callback)) {
 				throw new InvalidOperationException($"Cannot create command callback because of duplicate message id: {id}");
 			}

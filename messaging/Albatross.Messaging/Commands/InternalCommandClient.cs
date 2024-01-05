@@ -23,7 +23,7 @@ namespace Albatross.Messaging.Commands {
 			this.context = context;
 		}
 
-		public Task Submit(object command, bool fireAndForget = true, int timeout = 2000) {
+		public Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 2000) {
 			var type = command.GetType();
 			if (fireAndForget) {
 				using var stream = new MemoryStream();

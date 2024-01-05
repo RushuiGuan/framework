@@ -6,12 +6,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Albatross.Threading;
 
 namespace Albatross.Messaging.PubSub.Sub {
 	public class SubscriptionService : IDealerClientService {
 		private readonly object sync = new object();
 		private readonly Dictionary<string, ISet<ISubscriber>> subscriptions = new Dictionary<string, ISet<ISubscriber>>();
-		private readonly Dictionary<ulong, IMessageCallback> callbacks = new Dictionary<ulong, IMessageCallback>();
+		private readonly Dictionary<ulong, TaskCallback<ulong>> callbacks = new Dictionary<ulong, TaskCallback<ulong>>();
 		private readonly ILogger<SubscriptionService> logger;
 
 		public SubscriptionService(ILogger<SubscriptionService> logger) {
@@ -28,7 +29,7 @@ namespace Albatross.Messaging.PubSub.Sub {
 				case ServerAck ack:
 					lock (sync) {
 						if(callbacks.TryGetAndRemove(ack.Id, out var callback)) {
-							callback.SetResult();
+							callback.SetResult(ack.Id);
 							return true;
 						}
 					}
@@ -48,7 +49,7 @@ namespace Albatross.Messaging.PubSub.Sub {
 									logger.LogInformation("Sub pattern {pattern} has been removed from server", sub_reply.Pattern);
 								}
 							}
-							callback.SetResult();
+							callback.SetResult(sub_reply.Id);
 						}
 					}
 					return true;
@@ -106,7 +107,7 @@ namespace Albatross.Messaging.PubSub.Sub {
 				}
 				if (unsubscribeFromServer) {
 					var id = dealerClient.Counter.NextId();
-					var callback = new MessageCallback();
+					var callback = new TaskCallback<ulong>();
 					callbacks.TryAdd(id, callback);
 					dealerClient.SubmitToQueue(new SubscriptionRequest(string.Empty, id, false, pattern));
 					return callback.Task;
@@ -124,7 +125,7 @@ namespace Albatross.Messaging.PubSub.Sub {
 				logger.LogInformation("Unsubscribing all topics");
 				subscriptions.Clear();
 				var id = dealerClient.Counter.NextId();
-				var callback = new MessageCallback();
+				var callback = new TaskCallback<ulong>();
 				callbacks.TryAdd(id, callback);
 				dealerClient.SubmitToQueue(new UnsubscribeAllRequest(string.Empty, id));
 				return callback.Task;

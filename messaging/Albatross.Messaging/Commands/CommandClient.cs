@@ -9,7 +9,7 @@ namespace Albatross.Messaging.Commands {
 	/// all other methods in this call should be thread safe.
 	/// </summary>
 	public interface ICommandClient {
-		Task Submit(object command, bool fireAndForget = true, int timeout = 2000);
+		Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 2000);
 	}
 	public class CommandClient : ICommandClient {
 		private readonly CommandClientService service;
@@ -19,7 +19,7 @@ namespace Albatross.Messaging.Commands {
 			this.service = service;
 			this.dealerClient = dealerClient;
 		}
-		public Task Submit(object command, bool fireAndForget = true, int timeout = 2000)
+		public Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 2000)
 			=> service.Submit(dealerClient, command, fireAndForget).WithTimeOut(TimeSpan.FromMilliseconds(timeout));
 	}
 
@@ -37,7 +37,7 @@ namespace Albatross.Messaging.Commands {
 			service.OnCommandError += OnCommandErrorCallback;
 		}
 
-		public Task Submit(object command, bool fireAndForget = true, int timeout = 2000)
+		public Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 2000)
 			=> service.Submit(dealerClient, command, fireAndForget).WithTimeOut(TimeSpan.FromMilliseconds(timeout));
 
 		public void Dispose() {
