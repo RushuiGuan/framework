@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 
 namespace Albatross.Hosting.Test {
-	public static class Values {
+	public static class DateTimeValues {
 		public const string Any = "any";
+
 		public static readonly DateTime Jan1_2022 = new DateTime(2022, 1, 1);
 		public static readonly DateTime Jan2_2022 = new DateTime(2022, 1, 2);
 		public static readonly DateTime Jan31_2022 = new DateTime(2022, 1, 31);
