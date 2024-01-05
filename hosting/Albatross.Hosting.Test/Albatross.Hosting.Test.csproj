@@ -19,7 +19,7 @@
 		<PackageReference Include="Albatross.Authentication" Version="6.4.1" />
 		<PackageReference Include="Albatross.Config" Version="6.4.1" />
 		<PackageReference Include="Albatross.EFCore.SqlServer" Version="6.4.4" />
-		<PackageReference Include="Albatross.Logging" Version="6.4.3" />
+		<PackageReference Include="Albatross.Logging" Version="6.4.4" />
 		<PackageReference Include="CsvHelper" Version="30.0.1" />
 		<PackageReference Include="Moq" Version="4.20.70" />
 		<PackageReference Include="xunit" Version="2.6.2" />
