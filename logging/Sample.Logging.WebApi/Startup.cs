@@ -13,7 +13,7 @@ namespace Sample.Logging.WebApi {
 		public Startup(IConfiguration configuration) : base(configuration) { }
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
-			services.AddCustomLogger();
+			services.AddShortenLoggerName(true, "Microsoft", "System");
 		}
 	}
 }
