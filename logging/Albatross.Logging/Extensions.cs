@@ -9,7 +9,7 @@ namespace Albatross.Logging {
 		}
 
 		public static IServiceCollection AddCustomLogger(this IServiceCollection services) {
-			services.AddSingleton<IGetLoggerName>(new GetLoggerNameByNamespacePrefixExclusion(["Microsoft", "System",]));
+			services.AddSingleton<IGetLoggerName, GetLoggerName>();
 			services.AddSingleton(typeof(ILogger<>), typeof(CustomLogger<>));
 			return services;
 		}

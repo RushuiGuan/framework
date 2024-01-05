@@ -1,24 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 
 namespace Albatross.Logging {
-	public interface IGetLoggerName {
-		string Get(Type type);
-	}
-	public class GetLoggerNameByNamespacePrefixExclusion : IGetLoggerName {
-		private readonly string[] excludeNamespaces;
-		public GetLoggerNameByNamespacePrefixExclusion(string[] excludeNamespaces) {
-			this.excludeNamespaces = excludeNamespaces;
-		}
-		public string Get(Type type) {
-			if (excludeNamespaces.Any(x => type.FullName.StartsWith(x))) {
-				return type.FullName;
-			} else {
-				return type.Name;
-			}
-		}
-	}	
+
 	/// <summary>
 	/// Use CustomLogger class to create a Logger<typeparamref name="T"/> with a custom logger name.
 	/// </summary>
