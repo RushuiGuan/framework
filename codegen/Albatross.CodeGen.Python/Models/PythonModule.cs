@@ -3,44 +3,31 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class PythonModule : ICodeElement {
-		public List<IHasModule> Dependencies { get; set; } = new List<IHasModule>();
+	public class PythonModule : CompositeModuleCodeElement {
+		public PythonModule(string name) : base(name, string.Empty) { }
 
-		public string Name { get; set; }
-		public PythonModule(string name) {
-			Name = name;
-		}
-		public List<Class> Classes { get; set; } = new List<Class>();
+		public IEnumerable<Import> Imports => Collection<Import>(nameof(Imports));
+		public void AddImport(Import import) => AddCodeElement(import, nameof(Imports));
+		public void RemoveImport(Import import) => RemoveCodeElement(import, nameof(Imports));
 
+		public IEnumerable<Class> Classes => Collection<Class>(nameof(Classes));
+		public void AddClass(Class @class) => AddCodeElement(@class, nameof(Classes));
+		public void RemoveClass(Class @class) => RemoveCodeElement(@class, nameof(Classes));
 
-		Import[] BuildImports() {
-			var items = this.Classes.SelectMany(x => x.BaseClass).Cast<IHasModule>()
-				.Union(this.Classes.SelectMany(x => x.Fields.Select(y => y.Type)).Cast<IHasModule>())
-				.Union(this.Classes.SelectMany(x => x.Fields.Select(y => y.Type.DefaultValue)).Where(x=>x is IHasModule).Cast<IHasModule>())
-				.Union(this.Classes.SelectMany(x => x.Properties.Select(y => y.Type)).Cast<IHasModule>())
-				.Union(this.Classes.SelectMany(x => x.Methods.SelectMany(y => y.Parameters.Select(y => y.Type))).Cast<IHasModule>())
-				.Union(this.Classes.SelectMany(x => x.Methods.Select(y => y.ReturnType)).Cast<IHasModule>())
-				.Union(this.Classes.SelectMany(x => x.Methods.SelectMany(y => y.Decorators)).Cast<IHasModule>())
-				.Union(this.Classes.SelectMany(x => x.Decorators).Cast<IHasModule>())
-				.Union(this.Classes.SelectMany(x => x.Constructor.Parameters.Select(y => y.Type)).Cast<IHasModule>())
-				.Union(this.Dependencies);
-
-			var result = items
-				.Where(x=>!string.IsNullOrEmpty(x.Module))
-				.GroupBy(x => x.Module).Select(x => new Import(x.Key, x.Select(y => y.Name)));
-			return result.ToArray();
-		}
-
-		public TextWriter Generate(TextWriter writer) {
-			var imports = BuildImports();
-			if (imports.Any()) {
-				foreach (var item in imports) {
-					writer.Code(item).WriteLine();
-				}
-				writer.WriteLine();
+		public override void Build() {
+			List<IModuleCodeElement> elements = new List<IModuleCodeElement>();
+			foreach (var item in this) {
+				item.Build();
+				elements.Add(item);
 			}
-			foreach(var item in Classes) {
-				item.Generate(writer);
+			this.SelectMany<IModuleCodeElement>(x => x);
+		}
+		public override TextWriter Generate(TextWriter writer) {
+			foreach (var item in Imports) {
+				writer.Code(item).WriteLine();
+			}
+			foreach (var item in Classes) {
+				writer.Code(item).WriteLine();
 			}
 			return writer;
 		}

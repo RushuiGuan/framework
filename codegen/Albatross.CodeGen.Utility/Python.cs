@@ -25,6 +25,7 @@ namespace Albatross.CodeGen.Tests.Utility {
 		public Python(PythonOptions option) : base(option) { }
 		public Task<int> RunUtility(ILogger logger, ICreatePythonDto converter) {
 			var module = converter.Generate([typeof(ReferenceData.Core.EsgScoreDto).Assembly], new System.Type[0], new PythonModule[0], Options.Directory, "dto", IsValidType);
+			module.Build();
 			module.Generate(System.Console.Out);
 			return Task.FromResult(0);
 		}

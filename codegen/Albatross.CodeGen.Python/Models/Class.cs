@@ -1,42 +1,59 @@
-﻿using Albatross.Text;
+﻿using Albatross.Collections;
+using Albatross.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class Class : ICodeElement, IHasModule {
-		public string Name { get; set; }
-		public Class[] BaseClass { get; set; } = Array.Empty<Class>();
+	public class Class : CompositeModuleCodeElement {
+		public Class(string name) : base(name, string.Empty) { }
+		public Class(string name, string module) : base(name, module) { }
 
-		public Class(string name) {
-			Name = name;
+		public Constructor? Constructor {
+			get => SingleOrDefault<Constructor>(nameof(Constructor));
+			set => SetNullable(value, nameof(Constructor));
 		}
-		public string Module { get; set; } = string.Empty;
-		public Constructor Constructor { get; set; } = new Constructor();
-		public List<Method> Methods { get; set; } = new List<Method>();
-		public List<Property> Properties { get; set; } = new List<Property>();
-		public List<Field> Fields { get; set; } = new List<Field>();
-		public List<Decorator> Decorators { get; set; } = new List<Decorator>();
+		public IEnumerable<Class> BaseClass => Collection<Class>(nameof(BaseClass));
+		public void AddBaseClass(Class @class) => AddCodeElement(@class, nameof(BaseClass));	
+		public void RemoveBaseClass(Class @class) => RemoveCodeElement(@class, nameof(BaseClass));
 
-		public TextWriter Generate(TextWriter writer) {
-			this.Constructor.Fields.AddRange(this.Fields.Where(x => !x.Static));
+		public IEnumerable<Method> Methods => Collection<Method>(nameof(Methods));
+		public void AddMethod(Method method) => AddCodeElement(method, nameof(Methods));
+		public void RemoveMethod(Method method) => RemoveCodeElement(method, nameof(Methods));
+
+		public IEnumerable<Property> Properties => Collection<Property>(nameof(Properties));
+		public void AddProperty(Property property) => AddCodeElement(property, nameof(Properties));
+		public void RemoveProperty(Property property) => RemoveCodeElement(property, nameof(Properties));
+
+		public IEnumerable<Field> Fields => Collection<Field>(nameof(Fields));
+		public void AddField(Field field) => AddCodeElement(field, nameof(Fields));
+		public void RemoveField(Field field) => RemoveCodeElement(field, nameof(Fields));
+
+		public IEnumerable<Decorator> Decorators => Collection<Decorator>(nameof(Decorators));
+		public void AddDecorator(Decorator decorator) => AddCodeElement(decorator, nameof(Decorators));
+		public void RemoveDecorator(Decorator decorator) => RemoveCodeElement(decorator, nameof(Decorators));
+
+		public bool IsDataClass => Decorators.Any(x => x.Name == "dataclass");
+
+		public override void Build() {
+			if(IsDataClass) { 
+				Fields.ForEach(x => x.Static = true); 
+			}
+			base.Build();
+		}
+		public override TextWriter Generate(TextWriter writer) {
 			this.Decorators.ForEach(x => writer.Code(x).WriteLine());
 			writer.Append("class ").Append(Name);
 			if (BaseClass.Any()) {
 				writer.OpenParenthesis().WriteItems(BaseClass.Select(x => x.Name), ", ").CloseParenthesis();
 			}
 			using (var scope = writer.BeginPythonScope()) {
-				if(Constructor.HasBody) {
-					scope.Writer.Code(Constructor);
-				}
+				Constructor?.Generate(scope.Writer);
 				var hasStaticFields = false;
 				foreach (var item in Fields.Where(x => x.Static)) {
 					scope.Writer.Code(item).WriteLine();
 					hasStaticFields = true;
-				}
-				if(hasStaticFields) {
-					scope.Writer.WriteLine();
 				}
 				foreach (var item in Properties) {
 					scope.Writer.Code(item).WriteLine();

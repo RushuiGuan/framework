@@ -3,24 +3,23 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public record class PythonType : ICodeElement, IHasModule {
-		public string Name { get; set; }
-		public ICodeElement DefaultValue { get; set; } = new NoneValue();
-		public string Module { get; set; } = string.Empty;
-		public PythonType(string name) {
-			Name = name;
+	public class PythonType : CompositeModuleCodeElement {
+		public PythonType(string name, string module) : base(name, module) {
+			DefaultValue = new NoneValue();
+		}
+		public PythonType(string name) : this(name, string.Empty) {
 		}
 
-		public TextWriter Generate(TextWriter writer) {
+		public IModuleCodeElement DefaultValue {
+			get => Single<IModuleCodeElement>(nameof(DefaultValue));
+			set => Set(value, nameof(DefaultValue));
+		}
+
+		public override TextWriter Generate(TextWriter writer) {
 			if (!string.IsNullOrEmpty(Name)) {
 				writer.Append(":").Append(Name);
 			}
 			return writer;
-		}
-
-		public override string? ToString() {
-			StringWriter writer = new StringWriter();
-			return writer.Code(this).ToString();
 		}
 	}
 }

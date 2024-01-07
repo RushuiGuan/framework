@@ -1,20 +1,16 @@
-﻿using Albatross.Collections;
-using Albatross.Text;
+﻿using Albatross.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class Import : ICodeElement {
-		public string Module { get; set; }
-		public HashSet<string> Names { get; set; } = new HashSet<string>();
-
-		public Import(string module, IEnumerable<string> names) {
-			this.Module = module;
+	public class Import : ModuleCodeElement {
+		public Import(IEnumerable<string> names, string module) : base(string.Empty, module){
 			this.Names.AddRange(names);
 		}
+		public List<string> Names { get; } = new List<string>();
 
-		public TextWriter Generate(TextWriter writer) {
+		public override TextWriter Generate(TextWriter writer) {
 			if(Names.Count > 0) {
 				writer.Append("from ").Append(Module).Space()
 					.Append("import ")

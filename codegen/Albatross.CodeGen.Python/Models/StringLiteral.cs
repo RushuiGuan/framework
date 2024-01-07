@@ -3,14 +3,13 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class StringLiteral : ICodeElement {
-		public StringLiteral(string value) {
+	public class StringLiteral : CompositeModuleCodeElement {
+		public StringLiteral(string value): base(string.Empty, string.Empty) {
 			Value = value;
 		}
-
 		public string Value { get; set; }
 
-		public TextWriter Generate(TextWriter writer) {
+		public override TextWriter Generate(TextWriter writer) {
 			writer.AppendChar('"');
 			foreach(char c in Value) {
 				switch (c) {

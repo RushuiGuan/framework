@@ -38,7 +38,7 @@ namespace Albatross.CodeGen.WebClient {
 				foreach (Type type in types) {
 					if (IsValidDtoType(type, isValidType)) {
 						var item = convertType.Convert(type);
-						module.Classes.Add(item);
+						module.AddClass(item);
 					}
 				}
 			}
@@ -51,17 +51,17 @@ namespace Albatross.CodeGen.WebClient {
 					if (type.IsEnum) {
 						var item = convertEnum.Convert(type);
 						item.Module = module.Name;
-						module.Classes.Add(item);
+						module.AddClass(item);
 					}
 				}
 			}
 		}
 		public void ConvertEnum<T>(PythonModule module) where T : struct {
-			module.Classes.Add(convertEnum.Convert(typeof(T)));
+			module.AddClass(convertEnum.Convert(typeof(T)));
 		}
 		public void ConvertEnum(Type enumType, PythonModule module){
 			if (enumType.IsEnum) {
-				module.Classes.Add(convertEnum.Convert(enumType));
+				module.AddClass(convertEnum.Convert(enumType));
 			} else {
 				throw new InvalidOperationException($"Class {enumType.Name} is not an enum");
 			}
@@ -69,7 +69,7 @@ namespace Albatross.CodeGen.WebClient {
 		public void ConvertClass(Type type, PythonModule module) { 
 			var item = convertType.Convert(type);
 			item.Module = module.Name;
-			module.Classes.Add(item);
+			module.AddClass(item);
 		}
 	}
 }

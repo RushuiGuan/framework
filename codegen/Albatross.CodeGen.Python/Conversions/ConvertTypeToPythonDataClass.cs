@@ -16,15 +16,19 @@ namespace Albatross.CodeGen.Python.Conversions {
 		public Class Convert(Type type) {
 			var result = new Class(type.Name);
 			if (type.BaseType != null && type.BaseType != typeof(object)) {
-				result.BaseClass = [Convert(type.BaseType)];
+				result.AddBaseClass(Convert(type.BaseType));
 			}
-
-			result.Fields = (from f in type.GetFields().Where(x=>!x.IsStatic) select convertField.Convert(f)).ToList();
-			result.Fields.AddRange(from p in type.GetProperties() select convertProperty.Convert(p));
-			foreach(var item in result.Fields) {
+			foreach(var field in type.GetFields().Where(x=>!x.IsStatic)) {
+				var item = convertField.Convert(field);
 				item.Static = true;
+				result.AddField(item);
 			}
-			result.Decorators.Add(My.Decorators.DataClass);
+			foreach(var property in type.GetProperties()) {
+				var item = convertProperty.Convert(property);
+				item.Static = true;
+				result.AddField(item);
+			}
+			result.AddDecorator(My.Decorators.DataClass());
 			return result;
 		}
 

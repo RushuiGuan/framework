@@ -6,15 +6,15 @@ namespace Albatross.CodeGen.Python.Conversions {
 	public class ConvertEnumToClass : IConvertObject<Type, Class> {
 		public Class Convert(Type type) {
 			if (type.IsEnum) {
-				var model = new Class(type.Name) {
-					BaseClass = [My.Classes.Enum],
-					Fields = Enum.GetValues(type)
-						.Cast<object>()
-						.Select(x => new Field(Enum.GetName(type, x)?.ToUpper() ?? throw new Exception(), My.Types.NoType, new Literal((int)x)) {
-							Static = true,
-						})
-						.ToList(),
-				};
+				var model = new Class(type.Name);
+				model.AddCodeElement<Class>(My.Classes.Enum(), nameof(Class.BaseClass));
+				foreach(var value in Enum.GetValues(type)) {
+					var name = Enum.GetName(type, value)?.ToUpper() ?? throw new Exception();
+					var field = new Field(name, My.Types.NoType(), new Literal((int)value)) {
+						Static = true,
+					};
+					model.AddCodeElement(field, nameof(Class.Fields));
+				}
 				return model;
 			} else {
 				throw new InvalidOperationException($"Type {type.Name} is not an Enum type");
