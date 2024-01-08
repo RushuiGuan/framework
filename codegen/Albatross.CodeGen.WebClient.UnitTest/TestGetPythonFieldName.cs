@@ -1,10 +1,4 @@
-﻿using Albatross.CodeGen.Python.Conversions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 namespace Albatross.CodeGen.WebClient.UnitTest {
 	public class TestGetPythonFieldName {
@@ -20,7 +14,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[InlineData("", "")]
 		[InlineData("_", "_")]
 		public void RunTest(string name, string expected) {
-			var newName = Python.Conversions.Extensions.GetPythonFieldName(name);
+			var newName = CodeGen.Python.Conversions.Extensions.GetPythonFieldName(name);
 			Assert.Equal(expected, newName);
 		}	
 	}
