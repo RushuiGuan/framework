@@ -15,6 +15,9 @@ namespace Albatross.CodeGen.Tests.Utility {
 	public class PythonOptions : BaseOption {
 		[Option('d', "directory", Required = true, HelpText = "directory to save the generated code")]
 		public string Directory { get; set; } = string.Empty;
+
+		[Option("data-class")]
+		public bool DataClass { get; set; }
 	}
 	public class Python : UtilityBase<PythonOptions> {
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
@@ -24,8 +27,7 @@ namespace Albatross.CodeGen.Tests.Utility {
 		}
 		public Python(PythonOptions option) : base(option) { }
 		public Task<int> RunUtility(ILogger logger, ICreatePythonDto converter) {
-			var module = converter.Generate([typeof(ReferenceData.Core.EsgScoreDto).Assembly], new System.Type[0], new PythonModule[0], Options.Directory, "dto", IsValidType);
-			module.Build();
+			var module = converter.Generate([typeof(ReferenceData.Core.EsgScoreDto).Assembly], new System.Type[0], new PythonModule[0], Options.Directory, "dto", IsValidType, Options.DataClass);
 			module.Generate(System.Console.Out);
 			return Task.FromResult(0);
 		}

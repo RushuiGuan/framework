@@ -9,6 +9,11 @@ namespace Albatross.CodeGen.Python.Models {
 			Expression = expression;
 		}
 
+		public Assignment(Variable variable, IModuleCodeElement expression) : base(string.Empty, string.Empty) {
+			this.Variable = variable;
+			Expression = expression;
+		}
+
 		public Variable Variable { 
 			get => Single<Variable>(nameof(Variable)); 
 			set => Set(value, nameof(Variable));
@@ -17,6 +22,7 @@ namespace Albatross.CodeGen.Python.Models {
 			get => Single<IModuleCodeElement>(nameof(Expression));
 			set	=> Set(value, nameof(Expression));
 		}
-		public override TextWriter Generate(TextWriter writer) => writer.Code(Variable).Append(" = ").Code(Expression);
+		public override TextWriter Generate(TextWriter writer) 
+			=> writer.Code(Variable).Append(" = ").Code(Expression);
 	}
 }

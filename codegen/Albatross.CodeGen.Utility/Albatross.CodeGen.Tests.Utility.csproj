@@ -6,7 +6,7 @@
 		<AssemblyName>codegen</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.7" />
+	  <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.13" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\ReferenceData\src\ReferenceData.Core\ReferenceData.Core.csproj" />

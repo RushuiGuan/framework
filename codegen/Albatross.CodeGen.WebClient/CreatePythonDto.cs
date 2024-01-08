@@ -9,31 +9,32 @@ using System.Reflection;
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreatePythonDto {
 		PythonModule Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, IEnumerable<PythonModule> dependancies,
-			string outputDirectory, string name, Func<Type, bool>? isValidType);
+			string outputDirectory, string name, Func<Type, bool>? isValidType, bool useDataClass);
 	}
 	public class CreatePythonDto : ICreatePythonDto {
-		private readonly IConvertDtoToPythonClass converter;
+		private readonly IConvertDtoToPythonClass classConverter;
 		private readonly ILogger<CreatePythonDto> logger;
 
-		public CreatePythonDto(IConvertDtoToPythonClass converter, ILogger<CreatePythonDto> logger) {
-			this.converter = converter;
+		public CreatePythonDto(IConvertDtoToPythonClass classConverter, ILogger<CreatePythonDto> logger) {
+			this.classConverter = classConverter;
 			this.logger = logger;
 		}
 
-		public PythonModule Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, IEnumerable<PythonModule> dependancies,
-			string outputDirectory, string name, Func<Type, bool>? isValidType) {
+		public PythonModule Generate(IEnumerable<Assembly> assemblies, IEnumerable<Type> additionalDtoClass, 
+			IEnumerable<PythonModule> dependancies, string outputDirectory, string name, Func<Type, bool>? isValidType, bool useDataClass) {
 
 			string dtoFileName = System.IO.Path.Join(outputDirectory, $"{name}.py");
 			PythonModule module = new PythonModule(name);
-			converter.ConvertEnums(module, assemblies.ToArray());
+			classConverter.ConvertEnums(module, assemblies.ToArray());
 			foreach (var type in additionalDtoClass) {
 				if (type.IsEnum) {
-					this.converter.ConvertEnum(type, module);
+					this.classConverter.ConvertEnum(type, module);
 				} else {
-					this.converter.ConvertClass(type,  module);
+					this.classConverter.ConvertClass(type,  module, useDataClass);
 				}
 			}
-			converter.ConvertClasses(module, isValidType, assemblies.ToArray());
+			classConverter.ConvertClasses(module, isValidType, useDataClass, assemblies.ToArray());
+			module.Build();
 			using (var writer = new StreamWriter(dtoFileName, false)) {
 				writer.Code(module);
 			}

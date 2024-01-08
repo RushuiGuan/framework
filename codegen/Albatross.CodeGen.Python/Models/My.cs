@@ -16,7 +16,8 @@ namespace Albatross.CodeGen.Python.Models {
 			public const string DateTime = "datetime";
 		}
 		public static class Classes {
-			public static Class Enum() => new Class("Enum", Modules.Enum);
+			public const string EnumName = "Enum";
+			public static Class Enum() => new Class(EnumName, Modules.Enum);
 			public static Class AbstractBaseClass() => new Class("ABC", Modules.ABC);
 		}
 
@@ -28,9 +29,12 @@ namespace Albatross.CodeGen.Python.Models {
 		}
 
 		public static class Decorators {
-			public static Decorator StaticMethod() => new Decorator("staticmethod");
-			public static Decorator AbstractMethod() => new Decorator("abstractmethod", Modules.ABC);
-			public static Decorator DataClass() => new Decorator("dataclass", Modules.DataClasses);
+			public const string StaticMethodName = "staticmethod";
+			public const string DataClassName = "dataclass";
+			public const string AbstractMethodName = "abstractmethod";
+			public static Decorator StaticMethod() => new Decorator(StaticMethodName);
+			public static Decorator AbstractMethod() => new Decorator(AbstractMethodName, Modules.ABC);
+			public static Decorator DataClass() => new Decorator(DataClassName, Modules.DataClasses);
 		}
 		public static class Types {
 			public static PythonType NoneType() => new PythonType("None");
@@ -53,7 +57,7 @@ namespace Albatross.CodeGen.Python.Models {
 			public static PythonType TimeDelta() => new PythonType("timedelta", Modules.DateTime) {
 				DefaultValue = new Literal("timedelta.min"),
 			};
-			public static PythonType Boolean() => new PythonType("bool") { DefaultValue = new Literal("false") };
+			public static PythonType Boolean() => new PythonType("bool") { DefaultValue = new Literal(false) };
 			public static PythonType Dictionary() => new PythonType("dict") {
 				DefaultValue = new MethodCall(My.Methods.Field(), new Assignment("default_factory", new Literal("dict")))
 			};

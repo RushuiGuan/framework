@@ -15,7 +15,7 @@ namespace Albatross.CodeGen.Python.Models {
 		public void RemoveParameter(IModuleCodeElement parameter) => RemoveCodeElement(parameter, nameof(Parameters));
 
 		public override TextWriter Generate(TextWriter writer) {
-			writer.Append("@").Append(Name).OpenParenthesis()
+			writer.AppendLine().Append("@").Append(Name).OpenParenthesis()
 				.WriteItems(Parameters, ", ", (w, args) => w.Code(args))
 				.CloseParenthesis();
 			return writer;

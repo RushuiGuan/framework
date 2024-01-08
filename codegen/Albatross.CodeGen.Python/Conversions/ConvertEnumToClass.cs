@@ -1,6 +1,5 @@
 ﻿using Albatross.CodeGen.Python.Models;
 using System;
-using System.Linq;
 
 namespace Albatross.CodeGen.Python.Conversions {
 	public class ConvertEnumToClass : IConvertObject<Type, Class> {

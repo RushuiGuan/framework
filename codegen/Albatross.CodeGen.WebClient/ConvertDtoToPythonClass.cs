@@ -9,16 +9,16 @@ namespace Albatross.CodeGen.WebClient {
 		void ConvertEnum(Type type, PythonModule module);
 		void ConvertEnum<T>(PythonModule module) where T :struct;
 		void ConvertEnums(PythonModule module, params System.Reflection.Assembly[] assemblies);
-		void ConvertClass(Type type, PythonModule module);
-		void ConvertClasses(PythonModule module, Func<Type, bool>? isValidType, params System.Reflection.Assembly[] assemblies);
+		void ConvertClass(Type type, PythonModule module, bool useDataClass);
+		void ConvertClasses(PythonModule module, Func<Type, bool>? isValidType, bool useDataClass, params System.Reflection.Assembly[] assemblies);
 	}
 
 	public class ConvertDtoToPythonClass : IConvertDtoToPythonClass {
 		private readonly ILogger<ConvertDtoToPythonClass> logger;
-		private readonly ConvertTypeToPythonDataClass convertType;
+		private readonly ConvertTypeToPythonClass convertType;
 		private readonly ConvertEnumToClass convertEnum;
 
-		public ConvertDtoToPythonClass(ILogger<ConvertDtoToPythonClass> logger, ConvertTypeToPythonDataClass convertType, 
+		public ConvertDtoToPythonClass(ILogger<ConvertDtoToPythonClass> logger, ConvertTypeToPythonClass convertType, 
 			ConvertEnumToClass convertEnum) {
 			this.logger = logger;
 			this.convertType = convertType;
@@ -31,13 +31,14 @@ namespace Albatross.CodeGen.WebClient {
 			&& !type.IsDerived<Attribute>() && !type.IsDerived<Exception>()
 			&& predicate(type);
 
-		public void ConvertClasses(PythonModule module,  Func<Type, bool>? isValidType, params System.Reflection.Assembly[] assemblies) {
+		public void ConvertClasses(PythonModule module,  Func<Type, bool>? isValidType, bool useDataClass, params System.Reflection.Assembly[] assemblies) {
 			isValidType = isValidType ?? (args => true);
 			foreach (var assembly in assemblies) {
 				var types = assembly.GetTypes();
 				foreach (Type type in types) {
 					if (IsValidDtoType(type, isValidType)) {
 						var item = convertType.Convert(type);
+						item.UseDataClass = useDataClass;
 						module.AddClass(item);
 					}
 				}
@@ -50,7 +51,6 @@ namespace Albatross.CodeGen.WebClient {
 				foreach (Type type in types) {
 					if (type.IsEnum) {
 						var item = convertEnum.Convert(type);
-						item.Module = module.Name;
 						module.AddClass(item);
 					}
 				}
@@ -66,9 +66,9 @@ namespace Albatross.CodeGen.WebClient {
 				throw new InvalidOperationException($"Class {enumType.Name} is not an enum");
 			}
 		}
-		public void ConvertClass(Type type, PythonModule module) { 
+		public void ConvertClass(Type type, PythonModule module, bool useDataClass) { 
 			var item = convertType.Convert(type);
-			item.Module = module.Name;
+			item.UseDataClass = useDataClass;
 			module.AddClass(item);
 		}
 	}

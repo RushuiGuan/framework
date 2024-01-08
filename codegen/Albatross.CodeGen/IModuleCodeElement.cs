@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Albatross.CodeGen {
 	public interface IModuleCodeElement : ICodeElement, IEnumerable<IModuleCodeElement> {

@@ -9,16 +9,19 @@ namespace Albatross.CodeGen.Python.Models {
 		public Method(string name, string module) : base(name, module) {
 			Parameters = new ParameterCollection();
 			ReturnType = My.Types.AnyType();
-			CodeBlock = new Pass();
+			CodeBlock = new CompositeModuleCodeBlock();
 		}
-		public bool IsStatic { get; set; }
+		public bool Static { get; set; }
 		public IEnumerable<Decorator> Decorators => Collection<Decorator>(nameof(Decorators));
+		public void AddDecorator(Decorator decorator) => AddCodeElement(decorator, nameof(Decorators));
+		public void RemoveDecorator(Decorator decorator) => RemoveCodeElement(decorator, nameof(Decorators));
+
 		public ParameterCollection Parameters {
 			get => Single<ParameterCollection>(nameof(Parameters));
 			set => Set(value, nameof(Parameters));
 		}
-		public IModuleCodeElement CodeBlock {
-			get => Single<IModuleCodeElement>(nameof(CodeBlock));
+		public CompositeModuleCodeElement CodeBlock {
+			get => Single<CompositeModuleCodeElement>(nameof(CodeBlock));
 			set => Set(value, nameof(CodeBlock));
 		}
 		public PythonType ReturnType {
@@ -26,17 +29,26 @@ namespace Albatross.CodeGen.Python.Models {
 			set => Set(value, nameof(ReturnType));
 		}
 
+		public override void Build() {
+			if(this.Static) {
+				AddDecorator(My.Decorators.StaticMethod());
+			} else {
+				this.Parameters.Insert(0, new Variable(My.Keywords.Self, My.Types.NoType()));
+			}
+			base.Build();
+		}
+
 		public override TextWriter Generate(TextWriter writer) {
 			foreach (var decorator in Decorators) {
-				writer.Code(decorator).WriteLine();
+				writer.Code(decorator);
 			}
-			writer.Append(My.Keywords.Def).Space().Append(Name).OpenParenthesis().Code(Parameters).CloseParenthesis();
+			writer.AppendLine().Append(My.Keywords.Def).Space().Append(Name).OpenParenthesis().Code(Parameters).CloseParenthesis();
 			using (var scope = writer.BeginPythonScope()) {
-				scope.Writer.Code(BuildBody());
+				if (!CodeBlock.Any()) { CodeBlock.Add(new Pass()); }
+				scope.Writer.Code(CodeBlock);
+
 			}
-			writer.WriteLine();
 			return writer;
 		}
-		public virtual ICodeElement BuildBody() => this.CodeBlock;
 	}
 }

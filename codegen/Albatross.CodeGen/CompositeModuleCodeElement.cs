@@ -12,11 +12,7 @@ namespace Albatross.CodeGen {
 			this.Name = name;
 			this.Module = module;
 		}
-		public virtual void Build() {
-			foreach (var element in this) {
-				element.Build();
-			}
-		}
+		public virtual void Build() { }
 
 		protected T? SingleOrDefault<T>(string tag) where T : class, IModuleCodeElement
 			=> this.Where(x => x is T && x.Tag == tag).Cast<T>().SingleOrDefault();
@@ -59,7 +55,7 @@ namespace Albatross.CodeGen {
 			return this;
 		}
 		public CompositeModuleCodeElement RemoveCodeElement<T>(string tag) where T : class, IModuleCodeElement {
-			for(int i= this.Count - 1; i >= 0; i--) {
+			for (int i = this.Count - 1; i >= 0; i--) {
 				if (this[i].Tag == tag && this[i] is T) {
 					this.RemoveAt(i);
 				}
@@ -67,5 +63,23 @@ namespace Albatross.CodeGen {
 			return this;
 		}
 		public abstract TextWriter Generate(TextWriter writer);
+	}
+
+	public abstract class CompositeModuleCodeElement<T> : List<T>, IModuleCodeElement where T : class, IModuleCodeElement {
+		public string Name { get; set; }
+		public string Module { get; set; }
+		public string Tag { get; set; } = string.Empty;
+
+		public CompositeModuleCodeElement(string name, string module, IEnumerable<T> items) : base(items) {
+			this.Name = name;
+			this.Module = module;
+		}
+		public virtual void Build() { }
+		public abstract TextWriter Generate(TextWriter writer);
+
+		IEnumerator<IModuleCodeElement> IEnumerable<IModuleCodeElement>.GetEnumerator() {
+			List<T> list = this;
+			return list.Select(x => x as IModuleCodeElement).GetEnumerator();
+		}
 	}
 }
