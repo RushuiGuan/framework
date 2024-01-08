@@ -62,6 +62,10 @@ namespace Albatross.CodeGen {
 			}
 			return this;
 		}
+		public CompositeModuleCodeElement AddLine(IModuleCodeElement elem) {
+			Add(new CodeLine(elem));
+			return this;
+		}
 		public abstract TextWriter Generate(TextWriter writer);
 	}
 

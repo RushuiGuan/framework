@@ -1,38 +1,39 @@
 ﻿using Albatross.CodeGen.Python;
 using Albatross.CodeGen.Python.Models;
 using Albatross.CodeGen.WebClient;
+using Albatross.CodeGen.WebClient.Python;
 using Albatross.Config;
 using Albatross.Hosting.Utility;
 using CommandLine;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ReferenceData.Core.Sustainalytics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.Tests.Utility {
-	[Verb("python-dto")]
-	public class PythonOptions : BaseOption {
+	[Verb("create-python-api")]
+	public class CreatePythonApiOptions : BaseOption {
 		[Option('d', "directory", Required = true, HelpText = "directory to save the generated code")]
 		public string Directory { get; set; } = string.Empty;
-
-		[Option("data-class")]
-		public bool DataClass { get; set; }
 	}
-	public class Python : UtilityBase<PythonOptions> {
+	public class CreatePythonApi : UtilityBase<CreatePythonApiOptions> {
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			base.RegisterServices(configuration, envSetting, services);
 			services.AddPythonCodeGen();
 			services.AddWebClientCodeGen();
 		}
-		public Python(PythonOptions option) : base(option) { }
-		public Task<int> RunUtility(ILogger logger, ICreatePythonDto converter) {
-			var module = converter.Generate([typeof(ReferenceData.Core.EsgScoreDto).Assembly], new System.Type[0], new PythonModule[0], Options.Directory, "dto", IsValidType, Options.DataClass);
+		public CreatePythonApi(CreatePythonApiOptions option) : base(option) { }
+		public Task<int> RunUtility(ILogger logger) {
+			var webApi = new WebApiClass("SustainalyticsApi", "/api/sustainalytics");
+			var module = new PythonModule("api");
+			module.Classes.Add(webApi);
+			module.Build();
 			module.Generate(System.Console.Out);
+			using(var writer = new StreamWriter(Path.Combine(Options.Directory, "api.py"))) {
+				module.Generate(writer);
+			}
 			return Task.FromResult(0);
 		}
-		bool IsValidType(System.Type type) => type != typeof(ApiValueConverter) 
-			&& type != typeof(String2IntConverter) 
-			&& type != typeof(HistoryFileValueConverter);
 	}
 }

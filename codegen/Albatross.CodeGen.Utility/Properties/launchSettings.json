@@ -4,9 +4,13 @@
       "commandName": "WSL2",
       "distributionName": ""
     },
-    "python code gen": {
+    "create python api": {
       "commandName": "Project",
-      "commandLineArgs": "python-dto -d C:\\app\\python\\ref-data"
+      "commandLineArgs": "create-python-api -d C:\\app\\python\\ref-data"
+    },
+    "create python code": {
+      "commandName": "Project",
+      "commandLineArgs": "create-python-dto -d C:\\app\\python\\ref-data"
     }
   }
 }

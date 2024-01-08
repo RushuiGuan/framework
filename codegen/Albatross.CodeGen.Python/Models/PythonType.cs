@@ -7,6 +7,7 @@ namespace Albatross.CodeGen.Python.Models {
 		public PythonType(string name, string module) : base(name, module) {
 			DefaultValue = new NoneValue();
 		}
+		public bool MethodReturnType { get; set; }
 		public PythonType(string name) : this(name, string.Empty) {
 		}
 
@@ -17,7 +18,12 @@ namespace Albatross.CodeGen.Python.Models {
 
 		public override TextWriter Generate(TextWriter writer) {
 			if (!string.IsNullOrEmpty(Name)) {
-				writer.Append(":").Append(Name);
+				if (MethodReturnType) {
+					writer.Append(" -> ");
+				} else {
+					writer.Append(" : ");
+				}
+				writer.Append(Name);
 			}
 			return writer;
 		}

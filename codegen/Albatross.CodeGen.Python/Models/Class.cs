@@ -55,10 +55,10 @@ namespace Albatross.CodeGen.Python.Models {
 				writer.OpenParenthesis().WriteItems(BaseClass.Select(x => x.Name), ", ").CloseParenthesis();
 			}
 			using (var scope = writer.BeginPythonScope()) {
-				Constructor?.Generate(scope.Writer);
 				foreach (var field in Fields.Where(x => x.Static)) {
 					scope.Writer.Code(field);
 				}
+				Constructor?.Generate(scope.Writer.AppendLine());
 				foreach (var item in Properties) {
 					scope.Writer.Code(item);
 				}

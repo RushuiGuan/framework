@@ -5,16 +5,14 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class PythonModule : CompositeModuleCodeElement {
-		public PythonModule(string name) : base(name, string.Empty) { }
+	public class PythonModule  : ICodeElement{
+		public string Name { get; set; }
+		public PythonModule(string name) {
+			Name = name;
+		}
 
-		public IEnumerable<Import> Imports => Collection<Import>(nameof(Imports));
-		public void AddImport(Import import) => AddCodeElement(import, nameof(Imports));
-		public void RemoveImport(Import import) => RemoveCodeElement(import, nameof(Imports));
-
-		public IEnumerable<Class> Classes => Collection<Class>(nameof(Classes));
-		public void AddClass(Class @class) => AddCodeElement(@class, nameof(Classes));
-		public void RemoveClass(Class @class) => RemoveCodeElement(@class, nameof(Classes));
+		public List<Import> Imports { get;  } = new List<Import>();
+		public List<Class> Classes { get; } = new List<Class>();
 
 		void Build(Dictionary<string, Import> dict, IEnumerable<IModuleCodeElement> elements) {
 			foreach (var item in elements) {
@@ -27,13 +25,13 @@ namespace Albatross.CodeGen.Python.Models {
 			}
 		}
 
-		public override void Build() {
+		public void Build() {
 			var dict = new Dictionary<string, Import>();
-			Build(dict, this);
-			dict.Values.ForEach(x => AddImport(x));
+			Build(dict, Classes);
+			Imports.AddRange(dict.Values);
 		}
 
-		public override TextWriter Generate(TextWriter writer) {
+		public TextWriter Generate(TextWriter writer) {
 			foreach (var item in Imports) {
 				writer.Code(item);
 			}

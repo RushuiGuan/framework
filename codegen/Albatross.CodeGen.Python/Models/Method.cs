@@ -8,7 +8,7 @@ namespace Albatross.CodeGen.Python.Models {
 		public Method(string name) : this(name, string.Empty) { }
 		public Method(string name, string module) : base(name, module) {
 			Parameters = new ParameterCollection();
-			ReturnType = My.Types.AnyType();
+			ReturnType = My.Types.NoType();
 			CodeBlock = new CompositeModuleCodeBlock();
 		}
 		public bool Static { get; set; }
@@ -30,7 +30,7 @@ namespace Albatross.CodeGen.Python.Models {
 		}
 
 		public override void Build() {
-			if(this.Static) {
+			if (this.Static) {
 				AddDecorator(My.Decorators.StaticMethod());
 			} else {
 				this.Parameters.Insert(0, new Variable(My.Keywords.Self, My.Types.NoType()));
@@ -42,11 +42,13 @@ namespace Albatross.CodeGen.Python.Models {
 			foreach (var decorator in Decorators) {
 				writer.Code(decorator);
 			}
-			writer.AppendLine().Append(My.Keywords.Def).Space().Append(Name).OpenParenthesis().Code(Parameters).CloseParenthesis();
+			writer.AppendLine().Append(My.Keywords.Def).Space().Append(Name)
+				.OpenParenthesis().Code(Parameters).CloseParenthesis()
+				.Code(ReturnType);
+
 			using (var scope = writer.BeginPythonScope()) {
 				if (!CodeBlock.Any()) { CodeBlock.Add(new Pass()); }
 				scope.Writer.Code(CodeBlock);
-
 			}
 			return writer;
 		}
