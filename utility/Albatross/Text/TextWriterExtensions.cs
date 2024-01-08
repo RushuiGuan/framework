@@ -17,6 +17,10 @@ namespace Albatross.Text {
 			}
 			return writer;
 		}
+		public static TextWriter AppendLine(this TextWriter writer) {
+			writer.WriteLine();
+			return writer;
+		}
 		public static TextWriter AppendLine(this TextWriter writer, object obj) {
 			writer.WriteLine(obj);
 			return writer;
