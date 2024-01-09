@@ -198,5 +198,21 @@ namespace Albatross.Test.Dates {
 			var result = DateTime.Parse(date1Text).GetMonthDiff(DateTime.Parse(date2Text));
 			Assert.Equal(expectedResult, result);
 		}
+
+		[Theory]
+		[InlineData("2024-01-01", "2024-01-01", 1)]
+		[InlineData("2024-01-01", "2024-01-02", 2)]
+		[InlineData("2024-01-02", "2024-01-01", 2)]
+		[InlineData("2024-01-01", "2024-01-08", 6)]
+		[InlineData("2024-01-08", "2024-01-01", 6)]
+		[InlineData("2024-01-08", "2024-01-09", 2)]
+		[InlineData("2024-01-08", "2024-01-05", 2)]
+		[InlineData("2024-01-01", "2024-01-31", 23)]
+		public void TestNumberOfWeekDays(string date1Text, string date2Text, int expectedResult) {
+			var d1 = DateTime.Parse(date1Text);
+			var d2 = DateTime.Parse(date2Text);
+			var result = d1.GetNumberOfWeekdays(d2);
+			Assert.Equal(expectedResult, result);
+		}
 	}
 }

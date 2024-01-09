@@ -130,5 +130,31 @@ namespace Albatross.Dates {
 
 		public static int GetMonthDiff(this DateTime date1, DateTime date2) 
 			=> ((date2.Year - date1.Year) * 12) + date2.Month - date1.Month;
+
+		public static int GetNumberOfWeekdays(this DateTime d1, DateTime d2) {
+			DateTime startDate, endDate;
+			if (d1 < d2) {
+				startDate = d1;
+				endDate = d2;
+			} else {
+				startDate = d2;
+				endDate = d1;
+			}
+
+			int totalDays = Convert.ToInt32(Math.Round((endDate.Date - startDate.Date).TotalDays, 0)) + 1;
+			int completeWeeks = totalDays / 7;
+			int weekdays = completeWeeks * 5;
+
+			// Calculate the remaining days
+			int remainingDays = totalDays % 7;
+
+			// Iterate over the remaining days, checking if each one is a weekday
+			for (int i = 0; i < remainingDays; i++) {
+				DayOfWeek day = startDate.AddDays(i).DayOfWeek;
+				if (day != DayOfWeek.Saturday && day != DayOfWeek.Sunday)
+					weekdays++;
+			}
+			return weekdays;
+		}
 	}
 }
