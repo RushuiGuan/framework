@@ -9,9 +9,8 @@ namespace Albatross.CodeGen.Python.Models {
 		}
 		public string Value { get; set; }
 
-		public override TextWriter Generate(TextWriter writer) {
-			writer.AppendChar('"');
-			foreach(char c in Value) {
+		public void WriteContent(TextWriter writer) {
+			foreach (char c in Value) {
 				switch (c) {
 					case '"':
 						writer.Append("\\\"");
@@ -30,6 +29,12 @@ namespace Albatross.CodeGen.Python.Models {
 						break;
 				}
 			}
+		}
+
+
+		public override TextWriter Generate(TextWriter writer) {
+			writer.AppendChar('"');
+			WriteContent(writer);
 			writer.AppendChar('"');
 			return writer;
 		}

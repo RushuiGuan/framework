@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace Albatross.CodeGen.Python.Models {
+﻿namespace Albatross.CodeGen.Python.Models {
 	public static class My {
 		public static class Keywords {
 			public const string Self = "self";
@@ -14,6 +12,9 @@ namespace Albatross.CodeGen.Python.Models {
 			public const string Typing = "typing";
 			public const string Decimal = "decimal";
 			public const string DateTime = "datetime";
+			public const string Requests = "requests";
+			public const string Pandas = "pandas";
+			public const string Json = "json";
 		}
 		public static class Classes {
 			public const string EnumName = "Enum";
@@ -51,29 +52,27 @@ namespace Albatross.CodeGen.Python.Models {
 			public static PythonType Date() => new PythonType("date", Modules.DateTime) {
 				DefaultValue = new Literal("date.min"),
 			};
-			public static PythonType Time(bool methodReturnType = false) => new PythonType("time", Modules.DateTime) {
-				MethodReturnType = methodReturnType,
+			public static PythonType Time() => new PythonType("time", Modules.DateTime) {
 				DefaultValue = new Literal("time.min"),
 			};
-			public static PythonType TimeDelta(bool methodReturnType = false) => new PythonType("timedelta", Modules.DateTime) {
-				MethodReturnType = methodReturnType,
+			public static PythonType TimeDelta() => new PythonType("timedelta", Modules.DateTime) {
 				DefaultValue = new Literal("timedelta.min"),
 			};
-			public static PythonType Boolean(bool methodReturnType = false) => new PythonType("bool") { 
-				MethodReturnType = methodReturnType,
+			public static PythonType Boolean() => new PythonType("bool") { 
 				DefaultValue = new Literal(false) 
 			};
-			public static PythonType Dictionary(bool methodReturnType = false) => new PythonType("dict") {
-				MethodReturnType = methodReturnType,
+			public static PythonType Dictionary() => new PythonType("dict") {
 				DefaultValue = new MethodCall(My.Methods.Field(), new Assignment("default_factory", new Literal("dict")))
 			};
-			public static PythonType List(bool methodReturnType = false) => new PythonType("list") {
-				MethodReturnType = methodReturnType,
+			public static PythonType List() => new PythonType("list") {
 				DefaultValue = new MethodCall(Methods.Field(), new Assignment("default_factory", new Literal("list")))
 			};
-			public static PythonType Tuple(bool methodReturnType = false) => new PythonType("tuple") {
-				MethodReturnType = methodReturnType,
+			public static PythonType Tuple() => new PythonType("tuple") {
 				DefaultValue = new MethodCall(Methods.Field(), new Assignment("default_factory", new Literal("tuple")))
+			};
+
+			public static PythonType DataFrame() => new PythonType("DataFrame") {
+				Module = "pandas"
 			};
 		}
 	}

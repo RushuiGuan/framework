@@ -7,13 +7,13 @@ namespace Albatross.CodeGen.Python.Models {
 	public class MethodCall : CompositeModuleCodeElement {
 		public MethodCall(Method method, params IModuleCodeElement[] parameters) : base(string.Empty, string.Empty) {
 			Method = method;
-			parameters.ForEach(p => AddParameter(p));
+			parameters.ForEach(AddParameter);
 		}
 		public MethodCall(string method, params IModuleCodeElement[] parameters) : base(string.Empty, string.Empty) {
 			Method = new Method(method);
-			parameters.ForEach(p => AddParameter(p));
+			parameters.ForEach(AddParameter);
 		}
-
+		
 		public Method Method { 
 			get => Single<Method>(nameof(Method));
 			set => Set(value, nameof(Method));

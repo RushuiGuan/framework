@@ -1,20 +1,22 @@
 ﻿using Albatross.Collections;
 using Albatross.Text;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class Class : CompositeModuleCodeElement {
+	public class Class : CompositeModuleCodeElement, IComparable<Class> {
 		public Class(string name) : base(name, string.Empty) { }
 		public Class(string name, string module) : base(name, module) { }
 
 		public bool UseDataClass { get; set; }
-
+		
 		public Constructor? Constructor {
 			get => SingleOrDefault<Constructor>(nameof(Constructor));
 			set => SetNullable(value, nameof(Constructor));
 		}
+		
 		public IEnumerable<Class> BaseClass => Collection<Class>(nameof(BaseClass));
 		public void AddBaseClass(Class @class) => AddCodeElement(@class, nameof(BaseClass));
 		public void RemoveBaseClass(Class @class) => RemoveCodeElement(@class, nameof(BaseClass));
@@ -58,7 +60,7 @@ namespace Albatross.CodeGen.Python.Models {
 				foreach (var field in Fields.Where(x => x.Static)) {
 					scope.Writer.Code(field);
 				}
-				Constructor?.Generate(scope.Writer.AppendLine());
+				Constructor?.Generate(scope.Writer);
 				foreach (var item in Properties) {
 					scope.Writer.Code(item);
 				}
@@ -67,6 +69,22 @@ namespace Albatross.CodeGen.Python.Models {
 				}
 			}
 			return writer;
+		}
+
+		public int CompareTo(Class? other) {
+			if (other == null) {
+				return 1;
+			} else {
+				if(this.IsEnum != other.IsEnum) {
+					return this.IsEnum ? -1 : 1;
+				}
+				if(this.BaseClass.Any(x=>x.Name == other.Name)) {
+					return 1;
+				}else if(other.BaseClass.Any(x=>x.Name == this.Name)) {
+					return -1;
+				}
+				return Name.CompareTo(other.Name);
+			}
 		}
 	}
 }

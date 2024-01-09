@@ -12,14 +12,20 @@ namespace Albatross.CodeGen.Python.Models {
 		}
 
 		public List<Import> Imports { get;  } = new List<Import>();
+		public List<Method> Functions { get; } = new List<Method>();
 		public List<Class> Classes { get; } = new List<Class>();
 
 		void Build(Dictionary<string, Import> dict, IEnumerable<IModuleCodeElement> elements) {
 			foreach (var item in elements) {
 				item.Build();
 				if (!string.IsNullOrEmpty(item.Module)) {
-					var import = dict.GetOrAdd(item.Module, () => new Import(item.Module));
-					import.Names.Add(item.Name);
+					if (string.IsNullOrEmpty(item.Name)) {
+						var import = dict.GetOrAdd(string.Empty, () => new Import(string.Empty));
+						import.Names.Add(item.Module);
+					} else {
+						var import = dict.GetOrAdd(item.Module, () => new Import(item.Module));
+						import.Names.Add(item.Name);
+					}
 				}
 				Build(dict, item);
 			}
@@ -35,10 +41,13 @@ namespace Albatross.CodeGen.Python.Models {
 			foreach (var item in Imports) {
 				writer.Code(item);
 			}
+			if(Functions.Any()) { writer.AppendLine(); }
+			Functions.Select(x => writer.Code(x));
+
 			if (Classes.Any()) { writer.AppendLine(); }
-			foreach (var item in Classes) {
-				writer.Code(item);
-			}
+			Classes.Sort();
+			Classes.ForEach(x => writer.Code(x));
+
 			return writer;
 		}
 	}

@@ -35,6 +35,7 @@ namespace Albatross.CodeGen.Python.Models {
 			} else {
 				this.Parameters.Insert(0, new Variable(My.Keywords.Self, My.Types.NoType()));
 			}
+			this.ReturnType.MethodReturnType = true;
 			base.Build();
 		}
 

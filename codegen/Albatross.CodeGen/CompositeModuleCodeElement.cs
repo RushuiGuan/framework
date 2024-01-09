@@ -43,7 +43,6 @@ namespace Albatross.CodeGen {
 		protected void Set<T>(T element, string tag) where T : class, IModuleCodeElement
 			=> SetNullable(element, tag);
 
-
 		public CompositeModuleCodeElement AddCodeElement<T>(T element, string tag) where T : class, IModuleCodeElement {
 			element.Tag = tag;
 			this.Add(element);

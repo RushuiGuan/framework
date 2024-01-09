@@ -6,19 +6,24 @@ namespace Albatross.CodeGen.WebClient.Python {
 		public WebApiClass(string name, string baseUrl) : base(name) {
 			BaseUrl = baseUrl;
 		}
-		public override void Build() {
-			base.Build();
-			AddField(new Field("BASE_URL", My.Types.String(), new StringLiteral(BaseUrl)) { Static = true });
+		void BuildBaseUrl() => AddField(new Field("BASE_URL", My.Types.String(), new StringLiteral(BaseUrl)) { Static = true });
+		void BuildConstructor() {
 			Constructor = new Constructor();
 			Constructor.Parameters.Add(new Variable("endpoint", My.Types.String()));
 			Constructor.InitFields.Add(new Field("endpoint", My.Types.String(), new Variable("endpoint")));
-			
-			var method = new Method("get_fields") {
-				ReturnType = My.Types.List(true),
-			};
-			method.CodeBlock.AddLine(new Assignment("response", new MethodCall("requests.get", new StringLiteral("abcdefg"))));
-			method.CodeBlock.AddLine(new Assignment("data", new MethodCall("json.load", new MethodCall("response.json"))));
-			method.CodeBlock.AddLine(new MethodCall("json.loads", new MethodCall("response.json"), new Assignment("object_hook", new Literal("lambda d: SimpleNamespace(**d)"))));
+		}
+
+		RestApiMethod CreateMethod(string name, string relativeUrl) {
+			var method = new RestApiMethod(name, relativeUrl);
+			return method;
+		}
+
+		public override void Build() {
+			base.Build();
+			BuildBaseUrl();
+			BuildConstructor();
+			var method = CreateMethod("get_fields", "/fields");
+			method.UsePost().UseQueryParam("query").UseJsonData("data").ReturnDataFrame();
 			AddMethod(method);
 		}
 	}

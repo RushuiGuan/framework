@@ -3,14 +3,17 @@ using System.IO;
 
 namespace Albatross.CodeGen {
 	public class CodeLine : CompositeModuleCodeElement {
-		private readonly IModuleCodeElement item;
+		public IModuleCodeElement Item {
+			get => Single<IModuleCodeElement>(nameof(Item));
+			set => Set(value, nameof(Item));
+		}
 
 		public CodeLine(IModuleCodeElement item) : base(string.Empty, string.Empty) {
-			this.item = item;
+			this.Item = item;
 		}
 
 		public override TextWriter Generate(TextWriter writer) {
-			return writer.AppendLine().Code(item);
+			return writer.AppendLine().Code(Item);
 		}
 	}
 }
