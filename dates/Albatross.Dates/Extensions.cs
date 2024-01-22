@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 namespace Albatross.Dates {
-	public static class Extensions {
+	public static partial class Extensions {
 		/// <summary>
 		/// Return the next weekday from a provided date.  If the provided date is Monday, the next 0 weekday is the same date and the 
 		/// next 1 weekday would be Tuesday.  If the provided date falls on the weekend, the next 0 weekday and the next 1 weekday are both
