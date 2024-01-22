@@ -53,7 +53,7 @@ namespace Albatross.Messaging.Commands {
 		private void AcceptResponse(IMessagingService dealerClient, CommandReply response) {
 			dealerClient.ClientAck(response.Route, response.Id);
 			if (this.OnCommandCompleted != null) {
-			logger.LogInformation("Running success callback");
+				logger.LogInformation("Running success callback");
 				Task.Run(() => {
 					try {
 						this.OnCommandCompleted(response.Id, response.CommandType, response.Payload);
@@ -66,7 +66,7 @@ namespace Albatross.Messaging.Commands {
 		private void AcceptError(IMessagingService dealerClient, CommandErrorReply errorMessage) {
 			dealerClient.ClientAck(errorMessage.Route, errorMessage.Id);
 			if (this.OnCommandError != null) {
-			logger.LogInformation("Running error callback");
+				logger.LogInformation("Running error callback");
 				Task.Run(() => {
 					try {
 						this.OnCommandError(errorMessage.Id, errorMessage.CommandType, errorMessage.ClassName, errorMessage.Message);

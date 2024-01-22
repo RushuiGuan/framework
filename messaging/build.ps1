@@ -1,18 +1,23 @@
 param(
+	[Parameter(Position=0)]
+	[string]$project,
 	[switch]
 	[bool]$alias
 )
 $InformationPreference = "Continue";
 $install = $env:InstallDirectory;
 
-
 if(-not $alias) {
 	$projects = @(
 		"sample.messaging.utility"
-#		,"sample.messaging.webapi"
-#		,"sample.messaging.daemon"
+		,"sample.messaging.webapi"
+		,"sample.messaging.daemon"
 	);
 
+	if(-not [string]::IsNullOrEmpty($project)){
+		$projects = $projects | Where-Object { $_ -like "*$project" }
+	}
+	
 	foreach($item in $projects){
 		if(Test-Path "$install/$item" -type Container){
 			Write-Information "Deleting $item";
@@ -23,7 +28,7 @@ if(-not $alias) {
 	dotnet restore $PSScriptRoot
 	foreach($project in $projects){
 		"Building $project";
-		dotnet publish $PSScriptRoot\sample\$project\$project.csproj -o $install\$project -c debug
+		dotnet publish $PSScriptRoot\sample\$project\$project.csproj -o $install\$project -c debug --no-restore
 	}
 }
 
