@@ -21,6 +21,14 @@ namespace Albatross.Reflection {
 			}
 			return key;
 		}
+		/// <summary>
+		/// Flatten an object into a dictionary.  The key is the path to the property.  The value is the value of the property.
+		/// If a property is an array, then the index with square brackets is appended to the path.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="path"></param>
+		/// <param name="index"></param>
+		/// <param name="result"></param>
 		public static void Property(object? value, string? path, int? index, Dictionary<string, object> result) {
 			if(value == null) {
 				return;
