@@ -1,15 +1,12 @@
-#if NET6_0 || NET7_0
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Albatross.EFCore.DateLevel {
-	public static class DateLevelEntityExtensions {
+	public static class DateTimeLevelEntityExtensions {
 		/// <summary>
 		/// For DateLevel entries, two rules apply
-		/// 1. there should be no gap between the first StartDate and <see cref="DateLevelEntity.MaxEndDate"/>
+		/// 1. there should be no gap between the first StartDate and <see cref="DateTimeLevelEntity.MaxEndDate"/>
 		/// 2. there should be no overlap of dates among entries.
 		
 		/// Provided the data level collection for a single entity, this method will create a new entry for the series and adjust the end date for other items within the the same entity 
@@ -18,10 +15,10 @@ namespace Albatross.EFCore.DateLevel {
 		/// 2. insert operation with both start date and end date: create a record in the middle of time series.  Adjust the existing overrlapping entries accordingly.
 		/// 3. append operation with only start date: create an entry with a start date and max end date and remove any current overlapping entries.
 		///
-		/// If the insert flag is false, the method will always append the record by setting the end date as the <see cref="DateLevelEntity.MaxEndDate"/>
+		/// If the insert flag is false, the method will always append the record by setting the end date as the <see cref="DateTimeLevelEntity.MaxEndDate"/>
 		/// The method will remove any existing record between the start date and the end date
 		/// 
-		/// If the insert flag is true and the end date of the record equals <see cref="DateLevelEntity.MaxEndDate"/>, the method will insert using the start date only.  
+		/// If the insert flag is true and the end date of the record equals <see cref="DateTimeLevelEntity.MaxEndDate"/>, the method will insert using the start date only.  
 		/// If the end date of the record is specified, the method will insert only if the end date is one day before the start date of the next record
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -31,16 +28,16 @@ namespace Albatross.EFCore.DateLevel {
 		/// <param name="insert"></param>
 		public static void SetDateLevel<T, K>(this ICollection<T> collection, T src, bool insert = false)
 			where K : IEquatable<K>
-			where T : DateLevelEntity<K> {
+			where T : DateTimeLevelEntity<K> {
 			if (insert) {
 				// when insert flag is true and EndDate is MaxEndDate, the code below will try to auto determine the correct end date of the new record
-				if (src.EndDate == DateLevelEntity.MaxEndDate) {
+				if (src.EndDate == DateTimeLevelEntity.MaxEndDate) {
 					// assuming that date leve series are correct, find the next record of the series
 					var after = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
 						.OrderBy(args => args.StartDate).FirstOrDefault();
 					// if not found, the new record will be inserted as the last record and its end date will be set to max
 					if (after == null) {
-						src.EndDate = DateLevelEntity.MaxEndDate;
+						src.EndDate = DateTimeLevelEntity.MaxEndDate;
 						collection.Add(src);
 					} else {
 						var changed = !after.HasSameValue(src);
@@ -108,7 +105,7 @@ namespace Albatross.EFCore.DateLevel {
 				foreach (var item in items) {
 					if (!hasExisting && item.HasSameValue(src)) {
 						hasExisting = true;
-						item.EndDate = DateLevelEntity.MaxEndDate;
+						item.EndDate = DateTimeLevelEntity.MaxEndDate;
 						item.StartDate = src.StartDate;
 						src = item;
 					} else {
@@ -116,7 +113,7 @@ namespace Albatross.EFCore.DateLevel {
 					}
 				}
 				if (!hasExisting) {
-					src.EndDate = DateLevelEntity.MaxEndDate;
+					src.EndDate = DateTimeLevelEntity.MaxEndDate;
 					collection.Add(src);
 				}
 			}
@@ -141,7 +138,7 @@ namespace Albatross.EFCore.DateLevel {
 		/// <param name="startDate"></param>
 		/// <param name="remove"></param>
 		public static void DeleteDateLevel<T>(this IEnumerable<T> set, DateTime startDate, Action<T> remove)
-			where T : DateLevelEntity {
+			where T : DateTimeLevelEntity {
 			var current = set.Where(args => args.StartDate == startDate).FirstOrDefault();
 			if (current != null) {
 				remove(current);
@@ -161,7 +158,7 @@ namespace Albatross.EFCore.DateLevel {
 		/// <param name="remove"></param>
 		/// <returns></returns>
 		public static void RebuildDateLevelSeries<T>(this IEnumerable<T> source, Action<T> remove)
-			where T : DateLevelEntity {
+			where T : DateTimeLevelEntity {
 
 			var items = source.OrderBy(args => args.StartDate).ToArray();
 			T? current = null;
@@ -179,7 +176,7 @@ namespace Albatross.EFCore.DateLevel {
 				}
 			}
 			if (current != null) {
-				current.EndDate = DateLevelEntity.MaxEndDate;
+				current.EndDate = DateTimeLevelEntity.MaxEndDate;
 			}
 		}
 
@@ -192,13 +189,13 @@ namespace Albatross.EFCore.DateLevel {
 		/// <param name="startDate"></param>
 		/// <returns></returns>
 		public static IEnumerable<T> GetDateLevelEntityByDate<T>(this IEnumerable<T> source, DateTime effectiveDate)
-			where T : DateLevelEntity {
+			where T : DateTimeLevelEntity {
 			var items = source.Where(args => args.StartDate <= effectiveDate && args.EndDate >= effectiveDate).ToArray();
 			return items;
 		}
 
 		public static T? GetDateLevelItemByDate<T, K>(this IEnumerable<T> source, K key, DateTime effectiveDate)
-			where T : DateLevelEntity<K> where K : IEquatable<K> {
+			where T : DateTimeLevelEntity<K> where K : IEquatable<K> {
 			var item = source.Where(args => args.Key.Equals(key)
 				&& args.StartDate <= effectiveDate
 				&& args.EndDate >= effectiveDate).FirstOrDefault();
@@ -215,23 +212,8 @@ namespace Albatross.EFCore.DateLevel {
 		/// <param name="toDate"></param>
 		/// <returns></returns>
 		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateTime fromDate, DateTime toDate)
-			where T : DateLevelEntity {
+			where T : DateTimeLevelEntity {
 			return source.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate));
-		}
-
-
-		/// <summary>
-		/// example: Session.DbContext.GetDateLevelEntityByDateRange<Child>(fromDate, toDate, "Parent");
-		/// </summary>
-		public static async Task<IEnumerable<T>> GetDateLevelEntityByDateRange<T>(this DbContext context, DateTime fromDate, DateTime toDate, params string[] includes)
-			where T : DateLevelEntity {
-			IQueryable<T> query = context.Set<T>();
-			foreach(var item in includes) {
-				query = query.Include(item);
-			}
-			var items = await query.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate)).ToArrayAsync();
-			return items;
 		}
 	}
 }
-#endif

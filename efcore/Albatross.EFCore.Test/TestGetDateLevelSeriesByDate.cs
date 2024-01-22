@@ -10,8 +10,8 @@ namespace Albatross.EFCore.Test {
 	public class TestGetDateLevelEntityByDate {
 		[Fact]
 		public void No_Row() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Jan1_2022, 100) {
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 100) {
 					EndDate = DateOnlyValues.Jan31_2022
 				}
 			};
@@ -22,8 +22,8 @@ namespace Albatross.EFCore.Test {
 
 		[Fact]
 		public void Single_Row() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Jan1_2022, 100) {
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 100) {
 					EndDate = DateOnlyValues.Jan31_2022
 				}
 			};
@@ -36,17 +36,17 @@ namespace Albatross.EFCore.Test {
 
 		[Fact]
 		public void Single_Row_Max_Date() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Jan1_2022, 100) {
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 100) {
 					EndDate = DateOnlyValues.Jan31_2022
 				},
-				new TickSize(1, DateOnlyValues.Feb1_2022, 100) {
+				new TickSize2(1, DateOnlyValues.Feb1_2022, 100) {
 					EndDate = DateOnlyValues.Feb28_2022
 				},
-				new TickSize(1, DateOnlyValues.Mar1_2022, 100) {
+				new TickSize2(1, DateOnlyValues.Mar1_2022, 100) {
 					EndDate = DateOnlyValues.Mar31_2022
 				},
-				new TickSize(1, DateOnlyValues.Apr1_2022, 100) 
+				new TickSize2(1, DateOnlyValues.Apr1_2022, 100) 
 			};
 			var result = list.GetDateLevelEntityByDate(new DateOnly(2022, 4, 10));
 			Assert.NotNull(result);
@@ -57,20 +57,20 @@ namespace Albatross.EFCore.Test {
 
 		[Fact]
 		public void Multiple_Rows() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Jan1_2022, 100) {
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 100) {
 					EndDate = DateOnlyValues.Jan31_2022
 				},
-				new TickSize(1, DateOnlyValues.Feb1_2022, 100) {
+				new TickSize2(1, DateOnlyValues.Feb1_2022, 100) {
 					EndDate = DateOnlyValues.Feb28_2022
 				},
-				new TickSize(1, DateOnlyValues.Mar1_2022, 100) {
+				new TickSize2(1, DateOnlyValues.Mar1_2022, 100) {
 					EndDate = DateOnlyValues.Mar31_2022
 				},
-				new TickSize(1, DateOnlyValues.Apr1_2022, 100) {
+				new TickSize2(1, DateOnlyValues.Apr1_2022, 100) {
 					EndDate = DateOnlyValues.Apr30_2022
 				},
-				new TickSize(2, DateOnlyValues.Apr1_2022, 100)
+				new TickSize2(2, DateOnlyValues.Apr1_2022, 100)
 			};
 			var result = list.GetDateLevelEntityByDate(new DateOnly(2022, 4, 10));
 			Assert.NotNull(result);

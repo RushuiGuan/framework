@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-#if NET7_0 || NET6_0
 namespace Albatross.EFCore.Test {
-	public class TestRebuildDateLevelSeries {
+	public class TestRebuildDateTimeLevelSeries {
 		[Fact]
 		public void NoOp() {
 			List<TickSize> list = new List<TickSize>();
@@ -24,7 +23,7 @@ namespace Albatross.EFCore.Test {
 			var input = new TestAsyncEnumerableQuery<TickSize>(list);
 			var items = list.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries(args=>list.Remove(args));
-			Assert.Collection(input, args=>Assert.Equal(DateLevelEntity.MaxEndDate, args.EndDate));
+			Assert.Collection(input, args=>Assert.Equal(DateTimeLevelEntity.MaxEndDate, args.EndDate));
 		}
 		[Fact]
 		public void Two_Row_Diff() {
@@ -135,4 +134,3 @@ namespace Albatross.EFCore.Test {
 		}
 	}
 }
-#endif

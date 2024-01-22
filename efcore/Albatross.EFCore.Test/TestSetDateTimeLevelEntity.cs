@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-#if NET7_0 || NET6_0
 namespace Albatross.EFCore.Test {
-	public class TestSetDateLevelEntity {
+	public class TestSetDateTimeLevelEntity {
 		[Fact]
 		public void Baseline() {
 			var list = new List<TickSize>();
@@ -1042,4 +1041,3 @@ namespace Albatross.EFCore.Test {
 		}
 	}
 }
-#endif

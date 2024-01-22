@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-#if NET7_0 || NET6_0
 namespace Albatross.EFCore.Test {
-	public class TestGetDateLevelEntityByDateRange {
+	public class TestGetDateTimeLevelEntityByDateRange {
 		[Fact]
 		public void No_Row() {
 			List<TickSize> list = new List<TickSize> {
@@ -94,4 +93,3 @@ namespace Albatross.EFCore.Test {
 
 	}
 }
-#endif

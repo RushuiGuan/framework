@@ -1,9 +1,7 @@
-#if NET8_0_OR_GREATER
-using Microsoft.EntityFrameworkCore;
+#if NET6_0_OR_GREATER
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Albatross.EFCore.DateLevel {
 	public static class DateLevelEntityExtensions {
@@ -220,20 +218,6 @@ namespace Albatross.EFCore.DateLevel {
 		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateOnly fromDate, DateOnly toDate)
 			where T : DateLevelEntity {
 			return source.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate));
-		}
-
-
-		/// <summary>
-		/// example: Session.DbContext.GetDateLevelEntityByDateRange<Child>(fromDate, toDate, "Parent");
-		/// </summary>
-		public static async Task<IEnumerable<T>> GetDateLevelEntityByDateRange<T>(this DbContext context, DateOnly fromDate, DateOnly toDate, params string[] includes)
-			where T : DateLevelEntity {
-			IQueryable<T> query = context.Set<T>();
-			foreach(var item in includes) {
-				query = query.Include(item);
-			}
-			var items = await query.Where(args => !(fromDate > args.EndDate || toDate < args.StartDate)).ToArrayAsync();
-			return items;
 		}
 	}
 }

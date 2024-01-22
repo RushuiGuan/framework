@@ -16,7 +16,7 @@ namespace Albatross.EFCore.Test.MyNamespace {
 
 	public class TestMyDbSession : IClassFixture<MyTestHost> {
 		private readonly MyTestHost host;
-
+		
 		public TestMyDbSession(MyTestHost host) {
 			this.host = host;
 		}
@@ -48,7 +48,6 @@ namespace Albatross.EFCore.Test.MyNamespace {
 				await session.SaveChangesAsync();
 			}
 
-#if NET6_0 || NET7_0
 			DateTime startDate = new DateTime(1980, 1, 1);
 			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, startDate, 1));
 			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 2, 1), 2));
@@ -57,18 +56,32 @@ namespace Albatross.EFCore.Test.MyNamespace {
 			await session.SaveChangesAsync();
 			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 3, 1), 2));
 			await session.SaveChangesAsync();
-#endif
+		}
+		
+		[Fact(Skip = "require database")]
+		public async Task TestTickSize2Persistance() {
+			string marketName = "test";
+			using var scope = host.Create();
+			var session = scope.Get<MyDbSession>();
+			var set = session.DbContext.Set<FutureMarket2>();
+			var market = set
+				.Include(args => args.TickSizes)
+				.Where(args => args.Name == marketName).FirstOrDefault();
+			if (market == null) {
+				market = new FutureMarket2(marketName);
+				set.Add(market);
+				await session.SaveChangesAsync();
+			}
 
-#if NET8_0
+
 			DateOnly startDate = new DateOnly(1980, 1, 1);
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, startDate, 1));
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateOnly(1980, 2, 1), 2));
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateOnly(1980, 3, 1), 3));
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateOnly(1980, 4, 1), 3));
+			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, startDate, 1));
+			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, new DateOnly(1980, 2, 1), 2));
+			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, new DateOnly(1980, 3, 1), 3));
+			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, new DateOnly(1980, 4, 1), 3));
 			await session.SaveChangesAsync();
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateOnly(1980, 3, 1), 2));
+			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, new DateOnly(1980, 3, 1), 2));
 			await session.SaveChangesAsync();
-#endif
 		}
 	}
 }

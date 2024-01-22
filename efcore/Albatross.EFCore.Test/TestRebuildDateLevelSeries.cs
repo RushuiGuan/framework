@@ -9,34 +9,34 @@ namespace Albatross.EFCore.Test {
 	public class TestRebuildDateLevelSeries {
 		[Fact]
 		public void NoOp() {
-			List<TickSize> list = new List<TickSize>();
-			var input = new TestAsyncEnumerableQuery<TickSize>(list);
+			List<TickSize2> list = new List<TickSize2>();
+			var input = new TestAsyncEnumerableQuery<TickSize2>(list);
 			var items = list.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries(args=>list.Remove(args));
 		}
 		[Fact]
 		public void Single_Row() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Jan1_2022, 100) {
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 100) {
 					EndDate = DateOnlyValues.Jan1_2022
 				}
 			};
-			var input = new TestAsyncEnumerableQuery<TickSize>(list);
+			var input = new TestAsyncEnumerableQuery<TickSize2>(list);
 			var items = list.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries(args=>list.Remove(args));
 			Assert.Collection(input, args=>Assert.Equal(DateLevelEntity.MaxEndDate, args.EndDate));
 		}
 		[Fact]
 		public void Two_Row_Diff() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Feb1_2022, 100){
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Feb1_2022, 100){
 					EndDate = DateOnlyValues.Jan1_2022
 				},
-				new TickSize(1, DateOnlyValues.Jan1_2022, 200){
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 200){
 					EndDate = DateOnlyValues.Jan1_2022
 				}
 			};
-			var input = new TestAsyncEnumerableQuery<TickSize>(list);
+			var input = new TestAsyncEnumerableQuery<TickSize2>(list);
 			var items = input.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries(args=>list.Remove(args));
 			Assert.Collection(input, 
@@ -52,11 +52,11 @@ namespace Albatross.EFCore.Test {
 		}
 		[Fact]
 		public void Two_Row_Same() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Feb1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
-				new TickSize(1, DateOnlyValues.Jan1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Feb1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
 			};
-			var input = new TestAsyncEnumerableQuery<TickSize>(list);
+			var input = new TestAsyncEnumerableQuery<TickSize2>(list);
 			var items = input.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries(args => list.Remove(args));
 			Assert.Collection(input,
@@ -69,12 +69,12 @@ namespace Albatross.EFCore.Test {
 		}
 		[Fact]
 		public void Three_Row_Diff() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Feb1_2022, 100){ EndDate = DateOnlyValues.Jan1_2022 },
-				new TickSize(1, DateOnlyValues.Jan1_2022, 200) { EndDate = DateOnlyValues.Jan1_2022 },
-				new TickSize(1, DateOnlyValues.Mar1_2022, 300) { EndDate = DateOnlyValues.Jan1_2022 },
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Feb1_2022, 100){ EndDate = DateOnlyValues.Jan1_2022 },
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 200) { EndDate = DateOnlyValues.Jan1_2022 },
+				new TickSize2(1, DateOnlyValues.Mar1_2022, 300) { EndDate = DateOnlyValues.Jan1_2022 },
 			};
-			var input = new TestAsyncEnumerableQuery<TickSize>(list);
+			var input = new TestAsyncEnumerableQuery<TickSize2>(list);
 			var items = input.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries(args => list.Remove(args));
 			Assert.Collection(input,
@@ -94,12 +94,12 @@ namespace Albatross.EFCore.Test {
 		}
 		[Fact]
 		public void Three_Row_Same() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Feb1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
-				new TickSize(1, DateOnlyValues.Jan1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
-				new TickSize(1, DateOnlyValues.Mar1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Feb1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
+				new TickSize2(1, DateOnlyValues.Mar1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
 			};
-			var input = new TestAsyncEnumerableQuery<TickSize>(list);
+			var input = new TestAsyncEnumerableQuery<TickSize2>(list);
 			var items = input.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries(args => list.Remove(args));
 			Assert.Collection(input,
@@ -112,12 +112,12 @@ namespace Albatross.EFCore.Test {
 		}
 		[Fact]
 		public void Three_Row_Mixed() {
-			List<TickSize> list = new List<TickSize> {
-				new TickSize(1, DateOnlyValues.Feb1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
-				new TickSize(1, DateOnlyValues.Jan1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
-				new TickSize(1, DateOnlyValues.Mar1_2022, 200) { EndDate = DateOnlyValues.Jan1_2022 },
+			List<TickSize2> list = new List<TickSize2> {
+				new TickSize2(1, DateOnlyValues.Feb1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
+				new TickSize2(1, DateOnlyValues.Jan1_2022, 100) { EndDate = DateOnlyValues.Jan1_2022 },
+				new TickSize2(1, DateOnlyValues.Mar1_2022, 200) { EndDate = DateOnlyValues.Jan1_2022 },
 			};
-			var input = new TestAsyncEnumerableQuery<TickSize>(list);
+			var input = new TestAsyncEnumerableQuery<TickSize2>(list);
 			var items = input.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries(args => list.Remove(args));
 			Assert.Collection(input,

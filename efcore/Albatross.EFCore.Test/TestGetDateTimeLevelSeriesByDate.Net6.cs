@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-#if NET7_0 || NET6_0
 namespace Albatross.EFCore.Test {
-	public class TestGetDateLevelEntityByDate {
+	public class TestGetDateTimeLevelEntityByDate {
 		[Fact]
 		public void No_Row() {
 			List<TickSize> list = new List<TickSize> {
@@ -52,7 +51,7 @@ namespace Albatross.EFCore.Test {
 			Assert.NotNull(result);
 			Assert.Single(result);
 			Assert.Equal(DateTimeValues.Apr1_2022, result.First().StartDate);
-			Assert.Equal(DateLevelEntity.MaxEndDate, result.First().EndDate);
+			Assert.Equal(DateTimeLevelEntity.MaxEndDate, result.First().EndDate);
 		}
 
 		[Fact]
@@ -79,9 +78,8 @@ namespace Albatross.EFCore.Test {
 			Assert.Equal(DateTimeValues.Apr30_2022, result.First().EndDate);
 			Assert.Equal(1, result.First().Key);
 			Assert.Equal(DateTimeValues.Apr1_2022, result.ElementAt(1).StartDate);
-			Assert.Equal(DateLevelEntity.MaxEndDate, result.ElementAt(1).EndDate);
+			Assert.Equal(DateTimeLevelEntity.MaxEndDate, result.ElementAt(1).EndDate);
 			Assert.Equal(2, result.ElementAt(1).Key);
 		}
 	}
 }
-#endif
