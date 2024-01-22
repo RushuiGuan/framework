@@ -9,7 +9,7 @@ $ErrorActionPreference = "Stop";
 $projects = @(
 	"Albatross.EFCore",
 	"Albatross.EFCore.ChangeReporting",
-	"Albatross.EFCore.DateLevel",
+	"Albatross.DateLevel",
 	"Albatross.EFCore.PostgreSQL",
 	"Albatross.EFCore.SqlServer"
 );

@@ -1,0 +1,1 @@
+Albatross.DateLevel assembly implements the date level pattern to deal with date series data.  Date level entities have a start date and end date.  The assembly contains logic to perform CRUD operations.  Specifically it ensures that the start date and the end date of the entities are set correctly.

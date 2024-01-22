@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore", "Albatro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.ChangeReporting", "Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj", "{6DAA7DAB-5C40-451C-A555-991464F04178}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.DateLevel", "Albatross.EFCore.DateLevel\Albatross.EFCore.DateLevel.csproj", "{60C885B1-0BC7-4073-B96C-69FAEC9B3F44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.DateLevel", "Albatross.DateLevel\Albatross.DateLevel.csproj", "{60C885B1-0BC7-4073-B96C-69FAEC9B3F44}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.PostgreSQL", "Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj", "{1E102619-D029-46BF-A6FF-3D8EC9C2F7D8}"
 EndProject

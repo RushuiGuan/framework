@@ -1,7 +1,7 @@
 ﻿#if NET6_0_OR_GREATER
 using System;
 
-namespace Albatross.EFCore.DateLevel {
+namespace Albatross.DateLevel {
 	public abstract class DateLevelEntity  {
 		public DateOnly StartDate { get; set; }
 		public DateOnly EndDate { get; set; } = MaxEndDate;

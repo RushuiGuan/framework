@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Albatross.EFCore.DateLevel {
+namespace Albatross.DateLevel {
 	public abstract class DateTimeLevelEntity  {
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; } = MaxEndDate;

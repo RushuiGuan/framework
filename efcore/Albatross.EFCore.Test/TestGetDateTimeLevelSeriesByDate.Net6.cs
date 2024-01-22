@@ -1,4 +1,4 @@
-﻿using Albatross.EFCore.DateLevel;
+﻿using Albatross.DateLevel;
 using Albatross.Hosting.Test;
 using System;
 using System.Collections.Generic;

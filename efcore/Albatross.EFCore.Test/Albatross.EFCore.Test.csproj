@@ -38,7 +38,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj" />
-		<ProjectReference Include="..\Albatross.EFCore.DateLevel\Albatross.EFCore.DateLevel.csproj" />
+		<ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
 	</ItemGroup>

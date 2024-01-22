@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.EFCore.DateLevel {
+namespace Albatross.DateLevel {
 	public static class DateTimeLevelEntityExtensions {
 		/// <summary>
 		/// For DateLevel entries, two rules apply
