@@ -1,5 +1,4 @@
-﻿using Albatross.Hosting.Test;
-using Microsoft.EntityFrameworkCore.Query;
+﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,17 +6,13 @@ using Moq;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
-using Albatross.EFCore.SqlServer;
+using Sample.EFCore;
 
 namespace Albatross.EFCore.Test {
 	public class MyTestHost : Hosting.Test.TestHost {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
-			services.AddSqlServerWithContextPool<MyDbSession>(provider => Constant.ConnectionString);
-			services.AddScoped<SqlServerMigration<MySqlServerMigration>>();
-			services.AddScoped<MySqlServerMigration>(provider => {
-				return new MySqlServerMigration(Constant.ConnectionString);
-			});
+			services.AddSample();
 		}
 
 		public static void GetDbSession<T, K>(K value) where T : class {

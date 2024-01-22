@@ -1,5 +1,7 @@
 ﻿using Albatross.Hosting.Test;
 using Microsoft.EntityFrameworkCore;
+using Sample.EFCore;
+using Sample.EFCore.Models;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,7 +13,7 @@ namespace Albatross.EFCore.Test {
 			this.host = host;
 		}
 
-		async Task Create(MyDbSession session) {
+		async Task Create(SampleDbSession session) {
 			var set = session.Set<JsonData>();
 			set.Add(new JsonData {
 				Rule = new MyJsonData("c", "vwap", "ms") {
@@ -30,7 +32,7 @@ namespace Albatross.EFCore.Test {
 		[Fact(Skip ="require sql server")]
 		public async Task TestWrite() {
 			using var scope = host.Create();
-			var session = scope.Get<MyDbSession>();
+			var session = scope.Get<SampleDbSession>();
 
 			var set = session.Set<JsonData>();
 			set.Add(new JsonData { 
@@ -51,7 +53,7 @@ namespace Albatross.EFCore.Test {
 		[Fact(Skip ="require sql server")]
 		public async Task TestRead() {
 			using var scope = host.Create();
-			var session = scope.Get<MyDbSession>();
+			var session = scope.Get<SampleDbSession>();
 			await Create(session);
 			var items = await session.Set<JsonData>().ToArrayAsync();
 			foreach(var item in items) {

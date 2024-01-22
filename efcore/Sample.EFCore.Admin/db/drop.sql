@@ -1,0 +1,6 @@
+drop table [sam].[SpreadSpec]
+drop table [sam].[ContractSpec]
+drop table [sam].[Market]
+drop table [sam].[JsonData]
+drop table [sam].[EntityInADiffNameSpace]
+drop table [sam].[__EFMigrationsHistory]

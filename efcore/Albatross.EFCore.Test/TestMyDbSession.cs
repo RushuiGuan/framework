@@ -1,86 +1,85 @@
 ﻿using Albatross.DateLevel;
 using Albatross.Hosting.Test;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Sample.EFCore.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.EFCore.Test.MyNamespace {
-	public class FutureMarketEntityMap : EntityMap<FutureMarket> {
-		public override void Map(EntityTypeBuilder<FutureMarket> builder) {
-			base.Map(builder);
-		}
-	}
-
-	public class TestMyDbSession : IClassFixture<MyTestHost> {
+	public class TestSampleDbSession : IClassFixture<MyTestHost> {
 		private readonly MyTestHost host;
 		
-		public TestMyDbSession(MyTestHost host) {
+		public TestSampleDbSession(MyTestHost host) {
 			this.host = host;
 		}
 
 		[Fact]
 		public void TestGetEntityModels() {
-			var items = this.GetType().Assembly.GetEntityModels(null);
+			var items = typeof(Market).Assembly.GetEntityModels(null);
 			Assert.NotEmpty(items);
 
-			items = this.GetType().Assembly.GetEntityModels("Albatross.EFCore.Test.MyNamespace");
-			Assert.Single(items);
-
-			items = this.GetType().Assembly.GetEntityModels("Albatross.EFCore.Test.MyNamespace.");
+			items = typeof(Market).Assembly.GetEntityModels("Sample.EFCore.Models.Test");
 			Assert.Single(items);
 		}
 
-		[Fact(Skip = "require database")]
-		public async Task TestTickSizePersistance() {
+		//[Fact(Skip = "require database")]
+		[Fact]
+		public async Task TestContractSpecPersistance() {
 			string marketName = "test";
 			using var scope = host.Create();
-			var session = scope.Get<MyDbSession>();
-			var set = session.DbContext.Set<FutureMarket>();
+			var session = scope.Get<SampleDbSession>();
+			var set = session.DbContext.Set<Market>();
 			var market = set
-				.Include(args => args.TickSizes)
+				.Include(args => args.ContractSpec)
 				.Where(args => args.Name == marketName).FirstOrDefault();
 			if (market == null) {
-				market = new FutureMarket(marketName);
+				market = new Market(marketName);
 				set.Add(market);
 				await session.SaveChangesAsync();
 			}
 
 			DateTime startDate = new DateTime(1980, 1, 1);
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, startDate, 1));
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 2, 1), 2));
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 3, 1), 3));
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 4, 1), 3));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, startDate, 1));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateTime(1980, 2, 1), 2));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateTime(1980, 3, 1), 3));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateTime(1980, 4, 1), 3));
 			await session.SaveChangesAsync();
-			market.TickSizes.SetDateLevel<TickSize, int>(new TickSize(market.Id, new DateTime(1980, 3, 1), 2));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateTime(1980, 3, 1), 2));
+			await session.SaveChangesAsync();
+			market.ContractSpec.Clear();
 			await session.SaveChangesAsync();
 		}
-		
-		[Fact(Skip = "require database")]
-		public async Task TestTickSize2Persistance() {
+
+		//[Fact(Skip = "require database")]
+		[Fact]
+		public async Task TestSpreadSpecPersistance() {
 			string marketName = "test";
 			using var scope = host.Create();
-			var session = scope.Get<MyDbSession>();
-			var set = session.DbContext.Set<FutureMarket2>();
+			var session = scope.Get<SampleDbSession>();
+			var set = session.DbContext.Set<Market>();
 			var market = set
-				.Include(args => args.TickSizes)
+				.Include(args => args.SpreadSpec)
 				.Where(args => args.Name == marketName).FirstOrDefault();
+
 			if (market == null) {
-				market = new FutureMarket2(marketName);
+				market = new Market(marketName);
 				set.Add(market);
 				await session.SaveChangesAsync();
 			}
 
-
 			DateOnly startDate = new DateOnly(1980, 1, 1);
-			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, startDate, 1));
-			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, new DateOnly(1980, 2, 1), 2));
-			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, new DateOnly(1980, 3, 1), 3));
-			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, new DateOnly(1980, 4, 1), 3));
+			market.SpreadSpec.SetDateLevel<SpreadSpec, int>(new SpreadSpec(market.Id, startDate, 1));
+			market.SpreadSpec.SetDateLevel<SpreadSpec, int>(new SpreadSpec(market.Id, new DateOnly(1980, 2, 1), 2));
+			market.SpreadSpec.SetDateLevel<SpreadSpec, int>(new SpreadSpec(market.Id, new DateOnly(1980, 3, 1), 3));
+			market.SpreadSpec.SetDateLevel<SpreadSpec, int>(new SpreadSpec(market.Id, new DateOnly(1980, 4, 1), 3));
 			await session.SaveChangesAsync();
-			market.TickSizes.SetDateLevel<TickSize2, int>(new TickSize2(market.Id, new DateOnly(1980, 3, 1), 2));
+
+			market.SpreadSpec.SetDateLevel<SpreadSpec, int>(new SpreadSpec(market.Id, new DateOnly(1980, 3, 1), 2));
+			await session.SaveChangesAsync();
+
+			market.SpreadSpec.Clear();
 			await session.SaveChangesAsync();
 		}
 	}

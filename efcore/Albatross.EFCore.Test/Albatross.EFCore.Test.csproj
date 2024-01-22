@@ -5,11 +5,9 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Remove="MyDbSession.sql" />
 		<None Remove="TestCases\data.json" />
 	</ItemGroup>
 	<ItemGroup>
-		<EmbeddedResource Include="MyDbSession.sql" />
 		<EmbeddedResource Include="TestCases\data.json" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
@@ -41,6 +39,7 @@
 		<ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
+		<ProjectReference Include="..\Sample.EFCore\Sample.EFCore.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="appsettings.json">
