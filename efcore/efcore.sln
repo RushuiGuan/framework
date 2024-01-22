@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.PostgreSQL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.SqlServer", "Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj", "{EE2BE28B-5F8A-4007-96BF-DABC0AD4A939}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13CAF1ED-F83C-4332-AB97-395FBF2A2B09}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items1", "solution items1", "{13CAF1ED-F83C-4332-AB97-395FBF2A2B09}"
 	ProjectSection(SolutionItems) = preProject
 		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
