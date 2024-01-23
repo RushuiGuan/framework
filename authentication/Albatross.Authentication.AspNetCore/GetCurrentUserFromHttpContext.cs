@@ -1,8 +1,7 @@
-﻿using Albatross.Authentication.Core;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 
-namespace Albatross.Authentication {
+namespace Albatross.Authentication.AspNetCore {
 	public class GetCurrentUserFromHttpContext : IGetCurrentUser {
 		public static string GetFromContext(HttpContext? context) {
 			string? name = context?.User?.Identity?.Name;

@@ -11,6 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		pack.ps1 = pack.ps1
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Authentication.Windows", "Albatross.Authentication.Windows\Albatross.Authentication.Windows.csproj", "{F8DBB95A-65C9-4370-8D09-B92F3C1238A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Authentication.AspNetCore", "Albatross.Authentication.AspNetCore\Albatross.Authentication.AspNetCore.csproj", "{35F93DD5-1B37-4429-8491-4CC929D105A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Authentication.UnitTest", "Albatross.Authentication.UnitTest\Albatross.Authentication.UnitTest.csproj", "{7C332B9C-3DA5-4FB0-97C1-15B30BA535E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{1C9F202A-E50C-447D-9683-422005B8BB34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C9F202A-E50C-447D-9683-422005B8BB34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C9F202A-E50C-447D-9683-422005B8BB34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8DBB95A-65C9-4370-8D09-B92F3C1238A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8DBB95A-65C9-4370-8D09-B92F3C1238A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8DBB95A-65C9-4370-8D09-B92F3C1238A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8DBB95A-65C9-4370-8D09-B92F3C1238A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35F93DD5-1B37-4429-8491-4CC929D105A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F93DD5-1B37-4429-8491-4CC929D105A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F93DD5-1B37-4429-8491-4CC929D105A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F93DD5-1B37-4429-8491-4CC929D105A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C332B9C-3DA5-4FB0-97C1-15B30BA535E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C332B9C-3DA5-4FB0-97C1-15B30BA535E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C332B9C-3DA5-4FB0-97C1-15B30BA535E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C332B9C-3DA5-4FB0-97C1-15B30BA535E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

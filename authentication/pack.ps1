@@ -8,7 +8,9 @@ $ErrorActionPreference = "Stop";
 . $PSScriptRoot\..\scripts\pack.ps1;
 
 $projects = @(
-	"Albatross.Authentication"
+	"Albatross.Authentication",
+	"Albatross.Authentication.Windows",
+	"Albatross.Authentication.AspNetCore"
 );
 
 Run-Pack -projects $projects `
