@@ -1,4 +1,4 @@
-﻿using Albatross.Authentication.Core;
+﻿using Albatross.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.Hosting.Test {

@@ -1,4 +1,4 @@
-﻿using Albatross.Authentication.Core;
+﻿using Albatross.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Text;

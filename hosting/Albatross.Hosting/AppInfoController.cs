@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Albatross.Authentication.Core;
+using Albatross.Authentication;
 using Albatross.Config;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

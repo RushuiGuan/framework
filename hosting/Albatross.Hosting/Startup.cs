@@ -1,4 +1,4 @@
-﻿using Albatross.Authentication;
+﻿using Albatross.Authentication.AspNetCore;
 using Albatross.Caching;
 using Albatross.Config;
 using Microsoft.AspNetCore.Authentication;

@@ -1,4 +1,4 @@
-﻿using Albatross.Authentication;
+﻿using Albatross.Authentication.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;

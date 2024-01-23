@@ -28,11 +28,11 @@
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.25" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="Albatross.Authentication.AspNetCore" Version="7.0.0" />
 		<PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0" />
-		<PackageReference Include="Albatross.Authentication" Version="6.4.1" />
 		<PackageReference Include="Albatross.Caching" Version="6.5.0" />
 		<PackageReference Include="Albatross.Config" Version="6.4.1" />
 		<PackageReference Include="Albatross.Logging" Version="6.4.5" />
