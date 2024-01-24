@@ -1,5 +1,6 @@
 ﻿using Albatross.Messaging.Commands.Messages;
 using System;
+using System.Collections.Generic;
 
 namespace Albatross.Messaging.Commands {
 	public record class CommandContext {
@@ -12,5 +13,7 @@ namespace Albatross.Messaging.Commands {
 		public string Route { get; internal set; } = string.Empty;
 		public string Queue { get; internal set; } = string.Empty;
 		public CommandMode Mode { get; set; }
+
+		public List<ulong> InternalCommands { get; } = new List<ulong>();
 	}
 }

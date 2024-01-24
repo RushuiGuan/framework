@@ -22,13 +22,15 @@ namespace Albatross.Messaging.Commands {
 			this.routerServer = routerServer;
 			this.context = context;
 		}
-
 		public Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 2000) {
 			var type = command.GetType();
 			if (fireAndForget) {
 				using var stream = new MemoryStream();
 				JsonSerializer.Serialize(stream, command, type, MessagingJsonSettings.Value.Default);
-				var request = new CommandRequest(context.Route, context.Id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
+				// internal commands have the route of "internal" and can use the ids of the router server
+				var id = routerServer.Counter.NextId();
+				context.InternalCommands.Add(id);
+				var request = new CommandRequest(context.Route, id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
 				var internalCmd = new InternalCommandWithCallback(request);
 				this.routerServer.SubmitToQueue(internalCmd);
 				return internalCmd.Task.WithTimeOut(TimeSpan.FromMilliseconds(timeout));

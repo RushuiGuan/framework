@@ -114,6 +114,10 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
+				if(msg is UnknownMsg) {
+					logger.LogError("unknown message: {@msg}", msg);
+					return;
+				}
 				this.eventWriter.WriteEvent(new EventEntry(EntryType.In, msg));
 				if (msg is ClientAck) { return; }
 				if (running) {
