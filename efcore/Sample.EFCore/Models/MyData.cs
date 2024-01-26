@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Sample.EFCore {
 	public class MyData {
 		public int Id { get; set; }
-		public JsonProperty Property { get; set; } = new JsonProperty(string.Empty);
+		public JsonProperty Property { get; set; } = new JsonProperty(null);
 	}
 
 	public record class JsonProperty{
-		public string Text { get; set; }
-		public JsonProperty(string text) {
+		public string? Text { get; set; }
+		public JsonProperty(string? text) {
 			Text = text;
 		}
 	}
