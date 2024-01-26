@@ -9,18 +9,18 @@ CREATE TABLE [sam].[EntityInADiffNameSpace] (
 GO
 
 
-CREATE TABLE [sam].[JsonData] (
-    [Id] int NOT NULL IDENTITY,
-    [Rule] nvarchar(max) NOT NULL,
-    CONSTRAINT [PK_JsonData] PRIMARY KEY ([Id])
-);
-GO
-
-
 CREATE TABLE [sam].[Market] (
     [Id] int NOT NULL IDENTITY,
     [Name] varchar(128) NOT NULL,
     CONSTRAINT [PK_Market] PRIMARY KEY ([Id])
+);
+GO
+
+
+CREATE TABLE [sam].[MyData] (
+    [Id] int NOT NULL IDENTITY,
+    [Property] varchar(max) NOT NULL,
+    CONSTRAINT [PK_MyData] PRIMARY KEY ([Id])
 );
 GO
 

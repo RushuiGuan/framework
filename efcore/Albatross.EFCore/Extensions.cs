@@ -9,22 +9,21 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
-using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 
 namespace Albatross.EFCore {
 	public static class Extensions {
-		static JsonSerializerOptions jsonColumnSerializationOptions = new JsonSerializerOptions {
-			DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
-			WriteIndented = true,
-			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-			TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
-		};
-		public static ValueConverter<T, string> GetJsonValueConverter<T>(this IBuildEntityModel _, Func<T> getDefault) {
-			return new ValueConverter<T, string>(
-				args => JsonSerializer.Serialize(args, jsonColumnSerializationOptions),
-				args => JsonSerializer.Deserialize<T>(args, jsonColumnSerializationOptions) ?? getDefault()
-			);
+		/// <summary>
+		/// This method maps a text column to a Json property.  It will create a non unicode column with max length. varchar(max).
+		/// It is recommended to use a sql utf8 collation
+		/// </summary>
+		/// <typeparam name="TProperty"></typeparam>
+		/// <param name="builder"></param>
+		/// <returns></returns>
+		public static PropertyBuilder<TProperty> HasJsonProperty<TProperty>(this PropertyBuilder<TProperty> builder, Func<TProperty> getDefault) {
+			return builder.IsUnicode(false).HasConversion(new ValueConverter<TProperty, string>(
+								args => JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions),
+								args => JsonSerializer.Deserialize<TProperty>(args, EFCoreJsonOption.DefaultOptions) ?? getDefault()));
 		}
 
 		public static void ValidateByDataAnnotations(this object entity) {
@@ -51,17 +50,7 @@ namespace Albatross.EFCore {
 			return builder;
 		}
 
-		public static PropertyBuilder<DateTime> DateOnlyProperty(this PropertyBuilder<DateTime> builder) {
-			builder.HasConversion(value => value, value => DateTime.SpecifyKind(value, DateTimeKind.Unspecified));
-			return builder;
-		}
-
-		public static PropertyBuilder<DateTime?> DateOnlyProperty(this PropertyBuilder<DateTime?> builder) {
-			builder.HasConversion(value => value, item => item.HasValue ? DateTime.SpecifyKind(item.Value, DateTimeKind.Unspecified) : null);
-			return builder;
-		}
-
-		public static void EnsureNavigationProperty([NotNull]this object? value, params string[] propertyNames) {
+		public static void EnsureNavigationProperty([NotNull] this object? value, params string[] propertyNames) {
 			if (value == null) {
 				throw new MissingNavigationPropertyException(propertyNames);
 			}

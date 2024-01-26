@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.PostgreSQL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.SqlServer", "Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj", "{EE2BE28B-5F8A-4007-96BF-DABC0AD4A939}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items1", "solution items1", "{13CAF1ED-F83C-4332-AB97-395FBF2A2B09}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{13CAF1ED-F83C-4332-AB97-395FBF2A2B09}"
 	ProjectSection(SolutionItems) = preProject
 		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.EFCore.Admin", "Samp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{0001BC13-6013-4170-A6ED-D13BBB355FB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.DateLevel.Test", "Albatross.DateLevel.Test\Albatross.DateLevel.Test.csproj", "{89659756-1BF2-45D8-8590-B39AF0211E32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.DateLevel.Test", "Albatross.DateLevel.Test\Albatross.DateLevel.Test.csproj", "{89659756-1BF2-45D8-8590-B39AF0211E32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

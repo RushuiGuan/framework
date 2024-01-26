@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.EFCore.Admin;
 
@@ -11,9 +12,11 @@ using Sample.EFCore.Admin;
 namespace Sample.EFCore.Admin.Migrations.SqlServer
 {
     [DbContext(typeof(SampleSqlServerMigration))]
-    partial class SampleSqlServerMigrationModelSnapshot : ModelSnapshot
+    [Migration("20240126012019_SampleSqlServerMigration_v2")]
+    partial class SampleSqlServerMigration_v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
