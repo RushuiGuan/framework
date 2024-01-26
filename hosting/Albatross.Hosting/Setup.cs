@@ -14,10 +14,12 @@ namespace Albatross.Hosting {
 		protected IHostBuilder hostBuilder;
 		protected IConfiguration configuration;
 		string environment { get; init; }
+		protected SetupSerilog setupSerilog;
 
 		public Setup(string[] args) {
 			environment = EnvironmentSetting.ASPNETCORE_ENVIRONMENT.Value;
 			hostBuilder = Host.CreateDefaultBuilder(args).UseSerilog();
+			setupSerilog = new SetupSerilog().UseConfigFile(environment, null, args);
 			var configBuilder = new ConfigurationBuilder()
 				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json", false, true);
@@ -71,10 +73,11 @@ namespace Albatross.Hosting {
 			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 		}
 
-		public virtual async Task RunAsync(string[] args) {
-			using Serilog.Core.Logger logger = new SetupSerilog().UseConfigFile(environment, null, args).Create();
-			this.hostBuilder.ConfigureServices((context, services)=>this.ConfigureServices(services, context.Configuration));
+		public virtual async Task RunAsync() {
+			using var logger = this.setupSerilog.Create();
+			this.hostBuilder.ConfigureServices((context, services) => this.ConfigureServices(services, context.Configuration));
 			await this.hostBuilder.Build().RunAsync();
+			logger.Information("Application stopped");
 		}
 	}
 }
