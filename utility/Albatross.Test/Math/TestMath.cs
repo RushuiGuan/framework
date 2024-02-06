@@ -80,5 +80,14 @@ namespace Albatross.Test.Math {
 			string text = Albatross.Math.Extensions.ShortUniqueString();
 			Assert.NotNull(text);
 		}
+
+		[Theory]
+		[InlineData(6, 0)]
+		[InlineData(1.1, 1)]
+		[InlineData(0.12345, 5)]
+		public void TestGetScale(decimal number, int expected) {
+			var result = number.GetScale();
+			Assert.Equal(expected, result);
+		}
 	}
 }

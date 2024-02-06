@@ -4,6 +4,12 @@ using System.Text;
 
 namespace Albatross.Math {
 	public static class Extensions {
+		public static int GetScale(this decimal value) {
+			if (value == 0) { return 0; }
+			int[] bits = decimal.GetBits(value);
+			return (int)((bits[3] >> 16) & 0x7F);
+		}
+
 		public static decimal? ToDecimal(this double? value) {
 			if (value.HasValue) {
 				return Convert.ToDecimal(value.Value);
