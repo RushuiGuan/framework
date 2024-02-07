@@ -1,6 +1,8 @@
 ﻿using Albatross.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
@@ -20,10 +22,26 @@ namespace Albatross.EFCore {
 		/// <typeparam name="TProperty"></typeparam>
 		/// <param name="builder"></param>
 		/// <returns></returns>
-		public static PropertyBuilder<TProperty> HasJsonProperty<TProperty>(this PropertyBuilder<TProperty> builder, Func<TProperty> getDefault) {
-			return builder.IsUnicode(false).HasConversion(new ValueConverter<TProperty, string>(
+		public static PropertyBuilder<TProperty> HasJsonProperty<TProperty>(this PropertyBuilder<TProperty> builder, Func<TProperty> getDefault) where TProperty: IJsonProperty<TProperty>{
+			builder.IsUnicode(false).HasConversion(new ValueConverter<TProperty, string>(
 								args => JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions),
-								args => JsonSerializer.Deserialize<TProperty>(args, EFCoreJsonOption.DefaultOptions) ?? getDefault()));
+								args => JsonSerializer.Deserialize<TProperty>(args, EFCoreJsonOption.DefaultOptions) ?? getDefault()),
+								new ValueComparer<TProperty>(
+									(left, right) => EqualityComparer<TProperty>.Default.Equals(left, right),
+									obj => obj == null ? 0 : obj.GetHashCode(),
+									obj => obj.Snapshot()));
+			return builder;
+		}
+
+		public static PropertyBuilder<List<TProperty>> HasJsonCollectionProperty<TProperty>(this PropertyBuilder<List<TProperty>> builder) where TProperty : IJsonProperty<TProperty>{
+			builder.IsUnicode(false).HasConversion(new ValueConverter<List<TProperty>, string>(
+								args => JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions),
+								args => JsonSerializer.Deserialize<List<TProperty>>(args, EFCoreJsonOption.DefaultOptions) ?? new List<TProperty>()),
+								new ValueComparer<List<TProperty>>(
+									(left, right) =>  left == right || left != null && right != null && left.SequenceEqual(right),
+									obj => obj.Aggregate(0, (a, b) => HashCode.Combine(a, b == null ? 0 : b.GetHashCode())),
+									obj => obj.Select(x=>x.Snapshot()).ToList()));
+			return builder;
 		}
 
 		public static void ValidateByDataAnnotations(this object entity) {

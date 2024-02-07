@@ -19,7 +19,9 @@ GO
 
 CREATE TABLE [sam].[MyData] (
     [Id] int NOT NULL IDENTITY,
+    [Text] varchar(max) NULL,
     [Property] varchar(max) NOT NULL,
+    [ArrayProperty] varchar(max) NOT NULL,
     CONSTRAINT [PK_MyData] PRIMARY KEY ([Id])
 );
 GO

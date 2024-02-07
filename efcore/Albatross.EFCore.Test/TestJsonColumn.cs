@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sample.EFCore;
 using Sample.EFCore.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,22 +14,44 @@ namespace Albatross.EFCore.Test {
 		public TestJsonColumn(MyTestHost host) {
 			this.host = host;
 		}
-
-		async Task Create(SampleDbSession session, string text) {
-			var set = session.Set<MyData>();
-			var data = new MyData();
-			data.Property.Text = text;
-			set.Add(data);
-			await session.SaveChangesAsync();
-		}
+		
 		// [Fact(Skip ="require sql server")]
 		[Fact]
-		public async Task TestWrite() {
+		public async Task TestWriteJsonColumn() {
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
 
 			var set = session.Set<MyData>();
-			set.Add(new MyData());
+			var data = new MyData();
+			set.Add(data);
+			await session.SaveChangesAsync();
+		
+			Assert.NotEqual(0, data.Id);
+			data.Property.Text = DateTime.Now.Ticks.ToString();
+			Assert.Equal(EntityState.Modified, session.DbContext.Entry(data).State);
+
+			Assert.NotEqual(0, data.Id);
+			data.Property.Text = null;
+			// the state will remain modified, even though the value is the same.  See github issue below:
+			// https://github.com/dotnet/efcore/issues/13367
+			Assert.Equal(EntityState.Modified, session.DbContext.Entry(data).State);
+		}
+
+		[Fact]
+		public async Task TestWriteArrayColumn() {
+			using var scope = host.Create();
+			var session = scope.Get<SampleDbSession>();
+
+			var set = session.Set<MyData>();
+			var data = new MyData();
+			set.Add(data);
+			await session.SaveChangesAsync();
+			Assert.NotEqual(0, data.Id);
+			data.ArrayProperty.Add(new JsonProperty("test"));
+			await session.SaveChangesAsync();
+			data.ArrayProperty.Add(new JsonProperty("test"));
+			Assert.Equal(2, data.ArrayProperty.Count);
+			Assert.Equal(EntityState.Modified, session.DbContext.Entry(data).State);
 			await session.SaveChangesAsync();
 		}
 
@@ -36,14 +59,22 @@ namespace Albatross.EFCore.Test {
 		[Fact]
 		public async Task TestRead() {
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
-			await session.Set<MyData>().ExecuteDeleteAsync();
+			int id;
 			var text = "test";
-			await Create(session, text);
-			var items = await session.Set<MyData>().ToArrayAsync();
-			Assert.NotEmpty(items);
-			Assert.NotNull(items.First().Property);
-			Assert.Equal(text, items.First().Property.Text);
+			using (var session = scope.Get<SampleDbSession>()) {
+				var data = new MyData();
+				data.Property.Text = text;
+				session.Set<MyData>().Add(data);
+				await session.SaveChangesAsync();
+				id = data.Id;
+			}
+
+			using (var session = scope.Get<SampleDbSession>()) {
+				var item = await session.Set<MyData>().FirstOrDefaultAsync(p=>p.Id == id);
+				Assert.NotNull(item);
+				Assert.NotNull(item.Property);
+				Assert.Equal(text, item.Property.Text);
+			}
 		}
 	}
 }
