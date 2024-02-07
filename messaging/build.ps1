@@ -30,8 +30,12 @@ if(-not $alias) {
 		"Building $project";
 		dotnet publish $PSScriptRoot\sample\$project\$project.csproj -o $install\$project -c debug --no-restore
 	}
+	$project = "albatross.messaging.utility";
+	"Building $project";
+	dotnet publish $PSScriptRoot\src\$project\$project.csproj -o $install\$project -c debug --no-restore
 }
 
 set-alias -name sample-messaging -Value $env:InstallDirectory\sample.messaging.utility\sample.messaging.utility.exe
 set-alias -name sample-messaging-webapi -Value $env:InstallDirectory\sample.messaging.webapi\sample.messaging.webapi.exe
 set-alias -name sample-messaging-daemon -Value $env:InstallDirectory\sample.messaging.daemon\sample.messaging.daemon.exe
+set-alias -name msg -Value $env:InstallDirectory\albatross.messaging.utility\msg.exe
