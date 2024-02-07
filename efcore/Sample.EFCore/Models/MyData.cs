@@ -11,12 +11,12 @@ namespace Sample.EFCore {
 		public List<JsonProperty> ArrayProperty { get; set; } = new List<JsonProperty>();
 	}
 
-	public record class JsonProperty: IJsonProperty<JsonProperty>{
+	public record class JsonProperty: ICloneable {
 		public string? Text { get; set; }
 		public JsonProperty(string? text) {
 			Text = text;
 		}
-		public JsonProperty Snapshot() => new JsonProperty(Text);
+		object ICloneable.Clone() => this with { };
 	}
 
 	public class JsonDataEntityMap : EntityMap<MyData> {
