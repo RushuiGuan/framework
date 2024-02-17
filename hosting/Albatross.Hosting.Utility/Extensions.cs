@@ -2,10 +2,8 @@
 using CommandLine;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Utility {
@@ -21,14 +19,6 @@ namespace Albatross.Hosting.Utility {
 			ParserResult<Object> parserResult = parser.ParseArguments(args, dict.Keys.ToArray());
 			return await parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
 		}
-		static async Task<int> RunAsync(object opt, Dictionary<Type, Type> dict) {
-			Type optionType = opt.GetType();
-			Type jobType = dict[optionType];
-			using (IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt)!) {
-				return await utility.Run();
-			}
-		}
-
 		public static async Task<int> Run(this Parser parser, string[] args, params Assembly[] assemblies) {
 			Dictionary<Type, Type> dict = new Dictionary<Type, Type>();
 			foreach (var asm in assemblies) {
@@ -42,6 +32,13 @@ namespace Albatross.Hosting.Utility {
 			dict.Add(typeof(ShowEnvironmentOption), typeof(ShowEnvironment));
 			ParserResult<Object> parserResult = parser.ParseArguments(args, dict.Keys.OrderBy(x => x.GetCustomAttribute<VerbAttribute>()?.Name).ToArray());
 			return await parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
+		}
+		static async Task<int> RunAsync(object opt, Dictionary<Type, Type> dict) {
+			Type optionType = opt.GetType();
+			Type jobType = dict[optionType];
+			using (IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt)!) {
+				return await utility.Run();
+			}
 		}
 	}
 }

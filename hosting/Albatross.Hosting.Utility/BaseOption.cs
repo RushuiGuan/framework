@@ -29,6 +29,9 @@ namespace Albatross.Hosting.Utility {
 		[Option("debug", HelpText = "Set this flag to see logs at debug level")]
 		public bool Debug{ get; set; }
 
+		[Option("benchmark", HelpText = "Use this flag to measure the total amount of execution time")]
+		public bool Benchmark { get; set; }
+
 		public void ConfigureLogging(LoggerConfiguration cfg) {
 			if (Debug) {
 				SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);

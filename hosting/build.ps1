@@ -1,4 +1,6 @@
 param(
+	[Parameter(Position=0)]
+	[string]$project,
 	[switch]
 	[bool]$alias
 )
@@ -11,7 +13,9 @@ if(-not $alias) {
 		,"sample.hosting.webapi"
 		,"sample.hosting.daemon"
 	);
-
+	if(-not [string]::IsNullOrEmpty($project)){
+		$projects = $projects | Where-Object { $_ -like "*$project" }
+	}
 	foreach($item in $projects){
 		if(Test-Path "$install/$item" -type Container){
 			Write-Information "Deleting $item";

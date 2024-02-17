@@ -8,6 +8,7 @@ using Serilog;
 using Serilog.Events;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -65,8 +66,16 @@ namespace Albatross.Hosting.Utility {
 
 		public async Task<int> Run() {
 			try {
+				Stopwatch? stopWatch = null;
+				if (this.Options is BaseOption baseOption && baseOption.Benchmark) {
+					stopWatch = new Stopwatch();
+					stopWatch.Start();
+				}
 				logger.LogDebug("Logging initialized for {type} instance", this.GetType().Name);
 				await Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
+				if(stopWatch != null) {
+					logger.LogInformation("Initialization: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
+				}
 				var method = this.GetType().GetMethod(RunUtilityMethod, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 				if (method != null) {
 					if (method.ReturnType == typeof(Task<int>)) {
@@ -75,7 +84,13 @@ namespace Albatross.Hosting.Utility {
 							object value = this.Provider.GetRequiredService(param.ParameterType);
 							list.Add(value);
 						}
+						if (stopWatch != null) {
+							logger.LogInformation("Reflection: {time:#,#}ms", stopWatch?.ElapsedMilliseconds);
+						}
 						var result = method.Invoke(this, list.ToArray());
+						if (stopWatch != null) {
+							logger.LogInformation("Execution: {time:#,#}ms", stopWatch?.ElapsedMilliseconds);
+						}
 						if (result == null) {
 							logger.LogWarning("RunUtility method has returned a null value.  This is not a good form.  Please always return a non null Task<int> object such as Task.FromResult(0).");
 							return 0;
