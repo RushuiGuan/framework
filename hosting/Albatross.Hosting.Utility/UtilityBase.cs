@@ -75,6 +75,7 @@ namespace Albatross.Hosting.Utility {
 				await Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 				if(stopWatch != null) {
 					logger.LogInformation("Initialization: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
+					stopWatch.Restart();
 				}
 				var method = this.GetType().GetMethod(RunUtilityMethod, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 				if (method != null) {
@@ -85,11 +86,13 @@ namespace Albatross.Hosting.Utility {
 							list.Add(value);
 						}
 						if (stopWatch != null) {
-							logger.LogInformation("Reflection: {time:#,#}ms", stopWatch?.ElapsedMilliseconds);
+							logger.LogInformation("Reflection: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
+							stopWatch.Restart();
 						}
 						var result = method.Invoke(this, list.ToArray());
 						if (stopWatch != null) {
-							logger.LogInformation("Execution: {time:#,#}ms", stopWatch?.ElapsedMilliseconds);
+							logger.LogInformation("Execution: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
+							stopWatch.Restart();
 						}
 						if (result == null) {
 							logger.LogWarning("RunUtility method has returned a null value.  This is not a good form.  Please always return a non null Task<int> object such as Task.FromResult(0).");
