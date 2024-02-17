@@ -65,15 +65,15 @@ namespace Albatross.Hosting.Utility {
 		public const string RunUtilityMethod = "RunUtility";
 
 		public async Task<int> Run() {
+			Stopwatch? stopWatch = null;
 			try {
-				Stopwatch? stopWatch = null;
 				if (this.Options is BaseOption baseOption && baseOption.Benchmark) {
 					stopWatch = new Stopwatch();
 					stopWatch.Start();
 				}
 				logger.LogDebug("Logging initialized for {type} instance", this.GetType().Name);
 				await Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
-				if(stopWatch != null) {
+				if (stopWatch != null) {
 					logger.LogInformation("Initialization: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
 					stopWatch.Restart();
 				}
@@ -90,10 +90,6 @@ namespace Albatross.Hosting.Utility {
 							stopWatch.Restart();
 						}
 						var result = method.Invoke(this, list.ToArray());
-						if (stopWatch != null) {
-							logger.LogInformation("Execution: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
-							stopWatch.Restart();
-						}
 						if (result == null) {
 							logger.LogWarning("RunUtility method has returned a null value.  This is not a good form.  Please always return a non null Task<int> object such as Task.FromResult(0).");
 							return 0;
@@ -109,6 +105,11 @@ namespace Albatross.Hosting.Utility {
 			} catch (Exception err) {
 				logger.LogError(err, string.Empty);
 				return -1;
+			} finally {
+				if (stopWatch != null) {
+					logger.LogInformation("Execution: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
+					stopWatch.Restart();
+				}
 			}
 		}
 		public virtual Task Init(IConfiguration configuration, IServiceProvider provider) => Task.CompletedTask;
