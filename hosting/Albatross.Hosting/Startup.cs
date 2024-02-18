@@ -1,5 +1,4 @@
 ﻿using Albatross.Authentication.AspNetCore;
-using Albatross.Caching;
 using Albatross.Config;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -38,12 +37,11 @@ namespace Albatross.Hosting {
 		public virtual bool WebApi { get; } = true;
 		public virtual bool Secured { get; } = false;
 		public virtual bool Spa { get; } = false;
-		public virtual bool Caching { get; } = false;
 		public virtual bool LogUsage { get; } = true;
 
 		public Startup(IConfiguration configuration) {
 			this.Configuration = configuration;
-			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, webapi={webapi}, caching={caching}, usage={usage}", Secured, Spa, Swagger, WebApi, Caching, LogUsage);
+			Log.Logger.Information("AspNetCore Startup configuration with secured={secured}, spa={spa}, swagger={swagger}, webapi={webapi}, usage={usage}", Secured, Spa, Swagger, WebApi, LogUsage);
 			AuthorizationSetting = new AuthorizationSetting(configuration);
 		}
 
@@ -129,9 +127,6 @@ namespace Albatross.Hosting {
 			}
 			if (Spa) { AddSpa(services); }
 			if (Secured) { AddAccessControl(services); }
-			if (Caching) {
-				services.AddCaching(this.Configuration);
-			}
 		}
 
 		public virtual void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Startup> logger) {
