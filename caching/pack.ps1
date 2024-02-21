@@ -8,6 +8,7 @@ $ErrorActionPreference = "Stop";
 
 $projects = @(
 	"Albatross.Caching",
+	"Albatross.Caching.Controllers",
 	"Albatross.Caching.Redis",
 	"Albatross.Caching.MemCache"
 );

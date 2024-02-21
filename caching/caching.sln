@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.TestApi",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.Test", "Albatross.Caching.Test\Albatross.Caching.Test.csproj", "{7546B5BB-3FFE-46E0-B0AD-8C155D19BF39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Caching.Controllers", "Albatross.Caching.Controllers\Albatross.Caching.Controllers.csproj", "{118053C0-9685-42A0-8A49-A0E4E8F9771C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{7546B5BB-3FFE-46E0-B0AD-8C155D19BF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7546B5BB-3FFE-46E0-B0AD-8C155D19BF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7546B5BB-3FFE-46E0-B0AD-8C155D19BF39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118053C0-9685-42A0-8A49-A0E4E8F9771C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118053C0-9685-42A0-8A49-A0E4E8F9771C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118053C0-9685-42A0-8A49-A0E4E8F9771C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118053C0-9685-42A0-8A49-A0E4E8F9771C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
