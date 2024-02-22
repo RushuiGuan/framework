@@ -159,5 +159,6 @@ namespace Albatross.Dates {
 
 		public static DateTime Local2Utc(this DateTime local, TimeSpan gmtOffset) => DateTime.SpecifyKind(local - gmtOffset, DateTimeKind.Utc);
 		public static DateTime Utc2Local(this DateTime utc, TimeSpan gmtOffset) => utc + gmtOffset;
+		public static TimeSpan GmtOffset(this DateTime utc, DateTime local) => local - utc;
 	}
 }

@@ -12,6 +12,7 @@ namespace Albatross.Dates.Test.Dates {
 			Assert.Equal(DateTimeKind.Utc, utc.Kind);
 			Assert.Equal(utc.Utc2Local(gmtOffset), datetime);
 
+			Assert.Equal(utc.GmtOffset(datetime), gmtOffset);
 
 			var datetimeoffset = new DateTimeOffset(datetime, gmtOffset);
 			// the datetimeoffset object has the same time as the utc object
