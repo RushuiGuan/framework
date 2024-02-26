@@ -74,7 +74,7 @@ namespace Albatross.Hosting.Utility {
 				logger.LogDebug("Logging initialized for {type} instance", this.GetType().Name);
 				await Init(host.Services.GetRequiredService<IConfiguration>(), host.Services);
 				if (stopWatch != null) {
-					logger.LogInformation("Initialization: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
+					logger.LogInformation("Initialization: {time:#,#} ms", stopWatch.ElapsedMilliseconds);
 					stopWatch.Restart();
 				}
 				var method = this.GetType().GetMethod(RunUtilityMethod, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
@@ -86,7 +86,7 @@ namespace Albatross.Hosting.Utility {
 							list.Add(value);
 						}
 						if (stopWatch != null) {
-							logger.LogInformation("Reflection: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
+							logger.LogInformation("Reflection: {time:#,#} ms", stopWatch.ElapsedMilliseconds);
 							stopWatch.Restart();
 						}
 						var result = method.Invoke(this, list.ToArray());
@@ -107,7 +107,7 @@ namespace Albatross.Hosting.Utility {
 				return -1;
 			} finally {
 				if (stopWatch != null) {
-					logger.LogInformation("Execution: {time:#,#}ms", stopWatch.ElapsedMilliseconds);
+					logger.LogInformation("Execution: {time:#,#} ms", stopWatch.ElapsedMilliseconds);
 					stopWatch.Restart();
 				}
 			}
