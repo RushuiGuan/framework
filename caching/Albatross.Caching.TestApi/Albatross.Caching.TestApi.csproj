@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross" Version="6.4.2" />
-    <PackageReference Include="Albatross.Hosting" Version="6.4.0" />
+    <PackageReference Include="Albatross" Version="6.4.7" />
+    <PackageReference Include="Albatross.Hosting" Version="6.4.19" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Albatross.Caching.Controllers\Albatross.Caching.Controllers.csproj" />
     <ProjectReference Include="..\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
     <ProjectReference Include="..\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
   </ItemGroup>

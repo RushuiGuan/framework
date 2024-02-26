@@ -80,7 +80,7 @@ namespace Albatross.Dates {
 				throw new ArgumentException($"{nameof(numberOfWeekDays)} parameter has to be greater or equal to 0");
 			}
 		}
-		
+
 		public static bool IsWeekDay(this DateTime date) => date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday;
 
 		/// <summary>
@@ -92,7 +92,7 @@ namespace Albatross.Dates {
 		/// <param name="isBusinessDay"></param>
 		/// <returns></returns>
 		public static async Task<DateTime> NextBusinessDay(this DateTime date, int numberOfBusinessDays = 1, Func<DateTime, Task<bool>>? isBusinessDay = null) {
-			if (isBusinessDay == null) { isBusinessDay = args=> Task.FromResult(IsWeekDay(args)); }
+			if (isBusinessDay == null) { isBusinessDay = args => Task.FromResult(IsWeekDay(args)); }
 			for (int i = 0; i < numberOfBusinessDays; i++) {
 				date = date.AddDays(1);
 				while (!await isBusinessDay(date)) {
@@ -128,7 +128,7 @@ namespace Albatross.Dates {
 			return date.AddDays(diff + (n - 1) * 7);
 		}
 
-		public static int GetMonthDiff(this DateTime date1, DateTime date2) 
+		public static int GetMonthDiff(this DateTime date1, DateTime date2)
 			=> ((date2.Year - date1.Year) * 12) + date2.Month - date1.Month;
 
 		public static int GetNumberOfWeekdays(this DateTime d1, DateTime d2) {
@@ -156,5 +156,9 @@ namespace Albatross.Dates {
 			}
 			return weekdays;
 		}
+
+		public static DateTime Local2Utc(this DateTime local, TimeSpan gmtOffset) => DateTime.SpecifyKind(local - gmtOffset, DateTimeKind.Utc);
+		public static DateTime Utc2Local(this DateTime utc, TimeSpan gmtOffset) => utc + gmtOffset;
+		public static TimeSpan GmtOffset(this DateTime utc, DateTime local) => local - utc;
 	}
 }

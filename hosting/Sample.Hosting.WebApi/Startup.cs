@@ -6,7 +6,6 @@ namespace Sample.Hosting.WebApi {
 		public override bool WebApi => true;
 		public override bool Secured => true;
 		public override bool Spa => true;
-		public override bool Caching => false;
 		public Startup(IConfiguration configuration) : base(configuration) { }
 	}
 }

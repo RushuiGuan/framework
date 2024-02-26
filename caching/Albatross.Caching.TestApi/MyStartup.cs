@@ -10,12 +10,12 @@ namespace Albatross.Caching.TestApi {
 		public override bool Secured => true;
 		public override bool Swagger => true;
 		public override bool WebApi => true;
-		public override bool Caching => true;
 
 		public MyStartup(IConfiguration configuration) : base(configuration) { }
 
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
+			services.AddCaching(this.Configuration);
 			services.AddCacheMgmt(this.GetType().Assembly);
 			services.AddRedisCaching(this.Configuration);
 			services.AddMemCachingAsSecondary();
