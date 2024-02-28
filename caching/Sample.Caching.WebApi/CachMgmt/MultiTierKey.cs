@@ -1,4 +1,4 @@
-﻿namespace Albatross.Caching.TestApi {
+﻿namespace Sample.Caching.WebApi {
 	public record class MultiTierKey {
 		public MultiTierKey() : this(0, 0, 0) { }
 		public MultiTierKey(int tier1) : this(tier1, 0, 0) { }

@@ -1,11 +1,9 @@
 ﻿using Albatross.Caching.MemCache;
 using Albatross.Caching.Test.CacheMgmt;
-using Albatross.Caching.TestApi;
+using Sample.Caching.WebApi;
 using Albatross.Hosting.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace Albatross.Caching.Test {
 	public class MemCacheHost : TestHost {

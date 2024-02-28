@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
@@ -25,6 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
     <ProjectReference Include="..\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
-    <ProjectReference Include="..\Albatross.Caching.TestApi\Albatross.Caching.TestApi.csproj" />
+    <ProjectReference Include="..\Sample.Caching.WebApi\Sample.Caching.WebApi.csproj" />
   </ItemGroup>
 </Project>

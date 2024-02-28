@@ -42,8 +42,10 @@ namespace Albatross.Caching.Redis {
 				if (options.ConnectionMultiplexerFactory == null) {
 					if (options.ConfigurationOptions is not null) {
 						connection = await ConnectionMultiplexer.ConnectAsync(options.ConfigurationOptions);
-					} else {
+					} else if (options.Configuration != null) {
 						connection = await ConnectionMultiplexer.ConnectAsync(options.Configuration);
+					} else {
+						throw new InvalidOperationException("Missing redis connection configuration");
 					}
 				} else {
 					connection = await options.ConnectionMultiplexerFactory();
@@ -74,7 +76,7 @@ namespace Albatross.Caching.Redis {
 		public string[] FindKeys(string pattern) {
 			if (string.IsNullOrEmpty(pattern)) {
 				throw new ArgumentException("Key pattern cannot be null or empty string");
-			}else if(servers.Count == 0) {
+			} else if (servers.Count == 0) {
 				throw new InvalidOperationException("Redis connection not initialized");
 			}
 			pattern = instance + pattern;

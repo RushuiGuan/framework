@@ -11,13 +11,12 @@ namespace Albatross.Caching {
 
 		public Func<object?, string> CreateKeyText { get; set; } = CreateDefaultKeyText;
 
-		public static string CreateDefaultKeyText(object? key) {
-			if(key is DateTime dateTime) {
-				return $"{dateTime:yyyyMMddHHmmssfff}";
-			}else {
-				return key?.ToString()?.Replace(':', '_') ?? string.Empty;
-			}
-		}
+		public static string CreateDefaultKeyText(object? key)
+			=> key switch {
+				DateTime dateTime => $"{dateTime:yyyyMMddHHmmssfff}",
+				null => string.Empty,
+				_ => key.ToString().Replace(':', '_')
+			};
 
 		public KeyBuilder(ICacheManagement cacheManagement, object key) {
 			Add(cacheManagement, key);
