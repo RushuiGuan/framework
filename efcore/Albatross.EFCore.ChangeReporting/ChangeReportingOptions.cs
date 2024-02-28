@@ -8,14 +8,13 @@ namespace Albatross.EFCore.ChangeReporting {
 		public ChangeReportingOptions() {
 			FormatValueFunc = DefaultFormatValue;
 		}
-		public IEnumerable<string> Properties { get; set; } = Array.Empty<string>();
+		public List<string> Properties { get; set; } = new List<string>();
 		public ChangeType Type { get; set; } = ChangeType.Modified;
 		public PrintOption.FormatValueDelegate? FormatValueFunc { get; set; }
-		public string[] SkippedProperties { get; set; } = new string[] { "PeriodStart", "PeriodEnd" };
+		public HashSet<string> SkippedProperties { get; } = new HashSet<string>();
 		public string? Prefix { get; set; }
 		public string? Postfix { get; set; }
 		public IReadOnlyDictionary<string, Func<int, Task<string>>> Lookups { get; set; } = new Dictionary<string, Func<int, Task<string>>>();
-		public bool DoNotSave { get; set; }
 		public async Task<string> DefaultFormatValue(object? entity, string property, object? value) {
 			if (entity == null) {
 				return string.Empty;
