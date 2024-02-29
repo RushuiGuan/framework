@@ -7,8 +7,8 @@
 			Property = property;
 		}
 		public string Property { get; set; }
-		public object? OriginalValue { get; set; }
-		public object? CurrentValue { get; set; }
+		public object? OldValue { get; set; }
+		public object? NewValue { get; set; }
 		object IChangeReport.Entity => Entity;
 	}
 }

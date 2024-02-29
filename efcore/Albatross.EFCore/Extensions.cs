@@ -21,7 +21,7 @@ namespace Albatross.EFCore {
 		/// <typeparam name="TProperty"></typeparam>
 		/// <param name="builder"></param>
 		/// <returns></returns>
-		public static PropertyBuilder<TProperty> HasJsonProperty<TProperty>(this PropertyBuilder<TProperty> builder, Func<TProperty> getDefault) where TProperty: ICloneable{
+		public static PropertyBuilder<TProperty> HasJsonProperty<TProperty>(this PropertyBuilder<TProperty> builder, Func<TProperty> getDefault) where TProperty : ICloneable {
 			builder.IsUnicode(false).HasConversion(new ValueConverter<TProperty, string>(
 								args => JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions),
 								args => JsonSerializer.Deserialize<TProperty>(args, EFCoreJsonOption.DefaultOptions) ?? getDefault()),
@@ -32,14 +32,14 @@ namespace Albatross.EFCore {
 			return builder;
 		}
 
-		public static PropertyBuilder<List<TProperty>> HasJsonCollectionProperty<TProperty>(this PropertyBuilder<List<TProperty>> builder) where TProperty : ICloneable{
+		public static PropertyBuilder<List<TProperty>> HasJsonCollectionProperty<TProperty>(this PropertyBuilder<List<TProperty>> builder) where TProperty : ICloneable {
 			builder.IsUnicode(false).HasConversion(new ValueConverter<List<TProperty>, string>(
 								args => JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions),
 								args => JsonSerializer.Deserialize<List<TProperty>>(args, EFCoreJsonOption.DefaultOptions) ?? new List<TProperty>()),
 								new ValueComparer<List<TProperty>>(
-									(left, right) =>  left == right || left != null && right != null && left.SequenceEqual(right),
+									(left, right) => left == right || left != null && right != null && left.SequenceEqual(right),
 									obj => obj.Aggregate(0, (a, b) => HashCode.Combine(a, b == null ? 0 : b.GetHashCode())),
-									obj => obj.Select(x=>(TProperty)x.Clone()).ToList()));
+									obj => obj.Select(x => (TProperty)x.Clone()).ToList()));
 			return builder;
 		}
 
@@ -75,6 +75,11 @@ namespace Albatross.EFCore {
 		public static async Task<HashSet<T>> ToHashSetAsync<T>(this IQueryable<T> query) {
 			var array = await query.ToArrayAsync();
 			return new HashSet<T>(array);
+		}
+
+		public static IDbSession UseAuditEventHandlers<T>(this IDbSession session, string? user) where T : class {
+			session.SessionEventHandlers.Add(new AuditDbSessionEventHandler<T>(user));
+			return session;
 		}
 	}
 }

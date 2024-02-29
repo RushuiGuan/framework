@@ -3,7 +3,7 @@
 		public object Entity { get; }
 		public ChangeType Type { get; }
 		public string Property { get; }
-		public object? OriginalValue { get; }
-		public object? CurrentValue { get; }
+		public object? OldValue { get; }
+		public object? NewValue { get; }
 	}
 }

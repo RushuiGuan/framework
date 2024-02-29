@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace Albatross.EFCore {
 	/// </summary>
 	public interface IDbSession : IDisposable {
 		IDbConnection DbConnection { get; }
-		IEnumerable<IDbSessionEventHandler> SessionEventHandlers { get; set; }
+		List<IDbSessionEventHandler> SessionEventHandlers { get; }
 		DbContext DbContext { get; }
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 		int SaveChanges();

@@ -19,9 +19,22 @@ GO
 
 CREATE TABLE [sam].[MyData] (
     [Id] int NOT NULL IDENTITY,
-    [Text] varchar(max) NULL,
     [Property] varchar(max) NOT NULL,
     [ArrayProperty] varchar(max) NOT NULL,
+    [Text] varchar(max) NULL,
+    [Date] date NOT NULL,
+    [DateTime] datetime2 NOT NULL,
+    [UtcTimeStamp] datetime2 NOT NULL,
+    [Int] int NOT NULL,
+    [Decimal] decimal(18,6) NOT NULL,
+    [Bool] bit NOT NULL,
+    [Double] float NOT NULL,
+    [Float] real NOT NULL,
+    [Guid] uniqueidentifier NOT NULL,
+    [ModifiedBy] nvarchar(max) NOT NULL,
+    [ModifiedUtc] datetime2 NOT NULL,
+    [CreatedBy] nvarchar(max) NOT NULL,
+    [CreatedUtc] datetime2 NOT NULL,
     CONSTRAINT [PK_MyData] PRIMARY KEY ([Id])
 );
 GO

@@ -17,7 +17,7 @@ namespace Albatross.EFCore {
 
 		public DbContext DbContext => this;
 		public IDbConnection DbConnection => Database.GetDbConnection();
-		public IEnumerable<IDbSessionEventHandler> SessionEventHandlers { get; set; } = new IDbSessionEventHandler[0];
+		public List<IDbSessionEventHandler> SessionEventHandlers { get; } = new List<IDbSessionEventHandler>();
 		public virtual Assembly[] EntityModelAssemblies => new Assembly[] { GetType().Assembly };
 		public virtual string NamespacePrefix => string.Empty;
 

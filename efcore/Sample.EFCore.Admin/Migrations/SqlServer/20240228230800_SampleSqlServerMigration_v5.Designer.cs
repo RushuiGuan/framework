@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.EFCore.Admin;
 
@@ -11,9 +12,11 @@ using Sample.EFCore.Admin;
 namespace Sample.EFCore.Admin.Migrations.SqlServer
 {
     [DbContext(typeof(SampleSqlServerMigration))]
-    partial class SampleSqlServerMigrationModelSnapshot : ModelSnapshot
+    [Migration("20240228230800_SampleSqlServerMigration_v5")]
+    partial class SampleSqlServerMigration_v5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,8 +154,7 @@ namespace Sample.EFCore.Admin.Migrations.SqlServer
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Decimal")
-                        .HasPrecision(18, 6)
-                        .HasColumnType("decimal(18,6)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<double>("Double")
                         .HasColumnType("float");
@@ -181,9 +183,6 @@ namespace Sample.EFCore.Admin.Migrations.SqlServer
                     b.Property<string>("Text")
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)");
-
-                    b.Property<DateTime>("UtcTimeStamp")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
