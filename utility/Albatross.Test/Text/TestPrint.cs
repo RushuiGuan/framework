@@ -49,10 +49,12 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
 		public async Task PrintPropertiesWithDefaultOptions() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			await writer.PrintProperties<Product>(products, new PrintPropertiesOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
+			await writer.PrintProperties<Product>(products, new PrintOptionBuilder<PrintPropertiesOption>()
+				.Property(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired))
+				.Build());
 			Assert.Equal(expectedPrintPropertiesDefaultOptions, writer.ToString());
 		}
-		
+
 		const string expectedPrintPropertiesWithHeaders =
 @"                My Product            His Product           Her Product          
 ---------------------------------------------------------------------------------
@@ -66,9 +68,10 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
 		public async Task PrintPropertiesWithHeader() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			await writer.PrintProperties<Product>(products, new PrintPropertiesOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)) {
-				ColumnHeaderLineCharacter = '-',
-				GetColumnHeader = args => {
+			await writer.PrintProperties<Product>(products, new PrintOptionBuilder<PrintPropertiesOption>()
+				.Property(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired))
+				.ColumnHeaderLineCharacter('-')
+				.ColumnHeader(args => {
 					switch (args) {
 						case 0:
 							return "My Product";
@@ -79,8 +82,7 @@ CreatedDateTime 2000-01-01 23:01:50-5 2000-07-01 02:03:03-4 2000-02-01 05:05:04-
 						default:
 							return null;
 					}
-				}
-			});
+				}).Build());
 			Assert.Equal(expectedPrintPropertiesWithHeaders, writer.ToString());
 		}
 
@@ -96,7 +98,9 @@ desk   furniture 200    2000-02-01 05:05:04-5 2000-07-04
 		public async Task PrintTableWithDefaultOptions() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			await writer.PrintTable<Product>(products, new PrintTableOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)));
+			await writer.PrintTable<Product>(products, new PrintOptionBuilder<PrintTableOption>()
+				.Property(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired))
+				.Build());
 			Assert.Equal(expectedPrintTableWithDefault, writer.ToString());
 		}
 
@@ -109,10 +113,9 @@ desk   furniture 200  2000-02-01 05:05:04-5 2000-07-04
 		public async Task PrintTableWithoutHeader() {
 			StringWriter writer = new StringWriter();
 			var products = GetProducts();
-			await writer.PrintTable<Product>(products, 
-				new PrintTableOption(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired)){ 
-					PrintHeader = false,
-				});
+			await writer.PrintTable<Product>(products, new PrintOptionBuilder<PrintTableOption>()
+				.Property(nameof(Product.Name), nameof(Product.Cateogry), nameof(Product.Weight), nameof(Product.CreatedDateTime), nameof(Product.Expired))
+				.PrintHeader(false).Build());
 			Assert.Equal(expectedPrintTableWithoutHeader, writer.ToString());
 		}
 	}

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Albatross.Text {
 	public static partial class PrintTextExtensions {
 		public static Task PrintProperties<T>(this TextWriter writer, T? data, params string[] properties)
-			=> writer.PrintProperties<T>(new T?[] { data }, new PrintPropertiesOption(properties));
+			=> writer.PrintProperties<T>(new T?[] { data }, new PrintPropertiesOption() { Properties = properties });
 
 		public static async Task PrintProperties<T>(this TextWriter writer, T?[] items, PrintPropertiesOption option) {
 			int columnCount = items.Length + 1;
