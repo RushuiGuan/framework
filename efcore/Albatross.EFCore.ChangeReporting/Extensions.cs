@@ -44,10 +44,10 @@ namespace Albatross.EFCore.ChangeReporting {
 		public static ChangeReportBuilder<T> Postfix<T>(this ChangeReportBuilder<T> builder, string postfix) where T : class
 			=> builder.Set(handler => handler.Options.Postfix = postfix);
 
-		public static ChangeReportBuilder<T> AsyncFormatter<T>(this ChangeReportBuilder<T> builder, string property, Func<object?, object?, Task<string>> func) where T : class
+		public static ChangeReportBuilder<T> AsyncFormatter<T>(this ChangeReportBuilder<T> builder, string property, Func<object, object, Task<string>> func) where T : class
 			=> builder.Set(handler => handler.AsyncFormatters.Add(property, func));
 
-		public static ChangeReportBuilder<T> Formatter<T>(this ChangeReportBuilder<T> builder, string property, Func<object?, object?, string> func) where T : class
+		public static ChangeReportBuilder<T> Formatter<T>(this ChangeReportBuilder<T> builder, string property, Func<object, object, string> func) where T : class
 			=> builder.Set(handler => handler.Formatters.Add(property, func));
 
 		public static ChangeReportBuilder<T> Format<T>(this ChangeReportBuilder<T> builder, string property, string format) where T : class
