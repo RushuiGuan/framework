@@ -26,7 +26,7 @@ namespace Albatross.Text {
 		}
 
 		public PrintOptionBuilder<T> Format(string property, string format)  {
-			this.formatters[property] = (object? entity, object? value) => string.Format($"{{0}}:{format}", value);
+			this.formatters[property] = (object? entity, object? value) => string.Format($"{{0:{format}}}", value);
 			return this;
 		}
 		public PrintOptionBuilder<T> Format(string property, Func<object?, object?, string> format) {
