@@ -61,7 +61,8 @@ namespace Albatross.EFCore.ChangeReporting {
 					nameof(ChangeReport<object>.OldValue),
 					nameof(ChangeReport<object>.NewValue)
 			}).ToArray();
-			var option = new PrintTableOption(columns) {
+			var option = new PrintTableOption {
+				Properties = columns,
 				GetColumnHeader = args => (args.StartsWith(ColumnPrefix) ? args.Substring(ColumnPrefix.Length) : args).Replace(".", ""),
 				FormatValue = this.FormatValue,
 			};
