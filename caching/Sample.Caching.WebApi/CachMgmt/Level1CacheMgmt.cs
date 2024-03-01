@@ -1,7 +1,8 @@
-﻿using Polly.Caching;
+﻿using Albatross.Caching;
+using Polly.Caching;
 using Polly.Registry;
 
-namespace Albatross.Caching.TestApi {
+namespace Sample.Caching.WebApi {
 	public class Level1CacheMgmt : CacheManagement<int, string> {
 		public Level1CacheMgmt(ILogger<Level1CacheMgmt> logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
 		}

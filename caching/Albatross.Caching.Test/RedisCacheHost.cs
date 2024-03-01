@@ -1,7 +1,7 @@
 ﻿using Albatross.Caching.MemCache;
 using Albatross.Caching.Redis;
 using Albatross.Caching.Test.CacheMgmt;
-using Albatross.Caching.TestApi;
+using Sample.Caching.WebApi;
 using Albatross.Hosting.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
