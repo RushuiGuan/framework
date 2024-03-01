@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Albatross.Caching" Version="6.5.2" />
     <PackageReference Include="Albatross.Config" Version="6.4.1" />
   </ItemGroup>
 

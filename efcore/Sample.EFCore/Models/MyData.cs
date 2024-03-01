@@ -1,9 +1,10 @@
-﻿using Albatross.EFCore;
+﻿using Albatross.Caching;
+using Albatross.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Sample.EFCore {
-	public class MyData : IModifiedBy, IModifiedUtc, ICreatedBy, ICreatedUtc {
+	public class MyData : IModifiedBy, IModifiedUtc, ICreatedBy, ICreatedUtc, ICachedObject {
 		public int Id { get; set; }
 		public JsonProperty Property { get; set; } = new JsonProperty(null);
 		public List<JsonProperty> ArrayProperty { get; set; } = new List<JsonProperty>();
@@ -26,6 +27,9 @@ namespace Sample.EFCore {
 		public DateTime ModifiedUtc { get; set; }
 		public string CreatedBy { get; set; } = string.Empty;
 		public DateTime CreatedUtc { get; set; }
+
+		public void Invalidate(CacheEvictionService cacheEvictionService) {
+		}
 	}
 
 	public record class JsonProperty : ICloneable {

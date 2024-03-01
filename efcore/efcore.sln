@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{0001BC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.DateLevel.Test", "Albatross.DateLevel.Test\Albatross.DateLevel.Test.csproj", "{89659756-1BF2-45D8-8590-B39AF0211E32}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.AutoCacheEviction", "Albatross.EFCore.AutoCacheEviction\Albatross.EFCore.AutoCacheEviction.csproj", "{D8C93892-B21B-4C5E-9980-67B70BF9B600}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{89659756-1BF2-45D8-8590-B39AF0211E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89659756-1BF2-45D8-8590-B39AF0211E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89659756-1BF2-45D8-8590-B39AF0211E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C93892-B21B-4C5E-9980-67B70BF9B600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C93892-B21B-4C5E-9980-67B70BF9B600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C93892-B21B-4C5E-9980-67B70BF9B600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C93892-B21B-4C5E-9980-67B70BF9B600}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
