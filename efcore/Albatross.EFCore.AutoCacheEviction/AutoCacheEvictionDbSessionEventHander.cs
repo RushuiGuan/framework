@@ -8,8 +8,6 @@ namespace Albatross.EFCore.AutoCacheEviction {
 		private readonly CacheEvictionService cacheEvictionService;
 		private readonly ILogger<AutoCacheEvictionDbSessionEventHander> logger;
 
-		public bool InvalidateAdded { get; set; }
-
 		public AutoCacheEvictionDbSessionEventHander(CacheEvictionService cacheEvictionService, ILogger<AutoCacheEvictionDbSessionEventHander> logger) {
 			this.cacheEvictionService = cacheEvictionService;
 			this.logger = logger;
@@ -22,7 +20,7 @@ namespace Albatross.EFCore.AutoCacheEviction {
 						changedEntities.Add(cachedObject);
 					}else if(entry.State == EntityState.Deleted) {
 						changedEntities.Add(cachedObject);
-					} else if (this.InvalidateAdded && entry.State == EntityState.Added) {
+					} else if (cachedObject.InvalidateOnAnyChange && entry.State == EntityState.Added) {
 						changedEntities.Add(cachedObject);
 					}
 				}
