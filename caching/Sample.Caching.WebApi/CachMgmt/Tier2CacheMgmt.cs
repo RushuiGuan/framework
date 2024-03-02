@@ -1,8 +1,9 @@
-﻿using Polly.Caching;
+﻿using Albatross.Caching;
+using Polly.Caching;
 using Polly.Registry;
 using System.Text;
 
-namespace Albatross.Caching.TestApi {
+namespace Sample.Caching.WebApi {
 	public class Tier2CacheMgmt : CacheManagement<string, MultiTierKey> {
 		private readonly Tier1CacheMgmt parent;
 

@@ -1,5 +1,5 @@
 ﻿using Albatross.Hosting.Test;
-using Albatross.Caching.TestApi;
+using Sample.Caching.WebApi;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
 using System.Threading.Tasks;

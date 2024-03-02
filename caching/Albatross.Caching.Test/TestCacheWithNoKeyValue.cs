@@ -1,4 +1,4 @@
-﻿using Albatross.Caching.TestApi;
+﻿using Sample.Caching.WebApi;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Threading.Tasks;

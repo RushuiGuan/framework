@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Albatross.Caching;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Albatross.Caching.TestApi.Controllers {
+namespace Sample.Caching.WebApi.Controllers {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ValuesController : ControllerBase {
