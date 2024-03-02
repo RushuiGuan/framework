@@ -1,5 +1,6 @@
 ﻿namespace Albatross.Caching {
 	public interface ICachedObject {
-		void Invalidate(CacheEvictionService cacheEvictionService);
+		bool InvalidateOnAnyChange { get; }
+		void Invalidate(CacheEvictionService service);
 	}
 }
