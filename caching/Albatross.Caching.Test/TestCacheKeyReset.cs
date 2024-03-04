@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Xunit;
 using System.Collections.Generic;
 using Albatross.Caching.Test.CacheMgmt;
+using Albatross.Caching.BuiltIn;
 
 namespace Albatross.Caching.Test {
 	public class TestCacheKeyReset {
@@ -14,25 +15,26 @@ namespace Albatross.Caching.Test {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
-			var cache = scope.ServiceProvider.GetRequiredService<StringKey2CacheMgmt>();
-			cache.Reset();
+			var cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CacheKey>>();
+			keyMgmt.Reset(new CacheKey(null));
 
-			var keys = new List<string>();
+			var keys = new List<CacheKey>();
 			for (int x = 0; x < 10; x++) {
-				keys.Add(x.ToString());
-				await cache.PutAsync(x.ToString(), new MyData());
+				var cacheKey = new CacheKey(x.ToString());
+				keys.Add(cacheKey);
+				await cache.PutAsync(cacheKey, new MyData());
 			}
 
 			// base verification that all keys are created
-			var allKeys = keyMgmt.FindKeys(cache.CreateKey(string.Empty, true));
+			var allKeys = keyMgmt.FindKeys(new CacheKey(null).WildCardKey);
 			foreach (var item in keys) {
-				Assert.Contains(cache.CreateKey(item), allKeys);
+				Assert.Contains(item.Key, allKeys);
 			}
 			// reset the key
-			cache.Reset();
-			allKeys = keyMgmt.FindKeys(cache.CreateKey(string.Empty, true));
+			keyMgmt.Reset(new CacheKey(null));
+			allKeys = keyMgmt.FindKeys(new CacheKey(null).WildCardKey);
 			foreach (var item in keys) {
-				Assert.DoesNotContain(cache.CreateKey(item), allKeys);
+				Assert.DoesNotContain(item.Key, allKeys);
 			}
 		}
 	}

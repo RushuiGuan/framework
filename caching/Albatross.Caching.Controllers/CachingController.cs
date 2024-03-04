@@ -39,7 +39,8 @@ namespace Albatross.Caching.Controllers {
 
 		[HttpPost("reset")]
 		public void Reset() {
-			this.keyMgmt.FindAndRemove("*");
+			var keys = this.keyMgmt.FindKeys("*");
+			this.keyMgmt.Remove(keys);
 		}
 	}
 }

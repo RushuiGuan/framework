@@ -1,4 +1,5 @@
-﻿using Albatross.Caching.Test.CacheMgmt;
+﻿using Albatross.Caching.BuiltIn;
+using Albatross.Caching.Test.CacheMgmt;
 using Albatross.Hosting.Test;
 using System;
 using System.Collections.Generic;
@@ -24,16 +25,16 @@ namespace Albatross.Caching.Test {
 		public async Task TestParallelBahavior(string hostType, int expected_cacheMiss, int loopCount) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cacheMgmt = scope.Get<StringKeyCacheMgmt>();
+			var cache = scope.Get<OneDayCache<MyData, CacheKey>>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			List<Task> tasks = new List<Task>();
 			for (int i = 0; i < loopCount; i++) {
-				var task = cacheMgmt.ExecuteAsync(async context => {
+				var task = cache.ExecuteAsync(async context => {
 					cache_miss++;
 					await Task.Delay(2000);
 					return new MyData();
-				}, key);
+				}, new CacheKey(key));
 				tasks.Add(task);
 			}
 			await Task.WhenAll(tasks);
@@ -55,7 +56,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestParallelBahaviorWithLazy(string hostType, int expected_cacheMiss, int loopCount) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cacheMgmt = scope.Get<LazyCacheMgmt>();
+			var cacheMgmt = scope.Get<OneDayCache<Lazy<Task<MyData>>, CacheKey>>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			var tasks = new List<Task<Lazy<Task<MyData>>>>();
@@ -64,7 +65,7 @@ namespace Albatross.Caching.Test {
 					cache_miss++;
 					await Task.Delay(2000);
 					return new MyData();
-				})), key);
+				})), new CacheKey(key));
 				tasks.Add(task);
 			}
 			var results = await Task.WhenAll(tasks);

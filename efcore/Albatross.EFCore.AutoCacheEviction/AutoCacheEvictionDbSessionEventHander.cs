@@ -5,13 +5,11 @@ using Microsoft.Extensions.Logging;
 namespace Albatross.EFCore.AutoCacheEviction {
 	public class AutoCacheEvictionDbSessionEventHander : IDbSessionEventHandler{
 		private List<ICachedObject> changedEntities = new List<ICachedObject>();
-		private readonly CacheEvictionService cacheEvictionService;
+		private readonly ICacheKeyManagement keyManagement;
 		private readonly ILogger<AutoCacheEvictionDbSessionEventHander> logger;
 
-		public bool InvalidateAdded { get; set; }
-
-		public AutoCacheEvictionDbSessionEventHander(CacheEvictionService cacheEvictionService, ILogger<AutoCacheEvictionDbSessionEventHander> logger) {
-			this.cacheEvictionService = cacheEvictionService;
+		public AutoCacheEvictionDbSessionEventHander(ICacheKeyManagement keyManagement, ILogger<AutoCacheEvictionDbSessionEventHander> logger) {
+			this.keyManagement = keyManagement;
 			this.logger = logger;
 		}
 
@@ -22,7 +20,7 @@ namespace Albatross.EFCore.AutoCacheEviction {
 						changedEntities.Add(cachedObject);
 					}else if(entry.State == EntityState.Deleted) {
 						changedEntities.Add(cachedObject);
-					} else if (this.InvalidateAdded && entry.State == EntityState.Added) {
+					} else if (entry.State == EntityState.Added) {
 						changedEntities.Add(cachedObject);
 					}
 				}
@@ -30,13 +28,7 @@ namespace Albatross.EFCore.AutoCacheEviction {
 		}
 
 		public Task PostSave() {
-			foreach (var item in changedEntities) {
-				try {
-					item.Invalidate(this.cacheEvictionService);
-				} catch (Exception err) {
-					logger.LogError(err, "Error invalidating cache for {type}", item.GetType().Name);
-				}
-			}
+			this.keyManagement.RemoveSelfAndChildren(this.changedEntities.ToArray());
 			return Task.CompletedTask;
 		}
 	}

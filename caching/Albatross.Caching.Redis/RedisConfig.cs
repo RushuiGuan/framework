@@ -20,8 +20,8 @@ namespace Albatross.Caching.Redis {
 			if (string.IsNullOrEmpty(Password)) {
 				throw new ConfigurationException("redis:password");
 			}
-			if (!InstanceName.EndsWith(ICacheKeyManagement.CacheKeyDelimiter)) {
-				InstanceName += ICacheKeyManagement.CacheKeyDelimiter;
+			if (!InstanceName.EndsWith(ICacheKey.Delimiter)) {
+				InstanceName += ICacheKey.Delimiter;
 			}
 		}
 		public string RedisConnectionString { get; set; } = null!;
