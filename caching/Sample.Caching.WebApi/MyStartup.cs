@@ -16,8 +16,8 @@ namespace Sample.Caching.WebApi {
 
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
+			services.AddBuiltInCache();
 			services.AddCaching(this.Configuration);
-			services.AddCacheMgmt(this.GetType().Assembly);
 			services.AddRedisCaching(this.Configuration);
 			services.AddMemCachingAsSecondary();
 			services.AddSignalR();

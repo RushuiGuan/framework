@@ -1,6 +1,7 @@
-﻿namespace Albatross.Caching {
+﻿using System.Collections.Generic;
+
+namespace Albatross.Caching {
 	public interface ICachedObject {
-		bool InvalidateOnAnyChange { get; }
-		void Invalidate(CacheEvictionService service);
+		IEnumerable<ICacheKey> CacheKeys { get; }
 	}
 }

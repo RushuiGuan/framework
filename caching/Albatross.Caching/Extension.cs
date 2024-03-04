@@ -1,12 +1,11 @@
-﻿using Albatross.Reflection;
+﻿using Albatross.Caching.BuiltIn;
+using Albatross.Collections;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using Polly.Registry;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 
 namespace Albatross.Caching {
 	// class name should not be renamed to Extensions due to backward compatibilies issue
@@ -18,29 +17,43 @@ namespace Albatross.Caching {
 			return services;
 		}
 
-		public static IServiceCollection AddCacheMgmt<T>(this IServiceCollection services) where T : class, ICacheManagement {
-			services.TryAddSingleton<T>();
-			services.AddSingleton<ICacheManagement>(provider => provider.GetRequiredService<T>());
+		public static IServiceCollection AddBuiltInCache(this IServiceCollection services) {
+			services.AddSingleton(typeof(FiveSecondsCache<,>));
+			services.AddSingleton(typeof(TenSecondsCache<,>));
+			services.AddSingleton(typeof(FifteenSecondsCache<,>));
+
+			services.AddSingleton(typeof(OneMinuteCache<,>));
+			services.AddSingleton(typeof(FiveMinutesCache<,>));
+			services.AddSingleton(typeof(TenMinutesCache<,>));
+			services.AddSingleton(typeof(FifteenMinutesCache<,>));
+
+			services.AddSingleton(typeof(OneDayCache<,>));
+			services.AddSingleton(typeof(OneMonthCache<,>));
 			return services;
 		}
 
-		/// <summary>
-		/// Register all ICacheManagement implementation of an assembly using the singleton scope.  The search of the concrete class is performed using the generic type ICacheManagement<>
-		/// </summary>
-		/// <param name="services"></param>
-		/// <param name="assembly"></param>
-		/// <returns></returns>
-		public static IServiceCollection AddCacheMgmt(this IServiceCollection services, Assembly assembly) {
-			if (assembly != null) {
-				Type genericDefinition = typeof(ICacheManagement<,>);
-				foreach (Type type in assembly.GetConcreteClasses()) {
-					if (type.TryGetClosedGenericType(genericDefinition, out Type? _)) {
-						services.TryAddSingleton(type);
-						services.AddSingleton<ICacheManagement>(provider => (ICacheManagement)provider.GetRequiredService(type));
-					}
-				}
+		public static void Remove(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
+			var set = new HashSet<string>();
+			set.AddRange(keys.Select(x => x.Key));
+			keyMgmt.Remove(set.ToArray());
+		}
+		public static void RemoveSelfAndChildren(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
+			var set = new HashSet<string>();
+			foreach (var key in keys) {
+				set.AddRange(keyMgmt.FindKeys(key.WildCardKey));
 			}
-			return services;
+			keyMgmt.Remove(set.ToArray());
+		}
+		public static void RemoveSelfAndChildren(this ICacheKeyManagement keyMgmt, params ICachedObject[] cachedObjects) {
+			var keys = cachedObjects.SelectMany(x => x.CacheKeys).ToArray();
+			keyMgmt.RemoveSelfAndChildren(keys);
+		}
+		public static void Reset(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
+			var set = new HashSet<string>();
+			foreach (var key in keys) {
+				set.AddRange(keyMgmt.FindKeys(key.ResetKey));
+			}
+			keyMgmt.Remove(set.ToArray());
 		}
 	}
 }

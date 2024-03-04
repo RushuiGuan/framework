@@ -23,14 +23,14 @@ namespace Albatross.Caching.Test {
 		public async Task TestRelativeCacheManagement(string hostType, int delay_ms, int loopCount, int expected_cacheMiss) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cacheMgmt = scope.Get<RelativeTtlCacheMgmt>();
-			string key = Guid.NewGuid().ToString();
+			var cache = scope.Get<BuiltIn.OneSecondCache<object, CacheKey>>();
+			string keyValue = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			for (int i = 0; i < loopCount; i++) {
-				var result = await cacheMgmt.ExecuteAsync(context => {
+				var result = await cache.ExecuteAsync(context => {
 					cache_miss++;
 					return Task.FromResult(new object());
-				}, key);
+				}, new CacheKey(keyValue));
 				await Task.Delay(delay_ms);
 			}
 			Assert.Equal(expected_cacheMiss, cache_miss);
@@ -51,14 +51,14 @@ namespace Albatross.Caching.Test {
 		public async Task TestSlidingCacheManagement(string hostType, int delay_ms, int loopCount, int expected_cacheMiss) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cacheMgmt = scope.Get<SlidingTtlCacheMgmt>();
-			string key = Guid.NewGuid().ToString();
+			var cacheMgmt = scope.Get<BuiltIn.OneSecondSlidingTtlCache<MyData, CacheKey>>();
+			string keyValue = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			for (int i = 0; i < loopCount; i++) {
 				var result = await cacheMgmt.ExecuteAsync(context => {
 					cache_miss++;
 					return Task.FromResult(new MyData());
-				}, key);
+				}, new CacheKey(keyValue));
 				await Task.Delay(delay_ms);
 			}
 			Assert.Equal(expected_cacheMiss, cache_miss);

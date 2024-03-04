@@ -1,6 +1,4 @@
 ﻿using Albatross.Caching.MemCache;
-using Albatross.Caching.Test.CacheMgmt;
-using Sample.Caching.WebApi;
 using Albatross.Hosting.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,8 +10,6 @@ namespace Albatross.Caching.Test {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
 			services.AddCaching(configuration);
-			services.AddCacheMgmt(typeof(SlidingTtlCacheMgmt).Assembly);
-			services.AddCacheMgmt(typeof(MultiTierKey).Assembly);
 			services.AddMemCaching();
 		}
 	}

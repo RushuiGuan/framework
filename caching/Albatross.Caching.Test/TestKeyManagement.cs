@@ -1,5 +1,7 @@
-﻿using Albatross.Caching.Test.CacheMgmt;
+﻿using Albatross.Caching.BuiltIn;
+using Albatross.Caching.Test.CacheMgmt;
 using Albatross.Hosting.Test;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,18 +13,18 @@ namespace Albatross.Caching.Test {
 		public async Task TestStringKeyCreation(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cache1 = scope.Get<StringKeyCacheMgmt>();
+			var cache1 = scope.Get<OneDayCache<MyData, CacheKey>>();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
 			var data = new MyData("a");
 			var keys = new string[] { "", "1", "2", "3" };
 
 			foreach (var key in keys) {
-				await cache1.PutAsync(key, data);
+				await cache1.PutAsync(new CacheKey(key), data);
 			}
 			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
-				Assert.Contains(cache1.CreateKey(key), allKeys);
+				Assert.Contains(new CacheKey(key).Key, allKeys);
 			}
 		}
 
@@ -32,25 +34,25 @@ namespace Albatross.Caching.Test {
 		public async Task TestKeyRemoval(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cache = scope.Get<StringKeyCacheMgmt>();
+			var cache = scope.Get<OneDayCache<MyData, CacheKey>>();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
 			var data = new MyData("a");
-			var keys = new string[] { "", "1", "2", "3" };
+			var keyValues = new string[] { "", "1", "2", "3" };
 
-			foreach (var key in keys) {
-				await cache.PutAsync(key, data);
+			foreach (var keyValue in keyValues) {
+				await cache.PutAsync(new CacheKey(keyValue), data);
 			}
 			var allKeys = keyMgmt.FindKeys("*");
-			foreach (var key in keys) {
-				Assert.Contains(cache.CreateKey(key), allKeys);
+			foreach (var keyValue in keyValues) {
+				Assert.Contains(new CacheKey(keyValue).Key, allKeys);
 			}
-			foreach (var key in keys) {
-				cache.Remove(key);
+			foreach (var keyValue in keyValues) {
+				keyMgmt.Remove(new CacheKey(keyValue));
 			}
 			allKeys = keyMgmt.FindKeys("*");
-			foreach (var key in keys) {
-				Assert.DoesNotContain(cache.CreateKey(key), allKeys);
+			foreach (var keyValue in keyValues) {
+				Assert.DoesNotContain(new CacheKey(keyValue).Key, allKeys);
 			}
 		}
 
@@ -60,30 +62,35 @@ namespace Albatross.Caching.Test {
 		public async Task TestKeyReset(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var compositeKeycache = scope.Get<StringKey2CacheMgmt>();
-			var stringKeyCache = scope.Get<StringKeyCacheMgmt>();
+			var stringKeyCache = scope.Get<OneDayCache<MyData, StringKey>>();
+			var stringKey2Cache = scope.Get<OneDayCache<MyData, StringKey2>>();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
 			var data = new MyData("a");
-			var keys = new string[] { "", "1", "2", "3" };
+			var keyValues = new string[] { "", "1", "2", "3" };
+			var keys = new List<ICacheKey>();
 
-			foreach (var key in keys) {
-				await compositeKeycache.PutAsync(key, data);
-				await stringKeyCache.PutAsync(key, data);
+			foreach (var keyValue in keyValues) {
+				ICacheKey key = new StringKey(keyValue);
+				keys.Add(key);
+				await stringKeyCache.PutAsync((StringKey)key, data);
+
+				key = new StringKey2(keyValue);
+				keys.Add(key);
+				await stringKey2Cache.PutAsync((StringKey2)key, data);
 			}
 
 			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
-				Assert.Contains(compositeKeycache.CreateKey(key), allKeys);
+				Assert.Contains(key.Key, allKeys);
 			}
-			compositeKeycache.RemoveSelfAndChildren(string.Empty);
-
+			keyMgmt.Reset(new StringKey(null));
 			allKeys = keyMgmt.FindKeys("*");
-			foreach (var key in keys) {
-				Assert.DoesNotContain(compositeKeycache.CreateKey(key), allKeys);
+			foreach (var keyValue in keyValues) {
+				Assert.DoesNotContain(new StringKey(keyValue).Key, allKeys);
 			}
-			foreach (var key in keys) {
-				Assert.Contains(stringKeyCache.CreateKey(key), allKeys);
+			foreach (var keyValue in keyValues) {
+				Assert.Contains(new StringKey2(keyValue).Key, allKeys);
 			}
 		}
 	}

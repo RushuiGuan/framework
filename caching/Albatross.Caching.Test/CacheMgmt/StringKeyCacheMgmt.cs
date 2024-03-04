@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using Polly.Caching;
-using Polly.Registry;
-using System;
+﻿using System;
 
 namespace Albatross.Caching.Test.CacheMgmt {
+	public class MyKey : CacheKey {
+		public MyKey(string value) : base(null, "my-key", value) {
+		}
+	}
 	public record class MyData {
 		public MyData(string value) {
 			Value = value;
@@ -14,15 +15,12 @@ namespace Albatross.Caching.Test.CacheMgmt {
 
 		public string Value { get; set; }
 	}
-	public class StringKeyCacheMgmt : CacheManagement<MyData, string> {
-		public StringKeyCacheMgmt(ILogger<StringKeyCacheMgmt> logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
+	public class StringKey: CacheKey{
+		public StringKey(string? value) : base("string-key", value) {
 		}
-		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromDays(1));
 	}
-
-	public class StringKey2CacheMgmt : CacheManagement<MyData, string> {
-		public StringKey2CacheMgmt(ILogger<StringKey2CacheMgmt> logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProvider, ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProvider, keyMgmt) {
+	public class StringKey2: CacheKey{
+		public StringKey2(string? value) : base("string-key-2", value) {
 		}
-		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromDays(1));
 	}
 }
