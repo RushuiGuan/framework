@@ -7,12 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.Caching" Version="7.0.0-43.caching" />
+    <PackageReference Include="Albatross.Caching" Version="7.0.0" />
     <PackageReference Include="Albatross.Config" Version="6.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
+    <ProjectReference Include="..\Albatross.EFCore.AutoCacheEviction\Albatross.EFCore.AutoCacheEviction.csproj" />
     <ProjectReference Include="..\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
   </ItemGroup>
 

@@ -28,6 +28,7 @@ namespace Albatross.EFCore.AutoCacheEviction {
 		}
 
 		public Task PostSave() {
+			logger.LogInformation("Auto removing cache entry: ", this.changedEntities.SelectMany(x=>x.CacheKeys).Select(x=>x.WildCardKey).ToArray());
 			this.keyManagement.RemoveSelfAndChildren(this.changedEntities.ToArray());
 			return Task.CompletedTask;
 		}
