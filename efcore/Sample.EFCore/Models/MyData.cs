@@ -1,5 +1,6 @@
 ﻿using Albatross.Caching;
 using Albatross.EFCore;
+using Albatross.EFCore.Audit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,6 +25,9 @@ namespace Sample.EFCore {
 		public double Double { get; set; }
 		public float Float { get; set; }
 		public Guid Guid { get; set; }
+
+
+
 
 
 		public string ModifiedBy { get; set; } = string.Empty;

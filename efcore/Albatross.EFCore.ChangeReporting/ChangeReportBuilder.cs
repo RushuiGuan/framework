@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Albatross.EFCore.ChangeReporting {
 	public class ChangeReportBuilder<T> where T : class {
@@ -14,11 +15,10 @@ namespace Albatross.EFCore.ChangeReporting {
 			return this;
 		}
 
-		public IDbSession Build(IDbSession session) => Build(session, new ChangeReportDbSessionEventHandler<T>());
-		public IDbSession Build(IDbSession session, ChangeReportDbSessionEventHandler<T> handler) {
+		public ChangeReportDbSessionEventHandler<T> Build() {
+			var handler = new ChangeReportDbSessionEventHandler<T>();
 			this.action?.Invoke(handler);
-			session.SessionEventHandlers.Add(handler);
-			return session;
+			return handler;
 		}
 	}
 }

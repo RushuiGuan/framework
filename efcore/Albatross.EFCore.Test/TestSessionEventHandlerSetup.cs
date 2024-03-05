@@ -18,7 +18,6 @@ namespace Albatross.EFCore.Test {
 		public async Task TestAuditCreateChange() {
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
-			session.UseAuditEventHandlers<MyData>("test");
 			var set = session.DbContext.Set<MyData>();
 			DateTime utcNow = DateTime.UtcNow;
 			var data = new MyData();
@@ -30,23 +29,20 @@ namespace Albatross.EFCore.Test {
 			Assert.True(data.CreatedUtc >= utcNow);
 			Assert.True(data.ModifiedUtc >= utcNow);
 		}
-		
+
 		[Fact]
 		public async Task TestAuditUpdateChange() {
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
-			session.UseAuditEventHandlers<MyData>("create user");
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
 			await session.SaveChangesAsync();
 
-			session.SessionEventHandlers.Clear();
-			session.UseAuditEventHandlers<MyData>("update user");
 			var audit = data.ModifiedUtc;
 			data.Int = 100;
 			await session.SaveChangesAsync();
-			
+
 			Assert.True(data.CreatedUtc < data.ModifiedUtc);
 			Assert.True(data.ModifiedUtc > audit);
 			Assert.Equal("create user", data.CreatedBy);
@@ -58,14 +54,13 @@ namespace Albatross.EFCore.Test {
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
 			var handler = new ExceptionDbSessionEventHandler(false);
-			session.SessionEventHandlers.Add(handler);
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
 			await session.SaveChangesAsync();
 			Assert.NotEqual(0, data.Id);
 
-			handler.ThrowPriorSaveException= true;
+			handler.ThrowPriorSaveException = true;
 
 			Assert.Throws<Exception>(() => session.SaveChanges());
 			await Assert.ThrowsAsync<Exception>(() => session.SaveChangesAsync());

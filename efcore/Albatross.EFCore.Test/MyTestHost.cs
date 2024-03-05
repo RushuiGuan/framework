@@ -7,12 +7,22 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using Sample.EFCore;
+using Albatross.Caching;
+using Albatross.Caching.MemCache;
+using Albatross.EFCore.ChangeReporting;
+using Albatross.EFCore.AutoCacheEviction;
+using Albatross.EFCore.Audit;
 
 namespace Albatross.EFCore.Test {
 	public class MyTestHost : Hosting.Test.TestHost {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
 			services.AddSample();
+			services.AddMemCaching();
+			services.AddCaching(configuration);
+			services.AddBuiltInCache();
+			services.AddAutoCacheEviction();
+			services.AddAuditEventHandlers();
 		}
 
 		public static void GetDbSession<T, K>(K value) where T : class {

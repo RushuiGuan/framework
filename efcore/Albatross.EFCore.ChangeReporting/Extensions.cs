@@ -1,5 +1,7 @@
 ﻿using Albatross.Collections;
+using Albatross.EFCore.Audit;
 using Albatross.Text;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 
@@ -64,5 +66,10 @@ namespace Albatross.EFCore.ChangeReporting {
 
 		public static ChangeReportBuilder<T> TimeFormat<T>(this ChangeReportBuilder<T> builder, string property) where T : class
 			=> builder.Format(property, "HH:mm");
+
+		public static IServiceCollection Add<T>(this IServiceCollection services, ChangeReportBuilder<T> builder) where T : class { 
+			services.AddScoped<IDbChangeEventHandler, ChangeReportDbSessionEventHandler<T>>(sp => builder.Build());
+			return services;
+		}
 	}
 }

@@ -25,6 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Albatross.Caching.MemCache" Version="7.0.1" />
 		<PackageReference Include="Albatross.Hosting.Utility" Version="6.4.21" />
 		<PackageReference Include="Albatross.Hosting.Test" Version="6.4.21" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
@@ -34,6 +35,7 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj" />
 		<ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj" />

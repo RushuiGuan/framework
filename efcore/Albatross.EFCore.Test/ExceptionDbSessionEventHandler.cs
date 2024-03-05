@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Threading.Tasks;
 
 namespace Albatross.EFCore.Test {
-	public class ExceptionDbSessionEventHandler : IDbSessionEventHandler {
+	public class ExceptionDbSessionEventHandler : IDbChangeEventHandler {
 		public bool ThrowPriorSaveException { get; set; }
+
+		public bool HasPostSaveOperation => true;
 
 		public ExceptionDbSessionEventHandler(bool throwPriorSaveException) {
 			ThrowPriorSaveException = throwPriorSaveException;
@@ -13,10 +16,16 @@ namespace Albatross.EFCore.Test {
 			throw new Exception("Test exception during post save");
 		}
 
-		public void PriorSave(IDbSession session) {
-			if (ThrowPriorSaveException) {
-				throw new Exception("Test exception during prior save");
-			}
+		public void OnAddedEntry(EntityEntry entry) {
+			throw new Exception("Test exception during post save");
+		}
+
+		public void OnModifiedEntry(EntityEntry entry) {
+			throw new Exception("Test exception during post save");
+		}
+
+		public void OnDeletedEntry(EntityEntry entry) {
+			throw new Exception("Test exception during post save");
 		}
 	}
 }

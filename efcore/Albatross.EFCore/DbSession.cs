@@ -1,5 +1,8 @@
-﻿using Albatross.Text;
+﻿using Albatross.Collections;
+using Albatross.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Data;
@@ -15,44 +18,63 @@ namespace Albatross.EFCore {
 		protected readonly ILogger? logger;
 		#endregion
 
+		public virtual bool UseChangeEventHandler => false;
 		public DbContext DbContext => this;
 		public IDbConnection DbConnection => Database.GetDbConnection();
-		public List<IDbSessionEventHandler> SessionEventHandlers { get; } = new List<IDbSessionEventHandler>();
 		public virtual Assembly[] EntityModelAssemblies => new Assembly[] { GetType().Assembly };
 		public virtual string NamespacePrefix => string.Empty;
 
 		public DbSession(DbContextOptions option, ILogger? logger) : base(option) {
-			this.SavingChanges += ExecutePriorSaveEventHandlers;
+			if (UseChangeEventHandler) {
+				this.SavingChanges += ExecutePriorSaveEventHandlers;
+			}
 			this.logger = logger;
 		}
 
-		private void ExecutePriorSaveEventHandlers(object? sender, SavingChangesEventArgs e) {
-			foreach (var item in this.SessionEventHandlers) {
-				logger?.LogInformation("Running prior save event handler: {name}", item.GetType().Name);
-				item.PriorSave(this);
+		protected void ExecutePriorSaveEventHandlers(object? sender, SavingChangesEventArgs e) {
+			var handlers = this.GetInfrastructure().GetRequiredService<IEnumerable<IDbChangeEventHandler>>();
+			foreach(var entry in this.ChangeTracker.Entries()) {
+				switch (entry.State) {
+					case EntityState.Added:
+						handlers.ForEach(x=>x.OnAddedEntry(entry));
+						break;
+					case EntityState.Modified:
+						handlers.ForEach(x=>x.OnModifiedEntry(entry));
+						break;
+					case EntityState.Deleted:
+						handlers.ForEach(x=>x.OnDeletedEntry(entry));
+						break;
+				}
 			}
 		}
 
 		protected async Task ExecutePostSaveEventHandlers() {
-			foreach (var item in this.SessionEventHandlers) {
-				try {
-					logger?.LogInformation("Running post save event handler: {name}", item.GetType().Name);
-					await item.PostSave();
-				} catch (System.Exception ex) {
-					logger?.LogError(ex, "Error running PostSave event handler:{class}", item.GetType());
+			var handlers = this.GetInfrastructure().GetRequiredService<IEnumerable<IDbChangeEventHandler>>();
+			foreach (var item in handlers) {
+				if (item.HasPostSaveOperation) {
+					try {
+						logger?.LogInformation("Running post save event handler: {name}", item.GetType().Name);
+						await item.PostSave();
+					} catch (System.Exception ex) {
+						logger?.LogError(ex, "Error running PostSave event handler:{class}", item.GetType());
+					}
 				}
 			}
 		}
 
 		public override int SaveChanges(bool acceptAllChangesOnSuccess) {
 			var result = base.SaveChanges(acceptAllChangesOnSuccess);
-			ExecutePostSaveEventHandlers().Wait();
+			if (UseChangeEventHandler) {
+				ExecutePostSaveEventHandlers().Wait();
+			}
 			return result;
 		}
 
 		public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default) {
 			var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-			await ExecutePostSaveEventHandlers();
+			if(UseChangeEventHandler) {
+				await ExecutePostSaveEventHandlers();
+			}
 			return result;
 		}
 

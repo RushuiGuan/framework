@@ -12,7 +12,6 @@ namespace Albatross.EFCore {
 	/// </summary>
 	public interface IDbSession : IDisposable {
 		IDbConnection DbConnection { get; }
-		List<IDbSessionEventHandler> SessionEventHandlers { get; }
 		DbContext DbContext { get; }
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 		int SaveChanges();
