@@ -18,6 +18,7 @@ namespace Albatross.Caching {
 		}
 
 		public static IServiceCollection AddBuiltInCache(this IServiceCollection services) {
+			services.AddSingleton(typeof(OneSecondCache<,>));
 			services.AddSingleton(typeof(FiveSecondsCache<,>));
 			services.AddSingleton(typeof(TenSecondsCache<,>));
 			services.AddSingleton(typeof(FifteenSecondsCache<,>));
@@ -29,6 +30,8 @@ namespace Albatross.Caching {
 
 			services.AddSingleton(typeof(OneDayCache<,>));
 			services.AddSingleton(typeof(OneMonthCache<,>));
+
+			services.AddSingleton(typeof(OneSecondSlidingTtlCache<,>));
 			return services;
 		}
 

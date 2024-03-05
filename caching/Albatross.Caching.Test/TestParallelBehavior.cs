@@ -1,5 +1,5 @@
 ﻿using Albatross.Caching.BuiltIn;
-using Albatross.Caching.Test.CacheMgmt;
+using Albatross.Caching.Test.CacheKeys;
 using Albatross.Hosting.Test;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,8 @@
-﻿using Sample.Caching.WebApi;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
+using Sample.Caching.WebApi.CacheKeys;
+using Albatross.Caching.BuiltIn;
 
 namespace Albatross.Caching.Test {
 	public class TestCacheWithNoKeyValue {
@@ -29,7 +30,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestBasicOperation(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var tier1 = scope.ServiceProvider.GetRequiredService<Cache<int, CacheKey>>();
+			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, CacheKey>>();
 
 			await tier1.PutAsync(new CacheKey(null), 1);
 			var result = await tier1.TryGetAsync(new CacheKey(null));
@@ -44,9 +45,9 @@ namespace Albatross.Caching.Test {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
-			var tier1 = scope.ServiceProvider.GetRequiredService<Cache<int, Level1Key>>();
-			var tier2 = scope.ServiceProvider.GetRequiredService<Cache<int, Level2Key>>();
-			var tier3 = scope.ServiceProvider.GetRequiredService<Cache<int, Level3Key>>();
+			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level1Key>>();
+			var tier2 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level2Key>>();
+			var tier3 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level3Key>>();
 
 			var level1 = new Level1Key(string.Empty);
 			var level2 = new Level2Key(string.Empty, string.Empty);
@@ -59,24 +60,24 @@ namespace Albatross.Caching.Test {
 			await tier3.PutAsync(level3, 3);
 
 			// base verification that all keys are created
-			var allKeys = keyMgmt.FindKeys("*");
+			var allKeys = keyMgmt.FindKeys(level1.ResetKey);
 			Assert.Contains(level1.Key, allKeys);
 			Assert.Contains(level2.Key, allKeys);
 			Assert.Contains(level3.Key, allKeys);
 			
 			keyMgmt.Remove(level3.Key);
-			allKeys = keyMgmt.FindKeys("*");
+			allKeys = keyMgmt.FindKeys(level1.ResetKey);
 			Assert.DoesNotContain(level3.Key, allKeys);
-			Assert.Contains(level3.Key, allKeys);
+			Assert.Contains(level2.Key, allKeys);
 			Assert.Contains(level1.Key, allKeys);
 
 			keyMgmt.Remove(level2.Key);
-			allKeys = keyMgmt.FindKeys("*");
+			allKeys = keyMgmt.FindKeys(level1.ResetKey);
 			Assert.DoesNotContain(level2.Key, allKeys);
 			Assert.Contains(level1.Key, allKeys);
 
 			keyMgmt.Remove(level1.Key);
-			allKeys = keyMgmt.FindKeys("*");
+			allKeys = keyMgmt.FindKeys(level1.ResetKey);
 			Assert.DoesNotContain(level1.Key, allKeys);
 		}
 
@@ -92,9 +93,9 @@ namespace Albatross.Caching.Test {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
-			var tier1 = scope.ServiceProvider.GetRequiredService<Cache<int, Level1Key>>();
-			var tier2 = scope.ServiceProvider.GetRequiredService<Cache<int, Level2Key>>();
-			var tier3 = scope.ServiceProvider.GetRequiredService<Cache<int, Level3Key>>();
+			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level1Key>>();
+			var tier2 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level2Key>>();
+			var tier3 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level3Key>>();
 
 			var level1 = new Level1Key(string.Empty);
 			var level2 = new Level2Key(string.Empty, string.Empty);
@@ -107,7 +108,7 @@ namespace Albatross.Caching.Test {
 			await tier3.PutAsync(level3, 1);
 
 			// base verification that all keys are created
-			var allKeys = keyMgmt.FindKeys("*");
+			var allKeys = keyMgmt.FindKeys(level1.ResetKey);
 			Assert.Contains(level1.Key, allKeys);
 			Assert.Contains(level2.Key, allKeys);
 			Assert.Contains(level3.Key, allKeys);
@@ -125,11 +126,9 @@ namespace Albatross.Caching.Test {
 					break;
 			}
 			// get all keys again
-			allKeys = keyMgmt.FindKeys("*");
+			allKeys = keyMgmt.FindKeys(level1.ResetKey);
 			if (tier == 1) {
-				Assert.DoesNotContain(level1.Key, allKeys);
-				Assert.DoesNotContain(level2.Key, allKeys);
-				Assert.DoesNotContain(level3.Key, allKeys);
+				Assert.Empty(allKeys);
 			} else if (tier == 2) {
 				Assert.Contains(level1.Key, allKeys);
 				Assert.DoesNotContain(level2.Key, allKeys);

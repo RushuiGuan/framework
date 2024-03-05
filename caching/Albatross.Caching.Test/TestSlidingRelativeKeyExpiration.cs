@@ -1,4 +1,4 @@
-﻿using Albatross.Caching.Test.CacheMgmt;
+﻿using Albatross.Caching.Test.CacheKeys;
 using Albatross.Hosting.Test;
 using Polly;
 using System;
@@ -41,6 +41,7 @@ namespace Albatross.Caching.Test {
 		[InlineData(MemCacheHost.HostType, 0, 10, 1)]
 		[InlineData(MemCacheHost.HostType, 800, 10, 1)]
 		[InlineData(MemCacheHost.HostType, 200, 6, 1)]
+		[InlineData(MemCacheHost.HostType, 100, 10, 1)]
 		[InlineData(MemCacheHost.HostType, 1200, 2, 2)]
 		[InlineData(RedisCacheHost.HostType, 0, 1, 1)]
 		[InlineData(RedisCacheHost.HostType, 0, 10, 1)]

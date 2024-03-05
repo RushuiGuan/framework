@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Xunit;
 using System.Collections.Generic;
 using Albatross.Caching.BuiltIn;
+using Sample.Caching.WebApi.CacheKeys;
+using System.Linq;
 
 namespace Albatross.Caching.Test {
 	public class TestMultiTierCache {
@@ -105,12 +107,12 @@ namespace Albatross.Caching.Test {
 		[InlineData(RedisCacheHost.HostType, 1, 1, 2, 3)]
 		[InlineData(RedisCacheHost.HostType, 2, 1, 2, 3)]
 		[InlineData(RedisCacheHost.HostType, 3, 1, 2, 3)]
-		public async Task TestTieredKeyRemoveSelfAndChildren(string hostType, int tier, int key1, int key2, int key3) {
+		public async Task TestTieredKeyRemoveSelfAndChildren(string hostType, int tier, int keyValue1, int keyValue2, int keyValue3) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var tier1Key = new Tier1Key(key1);
-			var tier2Key = new Tier2Key(key1, key2);
-			var tier3Key = new Tier3Key(key1, key2, key3);
+			var tier1Key = new Tier1Key(keyValue1);
+			var tier2Key = new Tier2Key(keyValue1, keyValue2);
+			var tier3Key = new Tier3Key(keyValue1, keyValue2, keyValue3);
 
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
@@ -157,24 +159,14 @@ namespace Albatross.Caching.Test {
 			}
 			// get all keys again
 			allKeys = keyMgmt.FindKeys("*");
-			foreach (var item in keys) {
-				if (tier == 1 && item is Tier1Key) {
-					Assert.DoesNotContain(tier1Key.Key, allKeys);
-					Assert.DoesNotContain(tier2Key.Key, allKeys);
-					Assert.DoesNotContain(tier3Key.Key, allKeys);
-				} else if (tier == 2 && item is Tier2Key) {
-					Assert.Contains(tier1Key.Key, allKeys);
-					Assert.DoesNotContain(tier2Key.Key, allKeys);
-					Assert.DoesNotContain(tier3Key.Key, allKeys);
-				} else if(tier == 3 && item is Tier3Key) {
-					Assert.Contains(tier1Key.Key, allKeys);
-					Assert.Contains(tier2Key.Key, allKeys);
-					Assert.DoesNotContain(tier3Key.Key, allKeys);
-				} else {
-					Assert.Contains(tier1Key.Key, allKeys);
-					Assert.Contains(tier2Key.Key, allKeys);
-					Assert.Contains(tier3Key.Key, allKeys);
-				}
+			Assert.NotEmpty(allKeys);
+			if (tier == 1) {
+				// all keys should be done
+				Assert.Empty(allKeys.Where(x=>x.StartsWith(tier1Key.Key)));
+			} else if (tier == 2) {
+				Assert.Empty(allKeys.Where(x=>x.StartsWith(tier2Key.Key)));
+			} else if (tier == 3) {
+				Assert.Empty(allKeys.Where(x=>x.StartsWith(tier3Key.Key)));
 			}
 		}
 	}

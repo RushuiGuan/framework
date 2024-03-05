@@ -11,6 +11,6 @@ namespace Albatross.Caching.BuiltIn {
 				ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProviderAdapter, keyMgmt) {
 		}
 
-		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromSeconds(1));
+		public override ITtlStrategy TtlStrategy => new SlidingTtl(TimeSpan.FromSeconds(1));
 	}
 }

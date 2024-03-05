@@ -1,5 +1,5 @@
 ﻿using Albatross.Caching.BuiltIn;
-using Albatross.Caching.Test.CacheMgmt;
+using Albatross.Caching.Test.CacheKeys;
 using Albatross.Hosting.Test;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,14 +17,17 @@ namespace Albatross.Caching.Test {
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
 			var data = new MyData("a");
-			var keys = new string[] { "", "1", "2", "3" };
+			var keyValues = new string[] { "", "1", "2", "3" };
+			var keys = new List<ICacheKey>();
 
-			foreach (var key in keys) {
-				await cache1.PutAsync(new CacheKey(key), data);
+			foreach (var keyValue in keyValues) {
+				var key = new CacheKey(keyValue);
+				keys.Add(key);
+				await cache1.PutAsync(key, data);
 			}
 			var allKeys = keyMgmt.FindKeys("*");
-			foreach (var key in keys) {
-				Assert.Contains(new CacheKey(key).Key, allKeys);
+			foreach (var keyObject in keys) {
+				Assert.Contains(keyObject.Key, allKeys);
 			}
 		}
 
@@ -62,8 +65,8 @@ namespace Albatross.Caching.Test {
 		public async Task TestKeyReset(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var stringKeyCache = scope.Get<OneDayCache<MyData, StringKey>>();
-			var stringKey2Cache = scope.Get<OneDayCache<MyData, StringKey2>>();
+			var stringKeyCache = scope.Get<OneDayCache<MyData, CustomKey1>>();
+			var stringKey2Cache = scope.Get<OneDayCache<MyData, CustomKey2>>();
 			var keyMgmt = scope.Get<ICacheKeyManagement>();
 
 			var data = new MyData("a");
@@ -71,26 +74,26 @@ namespace Albatross.Caching.Test {
 			var keys = new List<ICacheKey>();
 
 			foreach (var keyValue in keyValues) {
-				ICacheKey key = new StringKey(keyValue);
+				ICacheKey key = new CustomKey1(keyValue);
 				keys.Add(key);
-				await stringKeyCache.PutAsync((StringKey)key, data);
+				await stringKeyCache.PutAsync((CustomKey1)key, data);
 
-				key = new StringKey2(keyValue);
+				key = new CustomKey2(keyValue);
 				keys.Add(key);
-				await stringKey2Cache.PutAsync((StringKey2)key, data);
+				await stringKey2Cache.PutAsync((CustomKey2)key, data);
 			}
 
 			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var key in keys) {
 				Assert.Contains(key.Key, allKeys);
 			}
-			keyMgmt.Reset(new StringKey(null));
+			keyMgmt.Reset(new CustomKey1(null));
 			allKeys = keyMgmt.FindKeys("*");
 			foreach (var keyValue in keyValues) {
-				Assert.DoesNotContain(new StringKey(keyValue).Key, allKeys);
+				Assert.DoesNotContain(new CustomKey1(keyValue).Key, allKeys);
 			}
 			foreach (var keyValue in keyValues) {
-				Assert.Contains(new StringKey2(keyValue).Key, allKeys);
+				Assert.Contains(new CustomKey2(keyValue).Key, allKeys);
 			}
 		}
 	}
