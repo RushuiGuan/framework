@@ -9,9 +9,9 @@ using System.Threading;
 using Sample.EFCore;
 using Albatross.Caching;
 using Albatross.Caching.MemCache;
-using Albatross.EFCore.ChangeReporting;
 using Albatross.EFCore.AutoCacheEviction;
 using Albatross.EFCore.Audit;
+using Albatross.Hosting.Test;
 
 namespace Albatross.EFCore.Test {
 	public class MyTestHost : Hosting.Test.TestHost {
@@ -23,6 +23,7 @@ namespace Albatross.EFCore.Test {
 			services.AddBuiltInCache();
 			services.AddAutoCacheEviction();
 			services.AddAuditEventHandlers();
+			services.AddTestPrincipalProvider("test", "test");
 		}
 
 		public static void GetDbSession<T, K>(K value) where T : class {

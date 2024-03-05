@@ -15,6 +15,7 @@ namespace Albatross.EFCore {
 		#region constants
 		public const string Any = "any";
 		public const string EFMigrationHistory = "__EFMigrationsHistory";
+		private readonly IDbChangeEventHandlerFactory changeEventHandlerFactory;
 		protected readonly ILogger? logger;
 		#endregion
 
@@ -24,16 +25,18 @@ namespace Albatross.EFCore {
 		public virtual Assembly[] EntityModelAssemblies => new Assembly[] { GetType().Assembly };
 		public virtual string NamespacePrefix => string.Empty;
 
-		public DbSession(DbContextOptions option, ILogger? logger) : base(option) {
+		public DbSession(DbContextOptions option, IDbChangeEventHandlerFactory changeEventHandlerFactory, ILogger? logger) : base(option) {
 			if (UseChangeEventHandler) {
 				this.SavingChanges += ExecutePriorSaveEventHandlers;
 			}
+
+			this.changeEventHandlerFactory = changeEventHandlerFactory;
 			this.logger = logger;
 		}
 
 		protected void ExecutePriorSaveEventHandlers(object? sender, SavingChangesEventArgs e) {
-			var handlers = this.GetInfrastructure().GetRequiredService<IEnumerable<IDbChangeEventHandler>>();
-			foreach(var entry in this.ChangeTracker.Entries()) {
+			var handlers = this.changeEventHandlerFactory.Create();
+			foreach (var entry in this.ChangeTracker.Entries()) {
 				switch (entry.State) {
 					case EntityState.Added:
 						handlers.ForEach(x=>x.OnAddedEntry(entry));
@@ -49,7 +52,7 @@ namespace Albatross.EFCore {
 		}
 
 		protected async Task ExecutePostSaveEventHandlers() {
-			var handlers = this.GetInfrastructure().GetRequiredService<IEnumerable<IDbChangeEventHandler>>();
+			var handlers = this.changeEventHandlerFactory.Create();
 			foreach (var item in handlers) {
 				if (item.HasPostSaveOperation) {
 					try {

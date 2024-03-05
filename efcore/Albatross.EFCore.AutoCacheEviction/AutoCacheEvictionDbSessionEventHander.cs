@@ -16,20 +16,6 @@ namespace Albatross.EFCore.AutoCacheEviction {
 			this.logger = logger;
 		}
 
-		public void PriorSave(IDbSession session) {
-			foreach(var entry in session.DbContext.ChangeTracker.Entries()) {
-				if(entry is ICachedObject cachedObject) {
-					if (entry.State == EntityState.Modified) {
-						changedEntities.Add(cachedObject);
-					}else if(entry.State == EntityState.Deleted) {
-						changedEntities.Add(cachedObject);
-					} else if (entry.State == EntityState.Added) {
-						changedEntities.Add(cachedObject);
-					}
-				}
-			}
-		}
-
 		public Task PostSave() {
 			logger.LogInformation("Auto removing cache entry: ", this.changedEntities.SelectMany(x=>x.CacheKeys).Select(x=>x.WildCardKey).ToArray());
 			this.keyManagement.RemoveSelfAndChildren(this.changedEntities.ToArray());
@@ -37,15 +23,21 @@ namespace Albatross.EFCore.AutoCacheEviction {
 		}
 
 		public void OnAddedEntry(EntityEntry entry) {
-			throw new NotImplementedException();
+			if(entry.Entity is ICachedObject cachedObject) {
+				changedEntities.Add(cachedObject);
+			}
 		}
 
 		public void OnModifiedEntry(EntityEntry entry) {
-			throw new NotImplementedException();
+			if (entry.Entity is ICachedObject cachedObject) {
+				changedEntities.Add(cachedObject);
+			}
 		}
 
 		public void OnDeletedEntry(EntityEntry entry) {
-			throw new NotImplementedException();
+			if (entry.Entity is ICachedObject cachedObject) {
+				changedEntities.Add(cachedObject);
+			}
 		}
 	}
 }
