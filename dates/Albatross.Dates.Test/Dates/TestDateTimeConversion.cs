@@ -15,6 +15,8 @@ namespace Albatross.Dates.Test.Dates {
 			Assert.Equal(utc.GmtOffset(datetime), gmtOffset);
 
 			var datetimeoffset = new DateTimeOffset(datetime, gmtOffset);
+			var datetimeoffset2 = utc.Utc2DateTimeOffset(gmtOffset);
+			Assert.Equal(datetimeoffset, datetimeoffset2);
 			// the datetimeoffset object has the same time as the utc object
 			Assert.Equal(datetimeoffset, utc);
 			// they have the same file time and are representing the same time
