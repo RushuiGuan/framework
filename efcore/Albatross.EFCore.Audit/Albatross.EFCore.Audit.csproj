@@ -2,12 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.Caching" Version="7.0.1" />
+    <PackageReference Include="Albatross.Authentication" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

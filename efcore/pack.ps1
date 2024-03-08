@@ -10,6 +10,7 @@ $projects = @(
 	"Albatross.EFCore",
 	"Albatross.EFCore.ChangeReporting",
 	"Albatross.EFCore.AutoCacheEviction",
+	"Albatross.EFCore.Audit",
 	"Albatross.DateLevel",
 	"Albatross.EFCore.PostgreSQL",
 	"Albatross.EFCore.SqlServer"

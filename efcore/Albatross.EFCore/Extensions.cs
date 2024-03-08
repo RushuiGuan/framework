@@ -76,10 +76,5 @@ namespace Albatross.EFCore {
 			var array = await query.ToArrayAsync();
 			return new HashSet<T>(array);
 		}
-
-		public static IDbSession UseAuditEventHandlers<T>(this IDbSession session, string? user) where T : class {
-			session.SessionEventHandlers.Add(new AuditDbSessionEventHandler<T>(user));
-			return session;
-		}
 	}
 }

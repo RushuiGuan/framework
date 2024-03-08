@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Albatross.Text;
 using System.IO;
 using System;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Albatross.EFCore.ChangeReporting {
-	public class ChangeReportDbSessionEventHandler<T> : IDbSessionEventHandler where T : class {
+	public class ChangeReportDbSessionEventHandler<T> : IDbChangeEventHandler where T : class {
 		public ChangeReportingOptions Options { get; } = new ChangeReportingOptions();
 		public List<ChangeReport<T>> Changes { get; } = new List<ChangeReport<T>>();
 		public string Text { get; private set; } = string.Empty;
@@ -16,39 +16,12 @@ namespace Albatross.EFCore.ChangeReporting {
 
 		ChangeType ChangeType => Options.Type;
 		HashSet<string> SkippedProperties => Options.SkippedProperties;
+		public bool HasPostSaveOperation => this.Changes.Any();
 
-		public void PriorSave(IDbSession session) {
-			foreach (var entry in session.DbContext.ChangeTracker.Entries<T>()) {
-				if (entry.State == EntityState.Modified && (ChangeType & ChangeType.Modified) > 0) {
-					Changes.AddRange(entry.Properties
-						.Where(args => args.IsModified && !SkippedProperties.Contains(args.Metadata.Name))
-						.Select(args => new ChangeReport<T>(entry.Entity, args.Metadata.Name) {
-							OldValue = args.OriginalValue,
-							NewValue = args.CurrentValue,
-						}));
-				} else if (entry.State == EntityState.Added && (ChangeType & ChangeType.Added) > 0) {
-					Changes.AddRange(entry.Properties
-						.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
-						.Select(args => new ChangeReport<T>(entry.Entity, args.Metadata.Name) {
-							OldValue = null,
-							NewValue = args.CurrentValue,
-						}));
-				} else if (entry.State == EntityState.Deleted && (ChangeType & ChangeType.Deleted) > 0) {
-					Changes.AddRange(entry.Properties
-						.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
-						.Select(args => new ChangeReport<T>(entry.Entity, args.Metadata.Name) {
-							OldValue = args.CurrentValue,
-							NewValue = null,
-						}));
-				}
-			}
-		}
 		public async Task PostSave() {
-			if (this.Changes.Any()) {
-				this.Text = await BuildText(this.Options, this.Changes);
-				if (!string.IsNullOrEmpty(Text) && OnReportGenerated != null) {
-					await OnReportGenerated(this.Text);
-				}
+			this.Text = await BuildText(this.Options, this.Changes);
+			if (!string.IsNullOrEmpty(Text) && OnReportGenerated != null) {
+				await OnReportGenerated(this.Text);
 			}
 		}
 
@@ -74,6 +47,8 @@ namespace Albatross.EFCore.ChangeReporting {
 		}
 		public Dictionary<string, Func<object, object, string>> Formatters { get; } = new Dictionary<string, Func<object, object, string>>();
 		public Dictionary<string, Func<object, object, Task<string>>> AsyncFormatters { get; } = new Dictionary<string, Func<object, object, Task<string>>>();
+
+
 		public async Task<string> FormatValue(object? entity, string property, object? value) {
 			ChangeReport<T>? report = (ChangeReport<T>)entity;
 			if (report == null || value == null) {
@@ -101,6 +76,39 @@ namespace Albatross.EFCore.ChangeReporting {
 				}
 			} else {
 				return $"{value}";
+			}
+		}
+
+		public void OnAddedEntry(EntityEntry entry) {
+			if (entry is EntityEntry<T> typedEntry && (ChangeType & ChangeType.Added) > 0) {
+				Changes.AddRange(entry.Properties
+					.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
+					.Select(args => new ChangeReport<T>(typedEntry.Entity, args.Metadata.Name) {
+						OldValue = null,
+						NewValue = args.CurrentValue,
+					}));
+			}
+		}
+
+		public void OnModifiedEntry(EntityEntry entry) {
+			if (entry is EntityEntry<T> typedEntry && (ChangeType & ChangeType.Modified) > 0) {
+				Changes.AddRange(entry.Properties
+						.Where(args => args.IsModified && !SkippedProperties.Contains(args.Metadata.Name))
+						.Select(args => new ChangeReport<T>(typedEntry.Entity, args.Metadata.Name) {
+							OldValue = args.OriginalValue,
+							NewValue = args.CurrentValue,
+						}));
+			}
+		}
+
+		public void OnDeletedEntry(EntityEntry entry) {
+			if (entry is EntityEntry<T> typedEntry && (ChangeType & ChangeType.Deleted) > 0) {
+				Changes.AddRange(entry.Properties
+					.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
+					.Select(args => new ChangeReport<T>(typedEntry.Entity, args.Metadata.Name) {
+						OldValue = args.CurrentValue,
+						NewValue = null,
+					}));
 			}
 		}
 	}
