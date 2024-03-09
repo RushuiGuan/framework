@@ -1,18 +1,15 @@
 ﻿using Albatross.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Albatross.Hosting.Test {
 	public class GetCurrentTestUser : IGetCurrentUser {
-		public string Provider { get; private set; }
-		string account;
+		public string Provider { get; set; }
+		public string User { get; set; }
 
-		public GetCurrentTestUser(string provider, string account) {
+		public GetCurrentTestUser(string provider, string user) {
 			this.Provider = provider;
-			this.account = account;
+			this.User = user;
 		}
 
-		public string Get() => account;
+		public string Get() => this.User;
 	}
 }

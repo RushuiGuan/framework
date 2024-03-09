@@ -1,9 +1,13 @@
 ﻿using Albatross.Caching;
 using Albatross.EFCore;
+using Albatross.EFCore.Audit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Sample.EFCore {
+	public class MyDataCacheKey : CacheKey {
+		public MyDataCacheKey(int id) : base("my-data", id.ToString()) { }
+	}
 	public class MyData : IModifiedBy, IModifiedUtc, ICreatedBy, ICreatedUtc, ICachedObject {
 		public int Id { get; set; }
 		public JsonProperty Property { get; set; } = new JsonProperty(null);
@@ -19,8 +23,11 @@ namespace Sample.EFCore {
 		public decimal Decimal { get; set; }
 		public bool Bool { get; set; }
 		public double Double { get; set; }
-		public float Float { get; set; }	
+		public float Float { get; set; }
 		public Guid Guid { get; set; }
+
+
+
 
 
 		public string ModifiedBy { get; set; } = string.Empty;
@@ -28,8 +35,7 @@ namespace Sample.EFCore {
 		public string CreatedBy { get; set; } = string.Empty;
 		public DateTime CreatedUtc { get; set; }
 
-		public void Invalidate(CacheEvictionService cacheEvictionService) {
-		}
+		public IEnumerable<ICacheKey> CacheKeys => [new MyDataCacheKey(Id)];
 	}
 
 	public record class JsonProperty : ICloneable {

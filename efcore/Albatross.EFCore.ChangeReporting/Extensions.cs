@@ -1,5 +1,7 @@
 ﻿using Albatross.Collections;
-using Albatross.Text;
+using Albatross.EFCore.Audit;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Threading.Tasks;
 
@@ -52,9 +54,9 @@ namespace Albatross.EFCore.ChangeReporting {
 
 		public static ChangeReportBuilder<T> Format<T>(this ChangeReportBuilder<T> builder, string property, string format) where T : class
 			=> builder.Formatter(property, (entity, value) => string.Format($"{{0:{format}}}", value));
-		
+
 		public static ChangeReportBuilder<T> FormatFixedHeader<T>(this ChangeReportBuilder<T> builder, string property, string format) where T : class
-			=> builder.Formatter(ChangeReportDbSessionEventHandler<T>.ColumnPrefix + property, (entity, value) => string.Format($"{{0:{format}}}", value));
+			=> builder.Formatter(ChangeReportDbEventHandler<T>.ColumnPrefix + property, (entity, value) => string.Format($"{{0:{format}}}", value));
 
 		public static ChangeReportBuilder<T> NumericFormat<T>(this ChangeReportBuilder<T> builder, string property) where T : class
 			=> builder.Format(property, "#,#0");
@@ -64,5 +66,10 @@ namespace Albatross.EFCore.ChangeReporting {
 
 		public static ChangeReportBuilder<T> TimeFormat<T>(this ChangeReportBuilder<T> builder, string property) where T : class
 			=> builder.Format(property, "HH:mm");
+
+		public static IServiceCollection AddChangeReporting<T>(this IServiceCollection services, ChangeReportBuilder<T> builder) where T : class {
+			services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, ChangeReportDbEventHandler<T>>(provider => builder.Build()));
+			return services;
+		}
 	}
 }

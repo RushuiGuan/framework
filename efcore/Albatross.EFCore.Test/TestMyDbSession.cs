@@ -1,6 +1,7 @@
 ﻿using Albatross.DateLevel;
 using Albatross.Hosting.Test;
 using Microsoft.EntityFrameworkCore;
+using Sample.EFCore;
 using Sample.EFCore.Models;
 using System;
 using System.Linq;
@@ -81,6 +82,30 @@ namespace Albatross.EFCore.Test.MyNamespace {
 
 			market.SpreadSpec.Clear();
 			await session.SaveChangesAsync();
+		}
+
+		[Fact]
+		public async Task TestChangeTracker() {
+			using (var scope = host.Create()) {
+				var session = scope.Get<SampleDbSession>();
+				var set = session.DbContext.Set<MyData>();
+				for (int i = 0; i < 10; i++) {
+					var data = new MyData { Int = i };
+					set.Add(data);
+				}
+				await session.SaveChangesAsync();
+			}
+			using (var scope = host.Create()) {
+				var session = scope.Get<SampleDbSession>();
+				var array = await session.DbContext.Set<MyData>().ToArrayAsync();
+				Assert.Equal(array.Length, session.ChangeTracker.Entries().Count());
+			}
+			//using (var scope = host.Create()) {
+			//	var session = scope.Get<SampleDbSession>();
+			//	var array = await session.DbContext.Set<MyData>().ToArrayAsync();
+			//	array[0].Int = 100;
+			//	Assert.Empty(session.ChangeTracker.Entries());
+			//}
 		}
 	}
 }

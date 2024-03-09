@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Threading.Tasks;
 
 namespace Albatross.EFCore {
-	public interface IDbSessionEventHandler{
-		void PriorSave(IDbSession session);
+	public interface IDbSessionEventHandler {
+		void PreSave(IDbSession session);
+		void OnAddedEntry(EntityEntry entry);
+		void OnModifiedEntry(EntityEntry entry);
+		void OnDeletedEntry(EntityEntry entry);
 		Task PostSave();
 	}
 }
