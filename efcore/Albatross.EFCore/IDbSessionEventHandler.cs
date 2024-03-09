@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 
 namespace Albatross.EFCore {
-	public interface IDbChangeEventHandler {
+	public interface IDbSessionEventHandler {
+		void PreSave(IDbSession session);
 		void OnAddedEntry(EntityEntry entry);
 		void OnModifiedEntry(EntityEntry entry);
 		void OnDeletedEntry(EntityEntry entry);
-		bool HasPostSaveOperation { get; }
 		Task PostSave();
 	}
 }

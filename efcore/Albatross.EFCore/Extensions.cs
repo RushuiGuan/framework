@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -76,5 +77,12 @@ namespace Albatross.EFCore {
 			var array = await query.ToArrayAsync();
 			return new HashSet<T>(array);
 		}
+
+		public static IServiceCollection AddDbSessionEvents(this IServiceCollection services) {
+			services.AddScoped<IDbEventSession, DbEventSession>();
+			services.AddSingleton<IDbEventSessionProvider, DbEventSessionProvider>();
+			return services;
+		}
+		
 	}
 }

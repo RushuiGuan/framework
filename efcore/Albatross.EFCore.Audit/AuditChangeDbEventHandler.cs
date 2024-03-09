@@ -4,12 +4,12 @@ using System;
 using System.Threading.Tasks;
 
 namespace Albatross.EFCore.Audit {
-	public class AuditChangeEventHandler : IDbChangeEventHandler {
+	public class AuditChangeDbEventHandler : IDbSessionEventHandler {
 		private readonly IGetCurrentUser getCurrentUser;
-		public bool HasPostSaveOperation => false;
+		public void PreSave(IDbSession session) { }
 		public Task PostSave() => Task.CompletedTask;
 
-		public AuditChangeEventHandler(IGetCurrentUser getCurrentUser) {
+		public AuditChangeDbEventHandler(IGetCurrentUser getCurrentUser) {
 			this.getCurrentUser = getCurrentUser;
 		}
 		public void OnAddedEntry(EntityEntry entry) {
