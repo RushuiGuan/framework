@@ -24,8 +24,6 @@ namespace Albatross.EFCore.Test {
 			services.AddAutoCacheEviction();
 			services.AddAuditEventHandlers();
 			services.AddTestPrincipalProvider("test", "test");
-			services.AddScoped<IDbSessionEventHandler, TestSessionEventHandler>();
-			services.AddScoped<IDbSessionEventHandler, ExceptionDbSessionEventHandler>();
 		}
 
 		public static void GetDbSession<T, K>(K value) where T : class {

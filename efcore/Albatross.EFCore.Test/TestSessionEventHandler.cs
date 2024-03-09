@@ -11,10 +11,7 @@ namespace Albatross.EFCore.Test {
 		public void OnDeletedEntry(EntityEntry entry) { }
 		public void OnModifiedEntry(EntityEntry entry) { }
 
-		static int i = 0;
-		public static void ResetCounter() {
-			i = 0;
-		}
+		int i = 0;
 		private readonly GetCurrentTestUser getCurrentTestUser;
 
 		public void PreSave(IDbSession session) {

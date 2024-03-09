@@ -1,5 +1,8 @@
 ﻿using Albatross.Hosting.Test;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sample.EFCore;
 using Sample.EFCore.Models;
 using System;
@@ -8,16 +11,16 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.EFCore.Test {
-	public class TestSessionEventHandlerSetup : IClassFixture<MyTestHost> {
-		private readonly MyTestHost host;
-
-		public TestSessionEventHandlerSetup(MyTestHost host) {
-			this.host = host;
+	public class TestSessionEventHandlerSetup {
+		public class MyTestHost1 : MyTestHost {
+			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+				base.RegisterServices(configuration, services);
+				services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, TestSessionEventHandler>());
+			}
 		}
-
 		[Fact]
 		public async Task TestAuditCreateChange() {
-			TestSessionEventHandler.ResetCounter();
+			var host = new MyTestHost1();
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
 			scope.Get<GetCurrentTestUser>().User = "xx";
@@ -36,7 +39,7 @@ namespace Albatross.EFCore.Test {
 
 		[Fact]
 		public async Task TestAuditUpdateChange() {
-			TestSessionEventHandler.ResetCounter();
+			var host = new MyTestHost1();
 			MyData data;
 			DateTime audit;
 			using (var scope = host.Create()) {
@@ -45,12 +48,6 @@ namespace Albatross.EFCore.Test {
 				data = new MyData();
 				set.Add(data);
 				await session.SaveChangesAsync();
-			}
-
-			using (var scope = host.Create()) {
-				var session = scope.Get<SampleDbSession>();
-				var set = session.DbContext.Set<MyData>();
-				data = await set.Where(x => x.Id == data.Id).FirstAsync();
 				data.Int = 100;
 				audit = data.ModifiedUtc;
 				await session.SaveChangesAsync();
@@ -62,8 +59,16 @@ namespace Albatross.EFCore.Test {
 			Assert.Equal("user1", data.ModifiedBy);
 		}
 
+		public class MyTestHost2 : MyTestHost {
+			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
+				base.RegisterServices(configuration, services);
+				services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, ExceptionDbSessionEventHandler>());
+			}
+		}
+
 		[Fact]
 		public async Task TestSessionHandlerException() {
+			var host = new MyTestHost2();
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
