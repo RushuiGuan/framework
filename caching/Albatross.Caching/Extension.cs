@@ -18,6 +18,7 @@ namespace Albatross.Caching {
 		}
 
 		public static IServiceCollection AddBuiltInCache(this IServiceCollection services) {
+			services.AddSingleton(typeof(OneSecondCache<,>));
 			services.AddSingleton(typeof(FiveSecondsCache<,>));
 			services.AddSingleton(typeof(TenSecondsCache<,>));
 			services.AddSingleton(typeof(FifteenSecondsCache<,>));
@@ -29,6 +30,8 @@ namespace Albatross.Caching {
 
 			services.AddSingleton(typeof(OneDayCache<,>));
 			services.AddSingleton(typeof(OneMonthCache<,>));
+
+			services.AddSingleton(typeof(OneSecondSlidingTtlCache<,>));
 			return services;
 		}
 
@@ -38,9 +41,13 @@ namespace Albatross.Caching {
 			keyMgmt.Remove(set.ToArray());
 		}
 		public static void RemoveSelfAndChildren(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
+			var wildCardKeys = new HashSet<string>();
 			var set = new HashSet<string>();
 			foreach (var key in keys) {
-				set.AddRange(keyMgmt.FindKeys(key.WildCardKey));
+				if(!wildCardKeys.Contains(key.WildCardKey)) {
+					wildCardKeys.Add(key.WildCardKey);
+					set.AddRange(keyMgmt.FindKeys(key.WildCardKey));
+				}
 			}
 			keyMgmt.Remove(set.ToArray());
 		}
@@ -49,9 +56,13 @@ namespace Albatross.Caching {
 			keyMgmt.RemoveSelfAndChildren(keys);
 		}
 		public static void Reset(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
+			var wildCardKeys = new HashSet<string>();
 			var set = new HashSet<string>();
 			foreach (var key in keys) {
-				set.AddRange(keyMgmt.FindKeys(key.ResetKey));
+				if (!wildCardKeys.Contains(key.ResetKey)) {
+					wildCardKeys.Add(key.ResetKey);
+					set.AddRange(keyMgmt.FindKeys(key.ResetKey));
+				}
 			}
 			keyMgmt.Remove(set.ToArray());
 		}

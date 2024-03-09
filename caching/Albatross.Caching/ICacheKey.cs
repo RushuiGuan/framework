@@ -39,14 +39,14 @@
 
 		public CacheKey(ICacheKey? parent, string prefix, string? value) {
 			this.Parent = parent;
-			this.Prefix = prefix;
+			this.Prefix = string.IsNullOrEmpty(prefix) ? DefaultPrefix : prefix;
 
-			Key = $"{parent?.Key}{prefix}{ICacheKey.Delimiter}";
+			Key = $"{parent?.Key}{Prefix}{ICacheKey.Delimiter}";
 			if (!string.IsNullOrEmpty(value)) {
 				Key = $"{Key}{value}{ICacheKey.Delimiter}";
 			}
 			WildCardKey = $"{Key}{ICacheKey.Asterisk}";
-			ResetKey = $"{parent?.Key}{prefix}{ICacheKey.Delimiter}{ICacheKey.Asterisk}";
+			ResetKey = $"{parent?.Key}{Prefix}{ICacheKey.Delimiter}{ICacheKey.Asterisk}";
 		}
 		public CacheKey(string prefix, string? value) : this(null, prefix, value) { }
 		public CacheKey(string? value) : this(null, DefaultPrefix, value) { }
