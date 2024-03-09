@@ -82,10 +82,10 @@ namespace Albatross.EFCore.ChangeReporting {
 		}
 
 		public void OnAddedEntry(EntityEntry entry) {
-			if (entry is EntityEntry<T> typedEntry && (ChangeType & ChangeType.Added) > 0) {
+			if (entry.Entity is T entity && (ChangeType & ChangeType.Added) > 0) {
 				Changes.AddRange(entry.Properties
 					.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
-					.Select(args => new ChangeReport<T>(typedEntry.Entity, args.Metadata.Name) {
+					.Select(args => new ChangeReport<T>(entity, args.Metadata.Name) {
 						OldValue = null,
 						NewValue = args.CurrentValue,
 					}));
@@ -93,10 +93,10 @@ namespace Albatross.EFCore.ChangeReporting {
 		}
 
 		public void OnModifiedEntry(EntityEntry entry) {
-			if (entry is EntityEntry<T> typedEntry && (ChangeType & ChangeType.Modified) > 0) {
+			if (entry.Entity is T entity && (ChangeType & ChangeType.Modified) > 0) {
 				Changes.AddRange(entry.Properties
 						.Where(args => args.IsModified && !SkippedProperties.Contains(args.Metadata.Name))
-						.Select(args => new ChangeReport<T>(typedEntry.Entity, args.Metadata.Name) {
+						.Select(args => new ChangeReport<T>(entity, args.Metadata.Name) {
 							OldValue = args.OriginalValue,
 							NewValue = args.CurrentValue,
 						}));
@@ -104,10 +104,10 @@ namespace Albatross.EFCore.ChangeReporting {
 		}
 
 		public void OnDeletedEntry(EntityEntry entry) {
-			if (entry is EntityEntry<T> typedEntry && (ChangeType & ChangeType.Deleted) > 0) {
+			if (entry.Entity is T entity && (ChangeType & ChangeType.Deleted) > 0) {
 				Changes.AddRange(entry.Properties
 					.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
-					.Select(args => new ChangeReport<T>(typedEntry.Entity, args.Metadata.Name) {
+					.Select(args => new ChangeReport<T>(entity, args.Metadata.Name) {
 						OldValue = args.CurrentValue,
 						NewValue = null,
 					}));

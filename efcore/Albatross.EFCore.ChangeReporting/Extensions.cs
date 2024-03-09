@@ -67,8 +67,8 @@ namespace Albatross.EFCore.ChangeReporting {
 		public static ChangeReportBuilder<T> TimeFormat<T>(this ChangeReportBuilder<T> builder, string property) where T : class
 			=> builder.Format(property, "HH:mm");
 
-		public static IServiceCollection Add<T>(this IServiceCollection services, ChangeReportBuilder<T> builder) where T : class {
-			services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler>(provider => builder.Build()));
+		public static IServiceCollection AddChangeReporting<T>(this IServiceCollection services, ChangeReportBuilder<T> builder) where T : class {
+			services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, ChangeReportDbEventHandler<T>>(provider => builder.Build()));
 			return services;
 		}
 	}
