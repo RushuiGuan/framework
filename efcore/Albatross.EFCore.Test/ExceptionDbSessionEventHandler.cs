@@ -3,29 +3,35 @@ using System;
 using System.Threading.Tasks;
 
 namespace Albatross.EFCore.Test {
-	public class ExceptionDbSessionEventHandler : IDbChangeEventHandler {
-		public bool ThrowPriorSaveException { get; set; }
-
-		public bool HasPostSaveOperation => true;
-
-		public ExceptionDbSessionEventHandler(bool throwPriorSaveException) {
-			ThrowPriorSaveException = throwPriorSaveException;
-		}
+	public class ExceptionDbSessionEventHandler : IDbSessionEventHandler {
+		public static bool ThrowPriorSaveException { get; set; }
 
 		public Task PostSave() {
 			throw new Exception("Test exception during post save");
 		}
 
 		public void OnAddedEntry(EntityEntry entry) {
-			throw new Exception("Test exception during post save");
+			if(ThrowPriorSaveException) {
+				throw new Exception("Test exception during pre save");
+			}
 		}
 
 		public void OnModifiedEntry(EntityEntry entry) {
-			throw new Exception("Test exception during post save");
+			if (ThrowPriorSaveException) {
+				throw new Exception("Test exception during post save");
+			}
 		}
 
 		public void OnDeletedEntry(EntityEntry entry) {
-			throw new Exception("Test exception during post save");
+			if (ThrowPriorSaveException) {
+				throw new Exception("Test exception during post save");
+			}
+		}
+
+		public void PreSave(IDbSession session) {
+			if (ThrowPriorSaveException) {
+				throw new Exception("Test exception during pre save");
+			}
 		}
 	}
 }

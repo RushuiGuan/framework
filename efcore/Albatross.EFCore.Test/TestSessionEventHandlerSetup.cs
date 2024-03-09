@@ -18,6 +18,7 @@ namespace Albatross.EFCore.Test {
 
 		[Fact]
 		public async Task TestAuditCreateChange() {
+			TestSessionEventHandler.ResetCounter();
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
 			scope.Get<GetCurrentTestUser>().User = "xx";
@@ -28,19 +29,19 @@ namespace Albatross.EFCore.Test {
 			set.Add(data);
 
 			await session.SaveChangesAsync();
-			Assert.Equal("xx", data.CreatedBy);
-			Assert.Equal("xx", data.ModifiedBy);
+			Assert.Equal("user0", data.CreatedBy);
+			Assert.Equal("user0", data.ModifiedBy);
 			Assert.True(data.CreatedUtc >= utcNow);
 			Assert.True(data.ModifiedUtc >= utcNow);
 		}
 
 		[Fact]
 		public async Task TestAuditUpdateChange() {
+			TestSessionEventHandler.ResetCounter();
 			MyData data;
 			DateTime audit;
 			using (var scope = host.Create()) {
 				var session = scope.Get<SampleDbSession>();
-				scope.Get<GetCurrentTestUser>().User = "create user";
 				var set = session.DbContext.Set<MyData>();
 				data = new MyData();
 				set.Add(data);
@@ -48,7 +49,6 @@ namespace Albatross.EFCore.Test {
 			}
 
 			using (var scope = host.Create()) {
-				scope.Get<GetCurrentTestUser>().User = "update user";
 				var session = scope.Get<SampleDbSession>();
 				var set = session.DbContext.Set<MyData>();
 				data = await set.Where(x => x.Id == data.Id).FirstAsync();
@@ -59,23 +59,20 @@ namespace Albatross.EFCore.Test {
 
 			Assert.True(data.CreatedUtc < data.ModifiedUtc);
 			Assert.True(data.ModifiedUtc > audit);
-			Assert.Equal("create user", data.CreatedBy);
-			Assert.Equal("update user", data.ModifiedBy);
+			Assert.Equal("user0", data.CreatedBy);
+			Assert.Equal("user1", data.ModifiedBy);
 		}
 
 		[Fact]
 		public async Task TestSessionHandlerException() {
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
-			var handler = new ExceptionDbSessionEventHandler(false);
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
 			await session.SaveChangesAsync();
 			Assert.NotEqual(0, data.Id);
-
-			handler.ThrowPriorSaveException = true;
-
+			ExceptionDbSessionEventHandler.ThrowPriorSaveException = true;
 			Assert.Throws<Exception>(() => session.SaveChanges());
 			await Assert.ThrowsAsync<Exception>(() => session.SaveChangesAsync());
 		}
