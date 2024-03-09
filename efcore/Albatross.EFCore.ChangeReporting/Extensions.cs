@@ -71,5 +71,9 @@ namespace Albatross.EFCore.ChangeReporting {
 			services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, ChangeReportDbEventHandler<T>>(provider => builder.Build()));
 			return services;
 		}
+		public static IServiceCollection AddChangeReporting<T>(this IServiceCollection services,Func<IServiceProvider, ChangeReportDbEventHandler<T>> func) where T : class {
+			services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, ChangeReportDbEventHandler<T>>(func));
+			return services;
+		}
 	}
 }
