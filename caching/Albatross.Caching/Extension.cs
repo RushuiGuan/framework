@@ -51,10 +51,6 @@ namespace Albatross.Caching {
 			}
 			keyMgmt.Remove(set.ToArray());
 		}
-		public static void RemoveSelfAndChildren(this ICacheKeyManagement keyMgmt, params ICachedObject[] cachedObjects) {
-			var keys = cachedObjects.SelectMany(x => x.CacheKeys).ToArray();
-			keyMgmt.RemoveSelfAndChildren(keys);
-		}
 		public static void Reset(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
 			var wildCardKeys = new HashSet<string>();
 			var set = new HashSet<string>();

@@ -2,6 +2,6 @@
 
 namespace Albatross.Caching {
 	public interface ICachedObject {
-		IEnumerable<ICacheKey> CacheKeys { get; }
+		ICacheKey CreateCacheKey(int state, object? originalValues);
 	}
 }
