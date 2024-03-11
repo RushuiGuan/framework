@@ -14,7 +14,7 @@ namespace Albatross.Caching.Test {
 		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			base.RegisterServices(configuration, services);
 			services.AddBuiltInCache();
-			services.AddCaching(configuration);
+			services.AddCaching();
 			services.AddRedisCaching(configuration);
 			services.AddMemCachingAsSecondary();
 		}

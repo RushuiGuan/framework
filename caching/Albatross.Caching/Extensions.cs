@@ -1,6 +1,5 @@
 ﻿using Albatross.Caching.BuiltIn;
 using Albatross.Collections;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Polly.Registry;
@@ -8,9 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.Caching {
-	// class name should not be renamed to Extensions due to backward compatibilies issue
-	public static class Extension {
-		public static IServiceCollection AddCaching(this IServiceCollection services, IConfiguration configuration) {
+	public static class Extensions {
+		public static IServiceCollection AddCaching(this IServiceCollection services) {
 			var registry = new PolicyRegistry();
 			services.TryAdd(ServiceDescriptor.Singleton<IPolicyRegistry<string>>(registry));
 			services.TryAdd(ServiceDescriptor.Singleton<IReadOnlyPolicyRegistry<string>>(registry));
