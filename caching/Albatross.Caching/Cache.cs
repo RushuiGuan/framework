@@ -30,17 +30,17 @@ namespace Albatross.Caching {
 		public virtual string Name => $"Cache-{typeof(CacheFormat).Name}-{typeof(KeyFormat).Name}";
 		public abstract ITtlStrategy TtlStrategy { get; }
 
-		// public virtual void OnCacheGet(Context context, string cacheKey) { }
-		public virtual void OnCacheMiss(Context context, string cacheKey) => logger.LogDebug("cache miss: {key}", cacheKey);
-		public virtual void OnCachePut(Context context, string cacheKey) => logger.LogDebug("cache put: {key}", cacheKey);
-		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error getting cache {name}", cacheKey);
-		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", cacheKey);
+		public void OnCacheGet(Context context, string cacheKey) { }
+		public void OnCacheMiss(Context context, string cacheKey) => logger.LogDebug("cache miss: {key}", cacheKey);
+		public void OnCachePut(Context context, string cacheKey) => logger.LogDebug("cache put: {key}", cacheKey);
+		public void OnCacheGetError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error getting cache {name}", cacheKey);
+		public void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", cacheKey);
 
 		public void Register() {
 			if (!registry.ContainsKey(Name)) {
 				logger.LogInformation("Register Cache Management {cacheName}", Name);
 				var policy = Policy.CacheAsync<CacheFormat>(cacheProvider, TtlStrategy, this,
-					null, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
+					OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
 				registry.Add(Name, policy);
 			} else {
 				logger.LogError("Cache {name} has already been registered", Name);
