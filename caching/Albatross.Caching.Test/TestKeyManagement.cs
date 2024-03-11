@@ -21,7 +21,7 @@ namespace Albatross.Caching.Test {
 			var keys = new List<ICacheKey>();
 
 			foreach (var keyValue in keyValues) {
-				var key = new CacheKey(keyValue);
+				var key = new CacheKey(keyValue, false);
 				keys.Add(key);
 				await cache1.PutAsync(key, data);
 			}
@@ -44,18 +44,18 @@ namespace Albatross.Caching.Test {
 			var keyValues = new string[] { "", "1", "2", "3" };
 
 			foreach (var keyValue in keyValues) {
-				await cache.PutAsync(new CacheKey(keyValue), data);
+				await cache.PutAsync(new CacheKey(keyValue, true), data);
 			}
 			var allKeys = keyMgmt.FindKeys("*");
 			foreach (var keyValue in keyValues) {
-				Assert.Contains(new CacheKey(keyValue).Key, allKeys);
+				Assert.Contains(new CacheKey(keyValue, true).Key, allKeys);
 			}
 			foreach (var keyValue in keyValues) {
-				keyMgmt.Remove(new CacheKey(keyValue));
+				keyMgmt.Remove(new CacheKey(keyValue, true));
 			}
 			allKeys = keyMgmt.FindKeys("*");
 			foreach (var keyValue in keyValues) {
-				Assert.DoesNotContain(new CacheKey(keyValue).Key, allKeys);
+				Assert.DoesNotContain(new CacheKey(keyValue, true).Key, allKeys);
 			}
 		}
 

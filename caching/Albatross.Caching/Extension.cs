@@ -18,20 +18,21 @@ namespace Albatross.Caching {
 		}
 
 		public static IServiceCollection AddBuiltInCache(this IServiceCollection services) {
-			services.AddSingleton(typeof(OneSecondCache<,>));
-			services.AddSingleton(typeof(FiveSecondsCache<,>));
-			services.AddSingleton(typeof(TenSecondsCache<,>));
-			services.AddSingleton(typeof(FifteenSecondsCache<,>));
+			services.TryAddSingleton(typeof(OneSecondCache<,>));
+			services.TryAddSingleton(typeof(FiveSecondsCache<,>));
+			services.TryAddSingleton(typeof(TenSecondsCache<,>));
+			services.TryAddSingleton(typeof(FifteenSecondsCache<,>));
 
-			services.AddSingleton(typeof(OneMinuteCache<,>));
-			services.AddSingleton(typeof(FiveMinutesCache<,>));
-			services.AddSingleton(typeof(TenMinutesCache<,>));
-			services.AddSingleton(typeof(FifteenMinutesCache<,>));
+			services.TryAddSingleton(typeof(OneMinuteCache<,>));
+			services.TryAddSingleton(typeof(FiveMinutesCache<,>));
+			services.TryAddSingleton(typeof(TenMinutesCache<,>));
+			services.TryAddSingleton(typeof(FifteenMinutesCache<,>));
 
-			services.AddSingleton(typeof(OneDayCache<,>));
-			services.AddSingleton(typeof(OneMonthCache<,>));
+			services.TryAddSingleton(typeof(OneDayCache<,>));
+			services.TryAddSingleton(typeof(OneMonthCache<,>));
+			services.TryAddSingleton(typeof(OneYearCache<,>));
 
-			services.AddSingleton(typeof(OneSecondSlidingTtlCache<,>));
+			services.TryAddSingleton(typeof(OneSecondSlidingTtlCache<,>));
 			return services;
 		}
 

@@ -32,8 +32,8 @@ namespace Albatross.Caching.Test {
 			using var scope = host.Create();
 			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, CacheKey>>();
 
-			await tier1.PutAsync(new CacheKey(null), 1);
-			var result = await tier1.TryGetAsync(new CacheKey(null));
+			await tier1.PutAsync(new CacheKey(null, true), 1);
+			var result = await tier1.TryGetAsync(new CacheKey(null, true));
 			Assert.True(result.Item1);
 			Assert.Equal(1, result.Item2);
 		}

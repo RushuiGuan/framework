@@ -34,7 +34,7 @@ namespace Albatross.Caching.Test {
 					cache_miss++;
 					await Task.Delay(2000);
 					return new MyData();
-				}, new CacheKey(key));
+				}, new CacheKey(key, true));
 				tasks.Add(task);
 			}
 			await Task.WhenAll(tasks);
@@ -65,7 +65,7 @@ namespace Albatross.Caching.Test {
 					cache_miss++;
 					await Task.Delay(2000);
 					return new MyData();
-				})), new CacheKey(key));
+				})), new CacheKey(key, true));
 				tasks.Add(task);
 			}
 			var results = await Task.WhenAll(tasks);

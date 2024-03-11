@@ -12,7 +12,7 @@ namespace Albatross.Caching.Test {
 			string expectedWildCardKey, 
 			string expectedResetKey) {
 
-			var key = new CacheKey(keyPrefix, keyValue);
+			var key = new CacheKey(keyPrefix, keyValue, false);
 			Assert.Equal(expectedKey, key.Key);
 			Assert.Equal(expectedResetKey, key.ResetKey);
 			Assert.Equal(expectedWildCardKey, key.WildCardKey);
@@ -28,7 +28,7 @@ namespace Albatross.Caching.Test {
 			string expectedWildCardKey,
 			string expectedResetKey) {
 
-			var key = new CacheKey(new CacheKey(parentPrefix, parentValue), keyPrefix, keyValue);
+			var key = new CacheKey(new CacheKey(parentPrefix, parentValue, true), keyPrefix, keyValue, true);
 			Assert.Equal(expectedKey, key.Key);
 			Assert.Equal(expectedResetKey, key.ResetKey);
 			Assert.Equal(expectedWildCardKey, key.WildCardKey);

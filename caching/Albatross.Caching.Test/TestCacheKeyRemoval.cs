@@ -1,9 +1,4 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.Caching.Test {
@@ -15,9 +10,9 @@ namespace Albatross.Caching.Test {
 				.Returns(new string[] { "test:1:1:1", "test:2:1" });
 			var keyMgmt = mock.Object;
 			var keys = new ICacheKey[] {
-				new CacheKey("test", "1"),
-				new CacheKey("test", "1"),
-				new CacheKey("test", "2")
+				new CacheKey("test", "1", true),
+				new CacheKey("test", "1", true),
+				new CacheKey("test", "2", true)
 			};
 			keyMgmt.RemoveSelfAndChildren(keys);
 			mock.Verify(x => x.FindKeys("test:1:*"), Times.Once);
@@ -33,10 +28,10 @@ namespace Albatross.Caching.Test {
 				.Returns(new string[] { "test:1:1:1", "test:2:1" });
 			var keyMgmt = mock.Object;
 			var keys = new ICacheKey[] {
-				new CacheKey("test", "1"),
-				new CacheKey("test", "1"),
-				new CacheKey("test", "2"),
-				new CacheKey("xx", "2")
+				new CacheKey("test", "1", true),
+				new CacheKey("test", "1", true),
+				new CacheKey("test", "2", true),
+				new CacheKey("xx", "2", true)
 			};
 			keyMgmt.Reset(keys);
 			mock.Verify(x => x.FindKeys("test:*"), Times.Once);
