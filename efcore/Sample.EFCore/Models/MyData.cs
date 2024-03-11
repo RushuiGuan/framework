@@ -27,15 +27,16 @@ namespace Sample.EFCore {
 		public Guid Guid { get; set; }
 
 
-
-
-
 		public string ModifiedBy { get; set; } = string.Empty;
 		public DateTime ModifiedUtc { get; set; }
 		public string CreatedBy { get; set; } = string.Empty;
 		public DateTime CreatedUtc { get; set; }
 
 		public IEnumerable<ICacheKey> CacheKeys => [new MyDataCacheKey(Id)];
+
+		public ICacheKey CreateCacheKey(ObjectState state, object? originalValues) {
+			throw new NotImplementedException();
+		}
 	}
 
 	public record class JsonProperty : ICloneable {

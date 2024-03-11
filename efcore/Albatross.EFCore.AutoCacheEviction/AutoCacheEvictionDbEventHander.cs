@@ -16,7 +16,8 @@ namespace Albatross.EFCore.AutoCacheEviction {
 
 		public Task PostSave() {
 			if (cacheKeys.Any()) {
-				this.keyManagement.RemoveSelfAndChildren(this.cacheKeys.ToArray());
+				var keys = this.keyManagement.RemoveSelfAndChildren(this.cacheKeys.ToArray());
+				logger.LogInformation("Cache keys evicted:\n{@keys}", keys);
 			}
 			return Task.CompletedTask;
 		}
