@@ -40,7 +40,7 @@ namespace Albatross.Caching {
 			set.AddRange(keys.Select(x => x.Key));
 			keyMgmt.Remove(set.ToArray());
 		}
-		public static void RemoveSelfAndChildren(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
+		public static IEnumerable<string> RemoveSelfAndChildren(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
 			var wildCardKeys = new HashSet<string>();
 			var set = new HashSet<string>();
 			foreach (var key in keys) {
@@ -54,6 +54,7 @@ namespace Albatross.Caching {
 				}
 			}
 			keyMgmt.Remove(set.ToArray());
+			return set;
 		}
 		public static void Reset(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
 			var wildCardKeys = new HashSet<string>();
