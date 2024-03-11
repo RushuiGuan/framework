@@ -7,8 +7,7 @@ namespace Albatross.Caching.BuiltIn {
 	public class OneYearCache<CacheFormat, KeyFormat> : Cache<CacheFormat, KeyFormat> where KeyFormat : ICacheKey {
 		public OneYearCache(ILogger<OneYearCache<CacheFormat, KeyFormat>> logger,
 				IPolicyRegistry<string> registry,
-				ICacheProviderAdapter cacheProviderAdapter,
-				ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProviderAdapter, keyMgmt) {
+				ICacheProviderAdapter cacheProviderAdapter) : base(logger, registry, cacheProviderAdapter) {
 		}
 
 		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromDays(365));

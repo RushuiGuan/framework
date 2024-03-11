@@ -17,12 +17,10 @@ namespace Albatross.Caching {
 		protected readonly ILogger logger;
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
-		private readonly ICacheKeyManagement keyMgmt;
 
-		public Cache(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter, ICacheKeyManagement keyMgmt) {
+		public Cache(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter) {
 			this.logger = logger;
 			this.registry = registry;
-			this.keyMgmt = keyMgmt;
 			this.cacheProvider = cacheProviderAdapter.Create<CacheFormat>();
 			this.Register();
 		}
