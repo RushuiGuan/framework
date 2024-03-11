@@ -7,10 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PreMigrationScripts\**" />
+    <Compile Remove="Scripts\**" />
+    <EmbeddedResource Remove="PreMigrationScripts\**" />
+    <EmbeddedResource Remove="Scripts\**" />
+    <None Remove="PreMigrationScripts\**" />
+    <None Remove="Scripts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="db\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Scripts\" />
-    <Folder Include="PreMigrationScripts\" />
   </ItemGroup>
 
   <ItemGroup>

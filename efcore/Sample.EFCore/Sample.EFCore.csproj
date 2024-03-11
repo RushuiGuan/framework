@@ -14,7 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
     <ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
-    <ProjectReference Include="..\Albatross.EFCore.AutoCacheEviction\Albatross.EFCore.AutoCacheEviction.csproj" />
     <ProjectReference Include="..\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
   </ItemGroup>
 
