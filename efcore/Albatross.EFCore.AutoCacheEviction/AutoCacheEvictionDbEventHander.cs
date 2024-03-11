@@ -24,19 +24,19 @@ namespace Albatross.EFCore.AutoCacheEviction {
 
 		public void OnAddedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject cachedObject) {
-				cacheKeys.Add(cachedObject.CreateCacheKey(ObjectState.Added, entry.OriginalValues));
+				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Added, entry.OriginalValues));
 			}
 		}
 
 		public void OnModifiedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject cachedObject) {
-				cacheKeys.Add(cachedObject.CreateCacheKey(ObjectState.Modified, entry.OriginalValues));
+				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Modified, entry.OriginalValues));
 			}
 		}
 
 		public void OnDeletedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject cachedObject) {
-				cacheKeys.Add(cachedObject.CreateCacheKey(ObjectState.Deleted, entry.OriginalValues));
+				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Deleted, entry.OriginalValues));
 			}
 		}
 	}

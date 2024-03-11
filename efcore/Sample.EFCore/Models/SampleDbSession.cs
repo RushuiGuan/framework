@@ -8,6 +8,9 @@ namespace Sample.EFCore.Models {
 		public SampleDbSession(DbContextOptions<SampleDbSession> option, IDbEventSessionProvider eventSessionProvider) 
 			: base(option, eventSessionProvider) { 
 		}
+		protected SampleDbSession(DbContextOptions option) 
+			: base(option) { 
+		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			base.OnModelCreating(modelBuilder);
 			modelBuilder.HasDefaultSchema(My.Schema.Sample);
