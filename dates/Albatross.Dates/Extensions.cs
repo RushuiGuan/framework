@@ -157,9 +157,20 @@ namespace Albatross.Dates {
 			return weekdays;
 		}
 
+	
 		public static DateTime Local2Utc(this DateTime local, TimeSpan gmtOffset) => DateTime.SpecifyKind(local - gmtOffset, DateTimeKind.Utc);
 		public static DateTime Utc2Local(this DateTime utc, TimeSpan gmtOffset) => DateTime.SpecifyKind(utc + gmtOffset, DateTimeKind.Unspecified);
 		public static DateTimeOffset Utc2DateTimeOffset(this DateTime utc, TimeSpan gmtOffset) => new DateTimeOffset(utc.Utc2Local(gmtOffset), gmtOffset);
 		public static TimeSpan GmtOffset(this DateTime utc, DateTime local) => local - utc;
+
+		public static DateTimeOffset Local2DateTimeOffset(this DateTime local, TimeZoneInfo timeZone) {
+			local = DateTime.SpecifyKind(local, DateTimeKind.Unspecified);
+			var gmtOffset = timeZone.GetUtcOffset(local);
+			return new DateTimeOffset(local, gmtOffset);
+		}
+		public static DateTimeOffset Utc2DateTimeOffset(this DateTime utc, TimeZoneInfo timeZone) {
+			var gmtOffset = timeZone.GetUtcOffset(DateTime.SpecifyKind(utc, DateTimeKind.Utc));
+			 return new DateTimeOffset(utc.Utc2Local(gmtOffset), gmtOffset);
+		}
 	}
 }
