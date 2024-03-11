@@ -9,6 +9,7 @@
 		public const string Delimiter = ":";
 		public const char Asterisk = '*';
 
+		public bool HasChildren { get; }
 		/// <summary>
 		/// the first part of the cache key that will not change
 		/// </summary>
@@ -49,17 +50,24 @@
 		public string Key { get; }
 		public string WildCardKey { get; }
 		public string ResetKey { get; }
+
+		public bool HasChildren { get; }
+
 		public override string ToString() => Key;
 		public const string DefaultPrefix = "df";
 
-		public CacheKey(ICacheKey? parent, string prefix, string? value) {
+		public CacheKey(ICacheKey? parent, string prefix, string? value, bool hasChildren) {
+			if (parent != null && !parent.HasChildren) {
+				throw new System.ArgumentException("parent key must have children");
+			}
 			this.Parent = parent;
 			this.Prefix = string.IsNullOrEmpty(prefix) ? DefaultPrefix : prefix;
 			Key = ICacheKey.BuildKey(parent?.Key, Prefix, value);
 			WildCardKey = ICacheKey.BuildWildCardKey(Key);
 			ResetKey = ICacheKey.BuildResetKey(parent, Prefix);
+			HasChildren = hasChildren;
 		}
-		public CacheKey(string prefix, string? value) : this(null, prefix, value) { }
-		public CacheKey(string? value) : this(null, DefaultPrefix, value) { }
+		public CacheKey(string prefix, string? value, bool hasChildren) : this(null, prefix, value, hasChildren) { }
+		public CacheKey(string? value, bool hasChildren) : this(null, DefaultPrefix, value, hasChildren) { }
 	}
 }

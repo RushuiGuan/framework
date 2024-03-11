@@ -44,9 +44,13 @@ namespace Albatross.Caching {
 			var wildCardKeys = new HashSet<string>();
 			var set = new HashSet<string>();
 			foreach (var key in keys) {
-				if(!wildCardKeys.Contains(key.WildCardKey)) {
-					wildCardKeys.Add(key.WildCardKey);
-					set.AddRange(keyMgmt.FindKeys(key.WildCardKey));
+				if (key.HasChildren) {
+					if (!wildCardKeys.Contains(key.WildCardKey)) {
+						wildCardKeys.Add(key.WildCardKey);
+						set.AddRange(keyMgmt.FindKeys(key.WildCardKey));
+					}
+				} else {
+					set.Add(key.Key);
 				}
 			}
 			keyMgmt.Remove(set.ToArray());
