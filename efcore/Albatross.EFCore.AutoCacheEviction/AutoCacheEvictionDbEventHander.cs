@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Albatross.EFCore.AutoCacheEviction {
 	public class AutoCacheEvictionDbEventHander : IDbSessionEventHandler {
-		private List<ICachedObject> changedEntities = new List<ICachedObject>();
+		private List<ICacheKey> cacheKeys = new List<ICacheKey>();
 		private readonly ICacheKeyManagement keyManagement;
 		private readonly ILogger<AutoCacheEvictionDbEventHander> logger;
 
@@ -15,28 +15,27 @@ namespace Albatross.EFCore.AutoCacheEviction {
 		public void PreSave(IDbSession session) { }
 
 		public Task PostSave() {
-			if (changedEntities.Any()) {
-				logger.LogInformation("Auto removing cache entry: ", this.changedEntities.SelectMany(x => x.CacheKeys).Select(x => x.WildCardKey).ToArray());
-				this.keyManagement.RemoveSelfAndChildren(this.changedEntities.ToArray());
+			if (cacheKeys.Any()) {
+				this.keyManagement.RemoveSelfAndChildren(this.cacheKeys.ToArray());
 			}
 			return Task.CompletedTask;
 		}
 
 		public void OnAddedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject cachedObject) {
-				changedEntities.Add(cachedObject);
+				cacheKeys.Add(cachedObject.CreateCacheKey(ObjectState.Added, entry.OriginalValues));
 			}
 		}
 
 		public void OnModifiedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject cachedObject) {
-				changedEntities.Add(cachedObject);
+				cacheKeys.Add(cachedObject.CreateCacheKey(ObjectState.Modified, entry.OriginalValues));
 			}
 		}
 
 		public void OnDeletedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject cachedObject) {
-				changedEntities.Add(cachedObject);
+				cacheKeys.Add(cachedObject.CreateCacheKey(ObjectState.Deleted, entry.OriginalValues));
 			}
 		}
 	}
