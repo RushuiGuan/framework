@@ -7,6 +7,7 @@ $ErrorActionPreference = "Stop";
 . $PSScriptRoot\..\scripts\pack.ps1;
 
 $projects = @(
+	"Albatross.Entity.AutoCacheEviction",
 	"Albatross.Caching",
 	"Albatross.Caching.Controllers",
 	"Albatross.Caching.Redis",
