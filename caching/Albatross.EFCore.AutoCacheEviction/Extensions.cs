@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,13 +11,17 @@ namespace Albatross.EFCore.AutoCacheEviction {
 			return services;
 		}
 
-		public static bool TryGetOriginalValue(this IEnumerable<PropertyEntry> changeProperties, string property, Func<object?, string> format, out string originalValue) {
+		public static bool TryGetOriginalValue<T>(this IEnumerable<PropertyEntry> changeProperties, string property, out T? originalValue) {
 			var propertyEntry = changeProperties.FirstOrDefault(x => x.Metadata.Name == property);
-			if(propertyEntry != null) {
-				originalValue = format(propertyEntry.OriginalValue);
+			if (propertyEntry != null) {
+				if (propertyEntry.OriginalValue == null) {
+					originalValue = default(T);
+				} else {
+					originalValue = (T)propertyEntry.OriginalValue;
+				}
 				return true;
 			} else {
-				originalValue = string.Empty;
+				originalValue = default(T);
 				return false;
 			}
 		}
