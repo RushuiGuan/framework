@@ -8,7 +8,7 @@ using Albatross.Caching.BuiltIn;
 
 namespace Albatross.Caching.Test {
 	public class MyCacheKey : CacheKey {
-		public MyCacheKey(string? value) : base("my-cache", value) {
+		public MyCacheKey(string? value) : base("my-cache", value, true) {
 		}
 	}
 

@@ -7,8 +7,7 @@ namespace Albatross.Caching.BuiltIn {
 	public class OneMinuteCache<CacheFormat, KeyFormat> : Cache<CacheFormat, KeyFormat> where KeyFormat : ICacheKey {
 		public OneMinuteCache(ILogger<OneMinuteCache<CacheFormat, KeyFormat>> logger,
 				IPolicyRegistry<string> registry,
-				ICacheProviderAdapter cacheProviderAdapter,
-				ICacheKeyManagement keyMgmt) : base(logger, registry, cacheProviderAdapter, keyMgmt) {
+				ICacheProviderAdapter cacheProviderAdapter) : base(logger, registry, cacheProviderAdapter) {
 		}
 
 		public override ITtlStrategy TtlStrategy => new RelativeTtl(TimeSpan.FromMinutes(1));

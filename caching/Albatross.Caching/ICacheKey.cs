@@ -8,6 +8,8 @@
 	public interface ICacheKey {
 		public const string Delimiter = ":";
 		public const char Asterisk = '*';
+
+		public bool HasChildren { get; }
 		/// <summary>
 		/// the first part of the cache key that will not change
 		/// </summary>
@@ -27,28 +29,45 @@
 		/// the key that will match all values of the same prefix
 		/// </summary>
 		string ResetKey { get; }
+
+		public static string BuildKey(string? parent, string prefix, string? value) {
+			string key = $"{parent}{prefix}{Delimiter}";
+			if (!string.IsNullOrEmpty(value)) {
+				key = $"{key}{value}{Delimiter}";
+			}
+			return key;
+		}
+		public static string BuildWildCardKey(string key) {
+			return $"{key}{Asterisk}";
+		}
+		public static string BuildResetKey(ICacheKey? parent, string prefix) {
+			return $"{parent?.Key}{prefix}{ICacheKey.Delimiter}{ICacheKey.Asterisk}";
+		}
 	}
 	public class CacheKey : ICacheKey {
-		public const string DefaultPrefix = "df";
 		public ICacheKey? Parent { get; }
 		public string Prefix { get; }
 		public string Key { get; }
 		public string WildCardKey { get; }
 		public string ResetKey { get; }
-		public override string ToString() => Key;
 
-		public CacheKey(ICacheKey? parent, string prefix, string? value) {
+		public bool HasChildren { get; }
+
+		public override string ToString() => Key;
+		public const string DefaultPrefix = "df";
+
+		public CacheKey(ICacheKey? parent, string prefix, string? value, bool hasChildren) {
+			if (parent != null && !parent.HasChildren) {
+				throw new System.ArgumentException("parent key must have children");
+			}
 			this.Parent = parent;
 			this.Prefix = string.IsNullOrEmpty(prefix) ? DefaultPrefix : prefix;
-
-			Key = $"{parent?.Key}{Prefix}{ICacheKey.Delimiter}";
-			if (!string.IsNullOrEmpty(value)) {
-				Key = $"{Key}{value}{ICacheKey.Delimiter}";
-			}
-			WildCardKey = $"{Key}{ICacheKey.Asterisk}";
-			ResetKey = $"{parent?.Key}{Prefix}{ICacheKey.Delimiter}{ICacheKey.Asterisk}";
+			Key = ICacheKey.BuildKey(parent?.Key, Prefix, value);
+			WildCardKey = ICacheKey.BuildWildCardKey(Key);
+			ResetKey = ICacheKey.BuildResetKey(parent, Prefix);
+			HasChildren = hasChildren;
 		}
-		public CacheKey(string prefix, string? value) : this(null, prefix, value) { }
-		public CacheKey(string? value) : this(null, DefaultPrefix, value) { }
+		public CacheKey(string prefix, string? value, bool hasChildren) : this(null, prefix, value, hasChildren) { }
+		public CacheKey(string? value, bool hasChildren) : this(null, DefaultPrefix, value, hasChildren) { }
 	}
 }

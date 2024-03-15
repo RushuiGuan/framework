@@ -30,7 +30,7 @@ namespace Albatross.Caching.Test {
 				var result = await cache.ExecuteAsync(context => {
 					cache_miss++;
 					return Task.FromResult(new object());
-				}, new CacheKey(keyValue));
+				}, new CacheKey(keyValue, true));
 				await Task.Delay(delay_ms);
 			}
 			Assert.Equal(expected_cacheMiss, cache_miss);
@@ -59,7 +59,7 @@ namespace Albatross.Caching.Test {
 				var result = await cacheMgmt.ExecuteAsync(context => {
 					cache_miss++;
 					return Task.FromResult(new MyData());
-				}, new CacheKey(keyValue));
+				}, new CacheKey(keyValue, true));
 				await Task.Delay(delay_ms);
 			}
 			Assert.Equal(expected_cacheMiss, cache_miss);

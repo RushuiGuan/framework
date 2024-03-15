@@ -17,12 +17,10 @@ namespace Albatross.Caching {
 		protected readonly ILogger logger;
 		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
 		private readonly IPolicyRegistry<string> registry;
-		private readonly ICacheKeyManagement keyMgmt;
 
-		public Cache(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter, ICacheKeyManagement keyMgmt) {
+		public Cache(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter) {
 			this.logger = logger;
 			this.registry = registry;
-			this.keyMgmt = keyMgmt;
 			this.cacheProvider = cacheProviderAdapter.Create<CacheFormat>();
 			this.Register();
 		}
@@ -30,11 +28,11 @@ namespace Albatross.Caching {
 		public virtual string Name => $"Cache-{typeof(CacheFormat).Name}-{typeof(KeyFormat).Name}";
 		public abstract ITtlStrategy TtlStrategy { get; }
 
-		public virtual void OnCacheGet(Context context, string cacheKey) { }
-		public virtual void OnCacheMiss(Context context, string cacheKey) => logger.LogInformation("cache miss: {key}", cacheKey);
-		public virtual void OnCachePut(Context context, string cacheKey) => logger.LogInformation("cache put: {key}", cacheKey);
-		public virtual void OnCacheGetError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error getting cache {name}", cacheKey);
-		public virtual void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", cacheKey);
+		public void OnCacheGet(Context context, string cacheKey) { }
+		public void OnCacheMiss(Context context, string cacheKey) => logger.LogDebug("cache miss: {key}", cacheKey);
+		public void OnCachePut(Context context, string cacheKey) => logger.LogDebug("cache put: {key}", cacheKey);
+		public void OnCacheGetError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error getting cache {name}", cacheKey);
+		public void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", cacheKey);
 
 		public void Register() {
 			if (!registry.ContainsKey(Name)) {
