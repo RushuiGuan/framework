@@ -9,7 +9,6 @@ using System.Threading;
 using Sample.EFCore;
 using Albatross.Caching;
 using Albatross.Caching.MemCache;
-using Albatross.EFCore.AutoCacheEviction;
 using Albatross.EFCore.Audit;
 using Albatross.Hosting.Test;
 
@@ -21,7 +20,6 @@ namespace Albatross.EFCore.Test {
 			services.AddMemCaching();
 			services.AddCaching(configuration);
 			services.AddBuiltInCache();
-			services.AddAutoCacheEviction();
 			services.AddAuditEventHandlers();
 			services.AddTestPrincipalProvider("test", "test");
 		}

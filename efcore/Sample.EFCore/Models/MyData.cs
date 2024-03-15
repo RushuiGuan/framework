@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Sample.EFCore {
 	public class MyDataCacheKey : CacheKey {
-		public MyDataCacheKey(int id) : base("my-data", id.ToString()) { }
+		public MyDataCacheKey(int id) : base("my-data", id.ToString(), true) { }
 	}
 	public class MyData : IModifiedBy, IModifiedUtc, ICreatedBy, ICreatedUtc, ICachedObject {
 		public int Id { get; set; }
@@ -27,15 +27,14 @@ namespace Sample.EFCore {
 		public Guid Guid { get; set; }
 
 
-
-
-
 		public string ModifiedBy { get; set; } = string.Empty;
 		public DateTime ModifiedUtc { get; set; }
 		public string CreatedBy { get; set; } = string.Empty;
 		public DateTime CreatedUtc { get; set; }
 
-		public IEnumerable<ICacheKey> CacheKeys => [new MyDataCacheKey(Id)];
+		public IEnumerable<ICacheKey> CreateCacheKeys(ObjectState state, object? originalValues) {
+			return [new MyDataCacheKey(Id)];
+		}
 	}
 
 	public record class JsonProperty : ICloneable {
