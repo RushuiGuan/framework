@@ -5,7 +5,7 @@ namespace Albatross.CodeGen.Python.Models {
 		public Literal(object value) : base(string.Empty, string.Empty) {
 			this.value = value;
 		}
-		object value { get; set; }
+		public object value { get; }
 
 		public override TextWriter Generate(TextWriter writer) {
 			writer.Write(value.ToString());

@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.Python.Models {
 
 		public List<Import> Imports { get;  } = new List<Import>();
 		public List<Method> Functions { get; } = new List<Method>();
-		public List<Class> Classes { get; } = new List<Class>();
+		public List<ClassDeclaration> Classes { get; } = new List<ClassDeclaration>();
 
 		void Build(Dictionary<string, Import> dict, IEnumerable<IModuleCodeElement> elements) {
 			foreach (var item in elements) {

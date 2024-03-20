@@ -18,8 +18,8 @@
 		}
 		public static class Classes {
 			public const string EnumName = "Enum";
-			public static Class Enum() => new Class(EnumName, Modules.Enum);
-			public static Class AbstractBaseClass() => new Class("ABC", Modules.ABC);
+			public static ClassDeclaration Enum() => new ClassDeclaration(EnumName, Modules.Enum);
+			public static ClassDeclaration AbstractBaseClass() => new ClassDeclaration("ABC", Modules.ABC);
 		}
 
 		public static class Methods {

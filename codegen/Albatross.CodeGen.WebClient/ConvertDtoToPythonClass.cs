@@ -16,10 +16,10 @@ namespace Albatross.CodeGen.WebClient {
 	public class ConvertDtoToPythonClass : IConvertDtoToPythonClass {
 		private readonly ILogger<ConvertDtoToPythonClass> logger;
 		private readonly ConvertTypeToPythonClass convertType;
-		private readonly ConvertEnumToClass convertEnum;
+		private readonly ConvertCSharpEnumDeclarationSyntaxToClassDeclaration convertEnum;
 
 		public ConvertDtoToPythonClass(ILogger<ConvertDtoToPythonClass> logger, ConvertTypeToPythonClass convertType, 
-			ConvertEnumToClass convertEnum) {
+			ConvertCSharpEnumDeclarationSyntaxToClassDeclaration convertEnum) {
 			this.logger = logger;
 			this.convertType = convertType;
 			this.convertEnum = convertEnum;

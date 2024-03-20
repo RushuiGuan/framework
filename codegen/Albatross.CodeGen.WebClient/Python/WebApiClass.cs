@@ -1,7 +1,7 @@
 ﻿using Albatross.CodeGen.Python.Models;
 
 namespace Albatross.CodeGen.WebClient.Python {
-	public class WebApiClass : Class {
+	public class WebApiClass : ClassDeclaration {
 		public string BaseUrl { get; set; }
 		public WebApiClass(string name, string baseUrl) : base(name) {
 			BaseUrl = baseUrl;
