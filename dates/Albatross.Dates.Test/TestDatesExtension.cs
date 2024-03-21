@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Dates.Test.Dates {
+namespace Albatross.Dates.Test {
 	public class TestDatesExtension {
 		[Theory]
 		[InlineData(null, "2021-12-06", "2021-12-06")]
@@ -23,7 +23,7 @@ namespace Albatross.Dates.Test.Dates {
 		public void TestDateOnlyConversion2(string? date, string expected) {
 			DateTime? value = date == null ? null : DateTime.Parse(date);
 			var dateOnly = value.ToDateOnly();
-			Assert.Equal(expected, dateOnly.HasValue ? $"{dateOnly:yyyy-MM-dd}": null);
+			Assert.Equal(expected, dateOnly.HasValue ? $"{dateOnly:yyyy-MM-dd}" : null);
 		}
 
 		[Theory]

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Dates.Test.Dates {
+namespace Albatross.Dates.Test {
 	public class TestTimeZoneLogic {
 		[Theory]
 		[InlineData("Pacific Standard Time", "2024-03-09T22:00", -480)]
