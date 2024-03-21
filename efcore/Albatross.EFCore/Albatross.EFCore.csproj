@@ -25,6 +25,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Albatross.Serialization" Version="6.4.3" />
+		<PackageReference Include="Albatross.Text" Version="6.4.9" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
 	</ItemGroup>
 	
