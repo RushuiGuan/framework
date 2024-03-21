@@ -28,7 +28,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.25" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.Authentication.AspNetCore" Version="7.0.0" />
+		<PackageReference Include="Albatross.Authentication.AspNetCore" Version="7.0.1" />
 		<PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0" />
