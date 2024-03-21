@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.Authentication" Version="7.0.0" />
+    <PackageReference Include="Albatross.Authentication" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
