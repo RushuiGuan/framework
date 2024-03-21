@@ -16,6 +16,5 @@ $projects = @(
 
 Run-Pack -projects $projects `
 	-directory $PSScriptRoot `
-	-remoteSymbolServer $env:RemoteSymbolServer `
 	-nugetSource $env:DefaultNugetSource `
 	-prod:$prod

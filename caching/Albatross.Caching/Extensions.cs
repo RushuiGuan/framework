@@ -1,5 +1,4 @@
 ﻿using Albatross.Caching.BuiltIn;
-using Albatross.Collections;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Polly.Registry;
@@ -35,8 +34,7 @@ namespace Albatross.Caching {
 		}
 
 		public static IEnumerable<string> Remove(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
-			var set = new HashSet<string>();
-			set.AddRange(keys.Select(x => x.Key));
+			var set = new HashSet<string>(keys.Select(x=>x.Key));
 			keyMgmt.Remove(set.ToArray());
 			return set;
 		}
@@ -47,7 +45,9 @@ namespace Albatross.Caching {
 				if (key.HasChildren) {
 					if (!wildCardKeys.Contains(key.WildCardKey)) {
 						wildCardKeys.Add(key.WildCardKey);
-						set.AddRange(keyMgmt.FindKeys(key.WildCardKey));
+						foreach(var item in keyMgmt.FindKeys(key.WildCardKey)) {
+							set.Add(item);
+						}
 					}
 				} else {
 					set.Add(key.Key);
@@ -62,7 +62,9 @@ namespace Albatross.Caching {
 			foreach (var key in keys) {
 				if (!wildCardKeys.Contains(key.ResetKey)) {
 					wildCardKeys.Add(key.ResetKey);
-					set.AddRange(keyMgmt.FindKeys(key.ResetKey));
+					foreach(var item in keyMgmt.FindKeys(key.ResetKey)) {
+						set.Add(item);
+					}
 				}
 			}
 			keyMgmt.Remove(set.ToArray());
