@@ -3,10 +3,16 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen {
-	public abstract class CompositeModuleCodeElement : List<IModuleCodeElement>, IModuleCodeElement {
+	public interface ICompositeModuleCodeElement : IModuleCodeElement{
+		IEnumerable<IModuleCodeElement> Nodes{ get; }
+	}
+
+	public abstract class CompositeModuleCodeElement : ICompositeModuleCodeElement {
 		public string Name { get; set; }
 		public string Module { get; set; }
 		public string Tag { get; set; } = string.Empty;
+		public IEnumerable<IModuleCodeElement> Nodes => nodes;
+		List<IModuleCodeElement> nodes = new List<IModuleCodeElement>();
 
 		public CompositeModuleCodeElement(string name, string module) {
 			this.Name = name;
@@ -15,27 +21,27 @@ namespace Albatross.CodeGen {
 		public virtual void Build() { }
 
 		protected T? SingleOrDefault<T>(string tag) where T : class, IModuleCodeElement
-			=> this.Where(x => x is T && x.Tag == tag).Cast<T>().SingleOrDefault();
+			=> this.Nodes.Where(x => x is T && x.Tag == tag).Cast<T>().SingleOrDefault();
 
 		protected T Single<T>(string tag) where T : class, IModuleCodeElement
-			=> this.Where(x => x is T && x.Tag == tag).Cast<T>().Single();
+			=> this.Nodes.Where(x => x is T && x.Tag == tag).Cast<T>().Single();
 
 		protected IEnumerable<T> Collection<T>(string tag) where T : class, IModuleCodeElement
-			=> this.Where(x => x is T && x.Tag == tag).Cast<T>();
+			=> this.Nodes.Where(x => x is T && x.Tag == tag).Cast<T>();
 
 		protected void SetNullable<T>(T? element, string tag) where T : class, IModuleCodeElement {
-			var index = this.FindIndex(x => x.Tag == tag && x is T);
+			var index = this.nodes.FindIndex(x => x.Tag == tag && x is T);
 			if (index >= 0) {
 				if (element == null) {
-					this.RemoveAt(index);
+					this.nodes.RemoveAt(index);
 				} else {
 					element.Tag = tag;
-					this[index] = element;
+					this.nodes[index] = element;
 				}
 			} else {
 				if (element != null) {
 					element.Tag = tag;
-					this.Add(element);
+					this.nodes.Add(element);
 				}
 			}
 		}
@@ -43,46 +49,49 @@ namespace Albatross.CodeGen {
 		protected void Set<T>(T element, string tag) where T : class, IModuleCodeElement
 			=> SetNullable(element, tag);
 
-		public CompositeModuleCodeElement AddCodeElement<T>(T element, string tag) where T : class, IModuleCodeElement {
+		protected CompositeModuleCodeElement AddCodeElement<T>(T element, string tag) where T : class, IModuleCodeElement {
 			element.Tag = tag;
-			this.Add(element);
+			this.nodes.Add(element);
 			return this;
 		}
-		public CompositeModuleCodeElement RemoveCodeElement<T>(T element, string tag) where T : class, IModuleCodeElement {
-			var index = this.FindIndex(x => x.Tag == tag && x is T t && t == element);
-			if (index >= 0) { this.RemoveAt(index); }
+
+		protected CompositeModuleCodeElement RemoveCodeElement<T>(T element, string tag) where T : class, IModuleCodeElement {
+			var index = this.nodes.FindIndex(x => x.Tag == tag && x is T t && t == element);
+			if (index >= 0) { this.nodes.RemoveAt(index); }
 			return this;
 		}
-		public CompositeModuleCodeElement RemoveCodeElement<T>(string tag) where T : class, IModuleCodeElement {
-			for (int i = this.Count - 1; i >= 0; i--) {
-				if (this[i].Tag == tag && this[i] is T) {
-					this.RemoveAt(i);
+	
+		protected CompositeModuleCodeElement RemoveCodeElement<T>(string tag) where T : class, IModuleCodeElement {
+			for (int i = this.nodes.Count - 1; i >= 0; i--) {
+				if (this.nodes[i].Tag == tag && this.nodes[i] is T) {
+					this.nodes.RemoveAt(i);
 				}
 			}
 			return this;
 		}
+	
 		public CompositeModuleCodeElement AddLine(IModuleCodeElement elem) {
-			Add(new CodeLine(elem));
+			nodes.Add(new CodeLine(elem));
 			return this;
 		}
+		
 		public abstract TextWriter Generate(TextWriter writer);
 	}
 
-	public abstract class CompositeModuleCodeElement<T> : List<T>, IModuleCodeElement where T : class, IModuleCodeElement {
+	public abstract class CompositeModuleCodeElement<T> : ICompositeModuleCodeElement where T : class, IModuleCodeElement {
+		List<T> nodes = new List<T>();
 		public string Name { get; set; }
 		public string Module { get; set; }
 		public string Tag { get; set; } = string.Empty;
 
-		public CompositeModuleCodeElement(string name, string module, IEnumerable<T> items) : base(items) {
+		public IEnumerable<IModuleCodeElement> Nodes => nodes;
+
+		public CompositeModuleCodeElement(string name, string module, IEnumerable<T> items) {
 			this.Name = name;
 			this.Module = module;
+			this.nodes.AddRange(items);
 		}
 		public virtual void Build() { }
 		public abstract TextWriter Generate(TextWriter writer);
-
-		IEnumerator<IModuleCodeElement> IEnumerable<IModuleCodeElement>.GetEnumerator() {
-			List<T> list = this;
-			return list.Select(x => x as IModuleCodeElement).GetEnumerator();
-		}
 	}
 }

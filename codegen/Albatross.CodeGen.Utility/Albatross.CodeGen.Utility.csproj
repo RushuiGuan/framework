@@ -7,9 +7,11 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.13" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.9.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\ReferenceData\src\ReferenceData.Core\ReferenceData.Core.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen.Tests.Dto\Albatross.CodeGen.Tests.Dto.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />

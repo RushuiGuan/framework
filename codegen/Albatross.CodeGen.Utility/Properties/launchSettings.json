@@ -10,7 +10,7 @@
     },
     "create python code": {
       "commandName": "Project",
-      "commandLineArgs": "create-python-dto -d C:\\app\\python\\ref-data"
+      "commandLineArgs": "create-python-dto  -d C:\\app\\python\\secmaster --solution C:\\app\\secmaster\\secmaster.sln --projects secmaster.core"
     }
   }
 }

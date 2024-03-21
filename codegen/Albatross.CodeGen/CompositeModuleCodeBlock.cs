@@ -6,7 +6,7 @@ namespace Albatross.CodeGen {
 		public CompositeModuleCodeBlock() : base(string.Empty, string.Empty) { }
 
 		public override TextWriter Generate(TextWriter writer) {
-			foreach (var item in this) {
+			foreach (var item in this.Nodes) {
 				writer.Code(item);
 			}
 			return writer;

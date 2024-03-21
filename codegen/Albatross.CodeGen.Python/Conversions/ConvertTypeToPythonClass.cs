@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 
 namespace Albatross.CodeGen.Python.Conversions {
-	public class ConvertTypeToPythonClass : IConvertObject<Type, Class> {
+	public class ConvertTypeToPythonClass : IConvertObject<Type, ClassDeclaration> {
 		IConvertObject<PropertyInfo, Field> convertProperty;
 		IConvertObject<FieldInfo, Field> convertField;
 
@@ -13,8 +13,8 @@ namespace Albatross.CodeGen.Python.Conversions {
 			this.convertField = convertField;
 		}
 
-		public Class Convert(Type type) {
-			var result = new Class(type.Name);
+		public ClassDeclaration Convert(Type type) {
+			var result = new ClassDeclaration(type.Name);
 			if (type.BaseType != null && type.BaseType != typeof(object)) {
 				result.AddBaseClass(Convert(type.BaseType));
 			}

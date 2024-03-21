@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class Class : CompositeModuleCodeElement, IComparable<Class> {
-		public Class(string name) : base(name, string.Empty) { }
-		public Class(string name, string module) : base(name, module) { }
+	public class ClassDeclaration : CompositeModuleCodeElement, IComparable<ClassDeclaration> {
+		public ClassDeclaration(string name) : base(name, string.Empty) { }
+		public ClassDeclaration(string name, string module) : base(name, module) { }
 
 		public bool UseDataClass { get; set; }
 		
@@ -17,25 +17,25 @@ namespace Albatross.CodeGen.Python.Models {
 			set => SetNullable(value, nameof(Constructor));
 		}
 		
-		public IEnumerable<Class> BaseClass => Collection<Class>(nameof(BaseClass));
-		public void AddBaseClass(Class @class) => AddCodeElement(@class, nameof(BaseClass));
-		public void RemoveBaseClass(Class @class) => RemoveCodeElement(@class, nameof(BaseClass));
+		public IEnumerable<ClassDeclaration> BaseClass => Collection<ClassDeclaration>(nameof(BaseClass));
+		public ClassDeclaration AddBaseClass(ClassDeclaration @class) => (ClassDeclaration)AddCodeElement(@class, nameof(BaseClass));
+		public ClassDeclaration RemoveBaseClass(ClassDeclaration @class) => (ClassDeclaration)RemoveCodeElement(@class, nameof(BaseClass));
 
 		public IEnumerable<Method> Methods => Collection<Method>(nameof(Methods));
-		public void AddMethod(Method method) => AddCodeElement(method, nameof(Methods));
-		public void RemoveMethod(Method method) => RemoveCodeElement(method, nameof(Methods));
+		public ClassDeclaration AddMethod(Method method) => (ClassDeclaration)AddCodeElement(method, nameof(Methods));
+		public ClassDeclaration RemoveMethod(Method method) => (ClassDeclaration)RemoveCodeElement(method, nameof(Methods));
 
 		public IEnumerable<Property> Properties => Collection<Property>(nameof(Properties));
-		public void AddProperty(Property property) => AddCodeElement(property, nameof(Properties));
-		public void RemoveProperty(Property property) => RemoveCodeElement(property, nameof(Properties));
+		public ClassDeclaration AddProperty(Property property) => (ClassDeclaration)AddCodeElement(property, nameof(Properties));
+		public ClassDeclaration RemoveProperty(Property property) => (ClassDeclaration)RemoveCodeElement(property, nameof(Properties));
 
 		public IEnumerable<Field> Fields => Collection<Field>(nameof(Fields));
-		public void AddField(Field field) => AddCodeElement(field, nameof(Fields));
-		public void RemoveField(Field field) => RemoveCodeElement(field, nameof(Fields));
+		public ClassDeclaration AddField(Field field) => (ClassDeclaration)AddCodeElement(field, nameof(Fields));
+		public ClassDeclaration RemoveField(Field field) => (ClassDeclaration)RemoveCodeElement(field, nameof(Fields));
 
 		public IEnumerable<Decorator> Decorators => Collection<Decorator>(nameof(Decorators));
-		public void AddDecorator(Decorator decorator) => AddCodeElement(decorator, nameof(Decorators));
-		public void RemoveDecorator(Decorator decorator) => RemoveCodeElement(decorator, nameof(Decorators));
+		public ClassDeclaration AddDecorator(Decorator decorator) => (ClassDeclaration)AddCodeElement(decorator, nameof(Decorators));
+		public ClassDeclaration RemoveDecorator(Decorator decorator) => (ClassDeclaration)RemoveCodeElement(decorator, nameof(Decorators));
 		public bool IsEnum => BaseClass.Any(x => x.Name == My.Classes.EnumName);
 
 		public override void Build() {
@@ -71,7 +71,7 @@ namespace Albatross.CodeGen.Python.Models {
 			return writer;
 		}
 
-		public int CompareTo(Class? other) {
+		public int CompareTo(ClassDeclaration? other) {
 			if (other == null) {
 				return 1;
 			} else {

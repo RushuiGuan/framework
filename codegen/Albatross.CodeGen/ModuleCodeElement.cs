@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 
 namespace Albatross.CodeGen {
 	public abstract class ModuleCodeElement : IModuleCodeElement {
@@ -17,8 +13,5 @@ namespace Albatross.CodeGen {
 
 		public virtual void Build() { }
 		public abstract TextWriter Generate(TextWriter writer);
-		public IEnumerator<IModuleCodeElement> GetEnumerator()
-			=> Array.Empty<IModuleCodeElement>().AsEnumerable().GetEnumerator();
-		IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 	}
 }
