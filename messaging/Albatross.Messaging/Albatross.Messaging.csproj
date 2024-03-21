@@ -12,9 +12,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Albatross.Collections" Version="6.5.0" />
 		<PackageReference Include="Albatross.Config" Version="6.4.1" />
+		<PackageReference Include="Albatross.IO" Version="6.5.0" />
+		<PackageReference Include="Albatross.Math" Version="6.5.0" />
 		<PackageReference Include="Albatross.Reflection" Version="6.4.9" />
 		<PackageReference Include="Albatross.Serialization" Version="6.4.3" />
+		<PackageReference Include="Albatross.Text" Version="6.4.9" />
+		<PackageReference Include="Albatross.Threading" Version="6.5.1" />
 		<PackageReference Include="CoenM.Encoding.Z85e" Version="1.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
 		<PackageReference Include="NetMQ" Version="4.0.1.13" />

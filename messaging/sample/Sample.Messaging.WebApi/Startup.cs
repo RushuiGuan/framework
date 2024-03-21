@@ -13,7 +13,6 @@ namespace Sample.Messaging.WebApi {
 		public override bool WebApi => true;
 		public override bool Secured => true;
 		public override bool Spa => false;
-		public override bool Caching => true;
 
 
 		public Startup(IConfiguration configuration) : base(configuration) { }

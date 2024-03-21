@@ -9,7 +9,7 @@ namespace Sample.Messaging.Daemon {
 			return new MySetup(args)
 				.ConfigureServiceHost<MyHostedService>()
 				.RunAsService()
-				.RunAsync(args);
+				.RunAsync();
 		}
 	}
 }
