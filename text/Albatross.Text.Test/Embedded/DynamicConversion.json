@@ -1,0 +1,12 @@
+﻿{
+	"Name": "test",
+	"onepointone": 1.1,
+	"integer": 22,
+	"date": "2020-09-01",
+	"inner": {
+		"Name": "inner_name",
+		"onepointtwo": 1.2,
+		"integer": 33,
+		"date": "2020-09-02"
+	}
+}
