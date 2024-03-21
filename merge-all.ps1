@@ -1,4 +1,8 @@
 git checkout staging
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 git merge authentication
 git merge azure
 git merge caching
