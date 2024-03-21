@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+	  <TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
+	  <Nullable>enable</Nullable>
+	  <AssemblyName>xxxxxx</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Validation\**" />
+    <EmbeddedResource Remove="Validation\**" />
+    <None Remove="Validation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Albatross.Hosting.Test" Version="6.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Albatross.Threading\Albatross.Threading.csproj" />
+  </ItemGroup>
+</Project>
