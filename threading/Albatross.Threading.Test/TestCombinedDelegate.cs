@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Albatross.Test.Threading {
+namespace Albatross.Thrading.Test {
 	public class MyData {
 		public int Value { get; set; }
 	}
