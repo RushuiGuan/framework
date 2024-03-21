@@ -1,0 +1,29 @@
+﻿{
+	"name": "sequence-job-crud",
+	"enabled": true,
+	"description": "test web api",
+	"group": "test",
+	"nodeType": "sequence",
+	"steps": [
+		{
+			"job": "webapi-job-crud"
+		},
+		{
+			"job": "webapi-job-crud"
+		},
+		{
+			"job": "webapi-job-crud"
+		}
+	],
+	"triggers": [
+		{
+			"localName": "default",
+			"enabled": true,
+			"parameter": {
+				"fromBody": null
+			},
+			"schedules": []
+		}
+	],
+	"notifications": []
+}

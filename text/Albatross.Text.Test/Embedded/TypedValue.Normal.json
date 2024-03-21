@@ -1,0 +1,6 @@
+﻿{
+	"ClassName": "Albatross.Test.Serialization.ClassA, Albatross.Test",
+	"Value": {
+		"Name": "test"
+	}
+}
