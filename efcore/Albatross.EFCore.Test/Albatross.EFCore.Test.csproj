@@ -25,9 +25,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Albatross.Caching.MemCache" Version="7.0.11" />
-		<PackageReference Include="Albatross.Hosting.Utility" Version="6.4.23" />
-		<PackageReference Include="Albatross.Hosting.Test" Version="6.4.23" />
+		<PackageReference Include="Albatross.Caching.MemCache" Version="7.0.15" />
+		<PackageReference Include="Albatross.Hosting.Utility" Version="6.4.24" />
+		<PackageReference Include="Albatross.Hosting.Test" Version="6.4.24" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
 			<PrivateAssets>all</PrivateAssets>

@@ -1,5 +1,4 @@
-﻿using Albatross.Collections;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -28,17 +27,25 @@ namespace Albatross.EFCore {
 				?? Array.Empty<IDbSessionEventHandler>();
 		}
 		public void ExecutePriorSaveActions(IDbSession session) {
-			changeEventHandlers.ForEach(x => x.PreSave(session));
+			foreach(var handler in changeEventHandlers) {
+				handler.PreSave(session);
+			}
 			foreach (var entry in session.DbContext.ChangeTracker.Entries()) {
 				switch (entry.State) {
 					case EntityState.Added:
-						changeEventHandlers.ForEach(x => x.OnAddedEntry(entry));
+						foreach(var handler in changeEventHandlers) {
+							handler.OnAddedEntry(entry);
+						}
 						break;
 					case EntityState.Modified:
-						changeEventHandlers.ForEach(x => x.OnModifiedEntry(entry));
+						foreach(var handler in changeEventHandlers) {
+							handler.OnModifiedEntry(entry);
+						}
 						break;
 					case EntityState.Deleted:
-						changeEventHandlers.ForEach(x => x.OnDeletedEntry(entry));
+						foreach(var handler in changeEventHandlers) {
+							handler.OnDeletedEntry(entry);
+						}
 						break;
 				}
 			}

@@ -1,5 +1,4 @@
-﻿using Albatross.Collections;
-using Albatross.EFCore.Audit;
+﻿using Albatross.EFCore.Audit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
@@ -14,7 +13,11 @@ namespace Albatross.EFCore.ChangeReporting {
 			=> builder.Set(handler => handler.Options.FixedHeaders.AddRange(properties));
 
 		public static ChangeReportBuilder<T> IgnoreProperties<T>(this ChangeReportBuilder<T> builder, params string[] properties) where T : class
-			=> builder.Set(handler => handler.Options.SkippedProperties.AddRange(properties));
+			=> builder.Set(handler => {
+				foreach(var property in properties){
+					handler.Options.SkippedProperties.Add(property);
+				}
+			});
 
 		public static ChangeReportBuilder<T> OnReportGenerated<T>(this ChangeReportBuilder<T> builder, Func<string, Task> func) where T : class
 			=> builder.Set(handler => handler.OnReportGenerated = func);
