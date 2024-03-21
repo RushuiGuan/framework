@@ -1,1 +1,0 @@
-Albatross assembly is a catch all utility assembly.  It exists because the different utilities within are not big enough to have its own assembly.

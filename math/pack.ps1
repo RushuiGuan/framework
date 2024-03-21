@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop";
 . $PSScriptRoot\..\scripts\pack.ps1;
 
 $projects = @(
-	"Albatross"
+	"Albatross.Math"
 );
 
 Run-Pack -projects $projects `
