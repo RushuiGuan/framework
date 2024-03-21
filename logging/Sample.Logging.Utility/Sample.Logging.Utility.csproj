@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.2" />
+    <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.26" />
   </ItemGroup>
 
   <ItemGroup>

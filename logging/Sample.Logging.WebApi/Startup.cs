@@ -8,7 +8,6 @@ namespace Sample.Logging.WebApi {
 		public override bool WebApi => true;
 		public override bool Secured => true;
 		public override bool Spa => false;
-		public override bool Caching => false;
 
 		public Startup(IConfiguration configuration) : base(configuration) { }
 		public override void ConfigureServices(IServiceCollection services) {

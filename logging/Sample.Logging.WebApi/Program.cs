@@ -7,7 +7,7 @@ namespace Sample.Logging.WebApi {
 			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();
 			return new Setup(args)
 				.ConfigureWebHost<Startup>()
-				.RunAsync(args);
+				.RunAsync();
 		}
 	}
 }
