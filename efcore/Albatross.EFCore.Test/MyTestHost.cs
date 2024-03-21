@@ -18,7 +18,7 @@ namespace Albatross.EFCore.Test {
 			base.RegisterServices(configuration, services);
 			services.AddSample();
 			services.AddMemCaching();
-			services.AddCaching(configuration);
+			services.AddCaching();
 			services.AddBuiltInCache();
 			services.AddAuditEventHandlers();
 			services.AddTestPrincipalProvider("test", "test");
