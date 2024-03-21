@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Test.Threading {
+namespace Albatross.Thrading.Test {
 	public class TestConcurrencyDict {
 		[Fact]
 		public void CheckCreation() {
@@ -22,11 +22,11 @@ namespace Albatross.Test.Threading {
 		}
 
 		[Fact]
-		public async Task  CheckParallelCreation() {
+		public async Task CheckParallelCreation() {
 			ConcurrentDictionary<int, object> dict = new ConcurrentDictionary<int, object>();
 
-			Task<object> task1 = Task.Run<object>(() => dict.GetOrAdd(1, key=> GetObject()));
-			Task<object> task2 = Task.Run<object>(() => dict.GetOrAdd(1, key => GetObject()));
+			Task<object> task1 = Task.Run(() => dict.GetOrAdd(1, key => GetObject()));
+			Task<object> task2 = Task.Run(() => dict.GetOrAdd(1, key => GetObject()));
 
 			var obj1 = await task1;
 			var obj2 = await task2;
