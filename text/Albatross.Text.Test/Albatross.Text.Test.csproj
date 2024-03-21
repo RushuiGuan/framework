@@ -5,39 +5,9 @@
 	  <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Validation\**" />
-    <EmbeddedResource Remove="Validation\**" />
-    <None Remove="Validation\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Embedded\DynamicConversion.json" />
-    <None Remove="Embedded\MyTypedValue.Normal.json" />
-    <None Remove="Embedded\MyTypedValue.NullValue.json" />
-    <None Remove="Embedded\MyTypedValue.OutOfOrder.json" />
-    <None Remove="Embedded\MyTypedValue.Undefined.json" />
-    <None Remove="Embedded\test.txt" />
-    <None Remove="Embedded\TypedValue.Custom.json" />
-    <None Remove="Embedded\TypedValue.Custom2.json" />
-    <None Remove="Embedded\TypedValue.Normal.json" />
-    <None Remove="Embedded\TypedValue.NullValue.json" />
-    <None Remove="Embedded\TypedValue.OutOfOrder.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Embedded\DynamicConversion.json" />
-    <EmbeddedResource Include="Embedded\TypedValue.Custom2.json" />
-    <EmbeddedResource Include="Embedded\TypedValue.Custom.json" />
-    <EmbeddedResource Include="Embedded\TypedValue.NullValue.json" />
-    <EmbeddedResource Include="Embedded\MyTypedValue.Undefined.json" />
-    <EmbeddedResource Include="Embedded\MyTypedValue.NullValue.json" />
-    <EmbeddedResource Include="Embedded\MyTypedValue.Normal.json" />
-    <EmbeddedResource Include="Embedded\MyTypedValue.OutOfOrder.json" />
-    <EmbeddedResource Include="Embedded\TypedValue.OutOfOrder.json" />
-    <EmbeddedResource Include="Embedded\TypedValue.Normal.json" />
-    <EmbeddedResource Include="Embedded\test.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Albatross.Hosting.Test" Version="6.4.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="xunit" Version="2.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
