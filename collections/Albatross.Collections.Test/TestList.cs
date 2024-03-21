@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace Albatross.Test.Collections {
+namespace Albatross.Collections.Test {
 	public class TestList {
 
 		[Fact]
