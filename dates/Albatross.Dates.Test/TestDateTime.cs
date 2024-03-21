@@ -4,8 +4,24 @@ using Albatross.Dates;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace Albatross.Test.Dates {
-	public class TestDateOnly {
+namespace Albatross.Dates.Test {
+	public class TestDateTime {
+		[Fact]
+		public void TestDateFormat() {
+			var date = new DateTime(2023, 6, 1, 8, 10, 20, DateTimeKind.Local);
+			string text = date.ToString("yyyy-MM-ddTHH:mm:ss.fffz");
+			Assert.Equal("2023-06-01T08:10:20.000-4", text);
+
+
+			string format = "yyyy-MM-ddTHH:mm:ss.fffZ";
+			text = date.ToString(format);
+			Assert.Equal("2023-06-01T08:10:20.000Z", text);
+
+			text = "2023-06-25T21:47:44.060Z";
+			date = DateTime.ParseExact(text, format, null);
+			Assert.True(date.Kind == DateTimeKind.Local);
+		}
+
 		[Theory]
 		[InlineData("2022-07-08", 1, "2022-07-11")]
 		[InlineData("2022-07-09", 1, "2022-07-11")]
@@ -42,15 +58,15 @@ namespace Albatross.Test.Dates {
 		[InlineData("2023-09-02", 2, "2023-09-05")]
 		[InlineData("2023-09-03", 2, "2023-09-05")]
 		public void TestNextWeekday(string dateText, int days, string expectedText) {
-			var date = DateOnly.Parse(dateText);
-			var expected = DateOnly.Parse(expectedText);
+			var date = DateTime.Parse(dateText);
+			var expected = DateTime.Parse(expectedText);
 			var actual = date.NextWeekday(days);
 			Assert.Equal(expected, actual);
 		}
 
 		[Fact]
 		public void TestNextWeekdayException() {
-			var date = DateOnly.Parse("2023-01-01");
+			var date = DateTime.Parse("2023-01-01");
 			Assert.Throws<ArgumentException>(() => date.NextWeekday(-1));
 		}
 
@@ -83,8 +99,8 @@ namespace Albatross.Test.Dates {
 		[InlineData("2023-08-30", 19, "2023-08-03")]
 		[InlineData("2023-08-30", 21, "2023-08-01")]
 		public void TestPreviousWeekday2(string dateText, int days, string expectedText) {
-			var date = DateOnly.Parse(dateText);
-			var expected = DateOnly.Parse(expectedText);
+			var date = DateTime.Parse(dateText);
+			var expected = DateTime.Parse(expectedText);
 			var actual = date.PreviousWeekday(days);
 			Assert.Equal(expected, actual);
 		}
@@ -92,7 +108,8 @@ namespace Albatross.Test.Dates {
 		/// <summary>
 		/// the stupid way is actually faster when weekdayCount < 5
 		/// </summary>
-		public static DateOnly PreviousWeekDayStupidWay(DateOnly date, int weekdayCount) {
+		public static DateTime PreviousWeekDayStupidWay(DateTime date, int weekdayCount) {
+			date = date.Date;
 			for (int i = 0; i < weekdayCount; i++) {
 				date = date.AddDays(-1);
 				if (date.DayOfWeek == DayOfWeek.Sunday) {
@@ -108,7 +125,8 @@ namespace Albatross.Test.Dates {
 			}
 			return date;
 		}
-		public static DateOnly NextWeekDayStupidWay(DateOnly date, int weekdayCount) {
+		public static DateTime NextWeekDayStupidWay(DateTime date, int weekdayCount) {
+			date = date.Date;
 			for (int i = 0; i < weekdayCount; i++) {
 				date = date.AddDays(1);
 				if (date.DayOfWeek == DayOfWeek.Sunday) {
@@ -128,7 +146,7 @@ namespace Albatross.Test.Dates {
 		public async Task BlanketNextWeekDayTest() {
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			for (int i = 0; i < 366 * 3; i++) {
-				var date = new DateOnly(2000, 1, 1).AddDays(i);
+				var date = new DateTime(2000, 1, 1).AddDays(i);
 				for (int numberOfWeekDays = 0; numberOfWeekDays < 366 * 3; numberOfWeekDays++) {
 					stopwatch.Restart();
 					var actual = date.NextWeekday(numberOfWeekDays);
@@ -145,7 +163,7 @@ namespace Albatross.Test.Dates {
 		[Fact]
 		public async Task BlanketPreviousWeekDayTest() {
 			for (int i = 0; i < 366 * 3; i++) {
-				var date = new DateOnly(2000, 1, 1).AddDays(i);
+				var date = new DateTime(2000, 1, 1).AddDays(i);
 				for (int numberOfWeekDays = 0; numberOfWeekDays < 366 * 3; numberOfWeekDays++) {
 					var actual = date.PreviousWeekday(numberOfWeekDays);
 					var expected = PreviousWeekDayStupidWay(date, numberOfWeekDays);
@@ -165,8 +183,8 @@ namespace Albatross.Test.Dates {
 		[InlineData("2023-10-01", 1, DayOfWeek.Monday, "2023-10-02")]
 		[InlineData("2023-10-03", 1, DayOfWeek.Monday, "2023-10-09")]
 		public void TestGetNthDayOfWeek(string date, int n, DayOfWeek dayOfWeek, string expected) {
-			var result = DateOnly.Parse(date).GetNthDayOfWeek(n, dayOfWeek);
-			Assert.Equal(DateOnly.Parse(expected), result);
+			var result = DateTime.Parse(date).GetNthDayOfWeek(n, dayOfWeek);
+			Assert.Equal(DateTime.Parse(expected), result);
 		}
 
 		[Theory]
@@ -177,7 +195,7 @@ namespace Albatross.Test.Dates {
 		[InlineData("2020-12-01", "2021-1-20", 1)]
 		[InlineData("2021-01-01", "2020-12-20", -1)]
 		public void TestGetMonthDiff(string date1Text, string date2Text, int expectedResult) {
-			var result = DateOnly.Parse(date1Text).GetMonthDiff(DateOnly.Parse(date2Text));
+			var result = DateTime.Parse(date1Text).GetMonthDiff(DateTime.Parse(date2Text));
 			Assert.Equal(expectedResult, result);
 		}
 
@@ -191,8 +209,8 @@ namespace Albatross.Test.Dates {
 		[InlineData("2024-01-08", "2024-01-05", 2)]
 		[InlineData("2024-01-01", "2024-01-31", 23)]
 		public void TestNumberOfWeekDays(string date1Text, string date2Text, int expectedResult) {
-			var d1 = DateOnly.Parse(date1Text);
-			var d2 = DateOnly.Parse(date2Text);
+			var d1 = DateTime.Parse(date1Text);
+			var d2 = DateTime.Parse(date2Text);
 			var result = d1.GetNumberOfWeekdays(d2);
 			Assert.Equal(expectedResult, result);
 		}
