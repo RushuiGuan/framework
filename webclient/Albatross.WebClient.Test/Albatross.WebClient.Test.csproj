@@ -5,10 +5,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Albatross.Config" Version="6.4.1" />
-    <PackageReference Include="Albatross.Hosting.Test" Version="6.4.0" />
+    <PackageReference Include="Albatross.Hosting.Test" Version="6.4.26" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="xunit" Version="2.6.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
