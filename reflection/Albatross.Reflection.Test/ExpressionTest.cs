@@ -32,7 +32,7 @@ namespace Albatross.Test.Reflection {
 		[InlineData("test1", null, "(args.Test1 == null)")]
 		[InlineData("Number", 1, "(args.Number == 1)")]
 		[InlineData("test1", "a", "(args.Test1 == \"a\")")]
-		public void TestCreatePredicate(string name, object value, string expected) {
+		public void TestCreatePredicate(string name, object? value, string expected) {
 			var expression = ExpressionExtensions.GetPredicate<A>(name, value);
 			Assert.Equal(expected, expression.Body.ToString());
 		}
