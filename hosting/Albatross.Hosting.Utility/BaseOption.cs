@@ -17,17 +17,20 @@ namespace Albatross.Hosting.Utility {
 		[Option("console-out", HelpText = "The filename to save the console output")]
 		public string? Output { get; set; }
 
-		[Option("clipboard", HelpText ="Set this flag to copy the output to clipboard")]
+		[Option("clipboard", HelpText = "Set this flag to copy the output to clipboard")]
 		public bool Clipboard { get; set; }
 
 		[Option("verbose", HelpText = "Set this flag to see logs at verbose level")]
-		public bool Verbose{ get; set; }
+		public bool Verbose { get; set; }
 
 		[Option("information", HelpText = "Set this flag to see logs at information level")]
 		public bool Information { get; set; }
 
+		[Option("warning", HelpText = "Set this flag to see logs at warning level")]
+		public bool Warning { get; set; }
+
 		[Option("debug", HelpText = "Set this flag to see logs at debug level")]
-		public bool Debug{ get; set; }
+		public bool Debug { get; set; }
 
 		[Option("benchmark", HelpText = "Use this flag to measure the total amount of execution time")]
 		public bool Benchmark { get; set; }
@@ -35,12 +38,14 @@ namespace Albatross.Hosting.Utility {
 		public void ConfigureLogging(LoggerConfiguration cfg) {
 			if (Debug) {
 				SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
-			}else if (Verbose) {
+			} else if (Verbose) {
 				SetupSerilog.UseConsole(cfg, LogEventLevel.Verbose);
 			} else if (Information) {
 				SetupSerilog.UseConsole(cfg, LogEventLevel.Information);
-			} else {
+			} else if (Warning) {
 				SetupSerilog.UseConsole(cfg, LogEventLevel.Warning);
+			} else {
+				SetupSerilog.UseConsole(cfg, LogEventLevel.Error);
 			}
 		}
 
