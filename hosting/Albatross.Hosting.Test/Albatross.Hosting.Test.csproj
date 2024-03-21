@@ -14,8 +14,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Albatross.Reflection" Version="6.4.9" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-		<PackageReference Include="Albatross" Version="6.5.0" />
 		<PackageReference Include="Albatross.Authentication" Version="7.0.0" />
 		<PackageReference Include="Albatross.Config" Version="6.4.1" />
 		<PackageReference Include="Albatross.EFCore.SqlServer" Version="6.6.4" />
