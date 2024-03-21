@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.EFCore" Version="6.6.4" />
+    <PackageReference Include="Albatross.EFCore" Version="6.6.6" />
   </ItemGroup>
 
   <ItemGroup>
