@@ -9,7 +9,7 @@ namespace Sample.Messaging.WebApi {
 			System.Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location);
 			await new Setup(args)
 				.ConfigureWebHost<Startup>()
-				.RunAsync(args);
+				.RunAsync();
 
 			System.Console.WriteLine("Exiting program");
 		}
