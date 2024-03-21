@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ExcelDna.Integration;
 using Albatross.Excel.Table;
 using System.Linq;
-using Albatross.Authentication.Core;
+using Albatross.Authentication;
 using System;
 using Albatross.Collections;
 

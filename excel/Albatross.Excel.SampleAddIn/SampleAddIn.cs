@@ -1,4 +1,4 @@
-﻿using Albatross.Authentication;
+﻿using Albatross.Authentication.Windows;
 using Albatross.Config;
 using Albatross.Hosting.Excel;
 using Microsoft.Extensions.Configuration;
