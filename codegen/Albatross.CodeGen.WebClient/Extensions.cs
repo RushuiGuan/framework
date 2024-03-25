@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Albatross.CodeGen.TypeScript;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Albatross.CodeGen.WebClient {
 	public static class Extensions {
@@ -17,12 +18,13 @@ namespace Albatross.CodeGen.WebClient {
 		}
 		public static IServiceCollection AddWebClientCodeGen(this IServiceCollection services) {
 			services.AddCSharpCodeGen().AddTypeScriptCodeGen();
-			services.AddSingleton<ICreateApiCSharpProxy, CreateApiCSharpProxy>();
-			services.AddSingleton<ICreateApiTypeScriptProxy, CreateApiTypeScriptProxy>();
-			services.AddSingleton<ICreateTypeScriptDto, CreateTypeScriptDto>();
-			services.AddSingleton<IConvertDtoToTypeScriptInterface, ConvertDtoToTypeScriptInterface>();
-			services.AddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
-			services.AddSingleton<ConvertApiControllerToCSharpClass>();
+			services.TryAddSingleton<ICreateApiCSharpProxy, CreateApiCSharpProxy>();
+			services.TryAddSingleton<ICreateApiTypeScriptProxy, CreateApiTypeScriptProxy>();
+			services.TryAddSingleton<ICreateTypeScriptDto, CreateTypeScriptDto>();
+			services.TryAddSingleton<IConvertDtoToTypeScriptInterface, ConvertDtoToTypeScriptInterface>();
+			services.TryAddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
+			services.TryAddSingleton<ConvertApiControllerToCSharpClass>();
+			services.TryAddSingleton<ConvertApiControllerToTypeScriptClass>();
 			return services;
 		}
     }
