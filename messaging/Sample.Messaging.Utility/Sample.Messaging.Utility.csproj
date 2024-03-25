@@ -8,10 +8,8 @@
 		<Folder Include="Properties\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.Hosting.Utility" Version="6.4.26" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\Albatross.Messaging\Albatross.Messaging.csproj" />
+		<ProjectReference Include="..\Albatross.Messaging\Albatross.Messaging.csproj" />
+		<ProjectReference Include="..\..\hosting\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
 		<ProjectReference Include="..\Sample.Messaging.Commands\Sample.Messaging.Commands.csproj" />
 		<ProjectReference Include="..\Sample.Messaging.Proxy\Sample.Messaging.Proxy.csproj" />
 	</ItemGroup>

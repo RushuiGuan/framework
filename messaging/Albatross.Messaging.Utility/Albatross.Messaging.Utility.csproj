@@ -7,12 +7,10 @@
     <AssemblyName>msg</AssemblyName>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Albatross.Hosting.Utility" Version="6.4.26" />
-  </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Albatross.Messaging\Albatross.Messaging.csproj" />
+    <ProjectReference Include="..\Albatross.Messaging\Albatross.Messaging.csproj" />
+    <ProjectReference Include="..\..\hosting\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

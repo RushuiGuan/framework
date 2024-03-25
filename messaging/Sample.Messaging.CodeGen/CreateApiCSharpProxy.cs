@@ -27,7 +27,7 @@ namespace Sample.Messaging.CodeGen {
 		
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environmentSetting, IServiceCollection services) {
 			base.RegisterServices(configuration, environmentSetting, services);
-			services.AddDefaultCodeGen();
+			services.AddCodeGen(typeof(Sample.Messaging.WebApi.Program).Assembly);
 			services.AddWebClientCodeGen();
 		}
 

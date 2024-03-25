@@ -10,7 +10,7 @@ namespace Albatross.CodeGen.Python.Models {
 		public ParameterCollection(IEnumerable<Variable> parameters) : base(string.Empty, string.Empty, parameters) { }
 
 		public override TextWriter Generate(TextWriter writer) {
-			writer.WriteItems<Variable>(this, ", ", (w, item) => w.Code(item));
+			// writer.WriteItems<Variable>(this.Nodes, ", ", (w, item) => w.Code(item));
 			return writer;
 		}
 	}

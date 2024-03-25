@@ -16,7 +16,6 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="albatross" Version="6.4.6" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
 	</ItemGroup>
 	<ItemGroup>
@@ -25,6 +24,10 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
+	  <ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="readme.md">

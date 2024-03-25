@@ -1,10 +1,5 @@
-﻿using Albatross.Collections;
-using Albatross.Text;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
 	public class BaseClass : IModuleCodeElement {

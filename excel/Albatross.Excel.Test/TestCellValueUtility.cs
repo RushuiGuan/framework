@@ -14,7 +14,7 @@ namespace Albatross.Excel.Test {
 		[InlineData(1.5, true, 2)]
 		[InlineData("a", false, 0)]
 		[InlineData(ExcelError.ExcelErrorGettingData, false, 0)]
-		public void TestTryReadInt(object value,  bool shouldRead, int expectedResult) {
+		public void TestTryReadInt(object value, bool shouldRead, int expectedResult) {
 			var hasValue = CellValue.TryReadInteger(value, out var result);
 			Assert.Equal(shouldRead, hasValue);
 			if (hasValue) {
@@ -43,14 +43,14 @@ namespace Albatross.Excel.Test {
 		[InlineData(45226, false, true, "2023-10-27")]
 		[InlineData("2023-01-01", false, true, "2023-01-01")]
 		[InlineData("2023-01-01", true, true, "2023-01-01")]
-		public void TestTryReadDateOnly(object value, bool parse, bool shouldRead, string expectedResult) {
-			if(parse) {
+		public void TestTryReadDateOnly(object value, bool parse, bool shouldRead, string? expectedResult) {
+			if (parse) {
 				value = DateTime.Parse((string)value);
 			}
 			var hasValue = CellValue.TryReadDateOnly(value, out var result);
 			Assert.Equal(shouldRead, hasValue);
 			if (hasValue) {
-				Assert.Equal(DateOnly.Parse(expectedResult), result);
+				Assert.Equal(DateOnly.Parse(expectedResult ?? string.Empty), result);
 			}
 		}
 
@@ -60,14 +60,14 @@ namespace Albatross.Excel.Test {
 		[InlineData(45226, false, true, "2023-10-27")]
 		[InlineData("2023-01-01", false, true, "2023-01-01")]
 		[InlineData("2023-01-01", true, true, "2023-01-01")]
-		public void TestTryReadDateTime(object value, bool parse, bool shouldRead, string expectedResult) {
+		public void TestTryReadDateTime(object value, bool parse, bool shouldRead, string? expectedResult) {
 			if (parse) {
 				value = DateTime.Parse((string)value);
 			}
 			var hasValue = CellValue.TryReadDateTime(value, out var result);
 			Assert.Equal(shouldRead, hasValue);
 			if (hasValue) {
-				Assert.Equal(DateTime.Parse(expectedResult), result);
+				Assert.Equal(DateTime.Parse(expectedResult ?? string.Empty), result);
 			}
 		}
 
@@ -75,7 +75,7 @@ namespace Albatross.Excel.Test {
 		[InlineData(ExcelError.ExcelErrorNull, false, false)]
 		[InlineData("", false, false)]
 
-		[InlineData(1,  true, true)]
+		[InlineData(1, true, true)]
 		[InlineData(true, true, true)]
 		[InlineData("yes", true, true)]
 		[InlineData("true", true, true)]
@@ -119,7 +119,7 @@ namespace Albatross.Excel.Test {
 		[InlineData(3, true, Color.Red)]
 		[InlineData(3.0, true, Color.Red)]
 		[InlineData(99999, false, null)]
-		public void TestTryReadEnum(object input, bool shouldRead, object result) {
+		public void TestTryReadEnum(object input, bool shouldRead, object? result) {
 			var hasValue = CellValue.TryReadEnum<Color>(input, out var value1);
 			Assert.Equal(shouldRead, hasValue);
 			if (shouldRead) {
@@ -140,7 +140,7 @@ namespace Albatross.Excel.Test {
 		[InlineData(1, "System.String", true, "1")]
 
 		[InlineData(true, "System.Boolean", true, true)]
-		[InlineData(false,"System.Boolean", true, false)]
+		[InlineData(false, "System.Boolean", true, false)]
 
 		[InlineData(45226, "System.DateTime", true, "2023-10-27")]
 		[InlineData(45226, "System.DateOnly", true, "2023-10-27")]

@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Albatross.Messaging\Albatross.Messaging.csproj" />
+    <ProjectReference Include="..\Albatross.Messaging\Albatross.Messaging.csproj" />
   </ItemGroup>
 </Project>

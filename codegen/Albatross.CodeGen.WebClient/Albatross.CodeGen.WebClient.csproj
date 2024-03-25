@@ -10,8 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
+	  <ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj" />
-	  <ProjectReference Include="..\Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj" />
 	  <ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -20,9 +20,6 @@
       <PackagePath>
       </PackagePath>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Albatross.Serialization" Version="6.4.2" />
   </ItemGroup>
   <ItemGroup>
     <None Update="readme.md">
