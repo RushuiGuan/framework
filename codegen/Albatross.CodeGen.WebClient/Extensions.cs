@@ -22,6 +22,7 @@ namespace Albatross.CodeGen.WebClient {
 			services.AddSingleton<ICreateTypeScriptDto, CreateTypeScriptDto>();
 			services.AddSingleton<IConvertDtoToTypeScriptInterface, ConvertDtoToTypeScriptInterface>();
 			services.AddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
+			services.AddSingleton<ConvertApiControllerToCSharpClass>();
 			return services;
 		}
     }
