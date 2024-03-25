@@ -19,7 +19,7 @@ namespace Albatross.Text.Test {
 		[InlineData("test", "a*", false)]
 		[InlineData("", "*", false)]
 		[InlineData(null, "*", false)]
-		public void Test(string input, string pattern, bool expected) {
+		public void Test(string? input, string pattern, bool expected) {
 			var result = input.Like(pattern);
 			Assert.Equal(expected, result);
 		}

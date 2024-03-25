@@ -11,10 +11,10 @@
     <None Remove="ribbon.xml" />
   </ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.Text" Version="6.4.9" />
+		<ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
-		<PackageReference Include="Albatross.Config" Version="6.4.1" />
-		<PackageReference Include="Albatross.Logging" Version="6.4.5" />
+		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
+		<ProjectReference Include="..\..\logging\Albatross.Logging\Albatross.Logging.csproj" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
 	</ItemGroup>

@@ -14,12 +14,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Albatross.Reflection" Version="6.4.9" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-		<PackageReference Include="Albatross.Authentication" Version="7.0.1" />
-		<PackageReference Include="Albatross.Config" Version="6.4.1" />
-		<PackageReference Include="Albatross.EFCore.SqlServer" Version="6.6.6" />
-		<PackageReference Include="Albatross.Logging" Version="6.4.5" />
+		<ProjectReference Include="..\..\authentication\Albatross.Authentication\Albatross.Authentication.csproj" />
+		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
+		<ProjectReference Include="..\..\efcore\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
+		<ProjectReference Include="..\..\logging\Albatross.Logging\Albatross.Logging.csproj" />
+		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
 		<PackageReference Include="CsvHelper" Version="30.0.1" />
 		<PackageReference Include="Moq" Version="4.20.70" />
 		<PackageReference Include="xunit" Version="2.6.6" />

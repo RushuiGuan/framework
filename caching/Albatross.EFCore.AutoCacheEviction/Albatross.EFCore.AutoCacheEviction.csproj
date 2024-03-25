@@ -6,10 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.EFCore" Version="6.6.6" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\efcore\Albatross.EFCore\Albatross.EFCore.csproj" />
     <ProjectReference Include="..\Albatross.Caching\Albatross.Caching.csproj" />
   </ItemGroup>
 </Project>

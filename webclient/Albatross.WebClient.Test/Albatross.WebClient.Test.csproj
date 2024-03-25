@@ -4,17 +4,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Albatross.Config" Version="6.4.1" />
-    <PackageReference Include="Albatross.Hosting.Test" Version="6.4.26" />
+    <ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
+    <ProjectReference Include="..\..\hosting\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
+	  <ProjectReference Include="..\Albatross.WebClient\Albatross.WebClient.csproj" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Albatross.WebClient\Albatross.WebClient.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

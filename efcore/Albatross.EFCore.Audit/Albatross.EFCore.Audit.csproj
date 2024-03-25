@@ -6,10 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.Authentication" Version="7.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\authentication\Albatross.Authentication\Albatross.Authentication.csproj" />
     <ProjectReference Include="..\Albatross.EFCore\Albatross.EFCore.csproj" />
   </ItemGroup>
 

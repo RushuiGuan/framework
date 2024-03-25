@@ -8,11 +8,8 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
-		<IncludeSymbols>True</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.Config" Version="6.4.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
 		<PackageReference Include="Polly" Version="7.2.4" />
@@ -24,6 +21,9 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="readme.md">

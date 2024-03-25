@@ -8,7 +8,7 @@
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Albatross.Reflection" Version="6.4.9" />
+        <ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
     </ItemGroup>
     <ItemGroup>

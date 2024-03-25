@@ -8,11 +8,8 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
-		
-		<PackageReference Include="Albatross" Version="6.5.0" />
-		
-		<PackageReference Include="Albatross.Reflection" Version="6.4.9" />
-		
+		<ProjectReference Include="..\..\collections\Albatross.Collections\Albatross.Collections.csproj" />
+		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
 	  <PackageReference Include="ExcelDna.Integration" Version="1.7.0" />
 	  <PackageReference Include="ExcelDna.IntelliSense" Version="1.7.0" />

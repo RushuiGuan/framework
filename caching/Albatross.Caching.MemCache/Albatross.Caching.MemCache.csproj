@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Albatross.Text" Version="6.4.9" />
+		<ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
 		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
 		<PackageReference Include="Polly.Caching.Memory" Version="3.0.2" />
 	</ItemGroup>

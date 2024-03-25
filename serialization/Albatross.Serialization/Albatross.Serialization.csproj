@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Albatross.Reflection" Version="6.4.9" />
+    <ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
     <PackageReference Include="System.Text.Json" Version="8.0.0" />
   </ItemGroup>
 

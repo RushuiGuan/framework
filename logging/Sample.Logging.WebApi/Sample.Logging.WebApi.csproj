@@ -6,11 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Albatross.Hosting" Version="6.4.26" />
-  </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\hosting\Albatross.Hosting\Albatross.Hosting.csproj" />
     <ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
   </ItemGroup>
 

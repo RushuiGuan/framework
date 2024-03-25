@@ -13,7 +13,7 @@ namespace Albatross.Test.Text {
 		[InlineData(".", ".")]
 		[InlineData("AB", "AB.")]
 		[InlineData("AB.", "AB.")]
-		public void TestPostfixIfNotNullOrEmpty(string text, string expected) {
+		public void TestPostfixIfNotNullOrEmpty(string? text, string? expected) {
 			var result = text.PostfixIfNotNullOrEmpty('.');
 			Assert.Equal(expected, result);
 		}

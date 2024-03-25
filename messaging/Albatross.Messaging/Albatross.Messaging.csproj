@@ -12,14 +12,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Albatross.Collections" Version="6.5.0" />
-		<PackageReference Include="Albatross.Config" Version="6.4.1" />
-		<PackageReference Include="Albatross.IO" Version="6.5.0" />
-		<PackageReference Include="Albatross.Math" Version="6.5.0" />
-		<PackageReference Include="Albatross.Reflection" Version="6.4.9" />
-		<PackageReference Include="Albatross.Serialization" Version="6.4.3" />
-		<PackageReference Include="Albatross.Text" Version="6.4.9" />
-		<PackageReference Include="Albatross.Threading" Version="6.5.1" />
+		<ProjectReference Include="..\..\collections\Albatross.Collections\Albatross.Collections.csproj" />
+		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
+		<ProjectReference Include="..\..\io\Albatross.IO\Albatross.IO.csproj" />
+		<ProjectReference Include="..\..\math\Albatross.Math\Albatross.Math.csproj" />
+		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
+		<ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
+		<ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
+		<ProjectReference Include="..\..\threading\Albatross.Threading\Albatross.Threading.csproj" />
 		<PackageReference Include="CoenM.Encoding.Z85e" Version="1.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
 		<PackageReference Include="NetMQ" Version="4.0.1.13" />
