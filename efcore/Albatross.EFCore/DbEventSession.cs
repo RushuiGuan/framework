@@ -27,7 +27,8 @@ namespace Albatross.EFCore {
 				?? Array.Empty<IDbSessionEventHandler>();
 		}
 		public void ExecutePriorSaveActions(IDbSession session) {
-			foreach(var handler in changeEventHandlers) {
+			logger.LogInformation("Running dbsession event handlers: {@array}", changeEventHandlers);
+			foreach (var handler in changeEventHandlers) {
 				handler.PreSave(session);
 			}
 			foreach (var entry in session.DbContext.ChangeTracker.Entries()) {
@@ -54,7 +55,6 @@ namespace Albatross.EFCore {
 		public async Task ExecutePostSaveActions() {
 			foreach (var item in changeEventHandlers) {
 				try {
-					logger.LogInformation("Running post save event handler: {name}", item.GetType().Name);
 					await item.PostSave();
 				} catch (System.Exception ex) {
 					logger.LogError(ex, "Error running PostSave event handler:{class}", item.GetType());

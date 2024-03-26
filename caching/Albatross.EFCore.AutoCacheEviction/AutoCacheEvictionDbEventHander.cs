@@ -11,6 +11,7 @@ namespace Albatross.EFCore.AutoCacheEviction {
 		private List<ICacheKey> cacheKeys = new List<ICacheKey>();
 		private readonly ICacheKeyManagement keyManagement;
 		private readonly ILogger<AutoCacheEvictionDbEventHander> logger;
+		public override string ToString() => nameof(AutoCacheEvictionDbEventHander);
 
 		public AutoCacheEvictionDbEventHander(ICacheKeyManagement keyManagement, ILogger<AutoCacheEvictionDbEventHander> logger) {
 			this.keyManagement = keyManagement;

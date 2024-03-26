@@ -17,6 +17,7 @@ namespace Albatross.EFCore.ChangeReporting {
 		ChangeType ChangeType => Options.Type;
 		HashSet<string> SkippedProperties => Options.SkippedProperties;
 		public bool HasPostSaveOperation => this.Changes.Any();
+		public override string ToString() => $"{nameof(ChangeReportDbEventHandler<T>)} for {typeof(T).Name}";
 
 		public void PreSave(IDbSession session) { }
 		public async Task PostSave() {

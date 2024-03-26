@@ -7,6 +7,8 @@ namespace Albatross.EFCore.Test {
 		public TestSessionEventHandler(GetCurrentTestUser getCurrentTestUser) {
 			this.getCurrentTestUser = getCurrentTestUser;
 		}
+		public override string ToString() => nameof(TestSessionEventHandler);
+
 		public void OnAddedEntry(EntityEntry entry) { }
 		public void OnDeletedEntry(EntityEntry entry) { }
 		public void OnModifiedEntry(EntityEntry entry) { }

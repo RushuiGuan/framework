@@ -8,7 +8,7 @@ namespace Albatross.EFCore.Audit {
 		private readonly IGetCurrentUser getCurrentUser;
 		public void PreSave(IDbSession session) { }
 		public Task PostSave() => Task.CompletedTask;
-
+		public override string ToString() => nameof(AuditChangeDbEventHandler);
 		public AuditChangeDbEventHandler(IGetCurrentUser getCurrentUser) {
 			this.getCurrentUser = getCurrentUser;
 		}

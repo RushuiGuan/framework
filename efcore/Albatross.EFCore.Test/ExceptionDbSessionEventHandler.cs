@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 namespace Albatross.EFCore.Test {
 	public class ExceptionDbSessionEventHandler : IDbSessionEventHandler {
 		public static bool ThrowPriorSaveException { get; set; }
+		public override string ToString() => nameof(ExceptionDbSessionEventHandler);
 
 		public Task PostSave() {
 			throw new Exception("Test exception during post save");
