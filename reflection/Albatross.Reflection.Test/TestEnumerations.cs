@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Test.Reflection {
+namespace Albatross.Reflection.Test {
 	public class ClassB {
 		public ClassB(string name) {
 			Name = name;

@@ -3,7 +3,14 @@
     <OutputType>Library</OutputType>
 	  <TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
 	  <Nullable>enable</Nullable>
+	  <AssemblyName>xxx</AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Embedded\test.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Embedded\test.txt" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />

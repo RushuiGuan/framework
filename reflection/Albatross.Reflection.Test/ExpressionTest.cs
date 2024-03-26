@@ -2,7 +2,9 @@
 using System.Reflection;
 using Xunit;
 
-namespace Albatross.Test.Reflection {
+[assembly:DefaultNamespace("Albatross.Reflection.Test")]
+
+namespace Albatross.Reflection.Test {
 	public class ExpressionTest {
 		public class A {
 			public string? Test1 { get; }

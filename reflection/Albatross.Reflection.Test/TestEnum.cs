@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.Test.Reflection {
+namespace Albatross.Reflection.Test {
 	public enum MyEnum {
 		a,b,c, d, e, f,
 	}

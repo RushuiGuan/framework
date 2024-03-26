@@ -7,7 +7,7 @@ using System.IO;
 using Albatross.Config;
 using System.Threading.Tasks;
 
-namespace Albatross.Test.Reflection {
+namespace Albatross.Reflection.Test {
 	public struct GenericStruct<T> {
         public T ID { get; set; }
     }
@@ -122,7 +122,7 @@ namespace Albatross.Test.Reflection {
 		[Fact]
 		public void TestGetResource() {
 			string text = this.GetType().GetEmbeddedFile("test.txt");
-			Assert.Equal("test", text);
+			Assert.Equal("123", text);
 		}
 
 		[Fact]
@@ -233,7 +233,7 @@ namespace Albatross.Test.Reflection {
 		}
 
 		[Theory]
-		[InlineData("Albatross.Test.Reflection.Tests,xxxxxx", "Albatross.Test.Reflection.Tests,xxxxxx")]
+		[InlineData("Albatross.Reflection.Test.Tests, xxx", "Albatross.Reflection.Test.Tests,xxx")]
 		public void TestGetClassNameNeat(string className, string expected) {
 			var result = className.GetRequiredType().GetClassNameNeat();
 			Assert.Equal(expected, result);
