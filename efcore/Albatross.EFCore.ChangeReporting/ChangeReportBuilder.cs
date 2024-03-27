@@ -18,6 +18,9 @@ namespace Albatross.EFCore.ChangeReporting {
 		public ChangeReportDbEventHandler<T> Build() {
 			var handler = new ChangeReportDbEventHandler<T>();
 			this.action?.Invoke(handler);
+			if(handler.OnReportGenerated == null) {
+				throw new InvalidOperationException($"{typeof(T).Name} ChangeReportDbEventHandler is missing OnReportGenerated delegate");
+			}
 			return handler;
 		}
 	}
