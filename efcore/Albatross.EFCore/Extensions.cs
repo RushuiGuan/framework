@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -84,6 +85,12 @@ namespace Albatross.EFCore {
 			services.TryAddSingleton<IDbEventSessionProvider, DbEventSessionProvider>();
 			return services;
 		}
-		
+		public static void LogRegisteredDbSessionEventHandlers(this IServiceProvider provider) {
+			var handlers = provider.GetServices<IEnumerable<IDbSessionEventHandler>>();
+			var logger = provider.GetRequiredService<ILogger<DbEventSession>>();
+			if (handlers.Any()) {
+				logger.LogInformation("Registered DbSession Event Handlers:\n\t{handlers}", string.Join("\n\t", handlers));
+			}
+		}
 	}
 }
