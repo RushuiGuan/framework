@@ -85,12 +85,5 @@ namespace Albatross.EFCore {
 			services.TryAddSingleton<IDbEventSessionProvider, DbEventSessionProvider>();
 			return services;
 		}
-		public static void LogRegisteredDbSessionEventHandlers(this IServiceProvider provider) {
-			var handlers = provider.GetServices<IEnumerable<IDbSessionEventHandler>>();
-			var logger = provider.GetRequiredService<ILogger<DbEventSession>>();
-			if (handlers.Any()) {
-				logger.LogInformation("Registered DbSession Event Handlers:\n\t{handlers}", string.Join("\n\t", handlers));
-			}
-		}
 	}
 }

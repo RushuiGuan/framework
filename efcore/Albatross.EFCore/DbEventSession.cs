@@ -27,6 +27,7 @@ namespace Albatross.EFCore {
 				?? Array.Empty<IDbSessionEventHandler>();
 		}
 		public void ExecutePriorSaveActions(IDbSession session) {
+			logger.LogDebug("Running dbsession event handlers:\n\t{array}", string.Join("\n\t", changeEventHandlers));
 			foreach (var handler in changeEventHandlers) {
 				handler.PreSave(session);
 			}
