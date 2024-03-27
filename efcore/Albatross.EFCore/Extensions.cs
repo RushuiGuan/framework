@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -79,8 +80,8 @@ namespace Albatross.EFCore {
 		}
 
 		public static IServiceCollection AddDbSessionEvents(this IServiceCollection services) {
-			services.AddScoped<IDbEventSession, DbEventSession>();
-			services.AddSingleton<IDbEventSessionProvider, DbEventSessionProvider>();
+			services.TryAddScoped<IDbEventSession, DbEventSession>();
+			services.TryAddSingleton<IDbEventSessionProvider, DbEventSessionProvider>();
 			return services;
 		}
 		

@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.EFCore {
@@ -28,7 +27,7 @@ namespace Albatross.EFCore {
 				?? Array.Empty<IDbSessionEventHandler>();
 		}
 		public void ExecutePriorSaveActions(IDbSession session) {
-			logger.LogInformation("Running dbsession event handlers:\n\t{array}", string.Join("\t\n", changeEventHandlers));
+			logger.LogInformation("Running dbsession event handlers:\n\t{array}", string.Join("\n\t", changeEventHandlers));
 			foreach (var handler in changeEventHandlers) {
 				handler.PreSave(session);
 			}

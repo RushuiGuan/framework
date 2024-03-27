@@ -207,6 +207,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Utility", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.WebApi", "messaging\Sample.Messaging.WebApi\Sample.Messaging.WebApi.csproj", "{C4D79EAE-E586-4208-BC6B-D540AB54027A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{448C3003-3022-4969-830F-C5C385B78539}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		dependencies.md = dependencies.md
+		Directory.Build.props = Directory.Build.props
+		pack.ps1 = pack.ps1
+		readme.md = readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
