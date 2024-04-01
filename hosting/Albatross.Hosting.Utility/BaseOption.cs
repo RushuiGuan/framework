@@ -65,9 +65,9 @@ namespace Albatross.Hosting.Utility {
 			}
 		}
 
-		public async Task WriteProperties<T>(T? data, params string[] properties) {
+		public async Task WriteProperties<T>(T? data, PrintPropertiesOption option) {
 			StringWriter writer = new StringWriter();
-			await writer.PrintProperties(data, properties);
+			await writer.PrintProperties(data, option);
 			SendResult(writer.ToString());
 		}
 

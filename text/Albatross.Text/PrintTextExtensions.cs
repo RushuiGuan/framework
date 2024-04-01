@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Albatross.Text {
 	public static partial class PrintTextExtensions {
-		public static Task PrintProperties<T>(this TextWriter writer, T? data, params string[] properties)
-			=> writer.PrintProperties<T>(new T?[] { data }, new PrintPropertiesOption() { Properties = properties });
+		public static Task PrintProperties<T>(this TextWriter writer, T? data, PrintPropertiesOption option)
+			=> writer.PrintProperties<T>(new T?[] { data }, option);
 
 		public static async Task PrintProperties<T>(this TextWriter writer, T?[] items, PrintPropertiesOption option) {
 			int columnCount = items.Length + 1;
@@ -124,6 +124,7 @@ namespace Albatross.Text {
 				writer.Space(maxWidth).AppendChar(seperator, seperatorWidth).AppendLine(line);
 			}
 		}
+	
 		public static void Indent(this TextWriter writer, string text, char letter = ' ', int seperatorWidth = 4)
 			=> writer.PrintSideBySide("", text, letter, seperatorWidth);
 	}

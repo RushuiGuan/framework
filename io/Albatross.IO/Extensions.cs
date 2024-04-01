@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace Albatross.IO {
 	public static class Extensions {
@@ -19,5 +20,23 @@ namespace Albatross.IO {
 				throw new ArgumentException($"Path {file} is not valid");
 			}
 		}
+
+		public static string ConvertToFilename(this string text, string filler) {
+			var sb = new StringBuilder(text.Length);
+			var invalidChars = Path.GetInvalidFileNameChars().ToHashSet();
+			foreach(var character in filler) {
+				if(invalidChars.Contains(character)) {
+					throw new ArgumentException($"Filler character {character} is not a valid file name character");
+				}
+			}
+			foreach (var character in text) {
+				if (invalidChars.Contains(character)) {
+					sb.Append(filler);
+				} else {
+					sb.Append(character);
+				}
+			}
+			return sb.ToString();
+		}	
 	}
 }
