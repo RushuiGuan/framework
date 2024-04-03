@@ -25,6 +25,8 @@ namespace Albatross.Caching {
 			services.TryAddSingleton(typeof(TenMinutesCache<,>));
 			services.TryAddSingleton(typeof(FifteenMinutesCache<,>));
 
+			services.TryAddSingleton(typeof(OneHourCache<,>));
+
 			services.TryAddSingleton(typeof(OneDayCache<,>));
 			services.TryAddSingleton(typeof(OneMonthCache<,>));
 			services.TryAddSingleton(typeof(OneYearCache<,>));
