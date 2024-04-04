@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Caching {
 	public interface ICache : ICacheKeyStrategy {
-		string Name { get; }
+		string AsyncName { get; }
 		ITtlStrategy TtlStrategy { get; }
 		// void Register();
 		//void OnCacheGet(Context context, string cacheKey);

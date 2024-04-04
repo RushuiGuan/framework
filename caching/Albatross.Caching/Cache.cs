@@ -15,17 +15,20 @@ namespace Albatross.Caching {
 	/// <typeparam name="CacheFormat"></typeparam>
 	public abstract class Cache<CacheFormat, KeyFormat> : ICache<CacheFormat, KeyFormat> where KeyFormat : ICacheKey {
 		protected readonly ILogger logger;
-		protected readonly IAsyncCacheProvider<CacheFormat> cacheProvider;
+		protected readonly IAsyncCacheProvider<CacheFormat> asyncCacheProvider;
+		protected readonly ISyncCacheProvider<CacheFormat> syncCacheProvider;
 		private readonly IPolicyRegistry<string> registry;
 
 		public Cache(ILogger logger, IPolicyRegistry<string> registry, ICacheProviderAdapter cacheProviderAdapter) {
 			this.logger = logger;
 			this.registry = registry;
-			this.cacheProvider = cacheProviderAdapter.Create<CacheFormat>();
+			this.asyncCacheProvider = cacheProviderAdapter.Create<CacheFormat>();
+			this.syncCacheProvider = cacheProviderAdapter.CreateSync<CacheFormat>();
 			this.Register();
 		}
 
-		public virtual string Name => $"Cache-{typeof(CacheFormat).Name}-{typeof(KeyFormat).Name}";
+		public string AsyncName => $"async-cache-{typeof(CacheFormat).Name}-{typeof(KeyFormat).Name}";
+		public string SyncName => $"sync-cache-{typeof(CacheFormat).Name}-{typeof(KeyFormat).Name}";
 		public abstract ITtlStrategy TtlStrategy { get; }
 
 		public void OnCacheGet(Context context, string cacheKey) { }
@@ -35,13 +38,16 @@ namespace Albatross.Caching {
 		public void OnCachePutError(Context context, string cacheKey, Exception error) => logger.LogError(error, "Error putting cache {name}", cacheKey);
 
 		public void Register() {
-			if (!registry.ContainsKey(Name)) {
-				logger.LogInformation("Register Cache Management {cacheName}", Name);
-				var policy = Policy.CacheAsync<CacheFormat>(cacheProvider, TtlStrategy, this,
+			if (!registry.ContainsKey(AsyncName)) {
+				logger.LogInformation("Register Cache Management {cacheName}", AsyncName);
+				var asyncPolicy = Policy.CacheAsync<CacheFormat>(asyncCacheProvider, TtlStrategy, this,
 					OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
-				registry.Add(Name, policy);
+				registry.Add(AsyncName, asyncPolicy);
+				var syncPolicy = Policy.Cache<CacheFormat>(syncCacheProvider, TtlStrategy, this,
+					OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
+				registry.Add(SyncName, syncPolicy);
 			} else {
-				logger.LogError("Cache {name} has already been registered", Name);
+				logger.LogError("Cache {name} has already been registered", AsyncName);
 			}
 		}
 		/// <summary>
@@ -51,20 +57,29 @@ namespace Albatross.Caching {
 		/// <returns></returns>
 		public string GetCacheKey(Context context) => context.OperationKey;
 
+
 		public Task<CacheFormat> ExecuteAsync(Func<Context, CancellationToken, Task<CacheFormat>> func, KeyFormat keyValue, CancellationToken cancellationToken = default) {
-			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
+			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(AsyncName);
 			return policy.ExecuteAsync(func, new Context(keyValue.Key), cancellationToken);
 		}
 		public Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, KeyFormat keyValue) {
-			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(Name);
+			var policy = this.registry.Get<IAsyncPolicy<CacheFormat>>(AsyncName);
 			return policy.ExecuteAsync(func, new Context(keyValue.Key));
 		}
 
 		public Task<(bool, CacheFormat)> TryGetAsync(KeyFormat keyValue, CancellationToken cancellationToken = default) {
-			return this.cacheProvider.TryGetAsync(keyValue.Key, cancellationToken, false);
+			return this.asyncCacheProvider.TryGetAsync(keyValue.Key, cancellationToken, false);
 		}
 		public async Task PutAsync(KeyFormat keyValue, CacheFormat cacheValue, CancellationToken cancellationToken = default) {
-			await this.cacheProvider.PutAsync(keyValue.Key, cacheValue, this.TtlStrategy.GetTtl(new Context(keyValue.Key), cacheValue), cancellationToken, false);
+			await this.asyncCacheProvider.PutAsync(keyValue.Key, cacheValue, this.TtlStrategy.GetTtl(new Context(keyValue.Key), cacheValue), cancellationToken, false);
 		}
+
+		public CacheFormat Execute(Func<Context, CacheFormat> func, KeyFormat keyValue) {
+			var policy = this.registry.Get<ISyncPolicy<CacheFormat>>(SyncName);
+			return policy.Execute(func, new Context(keyValue.Key));
+		}
+		public (bool, CacheFormat) TryGet(KeyFormat keyValue) => this.syncCacheProvider.TryGet(keyValue.Key);
+		public void Put(KeyFormat keyValue, CacheFormat cacheValue) 
+			=> this.syncCacheProvider.Put(keyValue.Key, cacheValue, this.TtlStrategy.GetTtl(new Context(keyValue.Key), cacheValue));
 	}
 }

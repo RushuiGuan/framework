@@ -1,18 +1,22 @@
 ﻿using Polly.Caching;
 using System.Text.Json;
 using System;
+using Polly.Caching.Distributed;
 
 namespace Albatross.Caching.Redis {
 	public class StringCacheProviderAdapter : ICacheProviderAdapter {
-		private readonly IAsyncCacheProvider<string> cacheProvider;
+		private readonly NetStandardIDistributedCacheStringProvider cacheProvider;
 
-		public StringCacheProviderAdapter(IAsyncCacheProvider<string> cacheProvider) {
+		public StringCacheProviderAdapter(NetStandardIDistributedCacheStringProvider cacheProvider) {
 			this.cacheProvider = cacheProvider;
 		}
 
-		public IAsyncCacheProvider<T> Create<T>() {
-			return this.cacheProvider.WithSerializer<T, string>(new StringJsonCacheItemSerializer<T>());
-		}
+		public IAsyncCacheProvider<T> Create<T>() 
+			=> ((IAsyncCacheProvider<string>)this.cacheProvider).WithSerializer(new StringJsonCacheItemSerializer<T>());
+
+		public ISyncCacheProvider<T> CreateSync<T>()
+			=> ((ISyncCacheProvider<string>)this.cacheProvider).WithSerializer<T, string>(new StringJsonCacheItemSerializer<T>());
+			
 	}
 	public class StringJsonCacheItemSerializer<T> : ICacheItemSerializer<T, string> {
 		public T Deserialize(string text) {

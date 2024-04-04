@@ -3,14 +3,16 @@ using Polly.Caching.Memory;
 
 namespace Albatross.Caching.MemCache {
 	public class ObjectCacheProviderAdapter : ICacheProviderAdapter {
-		private readonly IAsyncCacheProvider provider;
+		private readonly MemoryCacheProvider provider;
 
 		public ObjectCacheProviderAdapter(MemoryCacheProvider provider) {
 			this.provider = provider;
 		}
 
-		public IAsyncCacheProvider<T> Create<T>() {
-			return provider.AsyncFor<T>();
-		}
+		public IAsyncCacheProvider<T> Create<T>()
+			=> provider.AsyncFor<T>();
+
+		public ISyncCacheProvider<T> CreateSync<T>()
+			=> provider.For<T>();
 	}
 }
