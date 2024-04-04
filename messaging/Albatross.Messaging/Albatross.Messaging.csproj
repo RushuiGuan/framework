@@ -6,8 +6,6 @@
 		<Description>This assembly contains messaging implementation using ZeroMQ.  Currently it supports pubsub and command queue pattern.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<LangVersion>Latest</LangVersion>
-		<IncludeSymbols>True</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 

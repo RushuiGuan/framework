@@ -6,8 +6,6 @@
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
 		<Description>Wrapper api to create a command line utility using CommandLineParser with dependency injection and serilog logging support.</Description>
 		<Nullable>enable</Nullable>
-		<IncludeSymbols>True</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />

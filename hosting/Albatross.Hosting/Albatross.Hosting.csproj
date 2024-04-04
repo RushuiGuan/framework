@@ -7,8 +7,6 @@
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
 		<Description>Wrapper library to quickly create a combination of web api, spa or service with serilog logging, swagger and bearer token authentication\authorization support.</Description>
 		<Nullable>enable</Nullable>
-		<IncludeSymbols>True</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 		<PackageReadmeFile></PackageReadmeFile>
 	</PropertyGroup>
