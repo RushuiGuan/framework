@@ -8,12 +8,6 @@ namespace Albatross.Caching {
 	public interface ICache : ICacheKeyStrategy {
 		string AsyncName { get; }
 		ITtlStrategy TtlStrategy { get; }
-		// void Register();
-		//void OnCacheGet(Context context, string cacheKey);
-		//void OnCacheMiss(Context context, string cacheKey);
-		//void OnCachePut(Context context, string cacheKey);
-		//void OnCacheGetError(Context context, string cacheKey, Exception error);
-		//void OnCachePutError(Context context, string cacheKey, Exception error);
 	}
 
 	public interface ICache<CacheFormat, KeyFormat> : ICache where KeyFormat : ICacheKey {
@@ -21,5 +15,10 @@ namespace Albatross.Caching {
 		Task<CacheFormat> ExecuteAsync(Func<Context, Task<CacheFormat>> func, KeyFormat key);
 		Task<(bool, CacheFormat)> TryGetAsync(KeyFormat key, CancellationToken cancellationToken);
 		Task PutAsync(KeyFormat key, CacheFormat value, CancellationToken cancellationToken = default);
+
+
+		CacheFormat Execute(Func<Context, CacheFormat> func, KeyFormat keyValue);
+		(bool, CacheFormat) TryGet(KeyFormat keyValue);
+		void Put(KeyFormat keyValue, CacheFormat cacheValue);
 	}
 }

@@ -39,7 +39,7 @@ namespace Albatross.Caching {
 
 		public void Register() {
 			if (!registry.ContainsKey(AsyncName)) {
-				logger.LogInformation("Register Cache Management {cacheName}", AsyncName);
+				logger.LogInformation("Register Cache Management {async}, {sync}", AsyncName, SyncName);
 				var asyncPolicy = Policy.CacheAsync<CacheFormat>(asyncCacheProvider, TtlStrategy, this,
 					OnCacheGet, OnCacheMiss, OnCachePut, OnCacheGetError, OnCachePutError);
 				registry.Add(AsyncName, asyncPolicy);
