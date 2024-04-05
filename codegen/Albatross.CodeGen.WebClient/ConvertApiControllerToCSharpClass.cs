@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
@@ -131,9 +133,31 @@ namespace Albatross.CodeGen.WebClient {
 			return new Class("Albatross.WebClient.ClientBase");
 		}
 
+		string ActionResultClassName => typeof(ActionResult).FullName ?? throw new Exception();
+		string TaskClassName => typeof(Task).FullName ?? throw new Exception();
+
+		bool TryGetGenericTypeArgument(DotNetType type, string genericTypeName, [NotNullWhen(true)] out DotNetType? genericType) {
+			if (type.IsGeneric && type.Name	== genericTypeName && type.GenericTypeArguments.Count() == 1) {
+				genericType = type.GenericTypeArguments[0];
+				return true;
+			} else {
+				genericType = null;
+				return false;
+			}
+		}
+
 		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
 			string name = methodInfo.Name;
 			Method method = convertMethod.Convert(methodInfo);
+
+			if(TryGetGenericTypeArgument(method.ReturnType, TaskClassName, out var returnType)) {
+				method.ReturnType = returnType;
+			}
+
+			// first deal with ActionResult return types
+			if (TryGetGenericTypeArgument(method.ReturnType, ActionResultClassName, out returnType)) {
+				method.ReturnType = returnType;
+			}
 
 			/// make async void void and the rest async
 			if (!method.ReturnType.IsAsync && !method.ReturnType.IsVoid) {

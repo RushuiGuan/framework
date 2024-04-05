@@ -70,5 +70,16 @@ namespace Albatross.CodeGen.Tests.WebApi {
 		public Task<MyDto?> TestAsyncNullableReferenceType([FromRoute] MyDto? dto) {
 			return Task.FromResult<MyDto?>(dto);
 		}
+
+		[HttpGet("plain-action-result")]
+		public ActionResult<MyDto> TestPlainActionResult() {
+			return Ok(new MyDto());
+		}
+
+		[HttpGet("async-plain-action-result")]
+		public async Task<ActionResult<MyDto>> AsyncActionResult() {
+			await Task.Delay(1);
+			return Ok(new MyDto());
+		}
 	}
 }

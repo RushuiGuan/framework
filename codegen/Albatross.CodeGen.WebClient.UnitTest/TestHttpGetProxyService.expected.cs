@@ -147,6 +147,20 @@ namespace Albatross.CodeGen.Tests.WebClient {
 				return await this.GetJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
 			}
 		}
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> TestPlainActionResult() {
+			string path = $"{ControllerPath}/plain-action-result";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
+			}
+		}
+		public async System.Threading.Tasks.Task<Albatross.CodeGen.Tests.Dto.MyDto> AsyncActionResult() {
+			string path = $"{ControllerPath}/async-plain-action-result";
+			var queryString = new System.Collections.Specialized.NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return await this.GetRequiredJsonResponse<Albatross.CodeGen.Tests.Dto.MyDto>(request);
+			}
+		}
 	}
 }
 #nullable disable
