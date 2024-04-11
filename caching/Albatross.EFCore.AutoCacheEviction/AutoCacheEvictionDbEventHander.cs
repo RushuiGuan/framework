@@ -28,20 +28,20 @@ namespace Albatross.EFCore.AutoCacheEviction {
 		}
 
 		public void OnAddedEntry(EntityEntry entry) {
-			if (entry.Entity is ICachedObject<PropertyEntry> cachedObject) {
-				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Added, Array.Empty<PropertyEntry>()));
+			if (entry.Entity is ICachedObject<EntityEntry, PropertyEntry> cachedObject) {
+				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Added, entry, Array.Empty<PropertyEntry>()));
 			}
 		}
 
 		public void OnModifiedEntry(EntityEntry entry) {
-			if (entry.Entity is ICachedObject<PropertyEntry> cachedObject) {
-				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Modified, entry.Properties.Where(x=>x.IsModified).ToArray()));
+			if (entry.Entity is ICachedObject<EntityEntry, PropertyEntry> cachedObject) {
+				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Modified, entry, entry.Properties.Where(x=>x.IsModified).ToArray()));
 			}
 		}
 
 		public void OnDeletedEntry(EntityEntry entry) {
-			if (entry.Entity is ICachedObject<PropertyEntry> cachedObject) {
-				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Deleted, entry.Properties.ToArray()));
+			if (entry.Entity is ICachedObject<EntityEntry, PropertyEntry> cachedObject) {
+				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Deleted, entry, entry.Properties.ToArray()));
 			}
 		}
 	}

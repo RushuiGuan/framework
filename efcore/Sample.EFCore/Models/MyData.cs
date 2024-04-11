@@ -9,7 +9,7 @@ namespace Sample.EFCore {
 	public class MyDataCacheKey : CacheKey {
 		public MyDataCacheKey(int id) : base("my-data", id.ToString(), true) { }
 	}
-	public class MyData : IModifiedBy, IModifiedUtc, ICreatedBy, ICreatedUtc, ICachedObject<PropertyEntry> {
+	public class MyData : IModifiedBy, IModifiedUtc, ICreatedBy, ICreatedUtc, ICachedObject<EntityEntry, PropertyEntry> {
 		public int Id { get; set; }
 		public JsonProperty Property { get; set; } = new JsonProperty(null);
 		public List<JsonProperty> ArrayProperty { get; set; } = new List<JsonProperty>();
@@ -33,7 +33,7 @@ namespace Sample.EFCore {
 		public string CreatedBy { get; set; } = string.Empty;
 		public DateTime CreatedUtc { get; set; }
 
-		public IEnumerable<ICacheKey> CreateCacheKeys(ObjectState state, IEnumerable<PropertyEntry> changes) {
+		public IEnumerable<ICacheKey> CreateCacheKeys(ObjectState state, EntityEntry entityEntry, IEnumerable<PropertyEntry> changes) {
 			return [new MyDataCacheKey(Id)];
 		}
 	}
