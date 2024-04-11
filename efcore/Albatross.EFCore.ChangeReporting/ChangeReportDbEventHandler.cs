@@ -19,7 +19,7 @@ namespace Albatross.EFCore.ChangeReporting {
 		public bool HasPostSaveOperation => this.Changes.Any();
 		public override string ToString() => $"{typeof(T).Name} {nameof(ChangeReportDbEventHandler<T>)}";
 
-		public void PreSave(IDbSession session) { }
+		public Task PreSave(IDbSession session) => Task.CompletedTask;
 		public async Task PostSave() {
 			if (this.Changes.Any()) {
 				this.Text = await BuildText(this.Options, this.Changes);
@@ -82,7 +82,7 @@ namespace Albatross.EFCore.ChangeReporting {
 			}
 		}
 
-		public void OnAddedEntry(EntityEntry entry) {
+		public Task OnAddedEntry(EntityEntry entry) {
 			if (entry.Entity is T entity && (ChangeType & ChangeType.Added) > 0) {
 				Changes.AddRange(entry.Properties
 					.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
@@ -91,9 +91,10 @@ namespace Albatross.EFCore.ChangeReporting {
 						NewValue = args.CurrentValue,
 					}));
 			}
+			return Task.CompletedTask;
 		}
 
-		public void OnModifiedEntry(EntityEntry entry) {
+		public Task OnModifiedEntry(EntityEntry entry) {
 			if (entry.Entity is T entity && (ChangeType & ChangeType.Modified) > 0) {
 				Changes.AddRange(entry.Properties
 						.Where(args => args.IsModified && !SkippedProperties.Contains(args.Metadata.Name))
@@ -102,9 +103,10 @@ namespace Albatross.EFCore.ChangeReporting {
 							NewValue = args.CurrentValue,
 						}));
 			}
+			return Task.CompletedTask;
 		}
 
-		public void OnDeletedEntry(EntityEntry entry) {
+		public Task OnDeletedEntry(EntityEntry entry) {
 			if (entry.Entity is T entity && (ChangeType & ChangeType.Deleted) > 0) {
 				Changes.AddRange(entry.Properties
 					.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
@@ -113,6 +115,7 @@ namespace Albatross.EFCore.ChangeReporting {
 						NewValue = null,
 					}));
 			}
+			return Task.CompletedTask;
 		}
 	}
 }

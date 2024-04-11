@@ -17,7 +17,7 @@ namespace Albatross.EFCore.AutoCacheEviction {
 			this.keyManagement = keyManagement;
 			this.logger = logger;
 		}
-		public void PreSave(IDbSession session) { }
+		public Task PreSave(IDbSession session) => Task.CompletedTask;
 
 		public Task PostSave() {
 			if (cacheKeys.Any()) {
@@ -27,21 +27,24 @@ namespace Albatross.EFCore.AutoCacheEviction {
 			return Task.CompletedTask;
 		}
 
-		public void OnAddedEntry(EntityEntry entry) {
+		public async Task OnAddedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject<EntityEntry, PropertyEntry> cachedObject) {
-				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Added, entry, Array.Empty<PropertyEntry>()));
+				var newKeys = await cachedObject.CreateCacheKeys(ObjectState.Added, entry, Array.Empty<PropertyEntry>());
+				cacheKeys.AddRange(newKeys);
 			}
 		}
 
-		public void OnModifiedEntry(EntityEntry entry) {
+		public async Task OnModifiedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject<EntityEntry, PropertyEntry> cachedObject) {
-				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Modified, entry, entry.Properties.Where(x=>x.IsModified).ToArray()));
+				var newKeys = await cachedObject.CreateCacheKeys(ObjectState.Modified, entry, entry.Properties.Where(x=>x.IsModified).ToArray());
+				cacheKeys.AddRange(newKeys);
 			}
 		}
 
-		public void OnDeletedEntry(EntityEntry entry) {
+		public async Task OnDeletedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject<EntityEntry, PropertyEntry> cachedObject) {
-				cacheKeys.AddRange(cachedObject.CreateCacheKeys(ObjectState.Deleted, entry, entry.Properties.ToArray()));
+				var newKeys = await cachedObject.CreateCacheKeys(ObjectState.Deleted, entry, entry.Properties.ToArray());
+				cacheKeys.AddRange(newKeys);
 			}
 		}
 	}

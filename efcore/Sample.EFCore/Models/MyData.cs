@@ -33,8 +33,8 @@ namespace Sample.EFCore {
 		public string CreatedBy { get; set; } = string.Empty;
 		public DateTime CreatedUtc { get; set; }
 
-		public IEnumerable<ICacheKey> CreateCacheKeys(ObjectState state, EntityEntry entityEntry, IEnumerable<PropertyEntry> changes) {
-			return [new MyDataCacheKey(Id)];
+		public Task<IEnumerable<ICacheKey>> CreateCacheKeys(ObjectState state, EntityEntry entityEntry, IEnumerable<PropertyEntry> changes) {
+			return Task.FromResult<IEnumerable<ICacheKey>>([new MyDataCacheKey(Id)]);
 		}
 	}
 

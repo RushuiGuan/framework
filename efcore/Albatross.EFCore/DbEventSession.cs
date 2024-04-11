@@ -11,7 +11,7 @@ namespace Albatross.EFCore {
 	/// events when saving changes to the database
 	/// </summary>
 	public interface IDbEventSession : IDisposable {
-		void ExecutePriorSaveActions(IDbSession session);
+		Task ExecutePriorSaveActions(IDbSession session);
 		Task ExecutePostSaveActions();
 	}
 	public class DbEventSession : IDbEventSession {
@@ -26,26 +26,26 @@ namespace Albatross.EFCore {
 			this.changeEventHandlers = serviceScope.ServiceProvider.GetService<IEnumerable<IDbSessionEventHandler>>() 
 				?? Array.Empty<IDbSessionEventHandler>();
 		}
-		public void ExecutePriorSaveActions(IDbSession session) {
+		public async Task ExecutePriorSaveActions(IDbSession session) {
 			logger.LogDebug("Running dbsession event handlers:\n\t{array}", string.Join("\n\t", changeEventHandlers));
 			foreach (var handler in changeEventHandlers) {
-				handler.PreSave(session);
+				await handler.PreSave(session);
 			}
 			foreach (var entry in session.DbContext.ChangeTracker.Entries()) {
 				switch (entry.State) {
 					case EntityState.Added:
 						foreach(var handler in changeEventHandlers) {
-							handler.OnAddedEntry(entry);
+							await handler.OnAddedEntry(entry);
 						}
 						break;
 					case EntityState.Modified:
 						foreach(var handler in changeEventHandlers) {
-							handler.OnModifiedEntry(entry);
+							await handler.OnModifiedEntry(entry);
 						}
 						break;
 					case EntityState.Deleted:
 						foreach(var handler in changeEventHandlers) {
-							handler.OnDeletedEntry(entry);
+							await handler.OnDeletedEntry(entry);
 						}
 						break;
 				}

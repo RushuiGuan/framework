@@ -11,28 +11,32 @@ namespace Albatross.EFCore.Test {
 			throw new Exception("Test exception during post save");
 		}
 
-		public void OnAddedEntry(EntityEntry entry) {
+		public Task OnAddedEntry(EntityEntry entry) {
 			if(ThrowPriorSaveException) {
 				throw new Exception("Test exception during pre save");
 			}
+			return Task.CompletedTask;
 		}
 
-		public void OnModifiedEntry(EntityEntry entry) {
+		public Task OnModifiedEntry(EntityEntry entry) {
 			if (ThrowPriorSaveException) {
 				throw new Exception("Test exception during post save");
 			}
+			return Task.CompletedTask;
 		}
 
-		public void OnDeletedEntry(EntityEntry entry) {
+		public Task OnDeletedEntry(EntityEntry entry) {
 			if (ThrowPriorSaveException) {
 				throw new Exception("Test exception during post save");
 			}
+			return Task.CompletedTask;
 		}
 
-		public void PreSave(IDbSession session) {
+		public Task PreSave(IDbSession session) {
 			if (ThrowPriorSaveException) {
 				throw new Exception("Test exception during pre save");
 			}
+			return Task.CompletedTask;
 		}
 	}
 }

@@ -9,15 +9,16 @@ namespace Albatross.EFCore.Test {
 		}
 		public override string ToString() => nameof(TestSessionEventHandler);
 
-		public void OnAddedEntry(EntityEntry entry) { }
-		public void OnDeletedEntry(EntityEntry entry) { }
-		public void OnModifiedEntry(EntityEntry entry) { }
+		public Task OnAddedEntry(EntityEntry entry) => Task.CompletedTask;
+		public Task OnDeletedEntry(EntityEntry entry) => Task.CompletedTask;
+		public Task OnModifiedEntry(EntityEntry entry) => Task.CompletedTask;
 
 		int i = 0;
 		private readonly GetCurrentTestUser getCurrentTestUser;
 
-		public void PreSave(IDbSession session) {
+		public Task PreSave(IDbSession session) {
 			getCurrentTestUser.User = $"user{i++}";
+			return Task.CompletedTask;
 		}
 		public Task PostSave() => Task.CompletedTask;
 	}

@@ -16,7 +16,7 @@ namespace Albatross.EFCore {
 				return base.SaveChanges(acceptAllChangesOnSuccess);
 			} else {
 				using (var eventSession = eventSessionProvider.Create()) {
-					eventSession.ExecutePriorSaveActions(this);
+					eventSession.ExecutePriorSaveActions(this).Wait();
 					var result = base.SaveChanges(acceptAllChangesOnSuccess);
 					eventSession.ExecutePostSaveActions().Wait();
 					return result;
@@ -29,7 +29,7 @@ namespace Albatross.EFCore {
 				return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 			} else {
 				using (var eventSession = eventSessionProvider.Create()) {
-					eventSession.ExecutePriorSaveActions(this);
+					await eventSession.ExecutePriorSaveActions(this);
 					var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 					await eventSession.ExecutePostSaveActions();
 					return result;
