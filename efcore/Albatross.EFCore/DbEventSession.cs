@@ -35,17 +35,17 @@ namespace Albatross.EFCore {
 				switch (entry.State) {
 					case EntityState.Added:
 						foreach(var handler in changeEventHandlers) {
-							await handler.OnAddedEntry(entry);
+							handler.OnAddedEntry(entry);
 						}
 						break;
 					case EntityState.Modified:
 						foreach(var handler in changeEventHandlers) {
-							await handler.OnModifiedEntry(entry);
+							handler.OnModifiedEntry(entry);
 						}
 						break;
 					case EntityState.Deleted:
 						foreach(var handler in changeEventHandlers) {
-							await handler.OnDeletedEntry(entry);
+							handler.OnDeletedEntry(entry);
 						}
 						break;
 				}

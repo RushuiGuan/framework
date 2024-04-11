@@ -82,7 +82,7 @@ namespace Albatross.EFCore.ChangeReporting {
 			}
 		}
 
-		public Task OnAddedEntry(EntityEntry entry) {
+		public void OnAddedEntry(EntityEntry entry) {
 			if (entry.Entity is T entity && (ChangeType & ChangeType.Added) > 0) {
 				Changes.AddRange(entry.Properties
 					.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
@@ -91,10 +91,9 @@ namespace Albatross.EFCore.ChangeReporting {
 						NewValue = args.CurrentValue,
 					}));
 			}
-			return Task.CompletedTask;
 		}
 
-		public Task OnModifiedEntry(EntityEntry entry) {
+		public void OnModifiedEntry(EntityEntry entry) {
 			if (entry.Entity is T entity && (ChangeType & ChangeType.Modified) > 0) {
 				Changes.AddRange(entry.Properties
 						.Where(args => args.IsModified && !SkippedProperties.Contains(args.Metadata.Name))
@@ -103,10 +102,9 @@ namespace Albatross.EFCore.ChangeReporting {
 							NewValue = args.CurrentValue,
 						}));
 			}
-			return Task.CompletedTask;
 		}
 
-		public Task OnDeletedEntry(EntityEntry entry) {
+		public void OnDeletedEntry(EntityEntry entry) {
 			if (entry.Entity is T entity && (ChangeType & ChangeType.Deleted) > 0) {
 				Changes.AddRange(entry.Properties
 					.Where(args => !SkippedProperties.Contains(args.Metadata.Name))
@@ -115,7 +113,6 @@ namespace Albatross.EFCore.ChangeReporting {
 						NewValue = null,
 					}));
 			}
-			return Task.CompletedTask;
 		}
 	}
 }

@@ -12,20 +12,18 @@ namespace Albatross.EFCore.Audit {
 		public AuditChangeDbEventHandler(IGetCurrentUser getCurrentUser) {
 			this.getCurrentUser = getCurrentUser;
 		}
-		public Task OnAddedEntry(EntityEntry entry) {
+		public void OnAddedEntry(EntityEntry entry) {
 			if (entry.Entity is ICreatedBy audit1) { audit1.CreatedBy = this.getCurrentUser.Get(); }
 			if (entry.Entity is IModifiedBy audit2) { audit2.ModifiedBy = this.getCurrentUser.Get(); }
 			var utcNow = DateTime.UtcNow;
 			if (entry.Entity is ICreatedUtc audit3) { audit3.CreatedUtc = utcNow; }
 			if (entry.Entity is IModifiedUtc audit4) { audit4.ModifiedUtc = utcNow; }
-			return Task.CompletedTask;
 		}
 
-		public Task OnModifiedEntry(EntityEntry entry) {
+		public void OnModifiedEntry(EntityEntry entry) {
 			if (entry.Entity is IModifiedBy audit1) { audit1.ModifiedBy = this.getCurrentUser.Get(); }
 			if (entry.Entity is IModifiedUtc audit2) { audit2.ModifiedUtc = DateTime.UtcNow; }
-			return Task.CompletedTask;
 		}
-		public Task OnDeletedEntry(EntityEntry entry) => Task.CompletedTask;
+		public void OnDeletedEntry(EntityEntry entry) { }
 	}
 }
