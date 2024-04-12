@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Threading {
 	public class TaskCallback<T> {
+		public object? Context { get; set; }
 		public Task<T> Task => taskCompletionSource.Task;
 		private TaskCompletionSource<T> taskCompletionSource = new TaskCompletionSource<T>();
 
@@ -28,6 +29,7 @@ namespace Albatross.Threading {
 		}
 	}
 	public class TaskCallback {
+		public object? Context { get; set; }
 		public Task Task => taskCompletionSource.Task;
 		private TaskCompletionSource<bool> taskCompletionSource = new TaskCompletionSource<bool>();
 
