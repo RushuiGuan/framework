@@ -114,5 +114,22 @@ namespace Albatross.Hosting.Utility {
 			Console.Write(message);
 			return Console.ReadLine();
 		}
+
+		public static string GetEnumHelpText<T>(string description = "") where T:struct, Enum{
+			var writer = new StringWriter();
+			if (!string.IsNullOrEmpty(description)) {
+				writer.Append(description).Append(". ");
+			}
+			writer.Append("The available values are ").WriteItems<T>(Enum.GetValues<T>(), ", ");
+			return writer.ToString();
+		}
+
+		public T ParseEnum<T>(string value) where T:struct, Enum {
+			if (Enum.TryParse<T>(value, true, out T result)) {
+				return result;
+			} else {
+				throw new ArgumentException(GetEnumHelpText<T>($"Invalid value '{value}' for {typeof(T).Name}"));
+			}
+		}	
 	}
 }

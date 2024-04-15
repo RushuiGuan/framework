@@ -77,8 +77,8 @@ namespace Albatross.EFCore.Test {
 			await session.SaveChangesAsync();
 			Assert.NotEqual(0, data.Id);
 			ExceptionDbSessionEventHandler.ThrowPriorSaveException = true;
-			Assert.Throws<Exception>(() => session.SaveChanges());
-			await Assert.ThrowsAsync<Exception>(() => session.SaveChangesAsync());
+			Assert.Throws<AggregateException>(() => session.SaveChanges());
+			await Assert.ThrowsAsync<AggregateException>(() => session.SaveChangesAsync());
 		}
 	}
 }

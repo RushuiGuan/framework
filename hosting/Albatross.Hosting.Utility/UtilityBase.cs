@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Utility {
@@ -102,9 +103,15 @@ namespace Albatross.Hosting.Utility {
 				} else {
 					throw new InvalidOperationException("RunUtility method is not defined in this class");
 				}
+			} catch (TargetInvocationException err) when (err.InnerException is ArgumentException) {
+				logger.LogError(err.InnerException.Message);
+				return -1;
+			} catch (TargetInvocationException err) {
+				logger.LogError(err.InnerException, string.Empty);
+				return -2;
 			} catch (Exception err) {
 				logger.LogError(err, string.Empty);
-				return -1;
+				return -2;
 			} finally {
 				if (stopWatch != null) {
 					logger.LogInformation("Execution: {time:#,#} ms", stopWatch.ElapsedMilliseconds);

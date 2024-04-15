@@ -24,7 +24,7 @@ namespace Albatross.Test.Math {
 		}
 
 		[Theory]
-		[InlineData(395916494494100, "1oQKZr3bB")]
+		[InlineData(395916494494100, "1oQKZr3bA")]
 		public void GetMaxBase(long value, string expected) {
 			Assert.Equal(expected, value.ToMaxBase());
 		}
