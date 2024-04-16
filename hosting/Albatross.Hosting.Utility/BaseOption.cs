@@ -130,6 +130,14 @@ namespace Albatross.Hosting.Utility {
 			} else {
 				throw new ArgumentException(GetEnumHelpText<T>($"Invalid value '{value}' for {typeof(T).Name}"));
 			}
-		}	
+		}
+
+		public T ParseEnum<T>(string? value, T @default) where T : struct, Enum {
+			if (string.IsNullOrEmpty(value)) {
+				return @default;
+			} else {
+				return ParseEnum<T>(value);
+			}
+		}
 	}
 }

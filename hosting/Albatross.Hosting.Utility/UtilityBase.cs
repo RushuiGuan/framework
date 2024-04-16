@@ -103,11 +103,8 @@ namespace Albatross.Hosting.Utility {
 				} else {
 					throw new InvalidOperationException("RunUtility method is not defined in this class");
 				}
-			} catch (ArgumentException err) {
-				logger.LogError(err.Message);
-				return -1;
-			} catch (TargetInvocationException err) when (err.InnerException is ArgumentException) {
-				logger.LogError(err.InnerException.Message);
+			} catch (Exception err) when (err is ArgumentException || err is TargetInvocationException invocErr && invocErr.InnerException is ArgumentException) {
+				logger.LogError(err.InnerException?.Message ?? err.Message);
 				return -1;
 			} catch (TargetInvocationException err) {
 				logger.LogError(err.InnerException, string.Empty);
