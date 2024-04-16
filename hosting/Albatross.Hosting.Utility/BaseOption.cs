@@ -124,19 +124,13 @@ namespace Albatross.Hosting.Utility {
 			return writer.ToString();
 		}
 
-		public T ParseEnum<T>(string value) where T:struct, Enum {
-			if (Enum.TryParse<T>(value, true, out T result)) {
+		public T ParseEnum<T>(string? value, T? defaultValue = null) where T:struct, Enum {
+			if (string.IsNullOrEmpty(value)) {
+				return defaultValue ?? throw new ArgumentException(GetEnumHelpText<T>($"No value provided for {typeof(T).Name}"));
+			} else if (Enum.TryParse<T>(value, true, out T result)) {
 				return result;
 			} else {
 				throw new ArgumentException(GetEnumHelpText<T>($"Invalid value '{value}' for {typeof(T).Name}"));
-			}
-		}
-
-		public T ParseEnum<T>(string? value, T @default) where T : struct, Enum {
-			if (string.IsNullOrEmpty(value)) {
-				return @default;
-			} else {
-				return ParseEnum<T>(value);
 			}
 		}
 	}
