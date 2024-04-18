@@ -7,6 +7,7 @@ using Polly;
 using Polly.Caching;
 using Polly.Retry;
 using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Security.AccessControl;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace Albatross.WebClient.Test {
 				return result;
 			}
 		}
-		
+
 	}
 
 	public class PollyTestClient2 : ClientBase {
@@ -64,7 +65,7 @@ namespace Albatross.WebClient.Test {
 					TimeSpan.FromSeconds(3)
 				},
 				(result, timespan) => { });
-			
+
 			var response = await myRetryPolicy.ExecuteAsync(async () => {
 				using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 					return await this.client.SendAsync(request);
@@ -126,7 +127,7 @@ namespace Albatross.WebClient.Test {
 		[Fact(Skip = "require web server")]
 		public async Task RunFailTest() {
 			var client = host.Provider.GetRequiredService<PollyTestClient>();
-			await Assert.ThrowsAsync<ServiceException>(()=> client.GetData(100));
+			await Assert.ThrowsAsync<ServiceException>(() => client.GetData(100));
 		}
 
 		[Fact(Skip = "require web server")]
@@ -134,6 +135,37 @@ namespace Albatross.WebClient.Test {
 			var client = host.Provider.GetRequiredService<PollyTestClient2>();
 			var result = await client.GetData(4);
 			Assert.Equal("successful", result);
+		}
+
+		[Fact]
+		public async Task TestPollyWrap() {
+			var argumentExceptionRetryCount = 0;
+			var invalidOpRetryCount = 0;
+
+			var policy1 = Policy.Handle<ArgumentException>().WaitAndRetryAsync(3, retryCount => TimeSpan.FromMilliseconds(50), (result, timeSpan, retryCount, context) => {
+				argumentExceptionRetryCount++;
+			});
+			var policy2 = Policy.Handle<InvalidOperationException>().WaitAndRetryAsync(5, retryCount => TimeSpan.FromMilliseconds(100), (result, timeSpan, retryCount, context) => {
+				invalidOpRetryCount++;
+			});
+			var wrap = Policy.WrapAsync(policy1, policy2);
+			await wrap.ExecuteAsync(() => Task.CompletedTask);
+			Assert.Equal(0, argumentExceptionRetryCount);
+			Assert.Equal(0, invalidOpRetryCount);
+			Stopwatch stopwatch = new Stopwatch();
+			stopwatch.Start();
+			await Assert.ThrowsAsync<ArgumentException>(() => wrap.ExecuteAsync(() => throw new ArgumentException()));
+			stopwatch.Stop();
+			Assert.Equal(3, argumentExceptionRetryCount);
+			Assert.Equal(0, invalidOpRetryCount);
+			Assert.True(stopwatch.ElapsedMilliseconds >= 150 && stopwatch.ElapsedMilliseconds< 200);
+
+			stopwatch.Restart();
+			await Assert.ThrowsAsync<InvalidOperationException>(() => wrap.ExecuteAsync(() => throw new InvalidOperationException()));
+			stopwatch.Stop();
+			Assert.Equal(3, argumentExceptionRetryCount);
+			Assert.Equal(5, invalidOpRetryCount);
+			Assert.True(stopwatch.ElapsedMilliseconds >= 500);
 		}
 	}
 }

@@ -72,6 +72,7 @@ namespace Albatross.WebClient {
 				LogHeader(writer, response.Headers);
 				LogHeader(writer, response.Content.Headers);
 				if (logContent) {
+					writer.WriteLine("-------------------- Content --------------------");
 					var content = await response.ReadResponseAsText();
 					if (!content.EndsWith('\n')) {
 						writer.WriteLine(content);
@@ -98,10 +99,12 @@ namespace Albatross.WebClient {
 				writer.Write(request.Method);
 				writer.Write(" ");
 				writer.WriteLine(request.RequestUri);
+				writer.WriteLine("-------------------- Headers --------------------");
 				LogHeader(writer, client.DefaultRequestHeaders);
 				LogHeader(writer, request.Headers);
 				if (request.Content != null) {
 					LogHeader(writer, request.Content.Headers);
+					writer.WriteLine("-------------------- Content --------------------");
 					string text = request.Content.ReadAsStringAsync().Result;
 					writer.WriteLine(text);
 				}
