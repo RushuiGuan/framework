@@ -71,7 +71,7 @@ namespace Albatross.Hosting.Utility {
 			SendResult(writer.ToString());
 		}
 
-		public async Task WriteProperties<T>(IEnumerable<T> data, PrintPropertiesOption option) {
+		public async Task WriteArrayProperties<T>(IEnumerable<T> data, PrintPropertiesOption option) {
 			StringWriter writer = new StringWriter();
 			await writer.PrintProperties<T>(data.ToArray(), option);
 			SendResult(writer.ToString());
