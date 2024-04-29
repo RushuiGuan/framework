@@ -25,7 +25,7 @@ namespace Albatross.EFCore {
 		/// <param name="builder"></param>
 		/// <returns></returns>
 		public static PropertyBuilder<TProperty> HasJsonProperty<TProperty>(this PropertyBuilder<TProperty> builder, Func<TProperty> getDefault) where TProperty : ICloneable {
-			builder.IsUnicode(false).HasConversion(new ValueConverter<TProperty, string?>(
+			builder.IsRequired(false).IsUnicode(false).HasConversion(new ValueConverter<TProperty, string?>(
 								args => EqualityComparer<TProperty>.Default.Equals(getDefault(), args) ? null : JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions),
 								args => string.IsNullOrEmpty(args) ? getDefault() : JsonSerializer.Deserialize<TProperty>(args, EFCoreJsonOption.DefaultOptions) ?? getDefault()),
 								new ValueComparer<TProperty>(
@@ -36,7 +36,7 @@ namespace Albatross.EFCore {
 		}
 
 		public static PropertyBuilder<List<TProperty>> HasJsonCollectionProperty<TProperty>(this PropertyBuilder<List<TProperty>> builder) where TProperty : ICloneable {
-			builder.IsUnicode(false).HasConversion(new ValueConverter<List<TProperty>, string?>(
+			builder.IsRequired(false).IsUnicode(false).HasConversion(new ValueConverter<List<TProperty>, string?>(
 								args => args.Any() ? JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions) : null,
 								args => string.IsNullOrEmpty(args) ? new List<TProperty>() : JsonSerializer.Deserialize<List<TProperty>>(args, EFCoreJsonOption.DefaultOptions) ?? new List<TProperty>()),
 								new ValueComparer<List<TProperty>>(
