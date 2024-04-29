@@ -32,6 +32,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "math", "math", "{C37E9FC0-3D45-450E-B223-FA628EA0B268}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "messaging", "messaging", "{CCD031A5-EF83-494E-BD2B-0757AA04DD5C}"
+	ProjectSection(SolutionItems) = preProject
+		messaging\build.ps1 = messaging\build.ps1
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reflection", "reflection", "{15374448-E236-4247-A8D1-4FA834CB0F33}"
 EndProject

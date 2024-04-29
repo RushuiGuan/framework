@@ -9,6 +9,7 @@ $install = $env:InstallDirectory;
 
 if(-not $alias) {
 	$projects = @(
+		"albatross.messaging.utility",
 		"sample.messaging.utility"
 		,"sample.messaging.webapi"
 		,"sample.messaging.daemon"
@@ -28,11 +29,8 @@ if(-not $alias) {
 	dotnet restore $PSScriptRoot
 	foreach($project in $projects){
 		"Building $project";
-		dotnet publish $PSScriptRoot\sample\$project\$project.csproj -o $install\$project -c debug --no-restore
+		dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c debug --no-restore
 	}
-	$project = "albatross.messaging.utility";
-	"Building $project";
-	dotnet publish $PSScriptRoot\src\$project\$project.csproj -o $install\$project -c debug --no-restore
 }
 
 set-alias -name sample-messaging -Value $env:InstallDirectory\sample.messaging.utility\sample.messaging.utility.exe
