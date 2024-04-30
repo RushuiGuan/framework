@@ -50,7 +50,7 @@ namespace Sample.EFCore {
 		public override void Map(EntityTypeBuilder<MyData> builder) {
 			builder.HasKey(p => p.Id);
 			base.Map(builder);
-			builder.Property(p => p.Property).HasJsonProperty(() => new JsonProperty(null));
+			builder.Property(p => p.Property).HasRequiredJsonProperty(() => new JsonProperty(null));
 			builder.Property(p => p.ArrayProperty).HasJsonCollectionProperty();
 		}
 	}
