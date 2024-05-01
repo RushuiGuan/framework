@@ -5,6 +5,10 @@ using System.Data;
 using System.Reflection;
 
 namespace Albatross.EFCore {
+	/// <summary>
+	/// When creating a new database, consider using a utf8 collation and set IsUnicode(false) for all string columns.
+	/// This can be achieved by setting the default type mapping for string to be IsUnicode(false) in the ConfigureConventions method.
+	/// </summary>
 	public abstract class DbSession : DbContext, IDbSession {
 		#region constants
 		public const string Any = "any";

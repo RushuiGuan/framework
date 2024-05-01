@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
@@ -99,11 +98,6 @@ namespace Albatross.EFCore {
 			return builder;
 		}
 
-		public static void EnsureNavigationProperty([NotNull] this object? value, params string[] propertyNames) {
-			if (value == null) {
-				throw new MissingNavigationPropertyException(propertyNames);
-			}
-		}
 		public static async Task<HashSet<T>> ToHashSetAsync<T>(this IQueryable<T> query) {
 			var array = await query.ToArrayAsync();
 			return new HashSet<T>(array);
