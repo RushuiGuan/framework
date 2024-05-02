@@ -6,8 +6,9 @@ using System.Reflection;
 
 namespace Albatross.EFCore {
 	/// <summary>
-	/// When creating a new database, consider using a utf8 collation and set IsUnicode(false) for all string columns.
-	/// This can be achieved by setting the default type mapping for string to be IsUnicode(false) in the ConfigureConventions method.
+	/// The DbSession change the default string type from nvarchar to varchar.  If nvarchar is required, apply Unicode(true) attribute to column or
+	/// override the ConfigureConventions method to undo globally.  We prefer varchar because all new databases are created with utf8 collation and nvarchar
+	/// is never required.
 	/// </summary>
 	public abstract class DbSession : DbContext, IDbSession {
 		#region constants
@@ -21,7 +22,7 @@ namespace Albatross.EFCore {
 		public virtual Assembly[] EntityModelAssemblies => new Assembly[] { GetType().Assembly };
 		public virtual string NamespacePrefix => string.Empty;
 
-		public DbSession(DbContextOptions option) : base(option) {		}
+		public DbSession(DbContextOptions option) : base(option) { }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			foreach (var assembly in EntityModelAssemblies) {
@@ -30,6 +31,10 @@ namespace Albatross.EFCore {
 					item.Build(modelBuilder);
 				}
 			}
+		}
+		protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder) {
+			base.ConfigureConventions(configurationBuilder);
+			configurationBuilder.Properties<string>().AreUnicode(false);
 		}
 	}
 }
