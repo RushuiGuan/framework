@@ -146,9 +146,7 @@ namespace Albatross.DateLevel {
 		/// <param name="start"></param>
 		/// <param name="end"></param>
 		/// <exception cref="ArgumentException"></exception>
-		public static void UpdateDateLevel<T, K>(this ICollection<T> collection, Action<T> modify, DateOnly start, DateOnly end)
-			where K : IEquatable<K>
-			where T : DateLevelEntity<K> {
+		public static void UpdateDateLevel<T>(this ICollection<T> collection, Action<T> modify, DateOnly start, DateOnly end, bool rebuild = true) where T : DateLevelEntity {
 			if (start > end) {
 				throw new ArgumentException("Start date cannot be greater than end date");
 			}
@@ -181,15 +179,17 @@ namespace Albatross.DateLevel {
 					collection.Add(newItem);
 					current.StartDate = end.AddDays(1);
 				} else if (current.StartDate < start && start <= current.EndDate && end >= current.EndDate) {
-					current.EndDate = start.AddDays(-1);
 					var newItem = (T)current.Clone();
 					modify(newItem);
 					newItem.StartDate = start;
 					newItem.EndDate = current.EndDate;
 					collection.Add(newItem);
+					current.EndDate = start.AddDays(-1);
 				}
 			}
-			RebuildDateLevelSeries(collection, args => collection.Remove(args));
+			if (rebuild) {
+				RebuildDateLevelSeries(collection, args => collection.Remove(args));
+			}
 		}
 
 		/// <summary>
