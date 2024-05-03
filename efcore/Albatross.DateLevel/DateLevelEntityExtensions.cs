@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Albatross.DateLevel {
 	public static class DateLevelEntityExtensions {
@@ -48,7 +49,7 @@ namespace Albatross.DateLevel {
 						if (changed) {
 							// if the next record is diff but they have the same start date, remove it and add the new record.  remember to set the end date of
 							// the new record to the end date of the next record
-							if(after.StartDate == src.StartDate) {
+							if (after.StartDate == src.StartDate) {
 								src.EndDate = after.EndDate;
 								collection.Remove(after);
 								collection.Add(src);
@@ -132,6 +133,69 @@ namespace Albatross.DateLevel {
 				}
 			}
 		}
+
+		public static void UpdateDateLevel<T, K>(this ICollection<T> collection, Func<T, T> clone, Action<T> modify, DateOnly start, DateOnly end)
+			where K : IEquatable<K>
+			where T : DateLevelEntity<K> {
+			if (start > end) {
+				throw new ArgumentException("Start date cannot be greater than end date");
+			}
+			foreach (var item in collection.ToArray()) {
+				if (item.EndDate < start || item.StartDate > end) {
+					continue;
+				} else if (start <= item.StartDate && item.EndDate <= end) {
+					modify(item);
+				} else if (item.StartDate < start && end < item.EndDate) {
+					var after = clone(item);
+					after.StartDate = end.AddDays(1);
+					after.EndDate = item.EndDate;
+					collection.Add(after);
+
+					var newItem = clone(item);
+					modify(newItem);
+					newItem.StartDate = start;
+					newItem.EndDate = end;
+					collection.Add(newItem);
+
+					item.EndDate = start.AddDays(-1);
+				} else if (item.StartDate < start && start <= item.EndDate) {
+					item.EndDate = start.AddDays(-1);
+					var newItem = clone(item);
+					modify(newItem);
+					newItem.StartDate = start;
+					newItem.EndDate = item.EndDate;
+					collection.Add(newItem);
+				} else if (item.StartDate <= end && end < item.EndDate) {
+					var newItem = clone(item);
+					modify(newItem);
+					newItem.StartDate = item.StartDate;
+					newItem.EndDate = end;
+					collection.Add(newItem);
+					item.StartDate = end.AddDays(1);
+				}
+			}
+			RebuildDateLevelSeries(collection, args => collection.Remove(args));
+		}
+		//public void SetClientFactor(DateOnly fromDate, DateOnly toDate, decimal currAum, decimal newAum, string modifiedBy) {
+		//	// retrieve the affected trade sizes
+		//	var items = GetTradeSizesWithDateRange(fromDate, toDate);
+		//	foreach (var item in items.ToList()) {
+		//		// insert new client factor for the first time serie
+		//		if (fromDate >= item.StartDate && fromDate <= item.EndDate) {
+		//			SetTradeSize(new TradeSize(Id, currAum, newAum, item.StrategistFactor, fromDate, DateTime.UtcNow, modifiedBy));
+		//		} else if (toDate >= item.StartDate && toDate <= item.EndDate) { 
+		//			// insert new client factor for the last date serie
+		//			var newItem = new TradeSize(Id, currAum, newAum, item.StrategistFactor, item.StartDate, DateTime.UtcNow, modifiedBy) {
+		//				EndDate = toDate.AddDays(-1)
+		//			};
+		//			SetTradeSize(newItem);
+		//		} else { // replace factor for all other date series that fall between
+		//			item.ClientFactor = Math.Round(newAum/currAum, 12);
+		//			item.ModifiedBy = modifiedBy;
+		//		}
+		//	}
+		//	TradeSizes.RebuildDateLevelSeries(args => TradeSizes.Remove(args));
+		//}
 
 		/// <summary>
 		/// Provided a date level series data for a single entity, the method will remove the datelevel item with the specified startDate.
