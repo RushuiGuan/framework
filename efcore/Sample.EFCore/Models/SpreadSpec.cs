@@ -27,6 +27,11 @@ namespace Sample.EFCore.Models {
 				return false;
 			}
 		}
+		public override object Clone() {
+			return new SpreadSpec(MarketId, StartDate, Value) {
+				EndDate = this.EndDate,
+			};
+		}
 	}
 	public class SpreadSpecEntityMap : EntityMap<SpreadSpec> {
 		public override void Map(EntityTypeBuilder<SpreadSpec> builder) {

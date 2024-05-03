@@ -134,68 +134,63 @@ namespace Albatross.DateLevel {
 			}
 		}
 
-		public static void UpdateDateLevel<T, K>(this ICollection<T> collection, Func<T, T> clone, Action<T> modify, DateOnly start, DateOnly end)
+		/// <summary>
+		/// This function will attempt to update date level values between a start date and an end date.  The function will do nothing if value 
+		/// doesn't exist within the date range.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <typeparam name="K"></typeparam>
+		/// <param name="collection"></param>
+		/// <param name="clone">function pointer to clone an instance of T</param>
+		/// <param name="modify">action pointer to modify the value</param>
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <exception cref="ArgumentException"></exception>
+		public static void UpdateDateLevel<T, K>(this ICollection<T> collection, Action<T> modify, DateOnly start, DateOnly end)
 			where K : IEquatable<K>
 			where T : DateLevelEntity<K> {
 			if (start > end) {
 				throw new ArgumentException("Start date cannot be greater than end date");
 			}
-			foreach (var item in collection.ToArray()) {
-				if (item.EndDate < start || item.StartDate > end) {
+			foreach (var current in collection.ToArray()) {
+				if (end < current.StartDate || current.EndDate < start) {
+					// no overlap
 					continue;
-				} else if (start <= item.StartDate && item.EndDate <= end) {
-					modify(item);
-				} else if (item.StartDate < start && end < item.EndDate) {
-					var after = clone(item);
+				} else if (start <= current.StartDate && current.EndDate <= end) {
+					// new value overlap current
+					modify(current);
+				} else if (current.StartDate < start && end < current.EndDate) {
+					// current overlap new value
+					var after = (T)current.Clone();
 					after.StartDate = end.AddDays(1);
-					after.EndDate = item.EndDate;
+					after.EndDate = current.EndDate;
 					collection.Add(after);
 
-					var newItem = clone(item);
+					var newItem = (T)current.Clone();
 					modify(newItem);
 					newItem.StartDate = start;
 					newItem.EndDate = end;
 					collection.Add(newItem);
 
-					item.EndDate = start.AddDays(-1);
-				} else if (item.StartDate < start && start <= item.EndDate) {
-					item.EndDate = start.AddDays(-1);
-					var newItem = clone(item);
+					current.EndDate = start.AddDays(-1);
+				} else if (start <= current.StartDate && current.StartDate <= end && end < current.EndDate) {
+					var newItem = (T)current.Clone();
 					modify(newItem);
-					newItem.StartDate = start;
-					newItem.EndDate = item.EndDate;
-					collection.Add(newItem);
-				} else if (item.StartDate <= end && end < item.EndDate) {
-					var newItem = clone(item);
-					modify(newItem);
-					newItem.StartDate = item.StartDate;
+					newItem.StartDate = current.StartDate;
 					newItem.EndDate = end;
 					collection.Add(newItem);
-					item.StartDate = end.AddDays(1);
+					current.StartDate = end.AddDays(1);
+				} else if (current.StartDate < start && start <= current.EndDate && end >= current.EndDate) {
+					current.EndDate = start.AddDays(-1);
+					var newItem = (T)current.Clone();
+					modify(newItem);
+					newItem.StartDate = start;
+					newItem.EndDate = current.EndDate;
+					collection.Add(newItem);
 				}
 			}
 			RebuildDateLevelSeries(collection, args => collection.Remove(args));
 		}
-		//public void SetClientFactor(DateOnly fromDate, DateOnly toDate, decimal currAum, decimal newAum, string modifiedBy) {
-		//	// retrieve the affected trade sizes
-		//	var items = GetTradeSizesWithDateRange(fromDate, toDate);
-		//	foreach (var item in items.ToList()) {
-		//		// insert new client factor for the first time serie
-		//		if (fromDate >= item.StartDate && fromDate <= item.EndDate) {
-		//			SetTradeSize(new TradeSize(Id, currAum, newAum, item.StrategistFactor, fromDate, DateTime.UtcNow, modifiedBy));
-		//		} else if (toDate >= item.StartDate && toDate <= item.EndDate) { 
-		//			// insert new client factor for the last date serie
-		//			var newItem = new TradeSize(Id, currAum, newAum, item.StrategistFactor, item.StartDate, DateTime.UtcNow, modifiedBy) {
-		//				EndDate = toDate.AddDays(-1)
-		//			};
-		//			SetTradeSize(newItem);
-		//		} else { // replace factor for all other date series that fall between
-		//			item.ClientFactor = Math.Round(newAum/currAum, 12);
-		//			item.ModifiedBy = modifiedBy;
-		//		}
-		//	}
-		//	TradeSizes.RebuildDateLevelSeries(args => TradeSizes.Remove(args));
-		//}
 
 		/// <summary>
 		/// Provided a date level series data for a single entity, the method will remove the datelevel item with the specified startDate.
