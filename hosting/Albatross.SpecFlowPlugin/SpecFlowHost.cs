@@ -6,27 +6,31 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Core;
 using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
+using TechTalk.SpecFlow;
 
 namespace Albatross.SpecFlowPlugin {
 	public abstract class SpecFlowHost : IDisposable{
 		public string Environment { get; }
 		protected IConfiguration configuration;
 		protected IHost host;
-		public IServiceProvider RootServiceProvider => this.host.Services;
-
-
-
+		protected Logger logger;
+		protected Assembly testAssembly;
+		private ConcurrentDictionary<FeatureContext, IServiceScope> activeServiceScopes = new ConcurrentDictionary<FeatureContext, IServiceScope>();	
+		
 		public SpecFlowHost(Assembly testAssembly) {
+			this.testAssembly = testAssembly;
 			var basePath = new FileInfo(testAssembly.Location).DirectoryName
 				?? throw new InvalidOperationException($"Test Assembly {testAssembly.FullName} doesnot have a location");
 			this.Environment = EnvironmentSetting.ASPNETCORE_ENVIRONMENT.Value;
 
 			var setupSerilog = new SetupSerilog().UseConfigFile(Environment, basePath, null);
-			var logger = setupSerilog.Create();
-			logger.Information($"Creating SpecFlowHost {testAssembly.FullName} for {Environment}");
+			this.logger = setupSerilog.Create();
+			logger.Information($"Creating SpecFlowHost {testAssembly.FullName} with env = {Environment}");
 
 			var hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			this.configuration = new ConfigurationBuilder()
@@ -47,11 +51,34 @@ namespace Albatross.SpecFlowPlugin {
 		public virtual void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
 			services.TryAddSingleton<EnvironmentSetting>(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
 			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
+			foreach(var type in this.testAssembly.GetTypes()) {
+				if(type.GetCustomAttribute<BindingAttribute>() != null 
+					&&!type.IsAbstract 
+					&& !type.IsInterface 
+					&& type.IsClass 
+					&& !type.IsGenericTypeDefinition) { 
+					services.TryAddScoped(type);
+				}
+			}
 		}
-		protected abstract void Init();
+		protected virtual void Init() {
+			logger.Information("Initializing SpecFlowHost");
+		}
 		public void Dispose() {
+			logger.Information("Disposing SpecFlowHost");
 			host.Dispose();
 			GC.SuppressFinalize(this);
+		}
+
+		public IServiceScope CreateScope(TechTalk.SpecFlow.FeatureContext context) {
+			logger.Information("Creating scope for {Feature}", context.FeatureInfo.Title);
+			return activeServiceScopes.GetOrAdd(context, this.host.Services.CreateScope());
+		}
+		public void DisposeScope(TechTalk.SpecFlow.FeatureContext context) {
+			if (activeServiceScopes.TryRemove(context, out var scope)) {
+				logger.Information("Disposing scope for {Feature}", context.FeatureInfo.Title);
+				scope.Dispose();
+			}
 		}
 	}
 }

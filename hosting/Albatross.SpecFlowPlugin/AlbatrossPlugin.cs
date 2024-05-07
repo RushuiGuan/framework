@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Albatross.SpecFlowPlugin;
+using System;
+using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Plugins;
 using TechTalk.SpecFlow.UnitTestProvider;
 
+[assembly: RuntimePlugin(typeof(AlbatrossPlugin))]
 namespace Albatross.SpecFlowPlugin {
 	public class AlbatrossPlugin : IRuntimePlugin {
 		private static readonly object _registrationLock = new object();
@@ -10,10 +13,8 @@ namespace Albatross.SpecFlowPlugin {
 		public void Initialize(RuntimePluginEvents runtimePluginEvents, RuntimePluginParameters runtimePluginParameters, UnitTestProviderConfiguration unitTestProviderConfiguration) {
 			runtimePluginEvents.CustomizeGlobalDependencies += CustomizeGlobalDependencies;
 			runtimePluginEvents.CustomizeFeatureDependencies += CustomizeFeatureDependencies;
-			runtimePluginEvents.CustomizeScenarioDependencies += CustomizeScenarioDependencies;
-
 		}
-		
+
 		private void CustomizeGlobalDependencies(object sender, CustomizeGlobalDependenciesEventArgs args) {
 			// temporary fix for CustomizeGlobalDependencies called multiple times
 			// see https://github.com/techtalk/SpecFlow/issues/948
@@ -26,55 +27,27 @@ namespace Albatross.SpecFlowPlugin {
 
 						var testHostFinder = args.ObjectContainer.Resolve<ITestHostFinder>();
 						var testHost = testHostFinder.GetHost();
-						args.ObjectContainer.RegisterFactoryAs(() => testHost.RootServiceProvider);
+						args.ObjectContainer.RegisterFactoryAs(() => testHost);
 
 						var lcEvents = args.ObjectContainer.Resolve<RuntimePluginTestExecutionLifecycleEvents>();
-						lcEvents.AfterScenario += AfterScenarioPluginLifecycleEventHandler;
 						lcEvents.AfterFeature += AfterFeaturePluginLifecycleEventHandler;
 					}
 				}
 			}
 		}
 
-		private void CustomizeFeatureDependencies(object sender, CustomizeFeatureDependenciesEventArgs e) {
-			// At this point we have the bindings, we can resolve the service provider, which will build it if it's the first time.
-			var spContainer = args.ObjectContainer.Resolve<RootServiceProviderContainer>();
-
-			if (spContainer.Scoping == ScopeLevelType.Feature) {
-				var serviceProvider = spContainer.ServiceProvider;
-
-				// Now we can register a new scoped service provider
-				args.ObjectContainer.RegisterFactoryAs<IServiceProvider>(() => {
-					var scope = serviceProvider.CreateScope();
-					BindMappings.TryAdd(scope.ServiceProvider, args.ObjectContainer.Resolve<IContextManager>());
-					ActiveServiceScopes.TryAdd(args.ObjectContainer.Resolve<FeatureContext>(), scope);
-					return scope.ServiceProvider;
-				});
-			}
-		}
-
-		private void CustomizeScenarioDependencies(object sender, CustomizeScenarioDependenciesEventArgs e) {
-			// At this point we have the bindings, we can resolve the service provider, which will build it if it's the first time.
-			var spContainer = args.ObjectContainer.Resolve<RootServiceProviderContainer>();
-
-			if (spContainer.Scoping == ScopeLevelType.Scenario) {
-				var serviceProvider = spContainer.ServiceProvider;
-				// Now we can register a new scoped service provider
-				args.ObjectContainer.RegisterFactoryAs<IServiceProvider>(() => {
-					var scope = serviceProvider.CreateScope();
-					BindMappings.TryAdd(scope.ServiceProvider, args.ObjectContainer.Resolve<IContextManager>());
-					ActiveServiceScopes.TryAdd(args.ObjectContainer.Resolve<ScenarioContext>(), scope);
-					return scope.ServiceProvider;
-				});
-			}
+		private void CustomizeFeatureDependencies(object sender, CustomizeFeatureDependenciesEventArgs args) {
+			var host = args.ObjectContainer.Resolve<SpecFlowHost>();
+			args.ObjectContainer.RegisterFactoryAs<IServiceProvider>(() => {
+				var context = args.ObjectContainer.Resolve<FeatureContext>();
+				return host.CreateScope(context).ServiceProvider;
+			});
 		}
 
 		private void AfterFeaturePluginLifecycleEventHandler(object sender, RuntimePluginAfterFeatureEventArgs e) {
-			throw new NotImplementedException();
-		}
-
-		private void AfterScenarioPluginLifecycleEventHandler(object sender, RuntimePluginAfterScenarioEventArgs e) {
-			throw new NotImplementedException();
+			var context = e.ObjectContainer.Resolve<FeatureContext>();
+			var host = e.ObjectContainer.Resolve<SpecFlowHost>();
+			host.DisposeScope(context);
 		}
 	}
 }
