@@ -4,21 +4,26 @@ namespace Sample.Spec.StepDefinitions {
 	[Binding]
 	public sealed class CalculatorStepDefinitions {
 		private readonly ILogger<CalculatorStepDefinitions> logger;
+		private readonly FeatureContext feature;
+		private readonly ScenarioContext scenario;
 
-		public CalculatorStepDefinitions(ILogger<CalculatorStepDefinitions> logger) {
+		public CalculatorStepDefinitions(ILogger<CalculatorStepDefinitions> logger, FeatureContext feature, ScenarioContext scenario) {
 			this.logger = logger;
-			logger.LogInformation("creating CalculatorStepDefinitions");
+			this.feature = feature;
+			this.scenario = scenario;
+			logger.LogInformation("new instance CalculatorStepDefinitions: feature={feature} scenario={scenario}", 
+				feature.FeatureInfo.Title, scenario.ScenarioInfo.Title);
 		}
 
 		[Given(@"a calculator")]
 		public void GivenACalculator() {
-			logger.LogInformation("given a calculator");
+			logger.LogInformation("given a calculator {context}", scenario.ScenarioInfo.Title);
 		}
 
 
 		[Given("the first number is (.*)")]
 		public void GivenTheFirstNumberIs(int number) {
-			logger.LogInformation("given the first number is {number}", number);
+			logger.LogInformation("{title}: given the first number is {number}", scenario.ScenarioInfo.Title, number);
 		}
 
 		[Given("the second number is (.*)")]

@@ -1,5 +1,6 @@
 ﻿using Albatross.Config;
 using Albatross.Logging;
+using BoDi;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -12,19 +13,23 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Infrastructure;
 
 namespace Albatross.SpecFlowPlugin {
-	public abstract class SpecFlowHost : IDisposable{
+	public abstract class SpecFlowHost : IDisposable {
 		public string Environment { get; }
 		protected IConfiguration configuration;
 		protected IHost host;
 		protected Logger logger;
 		protected Assembly testAssembly;
-		private ConcurrentDictionary<SpecFlowContext, IServiceScope> activeServiceScopes = new ConcurrentDictionary<SpecFlowContext, IServiceScope>();	
-		
-		public SpecFlowHost(Assembly testAssembly) {
+		private readonly IObjectContainer rootBodiContainer;
+		private ConcurrentDictionary<SpecFlowContext, IServiceScope> activeServiceScopes = new ConcurrentDictionary<SpecFlowContext, IServiceScope>();
+		private ConcurrentDictionary<IServiceProvider, IContextManager> contextManagers = new ConcurrentDictionary<IServiceProvider, IContextManager>();
+
+		public SpecFlowHost(Assembly testAssembly, IObjectContainer rootBodiContainer) {
 			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();
 			this.testAssembly = testAssembly;
+			this.rootBodiContainer = rootBodiContainer;
 			var basePath = new FileInfo(testAssembly.Location).DirectoryName
 				?? throw new InvalidOperationException($"Test Assembly {testAssembly.FullName} doesnot have a location");
 			this.Environment = EnvironmentSetting.ASPNETCORE_ENVIRONMENT.Value;
@@ -50,14 +55,20 @@ namespace Albatross.SpecFlowPlugin {
 		}
 
 		public virtual void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
-			services.TryAddSingleton<EnvironmentSetting>(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
-			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
-			foreach(var type in this.testAssembly.GetTypes()) {
-				if(type.GetCustomAttribute<BindingAttribute>() != null 
-					&&!type.IsAbstract 
-					&& !type.IsInterface 
-					&& type.IsClass 
-					&& !type.IsGenericTypeDefinition) { 
+			services.TryAddSingleton(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
+			services.TryAddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
+
+			services.TryAddSingleton(this.rootBodiContainer);
+			services.TryAddTransient(provider => this.contextManagers[provider]);
+			services.TryAddTransient(provider => this.contextManagers[provider].TestThreadContext);
+			services.TryAddTransient(provider => this.contextManagers[provider].FeatureContext);
+			services.TryAddTransient(provider => this.contextManagers[provider].ScenarioContext);
+			foreach (var type in this.testAssembly.GetTypes()) {
+				if (type.GetCustomAttribute<BindingAttribute>() != null
+					&& !type.IsAbstract
+					&& !type.IsInterface
+					&& type.IsClass
+					&& !type.IsGenericTypeDefinition) {
 					services.TryAddScoped(type);
 				}
 			}
@@ -71,13 +82,16 @@ namespace Albatross.SpecFlowPlugin {
 			GC.SuppressFinalize(this);
 		}
 
-		public IServiceScope CreateScope(FeatureContext context) {
-			logger.Information("Creating feature scope for {name}", context.FeatureInfo.Title);
-			return activeServiceScopes.GetOrAdd(context, this.host.Services.CreateScope());
+		public IServiceScope CreateScope(IContextManager contextManager, FeatureContext feature, ScenarioContext scenario) {
+			logger.Information("Creating scope: feature={feature}, scenario={scenario}", feature.FeatureInfo.Title, scenario.ScenarioInfo.Title);
+			var scope = host.Services.CreateScope();
+			contextManagers.TryAdd(scope.ServiceProvider, contextManager);
+			return activeServiceScopes.GetOrAdd(scenario, scope);
 		}
-		public void DisposeScope(FeatureContext context) {
+		public void DisposeScope(ScenarioContext context) {
 			if (activeServiceScopes.TryRemove(context, out var scope)) {
-				logger.Information("Disposing feature scope for {name}", context.FeatureInfo.Title);
+				this.contextManagers.TryRemove(scope.ServiceProvider, out _);
+				logger.Information("Disposing scope: scenario={name}", context.ScenarioInfo.Title);
 				scope.Dispose();
 			}
 		}

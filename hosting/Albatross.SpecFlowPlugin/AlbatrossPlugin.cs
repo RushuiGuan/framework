@@ -12,9 +12,10 @@ namespace Albatross.SpecFlowPlugin {
 
 		public void Initialize(RuntimePluginEvents runtimePluginEvents, RuntimePluginParameters runtimePluginParameters, UnitTestProviderConfiguration unitTestProviderConfiguration) {
 			runtimePluginEvents.CustomizeGlobalDependencies += CustomizeGlobalDependencies;
-			runtimePluginEvents.CustomizeFeatureDependencies += CustomizeFeatureDependencies;
+			// runtimePluginEvents.CustomizeFeatureDependencies += CustomizeFeatureDependencies;
+			runtimePluginEvents.CustomizeScenarioDependencies += CustomizeScenarioDependencies;
 		}
-	
+
 		private void CustomizeGlobalDependencies(object sender, CustomizeGlobalDependenciesEventArgs args) {
 			// temporary fix for CustomizeGlobalDependencies called multiple times
 			// see https://github.com/techtalk/SpecFlow/issues/948
@@ -30,22 +31,29 @@ namespace Albatross.SpecFlowPlugin {
 						args.ObjectContainer.RegisterFactoryAs(() => testHost);
 
 						var lcEvents = args.ObjectContainer.Resolve<RuntimePluginTestExecutionLifecycleEvents>();
-						lcEvents.AfterFeature += AfterFeaturePluginLifecycleEventHandler;
+						// lcEvents.AfterFeature += AfterFeaturePluginLifecycleEventHandler;
+						lcEvents.AfterScenario += AfterScenarioPluginLifecycleEventHandler; ;
 					}
 				}
 			}
 		}
 
 		private void CustomizeFeatureDependencies(object sender, CustomizeFeatureDependenciesEventArgs args) {
+			
+		}
+
+		private void CustomizeScenarioDependencies(object sender, CustomizeScenarioDependenciesEventArgs args) {
 			var host = args.ObjectContainer.Resolve<SpecFlowHost>();
-			args.ObjectContainer.RegisterFactoryAs<IServiceProvider>(() => {
-				var context = args.ObjectContainer.Resolve<FeatureContext>();
-				return host.CreateScope(context).ServiceProvider;
+			args.ObjectContainer.RegisterFactoryAs(() => {
+				var contextManager = args.ObjectContainer.Resolve<IContextManager>();
+				var feature = args.ObjectContainer.Resolve<FeatureContext>();
+				var scenario = args.ObjectContainer.Resolve<ScenarioContext>();
+				return host.CreateScope(contextManager, feature, scenario).ServiceProvider;
 			});
 		}
 
-		private void AfterFeaturePluginLifecycleEventHandler(object sender, RuntimePluginAfterFeatureEventArgs e) {
-			var context = e.ObjectContainer.Resolve<FeatureContext>();
+		private void AfterScenarioPluginLifecycleEventHandler(object sender, RuntimePluginAfterScenarioEventArgs e) {
+			var context = e.ObjectContainer.Resolve<ScenarioContext>();
 			var host = e.ObjectContainer.Resolve<SpecFlowHost>();
 			host.DisposeScope(context);
 		}

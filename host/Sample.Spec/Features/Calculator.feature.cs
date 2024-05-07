@@ -93,27 +93,21 @@ Link to a feature: [Calculator](Sample.Spec/Features/Calculator.feature)
             this.TestTearDown();
         }
         
-        [Xunit.SkippableTheoryAttribute(DisplayName="Add two numbers")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Add my numbers")]
         [Xunit.TraitAttribute("FeatureTitle", "Calculator")]
-        [Xunit.TraitAttribute("Description", "Add two numbers")]
+        [Xunit.TraitAttribute("Description", "Add my numbers")]
         [Xunit.InlineDataAttribute("1", "2", "3", new string[0])]
         [Xunit.InlineDataAttribute("2", "3", "5", new string[0])]
         [Xunit.InlineDataAttribute("3", "4", "7", new string[0])]
         [Xunit.InlineDataAttribute("4", "5", "9", new string[0])]
-        [Xunit.InlineDataAttribute("5", "6", "11", new string[0])]
-        [Xunit.InlineDataAttribute("6", "7", "13", new string[0])]
-        [Xunit.InlineDataAttribute("7", "8", "15", new string[0])]
-        [Xunit.InlineDataAttribute("8", "9", "17", new string[0])]
-        [Xunit.InlineDataAttribute("9", "10", "19", new string[0])]
-        [Xunit.InlineDataAttribute("10", "11", "21", new string[0])]
-        public void AddTwoNumbers(string first, string second, string result, string[] exampleTags)
+        public void AddMyNumbers(string first, string second, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("first", first);
             argumentsOfScenario.Add("second", second);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add two numbers", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add my numbers", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -137,6 +131,41 @@ this.FeatureBackground();
  testRunner.When("the two numbers are added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 16
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableTheoryAttribute(DisplayName="Add your numbers")]
+        [Xunit.TraitAttribute("FeatureTitle", "Calculator")]
+        [Xunit.TraitAttribute("Description", "Add your numbers")]
+        [Xunit.InlineDataAttribute("1", "1", new string[0])]
+        [Xunit.InlineDataAttribute("4", "4", new string[0])]
+        public void AddYourNumbers(string first, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("first", first);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add your numbers", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 27
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 8
+this.FeatureBackground();
+#line hidden
+#line 28
+ testRunner.Given(string.Format("the first number is {0}", first), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 29
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

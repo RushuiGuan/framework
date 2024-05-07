@@ -9,7 +9,7 @@ Background:
 	Given a calculator
 
 
-Scenario Outline: Add two numbers
+Scenario Outline: Add my numbers
 	Given the first number is <first>
 	And the second number is <second>
 	When the two numbers are added
@@ -21,9 +21,14 @@ Scenario Outline: Add two numbers
 		| 2     | 3      | 5      |
 		| 3     | 4      | 7      |
 		| 4     | 5      | 9      |
-		| 5     | 6      | 11     |
-		| 6     | 7      | 13     |
-		| 7     | 8      | 15     |
-		| 8     | 9      | 17     |
-		| 9     | 10     | 19     |
-		| 10    | 11     | 21     |
+
+
+
+Scenario Outline: Add your numbers
+	Given the first number is <first>
+	Then the result should be <result>
+
+	Examples: 
+		| first | result |
+		| 1     | 1      |
+		| 4     | 4      |
