@@ -14,7 +14,7 @@ namespace Albatross.SpecFlowPlugin {
 			runtimePluginEvents.CustomizeGlobalDependencies += CustomizeGlobalDependencies;
 			runtimePluginEvents.CustomizeFeatureDependencies += CustomizeFeatureDependencies;
 		}
-
+	
 		private void CustomizeGlobalDependencies(object sender, CustomizeGlobalDependenciesEventArgs args) {
 			// temporary fix for CustomizeGlobalDependencies called multiple times
 			// see https://github.com/techtalk/SpecFlow/issues/948

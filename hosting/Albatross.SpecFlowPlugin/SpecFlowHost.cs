@@ -20,9 +20,10 @@ namespace Albatross.SpecFlowPlugin {
 		protected IHost host;
 		protected Logger logger;
 		protected Assembly testAssembly;
-		private ConcurrentDictionary<FeatureContext, IServiceScope> activeServiceScopes = new ConcurrentDictionary<FeatureContext, IServiceScope>();	
+		private ConcurrentDictionary<SpecFlowContext, IServiceScope> activeServiceScopes = new ConcurrentDictionary<SpecFlowContext, IServiceScope>();	
 		
 		public SpecFlowHost(Assembly testAssembly) {
+			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();
 			this.testAssembly = testAssembly;
 			var basePath = new FileInfo(testAssembly.Location).DirectoryName
 				?? throw new InvalidOperationException($"Test Assembly {testAssembly.FullName} doesnot have a location");
@@ -70,13 +71,13 @@ namespace Albatross.SpecFlowPlugin {
 			GC.SuppressFinalize(this);
 		}
 
-		public IServiceScope CreateScope(TechTalk.SpecFlow.FeatureContext context) {
-			logger.Information("Creating scope for {Feature}", context.FeatureInfo.Title);
+		public IServiceScope CreateScope(FeatureContext context) {
+			logger.Information("Creating feature scope for {name}", context.FeatureInfo.Title);
 			return activeServiceScopes.GetOrAdd(context, this.host.Services.CreateScope());
 		}
-		public void DisposeScope(TechTalk.SpecFlow.FeatureContext context) {
+		public void DisposeScope(FeatureContext context) {
 			if (activeServiceScopes.TryRemove(context, out var scope)) {
-				logger.Information("Disposing scope for {Feature}", context.FeatureInfo.Title);
+				logger.Information("Disposing feature scope for {name}", context.FeatureInfo.Title);
 				scope.Dispose();
 			}
 		}
