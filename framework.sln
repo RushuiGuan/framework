@@ -221,6 +221,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.SpecFlowPlugin", "hosting\Albatross.SpecFlowPlugin\Albatross.SpecFlowPlugin.csproj", "{85F9C89A-DE5D-412C-B135-84CA300F282D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -551,6 +553,10 @@ Global
 		{C4D79EAE-E586-4208-BC6B-D540AB54027A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4D79EAE-E586-4208-BC6B-D540AB54027A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4D79EAE-E586-4208-BC6B-D540AB54027A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F9C89A-DE5D-412C-B135-84CA300F282D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F9C89A-DE5D-412C-B135-84CA300F282D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F9C89A-DE5D-412C-B135-84CA300F282D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F9C89A-DE5D-412C-B135-84CA300F282D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -637,6 +643,7 @@ Global
 		{11CCCF3B-F6D6-4C22-9F90-6197DE581318} = {CCD031A5-EF83-494E-BD2B-0757AA04DD5C}
 		{9E08C277-0658-49A2-9FFE-08BC270003C3} = {CCD031A5-EF83-494E-BD2B-0757AA04DD5C}
 		{C4D79EAE-E586-4208-BC6B-D540AB54027A} = {CCD031A5-EF83-494E-BD2B-0757AA04DD5C}
+		{85F9C89A-DE5D-412C-B135-84CA300F282D} = {F5D5FCE3-97DC-4136-BA39-B7BB1C571112}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4751EEB3-6D5D-4780-B0C9-ECB82447CB4A}
