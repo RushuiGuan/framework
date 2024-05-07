@@ -37,6 +37,7 @@ $projects = @(
 	"hosting\Albatross.Hosting",
 	"hosting\Albatross.Hosting.Test",
 	"hosting\Albatross.Hosting.Utility",
+	"hosting\Albatross.SpecFlowPlugin",
 	"io\Albatross.IO",
 	"logging\Albatross.Logging",
 	"math\Albatross.Math",
