@@ -88,7 +88,7 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 			converted.Methods = list.ToArray();
-			converted.UseNullablePreprocessor = true;
+			converted.UseNullablePreprocessor = false;
 			return converted;
 		}
 
