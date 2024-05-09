@@ -180,11 +180,11 @@ namespace Albatross.Reflection {
 		/// </summary>
 		/// <exception cref="ArgumentException"></exception>
 		public static object? GetPropertyValue(this Type type, object? data, string name, bool ignoreCase) {
+			if (data == null) { return null; }
 			var bindingFlag = BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty;
 			if (ignoreCase) {
 				bindingFlag = bindingFlag | BindingFlags.IgnoreCase;
 			}
-			if (data == null) { return null; }
 			var index = name.IndexOf('.');
 			if(index == -1) {
 				var property = type.GetProperty(name, bindingFlag) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
@@ -195,9 +195,62 @@ namespace Albatross.Reflection {
 				var value = property.GetValue(data);
 				if(value != null) {
 					var remainingProperty = name.Substring(index + 1);
+					// use value.GetType() instead of property.PropertyType because property.PropertyType may be a base class of value
 					return GetPropertyValue(value.GetType(), value, remainingProperty, ignoreCase);
 				} else {
 					return null;
+				}
+			}
+		}
+
+		/// <summary>
+		/// return the property type of an object property using reflection.  Property name can be nested using period (.) as delimiter
+		/// </summary>
+		/// <exception cref="ArgumentException"></exception>
+		public static Type GetPropertyType(this Type type, string name, bool ignoreCase) {
+			var bindingFlag = BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.SetProperty;
+			if (ignoreCase) {
+				bindingFlag = bindingFlag | BindingFlags.IgnoreCase;
+			}
+			var index = name.IndexOf('.');
+			if (index == -1) {
+				var property = type.GetProperty(name, bindingFlag) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
+				return property.PropertyType;
+			} else {
+				var firstProperty = name.Substring(0, index);
+				var property = type.GetProperty(firstProperty, bindingFlag) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
+				var remainingProperty = name.Substring(index + 1);
+				return property.PropertyType.GetPropertyType(remainingProperty, ignoreCase);
+			}
+		}
+
+		/// <summary>
+		/// set the property value of an object using reflection.  Property name can be delimited using . to allow setting of nested object property value
+		/// </summary>
+		/// <exception cref="ArgumentException"></exception>
+		public static void SetPropertyValue(this Type type, object? data, string propertyName, object? value, bool ignoreCase) {
+			if (data == null) {
+				throw new InvalidOperationException($"cannot set property {propertyName} of a null value");
+			}
+			var bindingFlag = BindingFlags.Instance | BindingFlags.Public;
+			if (ignoreCase) {
+				bindingFlag = bindingFlag | BindingFlags.IgnoreCase;
+			}
+			var index = propertyName.IndexOf('.');
+			if (index == -1) {
+				bindingFlag = bindingFlag | BindingFlags.SetProperty;
+				var property = type.GetProperty(propertyName, bindingFlag) ?? throw new ArgumentException($"Property {propertyName} is not found or doesn't have a setter in type {type.Name}");
+				property.SetValue(data, value);
+			} else {
+				bindingFlag = bindingFlag | BindingFlags.GetProperty;
+				var firstProperty = propertyName.Substring(0, index);
+				var property = type.GetProperty(firstProperty, bindingFlag) ?? throw new ArgumentException($"Property {propertyName} is not found or doesn't have a getter in type {type.Name}");
+				var propertyValue = property.GetValue(data);
+				var remainingProperty = propertyName.Substring(index + 1);
+				if (propertyValue != null) {
+					SetPropertyValue(propertyValue.GetType(), propertyValue, remainingProperty, value, ignoreCase);
+				} else {
+					throw new InvalidOperationException($"cannot set property {remainingProperty} of a null value");
 				}
 			}
 		}

@@ -40,11 +40,9 @@ namespace Albatross.Text {
 		public static T Convert<T>(this IDictionary<string, string> dictionary) where T : new() {
 			var t = new T();
 			foreach (var keyValuePair in dictionary) {
-				var property = typeof(T).GetProperty(keyValuePair.Key);
-				if (property?.GetSetMethod() != null) {
-					var value = keyValuePair.Value.Convert(property.PropertyType);
-					property.SetValue(t, value);
-				}
+				var propertyType = typeof(T).GetPropertyType(keyValuePair.Key, true);
+				var value = keyValuePair.Value.Convert(propertyType);
+				typeof(T).SetPropertyValue(t, keyValuePair.Key, value, true);
 			}
 			return t;
 		}
