@@ -88,7 +88,8 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 			converted.Methods = list.ToArray();
-			converted.UseNullablePreprocessor = false;
+			// Auto-generated code requires an explicit '#nullable' directive in source.
+			converted.UseNullablePreprocessor = true;
 			return converted;
 		}
 
