@@ -1,7 +1,10 @@
-﻿using Albatross.Threading;
+﻿using Albatross.Collections;
+using Albatross.Threading;
 using Albatross.Messaging.Services;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Text.Json;
 
 namespace Albatross.Messaging.Commands {
 	/// <summary>
@@ -44,5 +47,43 @@ namespace Albatross.Messaging.Commands {
 			this.service.OnCommandCompleted -= OnCommandCallback;
 			this.service.OnCommandError -= OnCommandErrorCallback;
 		}
+	}
+
+	public class TaskCallbackCommandClient : CallbackCommandClient {
+		Dictionary<ulong, TaskCallback<byte[]>> callbacks = new Dictionary<ulong, TaskCallback<byte[]>>();
+		object sync = new object();
+
+		TaskCallback<byte[]> GetCallback(ulong id) {
+			TaskCallback<byte[]>? callback;
+			lock (sync) {
+				if (!callbacks.TryGetAndRemove(id, out callback)) {
+					callback = new TaskCallback<byte[]>();
+					callbacks.Add(id, callback);
+				}
+			}
+			return callback;
+		}
+
+		public async Task SubmitWithCallback(object command, int timeout = 2000) {
+			ulong id = await base.Submit(command, false, timeout);
+			var callback = GetCallback(id);
+			await callback.Task;
+		}
+		public async Task<T?> SubmitWithCallback<T>(object command, int timeout = 2000) {
+			ulong id = await base.Submit(command, false, timeout);
+			var callback = GetCallback(id);
+			var data = await callback.Task;
+			return JsonSerializer.Deserialize<T>(data, Messaging.MessagingJsonSettings.Value.Default);
+		}
+		
+		public override void OnCommandCallback(ulong id, string commandType, byte[] message) {
+			var callback = GetCallback(id);
+			callback.SetResult(message);
+		}
+		public override void OnCommandErrorCallback(ulong id, string commandType, string errorType, byte[] message) { 
+			var callback = GetCallback(id);
+			callback.SetException(new CommandException(id, errorType, message.ToUtf8String()));
+		}
+		public TaskCallbackCommandClient(DealerClient dealerClient, CommandClientService service) : base(dealerClient, service) { }
 	}
 }
