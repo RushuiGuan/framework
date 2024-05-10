@@ -48,8 +48,13 @@ namespace Albatross.Messaging.Commands {
 			this.service.OnCommandError -= OnCommandErrorCallback;
 		}
 	}
+	
+	public interface ITaskCallbackCommandClient {
+		Task SubmitWithCallback(object command, int timeout = 2000);
+		Task<T?> SubmitWithCallback<T>(object command, int timeout = 2000);
+	}
 
-	public class TaskCallbackCommandClient : CallbackCommandClient {
+	public class TaskCallbackCommandClient : CallbackCommandClient, ITaskCallbackCommandClient {
 		Dictionary<ulong, TaskCallback<byte[]>> callbacks = new Dictionary<ulong, TaskCallback<byte[]>>();
 		object sync = new object();
 
