@@ -34,5 +34,9 @@ namespace Albatross.EFCore.SqlServer {
 				}
 			}
 		}
+		public async Task<bool> HasPendingMigration() {
+			var pendingMigrations = await session.Database.GetPendingMigrationsAsync();
+			return pendingMigrations.Any();
+		}
 	}
 }
