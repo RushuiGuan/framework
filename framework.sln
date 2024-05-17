@@ -228,6 +228,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.SpecFlowPlugin", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Spec", "host\Sample.Spec\Sample.Spec.csproj", "{190A83AE-7CAE-4897-9AEC-BB00AB3F6A91}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{2E80905E-7575-46C4-B86D-3AAE0B2C50B3}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\csproj.ps1 = scripts\csproj.ps1
+		scripts\git.ps1 = scripts\git.ps1
+		scripts\io.ps1 = scripts\io.ps1
+		scripts\pack.ps1 = scripts\pack.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

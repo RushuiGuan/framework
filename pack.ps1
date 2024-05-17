@@ -4,6 +4,8 @@ param(
 	[switch]
 	[bool]$prod,
 	[switch]
+	[bool]$nopush,
+	[switch]
 	[bool]$force
 )
 $InformationPreference = "Continue";
@@ -50,7 +52,12 @@ $projects = @(
 );
 
 if(-not [string]::IsNullOrEmpty($project)){
-	$projects = $projects | Where-Object { $_ -like "*$project" }
+	$projects = $projects | Where-Object { $_ -like "$project*" }
+}
+
+$nugetSource = $env:DefaultNugetSource;
+if($nopush){
+	$nugetSource = $null;
 }
 
 Run-Pack -projects $projects `
