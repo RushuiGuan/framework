@@ -1,1 +1,0 @@
-The authentication assembly's only purpose is to return the identity of the current user.  It currently supports AspNetCore identity and windows identity.  It is of its own assembly so that its consumer does not have to take on additional dependencies.

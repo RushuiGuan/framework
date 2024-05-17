@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "authentication", "authentication", "{A1FF47D5-9843-4ADF-9912-5078A6AC12C1}"
+	ProjectSection(SolutionItems) = preProject
+		authentication\readme.md = authentication\readme.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure", "azure", "{CBA6648C-539D-4DFA-8886-26BB2351B321}"
 EndProject
@@ -223,7 +226,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.SpecFlowPlugin", "hosting\Albatross.SpecFlowPlugin\Albatross.SpecFlowPlugin.csproj", "{85F9C89A-DE5D-412C-B135-84CA300F282D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Spec", "host\Sample.Spec\Sample.Spec.csproj", "{190A83AE-7CAE-4897-9AEC-BB00AB3F6A91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Spec", "host\Sample.Spec\Sample.Spec.csproj", "{190A83AE-7CAE-4897-9AEC-BB00AB3F6A91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

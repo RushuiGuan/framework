@@ -6,7 +6,7 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
 		<Authors>Rushui Guan</Authors>
-		<Description>A nuget package to determine the current user for different environments</Description>
+		<Description>A nuget package to determine the current user name</Description>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 	
@@ -14,6 +14,10 @@
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\readme.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 	<ItemGroup>
