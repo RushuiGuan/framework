@@ -6,6 +6,9 @@
 		<Description>The assembly contains the AspNetCore implementation of IGetCurrentUser interface.  It retrieves the current user name using AspNetCore HttpContext.</Description>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Authors>Rushui Guan</Authors>
+		<PackageProjectUrl></PackageProjectUrl>
+		<RepositoryUrl>https://github.com/RushuiGuan/framework/tree/staging/authentication</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>

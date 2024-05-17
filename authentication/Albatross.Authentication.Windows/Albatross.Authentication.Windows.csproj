@@ -6,6 +6,8 @@
 		<Nullable>enable</Nullable>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Authors>Rushui Guan</Authors>
+		<RepositoryUrl>https://github.com/RushuiGuan/framework/tree/staging/authentication</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
