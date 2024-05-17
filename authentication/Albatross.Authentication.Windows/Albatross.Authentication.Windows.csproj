@@ -8,6 +8,7 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<Authors>Rushui Guan</Authors>
 		<RepositoryUrl>https://github.com/RushuiGuan/framework/tree/staging/authentication</RepositoryUrl>
+		<Description>The assembly contains the Windows implementation of IGetCurrentUser interface. It retrieves the current user name using the current window user name.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
