@@ -15,7 +15,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = DateOnlyValues.Jan31_2022
 				}
 			};
-			var result = list.GetDateLevelEntityByDate(new DateOnly(2022, 2, 1));
+			var result = list.GetDateLevelEntitiesByDate(new DateOnly(2022, 2, 1));
 			Assert.NotNull(result);
 			Assert.Empty(result);
 		}
@@ -27,7 +27,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = DateOnlyValues.Jan31_2022
 				}
 			};
-			var result = list.GetDateLevelEntityByDate(new DateOnly(2022, 1, 1));
+			var result = list.GetDateLevelEntitiesByDate(new DateOnly(2022, 1, 1));
 			Assert.NotNull(result);
 			Assert.Single(result);
 			Assert.Equal(DateOnlyValues.Jan1_2022, result.First().StartDate);
@@ -48,7 +48,7 @@ namespace Albatross.DateLevel.Test {
 				},
 				new SpreadSpec(1, DateOnlyValues.Apr1_2022, 100)
 			};
-			var result = list.GetDateLevelEntityByDate(new DateOnly(2022, 4, 10));
+			var result = list.GetDateLevelEntitiesByDate(new DateOnly(2022, 4, 10));
 			Assert.NotNull(result);
 			Assert.Single(result);
 			Assert.Equal(DateOnlyValues.Apr1_2022, result.First().StartDate);
@@ -72,7 +72,7 @@ namespace Albatross.DateLevel.Test {
 				},
 				new SpreadSpec(2, DateOnlyValues.Apr1_2022, 100)
 			};
-			var result = list.GetDateLevelEntityByDate(new DateOnly(2022, 4, 10));
+			var result = list.GetDateLevelEntitiesByDate(new DateOnly(2022, 4, 10));
 			Assert.NotNull(result);
 			Assert.Equal(2, result.Count());
 			Assert.Equal(DateOnlyValues.Apr1_2022, result.First().StartDate);
