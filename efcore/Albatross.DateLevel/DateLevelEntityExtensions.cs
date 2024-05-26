@@ -152,13 +152,15 @@ namespace Albatross.DateLevel {
 				throw new ArgumentException("Start date cannot be greater than end date");
 			}
 			DateOnly end;
-			if (endDate== null) {
+			if (endDate == null) {
 				var nextStart = collection.Where(x => x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
 				if (nextStart == null) {
 					end = DateLevelEntity.MaxEndDate;
-				}else{
+				} else {
 					end = nextStart.Value.AddDays(-1);
 				}
+			} else {
+				end = endDate.Value;
 			}
 			foreach (var current in collection.ToArray()) {
 				if (end < current.StartDate || current.EndDate < start) {
@@ -254,19 +256,6 @@ namespace Albatross.DateLevel {
 		}
 
 		/// <summary>
-		/// Provided a date level series and effective date. This method will search and return the items
-		/// where the given date falls within the date range.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="source"></param>
-		/// <param name="startDate"></param>
-		/// <returns></returns>
-		[Obsolete($"Use {nameof(GetDateLevelEntitiesByDate)} instead")]
-		public static IEnumerable<T> GetDateLevelEntityByDate<T>(this IEnumerable<T> source, DateOnly effectiveDate) where T : DateLevelEntity
-			=> GetDateLevelEntitiesByDate<T>(source, effectiveDate);
-
-
-		/// <summary>
 		/// The method will return the date level entries with the effective date of <paramref name="effectiveDate"/> in <paramref name="source"/>.  
 		/// The method could return multiple entries since the date level entity key is not specified.
 		/// </summary>
@@ -280,8 +269,6 @@ namespace Albatross.DateLevel {
 			return items;
 		}
 
-		public static T? GetDateLevelItemByDate<T, K>(this IEnumerable<T> source, K key, DateOnly effectiveDate)
-			where T : DateLevelEntity<K> where K : IEquatable<K> => GetDateLevelEntityByDate<T, K>(source, key, effectiveDate);
 
 		/// <summary>
 		/// This method will return the date level entry with the key of <paramref name="key"/> and the effective date of 
@@ -301,18 +288,6 @@ namespace Albatross.DateLevel {
 			return item;
 		}
 
-		/// <summary>
-		/// Provided a date level series and a date range, this method will search and return items
-		/// where the date range falls between the start and end dates.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="source"></param>
-		/// <param name="fromDate"></param>
-		/// <param name="toDate"></param>
-		/// <returns></returns>
-		[Obsolete($"Use {nameof(GetOverlappedDateLevelEntities)} instead")]
-		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateOnly fromDate, DateOnly toDate)
-			where T : DateLevelEntity => GetOverlappedDateLevelEntities(source, fromDate, toDate);
 
 		/// <summary>
 		/// The method will find the date level entries in <paramref name="source"/> that overlap with the given date range.
