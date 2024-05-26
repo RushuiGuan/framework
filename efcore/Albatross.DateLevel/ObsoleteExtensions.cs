@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NET6_0_OR_GREATER
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -34,3 +35,4 @@ namespace Albatross.DateLevel {
 			where T : DateLevelEntity => DateLevelEntityExtensions.GetOverlappedDateLevelEntities(source, fromDate, toDate);
 	}
 }
+#endif

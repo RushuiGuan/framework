@@ -251,6 +251,49 @@ namespace Albatross.DateLevel.Test {
 				new MyDateLevelValue(new DateOnly(2024, 8, 1), 800,8000)
 			};
 
+		[Fact]
+		public void Test_UpdateWithStartDateOnly() {
+			var list = BaseLine();
+			list.UpdateDateLevel(x => x.V1 += 1, new DateOnly(2024, 4, 15), null, false);
+			Assert.Collection(list.OrderBy(x => x.StartDate),
+				x => {
+					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
+					Assert.Equal(new DateOnly(2024, 4, 14), x.EndDate);
+					Assert.Equal(400, x.V1);
+					Assert.Equal(4000, x.V2);
+				},
+				x => {
+					Assert.Equal(new DateOnly(2024, 4, 15), x.StartDate);
+					Assert.Equal(new DateOnly(2024, 4, 30), x.EndDate);
+					Assert.Equal(401, x.V1);
+					Assert.Equal(4000, x.V2);
+				},
+				x => {
+					Assert.Equal(new DateOnly(2024, 5, 1), x.StartDate);
+					Assert.Equal(new DateOnly(2024, 5, 31), x.EndDate);
+					Assert.Equal(500, x.V1);
+					Assert.Equal(5000, x.V2);
+				},
+				x => {
+					Assert.Equal(new DateOnly(2024, 6, 1), x.StartDate);
+					Assert.Equal(new DateOnly(2024, 6, 30), x.EndDate);
+					Assert.Equal(600, x.V1);
+					Assert.Equal(6000, x.V2);
+				},
+				x => {
+					Assert.Equal(new DateOnly(2024, 7, 1), x.StartDate);
+					Assert.Equal(new DateOnly(2024, 7, 31), x.EndDate);
+					Assert.Equal(700, x.V1);
+					Assert.Equal(7000, x.V2);
+				},
+				x => {
+					Assert.Equal(new DateOnly(2024, 8, 1), x.StartDate);
+					Assert.Equal(new DateOnly(9999, 12, 31), x.EndDate);
+					Assert.Equal(800, x.V1);
+					Assert.Equal(8000, x.V2);
+				});
+		}
+
 
 		[Fact]
 		public void Test_AllUserCase_1() {
