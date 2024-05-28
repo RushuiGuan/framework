@@ -1,6 +1,7 @@
 ﻿#if NET6_0_OR_GREATER
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Albatross.DateLevel {
@@ -31,8 +32,10 @@ namespace Albatross.DateLevel {
 		/// <param name="toDate"></param>
 		/// <returns></returns>
 		[Obsolete($"Use {nameof(DateLevelEntityExtensions.GetOverlappedDateLevelEntities)} instead")]
-		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateOnly fromDate, DateOnly toDate)
-			where T : DateLevelEntity => DateLevelEntityExtensions.GetOverlappedDateLevelEntities(source, fromDate, toDate);
+		public static IEnumerable<T> GetDateLevelEntityByDateRange<T>(this IEnumerable<T> source, DateOnly start, DateOnly end)
+			where T : DateLevelEntity {
+			return source.Where(args => !(start > args.EndDate || end < args.StartDate));
+		}
 	}
 }
 #endif

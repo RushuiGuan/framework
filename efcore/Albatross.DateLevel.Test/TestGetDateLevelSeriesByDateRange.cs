@@ -14,7 +14,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = DateOnlyValues.Jan31_2022
 				}
 			};
-			var result = list.GetOverlappedDateLevelEntities(new DateOnly(2022, 2, 1), new DateOnly(2022, 2, 10));
+			var result = list.GetOverlappedDateLevelEntities(0, new DateOnly(2022, 2, 1), new DateOnly(2022, 2, 10));
 			Assert.NotNull(result);
 			Assert.Empty(result);
 		}
@@ -29,7 +29,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = DateOnlyValues.Mar31_2022
 				}
 			};
-			var result = list.GetOverlappedDateLevelEntities(new DateOnly(2022, 1, 5), new DateOnly(2022, 1, 15));
+			var result = list.GetOverlappedDateLevelEntities(0, new DateOnly(2022, 1, 5), new DateOnly(2022, 1, 15));
 			Assert.NotNull(result);
 			Assert.Single(result);
 			Assert.Equal(DateOnlyValues.Jan1_2022, result.First().StartDate);
@@ -50,7 +50,7 @@ namespace Albatross.DateLevel.Test {
 				},
 				new SpreadSpec(2, DateOnlyValues.Apr1_2022, 100)
 			};
-			var result = list.GetOverlappedDateLevelEntities(new DateOnly(2022, 1, 31), new DateOnly(2022, 3, 7));
+			var result = list.GetOverlappedDateLevelEntities(0, new DateOnly(2022, 1, 31), new DateOnly(2022, 3, 7));
 			Assert.NotNull(result);
 			Assert.Equal(3, result.Count());
 			Assert.Equal(DateOnlyValues.Jan1_2022, result.First().StartDate);
@@ -78,7 +78,7 @@ namespace Albatross.DateLevel.Test {
 				},
 				new SpreadSpec(2, DateOnlyValues.Apr1_2022, 100)
 			};
-			var result = list.GetOverlappedDateLevelEntities(new DateOnly(2022, 2, 21), new DateOnly(2022, 4, 30));
+			var result = list.GetOverlappedDateLevelEntities(0, new DateOnly(2022, 2, 21), new DateOnly(2022, 4, 30));
 			Assert.NotNull(result);
 			Assert.Equal(4, result.Count());
 			Assert.Equal(DateOnlyValues.Feb1_2022, result.First().StartDate);

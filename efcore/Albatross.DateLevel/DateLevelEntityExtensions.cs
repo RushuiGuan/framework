@@ -299,17 +299,18 @@ namespace Albatross.DateLevel {
 		/// <param name="start"></param>
 		/// <param name="end"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> GetOverlappedDateLevelEntities<T>(this IEnumerable<T> source, DateOnly start, DateOnly? end)
-			where T : DateLevelEntity {
+		public static IEnumerable<T> GetOverlappedDateLevelEntities<T, K>(this IEnumerable<T> source, K key, DateOnly start, DateOnly? end)
+			where T : DateLevelEntity<K>
+			where K : IEquatable<K> {
 			if (end == null) {
-				var nextStart = source.Where(x => x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
+				var nextStart = source.Where(x => x.Key.Equals(key) && x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
 				if (nextStart == null) {
 					end = DateLevelEntity.MaxEndDate;
 				} else {
 					end = nextStart.Value.AddDays(-1);
 				}
 			}
-			return source.Where(args => !(start > args.EndDate || end < args.StartDate));
+			return source.Where(args => args.Key.Equals(key) && !(start > args.EndDate || end < args.StartDate));
 		}
 	}
 }

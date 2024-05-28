@@ -24,7 +24,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_1() {
 			var list = BaseLine();
-			var items = list.GetOverlappedDateLevelEntities(new DateOnly(2024, 4, 1), null);
+			var items = list.GetOverlappedDateLevelEntities(9999, new DateOnly(2024, 4, 1), null);
 			Assert.Collection(items,
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -34,7 +34,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_2() {
 			var list = BaseLine();
-			var items = list.GetOverlappedDateLevelEntities(new DateOnly(2024, 4, 2), null);
+			var items = list.GetOverlappedDateLevelEntities(9999, new DateOnly(2024, 4, 2), null);
 			Assert.Collection(items,
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -44,7 +44,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_3() {
 			var list = BaseLine();
-			var items = list.GetOverlappedDateLevelEntities(new DateOnly(2024, 4, 2), new DateOnly(2024, 4, 2));
+			var items = list.GetOverlappedDateLevelEntities(9999, new DateOnly(2024, 4, 2), new DateOnly(2024, 4, 2));
 			Assert.Collection(items,
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -54,7 +54,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_4() {
 			var list = BaseLine();
-			var items = list.GetOverlappedDateLevelEntities(new DateOnly(2024, 4, 2), new DateOnly(2024, 5, 2));
+			var items = list.GetOverlappedDateLevelEntities(9999, new DateOnly(2024, 4, 2), new DateOnly(2024, 5, 2));
 			Assert.Collection(items,
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -68,7 +68,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_5() {
 			var list = BaseLine();
-			var items = list.GetOverlappedDateLevelEntities(new DateOnly(2024, 9, 1),null);
+			var items = list.GetOverlappedDateLevelEntities(9999, new DateOnly(2024, 9, 1),null);
 			Assert.Collection(items,
 				x => {
 					Assert.Equal(new DateOnly(2024, 8, 1), x.StartDate);
