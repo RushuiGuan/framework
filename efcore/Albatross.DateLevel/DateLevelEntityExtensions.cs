@@ -290,15 +290,25 @@ namespace Albatross.DateLevel {
 
 
 		/// <summary>
-		/// The method will find the date level entries in <paramref name="source"/> that overlap with the given date range.
+		/// The method will find the date level entries in <paramref name="source"/> that overlap with the given date range.  If the end date is not specified, the method 
+		/// will find the next record in the series and set the end date to the day before its start date.  If the next record does not exist, the end date will be set to 
+		/// the max end date.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="source"></param>
 		/// <param name="start"></param>
 		/// <param name="end"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> GetOverlappedDateLevelEntities<T>(this IEnumerable<T> source, DateOnly start, DateOnly end)
+		public static IEnumerable<T> GetOverlappedDateLevelEntities<T>(this IEnumerable<T> source, DateOnly start, DateOnly? end)
 			where T : DateLevelEntity {
+			if (end == null) {
+				var nextStart = source.Where(x => x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
+				if (nextStart == null) {
+					end = DateLevelEntity.MaxEndDate;
+				} else {
+					end = nextStart.Value.AddDays(-1);
+				}
+			}
 			return source.Where(args => !(start > args.EndDate || end < args.StartDate));
 		}
 	}

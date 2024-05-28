@@ -8,8 +8,7 @@ namespace Albatross.DateLevel {
 		public readonly static DateOnly MaxEndDate = DateOnly.MaxValue;
 
 		/// <summary>
-		/// Returns true if the object has the same value as another DateLevelEntity object.  This is not the same as an equal comparison
-		/// since two objects could have different start and end dates.
+		/// Returns true if the object are the same with the exception of the start and end date
 		/// </summary>
 		/// <param name="src"></param>
 		/// <returns></returns>
