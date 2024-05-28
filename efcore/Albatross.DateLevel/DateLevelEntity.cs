@@ -1,5 +1,4 @@
-﻿#if NET6_0_OR_GREATER
-using System;
+﻿using System;
 
 namespace Albatross.DateLevel {
 	public abstract class DateLevelEntity : ICloneable {
@@ -26,4 +25,3 @@ namespace Albatross.DateLevel {
 		public DateLevelEntity(DateOnly startDate) : base(startDate) { }
 	}
 }
-#endif
