@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sample.EFCore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -35,7 +36,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 3, 1), new DateOnly(2024, 5, 1), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 3, 1), new DateOnly(2024, 5, 1), false);
 			Assert.Collection(list,
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -53,7 +54,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 4, 1), new DateOnly(2024, 4, 30), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 4, 1), new DateOnly(2024, 4, 30), false);
 			Assert.Collection(list,
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -71,7 +72,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 4, 1), new DateOnly(2024, 4, 20), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 4, 1), new DateOnly(2024, 4, 20), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -95,7 +96,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 4, 10), new DateOnly(2024, 4, 30), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 4, 10), new DateOnly(2024, 4, 30), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -119,7 +120,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 4, 10), new DateOnly(2024, 4, 20), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 4, 10), new DateOnly(2024, 4, 20), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -149,7 +150,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 3, 1), new DateOnly(2024, 4, 20), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 3, 1), new DateOnly(2024, 4, 20), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -172,7 +173,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 3, 1), new DateOnly(2024, 4, 1), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 3, 1), new DateOnly(2024, 4, 1), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -195,7 +196,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 4, 20), new DateOnly(2024, 5, 10), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 4, 20), new DateOnly(2024, 5, 10), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -218,7 +219,7 @@ namespace Albatross.DateLevel.Test {
 					EndDate = new DateOnly(2024, 4, 30)
 				},
 			};
-			list.UpdateDateLevel(x => x.V1 = 999, new DateOnly(2024, 4, 30), new DateOnly(2024, 5, 10), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 = 999, new DateOnly(2024, 4, 30), new DateOnly(2024, 5, 10), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -254,7 +255,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_UpdateWithStartDateOnly() {
 			var list = BaseLine();
-			list.UpdateDateLevel(x => x.V1 += 1, new DateOnly(2024, 4, 15), null, false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 += 1, new DateOnly(2024, 4, 15), null, false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -298,7 +299,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_AllUserCase_1() {
 			var list = BaseLine();
-			list.UpdateDateLevel(x => x.V1 += 1, new DateOnly(2024, 4, 15), new DateOnly(2024, 5, 15), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 += 1, new DateOnly(2024, 4, 15), new DateOnly(2024, 5, 15), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);
@@ -347,7 +348,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_AllUserCase_2() {
 			var list = BaseLine();
-			list.UpdateDateLevel(x => x.V1 += 1, new DateOnly(2024, 4, 15), new DateOnly(2024, 7, 15), false);
+			list.UpdateDateLevel<MyDateLevelValue, int>(x => x.V1 += 1, new DateOnly(2024, 4, 15), new DateOnly(2024, 7, 15), false);
 			Assert.Collection(list.OrderBy(x => x.StartDate),
 				x => {
 					Assert.Equal(new DateOnly(2024, 4, 1), x.StartDate);

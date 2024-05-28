@@ -81,13 +81,16 @@ namespace Albatross.DateLevel.Test {
 			var result = list.GetOverlappedDateLevelEntities(1, new DateOnly(2022, 2, 21), new DateOnly(2022, 4, 30));
 			Assert.NotNull(result);
 			Assert.Collection(result, x => {
+				Assert.Equal(1, x.Key);
 				Assert.Equal(DateOnlyValues.Feb1_2022, x.StartDate);
 				Assert.Equal(DateOnlyValues.Feb28_2022, x.EndDate);
 			}, x => {
+				Assert.Equal(1, x.Key);
 				Assert.Equal(DateOnlyValues.Mar1_2022, x.StartDate);
-				Assert.Equal(new DateOnly(2024, 3, 15), x.EndDate);
+				Assert.Equal(new DateOnly(2022, 3, 15), x.EndDate);
 			}, x => {
-				Assert.Equal(new DateOnly(2024, 3, 17), x.StartDate);
+				Assert.Equal(1, x.Key);
+				Assert.Equal(new DateOnly(2022, 3, 16), x.StartDate);
 				Assert.Equal(DateOnlyValues.Mar31_2022, x.EndDate);	
 			});
 		}

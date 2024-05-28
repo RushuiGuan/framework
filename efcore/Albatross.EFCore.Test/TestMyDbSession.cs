@@ -32,22 +32,22 @@ namespace Albatross.EFCore.Test.MyNamespace {
 			using var scope = host.Create();
 			var session = scope.Get<SampleDbSession>();
 			var set = session.DbContext.Set<Market>();
-			var market = set
+			var market = await set
 				.Include(args => args.ContractSpec)
-				.Where(args => args.Name == marketName).FirstOrDefault();
+				.Where(args => args.Name == marketName).FirstOrDefaultAsync();
 			if (market == null) {
 				market = new Market(marketName);
 				set.Add(market);
 				await session.SaveChangesAsync();
 			}
 
-			DateTime startDate = new DateTime(1980, 1, 1);
+			DateOnly startDate = new DateOnly(1980, 1, 1);
 			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, startDate, 1));
-			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateTime(1980, 2, 1), 2));
-			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateTime(1980, 3, 1), 3));
-			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateTime(1980, 4, 1), 3));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateOnly(1980, 2, 1), 2));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateOnly(1980, 3, 1), 3));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateOnly(1980, 4, 1), 3));
 			await session.SaveChangesAsync();
-			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateTime(1980, 3, 1), 2));
+			market.ContractSpec.SetDateLevel<ContractSpec, int>(new ContractSpec(market.Id, new DateOnly(1980, 3, 1), 2));
 			await session.SaveChangesAsync();
 			market.ContractSpec.Clear();
 			await session.SaveChangesAsync();

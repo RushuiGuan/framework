@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Sample.EFCore.Models {
-	public class ContractSpec : DateTimeLevelEntity<int> {
+	public class ContractSpec : DateLevelEntity<int> {
 		public int Id { get; set; }
-		public ContractSpec(int marketId, DateTime startDate, decimal value) : base(startDate) {
+		public ContractSpec(int marketId, DateOnly startDate, decimal value) : base(startDate) {
 			this.MarketId = marketId;
 			this.Value = value;
 		}
@@ -20,12 +20,18 @@ namespace Sample.EFCore.Models {
 		public override int Key => MarketId;
 
 
-		public override bool HasSameValue(DateTimeLevelEntity src) {
+		public override bool HasSameValue(DateLevelEntity src) {
 			if (src is ContractSpec other) {
 				return other.Value == this.Value;
 			} else {
 				return false;
 			}
+		}
+
+		public override object Clone() {
+			return new ContractSpec(MarketId, StartDate, Value) {
+				EndDate = this.EndDate,
+			};
 		}
 	}
 	public class ContractSpecEntityMap : EntityMap<ContractSpec> {
