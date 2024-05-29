@@ -31,5 +31,20 @@ namespace Albatross.Reflection {
 			var body = Expression.Equal(Expression.PropertyOrField(parameter, propertyOrFieldName), Expression.Constant(value));
 			return Expression.Lambda<Func<T, bool>>(body, parameter);
 		}
+
+		public static T SetValueIfNotNull<T, V>(this T ob, Expression<Func<T, object>> lambda, V? value) where V:struct{
+			if (value.HasValue) {
+				PropertyInfo prop = lambda.GetPropertyInfo();
+				prop.SetValue(ob, value);
+			}
+			return ob;
+		}
+		public static T SetTextIfNotEmpty<T>(this T obj, Expression<Func<T, object>> lambda, string? value) {
+			if (!string.IsNullOrEmpty(value)) {
+				PropertyInfo prop = lambda.GetPropertyInfo();
+				prop.SetValue(obj, value);
+			}
+			return obj;
+		}
 	}
 }
