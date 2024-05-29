@@ -1,12 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace Albatross.Reflection {
 	public static class ExpressionExtensions {
 		public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, object>> lambda) {
+			MemberExpression? member = lambda.Body as MemberExpression;
+			if (member == null) {
+				throw new ArgumentException($"Expression '{lambda}' refers to a method.");
+			}
+
+			PropertyInfo? propInfo = member.Member as PropertyInfo;
+			if (propInfo == null) {
+				throw new ArgumentException($"Expression '{lambda}' refers to a field, not a property.");
+			}
+			return propInfo;
+		}
+
+		public static PropertyInfo GetPropertyInfo<T, V>(this Expression<Func<T, V>> lambda) {
 			MemberExpression? member = lambda.Body as MemberExpression;
 			if (member == null) {
 				throw new ArgumentException($"Expression '{lambda}' refers to a method.");
@@ -32,14 +43,14 @@ namespace Albatross.Reflection {
 			return Expression.Lambda<Func<T, bool>>(body, parameter);
 		}
 
-		public static T SetValueIfNotNull<T, V>(this T ob, Expression<Func<T, object>> lambda, V? value) where V:struct{
+		public static T SetValueIfNotNull<T, V>(this T ob, Expression<Func<T, V>> lambda, V? value) where V:struct{
 			if (value.HasValue) {
 				PropertyInfo prop = lambda.GetPropertyInfo();
 				prop.SetValue(ob, value);
 			}
 			return ob;
 		}
-		public static T SetTextIfNotEmpty<T>(this T obj, Expression<Func<T, object>> lambda, string? value) {
+		public static T SetTextIfNotEmpty<T>(this T obj, Expression<Func<T, string?>> lambda, string? value) {
 			if (!string.IsNullOrEmpty(value)) {
 				PropertyInfo prop = lambda.GetPropertyInfo();
 				prop.SetValue(obj, value);

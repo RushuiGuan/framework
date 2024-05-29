@@ -7,8 +7,8 @@ using Xunit;
 namespace Albatross.Reflection.Test {
 	public class ExpressionTest {
 		public class A {
-			public string? Test1 { get; }
-			public int Number { get; }
+			public string? Test1 { get; set; }
+			public int Number { get; set; }
 		}
 
 		public class B {
@@ -37,6 +37,32 @@ namespace Albatross.Reflection.Test {
 		public void TestCreatePredicate(string name, object? value, string expected) {
 			var expression = ExpressionExtensions.GetPredicate<A>(name, value);
 			Assert.Equal(expected, expression.Body.ToString());
+		}
+
+		[Fact]
+		public void TestSetValueIfNotNull() {
+			var a = new A();
+			a.SetValueIfNotNull(args => args.Number, null);
+			Assert.Equal(0, a.Number);
+
+			a.SetValueIfNotNull(args => args.Number, 1);
+			Assert.Equal(1, a.Number);
+
+			a.SetValueIfNotNull(args => args.Number, null);
+			Assert.Equal(1, a.Number);
+		}
+
+		[Fact]
+		public void TestSetTextIfNotNull() {
+			var a = new A();
+			a.SetTextIfNotEmpty(args => args.Test1, null);
+			Assert.True(string.IsNullOrEmpty(a.Test1));
+
+			a.SetTextIfNotEmpty(args => args.Test1, "abc");
+			Assert.Equal("abc", a.Test1);
+
+			a.SetTextIfNotEmpty(args => args.Test1, "");
+			Assert.Equal("abc", a.Test1);
 		}
 	}
 }
