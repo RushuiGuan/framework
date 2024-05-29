@@ -146,9 +146,8 @@ namespace Albatross.DateLevel {
 		/// <param name="start"></param>
 		/// <param name="endDate"></param>
 		/// <exception cref="ArgumentException"></exception>
-		public static void UpdateDateLevel<T,K>(this ICollection<T> collection, Action<T> modify, DateOnly start, DateOnly? endDate, bool rebuild = true) 
-			where T : DateLevelEntity<K>
-			where K:IEquatable<K>{
+		public static void UpdateDateLevel<T>(this ICollection<T> collection, Action<T> modify, DateOnly start, DateOnly? endDate, bool rebuild = true) 
+			where T : DateLevelEntity {
 			if (start > endDate) {
 				throw new ArgumentException("Start date cannot be greater than end date");
 			}
@@ -201,8 +200,23 @@ namespace Albatross.DateLevel {
 				}
 			}
 			if (rebuild) {
-				RebuildDateLevelSeries<T, K>(collection, args => collection.Remove(args));
+				RebuildDateLevelSeries(collection, args => collection.Remove(args));
 			}
+		}
+
+		/// <summary>
+		/// Provided a date level series data for a single entity, the method will remove the datelevel item with the specified startDate.
+		/// The method will always extend the end date of the previous record if it exists.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="set"></param>
+		/// <param name="startDate"></param>
+		/// <param name="remove"></param>
+		public static void DeleteDateLevel<T, K>(this IEnumerable<T> set, K key, DateOnly startDate, Action<T> remove)
+			where T : DateLevelEntity<K>
+			where K : IEquatable<K> {
+			set = set.Where(x => x.Key.Equals(key));
+			DeleteDateLevel<T>(set, startDate, remove);
 		}
 
 		/// <summary>
@@ -239,25 +253,31 @@ namespace Albatross.DateLevel {
 		public static void RebuildDateLevelSeries<T, K>(this IEnumerable<T> source, Action<T> remove)
 			where T : DateLevelEntity<K>
 			where K: IEquatable<K>{
-			var groups = source.GroupBy(x => x.Key).Select(x => x.OrderBy(x => x.StartDate)).ToArray();
+			var groups = source.GroupBy(x => x.Key);
 			foreach (var group in groups) {
-				T? current = null;
-				foreach (var item in group) {
-					if (current == null) {
-						current = item;
+				RebuildDateLevelSeries<T>(group, remove);
+			}
+		}
+
+		public static void RebuildDateLevelSeries<T>(this IEnumerable<T> source, Action<T> remove)
+			where T : DateLevelEntity {
+			var items = source.OrderBy(x => x.StartDate).ToArray();
+			T? current = null;
+			foreach (var item in items) {
+				if (current == null) {
+					current = item;
+				} else {
+					if (current.HasSameValue(item)) {
+						remove(item);
+						current.EndDate = item.EndDate;
 					} else {
-						if (current.HasSameValue(item)) {
-							remove(item);
-							current.EndDate = item.EndDate;
-						} else {
-							current.EndDate = item.StartDate.AddDays(-1);
-							current = item;
-						}
+						current.EndDate = item.StartDate.AddDays(-1);
+						current = item;
 					}
 				}
-				if (current != null) {
-					current.EndDate = DateLevelEntity.MaxEndDate;
-				}
+			}
+			if (current != null) {
+				current.EndDate = DateLevelEntity.MaxEndDate;
 			}
 		}
 
@@ -307,15 +327,30 @@ namespace Albatross.DateLevel {
 		public static IEnumerable<T> GetOverlappedDateLevelEntities<T, K>(this IEnumerable<T> source, K key, DateOnly start, DateOnly? end)
 			where T : DateLevelEntity<K>
 			where K : IEquatable<K> {
+			source = source.Where(x=> x.Key.Equals(key));
+			return GetOverlappedDateLevelEntities<T>(source, start, end);
+		}
+		/// <summary>
+		/// The method will find the date level entries in <paramref name="source"/> that overlap with the given date range.  If the end date is not specified, the method 
+		/// will find the next record in the series and set the end date to the day before its start date.  If the next record does not exist, the end date will be set to 
+		/// the max end date.  This method does not require a key, it assumes the supplied source only contains a single date level series.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="source"></param>
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <returns></returns>
+		public static IEnumerable<T> GetOverlappedDateLevelEntities<T>(this IEnumerable<T> source, DateOnly start, DateOnly? end)
+			where T : DateLevelEntity {
 			if (end == null) {
-				var nextStart = source.Where(x => x.Key.Equals(key) && x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
+				var nextStart = source.Where(x => x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
 				if (nextStart == null) {
 					end = DateLevelEntity.MaxEndDate;
 				} else {
 					end = nextStart.Value.AddDays(-1);
 				}
 			}
-			return source.Where(args => args.Key.Equals(key) && !(start > args.EndDate || end < args.StartDate));
+			return source.Where(args => !(start > args.EndDate || end < args.StartDate));
 		}
 	}
 }
