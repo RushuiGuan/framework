@@ -30,5 +30,5 @@ Scenario Outline: Add your numbers
 
 	Examples: 
 		| first | result |
-		| 1     | 1      |
+		| random int between 10 and 20     | 19      |
 		| 4     | 4      |

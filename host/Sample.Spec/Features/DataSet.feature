@@ -7,3 +7,4 @@ Scenario: Create a new dataset
 	Given a id of 10
 	When save the dataset
 	Then a new dataset is created with the id 10
+	Then wait 1 second(s)

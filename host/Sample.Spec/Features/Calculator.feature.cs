@@ -140,7 +140,7 @@ this.FeatureBackground();
         [Xunit.SkippableTheoryAttribute(DisplayName="Add your numbers")]
         [Xunit.TraitAttribute("FeatureTitle", "Calculator")]
         [Xunit.TraitAttribute("Description", "Add your numbers")]
-        [Xunit.InlineDataAttribute("1", "1", new string[0])]
+        [Xunit.InlineDataAttribute("random int between 10 and 20", "19", new string[0])]
         [Xunit.InlineDataAttribute("4", "4", new string[0])]
         public void AddYourNumbers(string first, string result, string[] exampleTags)
         {

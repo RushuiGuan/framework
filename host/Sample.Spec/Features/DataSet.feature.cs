@@ -109,6 +109,9 @@ this.ScenarioInitialize(scenarioInfo);
 #line 9
  testRunner.Then("a new dataset is created with the id 10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
+#line 10
+ testRunner.Then("wait 1 second(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
             }
             this.ScenarioCleanup();
         }
