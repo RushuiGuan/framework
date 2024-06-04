@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Albatross.Reflection {
 	public static class ExpressionExtensions {
@@ -56,6 +57,21 @@ namespace Albatross.Reflection {
 				prop.SetValue(obj, value);
 			}
 			return obj;
+		}
+
+		public static async Task SetValueIfHasKey<T, V, K>(this T ob, Expression<Func<T, V>> lambda, K? key, Func<K, Task<V>> func) where K : struct {
+			if (key.HasValue) {
+				var result = await func(key.Value);
+				PropertyInfo prop = lambda.GetPropertyInfo();
+				prop.SetValue(ob, result);
+			}
+		}
+		public static async Task SetValueIfHasKey<T, V>(this T ob, Expression<Func<T, V>> lambda, string? value, Func<string, Task<V>> func) {
+			if (!string.IsNullOrEmpty(value)) {
+				var result = await func(value);
+				PropertyInfo prop = lambda.GetPropertyInfo();
+				prop.SetValue(ob, result);
+			}
 		}
 	}
 }
