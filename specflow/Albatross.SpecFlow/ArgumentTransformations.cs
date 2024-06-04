@@ -13,12 +13,12 @@ namespace Albatross.SpecFlow {
 		[Then(@"wait (.*) second\(s\)")]
 		public Task ThenWaitSeconds(int seconds) => Task.Delay(seconds * 1000);
 
-		[StepArgumentTransformation(@"(with|without|should be|should not be)")]
+		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not)")]
 		public bool BooleanTransform(string value) {
-			return value == "with" || value == "should be";
+			return value == "with" || value == "should be" || value == "should";
 		}
 
-		[StepArgumentTransformation(@"random text")]
+		[StepArgumentTransformation(@"random")]
 		public string AutoText() => new Fixture().Create<string>();
 
 		[StepArgumentTransformation(@"random text with max length of (.*)")]
