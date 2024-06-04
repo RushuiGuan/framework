@@ -1,10 +1,8 @@
 ﻿using AutoFixture;
-using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
-namespace Albatross.SpecFlowPlugin {
+namespace Albatross.SpecFlow {
 	public class ArgumentTransformations {
 		protected readonly ScenarioContext scenario;
 
@@ -36,7 +34,7 @@ namespace Albatross.SpecFlowPlugin {
 				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
 			}
 		}
-		public T GetRequiredPropertyValue<T>(string key, string propertyName) {
+		public T? GetPropertyValue<T>(string key, string propertyName) {
 			if(scenario.TryGetValue(key, out var value)) {
 				var type = value.GetType();
 				var property = type.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty) ?? throw new ArgumentException($"Type {type.Name} doesn't have a public get property of name {propertyName}");

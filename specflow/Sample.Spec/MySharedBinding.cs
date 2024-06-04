@@ -1,4 +1,4 @@
-﻿using Albatross.SpecFlowPlugin;
+﻿using Albatross.SpecFlow;
 
 namespace Sample.Spec {
 	[Binding]
