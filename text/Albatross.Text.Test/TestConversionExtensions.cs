@@ -42,5 +42,18 @@ namespace Albatross.Text.Test {
 			var actual = text.Convert(type);
 			Assert.Equal(expected, actual);
 		}
+
+
+		[Fact]
+		public void TestEnumParsing() {
+			var value = Enum.Parse(typeof(DayOfWeek), "Monday");
+			Assert.Equal(DayOfWeek.Monday, value);
+			value = Enum.Parse(typeof(DayOfWeek), "monday", true);
+			Assert.Equal(DayOfWeek.Monday, value);
+
+			
+			var obj = "monday".Convert(typeof(DayOfWeek));
+			Assert.Equal(DayOfWeek.Monday, obj);
+		}
 	}
 }

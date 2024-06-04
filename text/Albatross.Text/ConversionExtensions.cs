@@ -14,6 +14,9 @@ namespace Albatross.Text {
 					return null;
 				}
 			}
+			if(type.IsEnum && Enum.TryParse(type, text, true, out var value)) {
+				return value;
+			}
 			switch (Type.GetTypeCode(type)) {
 				case TypeCode.Int32: return int.Parse(text);
 				case TypeCode.Int64: return long.Parse(text);
@@ -24,14 +27,12 @@ namespace Albatross.Text {
 				case TypeCode.Boolean: return bool.Parse(text);
 				case TypeCode.Char: return text[0];
 			};
-			if (type.IsEnum) {
-				return Enum.Parse(type, text, true);
+			if (type.GetNullableValueType(out var valueType)) {
+				return Convert(text, valueType);
 #if NET6_0_OR_GREATER
 			} else if (type == typeof(DateOnly)) {
 				return DateOnly.Parse(text);
 #endif
-			} else if (type.GetNullableValueType(out var valueType)) {
-				return Convert(text, valueType);
 			} else {
 				throw new NotSupportedException();
 			}
