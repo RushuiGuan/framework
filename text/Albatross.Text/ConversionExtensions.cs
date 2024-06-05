@@ -38,14 +38,17 @@ namespace Albatross.Text {
 			}
 		}
 
-		public static T Convert<T>(this IDictionary<string, string> dictionary) where T : new() {
-			var t = new T();
+		public static T Convert<T>(this IDictionary<string, string> dictionary) where T : new()
+			=> (T)Convert(dictionary, typeof(T));
+
+		public static object Convert(this IDictionary<string, string> dictionary, Type type) {
+			var obj = Activator.CreateInstance(type) ?? throw new ArgumentException($"Fail to create instance of type {type.FullName}");
 			foreach (var keyValuePair in dictionary) {
-				var propertyType = typeof(T).GetPropertyType(keyValuePair.Key, true);
+				var propertyType = type.GetPropertyType(keyValuePair.Key, true);
 				var value = keyValuePair.Value.Convert(propertyType);
-				typeof(T).SetPropertyValue(t, keyValuePair.Key, value, true);
+				type.SetPropertyValue(obj, keyValuePair.Key, value, true);
 			}
-			return t;
+			return obj;
 		}
 	}
 }
