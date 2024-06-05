@@ -47,5 +47,8 @@ namespace Albatross.SpecFlow {
 				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
 			}
 		}
+
+		[StepArgumentTransformation(@"today")]
+		public DateOnly Today() => DateOnly.FromDateTime(DateTime.Today);
 	}
 }
