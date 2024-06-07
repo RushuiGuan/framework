@@ -45,11 +45,13 @@ namespace Albatross.Text {
 			}
 		}
 
-		public static T Convert<T>(this IDictionary<string, string> dictionary) where T : new()
-			=> (T)Convert(dictionary, typeof(T));
+		public static T Convert<T>(this IDictionary<string, string> dictionary, Func<T> func) where T : notnull {
+			var obj = func();
+			Convert(dictionary, typeof(T), obj);
+			return obj;
+		}
 
-		public static object Convert(this IDictionary<string, string> dictionary, Type type) {
-			var obj = Activator.CreateInstance(type) ?? throw new ArgumentException($"Fail to create instance of type {type.FullName}");
+		public static object Convert(this IDictionary<string, string> dictionary, Type type, object obj) {
 			foreach (var keyValuePair in dictionary) {
 				var propertyType = type.GetPropertyType(keyValuePair.Key, true);
 				var value = keyValuePair.Value.Convert(propertyType);
