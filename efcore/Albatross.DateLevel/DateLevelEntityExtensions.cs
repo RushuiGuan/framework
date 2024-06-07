@@ -289,12 +289,8 @@ namespace Albatross.DateLevel {
 		/// <param name="source"></param>
 		/// <param name="startDate"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> GetDateLevelEntitiesByDate<T>(this IEnumerable<T> source, DateOnly effectiveDate)
-			where T : DateLevelEntity {
-			var items = source.Where(args => args.StartDate <= effectiveDate && args.EndDate >= effectiveDate).ToArray();
-			return items;
-		}
-
+		public static IEnumerable<T> Effective<T>(this IEnumerable<T> items, DateOnly effectiveDate) where T : IDateLevelEntity
+			=> items.Where(x => x.StartDate <= effectiveDate && x.EndDate >= effectiveDate);
 
 		/// <summary>
 		/// This method will return the date level entry with the key of <paramref name="key"/> and the effective date of 
@@ -341,7 +337,7 @@ namespace Albatross.DateLevel {
 		/// <param name="end"></param>
 		/// <returns></returns>
 		public static IEnumerable<T> GetOverlappedDateLevelEntities<T>(this IEnumerable<T> source, DateOnly start, DateOnly? end)
-			where T : DateLevelEntity {
+			where T : IDateLevelEntity {
 			if (end == null) {
 				var nextStart = source.Where(x => x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
 				if (nextStart == null) {

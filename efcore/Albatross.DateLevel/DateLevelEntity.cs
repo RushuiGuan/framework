@@ -1,7 +1,11 @@
 ﻿using System;
 
 namespace Albatross.DateLevel {
-	public abstract class DateLevelEntity : ICloneable {
+	public interface IDateLevelEntity {
+		DateOnly StartDate { get; set; }
+		DateOnly EndDate { get; set; }
+	}
+	public abstract class DateLevelEntity : ICloneable, IDateLevelEntity {
 		public DateOnly StartDate { get; set; }
 		public DateOnly EndDate { get; set; } = MaxEndDate;
 		public readonly static DateOnly MaxEndDate = DateOnly.MaxValue;

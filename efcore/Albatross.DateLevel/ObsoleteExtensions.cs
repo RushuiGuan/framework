@@ -12,9 +12,9 @@ namespace Albatross.DateLevel {
 		/// <param name="source"></param>
 		/// <param name="startDate"></param>
 		/// <returns></returns>
-		[Obsolete($"Use {nameof(DateLevelEntityExtensions.GetDateLevelEntitiesByDate)} instead")]
+		[Obsolete($"Use {nameof(DateLevelEntityExtensions.Effective)} instead")]
 		public static IEnumerable<T> GetDateLevelEntityByDate<T>(this IEnumerable<T> source, DateOnly effectiveDate) where T : DateLevelEntity
-			=> DateLevelEntityExtensions.GetDateLevelEntitiesByDate<T>(source, effectiveDate);
+			=> DateLevelEntityExtensions.Effective<T>(source, effectiveDate);
 
 		[Obsolete($"Use {nameof(DateLevelEntityExtensions.GetDateLevelEntityByDate)} instead")]
 		public static T? GetDateLevelItemByDate<T, K>(this IEnumerable<T> source, K key, DateOnly effectiveDate)
