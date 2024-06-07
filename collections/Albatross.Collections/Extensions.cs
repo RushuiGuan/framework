@@ -55,5 +55,26 @@ namespace Albatross.Collections {
 				return false;
 			}
 		}
+
+		/// <summary>
+		/// Remove items from the existing collection that have the same key as the new items, and then add the new items to the existing collection.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <typeparam name="K"></typeparam>
+		/// <param name="existingItems"></param>
+		/// <param name="newItems"></param>
+		/// <param name="getKey"></param>
+		public static void Replace<T, K>(this IList<T> existingItems, IEnumerable<T> newItems, Func<T, K> getKey) {
+			if (newItems.Any()) {
+				var keys = newItems.Select(getKey).ToHashSet();
+				for(int i = existingItems.Count - 1; i >= 0; i--) {
+					var item = existingItems.ElementAt(i);
+					if (keys.Contains(getKey(item))) {
+						existingItems.RemoveAt(i);
+					}
+				}
+				existingItems.AddRange(newItems);
+			}
+		}
 	}
 }
