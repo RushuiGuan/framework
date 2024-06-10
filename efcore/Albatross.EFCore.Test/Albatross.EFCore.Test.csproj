@@ -37,7 +37,6 @@
 		<ProjectReference Include="..\..\hosting\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj" />
-		<ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
 		<ProjectReference Include="..\Sample.EFCore\Sample.EFCore.csproj" />
