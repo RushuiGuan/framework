@@ -2,36 +2,14 @@
 using System;
 
 namespace Albatross.Dates {
-	public static class Dates {
-		public static DateOnly ToDateOnly(this DateTime? dateTime, DateOnly fallbackValue) {
-			if(dateTime.HasValue) {
-				return DateOnly.FromDateTime(dateTime.Value);
-			} else {
-				return fallbackValue;
-			}
-		}
-		public static DateOnly? ToDateOnly(this DateTime? dateTime){
-			if(dateTime.HasValue) {
-				return DateOnly.FromDateTime(dateTime.Value);
-			} else {
-				return null;
-			}
-		}
-		public static DateTime? ToDateTime(this DateOnly? date) {
-			if (date.HasValue) {
-				return date.Value.ToDateTime(TimeOnly.MinValue);
-			} else {
-				return null;
-			}
-		}
-		public static DateTime ToDateTime(this DateOnly? date, DateTime fallbackValue) {
-			if (date.HasValue) {
-				return date.Value.ToDateTime(TimeOnly.MinValue);
-			} else {
-				return fallbackValue;
-			}
-		}
-		public static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
+	public static class DateOnlyExtensions {
+		public static DateOnly DateOnly(this DateTime dateTime) => System.DateOnly.FromDateTime(dateTime);
+		public static DateOnly DateOnly(this DateTimeOffset dateTimeOffset) => System.DateOnly.FromDateTime(dateTimeOffset.Date);
+		public static DateTime DateTime(this DateOnly date) => date.ToDateTime(TimeOnly.MinValue);
+
+		public static DateOnly? DateOnly(this DateTime? dateTime) => dateTime.HasValue ? dateTime.Value.DateOnly() : null;
+		public static DateOnly? DateOnly(this DateTimeOffset? dateTimeOffset) => dateTimeOffset.HasValue ? dateTimeOffset.Value.DateOnly() : null;
+		public static DateTime? DateTime(this DateOnly? date) => date.HasValue ? date.DateTime() : null;
 	}
 }
 #endif
