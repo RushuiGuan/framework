@@ -34,13 +34,13 @@ namespace Albatross.DateLevel {
 			where T : DateLevelEntity<K> {
 			if (insert) {
 				// when insert flag is true and EndDate is MaxEndDate, the code below will try to auto determine the correct end date of the new record
-				if (src.EndDate == DateLevelEntity.MaxEndDate) {
+				if (src.EndDate == IDateLevelEntity.MaxEndDate) {
 					// assuming that date leve series are correct, find the next record of the series
 					var after = collection.Where(args => args.Key.Equals(src.Key) && args.StartDate >= src.StartDate)
 						.OrderBy(args => args.StartDate).FirstOrDefault();
 					// if not found, the new record will be inserted as the last record and its end date will be set to max
 					if (after == null) {
-						src.EndDate = DateLevelEntity.MaxEndDate;
+						src.EndDate = IDateLevelEntity.MaxEndDate;
 						collection.Add(src);
 					} else {
 						var changed = !after.HasSameValue(src);
@@ -108,7 +108,7 @@ namespace Albatross.DateLevel {
 				foreach (var item in items) {
 					if (!hasExisting && item.HasSameValue(src)) {
 						hasExisting = true;
-						item.EndDate = DateLevelEntity.MaxEndDate;
+						item.EndDate = IDateLevelEntity.MaxEndDate;
 						item.StartDate = src.StartDate;
 						src = item;
 					} else {
@@ -116,7 +116,7 @@ namespace Albatross.DateLevel {
 					}
 				}
 				if (!hasExisting) {
-					src.EndDate = DateLevelEntity.MaxEndDate;
+					src.EndDate = IDateLevelEntity.MaxEndDate;
 					collection.Add(src);
 				}
 			}
@@ -155,7 +155,7 @@ namespace Albatross.DateLevel {
 			if (endDate == null) {
 				var nextStart = collection.Where(x => x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
 				if (nextStart == null) {
-					end = DateLevelEntity.MaxEndDate;
+					end = IDateLevelEntity.MaxEndDate;
 				} else {
 					end = nextStart.Value.AddDays(-1);
 				}
@@ -277,7 +277,7 @@ namespace Albatross.DateLevel {
 				}
 			}
 			if (current != null) {
-				current.EndDate = DateLevelEntity.MaxEndDate;
+				current.EndDate = IDateLevelEntity.MaxEndDate;
 			}
 		}
 
@@ -341,7 +341,7 @@ namespace Albatross.DateLevel {
 			if (end == null) {
 				var nextStart = source.Where(x => x.StartDate > start).Min<T, DateOnly?>(x => x.StartDate);
 				if (nextStart == null) {
-					end = DateLevelEntity.MaxEndDate;
+					end = IDateLevelEntity.MaxEndDate;
 				} else {
 					end = nextStart.Value.AddDays(-1);
 				}

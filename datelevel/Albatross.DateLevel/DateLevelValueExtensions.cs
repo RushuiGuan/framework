@@ -9,7 +9,7 @@ namespace Albatross.DateLevel {
 					return value.Value;
 				}
 			}
-			throw new InvalidOperationException($"No value found effective {date:yyyy-MM-dd}");
+			throw new InvalidOperationException($"No value is found effective on{date:yyyy-MM-dd}");
 		}
 	}
 }

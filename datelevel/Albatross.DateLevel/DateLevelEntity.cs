@@ -2,13 +2,13 @@
 
 namespace Albatross.DateLevel {
 	public interface IDateLevelEntity {
+		public readonly static DateOnly MaxEndDate = DateOnly.MaxValue;
 		DateOnly StartDate { get; }
 		DateOnly EndDate { get; }
 	}
 	public abstract class DateLevelEntity : ICloneable, IDateLevelEntity {
 		public DateOnly StartDate { get; set; }
-		public DateOnly EndDate { get; set; } = MaxEndDate;
-		public readonly static DateOnly MaxEndDate = DateOnly.MaxValue;
+		public DateOnly EndDate { get; set; } = IDateLevelEntity.MaxEndDate;
 
 		/// <summary>
 		/// Returns true if the object are the same with the exception of the start and end date
