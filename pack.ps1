@@ -28,7 +28,7 @@ $projects = @(
 	"collections\Albatross.Collections",
 	"config\Albatross.Config",
 	"dates\Albatross.Dates",
-	"efcore\Albatross.DateLevel",
+	"datelevel\Albatross.DateLevel",
 	"efcore\Albatross.EFCore",
 	"efcore\Albatross.EFCore.Audit",
 	"efcore\Albatross.EFCore.ChangeReporting",
