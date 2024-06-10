@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\caching\Albatross.Caching\Albatross.Caching.csproj" />
 		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
-		<ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
+		<ProjectReference Include="..\..\datelevel\Albatross.DateLevel\Albatross.DateLevel.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
 	</ItemGroup>

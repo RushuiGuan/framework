@@ -1,6 +1,6 @@
 ﻿using Albatross.DateLevel;
 using Albatross.Hosting.Test;
-using Sample.EFCore.Models;
+using Albatross.DateLevel.Test;
 using System;
 using System.Collections.Generic;
 using System.Linq;

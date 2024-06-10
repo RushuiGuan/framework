@@ -2,8 +2,8 @@
 
 namespace Albatross.DateLevel {
 	public interface IDateLevelEntity {
-		DateOnly StartDate { get; set; }
-		DateOnly EndDate { get; set; }
+		DateOnly StartDate { get; }
+		DateOnly EndDate { get; }
 	}
 	public abstract class DateLevelEntity : ICloneable, IDateLevelEntity {
 		public DateOnly StartDate { get; set; }
@@ -24,7 +24,11 @@ namespace Albatross.DateLevel {
 		}
 	}
 
-	public abstract class DateLevelEntity<K> : DateLevelEntity where K : IEquatable<K> {
+	public interface IDateLevelEntity<K> : IDateLevelEntity where K : IEquatable<K> {
+		public abstract K Key { get; }
+	}
+
+	public abstract class DateLevelEntity<K> : DateLevelEntity, IDateLevelEntity<K> where K : IEquatable<K> {
 		public abstract K Key { get; }
 		public DateLevelEntity(DateOnly startDate) : base(startDate) { }
 	}

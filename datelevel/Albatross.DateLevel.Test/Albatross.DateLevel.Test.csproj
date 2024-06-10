@@ -15,7 +15,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\hosting\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
 	  <ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
-	  <ProjectReference Include="..\Albatross.EFCore\Albatross.EFCore.csproj" />
-	  <ProjectReference Include="..\Sample.EFCore\Sample.EFCore.csproj" />
 	</ItemGroup>
 </Project>
