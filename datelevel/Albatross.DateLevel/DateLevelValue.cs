@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Albatross.DateLevel {
 	public record class DateLevelValue<T> : IDateLevelEntity {
