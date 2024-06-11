@@ -282,31 +282,31 @@ namespace Albatross.DateLevel {
 		}
 
 		/// <summary>
-		/// The method will return the date level entries with the effective date of <paramref name="effectiveDate"/> in <paramref name="source"/>.  
+		/// The method will return the date level entries with the effective date of <paramref name="date"/> in <paramref name="source"/>.  
 		/// The method could return multiple entries since the date level entity key is not specified.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="source"></param>
 		/// <param name="startDate"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> Effective<T>(this IEnumerable<T> items, DateOnly effectiveDate) where T : IDateLevelEntity
-			=> items.Where(x => x.StartDate <= effectiveDate && x.EndDate >= effectiveDate);
+		public static IEnumerable<T> Effective<T>(this IEnumerable<T> items, DateOnly date) where T : IDateLevelEntity
+			=> items.Where(x => x.StartDate <= date && x.EndDate >= date);
 
 		/// <summary>
 		/// This method will return the date level entry with the key of <paramref name="key"/> and the effective date of 
-		/// <paramref name="effectiveDate"/>.  The method will return null if the entry is not found.
+		/// <paramref name="date"/>.  The method will return null if the entry is not found.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <typeparam name="K"></typeparam>
-		/// <param name="source"></param>
+		/// <param name="items"></param>
 		/// <param name="key"></param>
-		/// <param name="effectiveDate"></param>
+		/// <param name="date"></param>
 		/// <returns></returns>
-		public static T? GetDateLevelEntityByDate<T, K>(this IEnumerable<T> source, K key, DateOnly effectiveDate)
+		public static T? Effective<T, K>(this IEnumerable<T> items, K key, DateOnly date)
 			where T : IDateLevelEntity<K> where K : IEquatable<K> {
-			var item = source.Where(args => args.Key.Equals(key)
-				&& args.StartDate <= effectiveDate
-				&& args.EndDate >= effectiveDate).FirstOrDefault();
+			var item = items.Where(args => args.Key.Equals(key)
+				&& args.StartDate <= date
+				&& args.EndDate >= date).FirstOrDefault();
 			return item;
 		}
 

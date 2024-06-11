@@ -23,7 +23,7 @@ namespace Albatross.DateLevel.Test {
 			Assert.Collection(list, args=> {
 				Assert.Equal(1, args.Key);
 				Assert.Equal(DateOnlyValues.Jan1_2022, args.StartDate);
-				Assert.Equal(DateLevelEntity.MaxEndDate, args.EndDate);
+				Assert.Equal(IDateLevelEntity.MaxEndDate, args.EndDate);
 			});
 		}
 		[Fact]
@@ -43,17 +43,17 @@ namespace Albatross.DateLevel.Test {
 			Assert.Collection(list, args => {
 				Assert.Equal(0, args.Key);
 				Assert.Equal(DateOnlyValues.Jan1_2022, args.StartDate);
-				Assert.Equal(DateLevelEntity.MaxEndDate, args.EndDate);
+				Assert.Equal(IDateLevelEntity.MaxEndDate, args.EndDate);
 			},
 			args => {
 				Assert.Equal(1, args.Key);
 				Assert.Equal(DateOnlyValues.Jan1_2022, args.StartDate);
-				Assert.Equal(DateLevelEntity.MaxEndDate, args.EndDate);
+				Assert.Equal(IDateLevelEntity.MaxEndDate, args.EndDate);
 			},
 			args => {
 				Assert.Equal(2, args.Key);
 				Assert.Equal(DateOnlyValues.Jan1_2022, args.StartDate);
-				Assert.Equal(DateLevelEntity.MaxEndDate, args.EndDate);
+				Assert.Equal(IDateLevelEntity.MaxEndDate, args.EndDate);
 			});
 		}
 		[Fact]

@@ -52,7 +52,7 @@ namespace Albatross.DateLevel.Test {
 			Assert.NotNull(result);
 			Assert.Single(result);
 			Assert.Equal(DateOnlyValues.Apr1_2022, result.First().StartDate);
-			Assert.Equal(DateLevelEntity.MaxEndDate, result.First().EndDate);
+			Assert.Equal(IDateLevelEntity.MaxEndDate, result.First().EndDate);
 		}
 
 		[Fact]
@@ -79,7 +79,7 @@ namespace Albatross.DateLevel.Test {
 			Assert.Equal(DateOnlyValues.Apr30_2022, result.First().EndDate);
 			Assert.Equal(1, result.First().Key);
 			Assert.Equal(DateOnlyValues.Apr1_2022, result.ElementAt(1).StartDate);
-			Assert.Equal(DateLevelEntity.MaxEndDate, result.ElementAt(1).EndDate);
+			Assert.Equal(IDateLevelEntity.MaxEndDate, result.ElementAt(1).EndDate);
 			Assert.Equal(2, result.ElementAt(1).Key);
 		}
 	}

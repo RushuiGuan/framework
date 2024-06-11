@@ -16,9 +16,9 @@ namespace Albatross.DateLevel {
 		public static IEnumerable<T> GetDateLevelEntityByDate<T>(this IEnumerable<T> source, DateOnly effectiveDate) where T : DateLevelEntity
 			=> DateLevelEntityExtensions.Effective<T>(source, effectiveDate);
 
-		[Obsolete($"Use {nameof(DateLevelEntityExtensions.GetDateLevelEntityByDate)} instead")]
+		[Obsolete($"Use {nameof(DateLevelEntityExtensions.Effective)} instead")]
 		public static T? GetDateLevelItemByDate<T, K>(this IEnumerable<T> source, K key, DateOnly effectiveDate)
-			where T : DateLevelEntity<K> where K : IEquatable<K> => DateLevelEntityExtensions.GetDateLevelEntityByDate<T, K>(source, key, effectiveDate);
+			where T : DateLevelEntity<K> where K : IEquatable<K> => DateLevelEntityExtensions.Effective<T, K>(source, key, effectiveDate);
 
 		/// <summary>
 		/// Provided a date level series and a date range, this method will search and return items
