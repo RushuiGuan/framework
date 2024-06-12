@@ -129,9 +129,6 @@ namespace Albatross.Dates {
 			return date.AddDays(diff + (n - 1) * 7);
 		}
 
-		public static int GetMonthDiff(this DateOnly date1, DateOnly date2)
-			=> ((date2.Year - date1.Year) * 12) + date2.Month - date1.Month;
-
 		public static int GetNumberOfWeekdays(this DateOnly d1, DateOnly d2) {
 			DateOnly startDate, endDate;
 			if (d1 < d2) {

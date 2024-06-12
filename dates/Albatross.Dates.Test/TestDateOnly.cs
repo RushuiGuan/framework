@@ -170,18 +170,6 @@ namespace Albatross.Dates.Test {
 		}
 
 		[Theory]
-		[InlineData("2023-01-01", "2023-01-31", 0)]
-		[InlineData("2023-01-01", "2023-02-01", 1)]
-		[InlineData("2023-02-01", "2023-03-20", 1)]
-		[InlineData("2023-02-01", "2023-01-20", -1)]
-		[InlineData("2020-12-01", "2021-1-20", 1)]
-		[InlineData("2021-01-01", "2020-12-20", -1)]
-		public void TestGetMonthDiff(string date1Text, string date2Text, int expectedResult) {
-			var result = DateOnly.Parse(date1Text).GetMonthDiff(DateOnly.Parse(date2Text));
-			Assert.Equal(expectedResult, result);
-		}
-
-		[Theory]
 		[InlineData("2024-01-01", "2024-01-01", 1)]
 		[InlineData("2024-01-01", "2024-01-02", 2)]
 		[InlineData("2024-01-02", "2024-01-01", 2)]
