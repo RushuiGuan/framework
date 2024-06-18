@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sample.Messaging.Commands.Test {
-	public class TestCommand {
+	public class TestCommand : IMyCommand{
+	}
+
+	public record class MyTestCommand : IMyCommand {
 	}
 }
