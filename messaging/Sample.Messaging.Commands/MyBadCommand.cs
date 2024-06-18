@@ -1,5 +1,7 @@
-﻿namespace Sample.Messaging.Commands {
-	public class MyBadCommand {
+﻿using Sample.Messaging.Commands.Test;
+
+namespace Sample.Messaging.Commands {
+	public class MyBadCommand: IMyCommand {
 		public string Name { get; set; }
 		public string Description { get; set; }
 
