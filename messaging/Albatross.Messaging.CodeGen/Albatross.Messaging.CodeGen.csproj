@@ -20,4 +20,11 @@
 	    <PackagePath>\</PackagePath>
 	  </None>
 	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="$(OutputPath)\Albatross.Messaging.CodeGen.dll">
+			<Pack>true</Pack>
+			<PackagePath>analyzers/dotnet/cs</PackagePath>
+		</None>
+	</ItemGroup>
 </Project>
