@@ -45,6 +45,7 @@ $projects = @(
 	"logging\Albatross.Logging",
 	"math\Albatross.Math",
 	"messaging\Albatross.Messaging",
+	"messaging\Albatross.Messaging.CodeGen",
 	"reflection\Albatross.Reflection",
 	"serialization\Albatross.Serialization",
 	"text\Albatross.Text",
