@@ -129,6 +129,13 @@ namespace Albatross.Dates {
 			return date.AddDays(diff + (n - 1) * 7);
 		}
 
+		/// <summary>
+		/// Return the difference in total month number between two dates.  The difference between 2022-01-31 and 2022-02-01 is 1
+		/// even through they are only 1 day apart
+		/// </summary>
+		/// <param name="date1"></param>
+		/// <param name="date2"></param>
+		/// <returns></returns>
 		public static int GetMonthDiff(this DateOnly date1, DateOnly date2)
 			=> ((date2.Year - date1.Year) * 12) + date2.Month - date1.Month;
 
