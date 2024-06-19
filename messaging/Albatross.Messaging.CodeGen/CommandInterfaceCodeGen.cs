@@ -12,54 +12,61 @@ namespace Albatross.Messaging.CodeGen {
 			// System.Diagnostics.Debugger.Launch();
 			var compilation = context.Compilation;
 
-			INamedTypeSymbol? found = null;
+			List<INamedTypeSymbol> cadidates = new List<INamedTypeSymbol>();
 
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
 				var interfaceWalker = new CommandInterfaceDeclarationWalker(semanticModel);
 				interfaceWalker.Visit(syntaxTree.GetRoot());
-
-				found = interfaceWalker.Result.FirstOrDefault();
-				if (found != null) {
-					break;
-				}
+				cadidates.AddRange(interfaceWalker.Result);
 			}
-			if (found == null) {
+			if (!cadidates.Any()) {
 				string text = $"Please provide an interface with the partial modifier, without any members and with a name that matches the following regex: ^I[a-zA-Z0-9_]*Command$";
 				var descriptor = new DiagnosticDescriptor("CmdInterfaceCodeGen01", "Command Interface CodeGen", text, "Generator", DiagnosticSeverity.Warning, true);
-				var warning = Diagnostic.Create(descriptor, Location.None);
-				context.ReportDiagnostic(warning);
+				context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
 			} else {
-				var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(found.ContainingNamespace.ToDisplayString())).NormalizeWhitespace();
+				foreach (var candidate in cadidates) {
+					var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(candidate.ContainingNamespace.ToDisplayString())).NormalizeWhitespace();
 
-				var usings = new HashSet<string> { "System", "System.Text.Json.Serialization" };
-				var declaration = SyntaxFactory.InterfaceDeclaration(found.Name)
-					.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-					.AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
-				foreach (var syntaxTree in compilation.SyntaxTrees) {
-					var semanticModel = compilation.GetSemanticModel(syntaxTree);
-					var classWalker = new CommandInterfaceImplementationWalker(semanticModel, found.Name);
-					classWalker.Visit(syntaxTree.GetRoot());
+					var usings = new HashSet<string> { "System", "System.Text.Json.Serialization" };
+					var declaration = SyntaxFactory.InterfaceDeclaration(candidate.Name)
+						.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+						.AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
+					
+					var typeDiscriminators = new List<string>();
+
+					foreach (var syntaxTree in compilation.SyntaxTrees) {
+						var semanticModel = compilation.GetSemanticModel(syntaxTree);
+						var classWalker = new CommandInterfaceImplementationWalker(semanticModel, candidate.Name);
+						classWalker.Visit(syntaxTree.GetRoot());
 
 
-					foreach (var item in classWalker.Results) {
-						usings.Add(item.ContainingNamespace.ToDisplayString());
-						var firstArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.TypeOfExpression(SyntaxFactory.ParseTypeName(item.Name)));
-						var secondArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(item.Name)));
-						var attributeArgumentList = SyntaxFactory.AttributeArgumentList(SyntaxFactory.SeparatedList(new[] { firstArgument, secondArgument }));
-						var generatedCodeAttribute = SyntaxFactory.Attribute(SyntaxFactory.ParseName("JsonDerivedType"), attributeArgumentList);
-						var attributeList = SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(generatedCodeAttribute));
-						declaration = declaration.AddAttributeLists(attributeList);
+						foreach (var item in classWalker.Results) {
+							if (!typeDiscriminators.Contains(item.Name)) {
+								typeDiscriminators.Add(item.Name);
+								usings.Add(item.ContainingNamespace.ToDisplayString());
+								var firstArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.TypeOfExpression(SyntaxFactory.ParseTypeName(item.Name)));
+								var secondArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(item.Name)));
+								var attributeArgumentList = SyntaxFactory.AttributeArgumentList(SyntaxFactory.SeparatedList(new[] { firstArgument, secondArgument }));
+								var generatedCodeAttribute = SyntaxFactory.Attribute(SyntaxFactory.ParseName("JsonDerivedType"), attributeArgumentList);
+								var attributeList = SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(generatedCodeAttribute));
+								declaration = declaration.AddAttributeLists(attributeList);
+							} else {
+								string text = $"Interface {candidate.Name} has two class implementations of the same name {item.Name}";
+								var descriptor = new DiagnosticDescriptor("CmdInterfaceCodeGen02", "Command Interface CodeGen", text, "Generator", DiagnosticSeverity.Error, true);
+								context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
+							}
+						}
 					}
+					var compilationUnit = SyntaxFactory.CompilationUnit();
+					foreach (var item in usings) {
+						compilationUnit = compilationUnit.AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(item)));
+					}
+					@namespace = @namespace.AddMembers(declaration);
+					compilationUnit = compilationUnit.AddMembers(@namespace);
+					var code = compilationUnit.NormalizeWhitespace().ToFullString();
+					context.AddSource(candidate.Name, SourceText.From(code, Encoding.UTF8));
 				}
-				var compilationUnit = SyntaxFactory.CompilationUnit();
-				foreach (var item in usings) {
-					compilationUnit = compilationUnit.AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(item)));
-				}
-				@namespace = @namespace.AddMembers(declaration);
-				compilationUnit = compilationUnit.AddMembers(@namespace);
-				var code = compilationUnit.NormalizeWhitespace().ToFullString();
-				context.AddSource(found.Name, SourceText.From(code, Encoding.UTF8));
 			}
 		}
 

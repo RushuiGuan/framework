@@ -27,7 +27,7 @@ namespace Albatross.Messaging.CodeGen {
 
 		void Find(SyntaxNode node) {
 			var symbol = semanticModel.GetDeclaredSymbol(node) as INamedTypeSymbol;
-			if (symbol != null && symbol.AllInterfaces.Any(x => x.Name == interfaceName)) {
+			if (symbol != null && !symbol.IsAbstract && symbol.AllInterfaces.Any(x => x.Name == interfaceName)) {
 				Results.Add(symbol);
 			}
 		}

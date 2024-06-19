@@ -8,6 +8,7 @@ namespace Sample.Messaging.Commands.Test {
 	public class TestCommand : IMyCommand{
 	}
 
-	public record class MyTest1Command : IMyCommand {
+	public record class YourTest1Command : IYourCommand {
+		public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 	}
 }
