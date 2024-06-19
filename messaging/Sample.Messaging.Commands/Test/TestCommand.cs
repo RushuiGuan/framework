@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sample.Messaging.Commands.Test;
 
 namespace Sample.Messaging.Commands.Test {
 	public class TestCommand : IMyCommand{
 	}
 
 	public record class YourTest1Command : IYourCommand {
-		public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+	}
+}
+
+
+namespace Sample.Messaging.Commands.Test2 {
+	public record class YourTest1Command : IYourCommand {
 	}
 }
