@@ -1,6 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace Albatross.Messaging.CodeGen {
 				}
 			}
 			if (found == null) {
-				string text = $"Please provide an interface with partial modifier that matches the following regex: ^I[a-zA-Z0-9_]*Command$";
+				string text = $"Please provide an interface with the partial modifier, without any members and with a name that matches the following regex: ^I[a-zA-Z0-9_]*Command$";
 				var descriptor = new DiagnosticDescriptor("CmdInterfaceCodeGen01", "Command Interface CodeGen", text, "Generator", DiagnosticSeverity.Warning, true);
 				var warning = Diagnostic.Create(descriptor, Location.None);
 				context.ReportDiagnostic(warning);
@@ -37,7 +36,6 @@ namespace Albatross.Messaging.CodeGen {
 				var declaration = SyntaxFactory.InterfaceDeclaration(found.Name)
 					.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
 					.AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
-				int counter = 1;
 				foreach (var syntaxTree in compilation.SyntaxTrees) {
 					var semanticModel = compilation.GetSemanticModel(syntaxTree);
 					var classWalker = new CommandInterfaceImplementationWalker(semanticModel, found.Name);
@@ -47,12 +45,11 @@ namespace Albatross.Messaging.CodeGen {
 					foreach (var item in classWalker.Results) {
 						usings.Add(item.ContainingNamespace.ToDisplayString());
 						var firstArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.TypeOfExpression(SyntaxFactory.ParseTypeName(item.Name)));
-						var secondArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(counter)));
+						var secondArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(item.Name)));
 						var attributeArgumentList = SyntaxFactory.AttributeArgumentList(SyntaxFactory.SeparatedList(new[] { firstArgument, secondArgument }));
 						var generatedCodeAttribute = SyntaxFactory.Attribute(SyntaxFactory.ParseName("JsonDerivedType"), attributeArgumentList);
 						var attributeList = SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(generatedCodeAttribute));
 						declaration = declaration.AddAttributeLists(attributeList);
-						counter++;
 					}
 				}
 				var compilationUnit = SyntaxFactory.CompilationUnit();

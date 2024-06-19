@@ -8,6 +8,6 @@ namespace Sample.Messaging.Commands.Test {
 	public class TestCommand : IMyCommand{
 	}
 
-	public record class MyTestCommand : IMyCommand {
+	public record class MyTest1Command : IMyCommand {
 	}
 }

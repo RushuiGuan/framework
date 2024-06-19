@@ -26,9 +26,10 @@ public class MyCommand : IMyCommand
 The code generator will create a partial interface of the same name and add the following attribute to the interface:
 
 ```csharp
-[JsonDerivedType(typeof(MyCommand))]
+[JsonDerivedType(typeof(MyCommand), "MyCommand")]
 public partial interface IMyCommand
 {}
 ```
 
-This allows the proper json serialization of the interface IMyCommand
+This allows the proper json serialization of the interface IMyCommand.  Note that the type discriminator is the name of the class without the namespace.
+```

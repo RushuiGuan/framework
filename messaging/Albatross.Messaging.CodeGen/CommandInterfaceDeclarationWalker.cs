@@ -17,7 +17,7 @@ namespace Albatross.Messaging.CodeGen {
 		public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node) {
 			if(node.Modifiers.Any(SyntaxKind.PartialKeyword)) {
 				var interfaceSymbol = semanticModel.GetDeclaredSymbol(node) as INamedTypeSymbol;
-				if (interfaceSymbol != null && regex.IsMatch(interfaceSymbol.Name)) {
+				if (interfaceSymbol != null && regex.IsMatch(interfaceSymbol.Name) && interfaceSymbol.GetMembers().IsEmpty) {
 					Result.Add(interfaceSymbol);
 				}
 			}
