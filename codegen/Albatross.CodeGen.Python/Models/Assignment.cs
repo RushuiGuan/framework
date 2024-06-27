@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class Assignment : CompositeModuleCodeElement {
+	public class Assignment : ICodeElement {
 		public Assignment(string name, IModuleCodeElement expression) : base(string.Empty, string.Empty) {
 			this.Variable = new Variable(name);
 			Expression = expression;

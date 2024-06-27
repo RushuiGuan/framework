@@ -4,8 +4,8 @@ using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.WebClient {
 	public interface IConvertDtoToTypeScriptInterface {
@@ -30,11 +30,17 @@ namespace Albatross.CodeGen.WebClient {
 			this.convertEnum = convertEnum;
 		}
 
-		bool IsValidDtoType(Type type, Func<Type, bool> predicate) => 
-			!type.IsAnonymousType() && !type.IsInterface && type.IsPublic
-			&& !type.IsEnum && !(type.IsAbstract && type.IsSealed) 
-			&& !type.IsDerived<Attribute>() && !type.IsDerived<Exception>()
-			&& predicate(type);
+		bool IsValidDtoType(Type type, Func<Type, bool> predicate) =>  
+			!type.IsAnonymousType() 
+				&& !type.IsInterface 
+				&& type.IsPublic 
+				&& !type.IsEnum 
+				&& !(type.IsAbstract && type.IsSealed) 
+				&& !type.IsDerived<Attribute>() 
+				&& !type.IsDerived<Exception>()
+				&& !type.IsDerived<JsonConverter>()
+				&& !type.IsDerived(typeof(JsonConverter<>))
+				&& predicate(type);
 
 		public void ConvertClasses(TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies, 
 			Func<Type, bool>? isValidType, params Assembly[] assemblies) {

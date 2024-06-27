@@ -68,10 +68,13 @@ namespace Albatross.Text {
 		/// String.Join for TextWriter
 		/// </summary>
 		/// <returns>Current text writer</returns>
-		public static TextWriter WriteItems<T>(this TextWriter writer, IEnumerable<T> items, string delimiter, Action<TextWriter, T>? action = null) {
+		public static TextWriter WriteItems<T>(this TextWriter writer, IEnumerable<T?> items, string delimiter, Action<TextWriter, T>? action = null, string? prefix = null, string? postfix = null) {
 			int count = 0, total = items.Count();
 			foreach (var item in items) {
 				if (item != null) {
+					if(prefix != null && count == 0) {
+						writer.Append(prefix);
+					}
 					if (action == null) {
 						writer.Append(item);
 					} else {
@@ -80,6 +83,8 @@ namespace Albatross.Text {
 					count++;
 					if (count != total) {
 						writer.Append(delimiter);
+					}else if(postfix != null) {
+						writer.Append(postfix);
 					}
 				} else {
 					total--;

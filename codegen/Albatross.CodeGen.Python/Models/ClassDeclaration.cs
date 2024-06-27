@@ -6,9 +6,10 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class ClassDeclaration : CompositeModuleCodeElement, IComparable<ClassDeclaration> {
-		public ClassDeclaration(string name) : base(name, string.Empty) { }
-		public ClassDeclaration(string name, string module) : base(name, module) { }
+	public class ClassDeclaration : ICodeElement, IComparable<ClassDeclaration> {
+		public ClassDeclaration(string name) {
+			Name = name;
+		}
 
 		public bool UseDataClass { get; set; }
 		
@@ -37,6 +38,8 @@ namespace Albatross.CodeGen.Python.Models {
 		public ClassDeclaration AddDecorator(Decorator decorator) => (ClassDeclaration)AddCodeElement(decorator, nameof(Decorators));
 		public ClassDeclaration RemoveDecorator(Decorator decorator) => (ClassDeclaration)RemoveCodeElement(decorator, nameof(Decorators));
 		public bool IsEnum => BaseClass.Any(x => x.Name == My.Classes.EnumName);
+
+		public string Name { get; }
 
 		public override void Build() {
 			if (UseDataClass) {

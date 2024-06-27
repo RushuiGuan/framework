@@ -1,9 +1,4 @@
-﻿
-using Albatross.Text;
-using System.Collections.Generic;
-using System.IO;
-
-namespace Albatross.CodeGen.TypeScript.Models {
+﻿namespace Albatross.CodeGen.TypeScript.Models {
 	public class Injectable {
 		public Injectable(string providedIn) {
 			ProvidedIn = providedIn;

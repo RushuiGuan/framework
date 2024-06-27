@@ -1,21 +1,24 @@
 ﻿using Albatross.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace Albatross.CodeGen.TypeScript.Models {
 	public class JsonObject : ICodeElement {
-		public JsonObject(IDictionary<string,object> values) {
-			Values = values;
+		List<JsonProperty> properties = new List<JsonProperty>();
+
+		public JsonObject Add(string property, ICodeElement expression) {
+			properties.Add(new JsonProperty(property, expression));
+			return this;
 		}
-
-		public IDictionary<string, object> Values { get; set; }
-
+		
 		public TextWriter Generate(TextWriter writer) {
-			var text = JsonSerializer.Serialize(Values, new JsonSerializerOptions { 
-				 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-			});
-			writer.Append(text);
+			if (properties.Any()) {
+				writer.Append("{ ").WriteItems(this.properties, ", ", (w, x) => w.Code(x), " ", " ").Append(" }");
+			} else {
+				writer.Append("{}");
+			}
 			return writer;
 		}
 	}

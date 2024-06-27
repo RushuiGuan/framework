@@ -2,11 +2,14 @@
 using System.IO;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class BaseClass : IModuleCodeElement {
+	public class BaseClass : ICodeElement {
+		public BaseClass(string name, string module) {
+			this.Name = name;
+			this.Module = module;
+		}
 		public string Name { get; set; }
 		public string Module { get; set; }
-		public string Tag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+		
 		public void Build() {
 			throw new NotImplementedException();
 		}

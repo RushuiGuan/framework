@@ -2,10 +2,8 @@
 using Albatross.Reflection;
 using Albatross.Text;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.TypeScript.Models {
@@ -19,6 +17,8 @@ namespace Albatross.CodeGen.TypeScript.Models {
 		public TypeScriptType[] GenericTypeArguments { get; set; } = new TypeScriptType[0];
 		public bool IsAsync => this.Name == PromiseType;
 		public bool IsVoid => Name == VoidType || IsAsync && !IsGeneric;
+		public bool IsNullable { get; set; }
+
 
 		public TypeScriptType(string name) : this(name, false, false, new TypeScriptType[0]) { }
 		public TypeScriptType(string name, bool isArray, bool isGeneric, params TypeScriptType[] genericTypeArguments) {
@@ -26,33 +26,6 @@ namespace Albatross.CodeGen.TypeScript.Models {
 			this.IsArray = isArray;
 			this.IsGeneric = isGeneric;
 			this.GenericTypeArguments = genericTypeArguments?.ToArray() ?? new TypeScriptType[0];
-		}
-		internal TypeScriptType(Type type) {
-			if(type.GetCollectionElementType(out var elementType)) {
-				IsArray = true;
-				type = elementType;
-			}
-			if(type.GetNullableValueType(out var valueType)) {
-				type = valueType;
-			}
-			IsGeneric = type.IsGenericType;
-			this.Name = type.Name;
-
-			if (type.IsDerived<Task>()) {
-				if (IsGeneric) {
-					this.Name = PromiseType;
-				} else {
-					this.Name = VoidType;
-				}
-			} else if (IsGeneric) {
-				Name = type.GetGenericTypeDefinition().Name.GetGenericTypeName() + "_";
-			}
-			if (IsAsync && !IsGeneric) {
-				IsGeneric = true;
-				GenericTypeArguments = new TypeScriptType[] { TypeScriptType.Any() };
-			} else if(IsGeneric){
-				GenericTypeArguments = (from item in type.GetGenericArguments() select new ConvertTypeToTypeScriptType().Convert(item)).ToArray();
-			}
 		}
 
 		public override string ToString() {
@@ -96,11 +69,7 @@ namespace Albatross.CodeGen.TypeScript.Models {
 		public static TypeScriptType Void() => new TypeScriptType(VoidType);
 		public static TypeScriptType MakeAsync(TypeScriptType typescriptType) {
 			if (!typescriptType.IsAsync) {
-				if (typescriptType.IsVoid) {
-					return new TypeScriptType(PromiseType, false, true, TypeScriptType.Any());
-				} else {
-					return new TypeScriptType(PromiseType, false, true, typescriptType);
-				}
+				return new TypeScriptType(PromiseType, false, true, typescriptType);
 			}
 			return typescriptType;
 		}

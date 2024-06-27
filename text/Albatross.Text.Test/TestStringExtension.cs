@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -9,7 +10,7 @@ namespace Albatross.Test.Text {
 	public class TestStringExtension {
 		[Theory]
 		[InlineData(null, null)]
-		[InlineData("","")]
+		[InlineData("", "")]
 		[InlineData(".", ".")]
 		[InlineData("AB", "AB.")]
 		[InlineData("AB.", "AB.")]
@@ -34,7 +35,7 @@ namespace Albatross.Test.Text {
 		public void TestTryGetText(string input, char delimiter, string expected) {
 			List<string> list = new List<string>();
 			int offset = 0;
-			while(input.TryGetText(delimiter, ref offset, out var text)) {
+			while (input.TryGetText(delimiter, ref offset, out var text)) {
 				list.Add(text);
 			}
 			var result = string.Join('.', list);
@@ -46,6 +47,20 @@ namespace Albatross.Test.Text {
 		[InlineData(" bcd", "abcd", ' ', 'a')]
 		public void TestReplaceMultiCharacters(string expected, string input, char replacedWith, params char[] targets) {
 			var result = input.ReplaceMultipleChars(replacedWith, targets);
+			Assert.Equal(expected, result);
+		}
+
+		[Theory]
+		[InlineData(",", "a,b,c,d", null, null, "a,b,c,d")]
+		[InlineData(".", "a,b,c,d", "---", "***", "---a.b.c.d***")]
+		[InlineData(".", "", "---", "***", "")]
+		[InlineData(".", "a,b,,d", "---", "***", "---a.b.d***")]
+		public void TestWriteItems(string delimiter, string data, string? prefix, string? postfix, string expected) {
+			var array = data.Split(",", StringSplitOptions.None).Select(x=> x == "" ? null : x).ToArray();
+			var result = new StringWriter().WriteItems(array, delimiter, null, prefix, postfix).ToString();
+			Assert.Equal(expected, result);
+
+			result = new StringWriter().WriteItems(array, delimiter, (w, t) => w.Write(t), prefix, postfix).ToString();
 			Assert.Equal(expected, result);
 		}
 	}

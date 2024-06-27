@@ -24,11 +24,11 @@ namespace Albatross.CodeGen.WebClient {
 
 		void CreateConstructor(Class model) {
 			model.Constructor = new Constructor() {
-				Parameters = new ParameterDeclaration[] {
+				Parameters = [
 					new ParameterDeclaration("config", new TypeScriptType("ConfigService"), AccessModifier.Private),
 					new ParameterDeclaration("client", new TypeScriptType("HttpClient"), AccessModifier.Protected),
 					new ParameterDeclaration("logger", new TypeScriptType("Logger"), AccessModifier.None),
-				},
+				],
 			};
 			model.Constructor.Body.Add(new Super(new TypeScriptValue(TypeScript.Models.ValueType.Variable, "logger")));
 			model.Constructor.Body.Add(new Termination());
@@ -49,7 +49,7 @@ namespace Albatross.CodeGen.WebClient {
 
 		public Class Convert(Type type) {
 			Class model = new Class($"{GetController(type)}Service") {
-				BaseClass = new Class("DataService"),
+				BaseClass = new Class("WebClient"),
 				Decorator = new InjectableDecorator("root")
 			};
 			CreateConstructor(model);
@@ -149,11 +149,12 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 
-			var array = queryParams.Select(args => {
+			var queryParamValue = new JsonObject();
+
+			queryParams.ForEach(args => {
 				var attribute = args.GetCustomAttribute<FromQueryAttribute>();
-				return new TypeScriptValue(TypeScript.Models.ValueType.Variable, attribute?.Name ?? args.Name!.CamelCase());
-			}).ToArray();
-			var queryParamValue = new TypeScriptValueArray(array);
+				queryParamValue.Add(attrib?.Name ?? args.Name!.CamelCase(), new IdentifierName(args.Name.CamelCase()));
+			});
 
 			if (attrib is HttpGetAttribute) {
 				if (method.ReturnType.GenericTypeArguments.First().Equals(TypeScriptType.String())) {
