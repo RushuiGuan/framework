@@ -1,18 +1,15 @@
 ﻿using Albatross.Text;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Albatross.CodeGen.TypeScript.Models {
-	public class Property : ICodeElement{
-		public Property(string name, TypeScriptType type) {
+	public class PropertyDeclaration : ICodeElement{
+		public PropertyDeclaration(string name, TypeExpression type) {
 			this.Name = name;
 			this.Type = type;
 		}
 		public bool IsPrivate { get; set; }
 		public string Name { get; set; }
-		public TypeScriptType Type { get; set; }
+		public TypeExpression Type { get; set; }
 		public bool Optional { get; set; }
 
 		public TextWriter Generate(TextWriter writer) {

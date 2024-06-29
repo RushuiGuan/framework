@@ -5,13 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class ActionResultConverter : ITypeConverter {
 		public int Precedence => 80;
-		public bool Match(Type type) => type == typeof(ActionResult) || type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ActionResult<>);
-		public TypeScriptType Convert(Type type, TypeConverterFactory factory) {
-			if (type == typeof(ActionResult)) {
-				return TypeScriptType.Any();
+		public bool Match(Type type) => type == typeof(IActionResult) 
+			|| type == typeof(ActionResult) 
+			|| type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ActionResult<>);
+
+		public TypeExpression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
+			if (type == typeof(ActionResult) || type == typeof(IActionResult)) {
+				return syntaxTree.Type("any");
 			} else {
-				Type innerType = type.GetGenericArguments()[0];
-				return factory.Convert(innerType);
+				return factory.Convert(type.GetGenericArguments()[0]);
 			}
 		}
 	}

@@ -4,19 +4,19 @@ using System.IO;
 
 namespace Albatross.CodeGen.TypeScript.Models {
 	public class ParameterDeclaration : ICodeElement{
-		public ParameterDeclaration(string name, TypeScriptType type, AccessModifier accessModifier) {
+		public ParameterDeclaration(string name, TypeExpression type, AccessModifier accessModifier) {
 			this.Name = name;
 			this.Type = type;
 			this.AccessModifier = accessModifier;
 		}
 
 		public string Name { get; set; }
-		public TypeScriptType Type { get; set; }
+		public TypeExpression Type { get; set; }
 		public bool Optional { get; set; }
 		public AccessModifier AccessModifier { get; set; }
 
 		public TextWriter Generate(TextWriter writer) {
-			writer.Code(new AccessModifierElement(AccessModifier))
+			writer.Code(new AccessModifierSyntax(AccessModifier))
 				.Append(Name).Append(": ").Code(Type);
 
 			return writer;

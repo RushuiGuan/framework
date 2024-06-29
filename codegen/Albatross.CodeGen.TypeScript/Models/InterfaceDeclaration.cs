@@ -6,8 +6,8 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Models {
-	public class Interface : ICodeElement {
-		public Interface(string name, bool isGeneric, IEnumerable<string> genericArgumentTypes) {
+	public class InterfaceDeclaration : ICodeElement {
+		public InterfaceDeclaration(string name, bool isGeneric, IEnumerable<string> genericArgumentTypes) {
 			this.Name = name;
 			this.IsGeneric = isGeneric;
 			this.GenericArgumentTypes = genericArgumentTypes;
@@ -18,8 +18,8 @@ namespace Albatross.CodeGen.TypeScript.Models {
 		public string Name { get; set; }
 		public bool IsGeneric { get; set; }
 		public IEnumerable<string> GenericArgumentTypes { get; set; }
-		public List<Property> Properties { get; set; } = new List<Property>();
-		public TypeScriptType? BaseType { get; set; }
+		public List<PropertyDeclaration> Properties { get; set; } = new List<PropertyDeclaration>();
+		public TypeExpression? BaseType { get; set; }
 
 		public TextWriter Generate(TextWriter writer) {
 			if (IsGeneric && GenericArgumentTypes.Count() == 0) {

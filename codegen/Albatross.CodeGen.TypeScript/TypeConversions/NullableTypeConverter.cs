@@ -6,7 +6,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class NullableTypeConverter : ITypeConverter {
 		public int Precedence => 80;
 
-		public TypeScriptType Convert(Type type, TypeConverterFactory factory) {
+		public TypeExpression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
 			if(type.GetNullableValueType(out var valueType)) {
 				var result = factory.Convert(valueType);
 				result.IsNullable = true;

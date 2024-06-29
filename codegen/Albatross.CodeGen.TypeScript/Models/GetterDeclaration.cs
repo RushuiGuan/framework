@@ -2,17 +2,17 @@
 using System.IO;
 
 namespace Albatross.CodeGen.TypeScript.Models {
-	public class Getter : ICodeElement {
-		public Getter(string name, AccessModifier accessModifier, TypeScriptType type) {
+	public class GetterDeclaration : ICodeElement {
+		public GetterDeclaration(string name, AccessModifier accessModifier, TypeExpression type) {
 			Name = name;
-			AccessModifier = new AccessModifierElement(accessModifier);
+			AccessModifier = new AccessModifierSyntax(accessModifier);
 			Type = type;
 		}
 		public CodeBlock Body { get; set; } = new CodeBlock();
 
 		public string Name { get; set; }
-		public AccessModifierElement AccessModifier { get; set; }
-		public TypeScriptType Type { get; }
+		public AccessModifierSyntax AccessModifier { get; set; }
+		public TypeExpression Type { get; }
 
 		public TextWriter Generate(TextWriter writer) {
 			writer.Code(AccessModifier).Append("get ").Append(Name).Append("():").Code(Type);

@@ -50,7 +50,7 @@ namespace Albatross.CodeGen.WebClient {
 				foreach (Type type in types) {
 					if (IsValidDtoType(type, isValidType)) {
 						var item = convertInterface.Convert(type);
-						typeScriptFile.Interfaces.Add(item);
+						typeScriptFile.InterfaceDeclarations.Add(item);
 					}
 				}
 			}
@@ -63,7 +63,7 @@ namespace Albatross.CodeGen.WebClient {
 				var types = assembly.GetTypes();
 				foreach (Type type in types) {
 					if (type.IsEnum) {
-						typeScriptFile.Enums.Add(convertEnum.Convert(type));
+						typeScriptFile.EnumDeclarations.Add(convertEnum.Convert(type));
 					}
 				}
 			}
@@ -71,18 +71,18 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		public void ConvertEnum<T>(TypeScriptFile typeScriptFile) where T : struct {
-			typeScriptFile.Enums.Add(convertEnum.Convert(typeof(T)));
+			typeScriptFile.EnumDeclarations.Add(convertEnum.Convert(typeof(T)));
 		}
 		public void ConvertEnum(Type enumType, TypeScriptFile typeScriptFile){
 			if (enumType.IsEnum) {
-				typeScriptFile.Enums.Add(convertEnum.Convert(enumType));
+				typeScriptFile.EnumDeclarations.Add(convertEnum.Convert(enumType));
 			} else {
 				throw new InvalidOperationException($"Class {enumType.Name} is not an enum");
 			}
 		}
 		public void ConvertClass(Type type, TypeScriptFile typeScriptFile, IEnumerable<TypeScriptFile> dependancies) {
 			var item = convertInterface.Convert(type);
-			typeScriptFile.Interfaces.Add(item);
+			typeScriptFile.InterfaceDeclarations.Add(item);
 			typeScriptFile.BuildImports(dependancies);
 			typeScriptFile.BuildArtifacts();
 		}

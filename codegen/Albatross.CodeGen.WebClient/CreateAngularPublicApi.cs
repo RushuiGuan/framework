@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.WebClient {
 			using (var writer = new StreamWriter(publicApiFile)) {
 				foreach (var file in files) {
 					string source = $"./{relativePath}/{Path.GetFileNameWithoutExtension(file.Name)}";
-					writer.Code(new Export(source));
+					writer.Code(new ExportExpression(source));
 				}
 			}
 		}

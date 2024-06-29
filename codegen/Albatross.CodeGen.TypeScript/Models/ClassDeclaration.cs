@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace Albatross.CodeGen.TypeScript.Models {
-	public class Class : ICodeElement {
-		public Class(string name) {
+	public class ClassDeclaration : ICodeElement {
+		public ClassDeclaration(string name) {
 			this.Name = name;
 		}
 		public string Name { get; set; }
 
 		public AccessModifier AccessModifier { get; set; }
-		public Class? BaseClass { get; set; }
+		public ClassDeclaration? BaseClass { get; set; }
 		public bool IsGeneric { get; set; }
-		public MethodCall? Decorator { get; set; }
+		public MethodCallExpression? Decorator { get; set; }
 
-		public Constructor? Constructor { get; set; }
-		public List<Import> Imports { get; set; } = new List<Import>();
-		public List<Getter> Getters { get; set; } = new List<Getter>();
-		public List<Property> Properties { get; set; } = new List<Property>();
-		public List<Method> Methods { get; set; } = new List<Method>();
+		public ConstructorDeclaration? Constructor { get; set; }
+		public List<ImportExpression> Imports { get; set; } = new List<ImportExpression>();
+		public List<GetterDeclaration> Getters { get; set; } = new List<GetterDeclaration>();
+		public List<PropertyDeclaration> Properties { get; set; } = new List<PropertyDeclaration>();
+		public List<MethodDeclaration> Methods { get; set; } = new List<MethodDeclaration>();
 
 		public TextWriter Generate(TextWriter writer) {
 			if (this.Decorator != null) { writer.Code(this.Decorator).WriteLine(); }

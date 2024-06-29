@@ -5,10 +5,10 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
-	public class ConvertEnumToTypeScriptEnum : IConvertObject<Type, TypeScript.Models.Enum> {
-		public TypeScript.Models.Enum Convert(Type type) {
+	public class ConvertEnumToTypeScriptEnum : IConvertObject<Type, TypeScript.Models.EnumDeclaration> {
+		public TypeScript.Models.EnumDeclaration Convert(Type type) {
 			if (type.IsEnum) {
-				var model = new Models.Enum(type.Name) {
+				var model = new Models.EnumDeclaration(type.Name) {
 					Values = type.GetEnumNames(),
 				};
 				var attrib = type.GetCustomAttribute<JsonConverterAttribute>();

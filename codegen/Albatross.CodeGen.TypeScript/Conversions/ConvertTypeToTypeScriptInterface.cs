@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
-	public class ConvertTypeToTypeScriptInterface : IConvertObject<Type, TypeScript.Models.Interface> {
+	public class ConvertTypeToTypeScriptInterface : IConvertObject<Type, TypeScript.Models.InterfaceDeclaration> {
 		ConvertPropertyInfoToTypeScriptProperty convertPropertyInfoToTypeScriptProperty;
 		private readonly ConvertTypeToTypeScriptType convertTypeToTypeScriptType;
 
@@ -11,8 +11,8 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 			this.convertPropertyInfoToTypeScriptProperty = convertPropertyInfoToTypeScriptProperty;
 			this.convertTypeToTypeScriptType = convertTypeToTypeScriptType;
 		}
-		public TypeScript.Models.Interface Convert(Type type) {
-			var model = new Interface(type.Name, type.IsGenericType, type.GetGenericArguments().Select(args => args.Name)) {
+		public TypeScript.Models.InterfaceDeclaration Convert(Type type) {
+			var model = new InterfaceDeclaration(type.Name, type.IsGenericType, type.GetGenericArguments().Select(args => args.Name)) {
 				Properties = (from property in type.GetProperties(System.Reflection.BindingFlags.Public
 							  | System.Reflection.BindingFlags.DeclaredOnly
 							  | System.Reflection.BindingFlags.Instance)

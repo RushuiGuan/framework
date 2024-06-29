@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text.Json;
 
 namespace Albatross.CodeGen.TypeScript.Models {
-	public class JsonObject : ICodeElement {
-		List<JsonProperty> properties = new List<JsonProperty>();
+	public class JsonObjectDeclaration : ICodeElement {
+		List<JsonPropertyExpression> properties = new List<JsonPropertyExpression>();
 
-		public JsonObject Add(string property, ICodeElement expression) {
-			properties.Add(new JsonProperty(property, expression));
+		public JsonObjectDeclaration Add(string property, ICodeElement expression) {
+			properties.Add(new JsonPropertyExpression(property, expression));
 			return this;
 		}
 		

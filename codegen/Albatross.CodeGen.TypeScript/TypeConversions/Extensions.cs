@@ -3,11 +3,11 @@ using System;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public static class Extensions {
-		public static TypeScriptType Convert(this TypeConverterFactory factory, Type type) {
+		public static TypeExpression Convert(this TypeConverterFactory factory, SyntaxTree tree, Type type) {
 			if (factory.TryGet(type, out var converter)) {
-				return converter.Convert(type, factory);
+				return converter.Convert(type, factory, tree);
 			} else {
-				return new TypeScriptType(type.Name);
+				return tree.Type(type.Name);
 			}
 		}
 	}

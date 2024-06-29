@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace Albatross.CodeGen.TypeScript.Models {
-	public class Enum : ICodeElement {
-		public Enum(string name) {
+	public class EnumDeclaration : ICodeElement {
+		public EnumDeclaration(string name) {
 			this.Name = name;
 		}
 		public string Name { get; set; }

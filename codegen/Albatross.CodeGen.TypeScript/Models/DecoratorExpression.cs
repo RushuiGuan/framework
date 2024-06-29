@@ -7,13 +7,13 @@
 		public string ProvidedIn { get; set; }
 	}
 
-	public class Decorator<T> : MethodCall {
-		public Decorator(string name, T t) : base(false, name, new JsonObject<T>(t)) {
+	public record class DecoratorExpression<T> : MethodCallExpression {
+		public DecoratorExpression(T t) : base(false, name, new JsonObject<T>(t)) {
 		}
 	}
 	
-	public class InjectableDecorator : MethodCall {
-		public InjectableDecorator(string providedIn) 
+	public record class InjectableDecoratorSyntax : MethodCallExpression {
+		public InjectableDecoratorSyntax(string providedIn) 
 			: base(false, "@Injectable", new JsonObject<Injectable>(new Injectable(providedIn))) {
 		}
 	}

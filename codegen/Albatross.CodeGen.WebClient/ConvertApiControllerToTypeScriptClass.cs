@@ -9,48 +9,48 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.WebClient {
-	public class ConvertApiControllerToTypeScriptClass : IConvertObject<Type, Class> {
+	public class ConvertApiControllerToTypeScriptClass : IConvertObject<Type, ClassDeclaration> {
 		public string? EndpointName { get; set; }
 		const string Controller = "Controller";
-		private readonly IConvertObject<MethodInfo, Method> convertMethod;
-		private readonly IConvertObject<Type, TypeScriptType> typeConverter;
+		private readonly IConvertObject<MethodInfo, MethodDeclaration> convertMethod;
+		private readonly IConvertObject<Type, TypeExpression> typeConverter;
 		Regex actionRouteRegex = new Regex(@"{(\w+)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 		object IConvertObject<Type>.Convert(Type from) => this.Convert(from);
 
-		public ConvertApiControllerToTypeScriptClass(IConvertObject<MethodInfo, Method> convertMethod, IConvertObject<Type, TypeScriptType> typeConverter) {
+		public ConvertApiControllerToTypeScriptClass(IConvertObject<MethodInfo, MethodDeclaration> convertMethod, IConvertObject<Type, TypeExpression> typeConverter) {
 			this.convertMethod = convertMethod;
 			this.typeConverter = typeConverter;
 		}
 
-		void CreateConstructor(Class model) {
-			model.Constructor = new Constructor() {
+		void CreateConstructor(ClassDeclaration model) {
+			model.Constructor = new ConstructorDeclaration() {
 				Parameters = [
-					new ParameterDeclaration("config", new TypeScriptType("ConfigService"), AccessModifier.Private),
-					new ParameterDeclaration("client", new TypeScriptType("HttpClient"), AccessModifier.Protected),
-					new ParameterDeclaration("logger", new TypeScriptType("Logger"), AccessModifier.None),
+					new ParameterDeclaration("config", new TypeExpression("ConfigService"), AccessModifier.Private),
+					new ParameterDeclaration("client", new TypeExpression("HttpClient"), AccessModifier.Protected),
+					new ParameterDeclaration("logger", new TypeExpression("Logger"), AccessModifier.None),
 				],
 			};
-			model.Constructor.Body.Add(new Super(new TypeScriptValue(TypeScript.Models.ValueType.Variable, "logger")));
+			model.Constructor.Body.Add(new SuperCallExpression(new TypeScriptValue(TypeScript.Models.ValueType.Variable, "logger")));
 			model.Constructor.Body.Add(new Termination());
-			model.Constructor.Body.Add(new LoggerInfo($"{model.Name} instance created"));
+			model.Constructor.Body.Add(new LoggerInfoCallExpression($"{model.Name} instance created"));
 			model.Constructor.Body.Add(new Termination());
 		}
 
-		void CreateImport(Class model) {
-			model.Imports.Add(new Import("@angular/common/http", "HttpClient"));
-			model.Imports.Add(new Import("@angular/core", "Injectable"));
+		void CreateImport(ClassDeclaration model) {
+			model.Imports.Add(new ImportExpression("@angular/common/http", "HttpClient"));
+			model.Imports.Add(new ImportExpression("@angular/core", "Injectable"));
 		}
 
-		void CreateEndPointGetter(Class model, Type type, string endPointName) {
-			var getter = new Getter("endPoint", AccessModifier.None, TypeScriptType.String());
+		void CreateEndPointGetter(ClassDeclaration model, Type type, string endPointName) {
+			var getter = new GetterDeclaration("endPoint", AccessModifier.None, TypeExpression.String());
 			getter.Body.Add($"return this.config.endpoint('{endPointName}') + '{this.GetControllerRoute(type)}/'");
 			model.Getters.Add(getter);
 		}
 
-		public Class Convert(Type type) {
-			Class model = new Class($"{GetController(type)}Service") {
-				BaseClass = new Class("WebClient"),
-				Decorator = new InjectableDecorator("root")
+		public ClassDeclaration Convert(Type type) {
+			ClassDeclaration model = new ClassDeclaration($"{GetController(type)}Service") {
+				BaseClass = new ClassDeclaration("WebClient"),
+				Decorator = new InjectableDecoratorSyntax("root")
 			};
 			CreateConstructor(model);
 			CreateImport(model);
@@ -58,7 +58,7 @@ namespace Albatross.CodeGen.WebClient {
 				throw new InvalidOperationException("Endpoint has not been initialized for ConvertApiControllerToTypeScriptClass");
 			}
 			CreateEndPointGetter(model,type, this.EndpointName);
-			List<Method> list = new List<Method>();
+			List<MethodDeclaration> list = new List<MethodDeclaration>();
 			ISet<string> names = new HashSet<string>();
 			foreach (MethodInfo methodInfo in type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)) {
 				foreach (var attrib in methodInfo.GetCustomAttributes()) {
@@ -99,19 +99,19 @@ namespace Albatross.CodeGen.WebClient {
 			return string.Join("/", list).ToLower();
 		}
 
-		Method GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
-			Method method = convertMethod.Convert(methodInfo);
+		MethodDeclaration GetMethod(HttpMethodAttribute attrib, MethodInfo methodInfo) {
+			MethodDeclaration method = convertMethod.Convert(methodInfo);
 			// javascript can't handle datetime correctly, might as well just use text instead
 			// ideally it should be formatted to sometime of date string
 			foreach (var param in method.Parameters) {
-				if (object.Equals(param.Type, TypeScriptType.Date())) { 
-					param.Type = TypeScriptType.String(); 
+				if (object.Equals(param.Type, TypeExpression.Date())) { 
+					param.Type = TypeExpression.String(); 
 				}
 			}
 			method.Async = true;
 			// fix method return types
 			// all api calls are returning Promises
-			method.ReturnType = TypeScriptType.MakeAsync(method.ReturnType);
+			method.ReturnType = TypeExpression.MakeAsync(method.ReturnType);
 
 			// figure out the relativeUrl
 			string? route = attrib.Template;
@@ -124,7 +124,7 @@ namespace Albatross.CodeGen.WebClient {
 				route = string.Empty;
 			}
 			var relativeUrl = new VariableDeclaration("relativeUrl", true, null);
-			relativeUrl.Assignment = new StringInterpolation(route.Replace("{", "${"));
+			relativeUrl.Assignment = new StringInterpolationExpression(route.Replace("{", "${"));
 			method.Body.Add(relativeUrl);
 
 			// figure out the routing params
@@ -149,21 +149,21 @@ namespace Albatross.CodeGen.WebClient {
 				}
 			}
 
-			var queryParamValue = new JsonObject();
+			var queryParamValue = new JsonObjectDeclaration();
 
 			queryParams.ForEach(args => {
 				var attribute = args.GetCustomAttribute<FromQueryAttribute>();
-				queryParamValue.Add(attrib?.Name ?? args.Name!.CamelCase(), new IdentifierName(args.Name.CamelCase()));
+				queryParamValue.Add(attrib?.Name ?? args.Name!.CamelCase(), new IdentifierNameExpression(args.Name.CamelCase()));
 			});
 
 			if (attrib is HttpGetAttribute) {
-				if (method.ReturnType.GenericTypeArguments.First().Equals(TypeScriptType.String())) {
-					var call = new MethodCall(true, "this.doGetStringAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
+				if (method.ReturnType.GenericTypeArguments.First().Equals(TypeExpression.String())) {
+					var call = new MethodCallExpression(true, "this.doGetStringAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
 					var resultVariable = new VariableDeclaration("result", true, null);
 					resultVariable.Assignment = call;
 					method.Body.Add(resultVariable);
 				} else {
-					var call = new MethodCall(true, "this.doGetAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
+					var call = new MethodCallExpression(true, "this.doGetAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
 					call.GenericArguments.Add(method.ReturnType.GenericTypeArguments.First());
 					var resultVariable = new VariableDeclaration("result", true, null);
 					resultVariable.Assignment = call;
@@ -171,11 +171,11 @@ namespace Albatross.CodeGen.WebClient {
 				}
 				method.Body.Add("return result;");
 			} else if (attrib is HttpPostAttribute) {
-				if (method.ReturnType.GenericTypeArguments.First().Equals(TypeScriptType.String())) {
-					var call = new MethodCall(true, "this.doPostStringAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), new TypeScriptValue(TypeScript.Models.ValueType.Variable, bodyParam!.Name!), queryParamValue);
+				if (method.ReturnType.GenericTypeArguments.First().Equals(TypeExpression.String())) {
+					var call = new MethodCallExpression(true, "this.doPostStringAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), new TypeScriptValue(TypeScript.Models.ValueType.Variable, bodyParam!.Name!), queryParamValue);
 					call.GenericArguments.Add(method.ReturnType.GenericTypeArguments.First());
 					if (bodyParam == null) {
-						call.GenericArguments.Add(TypeScriptType.Any());
+						call.GenericArguments.Add(TypeExpression.Any());
 					} else {
 						call.GenericArguments.Add(this.typeConverter.Convert(bodyParam.ParameterType));
 					}
@@ -183,13 +183,13 @@ namespace Albatross.CodeGen.WebClient {
 					resultVariable.Assignment = call;
 					method.Body.Add(resultVariable);
 				} else {
-					var call = new MethodCall(true, "this.doPostAsync",
+					var call = new MethodCallExpression(true, "this.doPostAsync",
 						new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name),
 						new TypeScriptValue(TypeScript.Models.ValueType.Variable, bodyParam?.Name),
 						queryParamValue);
 					call.GenericArguments.Add(method.ReturnType.GenericTypeArguments.First());
 					if (bodyParam == null) {
-						call.GenericArguments.Add(TypeScriptType.Any());
+						call.GenericArguments.Add(TypeExpression.Any());
 					} else {
 						call.GenericArguments.Add(typeConverter.Convert(bodyParam.ParameterType));
 					}
@@ -199,7 +199,7 @@ namespace Albatross.CodeGen.WebClient {
 				}
 				method.Body.Add("return result;");
 			} else if (attrib is HttpDeleteAttribute) {
-				var call = new MethodCall(true, "this.doDeleteAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
+				var call = new MethodCallExpression(true, "this.doDeleteAsync", new TypeScriptValue(TypeScript.Models.ValueType.Variable, relativeUrl.Name), queryParamValue);
 				method.Body.Add(call);
 			}
 			return method;

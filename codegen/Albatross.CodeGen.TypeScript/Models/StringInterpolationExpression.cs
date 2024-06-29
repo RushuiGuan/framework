@@ -1,11 +1,9 @@
 ﻿using Albatross.Text;
-using System;
 using System.IO;
-using System.Text.Json;
 
 namespace Albatross.CodeGen.TypeScript.Models {
-	public class StringInterpolation : ICodeElement  {
-		public StringInterpolation(string value) {
+	public class StringInterpolationExpression : ICodeElement  {
+		public StringInterpolationExpression(string value) {
 			Value = value;
 		}
 		public string Value { get; }

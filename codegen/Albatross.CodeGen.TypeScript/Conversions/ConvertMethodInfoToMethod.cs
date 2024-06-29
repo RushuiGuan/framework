@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
-	public class ConvertMethodInfoToMethod : IConvertObject<MethodInfo, Method> {
+	public class ConvertMethodInfoToMethod : IConvertObject<MethodInfo, MethodDeclaration> {
 		ConvertParameterInfoToParameter convertToParameter;
 		private readonly ConvertTypeToTypeScriptType typeConverter;
 
@@ -12,8 +12,8 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 			this.typeConverter = typeConverter;
 		}
 
-		public Method Convert(MethodInfo info) {
-			Method method = new Method(info.Name) {
+		public MethodDeclaration Convert(MethodInfo info) {
+			MethodDeclaration method = new MethodDeclaration(info.Name) {
 				Parameters = (from item in info.GetParameters() select convertToParameter.Convert(item)).ToArray(),
 				ReturnType = typeConverter.Convert(info.ReturnType),
 			};

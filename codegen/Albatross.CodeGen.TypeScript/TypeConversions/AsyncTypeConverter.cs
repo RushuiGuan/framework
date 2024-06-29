@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class AsyncTypeConverter : ITypeConverter {
+		public const string PromiseType = "Promise";
+		public const string VoidType = "void";
+
 		public int Precedence => 90;
-		public bool Match(Type type) => type.IsDerived<Task>();
-		public TypeScriptType Convert(Type type, TypeConverterFactory factory) {
-			var result = new TypeScriptType(string.Empty) {
-				Name = TypeScriptType.PromiseType,
-				GenericTypeArguments = type.GetGenericArguments().Select(x => factory.Convert(x)).ToArray(),
-			};
-			result.IsGeneric = true;
-			if(!result.GenericTypeArguments.Any()) {
-				result.GenericTypeArguments = [TypeScriptType.Void()];
+		public bool Match(Type type) => type.IsConcreteType() && type.IsDerived<Task>();
+		public TypeExpression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
+			if (type.IsGenericType) {
+				return new GenericTypeExpressionBuilder().WithName("Promise").WithArgument(t => factory.Convert(syntaxTree, type.GetGenericArguments().First())).Build(syntaxTree);
+			} else {
+				return new GenericTypeExpressionBuilder().WithName("Promise").WithArgument(t => t.Type("void")).Build(syntaxTree);
 			}
-			return result;
 		}
 	}
 }

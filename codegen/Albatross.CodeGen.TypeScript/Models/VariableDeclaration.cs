@@ -5,7 +5,7 @@ using System.Linq;
 namespace Albatross.CodeGen.TypeScript.Models {
 	public class VariableDeclaration : ICodeElement {
 
-		public VariableDeclaration(string name, bool constant, TypeScriptType? type) {
+		public VariableDeclaration(string name, bool constant, TypeExpression? type) {
 			Name = name;
 			Constant = constant;
 			Type = type;
@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.TypeScript.Models {
 
 		public string Name { get; }
 		public bool Constant { get; }
-		public TypeScriptType? Type { get; }
+		public TypeExpression? Type { get; }
 		public ICodeElement? Assignment { get; set; }
 
 		public TextWriter Generate(TextWriter writer) {
