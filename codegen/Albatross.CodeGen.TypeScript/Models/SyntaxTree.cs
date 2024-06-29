@@ -40,5 +40,11 @@ namespace Albatross.CodeGen.TypeScript.Models {
 				Arguments = arguments,
 			};
 		}
+		public ArrayTypeExpression ArrayType(TypeExpression type) {
+			ValidateExpression(type);
+			return new ArrayTypeExpression(this) {
+				ElementType = type,
+			};
+		}
 	}
 }

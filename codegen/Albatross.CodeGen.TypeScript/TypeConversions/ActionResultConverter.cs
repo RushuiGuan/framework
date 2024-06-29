@@ -9,11 +9,11 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			|| type == typeof(ActionResult) 
 			|| type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ActionResult<>);
 
-		public TypeExpression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
+		public Expression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
 			if (type == typeof(ActionResult) || type == typeof(IActionResult)) {
-				return syntaxTree.Type("any");
+				return syntaxTree.AnyType();
 			} else {
-				return factory.Convert(type.GetGenericArguments()[0]);
+				return factory.Convert(syntaxTree, type.GetGenericArguments()[0]);
 			}
 		}
 	}

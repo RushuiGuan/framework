@@ -10,16 +10,14 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			&& type != typeof(string)
 			&& type != typeof(byte[]);
 
-		public TypeExpression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
+		public Expression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
 			TypeExpression result;
 			if(type.GetCollectionElementType(out var elementType)) {
-				result = factory.Convert(elementType);
+				result = factory.Convert(syntaxTree, elementType);
 			} else {
-				result = TypeExpression.Any();
+				result = syntaxTree.AnyType();
 			}
-			result.IsArray = true;
-			return result;
+			return syntaxTree.ArrayType(result);
 		}
-	
 	}
 }

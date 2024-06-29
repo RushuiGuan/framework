@@ -9,6 +9,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			|| type == typeof(TimeSpan) 
 			|| type == typeof(byte[]);
 
-		public TypeExpression Convert(Type type, TypeConverterFactory _, SyntaxTree syntaxTree) => TypeExpression.String();
+		public Expression Convert(Type type, TypeConverterFactory _, SyntaxTree syntaxTree)
+			=> syntaxTree.Type("string");
 	}
 }
