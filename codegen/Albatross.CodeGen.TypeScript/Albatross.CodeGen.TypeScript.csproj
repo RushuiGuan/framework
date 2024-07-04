@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Builders\" />
+  </ItemGroup>
+
 </Project>

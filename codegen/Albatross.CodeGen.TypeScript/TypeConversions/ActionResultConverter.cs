@@ -1,6 +1,6 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
-using System;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Albatross.CodeGen.TypeScript.Expressions;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class ActionResultConverter : ITypeConverter {
@@ -9,11 +9,11 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			|| type == typeof(ActionResult) 
 			|| type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ActionResult<>);
 
-		public Expression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
+		public ITypeExpression Convert(Type type, TypeConverterFactory factory) {
 			if (type == typeof(ActionResult) || type == typeof(IActionResult)) {
-				return syntaxTree.AnyType();
+				return Defined.Types.Any;
 			} else {
-				return factory.Convert(syntaxTree, type.GetGenericArguments()[0]);
+				return factory.Convert(type.GetGenericArguments()[0]);
 			}
 		}
 	}

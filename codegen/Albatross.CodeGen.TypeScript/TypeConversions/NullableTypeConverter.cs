@@ -1,4 +1,4 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
+﻿using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.Reflection;
 using System;
 
@@ -9,12 +9,12 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 		public bool Match(Type type) => type.IsGenericType
 		&& type.GetGenericTypeDefinition() == typeof(Nullable<>);
 
-		public Expression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
+		public ITypeExpression Convert(Type type, TypeConverterFactory factory) {
 			if(type.GetNullableValueType(out var valueType)) {
-				return new GenericTypeExpressionBuilder()
-					.WithName(valueType.Name)
-					.WithArgument(t => factory.Convert(syntaxTree, valueType))
-					.Build(syntaxTree);
+				return new SimpleTypeExpression {
+					Identifier = new IdentifierNameExpression(valueType.Name),
+					Optional = true,
+				};
 			} else {
 				throw new ArgumentException("Nullable type converter should only be called with nullable types");
 			}

@@ -1,10 +1,10 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
+﻿using Albatross.CodeGen.TypeScript.Expressions;
 using System;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public interface ITypeConverter {
 		public bool Match(Type type);
 		public int Precedence { get; }
-		public Expression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree);
+		public ITypeExpression Convert(Type type, TypeConverterFactory factory);
 	}
 }

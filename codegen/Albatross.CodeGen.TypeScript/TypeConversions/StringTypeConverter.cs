@@ -1,4 +1,5 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
+﻿using Albatross.CodeGen.Syntax;
+using Albatross.CodeGen.TypeScript.Expressions;
 using System;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
@@ -9,7 +10,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			|| type == typeof(TimeSpan) 
 			|| type == typeof(byte[]);
 
-		public Expression Convert(Type type, TypeConverterFactory _, SyntaxTree syntaxTree)
-			=> syntaxTree.Type("string");
+		public ITypeExpression Convert(Type type, TypeConverterFactory _)
+			=> Defined.Types.String;
 	}
 }

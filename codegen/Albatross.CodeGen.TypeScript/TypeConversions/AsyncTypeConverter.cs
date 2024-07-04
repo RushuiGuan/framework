@@ -1,4 +1,5 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
+﻿using Albatross.CodeGen.Syntax;
+using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.Reflection;
 using System;
 using System.Linq;
@@ -7,20 +8,18 @@ using System.Threading.Tasks;
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class AsyncTypeConverter : ITypeConverter {
 		public const string PromiseType = "Promise";
-		public const string VoidType = "void";
 
 		public int Precedence => 90;
 		public bool Match(Type type) => type.IsConcreteType() && type.IsDerived<Task>();
-		public Expression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
+		public ITypeExpression Convert(Type type, TypeConverterFactory factory) {
 			if (type.IsGenericType) {
-				return new GenericTypeExpressionBuilder()
-					.WithName(PromiseType)
-					.WithArgument(t => factory.Convert(syntaxTree, type.GetGenericArguments().First()))
-					.Build(syntaxTree);
+				return new GenericTypeExpression(PromiseType) {
+					Arguments = new ListOfSyntaxNodes<ITypeExpression>(factory.Convert(type.GetGenericArguments().First()))
+				};
 			} else {
-				return new GenericTypeExpressionBuilder().WithName(PromiseType)
-					.WithArgument(t => t.Type(VoidType))
-					.Build(syntaxTree);
+				return new GenericTypeExpression(PromiseType) {
+					Arguments = new ListOfSyntaxNodes<ITypeExpression>(Defined.Types.Void)
+				};
 			}
 		}
 	}

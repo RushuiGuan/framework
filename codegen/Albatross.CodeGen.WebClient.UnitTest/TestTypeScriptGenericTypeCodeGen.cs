@@ -23,7 +23,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		public void CreateGenericInterface() {
 			var converter = new ConvertTypeToTypeScriptInterface(new ConvertPropertyInfoToTypeScriptProperty(new ConvertTypeToTypeScriptType()), new ConvertTypeToTypeScriptType());
 			var model = converter.Convert(typeof(TestInterface<>));
-			Assert.Equal("TestInterface_", model.Name);
+			Assert.Equal("TestInterface_", model.Identifier);
 			var writer = new StringWriter();
 			model.Generate(writer);
 			string result= writer.ToString();

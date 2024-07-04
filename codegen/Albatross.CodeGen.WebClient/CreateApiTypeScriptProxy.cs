@@ -1,4 +1,4 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
+﻿using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.Reflection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,8 +11,8 @@ using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.WebClient {
 	public interface ICreateApiTypeScriptProxy {
-		IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies,
-			IEnumerable<TypeScriptFile> dependencies, string outputDirectory, Func<Type, bool>? isValidType, Action<ClassDeclaration>? modifyProxyClass = null);
+		IEnumerable<TypeScriptFileDeclaration> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies,
+			IEnumerable<TypeScriptFileDeclaration> dependencies, string outputDirectory, Func<Type, bool>? isValidType, Action<ClassDeclaration>? modifyProxyClass = null);
 	}
 	public class CreateApiTypeScriptProxy : ICreateApiTypeScriptProxy {
 		public const string DefaultPattern = "^.+Controller$";
@@ -24,13 +24,13 @@ namespace Albatross.CodeGen.WebClient {
 			this.logger = logger;
 		}
 
-		public IEnumerable<TypeScriptFile> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies,
-			IEnumerable<TypeScriptFile> dependancies, string outputDirectory, Func<Type, bool>? isValidType, Action<ClassDeclaration>? modifyProxyClass = null) {
+		public IEnumerable<TypeScriptFileDeclaration> Generate(string endpoint, string? pattern, IEnumerable<Assembly> assemblies,
+			IEnumerable<TypeScriptFileDeclaration> dependancies, string outputDirectory, Func<Type, bool>? isValidType, Action<ClassDeclaration>? modifyProxyClass = null) {
 			isValidType = isValidType ?? (args => true);
 			this.converter.EndpointName = endpoint;
 			pattern = pattern ?? DefaultPattern;
 			Regex regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-			List<TypeScriptFile> files = new List<TypeScriptFile>();
+			List<TypeScriptFileDeclaration> files = new List<TypeScriptFileDeclaration>();
 			foreach (var assembly in assemblies) {
 				var types = assembly.GetTypes();
 				foreach (Type type in types) {
@@ -40,12 +40,12 @@ namespace Albatross.CodeGen.WebClient {
 							if (isValidType(type)) {
 								var @class = converter.Convert(type);
 								modifyProxyClass?.Invoke(@class);
-								TypeScriptFile file = new TypeScriptFile(GetApiFileName(@class.Name));
+								TypeScriptFileDeclaration file = new TypeScriptFileDeclaration(GetApiFileName(@class.Identifier));
 								files.Add(file);
 								file.ClasseDeclarations.Add(@class);
 								file.BuildImports(dependancies.ToArray());
 								file.ImportDeclarations.AddRange(@class.Imports);
-								string filename = Path.Join(outputDirectory, file.Name);
+								string filename = Path.Join(outputDirectory, file.Identifier);
 								using (StreamWriter writer = new StreamWriter(filename, false)) {
 									writer.Code(file);
 									writer.WriteLine();

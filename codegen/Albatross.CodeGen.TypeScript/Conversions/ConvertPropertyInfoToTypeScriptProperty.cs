@@ -1,20 +1,22 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
-using Albatross.Reflection;
+﻿using Albatross.CodeGen.TypeScript.Declarations;
+using Albatross.CodeGen.TypeScript.TypeConversions;
 using Albatross.Text;
 using System.Reflection;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
 	public class ConvertPropertyInfoToTypeScriptProperty : IConvertObject<PropertyInfo, PropertyDeclaration> {
 		ConvertTypeToTypeScriptType convertToTypeScriptType;
-		public ConvertPropertyInfoToTypeScriptProperty(ConvertTypeToTypeScriptType convertToTypeScriptType) {
+		private readonly TypeConverterFactory factory;
+
+		public ConvertPropertyInfoToTypeScriptProperty(ConvertTypeToTypeScriptType convertToTypeScriptType, TypeConverterFactory factory) {
 			this.convertToTypeScriptType = convertToTypeScriptType;
+			this.factory = factory;
 		}
 
 		public PropertyDeclaration Convert(PropertyInfo from) {
-			var property = new PropertyDeclaration(from.Name.CamelCase(), convertToTypeScriptType.Convert(from.PropertyType)) {
-				Optional = from.PropertyType.GetNullableValueType(out _)
+			return new PropertyDeclaration(from.Name.CamelCase()) {
+				Type = convertToTypeScriptType.Convert(from.PropertyType),
 			};
-			return property;
 		}
 
 		object IConvertObject<PropertyInfo>.Convert(PropertyInfo from) => this.Convert(from);

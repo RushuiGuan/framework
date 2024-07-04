@@ -76,5 +76,18 @@ namespace Albatross.Collections {
 				existingItems.AddRange(newItems);
 			}
 		}
+
+		public static ICollection<T> AddIfNotNull<T>(this ICollection<T> collection, T? item) {
+			if (item != null) {
+				collection.Add(item);
+			}
+			return collection;
+		}
+		public static ICollection<T> UnionAll<T>(this ICollection<T> collection, params IEnumerable<T>[] items) {
+			foreach (var item in items) {
+				collection.AddRange(item);
+			}
+			return collection;
+		}
 	}
 }

@@ -1,13 +1,13 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
+﻿using Albatross.CodeGen.TypeScript.Expressions;
 using System;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public static class Extensions {
-		public static Expression Convert(this TypeConverterFactory factory, SyntaxTree tree, Type type) {
+		public static ITypeExpression Convert(this TypeConverterFactory factory, Type type) {
 			if (factory.TryGet(type, out var converter)) {
-				return converter.Convert(type, factory, tree);
+				return converter.Convert(type, factory);
 			} else {
-				return tree.Type(type.Name);
+				return new SimpleTypeExpression { Identifier = new IdentifierNameExpression(type.Name) };
 			}
 		}
 	}

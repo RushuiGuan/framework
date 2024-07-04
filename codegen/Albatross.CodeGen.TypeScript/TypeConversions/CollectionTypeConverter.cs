@@ -1,4 +1,4 @@
-﻿using Albatross.CodeGen.TypeScript.Models;
+﻿using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.Reflection;
 using System;
 using System.Collections;
@@ -10,14 +10,16 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			&& type != typeof(string)
 			&& type != typeof(byte[]);
 
-		public Expression Convert(Type type, TypeConverterFactory factory, SyntaxTree syntaxTree) {
-			TypeExpression result;
-			if(type.GetCollectionElementType(out var elementType)) {
-				result = factory.Convert(syntaxTree, elementType);
+		public ITypeExpression Convert(Type type, TypeConverterFactory factory) {
+			ITypeExpression result;
+			if (type.GetCollectionElementType(out var elementType)) {
+				result = factory.Convert(elementType);
 			} else {
-				result = syntaxTree.AnyType();
+				result = Defined.Types.Any;
 			}
-			return syntaxTree.ArrayType(result);
+			return new ArrayTypeExpression {
+				Type = result,
+			};
 		}
 	}
 }
