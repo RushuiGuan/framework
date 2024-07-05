@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Builders\**" />
+    <EmbeddedResource Remove="Builders\**" />
+    <None Remove="Builders\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
@@ -15,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Builders\" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.10.0" />
   </ItemGroup>
 
 </Project>
