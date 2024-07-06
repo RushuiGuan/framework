@@ -13,6 +13,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "caching", "caching", "{02848862-C161-4785-90AC-68FC721A2909}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codegen", "codegen", "{F0077DD2-731A-4663-804B-7636EBD2EFA8}"
+	ProjectSection(SolutionItems) = preProject
+		codegen\build.ps1 = codegen\build.ps1
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "collections", "collections", "{9D043716-8EDA-4117-88BC-88438C5F11CD}"
 	ProjectSection(SolutionItems) = preProject
@@ -245,7 +248,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.DateLevel", "date
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.DateLevel.Test", "datelevel\Albatross.DateLevel.Test\Albatross.DateLevel.Test.csproj", "{F13B34C3-F93B-4B48-AD8C-9EE0BBECF1B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Messaging.CodeGen", "messaging\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj", "{595E42E5-D120-42C0-8819-0EE4E8CC0123}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Messaging.CodeGen", "messaging\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj", "{595E42E5-D120-42C0-8819-0EE4E8CC0123}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codeanalysis", "codeanalysis", "{B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis", "codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj", "{938AAA3D-5B69-4D81-9BA4-670D31EF32B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeAnalysis.Test", "codeanalysis\Albatross.CodeAnalysis.Test\Albatross.CodeAnalysis.Test.csproj", "{CE256B51-ADF1-4C29-9EB8-AE22B99C2744}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -593,6 +602,14 @@ Global
 		{595E42E5-D120-42C0-8819-0EE4E8CC0123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{595E42E5-D120-42C0-8819-0EE4E8CC0123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{595E42E5-D120-42C0-8819-0EE4E8CC0123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{938AAA3D-5B69-4D81-9BA4-670D31EF32B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{938AAA3D-5B69-4D81-9BA4-670D31EF32B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{938AAA3D-5B69-4D81-9BA4-670D31EF32B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{938AAA3D-5B69-4D81-9BA4-670D31EF32B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE256B51-ADF1-4C29-9EB8-AE22B99C2744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE256B51-ADF1-4C29-9EB8-AE22B99C2744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE256B51-ADF1-4C29-9EB8-AE22B99C2744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE256B51-ADF1-4C29-9EB8-AE22B99C2744}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -683,6 +700,8 @@ Global
 		{D8254260-52BB-45F3-87D0-BAB3C4742E1A} = {B36671DF-532E-48B2-A7E0-7F0A2CAC2F8F}
 		{F13B34C3-F93B-4B48-AD8C-9EE0BBECF1B5} = {B36671DF-532E-48B2-A7E0-7F0A2CAC2F8F}
 		{595E42E5-D120-42C0-8819-0EE4E8CC0123} = {CCD031A5-EF83-494E-BD2B-0757AA04DD5C}
+		{938AAA3D-5B69-4D81-9BA4-670D31EF32B1} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
+		{CE256B51-ADF1-4C29-9EB8-AE22B99C2744} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4751EEB3-6D5D-4780-B0C9-ECB82447CB4A}

@@ -1,5 +1,4 @@
 ﻿using Albatross.Hosting.Utility;
-using Albatross.Messaging.CodeGen;
 using CommandLine;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
@@ -20,16 +19,21 @@ namespace Albatross.CodeGen.Utility {
 			var workspace = MSBuildWorkspace.Create();
 			Project project = await workspace.OpenProjectAsync(Options.ProjectFile);
 			var compilation = await project.GetCompilationAsync();
-			var cadidates = new List<INamedTypeSymbol>();
+			var dtoClasses = new List<INamedTypeSymbol>();
+			var enums = new List<INamedTypeSymbol>();
 			if (compilation != null) {
 				foreach (var syntaxTree in compilation.SyntaxTrees) {
 					var semanticModel = compilation.GetSemanticModel(syntaxTree);
-					var walker = new ApiControllerClassWalker(semanticModel);
-					walker.Visit(syntaxTree.GetRoot());
-					cadidates.AddRange(walker.Result);
+					var dtoClassWalker = new DtoClassWalker(semanticModel);
+					dtoClassWalker.Visit(syntaxTree.GetRoot());
+					dtoClasses.AddRange(dtoClassWalker.Result);
+
+					var enumWalker = new EnumTypeWalker(semanticModel);
+					enumWalker.Visit(syntaxTree.GetRoot());
+					enums.AddRange(enumWalker.Result);
 				}
 			}
-
+			dtoClasses.ForEach(x=>Options.WriteOutput(x.Name));
 			return 0;
 		}
 	}

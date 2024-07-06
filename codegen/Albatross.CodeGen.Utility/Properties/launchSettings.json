@@ -11,6 +11,14 @@
     "create python code": {
       "commandName": "Project",
       "commandLineArgs": "create-python-dto  -d C:\\app\\python\\secmaster --solution C:\\app\\secmaster\\secmaster.sln --projects secmaster.core"
+    },
+    "tree testing": {
+      "commandName": "Project",
+      "commandLineArgs": "subclass -p C:\\app\\pricemaster\\src\\PriceMaster\\PriceMaster.csproj -c PriceMaster.CommandHandlers.CloneDbarBarCommandHandler -s Albatross.Messaging.Commands.ICommandHandler"
+    },
+    "typescript-proxy": {
+      "commandName": "Project",
+      "commandLineArgs": "typescript-proxy -p C:\\app\\pricemaster\\src\\PriceMaster.Core\\PriceMaster.Core.csproj"
     }
   }
 }

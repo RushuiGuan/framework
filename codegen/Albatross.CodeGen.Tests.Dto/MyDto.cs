@@ -10,4 +10,14 @@ namespace Albatross.CodeGen.Tests.Dto {
 		public DateOnly DateOnly { get; set; }
 		public DateTimeOffset DateTimeOffset { get; set; }
 	}
+
+	public class MyBase {
+	}
+	public class MyDerived : MyBase {
+	}
+
+	public class MyBase<T> {
+	}
+	public class MyClass : MyBase<string>{
+	}
 }
