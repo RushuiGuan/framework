@@ -29,7 +29,6 @@ namespace Sample.Hosting.Utility {
 			var myEnum = this.Options.ParseEnum<MyEnum>(Options.Mu);
 			logger.LogInformation("Hello world at {datetime:yyyy-MM-dd hh:mm:ss fff}", DateTime.Now);
 			throw new InvalidOperationException("test");
-			return Task.FromResult(0);
 		}
 	}
 }

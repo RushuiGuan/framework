@@ -7,9 +7,3 @@ namespace Sample.Messaging.Commands.Test {
 	public record class YourTest1Command : IYourCommand {
 	}
 }
-
-
-namespace Sample.Messaging.Commands.Test2 {
-	public record class YourTest1Command : IYourCommand {
-	}
-}
