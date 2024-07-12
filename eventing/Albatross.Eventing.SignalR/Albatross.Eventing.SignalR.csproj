@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Albatross.Eventing\Albatross.Eventing.csproj" />
-	  <PackageReference Include="Microsoft.Azure.SignalR.Management" Version="1.21.7" />
+	  <PackageReference Include="Microsoft.Azure.SignalR.Management" Version="1.26.0" />
   </ItemGroup>
 
 </Project>
