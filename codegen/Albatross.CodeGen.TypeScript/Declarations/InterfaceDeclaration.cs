@@ -12,7 +12,7 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 			this.Identifier = new IdentifierNameExpression(name);
 		}
 		public IdentifierNameExpression Identifier { get; }
-		public IIdentifierNameExpression? BaseInterfaceName { get; init; }
+		public ITypeExpression? BaseInterfaceName { get; init; }
 		public IEnumerable<IModifier> Modifiers { get; init; } = [];
 		public IEnumerable<PropertyDeclaration> Properties { get; init; } = [];
 

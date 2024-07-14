@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -11,10 +11,9 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			this.converters = converters.OrderBy(x=>x.Precedence).ThenBy(x=>x.GetType().Name).ToList();
 		}
 
-		public bool TryGet<T>([NotNullWhen(true)] out ITypeConverter? converter) => TryGet(typeof(T), out converter);
-		public bool TryGet(Type type, [NotNullWhen(true)] out ITypeConverter? converter) {
+		public bool TryGet(ITypeSymbol symbol, [NotNullWhen(true)] out ITypeConverter? converter) {
 			foreach(ITypeConverter c in converters) {
-				if (c.Match(type)) {
+				if (c.Match(symbol)) {
 					converter = c;
 					return true;
 				}

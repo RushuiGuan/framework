@@ -3,9 +3,9 @@
 namespace Albatross.CodeGen.TypeScript.Conversions {
 	public class ConvertNamedTypeSymbolToTypeScriptSyntaxNode : IConvertObject<INamedTypeSymbol, CodeGen.Syntax.SyntaxNode> {
 		private readonly ConvertEnumToTypeScriptEnum2 convertEnumToTypeScriptEnum;
-		private readonly ConvertClassToTypeScriptInterface convertClassToTypeScriptInterface;
+		private readonly ConvertDtoClassToTypeScriptInterface convertClassToTypeScriptInterface;
 
-		public ConvertNamedTypeSymbolToTypeScriptSyntaxNode(ConvertEnumToTypeScriptEnum2 convertEnumToTypeScriptEnum, ConvertClassToTypeScriptInterface convertClassToTypeScriptInterface) {
+		public ConvertNamedTypeSymbolToTypeScriptSyntaxNode(ConvertEnumToTypeScriptEnum2 convertEnumToTypeScriptEnum, ConvertDtoClassToTypeScriptInterface convertClassToTypeScriptInterface) {
 			this.convertEnumToTypeScriptEnum = convertEnumToTypeScriptEnum;
 			this.convertClassToTypeScriptInterface = convertClassToTypeScriptInterface;
 		}

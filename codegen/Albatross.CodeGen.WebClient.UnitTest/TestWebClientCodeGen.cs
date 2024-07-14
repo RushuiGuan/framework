@@ -20,7 +20,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[Fact]
 		public void TestHttpGet() {
 			using (var scope = host.Create()) {
-				Type type = typeof(TestHttpGetController);
+				Type type = typeof(QueryStringParamTestController);
 				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
 				Class converted = handle.Convert(type);
 				var sb = new StringBuilder();
@@ -38,7 +38,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[Fact]
 		public void TestHttpPost() {
 			using (var scope = host.Create()) {
-				Type type = typeof(TestHttpPostController);
+				Type type = typeof(BodyParamTestController);
 				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
 				Class converted = handle.Convert(type);
 				var sb = new StringBuilder();
@@ -56,7 +56,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[Fact]
 		public void TestHttpDelete() {
 			using (var scope = host.Create()) {
-				Type type = typeof(TestHttpDeleteController);
+				Type type = typeof(RoutingParamTestController);
 				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
 				Class converted = handle.Convert(type);
 				StringBuilder sb = new StringBuilder();
