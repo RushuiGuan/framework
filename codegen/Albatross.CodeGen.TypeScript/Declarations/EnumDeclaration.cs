@@ -18,7 +18,7 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 		public override TextWriter Generate(TextWriter writer) {
 			writer.Append("export ").Append("enum ");
 			using (var scope = writer.Code(Identifier).BeginScope()) {
-				writer.Code(Items);
+				scope.Writer.Code(Items);
 			}
 			writer.WriteLine();
 			return writer;

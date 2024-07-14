@@ -9,6 +9,6 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			|| symbol.ToDisplayString() == "System.DateTime" 
 			|| symbol.ToDisplayString() == "System.DateTimeOffset";
 
-		public ITypeExpression Convert(ITypeSymbol type, TypeConverterFactory _) => Defined.Types.Date;
+		public ITypeExpression Convert(ITypeSymbol type, ITypeConverterFactory _) => Defined.Types.Date;
 	}
 }

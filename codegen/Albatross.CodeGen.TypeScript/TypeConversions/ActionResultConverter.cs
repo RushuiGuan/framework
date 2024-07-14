@@ -10,7 +10,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			|| symbol.ToDisplayString() == "Microsoft.AspNetCore.Mvc.ActionResult"
 			|| symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var _);
 
-		public ITypeExpression Convert(ITypeSymbol symbol, TypeConverterFactory factory) {
+		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory factory) {
 			if (symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var arguments)) {
 				return factory.Convert(arguments[0]);
 			} else {

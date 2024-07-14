@@ -18,7 +18,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 	}";
 			var compilation = Albatross.CodeAnalysis.Extensions.CreateCompilation(code);
 			var symbol = compilation.GetRequiredSymbol("MyEnum1");
-			var result = new ConvertEnumToTypeScriptEnum2().Convert(symbol);
+			var result = new ConvertEnumToTypeScriptEnum().Convert(symbol);
 
 			Assert.Equal("MyEnum1", result.Identifier.Name);
 			Assert.Collection(result.Items,
@@ -43,7 +43,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 		New = 1, Brand = 2, Best = 3
 	}"; var compilation = Albatross.CodeAnalysis.Extensions.CreateCompilation(code);
 			var symbol = compilation.GetRequiredSymbol("MyEnum1");
-			var result = new ConvertEnumToTypeScriptEnum2().Convert(symbol);
+			var result = new ConvertEnumToTypeScriptEnum().Convert(symbol);
 
 			Assert.Equal("MyEnum1", result.Identifier.Name);
 			Assert.Collection(result.Items,

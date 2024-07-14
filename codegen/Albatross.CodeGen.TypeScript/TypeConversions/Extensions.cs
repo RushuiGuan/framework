@@ -4,7 +4,7 @@ using System;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public static class Extensions {
-		public static ITypeExpression Convert(this TypeConverterFactory factory, ITypeSymbol symbol) {
+		public static ITypeExpression Convert(this ITypeConverterFactory factory, ITypeSymbol symbol) {
 			if (factory.TryGet(symbol, out var converter)) {
 				return converter.Convert(symbol, factory);
 			} else {

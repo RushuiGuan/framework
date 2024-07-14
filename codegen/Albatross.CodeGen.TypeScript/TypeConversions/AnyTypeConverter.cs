@@ -9,6 +9,6 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 		public bool Match(ITypeSymbol symbol) => symbol.ToDisplayString() == "System.Object" 
 			|| symbol.ToDisplayString() == "System.Text.Json.JsonElement";
 
-		public ITypeExpression Convert(ITypeSymbol symbol, TypeConverterFactory _) => Defined.Types.Any;
+		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory _) => Defined.Types.Any;
 	}
 }

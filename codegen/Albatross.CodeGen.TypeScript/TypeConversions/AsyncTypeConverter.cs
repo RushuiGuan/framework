@@ -11,7 +11,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 
 		public int Precedence => 90;
 		public bool Match(ITypeSymbol symbol) => symbol.ToDisplayString() == "System.Threading.Tasks.Task" || symbol.ToDisplayString() == GenericDefinitionName;
-		public ITypeExpression Convert(ITypeSymbol symbol, TypeConverterFactory factory) {
+		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory factory) {
 			if (symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var arguments)) {
 				return new GenericTypeExpression(PromiseType) {
 					Arguments = new ListOfSyntaxNodes<ITypeExpression>(factory.Convert(arguments.First()))

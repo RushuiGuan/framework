@@ -5,34 +5,34 @@ using System.Text.RegularExpressions;
 namespace Albatross.CodeGen.TypeScript {
 	public static class Defined {
 		public static class Patterns {
-			public readonly static Regex IdentifierName = new Regex(@"^[@a-zA-Z_]\w*$", RegexOptions.Compiled);
-			public readonly static Regex ModuleSource = new Regex(@"^(@[a-zA-Z0-9]+/)?[a-zA-Z0-9]+$", RegexOptions.Compiled);
+			public static Regex IdentifierName => new Regex(@"^[@a-z_]\w*$", RegexOptions.Compiled| RegexOptions.IgnoreCase);
+			public static Regex ModuleSource => new Regex(@"^(@[_a-z0-9]+/)?[_a-z0-9]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		}
 		public static class Types {
-			public readonly static SimpleTypeExpression Any = new SimpleTypeExpression {
+			public static SimpleTypeExpression Any => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("any"),
 			};
-			public readonly static SimpleTypeExpression Void = new SimpleTypeExpression {
+			public static SimpleTypeExpression Void => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("void")
 			};
 
-			public readonly static SimpleTypeExpression Boolean = new SimpleTypeExpression {
+			public static SimpleTypeExpression Boolean => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("boolean")
 			};
 
-			public readonly static SimpleTypeExpression Date = new SimpleTypeExpression {
+			public static SimpleTypeExpression Date => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("Date")
 			};
-			public readonly static SimpleTypeExpression Numeric = new SimpleTypeExpression {
+			public static SimpleTypeExpression Numeric => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("number")
 			};
-			public readonly static SimpleTypeExpression String = new SimpleTypeExpression {
+			public static SimpleTypeExpression String => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("string")
 			};
-			public readonly static SimpleTypeExpression Null = new SimpleTypeExpression {
+			public static SimpleTypeExpression Null => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("null")
 			};
-			public readonly static SimpleTypeExpression Undefined = new SimpleTypeExpression {
+			public static SimpleTypeExpression Undefined => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("undefined")
 			};
 			public static SimpleTypeExpression Type(string name) {
@@ -40,7 +40,7 @@ namespace Albatross.CodeGen.TypeScript {
 					Identifier = new IdentifierNameExpression(name)
 				};
 			}
-			public readonly static SimpleTypeExpression HttpClient = new SimpleTypeExpression {
+			public static SimpleTypeExpression HttpClient => new SimpleTypeExpression {
 				Identifier = Identifiers.HttpClient,
 			};
 		}
@@ -57,7 +57,7 @@ namespace Albatross.CodeGen.TypeScript {
 			public static JsonPropertyExpression JsonProperty(string name, string value)
 				=> new JsonPropertyExpression(name, new StringLiteralExpression(value));
 		}
-		
+
 		public static class Invocations {
 			public static InvocationExpression InjectableDecorator(string providedIn) {
 				return new InvocationExpression {
@@ -68,16 +68,16 @@ namespace Albatross.CodeGen.TypeScript {
 				};
 			}
 		}
-		
+
 		public static class Sources {
-			public readonly static ISourceExpression AngularCore = new ModuleSourceExpression("@angular/core");
-			public readonly static ISourceExpression AngularHttp = new ModuleSourceExpression("@angular/common/http");
+			public static ISourceExpression AngularCore => new ModuleSourceExpression("@angular/core");
+			public static ISourceExpression AngularHttp => new ModuleSourceExpression("@angular/common/http");
 		}
 
 		public static class Identifiers {
-			public readonly static IIdentifierNameExpression Injectable = new QualifiedIdentifierNameExpression("@Injectable", Sources.AngularCore);
-			public readonly static IIdentifierNameExpression HttpClient = new QualifiedIdentifierNameExpression("HttpClient", Sources.AngularHttp);
-			public readonly static IIdentifierNameExpression This = new IdentifierNameExpression("this");
+			public static IIdentifierNameExpression Injectable => new QualifiedIdentifierNameExpression("@Injectable", Sources.AngularCore);
+			public static IIdentifierNameExpression HttpClient => new QualifiedIdentifierNameExpression("HttpClient", Sources.AngularHttp);
+			public static IIdentifierNameExpression This => new IdentifierNameExpression("this");
 		}
 	}
 }

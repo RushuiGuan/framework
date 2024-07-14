@@ -14,9 +14,13 @@ namespace Albatross.CodeAnalysis {
 			return symbol;
 		}
 		public static bool IsDerivedFrom(this ITypeSymbol typeSymbol, ITypeSymbol baseTypeSymbol) {
-			for (var baseType = typeSymbol.BaseType; baseType != null; baseType = baseType.BaseType) {
-				if (SymbolEqualityComparer.Default.Equals(baseType, baseTypeSymbol)) {
-					return true;
+			if (baseTypeSymbol.TypeKind == TypeKind.Interface) {
+				return typeSymbol.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, baseTypeSymbol));
+			} else if (typeSymbol.TypeKind == TypeKind.Class) {
+				for (var baseType = typeSymbol.BaseType; baseType != null; baseType = baseType.BaseType) {
+					if (SymbolEqualityComparer.Default.Equals(baseType, baseTypeSymbol)) {
+						return true;
+					}
 				}
 			}
 			return false;
@@ -31,7 +35,7 @@ namespace Albatross.CodeAnalysis {
 		}
 
 		public static Compilation CreateCompilation(params string[] sourceCodes) {
-			var syntaxTrees = sourceCodes.Select(code => CSharpSyntaxTree.ParseText(code)).ToArray();
+			var syntaxTrees = sourceCodes.Select(code => CSharpSyntaxTree.ParseText(code, new CSharpParseOptions(LanguageVersion.Default))).ToArray();
 
 			var references = new List<MetadataReference> {
 				MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
@@ -75,6 +79,22 @@ namespace Albatross.CodeAnalysis {
 				default:
 					return false;
 			}
+		}
+
+		public static bool HasAttribute(this ISymbol symbol, string attributeName) {
+			const string AttributePostfix = "Attribute";
+			foreach (var attribute in symbol.GetAttributes()) {
+				var className = attribute.AttributeClass?.ToDisplayString();
+				if (!string.IsNullOrEmpty(className)) {
+					if (!className.EndsWith(AttributePostfix)) {
+						className += AttributePostfix;
+					}
+					if(className == attributeName) {
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 	}
 }

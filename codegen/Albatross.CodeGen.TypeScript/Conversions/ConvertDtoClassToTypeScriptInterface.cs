@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
 	public class ConvertDtoClassToTypeScriptInterface : IConvertObject<INamedTypeSymbol, InterfaceDeclaration> {
-		private readonly TypeConverterFactory typeConverterFactory;
+		private readonly ITypeConverterFactory typeConverterFactory;
 		private readonly IConvertObject<IPropertySymbol, PropertyDeclaration> propertyConverter;
 
-		public ConvertDtoClassToTypeScriptInterface(TypeConverterFactory typeConverterFactory, IConvertObject<IPropertySymbol, PropertyDeclaration> propertyConverter) {
+		public ConvertDtoClassToTypeScriptInterface(ITypeConverterFactory typeConverterFactory, IConvertObject<IPropertySymbol, PropertyDeclaration> propertyConverter) {
 			this.typeConverterFactory = typeConverterFactory;
 			this.propertyConverter = propertyConverter;
 		}

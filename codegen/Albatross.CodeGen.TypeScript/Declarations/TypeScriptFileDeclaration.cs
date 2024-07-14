@@ -9,6 +9,7 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 		public TypeScriptFileDeclaration(string name) {
 			this.Identifier = new IdentifierNameExpression(name);
 		}
+		public string FileName => $"{Identifier.Name}.ts";
 		public IdentifierNameExpression Identifier { get; }
 		public IEnumerable<IModifier> Modifiers { get; init; } = [];
 		public IEnumerable<ImportExpression> ImportDeclarations { get; init; } = [];

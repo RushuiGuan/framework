@@ -8,6 +8,6 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 		public int Precedence => 0;
 		public bool Match(ITypeSymbol symbol) => symbol.IsNumeric();
 
-		public ITypeExpression Convert(ITypeSymbol type, TypeConverterFactory _) => Defined.Types.Numeric;
+		public ITypeExpression Convert(ITypeSymbol type, ITypeConverterFactory _) => Defined.Types.Numeric;
 	}
 }

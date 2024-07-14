@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Albatross.CodeGen.Tests.Dto {
 	public class MyDto {
@@ -26,5 +28,8 @@ namespace Albatross.CodeGen.Tests.Dto {
 		public Guid Guid { get; set; }
 		public MyEnum Enum { get; set; }
 		public MyStringEnum	StringEnum { get; set; }
+		public int[] IntArray { get; set; } = new int[0];
+		public IEnumerable IntEnumerable { get; set; } = new int[0];
+		public IEnumerable<int> IntEnumerableGeneric { get; set; } = new int[0];
 	}
 }

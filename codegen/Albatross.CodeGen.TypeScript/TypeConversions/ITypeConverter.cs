@@ -6,6 +6,6 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public interface ITypeConverter {
 		public bool Match(ITypeSymbol namedTypeSymbol);
 		public int Precedence { get; }
-		public ITypeExpression Convert(ITypeSymbol type, TypeConverterFactory factory);
+		public ITypeExpression Convert(ITypeSymbol type, ITypeConverterFactory factory);
 	}
 }

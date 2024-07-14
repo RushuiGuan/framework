@@ -2,11 +2,12 @@
 using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
 using System.Linq;
+using Albatross.CodeAnalysis;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
-	public class ConvertEnumToTypeScriptEnum2 : IConvertObject<INamedTypeSymbol, EnumDeclaration> {
+	public class ConvertEnumToTypeScriptEnum : IConvertObject<INamedTypeSymbol, EnumDeclaration> {
 		public EnumDeclaration Convert(INamedTypeSymbol from) {
-			if (from.GetAttributes().Where(x => x.AttributeClass?.ToDisplayString() == "System.Text.Json.Serialization.JsonConverter").Any()) {
+			if (from.HasAttribute("System.Text.Json.Serialization.JsonConverterAttribute")) {
 				return new EnumDeclaration(from.Name) {
 					Items = new ListOfEnumItems(
 						from.GetMembers().Where(x => x.Kind == SymbolKind.Field)
@@ -20,7 +21,7 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 					Items = new ListOfEnumItems(
 						from.GetMembers().Where(x => x.Kind == SymbolKind.Field).OfType<IFieldSymbol>()
 						.Select(x => new EnumItemExpression(x.Name) {
-							Expression = new NumberLiteralExpression((int)x.ConstantValue!),
+							Expression = new NumberLiteralExpression(x.ConstantValue!),
 						}))
 				};
 			}
