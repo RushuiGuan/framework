@@ -14,8 +14,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Albatross.CodeGen.TypeScript;
 using Albatross.CodeAnalysis.MSBuild;
+using Albatross.CodeGen.TypeScript.TypeConversions;
+using Albatross.CodeGen.TypeScript.Expressions;
+using System.Diagnostics.CodeAnalysis;
+using Albatross.CodeGen.Syntax;
 
 namespace Albatross.CodeGen.Utility {
+	public class EnumSourceLookup : ISourceLookup {
+		public bool TryGet(ITypeSymbol name, [NotNullWhen(true)] out ISourceExpression? module) {
+			if (name.TypeKind == TypeKind.Enum) {
+				module = new FileNameSourceExpression("enum");
+				return true;
+			} else {
+				module = null;
+				return false;
+			}
+		}
+	}
 	[Verb("typescript-dto")]
 	public class GenerateTypeScriptDtoOption : BaseOption {
 		[Option('p', "project-file", Required = true)]
@@ -34,6 +49,7 @@ namespace Albatross.CodeGen.Utility {
 			services.AddScoped<ICurrentProject>(provider => new CurrentProject(Options.ProjectFile));
 			services.AddScoped<ICompilationFactory, MSBuildProjectCompilationFactory>();
 			services.AddScoped<Compilation>(provider => provider.GetRequiredService<ICompilationFactory>().Create());
+			services.AddScoped<ISourceLookup, EnumSourceLookup>();
 		}
 		public Task<int> RunUtility(ILogger<GenerateTypeScriptDto> logger,
 			Compilation compilation,
@@ -63,7 +79,7 @@ namespace Albatross.CodeGen.Utility {
 				using (var writer = new StreamWriter(Path.Join(Options.OutputDirectory, enumFile.FileName))) {
 					enumFile.Generate(writer);
 				}
-				using(var writer = new StreamWriter(Path.Join(Options.OutputDirectory, dtoFile.FileName))) {
+				using (var writer = new StreamWriter(Path.Join(Options.OutputDirectory, dtoFile.FileName))) {
 					dtoFile.Generate(writer);
 				}
 			}

@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -34,22 +35,34 @@ namespace Albatross.CodeAnalysis {
 				return false;
 			}
 		}
-
+		public static IEnumerable<MetadataReference> GetGlobalReferences() {
+			var assemblies = new[] {
+				/*Making sure all MEF assemblies are loaded*/
+				typeof(System.Composition.Convention.AttributedModelProvider).Assembly, //System.Composition.AttributeModel
+				typeof(System.Composition.Convention.ConventionBuilder).Assembly,   //System.Composition.Convention
+				typeof(System.Composition.Hosting.CompositionHost).Assembly,        //System.Composition.Hosting
+				typeof(System.Composition.CompositionContext).Assembly,             //System.Composition.Runtime
+				typeof(System.Composition.CompositionContextExtensions).Assembly,   //System.Composition.TypedParts
+				typeof(Enumerable).Assembly,										//System.Linq
+				typeof(System.Text.Json.JsonDocument).Assembly,						//System.Text.Json
+			};
+			var result = new List<MetadataReference>(from assembly in assemblies select MetadataReference.CreateFromFile(assembly.Location));
+			var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
+			result.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
+			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "mscorlib.dll")));
+			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.dll")));
+			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Core.dll")));
+			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Runtime.dll")));
+			return result;
+		}
 		public static Compilation CreateCompilation(params string[] sourceCodes) {
 			var syntaxTrees = sourceCodes.Select(code => CSharpSyntaxTree.ParseText(code, new CSharpParseOptions(LanguageVersion.Default))).ToArray();
-
-			var references = new List<MetadataReference> {
-				MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-				MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location),
-				MetadataReference.CreateFromFile(typeof(System.Text.Json.JsonDocument).Assembly.Location),
-			};
-
+			var references = GetGlobalReferences();
 			var compilation = CSharpCompilation.Create(
 				"TestCompilation",
 				syntaxTrees,
 				references,
 				new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
-
 			return compilation;
 		}
 
@@ -93,11 +106,25 @@ namespace Albatross.CodeAnalysis {
 			}
 			return false;
 		}
+		public static bool HasAttributeWithArguments(this ISymbol symbol, string attributeName, params string[] parameter) {
+			foreach (var attribute in symbol.GetAttributes()) {
+				var className = attribute.AttributeClass?.GetFullName();
+				if (!string.IsNullOrEmpty(className)) {
+					if (className == attributeName) {
+						var match = attribute.ConstructorArguments.Select(x=>(x.Value as INamedTypeSymbol)?.GetFullName()).SequenceEqual(parameter);
+						if (match) {
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
 
 		public static bool IsNullable(this ITypeSymbol symbol) {
-			return symbol is INamedTypeSymbol named
-				&& named.IsGenericType
-				&& named.OriginalDefinition.GetFullName() == "System.Nullable<>";
+			return symbol is INamedTypeSymbol named && (
+				named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>" || symbol.NullableAnnotation == NullableAnnotation.Annotated
+			);
 		}
 
 		public static string GetFullName(this ITypeSymbol symbol) {
@@ -115,8 +142,8 @@ namespace Albatross.CodeAnalysis {
 				var sb = new StringBuilder(fullName);
 				sb.Append("<");
 				for (int i = 0; i < named.TypeArguments.Length; i++) {
-					if (i > 0) { 
-						sb.Append(","); 
+					if (i > 0) {
+						sb.Append(",");
 					}
 					if (!named.IsDefinition) {
 						sb.Append(named.TypeArguments[i].GetFullName());

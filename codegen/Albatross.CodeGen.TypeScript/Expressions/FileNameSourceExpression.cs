@@ -11,11 +11,18 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 			this.FileName = name;
 		}
 		public string FileName { get; }
-
 		public override IEnumerable<ISyntaxNode> Children => [];
 
 		public override TextWriter Generate(TextWriter writer) {
-			writer.Append('\'').Append(FileName).Append('\'');
+			writer.Append('\'');
+			var fileName = Path.GetFileNameWithoutExtension(FileName);
+			if(!Path.IsPathRooted(fileName)) {
+				if(!fileName.StartsWith("./")) {
+					writer.Append("./");
+				}
+			}
+			writer.Append(fileName);
+			writer.Append('\'');
 			return writer;
 		}
 	}

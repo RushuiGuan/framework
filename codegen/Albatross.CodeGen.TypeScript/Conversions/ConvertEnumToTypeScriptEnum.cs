@@ -3,12 +3,12 @@ using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
 using System.Linq;
 using Albatross.CodeAnalysis;
-using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
 	public class ConvertEnumToTypeScriptEnum : IConvertObject<INamedTypeSymbol, EnumDeclaration> {
 		public EnumDeclaration Convert(INamedTypeSymbol from) {
-			if (from.HasAttribute("System.Text.Json.Serialization.JsonConverterAttribute")) {
+			if (from.HasAttributeWithArguments("System.Text.Json.Serialization.JsonConverterAttribute", 
+					"System.Text.Json.Serialization.JsonStringEnumConverter")) {
 				return new EnumDeclaration(from.Name) {
 					Items = new ListOfEnumItems(
 						from.GetMembers().Where(x => x.Kind == SymbolKind.Field)

@@ -19,6 +19,10 @@
     "typescript-dto": {
       "commandName": "Project",
       "commandLineArgs": "typescript-dto -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.Dto\\Albatross.CodeGen.Tests.Dto.csproj -o c:\\temp\r\n"
+    },
+    "secmaster dto": {
+      "commandName": "Project",
+      "commandLineArgs": "typescript-dto -p C:\\app\\secmaster\\src\\SecMaster.Core\\SecMaster.Core.csproj"
     }
   }
 }

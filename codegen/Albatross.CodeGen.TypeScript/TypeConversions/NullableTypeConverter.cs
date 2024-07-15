@@ -7,9 +7,10 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class NullableTypeConverter : ITypeConverter {
 		public int Precedence => 80;
 		public const string NullableDefinitionName = "System.Nullable<>";
-		public bool Match(ITypeSymbol symbol) => symbol is INamedTypeSymbol named
-			&& named.IsGenericType
-			&& named.OriginalDefinition.GetFullName() == NullableDefinitionName;
+		public bool Match(ITypeSymbol symbol) => symbol is INamedTypeSymbol named && (
+			named.IsGenericType && named.OriginalDefinition.GetFullName() == NullableDefinitionName 
+			|| symbol.NullableAnnotation == NullableAnnotation.Annotated
+		);
 
 		public ITypeExpression Convert(ITypeSymbol type, ITypeConverterFactory factory) {
 			if (type.TryGetGenericTypeArguments(NullableDefinitionName, out var arguments)) {

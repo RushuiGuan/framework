@@ -1,4 +1,5 @@
-﻿using Albatross.CodeGen.TypeScript.Expressions;
+﻿using Albatross.CodeAnalysis;
+using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
 using System;
 
@@ -8,7 +9,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			if (factory.TryGet(symbol, out var converter)) {
 				return converter.Convert(symbol, factory);
 			} else {
-				return new SimpleTypeExpression { Identifier = new IdentifierNameExpression(symbol.Name) };
+				throw new InvalidOperationException($"TypeConverter is not found for {symbol.GetFullName()}");
 			}
 		}
 	}

@@ -21,14 +21,6 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 				.UnionAll(Properties);
 
 		public override TextWriter Generate(TextWriter writer) {
-			this.GetDescendants().Where(x=>x is QualifiedIdentifierNameExpression)
-				.Cast<QualifiedIdentifierNameExpression>()
-				.GroupBy(x=>x.Source)
-				.Select(x=> new ImportExpression() {
-					 Source = x.Key,
-					 Items = new ListOfSyntaxNodes<IdentifierNameExpression>(x.Select(y => y.Identifier))
-				}).ForEach(x=>writer.Code(x).WriteLine());
-
 			writer.Append("export ").Append("interface ").Code(Identifier);
 			if (BaseInterfaceName != null) {
 				writer.Append(" extends ").Code(BaseInterfaceName);

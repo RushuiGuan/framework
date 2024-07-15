@@ -3,6 +3,7 @@ using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Expressions;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Declarations {
 	public record class TypeScriptFileDeclaration : SyntaxNode, IDeclaration, ICodeElement {
@@ -20,8 +21,16 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 		public override IEnumerable<ISyntaxNode> Children => new List<ISyntaxNode> { Identifier }
 				.UnionAll(ImportDeclarations, EnumDeclarations, InterfaceDeclarations, ClasseDeclarations);
 
+
+
 		public override TextWriter Generate(TextWriter writer) {
-			foreach (var item in ImportDeclarations) {
+			foreach (var item in ImportDeclarations.Union(this.GetDescendants().Where(x => x is QualifiedIdentifierNameExpression)
+				.Cast<QualifiedIdentifierNameExpression>()
+				.GroupBy(x => x.Source)
+				.Select(x => new ImportExpression() {
+					Source = x.Key,
+					Items = new ListOfSyntaxNodes<IdentifierNameExpression>(x.Select(y => y.Identifier))
+				})).Combine()) {
 				writer.Code(item);
 			}
 			writer.WriteLine();

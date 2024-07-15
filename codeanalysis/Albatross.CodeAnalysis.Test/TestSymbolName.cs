@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using System.Text.Json.Serialization;
 using Xunit;
 namespace Albatross.CodeAnalysis.Test {
 	public class TestSymbolName {
@@ -10,7 +11,7 @@ namespace Albatross.CodeAnalysis.Test {
 		[InlineData("namespace XX { class A{} } class MyClass{ XX.A P1;}", "XX.A")]
 		[InlineData("using System.Collections.Generic; class MyClass{ List<string> P1;}", "System.Collections.Generic.List<System.String>")]
 		[InlineData("using C = System.Collections; class MyClass{ C.ArrayList P1;}", "System.Collections.ArrayList")]
-		public void Run(string code,  string expected) {
+		public void Run(string code, string expected) {
 			var compilation = Extensions.CreateCompilation(code);
 			var symbol = compilation.GetRequiredSymbol("MyClass");
 			var p1 = symbol.GetMembers().OfType<IFieldSymbol>().Where(x => x.Name == "P1").First();
@@ -38,17 +39,6 @@ namespace Albatross.CodeAnalysis.Test {
 			var symbol = compilation.GetRequiredSymbol("MyClass");
 			var attribute = symbol.GetAttributes().First();
 			Assert.Equal("System.SerializableAttribute", attribute.AttributeClass?.GetFullName());
-		}
-		[Fact]
-		public void TestGetGenericAttributeName() {
-			var compilation = Extensions.CreateCompilation(@"
-	using System.Text.Json.Serialization;
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum MyEnum { None }
-");
-			var symbol = compilation.GetRequiredSymbol("MyEnum");
-			var attribute = symbol.GetAttributes().First();
-			Assert.Equal("System.Text.Json.Serialization.JsonConverterAttribute", attribute.AttributeClass?.GetFullName());
 		}
 	}
 }

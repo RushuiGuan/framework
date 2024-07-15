@@ -18,14 +18,6 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 		public PropertyDeclaration Convert(IPropertySymbol from) {
 			ITypeExpression type = converterFactory.Convert(from.Type);
 			var optional = from.Type.IsNullable();
-			if (optional) {
-				var genericType = type as GenericTypeExpression;
-				if (genericType != null) {
-					type = genericType.Arguments.First();
-				} else {
-					throw new InvalidOperationException();
-				}
-			}
 			return new PropertyDeclaration(from.Name.CamelCase()) {
 				Type = type,
 				Optional = optional,
