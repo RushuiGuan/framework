@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Albatross.CodeAnalysis {
 	public static class Extensions {
@@ -53,7 +54,7 @@ namespace Albatross.CodeAnalysis {
 		}
 
 		public static bool TryGetGenericTypeArguments(this ITypeSymbol symbol, string genericTypeDefinitionName, out ITypeSymbol[] arguments) {
-			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.ToDisplayString() == genericTypeDefinitionName) {
+			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == genericTypeDefinitionName) {
 				arguments = named.TypeArguments.ToArray();
 				return true;
 			} else {
@@ -82,23 +83,58 @@ namespace Albatross.CodeAnalysis {
 		}
 
 		public static bool HasAttribute(this ISymbol symbol, string attributeName) {
-			const string AttributePostfix = "Attribute";
 			foreach (var attribute in symbol.GetAttributes()) {
-				var className = attribute.AttributeClass?.ToDisplayString();
+				var className = attribute.AttributeClass?.GetFullName();
 				if (!string.IsNullOrEmpty(className)) {
-					if (!className.EndsWith(AttributePostfix)) {
-						className += AttributePostfix;
-					}
-					if(className == attributeName) {
+					if (className == attributeName) {
 						return true;
 					}
 				}
 			}
 			return false;
 		}
+
 		public static bool IsNullable(this ITypeSymbol symbol) {
-			return symbol is INamedTypeSymbol named 
-				&& named.IsGenericType 
-				&& named.OriginalDefinition.ToDisplayString() == "System.Nullable<T>";}
+			return symbol is INamedTypeSymbol named
+				&& named.IsGenericType
+				&& named.OriginalDefinition.GetFullName() == "System.Nullable<>";
+		}
+
+		public static string GetFullName(this ITypeSymbol symbol) {
+			string fullName;
+			if (symbol is IArrayTypeSymbol arraySymbol) {
+				fullName = $"{arraySymbol.ElementType.GetFullName()}[]";
+			} else if (symbol.ContainingNamespace == null) {
+				fullName = symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+			} else if (symbol.ContainingNamespace.IsGlobalNamespace) {
+				fullName = symbol.Name;
+			} else {
+				fullName = $"{symbol.ContainingNamespace.GetFullNamespace()}.{symbol.Name}";
+			}
+			if (symbol is INamedTypeSymbol named && named.IsGenericType) {
+				var sb = new StringBuilder(fullName);
+				sb.Append("<");
+				for (int i = 0; i < named.TypeArguments.Length; i++) {
+					if (i > 0) { 
+						sb.Append(","); 
+					}
+					if (!named.IsDefinition) {
+						sb.Append(named.TypeArguments[i].GetFullName());
+					}
+				}
+				sb.Append(">");
+				fullName = sb.ToString();
+			}
+			return fullName;
+		}
+		public static string GetFullNamespace(this INamespaceSymbol symbol) {
+			if (symbol.IsGlobalNamespace) {
+				return string.Empty;
+			} else if (symbol.ContainingNamespace.IsGlobalNamespace) {
+				return symbol.Name;
+			} else {
+				return $"{GetFullNamespace(symbol.ContainingNamespace)}.{symbol.Name}";
+			}
+		}
 	}
 }

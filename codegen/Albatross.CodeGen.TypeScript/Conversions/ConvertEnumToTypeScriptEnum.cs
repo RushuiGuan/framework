@@ -3,6 +3,7 @@ using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
 using System.Linq;
 using Albatross.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
 	public class ConvertEnumToTypeScriptEnum : IConvertObject<INamedTypeSymbol, EnumDeclaration> {

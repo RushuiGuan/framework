@@ -1,6 +1,6 @@
-﻿using Albatross.CodeGen.TypeScript.Declarations;
+﻿using Albatross.CodeAnalysis;
+using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.CodeGen.TypeScript.TypeConversions;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.CodeAnalysis;
 using System.Linq;
 
@@ -16,18 +16,17 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 
 		public InterfaceDeclaration Convert(INamedTypeSymbol from) {
 			return new InterfaceDeclaration(from.Name) {
-				BaseInterfaceName = from.BaseType != null && from.BaseType.ToDisplayString() != "System.Object"
-					&& from.BaseType.ToDisplayString() != "object"
-					&& !from.BaseType.IsValueType
-					? typeConverterFactory.Convert(from.BaseType) : null,
+				BaseInterfaceName = from.BaseType != null
+					&& from.BaseType.GetFullName() != "System.Object"
+					&& !from.BaseType.IsValueType ? typeConverterFactory.Convert(from.BaseType) : null,
 				Properties = from.GetMembers().OfType<IPropertySymbol>()
-					.Where(x=>Filter(from, x))
+					.Where(x => Filter(from, x))
 					.Select(x => this.propertyConverter.Convert(x)).ToList(),
 			};
 		}
 
 		bool Filter(INamedTypeSymbol typeSymbol, IPropertySymbol propertySymbol) {
-			if(typeSymbol.IsRecord && propertySymbol.Name == "EqualityContract") {
+			if (typeSymbol.IsRecord && propertySymbol.Name == "EqualityContract") {
 				return false;
 			}
 			return propertySymbol.DeclaredAccessibility == Accessibility.Public;

@@ -7,10 +7,12 @@ using System.Linq;
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class AsyncTypeConverter : ITypeConverter {
 		public const string PromiseType = "Promise";
-		public const string GenericDefinitionName = "System.Threading.Tasks.Task`1";
+		public const string GenericDefinitionName = "System.Threading.Tasks.Task<>";
 
 		public int Precedence => 90;
-		public bool Match(ITypeSymbol symbol) => symbol.ToDisplayString() == "System.Threading.Tasks.Task" || symbol.ToDisplayString() == GenericDefinitionName;
+		public bool Match(ITypeSymbol symbol) 
+			=> symbol.GetFullName() == "System.Threading.Tasks.Task" 
+			|| symbol.GetFullName() == GenericDefinitionName;
 		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory factory) {
 			if (symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var arguments)) {
 				return new GenericTypeExpression(PromiseType) {

@@ -1,4 +1,5 @@
 ﻿using Albatross.CodeAnalysis;
+using Albatross.CodeGen.CSharp.Models;
 using Albatross.CodeGen.TypeScript.Conversions;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Xunit;
@@ -24,15 +25,18 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 			Assert.Collection(result.Items,
 				v => {
 					Assert.Equal("New", v.Identifier.Name);
-					Assert.True(v.Expression is StringLiteralExpression literal && literal.Value == "New");
+					Assert.IsType<StringLiteralExpression>(v.Expression);
+					Assert.Equal("New", ((StringLiteralExpression)v.Expression).Value);
 				},
 				v => {
 					Assert.Equal("Brand", v.Identifier.Name);
-					Assert.True(v.Expression is StringLiteralExpression literal && literal.Value == "Brand");
+					Assert.IsType<StringLiteralExpression>(v.Expression);
+					Assert.Equal("Brand", ((StringLiteralExpression)v.Expression).Value);
 				},
 				v => {
 					Assert.Equal("Best", v.Identifier.Name);
-					Assert.True(v.Expression is StringLiteralExpression literal && literal.Value == "Best");
+					Assert.IsType<StringLiteralExpression>(v.Expression);
+					Assert.Equal("Best", ((StringLiteralExpression)v.Expression).Value);
 				});
 		}
 

@@ -1,8 +1,6 @@
 ﻿using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Expressions;
-using Albatross.Reflection;
 using Microsoft.CodeAnalysis;
-using System;
 using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {

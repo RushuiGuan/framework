@@ -6,15 +6,18 @@ using System.Data.SqlTypes;
 namespace Albatross.CodeGen.Tests.Dto {
 	public class MyDto {
 		public string Name { get; set; } = string.Empty;
-		public byte[] Data { get; set; } = new byte[0];
+		public System.String StringLongName { get; set; } = string.Empty;
+		public byte[] ByteArray { get; set; } = new byte[0];
 
 		public int Int { get; set; }
 		public long Long { get; set; }
 		public double Double { get; set; }
 		public decimal Decimal { get; set; }
+		public System.Decimal DecimalLongName { get; set; }
 		public float Float { get; set; }
 		public bool Bool { get; set; }
 		public char Char { get; set; }
+		public char[] CharArray { get; set; } = new char[0];
 		public short Short { get; set; }
 		public ushort UShort { get; set; }
 		public uint UInt { get; set; }
@@ -29,9 +32,10 @@ namespace Albatross.CodeGen.Tests.Dto {
 		public int? NullableInt { get; set; }
 		public Nullable<int> NullableIntGeneric { get; set; }
 		public string? NullableString { get; set; }
+		public string?[] NullableStringArray { get; set; } = new string[0];
 		public Guid Guid { get; set; }
 		public MyEnum Enum { get; set; }
-		public MyStringEnum	StringEnum { get; set; }
+		public MyStringEnum StringEnum { get; set; }
 		public int[] IntArray { get; set; } = new int[0];
 		public IEnumerable IntEnumerable { get; set; } = new int[0];
 		public IEnumerable<int> IntEnumerableGeneric { get; set; } = new int[0];

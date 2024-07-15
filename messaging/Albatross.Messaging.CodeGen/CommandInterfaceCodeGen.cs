@@ -26,7 +26,7 @@ namespace Albatross.Messaging.CodeGen {
 				context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
 			} else {
 				foreach (var candidate in cadidates) {
-					var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(candidate.ContainingNamespace.ToDisplayString())).NormalizeWhitespace();
+					var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(candidate.ContainingNamespace.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat))).NormalizeWhitespace();
 
 					var usings = new HashSet<string> { "System", "System.Text.Json.Serialization" };
 					var declaration = SyntaxFactory.InterfaceDeclaration(candidate.Name)
@@ -44,7 +44,7 @@ namespace Albatross.Messaging.CodeGen {
 						foreach (var item in classWalker.Results) {
 							if (!typeDiscriminators.Contains(item.Name)) {
 								typeDiscriminators.Add(item.Name);
-								usings.Add(item.ContainingNamespace.ToDisplayString());
+								usings.Add(item.ContainingNamespace.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat));
 								var firstArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.TypeOfExpression(SyntaxFactory.ParseTypeName(item.Name)));
 								var secondArgument = SyntaxFactory.AttributeArgument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(item.Name)));
 								var attributeArgumentList = SyntaxFactory.AttributeArgumentList(SyntaxFactory.SeparatedList(new[] { firstArgument, secondArgument }));

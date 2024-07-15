@@ -16,10 +16,10 @@ namespace Albatross.CodeGen.WebClient {
 	}
 	public class CreateTypeScriptDto : ICreateTypeScriptDto {
 		private readonly ConvertEnumToTypeScriptEnum enumConverter;
-		private readonly ConvertTypeToTypeScriptInterface interfaceConverter;
+		private readonly ConvertDtoClassToTypeScriptInterface interfaceConverter;
 		private readonly ILogger<CreateTypeScriptDto> logger;
 
-		public CreateTypeScriptDto(ConvertEnumToTypeScriptEnum enumConverter, ConvertTypeToTypeScriptInterface interfaceConverter, ILogger<CreateTypeScriptDto> logger) {
+		public CreateTypeScriptDto(ConvertEnumToTypeScriptEnum enumConverter, ConvertDtoClassToTypeScriptInterface interfaceConverter, ILogger<CreateTypeScriptDto> logger) {
 			this.enumConverter = enumConverter;
 			this.interfaceConverter = interfaceConverter;
 			this.logger = logger;
