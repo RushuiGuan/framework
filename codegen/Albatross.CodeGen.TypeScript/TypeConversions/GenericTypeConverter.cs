@@ -10,7 +10,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 		public int Precedence => 100;
 		public bool Match(ITypeSymbol symbol) => symbol is INamedTypeSymbol named && named.IsGenericType;
 		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory factory) {
-			return new GenericTypeExpression(symbol.Name + "_") {
+			return new GenericTypeExpression(symbol.Name) {
 				Arguments = new ListOfSyntaxNodes<ITypeExpression>(((symbol as INamedTypeSymbol)?.TypeArguments ?? []).Select(factory.Convert))
 			};
 		}

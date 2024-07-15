@@ -5,9 +5,9 @@ using System;
 namespace Albatross.CodeAnalysis.MSBuild {
 	public class MSBuildProjectCompilationFactory: ICompilationFactory {
 		private readonly MSBuildWorkspace workspace;
-		private readonly IGetProject getProject;
+		private readonly ICurrentProject getProject;
 
-		public MSBuildProjectCompilationFactory(MSBuildWorkspace workspace, IGetProject getProject) {
+		public MSBuildProjectCompilationFactory(MSBuildWorkspace workspace, ICurrentProject getProject) {
 			this.workspace = workspace;
 			this.getProject = getProject;
 		}

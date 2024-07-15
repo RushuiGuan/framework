@@ -12,12 +12,17 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 		}
 
 		public IdentifierNameExpression Identifier { get;  }
+		public bool Optional { get; init; }
 		public IEnumerable<IModifier> Modifiers { get; init; } = [];
 		public ITypeExpression Type { get; init; } = Defined.Types.Any;
 		public override IEnumerable<ISyntaxNode> Children => new List<ISyntaxNode> { Identifier, Type };
 
 		public override TextWriter Generate(TextWriter writer) {
-			writer.Code(Identifier).Append(" : ").Code(Type);
+			writer.Code(Identifier);
+			if (Optional) {
+				writer.Append(" ?");
+			};
+			writer.Append(": ").Code(Type);
 			return writer;
 		}
 	}

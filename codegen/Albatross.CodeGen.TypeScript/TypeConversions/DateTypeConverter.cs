@@ -6,7 +6,8 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class DateTypeConverter : ITypeConverter {
 		public int Precedence => 0;
 		public bool Match(ITypeSymbol symbol) => symbol.ToDisplayString() == "System.DateOnly"
-			|| symbol.ToDisplayString() == "System.DateTime" 
+			|| symbol.ToDisplayString() == "System.DateTime"
+			|| symbol.ToDisplayString() == "System.TimeSpan"
 			|| symbol.ToDisplayString() == "System.DateTimeOffset";
 
 		public ITypeExpression Convert(ITypeSymbol type, ITypeConverterFactory _) => Defined.Types.Date;

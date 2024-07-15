@@ -2,11 +2,7 @@
 using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.TypeConversions;
-using Albatross.Hosting.Test;
 using Microsoft.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using System.Linq;
 using Xunit;
 

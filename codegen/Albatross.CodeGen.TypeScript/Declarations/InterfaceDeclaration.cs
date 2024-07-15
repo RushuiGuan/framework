@@ -35,7 +35,7 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 			}
 			using (var scope = writer.BeginScope()) {
 				foreach (var property in Properties) {
-					scope.Writer.Code(property);
+					scope.Writer.Code(property).AppendLine(";");
 				}
 			}
 			writer.WriteLine();

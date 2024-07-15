@@ -18,7 +18,7 @@
     },
     "typescript-dto": {
       "commandName": "Project",
-      "commandLineArgs": "typescript-dto -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.Dto\\Albatross.CodeGen.Tests.Dto.csproj -o c:\\temp\\test.dto"
+      "commandLineArgs": "typescript-dto -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.Dto\\Albatross.CodeGen.Tests.Dto.csproj -o c:\\temp\r\n"
     }
   }
 }

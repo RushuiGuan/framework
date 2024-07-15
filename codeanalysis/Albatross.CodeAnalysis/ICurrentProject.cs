@@ -1,10 +1,10 @@
 ﻿namespace Albatross.CodeAnalysis {
-	public interface IGetProject {
+	public interface ICurrentProject {
 		string Path { get; }
 	}
-	public class GetProject : IGetProject {
+	public class CurrentProject : ICurrentProject {
 		public string Path { get; }
-		public GetProject(string path) {
+		public CurrentProject(string path) {
 			this.Path = path;
 		}
 	}

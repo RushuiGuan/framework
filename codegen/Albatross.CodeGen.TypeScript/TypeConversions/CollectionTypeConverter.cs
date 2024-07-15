@@ -11,6 +11,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 		}
 		public int Precedence => 80;
 		public bool Match(ITypeSymbol symbol) => symbol is IArrayTypeSymbol arrayTypeSymbol && symbol.ToDisplayString() != "System.Byte[]"
+			|| symbol.ToDisplayString() == "System.Collections.IEnumerable"
 			|| symbol.IsDerivedFrom(compilation.GetTypeByMetadataName("System.Collections.IEnumerable"));
 
 		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory factory) {

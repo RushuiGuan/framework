@@ -96,5 +96,9 @@ namespace Albatross.CodeAnalysis {
 			}
 			return false;
 		}
+		public static bool IsNullable(this ITypeSymbol symbol) {
+			return symbol is INamedTypeSymbol named 
+				&& named.IsGenericType 
+				&& named.OriginalDefinition.ToDisplayString() == "System.Nullable<T>";}
 	}
 }

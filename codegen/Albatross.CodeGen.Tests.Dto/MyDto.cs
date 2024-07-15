@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 
 namespace Albatross.CodeGen.Tests.Dto {
 	public class MyDto {
@@ -25,6 +26,9 @@ namespace Albatross.CodeGen.Tests.Dto {
 		public DateOnly DateOnly { get; set; }
 		public DateTimeOffset DateTimeOffset { get; set; }
 		public TimeSpan TimeSpan { get; set; }
+		public int? NullableInt { get; set; }
+		public Nullable<int> NullableIntGeneric { get; set; }
+		public string? NullableString { get; set; }
 		public Guid Guid { get; set; }
 		public MyEnum Enum { get; set; }
 		public MyStringEnum	StringEnum { get; set; }
