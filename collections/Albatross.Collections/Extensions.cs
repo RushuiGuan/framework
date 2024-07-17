@@ -77,9 +77,11 @@ namespace Albatross.Collections {
 			}
 		}
 
-		public static ICollection<T> AddIfNotNull<T>(this ICollection<T> collection, T? item) {
-			if (item != null) {
-				collection.Add(item);
+		public static ICollection<T> AddIfNotNull<T>(this ICollection<T> collection, params T?[] items) {
+			foreach (var item in items) {
+				if (item != null) {
+					collection.Add(item);
+				}
 			}
 			return collection;
 		}

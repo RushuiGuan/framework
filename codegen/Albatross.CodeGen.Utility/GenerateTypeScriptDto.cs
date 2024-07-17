@@ -1,58 +1,19 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.CodeGen.TypeScript.Declarations;
-using Albatross.Config;
-using Albatross.Hosting.Utility;
+﻿using Albatross.CodeGen.TypeScript.Declarations;
+using Albatross.CodeGen.WebClient;
 using CommandLine;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.MSBuild;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Albatross.CodeGen.TypeScript;
-using Albatross.CodeAnalysis.MSBuild;
-using Albatross.CodeGen.TypeScript.TypeConversions;
-using Albatross.CodeGen.TypeScript.Expressions;
-using System.Diagnostics.CodeAnalysis;
-using Albatross.CodeGen.Syntax;
 
 namespace Albatross.CodeGen.Utility {
-	public class EnumSourceLookup : ISourceLookup {
-		public bool TryGet(ITypeSymbol name, [NotNullWhen(true)] out ISourceExpression? module) {
-			if (name.TypeKind == TypeKind.Enum) {
-				module = new FileNameSourceExpression("enum");
-				return true;
-			} else {
-				module = null;
-				return false;
-			}
-		}
-	}
 	[Verb("typescript-dto")]
-	public class GenerateTypeScriptDtoOption : BaseOption {
-		[Option('p', "project-file", Required = true)]
-		public string ProjectFile { get; set; } = string.Empty;
-
-		[Option('o', "output-directory")]
-		public string? OutputDirectory { get; set; }
-	}
-	public class GenerateTypeScriptDto : UtilityBase<GenerateTypeScriptDtoOption> {
+	public class GenerateTypeScriptDtoOption : MyUtilityOption { }
+	public class GenerateTypeScriptDto : MyUtilityBase<GenerateTypeScriptDtoOption> {
 		public GenerateTypeScriptDto(GenerateTypeScriptDtoOption option) : base(option) { }
 
-		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
-			base.RegisterServices(configuration, envSetting, services);
-			services.AddScoped(provider => MSBuildWorkspace.Create());
-			services.AddTypeScriptCodeGen();
-			services.AddScoped<ICurrentProject>(provider => new CurrentProject(Options.ProjectFile));
-			services.AddScoped<ICompilationFactory, MSBuildProjectCompilationFactory>();
-			services.AddScoped<Compilation>(provider => provider.GetRequiredService<ICompilationFactory>().Create());
-			services.AddScoped<ISourceLookup, EnumSourceLookup>();
-		}
-		public Task<int> RunUtility(ILogger<GenerateTypeScriptDto> logger,
-			Compilation compilation,
+		public Task<int> RunUtility(Compilation compilation,
 			IConvertObject<INamedTypeSymbol, InterfaceDeclaration> interfaceConverter,
 			IConvertObject<INamedTypeSymbol, EnumDeclaration> enumConverter) {
 			var dtoClasses = new List<INamedTypeSymbol>();
@@ -67,18 +28,12 @@ namespace Albatross.CodeGen.Utility {
 				enumWalker.Visit(syntaxTree.GetRoot());
 				enums.AddRange(enumWalker.Result);
 			}
-			var enumFile = new TypeScriptFileDeclaration("enum") {
-				EnumDeclarations = enums.Select(x => enumConverter.Convert(x)).ToList(),
-			};
-			enumFile.Generate(System.Console.Out);
 			var dtoFile = new TypeScriptFileDeclaration("dto") {
+				EnumDeclarations = enums.Select(x => enumConverter.Convert(x)).ToList(),
 				InterfaceDeclarations = dtoClasses.Select(x => interfaceConverter.Convert(x)).ToList(),
 			};
 			dtoFile.Generate(System.Console.Out);
 			if (!string.IsNullOrEmpty(Options.OutputDirectory)) {
-				using (var writer = new StreamWriter(Path.Join(Options.OutputDirectory, enumFile.FileName))) {
-					enumFile.Generate(writer);
-				}
 				using (var writer = new StreamWriter(Path.Join(Options.OutputDirectory, dtoFile.FileName))) {
 					dtoFile.Generate(writer);
 				}

@@ -14,7 +14,7 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 		public IdentifierNameExpression Identifier { get;  }
 		public bool Optional { get; init; }
 		public IEnumerable<IModifier> Modifiers { get; init; } = [];
-		public ITypeExpression Type { get; init; } = Defined.Types.Any;
+		public ITypeExpression Type { get; init; } = Defined.Types.Any();
 		public override IEnumerable<ISyntaxNode> Children => new List<ISyntaxNode> { Identifier, Type };
 
 		public override TextWriter Generate(TextWriter writer) {

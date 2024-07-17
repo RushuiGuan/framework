@@ -1,17 +1,15 @@
 ﻿using Albatross.CodeAnalysis;
+using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Declarations;
-using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.TypeConversions;
 using Albatross.Text;
 using Microsoft.CodeAnalysis;
-using System;
-using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
-	public class ConvertPropertySymbolToTypeScriptProperty : IConvertObject<IPropertySymbol, PropertyDeclaration> {
-		private readonly ITypeConverterFactory converterFactory;
+	public class ConvertClassProperty : IConvertObject<IPropertySymbol, PropertyDeclaration> {
+		private readonly IConvertObject<ITypeSymbol, ITypeExpression> converterFactory;
 
-		public ConvertPropertySymbolToTypeScriptProperty(ITypeConverterFactory converterFactory) {
+		public ConvertClassProperty(IConvertObject<ITypeSymbol, ITypeExpression> converterFactory) {
 			this.converterFactory = converterFactory;
 		}
 

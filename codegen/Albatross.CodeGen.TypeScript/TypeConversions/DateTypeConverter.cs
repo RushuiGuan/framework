@@ -1,16 +1,16 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.CodeGen.TypeScript.Expressions;
+﻿using Albatross.CodeGen.Syntax;
 using Microsoft.CodeAnalysis;
-using System;
+using System.Collections.Generic;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
-	public class DateTypeConverter : ITypeConverter {
-		public int Precedence => 0;
-		public bool Match(ITypeSymbol symbol) => symbol.GetFullName() == "System.DateOnly"
-			|| symbol.GetFullName() == "System.DateTime"
-			|| symbol.GetFullName() == "System.TimeSpan"
-			|| symbol.GetFullName() == "System.DateTimeOffset";
+	public class DateTypeConverter : SimpleTypeConverter {
+		protected override IEnumerable<string> NamesToMatch => [
+			"System.DateOnly",
+			"System.DateTime",
+			"System.TimeSpan",
+			"System.DateTimeOffset"
+		];
 
-		public ITypeExpression Convert(ITypeSymbol type, ITypeConverterFactory _) => Defined.Types.Date;
+		protected override ITypeExpression GetResult(ITypeSymbol _) => Defined.Types.Date();
 	}
 }

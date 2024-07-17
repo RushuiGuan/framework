@@ -15,7 +15,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Albatross.CodeGen.WebClient {
+namespace Albatross.CodeGen.WebClient.CSharp {
 	public class ConvertApiControllerToCSharpClass : IConvertObject<Type, Class> {
 		const string Controller = "Controller";
 		const string ProxyService = "ProxyService";
@@ -33,16 +33,16 @@ namespace Albatross.CodeGen.WebClient {
 		}
 
 		object IConvertObject<Type>.Convert(Type from) {
-			return this.Convert(from);
+			return Convert(from);
 		}
 
 		IEnumerable<Parameter> GetConstructorParameters(Type type) {
 			return new Parameter[]{
 				new Parameter(VariableName_Logger, GetILoggerType(type)) {
-					Modifier = CSharp.Models.ParameterModifier.None,
+					Modifier = CodeGen.CSharp.Models.ParameterModifier.None,
 				},
 				new Parameter(VariableName_Client, new DotNetType(typeof(HttpClient))){
-					Modifier = CSharp.Models.ParameterModifier.None,
+					Modifier = CodeGen.CSharp.Models.ParameterModifier.None,
 				}
 			};
 		}
@@ -138,7 +138,7 @@ namespace Albatross.CodeGen.WebClient {
 		string TaskClassName => typeof(Task).FullName ?? throw new Exception();
 
 		bool TryGetGenericTypeArgument(DotNetType type, string genericTypeName, [NotNullWhen(true)] out DotNetType? genericType) {
-			if (type.IsGeneric && type.Name	== genericTypeName && type.GenericTypeArguments.Count() == 1) {
+			if (type.IsGeneric && type.Name == genericTypeName && type.GenericTypeArguments.Count() == 1) {
 				genericType = type.GenericTypeArguments[0];
 				return true;
 			} else {
@@ -151,7 +151,7 @@ namespace Albatross.CodeGen.WebClient {
 			string name = methodInfo.Name;
 			Method method = convertMethod.Convert(methodInfo);
 
-			if(TryGetGenericTypeArgument(method.ReturnType, TaskClassName, out var returnType)) {
+			if (TryGetGenericTypeArgument(method.ReturnType, TaskClassName, out var returnType)) {
 				method.ReturnType = returnType;
 			}
 
@@ -215,7 +215,7 @@ namespace Albatross.CodeGen.WebClient {
 				if (!method.ReturnType.IsVoid) { writer.Write("return "); }
 
 				if (!method.ReturnType.IsVoid && !method.ReturnType.Equals(new DotNetType(typeof(string))) && !method.ReturnType.Equals(new DotNetType(typeof(Task<string>)))) {
-					if (method.ReturnType.IsNullableReferenceType || method.ReturnType.IsNullableValueType 
+					if (method.ReturnType.IsNullableReferenceType || method.ReturnType.IsNullableValueType
 						|| method.ReturnType.IsAsync && method.ReturnType.GenericTypeArguments[0].IsNullableReferenceType
 						|| method.ReturnType.IsAsync && method.ReturnType.GenericTypeArguments[0].IsNullableValueType) {
 						writer.Write($"await this.GetJsonResponse<{method.ReturnType.RemoveAsync().RemoveNullable()}>");

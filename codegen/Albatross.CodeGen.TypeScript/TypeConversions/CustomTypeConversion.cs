@@ -1,13 +1,12 @@
-﻿using Albatross.CodeGen.TypeScript.Expressions;
+﻿using Albatross.CodeGen.Syntax;
+using Albatross.CodeGen.TypeScript.Conversions;
+using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
-	public interface ISourceLookup {
-		bool TryGet(ITypeSymbol name, [NotNullWhen(true)] out ISourceExpression? module);
-	}
 
-	public class CustomTypeConversion: ITypeConverter {
+	public class CustomTypeConversion : ITypeConverter {
 		private readonly ISourceLookup sourceLookup;
 
 		public CustomTypeConversion(ISourceLookup sourceLookup) {
@@ -15,13 +14,14 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 		}
 
 		public int Precedence => 999;
-		public bool Match(ITypeSymbol symbol) => true;
-		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory _) {
+
+		public bool TryConvert(ITypeSymbol symbol, IConvertObject<ITypeSymbol, ITypeExpression> factory, [NotNullWhen(true)] out ITypeExpression? expression) {
 			if (sourceLookup.TryGet(symbol, out ISourceExpression source)) {
-				return new SimpleTypeExpression { Identifier = new QualifiedIdentifierNameExpression(symbol.Name, source) };
+				expression = new SimpleTypeExpression { Identifier = new QualifiedIdentifierNameExpression(symbol.Name, source) };
 			} else {
-				return new SimpleTypeExpression { Identifier = new IdentifierNameExpression(symbol.Name) };
+				expression = new SimpleTypeExpression { Identifier = new IdentifierNameExpression(symbol.Name) };
 			}
+			return true;
 		}
 	}
 }

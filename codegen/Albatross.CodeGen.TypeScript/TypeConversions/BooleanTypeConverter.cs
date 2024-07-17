@@ -1,12 +1,10 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.CodeGen.TypeScript.Expressions;
+﻿using Albatross.CodeGen.Syntax;
 using Microsoft.CodeAnalysis;
-using System;
+using System.Collections.Generic;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
-	public class BooleanTypeConverter : ITypeConverter {
-		public int Precedence => 0;
-		public bool Match(ITypeSymbol symbol) => symbol.GetFullName() == "System.Boolean";
-		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory _) => Defined.Types.Boolean;
+	public class BooleanTypeConverter : SimpleTypeConverter {
+		protected override IEnumerable<string> NamesToMatch => ["System.Boolean"];
+		protected override ITypeExpression GetResult(ITypeSymbol symbol) => Defined.Types.Boolean();
 	}
 }

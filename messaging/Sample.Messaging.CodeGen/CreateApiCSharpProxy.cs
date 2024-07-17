@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen;
 using Albatross.CodeGen.WebClient;
+using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.Config;
 using Albatross.Hosting.Utility;
 using CommandLine;

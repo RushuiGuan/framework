@@ -1,16 +1,17 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.CodeGen.TypeScript.Expressions;
+﻿using Albatross.CodeGen.Syntax;
 using Microsoft.CodeAnalysis;
-using System;
+using System.Collections.Generic;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
-	public class StringTypeConverter : ITypeConverter {
-		public int Precedence => 0;
-		public bool Match(ITypeSymbol symbol) => symbol.GetFullName() == "System.String"
-			|| symbol.GetFullName() == "System.Char"
-			|| symbol.GetFullName() == "System.Char[]"
-			|| symbol.GetFullName() == "System.Guid"
-			|| symbol.GetFullName() == "System.Byte[]";
-		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory _) => Defined.Types.String;
+	public class StringTypeConverter : SimpleTypeConverter {
+		protected override IEnumerable<string> NamesToMatch => [
+			"System.String",
+			"System.Char",
+			"System.Char[]",
+			"System.Guid",
+			"System.Byte[]"
+		];
+
+		protected override ITypeExpression GetResult(ITypeSymbol symbol) => Defined.Types.String(symbol.NullableAnnotation == NullableAnnotation.Annotated);
 	}
 }

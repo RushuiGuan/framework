@@ -1,5 +1,4 @@
-﻿using Albatross.CodeGen.Tests.Dto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
@@ -7,24 +6,24 @@ namespace Albatross.CodeGen.Tests.WebApi {
 	[Route("api/query-string-param-test")]
 	public class QueryStringParamTestController : ControllerBase {
 		[HttpGet]
-		public Task Get([FromQuery]string name, int id) => Task.CompletedTask;
+		public Task<string> Get([FromQuery]string name, int id) => Task<string>.FromResult("");
 
-		[HttpGet("nullable")]
-		public Task GetWithNullableParam([FromQuery] string? name, int? id) => Task.CompletedTask;
+		[HttpGet("test-nullable-params")]
+		public Task<string> GetWithNullableParam([FromQuery] string? name, int? id) => Task<string>.FromResult("");
 
 		[HttpGet("test-datetime")]
-		public Task TestDateTime(DateTime dateTime) => Task.CompletedTask;
+		public Task<string> TestDateTime(DateTime dateTime) => Task<string>.FromResult("");
 
 		[HttpGet("test-dateOnly")]
-		public Task TestDateOnly(DateOnly date) => Task.CompletedTask;
+		public Task<string> TestDateOnly(DateOnly date) => Task<string>.FromResult("");
 
 		[HttpGet("test-datetimeoffset")]
-		public Task TestDateOnly(DateTimeOffset dateTimeOffset) => Task.CompletedTask;
+		public Task<string> TestDateOnly(DateTimeOffset dateTimeOffset) => Task<string>.FromResult("");
 
 		[HttpGet("array-query-string")]
-		public Task TestArrayInput([FromQuery] string[] items) => Task.CompletedTask;
+		public Task<string> TestArrayInput([FromQuery] string[] items) => Task<string>.FromResult("");
 
-		[HttpGet("query-string-name")]
-		public Task TestQueryName([FromQuery(Name ="i")] string[] items) => Task.CompletedTask;
+		[HttpGet("query-string-with-diff-name")]
+		public Task<string> TestQueryName([FromQuery(Name ="i")] string[] items) => Task<string>.FromResult("");
 	}
 }

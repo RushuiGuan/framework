@@ -63,5 +63,30 @@ namespace Albatross.Test.Text {
 			result = new StringWriter().WriteItems(array, delimiter, (w, t) => w.Write(t), prefix, postfix).ToString();
 			Assert.Equal(expected, result);
 		}
+
+		[Theory]
+		[InlineData("", "a", "")]
+		[InlineData("", "", "")]
+		[InlineData("a", "a", "")]
+		[InlineData("ab", "a", "b")]
+		[InlineData("ab", "", "ab")]
+		[InlineData("abc", "ab", "c")]
+		[InlineData("abc", "abc", "")]
+		public void TestTrimStart(string text, string trim, string expected) {
+			var result = text.TrimStart(trim);
+			Assert.Equal(expected, result);
+		}
+		[Theory]
+		[InlineData("", "a", "")]
+		[InlineData("", "", "")]
+		[InlineData("a", "a", "")]
+		[InlineData("ab", "b", "a")]
+		[InlineData("ab", "", "ab")]
+		[InlineData("abc", "bc", "a")]
+		[InlineData("abc", "abc", "")]
+		public void TestTrimEnd(string text, string trim, string expected) {
+			var result = text.TrimEnd(trim);
+			Assert.Equal(expected, result);
+		}
 	}
 }

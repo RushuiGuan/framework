@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.CSharp;
 using Albatross.CodeGen.TypeScript;
+using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.Hosting.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

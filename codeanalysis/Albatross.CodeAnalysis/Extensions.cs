@@ -106,6 +106,17 @@ namespace Albatross.CodeAnalysis {
 			}
 			return false;
 		}
+		public static bool HasAttributeWithBaseType(this ISymbol symbol, string baseTypeName) {
+			foreach (var attribute in symbol.GetAttributes()) {
+				var className = attribute.AttributeClass?.BaseType?.GetFullName();
+				if (!string.IsNullOrEmpty(className)) {
+					if (className == baseTypeName) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 		public static bool HasAttributeWithArguments(this ISymbol symbol, string attributeName, params string[] parameter) {
 			foreach (var attribute in symbol.GetAttributes()) {
 				var className = attribute.AttributeClass?.GetFullName();

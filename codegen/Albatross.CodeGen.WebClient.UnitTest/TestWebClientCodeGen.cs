@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.CSharp.Models;
 using Albatross.CodeGen.Tests.WebApi;
+using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.Config;
 using Albatross.Hosting.Test;
 using System;

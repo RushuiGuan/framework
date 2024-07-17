@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 
-namespace Albatross.CodeGen.Utility {
+namespace Albatross.CodeGen.WebClient {
 	public class EnumTypeWalker : CSharpSyntaxWalker {
 		private readonly SemanticModel semanticModel;
 		public List<INamedTypeSymbol> Result { get; } = new List<INamedTypeSymbol>();
@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.Utility {
 		}
 		public override void VisitEnumDeclaration(EnumDeclarationSyntax node) {
 			var symbol = semanticModel.GetDeclaredSymbol(node);
-			if(symbol != null && symbol.DeclaredAccessibility == Accessibility.Public) {
+			if (symbol != null && symbol.DeclaredAccessibility == Accessibility.Public) {
 				Result.Add(symbol);
 			}
 			base.VisitEnumDeclaration(node);

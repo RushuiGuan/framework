@@ -5,7 +5,7 @@ using System.Linq;
 using Albatross.CodeAnalysis;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
-	public class ConvertEnumToTypeScriptEnum : IConvertObject<INamedTypeSymbol, EnumDeclaration> {
+	public class ConvertEnum : IConvertObject<INamedTypeSymbol, EnumDeclaration> {
 		public EnumDeclaration Convert(INamedTypeSymbol from) {
 			if (from.HasAttributeWithArguments("System.Text.Json.Serialization.JsonConverterAttribute", 
 					"System.Text.Json.Serialization.JsonStringEnumConverter")) {

@@ -12,7 +12,7 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 		}
 		public IdentifierNameExpression Identifier { get; }
 		public IIdentifierNameExpression? BaseClassName { get; init; }
-		public InvocationExpression? Decorator { get; init; }
+		public InvocationExpression[] Decorators { get; init; } = [];
 		public MethodDeclaration? Constructor { get; init; }
 		public IEnumerable<IModifier> Modifiers { get; init; } = [];
 		public IEnumerable<ImportExpression> Imports { get; init; } = [];
@@ -24,12 +24,11 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 		public override IEnumerable<ISyntaxNode> Children
 			=> new List<ISyntaxNode> { Identifier, }
 					.AddIfNotNull(BaseClassName)
-					.AddIfNotNull(Decorator)
 					.AddIfNotNull(Constructor)
-					.UnionAll(Imports, Getters, Setters, Properties, Methods);
+					.UnionAll(Decorators, Imports, Getters, Setters, Properties, Methods);
 
 		public override TextWriter Generate(TextWriter writer) {
-			if (Decorator != null) { writer.Code(Decorator).WriteLine(); }
+			Decorators.ForEach(x=>writer.Code(x).AppendLine());
 			writer.Append("export ").Append("class ").Code(Identifier);
 			if (BaseClassName != null) {
 				writer.Append(" extends ").Code(BaseClassName);

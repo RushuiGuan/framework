@@ -1,27 +1,24 @@
 ﻿using Albatross.CodeAnalysis;
 using Albatross.CodeGen.Syntax;
-using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class AsyncTypeConverter : ITypeConverter {
-		public const string PromiseType = "Promise";
 		public const string GenericDefinitionName = "System.Threading.Tasks.Task<>";
-
 		public int Precedence => 90;
-		public bool Match(ITypeSymbol symbol) 
-			=> symbol.GetFullName() == "System.Threading.Tasks.Task" 
-			|| symbol.GetFullName() == GenericDefinitionName;
-		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory factory) {
-			if (symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var arguments)) {
-				return new GenericTypeExpression(PromiseType) {
-					Arguments = new ListOfSyntaxNodes<ITypeExpression>(factory.Convert(arguments.First()))
-				};
+
+		public bool TryConvert(ITypeSymbol symbol, IConvertObject<ITypeSymbol, ITypeExpression> factory, [NotNullWhen(true)] out ITypeExpression? expression) {
+			var name = symbol.GetFullName();
+			if (name == "System.Threading.Tasks.Task") {
+				expression = Defined.Types.Void();
+				return true;
+			}else if (symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var arguments)) {
+				expression = factory.Convert(arguments[0]);
+				return true;
 			} else {
-				return new GenericTypeExpression(PromiseType) {
-					Arguments = new ListOfSyntaxNodes<ITypeExpression>(Defined.Types.Void)
-				};
+				expression = null;
+				return false;
 			}
 		}
 	}

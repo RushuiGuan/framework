@@ -1,11 +1,10 @@
-﻿using Albatross.CodeGen.TypeScript.Expressions;
+﻿using Albatross.CodeGen.Syntax;
 using Microsoft.CodeAnalysis;
-using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public interface ITypeConverter {
-		public bool Match(ITypeSymbol namedTypeSymbol);
 		public int Precedence { get; }
-		public ITypeExpression Convert(ITypeSymbol type, ITypeConverterFactory factory);
+		bool TryConvert(ITypeSymbol symbol, IConvertObject<ITypeSymbol, ITypeExpression> factory, [NotNullWhen(true)]out ITypeExpression? expression);
 	}
 }

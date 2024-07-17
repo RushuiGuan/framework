@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Albatross.CodeGen.Utility {
+namespace Albatross.CodeGen.WebClient {
 	public class DtoClassWalker : CSharpSyntaxWalker {
 		private readonly SemanticModel semanticModel;
 		public List<INamedTypeSymbol> Result { get; } = new List<INamedTypeSymbol>();

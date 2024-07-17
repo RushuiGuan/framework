@@ -3,7 +3,7 @@ using Albatross.CodeGen.TypeScript.Expressions;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Albatross.CodeGen.WebClient {
+namespace Albatross.CodeGen.WebClient.TypeScript {
 	public interface ICreateAngularPublicApi {
 		void Generate(string outputFolder, string fileFolder, IEnumerable<TypeScriptFileDeclaration> dependancies);
 	}
@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.WebClient {
 			var relativePath = Path.GetRelativePath(outputFolder, fileFolder).Replace('\\', '/');
 			using (var writer = new StreamWriter(publicApiFile)) {
 				foreach (var file in files) {
-					string source = $"./{relativePath}/{file.Identifier.Name}";
+					string source = $"./{relativePath}/{file.Name}";
 					writer.Code(new ExportExpression {
 						Source = new FileNameSourceExpression(source),
 					});

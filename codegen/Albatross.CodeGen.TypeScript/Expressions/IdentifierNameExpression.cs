@@ -4,11 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.TypeScript.Expressions {
 	public record class IdentifierNameExpression : SyntaxNode, IIdentifierNameExpression {
-
 		public IdentifierNameExpression(string name) { 
 			if(Defined.Patterns.IdentifierName.IsMatch(name)) {
 				this.Name = name;

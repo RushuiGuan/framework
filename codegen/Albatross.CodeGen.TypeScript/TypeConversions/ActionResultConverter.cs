@@ -1,20 +1,23 @@
-﻿using Albatross.CodeGen.TypeScript.Expressions;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Albatross.CodeAnalysis;
+using Albatross.CodeGen.Syntax;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class ActionResultConverter : ITypeConverter {
 		public int Precedence => 80;
-		const string GenericDefinitionName = "Microsoft.AspNetCore.Mvc.ActionResult`1";
-		public bool Match(ITypeSymbol symbol) => symbol.GetFullName() == "Microsoft.AspNetCore.Mvc.IActionResult"
-			|| symbol.GetFullName() == "Microsoft.AspNetCore.Mvc.ActionResult"
-			|| symbol.GetFullName() == "Microsoft.AspNetCore.Mvc.ActionResult<>";
 
-		public ITypeExpression Convert(ITypeSymbol symbol, ITypeConverterFactory factory) {
-			if (symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var arguments)) {
-				return factory.Convert(arguments[0]);
+		public bool TryConvert(ITypeSymbol symbol, IConvertObject<ITypeSymbol, ITypeExpression> factory, [NotNullWhen(true)] out ITypeExpression? expression) {
+			var name = symbol.GetFullName();
+			if (name == "Microsoft.AspNetCore.Mvc.IActionResult" || name == "Microsoft.AspNetCore.Mvc.ActionResult") {
+				expression = Defined.Types.Any();
+				return true;
+			} else if (symbol.TryGetGenericTypeArguments("Microsoft.AspNetCore.Mvc.ActionResult<>", out var arguments)) {
+				expression = factory.Convert(arguments[0]);
+				return true;
 			} else {
-				return Defined.Types.Any;
+				expression = null;
+				return false;
 			}
 		}
 	}

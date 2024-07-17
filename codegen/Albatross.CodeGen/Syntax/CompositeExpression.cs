@@ -1,10 +1,9 @@
-﻿using Albatross.CodeGen.Syntax;
-using Albatross.Text;
+﻿using Albatross.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Albatross.CodeGen.TypeScript.Expressions {
+namespace Albatross.CodeGen.Syntax {
 	public record class CompositeExpression : SyntaxNode, IExpression {
 		public CompositeExpression(params IExpression[] items) {
 			this.Items = items;
@@ -14,9 +13,7 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 		}
 		public IEnumerable<IExpression> Items { get; init; }
 		public override TextWriter Generate(TextWriter writer) {
-			foreach (var item in Items) {
-				writer.Code(item).AppendLine();
-			}
+			writer.WriteItems(Items, "\n", (w, x) => w.Code(x));
 			return writer;
 		}
 		public override IEnumerable<ISyntaxNode> Children => Items.Cast<ISyntaxNode>();

@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace Albatross.CodeGen.WebClient {
+namespace Albatross.CodeGen.WebClient.CSharp {
 	public class AddCSharpRouteUrl : ICodeElement {
 		private readonly string? template;
 
@@ -16,12 +16,12 @@ namespace Albatross.CodeGen.WebClient {
 		public TextWriter Generate(TextWriter writer) {
 			writer.Write("string path = $\"{ControllerPath}");
 			if (!string.IsNullOrEmpty(template)) {
-				foreach (var item in this.template.Split('/')) {
+				foreach (var item in template.Split('/')) {
 					writer.Write('/');
 					int pos = 0;
 					Match match;
-					for(match = ParamRegex.Match(item); match.Success; match = match.NextMatch()) {
-						writer.Write(item.Substring(pos, match.Index-pos));
+					for (match = ParamRegex.Match(item); match.Success; match = match.NextMatch()) {
+						writer.Write(item.Substring(pos, match.Index - pos));
 						writer.Write("{");
 						if (!string.IsNullOrEmpty(match.Groups[1].Value)) {
 							writer.Write(match.Groups[1]);

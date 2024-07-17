@@ -9,10 +9,13 @@ using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Declarations {
 	public record class ParameterDeclaration : SyntaxNode, IDeclaration, ICodeElement {
+		public ParameterDeclaration(string name) {
+			this.Identifier = new IdentifierNameExpression(name);
+		}
 		public bool Optional { get; init; } = false;
 		public required ITypeExpression Type { get; init; }
 		public IEnumerable<IModifier> Modifiers { get; init; } = [];
-		public required IdentifierNameExpression Identifier { get; init; }
+		public IdentifierNameExpression Identifier { get; }
 
 		public override IEnumerable<ISyntaxNode> Children => new List<ISyntaxNode> { Type, Identifier };
 

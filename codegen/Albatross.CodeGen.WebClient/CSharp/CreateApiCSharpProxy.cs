@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 #nullable enable
-namespace Albatross.CodeGen.WebClient {
+namespace Albatross.CodeGen.WebClient.CSharp {
 	public interface ICreateApiCSharpProxy {
 		string Generate(string? pattern, string @namespace, IEnumerable<Assembly> assemblies, string outputDirectory, Func<Class, bool>? adjustClassModel = null);
 	}

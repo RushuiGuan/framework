@@ -1,22 +1,19 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.CodeGen.TypeScript.Expressions;
+﻿using Albatross.CodeGen.Syntax;
+using Albatross.CodeAnalysis;
 using Microsoft.CodeAnalysis;
-using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class NullableTypeConverter : ITypeConverter {
 		public int Precedence => 80;
 		public const string NullableDefinitionName = "System.Nullable<>";
-		public bool Match(ITypeSymbol symbol) => symbol is INamedTypeSymbol named && (
-			named.IsGenericType && named.OriginalDefinition.GetFullName() == NullableDefinitionName 
-			|| symbol.NullableAnnotation == NullableAnnotation.Annotated
-		);
-
-		public ITypeExpression Convert(ITypeSymbol type, ITypeConverterFactory factory) {
-			if (type.TryGetGenericTypeArguments(NullableDefinitionName, out var arguments)) {
-				return factory.Convert(arguments[0]);
+		public bool TryConvert(ITypeSymbol symbol, IConvertObject<ITypeSymbol, ITypeExpression> factory, [NotNullWhen(true)] out ITypeExpression? expression) {
+			if (symbol.TryGetGenericTypeArguments(NullableDefinitionName, out var arguments)) {
+				expression = factory.Convert(arguments[0]);
+				return true;
 			} else {
-				throw new Exception("Nullable type must have a generic argument");
+				expression = null;
+				return false;
 			}
 		}
 	}

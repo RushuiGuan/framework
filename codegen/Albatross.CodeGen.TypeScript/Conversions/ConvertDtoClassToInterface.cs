@@ -1,16 +1,16 @@
 ﻿using Albatross.CodeAnalysis;
+using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Declarations;
-using Albatross.CodeGen.TypeScript.TypeConversions;
 using Microsoft.CodeAnalysis;
 using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
-	public class ConvertDtoClassToTypeScriptInterface : IConvertObject<INamedTypeSymbol, InterfaceDeclaration> {
-		private readonly ITypeConverterFactory typeConverterFactory;
+	public class ConvertDtoClassToInterface : IConvertObject<INamedTypeSymbol, InterfaceDeclaration> {
+		private readonly IConvertObject<ITypeSymbol, ITypeExpression> typeConverter;
 		private readonly IConvertObject<IPropertySymbol, PropertyDeclaration> propertyConverter;
 
-		public ConvertDtoClassToTypeScriptInterface(ITypeConverterFactory typeConverterFactory, IConvertObject<IPropertySymbol, PropertyDeclaration> propertyConverter) {
-			this.typeConverterFactory = typeConverterFactory;
+		public ConvertDtoClassToInterface(IConvertObject<ITypeSymbol, ITypeExpression> typeConverter, IConvertObject<IPropertySymbol, PropertyDeclaration> propertyConverter) {
+			this.typeConverter = typeConverter;
 			this.propertyConverter = propertyConverter;
 		}
 
@@ -18,7 +18,7 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 			return new InterfaceDeclaration(from.Name) {
 				BaseInterfaceName = from.BaseType != null
 					&& from.BaseType.GetFullName() != "System.Object"
-					&& !from.BaseType.IsValueType ? typeConverterFactory.Convert(from.BaseType) : null,
+					&& !from.BaseType.IsValueType ? typeConverter.Convert(from.BaseType) : null,
 				Properties = from.GetMembers().OfType<IPropertySymbol>()
 					.Where(x => Filter(from, x))
 					.Select(x => this.propertyConverter.Convert(x)).ToList(),

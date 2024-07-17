@@ -1,7 +1,4 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.CodeGen.TypeScript.Conversions;
-using Albatross.CodeGen.TypeScript.Expressions;
-using Xunit;
+﻿using Xunit;
 
 namespace Albatross.CodeGen.UnitTest.TypeScript {
 	public class TestRegex {
@@ -15,6 +12,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 		[InlineData("@angular/core", true)]
 		[InlineData("@1angular/core", true)]
 		[InlineData("@_angular/core", true)]
+		[InlineData("@_angular/common/http", true)]
 		[InlineData("@_angular", false)]
 		[InlineData("@_angular/", false)]
 		public void TestModuleName(string input, bool match) {

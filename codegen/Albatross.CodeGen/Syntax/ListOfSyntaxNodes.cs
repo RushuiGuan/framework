@@ -8,6 +8,7 @@ namespace Albatross.CodeGen.Syntax {
 	public record class ListOfSyntaxNodes<T> : SyntaxNode, IEnumerable<T> where T : ISyntaxNode {
 		public T[] Nodes { get; init; } = [];
 		protected virtual string Separator => ", ";
+		public string Padding { get; init; } = string.Empty;
 
 		public ListOfSyntaxNodes(params T[] nodes) {
 			Nodes = nodes;
@@ -18,7 +19,7 @@ namespace Albatross.CodeGen.Syntax {
 		public int Count => Nodes.Length;
 
 		public override TextWriter Generate(TextWriter writer) {
-			writer.WriteItems(Nodes, Separator, (w, item) => w.Code(item));
+			writer.WriteItems(Nodes, Separator, (w, item) => w.Code(item), this.Padding, this.Padding);
 			return writer;
 		}
 

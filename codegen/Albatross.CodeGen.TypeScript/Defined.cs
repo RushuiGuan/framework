@@ -5,43 +5,50 @@ using System.Text.RegularExpressions;
 namespace Albatross.CodeGen.TypeScript {
 	public static class Defined {
 		public static class Patterns {
-			public static Regex IdentifierName => new Regex(@"^[@a-z_]\w*$", RegexOptions.Compiled| RegexOptions.IgnoreCase);
-			public static Regex ModuleSource => new Regex(@"^(@[_a-z0-9]+/)?[_a-z0-9]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+			public static Regex IdentifierName => new Regex(@"^\w\w*$", RegexOptions.Compiled| RegexOptions.IgnoreCase);
+			public static Regex ModuleSource => new Regex(@"^(@\w+/)?\w+(/\w+)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		}
 		public static class Types {
-			public static SimpleTypeExpression Any => new SimpleTypeExpression {
+			public static SimpleTypeExpression Any(bool optional = false) => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("any"),
+				Optional = optional
 			};
-			public static SimpleTypeExpression Void => new SimpleTypeExpression {
+			public static SimpleTypeExpression Void() => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("void")
 			};
 
-			public static SimpleTypeExpression Boolean => new SimpleTypeExpression {
-				Identifier = new IdentifierNameExpression("boolean")
+			public static SimpleTypeExpression Boolean(bool optional = false) => new SimpleTypeExpression {
+				Identifier = new IdentifierNameExpression("boolean"),
+				Optional = optional
 			};
 
-			public static SimpleTypeExpression Date => new SimpleTypeExpression {
-				Identifier = new IdentifierNameExpression("Date")
+			public static SimpleTypeExpression Date(bool optional = false) => new SimpleTypeExpression {
+				Identifier = new IdentifierNameExpression("Date"),
+				Optional = optional
 			};
-			public static SimpleTypeExpression Numeric => new SimpleTypeExpression {
-				Identifier = new IdentifierNameExpression("number")
+			public static SimpleTypeExpression Numeric(bool optional = false) => new SimpleTypeExpression {
+				Identifier = new IdentifierNameExpression("number"),
+				Optional = optional
 			};
-			public static SimpleTypeExpression String => new SimpleTypeExpression {
-				Identifier = new IdentifierNameExpression("string")
+			public static SimpleTypeExpression String(bool optional = false) => new SimpleTypeExpression {
+				Identifier = new IdentifierNameExpression("string"),
+				Optional = optional
 			};
-			public static SimpleTypeExpression Null => new SimpleTypeExpression {
+			public static SimpleTypeExpression Null() => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("null")
 			};
-			public static SimpleTypeExpression Undefined => new SimpleTypeExpression {
+			public static SimpleTypeExpression Undefined() => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("undefined")
 			};
-			public static SimpleTypeExpression Type(string name) {
+			public static SimpleTypeExpression Type(string name, bool optional) {
 				return new SimpleTypeExpression {
-					Identifier = new IdentifierNameExpression(name)
+					Identifier = new IdentifierNameExpression(name), 
+					Optional = optional
 				};
 			}
-			public static SimpleTypeExpression HttpClient => new SimpleTypeExpression {
+			public static SimpleTypeExpression HttpClient(bool optional = false) => new SimpleTypeExpression {
 				Identifier = Identifiers.HttpClient,
+				Optional = optional
 			};
 		}
 
@@ -60,11 +67,20 @@ namespace Albatross.CodeGen.TypeScript {
 
 		public static class Invocations {
 			public static InvocationExpression InjectableDecorator(string providedIn) {
-				return new InvocationExpression {
-					Identifier = Identifiers.Injectable,
+				return new DecoratorExpression {
+					Identifier = new QualifiedIdentifierNameExpression("Injectable", Sources.AngularCore),
 					ArgumentList = new ListOfSyntaxNodes<IExpression>(new ObjectLiteralExpression {
-						Properties = new ListOfSyntaxNodes<JsonPropertyExpression>(new JsonPropertyExpression(providedIn, new StringLiteralExpression(providedIn)))
+						Properties = new ListOfSyntaxNodes<JsonPropertyExpression>(new JsonPropertyExpression("providedIn", new StringLiteralExpression(providedIn))) {
+							Padding = " "
+						}
 					})
+				};
+			}
+			public static InvocationExpression ConsoleLog(string message) {
+				return new InvocationExpression {
+					Identifier = new MultiPartIdentifierNameExpression(new IdentifierNameExpression("console"), new IdentifierNameExpression("log")),
+					ArgumentList = new ListOfSyntaxNodes<IExpression>(new StringLiteralExpression(message)),
+					Terminate = true,
 				};
 			}
 		}
@@ -75,9 +91,9 @@ namespace Albatross.CodeGen.TypeScript {
 		}
 
 		public static class Identifiers {
-			public static IIdentifierNameExpression Injectable => new QualifiedIdentifierNameExpression("@Injectable", Sources.AngularCore);
 			public static IIdentifierNameExpression HttpClient => new QualifiedIdentifierNameExpression("HttpClient", Sources.AngularHttp);
 			public static IIdentifierNameExpression This => new IdentifierNameExpression("this");
+			public static IdentifierNameExpression Promise  => new IdentifierNameExpression("Promise");
 		}
 	}
 }

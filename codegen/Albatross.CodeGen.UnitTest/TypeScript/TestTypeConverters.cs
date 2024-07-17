@@ -1,10 +1,9 @@
 ﻿using Albatross.CodeAnalysis;
 using Albatross.CodeGen.TypeScript;
+using Albatross.CodeGen.TypeScript.Conversions;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.TypeConversions;
 using Microsoft.CodeAnalysis;
-using Microsoft.Extensions.Logging;
-using Moq;
 using System.Linq;
 using Xunit;
 
@@ -20,13 +19,12 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
-			var factory = new TypeConverterFactory([new StringTypeConverter()], new Mock<ILogger<TypeConverterFactory>>().Object);
+			var factory = new ConvertType([new StringTypeConverter()]);
 			var converter = new ArrayTypeConverter(compilation);
-			Assert.True(converter.Match(p1Symbol.Type));
-			var result = new ArrayTypeConverter(compilation).Convert(p1Symbol.Type, factory);
+			Assert.True(converter.TryConvert(p1Symbol.Type, factory, out var result));
 			Assert.IsType<ArrayTypeExpression>(result);
 			var expression = result as ArrayTypeExpression;
-			Assert.Equal(Defined.Types.String, expression?.Type);
+			Assert.Equal(Defined.Types.String(), expression?.Type);
 		}
 
 		[Theory]
@@ -36,9 +34,9 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
-			var factory = new TypeConverterFactory([new StringTypeConverter(), new ArrayTypeConverter(compilation)], new Mock<ILogger<TypeConverterFactory>>().Object);
+			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter(compilation)]);
 			var result = factory.Convert(p1Symbol.Type);
-			Assert.Equal(Defined.Types.String, result);
+			Assert.Equal(Defined.Types.String(), result);
 		}
 
 		[Theory]
@@ -49,9 +47,9 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
-			var factory = new TypeConverterFactory([new StringTypeConverter(), new ArrayTypeConverter(compilation)], new Mock<ILogger<TypeConverterFactory>>().Object);
+			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter(compilation)]);
 			var result = factory.Convert(p1Symbol.Type);
-			Assert.Equal(Defined.Types.String, result);
+			Assert.Equal(Defined.Types.String(true), result);
 		}
 	}
 }
