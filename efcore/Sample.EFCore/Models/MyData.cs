@@ -11,7 +11,7 @@ namespace Sample.EFCore {
 	}
 	public class MyData : IModifiedBy, IModifiedUtc, ICreatedBy, ICreatedUtc, ICachedObject<DbContext, PropertyEntry> {
 		public int Id { get; set; }
-		public JsonProperty Property { get; set; } = new JsonProperty(null);
+		public JsonProperty? Property { get; set; }
 		public List<JsonProperty> ArrayProperty { get; set; } = new List<JsonProperty>();
 
 		[Unicode(false)]
@@ -38,19 +38,11 @@ namespace Sample.EFCore {
 		}
 	}
 
-	public record class JsonProperty : ICloneable {
-		public string? Text { get; set; }
-		public JsonProperty(string? text) {
-			Text = text;
-		}
-		object ICloneable.Clone() => this with { };
-	}
-
 	public class JsonDataEntityMap : EntityMap<MyData> {
 		public override void Map(EntityTypeBuilder<MyData> builder) {
 			builder.HasKey(p => p.Id);
 			base.Map(builder);
-			builder.Property(p => p.Property).HasRequiredJsonProperty(() => new JsonProperty(null));
+			builder.Property(p => p.Property).HasImmutableJsonProperty();
 			builder.Property(p => p.ArrayProperty).HasJsonCollectionProperty();
 		}
 	}

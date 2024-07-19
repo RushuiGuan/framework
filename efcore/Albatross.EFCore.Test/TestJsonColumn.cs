@@ -27,11 +27,11 @@ namespace Albatross.EFCore.Test {
 			await session.SaveChangesAsync();
 		
 			Assert.NotEqual(0, data.Id);
-			data.Property.Text = DateTime.Now.Ticks.ToString();
+			data.Property = new JsonProperty(DateTime.Now.Ticks.ToString());
 			Assert.Equal(EntityState.Modified, session.DbContext.Entry(data).State);
 
 			Assert.NotEqual(0, data.Id);
-			data.Property.Text = null;
+			data.Property = new JsonProperty(null);
 			// the state will remain modified, even though the value is the same.  See github issue below:
 			// https://github.com/dotnet/efcore/issues/13367
 			Assert.Equal(EntityState.Modified, session.DbContext.Entry(data).State);

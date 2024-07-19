@@ -17,35 +17,26 @@ namespace Albatross.EFCore {
 	public static class Extensions {
 		/// <summary>
 		/// This method maps a text column to a Json property.  It will create a non unicode column with max length. varchar(max).
-		/// It is recommended to use a sql utf8 collation
+		/// It is recommended to use a sql utf8 collation. 
+		/// *** IMPROTANT *** The json property has to be an immutable object.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="builder"></param>
 		/// <returns></returns>
-		public static PropertyBuilder<T> HasRequiredJsonProperty<T>(this PropertyBuilder<T> builder, Func<T> getDefault) where T : ICloneable {
-			builder.IsRequired(true).IsUnicode(false).HasConversion(new ValueConverter<T, string>(
-								args => JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions),
-								args => string.IsNullOrEmpty(args) ? getDefault() : GetNullableJsonData<T>(args) ?? getDefault()),
-								new ValueComparer<T>(
-									(left, right) => EqualityComparer<T>.Default.Equals(left, right),
-									obj => obj == null ? 0 : obj.GetHashCode(),
-									obj => (T)obj.Clone()));
-			return builder;
-		}
-		public static PropertyBuilder<T?> HasNullableJsonProperty<T>(this PropertyBuilder<T?> builder, Func<T> getDefault) where T : ICloneable {
+		public static PropertyBuilder<T?> HasImmutableJsonProperty<T>(this PropertyBuilder<T?> builder)  {
 			builder.IsRequired(false).IsUnicode(false).HasConversion(new ValueConverter<T?, string?>(
-								args => SaveNullableJsonData(args, getDefault),
+								args => SaveNullableJsonData(args),
 								args => GetNullableJsonData<T>(args)),
 								new ValueComparer<T?>(
 									(left, right) => EqualityComparer<T?>.Default.Equals(left, right),
 									obj => obj == null ? 0 : obj.GetHashCode(),
-									obj => obj == null ? default : (T)obj.Clone()
+									obj => obj == null ? default : obj
 								));
 			return builder;
 		}
 
-		static string? SaveNullableJsonData<T>(T? data, Func<T> getDefault) {
-			if (data == null || EqualityComparer<T>.Default.Equals(data, getDefault())) {
+		static string? SaveNullableJsonData<T>(T? data) {
+			if (data == null) {
 				return null;
 			} else {
 				return JsonSerializer.Serialize(data, EFCoreJsonOption.DefaultOptions);
@@ -63,14 +54,14 @@ namespace Albatross.EFCore {
 				}
 			}
 		}
-		public static PropertyBuilder<List<TProperty>> HasJsonCollectionProperty<TProperty>(this PropertyBuilder<List<TProperty>> builder) where TProperty : ICloneable {
+		public static PropertyBuilder<List<TProperty>> HasJsonCollectionProperty<TProperty>(this PropertyBuilder<List<TProperty>> builder) {
 			builder.IsRequired(false).IsUnicode(false).HasConversion(new ValueConverter<List<TProperty>, string?>(
 								args => args.Any() ? JsonSerializer.Serialize(args, EFCoreJsonOption.DefaultOptions) : null,
 								args => string.IsNullOrEmpty(args) ? new List<TProperty>() : JsonSerializer.Deserialize<List<TProperty>>(args, EFCoreJsonOption.DefaultOptions) ?? new List<TProperty>()),
 								new ValueComparer<List<TProperty>>(
 									(left, right) => left == right || left != null && right != null && left.SequenceEqual(right),
 									obj => obj.Aggregate(0, (a, b) => HashCode.Combine(a, b == null ? 0 : b.GetHashCode())),
-									obj => obj.Select(x => (TProperty)x.Clone()).ToList()));
+									obj => new List<TProperty>(obj)));
 			return builder;
 		}
 

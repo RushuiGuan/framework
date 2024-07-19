@@ -5,28 +5,6 @@ using TechTalk.SpecFlow;
 namespace Albatross.SpecFlow {
 	public class ArgumentTransformations {
 		protected readonly ScenarioContext scenario;
-
-		public ArgumentTransformations(ScenarioContext scenario) {
-			this.scenario = scenario;
-		}
-
-		[Then(@"wait (.*) second\(s\)")]
-		public Task ThenWaitSeconds(int seconds) => Task.Delay(seconds * 1000);
-
-		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not)")]
-		public bool BooleanTransform(string value) {
-			return value == "with" || value == "should be" || value == "should";
-		}
-
-		[StepArgumentTransformation(@"random")]
-		public string AutoText() => new Fixture().Create<string>();
-
-		[StepArgumentTransformation(@"random text with max length of (.*)")]
-		public string AutoText(int length) => new Fixture().Create<string>().Substring(0, length);
-
-		[StepArgumentTransformation(@"random int between (.*) and (.*)")]
-		public int AutoInt(int min, int max) => new Random().Next(min, max);
-
 		public T GetRequiredValue<T>(string key) {
 			if (scenario.TryGetValue<T>(key, out var value)) {
 				return value;
@@ -35,10 +13,10 @@ namespace Albatross.SpecFlow {
 			}
 		}
 		public T? GetPropertyValue<T>(string key, string propertyName) {
-			if(scenario.TryGetValue(key, out var value)) {
+			if (scenario.TryGetValue(key, out var value)) {
 				var type = value.GetType();
 				var property = type.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty) ?? throw new ArgumentException($"Type {type.Name} doesn't have a public get property of name {propertyName}");
-				if(property.PropertyType == typeof(T)) {
+				if (property.PropertyType == typeof(T)) {
 					return (T)property.GetValue(value);
 				} else {
 					throw new ArgumentException($"Property {propertyName} of type {type.Name} is not of type {typeof(T).Name}");
@@ -48,7 +26,53 @@ namespace Albatross.SpecFlow {
 			}
 		}
 
+		public ArgumentTransformations(ScenarioContext scenario) {
+			this.scenario = scenario;
+		}
+
+		[Then(@"wait (.*) second\(s\)")]
+		public Task ThenWaitSeconds(int seconds) => Task.Delay(seconds * 1000);
+
+		#region random values
+		[StepArgumentTransformation(@"random")]
+		public string AutoText() => new Fixture().Create<string>();
+
+		[StepArgumentTransformation(@"random text with max length of (.*)")]
+		public string AutoText(int length) => new Fixture().Create<string>().Substring(0, length);
+
+		[StepArgumentTransformation(@"random int between (.*) and (.*)")]
+		public int AutoInt(int min, int max) => new Random().Next(min, max);
+		#endregion
+
+		#region dates
 		[StepArgumentTransformation(@"today")]
 		public DateOnly Today() => DateOnly.FromDateTime(DateTime.Today);
+
+		[StepArgumentTransformation(@"(last saturday)")]
+		public DateOnly LastSaturday(string key) {
+			DateOnly lastSaturday = DateOnly.FromDateTime(DateTime.Today);
+			while (lastSaturday.DayOfWeek != DayOfWeek.Saturday) {
+				lastSaturday = lastSaturday.AddDays(-1);
+			}
+			return lastSaturday;
+		}
+		#endregion
+
+		[StepArgumentTransformation(@"context:(.*)")]
+		public string GetString(string key) => scenario.Get<string>(key);
+
+		[StepArgumentTransformation(@"context:(.*)")]
+		public int GetInt(string key) {
+			if (scenario.TryGetValue<int>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+	
+		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not)")]
+		public bool BooleanTransform(string value) {
+			return value == "with" || value == "should be" || value == "should";
+		}
 	}
 }
