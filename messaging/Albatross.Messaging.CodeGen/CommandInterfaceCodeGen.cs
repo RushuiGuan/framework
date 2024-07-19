@@ -26,7 +26,7 @@ namespace Albatross.Messaging.CodeGen {
 				context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
 			} else {
 				foreach (var candidate in cadidates) {
-					var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(candidate.ContainingNamespace.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat))).NormalizeWhitespace();
+					var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(candidate.ContainingNamespace.ToDisplayString())).NormalizeWhitespace();
 
 					var usings = new HashSet<string> { "System", "System.Text.Json.Serialization" };
 					var declaration = SyntaxFactory.InterfaceDeclaration(candidate.Name)
