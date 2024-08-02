@@ -70,9 +70,9 @@ namespace Albatross.SpecFlow {
 			}
 		}
 	
-		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not)")]
+		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive)")]
 		public bool BooleanTransform(string value) {
-			return value == "with" || value == "should be" || value == "should";
+			return value == "with" || value == "should be" || value == "should" || value == "active";
 		}
 	}
 }
