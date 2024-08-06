@@ -41,7 +41,7 @@
 			return $"{key}{Asterisk}";
 		}
 		public static string BuildResetKey(ICacheKey? parent, string prefix) {
-			return $"{parent?.Key}{prefix}{ICacheKey.Delimiter}{ICacheKey.Asterisk}";
+			return $"{parent?.Key}{prefix}{Delimiter}{Asterisk}";
 		}
 	}
 	public class CacheKey : ICacheKey {

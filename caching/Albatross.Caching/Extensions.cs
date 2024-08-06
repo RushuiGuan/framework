@@ -40,14 +40,28 @@ namespace Albatross.Caching {
 			keyMgmt.Remove(set.ToArray());
 			return set;
 		}
+		/// <summary>
+		/// If the key has children, it will use the wild card key to perform a search to find the key and all its children.  If the key contains an Asterisk, 
+		/// it will also perform a search to find and remove all keys that match the pattern.
+		/// </summary>
+		/// <param name="keyMgmt"></param>
+		/// <param name="keys"></param>
+		/// <returns></returns>
 		public static IEnumerable<string> RemoveSelfAndChildren(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
-			var wildCardKeys = new HashSet<string>();
+			var keyPatterns = new HashSet<string>();
 			var set = new HashSet<string>();
 			foreach (var key in keys) {
 				if (key.HasChildren) {
-					if (!wildCardKeys.Contains(key.WildCardKey)) {
-						wildCardKeys.Add(key.WildCardKey);
-						foreach(var item in keyMgmt.FindKeys(key.WildCardKey)) {
+					if (!keyPatterns.Contains(key.WildCardKey)) {
+						keyPatterns.Add(key.WildCardKey);
+						foreach (var item in keyMgmt.FindKeys(key.WildCardKey)) {
+							set.Add(item);
+						}
+					}
+				} else if (key.Key.Contains(ICacheKey.Asterisk)) {
+					if (!keyPatterns.Contains(key.Key)) {
+						keyPatterns.Add(key.Key);
+						foreach (var item in keyMgmt.FindKeys(key.Key)) {
 							set.Add(item);
 						}
 					}
