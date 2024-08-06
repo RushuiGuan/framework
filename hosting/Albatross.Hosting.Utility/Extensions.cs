@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Utility {
 	public static class Extensions {
-		public static Task<int> Run(this Parser parser, string[] args, params Type[] jobTypes) {
+		public static async Task<int> Run(this Parser parser, string[] args, params Type[] jobTypes) {
 			Dictionary<Type, Type> dict = new Dictionary<Type, Type>();
 			foreach (var jobType in jobTypes) {
 				if (jobType.TryGetClosedGenericType(typeof(IUtility<>), out var genericType)) {
@@ -17,9 +17,9 @@ namespace Albatross.Hosting.Utility {
 				}
 			}
 			ParserResult<Object> parserResult = parser.ParseArguments(args, dict.Keys.ToArray());
-			return parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
+			return await parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
 		}
-		public static Task<int> Run(this Parser parser, string[] args, params Assembly[] assemblies) {
+		public static async Task<int> Run(this Parser parser, string[] args, params Assembly[] assemblies) {
 			Dictionary<Type, Type> dict = new Dictionary<Type, Type>();
 			foreach (var asm in assemblies) {
 				foreach (var type in asm.GetTypes()) {
@@ -31,9 +31,9 @@ namespace Albatross.Hosting.Utility {
 			}
 			dict.Add(typeof(ShowEnvironmentOption), typeof(ShowEnvironment));
 			ParserResult<Object> parserResult = parser.ParseArguments(args, dict.Keys.OrderBy(x => x.GetCustomAttribute<VerbAttribute>()?.Name).ToArray());
-			return parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
+			return await parserResult.MapResult<object, Task<int>>(async opt => await RunAsync(opt, dict), err => Task.FromResult(1));
 		}
-		internal static async Task<int> RunAsync(object opt, Dictionary<Type, Type> dict) {
+		static async Task<int> RunAsync(object opt, Dictionary<Type, Type> dict) {
 			Type optionType = opt.GetType();
 			Type jobType = dict[optionType];
 			using (IUtility utility = (IUtility)Activator.CreateInstance(jobType, opt)!) {
