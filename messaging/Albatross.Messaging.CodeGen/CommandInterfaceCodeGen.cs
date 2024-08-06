@@ -6,6 +6,10 @@ using System.Linq;
 using System.Text;
 
 namespace Albatross.Messaging.CodeGen {
+	/// <summary>
+	/// The generator will first find any partial and empty interfaces that match the regex ^I[a-zA-Z0-9_]*Command$.
+	/// It will then find any classes that implement these interfaces and generate a JsonDerivedType attribute for each class.
+	/// </summary>
 	[Generator]
 	public class CommandInterfaceCodeGen : ISourceGenerator {
 		public void Execute(GeneratorExecutionContext context) {
@@ -13,7 +17,6 @@ namespace Albatross.Messaging.CodeGen {
 			var compilation = context.Compilation;
 
 			List<INamedTypeSymbol> cadidates = new List<INamedTypeSymbol>();
-
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
 				var interfaceWalker = new CommandInterfaceDeclarationWalker(semanticModel);
