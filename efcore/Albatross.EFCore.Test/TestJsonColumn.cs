@@ -63,7 +63,7 @@ namespace Albatross.EFCore.Test {
 			var text = "test";
 			using (var session = scope.Get<SampleDbSession>()) {
 				var data = new MyData();
-				data.Property.Text = text;
+				data.Property = new JsonProperty(text);
 				session.Set<MyData>().Add(data);
 				await session.SaveChangesAsync();
 				id = data.Id;

@@ -1,5 +1,6 @@
 ﻿using Albatross.EFCore.SqlServer;
 using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -21,6 +22,12 @@ namespace Albatross.EFCore.SqlServer {
 				table.Rows.Add(item);
 			}
 			return table.AsTableValuedParameter("dbo.StringArray");
+		}
+		public static void UseDateOnlyConversion() {
+			SqlMapper.AddTypeHandler(new DapperSqlDateOnlyTypeHandler());
+		}
+		public static void UseTimeOnlyConversion() {
+			SqlMapper.AddTypeHandler(new DapperSqlTimeOnlyTypeHandler());
 		}
 	}
 }
