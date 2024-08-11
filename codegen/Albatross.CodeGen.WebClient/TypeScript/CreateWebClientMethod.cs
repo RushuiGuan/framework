@@ -6,6 +6,7 @@ using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.Modifiers;
 using Albatross.Text;
 using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
@@ -35,6 +36,19 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		}
 		object IConvertObject<IMethodSymbol>.Convert(IMethodSymbol from) => Convert(from);
 
+		void ProcessMethodParameters(IMethodSymbol methodSymbol, List<IParameterSymbol> routeParameters, List<IParameterSymbol> queryParams, List<IParameterSymbol> bodyParams) {
+			foreach (var parameter in methodSymbol.Parameters) {
+				if (parameter.HasAttribute("Microsoft.AspNetCore.Mvc.FromRouteAttribute")) {
+					routeParameters.Add(parameter);
+				} else if (parameter.HasAttribute("Microsoft.AspNetCore.Mvc.FromBodyAttribute")) {
+					bodyParams.Add(parameter);
+				} else if (parameter.HasAttribute("Microsoft.AspNetCore.Mvc.FromQueryAttribute")) {
+					queryParams.Add(parameter);
+				} else {
+
+				}
+			}
+		}
 		IExpression CreateHttpInvocationExpression(IMethodSymbol methodSymbol) {
 			var builder = new InvocationExpressionBuilder();
 			if (settings.UsePromise) {
