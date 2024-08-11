@@ -1,19 +1,22 @@
 ﻿using Albatross.CodeGen.WebClient.TypeScript;
+using Albatross.Config;
 using CommandLine;
 using Microsoft.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.Utility {
 	[Verb("typescript-proxy")]
-	public class GenerateTypeScriptProxyOption : MyUtilityOption { }
+	public class GenerateTypeScriptProxyOption : MyUtilityOption {	}
 	public class GenerateTypeScriptProxy : MyUtilityBase<GenerateTypeScriptProxyOption> {
 		public GenerateTypeScriptProxy(GenerateTypeScriptProxyOption option) : base(option) { }
 
 		public Task<int> RunUtility(Compilation compilation, ConvertApiControllerToTypeScriptFile converter) {
 			var controllerClass = new List<INamedTypeSymbol>();
-
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
 				var dtoClassWalker = new ApiControllerClassWalker(semanticModel);

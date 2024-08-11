@@ -15,6 +15,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codegen", "codegen", "{F0077DD2-731A-4663-804B-7636EBD2EFA8}"
 	ProjectSection(SolutionItems) = preProject
 		codegen\build.ps1 = codegen\build.ps1
+		codegen\generate typescript.ps1 = codegen\generate typescript.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "collections", "collections", "{9D043716-8EDA-4117-88BC-88438C5F11CD}"
@@ -33,9 +34,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eventing", "eventing", "{FE043E12-060A-4018-8622-F9983D58790F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosting", "hosting", "{F5D5FCE3-97DC-4136-BA39-B7BB1C571112}"
-	ProjectSection(SolutionItems) = preProject
-		hosting\build.ps1 = hosting\build.ps1
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "io", "io", "{1FDEB8F4-D236-4C0A-B6ED-14B506E9FB43}"
 EndProject
@@ -260,10 +258,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.Test", "codeanalysis\Albatross.CodeAnalysis.Test\Albatross.CodeAnalysis.Test.csproj", "{CE256B51-ADF1-4C29-9EB8-AE22B99C2744}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.MSBuild", "codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj", "{9F47C779-0D57-4B01-8CDA-C8638D17688D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Hosting.CommandLine", "hosting\Albatross.Hosting.CommandLine\Albatross.Hosting.CommandLine.csproj", "{8F4BAEE7-3711-49F6-9C4E-5B6C278C88B2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Hosting.CommandLine.CodeGen", "hosting\Albatross.Hosting.CommandLine.CodeGen\Albatross.Hosting.CommandLine.CodeGen.csproj", "{8DB3856B-736E-4550-B98A-768F26644A2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -623,14 +617,6 @@ Global
 		{9F47C779-0D57-4B01-8CDA-C8638D17688D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F47C779-0D57-4B01-8CDA-C8638D17688D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F47C779-0D57-4B01-8CDA-C8638D17688D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F4BAEE7-3711-49F6-9C4E-5B6C278C88B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F4BAEE7-3711-49F6-9C4E-5B6C278C88B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F4BAEE7-3711-49F6-9C4E-5B6C278C88B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F4BAEE7-3711-49F6-9C4E-5B6C278C88B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DB3856B-736E-4550-B98A-768F26644A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DB3856B-736E-4550-B98A-768F26644A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DB3856B-736E-4550-B98A-768F26644A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DB3856B-736E-4550-B98A-768F26644A2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -724,8 +710,6 @@ Global
 		{938AAA3D-5B69-4D81-9BA4-670D31EF32B1} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
 		{CE256B51-ADF1-4C29-9EB8-AE22B99C2744} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
 		{9F47C779-0D57-4B01-8CDA-C8638D17688D} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
-		{8F4BAEE7-3711-49F6-9C4E-5B6C278C88B2} = {F5D5FCE3-97DC-4136-BA39-B7BB1C571112}
-		{8DB3856B-736E-4550-B98A-768F26644A2E} = {F5D5FCE3-97DC-4136-BA39-B7BB1C571112}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4751EEB3-6D5D-4780-B0C9-ECB82447CB4A}

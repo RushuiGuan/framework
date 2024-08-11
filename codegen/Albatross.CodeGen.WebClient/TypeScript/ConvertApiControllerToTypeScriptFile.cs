@@ -1,4 +1,5 @@
-﻿using Albatross.CodeAnalysis;
+﻿using Humanizer;
+using Albatross.CodeAnalysis;
 using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Declarations;
@@ -37,7 +38,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			return route;
 		}
 		public TypeScriptFileDeclaration Convert(INamedTypeSymbol controllerSymbol) {
-			var fileName = $"{ControllerName(controllerSymbol).CamelCase()}.service";
+			var fileName = $"{ControllerName(controllerSymbol).Kebaberize()}.service";
 			return new TypeScriptFileDeclaration(fileName) {
 				ClasseDeclarations = [
 					new ClassDeclaration($"{ControllerName(controllerSymbol)}Service"){

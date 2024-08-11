@@ -6,6 +6,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		public string BaseClassName { get; init; } = "WebClient";
 		public string BaseClassModule { get; init; } = "@my_module/webclient";
 		public string ConfigServiceModule { get; init; } = "@my_module/config";
+		public bool UsePromise { get; set; }
 		/// <summary>
 		/// mapping bewteen c# namespace and typescript module
 		/// </summary>

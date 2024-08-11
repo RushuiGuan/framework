@@ -25,15 +25,8 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 
 
 		public override TextWriter Generate(TextWriter writer) {
-			foreach (var item in ImportDeclarations.Union(this.GetDescendants().Where(x => x is QualifiedIdentifierNameExpression)
-				.Cast<QualifiedIdentifierNameExpression>()
-				.GroupBy(x => x.Source)
-				.Select(x => new ImportExpression() {
-					Source = x.Key,
-					Items = new ListOfSyntaxNodes<IdentifierNameExpression>(x.Select(y => y.Identifier))
-				})).Combine()) {
-				writer.Code(item);
-			}
+			var importExpressions = this.ImportDeclarations.Union(new ImportCollection(this.GetDescendants()));
+			new ImportCollection(importExpressions).Generate(writer);
 			writer.WriteLine();
 			foreach (var item in EnumDeclarations) {
 				writer.Code(item);
