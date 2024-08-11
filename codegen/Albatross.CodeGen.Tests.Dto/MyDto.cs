@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 
 namespace Albatross.CodeGen.Tests.Dto {
 	public class MyDto {

@@ -9,8 +9,6 @@ namespace Albatross.CodeGen.Syntax {
 		public T[] Nodes { get; init; } = [];
 		protected virtual string Separator => ", ";
 		public string Padding { get; init; } = string.Empty;
-		public bool Unique { get; init; }
-		public bool Sorted { get; init; }
 
 		public ListOfSyntaxNodes(params T[] nodes) {
 			Nodes = nodes;
@@ -21,14 +19,7 @@ namespace Albatross.CodeGen.Syntax {
 		public int Count => Nodes.Length;
 
 		public override TextWriter Generate(TextWriter writer) {
-			var nodes = this.Nodes.AsEnumerable();
-			if (Unique) {
-				nodes = nodes.Distinct();
-			}
-			if (Sorted) {
-				nodes = nodes.OrderBy(x=>x.ToString());
-			}
-			writer.WriteItems(nodes, Separator, (w, item) => w.Code(item), this.Padding, this.Padding);
+			writer.WriteItems(this.Nodes, Separator, (w, item) => w.Code(item), this.Padding, this.Padding);
 			return writer;
 		}
 

@@ -1,12 +1,8 @@
 ﻿using Albatross.CodeGen.WebClient.TypeScript;
-using Albatross.Config;
 using CommandLine;
 using Microsoft.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.Utility {

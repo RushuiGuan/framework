@@ -16,8 +16,8 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 		public override TextWriter Generate(TextWriter writer) {
 			writer.Append('\'');
 			var fileName = Path.GetFileNameWithoutExtension(FileName);
-			if(!Path.IsPathRooted(fileName)) {
-				if(!fileName.StartsWith("./")) {
+			if (!Path.IsPathRooted(fileName)) {
+				if (!fileName.StartsWith("./")) {
 					writer.Append("./");
 				}
 			}
@@ -25,5 +25,6 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 			writer.Append('\'');
 			return writer;
 		}
+		public override string ToString() => this.FileName;
 	}
 }

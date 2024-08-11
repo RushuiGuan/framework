@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.TypeScript.Expressions {
 	public record class ModuleSourceExpression : SyntaxNode, ISourceExpression {
@@ -24,5 +23,6 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 			writer.Append('"').Append(ModuleName).Append('"');
 			return writer;
 		}
+		public override string ToString() => this.ModuleName;
 	}
 }
