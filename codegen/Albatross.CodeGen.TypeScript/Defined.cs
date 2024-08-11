@@ -88,12 +88,14 @@ namespace Albatross.CodeGen.TypeScript {
 		public static class Sources {
 			public static ISourceExpression AngularCore => new ModuleSourceExpression("@angular/core");
 			public static ISourceExpression AngularHttp => new ModuleSourceExpression("@angular/common/http");
+			public static ISourceExpression Rxjs => new ModuleSourceExpression("rxjs");
 		}
 
 		public static class Identifiers {
 			public static IIdentifierNameExpression HttpClient => new QualifiedIdentifierNameExpression("HttpClient", Sources.AngularHttp);
 			public static IIdentifierNameExpression This => new IdentifierNameExpression("this");
-			public static IdentifierNameExpression Promise  => new IdentifierNameExpression("Promise");
+			public static IIdentifierNameExpression Promise  => new IdentifierNameExpression("Promise");
+			public static IIdentifierNameExpression Observable => new QualifiedIdentifierNameExpression("Observable", Sources.Rxjs);
 		}
 	}
 }

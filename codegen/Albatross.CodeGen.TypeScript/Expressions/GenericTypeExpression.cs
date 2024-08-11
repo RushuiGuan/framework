@@ -8,10 +8,10 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 		public GenericTypeExpression(string name) {
 			this.Identifier = new IdentifierNameExpression(name);
 		}
-		public GenericTypeExpression(IdentifierNameExpression identifier) {
+		public GenericTypeExpression(IIdentifierNameExpression identifier) {
 			this.Identifier = identifier;
 		}
-		public IdentifierNameExpression Identifier { get; }
+		public IIdentifierNameExpression Identifier { get; }
 		public bool Optional { get; init; }
 		public required ListOfSyntaxNodes<ITypeExpression> Arguments { get; init; }
 		public override IEnumerable<ISyntaxNode> Children => [Identifier, Arguments];

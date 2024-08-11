@@ -30,10 +30,21 @@ namespace Albatross.CodeGen.TypeScript {
 		public static bool IsPromise(this ITypeExpression type) {
 			return type is GenericTypeExpression generic && generic.Identifier == Defined.Identifiers.Promise;
 		}
+		public static bool IsObservable(this ITypeExpression type) {
+			return type is GenericTypeExpression generic && generic.Identifier == Defined.Identifiers.Observable;
+		}
 
 		public static ITypeExpression ToPromise(this ITypeExpression type) {
 			if (!type.IsPromise()) {
 				type = new GenericTypeExpression(Defined.Identifiers.Promise) {
+					Arguments = new ListOfSyntaxNodes<ITypeExpression>(type),
+				};
+			}
+			return type;
+		}
+		public static ITypeExpression ToObservable(this ITypeExpression type) {
+			if (!type.IsObservable()) {
+				type = new GenericTypeExpression(Defined.Identifiers.Observable) {
 					Arguments = new ListOfSyntaxNodes<ITypeExpression>(type),
 				};
 			}

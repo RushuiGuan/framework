@@ -10,8 +10,8 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 			.Select(x => new ImportExpression(x.SelectMany(y => y.Items)) {
 				Source = x.Key,
 			})
-		) {
-		}
+		) { }
+
 		public ImportCollection(IEnumerable<ISyntaxNode> nodes) : base(
 			nodes.Where(x => x is QualifiedIdentifierNameExpression)
 				.Cast<QualifiedIdentifierNameExpression>()
@@ -21,7 +21,7 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 				})) {
 		}
 		public override TextWriter Generate(TextWriter writer) {
-			var sorted = this.OrderBy(x=>x.Source.ToString()).ToArray();
+			var sorted = this.OrderBy(x => x.Source.ToString()).ToArray();
 			writer.WriteItems(sorted, "", (writer, t) => writer.Code(t), null, null);
 			return writer;
 		}

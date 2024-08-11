@@ -16,7 +16,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		private readonly IConvertObject<IParameterSymbol, ParameterDeclaration> parameterConverter;
 		private readonly IConvertObject<ITypeSymbol, ITypeExpression> typeConverter;
 
-		public CreateWebClientMethod(TypeScriptWebClientSettings settings, 
+		public CreateWebClientMethod(TypeScriptWebClientSettings settings,
 			IConvertObject<IParameterSymbol, ParameterDeclaration> parameterConverter, IConvertObject<ITypeSymbol, ITypeExpression> typeConverter) {
 			this.settings = settings;
 			this.parameterConverter = parameterConverter;
@@ -24,12 +24,12 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		}
 		public MethodDeclaration Convert(IMethodSymbol methodSymbol) {
 			return new MethodDeclaration(methodSymbol.Name.CamelCase()) {
-				Modifiers = [new AsyncModifier()],
-				ReturnType = typeConverter.Convert(methodSymbol.ReturnType).ToPromise(),
+				Modifiers = settings.UsePromise ? [new AsyncModifier()] : [],
+				ReturnType = settings.UsePromise ? typeConverter.Convert(methodSymbol.ReturnType).ToPromise() : typeConverter.Convert(methodSymbol.ReturnType).ToObservable(),
 				Parameters = new ListOfSyntaxNodes<ParameterDeclaration>(methodSymbol.Parameters.Select(x => this.parameterConverter.Convert(x))),
 				Body = new ScopedVariableExpressionBuilder()
 					.WithName("relativeUrl").WithExpression(methodSymbol.GetRoute().ConvertRoute2StringInterpolation())
-					.Add(()=>CreateHttpInvocationExpression(methodSymbol))
+					.Add(() => CreateHttpInvocationExpression(methodSymbol))
 					.BuildAll()
 			};
 		}
@@ -37,61 +37,64 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 
 		IExpression CreateHttpInvocationExpression(IMethodSymbol methodSymbol) {
 			var builder = new InvocationExpressionBuilder();
-			builder.Await();
+			if (settings.UsePromise) {
+				builder.Await();
+			}
 			var returnType = this.typeConverter.Convert(methodSymbol.ReturnType);
 			var hasVoidReturnType = object.Equals(returnType, Defined.Types.Void());
 			var hasStringReturnType = object.Equals(returnType, Defined.Types.String());
 			switch (methodSymbol.GetHttpMethod()) {
 				case "get":
 					if (hasStringReturnType) {
-						builder.WithName("doGetStringAsync");
+						builder.WithMultiPartName("this", "doGetStringAsync");
 					} else {
-						builder.WithName("doGetAsync").AddGenericArgument(returnType);
+						builder.WithMultiPartName("this", "doGetAsync").AddGenericArgument(returnType);
 					}
 					break;
 				case "post":
 					if (hasStringReturnType) {
-						builder.WithName("doPostStringAsync");
+						builder.WithMultiPartName("this", "doPostStringAsync");
 					} else {
-						builder.WithName("doPostAsync");
+						builder.WithMultiPartName("this", "doPostAsync");
 						builder.AddGenericArgument(returnType);
 					}
 					break;
 				case "patch":
 					if (hasStringReturnType) {
-						builder.WithName("doPatchStringAsync");
+						builder.WithMultiPartName("this", "doPatchStringAsync");
 					} else {
-						builder.WithName("doPatchAsync");
+						builder.WithMultiPartName("this", "doPatchAsync");
 						builder.AddGenericArgument(returnType);
 					}
 					break;
 				case "put":
 					if (hasStringReturnType) {
-						builder.WithName("doPutStringAsync");
+						builder.WithMultiPartName("this", "doPutStringAsync");
 					} else {
-						builder.WithName("doPutAsync");
+						builder.WithMultiPartName("this", "doPutAsync");
 						builder.AddGenericArgument(returnType);
 					}
 					break;
 				case "delete":
-					builder.WithName("doDeleteAsync");
+					builder.WithMultiPartName("this", "doDeleteAsync");
 					break;
 			}
-			
+
 			builder.AddArgument(new IdentifierNameExpression("relativeUrl"));
 
 			var fromBodyParameter = methodSymbol.Parameters.FirstOrDefault(x => x.HasAttribute("Microsoft.AspNetCore.Mvc.FromBodyAttribute"));
-			if(fromBodyParameter!= null) {
+			if (fromBodyParameter != null) {
 				builder.AddGenericArgument(this.typeConverter.Convert(fromBodyParameter.Type));
 				builder.AddArgument(new IdentifierNameExpression(fromBodyParameter.Name.CamelCase()));
 			}
-			if (!hasVoidReturnType) {
+
+			if (settings.UsePromise && hasVoidReturnType) {
+				return builder.Build();
+			} else {
 				return new ScopedVariableExpressionBuilder()
 					.IsConstant().WithName("result").WithExpression(builder.Build())
 					.Add(() => new ReturnExpression(new IdentifierNameExpression("result")))
 					.BuildAll();
-			} else {
-				return builder.Build();
 			}
 		}
 	}

@@ -52,6 +52,7 @@ namespace Albatross.CodeGen.Utility {
 			services.AddScoped<ICurrentProject>(provider => new CurrentProject(Options.ProjectFile));
 			services.AddScoped<ICompilationFactory, MSBuildProjectCompilationFactory>();
 			services.AddScoped<Compilation>(provider => provider.GetRequiredService<ICompilationFactory>().Create());
+			services.AddShortenLoggerName(false, "Albatross");
 			if (string.IsNullOrEmpty(Options.SettingsFile)) {
 				services.AddSingleton<ISourceLookup>(new DefaultSourceLookup(new Dictionary<string, string>()));
 				services.AddSingleton(new TypeScriptWebClientSettings());
