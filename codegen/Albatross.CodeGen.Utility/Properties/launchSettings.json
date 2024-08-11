@@ -1,9 +1,5 @@
 {
   "profiles": {
-    "WSL": {
-      "commandName": "WSL2",
-      "distributionName": ""
-    },
     "create python api": {
       "commandName": "Project",
       "commandLineArgs": "create-python-api -d C:\\app\\python\\ref-data"
@@ -14,7 +10,7 @@
     },
     "typescript-proxy": {
       "commandName": "Project",
-      "commandLineArgs": "typescript-proxy -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.WebApi\\Albatross.CodeGen.Tests.WebApi.csproj -o c:\\temp\r\n"
+      "commandLineArgs": "typescript-proxy -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.WebApi\\Albatross.CodeGen.Tests.WebApi.csproj -o c:\\temp --settings \"C:\\app\\my-client-api\\code-gen-settings.json\"\r\n"
     },
     "typescript-dto": {
       "commandName": "Project",

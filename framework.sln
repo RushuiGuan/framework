@@ -15,6 +15,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codegen", "codegen", "{F0077DD2-731A-4663-804B-7636EBD2EFA8}"
 	ProjectSection(SolutionItems) = preProject
 		codegen\build.ps1 = codegen\build.ps1
+		codegen\generate typescript.ps1 = codegen\generate typescript.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "collections", "collections", "{9D043716-8EDA-4117-88BC-88438C5F11CD}"
@@ -256,7 +257,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis", "c
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.Test", "codeanalysis\Albatross.CodeAnalysis.Test\Albatross.CodeAnalysis.Test.csproj", "{CE256B51-ADF1-4C29-9EB8-AE22B99C2744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.CodeAnalysis.MSBuild", "codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj", "{9F47C779-0D57-4B01-8CDA-C8638D17688D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.MSBuild", "codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj", "{9F47C779-0D57-4B01-8CDA-C8638D17688D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,12 +6,19 @@ using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Expressions {
 	public record class ImportExpression : SyntaxNode, ICodeElement {
-		public required ListOfSyntaxNodes<IdentifierNameExpression> Items { get; init; }
+		public ImportExpression(IEnumerable<IdentifierNameExpression> items) {
+			this.Items = new ListOfSyntaxNodes<IdentifierNameExpression>(items) {
+				Unique = true,
+				Sorted = true,
+			};
+		}
+		public ListOfSyntaxNodes<IdentifierNameExpression> Items { get; }
 		public required ISourceExpression Source { get; init; }
 		public override IEnumerable<ISyntaxNode> Children => [Items, Source];
 		// import {format, parse} from 'date-fns';
 		public override TextWriter Generate(TextWriter writer) {
-			writer.Append("import ").Append("{ ").Code(Items).Append(" } ");
+			var sorted = new ListOfSyntaxNodes<IdentifierNameExpression>(Items.OrderBy(x=>x.Name.ToString()));
+			writer.Append("import ").Append("{ ").Code(sorted).Append(" } ");
 			writer.Append(" from ").Code(Source).Semicolon().WriteLine();
 			return writer;
 		}

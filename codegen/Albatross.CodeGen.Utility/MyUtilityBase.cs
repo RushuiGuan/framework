@@ -17,6 +17,10 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using Albatross.CodeGen.WebClient.TypeScript;
 using Albatross.CodeGen.WebClient;
+using Albatross.Serialization;
+using Serilog;
+using Albatross.Logging;
+using Serilog.Events;
 
 namespace Albatross.CodeGen.Utility {
 	public class MyUtilityOption : BaseOption {
@@ -40,7 +44,7 @@ namespace Albatross.CodeGen.Utility {
 				logger.LogError("Project {name} has error:\n\t{error}", Options.ProjectFile, string.Join("\n\t", errors.Select(x => x.GetMessage())));
 			}
 		}
-
+		
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			base.RegisterServices(configuration, envSetting, services);
 			services.AddScoped(provider => MSBuildWorkspace.Create());
@@ -52,7 +56,8 @@ namespace Albatross.CodeGen.Utility {
 				services.AddSingleton<ISourceLookup>(new DefaultSourceLookup(new Dictionary<string, string>()));
 				services.AddSingleton(new TypeScriptWebClientSettings());
 			} else {
-				var settings = JsonSerializer.Deserialize<TypeScriptWebClientSettings>(Options.SettingsFile) ?? throw new ArgumentException("Unable to deserialize typescript webclient settings");
+				using var stream = System.IO.File.OpenRead(Options.SettingsFile);
+				var settings = JsonSerializer.Deserialize<TypeScriptWebClientSettings>(stream, DefaultJsonSettings.Value.Default) ?? throw new ArgumentException("Unable to deserialize typescript webclient settings");
 				services.AddSingleton<ISourceLookup>(new DefaultSourceLookup(settings.NameSpaceModuleMapping));
 				services.AddSingleton(settings);
 			}
