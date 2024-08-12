@@ -16,8 +16,8 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 
 		public InterfaceDeclaration Convert(INamedTypeSymbol from) {
 			return new InterfaceDeclaration(from.Name) {
-				BaseInterfaceName = from.BaseType != null
-					&& from.BaseType.GetFullName() != "System.Object"
+				BaseInterfaceName = from.BaseType != null 
+					&& from.BaseType.GetFullName() != "System.Object" 
 					&& !from.BaseType.IsValueType ? typeConverter.Convert(from.BaseType) : null,
 				Properties = from.GetMembers().OfType<IPropertySymbol>()
 					.Where(x => Filter(from, x))
@@ -31,9 +31,6 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 			}
 			return propertySymbol.DeclaredAccessibility == Accessibility.Public;
 		}
-
-		object IConvertObject<INamedTypeSymbol>.Convert(INamedTypeSymbol from) {
-			return Convert(from);
-		}
+		object IConvertObject<INamedTypeSymbol>.Convert(INamedTypeSymbol from) => Convert(from);
 	}
 }
