@@ -59,13 +59,4 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 		}
 		public override IEnumerable<ISyntaxNode> Children => [Items];
 	}
-
-	public record class ObjectLiteralExpression : LiteralExpression {
-		public ListOfSyntaxNodes<JsonPropertyExpression> Properties { get; init; } = new ListOfSyntaxNodes<JsonPropertyExpression>();
-		public override TextWriter Generate(TextWriter writer) {
-			writer.Append("{").Code(Properties).Append("}");
-			return writer;
-		}
-		public override IEnumerable<ISyntaxNode> Children => [Properties];
-	}
 }

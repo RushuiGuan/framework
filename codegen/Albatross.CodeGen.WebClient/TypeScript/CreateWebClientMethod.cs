@@ -6,6 +6,7 @@ using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.Modifiers;
 using Albatross.Text;
 using Microsoft.CodeAnalysis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -95,14 +96,17 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 					builder.WithMultiPartName("this", "doDeleteAsync");
 					break;
 			}
-
+			// add relativeUrl parameter
 			builder.AddArgument(new IdentifierNameExpression("relativeUrl"));
-
+			// add from body parameter if it exists
 			var fromBodyParameter = methodSymbol.Parameters.FirstOrDefault(x => x.HasAttribute("Microsoft.AspNetCore.Mvc.FromBodyAttribute"));
 			if (fromBodyParameter != null) {
 				builder.AddGenericArgument(this.typeConverter.Convert(fromBodyParameter.Type));
 				builder.AddArgument(new IdentifierNameExpression(fromBodyParameter.Name.CamelCase()));
 			}
+			// build query string
+			var queryParam = BuildQueryParam(methodSymbol);
+			builder.AddArgument(queryParam);
 
 			if (settings.UsePromise && hasVoidReturnType) {
 				return builder.Build();
@@ -112,6 +116,28 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 					.Add(() => new ReturnExpression(new IdentifierNameExpression("result")))
 					.BuildAll();
 			}
+		}
+
+		public IExpression BuildQueryParam(IMethodSymbol methodSymbol) {
+			var route = methodSymbol.GetRoute();
+			var jsonValues = new List<JsonPropertyExpression>();
+			foreach (var param in methodSymbol.Parameters) {
+				if (param.TryGetAttribute(My.FromRouteAttributeClassName, out _)) {
+					continue;
+				} else if (param.TryGetAttribute(My.FromBodyAttributeClassName, out _)) {
+					continue;
+				} else {
+					string queryName = string.Empty;
+					if (param.TryGetAttribute(My.FromQueryAttributeClassName, out var fromQueryAttrib)) {
+						queryName = fromQueryAttrib.NamedArguments.Where(x => x.Key == "Name").FirstOrDefault().Value.Value as string;
+					}
+					if (string.IsNullOrEmpty(queryName)) {
+						queryName = param.Name.CamelCase();
+					}
+					jsonValues.Add(new JsonPropertyExpression(queryName, new IdentifierNameExpression(param.Name.CamelCase())));
+				}
+			}
+			return new JsonValueExpression(jsonValues);
 		}
 	}
 }

@@ -69,11 +69,7 @@ namespace Albatross.CodeGen.TypeScript {
 			public static InvocationExpression InjectableDecorator(string providedIn) {
 				return new DecoratorExpression {
 					Identifier = new QualifiedIdentifierNameExpression("Injectable", Sources.AngularCore),
-					ArgumentList = new ListOfSyntaxNodes<IExpression>(new ObjectLiteralExpression {
-						Properties = new ListOfSyntaxNodes<JsonPropertyExpression>(new JsonPropertyExpression("providedIn", new StringLiteralExpression(providedIn))) {
-							Padding = " "
-						}
-					})
+					ArgumentList = new ListOfSyntaxNodes<IExpression>(new JsonValueExpression(new JsonPropertyExpression("providedIn", new StringLiteralExpression(providedIn))))
 				};
 			}
 			public static InvocationExpression ConsoleLog(string message) {
