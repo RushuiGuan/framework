@@ -37,6 +37,8 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		object IConvertObject<IMethodSymbol>.Convert(IMethodSymbol from) => Convert(from);
 
 		void ProcessMethodParameters(IMethodSymbol methodSymbol, List<IParameterSymbol> routeParameters, List<IParameterSymbol> queryParams, List<IParameterSymbol> bodyParams) {
+			if (methodSymbol.TryGetAttribute("Microsoft.AspNetCore.Mvc.RouteAttribute", out var routeAttribe)) {
+			}
 			foreach (var parameter in methodSymbol.Parameters) {
 				if (parameter.HasAttribute("Microsoft.AspNetCore.Mvc.FromRouteAttribute")) {
 					routeParameters.Add(parameter);

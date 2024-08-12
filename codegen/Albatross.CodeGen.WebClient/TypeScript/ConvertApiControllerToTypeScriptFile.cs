@@ -5,7 +5,6 @@ using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.Modifiers;
-using Albatross.Text;
 using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;

@@ -102,7 +102,7 @@ namespace Albatross.DateLevel.Test {
 			var input = new TestAsyncEnumerableQuery<SpreadSpec>(list);
 			var items = input.Where(args => args.Key == 1);
 			items.RebuildDateLevelSeries<SpreadSpec, int>(args => list.Remove(args));
-			Assert.Collection(input,
+			Assert.Collection((IEnumerable<SpreadSpec>)input,
 				args => {
 					Assert.Equal(DateOnlyValues.Feb1_2022, args.StartDate);
 					Assert.Equal(DateOnlyValues.Feb28_2022, args.EndDate);
