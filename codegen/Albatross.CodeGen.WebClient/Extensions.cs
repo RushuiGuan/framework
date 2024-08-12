@@ -20,21 +20,18 @@ namespace Albatross.CodeGen.WebClient {
 				.Select(attrib => attrib.AttributeClass).FirstOrDefault() ?? throw new InvalidOperationException($"Method {methodSymbol.Name} is missing http method attribute");
 			return httpMethodAttribute.Name.ToLower().TrimStart("http").TrimEnd("attribute");
 		}
-		public static string GetRoute(this INamedTypeSymbol controllerSymbol) {
-			foreach(var attr in controllerSymbol.GetAttributes()) {
-				if (attr.AttributeClass.GetFullName() == My.RouteAttributeClassName) {
-					return attr.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
-				}
+		public static string GetRoute(this ISymbol symbol) {
+			var route = string.Empty;
+			if (symbol.TryGetAttribute(My.RouteAttributeClassName, out var routeAttribute)) {
+				route = routeAttribute.ConstructorArguments.FirstOrDefault().Value as string ?? string.Empty;
 			}
-			return string.Empty;
-		}
-
-		public static string GetRoute(this IMethodSymbol methodSymbol) {
-			foreach (var attr in methodSymbol.GetAttributes()) {
-				if (attr.AttributeClass.GetFullName() == My.RouteAttributeClassName) {
-					return attr.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
-				} else if (attr.AttributeClass?.BaseType.GetFullName() == My.HttpMethodAttributeClassName) {
-					return attr.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
+			if (!string.IsNullOrEmpty(route)) {
+				return route;
+			}
+			foreach (var attributeData in symbol.GetAttributes()) {
+				if (attributeData.AttributeClass?.BaseType.GetFullName() == My.HttpMethodAttributeClassName){
+					route = attributeData.ConstructorArguments.FirstOrDefault().Value as string;
+					if (!string.IsNullOrEmpty(route)) { return route; }
 				}
 			}
 			return string.Empty;

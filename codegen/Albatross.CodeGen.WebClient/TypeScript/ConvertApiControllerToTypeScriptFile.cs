@@ -16,10 +16,12 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		public const string ControllerNamePlaceholder = "[controller]";
 		private readonly TypeScriptWebClientSettings settings;
 		private readonly ICreateWebClientMethod createWebClientMethod;
+		private readonly Compilation compilation;
 
-		public ConvertApiControllerToTypeScriptFile(TypeScriptWebClientSettings settings, ICreateWebClientMethod createWebClientMethod) {
+		public ConvertApiControllerToTypeScriptFile(TypeScriptWebClientSettings settings, ICreateWebClientMethod createWebClientMethod, Compilation compilation) {
 			this.settings = settings;
 			this.createWebClientMethod = createWebClientMethod;
+			this.compilation = compilation;
 		}
 		string ControllerName(INamedTypeSymbol controllerSymbol) {
 			if (controllerSymbol.Name.EndsWith(ControllerPostfix)) {
