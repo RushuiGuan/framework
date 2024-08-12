@@ -7,7 +7,14 @@ using System.Text.RegularExpressions;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
 	public static class Extensions {
-		static Regex VariableRegex = new Regex(@"\{(\w+)\}", RegexOptions.Compiled);
+		static Regex VariableRegex = new Regex(@"\{\*?(\w+)\}", RegexOptions.Compiled);
+		/// <summary>
+		/// Give a aspnet route string, convert it to a string interpolation expression
+		/// for example: /api/{controller}/{id} => `/api/${controller}/${id}`
+		/// /api/{controller}/{*id} => `/api/${controller}/${id}`
+		/// </summary>
+		/// <param name="route"></param>
+		/// <returns></returns>
 		public static StringInterpolationExpression ConvertRoute2StringInterpolation(this string route) {
 			var matches = VariableRegex.Matches(route);
 			if (matches.Count == 0) {

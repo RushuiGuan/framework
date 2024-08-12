@@ -12,7 +12,7 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 			this.name = name;
 			return this;
 		}
-		public ScopedVariableExpressionBuilder IsConstant(bool isConstant = false) {
+		public ScopedVariableExpressionBuilder IsConstant(bool isConstant = true) {
 			this.isConstant = isConstant;
 			return this;
 		}

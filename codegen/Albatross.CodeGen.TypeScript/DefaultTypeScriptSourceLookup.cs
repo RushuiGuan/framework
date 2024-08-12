@@ -5,11 +5,11 @@ using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Albatross.CodeGen.Utility {
-	public class DefaultSourceLookup : ISourceLookup {
+namespace Albatross.CodeGen.TypeScript {
+	public class DefaultTypeScriptSourceLookup : ISourceLookup {
 		private readonly Dictionary<string, string> source;
 
-		public DefaultSourceLookup(Dictionary<string, string> source) {
+		public DefaultTypeScriptSourceLookup(Dictionary<string, string> source) {
 			this.source = source;
 		}
 
