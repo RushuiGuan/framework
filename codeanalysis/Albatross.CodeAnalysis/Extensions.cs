@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -106,6 +107,21 @@ namespace Albatross.CodeAnalysis {
 			}
 			return false;
 		}
+
+		public static bool TryGetAttribute(this ISymbol symbol, string attributeName, out AttributeData attributeData) {
+			foreach (var attribute in symbol.GetAttributes()) {
+				var className = attribute.AttributeClass?.GetFullName();
+				if (!string.IsNullOrEmpty(className)) {
+					if (className == attributeName) {
+						attributeData = attribute;
+						return true;
+					}
+				}
+			}
+			attributeData = null;
+			return false;
+		}
+
 		public static bool HasAttributeWithBaseType(this ISymbol symbol, string baseTypeName) {
 			foreach (var attribute in symbol.GetAttributes()) {
 				var className = attribute.AttributeClass?.BaseType?.GetFullName();
@@ -117,12 +133,13 @@ namespace Albatross.CodeAnalysis {
 			}
 			return false;
 		}
+
 		public static bool HasAttributeWithArguments(this ISymbol symbol, string attributeName, params string[] parameter) {
 			foreach (var attribute in symbol.GetAttributes()) {
 				var className = attribute.AttributeClass?.GetFullName();
 				if (!string.IsNullOrEmpty(className)) {
 					if (className == attributeName) {
-						var match = attribute.ConstructorArguments.Select(x=>(x.Value as INamedTypeSymbol)?.GetFullName()).SequenceEqual(parameter);
+						var match = attribute.ConstructorArguments.Select(x => (x.Value as INamedTypeSymbol)?.GetFullName()).SequenceEqual(parameter);
 						if (match) {
 							return true;
 						}
@@ -165,6 +182,7 @@ namespace Albatross.CodeAnalysis {
 			}
 			return fullName;
 		}
+
 		public static string GetFullNamespace(this INamespaceSymbol symbol) {
 			if (symbol.IsGlobalNamespace) {
 				return string.Empty;
