@@ -4,11 +4,14 @@ using Albatross.CodeGen.TypeScript.Conversions;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.TypeConversions;
 using Microsoft.CodeAnalysis;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 using Xunit;
 
 namespace Albatross.CodeGen.UnitTest.TypeScript {
 	public class TestTypeConverters {
+		ILogger<ConvertType> MockedLogger => new Moq.Mock<ILogger<ConvertType>>().Object;
+
 		[Theory]
 		[InlineData(@"class Example { public System.Collections.Generic.IEnumerable<string> P1 { get; } }")]
 		[InlineData(@"class Example { public string[] P1 { get; } }")]
@@ -19,7 +22,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
-			var factory = new ConvertType([new StringTypeConverter()]);
+			var factory = new ConvertType([new StringTypeConverter()], MockedLogger);
 			var converter = new ArrayTypeConverter(compilation);
 			Assert.True(converter.TryConvert(p1Symbol.Type, factory, out var result));
 			Assert.IsType<ArrayTypeExpression>(result);
@@ -34,7 +37,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
-			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter(compilation)]);
+			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter(compilation)], MockedLogger);
 			var result = factory.Convert(p1Symbol.Type);
 			Assert.Equal(Defined.Types.String(), result);
 		}
@@ -47,7 +50,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
-			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter(compilation)]);
+			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter(compilation)], MockedLogger);
 			var result = factory.Convert(p1Symbol.Type);
 			Assert.Equal(Defined.Types.String(true), result);
 		}
