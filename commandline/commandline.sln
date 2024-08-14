@@ -7,12 +7,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
-		pack.ps1 = pack.ps1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.CommandLine", "Albatross.Hosting.CommandLine\Albatross.Hosting.CommandLine.csproj", "{C8450BD6-9148-41BA-9EBB-A1D5E4A07E6D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.CommandLine.CodeGen", "Albatross.Hosting.CommandLine.CodeGen\Albatross.Hosting.CommandLine.CodeGen.csproj", "{B0FED0C9-439F-4903-B713-3BF4EBBDE491}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Albatross.CodeAnalysis.Shared", "..\codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.shproj", "{529B8C5B-BA8D-4129-93E7-4421A2E13677}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.CommandLine", "Sample.CommandLine\Sample.CommandLine.csproj", "{F16B8592-5F52-4E14-8D68-8332661DCAFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config", "..\config\Albatross.Config\Albatross.Config.csproj", "{7DFFC3A7-C689-4321-9B64-E6547A5D41F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Logging", "..\logging\Albatross.Logging\Albatross.Logging.csproj", "{47869335-8541-45C9-B1FB-55D2D1355F7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Text", "..\text\Albatross.Text\Albatross.Text.csproj", "{EA543AD7-E90D-45CC-B0AA-3161CC06493B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,11 +37,31 @@ Global
 		{B0FED0C9-439F-4903-B713-3BF4EBBDE491}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0FED0C9-439F-4903-B713-3BF4EBBDE491}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0FED0C9-439F-4903-B713-3BF4EBBDE491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F16B8592-5F52-4E14-8D68-8332661DCAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F16B8592-5F52-4E14-8D68-8332661DCAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F16B8592-5F52-4E14-8D68-8332661DCAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F16B8592-5F52-4E14-8D68-8332661DCAFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DFFC3A7-C689-4321-9B64-E6547A5D41F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DFFC3A7-C689-4321-9B64-E6547A5D41F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DFFC3A7-C689-4321-9B64-E6547A5D41F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DFFC3A7-C689-4321-9B64-E6547A5D41F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47869335-8541-45C9-B1FB-55D2D1355F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47869335-8541-45C9-B1FB-55D2D1355F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47869335-8541-45C9-B1FB-55D2D1355F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47869335-8541-45C9-B1FB-55D2D1355F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA543AD7-E90D-45CC-B0AA-3161CC06493B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA543AD7-E90D-45CC-B0AA-3161CC06493B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA543AD7-E90D-45CC-B0AA-3161CC06493B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA543AD7-E90D-45CC-B0AA-3161CC06493B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {34C18A2B-8C4B-4C35-AD12-24C8704BF832}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{529b8c5b-ba8d-4129-93e7-4421a2e13677}*SharedItemsImports = 13
+		..\codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{b0fed0c9-439f-4903-b713-3bf4ebbde491}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
