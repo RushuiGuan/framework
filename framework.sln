@@ -259,6 +259,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.MSBuild", "codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj", "{9F47C779-0D57-4B01-8CDA-C8638D17688D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "comandline", "comandline", "{70F19D88-A49C-419F-8A5C-14ACCBF9EE74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.CommandLine", "commandline\Albatross.Hosting.CommandLine\Albatross.Hosting.CommandLine.csproj", "{78427F02-C4EF-4EAD-91F0-118E44D4768C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.CommandLine.CodeGen", "commandline\Albatross.Hosting.CommandLine.CodeGen\Albatross.Hosting.CommandLine.CodeGen.csproj", "{F7AF2584-13C9-4FB1-9FB3-69566813578F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CommandLine", "commandline\Sample.CommandLine\Sample.CommandLine.csproj", "{92758798-6FD8-4C9D-93AF-E81961AE3DBA}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Albatross.CodeAnalysis.Shared", "codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.shproj", "{529B8C5B-BA8D-4129-93E7-4421A2E13677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -617,6 +627,18 @@ Global
 		{9F47C779-0D57-4B01-8CDA-C8638D17688D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F47C779-0D57-4B01-8CDA-C8638D17688D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F47C779-0D57-4B01-8CDA-C8638D17688D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78427F02-C4EF-4EAD-91F0-118E44D4768C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78427F02-C4EF-4EAD-91F0-118E44D4768C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78427F02-C4EF-4EAD-91F0-118E44D4768C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78427F02-C4EF-4EAD-91F0-118E44D4768C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7AF2584-13C9-4FB1-9FB3-69566813578F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7AF2584-13C9-4FB1-9FB3-69566813578F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7AF2584-13C9-4FB1-9FB3-69566813578F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7AF2584-13C9-4FB1-9FB3-69566813578F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92758798-6FD8-4C9D-93AF-E81961AE3DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92758798-6FD8-4C9D-93AF-E81961AE3DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92758798-6FD8-4C9D-93AF-E81961AE3DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92758798-6FD8-4C9D-93AF-E81961AE3DBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -710,8 +732,17 @@ Global
 		{938AAA3D-5B69-4D81-9BA4-670D31EF32B1} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
 		{CE256B51-ADF1-4C29-9EB8-AE22B99C2744} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
 		{9F47C779-0D57-4B01-8CDA-C8638D17688D} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
+		{78427F02-C4EF-4EAD-91F0-118E44D4768C} = {70F19D88-A49C-419F-8A5C-14ACCBF9EE74}
+		{F7AF2584-13C9-4FB1-9FB3-69566813578F} = {70F19D88-A49C-419F-8A5C-14ACCBF9EE74}
+		{92758798-6FD8-4C9D-93AF-E81961AE3DBA} = {70F19D88-A49C-419F-8A5C-14ACCBF9EE74}
+		{529B8C5B-BA8D-4129-93E7-4421A2E13677} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4751EEB3-6D5D-4780-B0C9-ECB82447CB4A}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{529b8c5b-ba8d-4129-93e7-4421a2e13677}*SharedItemsImports = 13
+		codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{938aaa3d-5b69-4d81-9ba4-670d31ef32b1}*SharedItemsImports = 5
+		codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{f7af2584-13c9-4fb1-9fb3-69566813578f}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

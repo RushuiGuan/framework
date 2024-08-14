@@ -38,9 +38,8 @@ namespace Albatross.Hosting.CommandLine {
 				}
 			});
 		}
-		protected virtual RootCommand RootCommand { get; } = new RootCommand { Name = "root",
-			 
-		};
+		protected virtual RootCommand RootCommand { get; } = new RootCommand();
+
 		public CommandLineBuilder CommandBuilder { get; }
 		List<Action<IHostBuilder>> commandRegistrations = new List<Action<IHostBuilder>>();
 
