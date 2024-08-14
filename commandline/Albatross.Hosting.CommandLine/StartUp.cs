@@ -11,7 +11,6 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Collections.Generic;
 using System.CommandLine.Hosting;
-using System.IO;
 
 namespace Albatross.Hosting.CommandLine {
 	public class StartUp {
