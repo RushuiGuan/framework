@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1099E6C7-472C-4C23-BE56-C00019E891D5}"
 	ProjectSection(SolutionItems) = preProject
 		build.ps1 = build.ps1
-		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.CommandLine", "Albatross.Hosting.CommandLine\Albatross.Hosting.CommandLine.csproj", "{C8450BD6-9148-41BA-9EBB-A1D5E4A07E6D}"
@@ -15,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.CommandLi
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Albatross.CodeAnalysis.Shared", "..\codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.shproj", "{529B8C5B-BA8D-4129-93E7-4421A2E13677}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.CommandLine", "Sample.CommandLine\Sample.CommandLine.csproj", "{F16B8592-5F52-4E14-8D68-8332661DCAFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CommandLine", "Sample.CommandLine\Sample.CommandLine.csproj", "{F16B8592-5F52-4E14-8D68-8332661DCAFB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config", "..\config\Albatross.Config\Albatross.Config.csproj", "{7DFFC3A7-C689-4321-9B64-E6547A5D41F1}"
 EndProject
