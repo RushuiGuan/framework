@@ -21,7 +21,7 @@ if(-not $alias) {
 
 	foreach($project in $projects){
 		"Building $project";
-		dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c debug --interactive;
+		dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c debug
 	}
 }
 
