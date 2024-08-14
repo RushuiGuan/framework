@@ -1,7 +1,10 @@
-﻿namespace Sample.CommandLine {
+﻿using Albatross.Hosting.CommandLine;
+using System.CommandLine.Builder;
+using System.CommandLine.Parsing;
+
+namespace Sample.CommandLine {
 	internal class Program {
-		static void Main(string[] args) {
-			Console.WriteLine("Hello, World!");
-		}
+		static Task<int> Main(string[] args)
+			=> new Setup().CreateCommandBuilder().UseDefaults().Build().InvokeAsync(args);
 	}
 }

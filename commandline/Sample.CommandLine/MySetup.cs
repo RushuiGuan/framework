@@ -1,6 +1,6 @@
 ﻿using Albatross.Hosting.CommandLine;
 
 namespace Sample.CommandLine {
-	public class MyStartUp : StartUp{
+	public class MySetup : Setup{
 	}
 }
