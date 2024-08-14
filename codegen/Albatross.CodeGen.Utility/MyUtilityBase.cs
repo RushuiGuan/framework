@@ -18,9 +18,7 @@ using Microsoft.Extensions.Logging;
 using Albatross.CodeGen.WebClient.TypeScript;
 using Albatross.CodeGen.WebClient;
 using Albatross.Serialization;
-using Serilog;
 using Albatross.Logging;
-using Serilog.Events;
 
 namespace Albatross.CodeGen.Utility {
 	public class MyUtilityOption : BaseOption {
@@ -54,12 +52,12 @@ namespace Albatross.CodeGen.Utility {
 			services.AddScoped<Compilation>(provider => provider.GetRequiredService<ICompilationFactory>().Create());
 			services.AddShortenLoggerName(false, "Albatross");
 			if (string.IsNullOrEmpty(Options.SettingsFile)) {
-				services.AddSingleton<ISourceLookup>(new DefaultSourceLookup(new Dictionary<string, string>()));
+				services.AddSingleton<ISourceLookup>(new DefaultTypeScriptSourceLookup(new Dictionary<string, string>()));
 				services.AddSingleton(new TypeScriptWebClientSettings());
 			} else {
 				using var stream = System.IO.File.OpenRead(Options.SettingsFile);
 				var settings = JsonSerializer.Deserialize<TypeScriptWebClientSettings>(stream, DefaultJsonSettings.Value.Default) ?? throw new ArgumentException("Unable to deserialize typescript webclient settings");
-				services.AddSingleton<ISourceLookup>(new DefaultSourceLookup(settings.NameSpaceModuleMapping));
+				services.AddSingleton<ISourceLookup>(new DefaultTypeScriptSourceLookup(settings.NameSpaceModuleMapping));
 				services.AddSingleton(settings);
 			}
 		}

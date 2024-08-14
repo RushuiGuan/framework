@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace Albatross.CodeGen.TypeScript {
 	public static class Defined {
 		public static class Patterns {
-			public static Regex IdentifierName => new Regex(@"^\w\w*$", RegexOptions.Compiled| RegexOptions.IgnoreCase);
+			public static Regex IdentifierName => new Regex(@"^\w\w*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 			public static Regex ModuleSource => new Regex(@"^(@\w+/)?\w+(/\w+)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		}
 		public static class Types {
@@ -16,7 +16,9 @@ namespace Albatross.CodeGen.TypeScript {
 			public static SimpleTypeExpression Void() => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("void")
 			};
-
+			public static SimpleTypeExpression Object() => new SimpleTypeExpression {
+				Identifier = new IdentifierNameExpression("object")
+			};
 			public static SimpleTypeExpression Boolean(bool optional = false) => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("boolean"),
 				Optional = optional
@@ -42,7 +44,7 @@ namespace Albatross.CodeGen.TypeScript {
 			};
 			public static SimpleTypeExpression Type(string name, bool optional) {
 				return new SimpleTypeExpression {
-					Identifier = new IdentifierNameExpression(name), 
+					Identifier = new IdentifierNameExpression(name),
 					Optional = optional
 				};
 			}
@@ -90,7 +92,7 @@ namespace Albatross.CodeGen.TypeScript {
 		public static class Identifiers {
 			public static IIdentifierNameExpression HttpClient => new QualifiedIdentifierNameExpression("HttpClient", Sources.AngularHttp);
 			public static IIdentifierNameExpression This => new IdentifierNameExpression("this");
-			public static IIdentifierNameExpression Promise  => new IdentifierNameExpression("Promise");
+			public static IIdentifierNameExpression Promise => new IdentifierNameExpression("Promise");
 			public static IIdentifierNameExpression Observable => new QualifiedIdentifierNameExpression("Observable", Sources.Rxjs);
 		}
 	}

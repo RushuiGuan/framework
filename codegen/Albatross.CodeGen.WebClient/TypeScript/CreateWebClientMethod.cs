@@ -25,11 +25,16 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			this.typeConverter = typeConverter;
 		}
 		public MethodDeclaration Convert(IMethodSymbol methodSymbol) {
+			var returnType = typeConverter.Convert(methodSymbol.ReturnType);
+			if (object.Equals(returnType, Defined.Types.Void())) {
+				returnType = Defined.Types.Object();
+			}
 			return new MethodDeclaration(methodSymbol.Name.CamelCase()) {
 				Modifiers = settings.UsePromise ? [new AsyncModifier()] : [],
-				ReturnType = settings.UsePromise ? typeConverter.Convert(methodSymbol.ReturnType).ToPromise() : typeConverter.Convert(methodSymbol.ReturnType).ToObservable(),
+				ReturnType = settings.UsePromise ? returnType.ToPromise() : returnType.ToObservable(),
 				Parameters = new ListOfSyntaxNodes<ParameterDeclaration>(methodSymbol.Parameters.Select(x => this.parameterConverter.Convert(x))),
 				Body = new ScopedVariableExpressionBuilder()
+					.IsConstant()
 					.WithName("relativeUrl").WithExpression(methodSymbol.GetRoute().ConvertRoute2StringInterpolation())
 					.Add(() => CreateHttpInvocationExpression(methodSymbol))
 					.BuildAll()
@@ -58,9 +63,14 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 				builder.Await();
 			}
 			var returnType = this.typeConverter.Convert(methodSymbol.ReturnType);
-			var hasVoidReturnType = object.Equals(returnType, Defined.Types.Void());
+			var hasVoidReturnType = false;
+			if (object.Equals(returnType, Defined.Types.Void())) {
+				hasVoidReturnType = true;
+				returnType = Defined.Types.Object();
+			}
 			var hasStringReturnType = object.Equals(returnType, Defined.Types.String());
-			switch (methodSymbol.GetHttpMethod()) {
+			var httpMethod = methodSymbol.GetHttpMethod();
+			switch (httpMethod) {
 				case "get":
 					if (hasStringReturnType) {
 						builder.WithMultiPartName("this", "doGetStringAsync");
@@ -103,6 +113,9 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			if (fromBodyParameter != null) {
 				builder.AddGenericArgument(this.typeConverter.Convert(fromBodyParameter.Type));
 				builder.AddArgument(new IdentifierNameExpression(fromBodyParameter.Name.CamelCase()));
+			} else if (httpMethod == "post" || httpMethod == "put" || httpMethod == "patch") {
+				builder.AddGenericArgument(Defined.Types.String());
+				builder.AddArgument(new StringLiteralExpression(""));
 			}
 			// build query string
 			var queryParam = BuildQueryParam(methodSymbol);
