@@ -9,9 +9,6 @@ namespace Albatross.Logging {
 		public const string DefaultOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:sszzz} [{Level:w3}] {SourceContext} {Message:lj}{NewLine}{Exception}";
 		Action<LoggerConfiguration>? configActions = null;
 
-		public SetupSerilog() {
-		}
-
 		public SetupSerilog UseConfigFile(string environment, string? basePath, string[]? commandLineArgs) {
 			Action<LoggerConfiguration> action = cfg => UseConfigFile(cfg, environment, basePath, commandLineArgs);
 			configActions += action;
@@ -52,11 +49,22 @@ namespace Albatross.Logging {
 			cfg.ReadFrom.Configuration(configuration);
 		}
 
+		private static LoggingLevelSwitch? consoleLoggingLevelSwitch;
 		public static void UseConsole(LoggerConfiguration cfg, LogEventLevel loggingLevel) {
-			cfg.MinimumLevel.ControlledBy(new LoggingLevelSwitch(loggingLevel))
+			if (consoleLoggingLevelSwitch == null) {
+				consoleLoggingLevelSwitch = new LoggingLevelSwitch(loggingLevel);
+			} else {
+				consoleLoggingLevelSwitch.MinimumLevel = loggingLevel;
+			}
+			cfg.MinimumLevel.ControlledBy(consoleLoggingLevelSwitch)
 				.WriteTo
 				.Console(outputTemplate: DefaultOutputTemplate)
 				.Enrich.FromLogContext();
+		}
+		public static void SwitchConsoleLoggingLevel(LogEventLevel loggingLevel) {
+			if (consoleLoggingLevelSwitch != null) {
+				consoleLoggingLevelSwitch.MinimumLevel = loggingLevel;
+			}
 		}
 	}
 }
