@@ -23,19 +23,19 @@ namespace Albatross.Hosting.CommandLine.CodeGen {
 				optionsClassSymbols.AddRange(walker.Result);
 			}
 			foreach (var candidate in optionsClassSymbols) {
-				var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(candidate.ContainingNamespace.ToDisplayString())).NormalizeWhitespace();
+				var @namespace = candidate.ContainingNamespace.ToDisplayString().GetNamespaceDeclaration();
 				if (candidate.TryGetAttribute("Albatross.Hosting.CommandLine.VerbAttribute", out var verbAttribute)) {
 					var className = GetCommandClassName(candidate.Name);
 					var declaration = SyntaxFactory.ClassDeclaration(className)
 						.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
 						.AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
-						.AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("Command")));
+						.AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("System.CommandLine.Command")));
 
-					var constructor = this.BuildConstructor(className, verbAttribute);
+					var constructor = this.BuildConstructor(className, verbAttribute!);
 					var statements = new List<StatementSyntax>();
 					foreach (var propertySymbol in candidate.GetMembers().OfType<IPropertySymbol>()) {
 						if (propertySymbol.TryGetAttribute("Albatross.Hosting.CommandLine.OptionAttribute", out var optionAttribute)) {
-							statements.Add(this.BuildCreateOptionStatement(propertySymbol, optionAttribute));
+							statements.Add(this.BuildCreateOptionStatement(propertySymbol, optionAttribute!));
 						}
 					}
 					constructor = constructor.WithBody(SyntaxFactory.Block(statements));

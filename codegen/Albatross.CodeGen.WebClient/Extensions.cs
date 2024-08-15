@@ -23,7 +23,7 @@ namespace Albatross.CodeGen.WebClient {
 		public static string GetRoute(this ISymbol symbol) {
 			var route = string.Empty;
 			if (symbol.TryGetAttribute(My.RouteAttributeClassName, out var routeAttribute)) {
-				route = routeAttribute.ConstructorArguments.FirstOrDefault().Value as string ?? string.Empty;
+				route = routeAttribute!.ConstructorArguments.FirstOrDefault().Value as string ?? string.Empty;
 			}
 			if (!string.IsNullOrEmpty(route)) {
 				return route;
