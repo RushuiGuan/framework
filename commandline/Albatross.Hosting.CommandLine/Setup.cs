@@ -13,13 +13,14 @@ using System.Collections.Generic;
 using System.CommandLine.Hosting;
 using System.CommandLine.Builder;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Albatross.Hosting.CommandLine {
 	public class Setup {
 		public Setup() {
 			this.RootCommand = CreateRootCommand();
 			this.CommandBuilder = new CommandLineBuilder(this.RootCommand);
-			this.CommandBuilder.AddMiddleware(AddLoggingSetup);
+			this.CommandBuilder.AddMiddleware(AddLoggingMiddleware);
 			this.CommandBuilder.UseHost(args => Host.CreateDefaultBuilder(), hostBuilder => {
 				var environment = EnvironmentSetting.DOTNET_ENVIRONMENT;
 				var logger = new SetupSerilog().Configure(ConfigureLogging).Create();
@@ -43,18 +44,17 @@ namespace Albatross.Hosting.CommandLine {
 			});
 		}
 
-		private Task AddLoggingSetup(InvocationContext context, Func<InvocationContext, Task> next) {
-			var result = context.ParseResult.GetValueForOption(logEventLevel);
+		private Task AddLoggingMiddleware(InvocationContext context, Func<InvocationContext, Task> next) {
+			var logOption = this.RootCommand.Options.OfType<Option<LogEventLevel?>>().First();
+			var result = context.ParseResult.GetValueForOption(logOption);
 			if (result != null) {
 				SetupSerilog.SwitchConsoleLoggingLevel(result.Value);
 			}
-
 			return next(context);
 		}
-		static Option<LogEventLevel?> logEventLevel = new Option<LogEventLevel?>("--log", () => LogEventLevel.Error);
 		public virtual RootCommand CreateRootCommand() {
 			var cmd = new RootCommand();
-			cmd.AddGlobalOption(logEventLevel);
+			cmd.AddGlobalOption(new Option<LogEventLevel?>("--log", () => LogEventLevel.Error));
 			cmd.AddGlobalOption(new Option<bool>("--clipboard"));
 			cmd.AddGlobalOption(new Option<bool>("--benchmark"));
 			return cmd;
