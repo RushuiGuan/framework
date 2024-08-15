@@ -12,11 +12,14 @@ using System.CommandLine.Invocation;
 using System.Collections.Generic;
 using System.CommandLine.Hosting;
 using System.CommandLine.Builder;
+using System.Threading.Tasks;
 
 namespace Albatross.Hosting.CommandLine {
 	public class Setup {
 		public Setup() {
-			this.CommandBuilder = new CommandLineBuilder(RootCommand);
+			this.RootCommand = CreateRootCommand();
+			this.CommandBuilder = new CommandLineBuilder(this.RootCommand);
+			this.CommandBuilder.AddMiddleware(AddLoggingSetup);
 			this.CommandBuilder.UseHost(args => Host.CreateDefaultBuilder(), hostBuilder => {
 				var environment = EnvironmentSetting.DOTNET_ENVIRONMENT;
 				var logger = new SetupSerilog().Configure(ConfigureLogging).Create();
@@ -24,7 +27,9 @@ namespace Albatross.Hosting.CommandLine {
 				var configBuilder = new ConfigurationBuilder()
 					.SetBasePath(System.IO.Directory.GetCurrentDirectory())
 					.AddJsonFile("appsettings.json", true, false);
-				if (!string.IsNullOrEmpty(environment.Value)) { configBuilder.AddJsonFile($"appsettings.{environment}.json", true, false); }
+				if (!string.IsNullOrEmpty(environment.Value)) {
+					configBuilder.AddJsonFile($"appsettings.{environment}.json", true, false);
+				}
 
 				var configuration = configBuilder.AddEnvironmentVariables().Build();
 
@@ -32,20 +37,32 @@ namespace Albatross.Hosting.CommandLine {
 					builder.Sources.Clear();
 					builder.AddConfiguration(configuration);
 				}).ConfigureServices((context, svc) => RegisterServices(context.Configuration, environment, svc));
-				RootCommand.Handler = new RootCommandHandler();
 				foreach (var action in this.commandRegistrations) {
 					action(hostBuilder);
 				}
 			});
 		}
-		protected virtual RootCommand RootCommand { get; } = new RootCommand();
 
+		private Task AddLoggingSetup(InvocationContext context, Func<InvocationContext, Task> next) {
+			return next(context);
+		}
+
+		public virtual RootCommand CreateRootCommand() {
+			var cmd = new RootCommand();
+			cmd.AddGlobalOption(new Option<LogLevel>("--log"));
+			cmd.AddGlobalOption(new Option<bool>("--clipboard"));
+			cmd.AddGlobalOption(new Option<bool>("--benchmark"));
+			return cmd;
+		}
+		public RootCommand RootCommand { get; }
 		public CommandLineBuilder CommandBuilder { get; }
 		List<Action<IHostBuilder>> commandRegistrations = new List<Action<IHostBuilder>>();
 
 		public Setup AddCommand<TCommand, THandler>() where TCommand : Command, new() where THandler : ICommandHandler {
-			RootCommand.AddCommand(new TCommand());
-			commandRegistrations.Add(hostBuilder => hostBuilder.UseCommandHandler<TCommand, THandler>());
+			this.RootCommand.Add(new TCommand());
+			commandRegistrations.Add((hostBuilder) => {
+				hostBuilder.UseCommandHandler<TCommand, THandler>();
+			});
 			return this;
 		}
 
