@@ -15,7 +15,7 @@ namespace Albatross.Caching.Test {
 		public void TestKeyGeneration() {
 			using var host = "redis".GetTestHost();
 			using var scope = host.Create();
-			
+
 			Assert.Equal("t1:1:", new Tier1Key(1).Key);
 			Assert.Equal("t1:1:*", new Tier1Key(1).WildCardKey);
 			Assert.Equal("t1:*", new Tier1Key(1).ResetKey);
@@ -67,7 +67,7 @@ namespace Albatross.Caching.Test {
 			var tier2 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier2Key>>();
 			var tier3 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier3Key>>();
 			keyMgmt.Reset(new Tier1Key(0));
-			
+
 			var keys = new List<ICacheKey>();
 			for (int x = 0; x < 3; x++) {
 				for (int y = 0; y < 3; y++) {
@@ -162,11 +162,11 @@ namespace Albatross.Caching.Test {
 			Assert.NotEmpty(allKeys);
 			if (tier == 1) {
 				// all keys should be done
-				Assert.Empty(allKeys.Where(x=>x.StartsWith(tier1Key.Key)));
+				Assert.DoesNotContain(allKeys, x => x.StartsWith(tier1Key.Key));
 			} else if (tier == 2) {
-				Assert.Empty(allKeys.Where(x=>x.StartsWith(tier2Key.Key)));
+				Assert.DoesNotContain(allKeys, x => x.StartsWith(tier2Key.Key));
 			} else if (tier == 3) {
-				Assert.Empty(allKeys.Where(x=>x.StartsWith(tier3Key.Key)));
+				Assert.DoesNotContain(allKeys, x => x.StartsWith(tier3Key.Key));
 			}
 		}
 	}

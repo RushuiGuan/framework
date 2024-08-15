@@ -192,5 +192,8 @@ namespace Albatross.CodeAnalysis {
 				return $"{GetFullNamespace(symbol.ContainingNamespace)}.{symbol.Name}";
 			}
 		}
+
+		public static NamespaceDeclarationSyntax GetNamespaceDeclaration(this string @namespace)
+			=> SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(@namespace)).NormalizeWhitespace();
 	}
 }
