@@ -44,12 +44,17 @@ namespace Albatross.Hosting.CommandLine {
 		}
 
 		private Task AddLoggingSetup(InvocationContext context, Func<InvocationContext, Task> next) {
+			var result = context.ParseResult.GetValueForOption(logEventLevel);
+			if (result != null) {
+				SetupSerilog.SwitchConsoleLoggingLevel(result.Value);
+			}
+
 			return next(context);
 		}
-
+		static Option<LogEventLevel?> logEventLevel = new Option<LogEventLevel?>("--log", () => LogEventLevel.Error);
 		public virtual RootCommand CreateRootCommand() {
 			var cmd = new RootCommand();
-			cmd.AddGlobalOption(new Option<LogLevel>("--log"));
+			cmd.AddGlobalOption(logEventLevel);
 			cmd.AddGlobalOption(new Option<bool>("--clipboard"));
 			cmd.AddGlobalOption(new Option<bool>("--benchmark"));
 			return cmd;
@@ -75,7 +80,7 @@ namespace Albatross.Hosting.CommandLine {
 		}
 
 		protected virtual void ConfigureLogging(LoggerConfiguration cfg) {
-			SetupSerilog.UseConsole(cfg, LogEventLevel.Debug);
+			SetupSerilog.UseConsole(cfg, null);
 		}
 	}
 }

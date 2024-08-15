@@ -49,12 +49,10 @@ namespace Albatross.Logging {
 			cfg.ReadFrom.Configuration(configuration);
 		}
 
-		private static LoggingLevelSwitch? consoleLoggingLevelSwitch;
-		public static void UseConsole(LoggerConfiguration cfg, LogEventLevel loggingLevel) {
-			if (consoleLoggingLevelSwitch == null) {
-				consoleLoggingLevelSwitch = new LoggingLevelSwitch(loggingLevel);
-			} else {
-				consoleLoggingLevelSwitch.MinimumLevel = loggingLevel;
+		private static LoggingLevelSwitch consoleLoggingLevelSwitch = new LoggingLevelSwitch();
+		public static void UseConsole(LoggerConfiguration cfg, LogEventLevel? loggingLevel) {
+			if (loggingLevel != null) {
+				consoleLoggingLevelSwitch.MinimumLevel = loggingLevel.Value;
 			}
 			cfg.MinimumLevel.ControlledBy(consoleLoggingLevelSwitch)
 				.WriteTo
@@ -62,9 +60,7 @@ namespace Albatross.Logging {
 				.Enrich.FromLogContext();
 		}
 		public static void SwitchConsoleLoggingLevel(LogEventLevel loggingLevel) {
-			if (consoleLoggingLevelSwitch != null) {
-				consoleLoggingLevelSwitch.MinimumLevel = loggingLevel;
-			}
+			consoleLoggingLevelSwitch.MinimumLevel = loggingLevel;
 		}
 	}
 }
