@@ -108,7 +108,7 @@ namespace Albatross.CodeAnalysis {
 			return false;
 		}
 
-		public static bool TryGetAttribute(this ISymbol symbol, string attributeName, out AttributeData attributeData) {
+		public static bool TryGetAttribute(this ISymbol symbol, string attributeName, out AttributeData? attributeData) {
 			foreach (var attribute in symbol.GetAttributes()) {
 				var className = attribute.AttributeClass?.GetFullName();
 				if (!string.IsNullOrEmpty(className)) {
