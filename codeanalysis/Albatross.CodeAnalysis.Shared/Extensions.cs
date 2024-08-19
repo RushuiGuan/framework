@@ -1,6 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,6 +15,7 @@ namespace Albatross.CodeAnalysis {
 			}
 			return symbol;
 		}
+
 		public static bool IsDerivedFrom(this ITypeSymbol typeSymbol, ITypeSymbol baseTypeSymbol) {
 			if (baseTypeSymbol.TypeKind == TypeKind.Interface) {
 				return typeSymbol.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, baseTypeSymbol));
@@ -36,6 +36,7 @@ namespace Albatross.CodeAnalysis {
 				return false;
 			}
 		}
+
 		public static IEnumerable<MetadataReference> GetGlobalReferences() {
 			var assemblies = new[] {
 				/*Making sure all MEF assemblies are loaded*/
@@ -56,6 +57,7 @@ namespace Albatross.CodeAnalysis {
 			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Runtime.dll")));
 			return result;
 		}
+
 		public static Compilation CreateCompilation(params string[] sourceCodes) {
 			var syntaxTrees = sourceCodes.Select(code => CSharpSyntaxTree.ParseText(code, new CSharpParseOptions(LanguageVersion.Default))).ToArray();
 			var references = GetGlobalReferences();
@@ -192,8 +194,5 @@ namespace Albatross.CodeAnalysis {
 				return $"{GetFullNamespace(symbol.ContainingNamespace)}.{symbol.Name}";
 			}
 		}
-
-		public static NamespaceDeclarationSyntax GetNamespaceDeclaration(this string @namespace)
-			=> SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(@namespace)).NormalizeWhitespace();
 	}
 }

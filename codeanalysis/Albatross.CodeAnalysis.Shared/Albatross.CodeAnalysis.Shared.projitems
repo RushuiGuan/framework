@@ -13,5 +13,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)CompilationFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ICurrentProject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SyntaxExtensions.cs" />
   </ItemGroup>
 </Project>
