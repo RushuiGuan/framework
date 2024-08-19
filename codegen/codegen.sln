@@ -217,4 +217,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E390C787-E7AE-4338-964B-DA9915316459}
 	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{ce4a69d0-9596-4027-90dc-e3057b3a4cf6}*SharedItemsImports = 5
+	EndGlobalSection
 EndGlobal

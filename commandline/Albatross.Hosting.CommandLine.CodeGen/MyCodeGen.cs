@@ -11,7 +11,7 @@ namespace Albatross.Hosting.CommandLine.CodeGen {
 	[Generator]
 	public class MyCodeGen : ISourceGenerator {
 		public void Execute(GeneratorExecutionContext context) {
-			// System.Diagnostics.Debugger.Launch();
+			System.Diagnostics.Debugger.Launch();
 			var compilation = context.Compilation;
 
 			List<INamedTypeSymbol> optionsClassSymbols = new List<INamedTypeSymbol>();
@@ -22,27 +22,25 @@ namespace Albatross.Hosting.CommandLine.CodeGen {
 				walker.Visit(syntaxTree.GetRoot());
 				optionsClassSymbols.AddRange(walker.Result);
 			}
+			if (!optionsClassSymbols.Any()) {
+				string text = $"No option class found.  Eligible classess are public and annotated with the {My.VerbAttributeClass}";
+				var descriptor = new DiagnosticDescriptor("CmdlineApiCodeGen01", "CommandLine CodeGen", text, "Generator", DiagnosticSeverity.Warning, true);
+				context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
+			}
 			foreach (var candidate in optionsClassSymbols) {
-				var @namespace = candidate.ContainingNamespace.ToDisplayString().GetNamespaceDeclaration();
-				if (candidate.TryGetAttribute("Albatross.Hosting.CommandLine.VerbAttribute", out var verbAttribute)) {
+				if (candidate.TryGetAttribute(My.VerbAttributeClass, out var verbAttribute)) {
 					var className = GetCommandClassName(candidate.Name);
 					var declaration = SyntaxFactory.ClassDeclaration(className)
 						.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
 						.AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
-						.AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("System.CommandLine.Command")));
+						.AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName(My.CommandClassName)));
 
-					var constructor = this.BuildConstructor(className, verbAttribute!);
-					var statements = new List<StatementSyntax>();
-					foreach (var propertySymbol in candidate.GetMembers().OfType<IPropertySymbol>()) {
-						if (propertySymbol.TryGetAttribute("Albatross.Hosting.CommandLine.OptionAttribute", out var optionAttribute)) {
-							statements.Add(this.BuildCreateOptionStatement(propertySymbol, optionAttribute!));
-						}
-					}
-					constructor = constructor.WithBody(SyntaxFactory.Block(statements));
+					var constructor = this.BuildConstructor(candidate, className, verbAttribute!);
 					declaration = declaration.AddMembers(constructor);
 
 					var compilationUnit = SyntaxFactory.CompilationUnit();
-					compilationUnit = compilationUnit.AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.CommandLine")));
+					compilationUnit = compilationUnit.AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(My.SysCommandLineNamespace)));
+					var @namespace = candidate.ContainingNamespace.ToDisplayString().NamespaceDeclaration();
 					@namespace = @namespace.AddMembers(declaration);
 					compilationUnit = compilationUnit.AddMembers(@namespace);
 					var code = compilationUnit.NormalizeWhitespace().ToFullString();
@@ -53,19 +51,19 @@ namespace Albatross.Hosting.CommandLine.CodeGen {
 		StatementSyntax BuildCreateOptionStatement(IPropertySymbol propertySymbol, AttributeData optionAttribute) {
 			var name = optionAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
 			var description = optionAttribute.ConstructorArguments.Skip(1).FirstOrDefault().Value?.ToString();
-			var alias = optionAttribute.NamedArguments.Where(x => x.Key == "Alias").Select(x => x.Value.Value).FirstOrDefault();
+			// var alias = optionAttribute.NamedArguments.Where(x => x.Key == "Alias").Select(x => x.Value.Value).FirstOrDefault();
 			var type = propertySymbol.Type.ToDisplayString();
 			var option = SyntaxFactory.ParseExpression($"new Option<{type}>(\"{name}\", \"{description}\")");
-			if (alias != null) {
-				option = SyntaxFactory.ParseExpression($"new Option<{type}({{ \"{name}\", \"{description}\" }}).Alias(\"{alias}\")");
-			}
+			//if (alias != null) {
+			//	option = SyntaxFactory.ParseExpression($"new Option<{type}({{ \"{name}\", \"{description}\" }}).Alias(\"{alias}\")");
+			//}
 			return SyntaxFactory.ExpressionStatement(SyntaxFactory.ParseExpression($"this.AddOption({option})"));
 		}
-		ConstructorInitializerSyntax BuildConstructorInitializer(AttributeData verbAttribute) {
+		ConstructorInitializerSyntax AddConstructorBaseTypeInitizliation(AttributeData verbAttribute) {
 			var name = verbAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
 			var description = verbAttribute.ConstructorArguments.Skip(1).FirstOrDefault().Value?.ToString();
-
-			var builder = new ArgumentListBuilder().Add(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(name)));
+			var builder = new ArgumentListBuilder()
+				.Add(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(name)));
 			if (description == null) {
 				builder.Add(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
 			} else {
@@ -73,21 +71,28 @@ namespace Albatross.Hosting.CommandLine.CodeGen {
 			}
 			return SyntaxFactory.ConstructorInitializer(SyntaxKind.BaseConstructorInitializer, builder.Build());
 		}
-		ConstructorDeclarationSyntax BuildConstructor(string className, AttributeData verbAttribute) {
+		ConstructorDeclarationSyntax BuildConstructor(INamedTypeSymbol optionClass, string className, AttributeData verbAttribute) {
 			var name = verbAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
 			var description = verbAttribute.ConstructorArguments.Skip(1).FirstOrDefault().Value?.ToString();
-			var alias = verbAttribute.NamedArguments.Where(x => x.Key == "Alias").Select(x => x.Value.Value).FirstOrDefault();
-
-			return SyntaxFactory.ConstructorDeclaration(className)
+			var constructor = SyntaxFactory.ConstructorDeclaration(className)
 				.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-				.WithInitializer(this.BuildConstructorInitializer(verbAttribute));
-		}
+				.WithInitializer(this.AddConstructorBaseTypeInitizliation(verbAttribute));
 
+			var statements = new List<StatementSyntax>();
+			foreach (var propertySymbol in optionClass.GetMembers().OfType<IPropertySymbol>()) {
+				if (propertySymbol.TryGetAttribute(My.OptionAttributeClass, out var optionAttribute)) {
+					statements.Add(this.BuildCreateOptionStatement(propertySymbol, optionAttribute!));
+				}
+			}
+			constructor = constructor.WithBody(SyntaxFactory.Block(statements));
+			return constructor;
+			//var alias = verbAttribute.NamedArguments.Where(x => x.Key == "Alias").Select(x => x.Value.Value).FirstOrDefault();
+		}
 		string GetCommandClassName(string optionsClassName) {
 			if (optionsClassName.EndsWith("Options")) {
-				return optionsClassName.Substring(0, optionsClassName.Length - "Options".Length) + "Command";
+				return optionsClassName.Substring(0, optionsClassName.Length - "Options".Length);
 			} else {
-				return optionsClassName + "Command";
+				return optionsClassName;
 			}
 		}
 		public void Initialize(GeneratorInitializationContext context) { }

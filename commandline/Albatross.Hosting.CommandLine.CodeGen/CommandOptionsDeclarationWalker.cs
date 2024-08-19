@@ -16,11 +16,20 @@ namespace Albatross.Hosting.CommandLine.CodeGen {
 		public override void VisitClassDeclaration(ClassDeclarationSyntax node) {
 			if (node.Modifiers.Any(SyntaxKind.PublicKeyword)) {
 				var classSymbol = semanticModel.GetDeclaredSymbol(node);
-				if (classSymbol != null && classSymbol.GetAttributes().Any(x => x.AttributeClass?.ToDisplayString() == "Albatross.Hosting.CommandLine.VerbAttribute")) {
+				if (classSymbol != null && classSymbol.TryGetAttribute(My.VerbAttributeClass, out _)) {
 					Result.Add(classSymbol);
 				}
 			}
 			base.VisitClassDeclaration(node);
+		}
+		public override void VisitRecordDeclaration(RecordDeclarationSyntax node) {
+			if (node.Modifiers.Any(SyntaxKind.PublicKeyword)) {
+				var classSymbol = semanticModel.GetDeclaredSymbol(node);
+				if (classSymbol != null && classSymbol.TryGetAttribute(My.VerbAttributeClass, out _)) {
+					Result.Add(classSymbol);
+				}
+			}
+			base.VisitRecordDeclaration(node);
 		}
 	}
 }
