@@ -18,25 +18,33 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Messaging.CodeGen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Messaging.Utility", "Albatross.Messaging.Utility\Albatross.Messaging.Utility.csproj", "{06529F61-A9F3-49E3-9246-5687966CBFD8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging", "Sample.Messaging\Sample.Messaging.csproj", "{38523096-FC20-461D-82FE-BCFAE0FA6555}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample", "Sample\Sample.csproj", "{38523096-FC20-461D-82FE-BCFAE0FA6555}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.CodeGen", "Sample.Messaging.CodeGen\Sample.Messaging.CodeGen.csproj", "{809A5F48-8ADB-47C8-950E-F8573A681BB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CodeGen", "Sample.CodeGen\Sample.CodeGen.csproj", "{809A5F48-8ADB-47C8-950E-F8573A681BB7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Commands", "Sample.Messaging.Commands\Sample.Messaging.Commands.csproj", "{D04ED6BD-A700-44B4-9FEC-468C23241A42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Core", "Sample.Core\Sample.Core.csproj", "{53F74017-7F38-432C-9143-9A48FEBA1C1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Core", "Sample.Messaging.Core\Sample.Messaging.Core.csproj", "{53F74017-7F38-432C-9143-9A48FEBA1C1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Daemon", "Sample.Daemon\Sample.Daemon.csproj", "{9AA7BD14-5BA1-4FCE-9E71-5CA024E20F93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Daemon", "Sample.Messaging.Daemon\Sample.Messaging.Daemon.csproj", "{9AA7BD14-5BA1-4FCE-9E71-5CA024E20F93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Proxy", "Sample.Proxy\Sample.Proxy.csproj", "{8241D5AF-07D9-4BA2-9736-D2BBE2A9D993}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Proxy", "Sample.Messaging.Proxy\Sample.Messaging.Proxy.csproj", "{8241D5AF-07D9-4BA2-9736-D2BBE2A9D993}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Utility", "Sample.Utility\Sample.Utility.csproj", "{479FCCDB-5367-4D19-8409-C2FD2E65093B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.Utility", "Sample.Messaging.Utility\Sample.Messaging.Utility.csproj", "{479FCCDB-5367-4D19-8409-C2FD2E65093B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Messaging.WebApi", "Sample.Messaging.WebApi\Sample.Messaging.WebApi.csproj", "{ADBC15A7-D98A-4107-A3AA-7877C8F84ED2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.WebApi", "Sample.WebApi\Sample.WebApi.csproj", "{ADBC15A7-D98A-4107-A3AA-7877C8F84ED2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Utility", "..\hosting\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj", "{E1BB4A5D-6BE7-4574-AFA5-DFD0C6A16A85}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Test", "..\hosting\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj", "{D25AD86F-AA2E-4B44-AC8D-2DF2B2056BF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Serialization", "..\serialization\Albatross.Serialization\Albatross.Serialization.csproj", "{03ED04BE-7FE2-4DB5-B4CA-7D4F7CE88E21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.WebClient", "..\webclient\Albatross.WebClient\Albatross.WebClient.csproj", "{1AC3BCF7-A087-4B35-93D9-6B6987B94E0E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config", "..\config\Albatross.Config\Albatross.Config.csproj", "{B5E66816-F9F3-4B12-8E66-3617FE2143A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.WebClient", "..\codegen\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj", "{98B87C9B-94D4-4859-B5AF-EBFBA9BDB9F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,10 +76,6 @@ Global
 		{809A5F48-8ADB-47C8-950E-F8573A681BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{809A5F48-8ADB-47C8-950E-F8573A681BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{809A5F48-8ADB-47C8-950E-F8573A681BB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D04ED6BD-A700-44B4-9FEC-468C23241A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D04ED6BD-A700-44B4-9FEC-468C23241A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D04ED6BD-A700-44B4-9FEC-468C23241A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D04ED6BD-A700-44B4-9FEC-468C23241A42}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53F74017-7F38-432C-9143-9A48FEBA1C1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53F74017-7F38-432C-9143-9A48FEBA1C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53F74017-7F38-432C-9143-9A48FEBA1C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -100,9 +104,33 @@ Global
 		{D25AD86F-AA2E-4B44-AC8D-2DF2B2056BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D25AD86F-AA2E-4B44-AC8D-2DF2B2056BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D25AD86F-AA2E-4B44-AC8D-2DF2B2056BF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03ED04BE-7FE2-4DB5-B4CA-7D4F7CE88E21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03ED04BE-7FE2-4DB5-B4CA-7D4F7CE88E21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03ED04BE-7FE2-4DB5-B4CA-7D4F7CE88E21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03ED04BE-7FE2-4DB5-B4CA-7D4F7CE88E21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AC3BCF7-A087-4B35-93D9-6B6987B94E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AC3BCF7-A087-4B35-93D9-6B6987B94E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AC3BCF7-A087-4B35-93D9-6B6987B94E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AC3BCF7-A087-4B35-93D9-6B6987B94E0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E66816-F9F3-4B12-8E66-3617FE2143A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E66816-F9F3-4B12-8E66-3617FE2143A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E66816-F9F3-4B12-8E66-3617FE2143A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E66816-F9F3-4B12-8E66-3617FE2143A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B87C9B-94D4-4859-B5AF-EBFBA9BDB9F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B87C9B-94D4-4859-B5AF-EBFBA9BDB9F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B87C9B-94D4-4859-B5AF-EBFBA9BDB9F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B87C9B-94D4-4859-B5AF-EBFBA9BDB9F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E1BB4A5D-6BE7-4574-AFA5-DFD0C6A16A85} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
+		{D25AD86F-AA2E-4B44-AC8D-2DF2B2056BF0} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
+		{03ED04BE-7FE2-4DB5-B4CA-7D4F7CE88E21} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
+		{1AC3BCF7-A087-4B35-93D9-6B6987B94E0E} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
+		{B5E66816-F9F3-4B12-8E66-3617FE2143A4} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
+		{98B87C9B-94D4-4859-B5AF-EBFBA9BDB9F9} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93B8E026-8109-4C54-A58E-FC6B8A0022E8}
