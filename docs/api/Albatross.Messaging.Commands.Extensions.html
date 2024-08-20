@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Extensions
- | Albatross Framework Documentation </title>
+      <title>Class Extensions | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Extensions
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class Extensions | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,8 +85,7 @@
 
 
   <h1 id="Albatross_Messaging_Commands_Extensions" data-uid="Albatross.Messaging.Commands.Extensions" class="text-break">
-    Class Extensions
-  
+Class Extensions  
   </h1>
 
   <div class="facts text-secondary">
@@ -164,8 +159,8 @@
 
   <a id="Albatross_Messaging_Commands_Extensions_AddAssemblyCommandHandlers_" data-uid="Albatross.Messaging.Commands.Extensions.AddAssemblyCommandHandlers*"></a>
 
-  <h3 id="Albatross_Messaging_Commands_Extensions_AddAssemblyCommandHandlers_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Reflection_Assembly_" data-uid="Albatross.Messaging.Commands.Extensions.AddAssemblyCommandHandlers(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly)">
-  AddAssemblyCommandHandlers(IServiceCollection, Assembly)
+  <h3 id="Albatross_Messaging_Commands_Extensions_AddAssemblyCommandHandlers_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Reflection_Assembly_System_Func_System_Object_System_IServiceProvider_System_String__" data-uid="Albatross.Messaging.Commands.Extensions.AddAssemblyCommandHandlers(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly,System.Func{System.Object,System.IServiceProvider,System.String})">
+  AddAssemblyCommandHandlers(IServiceCollection, Assembly, Func&lt;object, IServiceProvider, string&gt;)
   
   </h3>
 
@@ -173,45 +168,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddAssemblyCommandHandlers(this IServiceCollection services, Assembly assembly)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
-    <dd></dd>
-    <dt><code>assembly</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_Commands_Extensions_AddAssemblyCommands_" data-uid="Albatross.Messaging.Commands.Extensions.AddAssemblyCommands*"></a>
-
-  <h3 id="Albatross_Messaging_Commands_Extensions_AddAssemblyCommands_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Reflection_Assembly_System_Func_System_Object_System_IServiceProvider_System_String__" data-uid="Albatross.Messaging.Commands.Extensions.AddAssemblyCommands(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly,System.Func{System.Object,System.IServiceProvider,System.String})">
-  AddAssemblyCommands(IServiceCollection, Assembly, Func&lt;object, IServiceProvider, string&gt;?)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddAssemblyCommands(this IServiceCollection services, Assembly assembly, Func&lt;object, IServiceProvider, string&gt;? getQueueName = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddAssemblyCommandHandlers(this IServiceCollection services, Assembly assembly, Func&lt;object, IServiceProvider, string&gt; getQueueName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -312,10 +269,10 @@
 
 
 
-  <a id="Albatross_Messaging_Commands_Extensions_AddCommandHandler_" data-uid="Albatross.Messaging.Commands.Extensions.AddCommandHandler*"></a>
+  <a id="Albatross_Messaging_Commands_Extensions_AddCommandClient_" data-uid="Albatross.Messaging.Commands.Extensions.AddCommandClient*"></a>
 
-  <h3 id="Albatross_Messaging_Commands_Extensions_AddCommandHandler__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Messaging.Commands.Extensions.AddCommandHandler``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-  AddCommandHandler&lt;H&gt;(IServiceCollection)
+  <h3 id="Albatross_Messaging_Commands_Extensions_AddCommandClient__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.Messaging.Commands.Extensions.AddCommandClient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+  AddCommandClient&lt;T&gt;(IServiceCollection)
   
   </h3>
 
@@ -323,55 +280,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddCommandHandler&lt;H&gt;(this IServiceCollection services)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddCommandClient&lt;T&gt;(this IServiceCollection services) where T : class, ICommandClient</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>H</code></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_Messaging_Commands_Extensions_AddCommand_" data-uid="Albatross.Messaging.Commands.Extensions.AddCommand*"></a>
-
-  <h3 id="Albatross_Messaging_Commands_Extensions_AddCommand__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Func___0_System_IServiceProvider_System_String__" data-uid="Albatross.Messaging.Commands.Extensions.AddCommand``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{``0,System.IServiceProvider,System.String})">
-  AddCommand&lt;T&gt;(IServiceCollection, Func&lt;T, IServiceProvider, string&gt;?)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddCommand&lt;T&gt;(this IServiceCollection services, Func&lt;T, IServiceProvider, string&gt;? getQueueName = null) where T : notnull</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
-    <dd></dd>
-    <dt><code>getQueueName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -396,10 +310,10 @@
 
 
 
-  <a id="Albatross_Messaging_Commands_Extensions_AddCommand_" data-uid="Albatross.Messaging.Commands.Extensions.AddCommand*"></a>
+  <a id="Albatross_Messaging_Commands_Extensions_GetDefaultQueueName_" data-uid="Albatross.Messaging.Commands.Extensions.GetDefaultQueueName*"></a>
 
-  <h3 id="Albatross_Messaging_Commands_Extensions_AddCommand__2_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Func___0_System_IServiceProvider_System_String__" data-uid="Albatross.Messaging.Commands.Extensions.AddCommand``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{``0,System.IServiceProvider,System.String})">
-  AddCommand&lt;T, K&gt;(IServiceCollection, Func&lt;T, IServiceProvider, string&gt;?)
+  <h3 id="Albatross_Messaging_Commands_Extensions_GetDefaultQueueName_System_Object_System_IServiceProvider_" data-uid="Albatross.Messaging.Commands.Extensions.GetDefaultQueueName(System.Object,System.IServiceProvider)">
+  GetDefaultQueueName(object, IServiceProvider)
   
   </h3>
 
@@ -407,30 +321,23 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddCommand&lt;T, K&gt;(this IServiceCollection services, Func&lt;T, IServiceProvider, string&gt;? getQueueName = null) where T : notnull where K : notnull</code></pre>
+    <pre><code class="lang-csharp hljs">public static string GetDefaultQueueName(object _, IServiceProvider provider)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dt><code>_</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
     <dd></dd>
-    <dt><code>getQueueName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><code>provider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>T</code></dt>
-    <dd></dd>
-    <dt><code>K</code></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -443,8 +350,8 @@
 
   <a id="Albatross_Messaging_Commands_Extensions_SubmitCollection_" data-uid="Albatross.Messaging.Commands.Extensions.SubmitCollection*"></a>
 
-  <h3 id="Albatross_Messaging_Commands_Extensions_SubmitCollection_Albatross_Messaging_Commands_ICommandClient_System_Collections_Generic_IEnumerable_System_Object__" data-uid="Albatross.Messaging.Commands.Extensions.SubmitCollection(Albatross.Messaging.Commands.ICommandClient,System.Collections.Generic.IEnumerable{System.Object})">
-  SubmitCollection(ICommandClient, IEnumerable&lt;object&gt;)
+  <h3 id="Albatross_Messaging_Commands_Extensions_SubmitCollection_Albatross_Messaging_Commands_ICommandClient_System_Collections_Generic_IEnumerable_System_Object__System_Boolean_System_Int32_" data-uid="Albatross.Messaging.Commands.Extensions.SubmitCollection(Albatross.Messaging.Commands.ICommandClient,System.Collections.Generic.IEnumerable{System.Object},System.Boolean,System.Int32)">
+  SubmitCollection(ICommandClient, IEnumerable&lt;object&gt;, bool, int)
   
   </h3>
 
@@ -452,7 +359,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task SubmitCollection(this ICommandClient client, IEnumerable&lt;object&gt; commands)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task SubmitCollection(this ICommandClient client, IEnumerable&lt;object&gt; commands, bool fireAndForget = true, int timeout = 2000)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -460,6 +367,10 @@
     <dt><code>client</code> <a class="xref" href="Albatross.Messaging.Commands.ICommandClient.html">ICommandClient</a></dt>
     <dd></dd>
     <dt><code>commands</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>fireAndForget</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>timeout</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
 
@@ -479,13 +390,53 @@
 
 
 
+  <a id="Albatross_Messaging_Commands_Extensions_TryAddCommandHandler_" data-uid="Albatross.Messaging.Commands.Extensions.TryAddCommandHandler*"></a>
+
+  <h3 id="Albatross_Messaging_Commands_Extensions_TryAddCommandHandler_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Type_System_Func_System_Object_System_IServiceProvider_System_String__" data-uid="Albatross.Messaging.Commands.Extensions.TryAddCommandHandler(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Func{System.Object,System.IServiceProvider,System.String})">
+  TryAddCommandHandler(IServiceCollection, Type, Func&lt;object, IServiceProvider, string&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryAddCommandHandler(this IServiceCollection services, Type commandHandlerType, Func&lt;object, IServiceProvider, string&gt; getQueueName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+    <dt><code>commandHandlerType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd></dd>
+    <dt><code>getQueueName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -494,7 +445,7 @@
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

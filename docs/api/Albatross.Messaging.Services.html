@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Namespace Albatross.Messaging.Services
- | Albatross Framework Documentation </title>
+      <title>Namespace Albatross.Messaging.Services | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Namespace Albatross.Messaging.Services
- | Albatross Framework Documentation ">
+      <meta name="title" content="Namespace Albatross.Messaging.Services | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -86,8 +82,7 @@
 
         <article data-uid="Albatross.Messaging.Services">
 
-  <h1 id="Albatross_Messaging_Services" data-uid="Albatross.Messaging.Services" class="text-break">Namespace Albatross.Messaging.Services
-</h1>
+  <h1 id="Albatross_Messaging_Services" data-uid="Albatross.Messaging.Services" class="text-break">Namespace Albatross.Messaging.Services</h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
@@ -96,7 +91,7 @@
 Classes
 </h3>
     <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.Messaging.Services.AtomicCounter-1.html">AtomicCounter&lt;T&gt;</a></dt>
+      <dt><a class="xref" href="Albatross.Messaging.Services.AtomicCounter.html">AtomicCounter</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
@@ -124,14 +119,6 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
       <dd></dd>
     </dl>
     <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.Messaging.Services.MessageCallback.html">MessageCallback</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.Messaging.Services.MessageCallback-1.html">MessageCallback&lt;T&gt;</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
       <dt><a class="xref" href="Albatross.Messaging.Services.RouterServer.html">RouterServer</a></dt>
       <dd></dd>
     </dl>
@@ -139,7 +126,7 @@ Under the hood, the class use a file to keep track of the id value.  For efficie
 Interfaces
 </h3>
     <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.Messaging.Services.IAtomicCounter-1.html">IAtomicCounter&lt;T&gt;</a></dt>
+      <dt><a class="xref" href="Albatross.Messaging.Services.IAtomicCounter.html">IAtomicCounter</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
@@ -148,10 +135,6 @@ Interfaces
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Albatross.Messaging.Services.IDealerClientService.html">IDealerClientService</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.Messaging.Services.IMessageCallback.html">IMessageCallback</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
@@ -177,7 +160,7 @@ Enums
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -186,7 +169,7 @@ Enums
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Extensions
- | Albatross Framework Documentation </title>
+      <title>Class Extensions | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Extensions
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class Extensions | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,8 +85,7 @@
 
 
   <h1 id="Albatross_EFCore_ChangeReporting_Extensions" data-uid="Albatross.EFCore.ChangeReporting.Extensions" class="text-break">
-    Class Extensions
-  
+Class Extensions  
   </h1>
 
   <div class="facts text-secondary">
@@ -128,10 +123,10 @@
 </h2>
 
 
-  <a id="Albatross_EFCore_ChangeReporting_Extensions_GetChangeText_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.GetChangeText*"></a>
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_AddChangeReporting_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.AddChangeReporting*"></a>
 
-  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_GetChangeText__1_Microsoft_EntityFrameworkCore_ChangeTracking_EntityEntry___0__System_IO_TextWriter_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.GetChangeText``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.IO.TextWriter,Albatross.EFCore.ChangeReporting.ChangeReportingOptions)">
-  GetChangeText&lt;T&gt;(EntityEntry&lt;T&gt;, TextWriter, ChangeReportingOptions)
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_AddChangeReporting__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.AddChangeReporting``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0})">
+  AddChangeReporting&lt;T&gt;(IServiceCollection, ChangeReportBuilder&lt;T&gt;)
   
   </h3>
 
@@ -139,22 +134,20 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task GetChangeText&lt;T&gt;(this EntityEntry&lt;T&gt; entry, TextWriter writer, ChangeReportingOptions options) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddChangeReporting&lt;T&gt;(this IServiceCollection services, ChangeReportBuilder&lt;T&gt; builder) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>entry</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.changetracking.entityentry-1">EntityEntry</a>&lt;T&gt;</dt>
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
     <dd></dd>
-    <dt><code>writer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
-    <dd></dd>
-    <dt><code>options</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportingOptions.html">ChangeReportingOptions</a></dt>
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
     <dd></dd>
   </dl>
 
@@ -173,10 +166,10 @@
 
 
 
-  <a id="Albatross_EFCore_ChangeReporting_Extensions_GetChangeText_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.GetChangeText*"></a>
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_AddChangeReporting_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.AddChangeReporting*"></a>
 
-  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_GetChangeText__1_System_IO_TextWriter_System_Collections_Generic_IEnumerable_Albatross_EFCore_ChangeReporting_ChangeReport___0___Albatross_Text_PrintOption_FormatValueDelegate_System_String___" data-uid="Albatross.EFCore.ChangeReporting.Extensions.GetChangeText``1(System.IO.TextWriter,System.Collections.Generic.IEnumerable{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.Text.PrintOption.FormatValueDelegate,System.String[])">
-  GetChangeText&lt;T&gt;(TextWriter, IEnumerable&lt;ChangeReport&lt;T&gt;&gt;, FormatValueDelegate?, params string[])
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_AddChangeReporting__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Func_System_IServiceProvider_Albatross_EFCore_ChangeReporting_ChangeReportDbEventHandler___0___" data-uid="Albatross.EFCore.ChangeReporting.Extensions.AddChangeReporting``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,Albatross.EFCore.ChangeReporting.ChangeReportDbEventHandler{``0}})">
+  AddChangeReporting&lt;T&gt;(IServiceCollection, Func&lt;IServiceProvider, ChangeReportDbEventHandler&lt;T&gt;&gt;)
   
   </h3>
 
@@ -184,16 +177,391 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task GetChangeText&lt;T&gt;(this TextWriter writer, IEnumerable&lt;ChangeReport&lt;T&gt;&gt; changes, PrintOption.FormatValueDelegate? formatValueFunc = null, params string[] properties) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddChangeReporting&lt;T&gt;(this IServiceCollection services, Func&lt;IServiceProvider, ChangeReportDbEventHandler&lt;T&gt;&gt; func) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>writer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
     <dd></dd>
-    <dt><code>changes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReport-1.html">ChangeReport</a>&lt;T&gt;&gt;</dt>
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a>, <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportDbEventHandler-1.html">ChangeReportDbEventHandler</a>&lt;T&gt;&gt;</dt>
     <dd></dd>
-    <dt><code>formatValueFunc</code> <a class="xref" href="Albatross.Text.PrintOption.html">PrintOption</a>.<a class="xref" href="Albatross.Text.PrintOption.FormatValueDelegate.html">FormatValueDelegate</a></dt>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_Added_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Added*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_Added__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Added``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0})">
+  Added&lt;T&gt;(ChangeReportBuilder&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; Added&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_AllChangeTypes_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.AllChangeTypes*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_AllChangeTypes__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.AllChangeTypes``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0})">
+  AllChangeTypes&lt;T&gt;(ChangeReportBuilder&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; AllChangeTypes&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_AsyncFormatter_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.AsyncFormatter*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_AsyncFormatter__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_System_Func_System_Object_System_Object_System_Threading_Tasks_Task_System_String___" data-uid="Albatross.EFCore.ChangeReporting.Extensions.AsyncFormatter``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String,System.Func{System.Object,System.Object,System.Threading.Tasks.Task{System.String}})">
+  AsyncFormatter&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string, Func&lt;object, object, Task&lt;string&gt;&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; AsyncFormatter&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string property, Func&lt;object, object, Task&lt;string&gt;&gt; func) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_ChangeType_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.ChangeType*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_ChangeType__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__Albatross_EFCore_ChangeReporting_ChangeType_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.ChangeType``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},Albatross.EFCore.ChangeReporting.ChangeType)">
+  ChangeType&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, ChangeType)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; ChangeType&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, ChangeType type) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>type</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeType.html">ChangeType</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_DateFormat_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.DateFormat*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_DateFormat__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.DateFormat``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String)">
+  DateFormat&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; DateFormat&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string property) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_Deleted_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Deleted*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_Deleted__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Deleted``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0})">
+  Deleted&lt;T&gt;(ChangeReportBuilder&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; Deleted&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_ExcludeAuditProperties_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.ExcludeAuditProperties*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_ExcludeAuditProperties__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.ExcludeAuditProperties``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0})">
+  ExcludeAuditProperties&lt;T&gt;(ChangeReportBuilder&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; ExcludeAuditProperties&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_ExcludeTemporalProperties_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.ExcludeTemporalProperties*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_ExcludeTemporalProperties__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.ExcludeTemporalProperties``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0})">
+  ExcludeTemporalProperties&lt;T&gt;(ChangeReportBuilder&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; ExcludeTemporalProperties&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_FixedHeaders_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.FixedHeaders*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_FixedHeaders__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String___" data-uid="Albatross.EFCore.ChangeReporting.Extensions.FixedHeaders``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String[])">
+  FixedHeaders&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, params string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; FixedHeaders&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, params string[] properties) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
     <dd></dd>
     <dt><code>properties</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
     <dd></dd>
@@ -201,7 +569,7 @@
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -220,10 +588,10 @@
 
 
 
-  <a id="Albatross_EFCore_ChangeReporting_Extensions_GetChanges_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.GetChanges*"></a>
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_FormatFixedHeader_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.FormatFixedHeader*"></a>
 
-  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_GetChanges__1_Microsoft_EntityFrameworkCore_ChangeTracking_EntityEntry___0__System_Collections_Generic_List_Albatross_EFCore_ChangeReporting_ChangeReport___0___Albatross_EFCore_ChangeReporting_ChangeType_System_String___" data-uid="Albatross.EFCore.ChangeReporting.Extensions.GetChanges``1(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry{``0},System.Collections.Generic.List{Albatross.EFCore.ChangeReporting.ChangeReport{``0}},Albatross.EFCore.ChangeReporting.ChangeType,System.String[])">
-  GetChanges&lt;T&gt;(EntityEntry&lt;T&gt;, List&lt;ChangeReport&lt;T&gt;&gt;, ChangeType, string[])
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_FormatFixedHeader__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.FormatFixedHeader``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String,System.String)">
+  FormatFixedHeader&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string, string)
   
   </h3>
 
@@ -231,64 +599,411 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void GetChanges&lt;T&gt;(this EntityEntry&lt;T&gt; entry, List&lt;ChangeReport&lt;T&gt;&gt; changes, ChangeType type, string[] skippingProperties) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; FormatFixedHeader&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string property, string format) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>entry</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.changetracking.entityentry-1">EntityEntry</a>&lt;T&gt;</dt>
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
     <dd></dd>
-    <dt><code>changes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReport-1.html">ChangeReport</a>&lt;T&gt;&gt;</dt>
+    <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
-    <dt><code>type</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeType.html">ChangeType</a></dt>
-    <dd></dd>
-    <dt><code>skippingProperties</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
-    <dd></dd>
-  </dl>
-
-
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>T</code></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges*"></a>
-
-  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges__1_Microsoft_EntityFrameworkCore_DbContext_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.SaveAndAuditChanges``1(Microsoft.EntityFrameworkCore.DbContext,Albatross.EFCore.ChangeReporting.ChangeReportingOptions,System.String)">
-  SaveAndAuditChanges&lt;T&gt;(DbContext, ChangeReportingOptions, string?)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;ChangeReportingResult&gt; SaveAndAuditChanges&lt;T&gt;(this DbContext dbContext, ChangeReportingOptions options, string? user) where T : class</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>dbContext</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a></dt>
-    <dd></dd>
-    <dt><code>options</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportingOptions.html">ChangeReportingOptions</a></dt>
-    <dd></dd>
-    <dt><code>user</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>format</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportingResult.html">ChangeReportingResult</a>&gt;</dt>
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_Format_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Format*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_Format__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Format``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String,System.String)">
+  Format&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; Format&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string property, string format) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>format</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_Formatter_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Formatter*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_Formatter__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_System_Func_System_Object_System_Object_System_String__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Formatter``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String,System.Func{System.Object,System.Object,System.String})">
+  Formatter&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string, Func&lt;object, object, string&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; Formatter&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string property, Func&lt;object, object, string&gt; func) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_IgnoreProperties_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.IgnoreProperties*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_IgnoreProperties__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String___" data-uid="Albatross.EFCore.ChangeReporting.Extensions.IgnoreProperties``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String[])">
+  IgnoreProperties&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, params string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; IgnoreProperties&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, params string[] properties) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>properties</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_Modified_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Modified*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_Modified__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Modified``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0})">
+  Modified&lt;T&gt;(ChangeReportBuilder&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; Modified&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_NumericFormat_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.NumericFormat*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_NumericFormat__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.NumericFormat``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String)">
+  NumericFormat&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; NumericFormat&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string property) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_OnReportGenerated_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.OnReportGenerated*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_OnReportGenerated__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_Func_System_String_System_Threading_Tasks_Task__" data-uid="Albatross.EFCore.ChangeReporting.Extensions.OnReportGenerated``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.Func{System.String,System.Threading.Tasks.Task})">
+  OnReportGenerated&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, Func&lt;string, Task&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; OnReportGenerated&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, Func&lt;string, Task&gt; func) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>func</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_Postfix_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Postfix*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_Postfix__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Postfix``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String)">
+  Postfix&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; Postfix&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string postfix) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>postfix</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_Prefix_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Prefix*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_Prefix__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.Prefix``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String)">
+  Prefix&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; Prefix&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string prefix) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>prefix</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_ChangeReporting_Extensions_TimeFormat_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.TimeFormat*"></a>
+
+  <h3 id="Albatross_EFCore_ChangeReporting_Extensions_TimeFormat__1_Albatross_EFCore_ChangeReporting_ChangeReportBuilder___0__System_String_" data-uid="Albatross.EFCore.ChangeReporting.Extensions.TimeFormat``1(Albatross.EFCore.ChangeReporting.ChangeReportBuilder{``0},System.String)">
+  TimeFormat&lt;T&gt;(ChangeReportBuilder&lt;T&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ChangeReportBuilder&lt;T&gt; TimeFormat&lt;T&gt;(this ChangeReportBuilder&lt;T&gt; builder, string property) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.ChangeReportBuilder-1.html">ChangeReportBuilder</a>&lt;T&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -313,7 +1028,7 @@
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -322,7 +1037,7 @@
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

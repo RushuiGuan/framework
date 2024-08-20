@@ -6,6 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Albatross.Messaging | Albatross Framework Documentation ">
       
+      
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -27,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
@@ -75,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -85,14 +83,71 @@
         <article data-uid="">
 <h1 id="albatrossmessaging">Albatross.Messaging</h1>
 
-<p>The messaging assembly implements three messaging patterns: command queue, pub sub and request response.  It uses ZeroMQ as the transport layer.  Specifically, it uses the ZeroMQ's router socket for servers and dealer socket for clients.  On the server side, RouterServerService</p>
+<p>The messaging assembly uses ZeroMQ as the transport layer.  It currently supports two messaging patterns: command queue and pub sub.  It supports sequential processing(of commands), out of order connect and durable queues.</p>
+<p>The messaging dll can be used to create a daemon service that represent the &quot;C&quot; part of the CQSR pattern.  Its command queue implementation allows:</p>
+<ul>
+<li>Dynamic queue creation</li>
+<li>Sequential command processing within the same queue</li>
+<li>Durable queues - messages are saved to disk when received and and be resumed when the service is restarted.</li>
+<li>out of order connection - the &quot;Q&quot; (Query) part of the CQRS pattern often comes from a web service.  The web service is also used to forward commands to the daemon service therefore can be considered as a consumer\client of the daemon service.  Out of order connection means that the client and the server can be started out of sequence.  They will connect with each other as long as they are both up and running.  This feature makes it much easier to manage service infrastruture.</li>
+</ul>
+<p>Under the hood, the dll uses the ZeroMQ's router socket for servers (daemon service) and its dealer socket for the clients (consumer, client).  When connected, the client will maintane a constant tcp\ip connection with the server.  The the server supports multiple clients but there is a cost to connect and disconnect and the it is more efficient to have long lived clients.</p>
+<h2 id="how-to-create-a-new-messaging-daemon">How to Create a new Messaging Daemon</h2>
+<p>Please find the messaging daemon sample code here <a href="">sample-daemon</a></p>
+<h2 id="use-of-albatrossmessagingcodegen">Use of <code>Albatross.Messaging.CodeGen</code></h2>
+<p>Since creating short lived clients is not the most efficient way to talk to the messaging daemon, it is recommended to communicate via a long live client such as web api.  For example, we can have</p>
+<pre><code>	command line utility (short lived)
+		&lt;-- httpclient --&gt; web api 
+		&lt;-- zeromq --&gt; messaging daemon
+</code></pre>
+<p>By doing so, the daemon utility can also be walled off and access control can be implemented by the web api.  <code>Albatross.Messaging.CodeGen</code> is created to simplify json serialization and deserialization of the commands between the web api and the daemon.  To use it:</p>
+<ol>
+<li>A web api project <code>Sample.WebApi</code> is created and configured as the messaging service consumer.</li>
+<li>A daemon service <code>Sample.Daemon</code> with messaging is created as the messaging host.</li>
+<li>A command line utility <code>Sample.Utility</code> is created to send commands to the web api.</li>
+<li>A dto project <code>Sample.Core</code> is created to share the command dtos between the daemin, web api and the utility.</li>
+<li>In the dto project, create a partial public interface that is prefixed by <code>I</code> and postfixed by <code>Command</code>.  The interface should be empty.</li>
+</ol>
+<pre><code class="lang-c#">public partial interface ITestCommand { }
+</code></pre>
+<ol>
+<li>Reference the <code>Albatross.Messaging.CodeGen</code> dll and make sure the codegen is referenced with the following properties:</li>
+</ol>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Albatross.Messaging.CodeGen&quot; Version=&quot;xxx&quot;&gt;
+	&lt;PrivateAssets&gt;all&lt;/PrivateAssets&gt;
+	&lt;ReferenceOutputAssembly&gt;false&lt;/ReferenceOutputAssembly&gt;
+	&lt;OutputItemType&gt;Analyzer&lt;/OutputItemType&gt;
+&lt;/PackageReference&gt;
+</code></pre>
+<ol>
+<li>It might help to set the project property <code>EmitCompilerGeneratedFiles</code> to true so that the generated file is visible.</li>
+</ol>
+<pre><code class="lang-xml">&lt;EmitCompilerGeneratedFiles&gt;true&lt;/EmitCompilerGeneratedFiles&gt;
+</code></pre>
+<ol>
+<li>When creating a new command, have it implement the said interface <code>ITestCommand</code>.</li>
+</ol>
+<pre><code class="lang-c#">public record class MyTestCommand : ITestCommand {
+	public MyTestCommand(string parameter) {
+		this.Parameter = parameter;
+	}
+	public string Parameter { get; }
+}
+</code></pre>
+<p>The code generator will auto generate the <code>JsonDerivedTypeAttribute</code> on the interface so that only the interface is needed to create the web api endpoint for submitting the commands.</p>
+<pre><code class="lang-c#">[JsonDerivedType(typeof(MyTestCommand), &quot;MyTestCommand&quot;)]
+public partial interface ITestCommand
+{
+}
+</code></pre>
+
 </article>
 
         <div class="contribution d-print-none">
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">
@@ -101,7 +156,7 @@
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

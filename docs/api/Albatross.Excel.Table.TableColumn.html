@@ -1,0 +1,902 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TableColumn | Albatross Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TableColumn | Albatross Framework Documentation ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Albatross.Excel.Table.TableColumn">
+
+
+
+  <h1 id="Albatross_Excel_Table_TableColumn" data-uid="Albatross.Excel.Table.TableColumn" class="text-break">
+Class TableColumn  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Excel.html">Excel</a>.<a class="xref" href="Albatross.Excel.Table.html">Table</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Excel.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public record TableColumn : IEquatable&lt;TableColumn&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">TableColumn</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Excel.Table.Extensions.html#Albatross_Excel_Table_Extensions_Required_Albatross_Excel_Table_TableColumn_System_Boolean_">Extensions.Required(TableColumn, bool)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Excel.Table.Extensions.html#Albatross_Excel_Table_Extensions_Use_Albatross_Excel_Table_TableColumn_Albatross_Excel_Table_TrySetEntityPropertyDelegate_">Extensions.Use(TableColumn, TrySetEntityPropertyDelegate)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Excel.Table.Extensions.html#Albatross_Excel_Table_Extensions_UseDefaultReadEntityPropertyHandler_Albatross_Excel_Table_TableColumn_">Extensions.UseDefaultReadEntityPropertyHandler(TableColumn)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Excel.Table.Extensions.html#Albatross_Excel_Table_Extensions_UseSetEntityPropertyByReflection_Albatross_Excel_Table_TableColumn_">Extensions.UseSetEntityPropertyByReflection(TableColumn)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Albatross_Excel_Table_TableColumn__ctor_" data-uid="Albatross.Excel.Table.TableColumn.#ctor*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn__ctor_System_Reflection_PropertyInfo_Albatross_Excel_Table_ExcelColumnAttribute_" data-uid="Albatross.Excel.Table.TableColumn.#ctor(System.Reflection.PropertyInfo,Albatross.Excel.Table.ExcelColumnAttribute)">
+  TableColumn(PropertyInfo, ExcelColumnAttribute?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableColumn(PropertyInfo propertyInfo, ExcelColumnAttribute? attribute)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>propertyInfo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a></dt>
+    <dd></dd>
+    <dt><code>attribute</code> <a class="xref" href="Albatross.Excel.Table.ExcelColumnAttribute.html">ExcelColumnAttribute</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn__ctor_" data-uid="Albatross.Excel.Table.TableColumn.#ctor*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn__ctor_System_String_System_Type_System_String_" data-uid="Albatross.Excel.Table.TableColumn.#ctor(System.String,System.Type,System.String)">
+  TableColumn(string, Type, string?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableColumn(string name, Type type, string? title = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>type</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd></dd>
+    <dt><code>title</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Excel_Table_TableColumn_Background_" data-uid="Albatross.Excel.Table.TableColumn.Background*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_Background" data-uid="Albatross.Excel.Table.TableColumn.Background">
+  Background
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Background Background { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Background.html">Background</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_FontProperties_" data-uid="Albatross.Excel.Table.TableColumn.FontProperties*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_FontProperties" data-uid="Albatross.Excel.Table.TableColumn.FontProperties">
+  FontProperties
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FontProperties FontProperties { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.FontProperties.html">FontProperties</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_Formula_" data-uid="Albatross.Excel.Table.TableColumn.Formula*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_Formula" data-uid="Albatross.Excel.Table.TableColumn.Formula">
+  Formula
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Formula Formula { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Formula.html">Formula</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_Index_" data-uid="Albatross.Excel.Table.TableColumn.Index*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_Index" data-uid="Albatross.Excel.Table.TableColumn.Index">
+  Index
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Index { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_IsKey_" data-uid="Albatross.Excel.Table.TableColumn.IsKey*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_IsKey" data-uid="Albatross.Excel.Table.TableColumn.IsKey">
+  IsKey
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsKey { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_IsNullable_" data-uid="Albatross.Excel.Table.TableColumn.IsNullable*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_IsNullable" data-uid="Albatross.Excel.Table.TableColumn.IsNullable">
+  IsNullable
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsNullable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_Name_" data-uid="Albatross.Excel.Table.TableColumn.Name*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_Name" data-uid="Albatross.Excel.Table.TableColumn.Name">
+  Name
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_NumberFormat_" data-uid="Albatross.Excel.Table.TableColumn.NumberFormat*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_NumberFormat" data-uid="Albatross.Excel.Table.TableColumn.NumberFormat">
+  NumberFormat
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NumberFormat NumberFormat { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.NumberFormat.html">NumberFormat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_Order_" data-uid="Albatross.Excel.Table.TableColumn.Order*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_Order" data-uid="Albatross.Excel.Table.TableColumn.Order">
+  Order
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Order { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_ReadEntityPropertyHandler_" data-uid="Albatross.Excel.Table.TableColumn.ReadEntityPropertyHandler*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_ReadEntityPropertyHandler" data-uid="Albatross.Excel.Table.TableColumn.ReadEntityPropertyHandler">
+  ReadEntityPropertyHandler
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ReadEntityPropertyDelegate ReadEntityPropertyHandler { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.ReadEntityPropertyDelegate.html">ReadEntityPropertyDelegate</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_ReadOnly_" data-uid="Albatross.Excel.Table.TableColumn.ReadOnly*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_ReadOnly" data-uid="Albatross.Excel.Table.TableColumn.ReadOnly">
+  ReadOnly
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReadOnly { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_Required_" data-uid="Albatross.Excel.Table.TableColumn.Required*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_Required" data-uid="Albatross.Excel.Table.TableColumn.Required">
+  Required
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Required { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_Title_" data-uid="Albatross.Excel.Table.TableColumn.Title*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_Title" data-uid="Albatross.Excel.Table.TableColumn.Title">
+  Title
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Title { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_TrySetEntityPropertyHandler_" data-uid="Albatross.Excel.Table.TableColumn.TrySetEntityPropertyHandler*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_TrySetEntityPropertyHandler" data-uid="Albatross.Excel.Table.TableColumn.TrySetEntityPropertyHandler">
+  TrySetEntityPropertyHandler
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TrySetEntityPropertyDelegate TrySetEntityPropertyHandler { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TrySetEntityPropertyDelegate.html">TrySetEntityPropertyDelegate</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_Type_" data-uid="Albatross.Excel.Table.TableColumn.Type*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_Type" data-uid="Albatross.Excel.Table.TableColumn.Type">
+  Type
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Type Type { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_UseNullForError_" data-uid="Albatross.Excel.Table.TableColumn.UseNullForError*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_UseNullForError" data-uid="Albatross.Excel.Table.TableColumn.UseNullForError">
+  UseNullForError
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseNullForError { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Excel_Table_TableColumn_AutoFormat_" data-uid="Albatross.Excel.Table.TableColumn.AutoFormat*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_AutoFormat" data-uid="Albatross.Excel.Table.TableColumn.AutoFormat">
+  AutoFormat()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AutoFormat()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_ReadEntityProperty_" data-uid="Albatross.Excel.Table.TableColumn.ReadEntityProperty*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_ReadEntityProperty_System_Object_" data-uid="Albatross.Excel.Table.TableColumn.ReadEntityProperty(System.Object)">
+  ReadEntityProperty(object)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object? ReadEntityProperty(object entity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_SetEntityPropertyNotSupported_" data-uid="Albatross.Excel.Table.TableColumn.SetEntityPropertyNotSupported*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_SetEntityPropertyNotSupported_System_Object_Albatross_Excel_Table_TableColumn_System_Object_System_String__" data-uid="Albatross.Excel.Table.TableColumn.SetEntityPropertyNotSupported(System.Object,Albatross.Excel.Table.TableColumn,System.Object,System.String@)">
+  SetEntityPropertyNotSupported(object, TableColumn, object, out string?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool SetEntityPropertyNotSupported(object entity, TableColumn column, object cellValue, out string? error)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>column</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+    <dt><code>cellValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>error</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableColumn_TrySetEntityProperty_" data-uid="Albatross.Excel.Table.TableColumn.TrySetEntityProperty*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableColumn_TrySetEntityProperty_System_Object_System_Object_System_String__" data-uid="Albatross.Excel.Table.TableColumn.TrySetEntityProperty(System.Object,System.Object,System.String@)">
+  TrySetEntityProperty(object, object, out string?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TrySetEntityProperty(object entity, object value, out string? error)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>error</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

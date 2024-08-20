@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class BaseOption
- | Albatross Framework Documentation </title>
+      <title>Class BaseOption | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class BaseOption
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class BaseOption | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,8 +85,7 @@
 
 
   <h1 id="Albatross_Hosting_Utility_BaseOption" data-uid="Albatross.Hosting.Utility.BaseOption" class="text-break">
-    Class BaseOption
-  
+Class BaseOption  
   </h1>
 
   <div class="facts text-secondary">
@@ -120,7 +115,8 @@
   <dl class="typelist derived">
     <dt>Derived</dt>
     <dd>
-      <div><a class="xref" href="Albatross.Caching.Utility.GetValueOption.html">GetValueOption</a></div>
+      <div><a class="xref" href="Albatross.CodeGen.Utility.MyUtilityOption.html">MyUtilityOption</a></div>
+      <div><a class="xref" href="Albatross.Messaging.Utility.SeekOption.html">SeekOption</a></div>
     </dd>
   </dl>
 
@@ -129,10 +125,16 @@
     <dt>Extension Methods</dt>
     <dd>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -145,6 +147,38 @@
 
   <h2 class="section" id="properties">Properties
 </h2>
+
+
+  <a id="Albatross_Hosting_Utility_BaseOption_Benchmark_" data-uid="Albatross.Hosting.Utility.BaseOption.Benchmark*"></a>
+
+  <h3 id="Albatross_Hosting_Utility_BaseOption_Benchmark" data-uid="Albatross.Hosting.Utility.BaseOption.Benchmark">
+  Benchmark
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Option(&quot;benchmark&quot;, HelpText = &quot;Use this flag to measure the total amount of execution time&quot;)]
+public bool Benchmark { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
 
 
   <a id="Albatross_Hosting_Utility_BaseOption_Clipboard_" data-uid="Albatross.Hosting.Utility.BaseOption.Clipboard*"></a>
@@ -211,6 +245,38 @@ public bool Debug { get; set; }</code></pre>
 
 
 
+  <a id="Albatross_Hosting_Utility_BaseOption_Information_" data-uid="Albatross.Hosting.Utility.BaseOption.Information*"></a>
+
+  <h3 id="Albatross_Hosting_Utility_BaseOption_Information" data-uid="Albatross.Hosting.Utility.BaseOption.Information">
+  Information
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Option(&quot;information&quot;, HelpText = &quot;Set this flag to see logs at information level&quot;)]
+public bool Information { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Albatross_Hosting_Utility_BaseOption_Output_" data-uid="Albatross.Hosting.Utility.BaseOption.Output*"></a>
 
   <h3 id="Albatross_Hosting_Utility_BaseOption_Output" data-uid="Albatross.Hosting.Utility.BaseOption.Output">
@@ -254,8 +320,40 @@ public string? Output { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Option(&quot;verbose&quot;, HelpText = &quot;Set this flag to see logs at information level&quot;)]
+    <pre><code class="lang-csharp hljs">[Option(&quot;verbose&quot;, HelpText = &quot;Set this flag to see logs at verbose level&quot;)]
 public bool Verbose { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Utility_BaseOption_Warning_" data-uid="Albatross.Hosting.Utility.BaseOption.Warning*"></a>
+
+  <h3 id="Albatross_Hosting_Utility_BaseOption_Warning" data-uid="Albatross.Hosting.Utility.BaseOption.Warning">
+  Warning
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Option(&quot;warning&quot;, HelpText = &quot;Set this flag to see logs at warning level&quot;)]
+public bool Warning { get; set; }</code></pre>
   </div>
 
 
@@ -310,6 +408,90 @@ public bool Verbose { get; set; }</code></pre>
 
 
 
+  <a id="Albatross_Hosting_Utility_BaseOption_GetEnumHelpText_" data-uid="Albatross.Hosting.Utility.BaseOption.GetEnumHelpText*"></a>
+
+  <h3 id="Albatross_Hosting_Utility_BaseOption_GetEnumHelpText__1_System_String_" data-uid="Albatross.Hosting.Utility.BaseOption.GetEnumHelpText``1(System.String)">
+  GetEnumHelpText&lt;T&gt;(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetEnumHelpText&lt;T&gt;(string description = &quot;&quot;) where T : struct, Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Utility_BaseOption_ParseEnum_" data-uid="Albatross.Hosting.Utility.BaseOption.ParseEnum*"></a>
+
+  <h3 id="Albatross_Hosting_Utility_BaseOption_ParseEnum__1_System_String_System_Nullable___0__" data-uid="Albatross.Hosting.Utility.BaseOption.ParseEnum``1(System.String,System.Nullable{``0})">
+  ParseEnum&lt;T&gt;(string?, T?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T ParseEnum&lt;T&gt;(string? value, T? defaultValue = null) where T : struct, Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>defaultValue</code> T?</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="Albatross_Hosting_Utility_BaseOption_Prompt_" data-uid="Albatross.Hosting.Utility.BaseOption.Prompt*"></a>
 
   <h3 id="Albatross_Hosting_Utility_BaseOption_Prompt_System_String_" data-uid="Albatross.Hosting.Utility.BaseOption.Prompt(System.String)">
@@ -336,6 +518,49 @@ public bool Verbose { get; set; }</code></pre>
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Utility_BaseOption_WriteArrayProperties_" data-uid="Albatross.Hosting.Utility.BaseOption.WriteArrayProperties*"></a>
+
+  <h3 id="Albatross_Hosting_Utility_BaseOption_WriteArrayProperties__1_System_Collections_Generic_IEnumerable___0__Albatross_Text_PrintPropertiesOption_" data-uid="Albatross.Hosting.Utility.BaseOption.WriteArrayProperties``1(System.Collections.Generic.IEnumerable{``0},Albatross.Text.PrintPropertiesOption)">
+  WriteArrayProperties&lt;T&gt;(IEnumerable&lt;T&gt;, PrintPropertiesOption)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task WriteArrayProperties&lt;T&gt;(IEnumerable&lt;T&gt; data, PrintPropertiesOption option)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>option</code> <a class="xref" href="Albatross.Text.PrintPropertiesOption.html">PrintPropertiesOption</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -415,8 +640,8 @@ public bool Verbose { get; set; }</code></pre>
 
   <a id="Albatross_Hosting_Utility_BaseOption_WriteProperties_" data-uid="Albatross.Hosting.Utility.BaseOption.WriteProperties*"></a>
 
-  <h3 id="Albatross_Hosting_Utility_BaseOption_WriteProperties__1_System_Collections_Generic_IEnumerable___0__Albatross_Text_PrintPropertiesOption_" data-uid="Albatross.Hosting.Utility.BaseOption.WriteProperties``1(System.Collections.Generic.IEnumerable{``0},Albatross.Text.PrintPropertiesOption)">
-  WriteProperties&lt;T&gt;(IEnumerable&lt;T&gt;, PrintPropertiesOption)
+  <h3 id="Albatross_Hosting_Utility_BaseOption_WriteProperties__1___0_Albatross_Text_PrintPropertiesOption_" data-uid="Albatross.Hosting.Utility.BaseOption.WriteProperties``1(``0,Albatross.Text.PrintPropertiesOption)">
+  WriteProperties&lt;T&gt;(T?, PrintPropertiesOption)
   
   </h3>
 
@@ -424,57 +649,14 @@ public bool Verbose { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteProperties&lt;T&gt;(IEnumerable&lt;T&gt; data, PrintPropertiesOption option)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
-    <dd></dd>
-    <dt><code>option</code> <a class="xref" href="Albatross.Text.PrintPropertiesOption.html">PrintPropertiesOption</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Type Parameters</h4>
-  <dl class="parameters">
-    <dt><code>T</code></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_Hosting_Utility_BaseOption_WriteProperties_" data-uid="Albatross.Hosting.Utility.BaseOption.WriteProperties*"></a>
-
-  <h3 id="Albatross_Hosting_Utility_BaseOption_WriteProperties__1___0_System_String___" data-uid="Albatross.Hosting.Utility.BaseOption.WriteProperties``1(``0,System.String[])">
-  WriteProperties&lt;T&gt;(T?, params string[])
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteProperties&lt;T&gt;(T? data, params string[] properties)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task WriteProperties&lt;T&gt;(T? data, PrintPropertiesOption option)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>data</code> <span class="xref">T</span></dt>
     <dd></dd>
-    <dt><code>properties</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dt><code>option</code> <a class="xref" href="Albatross.Text.PrintPropertiesOption.html">PrintPropertiesOption</a></dt>
     <dd></dd>
   </dl>
 
@@ -548,7 +730,7 @@ public bool Verbose { get; set; }</code></pre>
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -557,7 +739,7 @@ public bool Verbose { get; set; }</code></pre>
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

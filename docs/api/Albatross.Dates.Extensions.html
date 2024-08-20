@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Extensions
- | Albatross Framework Documentation </title>
+      <title>Class Extensions | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Extensions
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class Extensions | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,13 +85,12 @@
 
 
   <h1 id="Albatross_Dates_Extensions" data-uid="Albatross.Dates.Extensions" class="text-break">
-    Class Extensions
-  
+Class Extensions  
   </h1>
 
   <div class="facts text-secondary">
     <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Dates.html">Dates</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.dll</dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Dates.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
@@ -128,6 +123,316 @@
 </h2>
 
 
+  <a id="Albatross_Dates_Extensions_GetMonthDiff_" data-uid="Albatross.Dates.Extensions.GetMonthDiff*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_GetMonthDiff_System_DateOnly_System_DateOnly_" data-uid="Albatross.Dates.Extensions.GetMonthDiff(System.DateOnly,System.DateOnly)">
+  GetMonthDiff(DateOnly, DateOnly)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Return the difference in total month number between two dates.  The difference between 2022-01-31 and 2022-02-01 is 1
+even through they are only 1 day apart</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetMonthDiff(this DateOnly date1, DateOnly date2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+    <dt><code>date2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_GetMonthDiff_" data-uid="Albatross.Dates.Extensions.GetMonthDiff*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_GetMonthDiff_System_DateTime_System_DateTime_" data-uid="Albatross.Dates.Extensions.GetMonthDiff(System.DateTime,System.DateTime)">
+  GetMonthDiff(DateTime, DateTime)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetMonthDiff(this DateTime date1, DateTime date2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>date2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_GetNthDayOfWeek_" data-uid="Albatross.Dates.Extensions.GetNthDayOfWeek*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_GetNthDayOfWeek_System_DateOnly_System_Int32_System_DayOfWeek_" data-uid="Albatross.Dates.Extensions.GetNthDayOfWeek(System.DateOnly,System.Int32,System.DayOfWeek)">
+  GetNthDayOfWeek(DateOnly, int, DayOfWeek)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>find the nth day of week from the given date</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateOnly GetNthDayOfWeek(this DateOnly date, int n, DayOfWeek dayOfWeek)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+    <dt><code>n</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>dayOfWeek</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dayofweek">DayOfWeek</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_GetNthDayOfWeek_" data-uid="Albatross.Dates.Extensions.GetNthDayOfWeek*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_GetNthDayOfWeek_System_DateTime_System_Int32_System_DayOfWeek_" data-uid="Albatross.Dates.Extensions.GetNthDayOfWeek(System.DateTime,System.Int32,System.DayOfWeek)">
+  GetNthDayOfWeek(DateTime, int, DayOfWeek)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>find the nth day of week from the given date</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTime GetNthDayOfWeek(this DateTime date, int n, DayOfWeek dayOfWeek)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>n</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>dayOfWeek</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dayofweek">DayOfWeek</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_GetNumberOfWeekdays_" data-uid="Albatross.Dates.Extensions.GetNumberOfWeekdays*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_GetNumberOfWeekdays_System_DateOnly_System_DateOnly_" data-uid="Albatross.Dates.Extensions.GetNumberOfWeekdays(System.DateOnly,System.DateOnly)">
+  GetNumberOfWeekdays(DateOnly, DateOnly)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetNumberOfWeekdays(this DateOnly d1, DateOnly d2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>d1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+    <dt><code>d2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_GetNumberOfWeekdays_" data-uid="Albatross.Dates.Extensions.GetNumberOfWeekdays*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_GetNumberOfWeekdays_System_DateTime_System_DateTime_" data-uid="Albatross.Dates.Extensions.GetNumberOfWeekdays(System.DateTime,System.DateTime)">
+  GetNumberOfWeekdays(DateTime, DateTime)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetNumberOfWeekdays(this DateTime d1, DateTime d2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>d1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>d2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_GmtOffset_" data-uid="Albatross.Dates.Extensions.GmtOffset*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_GmtOffset_System_DateTime_System_DateTime_" data-uid="Albatross.Dates.Extensions.GmtOffset(System.DateTime,System.DateTime)">
+  GmtOffset(DateTime, DateTime)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TimeSpan GmtOffset(this DateTime utc, DateTime local)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>utc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>local</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_IsWeekDay_" data-uid="Albatross.Dates.Extensions.IsWeekDay*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_IsWeekDay_System_DateOnly_" data-uid="Albatross.Dates.Extensions.IsWeekDay(System.DateOnly)">
+  IsWeekDay(DateOnly)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsWeekDay(this DateOnly date)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Albatross_Dates_Extensions_IsWeekDay_" data-uid="Albatross.Dates.Extensions.IsWeekDay*"></a>
 
   <h3 id="Albatross_Dates_Extensions_IsWeekDay_System_DateTime_" data-uid="Albatross.Dates.Extensions.IsWeekDay(System.DateTime)">
@@ -151,6 +456,124 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_Local2DateTimeOffset_" data-uid="Albatross.Dates.Extensions.Local2DateTimeOffset*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_Local2DateTimeOffset_System_DateTime_System_TimeZoneInfo_" data-uid="Albatross.Dates.Extensions.Local2DateTimeOffset(System.DateTime,System.TimeZoneInfo)">
+  Local2DateTimeOffset(DateTime, TimeZoneInfo)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTimeOffset Local2DateTimeOffset(this DateTime local, TimeZoneInfo timeZone)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>local</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>timeZone</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timezoneinfo">TimeZoneInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_Local2Utc_" data-uid="Albatross.Dates.Extensions.Local2Utc*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_Local2Utc_System_DateTime_System_TimeSpan_" data-uid="Albatross.Dates.Extensions.Local2Utc(System.DateTime,System.TimeSpan)">
+  Local2Utc(DateTime, TimeSpan)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTime Local2Utc(this DateTime local, TimeSpan gmtOffset)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>local</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>gmtOffset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_NextBusinessDay_" data-uid="Albatross.Dates.Extensions.NextBusinessDay*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_NextBusinessDay_System_DateOnly_System_Int32_System_Func_System_DateOnly_System_Threading_Tasks_Task_System_Boolean___" data-uid="Albatross.Dates.Extensions.NextBusinessDay(System.DateOnly,System.Int32,System.Func{System.DateOnly,System.Threading.Tasks.Task{System.Boolean}})">
+  NextBusinessDay(DateOnly, int, Func&lt;DateOnly, Task&lt;bool&gt;&gt;?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Similar to NextWeekDay method but the caller can pass in a predicate to check if a date is a business day.  The method is also async, because
+holiday data could comes from external resource.  This method is not performant since it has to check every day to see if it is a business day.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;DateOnly&gt; NextBusinessDay(this DateOnly date, int numberOfBusinessDays = 1, Func&lt;DateOnly, Task&lt;bool&gt;&gt;? isBusinessDay = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+    <dt><code>numberOfBusinessDays</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>isBusinessDay</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -208,6 +631,57 @@ holiday data could comes from external resource.  This method is not performant 
 
   <a id="Albatross_Dates_Extensions_NextWeekday_" data-uid="Albatross.Dates.Extensions.NextWeekday*"></a>
 
+  <h3 id="Albatross_Dates_Extensions_NextWeekday_System_DateOnly_System_Int32_" data-uid="Albatross.Dates.Extensions.NextWeekday(System.DateOnly,System.Int32)">
+  NextWeekday(DateOnly, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Return the next weekday from a provided date.  If the provided date is Monday, the next 0 weekday is the same date and the
+next 1 weekday would be Tuesday.  If the provided date falls on the weekend, the next 0 weekday and the next 1 weekday are both
+Monday.  If the provided date is Friday, the next 0 weekday would be the same day and the next 1 weekday would be Monday.
+This method use math to figure out the correct next weekday.  It is more performant compare to the NextBusinessDay implementation where
+it loops each day and check if it is a business day.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateOnly NextWeekday(this DateOnly date, int numberOfWeekDays = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd><p>the starting date</p>
+</dd>
+    <dt><code>numberOfWeekDays</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>number of week days to count</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>exception will be thrown if the numberOfWeekDays parameter is less than 0</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Albatross_Dates_Extensions_NextWeekday_" data-uid="Albatross.Dates.Extensions.NextWeekday*"></a>
+
   <h3 id="Albatross_Dates_Extensions_NextWeekday_System_DateTime_System_Int32_" data-uid="Albatross.Dates.Extensions.NextWeekday(System.DateTime,System.Int32)">
   NextWeekday(DateTime, int)
   
@@ -259,6 +733,46 @@ it loops each day and check if it is a business day.</p>
 
   <a id="Albatross_Dates_Extensions_PreviousBusinessDay_" data-uid="Albatross.Dates.Extensions.PreviousBusinessDay*"></a>
 
+  <h3 id="Albatross_Dates_Extensions_PreviousBusinessDay_System_DateOnly_System_Int32_System_Func_System_DateOnly_System_Threading_Tasks_Task_System_Boolean___" data-uid="Albatross.Dates.Extensions.PreviousBusinessDay(System.DateOnly,System.Int32,System.Func{System.DateOnly,System.Threading.Tasks.Task{System.Boolean}})">
+  PreviousBusinessDay(DateOnly, int, Func&lt;DateOnly, Task&lt;bool&gt;&gt;?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;DateOnly&gt; PreviousBusinessDay(this DateOnly date, int numberOfBusinessDays = 1, Func&lt;DateOnly, Task&lt;bool&gt;&gt;? isBusinessDay = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+    <dt><code>numberOfBusinessDays</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>isBusinessDay</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_PreviousBusinessDay_" data-uid="Albatross.Dates.Extensions.PreviousBusinessDay*"></a>
+
   <h3 id="Albatross_Dates_Extensions_PreviousBusinessDay_System_DateTime_System_Int32_System_Func_System_DateTime_System_Threading_Tasks_Task_System_Boolean___" data-uid="Albatross.Dates.Extensions.PreviousBusinessDay(System.DateTime,System.Int32,System.Func{System.DateTime,System.Threading.Tasks.Task{System.Boolean}})">
   PreviousBusinessDay(DateTime, int, Func&lt;DateTime, Task&lt;bool&gt;&gt;?)
   
@@ -294,6 +808,53 @@ it loops each day and check if it is a business day.</p>
 
 
 
+
+
+
+  <a id="Albatross_Dates_Extensions_PreviousWeekday_" data-uid="Albatross.Dates.Extensions.PreviousWeekday*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_PreviousWeekday_System_DateOnly_System_Int32_" data-uid="Albatross.Dates.Extensions.PreviousWeekday(System.DateOnly,System.Int32)">
+  PreviousWeekday(DateOnly, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Return the previous weekday from a provided date.  If the provided date is Monday, the previous 0 weekday is the same date and the
+previous 1 weekday would be Friday.  If the provided date falls on the weekend, the previous 0 weekday and the previous 1 weekday are both
+Friday.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateOnly PreviousWeekday(this DateOnly date, int numberOfWeekDays = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>date</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+    <dt><code>numberOfWeekDays</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.dateonly">DateOnly</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>exception will be thrown if the numberOfWeekDays parameter is less than 0</p>
+</dd>
+  </dl>
 
 
 
@@ -344,13 +905,127 @@ Friday.</p>
 
 
 
+  <a id="Albatross_Dates_Extensions_Utc2DateTimeOffset_" data-uid="Albatross.Dates.Extensions.Utc2DateTimeOffset*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_Utc2DateTimeOffset_System_DateTime_System_TimeSpan_" data-uid="Albatross.Dates.Extensions.Utc2DateTimeOffset(System.DateTime,System.TimeSpan)">
+  Utc2DateTimeOffset(DateTime, TimeSpan)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTimeOffset Utc2DateTimeOffset(this DateTime utc, TimeSpan gmtOffset)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>utc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>gmtOffset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_Utc2DateTimeOffset_" data-uid="Albatross.Dates.Extensions.Utc2DateTimeOffset*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_Utc2DateTimeOffset_System_DateTime_System_TimeZoneInfo_" data-uid="Albatross.Dates.Extensions.Utc2DateTimeOffset(System.DateTime,System.TimeZoneInfo)">
+  Utc2DateTimeOffset(DateTime, TimeZoneInfo)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTimeOffset Utc2DateTimeOffset(this DateTime utc, TimeZoneInfo timeZone)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>utc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>timeZone</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timezoneinfo">TimeZoneInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Dates_Extensions_Utc2Local_" data-uid="Albatross.Dates.Extensions.Utc2Local*"></a>
+
+  <h3 id="Albatross_Dates_Extensions_Utc2Local_System_DateTime_System_TimeSpan_" data-uid="Albatross.Dates.Extensions.Utc2Local(System.DateTime,System.TimeSpan)">
+  Utc2Local(DateTime, TimeSpan)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTime Utc2Local(this DateTime utc, TimeSpan gmtOffset)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>utc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+    <dt><code>gmtOffset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -359,7 +1034,7 @@ Friday.</p>
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

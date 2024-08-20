@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Namespace Albatross.EFCore
- | Albatross Framework Documentation </title>
+      <title>Namespace Albatross.EFCore | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Namespace Albatross.EFCore
- | Albatross Framework Documentation ">
+      <meta name="title" content="Namespace Albatross.EFCore | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -86,8 +82,7 @@
 
         <article data-uid="Albatross.EFCore">
 
-  <h1 id="Albatross_EFCore" data-uid="Albatross.EFCore" class="text-break">Namespace Albatross.EFCore
-</h1>
+  <h1 id="Albatross_EFCore" data-uid="Albatross.EFCore" class="text-break">Namespace Albatross.EFCore</h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
@@ -96,15 +91,15 @@
 Namespaces
 </h3>
     <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.EFCore.Audit.html">Albatross.EFCore.Audit</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.EFCore.AutoCacheEviction.html">Albatross.EFCore.AutoCacheEviction</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Albatross.EFCore.ChangeReporting.html">Albatross.EFCore.ChangeReporting</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.EFCore.DateLevel.html">Albatross.EFCore.DateLevel</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.EFCore.PostgreSQL.html">Albatross.EFCore.PostgreSQL</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
@@ -115,11 +110,30 @@ Namespaces
 Classes
 </h3>
     <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.EFCore.DbSession.html">DbSession</a></dt>
+      <dt><a class="xref" href="Albatross.EFCore.DbEventSession.html">DbEventSession</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.EFCore.DbEventSessionProvider.html">DbEventSessionProvider</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.EFCore.DbSession.html">DbSession</a></dt>
+      <dd><p>The DbSession change the default string type from nvarchar to varchar.  If nvarchar is required, apply Unicode(true) attribute to column or
+override the ConfigureConventions method to undo globally.  We prefer varchar because all new databases are created with utf8 collation and nvarchar
+is never required.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Albatross.EFCore.DbSessionExtensions.html">DbSessionExtensions</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.EFCore.DbSessionWithEventHandlers.html">DbSessionWithEventHandlers</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.EFCore.EFCoreJsonOption.html">EFCoreJsonOption</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
@@ -146,12 +160,15 @@ Interfaces
       <dd></dd>
     </dl>
     <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.EFCore.ICreatedBy.html">ICreatedBy</a></dt>
-      <dd></dd>
+      <dt><a class="xref" href="Albatross.EFCore.IDbEventSession.html">IDbEventSession</a></dt>
+      <dd><p>scoped instance session class that is created and disposed to handle the
+events when saving changes to the database</p>
+</dd>
     </dl>
     <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.EFCore.ICreatedUtc.html">ICreatedUtc</a></dt>
-      <dd></dd>
+      <dt><a class="xref" href="Albatross.EFCore.IDbEventSessionProvider.html">IDbEventSessionProvider</a></dt>
+      <dd><p>singleton factory class that creates a new instance of IDbEventSession</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Albatross.EFCore.IDbSession.html">IDbSession</a></dt>
@@ -159,15 +176,11 @@ Interfaces
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.EFCore.IDbSessionEventHandler.html">IDbSessionEventHandler</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Albatross.EFCore.IEntityMap-1.html">IEntityMap&lt;T&gt;</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.EFCore.IModifiedBy.html">IModifiedBy</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.EFCore.IModifiedUtc.html">IModifiedUtc</a></dt>
       <dd></dd>
     </dl>
 
@@ -177,7 +190,7 @@ Interfaces
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -186,7 +199,7 @@ Interfaces
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

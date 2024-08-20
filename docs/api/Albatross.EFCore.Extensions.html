@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Extensions
- | Albatross Framework Documentation </title>
+      <title>Class Extensions | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Extensions
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class Extensions | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,8 +85,7 @@
 
 
   <h1 id="Albatross_EFCore_Extensions" data-uid="Albatross.EFCore.Extensions" class="text-break">
-    Class Extensions
-  
+Class Extensions  
   </h1>
 
   <div class="facts text-secondary">
@@ -128,10 +123,10 @@
 </h2>
 
 
-  <a id="Albatross_EFCore_Extensions_DateOnlyProperty_" data-uid="Albatross.EFCore.Extensions.DateOnlyProperty*"></a>
+  <a id="Albatross_EFCore_Extensions_AddDbSessionEvents_" data-uid="Albatross.EFCore.Extensions.AddDbSessionEvents*"></a>
 
-  <h3 id="Albatross_EFCore_Extensions_DateOnlyProperty_Microsoft_EntityFrameworkCore_Metadata_Builders_PropertyBuilder_System_DateTime__" data-uid="Albatross.EFCore.Extensions.DateOnlyProperty(Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder{System.DateTime})">
-  DateOnlyProperty(PropertyBuilder&lt;DateTime&gt;)
+  <h3 id="Albatross_EFCore_Extensions_AddDbSessionEvents_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.EFCore.Extensions.AddDbSessionEvents(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+  AddDbSessionEvents(IServiceCollection)
   
   </h3>
 
@@ -139,89 +134,20 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static PropertyBuilder&lt;DateTime&gt; DateOnlyProperty(this PropertyBuilder&lt;DateTime&gt; builder)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddDbSessionEvents(this IServiceCollection services)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.metadata.builders.propertybuilder-1">PropertyBuilder</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>&gt;</dt>
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.metadata.builders.propertybuilder-1">PropertyBuilder</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
     <dd></dd>
   </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_EFCore_Extensions_DateOnlyProperty_" data-uid="Albatross.EFCore.Extensions.DateOnlyProperty*"></a>
-
-  <h3 id="Albatross_EFCore_Extensions_DateOnlyProperty_Microsoft_EntityFrameworkCore_Metadata_Builders_PropertyBuilder_System_Nullable_System_DateTime___" data-uid="Albatross.EFCore.Extensions.DateOnlyProperty(Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder{System.Nullable{System.DateTime}})">
-  DateOnlyProperty(PropertyBuilder&lt;DateTime?&gt;)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static PropertyBuilder&lt;DateTime?&gt; DateOnlyProperty(this PropertyBuilder&lt;DateTime?&gt; builder)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.metadata.builders.propertybuilder-1">PropertyBuilder</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>?&gt;</dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.metadata.builders.propertybuilder-1">PropertyBuilder</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>?&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_EFCore_Extensions_EnsureNavigationProperty_" data-uid="Albatross.EFCore.Extensions.EnsureNavigationProperty*"></a>
-
-  <h3 id="Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___" data-uid="Albatross.EFCore.Extensions.EnsureNavigationProperty(System.Object,System.String[])">
-  EnsureNavigationProperty(object?, params string[])
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void EnsureNavigationProperty(this object? value, params string[] propertyNames)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-    <dt><code>propertyNames</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
-    <dd></dd>
-  </dl>
-
 
 
 
@@ -271,10 +197,54 @@
 
 
 
-  <a id="Albatross_EFCore_Extensions_GetJsonValueConverter_" data-uid="Albatross.EFCore.Extensions.GetJsonValueConverter*"></a>
+  <a id="Albatross_EFCore_Extensions_HasImmutableJsonProperty_" data-uid="Albatross.EFCore.Extensions.HasImmutableJsonProperty*"></a>
 
-  <h3 id="Albatross_EFCore_Extensions_GetJsonValueConverter__1_Albatross_EFCore_IBuildEntityModel_System_Func___0__" data-uid="Albatross.EFCore.Extensions.GetJsonValueConverter``1(Albatross.EFCore.IBuildEntityModel,System.Func{``0})">
-  GetJsonValueConverter&lt;T&gt;(IBuildEntityModel, Func&lt;T&gt;)
+  <h3 id="Albatross_EFCore_Extensions_HasImmutableJsonProperty__1_Microsoft_EntityFrameworkCore_Metadata_Builders_PropertyBuilder___0__" data-uid="Albatross.EFCore.Extensions.HasImmutableJsonProperty``1(Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder{``0})">
+  HasImmutableJsonProperty&lt;T&gt;(PropertyBuilder&lt;T?&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>This method maps a text column to a Json property.  It will create a non unicode column with max length. varchar(max).
+It is recommended to use a sql utf8 collation.
+*** IMPROTANT *** The json property has to be an immutable object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PropertyBuilder&lt;T?&gt; HasImmutableJsonProperty&lt;T&gt;(this PropertyBuilder&lt;T?&gt; builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.metadata.builders.propertybuilder-1">PropertyBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.metadata.builders.propertybuilder-1">PropertyBuilder</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_Extensions_HasJsonCollectionProperty_" data-uid="Albatross.EFCore.Extensions.HasJsonCollectionProperty*"></a>
+
+  <h3 id="Albatross_EFCore_Extensions_HasJsonCollectionProperty__1_Microsoft_EntityFrameworkCore_Metadata_Builders_PropertyBuilder_System_Collections_Generic_List___0___" data-uid="Albatross.EFCore.Extensions.HasJsonCollectionProperty``1(Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder{System.Collections.Generic.List{``0}})">
+  HasJsonCollectionProperty&lt;TProperty&gt;(PropertyBuilder&lt;List&lt;TProperty&gt;&gt;)
   
   </h3>
 
@@ -282,20 +252,59 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ValueConverter&lt;T, string&gt; GetJsonValueConverter&lt;T&gt;(this IBuildEntityModel _, Func&lt;T&gt; getDefault)</code></pre>
+    <pre><code class="lang-csharp hljs">public static PropertyBuilder&lt;List&lt;TProperty&gt;&gt; HasJsonCollectionProperty&lt;TProperty&gt;(this PropertyBuilder&lt;List&lt;TProperty&gt;&gt; builder)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>_</code> <a class="xref" href="Albatross.EFCore.IBuildEntityModel.html">IBuildEntityModel</a></dt>
-    <dd></dd>
-    <dt><code>getDefault</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;T&gt;</dt>
+    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.metadata.builders.propertybuilder-1">PropertyBuilder</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;TProperty&gt;&gt;</dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.storage.valueconversion.valueconverter-2">ValueConverter</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.metadata.builders.propertybuilder-1">PropertyBuilder</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;TProperty&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TProperty</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_EFCore_Extensions_ToHashSetAsync_" data-uid="Albatross.EFCore.Extensions.ToHashSetAsync*"></a>
+
+  <h3 id="Albatross_EFCore_Extensions_ToHashSetAsync__1_System_Linq_IQueryable___0__" data-uid="Albatross.EFCore.Extensions.ToHashSetAsync``1(System.Linq.IQueryable{``0})">
+  ToHashSetAsync&lt;T&gt;(IQueryable&lt;T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;HashSet&lt;T&gt;&gt; ToHashSetAsync&lt;T&gt;(this IQueryable&lt;T&gt; query)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>query</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.iqueryable-1">IQueryable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;T&gt;&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -423,7 +432,7 @@
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -432,7 +441,7 @@
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

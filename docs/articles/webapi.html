@@ -2,9 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>New WebApi Application | Albatross Framework Documentation </title>
+      <title> | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="New WebApi Application | Albatross Framework Documentation ">
+      <meta name="title" content=" | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -27,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
@@ -75,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -83,8 +81,8 @@
         </div>
 
         <article data-uid="">
-<h2 id="new-webapi-application">New WebApi Application</h2>
 
+<h2 id="new-webapi-application">New WebApi Application</h2>
 <p>Albatross Hosting library provides a quick way of setting up a new aspnet core web application with logging, config and caching capabilities.  Besides the standard mvc and webapi controllers, it can also host SPAs (single page applications) such as SPAs created using Angular.  This article will focus on creation of a WebApi application using the Albatross.Hosting framework.  Follow the steps below using visual studio 2022 to create a new WebApi project.</p>
 <ol>
 <li>Create a new Console App using .NET 7.0</li>
@@ -123,13 +121,14 @@
 <li>At this point, you have successfully create an asp.net application with serilog logging and swagger endpoints.  You should be able to run the application as a console app and see the web server running at port 25000.</li>
 <li>A Swagger documentation page can be found at http://localhost:25000/swagger.  The default controller AppInfo can be found.  Trying adding a controller of your own and it should show up in the swagger page.</li>
 </ol>
+
 </article>
 
         <div class="contribution d-print-none">
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">
@@ -138,7 +137,7 @@
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

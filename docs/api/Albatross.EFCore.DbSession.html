@@ -2,12 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class DbSession
- | Albatross Framework Documentation </title>
+      <title>Class DbSession | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class DbSession
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class DbSession | Albatross Framework Documentation ">
       
+      <meta name="description" content="The DbSession change the default string type from nvarchar to varchar.  If nvarchar is required, apply Unicode(true) attribute to column or override the ConfigureConventions method to undo globally.  We prefer varchar because all new databases are created with utf8 collation and nvarchar is never required.">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,8 +85,7 @@
 
 
   <h1 id="Albatross_EFCore_DbSession" data-uid="Albatross.EFCore.DbSession" class="text-break">
-    Class DbSession
-  
+Class DbSession  
   </h1>
 
   <div class="facts text-secondary">
@@ -98,7 +93,10 @@
   <dl><dt>Assembly</dt><dd>Albatross.EFCore.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>The DbSession change the default string type from nvarchar to varchar.  If nvarchar is required, apply Unicode(true) attribute to column or
+override the ConfigureConventions method to undo globally.  We prefer varchar because all new databases are created with utf8 collation and nvarchar
+is never required.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -131,8 +129,14 @@
     </dd>
   </dl>
 
-
   <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Albatross.EFCore.DbSessionWithEventHandlers.html">DbSessionWithEventHandlers</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
     <div>
@@ -143,9 +147,6 @@
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.onconfiguring">DbContext.OnConfiguring(DbContextOptionsBuilder)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.configureconventions">DbContext.ConfigureConventions(ModelConfigurationBuilder)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechanges#microsoft-entityframeworkcore-dbcontext-savechanges">DbContext.SaveChanges()</a>
@@ -279,7 +280,16 @@
     <dt>Extension Methods</dt>
     <dd>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.EFCore.DbSessionExtensions.html#Albatross_EFCore_DbSessionExtensions_BeginTransaction_Albatross_EFCore_IDbSession_">DbSessionExtensions.BeginTransaction(IDbSession)</a>
@@ -292,12 +302,6 @@
   </div>
   <div>
       <a class="xref" href="Albatross.EFCore.DbSessionExtensions.html#Albatross_EFCore_DbSessionExtensions_GetCreateScript_Albatross_EFCore_IDbSession_">DbSessionExtensions.GetCreateScript(IDbSession)</a>
-  </div>
-  <div>
-      <a class="xref" href="Albatross.EFCore.ChangeReporting.Extensions.html#Albatross_EFCore_ChangeReporting_Extensions_SaveAndAuditChanges__1_Microsoft_EntityFrameworkCore_DbContext_Albatross_EFCore_ChangeReporting_ChangeReportingOptions_System_String_">Extensions.SaveAndAuditChanges&lt;T&gt;(DbContext, ChangeReportingOptions, string?)</a>
-  </div>
-  <div>
-      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
       <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -396,6 +400,36 @@
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Albatross_EFCore_DbSession_logger" data-uid="Albatross.EFCore.DbSession.logger">
+  logger
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly ILogger? logger</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
     <dd></dd>
   </dl>
 
@@ -539,30 +573,27 @@
 </h2>
 
 
-  <a id="Albatross_EFCore_DbSession_IsChanged_" data-uid="Albatross.EFCore.DbSession.IsChanged*"></a>
+  <a id="Albatross_EFCore_DbSession_ConfigureConventions_" data-uid="Albatross.EFCore.DbSession.ConfigureConventions*"></a>
 
-  <h3 id="Albatross_EFCore_DbSession_IsChanged_System_Object_" data-uid="Albatross.EFCore.DbSession.IsChanged(System.Object)">
-  IsChanged(object)
+  <h3 id="Albatross_EFCore_DbSession_ConfigureConventions_Microsoft_EntityFrameworkCore_ModelConfigurationBuilder_" data-uid="Albatross.EFCore.DbSession.ConfigureConventions(Microsoft.EntityFrameworkCore.ModelConfigurationBuilder)">
+  ConfigureConventions(ModelConfigurationBuilder)
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Override this method to set defaults and configure conventions before they run. This method is invoked before
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating">OnModelCreating(ModelBuilder)</a>.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsChanged(object t)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>t</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
+    <dt><code>configurationBuilder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.modelconfigurationbuilder">ModelConfigurationBuilder</a></dt>
+    <dd><p>The builder being used to set defaults and configure conventions that will be used to build the model for this context.</p>
+</dd>
   </dl>
 
 
@@ -572,41 +603,16 @@
 
 
 
-
-
-
-  <a id="Albatross_EFCore_DbSession_IsNew_" data-uid="Albatross.EFCore.DbSession.IsNew*"></a>
-
-  <h3 id="Albatross_EFCore_DbSession_IsNew_System_Object_" data-uid="Albatross.EFCore.DbSession.IsNew(System.Object)">
-  IsNew(object)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsNew(object t)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>t</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
+  <h4 class="section" id="Albatross_EFCore_DbSession_ConfigureConventions_Microsoft_EntityFrameworkCore_ModelConfigurationBuilder__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>
+                If a model is explicitly set on the options for this context (via <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder.usemodel">UseModel(IModel)</a>)
+                then this method will not be run. However, it will still run when creating a compiled model.
+            </p>
+<p>
+                See <a href="https://aka.ms/efcore-docs-pre-convention">Pre-convention model building in EF Core</a> for more information and
+                examples.
+            </p>
+</div>
 
 
 
@@ -646,13 +652,13 @@ to a given database.</p>
 
   <h4 class="section" id="Albatross_EFCore_DbSession_OnModelCreating_Microsoft_EntityFrameworkCore_ModelBuilder__remarks">Remarks</h4>
   <div class="markdown level1 remarks"><p>
-                    If a model is explicitly set on the options for this context (via <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder.usemodel">UseModel(IModel)</a>)
-                    then this method will not be run. However, it will still run when creating a compiled model.
-                </p>
+                If a model is explicitly set on the options for this context (via <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder.usemodel">UseModel(IModel)</a>)
+                then this method will not be run. However, it will still run when creating a compiled model.
+            </p>
 <p>
-                    See <a href="https://aka.ms/efcore-docs-modeling">Modeling entity types and relationships</a> for more information and
-                    examples.
-                </p>
+                See <a href="https://aka.ms/efcore-docs-modeling">Modeling entity types and relationships</a> for more information and
+                examples.
+            </p>
 </div>
 
 
@@ -664,7 +670,7 @@ to a given database.</p>
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -673,7 +679,7 @@ to a given database.</p>
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

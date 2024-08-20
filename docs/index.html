@@ -6,6 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Albatross Framework | Albatross Framework Documentation ">
       
+      
       <link rel="icon" href="favicon.ico">
       <link rel="stylesheet" href="public/docfx.min.css">
       <link rel="stylesheet" href="public/main.css">
@@ -27,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './public/main.js'
-    import { init } from './public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
@@ -61,32 +59,18 @@
     </header>
 
     <main class="container-xxl">
-      <div class="toc-offcanvas">
-        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <nav class="toc" id="toc"></nav>
-          </div>
-        </div>
-      </div>
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
-            <i class="bi bi-list"></i>
-          </button>
 
           <nav id="breadcrumb"></nav>
         </div>
 
         <article data-uid="">
-<h3 id="albatross-framework">Albatross Framework</h3>
+<h1 id="albatross-framework">Albatross Framework</h1>
 
-<p>Albatross is a .Net development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration points to other frameworks so that developers can work with a consistant platform without dealing with low level technical issues.  The current version of the framework is targetting Net7.0.</p>
-<h4 id="here-is-a-list-of-technogies-adopted-by-albatross">Here is a list of technogies adopted by Albatross</h4>
+<p>Albatross is a .Net development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration points to other frameworks so that developers can work with a consistant platform without dealing with low level technical issues.</p>
+<h2 id="here-is-a-list-of-technogies-adopted-by-albatross">Here is a list of technogies adopted by Albatross</h2>
 <table>
 <thead>
 <tr>
@@ -132,13 +116,18 @@
 <td>Albatross.Caching</td>
 </tr>
 <tr>
-<td>Command line parsing</td>
+<td>Command line parsing (legacy)</td>
 <td>CommandLineParser</td>
 <td>Albatross.Hosting.Utility</td>
 </tr>
+<tr>
+<td>Command line parsing (WIP)</td>
+<td>System.CommandLine</td>
+<td>Albatross.CommandLine</td>
+</tr>
 </tbody>
 </table>
-<h4 id="albatross-has-pre-bootstrapped-hosting-assemblies-that-can-be-used-as-entry-point-for-applications--it-also-contains-other-support-assemblies-that-covers-other-use-cases">Albatross has pre-bootstrapped hosting assemblies that can be used as entry point for applications.  It also contains other support assemblies that covers other use cases.</h4>
+<h2 id="albatross-has-pre-bootstrapped-hosting-assemblies-that-can-be-used-as-entry-point-for-applications--it-also-contains-other-support-assemblies-that-covers-other-use-cases">Albatross has pre-bootstrapped hosting assemblies that can be used as entry point for applications.  It also contains other support assemblies that covers other use cases.</h2>
 <table>
 <thead>
 <tr>
@@ -151,26 +140,36 @@
 <tr>
 <td>Albatross.Hosting</td>
 <td>Bootstrapping assembly for creating a webapi and\or service application</td>
-<td>Net7.0</td>
+<td>Net6/7/8</td>
 </tr>
 <tr>
 <td>Albatross.Hosting.Utility</td>
 <td>Bootstrapping assembly for creating a command line console program</td>
-<td>Net7.0</td>
+<td>Net6/7/8</td>
 </tr>
 <tr>
 <td>Albatross.Hosting.Test</td>
 <td>Bootstrapping assembly for createing a unit test project</td>
-<td>Net7.0</td>
+<td>Net6/7/8</td>
 </tr>
 <tr>
 <td>Albatross.Authentication</td>
-<td>Utility for user authentication</td>
+<td>Interface dll for user authentication</td>
+<td>netstandard2.0</td>
+</tr>
+<tr>
+<td>Albatross.Authentication.AspNetCore</td>
+<td>Implementation dll for aspnetcore user authentication</td>
 <td>Net6.0</td>
 </tr>
 <tr>
+<td>Albatross.Authentication.Windows</td>
+<td>Implementation dll for windows user authentication</td>
+<td>Net6.0-windows</td>
+</tr>
+<tr>
 <td>Albatross.Caching</td>
-<td>Utility for caching</td>
+<td>Interface and base dll for caching</td>
 <td>NetStandard2.1</td>
 </tr>
 <tr>
@@ -191,7 +190,7 @@
 <tr>
 <td>Albatross.CodeGen.WebClient</td>
 <td>CodeGen Implementation for WebApi Proxy</td>
-<td>Net7.0</td>
+<td>Net6/7/8</td>
 </tr>
 <tr>
 <td>Albatross.Config</td>
@@ -206,32 +205,22 @@
 <tr>
 <td>Albatross.EFCore</td>
 <td>ORM setup using EFCore</td>
-<td>Net7.0, EFCore7.0</td>
+<td>Net6/7/8, EFCore7/8</td>
 </tr>
 <tr>
 <td>Albatross.EFCore.ChangeReporting</td>
 <td>Provides entity change reporting functionality</td>
-<td>Net7.0, EFCore7.0</td>
+<td>Net6/7/8, EFCore7/8</td>
 </tr>
 <tr>
-<td>Albatross.EFCore.DateLevel</td>
+<td>Albatross.DateLevel</td>
 <td>Provides date level entity functionality</td>
-<td>Net7.0, EFCore7.0</td>
+<td>Net6.0</td>
 </tr>
 <tr>
 <td>Albatross.EFCore.SqlServer</td>
 <td>ORM Sql server setup</td>
-<td>Net7.0, EFCore7.0</td>
-</tr>
-<tr>
-<td>Albatross.EFCore.PostgreSQL</td>
-<td>ORM PostgreSQL server setup</td>
-<td>Net7.0, EFCore7.0</td>
-</tr>
-<tr>
-<td>Albatross</td>
-<td>Utility assembly for shared code base that is not big enough to have its own assembly</td>
-<td>NetStandard2.1</td>
+<td>Net6/7/8, EFCore8.0</td>
 </tr>
 <tr>
 <td>Albatross.WebClient</td>
@@ -241,17 +230,26 @@
 <tr>
 <td>Albatross.Messaging</td>
 <td>Assembly for durable messaging system</td>
-<td>Net7.0</td>
+<td>Net6/7/8</td>
 </tr>
 </tbody>
 </table>
+<h2 id="utility-assemblies">Utility assemblies</h2>
+<ul>
+<li>Albatross.Text</li>
+<li>Albatross.Threading</li>
+<li>Albatross.Serilization</li>
+<li>Albatross.Math</li>
+<li>Albatross.Reflection</li>
+</ul>
+
 </article>
 
         <div class="contribution d-print-none">
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">
@@ -260,7 +258,7 @@
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

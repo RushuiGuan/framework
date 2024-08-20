@@ -1,0 +1,715 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Extensions | Albatross Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Extensions | Albatross Framework Documentation ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Albatross.Excel.Table.Extensions">
+
+
+
+  <h1 id="Albatross_Excel_Table_Extensions" data-uid="Albatross.Excel.Table.Extensions" class="text-break">
+Class Extensions  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Excel.html">Excel</a>.<a class="xref" href="Albatross.Excel.Table.html">Table</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Excel.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Extensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Extensions</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Excel_Table_Extensions_AddColumns_" data-uid="Albatross.Excel.Table.Extensions.AddColumns*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_AddColumns_Albatross_Excel_Table_TableOptionsBuilder_Albatross_Excel_Table_TableColumn___" data-uid="Albatross.Excel.Table.Extensions.AddColumns(Albatross.Excel.Table.TableOptionsBuilder,Albatross.Excel.Table.TableColumn[])">
+  AddColumns(TableOptionsBuilder, params TableColumn[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TableOptionsBuilder AddColumns(this TableOptionsBuilder builder, params TableColumn[] columns)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+    <dt><code>columns</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_GetColumnRange_" data-uid="Albatross.Excel.Table.Extensions.GetColumnRange*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_GetColumnRange_ExcelDna_Integration_ExcelReference_Albatross_Excel_Table_TableOptions_System_String_" data-uid="Albatross.Excel.Table.Extensions.GetColumnRange(ExcelDna.Integration.ExcelReference,Albatross.Excel.Table.TableOptions,System.String)">
+  GetColumnRange(ExcelReference, TableOptions, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Return the range of a table column excluding its header</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ExcelReference GetColumnRange(this ExcelReference tableRange, TableOptions options, string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>tableRange</code> <span class="xref">ExcelReference</span></dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a></dt>
+    <dd></dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ExcelReference</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_GetLastRowIndex_" data-uid="Albatross.Excel.Table.Extensions.GetLastRowIndex*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_GetLastRowIndex_Albatross_Excel_Table_TableOptions_" data-uid="Albatross.Excel.Table.Extensions.GetLastRowIndex(Albatross.Excel.Table.TableOptions)">
+  GetLastRowIndex(TableOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>return the last row index of a table using a key column.
+This method will move current selection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetLastRowIndex(this TableOptions options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_ReadEntityPropertyDefaultHandler_" data-uid="Albatross.Excel.Table.Extensions.ReadEntityPropertyDefaultHandler*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_ReadEntityPropertyDefaultHandler_Albatross_Excel_Table_TableColumn_System_Object_" data-uid="Albatross.Excel.Table.Extensions.ReadEntityPropertyDefaultHandler(Albatross.Excel.Table.TableColumn,System.Object)">
+  ReadEntityPropertyDefaultHandler(TableColumn, object)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static object? ReadEntityPropertyDefaultHandler(TableColumn column, object entity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>column</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+    <dt><code>entity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_ReadTable_" data-uid="Albatross.Excel.Table.Extensions.ReadTable*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_ReadTable__1_Microsoft_Office_Interop_Excel_Worksheet_Albatross_Excel_Table_TableOptions_" data-uid="Albatross.Excel.Table.Extensions.ReadTable``1(Microsoft.Office.Interop.Excel.Worksheet,Albatross.Excel.Table.TableOptions)">
+  ReadTable&lt;T&gt;(Worksheet, TableOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Read data from excel and create a <a class="xref" href="Albatross.Excel.Table.ReadTableResult-1.html">ReadTableResult&lt;T&gt;</a>.  <a class="xref" href="Albatross.Excel.Table.ReadTableResult-1.html">ReadTableResult&lt;T&gt;</a> contains the resulting
+array of T as well as any read errors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ReadTableResult&lt;T&gt; ReadTable&lt;T&gt;(this Worksheet sheet, TableOptions options) where T : ExcelViewModel, new()</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sheet</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.office.interop.excel.worksheet">Worksheet</a></dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.ReadTableResult-1.html">ReadTableResult</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_Required_" data-uid="Albatross.Excel.Table.Extensions.Required*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_Required_Albatross_Excel_Table_TableColumn_System_Boolean_" data-uid="Albatross.Excel.Table.Extensions.Required(Albatross.Excel.Table.TableColumn,System.Boolean)">
+  Required(TableColumn, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TableColumn Required(this TableColumn tableColumn, bool required = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>tableColumn</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+    <dt><code>required</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_TryGetDataRange_" data-uid="Albatross.Excel.Table.Extensions.TryGetDataRange*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_TryGetDataRange_Albatross_Excel_Table_TableOptions_System_String_ExcelDna_Integration_ExcelReference__" data-uid="Albatross.Excel.Table.Extensions.TryGetDataRange(Albatross.Excel.Table.TableOptions,System.String,ExcelDna.Integration.ExcelReference@)">
+  TryGetDataRange(TableOptions, string, out ExcelReference?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetDataRange(this TableOptions options, string sheet, out ExcelReference? range)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a></dt>
+    <dd></dd>
+    <dt><code>sheet</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>range</code> <span class="xref">ExcelReference</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_TrySetEntityPropertyByReflection_" data-uid="Albatross.Excel.Table.Extensions.TrySetEntityPropertyByReflection*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_TrySetEntityPropertyByReflection_System_Object_Albatross_Excel_Table_TableColumn_System_Object_System_String__" data-uid="Albatross.Excel.Table.Extensions.TrySetEntityPropertyByReflection(System.Object,Albatross.Excel.Table.TableColumn,System.Object,System.String@)">
+  TrySetEntityPropertyByReflection(object, TableColumn, object, out string?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TrySetEntityPropertyByReflection(object entity, TableColumn column, object cellValue, out string? error)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>column</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+    <dt><code>cellValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>error</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_TryUseCurrentSelection_" data-uid="Albatross.Excel.Table.Extensions.TryUseCurrentSelection*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_TryUseCurrentSelection_Albatross_Excel_Table_TableOptions_System_Int32_" data-uid="Albatross.Excel.Table.Extensions.TryUseCurrentSelection(Albatross.Excel.Table.TableOptions,System.Int32)">
+  TryUseCurrentSelection(TableOptions, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryUseCurrentSelection(this TableOptions options, int rowCount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a></dt>
+    <dd></dd>
+    <dt><code>rowCount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_UpdateTable_" data-uid="Albatross.Excel.Table.Extensions.UpdateTable*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_UpdateTable__1___0___Microsoft_Office_Interop_Excel_Worksheet_Albatross_Excel_Table_TableOptions_System_Boolean_" data-uid="Albatross.Excel.Table.Extensions.UpdateTable``1(``0[],Microsoft.Office.Interop.Excel.Worksheet,Albatross.Excel.Table.TableOptions,System.Boolean)">
+  UpdateTable&lt;T&gt;(T[], Worksheet, TableOptions, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UpdateTable&lt;T&gt;(this T[] values, Worksheet sheet, TableOptions options, bool setFormulas) where T : ExcelViewModel</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>values</code> T[]</dt>
+    <dd></dd>
+    <dt><code>sheet</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.office.interop.excel.worksheet">Worksheet</a></dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a></dt>
+    <dd></dd>
+    <dt><code>setFormulas</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_Use_" data-uid="Albatross.Excel.Table.Extensions.Use*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_Use_Albatross_Excel_Table_TableColumn_Albatross_Excel_Table_TrySetEntityPropertyDelegate_" data-uid="Albatross.Excel.Table.Extensions.Use(Albatross.Excel.Table.TableColumn,Albatross.Excel.Table.TrySetEntityPropertyDelegate)">
+  Use(TableColumn, TrySetEntityPropertyDelegate)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TableColumn Use(this TableColumn column, TrySetEntityPropertyDelegate trySetValueDelegate)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>column</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+    <dt><code>trySetValueDelegate</code> <a class="xref" href="Albatross.Excel.Table.TrySetEntityPropertyDelegate.html">TrySetEntityPropertyDelegate</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_UseDefaultReadEntityPropertyHandler_" data-uid="Albatross.Excel.Table.Extensions.UseDefaultReadEntityPropertyHandler*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_UseDefaultReadEntityPropertyHandler_Albatross_Excel_Table_TableColumn_" data-uid="Albatross.Excel.Table.Extensions.UseDefaultReadEntityPropertyHandler(Albatross.Excel.Table.TableColumn)">
+  UseDefaultReadEntityPropertyHandler(TableColumn)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TableColumn UseDefaultReadEntityPropertyHandler(this TableColumn tableColumn)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>tableColumn</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_UseSetEntityPropertyByReflection_" data-uid="Albatross.Excel.Table.Extensions.UseSetEntityPropertyByReflection*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_UseSetEntityPropertyByReflection_Albatross_Excel_Table_TableColumn_" data-uid="Albatross.Excel.Table.Extensions.UseSetEntityPropertyByReflection(Albatross.Excel.Table.TableColumn)">
+  UseSetEntityPropertyByReflection(TableColumn)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TableColumn UseSetEntityPropertyByReflection(this TableColumn column)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>column</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_Extensions_WriteTable_" data-uid="Albatross.Excel.Table.Extensions.WriteTable*"></a>
+
+  <h3 id="Albatross_Excel_Table_Extensions_WriteTable__1___0___Microsoft_Office_Interop_Excel_Worksheet_Albatross_Excel_Table_TableOptions_" data-uid="Albatross.Excel.Table.Extensions.WriteTable``1(``0[],Microsoft.Office.Interop.Excel.Worksheet,Albatross.Excel.Table.TableOptions)">
+  WriteTable&lt;T&gt;(T[], Worksheet, TableOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Read data from entity array of the generic type T and write to excel table using the <a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a> object</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ExcelReference WriteTable&lt;T&gt;(this T[] values, Worksheet sheet, TableOptions options) where T : notnull</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>values</code> T[]</dt>
+    <dd></dd>
+    <dt><code>sheet</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.office.interop.excel.worksheet">Worksheet</a></dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ExcelReference</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

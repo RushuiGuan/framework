@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class RedisCacheKeyManagement
- | Albatross Framework Documentation </title>
+      <title>Class RedisCacheKeyManagement | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class RedisCacheKeyManagement
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class RedisCacheKeyManagement | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,8 +85,7 @@
 
 
   <h1 id="Albatross_Caching_Redis_RedisCacheKeyManagement" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement" class="text-break">
-    Class RedisCacheKeyManagement
-  
+Class RedisCacheKeyManagement  
   </h1>
 
   <div class="facts text-secondary">
@@ -102,7 +97,7 @@
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RedisCacheKeyManagement : ICacheKeyManagement</code></pre>
+    <pre><code class="lang-csharp hljs">public class RedisCacheKeyManagement : ICacheKeyManagement, IDisposable</code></pre>
   </div>
 
 
@@ -120,6 +115,7 @@
     <dt>Implements</dt>
     <dd>
       <div><a class="xref" href="Albatross.Caching.ICacheKeyManagement.html">ICacheKeyManagement</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
     </dd>
   </dl>
 
@@ -129,10 +125,16 @@
     <dt>Extension Methods</dt>
     <dd>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -149,8 +151,8 @@
 
   <a id="Albatross_Caching_Redis_RedisCacheKeyManagement__ctor_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.#ctor*"></a>
 
-  <h3 id="Albatross_Caching_Redis_RedisCacheKeyManagement__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Extensions_Caching_StackExchangeRedis_RedisCacheOptions__Microsoft_Extensions_Caching_Distributed_IDistributedCache_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Extensions.Caching.StackExchangeRedis.RedisCacheOptions},Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
-  RedisCacheKeyManagement(IOptions&lt;RedisCacheOptions&gt;, IDistributedCache)
+  <h3 id="Albatross_Caching_Redis_RedisCacheKeyManagement__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_Extensions_Caching_StackExchangeRedis_RedisCacheOptions__Microsoft_Extensions_Logging_ILogger_Albatross_Caching_Redis_RedisCacheKeyManagement__" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Extensions.Caching.StackExchangeRedis.RedisCacheOptions},Microsoft.Extensions.Logging.ILogger{Albatross.Caching.Redis.RedisCacheKeyManagement})">
+  RedisCacheKeyManagement(IOptions&lt;RedisCacheOptions&gt;, ILogger&lt;RedisCacheKeyManagement&gt;)
   
   </h3>
 
@@ -158,20 +160,86 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RedisCacheKeyManagement(IOptions&lt;RedisCacheOptions&gt; options, IDistributedCache cache)</code></pre>
+    <pre><code class="lang-csharp hljs">public RedisCacheKeyManagement(IOptions&lt;RedisCacheOptions&gt; options, ILogger&lt;RedisCacheKeyManagement&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.caching.stackexchangeredis.rediscacheoptions">RedisCacheOptions</a>&gt;</dt>
     <dd></dd>
-    <dt><code>cache</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache">IDistributedCache</a></dt>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.Caching.Redis.RedisCacheKeyManagement.html">RedisCacheKeyManagement</a>&gt;</dt>
     <dd></dd>
   </dl>
 
 
 
 
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Caching_Redis_RedisCacheKeyManagement_Cache_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Cache*"></a>
+
+  <h3 id="Albatross_Caching_Redis_RedisCacheKeyManagement_Cache" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Cache">
+  Cache
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDatabase Cache { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IDatabase</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_Redis_RedisCacheKeyManagement_Connection_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Connection*"></a>
+
+  <h3 id="Albatross_Caching_Redis_RedisCacheKeyManagement_Connection" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Connection">
+  Connection
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IConnectionMultiplexer Connection { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IConnectionMultiplexer</span></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -191,44 +259,14 @@
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_Caching_Redis_RedisCacheKeyManagement_FindAndRemoveKeys_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.FindAndRemoveKeys*"></a>
-
-  <h3 id="Albatross_Caching_Redis_RedisCacheKeyManagement_FindAndRemoveKeys_System_String_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.FindAndRemoveKeys(System.String)">
-  FindAndRemoveKeys(string)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void FindAndRemoveKeys(string pattern)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>pattern</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -254,7 +292,7 @@ The method will also return the keys without the instanceName prefix</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; FindKeys(string pattern)</code></pre>
+    <pre><code class="lang-csharp hljs">public string[] FindKeys(string pattern)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -265,7 +303,7 @@ The method will also return the keys without the instanceName prefix</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
     <dd></dd>
   </dl>
 
@@ -284,10 +322,10 @@ The method will also return the keys without the instanceName prefix</p>
 
 
 
-  <a id="Albatross_Caching_Redis_RedisCacheKeyManagement_Remove_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Remove*"></a>
+  <a id="Albatross_Caching_Redis_RedisCacheKeyManagement_Init_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Init*"></a>
 
-  <h3 id="Albatross_Caching_Redis_RedisCacheKeyManagement_Remove_System_Collections_Generic_IEnumerable_System_String__" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Remove(System.Collections.Generic.IEnumerable{System.String})">
-  Remove(IEnumerable&lt;string&gt;)
+  <h3 id="Albatross_Caching_Redis_RedisCacheKeyManagement_Init" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Init">
+  Init()
   
   </h3>
 
@@ -295,12 +333,44 @@ The method will also return the keys without the instanceName prefix</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Remove(IEnumerable&lt;string&gt; keys)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Init()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Caching_Redis_RedisCacheKeyManagement_Remove_" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Remove*"></a>
+
+  <h3 id="Albatross_Caching_Redis_RedisCacheKeyManagement_Remove_System_String___" data-uid="Albatross.Caching.Redis.RedisCacheKeyManagement.Remove(System.String[])">
+  Remove(string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>the remove operation should be quick and intentionally not async</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Remove(string[] keys)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>keys</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><code>keys</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
     <dd></dd>
   </dl>
 
@@ -321,7 +391,7 @@ The method will also return the keys without the instanceName prefix</p>
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -330,7 +400,7 @@ The method will also return the keys without the instanceName prefix</p>
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

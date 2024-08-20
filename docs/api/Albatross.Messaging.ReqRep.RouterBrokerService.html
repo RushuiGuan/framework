@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class RouterBrokerService
- | Albatross Framework Documentation </title>
+      <title>Class RouterBrokerService | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class RouterBrokerService
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class RouterBrokerService | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,8 +85,7 @@
 
 
   <h1 id="Albatross_Messaging_ReqRep_RouterBrokerService" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService" class="text-break">
-    Class RouterBrokerService
-  
+Class RouterBrokerService  
   </h1>
 
   <div class="facts text-secondary">
@@ -129,10 +124,16 @@
     <dt>Extension Methods</dt>
     <dd>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
   </div>
   <div>
-      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -282,6 +283,45 @@
 </h2>
 
 
+  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessQueue_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessQueue*"></a>
+
+  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessQueue_Albatross_Messaging_Services_IMessagingService_System_Object_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessQueue(Albatross.Messaging.Services.IMessagingService,System.Object)">
+  ProcessQueue(IMessagingService, object)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked when the messaging server is ready to process its queue.  The items in the queue will always be processed on the netmq's main thread</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ProcessQueue(IMessagingService routerServer, object msg)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>routerServer</code> <a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></dt>
+    <dd></dd>
+    <dt><code>msg</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessReceivedMsg_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg*"></a>
 
   <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessReceivedMsg_Albatross_Messaging_Services_IMessagingService_Albatross_Messaging_Messages_IMessage_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessReceivedMsg(Albatross.Messaging.Services.IMessagingService,Albatross.Messaging.Messages.IMessage)">
@@ -289,7 +329,8 @@
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Invoked when the router server receives an <a class="xref" href="Albatross.Messaging.Messages.IMessage.html">IMessage</a> from its socket.  This method will always be invoked using the netmq's main thread</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -327,7 +368,8 @@
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Invoked when the router server's timer elapsed.  This method will always be invoked using the netmq's main thread</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -353,51 +395,13 @@
 
 
 
-  <a id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTransmitQueue_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue*"></a>
-
-  <h3 id="Albatross_Messaging_ReqRep_RouterBrokerService_ProcessTransmitQueue_Albatross_Messaging_Services_IMessagingService_System_Object_" data-uid="Albatross.Messaging.ReqRep.RouterBrokerService.ProcessTransmitQueue(Albatross.Messaging.Services.IMessagingService,System.Object)">
-  ProcessTransmitQueue(IMessagingService, object)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ProcessTransmitQueue(IMessagingService routerServer, object msg)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>routerServer</code> <a class="xref" href="Albatross.Messaging.Services.IMessagingService.html">IMessagingService</a></dt>
-    <dd></dd>
-    <dt><code>msg</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
 
 </article>
 
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -406,7 +410,7 @@
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

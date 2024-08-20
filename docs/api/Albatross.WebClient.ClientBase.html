@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class ClientBase
- | Albatross Framework Documentation </title>
+      <title>Class ClientBase | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ClientBase
- | Albatross Framework Documentation ">
+      <meta name="title" content="Class ClientBase | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -89,8 +85,7 @@
 
 
   <h1 id="Albatross_WebClient_ClientBase" data-uid="Albatross.WebClient.ClientBase" class="text-break">
-    Class ClientBase
-  
+Class ClientBase  
   </h1>
 
   <div class="facts text-secondary">
@@ -123,16 +118,22 @@
     <dt>Extension Methods</dt>
     <dd>
   <div>
-      <a class="xref" href="Albatross.Reflection.TypeExtensions.html#Albatross_Reflection_TypeExtensions_GetEnumMemberAttribute__2___0_">TypeExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.WebClient.Extensions.html#Albatross_WebClient_Extensions_GetRequiredJsonResponse__1_Albatross_WebClient_ClientBase_System_Net_Http_HttpRequestMessage_">Extensions.GetRequiredJsonResponse&lt;ResultType&gt;(ClientBase, HttpRequestMessage)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.WebClient.Extensions.html#Albatross_WebClient_Extensions_GetRequiredJsonResponse__2_Albatross_WebClient_ClientBase_System_Net_Http_HttpRequestMessage_">Extensions.GetRequiredJsonResponse&lt;ResultType, ErrorType&gt;(ClientBase, HttpRequestMessage)</a>
-  </div>
-  <div>
-      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_EnsureNavigationProperty_System_Object_System_String___">Extensions.EnsureNavigationProperty(object?, params string[])</a>
   </div>
   <div>
       <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
@@ -448,6 +449,48 @@
 
 
 
+  <a id="Albatross_WebClient_ClientBase_CreateFormUrlEncodedRequest_" data-uid="Albatross.WebClient.ClientBase.CreateFormUrlEncodedRequest*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CreateFormUrlEncodedRequest_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection_System_Collections_Generic_IDictionary_System_String_System_String__" data-uid="Albatross.WebClient.ClientBase.CreateFormUrlEncodedRequest(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection,System.Collections.Generic.IDictionary{System.String,System.String})">
+  CreateFormUrlEncodedRequest(HttpMethod, string, NameValueCollection, IDictionary&lt;string, string&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateFormUrlEncodedRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, IDictionary&lt;string, string&gt; formUrlEncodedValues)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>method</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod">HttpMethod</a></dt>
+    <dd></dd>
+    <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>queryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dd></dd>
+    <dt><code>formUrlEncodedValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage">HttpRequestMessage</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Albatross_WebClient_ClientBase_CreateJsonRequest_" data-uid="Albatross.WebClient.ClientBase.CreateJsonRequest*"></a>
 
   <h3 id="Albatross_WebClient_ClientBase_CreateJsonRequest__1_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection___0_" data-uid="Albatross.WebClient.ClientBase.CreateJsonRequest``1(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection,``0)">
@@ -588,20 +631,66 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; CreateRequestUrls(string relativeUrl, NameValueCollection queryStringValues, int maxUrlLength, string arrayQueryKey, params string[] arrayQueryValues)</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; CreateRequestUrls(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, params string[] arrayQueryStringValues)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
-    <dt><code>queryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dt><code>queryStrings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
     <dd></dd>
     <dt><code>maxUrlLength</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
-    <dt><code>arrayQueryKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>arrayQueryStringKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
-    <dt><code>arrayQueryValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dt><code>arrayQueryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_WebClient_ClientBase_CreateRequestUrlsByDelimitedQueryString_" data-uid="Albatross.WebClient.ClientBase.CreateRequestUrlsByDelimitedQueryString*"></a>
+
+  <h3 id="Albatross_WebClient_ClientBase_CreateRequestUrlsByDelimitedQueryString_System_String_System_Collections_Specialized_NameValueCollection_System_Int32_System_String_System_String_System_String___" data-uid="Albatross.WebClient.ClientBase.CreateRequestUrlsByDelimitedQueryString(System.String,System.Collections.Specialized.NameValueCollection,System.Int32,System.String,System.String,System.String[])">
+  CreateRequestUrlsByDelimitedQueryString(string, NameValueCollection, int, string, string, params string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; CreateRequestUrlsByDelimitedQueryString(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, string arrayQueryStringDelimiter, params string[] arrayQueryStringValues)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>relativeUrl</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>queryStrings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+    <dd></dd>
+    <dt><code>maxUrlLength</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>arrayQueryStringKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arrayQueryStringDelimiter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arrayQueryStringValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
     <dd></dd>
   </dl>
 
@@ -1046,7 +1135,7 @@ use the maxDelayInSeconds to flatline the delay</p>
   <dl class="parameters">
     <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
     <dd></dd>
-    <dt><code>onRetry</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<span class="xref">DelegateResult</span>&lt;T&gt;, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>&gt;</dt>
+    <dt><code>onRetry</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="https://github.com/App-vNext/Polly/blob/staging/src/Polly/DelegateResult.cs">DelegateResult</a>&lt;T&gt;, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>&gt;</dt>
     <dd></dd>
     <dt><code>retryInternalServerError</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -1059,7 +1148,7 @@ use the maxDelayInSeconds to flatline the delay</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">AsyncRetryPolicy</span>&lt;T&gt;</dt>
+    <dt><a class="xref" href="https://github.com/App-vNext/Polly/blob/staging/src/Polly/Retry/AsyncRetryPolicy.cs">AsyncRetryPolicy</a>&lt;T&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -1108,7 +1197,7 @@ use the maxDelayInSeconds to flatline the delay</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">AsyncRetryPolicy</span>&lt;T&gt;</dt>
+    <dt><a class="xref" href="https://github.com/App-vNext/Polly/blob/staging/src/Polly/Retry/AsyncRetryPolicy.cs">AsyncRetryPolicy</a>&lt;T&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -1680,7 +1769,7 @@ use the maxDelayInSeconds to flatline the delay</p>
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -1689,7 +1778,7 @@ use the maxDelayInSeconds to flatline the delay</p>
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

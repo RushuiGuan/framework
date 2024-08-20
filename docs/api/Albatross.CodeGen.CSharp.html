@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Namespace Albatross.CodeGen.CSharp
- | Albatross Framework Documentation </title>
+      <title>Namespace Albatross.CodeGen.CSharp | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Namespace Albatross.CodeGen.CSharp
- | Albatross Framework Documentation ">
+      <meta name="title" content="Namespace Albatross.CodeGen.CSharp | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -29,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -77,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -86,8 +82,7 @@
 
         <article data-uid="Albatross.CodeGen.CSharp">
 
-  <h1 id="Albatross_CodeGen_CSharp" data-uid="Albatross.CodeGen.CSharp" class="text-break">Namespace Albatross.CodeGen.CSharp
-</h1>
+  <h1 id="Albatross_CodeGen_CSharp" data-uid="Albatross.CodeGen.CSharp" class="text-break">Namespace Albatross.CodeGen.CSharp</h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
@@ -96,11 +91,18 @@
 Namespaces
 </h3>
     <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.CodeGen.CSharp.Conversion.html">Albatross.CodeGen.CSharp.Conversion</a></dt>
+      <dt><a class="xref" href="Albatross.CodeGen.CSharp.Conversions.html">Albatross.CodeGen.CSharp.Conversions</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
-      <dt><a class="xref" href="Albatross.CodeGen.CSharp.Model.html">Albatross.CodeGen.CSharp.Model</a></dt>
+      <dt><a class="xref" href="Albatross.CodeGen.CSharp.Models.html">Albatross.CodeGen.CSharp.Models</a></dt>
+      <dd></dd>
+    </dl>
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Albatross.CodeGen.CSharp.Extensions.html">Extensions</a></dt>
       <dd></dd>
     </dl>
 
@@ -110,7 +112,7 @@ Namespaces
         <div class="contribution d-print-none">
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -119,7 +121,7 @@ Namespaces
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

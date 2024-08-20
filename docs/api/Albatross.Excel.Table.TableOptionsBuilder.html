@@ -1,0 +1,1053 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TableOptionsBuilder | Albatross Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TableOptionsBuilder | Albatross Framework Documentation ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Albatross.Excel.Table.TableOptionsBuilder">
+
+
+
+  <h1 id="Albatross_Excel_Table_TableOptionsBuilder" data-uid="Albatross.Excel.Table.TableOptionsBuilder" class="text-break">
+Class TableOptionsBuilder  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Excel.html">Excel</a>.<a class="xref" href="Albatross.Excel.Table.html">Table</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Excel.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TableOptionsBuilder</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">TableOptionsBuilder</span></div>
+    </dd>
+  </dl>
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Excel.Table.Extensions.html#Albatross_Excel_Table_Extensions_AddColumns_Albatross_Excel_Table_TableOptionsBuilder_Albatross_Excel_Table_TableColumn___">Extensions.AddColumns(TableOptionsBuilder, params TableColumn[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Current_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Current*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Current" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Current">
+  Current
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableColumn Current { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Results_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Results*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Results" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Results">
+  Results
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;TableColumn&gt; Results { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Add_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Add*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Add_Albatross_Excel_Table_TableColumn_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Add(Albatross.Excel.Table.TableColumn)">
+  Add(TableColumn)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder Add(TableColumn item)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>item</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Add_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Add*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Add_System_String_System_Type_System_String_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Add(System.String,System.Type,System.String)">
+  Add(string, Type, string?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder Add(string name, Type type, string? title = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>type</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd></dd>
+    <dt><code>title</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_AddColumns_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.AddColumns*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_AddColumns__1" data-uid="Albatross.Excel.Table.TableOptionsBuilder.AddColumns``1">
+  AddColumns&lt;T&gt;()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder AddColumns&lt;T&gt;()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_AddTemplate_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.AddTemplate*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_AddTemplate_System_Action_Albatross_Excel_Table_TableColumn__" data-uid="Albatross.Excel.Table.TableOptionsBuilder.AddTemplate(System.Action{Albatross.Excel.Table.TableColumn})">
+  AddTemplate(Action&lt;TableColumn&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder AddTemplate(Action&lt;TableColumn&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_ApplyTemplate_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ApplyTemplate*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_ApplyTemplate" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ApplyTemplate">
+  ApplyTemplate()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder ApplyTemplate()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_ApplyTemplate_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ApplyTemplate*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_ApplyTemplate_System_String___" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ApplyTemplate(System.String[])">
+  ApplyTemplate(params string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder ApplyTemplate(params string[] names)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>names</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Build_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Build*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Build" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Build">
+  Build()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptions Build()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptions.html">TableOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_ClearTemplate_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ClearTemplate*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_ClearTemplate" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ClearTemplate">
+  ClearTemplate()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder ClearTemplate()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_ColumnType_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ColumnType*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_ColumnType__1" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ColumnType``1">
+  ColumnType&lt;T&gt;()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder ColumnType&lt;T&gt;()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_KeyColumn_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.KeyColumn*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_KeyColumn_System_String_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.KeyColumn(System.String)">
+  KeyColumn(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder KeyColumn(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Offset_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Offset*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Offset_System_Int32_System_Int32_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Offset(System.Int32,System.Int32)">
+  Offset(int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder Offset(int rowOffset, int columnOffset)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>rowOffset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>columnOffset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Order_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Order*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Order_System_Single_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Order(System.Single)">
+  Order(float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder Order(float order)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>order</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_ReadOnly_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ReadOnly*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_ReadOnly_System_Boolean_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.ReadOnly(System.Boolean)">
+  ReadOnly(bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder ReadOnly(bool readOnly = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>readOnly</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Remove_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Remove*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Remove_System_String_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Remove(System.String)">
+  Remove(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder Remove(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_Set_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Set*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_Set_System_Action_Albatross_Excel_Table_TableColumn__" data-uid="Albatross.Excel.Table.TableOptionsBuilder.Set(System.Action{Albatross.Excel.Table.TableColumn})">
+  Set(Action&lt;TableColumn&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder Set(Action&lt;TableColumn&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_SetBackground_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetBackground*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_SetBackground_System_Action_Albatross_Excel_Background__" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetBackground(System.Action{Albatross.Excel.Background})">
+  SetBackground(Action&lt;Background&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder SetBackground(Action&lt;Background&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Albatross.Excel.Background.html">Background</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_SetCurrent_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetCurrent*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_SetCurrent_System_String_System_Action_Albatross_Excel_Table_TableColumn__" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetCurrent(System.String,System.Action{Albatross.Excel.Table.TableColumn})">
+  SetCurrent(string, Action&lt;TableColumn&gt;?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder SetCurrent(string name, Action&lt;TableColumn&gt;? changes = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>changes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_SetFontProperties_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetFontProperties*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_SetFontProperties_System_Action_Albatross_Excel_FontProperties__" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetFontProperties(System.Action{Albatross.Excel.FontProperties})">
+  SetFontProperties(Action&lt;FontProperties&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder SetFontProperties(Action&lt;FontProperties&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Albatross.Excel.FontProperties.html">FontProperties</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_SetFormula_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetFormula*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_SetFormula_System_String_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetFormula(System.String)">
+  SetFormula(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder SetFormula(string formula)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>formula</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_SetNumberFormat_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetNumberFormat*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_SetNumberFormat_System_Action_Albatross_Excel_NumberFormat__" data-uid="Albatross.Excel.Table.TableOptionsBuilder.SetNumberFormat(System.Action{Albatross.Excel.NumberFormat})">
+  SetNumberFormat(Action&lt;NumberFormat&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder SetNumberFormat(Action&lt;NumberFormat&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Albatross.Excel.NumberFormat.html">NumberFormat</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_UpdateFormula_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.UpdateFormula*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_UpdateFormula_Albatross_Excel_Table_TableColumn_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.UpdateFormula(Albatross.Excel.Table.TableColumn)">
+  UpdateFormula(TableColumn)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateFormula(TableColumn column)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>column</code> <a class="xref" href="Albatross.Excel.Table.TableColumn.html">TableColumn</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_UseReadPropertyHandler_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.UseReadPropertyHandler*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_UseReadPropertyHandler_Albatross_Excel_Table_ReadEntityPropertyDelegate_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.UseReadPropertyHandler(Albatross.Excel.Table.ReadEntityPropertyDelegate)">
+  UseReadPropertyHandler(ReadEntityPropertyDelegate)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder UseReadPropertyHandler(ReadEntityPropertyDelegate getCellValueHandler)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>getCellValueHandler</code> <a class="xref" href="Albatross.Excel.Table.ReadEntityPropertyDelegate.html">ReadEntityPropertyDelegate</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Excel_Table_TableOptionsBuilder_UseWritePropertyHandler_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.UseWritePropertyHandler*"></a>
+
+  <h3 id="Albatross_Excel_Table_TableOptionsBuilder_UseWritePropertyHandler_Albatross_Excel_Table_TrySetEntityPropertyDelegate_" data-uid="Albatross.Excel.Table.TableOptionsBuilder.UseWritePropertyHandler(Albatross.Excel.Table.TrySetEntityPropertyDelegate)">
+  UseWritePropertyHandler(TrySetEntityPropertyDelegate)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TableOptionsBuilder UseWritePropertyHandler(TrySetEntityPropertyDelegate trySetEntityPropertyHandler)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>trySetEntityPropertyHandler</code> <a class="xref" href="Albatross.Excel.Table.TrySetEntityPropertyDelegate.html">TrySetEntityPropertyDelegate</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.Excel.Table.TableOptionsBuilder.html">TableOptionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

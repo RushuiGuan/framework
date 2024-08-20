@@ -2,9 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Albatross.Config assembly | Albatross Framework Documentation </title>
+      <title> | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Albatross.Config assembly | Albatross Framework Documentation ">
+      <meta name="title" content=" | Albatross Framework Documentation ">
+      
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -27,19 +28,16 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
@@ -75,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -83,12 +81,13 @@
         </div>
 
         <article data-uid="">
-<h2 id="albatrossconfig-assembly">Albatross.Config assembly</h2>
 
-<p>Albatross framework has a configuration framework to simplify the setup of custom configuration values.  Its namespace is <a href="https://rushuiguan.github.io/framework/api/Albatross.Config.html">Albatross.Config</a>.</p>
+<h2 id="albatrossconfig-assembly">Albatross.Config assembly</h2>
+<p>Albatross framework has a configuration framework to simplify the setup of custom configuration values.  Its namespace is [Albatross.Config]
+(xref:Albatross.Config)</p>
 <h3 id="custom-configuration">Custom configuration:</h3>
 <ol>
-<li>Create a config class MySetting with its base class as <a href="https://rushuiguan.github.io/framework/api/Albatross.Config.ConfigBase.html">Albatross.Config.ConfigBase</a>.
+<li>Create a config class MySetting with its base class as <a class="xref" href="../api/Albatross.Config.ConfigBase.html">Albatross.Config.ConfigBase</a>.
 <pre><code class="lang-c#"> public class MySettings : ConfigBase {
  	public override string Key =&gt; &quot;my-settings&quot;;
  	public MySettings(IConfiguration configuration): base(configuration) {
@@ -118,7 +117,7 @@
  }
 </code></pre>
 </li>
-<li>Register the configuration class by using the <code>AddConfig</code> extension method located in <a href="https://rushuiguan.github.io/framework/api/Albatross.Config.Extension.html">Extension</a> class.  Once registered, the config class <code>MySettings</code> can be injected to any class as a dependency as shown in the example class <code>MyService</code> below.  By default, <code>AddConfig</code> will register config class as a singleton class.  Change the value of the parameter <code>singleton</code> to false and the class will be registered using scoped lifetime.  It could be useful if there is a requirement for the change of configuration value to be reflected without restarting the application.
+<li>Register the configuration class by using the <code>AddConfig</code> extension method located in <a class="xref" href="../api/Albatross.Config.Extension.html">Extension</a> class.  Once registered, the config class <code>MySettings</code> can be injected to any class as a dependency as shown in the example class <code>MyService</code> below.  By default, <code>AddConfig</code> will register config class as a singleton class.  Change the value of the parameter <code>singleton</code> to false and the class will be registered using scoped lifetime.  It could be useful if there is a requirement for the change of configuration value to be reflected without restarting the application.
 <pre><code class="lang-c#"> public static IServiceCollection AddMySettings(this IServiceCollection services) {
  	services.AddConfig&lt;MySettings&gt;();
  	return services;
@@ -132,23 +131,24 @@
 </code></pre>
 </li>
 </ol>
-<h3 id="programsetting-config-class"><a href="https://rushuiguan.github.io/framework/api/Albatross.Config.ProgramSetting.html">ProgramSetting</a> Config Class</h3>
+<h3 id="programsetting-config-class"><a class="xref" href="../api/Albatross.Config.ProgramSetting.html">ProgramSetting</a> Config Class</h3>
 <p><code>ProgramSetting</code> is a built in config class with the section name of <code>app</code> provided by the <a href="webapi.html">webapi</a>, <a href="service.html">service</a> and <a href="utility.html">utility</a> hosts.  The <code>Name</code> and <code>Group</code> properties are used to identify and organize the said application.  This is a useful functionality in a micro service environment when large numbers of applications have to be managed by an organization.  Another important property is <code>ServiceManager</code>.  It can have 2 possible values:</p>
 <ul>
 <li>windows</li>
 <li>systemd</li>
 </ul>
 <p><code>windows</code> is for creating a service in windows environment and <code>systemd</code> is for linux environment.  Please find details in the <a href="service.html">how to create services using the framework</a> article.</p>
-<h3 id="environmentsetting-config-class"><a href="https://rushuiguan.github.io/framework/api/Albatross.Config.EnvironmentSetting.html">EnvironmentSetting</a> Config Class</h3>
+<h3 id="environmentsetting-config-class"><a class="xref" href="../api/Albatross.Config.EnvironmentSetting.html">EnvironmentSetting</a> Config Class</h3>
 <p>The <code>EnvironmentSetting</code> class provides the same functionality as the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostenvironment.environmentname?view=dotnet-plat-ext-7.0#microsoft-extensions-hosting-ihostenvironment-environmentname">IHostEnvironment.EnvironmentName</a> property from Microsoft.  But it has a different default value when the environmental variable is missing.  When the <code>ASPNETCORE_ENVIRONMENT</code> or <code>DOTNET_ENVIRONMENT</code> variable is missing, the <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostenvironment.environmentname?view=dotnet-plat-ext-7.0#microsoft-extensions-hosting-ihostenvironment-environmentname">IHostEnvironment.EnvironmentName</a> property will return the text string of <code>PRODUCTION</code>.  The reason from Microsoft is that developers will never have credentials for the production environment therefore it is the &quot;safest&quot; default environmental setting.  That might be the truth for Microsoft developers.  But it could be a dangerous thing to do for developers of small and medium enterprises.  To avoid the potentially disastrous problems of writing bad data to the prod enviornment, <code>EnvironmentSetting</code> was created and it will simply return an empty string when the targeted environment variable is missing.</p>
 <p><code>EnvironmentSetting</code> is provided by the <a href="webapi.html">webapi</a>, <a href="service.html">service</a> and <a href="utility.html">utility</a> hosts.  For <a href="webapi.html">webapi</a> and <a href="service.html">service</a> hosts, it sets the Value property using environment variable <code>ASPNETCORE_ENVIRONMENT</code>.  For <a href="utility.html">utility</a> hosts, it uses <code>DOTNET_ENVIRONMENT</code>.  It has a IsProd property that returns true if the config value equals <code>production</code> (case insensitive comparison).  As mentioned in the chapter above, the Value property will be an empty string when the environmental variable is missing.</p>
+
 </article>
 
         <div class="contribution d-print-none">
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">
@@ -157,7 +157,7 @@
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
