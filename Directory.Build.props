@@ -3,5 +3,6 @@
 		<Version>7.3.1</Version>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+		<EnableWindowsTargeting>True</EnableWindowsTargeting>
 	</PropertyGroup>
 </Project>
