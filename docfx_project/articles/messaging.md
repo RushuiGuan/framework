@@ -13,7 +13,7 @@ Under the hood, the dll uses the ZeroMQ's router socket for servers (daemon serv
 Please find the messaging daemon sample code here [sample-daemon]()
 
 ## Use of `Albatross.Messaging.CodeGen`
-Since creating short lived clients is not the most efficient way to talk to the messaging daemon.  It is recommended to communicate via a long live client such as web api.  For example, we can have 
+Since creating short lived clients is not the most efficient way to talk to the messaging daemon, it is recommended to communicate via a long live client such as web api.  For example, we can have 
 
 ```
 	command line utility (short lived)
@@ -24,10 +24,10 @@ Since creating short lived clients is not the most efficient way to talk to the 
 
 By doing so, the daemon utility can also be walled off and access control can be implemented by the web api.  `Albatross.Messaging.CodeGen` is created to simplify json serialization and deserialization of the commands between the web api and the daemon.  To use it: 
 
-1. A web api project `Sample.Messaging.WebApi` is created and configured as the messaging service consumer.
-1. A daemon service `Sample.Messaging.Daemon` with messaging is created as the messaging host.
-1. A command line utility `Sample.Messaging.Utility` is created to send commands to the web api.
-1. A dto project `Sample.Messaging.Core` is created to share the command dtos between the daemin, web api and the utility.
+1. A web api project `Sample.WebApi` is created and configured as the messaging service consumer.
+1. A daemon service `Sample.Daemon` with messaging is created as the messaging host.
+1. A command line utility `Sample.Utility` is created to send commands to the web api.
+1. A dto project `Sample.Core` is created to share the command dtos between the daemin, web api and the utility.
 1. In the dto project, create a partial public interface that is prefixed by `I` and postfixed by `Command`.  The interface should be empty.
 ```c#
 public partial interface ITestCommand { }
