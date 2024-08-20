@@ -1,7 +1,7 @@
 ## Assembly
-[Albatross.EFCore.DateLevel](xref:Albatross.EFCore.DateLevel)
+[Albatross.DateLevel](xref:Albatross.DateLevel)
 ## Overview
-DateLevelEntity is a pattern that manages efcore entity in a date series. It tracks the day over day changes of an entity by using the StartDate and EndDate columns.  By doing so it provides the ability to access the entity data using an effective date.  The effective date can be in the past, present or the future.
+DateLevelEntity is a pattern that manages entity in a date series. It tracks the day over day changes of an entity by using the StartDate and EndDate columns.  By doing so it provides the ability to access the entity data using an effective date.  The effective date can be in the past, present or the future.
 
 ## Approach
 ### Date Level 1 Approach
@@ -16,7 +16,7 @@ A date level entity can be reprensented by a single date column: `StartDate`.  C
 |2|AC23124|2022-01-01|
 
 ### Date Level 2 Approach
-The date level 2 approach put both `StartDate` and `EndDate` on the entity as the example is shown below.  This is the preferred approach where there are few writes and many reads.  **Albatross.EFCore.DataLevel namespace implements the DateLevel pattern using the DataLevel2 approach!**
+The date level 2 approach put both `StartDate` and `EndDate` on the entity as the example is shown below.  This is the preferred approach where there are few writes and many reads.  **Albatross.DataLevel namespace implements the DateLevel pattern using the DataLevel2 approach!**
 
 `ProductIdentifier` Table
 
@@ -83,4 +83,4 @@ The date level entry for an entity doesn't make sense if its dates are overlappe
 	|1|AZX222|2023-02-21|9999-12-31|
 
 ## Model
-[DateLevelEntity](xref:Albatross.EFCore.DateLevel.DateLevelEntity) should be used as the base class of any date level entity.  
+[DateLevelEntity](xref:Albatross.DateLevel.DateLevelEntity) should be used as the base class of any date level entity.  

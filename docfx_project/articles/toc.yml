@@ -16,7 +16,9 @@
   href: messaging.md
 - name: WebApi C# Proxy CodeGen
   href: webapi-csharp-proxy-codegen.md
-- name: Angular TypeScript Proxy CodeGen
-  href: angular-typescript-proxy-codegen.md
-- name: Patterns
-  href: ./patterns/toc.yml  
+- name: TypeScript Proxy CodeGen
+  href: typescript-proxy-codegen.md
+- name: Date Level Entity
+  href: date-level-entity.md
+- name: Caching
+  href: caching.md

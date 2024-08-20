@@ -1,5 +1,5 @@
 # New Utility Application
-[Albatross.Hosting.Utility](https://rushuiguan.github.io/framework/api/Albatross.Hosting.Utility.html) assembly can be used to create a console program with DI and logging support.  Other functionalities such as messaging can be plugged in via the DI framework.  
+[Albatross.Hosting.Utility](xref:Albatross.Hosting.Utility) assembly can be used to create a console program with DI and logging support.  Other functionalities such as messaging can be plugged in via the DI framework.  
 
 Albatross.Hosting.Utility uses [CommandLineParser](https://www.nuget.org/packages/CommandLineParser) to parse console input parameters.  Here is the [CommandLineParser documentation](https://github.com/commandlineparser/commandline/wiki).  Each utility program can support multiple commands (verbs).  Follow the steps below to create a new utility.
 1. Create a new .Net 7 Console program.
@@ -48,4 +48,4 @@ Albatross.Hosting.Utility uses [CommandLineParser](https://www.nuget.org/package
 		}
 	}
 	```
-1. the [Albatross.Hosting.Utility.BaseOption](https://rushuiguan.github.io/framework/api/Albatross.Hosting.Utility.BaseOption.html) class comes with some commonly used options and command line output methods.   `verbose` and `debug` option interact directly with serilog and therefore changes the logging level.  `clipboard` option will save the output print outs to clipboard when set to true.  `console-out` option will save the output to the file name specified by the parameter.
+1. the [Albatross.Hosting.Utility.BaseOption](xref:Albatross.Hosting.Utility.BaseOption) class comes with some commonly used options and command line output methods.   `verbose` and `debug` option interact directly with serilog and therefore changes the logging level.  `clipboard` option will save the output print outs to clipboard when set to true.  `console-out` option will save the output to the file name specified by the parameter.
