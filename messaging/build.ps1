@@ -10,9 +10,9 @@ $install = $env:InstallDirectory;
 if(-not $alias) {
 	$projects = @(
 		"albatross.messaging.utility",
-		"sample.messaging.utility"
-		,"sample.messaging.webapi"
-		,"sample.messaging.daemon"
+		"sample.utility"
+		,"sample.webapi"
+		,"sample.daemon"
 	);
 
 	if(-not [string]::IsNullOrEmpty($project)){
@@ -33,7 +33,7 @@ if(-not $alias) {
 	}
 }
 
-set-alias -name sample-messaging -Value $env:InstallDirectory\sample.messaging.utility\sample.messaging.utility.exe
-set-alias -name sample-messaging-webapi -Value $env:InstallDirectory\sample.messaging.webapi\sample.messaging.webapi.exe
-set-alias -name sample-messaging-daemon -Value $env:InstallDirectory\sample.messaging.daemon\sample.messaging.daemon.exe
+set-alias -name sample-messaging -Value $env:InstallDirectory\sample.utility\sample.utility.exe
+set-alias -name sample-messaging-webapi -Value $env:InstallDirectory\sample.webapi\sample.webapi.exe
+set-alias -name sample-messaging-daemon -Value $env:InstallDirectory\sample.daemon\sample.daemon.exe
 set-alias -name msg -Value $env:InstallDirectory\albatross.messaging.utility\msg.exe

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="System.Text.Json" Version="8.0.4" />
+		<ProjectReference Include="..\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+			<OutputItemType>Analyzer</OutputItemType>
+		</ProjectReference>
+	</ItemGroup>
+</Project>
