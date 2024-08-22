@@ -22,6 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Logging", "..\log
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Text", "..\text\Albatross.Text\Albatross.Text.csproj", "{EA543AD7-E90D-45CC-B0AA-3161CC06493B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{B8E2EA3F-BAB4-4CA2-A827-F11272B84BE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{529B8C5B-BA8D-4129-93E7-4421A2E13677} = {B8E2EA3F-BAB4-4CA2-A827-F11272B84BE3}
+		{7DFFC3A7-C689-4321-9B64-E6547A5D41F1} = {B8E2EA3F-BAB4-4CA2-A827-F11272B84BE3}
+		{47869335-8541-45C9-B1FB-55D2D1355F7A} = {B8E2EA3F-BAB4-4CA2-A827-F11272B84BE3}
+		{EA543AD7-E90D-45CC-B0AA-3161CC06493B} = {B8E2EA3F-BAB4-4CA2-A827-F11272B84BE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {34C18A2B-8C4B-4C35-AD12-24C8704BF832}

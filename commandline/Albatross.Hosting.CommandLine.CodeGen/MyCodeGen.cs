@@ -62,7 +62,7 @@ namespace Albatross.Hosting.CommandLine.CodeGen {
 		ConstructorInitializerSyntax AddConstructorBaseTypeInitizliation(AttributeData verbAttribute) {
 			var name = verbAttribute.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
 			var description = verbAttribute.ConstructorArguments.Skip(1).FirstOrDefault().Value?.ToString();
-			var builder = new ArgumentListBuilder()
+			var builder = new Albatross.CodeAnalysis.CodeStack()
 				.Add(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(name)));
 			if (description == null) {
 				builder.Add(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));

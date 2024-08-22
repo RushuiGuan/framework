@@ -224,6 +224,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		dependencies.md = dependencies.md
 		Directory.Build.props = Directory.Build.props
 		pack.ps1 = pack.ps1
+		.github\workflows\publish documents.yml = .github\workflows\publish documents.yml
 		readme.md = readme.md
 	EndProjectSection
 EndProject
