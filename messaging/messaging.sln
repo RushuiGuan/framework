@@ -10,8 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3DD9909-152B-4E8B-A76B-8B132C7AB7B2}"
 	ProjectSection(SolutionItems) = preProject
 		build.ps1 = build.ps1
-		Directory.Build.props = Directory.Build.props
-		pack.ps1 = pack.ps1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Messaging.CodeGen", "Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj", "{CE57BEAE-DB6B-40EA-B5A2-9632D5ADC18D}"
