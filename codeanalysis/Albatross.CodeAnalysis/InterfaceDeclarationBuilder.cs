@@ -22,7 +22,7 @@ namespace Albatross.CodeAnalysis {
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			var attributes = elements.OfType<AttributeSyntax>().ToArray();
 			if (attributes.Any()) {
-				this.Node = this.Node.WithAttributeLists(SyntaxFactory.SingletonList(SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(attributes))));
+				this.Node = this.Node.WithAttributeLists(SyntaxFactory.List(attributes.Select(x => SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(x)))));
 			}
 			return this.Node;
 		}
