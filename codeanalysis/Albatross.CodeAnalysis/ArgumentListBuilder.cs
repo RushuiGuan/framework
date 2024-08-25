@@ -11,7 +11,7 @@ namespace Albatross.CodeAnalysis {
 	/// (1, 2, 3)
 	/// ```
 	/// </summary>
-	public class ArgumentList : INodeBuilder {
+	public class ArgumentListBuilder : INodeBuilder {
 		IEnumerable<ArgumentSyntax> Arguments(IEnumerable<SyntaxNode> nodes) {
 			foreach (var node in nodes) {
 				if (node is ExpressionSyntax expression) {

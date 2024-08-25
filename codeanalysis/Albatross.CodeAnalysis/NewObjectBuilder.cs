@@ -8,10 +8,12 @@ namespace Albatross.CodeAnalysis {
 	/// <summary>
 	/// Create an <see cref="ObjectCreationExpressionSyntax"/>.  
 	/// It expects an optional <see cref="ArgumentListSyntax"/> and zero or more optional parameters of <see cref="AssignmentExpressionSyntax"/>
-	/// <see cref="AssignmentExpressionSyntax"/> nodes can be created using <see cref="Assignment"/> builder.
+	/// <see cref="ArgumentListSyntax"/> is used to create the object constructor parameters and <see cref="AssignmentExpressionSyntax"/> is used to create
+	/// the property initializations
+	/// <see cref="AssignmentExpressionSyntax"/> nodes can be created using <see cref="AssignmentExpressionBuilder"/> builder.
 	/// </summary>
-	public class NewObject : INodeBuilder {
-		public NewObject(string typeName) {
+	public class NewObjectBuilder : INodeBuilder {
+		public NewObjectBuilder(string typeName) {
 			TypeName = typeName;
 		}
 

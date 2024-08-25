@@ -12,20 +12,20 @@ namespace Albatross.CodeAnalysis {
 	/// Expects an optional <see cref="ParameterListSyntax"/>.  Expects an option <see cref="ArgumentListSyntax"/>.  If found, will initialize the constructor
 	/// with the base constructor call using the argument list.
 	/// </summary>
-	public class ConstructorDeclaration : INodeBuilder {
-		public ConstructorDeclaration(string className) {
+	public class ConstructorDeclarationBuilder : INodeBuilder {
+		public ConstructorDeclarationBuilder(string className) {
 			Node = SyntaxFactory.ConstructorDeclaration(className);
 			Public();
 		}
-		public ConstructorDeclaration Public() {
+		public ConstructorDeclarationBuilder Public() {
 			this.Node = this.Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 			return this;
 		}
-		public ConstructorDeclaration Private() {
+		public ConstructorDeclarationBuilder Private() {
 			this.Node = this.Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword));
 			return this;
 		}
-		public ConstructorDeclaration Protected() {
+		public ConstructorDeclarationBuilder Protected() {
 			this.Node = this.Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.ProtectedKeyword));
 			return this;
 		}

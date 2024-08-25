@@ -1,21 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 	</PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="8.0.4" />
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
+		<ProjectReference Include="..\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
 			<PrivateAssets>all</PrivateAssets>
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 			<OutputItemType>Analyzer</OutputItemType>
 		</ProjectReference>
-		<ProjectReference Include="..\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj">
+		<ProjectReference Include="..\Sample.CodeGen\Sample.CodeGen.csproj">
 			<PrivateAssets>all</PrivateAssets>
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 			<OutputItemType>Analyzer</OutputItemType>
 		</ProjectReference>
 	</ItemGroup>
+
 </Project>
