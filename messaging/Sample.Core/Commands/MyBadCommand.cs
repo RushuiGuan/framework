@@ -1,7 +1,7 @@
-﻿using Sample.Core.Commands.CodeGenTest;
+﻿using Sample.Core.Commands.MyOwnNameSpace;
 
 namespace Sample.Core.Commands {
-	public class MyBadCommand : IMyCommand {
+	public class MyBadCommand : ISystemCommand {
 		public string Name { get; set; }
 		public string Description { get; set; }
 

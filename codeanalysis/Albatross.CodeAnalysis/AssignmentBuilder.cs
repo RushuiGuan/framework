@@ -12,8 +12,8 @@ namespace Albatross.CodeAnalysis {
 	/// a = 1
 	/// ```
 	/// </summary>
-	public class Assignment : INodeBuilder {
-		public Assignment(string identifierName) {
+	public class AssignmentExpressionBuilder : INodeBuilder {
+		public AssignmentExpressionBuilder(string identifierName) {
 			IdentifierName = identifierName;
 		}
 

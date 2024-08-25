@@ -7,12 +7,13 @@ namespace Albatross.CodeAnalysis.Test {
 	public Test()
 	{
 	}
-}";
+}
+";
 		[Fact]
 		public void SimpleConstructor() {
 			var node = new CodeStack()
-				.Begin(new ClassDeclaration("Test"))
-					.Begin(new ConstructorDeclaration("Test")).End()
+				.Begin(new ClassDeclarationBuilder("Test"))
+					.Begin(new ConstructorDeclarationBuilder("Test")).End()
 				.End().Build();
 			Assert.Equal(ClassBuilderWithConstructor_Expected, node.ToString());
 		}
@@ -21,13 +22,14 @@ namespace Albatross.CodeAnalysis.Test {
 	public Test(string name)
 	{
 	}
-}";
+}
+";
 
 		[Fact]
 		public void ConstructorWithParameter() {
 			var node = new CodeStack()
-				.Begin(new ClassDeclaration("Test"))
-					.Begin(new ConstructorDeclaration("Test")).With(new ParameterNode("string", "name"))
+				.Begin(new ClassDeclarationBuilder("Test"))
+					.Begin(new ConstructorDeclarationBuilder("Test")).With(new ParameterNode("string", "name"))
 					.End()
 				.End().Build();
 			Assert.Equal(ConstructorWithParameter_Expected, node.ToString());
@@ -37,13 +39,14 @@ namespace Albatross.CodeAnalysis.Test {
 	public Test(string name) : base(name)
 	{
 	}
-}";
+}
+";
 		[Fact]
 		public void ConstructorWithParameterAndBaseCall() {
 			var node = new CodeStack()
-				.Begin(new ClassDeclaration("Test"))
-					.Begin(new ConstructorDeclaration("Test")).With(new ParameterNode("string", "name"))
-						.Begin(new ArgumentList()).With(new IdentifierNode("name")).End()
+				.Begin(new ClassDeclarationBuilder("Test"))
+					.Begin(new ConstructorDeclarationBuilder("Test")).With(new ParameterNode("string", "name"))
+						.Begin(new ArgumentListBuilder()).With(new IdentifierNode("name")).End()
 					.End()
 				.End().Build();
 			Assert.Equal(ConstructorWithParameterAndBaseCall_Expected, node.ToString());

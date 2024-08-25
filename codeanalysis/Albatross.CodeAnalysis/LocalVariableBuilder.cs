@@ -10,10 +10,10 @@ namespace Albatross.CodeAnalysis {
 	/// Create a syntax node of <see cref="VariableDeclarationSyntax"/>.  It requires one parameter of type <see cref="ExpressionSyntax"/>.
 	/// Since the variable is declare with `var` keyword and has to be initialized.
 	/// </summary>
-	public class LocalVariable : INodeBuilder {
+	public class LocalVariableBuilder : INodeBuilder {
 		private readonly string name;
 
-		public LocalVariable(string name) {
+		public LocalVariableBuilder(string name) {
 			this.name = name;
 		}
 
