@@ -1,7 +1,8 @@
-﻿using Albatross.Messaging.Commands;
-using CommandLine;
+﻿using CommandLine;
 using Microsoft.Extensions.Logging;
 using Sample.Core.Commands;
+using Sample.Core.Commands.MyOwnNameSpace;
+using Sample.Proxy;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,8 +16,8 @@ namespace Sample.Utility {
 	public class RunSelfDestruct : MyUtilityBase<RunSelfDestructOption> {
 		public RunSelfDestruct(RunSelfDestructOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
-			var commands = new List<object> {
+		public async Task<int> RunUtility(CommandProxyService client) {
+			var commands = new List<ISystemCommand> {
 				new SelfDestructCommand() {
 					Tick = DateTime.Now.Ticks,
 					Delay = Options.Delay,
@@ -26,7 +27,9 @@ namespace Sample.Utility {
 				new MyCommand1("test3"),
 			};
 			try {
-				await client.SubmitCollection(commands);
+				foreach(var cmd in commands) {
+					await client.SubmitSystemCommand(cmd);
+				}	
 			}catch(TimeoutException err) {
 				logger.LogError(err.Message);
 			}

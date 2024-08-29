@@ -6,25 +6,12 @@ using Albatross.WebClient;
 using System.Collections.Generic;
 using Albatross.Serialization;
 
+#nullable enable
 namespace Sample.Proxy {
 	public partial class RunProxyService : Albatross.WebClient.ClientBase {
-		public RunProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(logger, client, Albatross.Serialization.DefaultJsonSettings.Value) {
+		public RunProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client, Albatross.Serialization.DefaultJsonSettings.Value) {
 		}
 		public const System.String ControllerPath = "api/run";
-		public async System.Threading.Tasks.Task Ping() {
-			string path = $"{ControllerPath}/ping";
-			var queryString = new System.Collections.Specialized.NameValueCollection();
-			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
-				await this.GetRawResponse(request);
-			}
-		}
-		public async System.Threading.Tasks.Task<System.String> QueueStatus() {
-			string path = $"{ControllerPath}/queue-status";
-			var queryString = new System.Collections.Specialized.NameValueCollection();
-			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
-				return await this.GetRawResponse(request);
-			}
-		}
 		public async System.Threading.Tasks.Task Subscribe(System.String @topic) {
 			string path = $"{ControllerPath}/sub";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
@@ -50,3 +37,5 @@ namespace Sample.Proxy {
 		}
 	}
 }
+#nullable disable
+

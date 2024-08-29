@@ -1,6 +1,6 @@
-﻿using Albatross.Messaging.Commands;
-using CommandLine;
+﻿using CommandLine;
 using Sample.Core.Commands;
+using Sample.Proxy;
 using System.Threading.Tasks;
 
 namespace Sample.Utility {
@@ -9,8 +9,8 @@ namespace Sample.Utility {
 	public class RunBadCommand : MyUtilityBase<RunBadCommandOption> {
 		public RunBadCommand(RunBadCommandOption option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
-			await client.Submit(new MyBadCommand("a", "b"));
+		public async Task<int> RunUtility(CommandProxyService client) {
+			await client.SubmitSystemCommand(new MyBadCommand("a", "b"));
 			return 0;
 		}
 	}

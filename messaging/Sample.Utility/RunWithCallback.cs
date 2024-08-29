@@ -1,9 +1,6 @@
-﻿using Albatross.Config;
-using Albatross.Messaging.Commands;
-using CommandLine;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using CommandLine;
 using Sample.Core.Commands;
+using Sample.Core.Commands.MyOwnNameSpace;
 using Sample.Proxy;
 using System;
 using System.Collections.Generic;
@@ -25,11 +22,10 @@ namespace Sample.Utility {
 		public int ChildCount { get; set; }
 	}
 	public class RunWithCallback : MyUtilityBase<RunWithCallbackOption> {
-		protected override bool CustomMessaging => true;
 		public RunWithCallback(RunWithCallbackOption option) : base(option) { }
 
-		public async Task<int> RunUtility(ICommandClient client) {
-			var commands = new List<object>();
+		public async Task<int> RunUtility(CommandProxyService client) {
+			var commands = new List<ISystemCommand>();
 			for (int i = 0; i < Options.Count; i++) {
 				var cmd = new MyCommand3($"test command: {i}") {
 					Error = Options.Error,
@@ -43,7 +39,9 @@ namespace Sample.Utility {
 					}
 				}
 			}
-			await client.SubmitCollection(commands, false);
+			foreach (var cmd in commands) {
+				await client.SubmitSystemCommand(cmd);
+			}
 			Console.ReadLine();
 			return 0;
 		}

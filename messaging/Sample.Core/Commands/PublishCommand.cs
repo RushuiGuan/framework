@@ -1,6 +1,8 @@
-﻿namespace Sample.Core.Commands {
+﻿using Sample.Core.Commands.MyOwnNameSpace;
 
-	public class PublishCommand {
+namespace Sample.Core.Commands {
+
+	public class PublishCommand : IApplicationCommand {
 		public PublishCommand(string topic, int min, int max) {
 			Topic = topic;
 			Min = min;
