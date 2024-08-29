@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using Albatross.CodeAnalysis;
+using Humanizer;
 using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Declarations;
