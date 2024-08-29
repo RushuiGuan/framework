@@ -13,25 +13,35 @@ namespace Albatross.CodeAnalysis {
 	/// <see cref="AssignmentExpressionSyntax"/> nodes can be created using <see cref="AssignmentExpressionBuilder"/> builder.
 	/// </summary>
 	public class NewObjectBuilder : INodeBuilder {
-		public NewObjectBuilder(string typeName) {
-			TypeName = typeName;
+		private NewObjectBuilder(TypeSyntax typeSyntax) {
+			this.Node = SyntaxFactory.ObjectCreationExpression(typeSyntax);
 		}
-
-		public string TypeName { get; }
+		public NewObjectBuilder(string typeName) : this(SyntaxFactory.IdentifierName(typeName)) { }
+		public NewObjectBuilder(string typeName, params string[] genericTypeArguments) : this(CreateGenericType(typeName, genericTypeArguments)){
+		}
+		static TypeSyntax CreateGenericType(string typeName, IEnumerable<string> genericTypeArguments) {
+			var arguments = SyntaxFactory.SeparatedList(genericTypeArguments.Select(x => SyntaxFactory.ParseTypeName(x)));
+			return SyntaxFactory.GenericName(SyntaxFactory.Identifier(typeName), SyntaxFactory.TypeArgumentList(arguments));
+		}
+		public ObjectCreationExpressionSyntax Node { get; private set; }
 
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
-			var typeSyntax = SyntaxFactory.ParseTypeName(TypeName);
 			var argumentList = elements.OfType<ArgumentListSyntax>().FirstOrDefault();
 			var assignments = elements.OfType<AssignmentExpressionSyntax>().ToArray();
-			if (argumentList == null && assignments.Length == 0) {
-				argumentList = SyntaxFactory.ArgumentList();
+			if (argumentList == null) {
+				if (assignments.Length == 0) {
+					this.Node = this.Node.WithArgumentList(SyntaxFactory.ArgumentList());
+				}
+			} else {
+				this.Node = this.Node.WithArgumentList(argumentList);
 			}
 			InitializerExpressionSyntax initializer = null;
 			if (assignments.Length > 0) {
 				var list = SyntaxFactory.SeparatedList(assignments.Cast<ExpressionSyntax>());
 				initializer = SyntaxFactory.InitializerExpression(SyntaxKind.ObjectInitializerExpression, list);
+				this.Node = this.Node.WithInitializer(initializer);
 			}
-			return SyntaxFactory.ObjectCreationExpression(typeSyntax, argumentList, initializer);
+			return this.Node;
 		}
 	}
 

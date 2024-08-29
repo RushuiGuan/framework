@@ -8,9 +8,9 @@ using System.Text;
 
 namespace Albatross.CodeAnalysis {
 	/// <summary>
-	/// Create a <see cref="ConstructorDeclarationSyntax"/>
-	/// Expects an optional <see cref="ParameterListSyntax"/>.  Expects an option <see cref="ArgumentListSyntax"/>.  If found, will initialize the constructor
-	/// with the base constructor call using the argument list.
+	/// Create a <see cref="ConstructorDeclarationSyntax"/>.  Expects:
+	/// * <see cref="ParameterSyntax"/> - zero or more optional parameters for the constructor parameters
+	/// * <see cref="ArgumentListSyntax"/> - argument list for the base constructor call
 	/// </summary>
 	public class ConstructorDeclarationBuilder : INodeBuilder {
 		public ConstructorDeclarationBuilder(string className) {
@@ -38,7 +38,7 @@ namespace Albatross.CodeAnalysis {
 			if (argumentList != null) {
 				this.Node = this.Node.WithInitializer(SyntaxFactory.ConstructorInitializer(SyntaxKind.BaseConstructorInitializer, argumentList));
 			}
-			var statements = elements.OfType< StatementSyntax>().ToList();
+			var statements = elements.OfType<StatementSyntax>().ToArray();
 			this.Node = this.Node.WithBody(SyntaxFactory.Block(statements));
 			return this.Node;
 		}

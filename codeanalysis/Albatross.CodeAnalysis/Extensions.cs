@@ -151,6 +151,17 @@ namespace Albatross.CodeAnalysis {
 			return false;
 		}
 
+		public static bool TryGetNamedArgument(this AttributeData attributeData, string name, out TypedConstant result) {
+			var argument = attributeData.NamedArguments.Where(x => x.Key == name).Select<KeyValuePair<string, TypedConstant>, TypedConstant?>(x => x.Value).FirstOrDefault();
+			if (argument != null) {
+				result = argument.Value;
+				return true;
+			} else {
+				result = new TypedConstant();
+				return false;
+			}
+		}
+
 		public static bool IsNullable(this ITypeSymbol symbol) {
 			return symbol is INamedTypeSymbol named && (
 				named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>" || symbol.NullableAnnotation == NullableAnnotation.Annotated

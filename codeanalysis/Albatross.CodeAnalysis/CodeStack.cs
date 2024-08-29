@@ -1,10 +1,9 @@
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text;
 
 namespace Albatross.CodeAnalysis {
@@ -16,8 +15,8 @@ namespace Albatross.CodeAnalysis {
 			this.stack.Push(builder);
 			return this;
 		}
-		public CodeStack End() {
-			this.stack.Push(new EndNode());
+		public CodeStack End(bool asStatement = false) {
+			this.stack.Push(new EndNode(asStatement));
 			return this;
 		}
 		public CodeStack With(params INodeContainer[] nodes) {
@@ -30,6 +29,10 @@ namespace Albatross.CodeAnalysis {
 			foreach (var node in nodes) {
 				this.stack.Push(new NodeContainer(node));
 			}
+			return this;
+		}
+		public CodeStack Append(Action<CodeStack> action) {
+			action(this);
 			return this;
 		}
 		public CodeStack Seek(Func<INodeBuilder, bool> predicate) {
@@ -59,8 +62,11 @@ namespace Albatross.CodeAnalysis {
 			do {
 				var top = stack.Pop();
 				if (top is INodeBuilder builder) {
-					var nodes = buildStack.PopUntil(x => x is IEndNode, true);
+					var nodes = buildStack.PopUntil(x => x is EndNode, out var lastNode).ToArray();
 					var result = builder.Build(nodes.Cast<INodeContainer>().Select(x => x.Node).ToArray());
+					if (((EndNode)lastNode).AsStatement) {
+						result = CreateStatement(result);
+					}
 					buildStack.Push(new NodeContainer(result));
 				} else {
 					buildStack.Push(top);
@@ -75,6 +81,16 @@ namespace Albatross.CodeAnalysis {
 				}
 			}
 			return sb.ToString();
+		}
+		StatementSyntax CreateStatement(SyntaxNode node) {
+			switch (node) {
+				case VariableDeclarationSyntax variableDeclarationSyntax:
+					return SyntaxFactory.LocalDeclarationStatement(variableDeclarationSyntax);
+				case ExpressionSyntax expressionSyntax:
+					return SyntaxFactory.ExpressionStatement(expressionSyntax);
+				default:
+					throw new NotSupportedException();
+			}
 		}
 	}
 }

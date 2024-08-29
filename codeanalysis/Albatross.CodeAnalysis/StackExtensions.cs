@@ -1,22 +1,24 @@
 ﻿using Microsoft.CodeAnalysis;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.CodeAnalysis {
-	public static class StackExtensions {
-		public static IEnumerable<T> PopUntil<T>(this Stack<T> stack, Func<T, bool> predicate, bool discard) {
+	public static class CollectionExtensions {
+		public static List<T> PopUntil<T>(this Stack<T> stack, Func<T, bool> predicate, out T last) {
+			last = default(T)!;
+			var list = new List<T>();
 			while (stack.Any()) {
 				var item = stack.Pop();
 				if (predicate(item)) {
-					if (!discard) {
-						yield return item;
-					}
-					break;
+					last = item;
+					return list;
 				} else {
-					yield return item;
+					list.Add(item);
 				}
 			}
+			throw new InvalidOperationException("None of stack item matched the predicate");
 		}
 	}
 }

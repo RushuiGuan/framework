@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -129,6 +130,18 @@ public class MyTest
 					.Begin(new ClassDeclarationBuilder("MyTest")).End()
 				.End().Build();
 			Assert.Equal(CompilationUnitWithUsingDirective_Expected, node.ToString());
+		}
+
+		const string ClassWithBaseType_Expected = @"public class Test : MyBase, Interface1, Interface2
+{
+}
+";
+		[Fact]
+		public void ClassWithBaseType() {
+			var nod = new CodeStack().Begin(new ClassDeclarationBuilder("Test"))
+				.With(new BaseTypeNode("MyBase"), new BaseTypeNode("Interface1"), new BaseTypeNode("Interface2"))
+				.End().Build();
+			Assert.Equal(ClassWithBaseType_Expected, nod.ToString());
 		}
 	}
 }
