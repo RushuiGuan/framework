@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Albatross.CodeAnalysis.Syntax;
+using Xunit;
 
 namespace Albatross.CodeAnalysis.Test {
 	public class TestConstructorCreation {

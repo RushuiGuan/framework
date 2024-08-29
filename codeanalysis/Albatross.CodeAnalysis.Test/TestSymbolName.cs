@@ -1,6 +1,5 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis;
-using System.Text.Json.Serialization;
 using Xunit;
 namespace Albatross.CodeAnalysis.Test {
 	public class TestSymbolName {
