@@ -6,7 +6,6 @@ using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.Modifiers;
 using Albatross.Text;
 using Microsoft.CodeAnalysis;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -58,7 +57,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			}
 		}
 		IExpression CreateHttpInvocationExpression(IMethodSymbol methodSymbol) {
-			var builder = new InvocationExpressionBuilder();
+			var builder = new CodeGen.TypeScript.Expressions.InvocationExpressionBuilder();
 			if (settings.UsePromise) {
 				builder.Await();
 			}
