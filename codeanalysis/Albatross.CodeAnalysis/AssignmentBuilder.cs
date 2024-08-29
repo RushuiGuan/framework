@@ -13,17 +13,18 @@ namespace Albatross.CodeAnalysis {
 	/// ```
 	/// </summary>
 	public class AssignmentExpressionBuilder : INodeBuilder {
-		public AssignmentExpressionBuilder(string identifierName) {
-			IdentifierName = identifierName;
+		public AssignmentExpressionBuilder(bool memberAccess, params string[] identifiers) {
+			this.IdentifierName = (ExpressionSyntax)new IdentifierNode(memberAccess, identifiers).Node;
+		}
+		public AssignmentExpressionBuilder(params string[] identifiers) {
+			this.IdentifierName = (ExpressionSyntax)new IdentifierNode(false, identifiers).Node;
 		}
 
-		public string IdentifierName { get; }
+		public ExpressionSyntax IdentifierName { get; }
 
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			if (elements.Count() == 1 && elements.First() is ExpressionSyntax expressionSyntax) {
-				return SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
-					SyntaxFactory.IdentifierName(this.IdentifierName),
-					expressionSyntax);
+				return SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, this.IdentifierName, expressionSyntax);
 			} else {
 				throw new ArgumentException($"Assignment operations expects one parameter of type ExpressionSyntax");
 			}
