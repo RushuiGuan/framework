@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
 	/// Create an <see cref="ObjectCreationExpressionSyntax"/>.  
 	/// It expects an optional <see cref="ArgumentListSyntax"/> and zero or more optional parameters of <see cref="AssignmentExpressionSyntax"/>
@@ -14,10 +14,10 @@ namespace Albatross.CodeAnalysis {
 	/// </summary>
 	public class NewObjectBuilder : INodeBuilder {
 		private NewObjectBuilder(TypeSyntax typeSyntax) {
-			this.Node = SyntaxFactory.ObjectCreationExpression(typeSyntax);
+			Node = SyntaxFactory.ObjectCreationExpression(typeSyntax);
 		}
 		public NewObjectBuilder(string typeName) : this(SyntaxFactory.IdentifierName(typeName)) { }
-		public NewObjectBuilder(string typeName, params string[] genericTypeArguments) : this(CreateGenericType(typeName, genericTypeArguments)){
+		public NewObjectBuilder(string typeName, params string[] genericTypeArguments) : this(CreateGenericType(typeName, genericTypeArguments)) {
 		}
 		static TypeSyntax CreateGenericType(string typeName, IEnumerable<string> genericTypeArguments) {
 			var arguments = SyntaxFactory.SeparatedList(genericTypeArguments.Select(x => SyntaxFactory.ParseTypeName(x)));
@@ -30,18 +30,18 @@ namespace Albatross.CodeAnalysis {
 			var assignments = elements.OfType<AssignmentExpressionSyntax>().ToArray();
 			if (argumentList == null) {
 				if (assignments.Length == 0) {
-					this.Node = this.Node.WithArgumentList(SyntaxFactory.ArgumentList());
+					Node = Node.WithArgumentList(SyntaxFactory.ArgumentList());
 				}
 			} else {
-				this.Node = this.Node.WithArgumentList(argumentList);
+				Node = Node.WithArgumentList(argumentList);
 			}
 			InitializerExpressionSyntax initializer = null;
 			if (assignments.Length > 0) {
 				var list = SyntaxFactory.SeparatedList(assignments.Cast<ExpressionSyntax>());
 				initializer = SyntaxFactory.InitializerExpression(SyntaxKind.ObjectInitializerExpression, list);
-				this.Node = this.Node.WithInitializer(initializer);
+				Node = Node.WithInitializer(initializer);
 			}
-			return this.Node;
+			return Node;
 		}
 	}
 

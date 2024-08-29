@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Albatross.CodeAnalysis.Symbols;
+using FluentAssertions;
 using Microsoft.CodeAnalysis;
 using Xunit;
 namespace Albatross.CodeAnalysis.Test {

@@ -3,13 +3,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Linq;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	public class IdentifierNode : NodeContainer {
 		public IdentifierNode(params string[] names) : base(Create(false, names)) {
 		}
 		public IdentifierNode(bool memberAccess, params string[] names) : base(Create(memberAccess, names)) { }
 
-		public ExpressionSyntax Identifier => (ExpressionSyntax)this.Node;
+		public ExpressionSyntax Identifier => (ExpressionSyntax)Node;
 
 		static ExpressionSyntax Create(bool memberAccess, params string[] names) {
 			ExpressionSyntax expressionSyntax = null;

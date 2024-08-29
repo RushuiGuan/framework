@@ -4,10 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	public static class CollectionExtensions {
 		public static List<T> PopUntil<T>(this Stack<T> stack, Func<T, bool> predicate, out T last) {
-			last = default(T)!;
+			last = default!;
 			var list = new List<T>();
 			while (stack.Any()) {
 				var item = stack.Pop();

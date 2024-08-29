@@ -1,5 +1,4 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.Config;
+﻿using Albatross.Config;
 using Albatross.Hosting.Utility;
 using CommandLine;
 using Microsoft.CodeAnalysis;
@@ -19,6 +18,7 @@ using Albatross.CodeGen.WebClient.TypeScript;
 using Albatross.CodeGen.WebClient;
 using Albatross.Serialization;
 using Albatross.Logging;
+using Albatross.CodeAnalysis.Symbols;
 
 namespace Albatross.CodeGen.Utility {
 	public class MyUtilityOption : BaseOption {

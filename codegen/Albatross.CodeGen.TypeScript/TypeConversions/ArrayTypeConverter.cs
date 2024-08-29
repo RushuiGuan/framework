@@ -1,8 +1,8 @@
 ﻿using Albatross.CodeGen.Syntax;
-using Albatross.CodeAnalysis;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
 using System.Diagnostics.CodeAnalysis;
+using Albatross.CodeAnalysis.Symbols;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class ArrayTypeConverter : ITypeConverter {

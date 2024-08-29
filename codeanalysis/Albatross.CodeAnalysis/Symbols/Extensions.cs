@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Symbols {
 	public static class Extensions {
 		public static INamedTypeSymbol GetRequiredSymbol(this Compilation compilation, string typeName) {
 			var symbol = compilation.GetTypeByMetadataName(typeName);
@@ -202,7 +202,7 @@ namespace Albatross.CodeAnalysis {
 			} else if (symbol.ContainingNamespace.IsGlobalNamespace) {
 				return symbol.Name;
 			} else {
-				return $"{GetFullNamespace(symbol.ContainingNamespace)}.{symbol.Name}";
+				return $"{symbol.ContainingNamespace.GetFullNamespace()}.{symbol.Name}";
 			}
 		}
 	}

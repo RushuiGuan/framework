@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	public class NodeContainer : INodeContainer {
 		public NodeContainer(SyntaxNode node) {
 			Node = node;

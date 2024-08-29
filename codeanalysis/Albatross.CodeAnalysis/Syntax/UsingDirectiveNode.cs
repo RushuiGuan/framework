@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	public class UsingDirectiveNode : NodeContainer {
-		public UsingDirectiveNode(string name) 
+		public UsingDirectiveNode(string name)
 			: base(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName(name))) {
 		}
 	}
