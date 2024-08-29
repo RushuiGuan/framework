@@ -1,6 +1,7 @@
-﻿using Albatross.Messaging.Commands;
-using CommandLine;
+﻿using CommandLine;
 using Sample.Core.Commands;
+using Sample.Core.Commands.MyOwnNameSpace;
+using Sample.Proxy;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,8 +23,8 @@ namespace Sample.Utility {
 	public class RunMyCommand2 : MyUtilityBase<RunMyCommand2Option> {
 		public RunMyCommand2(RunMyCommand2Option option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
-			var commands = new List<object>();
+		public async Task<int> RunUtility(CommandProxyService client) {
+			var commands = new List<ISystemCommand>();
 			for (int i = 0; i < Options.Count; i++) {
 				var cmd = new MyCommand2($"test command: {i}") {
 					Error = Options.Error,
@@ -37,7 +38,9 @@ namespace Sample.Utility {
 					}
 				}
 			}
-			await client.SubmitCollection(commands);
+			foreach (var cmd in commands) {
+				await client.SubmitSystemCommand(cmd);
+			}
 			return 0;
 		}
 	}

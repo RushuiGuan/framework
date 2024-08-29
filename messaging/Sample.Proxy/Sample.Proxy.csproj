@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
     <ProjectReference Include="..\..\webclient\Albatross.WebClient\Albatross.WebClient.csproj" />
+    <ProjectReference Include="..\Sample.Core\Sample.Core.csproj" />
   </ItemGroup>
 </Project>

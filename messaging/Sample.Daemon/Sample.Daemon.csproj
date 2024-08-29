@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
@@ -6,31 +6,22 @@
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 	</PropertyGroup>
 
-
 	<ItemGroup>
-	  <ProjectReference Include="..\..\hosting\Albatross.Hosting\Albatross.Hosting.csproj" />
-	  <ProjectReference Include="..\Sample\Sample.csproj" />
+		<None Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="serilog.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="serilog.local.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+
 	</ItemGroup>
 
+
 	<ItemGroup>
-		<Content Update="appsettings.staging.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="C:\Users\rushui2020\.nuget\packages\albatross.hosting\2.0.0-alpha.1\contentFiles\any\net5.0\serilog.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="serilog.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Update="serilog.local.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
+		<ProjectReference Include="..\..\hosting\Albatross.Hosting\Albatross.Hosting.csproj" />
+		<ProjectReference Include="..\Sample\Sample.csproj" />
 	</ItemGroup>
-
-	<ProjectExtensions>
-		<VisualStudio>
-			<UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/appsscript.json" />
-		</VisualStudio>
-	</ProjectExtensions>
-
 </Project>

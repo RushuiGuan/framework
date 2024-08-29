@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Sample.Core.Commands;
 using Sample.Proxy;
 using System.Threading.Tasks;
 
@@ -10,8 +11,8 @@ namespace Sample.Utility {
 		public Ping(PingOption option) : base(option) {
 		}
 
-		public async Task<int> RunUtility(RunProxyService svc) {
-			await svc.Ping();
+		public async Task<int> RunUtility(CommandProxyService svc) {
+			await svc.SubmitAppCommand(new PingCommand(1));
 			return 0;
 		}
 	}

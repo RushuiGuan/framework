@@ -1,6 +1,6 @@
-﻿using Albatross.Messaging.Commands;
-using CommandLine;
+﻿using CommandLine;
 using Sample.Core.Commands;
+using Sample.Proxy;
 using System.Threading.Tasks;
 
 namespace Sample.Utility {
@@ -21,7 +21,7 @@ namespace Sample.Utility {
 	public class RunMyCommand1 : MyUtilityBase<RunMyCommand1Option> {
 		public RunMyCommand1(RunMyCommand1Option option) : base(option) {
 		}
-		public async Task<int> RunUtility(ICommandClient client) {
+		public async Task<int> RunUtility( CommandProxyService client) {
 			for(int i=0; i<Options.Count; i++) {
 				var cmd = new MyCommand1($"test command {i}") {
 					Error = Options.Error,
@@ -33,7 +33,7 @@ namespace Sample.Utility {
 						cmd.Commands.Add(new MyCommand2($"test command {j}"));
 					}
 				}
-				await client.Submit(cmd);
+				await client.SubmitSystemCommand(cmd);
 			}
 			return 0;
 		}

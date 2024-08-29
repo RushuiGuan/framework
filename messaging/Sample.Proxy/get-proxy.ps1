@@ -1,6 +1,7 @@
 $location = get-location
 
-set-location $PSScriptRoot\..\SampleProject.CodeGen
-dotnet run create-api-csharp-proxy --out $PSScriptRoot --namespace SampleProject.Proxy
+get-item $PSScriptRoot\*.Generated.cs | remove-item;
+set-location $PSScriptRoot\..\Sample.CodeGen
+dotnet run create-api-csharp-proxy --out $PSScriptRoot --namespace Sample.Proxy
 set-location $location;
 

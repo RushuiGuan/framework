@@ -1,47 +1,17 @@
 ﻿using Albatross.Config;
 using Albatross.Hosting.Utility;
-using Albatross.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.Proxy;
-using Serilog;
-using Serilog.Core;
-using Serilog.Filters;
-using System;
-using System.Threading.Tasks;
 
 namespace Sample.Utility {
 
 	public class MyUtilityBase<T> : UtilityBase<T> where T : BaseOption {
 		protected MyUtilityBase(T option) : base(option) {
 		}
-		protected virtual bool CustomMessaging => false;
-
-		protected override void ConfigureLogging(LoggerConfiguration cfg) {
-			cfg.MinimumLevel.Information()
-				.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Error)
-				.WriteTo.Logger(log_cfg => log_cfg.Filter.ByExcluding(Matching.WithProperty<string>(Constants.SourceContextPropertyName, source => source != null && source.EndsWith("message-entry")))
-				.WriteTo.Console(outputTemplate: SetupSerilog.DefaultOutputTemplate))
-				.WriteTo.Logger(log_cfg => log_cfg.Filter.ByIncludingOnly(Matching.WithProperty<string>(Constants.SourceContextPropertyName, source => source != null && source.EndsWith("message-entry")))
-				.WriteTo.Console(outputTemplate: "{SourceContext}:{Message:lj}"))
-				.Enrich.FromLogContext();
-		}
 		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environment, IServiceCollection services) {
 			base.RegisterServices(configuration, environment, services);
 			services.AddSampleProjectProxy();
-			if (CustomMessaging) {
-				services.AddCustomMessagingClient();
-			} else {
-				services.AddDefaultMessagingClient();
-			}
-		}
-		public override async Task Init(IConfiguration configuration, IServiceProvider provider) {
-			await base.Init(configuration, provider);
-			if (CustomMessaging) {
-				await provider.UseCustomMessagingClient(logger);
-			} else {
-				await provider.UseDefaultMessagingClient(logger);
-			}
 		}
 	}
 }
