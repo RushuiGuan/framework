@@ -167,6 +167,9 @@ namespace Albatross.CodeAnalysis.Symbols {
 				named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>" || symbol.NullableAnnotation == NullableAnnotation.Annotated
 			);
 		}
+		public static bool IsNullable(this IPropertySymbol propertySymbol) {
+			return propertySymbol.Type.IsNullable();
+		}
 
 		public static string GetFullName(this ITypeSymbol symbol) {
 			string fullName;
