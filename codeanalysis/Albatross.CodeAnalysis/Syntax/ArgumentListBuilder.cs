@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
 	/// Generate the argument list used by other syntaxes. Uses any number of parameters of type <see cref="ExpressionSyntax"/>.  Parameters are optional.
 	/// ```

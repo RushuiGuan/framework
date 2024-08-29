@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	public class NamespaceDeclarationBuilder : INodeBuilder {
 		public NamespaceDeclarationBuilder(string name) {
-			this.Node = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.IdentifierName(name));
+			Node = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.IdentifierName(name));
 		}
 
 		public NamespaceDeclarationSyntax Node { get; private set; }
@@ -17,14 +17,14 @@ namespace Albatross.CodeAnalysis {
 			var members = new List<MemberDeclarationSyntax>();
 			members.AddRange(elements.OfType<InterfaceDeclarationSyntax>());
 			members.AddRange(elements.OfType<ClassDeclarationSyntax>());
-			this.Node = this.Node.AddMembers(members.ToArray());
+			Node = Node.AddMembers(members.ToArray());
 
 			var distinctUsingDirectives = elements.OfType<UsingDirectiveSyntax>()
 				.Select(x => x.Name?.ToFullString() ?? throw new InvalidOperationException("Using Directive with Aliases is not supported"))
 				.Distinct().OrderBy(x => x).Select(x => (UsingDirectiveSyntax)new UsingDirectiveNode(x).Node).ToArray();
 
-			this.Node = this.Node.AddUsings(distinctUsingDirectives);
-			return this.Node;
+			Node = Node.AddUsings(distinctUsingDirectives);
+			return Node;
 		}
 	}
 }

@@ -6,28 +6,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	public class CodeStack {
 		Stack<INode> stack = new Stack<INode>();
 		Stack<INode> seekStack = new Stack<INode>();
 
 		public CodeStack Begin(INodeBuilder builder) {
-			this.stack.Push(builder);
+			stack.Push(builder);
 			return this;
 		}
 		public CodeStack End(bool asStatement = false) {
-			this.stack.Push(new EndNode(asStatement));
+			stack.Push(new EndNode(asStatement));
 			return this;
 		}
 		public CodeStack With(params INodeContainer[] nodes) {
 			foreach (var node in nodes) {
-				this.stack.Push(node);
+				stack.Push(node);
 			}
 			return this;
 		}
 		public CodeStack With(params SyntaxNode[] nodes) {
 			foreach (var node in nodes) {
-				this.stack.Push(new NodeContainer(node));
+				stack.Push(new NodeContainer(node));
 			}
 			return this;
 		}
@@ -51,8 +51,8 @@ namespace Albatross.CodeAnalysis {
 			throw new ArgumentException("The specific NodeBuilder was not found");
 		}
 		public CodeStack EndSeek() {
-			while (this.seekStack.Any()) {
-				this.stack.Push(this.seekStack.Pop());
+			while (seekStack.Any()) {
+				stack.Push(seekStack.Pop());
 			}
 			return this;
 		}

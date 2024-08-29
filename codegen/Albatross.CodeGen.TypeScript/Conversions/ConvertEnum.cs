@@ -2,7 +2,7 @@
 using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
 using System.Linq;
-using Albatross.CodeAnalysis;
+using Albatross.CodeAnalysis.Symbols;
 
 namespace Albatross.CodeGen.TypeScript.Conversions {
 	public class ConvertEnum : IConvertObject<INamedTypeSymbol, EnumDeclaration> {

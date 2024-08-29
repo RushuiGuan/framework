@@ -1,5 +1,4 @@
-﻿using Albatross.CodeAnalysis;
-using Humanizer;
+﻿using Humanizer;
 using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Declarations;
@@ -9,6 +8,7 @@ using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Albatross.CodeAnalysis.Symbols;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
 	public class ConvertApiControllerToTypeScriptFile : IConvertObject<INamedTypeSymbol, TypeScriptFileDeclaration> {

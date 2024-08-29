@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
 	/// Create a syntax node of <see cref="VariableDeclarationSyntax"/>.  It requires one parameter of type <see cref="ExpressionSyntax"/>.
 	/// Since the variable is declare with `var` keyword and has to be initialized.
@@ -14,8 +14,8 @@ namespace Albatross.CodeAnalysis {
 
 		public VariableBuilder(string? type, string name) {
 			type = string.IsNullOrEmpty(type) ? "var" : type;
-			this.Node = SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName(type!));
-			this.Name = name;
+			Node = SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName(type!));
+			Name = name;
 		}
 
 		public VariableDeclarationSyntax Node { get; private set; }
@@ -24,12 +24,12 @@ namespace Albatross.CodeAnalysis {
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			if (elements.Count() <= 1) {
 				if (elements.FirstOrDefault() is ExpressionSyntax expressionSyntax) {
-					this.Node = this.Node.WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(this.Name)
+					Node = Node.WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(Name)
 						.WithInitializer(SyntaxFactory.EqualsValueClause(expressionSyntax))));
 				} else {
-					this.Node = this.Node.WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(this.Name)));
+					Node = Node.WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(Name)));
 				}
-				return this.Node;
+				return Node;
 			} else {
 				throw new ArgumentException($"LocalVariable declaration takes one parameter of type ExpressionSyntax");
 			}

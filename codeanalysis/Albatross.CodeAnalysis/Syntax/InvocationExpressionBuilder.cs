@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.CodeAnalysis {
+namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
 	/// Generate a <see cref="InvocationExpressionSyntax"/> instance.  Will take one optional <see cref="ArgumentListSyntax"/> as parameter.
 	/// </summary>
@@ -13,7 +13,7 @@ namespace Albatross.CodeAnalysis {
 		public InvocationExpressionBuilder(params string[] names) : this(false, names) { }
 
 		public InvocationExpressionBuilder(bool memberAccess, params string[] names) {
-			this.Node = SyntaxFactory.InvocationExpression(new IdentifierNode(memberAccess, names).Identifier);
+			Node = SyntaxFactory.InvocationExpression(new IdentifierNode(memberAccess, names).Identifier);
 		}
 
 		public InvocationExpressionSyntax Node { get; private set; }
@@ -23,12 +23,12 @@ namespace Albatross.CodeAnalysis {
 				var element = elements.FirstOrDefault();
 				if (element != null) {
 					if (element is ArgumentListSyntax argumentListSyntax) {
-						return this.Node.WithArgumentList(argumentListSyntax);
+						return Node.WithArgumentList(argumentListSyntax);
 					} else {
 						throw new ArgumentException($"The {nameof(InvocationExpressionBuilder)} only accepts {nameof(ArgumentListSyntax)} as a parameter");
 					}
 				} else {
-					return this.Node.WithArgumentList(SyntaxFactory.ArgumentList());
+					return Node.WithArgumentList(SyntaxFactory.ArgumentList());
 				}
 			} else {
 				throw new ArgumentException($"The {nameof(InvocationExpressionBuilder)} only accepts at most one {nameof(ArgumentListSyntax)} parameter");

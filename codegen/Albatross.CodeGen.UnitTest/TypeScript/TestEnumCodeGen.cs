@@ -1,4 +1,4 @@
-﻿using Albatross.CodeAnalysis;
+﻿using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.CSharp.Models;
 using Albatross.CodeGen.TypeScript.Conversions;
 using Albatross.CodeGen.TypeScript.Expressions;
@@ -17,7 +17,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 	public enum MyEnum1 {
 		New, Brand, Best
 	}";
-			var compilation = Albatross.CodeAnalysis.Extensions.CreateCompilation(code);
+			var compilation = CodeAnalysis.Symbols.Extensions.CreateCompilation(code);
 			var symbol = compilation.GetRequiredSymbol("MyEnum1");
 			var result = new ConvertEnum().Convert(symbol);
 
@@ -45,7 +45,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 			string code = @"
 	public enum MyEnum1 {
 		New = 1, Brand = 2, Best = 3
-	}"; var compilation = Albatross.CodeAnalysis.Extensions.CreateCompilation(code);
+	}"; var compilation = CodeAnalysis.Symbols.Extensions.CreateCompilation(code);
 			var symbol = compilation.GetRequiredSymbol("MyEnum1");
 			var result = new ConvertEnum().Convert(symbol);
 

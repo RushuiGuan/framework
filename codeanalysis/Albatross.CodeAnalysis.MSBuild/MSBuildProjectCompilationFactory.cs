@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Albatross.CodeAnalysis.Symbols;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 using System;
 

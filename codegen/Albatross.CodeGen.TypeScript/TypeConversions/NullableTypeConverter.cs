@@ -1,7 +1,7 @@
 ﻿using Albatross.CodeGen.Syntax;
-using Albatross.CodeAnalysis;
 using Microsoft.CodeAnalysis;
 using System.Diagnostics.CodeAnalysis;
+using Albatross.CodeAnalysis.Symbols;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class NullableTypeConverter : ITypeConverter {

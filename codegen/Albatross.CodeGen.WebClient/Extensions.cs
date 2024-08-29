@@ -1,5 +1,4 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.CodeGen.CSharp;
+﻿using Albatross.CodeGen.CSharp;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ using Microsoft.CodeAnalysis;
 using System;
 using Albatross.Text;
 using Microsoft.AspNetCore.Components.Forms.Mapping;
+using Albatross.CodeAnalysis.Symbols;
 
 namespace Albatross.CodeGen.WebClient {
 	public static class Extensions {

@@ -252,8 +252,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.CommandLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CommandLine", "commandline\Sample.CommandLine\Sample.CommandLine.csproj", "{92758798-6FD8-4C9D-93AF-E81961AE3DBA}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Albatross.CodeAnalysis.Shared", "codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.shproj", "{529B8C5B-BA8D-4129-93E7-4421A2E13677}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample", "messaging\Sample\Sample.csproj", "{931637A5-3A71-4AEE-B1F6-AEB9E90FF7CE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CodeGen", "messaging\Sample.CodeGen\Sample.CodeGen.csproj", "{57F3CAF3-DEAA-4848-B901-95FD0727BBDB}"
@@ -722,7 +720,6 @@ Global
 		{78427F02-C4EF-4EAD-91F0-118E44D4768C} = {70F19D88-A49C-419F-8A5C-14ACCBF9EE74}
 		{F7AF2584-13C9-4FB1-9FB3-69566813578F} = {70F19D88-A49C-419F-8A5C-14ACCBF9EE74}
 		{92758798-6FD8-4C9D-93AF-E81961AE3DBA} = {70F19D88-A49C-419F-8A5C-14ACCBF9EE74}
-		{529B8C5B-BA8D-4129-93E7-4421A2E13677} = {B931D5AC-4EF7-4FA6-B914-8DD17376CAC2}
 		{931637A5-3A71-4AEE-B1F6-AEB9E90FF7CE} = {CCD031A5-EF83-494E-BD2B-0757AA04DD5C}
 		{57F3CAF3-DEAA-4848-B901-95FD0727BBDB} = {CCD031A5-EF83-494E-BD2B-0757AA04DD5C}
 		{03E80252-2CAE-4485-A873-7FD1BE6E38A2} = {CCD031A5-EF83-494E-BD2B-0757AA04DD5C}
@@ -735,7 +732,6 @@ Global
 		SolutionGuid = {4751EEB3-6D5D-4780-B0C9-ECB82447CB4A}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{529b8c5b-ba8d-4129-93e7-4421a2e13677}*SharedItemsImports = 13
 		codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{938aaa3d-5b69-4d81-9ba4-670d31ef32b1}*SharedItemsImports = 5
 		codeanalysis\Albatross.CodeAnalysis.Shared\Albatross.CodeAnalysis.Shared.projitems*{f7af2584-13c9-4fb1-9fb3-69566813578f}*SharedItemsImports = 5
 	EndGlobalSection
