@@ -21,6 +21,8 @@ $projects = @(
 	"caching\Albatross.Caching.MemCache",
 	"caching\Albatross.Caching.Redis",
 	"caching\Albatross.EFCore.AutoCacheEviction",
+	"codeanalysis\Albatross.CodeAnalysis",
+	"codeanalysis\Albatross.CodeAnalysis.MSBuild",
 	"collections\Albatross.Collections",
 	"config\Albatross.Config",
 	"dates\Albatross.Dates",
