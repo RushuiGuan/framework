@@ -13,11 +13,9 @@ namespace Albatross.CodeAnalysis.Syntax {
 	/// ```
 	/// </summary>
 	public class AssignmentExpressionBuilder : INodeBuilder {
-		public AssignmentExpressionBuilder(bool memberAccess, params string[] identifiers) {
-			IdentifierName = (ExpressionSyntax)new IdentifierNode(memberAccess, identifiers).Node;
-		}
-		public AssignmentExpressionBuilder(params string[] identifiers) {
-			IdentifierName = (ExpressionSyntax)new IdentifierNode(false, identifiers).Node;
+		public AssignmentExpressionBuilder(string name) : this(new IdentifierNode(name)) { }
+		public AssignmentExpressionBuilder(IdentifierNode identifier) {
+			IdentifierName = identifier.Identifier;
 		}
 
 		public ExpressionSyntax IdentifierName { get; }
@@ -30,5 +28,4 @@ namespace Albatross.CodeAnalysis.Syntax {
 			}
 		}
 	}
-
 }

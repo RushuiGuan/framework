@@ -1,5 +1,5 @@
 ﻿using Albatross.Config;
-using Albatross.Hosting.CommandLine;
+using Albatross.CommandLine;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

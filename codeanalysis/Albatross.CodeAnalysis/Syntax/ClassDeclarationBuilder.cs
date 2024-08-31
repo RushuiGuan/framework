@@ -11,6 +11,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 	/// * <see cref="ConstructorDeclarationSyntax"/>
 	/// * <see cref="AttributeSyntax"/>"/>
 	/// * <see cref="BaseTypeSyntax"/>
+	/// * <see cref="MethodDeclarationSyntax"/>
 	/// </summary>
 	public class ClassDeclarationBuilder : INodeBuilder {
 		public ClassDeclarationBuilder(string className) {
@@ -26,6 +27,18 @@ namespace Albatross.CodeAnalysis.Syntax {
 			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 			return this;
 		}
+		public ClassDeclarationBuilder Abstract() {
+			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.AbstractKeyword));
+			return this;
+		}
+		public ClassDeclarationBuilder Sealed() {
+			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.SealedKeyword));
+			return this;
+		}
+		public ClassDeclarationBuilder Static() {
+			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
+			return this;
+		}
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			var constructor = elements.OfType<ConstructorDeclarationSyntax>().FirstOrDefault();
 			if (constructor != null) {
@@ -39,6 +52,9 @@ namespace Albatross.CodeAnalysis.Syntax {
 			if (baseTypes.Any()) {
 				Node = Node.AddBaseListTypes(baseTypes);
 			}
+
+			Node = Node.AddMembers(elements.OfType<PropertyDeclarationSyntax>().ToArray());
+			Node = Node.AddMembers(elements.OfType<MethodDeclarationSyntax>().ToArray());
 			return Node;
 		}
 	}

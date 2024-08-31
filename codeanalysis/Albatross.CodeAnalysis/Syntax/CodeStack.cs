@@ -8,16 +8,58 @@ using System.Text;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	public class CodeStack {
+		public class Scope : IDisposable {
+			CodeStack parent;
+			public Scope(CodeStack parent) { this.parent = parent; }
+			public void Dispose() { parent.End(); }
+		}
+
 		Stack<INode> stack = new Stack<INode>();
 		Stack<INode> seekStack = new Stack<INode>();
 
+		public CodeStack Begin() {
+			stack.Push(new NoOpNodeBuilder());
+			return this;
+		}
 		public CodeStack Begin(INodeBuilder builder) {
 			stack.Push(builder);
 			return this;
 		}
-		public CodeStack End(bool asStatement = false) {
-			stack.Push(new EndNode(asStatement));
+		public CodeStack Complete(INodeBuilder builder) {
+			stack.Push(builder);
+			this.End();
 			return this;
+		}
+		public CodeStack Feed(INodeBuilder builder, bool end= true) {
+			var localStack = new Stack<INode>();
+			var count = 0;
+			while (this.stack.Any()) {
+				var peek = this.stack.Peek();
+				if (peek is INodeContainer container) {
+					localStack.Push(this.stack.Pop());
+				} else if (peek is EndNode) {
+					localStack.Push(this.stack.Pop());
+					count++;
+				} else {
+					if (count > 0) {
+						localStack.Push(this.stack.Pop());
+						count--;
+					} else {
+						break;
+					}
+				}
+			}
+			this.stack.Push(builder);
+			while (localStack.Any()) {
+				this.stack.Push(localStack.Pop());
+			}
+			if (end) {
+				this.End();
+			}
+			return this;
+		}
+		public Scope NewScope() {
+			return new Scope(this);
 		}
 		public CodeStack With(params INodeContainer[] nodes) {
 			foreach (var node in nodes) {
@@ -35,6 +77,11 @@ namespace Albatross.CodeAnalysis.Syntax {
 			action(this);
 			return this;
 		}
+		public CodeStack End() {
+			stack.Push(new EndNode());
+			return this;
+		}
+
 		public CodeStack Seek(Func<INodeBuilder, bool> predicate) {
 			if (seekStack.Any()) {
 				throw new ArgumentException("A current seek is in progress");
@@ -63,11 +110,14 @@ namespace Albatross.CodeAnalysis.Syntax {
 				var top = stack.Pop();
 				if (top is INodeBuilder builder) {
 					var nodes = buildStack.PopUntil(x => x is EndNode, out var lastNode).ToArray();
-					var result = builder.Build(nodes.Cast<INodeContainer>().Select(x => x.Node).ToArray());
-					if (((EndNode)lastNode).AsStatement) {
-						result = CreateStatement(result);
+					if (builder is NoOpNodeBuilder) {
+						foreach (var node in nodes) {
+							buildStack.Push(node);
+						}
+					} else {
+						var result = builder.Build(nodes.Cast<INodeContainer>().Select(x => x.Node).ToArray());
+						buildStack.Push(new NodeContainer(result));
 					}
-					buildStack.Push(new NodeContainer(result));
 				} else {
 					buildStack.Push(top);
 				}

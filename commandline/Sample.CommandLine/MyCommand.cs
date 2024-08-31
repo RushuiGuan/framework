@@ -1,4 +1,4 @@
-﻿using Albatross.Hosting.CommandLine;
+﻿using Albatross.CommandLine;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.CommandLine.Invocation;
@@ -9,7 +9,7 @@ using System;
 using System.IO;
 
 namespace Sample.CommandLine {
-	[Verb("my-command", "a sample command", Alias = ["m", "t"])]
+	[Verb("my-command", "a sample command", Alias = ["m"])]
 	public record class MyCommandOptions {
 		[Option(Description = "use the name of the test", Alias = ["n"])]
 		public string Name { get; set; } = string.Empty;
