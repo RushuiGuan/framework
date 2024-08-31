@@ -24,6 +24,8 @@ $projects = @(
 	"codeanalysis\Albatross.CodeAnalysis",
 	"codeanalysis\Albatross.CodeAnalysis.MSBuild",
 	"collections\Albatross.Collections",
+	"commandline\Albatross.CommandLine",
+	"commandline\Albatross.CommandLine.CodeGen",
 	"config\Albatross.Config",
 	"dates\Albatross.Dates",
 	"datelevel\Albatross.DateLevel",
