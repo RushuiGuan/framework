@@ -16,14 +16,13 @@ namespace Albatross.CommandLine.CodeGen {
 		public void Execute(GeneratorExecutionContext context) {
 			// System.Diagnostics.Debugger.Launch();
 			var optionClasses = new List<INamedTypeSymbol>();
-			var handlerClasses = new List<INamedTypeSymbol>();
+			var handlerClasses = new Dictionary<string, string>();
 
 			foreach (var syntaxTree in context.Compilation.SyntaxTrees) {
 				var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
 				var walker = new CodeGenClassDeclarationWalker(semanticModel);
 				walker.Visit(syntaxTree.GetRoot());
 				optionClasses.AddRange(walker.CommandOptionClasses);
-				handlerClasses.AddRange(walker.CommandHandlerClasses);
 			}
 			if (!optionClasses.Any()) {
 				string text = $"No option class found.  Eligible classes should be public and annotated with the {My.VerbAttributeClass}";
@@ -31,7 +30,7 @@ namespace Albatross.CommandLine.CodeGen {
 				context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
 			}
 			// ********* TODO: comment out when done
-			using var writer = new StreamWriter(@"c:\temp\test.cs");
+			// using var writer = new StreamWriter(@"c:\temp\test.cs");
 			// ********* TODO: comment out when done
 
 			var qualifiedOptionClasses = new List<INamedTypeSymbol>();
@@ -40,8 +39,10 @@ namespace Albatross.CommandLine.CodeGen {
 				if (optionClass.TryGetAttribute(My.VerbAttributeClass, out var verbAttribute)) {
 					qualifiedOptionClasses.Add(optionClass);
 					var className = GetCommandClassName(optionClass.Name);
+					if (verbAttribute!.ConstructorArguments.Length > 1) {
+						handlerClasses.Add(optionClass.GetFullName(), verbAttribute!.ConstructorArguments[1].Value?.ToString() ?? string.Empty);
+					}
 					var cs = new CodeStack();
-
 					using (cs.Begin(new CompilationUnitBuilder()).NewScope()) {
 						cs.With(new UsingDirectiveNode("System.CommandLine"))
 							.With(new UsingDirectiveNode("System"), new UsingDirectiveNode("System.IO"))
@@ -63,8 +64,8 @@ namespace Albatross.CommandLine.CodeGen {
 						var code = cs.Build();
 						context.AddSource(className, SourceText.From(code, Encoding.UTF8));
 						// TODO: comment out when done
-						writer.WriteLine(className);
-						writer.WriteLine(code);
+						// writer.WriteLine(className);
+						// writer.WriteLine(code);
 						// ********* TODO: comment out when done
 					} catch (Exception err) {
 						System.Diagnostics.Debug.WriteLine(err.Message);
@@ -98,10 +99,9 @@ namespace Albatross.CommandLine.CodeGen {
 							diCodeStack.With(new ParameterNode(true, "Setup", "setup"));
 							foreach (var optionClass in qualifiedOptionClasses) {
 								var className = GetCommandClassName(optionClass.Name);
-								var handlerClass = handlerClasses.FirstOrDefault(x => x.Name == $"{className}Handler");
-								if (handlerClass != null) {
-									namespaces.Add(handlerClass.ContainingNamespace.ToDisplayString());
-									diCodeStack.Complete(new InvocationExpressionBuilder(new IdentifierNode("setup").WithGenericMember("AddCommand", className, handlerClass.Name)));
+								if(handlerClasses.TryGetValue(optionClass.GetFullName(), out var handlerClassName)) {
+									namespaces.Add(optionClass.ContainingNamespace.ToDisplayString());
+									diCodeStack.Complete(new InvocationExpressionBuilder(new IdentifierNode("setup").WithGenericMember("AddCommand", className, handlerClassName)));
 								}
 							}
 							diCodeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("setup").Identifier));
@@ -116,8 +116,8 @@ namespace Albatross.CommandLine.CodeGen {
 				var code = diCodeStack.Build();
 				context.AddSource("RegistrationExtensions", SourceText.From(code, Encoding.UTF8));
 				// TODO: comment out when done
-				writer.WriteLine("RegistrationExtensions");
-				writer.WriteLine(code);
+				// writer.WriteLine("RegistrationExtensions");
+				// writer.WriteLine(code);
 				// ********* TODO: comment out when done
 			} catch (Exception err) {
 				System.Diagnostics.Debug.WriteLine(err.Message);

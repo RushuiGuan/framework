@@ -9,7 +9,7 @@ using System;
 using System.IO;
 
 namespace Sample.CommandLine {
-	[Verb("my-command", "a sample command", Alias = ["m"])]
+	[Verb("my-command", typeof(MyCommandHandler), "a sample command", Alias = ["m"])]
 	public record class MyCommandOptions {
 		[Option(Description = "use the name of the test", Alias = ["n"])]
 		public string Name { get; set; } = string.Empty;
