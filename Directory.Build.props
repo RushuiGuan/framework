@@ -1,8 +1,8 @@
 <Project>
-	<PropertyGroup>
-		<Version>7.3.1</Version>
-		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
-		<EnableWindowsTargeting>True</EnableWindowsTargeting>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Version>7.3.1-1681.staging+9a3f3482</Version>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+    <EnableWindowsTargeting>True</EnableWindowsTargeting>
+  </PropertyGroup>
 </Project>
