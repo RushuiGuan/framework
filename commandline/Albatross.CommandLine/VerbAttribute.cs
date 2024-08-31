@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Albatross.Hosting.CommandLine {
+namespace Albatross.CommandLine {
 	public class VerbAttribute : Attribute {
 		public VerbAttribute(string name, string? description = null) {
 			Name = name;

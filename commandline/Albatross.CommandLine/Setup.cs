@@ -15,7 +15,7 @@ using System.CommandLine.Builder;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace Albatross.Hosting.CommandLine {
+namespace Albatross.CommandLine {
 	public class Setup {
 		public Setup() {
 			this.RootCommand = CreateRootCommand();

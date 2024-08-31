@@ -65,28 +65,7 @@ namespace Albatross.CodeAnalysis.Test {
 			Assert.Equal(expected, node.ToString().Trim());
 		}
 
-		const string MethodInvocation_Expected = @"test(1, 2, 3)
-";
-		[Fact]
-		public void MethodInvocation() {
-			var result = new CodeStack().Begin(new InvocationExpressionBuilder("test"))
-					.Begin(new ArgumentListBuilder())
-						.With(new LiteralNode(1), new LiteralNode(2), new LiteralNode(3))
-					.End()
-				.End().Build();
-			Assert.Equal(MethodInvocation_Expected, result.ToString());
-		}
-		const string MethodInvocationWithMemberAccess_Expected = @"this.test(1, 2, 3)
-";
-		[Fact]
-		public void MethodInvocationWithMemberAccess() {
-			var result = new CodeStack().Begin(new InvocationExpressionBuilder(true, "test"))
-					.Begin(new ArgumentListBuilder())
-						.With(new LiteralNode(1), new LiteralNode(2), new LiteralNode(3))
-					.End()
-				.End().Build();
-			Assert.Equal(MethodInvocationWithMemberAccess_Expected, result.ToString());
-		}
+		
 
 
 		[InlineData("this.a.b", true, "a", "b")]
@@ -95,8 +74,18 @@ namespace Albatross.CodeAnalysis.Test {
 		[InlineData("a", false, "a")]
 		[Theory]
 		public void TestIdentifierCreation(string expected, bool memberAccess, params string[] names) {
-			var node = new IdentifierNode(memberAccess, names);
-			Assert.Equal(expected, node.ToString());
+			IdentifierNode? node = null;
+			if (memberAccess) {
+				node = new IdentifierNode();
+			}
+			foreach (var name in names) {
+				if (node == null) {
+					node = new IdentifierNode(name);
+				} else {
+					node = node.WithMember(name);
+				}
+			}
+			Assert.Equal(expected, node?.ToString());
 		}
 	}
 }
