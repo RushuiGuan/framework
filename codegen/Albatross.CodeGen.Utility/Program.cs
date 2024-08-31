@@ -1,11 +1,17 @@
-﻿using Albatross.Hosting.Utility;
-using CommandLine;
+﻿using System.CommandLine;
+using Albatross.CommandLine;
+using Albatross.CodeGen.CommandLine;
 using System.Threading.Tasks;
+using System.CommandLine.Builder;
+using System.CommandLine.Parsing;
 
 namespace Albatross.CodeGen.Tests.Utility {
-	class Program {
-		static Task<int> Main(string[] args) {
-			return Parser.Default.Run(args, typeof(Program).Assembly);
+	internal class Program {
+		static async Task<int> Main(string[] args) {
+			var setup = new MySetup().AddCommandHandlers();
+			setup.CommandBuilder.UseDefaults();
+			var parser = setup.CommandBuilder.Build();
+			return await parser.InvokeAsync(args);
 		}
 	}
 }

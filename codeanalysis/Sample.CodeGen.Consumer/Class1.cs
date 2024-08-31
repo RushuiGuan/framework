@@ -1,5 +1,4 @@
 ﻿namespace Sample.CodeGen.Consumer {
-	public class Class1 {
-
+	public class  MyClass{
 	}
 }

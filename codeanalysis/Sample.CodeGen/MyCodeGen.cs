@@ -12,10 +12,13 @@ namespace Sample.CodeGen {
 			var compilation = context.Compilation;
 			var cs = new CodeStack();
 			using (cs.Begin(new CompilationUnitBuilder()).NewScope()) {
-				cs.Begin(new NamespaceDeclarationBuilder("Sample.CodeGen")).NewScope();
-				cs.Begin(new ClassDeclarationBuilder("MyTest")).NewScope();
-				cs.Begin(new MethodDeclarationBuilder("void", "MyMethod")).NewScope();
-				cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode("MyTest".Kebaberize())).End();
+				using (cs.Begin(new NamespaceDeclarationBuilder("Sample.CodeGen")).NewScope()) {
+					using (cs.Begin(new ClassDeclarationBuilder("MyTest")).NewScope()) {
+						using (cs.Begin(new MethodDeclarationBuilder("void", "MyMethod")).NewScope()) {
+							cs.Begin(new VariableBuilder("string", "test1")).With(new LiteralNode("MyTest".Kebaberize())).End();
+						}
+					}
+				}
 			}
 			context.AddSource("MyTest", SourceText.From(cs.Build(), Encoding.UTF8));
 		}
