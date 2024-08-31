@@ -1,8 +1,6 @@
-﻿using Albatross.CodeAnalysis;
-using Albatross.CodeAnalysis.Syntax;
+﻿using Albatross.CodeAnalysis.Syntax;
+using Humanizer;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
 
@@ -12,14 +10,15 @@ namespace Sample.CodeGen {
 		public void Execute(GeneratorExecutionContext context) {
 			// System.Diagnostics.Debugger.Launch();
 			var compilation = context.Compilation;
-			var compilationUnit = SyntaxFactory.CompilationUnit();
-
-			var node = new ClassDeclarationBuilder("MyTest").Build([]);
-			compilationUnit = compilationUnit.AddMembers((ClassDeclarationSyntax)node);
-			var code = compilationUnit.NormalizeWhitespace().ToFullString();
-			context.AddSource("MyTest", SourceText.From(code, Encoding.UTF8));
+			var cs = new CodeStack();
+			using (cs.Begin(new CompilationUnitBuilder()).NewScope()) {
+				cs.Begin(new NamespaceDeclarationBuilder("Sample.CodeGen")).NewScope();
+				cs.Begin(new ClassDeclarationBuilder("MyTest")).NewScope();
+				cs.Begin(new MethodDeclarationBuilder("void", "MyMethod")).NewScope();
+				cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode("MyTest".Kebaberize())).End();
+			}
+			context.AddSource("MyTest", SourceText.From(cs.Build(), Encoding.UTF8));
 		}
-		public void Initialize(GeneratorInitializationContext context) {
-		}
+		public void Initialize(GeneratorInitializationContext context) { }
 	}
 }
