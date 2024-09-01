@@ -136,8 +136,8 @@ namespace Albatross.Reflection.Test {
 		[Fact]
 		public void TestAssemblyCodeBase() {
 			string? location = this.GetType().Assembly.Location;
-			location = System.IO.Path.GetDirectoryName(location);
-			string actual = this.GetType().GetAssemblyLocation();
+			location = System.IO.Path.GetDirectoryName(location) + "\\";
+			string actual = AppContext.BaseDirectory;
 			Assert.Equal(location, actual);
 		}
 

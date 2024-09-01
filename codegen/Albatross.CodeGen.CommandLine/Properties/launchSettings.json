@@ -10,7 +10,7 @@
     },
     "typescript-proxy": {
       "commandName": "Project",
-      "commandLineArgs": "typescript-proxy -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.WebApi\\Albatross.CodeGen.Tests.WebApi.csproj -o c:\\temp --settings \"C:\\app\\my-client-api\\code-gen-settings.json\"\r\n"
+      "commandLineArgs": "typescript-proxy -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.WebApi\\Albatross.CodeGen.Tests.WebApi.csproj -o c:\\temp"
     },
     "typescript-dto": {
       "commandName": "Project",

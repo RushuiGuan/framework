@@ -9,7 +9,7 @@ $install = $env:InstallDirectory;
 
 if(-not $alias) {
 	$projects = @(
-		"Albatross.CodeGen.CommandLine" `
+		"Sample.CodeGen.Consumer" `
 	);
 
 	if(-not [string]::IsNullOrEmpty($project)){
@@ -28,5 +28,3 @@ if(-not $alias) {
 		dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c release -r win-x64
 	}
 }
-
-set-alias -name codegen -Value $env:InstallDirectory\Albatross.CodeGen.CommandLine\codegen.exe

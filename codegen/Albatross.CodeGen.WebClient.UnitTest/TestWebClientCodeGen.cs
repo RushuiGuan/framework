@@ -28,7 +28,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				using (StringWriter writer = new StringWriter(sb)) {
 					writer.Code(converted);
 				}
-				string expectedFile = Path.Join(this.GetType().GetAssemblyLocation(), "TestHttpGetProxyService.expected.cs");
+				string expectedFile = Path.Join(AppContext.BaseDirectory, "TestHttpGetProxyService.expected.cs");
 				using (StreamReader reader = new StreamReader(expectedFile)) {
 					string expected = reader.ReadToEnd();
 					Assert.Equal(expected, sb.ToString());
@@ -46,7 +46,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				using (var writer = new StringWriter(sb)) {
 					writer.Code(converted);
 				}
-				string expectedFile = Path.Join(this.GetType().GetAssemblyLocation(), "TestHttpPostProxyService.expected.cs");
+				string expectedFile = Path.Join(AppContext.BaseDirectory, "TestHttpPostProxyService.expected.cs");
 				using (var reader = new StreamReader(expectedFile)) {
 					string expected = reader.ReadToEnd();
 					Assert.Equal(expected, sb.ToString());
@@ -64,7 +64,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 				using (var writer = new StringWriter(sb)) {
 					writer.Code(converted);
 				}
-				string expectedFile = Path.Join(this.GetType().GetAssemblyLocation(), "TestHttpDeleteProxyService.expected.cs");
+				string expectedFile = Path.Join(AppContext.BaseDirectory, "TestHttpDeleteProxyService.expected.cs");
 				using (var reader = new StreamReader(expectedFile)) {
 					string expected = reader.ReadToEnd();
 					Assert.Equal(expected, sb.ToString());

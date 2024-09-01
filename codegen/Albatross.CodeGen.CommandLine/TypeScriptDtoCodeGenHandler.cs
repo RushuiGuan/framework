@@ -47,8 +47,8 @@ namespace Albatross.CodeGen.CommandLine {
 				InterfaceDeclarations = dtoClasses.Select(x => interfaceConverter.Convert(x)).ToList(),
 			};
 			dtoFile.Generate(System.Console.Out);
-			if (!string.IsNullOrEmpty(options.OutputDirectory)) {
-				using (var writer = new StreamWriter(Path.Join(options.OutputDirectory, dtoFile.FileName))) {
+			if (options.OutputDirectory != null) {
+				using (var writer = new StreamWriter(Path.Join(options.OutputDirectory.FullName, dtoFile.FileName))) {
 					dtoFile.Generate(writer);
 				}
 			}

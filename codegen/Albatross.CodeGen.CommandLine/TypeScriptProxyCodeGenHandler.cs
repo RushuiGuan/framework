@@ -37,8 +37,8 @@ namespace Albatross.CodeGen.CommandLine {
 				logger.LogInformation("Generating proxy for {controller}", controller.Name);
 				var file = converter.Convert(controller);
 				file.Generate(System.Console.Out);
-				if (!string.IsNullOrEmpty(options.OutputDirectory)) {
-					using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory, file.FileName))) {
+				if (options.OutputDirectory != null) {
+					using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, file.FileName))) {
 						file.Generate(writer);
 					}
 				}
