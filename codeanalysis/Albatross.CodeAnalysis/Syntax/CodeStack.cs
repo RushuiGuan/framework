@@ -30,7 +30,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 			this.End();
 			return this;
 		}
-		public CodeStack Feed(INodeBuilder builder, bool end= true) {
+		public CodeStack To(INodeBuilder builder, bool end= true) {
 			var localStack = new Stack<INode>();
 			var count = 0;
 			while (this.stack.Any()) {

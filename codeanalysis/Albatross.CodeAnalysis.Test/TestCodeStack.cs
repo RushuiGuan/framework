@@ -59,7 +59,7 @@ namespace Albatross.CodeAnalysis.Test {
 				using (cs.Begin().NewScope()) {
 					cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
 					cs.Begin(new VariableBuilder("int", "test2")).With(new LiteralNode(2)).End();
-					cs.Feed(new MethodDeclarationBuilder("string", "MyMethod"));
+					cs.To(new MethodDeclarationBuilder("string", "MyMethod"));
 				}
 			}
 			Assert.Equal(TestFeed_Expected, cs.Build());
