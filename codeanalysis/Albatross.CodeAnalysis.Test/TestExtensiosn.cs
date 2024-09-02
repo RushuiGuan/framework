@@ -6,7 +6,7 @@ namespace Albatross.CodeAnalysis.Test {
 	public class TestExtensiosn {
 		[Fact]
 		public void TestIsDerivedFrom() {
-			var compilation = Extensions.CreateCompilation(@"
+			var compilation = Symbols.Extensions.CreateCompilation(@"
 				namespace Test {
 					public class MyBase { }
 					public class MyClass : MyBase { }
@@ -21,7 +21,7 @@ namespace Albatross.CodeAnalysis.Test {
 		}
 		[Fact]
 		public void TestIsConstructedFrom() {
-			var compilation = Extensions.CreateCompilation(@"
+			var compilation = Symbols.Extensions.CreateCompilation(@"
 				namespace Test {
 					public class MyBase<T> { }
 					public class MyClass : MyBase<string> { }

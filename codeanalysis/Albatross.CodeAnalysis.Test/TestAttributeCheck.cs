@@ -6,7 +6,7 @@ namespace Albatross.CodeAnalysis.Test {
 	public class TestAttributeCheck {
 		[Fact]
 		public void TestGetGenericAttributeName() {
-			var compilation = Extensions.CreateCompilation(@"
+			var compilation = Symbols.Extensions.CreateCompilation(@"
 	using System;
 	using System.Text.Json.Serialization;
 	[JsonConverterAttribute(typeof(JsonStringEnumConverter))]
