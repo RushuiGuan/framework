@@ -68,9 +68,9 @@ namespace Albatross.Hosting {
 		}
 
 		public virtual void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
-			services.AddConfig<ProgramSetting>(true);
-			services.TryAddSingleton<EnvironmentSetting>(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
-			services.TryAddSingleton<Microsoft.Extensions.Logging.ILogger>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
+			services.TryAddSingleton(new ProgramSetting(configuration));
+			services.TryAddSingleton(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
+			services.TryAddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 		}
 
 		public virtual async Task RunAsync() {

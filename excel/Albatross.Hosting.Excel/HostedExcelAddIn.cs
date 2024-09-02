@@ -10,6 +10,7 @@ using Albatross.Config;
 using Microsoft.Extensions.Logging;
 using ExcelDna.Integration.CustomUI;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Albatross.Hosting.Excel {
 	public abstract class HostedExcelAddIn : IExcelAddIn {
@@ -50,8 +51,8 @@ namespace Albatross.Hosting.Excel {
 			SetupSerilog.UseConfigFile(cfg, this.Environment, CurrentDirectory, new string[0]);
 		}
 		public virtual void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-			services.AddConfig<ProgramSetting>();
-			services.AddSingleton(this.envSetting);
+			services.TryAddSingleton(new ProgramSetting(configuration));
+			services.TryAddSingleton(this.envSetting);
 			services.AddSingleton<FunctionRegistrationService>();
 			services.AddSingleton<HelpService>();
 			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName ?? "default"));

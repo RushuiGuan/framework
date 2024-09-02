@@ -6,5 +6,9 @@
 		public const string CommandClassName = "Command";
 		public const string OptionClassName = "Option";
 		public const string Postfix_Options = "Options";
+
+		public static class Diagnostic {
+			public const string IdPrefix = "ComandLineCodeGen";
+		}
 	}
 }

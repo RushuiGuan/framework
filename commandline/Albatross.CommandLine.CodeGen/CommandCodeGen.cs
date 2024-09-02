@@ -1,4 +1,5 @@
-﻿using Albatross.CodeAnalysis.Symbols;
+﻿using Albatross.CodeAnalysis;
+using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeAnalysis.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Albatross.CommandLine.CodeGen {
 	[Generator]
@@ -26,8 +28,7 @@ namespace Albatross.CommandLine.CodeGen {
 			}
 			if (!optionClasses.Any()) {
 				string text = $"No option class found.  Eligible classes should be public and annotated with the {My.VerbAttributeClass}";
-				var descriptor = new DiagnosticDescriptor("CmdlineApiCodeGen01", "CommandLine CodeGen", text, "Generator", DiagnosticSeverity.Warning, true);
-				context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
+				context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}1", text);
 			} else {
 				foreach (var optionClass in optionClasses) {
 					foreach (var attribute in optionClass.GetAttributes()) {
@@ -46,9 +47,7 @@ namespace Albatross.CommandLine.CodeGen {
 					}
 				}
 			}
-			// ********* TODO: comment out when done
-			using var writer = new StreamWriter(@"c:\temp\test.cs");
-			// ********* TODO: comment out when done
+			using var writer = new StringWriter();
 			foreach (var setup in setups) {
 				var cs = new CodeStack();
 				using (cs.Begin(new CompilationUnitBuilder()).NewScope()) {
@@ -71,12 +70,10 @@ namespace Albatross.CommandLine.CodeGen {
 				try {
 					var code = cs.Build();
 					context.AddSource(setup.CommandClassName, SourceText.From(code, Encoding.UTF8));
-					// TODO: comment out when done
-					 writer.WriteLine(setup.CommandClassName);
-					 writer.WriteLine(code);
-					// ********* TODO: comment out when done
+					writer.WriteLine($"// {setup.CommandClassName}");
+					writer.WriteLine(code);
 				} catch (Exception err) {
-					System.Diagnostics.Debug.WriteLine(err.Message);
+					context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}2", err.BuildCodeGeneneratorErrorMessage("command line"));
 				}
 			}
 
@@ -132,13 +129,12 @@ namespace Albatross.CommandLine.CodeGen {
 			try {
 				var code = diCodeStack.Build();
 				context.AddSource("RegistrationExtensions", SourceText.From(code, Encoding.UTF8));
-				// TODO: comment out when done
-				 writer.WriteLine("RegistrationExtensions");
-				 writer.WriteLine(code);
-				// ********* TODO: comment out when done
+				writer.WriteLine("// RegistrationExtensions");
+				writer.WriteLine(code);
 			} catch (Exception err) {
-				System.Diagnostics.Debug.WriteLine(err.Message);
+				context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}3", err.BuildCodeGeneneratorErrorMessage("command line"));
 			}
+			context.CreateGeneratorDebugFile("command-line.debug.txt", writer.ToString());
 		}
 
 		void BuildConstructorStatements(CodeStack cs, CommandSetup setup, INamedTypeSymbol optionClass) {
@@ -149,7 +145,7 @@ namespace Albatross.CommandLine.CodeGen {
 					}
 				}
 			}
-			if(setup.Options.Any()) {
+			if (setup.Options.Any()) {
 				var variableName = "option";
 				cs.Complete(new VariableBuilder(My.OptionClassName, variableName));
 				foreach (var option in setup.Options) {
