@@ -12,7 +12,7 @@ namespace Albatross.CodeAnalysis.Test {
 		[InlineData("using System.Collections.Generic; class MyClass{ List<string> P1;}", "System.Collections.Generic.List<System.String>")]
 		[InlineData("using C = System.Collections; class MyClass{ C.ArrayList P1;}", "System.Collections.ArrayList")]
 		public void Run(string code, string expected) {
-			var compilation = Extensions.CreateCompilation(code);
+			var compilation = Symbols.Extensions.CreateCompilation(code);
 			var symbol = compilation.GetRequiredSymbol("MyClass");
 			var p1 = symbol.GetMembers().OfType<IFieldSymbol>().Where(x => x.Name == "P1").First();
 			Assert.Equal(expected, p1.Type.GetFullName());
@@ -20,7 +20,7 @@ namespace Albatross.CodeAnalysis.Test {
 
 		[Fact]
 		public void TestGenericDefinitionName() {
-			var compilation = Extensions.CreateCompilation(@"
+			var compilation = Symbols.Extensions.CreateCompilation(@"
 				namespace Test {
 					public class MyBase<T> { }
 					public class MyBase<T, K> { }
@@ -34,7 +34,7 @@ namespace Albatross.CodeAnalysis.Test {
 		}
 		[Fact]
 		public void TestGetAttributeName() {
-			var compilation = Extensions.CreateCompilation(@"
+			var compilation = Symbols.Extensions.CreateCompilation(@"
 				[System.Serializable] class MyClass{}");
 			var symbol = compilation.GetRequiredSymbol("MyClass");
 			var attribute = symbol.GetAttributes().First();

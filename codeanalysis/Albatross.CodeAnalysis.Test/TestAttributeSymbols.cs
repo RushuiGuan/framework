@@ -21,7 +21,7 @@ namespace Albatross.CodeAnalysis.Test {
 		[InlineData(@"[My(""a"")]class MyClass{ string P1;}", "a", "System.String")]
 		[InlineData(@"[My(1)]class MyClass{ string P1;}", 1, "System.Int32")]
 		public void Run(string code, object expected, string type) {
-			var compilation = Extensions.CreateCompilation(AttributeCode + code);
+			var compilation = Symbols.Extensions.CreateCompilation(AttributeCode + code);
 			var symbol = compilation.GetRequiredSymbol("MyClass");
 			symbol.TryGetAttribute("MyAttribute", out var data);
 			Assert.NotNull(data);
