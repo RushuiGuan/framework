@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
 using System;
 
-#nullable enable
 namespace Albatross.Config {
 	// the class name Extension cannot be renamed to Extensions (standard) because of backward compability reason.
 	public static class Extension {
@@ -77,4 +75,3 @@ namespace Albatross.Config {
 		}
 	}
 }
-#nullable disable

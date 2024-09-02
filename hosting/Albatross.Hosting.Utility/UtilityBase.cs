@@ -2,6 +2,7 @@
 using Albatross.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -59,8 +60,8 @@ namespace Albatross.Hosting.Utility {
 		}
 
 		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
-			services.AddConfig<ProgramSetting>();
-			services.AddSingleton(envSetting);
+			services.TryAddSingleton(new ProgramSetting(configuration));
+			services.TryAddSingleton(envSetting);
 			services.AddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName ?? "default"));
 		}
 		public const string RunUtilityMethod = "RunUtility";
