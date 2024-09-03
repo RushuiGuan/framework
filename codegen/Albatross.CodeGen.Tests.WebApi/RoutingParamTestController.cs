@@ -1,5 +1,4 @@
-﻿using Albatross.CodeGen.Tests.Dto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -35,6 +34,9 @@ namespace Albatross.CodeGen.Tests.WebApi {
 
 		[HttpGet("route-with-date-only/{date}/{id}")]
 		public Task RouteWithDateOnly([FromRoute] DateOnly date, [FromRoute] int id) => Task.CompletedTask;
+
+		[HttpGet("route-without-attribute/{date}")]
+		public Task RouteWithoutRouteAttribute(DateOnly date) => Task.CompletedTask;
 	}
 }
 
