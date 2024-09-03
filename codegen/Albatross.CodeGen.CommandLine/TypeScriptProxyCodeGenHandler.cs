@@ -12,9 +12,9 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly CodeGenCommandOptions options;
 		private readonly ILogger<TypeScriptProxyCodeGenHandler> logger;
 		private readonly Compilation compilation;
-		private readonly ConvertApiControllerToTypeScriptFile converter;
+		private readonly ConvertApiControllerToWebApi converter;
 
-		public TypeScriptProxyCodeGenHandler(IOptions<CodeGenCommandOptions> options, ILogger<TypeScriptProxyCodeGenHandler> logger, Compilation compilation, ConvertApiControllerToTypeScriptFile converter) {
+		public TypeScriptProxyCodeGenHandler(IOptions<CodeGenCommandOptions> options, ILogger<TypeScriptProxyCodeGenHandler> logger, Compilation compilation, ConvertApiControllerToWebApi converter) {
 			this.options = options.Value;
 			this.logger = logger;
 			this.compilation = compilation;

@@ -29,7 +29,7 @@ namespace Albatross.CodeGen.WebClient {
 				return route;
 			}
 			foreach (var attributeData in symbol.GetAttributes()) {
-				if (attributeData.AttributeClass?.BaseType.GetFullName() == My.HttpMethodAttributeClassName){
+				if (attributeData.AttributeClass?.BaseType?.GetFullName() == My.HttpMethodAttributeClassName){
 					route = attributeData.ConstructorArguments.FirstOrDefault().Value as string;
 					if (!string.IsNullOrEmpty(route)) { return route; }
 				}
@@ -51,8 +51,8 @@ namespace Albatross.CodeGen.WebClient {
 			services.TryAddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
 			services.TryAddScoped<ICreateWebClientMethod, CreateWebClientMethod>();
 			services.TryAddSingleton<ConvertApiControllerToCSharpClass>();
-			services.TryAddSingleton<ConvertApiControllerToTypeScriptFile>();
-			services.TryAddScoped<ConvertApiControllerToTypeScriptFile>();
+			services.TryAddSingleton<ConvertApiControllerToWebApi>();
+			services.TryAddScoped<ConvertApiControllerToWebApi>();
 			return services;
 		}
 	}
