@@ -19,6 +19,10 @@
     "secmaster dto": {
       "commandName": "Project",
       "commandLineArgs": "typescript-dto -p C:\\app\\secmaster\\src\\SecMaster.Core\\SecMaster.Core.csproj"
+    },
+    "csharp-proxy": {
+      "commandName": "Project",
+      "commandLineArgs": "csharp-proxy -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.WebApi\\Albatross.CodeGen.Tests.WebApi.csproj -o c:\\temp"
     }
   }
 }

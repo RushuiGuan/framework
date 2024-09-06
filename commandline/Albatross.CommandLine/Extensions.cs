@@ -1,12 +1,7 @@
-﻿using System.CommandLine;
+﻿using System.CommandLine.Invocation;
 
 namespace Albatross.CommandLine {
 	public static class Extensions {
-		public static Option<T> WithAlias<T>(this Option<T> option, params string[] aliases) {
-			foreach(var alias in aliases) {
-				option.AddAlias(alias);
-			}
-			return option;
-		}
+		public static string ParsedCommandName(this InvocationContext context) => context.ParseResult.CommandResult.Command.Name;
 	}
 }

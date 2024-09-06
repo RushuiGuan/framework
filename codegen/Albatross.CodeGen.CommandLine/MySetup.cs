@@ -14,26 +14,39 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Text.Json;
+using Albatross.CodeGen.WebClient.CSharp;
+using System.CommandLine.Invocation;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class MySetup : Setup{
-		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
-			base.RegisterServices(configuration, envSetting, services);
+	public class MySetup : Setup {
+		public override void RegisterServices(InvocationContext context, IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
+			base.RegisterServices(context, configuration, envSetting, services);
 			services.RegisterCommands();
-
-			services.AddScoped(provider => MSBuildWorkspace.Create());
 			services.AddTypeScriptCodeGen().AddWebClientCodeGen();
-			services.AddScoped<ICurrentProject>(provider => {
-				var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
-				if (options.ProjectFile.Exists) {
-					return new CurrentProject(options.ProjectFile.FullName);
-				} else {
-					throw new InvalidOperationException($"File {options.ProjectFile.Name} doesn't exist");
-				}
-			});
+			services.AddScoped(provider => MSBuildWorkspace.Create());
+			if (context.ParsedCommandName() == "webapi") {
+				services.AddScoped<ICurrentProject>(provider => {
+					var options = provider.GetRequiredService<IOptions<WebApiCommandOptions>>().Value;
+					if (options.ProjectFile.Exists) {
+						return new CurrentProject(options.ProjectFile.FullName);
+					} else {
+						throw new InvalidOperationException($"File {options.ProjectFile.Name} doesn't exist");
+					}
+				});
+			} else {
+				services.AddScoped<ICurrentProject>(provider => {
+					var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
+					if (options.ProjectFile.Exists) {
+						return new CurrentProject(options.ProjectFile.FullName);
+					} else {
+						throw new InvalidOperationException($"File {options.ProjectFile.Name} doesn't exist");
+					}
+				});
+			}
 			services.AddScoped<ICompilationFactory, MSBuildProjectCompilationFactory>();
 			services.AddScoped(provider => provider.GetRequiredService<ICompilationFactory>().Create());
 			services.AddShortenLoggerName(false, "Albatross");
+
 			services.AddSingleton(provider => {
 				var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
 				if (options.SettingsFile == null) {
@@ -49,6 +62,18 @@ namespace Albatross.CodeGen.CommandLine {
 			services.AddSingleton<ISourceLookup>(provider => {
 				var settings = provider.GetRequiredService<TypeScriptWebClientSettings>();
 				return new DefaultTypeScriptSourceLookup(settings.NameSpaceModuleMapping);
+			});
+			services.AddSingleton(provider => {
+				var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
+				if (options.SettingsFile == null) {
+					return new CSharpProxySettings();
+				} else if (options.SettingsFile.Exists) {
+					using var stream = options.SettingsFile.OpenRead();
+					var settings = JsonSerializer.Deserialize<CSharpProxySettings>(stream, DefaultJsonSettings.Value.Default) ?? throw new ArgumentException("Unable to deserialize csharp proxy settings");
+					return settings;
+				} else {
+					throw new InvalidOperationException($"File {options.SettingsFile.Name} doesn't exist");
+				}
 			});
 		}
 	}

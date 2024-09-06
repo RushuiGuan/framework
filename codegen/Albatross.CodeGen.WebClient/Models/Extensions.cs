@@ -10,13 +10,9 @@ namespace Albatross.CodeGen.WebClient.Models {
 				attribute = symbol.GetAttributes().FirstOrDefault(x => x.AttributeClass?.BaseType?.GetFullName() == My.HttpMethodAttributeClassName);
 			}
 			if(attribute == null) {
-				return My.ForwardSlash.ToString();
+				return string.Empty;
 			}else{
-				var route = attribute.ConstructorArguments.FirstOrDefault().Value as string ?? string.Empty;
-				if (!route.EndsWith(My.ForwardSlash)) {
-					route = route + My.ForwardSlash;
-				}
-				return route;
+				return attribute.ConstructorArguments.FirstOrDefault().Value as string ?? string.Empty;
 			}
 		}
 	}

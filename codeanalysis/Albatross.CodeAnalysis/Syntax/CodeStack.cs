@@ -17,6 +17,8 @@ namespace Albatross.CodeAnalysis.Syntax {
 		Stack<INode> stack = new Stack<INode>();
 		Stack<INode> seekStack = new Stack<INode>();
 
+		public string? FileName { get; set; }
+
 		public CodeStack Begin() {
 			stack.Push(new NoOpNodeBuilder());
 			return this;
@@ -103,27 +105,31 @@ namespace Albatross.CodeAnalysis.Syntax {
 			}
 			return this;
 		}
-		public string Build() {
-			if (!stack.Any()) { throw new ArgumentException("Stack is empty"); }
-			var buildStack = new Stack<INode>();
-			do {
-				var top = stack.Pop();
+		public IEnumerable<INodeContainer> BuildStack() {
+			var copy = new Stack<INode>(stack.Reverse());
+			var results = new Stack<INode>();
+			while(copy.Any()){
+				var top = copy.Pop();
 				if (top is INodeBuilder builder) {
-					var nodes = buildStack.PopUntil(x => x is EndNode, out var lastNode).ToArray();
+					var nodes = results.PopUntil(x => x is EndNode, out var lastNode).ToArray();
 					if (builder is NoOpNodeBuilder) {
 						foreach (var node in nodes) {
-							buildStack.Push(node);
+							results.Push(node);
 						}
 					} else {
 						var result = builder.Build(nodes.Cast<INodeContainer>().Select(x => x.Node).ToArray());
-						buildStack.Push(new NodeContainer(result));
+						results.Push(new NodeContainer(result));
 					}
 				} else {
-					buildStack.Push(top);
+					results.Push(top);
 				}
-			} while (stack.Any());
+			} 
+			return results.Cast<INodeContainer>();
+		}
+		public string Build() {
+			var nodes = BuildStack();
 			var sb = new StringBuilder();
-			foreach (var node in buildStack) {
+			foreach (var node in nodes) {
 				if (node is INodeContainer container) {
 					sb.AppendLine(container.ToString());
 				} else {

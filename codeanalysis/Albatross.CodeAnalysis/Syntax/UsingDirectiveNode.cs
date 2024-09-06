@@ -1,8 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.CodeAnalysis.CSharp;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	public class UsingDirectiveNode : NodeContainer {

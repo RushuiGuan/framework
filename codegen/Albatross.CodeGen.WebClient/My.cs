@@ -5,28 +5,11 @@ namespace Albatross.CodeGen.WebClient {
 	public static class My {
 		public const string RouteAttributeClassName = "Microsoft.AspNetCore.Mvc.RouteAttribute";
 		public const string HttpMethodAttributeClassName = "Microsoft.AspNetCore.Mvc.Routing.HttpMethodAttribute";
-		public const string HttpGetAttributeClassName = "Microsoft.AspNetCore.Mvc.Routing.HttpGetAttribute";
-		public const string HttpPostAttributeClassName = "Microsoft.AspNetCore.Mvc.Routing.HttpPostAttribute";
-		public const string HttpPatchAttributeClassName = "Microsoft.AspNetCore.Mvc.Routing.HttpPatchAttribute";
-		public const string HttpPutAttributeClassName = "Microsoft.AspNetCore.Mvc.Routing.HttpPutAttribute";
-		public const string HttpDeleteAttributeClassName = "Microsoft.AspNetCore.Mvc.Routing.HttpDeleteAttribute";
-
-		public readonly static string[] RouteAttributeClasses = [
-			HttpGetAttributeClassName,
-			HttpPostAttributeClassName,
-			HttpPatchAttributeClassName,
-			HttpPutAttributeClassName,
-			HttpDeleteAttributeClassName,
-			RouteAttributeClassName
-		];
-
-		public readonly static string[] HttpMethodAttributeClasses = [
-			HttpGetAttributeClassName,
-			HttpPostAttributeClassName,
-			HttpPatchAttributeClassName,
-			HttpPutAttributeClassName,
-			HttpDeleteAttributeClassName,
-		];
+		public const string HttpGetAttributeClassName = "Microsoft.AspNetCore.Mvc.HttpGetAttribute";
+		public const string HttpPostAttributeClassName = "Microsoft.AspNetCore.Mvc.HttpPostAttribute";
+		public const string HttpPatchAttributeClassName = "Microsoft.AspNetCore.Mvc.HttpPatchAttribute";
+		public const string HttpPutAttributeClassName = "Microsoft.AspNetCore.Mvc.HttpPutAttribute";
+		public const string HttpDeleteAttributeClassName = "Microsoft.AspNetCore.Mvc.HttpDeleteAttribute";
 
 
 		public const string FromQueryAttributeClassName = "Microsoft.AspNetCore.Mvc.FromQueryAttribute";

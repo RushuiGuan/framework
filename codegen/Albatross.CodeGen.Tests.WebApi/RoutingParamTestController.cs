@@ -27,7 +27,11 @@ namespace Albatross.CodeGen.Tests.WebApi {
 
 		[HttpGet]
 		[Route("wild-card-route/{*name}")]
-		public Task Route4([FromRoute] string name) => Task.CompletedTask;
+		public Task Route4(string name, int id) => Task.CompletedTask;
+
+		[HttpGet]
+		[Route("wild-card-route2/{**name}")]
+		public Task Route5(string name, int id) => Task.CompletedTask;
 
 		[HttpGet("route-with-date-time/{date}/{id}")]
 		public Task RouteWithDate([FromRoute] DateTime date, [FromRoute] int id) => Task.CompletedTask;

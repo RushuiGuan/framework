@@ -38,7 +38,7 @@ namespace Albatross.CommandLine {
 				hostBuilder.ConfigureAppConfiguration(builder => {
 					builder.Sources.Clear();
 					builder.AddConfiguration(configuration);
-				}).ConfigureServices((context, svc) => RegisterServices(context.Configuration, environment, svc));
+				}).ConfigureServices((context, svc) => RegisterServices(context.GetInvocationContext(), context.Configuration, environment, svc));
 			});
 			this.CommandBuilder.UseDefaults();
 		}
@@ -76,7 +76,7 @@ namespace Albatross.CommandLine {
 			return this;
 		}
 
-		public virtual void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
+		public virtual void RegisterServices(InvocationContext context, IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			Serilog.Log.Debug("Registering services");
 			services.AddSingleton(new ProgramSetting(configuration));
 			services.AddSingleton(envSetting);
