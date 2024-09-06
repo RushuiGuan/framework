@@ -10,8 +10,8 @@ using Albatross.CodeGen.WebClient.TypeScript;
 using Microsoft.CodeAnalysis;
 using System;
 using Albatross.Text;
-using Microsoft.AspNetCore.Components.Forms.Mapping;
 using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.WebClient.Models;
 
 namespace Albatross.CodeGen.WebClient {
 	public static class Extensions {
@@ -47,12 +47,19 @@ namespace Albatross.CodeGen.WebClient {
 		}
 		public static IServiceCollection AddWebClientCodeGen(this IServiceCollection services) {
 			services.AddCSharpCodeGen().AddTypeScriptCodeGen();
+			
+			// legacy
 			services.TryAddSingleton<ICreateApiCSharpProxy, CreateApiCSharpProxy>();
 			services.TryAddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
 			services.TryAddScoped<ICreateWebClientMethod, CreateWebClientMethod>();
 			services.TryAddSingleton<ConvertApiControllerToCSharpClass>();
-			services.TryAddSingleton<ConvertApiControllerToWebApi>();
+			services.TryAddScoped<ConvertApiControllerToTypeScriptFile>();
+
+			// new
 			services.TryAddScoped<ConvertApiControllerToWebApi>();
+			services.TryAddScoped<ConvertWebApiToCSharpCodeStack>();
+			services.TryAddScoped<ConvertWebApiToTypeScriptFile>();
+
 			return services;
 		}
 	}

@@ -2,28 +2,36 @@
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.WebClient.Models {
 	public record class WebApi {
 		public const string ControllerNamePlaceholder = "[controller]";
 		public const string ControllerPostfix = "Controller";
-		public string ControllerName { get; set; }
+		
+		[JsonIgnore]
+		public INamedTypeSymbol Controller { get; }
+		public string ControllerName {
+			get {
+				if (this.Controller.Name.EndsWith(ControllerPostfix)) {
+					return this.Controller.Name.Substring(0, this.Controller.Name.Length - ControllerPostfix.Length);
+				} else {
+					return this.Controller.Name;
+				}
+			}
+		}
 		public string Route { get; set; }
 
 		public List<MethodInfo> Methods { get; } = new List<MethodInfo>();
 
-		public WebApi(INamedTypeSymbol symbol) {
-			if (symbol.Name.EndsWith(ControllerPostfix)) {
-				this.ControllerName = symbol.Name.Substring(0, symbol.Name.Length - ControllerPostfix.Length);
-			} else {
-				this.ControllerName = symbol.Name;
-			}
-			this.Route = symbol.GetRoute();
+		public WebApi(Compilation compilation, INamedTypeSymbol controller) {
+			this.Controller = controller;
+			this.Route = controller.GetRoute();
 			this.Route = this.Route.Replace(ControllerNamePlaceholder, this.ControllerName.ToLower());
 
-			foreach (var methodSymbol in symbol.GetMembers().OfType<IMethodSymbol>()) {
-				if (methodSymbol.GetAttributes().Any(x => My.HttpMethodAttributeClasses.Contains(x.AttributeClass?.GetFullName()))) {
-					Methods.Add(new MethodInfo(methodSymbol));
+			foreach (var methodSymbol in controller.GetMembers().OfType<IMethodSymbol>()) {
+				if (methodSymbol.GetAttributes().Any(x => x.AttributeClass?.BaseType?.GetFullName() == My.HttpMethodAttributeClassName)) {
+					Methods.Add(new MethodInfo(compilation, methodSymbol));
 				}
 			}
 		}

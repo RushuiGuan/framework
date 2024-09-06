@@ -1,6 +1,6 @@
 ﻿using Albatross.CodeGen.Utility;
+using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.Models;
-using Albatross.CodeGen.WebClient.TypeScript;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -9,19 +9,19 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class TypeScriptProxyCodeGenHandler : ICommandHandler {
-		private readonly ILogger<TypeScriptProxyCodeGenHandler> logger;
+	public class CSharpProxyCodeGenHandler : ICommandHandler {
+		private readonly ILogger<CSharpProxyCodeGenHandler> logger;
 		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
 		private readonly ConvertApiControllerToWebApi convertToWebApi;
-		private readonly ConvertWebApiToTypeScriptFile converToTypeScriptFile;
+		private readonly ConvertWebApiToCSharpCodeStack converToCSharpCodeStack;
 
-		public TypeScriptProxyCodeGenHandler(IOptions<CodeGenCommandOptions> options, ILogger<TypeScriptProxyCodeGenHandler> logger, Compilation compilation, ConvertApiControllerToWebApi convertToWebApi, ConvertWebApiToTypeScriptFile converToTypeScriptFile) {
+		public CSharpProxyCodeGenHandler(IOptions<CodeGenCommandOptions> options, ILogger<CSharpProxyCodeGenHandler> logger, Compilation compilation, ConvertApiControllerToWebApi convertToWebApi, ConvertWebApiToCSharpCodeStack converToCSharpFile) {
 			this.options = options.Value;
 			this.logger = logger;
 			this.compilation = compilation;
 			this.convertToWebApi = convertToWebApi;
-			this.converToTypeScriptFile = converToTypeScriptFile;
+			this.converToCSharpCodeStack = converToCSharpFile;
 		}
 
 		public int Invoke(InvocationContext context) {
@@ -39,11 +39,12 @@ namespace Albatross.CodeGen.CommandLine {
 			foreach (var controller in controllerClass) {
 				logger.LogInformation("Generating proxy for {controller}", controller.Name);
 				var webApi = this.convertToWebApi.Convert(controller);
-				var file = this.converToTypeScriptFile.Convert(webApi);
-				file.Generate(System.Console.Out);
+				var codeStack = this.converToCSharpCodeStack.Convert(webApi);
+				var text = codeStack.Build();
+				System.Console.WriteLine(text);
 				if (options.OutputDirectory != null) {
-					using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, file.FileName))) {
-						file.Generate(writer);
+					using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, codeStack.FileName ?? "generated.cs"))) {
+						writer.Write(text);
 					}
 				}
 			}

@@ -2,10 +2,10 @@
 using System.IO;
 
 namespace Albatross.CodeGen.CommandLine {
+	[Verb("csharp-proxy", typeof(CSharpProxyCodeGenHandler))]
 	[Verb("typescript-dto", typeof(TypeScriptDtoCodeGenHandler))]
 	[Verb("typescript-proxy", typeof(TypeScriptProxyCodeGenHandler))]
-	// [Verb("csharp-proxy")]
-	public class CodeGenCommandOptions {
+	public record class CodeGenCommandOptions {
 		[Option(Alias = ["p"])]
 		public FileInfo ProjectFile { get; set; } = null!;
 

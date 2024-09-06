@@ -13,10 +13,11 @@ namespace Albatross.CodeAnalysis.Syntax {
 	/// * <see cref="StatementSyntax"/> - zero or more statements for the method body
 	/// </summary>
 	public class MethodDeclarationBuilder : INodeBuilder {
-		public MethodDeclarationBuilder(string returnType, string methodName) {
-			Node = SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(returnType), methodName);
+		public MethodDeclarationBuilder(TypeSyntax returnType, string methodName) {
+			Node = SyntaxFactory.MethodDeclaration(returnType, methodName);
 			Public();
 		}
+		public MethodDeclarationBuilder(string returnType, string methodName) : this(SyntaxFactory.ParseTypeName(returnType), methodName) { }
 		public MethodDeclarationBuilder Public() {
 			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 			return this;
@@ -39,11 +40,11 @@ namespace Albatross.CodeAnalysis.Syntax {
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			var statements = new List<StatementSyntax>();
 			foreach (var element in elements) {
-				if(element is ParameterSyntax parameter) {
+				if (element is ParameterSyntax parameter) {
 					Node = Node.AddParameterListParameters(parameter);
 				} else {
 					statements.Add(new StatementNode(element).StatementSyntax);
-				}	
+				}
 			}
 			Node = Node.WithBody(SyntaxFactory.Block(statements));
 			return Node;

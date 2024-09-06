@@ -1,25 +1,31 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.WebClient.Models {
 	public record class MethodInfo {
-		public MethodInfo(IMethodSymbol symbol) {
+		private readonly Compilation compilation;
+
+		public MethodInfo(Compilation compilation, IMethodSymbol symbol) {
+			this.compilation = compilation;
 			this.Name = symbol.Name;
 			this.ReturnType = GetReturnType((INamedTypeSymbol)symbol.ReturnType);
 			this.Route = symbol.GetRoute();
+			this.HttpMethod = GetHttpMethod(symbol);
 			foreach(var parameter in symbol.Parameters) {
-				this.Parameters.Add(new ParameterInfo(parameter));
+				this.Parameters.Add(new ParameterInfo(parameter, this.Route));
 			}
 		}
-
 		public string HttpMethod { get; set; }
 		public string Name { get; set; }
-		public string ReturnType { get; set; }
+		[JsonIgnore]
+		public INamedTypeSymbol ReturnType { get; set; }
+		public string ReturnTypeText => ReturnType.GetFullName();
 		public string Route { get; set; }
 		public List<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
 
-		string GetReturnType(INamedTypeSymbol type) {
+		INamedTypeSymbol GetReturnType(INamedTypeSymbol type) {
 			if (type.IsGenericType) {
 				var genericTypeFullName = type.OriginalDefinition.GetFullName();
 				switch (genericTypeFullName) {
@@ -27,7 +33,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 					case My.GenericActionResultClassName:
 						return GetReturnType((INamedTypeSymbol)type.TypeArguments[0]);
 					default:
-						return type.GetFullName();
+						return type;
 				}
 			} else {
 				var typeFullName = type.GetFullName();
@@ -35,11 +41,28 @@ namespace Albatross.CodeGen.WebClient.Models {
 					case My.TaskClassName:
 					case My.ActionResultClassName:
 					case My.ActionResultInterfaceName:
-						return "void";
+						return compilation.GetSpecialType(SpecialType.System_Void);
 					default:
-						return typeFullName;
+						return type;
 				}
 			}
+		}
+		string GetHttpMethod(IMethodSymbol symbol) {
+			foreach (var attribute in symbol.GetAttributes()) {
+				switch (attribute.AttributeClass?.GetFullName()) {
+					case My.HttpGetAttributeClassName:
+						return "get";
+					case My.HttpPostAttributeClassName:
+						return "post";
+					case My.HttpPutAttributeClassName:
+						return "put";
+					case My.HttpDeleteAttributeClassName:
+						return "delete";
+					case My.HttpPatchAttributeClassName:
+						return "patch";
+				}
+			}
+			return string.Empty;
 		}
 	}
 }
