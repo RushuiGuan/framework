@@ -42,7 +42,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 						foreach (var method in from.Methods) {
 							TypeSyntax returnType;
 							if (method.ReturnType.SpecialType == SpecialType.System_Void) {
-								returnType = new GenericIdentifierNode("Task").Identifier;
+								returnType = new TypeNode("Task").Type;
 							} else {
 								returnType = new GenericIdentifierNode("Task", method.ReturnType.GetFullName()).Identifier;
 							}

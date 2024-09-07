@@ -14,5 +14,8 @@ namespace Albatross.CodeGen.CommandLine {
 
 		[Option(Alias = ["o"])]
 		public DirectoryInfo? OutputDirectory { get; set; }
+
+		[Option(Alias = ["c"])]
+		public string? Controller { get; set; }
 	}
 }

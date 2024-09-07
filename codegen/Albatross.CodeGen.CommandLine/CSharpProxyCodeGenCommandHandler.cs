@@ -37,14 +37,16 @@ namespace Albatross.CodeGen.CommandLine {
 				controllerClass.AddRange(dtoClassWalker.Result);
 			}
 			foreach (var controller in controllerClass) {
-				logger.LogInformation("Generating proxy for {controller}", controller.Name);
-				var webApi = this.convertToWebApi.Convert(controller);
-				var codeStack = this.converToCSharpCodeStack.Convert(webApi);
-				var text = codeStack.Build();
-				System.Console.WriteLine(text);
-				if (options.OutputDirectory != null) {
-					using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, codeStack.FileName ?? "generated.cs"))) {
-						writer.Write(text);
+				if (string.IsNullOrEmpty(options.Controller) || string.Equals(controller.Name, options.Controller, System.StringComparison.InvariantCultureIgnoreCase)) {
+					logger.LogInformation("Generating proxy for {controller}", controller.Name);
+					var webApi = this.convertToWebApi.Convert(controller);
+					var codeStack = this.converToCSharpCodeStack.Convert(webApi);
+					var text = codeStack.Build();
+					System.Console.WriteLine(text);
+					if (options.OutputDirectory != null) {
+						using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, codeStack.FileName ?? "generated.cs"))) {
+							writer.Write(text);
+						}
 					}
 				}
 			}
