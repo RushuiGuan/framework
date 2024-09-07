@@ -25,7 +25,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 				elementType = factory.Convert(arguments[0]);
 			} else {
 				var name = symbol.GetFullName();
-				if(name == IEnumerableName || symbol.IsDerivedFrom(compilation.GetTypeByMetadataName(IEnumerableName))) {
+				if(name == IEnumerableName || symbol.IsDerivedFrom(compilation.GetTypeByMetadataName(IEnumerableName)!)) {
 					elementType = Defined.Types.Any();
 				} else {
 					expression = null;

@@ -9,13 +9,13 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class TypeScriptDtoCodeGenHandler : ICommandHandler {
+	public class TypeScriptDtoCodeGenCommandHandler : ICommandHandler {
 		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
 		private readonly IConvertObject<INamedTypeSymbol, InterfaceDeclaration> interfaceConverter;
 		private readonly IConvertObject<INamedTypeSymbol, EnumDeclaration> enumConverter;
 
-		public TypeScriptDtoCodeGenHandler(Compilation compilation,
+		public TypeScriptDtoCodeGenCommandHandler(Compilation compilation,
 			IConvertObject<INamedTypeSymbol, InterfaceDeclaration> interfaceConverter,
 			IConvertObject<INamedTypeSymbol, EnumDeclaration> enumConverter,
 			IOptions<CodeGenCommandOptions> options) {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.WebClient.Models {
-	public record class WebApi {
+	public record class ControllerInfo {
 		public const string ControllerNamePlaceholder = "[controller]";
 		public const string ControllerPostfix = "Controller";
 		
@@ -24,7 +24,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 
 		public List<MethodInfo> Methods { get; } = new List<MethodInfo>();
 
-		public WebApi(Compilation compilation, INamedTypeSymbol controller) {
+		public ControllerInfo(Compilation compilation, INamedTypeSymbol controller) {
 			this.Controller = controller;
 			this.Route = controller.GetRoute();
 			this.Route = this.Route.Replace(ControllerNamePlaceholder, this.ControllerName.ToLower());

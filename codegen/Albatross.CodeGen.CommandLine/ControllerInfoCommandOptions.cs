@@ -2,8 +2,8 @@
 using System.IO;
 
 namespace Albatross.CodeGen.CommandLine {
-	[Verb("webapi", typeof(WebApiCodeGenHandler))]
-	public record class WebApiCommandOptions {
+	[Verb("controller", typeof(ControllerInfoConverterCommandHandler))]
+	public record class ControllerInfoCommandOptions {
 		[Option(Alias = ["p"])]
 		public FileInfo ProjectFile { get; set; } = null!;
 

@@ -56,7 +56,7 @@ namespace Albatross.CodeGen.WebClient {
 			services.TryAddScoped<ConvertApiControllerToTypeScriptFile>();
 
 			// new
-			services.TryAddScoped<ConvertApiControllerToWebApi>();
+			services.TryAddScoped<ConvertApiControllerToControllerInfo>();
 			services.TryAddScoped<ConvertWebApiToCSharpCodeStack>();
 			services.TryAddScoped<ConvertWebApiToTypeScriptFile>();
 

@@ -8,12 +8,12 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class WebApiCodeGenHandler : ICommandHandler {
+	public class ControllerInfoConverterCommandHandler : ICommandHandler {
 		private readonly Compilation compilation;
-		private readonly ConvertApiControllerToWebApi converter;
-		private readonly WebApiCommandOptions options;
+		private readonly ConvertApiControllerToControllerInfo converter;
+		private readonly ControllerInfoCommandOptions options;
 
-		public WebApiCodeGenHandler(Compilation compilation, ConvertApiControllerToWebApi converter, IOptions<WebApiCommandOptions> options) {
+		public ControllerInfoConverterCommandHandler(Compilation compilation, ConvertApiControllerToControllerInfo converter, IOptions<ControllerInfoCommandOptions> options) {
 			this.compilation = compilation;
 			this.converter = converter;
 			this.options = options.Value;

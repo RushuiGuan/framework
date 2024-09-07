@@ -5,7 +5,7 @@ using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Albatross.CodeGen.WebClient.CSharp {
-	public class ConvertWebApiToCSharpCodeStack: IConvertObject<WebApi, CodeStack> {
+	public class ConvertWebApiToCSharpCodeStack: IConvertObject<ControllerInfo, CodeStack> {
 		const string ProxyService = "ProxyService";
 		private readonly CSharpProxySettings settings;
 		private readonly Compilation compilation;
@@ -14,7 +14,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 			this.settings = settings;
 			this.compilation = compilation;
 		}
-		public CodeStack Convert(WebApi from) {
+		public CodeStack Convert(ControllerInfo from) {
 			var codeStack = new CodeStack();
 			using (codeStack.Begin(new CompilationUnitBuilder()).NewScope()) {
 				codeStack.With(new UsingDirectiveNode("System"))
@@ -57,7 +57,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 			}
 			return codeStack;
 		}
-		object IConvertObject<WebApi>.Convert(WebApi from) {
+		object IConvertObject<ControllerInfo>.Convert(ControllerInfo from) {
 			return Convert(from);
 		}
 	}
