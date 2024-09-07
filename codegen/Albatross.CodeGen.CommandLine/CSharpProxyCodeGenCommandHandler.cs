@@ -9,14 +9,14 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class CSharpProxyCodeGenHandler : ICommandHandler {
-		private readonly ILogger<CSharpProxyCodeGenHandler> logger;
+	public class CSharpProxyCodeGenCommandHandler : ICommandHandler {
+		private readonly ILogger<CSharpProxyCodeGenCommandHandler> logger;
 		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
-		private readonly ConvertApiControllerToWebApi convertToWebApi;
+		private readonly ConvertApiControllerToControllerInfo convertToWebApi;
 		private readonly ConvertWebApiToCSharpCodeStack converToCSharpCodeStack;
 
-		public CSharpProxyCodeGenHandler(IOptions<CodeGenCommandOptions> options, ILogger<CSharpProxyCodeGenHandler> logger, Compilation compilation, ConvertApiControllerToWebApi convertToWebApi, ConvertWebApiToCSharpCodeStack converToCSharpFile) {
+		public CSharpProxyCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, ILogger<CSharpProxyCodeGenCommandHandler> logger, Compilation compilation, ConvertApiControllerToControllerInfo convertToWebApi, ConvertWebApiToCSharpCodeStack converToCSharpFile) {
 			this.options = options.Value;
 			this.logger = logger;
 			this.compilation = compilation;

@@ -26,7 +26,7 @@ namespace Albatross.CodeGen.CommandLine {
 			services.AddScoped(provider => MSBuildWorkspace.Create());
 			if (context.ParsedCommandName() == "webapi") {
 				services.AddScoped<ICurrentProject>(provider => {
-					var options = provider.GetRequiredService<IOptions<WebApiCommandOptions>>().Value;
+					var options = provider.GetRequiredService<IOptions<ControllerInfoCommandOptions>>().Value;
 					if (options.ProjectFile.Exists) {
 						return new CurrentProject(options.ProjectFile.FullName);
 					} else {

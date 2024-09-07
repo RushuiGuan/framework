@@ -2,7 +2,6 @@
 using Microsoft.CodeAnalysis;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Albatross.CodeGen.WebClient.Models {
 	[JsonConverter(typeof(JsonStringEnumConverter))]

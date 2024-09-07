@@ -12,7 +12,7 @@ using Albatross.CodeGen.WebClient.Models;
 using Albatross.Text;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
-	public class ConvertWebApiToTypeScriptFile : IConvertObject<WebApi, TypeScriptFileDeclaration> {
+	public class ConvertWebApiToTypeScriptFile : IConvertObject<ControllerInfo, TypeScriptFileDeclaration> {
 		public const string ControllerPostfix = "Controller";
 		public const string ControllerNamePlaceholder = "[controller]";
 		private readonly TypeScriptWebClientSettings settings;
@@ -31,7 +31,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			}
 		}
 
-		public TypeScriptFileDeclaration Convert(WebApi model) {
+		public TypeScriptFileDeclaration Convert(ControllerInfo model) {
 			var fileName = $"{model.ControllerName.Kebaberize()}.service";
 			return new TypeScriptFileDeclaration(fileName) {
 				ClasseDeclarations = [
@@ -173,7 +173,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			}
 		}
 
-		object IConvertObject<WebApi>.Convert(WebApi from) {
+		object IConvertObject<ControllerInfo>.Convert(ControllerInfo from) {
 			return this.Convert(from);
 		}
 	}

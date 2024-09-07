@@ -9,14 +9,14 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class TypeScriptProxyCodeGenHandler : ICommandHandler {
-		private readonly ILogger<TypeScriptProxyCodeGenHandler> logger;
+	public class TypeScriptProxyCodeGenCommandHandler : ICommandHandler {
+		private readonly ILogger<TypeScriptProxyCodeGenCommandHandler> logger;
 		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
-		private readonly ConvertApiControllerToWebApi convertToWebApi;
+		private readonly ConvertApiControllerToControllerInfo convertToWebApi;
 		private readonly ConvertWebApiToTypeScriptFile converToTypeScriptFile;
 
-		public TypeScriptProxyCodeGenHandler(IOptions<CodeGenCommandOptions> options, ILogger<TypeScriptProxyCodeGenHandler> logger, Compilation compilation, ConvertApiControllerToWebApi convertToWebApi, ConvertWebApiToTypeScriptFile converToTypeScriptFile) {
+		public TypeScriptProxyCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, ILogger<TypeScriptProxyCodeGenCommandHandler> logger, Compilation compilation, ConvertApiControllerToControllerInfo convertToWebApi, ConvertWebApiToTypeScriptFile converToTypeScriptFile) {
 			this.options = options.Value;
 			this.logger = logger;
 			this.compilation = compilation;
