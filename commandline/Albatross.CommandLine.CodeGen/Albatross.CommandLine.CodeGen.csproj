@@ -14,7 +14,7 @@
 		<PackageReference Include="Humanizer.Core" Version="2.14.1" GeneratePathProperty="true" PrivateAssets="all" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj" />
+	  <ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj" PrivateAssets="all" />
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -24,6 +24,7 @@
 	<Target Name="GetDependencyTargetPaths">
 		<ItemGroup>
 			<TargetPathWithTargetPlatformMoniker Include="$(PKGHumanizer_Core)\lib\netstandard2.0\Humanizer.dll" IncludeRuntimeDependency="false" />
+			<!--<TargetPathWithTargetPlatformMoniker Include="$(PKGAlbatross_CodeAnalysis)\lib\netstandard2.0\Albatross.CodeAnalysis.dll" IncludeRuntimeDependency="false" />-->
 		</ItemGroup>
 	</Target>
 </Project>
