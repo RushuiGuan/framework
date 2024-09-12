@@ -91,7 +91,7 @@ function Run-Pack {
 		}
 
 		foreach ($project in $codeGenProjects) {
-			Update-CodeGenProjectReference -csproj $directory\$project\$project.csproj -version $version;
+			Update-CodeGenProjectReference -csproj $directory\$project -version $version;
 			Write-Information "Building $project";
 			dotnet pack $directory\$project `
 				--output $artifacts `
@@ -103,7 +103,7 @@ function Run-Pack {
 		git checkout $versionFile;
 
 		foreach ($project in $codeGenProjects) {
-			git checkout $directory\$project\$project.csproj;
+			# git checkout $directory\$project\$project.csproj;
 		}
 
 		$hasNugetPush = $false;

@@ -51,8 +51,8 @@ $projects = @(
 	"webclient\Albatross.WebClient"
 );
 $codeGenProjects = @(
-	"commandline\Albatross.CommandLine.CodeGen",
-	"messaging\Albatross.Messaging.CodeGen"
+	"commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj",
+	"messaging\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj"
 );
 
 if(-not [string]::IsNullOrEmpty($project)){
