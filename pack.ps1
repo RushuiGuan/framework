@@ -65,6 +65,7 @@ if($nopush){
 }
 
 Run-Pack -projects $projects `
+	-codeGenProjects $codeGenProjects `
 	-directory $PSScriptRoot `
 	-nugetSource $nugetSource `
 	-prod:$prod `
