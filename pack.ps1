@@ -6,7 +6,9 @@ param(
 	[switch]
 	[bool]$nopush,
 	[switch]
-	[bool]$force
+	[bool]$force,
+	[switch]
+	[bool]$noclean
 )
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
@@ -57,6 +59,7 @@ $codeGenProjects = @(
 
 if(-not [string]::IsNullOrEmpty($project)){
 	$projects = $projects | Where-Object { $_ -like "$project*" }
+	$codeGenProjects = $codeGenProjects | Where-Object { $_ -like "$project*" }
 }
 
 $nugetSource = $env:DefaultNugetSource;
@@ -69,4 +72,5 @@ Run-Pack -projects $projects `
 	-directory $PSScriptRoot `
 	-nugetSource $nugetSource `
 	-prod:$prod `
-	-force:$force
+	-force:$force `
+	-noclean:$noclean;

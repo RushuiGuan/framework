@@ -62,7 +62,9 @@ function Run-Pack {
 		[switch]
 		[bool]$prod,
 		[switch]
-		[bool]$force
+		[bool]$force,
+		[switch]
+		[bool]$noclean
 	)
 	process {
 		if ((-not $force) -and (Test-GitDiff $directory)) {
@@ -71,55 +73,58 @@ function Run-Pack {
 		dotnet restore $directory --verbosity minimal
 		
 		$artifacts = "$directory\artifacts";
-		Write-Information "Cleaning artifacts directory: $artifacts"
-		Get-ChildItem $artifacts | foreach-object { Remove-Item $_.FullName; }
+		if(-not $noclean) {
+			Write-Information "Cleaning artifacts directory: $artifacts"
+			Get-ChildItem $artifacts | foreach-object { Remove-Item $_.FullName; }
+		}
 
 		$versionFile = "$directory\Directory.Build.props";
-		if (-not (Test-Path $versionFile -type Leaf)) {
-			Write-Error "Missing Directory.Build.props file";
-		}
-		$currentVersion = Get-ProjectVersion $versionFile;
-		$version = Get-NewProjectVersion $versionFile -prod:$prod;
-		Set-ProjectVersion -csproj $versionFile -version $version;
-		Write-Information "Project version updated to: $version";
-		foreach ($project in $projects) {
-			Write-Information "Building $project";
-			dotnet pack $directory\$project `
-				--output $artifacts `
-				--configuration release `
-				--no-restore
-		}
-		foreach ($project in $codeGenProjects) {
-			$noHashVersion = $version.SubString(0, $version.IndexOf("+"));
-			Update-CodeGenProjectReference -csproj "$directory\$project" -version $noHashVersion;
-			Write-Information "Building $project";
-			dotnet pack $directory\$project `
-				--output $artifacts `
-				--configuration release `
-				--no-restore
-		}
-
-		Write-Information "Reverting changes";
-		git checkout $versionFile;
-
-		foreach ($project in $codeGenProjects) {
-			# git checkout $directory\$project\$project.csproj;
-		}
-
-		$hasNugetPush = $false;
-		if ($nugetSource) { 
-			get-item $artifacts\*.nupkg | foreach-Object {
-				nuget push $_.FullName -source $nugetSource -apiKey az
-				if ($exitcode -ne 0) {
-					#	Write-Error "Error push nuget package $($_.Name)";
-				}
-				$hasNugetPush = $true;
+		try{
+			if (-not (Test-Path $versionFile -type Leaf)) {
+				Write-Error "Missing Directory.Build.props file";
 			}
-		}
-		if ($hasNugetPush -and $prod) {
-			$tag = "prod-$currentVersion";
-			Write-Information "Tagging: $tag";
-			git tag $tag;
+			$currentVersion = Get-ProjectVersion $versionFile;
+			$version = Get-NewProjectVersion $versionFile -prod:$prod;
+			Set-ProjectVersion -csproj $versionFile -version $version;
+			Write-Information "Project version updated to: $version";
+			foreach ($project in $projects) {
+				Write-Information "Building $project";
+				dotnet pack $directory\$project `
+					--output $artifacts `
+					--configuration release `
+					--no-restore
+			}
+			foreach ($project in $codeGenProjects) {
+				$noHashVersion = $version.SubString(0, $version.IndexOf("+"));
+				Update-CodeGenProjectReference -csproj "$directory\$project" -version $noHashVersion;
+				Write-Information "Building $project";
+				dotnet pack $directory\$project `
+					--output $artifacts `
+					--configuration release
+			}
+
+			$hasNugetPush = $false;
+			if ($nugetSource) { 
+				get-item $artifacts\*.nupkg | foreach-Object {
+					nuget push $_.FullName -source $nugetSource -apiKey az
+					if ($exitcode -ne 0) {
+						#	Write-Error "Error push nuget package $($_.Name)";
+					}
+					$hasNugetPush = $true;
+				}
+			}
+			if ($hasNugetPush -and $prod) {
+				$tag = "prod-$currentVersion";
+				Write-Information "Tagging: $tag";
+				git tag $tag;
+			}
+		}finally{
+			Write-Information "Reverting changes";
+			git checkout $versionFile;
+
+			foreach ($project in $codeGenProjects) {
+				git checkout $directory\$project;
+			}
 		}
 	}
 }
