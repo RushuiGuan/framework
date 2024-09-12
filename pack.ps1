@@ -8,7 +8,9 @@ param(
 	[switch]
 	[bool]$force,
 	[switch]
-	[bool]$noclean
+	[bool]$noclean,
+	[switch]
+	[bool]$norevertchanges
 )
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
@@ -73,4 +75,5 @@ Run-Pack -projects $projects `
 	-nugetSource $nugetSource `
 	-prod:$prod `
 	-force:$force `
-	-noclean:$noclean;
+	-noclean:$noclean `
+	-norevertchanges:$norevertchanges

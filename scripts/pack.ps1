@@ -64,7 +64,9 @@ function Run-Pack {
 		[switch]
 		[bool]$force,
 		[switch]
-		[bool]$noclean
+		[bool]$noclean,
+		[switch]
+		[bool]$norevertchanges
 	)
 	process {
 		if ((-not $force) -and (Test-GitDiff $directory)) {
@@ -119,11 +121,13 @@ function Run-Pack {
 				git tag $tag;
 			}
 		}finally{
-			Write-Information "Reverting changes";
-			git checkout $versionFile;
+			if(-not $norevertchanges){
+				Write-Information "Reverting changes";
+				git checkout $versionFile;
 
-			foreach ($project in $codeGenProjects) {
-				git checkout $directory\$project;
+				foreach ($project in $codeGenProjects) {
+					git checkout $directory\$project;
+				}
 			}
 		}
 	}
