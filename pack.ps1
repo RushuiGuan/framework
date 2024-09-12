@@ -25,7 +25,6 @@ $projects = @(
 	"codeanalysis\Albatross.CodeAnalysis.MSBuild",
 	"collections\Albatross.Collections",
 	"commandline\Albatross.CommandLine",
-	"commandline\Albatross.CommandLine.CodeGen",
 	"config\Albatross.Config",
 	"dates\Albatross.Dates",
 	"datelevel\Albatross.DateLevel",
@@ -45,12 +44,15 @@ $projects = @(
 	"logging\Albatross.Logging",
 	"math\Albatross.Math",
 	"messaging\Albatross.Messaging",
-	"messaging\Albatross.Messaging.CodeGen",
 	"reflection\Albatross.Reflection",
 	"serialization\Albatross.Serialization",
 	"text\Albatross.Text",
 	"threading\Albatross.Threading",
 	"webclient\Albatross.WebClient"
+);
+$codeGenProjects = @(
+	"commandline\Albatross.CommandLine.CodeGen",
+	"messaging\Albatross.Messaging.CodeGen"
 );
 
 if(-not [string]::IsNullOrEmpty($project)){
