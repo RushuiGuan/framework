@@ -35,7 +35,7 @@ function Get-NewProjectVersion {
         $folder = [System.IO.Path]::GetDirectoryName($csproj);
         $hash = get-GitFolderHash $folder;
         if ($prod) {
-            write-Output "$version+$hash";
+			write-Output "$version+$hash";
         }
         else {
             $count = Get-GitCount $folder;

@@ -8,13 +8,13 @@ $ErrorActionPreference = "Stop";
 function Update-CodeGenProjectReference {
 	param (
 		[Parameter(Mandatory)]
-		[System.IO.FileInfo]$csproj,
+		[string]$csproj,
 		[Parameter(Mandatory)]
 		[string]$version
 	)
 
 	process { 
-		[xml]$doc = Get-Content $csproj.FullName;
+		[xml]$doc = Get-Content $csproj;
 		# find the project reference to Albatross.CodeAnalysis.csproj and remove it
 		$node = Select-Xml -Xml $doc -XPath '//Project/ItemGroup/ProjectReference[contains(@Include, "Albatross.CodeAnalysis.csproj")]' | Select-Object -ExpandProperty Node
 		if ($node) {
@@ -47,7 +47,7 @@ function Update-CodeGenProjectReference {
 			$newElement.SetAttribute("IncludeRuntimeDependency", 'false')
 			$node.AppendChild($newElement) | Out-Null
 		}
-		$doc.Save($project)
+		$doc.Save($csproj)
 	}
 }
 
@@ -89,9 +89,9 @@ function Run-Pack {
 				--configuration release `
 				--no-restore
 		}
-
 		foreach ($project in $codeGenProjects) {
-			Update-CodeGenProjectReference -csproj $directory\$project -version $version;
+			$noHashVersion = $version.SubString(0, $version.IndexOf("+"));
+			Update-CodeGenProjectReference -csproj "$directory\$project" -version $noHashVersion;
 			Write-Information "Building $project";
 			dotnet pack $directory\$project `
 				--output $artifacts `
