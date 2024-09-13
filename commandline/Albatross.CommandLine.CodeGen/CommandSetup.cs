@@ -37,10 +37,12 @@ namespace Albatross.CommandLine.CodeGen {
 		public string GetCommandClassName() {
 			string optionsClassName = OptionClass.Name;
 			if (optionsClassName.EndsWith(My.Postfix_Options, StringComparison.InvariantCultureIgnoreCase)) {
-				return optionsClassName.Substring(0, optionsClassName.Length - My.Postfix_Options.Length);
-			} else {
-				return optionsClassName;
+				optionsClassName = optionsClassName.Substring(0, optionsClassName.Length - My.Postfix_Options.Length);
 			}
+			if(!optionsClassName.EndsWith(My.CommandClassName, StringComparison.InvariantCultureIgnoreCase)) {
+				optionsClassName = optionsClassName + My.CommandClassName;
+			}
+			return optionsClassName;
 		}
 		public void RenameCommandClass(int index) {
 			if (index != 0) {
