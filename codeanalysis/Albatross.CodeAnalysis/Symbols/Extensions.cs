@@ -37,37 +37,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 			}
 		}
 
-		public static IEnumerable<MetadataReference> GetGlobalReferences() {
-			var assemblies = new[] {
-				/*Making sure all MEF assemblies are loaded*/
-				typeof(System.Composition.Convention.AttributedModelProvider).Assembly, //System.Composition.AttributeModel
-				typeof(System.Composition.Convention.ConventionBuilder).Assembly,   //System.Composition.Convention
-				typeof(System.Composition.Hosting.CompositionHost).Assembly,        //System.Composition.Hosting
-				typeof(System.Composition.CompositionContext).Assembly,             //System.Composition.Runtime
-				typeof(System.Composition.CompositionContextExtensions).Assembly,   //System.Composition.TypedParts
-				typeof(Enumerable).Assembly,										//System.Linq
-				typeof(System.Text.Json.JsonDocument).Assembly,						//System.Text.Json
-			};
-			var result = new List<MetadataReference>(from assembly in assemblies select MetadataReference.CreateFromFile(assembly.Location));
-			var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
-			result.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
-			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "mscorlib.dll")));
-			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.dll")));
-			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Core.dll")));
-			result.Add(MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Runtime.dll")));
-			return result;
-		}
 
-		public static Compilation CreateCompilation(params string[] sourceCodes) {
-			var syntaxTrees = sourceCodes.Select(code => CSharpSyntaxTree.ParseText(code, new CSharpParseOptions(LanguageVersion.Default))).ToArray();
-			var references = GetGlobalReferences();
-			var compilation = CSharpCompilation.Create(
-				"TestCompilation",
-				syntaxTrees,
-				references,
-				new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
-			return compilation;
-		}
 
 		public static bool TryGetGenericTypeArguments(this ITypeSymbol symbol, string genericTypeDefinitionName, out ITypeSymbol[] arguments) {
 			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == genericTypeDefinitionName) {

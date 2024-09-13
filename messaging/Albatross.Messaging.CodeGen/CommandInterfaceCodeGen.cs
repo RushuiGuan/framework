@@ -1,9 +1,12 @@
-﻿using Albatross.CodeAnalysis.Syntax;
+﻿using Albatross.CodeAnalysis;
+using Albatross.CodeAnalysis.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Albatross.Messaging.CodeGen {
@@ -29,6 +32,8 @@ namespace Albatross.Messaging.CodeGen {
 				var descriptor = new DiagnosticDescriptor("CmdInterfaceCodeGen01", "Command Interface CodeGen", text, "Generator", DiagnosticSeverity.Warning, true);
 				context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
 			} else {
+				using var writer = new StringWriter();
+
 				foreach (var candidate in cadidates) {
 					var codeStack = new CodeStack()
 						.Begin(new CompilationUnitBuilder())
@@ -68,8 +73,11 @@ namespace Albatross.Messaging.CodeGen {
 						.With(namespacesToImport.Select(y => new UsingDirectiveNode(y)).ToArray())
 						.EndSeek();
 					var code = codeStack.Build();
+					writer.Write($"// {candidate.Name}");
+					writer.WriteLine(code);
 					context.AddSource(candidate.Name, SourceText.From(code, Encoding.UTF8));
 				}
+				context.CreateGeneratorDebugFile("albatorss-messaging-codegen.debug.txt", writer.ToString());
 			}
 		}
 

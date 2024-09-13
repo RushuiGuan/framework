@@ -134,7 +134,7 @@ namespace Albatross.CommandLine.CodeGen {
 			} catch (Exception err) {
 				context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}3", err.BuildCodeGeneneratorErrorMessage("command line"));
 			}
-			context.CreateGeneratorDebugFile("command-line.debug.txt", writer.ToString());
+			context.CreateGeneratorDebugFile("albatross-commandline-codegen.debug.txt", writer.ToString());
 		}
 
 		void BuildConstructorStatements(CodeStack cs, CommandSetup setup, INamedTypeSymbol optionClass) {

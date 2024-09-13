@@ -7,5 +7,6 @@ namespace Albatross.CodeAnalysis.Syntax {
 		}
 		public SyntaxNode Node { get; protected set; }
 		public override string ToString() => Node.NormalizeWhitespace(indentation: "\t").ToFullString();
+		//public override string ToString() => Node.ToFullString();
 	}
 }
