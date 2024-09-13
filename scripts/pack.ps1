@@ -29,7 +29,7 @@ function Update-CodeGenProjectReference {
 			$parentNode.RemoveChild($node) | Out-Null
 		}
 
-		# create the package reference to Albatross.CodeAnalysis with the new version
+		# recreate the package reference to Albatross.CodeAnalysis with the new version
 		$node = Select-Xml -Xml $doc -XPath '//Project/ItemGroup' | Select-Object -ExpandProperty Node
 		$newElement = $doc.CreateElement("PackageReference")
 		$newElement.SetAttribute("Include", 'Albatross.CodeAnalysis')
@@ -38,14 +38,16 @@ function Update-CodeGenProjectReference {
 		$newElement.SetAttribute("PrivateAssets", 'all')
 		$node.AppendChild($newElement) | Out-Null
 
-		# create the TargetPathWithTargetPlatformMoniker element for Albatross.CodeAnalysis.dll if it doesn't exist
-		$node = Select-Xml -Xml $doc -XPath '//Project/Target/ItemGroup/TargetPathWithTargetPlatformMoniker[@Include="$(PKGAlbatross_CodeAnalysis)\lib\netstandard2.0\Albatross.CodeAnalysis.dll"]' | Select-Object -ExpandProperty Node
-		if (-not $node) {
-			$node = Select-Xml -Xml $doc -XPath '//Project/Target/ItemGroup' | Select-Object -ExpandProperty Node
-			$newElement = $doc.CreateElement("TargetPathWithTargetPlatformMoniker")
-			$newElement.SetAttribute("Include", '$(PKGAlbatross_CodeAnalysis)\lib\netstandard2.0\Albatross.CodeAnalysis.dll')
-			$newElement.SetAttribute("IncludeRuntimeDependency", 'false')
-			$node.AppendChild($newElement) | Out-Null
+		# remove the TargetPathWithTargetPlatformMoniker element for project reference
+		$node = Select-Xml -Xml $doc -XPath '//Project/PropertyGroup/GetTargetPathDependsOn' | Select-Object -ExpandProperty Node
+		if($node) {
+			$parentNode = $node.ParentNode
+			$parentNode.RemoveChild($node) | Out-Null
+		}
+		$node = Select-Xml -Xml $doc -XPath '//Project/Target[@Name="GetDependencyTargetPaths"]' | Select-Object -ExpandProperty Node
+		if ($node) {
+			$parentNode = $node.ParentNode
+			$parentNode.RemoveChild($node) | Out-Null
 		}
 		$doc.Save($csproj)
 	}
