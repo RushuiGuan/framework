@@ -8,6 +8,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.10.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.10.0" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.10.0" />
 	</ItemGroup>
 	<ItemGroup>
@@ -17,8 +18,8 @@
 		<ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
 		<ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
 		<ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj" />
-		
+
+
 		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
 			<PrivateAssets>all</PrivateAssets>
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>

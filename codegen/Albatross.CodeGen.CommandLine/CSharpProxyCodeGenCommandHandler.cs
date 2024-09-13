@@ -1,4 +1,5 @@
-﻿using Albatross.CodeGen.Utility;
+﻿using Albatross.CodeAnalysis.MSBuild;
+using Albatross.CodeGen.Utility;
 using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.Models;
 using Microsoft.CodeAnalysis;
@@ -41,7 +42,8 @@ namespace Albatross.CodeGen.CommandLine {
 					logger.LogInformation("Generating proxy for {controller}", controller.Name);
 					var webApi = this.convertToWebApi.Convert(controller);
 					var codeStack = this.converToCSharpCodeStack.Convert(webApi);
-					var text = codeStack.Build();
+
+					var text = codeStack.BuildWithFormat();
 					System.Console.WriteLine(text);
 					if (options.OutputDirectory != null) {
 						using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, codeStack.FileName ?? "generated.cs"))) {
