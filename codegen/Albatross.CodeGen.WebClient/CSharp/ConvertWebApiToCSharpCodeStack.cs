@@ -4,7 +4,6 @@ using Albatross.CodeAnalysis.Syntax;
 using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
-using Microsoft.CodeAnalysis.CSharp;
 
 namespace Albatross.CodeGen.WebClient.CSharp {
 	public class ConvertWebApiToCSharpCodeStack : IConvertObject<ControllerInfo, CodeStack> {
@@ -73,11 +72,28 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 										}
 									}
 								}
+								using (codeStack.NewScope(new UsingStatementBuilder())) {
+									using (codeStack.NewScope(new VariableBuilder(null, "request"))) {
+										codeStack.With(new ThisExpression());
+										var fromBody = method.Parameters.FirstOrDefault(x => x.WebType == ParameterType.FromBody);
+										if (fromBody == null) {
+											codeStack.With(new IdentifierNode("CreateRequest"));
+										} else if (fromBody.Type.SpecialType == SpecialType.System_String) {
+											codeStack.With(new IdentifierNode("CreateStringRequest"));
+										} else {
+											codeStack.With(new GenericNameNode("CreateJsonRequest", fromBody.Type.GetFullName()));
+										}
+										using (codeStack.ToNewScope(new InvocationExpressionBuilder())) {
+											using (codeStack.NewScope(new ArgumentListBuilder())) {
+											}
+										}
+									}
+								}
 							}
 						}
 					}
+					return codeStack;
 				}
-				return codeStack;
 			}
 		}
 		void CreateAddQueryStringStatement(CodeStack codeStack, ParameterInfo param, string? varaibleName) {
@@ -88,11 +104,24 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 					if (param.Type.SpecialType == SpecialType.System_String) {
 						codeStack.With(new IdentifierNode(varaibleName));
 					} else {
-						using (codeStack.NewScope(new StringInterpolationBuilder())) {
-							if (param.Type.SpecialType == SpecialType.System_DateTime) {
-								codeStack.With(new StringInterpolationNode(varaibleName, "yyyy-MM-dd"));
-							} else {
-								codeStack.With(new IdentifierNode(varaibleName));
+						if (param.Type.SpecialType == SpecialType.System_DateTime || param.Type.GetFullName() == "System.DateTimeOffset") {
+							codeStack.Begin()
+								.With(new IdentifierNode(param.Name))
+								.To(new InvocationExpressionBuilder("QueryString"))
+							.End();
+						} else {
+							using (codeStack.NewScope(new StringInterpolationBuilder())) {
+								switch (param.Type.GetFullName()) {
+									case "System.DateOnly":
+										codeStack.With(new StringInterpolationNode(varaibleName, "yyyy-MM-dd"));
+										break;
+									case "System.TimeOnly":
+										codeStack.With(new StringInterpolationNode(varaibleName, "HH:mm:ss.fffffff"));
+										break;
+									default:
+										codeStack.With(new IdentifierNode(varaibleName));
+										break;
+								}
 							}
 						}
 					}
@@ -104,3 +133,4 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 		}
 	}
 }
+
