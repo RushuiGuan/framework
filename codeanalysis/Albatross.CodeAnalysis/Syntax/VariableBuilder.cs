@@ -21,7 +21,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 		public VariableDeclarationSyntax Node { get; private set; }
 		public string Name { get; }
 
-		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
+		public virtual SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			if (elements.Count() <= 1) {
 				if (elements.FirstOrDefault() is ExpressionSyntax expressionSyntax) {
 					Node = Node.WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(Name)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	public interface INode { }
-	public interface IEndNode : INode { }
 	public interface INodeBuilder : INode {
 		SyntaxNode Build(IEnumerable<SyntaxNode> elements);
 	}

@@ -9,153 +9,161 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Albatross.CommandLine.CodeGen {
 	[Generator]
 	public class CommandCodeGen : ISourceGenerator {
 		public void Execute(GeneratorExecutionContext context) {
-			// System.Diagnostics.Debugger.Launch();
-			var optionClasses = new List<INamedTypeSymbol>();
-			var handlerClasses = new Dictionary<string, string>();
-			var setups = new List<CommandSetup>();
-
-			foreach (var syntaxTree in context.Compilation.SyntaxTrees) {
-				var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
-				var walker = new CodeGenClassDeclarationWalker(semanticModel);
-				walker.Visit(syntaxTree.GetRoot());
-				optionClasses.AddRange(walker.CommandOptionClasses);
-			}
-			if (!optionClasses.Any()) {
-				string text = $"No option class found.  Eligible classes should be public and annotated with the {My.VerbAttributeClass}";
-				context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}1", text);
-			} else {
-				foreach (var optionClass in optionClasses) {
-					foreach (var attribute in optionClass.GetAttributes()) {
-						if (attribute.AttributeClass?.GetFullName() == My.VerbAttributeClass) {
-							var setup = new CommandSetup(optionClass, attribute);
-							setups.Add(setup);
-						}
-					}
-				}
-				foreach (var group in setups.GroupBy(x => x.CommandClassName)) {
-					if (group.Count() > 1) {
-						int index = 0;
-						foreach (var setup in group) {
-							setup.RenameCommandClass(index++);
-						}
-					}
-				}
-			}
 			using var writer = new StringWriter();
-			foreach (var setup in setups) {
-				var cs = new CodeStack();
-				using (cs.Begin(new CompilationUnitBuilder()).NewScope()) {
-					cs.With(new UsingDirectiveNode("System.CommandLine"))
-						.With(new UsingDirectiveNode("System"), new UsingDirectiveNode("System.IO"))
-						.With(new UsingDirectiveNode("System.Threading.Tasks"));
-					using (cs.Begin(new NamespaceDeclarationBuilder(setup.OptionClass.ContainingNamespace.ToDisplayString())).NewScope()) {
-						using (cs.Begin(new ClassDeclarationBuilder(setup.CommandClassName).Partial()).NewScope()) {
-							cs.With(new BaseTypeNode(My.CommandClassName));
-							using (cs.Begin(new ConstructorDeclarationBuilder(setup.CommandClassName)).NewScope()) {
-								using (cs.Begin(new ArgumentListBuilder()).NewScope()) {
-									cs.With(new LiteralNode(setup.Name))
-										.With(new LiteralNode(setup.Description));
-								}
-								this.BuildConstructorStatements(cs, setup, setup.OptionClass);
+			try {
+				// System.Diagnostics.Debugger.Launch();
+				var optionClasses = new List<INamedTypeSymbol>();
+				var handlerClasses = new Dictionary<string, string>();
+				var setups = new List<CommandSetup>();
+
+				foreach (var syntaxTree in context.Compilation.SyntaxTrees) {
+					var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
+					var walker = new CodeGenClassDeclarationWalker(semanticModel);
+					walker.Visit(syntaxTree.GetRoot());
+					optionClasses.AddRange(walker.CommandOptionClasses);
+				}
+				if (!optionClasses.Any()) {
+					string text = $"No option class found.  Eligible classes should be public and annotated with the {My.VerbAttributeClass}";
+					context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}1", text);
+				} else {
+					foreach (var optionClass in optionClasses) {
+						foreach (var attribute in optionClass.GetAttributes()) {
+							if (attribute.AttributeClass?.GetFullName() == My.VerbAttributeClass) {
+								var setup = new CommandSetup(optionClass, attribute);
+								setups.Add(setup);
+							}
+						}
+					}
+					foreach (var group in setups.GroupBy(x => x.CommandClassName)) {
+						if (group.Count() > 1) {
+							int index = 0;
+							foreach (var setup in group) {
+								setup.RenameCommandClass(index++);
 							}
 						}
 					}
 				}
-				try {
-					var code = cs.Build();
-					context.AddSource(setup.CommandClassName, SourceText.From(code, Encoding.UTF8));
-					writer.WriteLine($"// {setup.CommandClassName}");
-					writer.WriteLine(code);
-				} catch (Exception err) {
-					context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}2", err.BuildCodeGeneneratorErrorMessage("command line"));
-				}
-			}
-
-			var diCodeStack = new CodeStack();
-			using (diCodeStack.Begin(new CompilationUnitBuilder()).NewScope()) {
-				diCodeStack.With(new UsingDirectiveNode("Microsoft.Extensions.DependencyInjection"));
-				diCodeStack.With(new UsingDirectiveNode("System.CommandLine.Invocation"));
-				diCodeStack.With(new UsingDirectiveNode("System.CommandLine.Hosting"));
-				diCodeStack.With(new UsingDirectiveNode("Albatross.CommandLine"));
-				var namespaces = new List<string>();
-				var addedOptionClasses = new HashSet<string>();
-				using (diCodeStack.Begin(new NamespaceDeclarationBuilder("Albatross.CommandLine")).NewScope()) {
-					using (diCodeStack.Begin(new ClassDeclarationBuilder("RegistrationExtensions").Static()).NewScope()) {
-						using (diCodeStack.Begin(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Static()).NewScope()) {
-							diCodeStack.With(new ParameterNode(true, "IServiceCollection", "services"));
-							foreach (var setup in setups) {
-								using (diCodeStack.Begin().NewScope()) {
-									diCodeStack.With(new IdentifierNode("services"))
-										.With(new GenericIdentifierNode("AddKeyedScoped", "ICommandHandler", setup.HandlerClass))
-										.To(new MemberAccessBuilder())
-										.Begin(new ArgumentListBuilder()).With(new LiteralNode(setup.Name)).End()
-										.To(new InvocationExpressionBuilder());
+				foreach (var setup in setups) {
+					var cs = new CodeStack();
+					using (cs.NewScope(new CompilationUnitBuilder())) {
+						cs.With(new UsingDirectiveNode("System.CommandLine"))
+							.With(new UsingDirectiveNode("System"), new UsingDirectiveNode("System.IO"))
+							.With(new UsingDirectiveNode("System.Threading.Tasks"));
+						using (cs.NewScope(new NamespaceDeclarationBuilder(setup.OptionClass.ContainingNamespace.ToDisplayString()))) {
+							using (cs.NewScope(new ClassDeclarationBuilder(setup.CommandClassName).Partial())) {
+								cs.With(new BaseTypeNode(My.CommandClassName));
+								using (cs.NewScope(new ConstructorDeclarationBuilder(setup.CommandClassName))) {
+									using (cs.NewScope(new ArgumentListBuilder())) {
+										cs.With(new LiteralNode(setup.Name)).With(new LiteralNode(setup.Description));
+									}
+									this.BuildConstructorStatements(cs, setup, setup.OptionClass);
 								}
-								if (!addedOptionClasses.Contains(setup.OptionClass.Name)) {
-									addedOptionClasses.Add(setup.OptionClass.Name);
+							}
+						}
+					}
+					var text = cs.Build();
+					context.AddSource(setup.CommandClassName, SourceText.From(text, Encoding.UTF8));
+					writer.WriteLine($"// {setup.CommandClassName}");
+					writer.WriteLine(text);
+				}
+
+				var diCodeStack = new CodeStack();
+				using (diCodeStack.NewScope(new CompilationUnitBuilder())) {
+					diCodeStack.With(new UsingDirectiveNode("Microsoft.Extensions.DependencyInjection"));
+					diCodeStack.With(new UsingDirectiveNode("System.CommandLine.Invocation"));
+					diCodeStack.With(new UsingDirectiveNode("System.CommandLine.Hosting"));
+					diCodeStack.With(new UsingDirectiveNode("Albatross.CommandLine"));
+					var namespaces = new List<string>();
+					var addedOptionClasses = new HashSet<string>();
+					using (diCodeStack.NewScope(new NamespaceDeclarationBuilder("Albatross.CommandLine"))) {
+						using (diCodeStack.NewScope(new ClassDeclarationBuilder("RegistrationExtensions").Static())) {
+							using (diCodeStack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Static())) {
+								diCodeStack.With(new ParameterNode(true, "IServiceCollection", "services"));
+								foreach (var setup in setups) {
+									using (diCodeStack.NewScope()) {
+										diCodeStack.With(new IdentifierNode("services"))
+											.With(new GenericIdentifierNode("AddKeyedScoped", "ICommandHandler", setup.HandlerClass))
+											.To(new MemberAccessBuilder())
+											.Begin(new ArgumentListBuilder()).With(new LiteralNode(setup.Name)).End()
+											.To(new InvocationExpressionBuilder());
+									}
+									if (!addedOptionClasses.Contains(setup.OptionClass.Name)) {
+										addedOptionClasses.Add(setup.OptionClass.Name);
+										namespaces.Add(setup.OptionClass.ContainingNamespace.ToDisplayString());
+										var className = setup.CommandClassName;
+										using (diCodeStack.NewScope()) {
+											diCodeStack.With(new IdentifierNode("services"))
+												.With(new GenericIdentifierNode("AddOptions", setup.OptionClass.Name))
+												.To(new MemberAccessBuilder())
+												.To(new InvocationExpressionBuilder())
+												.With(new IdentifierNode("BindCommandLine"))
+												.To(new MemberAccessBuilder())
+												.To(new InvocationExpressionBuilder());
+										}
+									}
+								}
+								diCodeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("services").Identifier));
+							}
+
+							using (diCodeStack.NewScope(new MethodDeclarationBuilder("Setup", "AddCommands").Static())) {
+								diCodeStack.With(new ParameterNode(true, "Setup", "setup"));
+								foreach (var setup in setups) {
 									namespaces.Add(setup.OptionClass.ContainingNamespace.ToDisplayString());
-									var className = setup.CommandClassName;
-									using (diCodeStack.Begin().NewScope()) {
-										diCodeStack.Complete(new InvocationExpressionBuilder(new IdentifierNode("services").WithGenericMember("AddOptions", setup.OptionClass.Name)))
-											.With(new IdentifierNode("BindCommandLine"))
+									using (diCodeStack.NewScope()) {
+										diCodeStack.With(new IdentifierNode("setup"))
+											.With(new GenericIdentifierNode("AddCommand", setup.CommandClassName))
 											.To(new MemberAccessBuilder())
 											.To(new InvocationExpressionBuilder());
 									}
 								}
+								diCodeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("setup").Identifier));
 							}
-							diCodeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("services").Identifier));
-						}
-
-						using (diCodeStack.Begin(new MethodDeclarationBuilder("Setup", "AddCommands").Static()).NewScope()) {
-							diCodeStack.With(new ParameterNode(true, "Setup", "setup"));
-							foreach (var setup in setups) {
-								namespaces.Add(setup.OptionClass.ContainingNamespace.ToDisplayString());
-								diCodeStack.Complete(new InvocationExpressionBuilder(new IdentifierNode("setup").WithGenericMember("AddCommand", setup.CommandClassName)));
-							}
-							diCodeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("setup").Identifier));
 						}
 					}
+					foreach (var item in namespaces) {
+						diCodeStack.With(new UsingDirectiveNode(item));
+					}
 				}
-				foreach (var item in namespaces) {
-					diCodeStack.With(new UsingDirectiveNode(item));
-				}
-			}
-			try {
 				var code = diCodeStack.Build();
 				context.AddSource("RegistrationExtensions", SourceText.From(code, Encoding.UTF8));
 				writer.WriteLine("// RegistrationExtensions");
 				writer.WriteLine(code);
 			} catch (Exception err) {
-				context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}3", err.BuildCodeGeneneratorErrorMessage("command line"));
+				writer.WriteLine(err.ToString());
+				context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}2", err.BuildCodeGeneneratorErrorMessage("commandline"));
+			} finally {
+				context.CreateGeneratorDebugFile("albatross-commandline-codegen.debug.txt", writer.ToString());
 			}
-			context.CreateGeneratorDebugFile("albatross-commandline-codegen.debug.txt", writer.ToString());
 		}
 
 		void BuildConstructorStatements(CodeStack cs, CommandSetup setup, INamedTypeSymbol optionClass) {
 			foreach (var value in setup.Aliases) {
-				using (cs.Begin(new InvocationExpressionBuilder(new IdentifierNode().WithMember("AddAlias"))).NewScope()) {
-					using (cs.Begin(new ArgumentListBuilder()).NewScope()) {
-						cs.With(new LiteralNode($"{value}"));
-					}
+				using (cs.NewScope()) {
+					cs.With(new ThisExpression()).With(new IdentifierNode("AddAlias"))
+						.To(new MemberAccessBuilder())
+						.ToNewBegin(new InvocationExpressionBuilder())
+							.Begin(new ArgumentListBuilder())
+								.With(new LiteralNode($"{value}"))
+							.End()
+						.End();
 				}
 			}
 			if (setup.Options.Any()) {
 				var variableName = "option";
 				cs.Complete(new VariableBuilder(My.OptionClassName, variableName));
 				foreach (var option in setup.Options) {
-					using (cs.Begin(new AssignmentExpressionBuilder(variableName)).NewScope()) {
-						using (cs.Begin(new NewObjectBuilder(My.OptionClassName, option.Type)).NewScope()) {
-							using (cs.Begin(new ArgumentListBuilder()).NewScope()) {
+					using (cs.NewScope(new AssignmentExpressionBuilder(variableName))) {
+						using (cs.NewScope(new NewObjectBuilder(My.OptionClassName, option.Type))) {
+							using (cs.NewScope(new ArgumentListBuilder())) {
 								cs.With(new LiteralNode(option.Name)).With(new LiteralNode(option.Description));
 							}
 							if (option.Required) {
-								using (cs.Begin(new AssignmentExpressionBuilder("IsRequired")).NewScope()) {
+								using (cs.NewScope(new AssignmentExpressionBuilder("IsRequired"))) {
 									cs.With(new LiteralNode(true));
 								}
 							}
@@ -168,16 +176,26 @@ namespace Albatross.CommandLine.CodeGen {
 					}
 
 					foreach (var alias in option.Aliases) {
-						using (cs.Begin(new InvocationExpressionBuilder(new IdentifierNode(variableName).WithMember("AddAlias"))).NewScope()) {
-							using (cs.Begin(new ArgumentListBuilder()).NewScope()) {
-								cs.With(new LiteralNode($"-{alias}"));
-							}
+						using (cs.NewScope()) {
+							cs.With(new IdentifierNode(variableName))
+								.With(new IdentifierNode("AddAlias"))
+								.To(new MemberAccessBuilder())
+								.ToNewBegin(new InvocationExpressionBuilder())
+									.Begin(new ArgumentListBuilder())
+										.With(new LiteralNode($"-{alias}"))
+									.End()
+								.End();
 						}
 					}
-					using (cs.Begin(new InvocationExpressionBuilder(new IdentifierNode().WithMember("AddOption"))).NewScope()) {
-						using (cs.Begin(new ArgumentListBuilder()).NewScope()) {
-							cs.With(SyntaxFactory.IdentifierName(variableName));
-						}
+					using (cs.NewScope()) {
+						cs.With(new ThisExpression())
+							.With(new IdentifierNode("AddOption"))
+							.To(new MemberAccessBuilder())
+							.ToNewBegin(new InvocationExpressionBuilder())
+								.Begin(new ArgumentListBuilder())
+									.With(new IdentifierNode(variableName))
+								.End()
+							.End();
 					}
 				}
 			}

@@ -12,6 +12,9 @@ namespace Albatross.CodeGen.WebClient.Models {
 			this.Name = symbol.Name;
 			this.ReturnType = GetReturnType((INamedTypeSymbol)symbol.ReturnType);
 			this.Route = symbol.GetRoute();
+			if(!string.IsNullOrEmpty(this.Route) && !this.Route.StartsWith("/")) {
+				this.Route = "/" + this.Route;
+			}
 			this.HttpMethod = GetHttpMethod(symbol);
 			foreach(var parameter in symbol.Parameters) {
 				this.Parameters.Add(new ParameterInfo(parameter, this.Route));

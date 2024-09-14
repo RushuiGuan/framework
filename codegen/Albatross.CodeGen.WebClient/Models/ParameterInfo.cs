@@ -42,5 +42,6 @@ namespace Albatross.CodeGen.WebClient.Models {
 		public ITypeSymbol Type { get; set; }
 		public string TypeText => Type.GetFullName();
 		public ParameterType WebType { get; set; }
+		public bool IsArray => Type is IArrayTypeSymbol;
 	}
 }

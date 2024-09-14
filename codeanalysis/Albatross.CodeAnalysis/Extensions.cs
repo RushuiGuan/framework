@@ -24,8 +24,10 @@ namespace Albatross.CodeAnalysis {
 		public static void CreateGeneratorDebugFile(this GeneratorExecutionContext context, string fileName, string content) {
 			if (context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.ProjectDir", out var projectDir)) {
 				var path = Path.Combine(projectDir, fileName);
-				using var streamWriter = new StreamWriter(path);
-				streamWriter.Write(content);
+				using (var streamWriter = new StreamWriter(path)) {
+					streamWriter.WriteLine(content);
+					streamWriter.Flush();
+				}
 			}
 		}
 	}

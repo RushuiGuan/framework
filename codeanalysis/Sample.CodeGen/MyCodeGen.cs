@@ -11,10 +11,10 @@ namespace Sample.CodeGen {
 			// System.Diagnostics.Debugger.Launch();
 			var compilation = context.Compilation;
 			var cs = new CodeStack();
-			using (cs.Begin(new CompilationUnitBuilder()).NewScope()) {
-				using (cs.Begin(new NamespaceDeclarationBuilder("Sample.CodeGen")).NewScope()) {
-					using (cs.Begin(new ClassDeclarationBuilder("MyTest")).NewScope()) {
-						using (cs.Begin(new MethodDeclarationBuilder("void", "MyMethod")).NewScope()) {
+			using (cs.NewScope(new CompilationUnitBuilder())) {
+				using (cs.NewScope(new NamespaceDeclarationBuilder("Sample.CodeGen"))) {
+					using (cs.NewScope(new ClassDeclarationBuilder("MyTest"))) {
+						using (cs.NewScope(new MethodDeclarationBuilder("void", "MyMethod"))) {
 							cs.Begin(new VariableBuilder("string", "test1")).With(new LiteralNode("MyTest".Kebaberize())).End();
 						}
 					}

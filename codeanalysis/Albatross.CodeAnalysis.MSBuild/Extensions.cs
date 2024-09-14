@@ -64,7 +64,7 @@ namespace Albatross.CodeAnalysis.MSBuild {
 				.WithChangedOption(FormattingOptions.TabSize, LanguageNames.CSharp, 4);
 
 			var sb = new StringBuilder();
-			foreach (var node in stack.BuildStack()) {
+			foreach (var node in stack.Finalize()) {
 				if (node is INodeContainer container) {
 					var formatted = Formatter.Format(container.Node, workspace, options);
 					sb.AppendLine(formatted.ToFullString());
@@ -96,16 +96,12 @@ namespace Albatross.CodeAnalysis.MSBuild {
 			return result;
 		}
 
-		public static Compilation CreateCompilation(params string[] sourceCodes) {
-			var syntaxTrees = sourceCodes.Select(code => CSharpSyntaxTree.ParseText(code, new CSharpParseOptions(LanguageVersion.Default))).ToArray();
+		public static Compilation CreateCompilation(this string code) {
+			var syntaxTree = CSharpSyntaxTree.ParseText(code, new CSharpParseOptions(LanguageVersion.Default));
 			var references = GetGlobalReferences();
-			var compilation = CSharpCompilation.Create(
-				"TestCompilation",
-				syntaxTrees,
-				references,
+			var compilation = CSharpCompilation.Create("TestCompilation", [syntaxTree], references,
 				new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 			return compilation;
 		}
-
 	}
 }

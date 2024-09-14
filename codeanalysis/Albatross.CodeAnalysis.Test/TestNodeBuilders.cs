@@ -68,24 +68,21 @@ namespace Albatross.CodeAnalysis.Test {
 		
 
 
-		[InlineData("this.a.b", true, "a", "b")]
-		[InlineData("a.b", false, "a", "b")]
-		[InlineData("this.a", true, "a")]
-		[InlineData("a", false, "a")]
+		[InlineData("this.a.b\r\n", true, "a", "b")]
+		[InlineData("a.b\r\n", false, "a", "b")]
+		[InlineData("this.a\r\n", true, "a")]
+		[InlineData("a\r\n", false, "a")]
 		[Theory]
 		public void TestIdentifierCreation(string expected, bool memberAccess, params string[] names) {
-			IdentifierNode? node = null;
+			var cs = new CodeStack();
 			if (memberAccess) {
-				node = new IdentifierNode();
+				cs.With(new ThisExpression());
 			}
 			foreach (var name in names) {
-				if (node == null) {
-					node = new IdentifierNode(name);
-				} else {
-					node = node.WithMember(name);
-				}
+				cs.With(new IdentifierNode(name));
 			}
-			Assert.Equal(expected, node?.ToString());
+			cs.To(new MemberAccessBuilder());
+			Assert.Equal(expected, cs.Build());
 		}
 	}
 }

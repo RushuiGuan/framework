@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.CodeAnalysis.Syntax {
-
 	/// <summary>
 	/// Create a <see cref="ClassDeclarationSyntax"/> instance.  Will look for the following components: 
 	/// * <see cref="ConstructorDeclarationSyntax"/>
@@ -53,6 +52,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 				Node = Node.AddBaseListTypes(baseTypes);
 			}
 
+			Node = Node.AddMembers(elements.OfType<FieldDeclarationSyntax>().ToArray());
 			Node = Node.AddMembers(elements.OfType<PropertyDeclarationSyntax>().ToArray());
 			Node = Node.AddMembers(elements.OfType<MethodDeclarationSyntax>().ToArray());
 			return Node;

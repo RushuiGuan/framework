@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.Tests.WebApi {
@@ -22,6 +24,12 @@ namespace Albatross.CodeGen.Tests.WebApi {
 
 		[HttpGet("array-query-string")]
 		public Task<string> TestArrayInput([FromQuery] string[] items) => Task<string>.FromResult("");
+		
+		[HttpGet("ienumerable-generic-query-string")]
+		public Task<string> TestIEnumerableGenericInput([FromQuery] IEnumerable<string> items) => Task<string>.FromResult("");
+
+		[HttpGet("ienumerable-query-string")]
+		public Task<string> TestIEnumerableInput([FromQuery] IEnumerable items) => Task<string>.FromResult("");
 
 		[HttpGet("query-string-with-diff-name")]
 		public Task<string> TestQueryName([FromQuery(Name ="i")] string[] items) => Task<string>.FromResult("");

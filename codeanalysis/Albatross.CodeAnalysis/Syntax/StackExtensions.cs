@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	public static class CollectionExtensions {
-		public static List<T> PopUntil<T>(this Stack<T> stack, Func<T, bool> predicate, out T last) {
+		public static Stack<T> PopUntil<T>(this Stack<T> stack, Func<T, bool> predicate, out T last) {
 			last = default!;
-			var list = new List<T>();
+			var localStack = new Stack<T>();
 			while (stack.Any()) {
 				var item = stack.Pop();
 				if (predicate(item)) {
 					last = item;
-					return list;
+					return localStack;
 				} else {
-					list.Add(item);
+					localStack.Push(item);
 				}
 			}
 			throw new InvalidOperationException("None of stack item matched the predicate");
