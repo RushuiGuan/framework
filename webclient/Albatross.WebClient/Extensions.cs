@@ -121,5 +121,15 @@ namespace Albatross.WebClient {
 			var result = await client.GetJsonResponse<ResultType, ErrorType>(request);
 			return result ?? throw new InvalidDataException($"No data was returned from {request.Method}: {request.RequestUri}");
 		}
+		public static string JsonString(this DateTime value) {
+			if (value.Kind == DateTimeKind.Utc) {
+				return value.ToString("yyyy-MM-ddTHH:mm:ssZ");
+			}else if(value.Kind == DateTimeKind.Local){
+				return value.ToString("yyyy-MM-ddTHH:mm:sszzz");
+			} else {
+				return value.ToString("yyyy-MM-ddTHH:mm:ss");
+			}
+		}
+		public static string JsonString(this DateTimeOffset value) => $"{value:yyyy-MM-ddTHH:mm:sszzz}";
 	}
 }
