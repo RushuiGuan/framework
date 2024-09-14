@@ -1,5 +1,4 @@
 ﻿using Albatross.CodeAnalysis.Syntax;
-using Microsoft.CodeAnalysis;
 using Xunit;
 
 namespace Albatross.CodeAnalysis.Test {

@@ -3,15 +3,17 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
 	/// Generate a <see cref="InvocationExpressionSyntax"/> instance.  Expects the following parameters
-	/// * <see cref="ExpressionSyntax"/> Required if no identifier is provided.
-	/// * <see cref="ArgumentListSyntax"/> Optional.
+	/// * <see cref="ExpressionSyntax"/> as the first parameter
+	/// * <see cref="SimpleNameSyntax"/> as subsequent parameters
+	/// * <see cref="ArgumentListSyntax"/> Optionally as the last parameter
 	/// </summary>
 	public class InvocationExpressionBuilder : INodeBuilder {
-		ExpressionSyntax? identifier;
+		IdentifierNameSyntax? identifier;
 		public InvocationExpressionBuilder() { }
 		public InvocationExpressionBuilder(string name) : this(new IdentifierNode(name)) { }
 		public InvocationExpressionBuilder(IdentifierNode identifier) {
@@ -19,35 +21,25 @@ namespace Albatross.CodeAnalysis.Syntax {
 		}
 
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
-			ArgumentListSyntax? argumentList = null;
-			foreach(var element in elements) {
-				if (element is ArgumentListSyntax argumentListSyntax) {
-					if (argumentList == null) {
-						argumentList = argumentListSyntax;
-					} else {
-						throw new ArgumentException($"The {nameof(InvocationExpressionBuilder)} only accepts at most one {nameof(ArgumentListSyntax)} parameter");
-					}
-				} else if (element is ExpressionSyntax expressionSyntax) {
-					if (this.identifier == null) {
-						this.identifier = expressionSyntax;
-					} else {
-						throw new ArgumentException($"The {nameof(InvocationExpressionBuilder)} only accepts one {nameof(ExpressionSyntax)} parameter");
-					}
+			var array = elements.ToArray();
+			var nameParameters = new List<SyntaxNode>();
+			ArgumentListSyntax argumentList = SyntaxFactory.ArgumentList();
+			for (int i = 0; i < array.Length; i++) {
+				if (i == array.Length - 1 && array[i] is ArgumentListSyntax argumentListSyntax) {
+					argumentList = argumentListSyntax;
 				} else {
-					throw new ArgumentException($"The {nameof(InvocationExpressionBuilder)} only accepts {nameof(ExpressionSyntax)} and {nameof(ArgumentListSyntax)} as parameters");
+					nameParameters.Add(array[i]);
 				}
 			}
-			if (this.identifier == null) {
-				throw new ArgumentException($"The {nameof(InvocationExpressionBuilder)} requires an {nameof(ExpressionSyntax)} parameter");
-			} else {
-				var node = SyntaxFactory.InvocationExpression(this.identifier);
-				if (argumentList != null) {
-					node = node.WithArgumentList(argumentList);
-				}else{
-					node = node.WithArgumentList(SyntaxFactory.ArgumentList());
-				}
-				return node;
+			if (this.identifier != null) {
+				nameParameters.Add(this.identifier);
 			}
+			if(nameParameters.Count == 0) {
+				throw new ArgumentException($"The {nameof(InvocationExpressionBuilder)} requires at least one {nameof(SimpleNameSyntax)} parameter");
+			}
+
+			var name = (ExpressionSyntax)new MemberAccessBuilder().Build(nameParameters);
+			return SyntaxFactory.InvocationExpression(name).WithArgumentList(argumentList);
 		}
 	}
 }

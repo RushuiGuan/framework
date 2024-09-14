@@ -1,4 +1,5 @@
-﻿using Albatross.CodeAnalysis.Symbols;
+﻿using Albatross.CodeAnalysis.MSBuild;
+using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis;
 using Xunit;
 
@@ -6,7 +7,7 @@ namespace Albatross.CodeAnalysis.Test {
 	public class TestAttributeCheck {
 		[Fact]
 		public void TestGetGenericAttributeName() {
-			var compilation = Symbols.Extensions.CreateCompilation(@"
+			var compilation = @"
 	using System;
 	using System.Text.Json.Serialization;
 	[JsonConverterAttribute(typeof(JsonStringEnumConverter))]
@@ -14,7 +15,7 @@ namespace Albatross.CodeAnalysis.Test {
 	
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public enum MyEnum2 { None }
-");
+".CreateCompilation();
 			var errors = compilation.GetDiagnostics().Where(x => x.Severity == DiagnosticSeverity.Error).ToArray();
 			if (errors.Any()) {
 				errors.ToList().ForEach(x => System.Console.WriteLine(x));

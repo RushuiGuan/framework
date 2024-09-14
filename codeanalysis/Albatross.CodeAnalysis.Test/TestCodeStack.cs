@@ -12,7 +12,7 @@ namespace Albatross.CodeAnalysis.Test {
 		[Fact]
 		public void TestScope() {
 			var cs = new CodeStack();
-			using (cs.Begin(new MethodDeclarationBuilder("string", "MyMethod")).NewScope()) {
+			using (cs.NewScope(new MethodDeclarationBuilder("string", "MyMethod"))) {
 				cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
 				cs.Begin(new VariableBuilder("int", "test2")).With(new LiteralNode(2)).End();
 			}
@@ -27,16 +27,14 @@ namespace Albatross.CodeAnalysis.Test {
 }
 ";
 		[Fact]
-		public void TestEmptyBegin() {
+		public void TestNoOpNodeBuilder() {
 			var cs = new CodeStack();
-			using (cs.Begin(new MethodDeclarationBuilder("string", "MyMethod")).NewScope()) {
-				cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
-				cs.Begin();
-				cs.Begin(new VariableBuilder("int", "test2")).With(new LiteralNode(2)).End();
-				cs.End();
-				cs.Begin();
-				cs.Begin(new VariableBuilder("int", "test3")).With(new LiteralNode(3)).End();
-				cs.End();
+			using (cs.NewScope(new MethodDeclarationBuilder("string", "MyMethod"))) {
+				using (cs.NewScope()) {
+					cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
+					cs.Begin(new VariableBuilder("int", "test2")).With(new LiteralNode(2)).End();
+					cs.Begin(new VariableBuilder("int", "test3")).With(new LiteralNode(3)).End();
+				}
 			}
 			Assert.Equal(TestEmptyBegin_Expected, cs.Build());
 		}
@@ -54,9 +52,9 @@ namespace Albatross.CodeAnalysis.Test {
 		[Fact]
 		public void TestFeed() {
 			var cs = new CodeStack();
-			using (cs.Begin(new ClassDeclarationBuilder("MyClass")).NewScope()) {
+			using (cs.NewScope(new ClassDeclarationBuilder("MyClass"))) {
 				cs.With(new PropertyNode("string", "Name").Default());
-				using (cs.Begin().NewScope()) {
+				using (cs.NewScope()) {
 					cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
 					cs.Begin(new VariableBuilder("int", "test2")).With(new LiteralNode(2)).End();
 					cs.To(new MethodDeclarationBuilder("string", "MyMethod"));
