@@ -1,6 +1,7 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.WebClient.Models {
@@ -11,13 +12,14 @@ namespace Albatross.CodeGen.WebClient.Models {
 			this.compilation = compilation;
 			this.Name = symbol.Name;
 			this.ReturnType = GetReturnType((INamedTypeSymbol)symbol.ReturnType);
-			this.Route = symbol.GetRoute();
-			if(!string.IsNullOrEmpty(this.Route) && !this.Route.StartsWith("/")) {
-				this.Route = "/" + this.Route;
-			}
+			var routeSegments = symbol.GetRouteText().GetRouteSegments().ToArray();
 			this.HttpMethod = GetHttpMethod(symbol);
 			foreach(var parameter in symbol.Parameters) {
-				this.Parameters.Add(new ParameterInfo(parameter, this.Route));
+				this.Parameters.Add(new ParameterInfo(parameter, routeSegments));
+			}
+			this.RouteTemplate = string.Join<IRouteSegment>("", routeSegments);
+			if (!string.IsNullOrEmpty(this.RouteTemplate) && !this.RouteTemplate.StartsWith("/")) {
+				this.RouteTemplate = "/" + this.RouteTemplate;
 			}
 		}
 		public string HttpMethod { get; set; }
@@ -25,7 +27,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 		[JsonIgnore]
 		public INamedTypeSymbol ReturnType { get; set; }
 		public string ReturnTypeText => ReturnType.GetFullName();
-		public string Route { get; set; }
+		public string RouteTemplate { get; set; }
 		public List<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
 
 		INamedTypeSymbol GetReturnType(INamedTypeSymbol type) {
@@ -54,15 +56,15 @@ namespace Albatross.CodeGen.WebClient.Models {
 			foreach (var attribute in symbol.GetAttributes()) {
 				switch (attribute.AttributeClass?.GetFullName()) {
 					case My.HttpGetAttributeClassName:
-						return "get";
+						return "Get";
 					case My.HttpPostAttributeClassName:
-						return "post";
+						return "Post";
 					case My.HttpPutAttributeClassName:
-						return "put";
+						return "Put";
 					case My.HttpDeleteAttributeClassName:
-						return "delete";
+						return "Delete";
 					case My.HttpPatchAttributeClassName:
-						return "patch";
+						return "Patch";
 				}
 			}
 			return string.Empty;

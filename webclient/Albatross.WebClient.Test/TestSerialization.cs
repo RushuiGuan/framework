@@ -58,16 +58,16 @@ namespace Albatross.WebClient.Test {
 			var utcText_expected = JsonSerializer.Serialize(utc);
 			var unspecifiedText_expected = JsonSerializer.Serialize(unspecified);
 
-			local.JsonString().Should().Be(localText_expected.Trim('"'));
-			utc.JsonString().Should().Be(utcText_expected.Trim('"'));
-			unspecified.JsonString().Should().Be(unspecifiedText_expected.Trim('"'));
+			local.ISO8601String().Should().Be(localText_expected.Trim('"'));
+			utc.ISO8601String().Should().Be(utcText_expected.Trim('"'));
+			unspecified.ISO8601String().Should().Be(unspecifiedText_expected.Trim('"'));
 		}
 
 		[Fact]
 		public void TestDateTimeOffsetSerialization() {
 			var value = new DateTimeOffset(2024, 9, 12, 14, 30, 44, TimeSpan.FromHours(3));
 			var value_expected = JsonSerializer.Serialize(value);
-			value.JsonString().Should().Be(value_expected.Trim('"'));
+			value.ISO8601String().Should().Be(value_expected.Trim('"'));
 		}
 
 		[Fact]

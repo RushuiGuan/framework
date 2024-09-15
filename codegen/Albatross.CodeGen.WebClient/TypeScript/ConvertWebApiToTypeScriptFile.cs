@@ -93,13 +93,13 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 				Parameters = new ListOfSyntaxNodes<ParameterDeclaration>(method.Parameters.Select(x => new ParameterDeclaration(x.Name) { Type = typeConverter.Convert(x.Type) })),
 				Body = new ScopedVariableExpressionBuilder()
 					.IsConstant()
-					.WithName("relativeUrl").WithExpression(method.Route.ConvertRoute2StringInterpolation())
+					.WithName("relativeUrl").WithExpression(method.RouteTemplate.ConvertRoute2StringInterpolation())
 					.Add(() => CreateHttpInvocationExpression(method))
 					.BuildAll()
 			};
 		}
 		IExpression CreateHttpInvocationExpression(MethodInfo method) {
-			var builder = new CodeGen.TypeScript.Expressions.InvocationExpressionBuilder();
+			var builder = new InvocationExpressionBuilder();
 			if (settings.UsePromise) {
 				builder.Await();
 			}
@@ -111,14 +111,14 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			}
 			var hasStringReturnType = object.Equals(returnType, Defined.Types.String());
 			switch (method.HttpMethod) {
-				case "get":
+				case My.HttpMethodGet:
 					if (hasStringReturnType) {
 						builder.WithMultiPartName("this", "doGetStringAsync");
 					} else {
 						builder.WithMultiPartName("this", "doGetAsync").AddGenericArgument(returnType);
 					}
 					break;
-				case "post":
+				case My.HttpMethodPost:
 					if (hasStringReturnType) {
 						builder.WithMultiPartName("this", "doPostStringAsync");
 					} else {
@@ -126,7 +126,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 						builder.AddGenericArgument(returnType);
 					}
 					break;
-				case "patch":
+				case My.HttpMethodPatch:
 					if (hasStringReturnType) {
 						builder.WithMultiPartName("this", "doPatchStringAsync");
 					} else {
@@ -134,7 +134,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 						builder.AddGenericArgument(returnType);
 					}
 					break;
-				case "put":
+				case My.HttpMethodPut:
 					if (hasStringReturnType) {
 						builder.WithMultiPartName("this", "doPutStringAsync");
 					} else {
@@ -142,7 +142,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 						builder.AddGenericArgument(returnType);
 					}
 					break;
-				case "delete":
+				case My.HttpMethodDelete:
 					builder.WithMultiPartName("this", "doDeleteAsync");
 					break;
 			}
@@ -153,7 +153,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			if (fromBodyParameter != null) {
 				builder.AddGenericArgument(this.typeConverter.Convert(fromBodyParameter.Type));
 				builder.AddArgument(new IdentifierNameExpression(fromBodyParameter.Name.CamelCase()));
-			} else if (method.HttpMethod == "post" || method.HttpMethod == "put" || method.HttpMethod == "patch") {
+			} else if (method.HttpMethod == My.HttpMethodPost || method.HttpMethod == My.HttpMethodPut || method.HttpMethod == My.HttpMethodPatch) {
 				builder.AddGenericArgument(Defined.Types.String());
 				builder.AddArgument(new StringLiteralExpression(""));
 			}

@@ -1,6 +1,7 @@
 ﻿using Albatross.CodeGen.CSharp.Models;
 using Albatross.CodeGen.Tests.WebApi;
 using Albatross.CodeGen.WebClient.CSharp;
+using Albatross.CodeGen.WebClient.Models;
 using Albatross.Config;
 using Albatross.Hosting.Test;
 using System;
@@ -88,6 +89,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		[InlineData("{**name9}", "name9")]
 		[InlineData("{**nam9e}", "nam9e")]
 		[InlineData("api/{id}/{**name}", "id name")]
+		[InlineData("api/{id}/{*name}", "id name")]
 		public void TestRouteRegex(string input, string expected) {
 			var list = new List<string>();
 			foreach (Match match in ConvertApiControllerToCSharpClass.ActionRouteRegex.Matches(input)) {
@@ -99,6 +101,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 
 		[Theory]
 		[InlineData("snapshot/{**name}", @"string path = $""{ControllerPath}/snapshot/{name}"";")]
+		[InlineData("snapshot/{*name}", @"string path = $""{ControllerPath}/snapshot/{name}"";")]
 		[InlineData("snapshot", @"string path = $""{ControllerPath}/snapshot"";")]
 		[InlineData("snapshot/{tradeDate}", @"string path = $""{ControllerPath}/snapshot/{tradeDate:yyyy-MM-dd}"";")]
 		[InlineData("snapshot/{date}", @"string path = $""{ControllerPath}/snapshot/{date:yyyy-MM-dd}"";")]
@@ -120,6 +123,31 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 			Assert.Equal(expected, result);
 		}
 
+		[Theory]
+		[InlineData("snapshot/{**name}", @"snapshot/{name}")]
+		[InlineData("snapshot/{*name}", @"snapshot/{name}")]
+		[InlineData("snapshot", @"snapshot")]
+		[InlineData("snapshot/{tradeDate}", @"snapshot/{tradeDate}")]
+		[InlineData("snapshot/{date}", @"snapshot/{date}")]
+		[InlineData("snapshot/{tradeDate}/red", @"snapshot/{tradeDate}/red")]
+		[InlineData("snapshot/{tradeDate}/{**name}", @"snapshot/{tradeDate}/{name}")]
+		[InlineData("snapshot/{tradeDate}/{id}", @"snapshot/{tradeDate}/{id}")]
+		[InlineData("snapshot/{test_tradeDate}", @"snapshot/{test_tradeDate}")]
+		[InlineData("{tradeDate}", @"{tradeDate}")]
+		[InlineData("{tradeDate1}/{tradeDate2}", @"{tradeDate1}/{tradeDate2}")]
+		[InlineData("snapshot/test{tradeDate}", @"snapshot/test{tradeDate}")]
+		[InlineData("snapshot/test{tradeDate}test2{xx}", @"snapshot/test{tradeDate}test2{xx}")]
+		[InlineData("snapshot/wacky{tradeDate}doodle{xx}string", @"snapshot/wacky{tradeDate}doodle{xx}string")]
+		public void TestRouteSegmentCreation(string input, string expected) {
+			var segments = input.GetRouteSegments();
+			var writer = new StringWriter();
+			foreach (var item in segments) {
+				writer.Write(item.ToString());
+			}
+			writer.Flush();
+			string result = writer.ToString();
+			Assert.Equal(expected, result);
+		}
 
 		[Theory]
 		[InlineData("{**name}", true, "", "**", "name")]
