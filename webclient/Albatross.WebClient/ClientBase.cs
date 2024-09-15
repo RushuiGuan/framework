@@ -178,7 +178,7 @@ namespace Albatross.WebClient {
 		}
 		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Html);
+			request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Text);
 			writer?.WriteLine(content);
 			return request;
 		}
@@ -212,12 +212,12 @@ namespace Albatross.WebClient {
 				if (redirectCount > MaxRedirect) {
 					throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
 				}
-				Uri redirectUri = response.Headers.Location;
+				Uri redirectUri = response.Headers.Location ?? throw new InvalidOperationException("Response is missing redirect location header");
 				if (!redirectUri.IsAbsoluteUri) {
-					redirectUri = new Uri(response.RequestMessage.RequestUri, response.Headers.Location);
+					redirectUri = new Uri(request.RequestUri!, response.Headers.Location);
 				}
 				response.Dispose();
-				using (var newRequest = await CloneHttpRequest(response.RequestMessage, redirectUri)) {
+				using (var newRequest = await CloneHttpRequest(request, redirectUri)) {
 					logger.LogInformation("Redirected from {url} to {to}", request.RequestUri, newRequest.RequestUri);
 					return await SendRequest(newRequest, redirectCount++);
 				}
@@ -272,12 +272,12 @@ namespace Albatross.WebClient {
 				try {
 					var error = Deserialize<ErrorType>(content);
 					if (typeof(ErrorType) == typeof(ServiceError)) {
-						exception = new ServiceException(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, error as ServiceError, content);
+						exception = new ServiceException(response.StatusCode, response.RequestMessage?.Method, response.RequestMessage?.RequestUri, error as ServiceError, content);
 					} else {
-						exception = new ServiceException<ErrorType>(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, error, content);
+						exception = new ServiceException<ErrorType>(response.StatusCode, response.RequestMessage?.Method, response.RequestMessage?.RequestUri, error, content);
 					}
 				} catch {
-					exception = new ServiceException(response.StatusCode, response.RequestMessage.Method, response.RequestMessage.RequestUri, null, content);
+					exception = new ServiceException(response.StatusCode, response.RequestMessage?.Method, response.RequestMessage?.RequestUri, null, content);
 				}
 				throw exception;
 			}

@@ -26,7 +26,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 
 		public ControllerInfo(Compilation compilation, INamedTypeSymbol controller) {
 			this.Controller = controller;
-			this.Route = controller.GetRoute();
+			this.Route = controller.GetRouteText();
 			this.Route = this.Route.Replace(ControllerNamePlaceholder, this.ControllerName.ToLower());
 
 			foreach (var methodSymbol in controller.GetMembers().OfType<IMethodSymbol>()) {

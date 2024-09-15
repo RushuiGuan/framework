@@ -57,7 +57,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 								codeStack.Begin(new VariableBuilder("string", "path"))
 									.Begin(new StringInterpolationBuilder())
 										.With(new IdentifierNode("ControllerPath"))
-										.With(new LiteralNode(method.Route))
+										.With(new LiteralNode(method.RouteTemplate))
 									.End()
 								.End();
 								codeStack.Begin(new VariableBuilder("var", "queryString")).Complete(new NewObjectBuilder("NameValueCollection")).End();
@@ -81,10 +81,22 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 										} else if (fromBody.Type.SpecialType == SpecialType.System_String) {
 											codeStack.With(new IdentifierNode("CreateStringRequest"));
 										} else {
-											codeStack.With(new GenericNameNode("CreateJsonRequest", fromBody.Type.GetFullName()));
+											if (fromBody.Type.IsNullable()) {
+												codeStack.With(new GenericNameNode("CreateJsonRequest", fromBody.Type.GetFullName()));
+											} else {
+												codeStack.With(new GenericNameNode("CreateRequiredJsonRequest", fromBody.Type.GetFullName()));
+											}
 										}
 										using (codeStack.ToNewScope(new InvocationExpressionBuilder())) {
 											using (codeStack.NewScope(new ArgumentListBuilder())) {
+												codeStack.With(new IdentifierNode("HttpMethod"))
+													.With(new IdentifierNode(method.HttpMethod))
+													.To(new MemberAccessBuilder());
+												codeStack.With(new IdentifierNode("path"));
+												codeStack.With(new IdentifierNode("queryString"));
+												if (fromBody != null) {
+													codeStack.With(new IdentifierNode(fromBody.Name));
+												}
 											}
 										}
 									}
@@ -104,25 +116,16 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 					if (param.Type.SpecialType == SpecialType.System_String) {
 						codeStack.With(new IdentifierNode(varaibleName));
 					} else {
-						if (param.Type.SpecialType == SpecialType.System_DateTime || param.Type.GetFullName() == "System.DateTimeOffset") {
+						if (param.Type.SpecialType == SpecialType.System_DateTime
+							|| param.Type.GetFullName() == "System.DateTimeOffset"
+							|| param.Type.GetFullName() == "System.DateOnly"
+							|| param.Type.GetFullName() == "System.TimeOnly") {
 							codeStack.Begin()
 								.With(new IdentifierNode(param.Name))
-								.To(new InvocationExpressionBuilder("QueryString"))
+								.To(new InvocationExpressionBuilder("ISO8601String"))
 							.End();
 						} else {
-							using (codeStack.NewScope(new StringInterpolationBuilder())) {
-								switch (param.Type.GetFullName()) {
-									case "System.DateOnly":
-										codeStack.With(new StringInterpolationNode(varaibleName, "yyyy-MM-dd"));
-										break;
-									case "System.TimeOnly":
-										codeStack.With(new StringInterpolationNode(varaibleName, "HH:mm:ss.fffffff"));
-										break;
-									default:
-										codeStack.With(new IdentifierNode(varaibleName));
-										break;
-								}
-							}
+							codeStack.With(new IdentifierNode(varaibleName));
 						}
 					}
 				}

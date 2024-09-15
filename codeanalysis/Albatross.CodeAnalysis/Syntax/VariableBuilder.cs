@@ -8,7 +8,7 @@ using System.Linq;
 namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
 	/// Create a syntax node of <see cref="VariableDeclarationSyntax"/>.  It requires one parameter of type <see cref="ExpressionSyntax"/>.
-	/// Since the variable is declare with `var` keyword and has to be initialized.
+	/// If the variable is declare with `var` keyword, it has to be initialized.
 	/// </summary>
 	public class VariableBuilder : INodeBuilder {
 

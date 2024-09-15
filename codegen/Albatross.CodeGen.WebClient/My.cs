@@ -16,12 +16,17 @@ namespace Albatross.CodeGen.WebClient {
 		public const string FromRouteAttributeClassName = "Microsoft.AspNetCore.Mvc.FromRouteAttribute";
 		public const string FromBodyAttributeClassName = "Microsoft.AspNetCore.Mvc.FromBodyAttribute";
 
-		public const char ForwardSlash = '/';
-
 		public const string ActionResultClassName = "Microsoft.AspNetCore.Mvc.ActionResult";
 		public const string ActionResultInterfaceName = "Microsoft.AspNetCore.Mvc.IActionResult";
 		public const string TaskClassName = "System.Threading.Tasks.Task";
 		public const string GenericTaskClassName = "System.Threading.Tasks.Task<>";
 		public const string GenericActionResultClassName = "Microsoft.AspNetCore.Mvc.ActionResult<>";
+
+		public const string HttpMethodGet = "Get";
+		public const string HttpMethodPost = "Post";
+		public const string HttpMethodPatch= "Patch";
+		public const string HttpMethodPut = "Put";
+		public const string HttpMethodDelete = "Delete";
+
 	}
 }
