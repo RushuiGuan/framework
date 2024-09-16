@@ -36,14 +36,21 @@ namespace Albatross.CodeAnalysis.Symbols {
 			}
 		}
 
-
-
 		public static bool TryGetGenericTypeArguments(this ITypeSymbol symbol, string genericTypeDefinitionName, out ITypeSymbol[] arguments) {
 			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == genericTypeDefinitionName) {
 				arguments = named.TypeArguments.ToArray();
 				return true;
 			} else {
 				arguments = Array.Empty<ITypeSymbol>();
+				return false;
+			}
+		}
+		public static bool TryGetNullableValueType(this ITypeSymbol symbol, out ITypeSymbol? valueType) {
+			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable") {
+				valueType = named.TypeArguments.Single();
+				return true;
+			} else {
+				valueType = null;
 				return false;
 			}
 		}
