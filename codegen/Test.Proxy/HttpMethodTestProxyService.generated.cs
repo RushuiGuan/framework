@@ -27,24 +27,8 @@ namespace Test.Proxy {
 			}
 		}
 
-		public Task<System.String> PostAndReturnString() {
-			string path = $"{ControllerPath}/post-and-return-string";
-			var queryString = new NameValueCollection();
-			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
-				return this.GetRawResponse(request);
-			}
-		}
-
 		public Task Patch() {
 			string path = $"{ControllerPath}";
-			var queryString = new NameValueCollection();
-			using (var request = this.CreateRequest(HttpMethod.Patch, path, queryString)) {
-				return this.GetRawResponse(request);
-			}
-		}
-
-		public Task<System.String> PatchAndReturnString() {
-			string path = $"{ControllerPath}/patch-and-return-string";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Patch, path, queryString)) {
 				return this.GetRawResponse(request);
@@ -55,28 +39,12 @@ namespace Test.Proxy {
 			string path = $"{ControllerPath}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRequiredJsonResponse<System.Int32>(request);
-			}
-		}
-
-		public Task<System.String> GetAndReturnString() {
-			string path = $"{ControllerPath}/get-and-return-string";
-			var queryString = new NameValueCollection();
-			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return this.GetRequiredJsonResponseForValueType<System.Int32>(request);
 			}
 		}
 
 		public Task Put() {
 			string path = $"{ControllerPath}";
-			var queryString = new NameValueCollection();
-			using (var request = this.CreateRequest(HttpMethod.Put, path, queryString)) {
-				return this.GetRawResponse(request);
-			}
-		}
-
-		public Task<System.String> PutAndReturnString() {
-			string path = $"{ControllerPath}/put-and-return-string";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Put, path, queryString)) {
 				return this.GetRawResponse(request);

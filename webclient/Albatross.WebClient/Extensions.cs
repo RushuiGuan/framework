@@ -114,8 +114,12 @@ namespace Albatross.WebClient {
 			}
 		}
 
-		public static async Task<ResultType> GetRequiredJsonResponse<ResultType>(this ClientBase client, HttpRequestMessage request) {
+		public static async Task<ResultType> GetRequiredJsonResponse<ResultType>(this ClientBase client, HttpRequestMessage request) where ResultType:class{
 			var result = await client.GetJsonResponse<ResultType>(request);
+			return result ?? throw new InvalidDataException($"No data was returned from {request.Method}: {request.RequestUri}");
+		}
+		public static async Task<ResultType> GetRequiredJsonResponseForValueType<ResultType>(this ClientBase client, HttpRequestMessage request) where ResultType:struct{
+			var result = await client.GetJsonResponse<ResultType?>(request);
 			return result ?? throw new InvalidDataException($"No data was returned from {request.Method}: {request.RequestUri}");
 		}
 

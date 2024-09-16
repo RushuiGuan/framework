@@ -65,10 +65,10 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 									using (codeStack.NewScope()) {
 										if (param.Type.TryGetCollectionElementType(out var elementType)) {
 											using (codeStack.NewScope(new ForEachStatementBuilder(null, "item", param.Name))) {
-												Build(codeStack, method, elementType!, param.QueryKey, "item");
+												CreateAddQueryStringStatement(codeStack, method.Settings, elementType!, param.QueryKey, "item");
 											}
 										} else {
-											Build(codeStack, method, param.Type, param.QueryKey, param.Name); 
+											CreateAddQueryStringStatement(codeStack, method.Settings, param.Type, param.QueryKey, param.Name); 
 										}
 									}
 								}
@@ -81,11 +81,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 										} else if (fromBody.Type.SpecialType == SpecialType.System_String) {
 											codeStack.With(new IdentifierNode("CreateStringRequest"));
 										} else {
-											if (fromBody.Type.IsNullable()) {
-												codeStack.With(new GenericNameNode("CreateJsonRequest", fromBody.Type.GetFullName()));
-											} else {
-												codeStack.With(new GenericNameNode("CreateJsonRequest", fromBody.Type.GetFullName()));
-											}
+											codeStack.With(new GenericIdentifierNode("CreateJsonRequest", fromBody.Type.AsTypeNode()));
 										}
 										using (codeStack.ToNewScope(new InvocationExpressionBuilder())) {
 											using (codeStack.NewScope(new ArgumentListBuilder())) {
@@ -108,9 +104,16 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 												.End()
 											.End();
 										} else {
-											var functionName = method.ReturnType.IsNullableReferenceType() ? "GetJsonResponse" : "GetRequiredJsonResponse";
+											string functionName;
+											if (method.ReturnType.IsNullable()) {
+												functionName = "GetJsonResponse";
+											} else if (method.ReturnType.IsValueType) {
+												functionName = "GetRequiredJsonResponseForValueType";
+											} else {
+												functionName = "GetRequiredJsonResponse";
+											}
 											codeStack.With(new ThisExpression())
-												.With(new GenericIdentifierNode(functionName, method.ReturnType.GetFullName()))
+												.With(new GenericIdentifierNode(functionName, method.ReturnType.AsTypeNode()))
 												.ToNewBegin(new InvocationExpressionBuilder())
 												.Begin(new ArgumentListBuilder())
 													.With(new IdentifierNode("request"))
@@ -126,53 +129,56 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 				}
 			}
 		}
-		CodeStack Build(CodeStack codeStack,MethodInfo method, ITypeSymbol type, string queryKey, string variableName) {
-			if (type.IsNullable()) {
-				if (type.TryGetNullableValueType(out var valueType)) {
-					type = valueType!;
-				}
-				using (codeStack.NewScope(new IfStatementBuilder())) {
-					codeStack.With(new NotEqualStatementNode(new IdentifierNode(variableName), new NullExpressionNode()));
-					CreateAddQueryStringStatement(codeStack, method.Settings, type, queryKey, variableName);
-				}
-			} else {
-				CreateAddQueryStringStatement(codeStack, method.Settings, type, queryKey, variableName);
-			}
-			return codeStack;
-		}
 		CodeStack CreateAddQueryStringStatement(CodeStack codeStack, CSharpProxyMethodSettings settings, ITypeSymbol type, string queryKey, string variableName) {
+			ITypeSymbol finalType = type;
+			if (type.IsNullable()) {
+				codeStack.Begin(new IfStatementBuilder());
+				codeStack.With(new NotEqualStatementNode(new IdentifierNode(variableName), new NullExpressionNode()));
+
+				if (type.TryGetNullableValueType(out var valueType)) {
+					finalType = valueType!;
+				}
+			}
+
 			using (codeStack.NewScope()) {
 				using (codeStack.With(new IdentifierNode("queryString")).ToNewScope(new InvocationExpressionBuilder("Add"))) {
 					using (codeStack.NewScope(new ArgumentListBuilder())) {
 						codeStack.With(new LiteralNode(queryKey));
-						if (type.SpecialType == SpecialType.System_String) {
+						if (finalType.SpecialType == SpecialType.System_String) {
 							codeStack.With(new IdentifierNode(variableName));
 						} else {
-							if (type.SpecialType == SpecialType.System_DateTime && settings.UseDateTimeAsDateOnly == true) {
-								codeStack.Begin()
-									.With(new IdentifierNode(variableName))
-									.To(new InvocationExpressionBuilder("ISO8601StringDateOnly"))
-								.End();
-							} else if (type.SpecialType == SpecialType.System_DateTime
-								|| type.GetFullName() == "System.DateTimeOffset"
-								|| type.GetFullName() == "System.DateOnly"
-								|| type.GetFullName() == "System.TimeOnly") {
-								codeStack.Begin()
-									.With(new IdentifierNode(variableName))
-									.To(new InvocationExpressionBuilder("ISO8601String"))
-								.End();
-							} else if (type.SpecialType == SpecialType.System_String) {
+							if (finalType.SpecialType == SpecialType.System_DateTime && settings.UseDateTimeAsDateOnly == true) {
+								using (codeStack.NewScope()) {
+									codeStack.With(new IdentifierNode(variableName));
+									if (type.IsNullableValueType()) {
+										codeStack.With(new IdentifierNode("Value"));
+									}
+									codeStack.To(new InvocationExpressionBuilder("ISO8601StringDateOnly"));
+								}
+							} else if (finalType.SpecialType == SpecialType.System_DateTime
+								|| finalType.GetFullName() == "System.DateTimeOffset"
+								|| finalType.GetFullName() == "System.DateOnly"
+								|| finalType.GetFullName() == "System.TimeOnly") {
+								using (codeStack.NewScope()) {
+									codeStack.With(new IdentifierNode(variableName));
+									if (type.IsNullableValueType()) {
+										codeStack.With(new IdentifierNode("Value"));
+									}
+									codeStack.To(new InvocationExpressionBuilder("ISO8601String"));
+								}
+							} else if (finalType.SpecialType == SpecialType.System_String) {
 								codeStack.With(new IdentifierNode(variableName));
 							} else {
 								codeStack.Begin().With(new IdentifierNode(variableName))
-									.To(new InvocationExpressionBuilder("ToString"))
+									.To(new StringInterpolationBuilder())
 								.End();
 							}
 						}
 					}
 				}
-				return codeStack;
 			}
+			if (type.IsNullable()) { codeStack.End(); }
+			return codeStack;
 		}
 		object IConvertObject<ControllerInfo>.Convert(ControllerInfo from) {
 			return Convert(from);

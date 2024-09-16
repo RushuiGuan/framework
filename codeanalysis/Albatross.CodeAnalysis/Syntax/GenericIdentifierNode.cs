@@ -13,4 +13,18 @@ namespace Albatross.CodeAnalysis.Syntax {
 			return SyntaxFactory.GenericName(SyntaxFactory.Identifier(typeName), SyntaxFactory.TypeArgumentList(arguments));
 		}
 	}
+
+	public class ArrayTypeNode : TypeNode {
+		public ArrayTypeNode(TypeNode elementType) : base(CreateCollectionType(elementType)) { }
+
+		static ArrayTypeSyntax CreateCollectionType(TypeNode elementType) {
+			return SyntaxFactory.ArrayType(elementType.Type, SyntaxFactory.SingletonList<ArrayRankSpecifierSyntax>(
+				SyntaxFactory.ArrayRankSpecifier(
+					SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(
+						SyntaxFactory.OmittedArraySizeExpression()
+					)
+				)
+			));
+		}
+	}
 }

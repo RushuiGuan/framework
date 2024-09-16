@@ -169,17 +169,21 @@ namespace Albatross.WebClient {
 			writer.LogRequest(request, client);
 			return request;
 		}
-		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t) {
+		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T? t) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			string content = SerializeJson<T>(t);
-			request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Json);
-			writer?.WriteLine(content);
+			if (t != null) {
+				string content = SerializeJson<T>(t);
+				request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Json);
+				writer?.WriteLine(content);
+			}
 			return request;
 		}
-		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content) {
+		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string? content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
-			request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Text);
-			writer?.WriteLine(content);
+			if (content != null) {
+				request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Text);
+				writer?.WriteLine(content);
+			}
 			return request;
 		}
 		public HttpRequestMessage CreateStreamRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, Stream stream) {
