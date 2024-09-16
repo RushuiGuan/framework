@@ -55,12 +55,12 @@ namespace Albatross.Messaging.Test {
 			var config = new DiskStorageConfiguration(folder, "test-output") {
 				MaxFileSize = maxFileSize,
 			};
-			using var writer = GetWriter("test1", config);
-
-			int count = messageCount;
-			for (int i = 0; i < count; i++) {
-				writer.WriteEvent(new EventEntry(EntryType.Record, new TestMsg()));
-				await Task.Delay(100);
+			using (var writer = GetWriter("test1", config)) {
+				int count = messageCount;
+				for (int i = 0; i < count; i++) {
+					writer.WriteEvent(new EventEntry(EntryType.Record, new TestMsg()));
+					await Task.Delay(100);
+				}
 			}
 			Assert.Equal(expectedFileCount, Directory.GetFiles(folder).Length);
 		}
@@ -79,26 +79,27 @@ namespace Albatross.Messaging.Test {
 			var config = new DiskStorageConfiguration(folder, "test-output") {
 				MaxFileSize = maxFileSize,
 			};
-			using var writer = GetWriter("test1", config);
-			int count = messageCount;
-			DateTime readMarker = DateTime.Now;
-			for (int i = 0; i < count; i++) {
-				if(i == readMarkerIndex) {
-					readMarker = DateTime.Now;
-					// introduce some buffer
-					await Task.Delay(100);
+			using (var writer = GetWriter("test1", config)) {
+				int count = messageCount;
+				DateTime readMarker = DateTime.Now;
+				for (int i = 0; i < count; i++) {
+					if (i == readMarkerIndex) {
+						readMarker = DateTime.Now;
+						// introduce some buffer
+						await Task.Delay(100);
+					}
+					writer.WriteEvent(new EventEntry(EntryType.Record, new TestMsg()));
+					await Task.Delay(1);
 				}
-				writer.WriteEvent(new EventEntry(EntryType.Record, new TestMsg()));
-				await Task.Delay(1);
+				var reader = new DiskStorageEventReader(config, MessageFactory, Logger);
+				await Task.Delay(100);
+				var duration = DateTime.Now - readMarker;
+				var items = reader.ReadLast(duration);
+				testOutputHelper.WriteLine("read marker: {0:yyyy-MM-ddTHH:mm:ss:fff}", readMarker);
+				testOutputHelper.WriteLine("first read entry: {0:yyyy-MM-ddTHH:mm:ss:fff}", items.First().TimeStamp);
+				testOutputHelper.WriteLine("last read entry: {0:yyyy-MM-ddTHH:mm:ss:fff}", items.Last().TimeStamp);
+				Assert.Equal(messageCount - readMarkerIndex, items.Count());
 			}
-			var reader = new DiskStorageEventReader(config, MessageFactory, Logger);
-			await Task.Delay(100);
-			var duration = DateTime.Now - readMarker;
-			var items = reader.ReadLast(duration);
-			testOutputHelper.WriteLine("read marker: {0:yyyy-MM-ddTHH:mm:ss:fff}", readMarker);
-			testOutputHelper.WriteLine("first read entry: {0:yyyy-MM-ddTHH:mm:ss:fff}", items.First().TimeStamp);
-			testOutputHelper.WriteLine("last read entry: {0:yyyy-MM-ddTHH:mm:ss:fff}", items.Last().TimeStamp);
-			Assert.Equal(messageCount - readMarkerIndex, items.Count());
 		}
 	}
 }
