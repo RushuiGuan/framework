@@ -24,7 +24,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 		const string VariableName_Logger = "logger";
 		const string VariableName_Client = "client";
 
-		public readonly static Regex ActionRouteRegex = new Regex(@"{(\*\*){0,2}([a-z_]+[a-z0-9_]*)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+		public readonly static Regex ActionRouteRegex = new Regex(@"{(\*){0,2}([a-z_]+[a-z0-9_]*)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
 		private IConvertObject<MethodInfo, Method> convertMethod;
 

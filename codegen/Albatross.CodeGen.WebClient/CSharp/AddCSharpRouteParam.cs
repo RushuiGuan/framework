@@ -9,7 +9,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 			this.template = template;
 		}
 
-		public readonly static Regex ParamRegex = new Regex(@"{(([a-z_]+[a-z0-9_]*)?date[0-9]*)}|{(\*){0,2}([a-z_]+[a-z0-9_]*)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+		public readonly static Regex ParamRegex = new Regex(@"{(([a-z_]+[a-z0-9_]*)?date[0-9]*)}|{([\*]{0,2})([a-z_]+[a-z0-9_]*)}", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 
 		public TextWriter Generate(TextWriter writer) {
 			writer.Write("string path = $\"{ControllerPath}");

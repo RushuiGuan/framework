@@ -11,7 +11,7 @@ namespace Albatross.Hosting.Test {
 		/// <param name="account"></param>
 		/// <returns></returns>
 		public static IServiceCollection AddTestPrincipalProvider(this IServiceCollection services, string authProvider, string account) {
-			services.AddScoped(provider => new GetCurrentTestUser(authProvider, account));
+			services.AddSingleton(provider => new GetCurrentTestUser(authProvider, account));
 			services.AddScoped<IGetCurrentUser>(provider => provider.GetRequiredService<GetCurrentTestUser>());
 			return services;
 		}
