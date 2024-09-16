@@ -49,10 +49,17 @@ namespace Test.WebApi.Controllers {
 		[HttpGet("required-value-type-collection")]
 		public string RequiredValueTypeCollection([FromQuery] IEnumerable<int> values) => string.Join(",", values);
 
+		[HttpGet("required-date-only-collection")]
+		public string RequiredDateOnlyCollection([FromQuery]IEnumerable<DateOnly> dates) => string.Join(",", dates);
+
 		[HttpGet("nullable-value-type-array")]
 		public string NullableValueTypeArray(int?[] values) => string.Join(",", values);
 
 		[HttpGet("nullable-value-type-collection")]
 		public string NullableValueTypeCollection([FromQuery] IEnumerable<int?> values) => string.Join(",", values);
+
+		[HttpGet("nullable-date-only-collection")]
+		public string NullableDateOnlyCollection([FromQuery]IEnumerable<DateOnly?> dates) => string.Join(",", dates);
+
 	}
 }

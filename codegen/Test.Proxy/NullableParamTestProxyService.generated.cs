@@ -166,6 +166,18 @@ namespace Test.Proxy {
 			}
 		}
 
+		public Task<System.String> RequiredDateOnlyCollection(System.Collections.Generic.IEnumerable<System.DateOnly> dates) {
+			string path = $"{ControllerPath}/required-date-only-collection";
+			var queryString = new NameValueCollection();
+			foreach (var item in dates) {
+				queryString.Add("dates", item.ISO8601String());
+			}
+
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return this.GetRawResponse(request);
+			}
+		}
+
 		public Task<System.String> NullableValueTypeArray(System.Nullable<System.Int32>[] values) {
 			string path = $"{ControllerPath}/nullable-value-type-array";
 			var queryString = new NameValueCollection();
@@ -186,6 +198,20 @@ namespace Test.Proxy {
 			foreach (var item in values) {
 				if (item != null) {
 					queryString.Add("values", item.ToString());
+				}
+			}
+
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return this.GetRawResponse(request);
+			}
+		}
+
+		public Task<System.String> NullableDateOnlyCollection(System.Collections.Generic.IEnumerable<System.Nullable<System.DateOnly>> dates) {
+			string path = $"{ControllerPath}/nullable-date-only-collection";
+			var queryString = new NameValueCollection();
+			foreach (var item in dates) {
+				if (item != null) {
+					queryString.Add("dates", item.ISO8601String());
 				}
 			}
 
