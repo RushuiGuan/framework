@@ -65,24 +65,10 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 									using (codeStack.NewScope()) {
 										if (param.Type.TryGetCollectionElementType(out var elementType)) {
 											using (codeStack.NewScope(new ForEachStatementBuilder(null, "item", param.Name))) {
-												if (elementType!.IsNullable()) {
-													using (codeStack.NewScope(new IfStatementBuilder())) {
-														codeStack.With(new NotEqualStatementNode(new IdentifierNode("item"), new NullExpressionNode()));
-														CreateAddQueryStringStatement(codeStack, method, param, "item");
-													}
-												} else {
-													CreateAddQueryStringStatement(codeStack, method, param, "item");
-												}
+												Build(codeStack, method, elementType!, param.QueryKey, "item");
 											}
 										} else {
-											if (param.Type.IsNullable()) {
-												using (codeStack.NewScope(new IfStatementBuilder())) {
-													codeStack.With(new NotEqualStatementNode(new IdentifierNode(param.Name), new NullExpressionNode()));
-													CreateAddQueryStringStatement(codeStack, method, param, param.Name);
-												}
-											} else {
-												CreateAddQueryStringStatement(codeStack, method, param, param.Name);
-											}
+											Build(codeStack, method, param.Type, param.QueryKey, param.Name); 
 										}
 									}
 								}
@@ -140,31 +126,45 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 				}
 			}
 		}
-		CodeStack CreateAddQueryStringStatement(CodeStack codeStack, MethodInfo method, ParameterInfo param, string varaibleName) {
+		CodeStack Build(CodeStack codeStack,MethodInfo method, ITypeSymbol type, string queryKey, string variableName) {
+			if (type.IsNullable()) {
+				if (type.TryGetNullableValueType(out var valueType)) {
+					type = valueType!;
+				}
+				using (codeStack.NewScope(new IfStatementBuilder())) {
+					codeStack.With(new NotEqualStatementNode(new IdentifierNode(variableName), new NullExpressionNode()));
+					CreateAddQueryStringStatement(codeStack, method.Settings, type, queryKey, variableName);
+				}
+			} else {
+				CreateAddQueryStringStatement(codeStack, method.Settings, type, queryKey, variableName);
+			}
+			return codeStack;
+		}
+		CodeStack CreateAddQueryStringStatement(CodeStack codeStack, CSharpProxyMethodSettings settings, ITypeSymbol type, string queryKey, string variableName) {
 			using (codeStack.NewScope()) {
 				using (codeStack.With(new IdentifierNode("queryString")).ToNewScope(new InvocationExpressionBuilder("Add"))) {
 					using (codeStack.NewScope(new ArgumentListBuilder())) {
-						codeStack.With(new LiteralNode(param.QueryKey));
-						if (param.Type.SpecialType == SpecialType.System_String) {
-							codeStack.With(new IdentifierNode(varaibleName));
+						codeStack.With(new LiteralNode(queryKey));
+						if (type.SpecialType == SpecialType.System_String) {
+							codeStack.With(new IdentifierNode(variableName));
 						} else {
-							if (param.Type.SpecialType == SpecialType.System_DateTime && method.Settings.UseDateTimeAsDateOnly == true) {
+							if (type.SpecialType == SpecialType.System_DateTime && settings.UseDateTimeAsDateOnly == true) {
 								codeStack.Begin()
-								.With(new IdentifierNode(param.Name))
-								.To(new InvocationExpressionBuilder("ISO8601StringDateOnly"))
-							.End();
-							} else if (param.Type.SpecialType == SpecialType.System_DateTime
-								|| param.Type.GetFullName() == "System.DateTimeOffset"
-								|| param.Type.GetFullName() == "System.DateOnly"
-								|| param.Type.GetFullName() == "System.TimeOnly") {
+									.With(new IdentifierNode(variableName))
+									.To(new InvocationExpressionBuilder("ISO8601StringDateOnly"))
+								.End();
+							} else if (type.SpecialType == SpecialType.System_DateTime
+								|| type.GetFullName() == "System.DateTimeOffset"
+								|| type.GetFullName() == "System.DateOnly"
+								|| type.GetFullName() == "System.TimeOnly") {
 								codeStack.Begin()
-									.With(new IdentifierNode(param.Name))
+									.With(new IdentifierNode(variableName))
 									.To(new InvocationExpressionBuilder("ISO8601String"))
 								.End();
-							} else if (param.Type.SpecialType == SpecialType.System_String) {
-								codeStack.With(new IdentifierNode(varaibleName));
+							} else if (type.SpecialType == SpecialType.System_String) {
+								codeStack.With(new IdentifierNode(variableName));
 							} else {
-								codeStack.Begin().With(new IdentifierNode(varaibleName))
+								codeStack.Begin().With(new IdentifierNode(variableName))
 									.To(new InvocationExpressionBuilder("ToString"))
 								.End();
 							}
