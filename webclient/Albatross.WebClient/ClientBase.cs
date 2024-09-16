@@ -12,6 +12,7 @@ using Polly;
 using Polly.Retry;
 using System.IO.Compression;
 using Albatross.Serialization;
+using System.Runtime.CompilerServices;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -52,7 +53,7 @@ namespace Albatross.WebClient {
 			}
 			return result;
 		}
-		protected internal static bool ShouldRedirect(HttpResponseMessage response) {
+		protected internal bool ShouldRedirect(HttpResponseMessage response) {
 			switch (response.StatusCode) {
 				case HttpStatusCode.MultipleChoices:
 				case HttpStatusCode.Moved:
@@ -60,7 +61,12 @@ namespace Albatross.WebClient {
 				case HttpStatusCode.SeeOther:
 				case HttpStatusCode.TemporaryRedirect:
 				case HttpStatusCode.PermanentRedirect:
-					return true;
+					if (response.Headers.Location == null) {
+						this.logger.LogError($"Cannot redirect from {response.RequestMessage?.RequestUri} because of missing location header");
+						return false;
+					} else {
+						return true;
+					}
 				default:
 					return false;
 			}
@@ -215,9 +221,9 @@ namespace Albatross.WebClient {
 				if (redirectCount > MaxRedirect) {
 					throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
 				}
-				Uri redirectUri = response.Headers.Location ?? throw new InvalidOperationException("Response is missing redirect location header");
+				var redirectUri = response.Headers.Location ?? throw new InvalidOperationException("Response is missing redirect location header");
 				if (!redirectUri.IsAbsoluteUri) {
-					redirectUri = new Uri(request.RequestUri!, response.Headers.Location);
+					redirectUri = new Uri(request.RequestUri!, redirectUri);
 				}
 				response.Dispose();
 				using (var newRequest = await CloneHttpRequest(request, redirectUri)) {
