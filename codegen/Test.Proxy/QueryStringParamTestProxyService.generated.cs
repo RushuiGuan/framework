@@ -68,7 +68,7 @@ namespace Test.Proxy {
 			string path = $"{ControllerPath}/array-query-string";
 			var queryString = new NameValueCollection();
 			foreach (var item in items) {
-				queryString.Add("items", item.ToString());
+				queryString.Add("items", item);
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
@@ -80,7 +80,7 @@ namespace Test.Proxy {
 			string path = $"{ControllerPath}/ienumerable-generic-query-string";
 			var queryString = new NameValueCollection();
 			foreach (var item in items) {
-				queryString.Add("items", item.ToString());
+				queryString.Add("items", item);
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
@@ -101,7 +101,7 @@ namespace Test.Proxy {
 			string path = $"{ControllerPath}/query-string-with-diff-name";
 			var queryString = new NameValueCollection();
 			foreach (var item in items) {
-				queryString.Add("i", item.ToString());
+				queryString.Add("i", item);
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {

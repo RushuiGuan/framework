@@ -66,7 +66,7 @@ namespace Test.Proxy {
 			string path = $"{ControllerPath}/nullable-date-only";
 			var queryString = new NameValueCollection();
 			if (date != null) {
-				queryString.Add("date", date.ToString());
+				queryString.Add("date", date.ISO8601String());
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
@@ -94,7 +94,7 @@ namespace Test.Proxy {
 			string path = $"{ControllerPath}/required-string-array";
 			var queryString = new NameValueCollection();
 			foreach (var item in values) {
-				queryString.Add("values", item.ToString());
+				queryString.Add("values", item);
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
@@ -106,7 +106,7 @@ namespace Test.Proxy {
 			string path = $"{ControllerPath}/required-string-collection";
 			var queryString = new NameValueCollection();
 			foreach (var item in values) {
-				queryString.Add("values", item.ToString());
+				queryString.Add("values", item);
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
@@ -119,7 +119,7 @@ namespace Test.Proxy {
 			var queryString = new NameValueCollection();
 			foreach (var item in values) {
 				if (item != null) {
-					queryString.Add("values", item.ToString());
+					queryString.Add("values", item);
 				}
 			}
 
@@ -133,7 +133,7 @@ namespace Test.Proxy {
 			var queryString = new NameValueCollection();
 			foreach (var item in values) {
 				if (item != null) {
-					queryString.Add("values", item.ToString());
+					queryString.Add("values", item);
 				}
 			}
 
