@@ -72,5 +72,32 @@ public class MyClass {
 			number3Property.Type.IsNullableReferenceType().Should().BeFalse();
 			number3Property.Type.IsNullableValueType().Should().BeFalse();
 		}
+
+		[Fact]
+		public void TestGetNullableValueType() {
+			var compilation = @"
+using System;
+public class MyClass {
+public string? Text{ get; set; }
+	public int? Number{ get; set; }
+	public Nullable<int> Number2{ get; set; }
+	public int Number3{ get; set; }
+}
+			".CreateCompilation();
+			var type = compilation.GetRequiredSymbol("MyClass");
+			var textProperty = (IPropertySymbol) type.GetMembers("Text").First();
+			var numberProperty = (IPropertySymbol)type.GetMembers("Number").First();
+			var number2Property = (IPropertySymbol)type.GetMembers("Number2").First();
+			var number3Property = (IPropertySymbol)type.GetMembers("Number3").First();
+			
+			textProperty.Type.TryGetNullableValueType(out var valueType).Should().BeFalse();
+			numberProperty.Type.TryGetNullableValueType(out valueType).Should().BeTrue();
+			valueType!.GetFullName().Should().Be("System.Int32");
+
+			number2Property.Type.TryGetNullableValueType(out valueType).Should().BeTrue();
+			valueType!.GetFullName().Should().Be("System.Int32");
+
+			number3Property.Type.TryGetNullableValueType(out valueType).Should().BeFalse();
+		}
 	}
 }

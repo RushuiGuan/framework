@@ -46,7 +46,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 			}
 		}
 		public static bool TryGetNullableValueType(this ITypeSymbol symbol, out ITypeSymbol? valueType) {
-			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable") {
+			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>") {
 				valueType = named.TypeArguments.Single();
 				return true;
 			} else {
