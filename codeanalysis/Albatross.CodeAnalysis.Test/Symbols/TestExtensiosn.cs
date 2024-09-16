@@ -3,6 +3,8 @@ using Albatross.CodeAnalysis.MSBuild;
 using Xunit;
 using Microsoft.CodeAnalysis;
 using FluentAssertions;
+using Albatross.CodeAnalysis.Syntax;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Albatross.CodeAnalysis.Test.Symbols {
 	public class TestExtensiosn {
@@ -50,7 +52,7 @@ public class MyClass {
 	public int Number3{ get; set; }
 }
 			".CreateCompilation();
-			var type= compilation.GetRequiredSymbol("MyClass");
+			var type = compilation.GetRequiredSymbol("MyClass");
 			var textProperty = (IPropertySymbol)type.GetMembers("Text").First();
 			var text2Property = (IPropertySymbol)type.GetMembers("Text2").First();
 
@@ -68,7 +70,7 @@ public class MyClass {
 
 			number2Property.Type.IsNullableReferenceType().Should().BeFalse();
 			number2Property.Type.IsNullableValueType().Should().BeTrue();
-			
+
 			number3Property.Type.IsNullableReferenceType().Should().BeFalse();
 			number3Property.Type.IsNullableValueType().Should().BeFalse();
 		}
@@ -85,11 +87,11 @@ public string? Text{ get; set; }
 }
 			".CreateCompilation();
 			var type = compilation.GetRequiredSymbol("MyClass");
-			var textProperty = (IPropertySymbol) type.GetMembers("Text").First();
+			var textProperty = (IPropertySymbol)type.GetMembers("Text").First();
 			var numberProperty = (IPropertySymbol)type.GetMembers("Number").First();
 			var number2Property = (IPropertySymbol)type.GetMembers("Number2").First();
 			var number3Property = (IPropertySymbol)type.GetMembers("Number3").First();
-			
+
 			textProperty.Type.TryGetNullableValueType(out var valueType).Should().BeFalse();
 			numberProperty.Type.TryGetNullableValueType(out valueType).Should().BeTrue();
 			valueType!.GetFullName().Should().Be("System.Int32");
@@ -98,6 +100,24 @@ public string? Text{ get; set; }
 			valueType!.GetFullName().Should().Be("System.Int32");
 
 			number3Property.Type.TryGetNullableValueType(out valueType).Should().BeFalse();
+		}
+
+		[Theory]
+		[InlineData("int", "System.Int32")]
+		[InlineData("int?", "System.Nullable<System.Int32>")]
+		[InlineData("string?", "System.String?")]
+		[InlineData("string", "System.String")]
+		[InlineData("int[]", "System.Int32[]")]
+		[InlineData("int?[]", "System.Nullable<System.Int32>[]")]
+		[InlineData("string[]", "System.String[]")]
+		[InlineData("string?[]", "System.String? []")]
+		public void TypeSymbol2TypeNodeConversion(string typeName, string expectedResult) {
+			var code = @"class A { [Type] Field; }".Replace("[Type]", typeName);
+			var compilation = code.CreateCompilation();
+			var classType = compilation.GetRequiredSymbol("A");
+			var type = classType.GetMembers("Field").First().As<IFieldSymbol>().Type;
+			var result = type.AsTypeNode();
+			result.Node.NormalizeWhitespace().ToFullString().Should().Be(expectedResult);
 		}
 	}
 }

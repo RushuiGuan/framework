@@ -13,17 +13,17 @@ namespace Albatross.CodeGen.WebClient.Models {
 			this.Settings = settings;
 			this.compilation = compilation;
 			this.Name = symbol.Name;
-			this.ReturnType = GetReturnType((INamedTypeSymbol)symbol.ReturnType);
+			this.ReturnType = GetReturnType(symbol.ReturnType);
 			// if the return type is string, it should not be nullable
-			if(this.ReturnType.SpecialType == SpecialType.System_String && this.ReturnType.IsNullableReferenceType()) {
+			if (this.ReturnType.SpecialType == SpecialType.System_String && this.ReturnType.IsNullableReferenceType()) {
 				this.ReturnType = compilation.GetSpecialType(SpecialType.System_String);
 			}
 			var routeSegments = symbol.GetRouteText().GetRouteSegments().ToArray();
 			this.HttpMethod = GetHttpMethod(symbol);
-			foreach(var parameter in symbol.Parameters) {
+			foreach (var parameter in symbol.Parameters) {
 				this.Parameters.Add(new ParameterInfo(parameter, routeSegments));
 			}
-			this.RouteTemplate = string.Join<IRouteSegment>("", routeSegments);
+			this.RouteTemplate = string.Join("", routeSegments.Select(x=>x.Build(settings)));
 			if (!string.IsNullOrEmpty(this.RouteTemplate) && !this.RouteTemplate.StartsWith("/")) {
 				this.RouteTemplate = "/" + this.RouteTemplate;
 			}
@@ -32,20 +32,20 @@ namespace Albatross.CodeGen.WebClient.Models {
 		public string HttpMethod { get; set; }
 		public string Name { get; set; }
 		[JsonIgnore]
-		public INamedTypeSymbol ReturnType { get; set; }
+		public ITypeSymbol ReturnType { get; set; }
 		public string ReturnTypeText => ReturnType.GetFullName();
 		public string RouteTemplate { get; set; }
 		public List<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
 
-		INamedTypeSymbol GetReturnType(INamedTypeSymbol type) {
-			if (type.IsGenericType) {
-				var genericTypeFullName = type.OriginalDefinition.GetFullName();
+		ITypeSymbol GetReturnType(ITypeSymbol type) {
+			if (type is INamedTypeSymbol named && named.IsGenericType) {
+				var genericTypeFullName = named.OriginalDefinition.GetFullName();
 				switch (genericTypeFullName) {
 					case My.GenericTaskClassName:
 					case My.GenericActionResultClassName:
-						return GetReturnType((INamedTypeSymbol)type.TypeArguments[0]);
+						return GetReturnType(named.TypeArguments[0]);
 					default:
-						return type;
+						return named;
 				}
 			} else {
 				var typeFullName = type.GetFullName();

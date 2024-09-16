@@ -6,79 +6,77 @@ using System.Threading.Tasks;
 
 #nullable enable
 namespace Test.Proxy {
-	public partial class RoutingParamTestProxyService : ClientBase {
-		public RoutingParamTestProxyService(ILogger<RoutingParamTestProxyService> logger, HttpClient client) : base(logger, client) {
+	public partial class FromRouteParamTestProxyService : ClientBase {
+		public FromRouteParamTestProxyService(ILogger<FromRouteParamTestProxyService> logger, HttpClient client) : base(logger, client) {
 		}
 
-		public const string ControllerPath = "api/routing-param-test";
-		public Task Route1(System.String name, System.Int32 id) {
-			string path = $"{ControllerPath}/1/{name}/{id}";
+		public const string ControllerPath = "api/from-routing-param-test";
+		public Task ImplicitRoute(System.String name, System.Int32 id) {
+			string path = $"{ControllerPath}/implicit-route/{name}/{id}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return this.GetRawResponse(request);
 			}
 		}
 
-		public Task Route2(System.String name, System.Int32 id) {
-			string path = $"{ControllerPath}/2/{name}/{id}";
+		public Task ExplicitRoute(System.String name, System.Int32 id) {
+			string path = $"{ControllerPath}/explicit-route/{name}/{id}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return this.GetRawResponse(request);
 			}
 		}
 
-		public Task MultipleRouteTest(System.String name, System.Int32 id) {
-			string path = $"{ControllerPath}/3/{name}/{id}";
+		public Task WildCardRouteDouble(System.String name, System.Int32 id) {
+			string path = $"{ControllerPath}/wild-card-route-double/{id}/{name}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return this.GetRawResponse(request);
 			}
 		}
 
-		public Task Route4(System.String name, System.Int32 id) {
-			string path = $"{ControllerPath}/wild-card-route/{name}";
-			var queryString = new NameValueCollection();
-			queryString.Add("id", id.ToString());
-			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
-			}
-		}
-
-		public Task Route5(System.String name, System.Int32 id) {
-			string path = $"{ControllerPath}/wild-card-route2/{name}";
-			var queryString = new NameValueCollection();
-			queryString.Add("id", id.ToString());
-			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
-			}
-		}
-
-		public Task RouteWithDateTime(System.DateTime date, System.Int32 id) {
-			string path = $"{ControllerPath}/route-with-date-time/{date.ISO8601String()}/{id}";
+		public Task WildCardRouteSingle(System.String name, System.Int32 id) {
+			string path = $"{ControllerPath}/wild-card-route-single/{id}/{name}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return this.GetRawResponse(request);
 			}
 		}
 
-		public Task RouteWithDateTimeAsDateOnly(System.DateTime date, System.Int32 id) {
-			string path = $"{ControllerPath}/route-with-date-time-as-date-only/{date.ISO8601String()}/{id}";
+		public Task DateTimeRoute(System.DateTime date, System.Int32 id) {
+			string path = $"{ControllerPath}/date-time-route/{date.ISO8601String()}/{id}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return this.GetRawResponse(request);
 			}
 		}
 
-		public Task RouteWithDateOnly(System.DateOnly date, System.Int32 id) {
-			string path = $"{ControllerPath}/route-with-date-only/{date.ISO8601String()}/{id}";
+		public Task DateTimeAsDateOnlyRoute(System.DateTime date, System.Int32 id) {
+			string path = $"{ControllerPath}/date-time-as-date-only-route/{date.ISO8601StringDateOnly()}/{id}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return this.GetRawResponse(request);
 			}
 		}
 
-		public Task RouteWithoutRouteAttribute(System.DateOnly date) {
-			string path = $"{ControllerPath}/route-without-attribute/{date.ISO8601String()}";
+		public Task DateOnlyRoute(System.DateOnly date, System.Int32 id) {
+			string path = $"{ControllerPath}/date-only-route/{date.ISO8601String()}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return this.GetRawResponse(request);
+			}
+		}
+
+		public Task DateTimeOffsetRoute(System.DateTimeOffset date, System.Int32 id) {
+			string path = $"{ControllerPath}/datetimeoffset-route/{date.ISO8601String()}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return this.GetRawResponse(request);
+			}
+		}
+
+		public Task TimeOnlyRoute(System.TimeOnly time, System.Int32 id) {
+			string path = $"{ControllerPath}/timeonly-route/{time.ISO8601String()}/{id}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return this.GetRawResponse(request);

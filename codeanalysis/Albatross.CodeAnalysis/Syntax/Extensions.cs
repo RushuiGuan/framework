@@ -8,11 +8,15 @@ using System.Linq;
 namespace Albatross.CodeAnalysis.Syntax {
 	public static class Extensions {
 		public static TypeNode AsTypeNode(this ITypeSymbol symbol) {
-			var node = new TypeNode(symbol.GetFullName());
-			if (symbol.IsNullableReferenceType()) {
-				return node.NullableReferenceType();
+			if (symbol is IArrayTypeSymbol arrayType) {
+				return new ArrayTypeNode(arrayType.ElementType.AsTypeNode());
 			} else {
-				return node;
+				var node = new TypeNode(symbol.GetFullName());
+				if (symbol.IsNullableReferenceType()) {
+					return node.NullableReferenceType();
+				} else {
+					return node;
+				}
 			}
 		}
 		public static BlockSyntax BlockSyntax(this IEnumerable<SyntaxNode> nodes)

@@ -22,7 +22,8 @@
     },
     "csharp-proxy": {
       "commandName": "Project",
-      "commandLineArgs": "csharp-proxy -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.WebApi\\Albatross.CodeGen.Tests.WebApi.csproj -o c:\\temp"
+      "commandLineArgs": "csharp-proxy -p .\\Test.WebApi\\Test.WebApi.csproj -c FromRouteParamTestController -s .\\Test.Proxy\\codegen-settings.json",
+      "workingDirectory": "C:\\app\\framework\\codegen"
     }
   }
 }
