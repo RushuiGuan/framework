@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -29,6 +30,11 @@ namespace Albatross.CodeAnalysis {
 					streamWriter.Flush();
 				}
 			}
+		}
+		public static NamespaceDeclarationSyntax CreateNamespaceNullableDirective(this NamespaceDeclarationSyntax syntax) {
+			var nullableEnableDirective = SyntaxFactory.Trivia(SyntaxFactory.NullableDirectiveTrivia(SyntaxFactory.Token(SyntaxKind.EnableKeyword), true));
+			var nullableDisableDirective = SyntaxFactory.Trivia(SyntaxFactory.NullableDirectiveTrivia(SyntaxFactory.Token(SyntaxKind.DisableKeyword), true));
+			return syntax.WithLeadingTrivia(nullableEnableDirective).WithTrailingTrivia(nullableDisableDirective);
 		}
 	}
 }

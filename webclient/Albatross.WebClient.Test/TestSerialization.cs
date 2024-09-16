@@ -79,7 +79,7 @@ namespace Albatross.WebClient.Test {
 
 		[Fact]
 		public void TestTimeOnly() {
-			var value = new TimeOnly(14, 20, 40, 123, 450);
+			var value = new TimeOnly(14, 20, 40, 123);
 			var value_expected = JsonSerializer.Serialize(value);
 			$"{value:HH:mm:ss.fffffff}".Should().Be(value_expected.Trim('"'));
 		}

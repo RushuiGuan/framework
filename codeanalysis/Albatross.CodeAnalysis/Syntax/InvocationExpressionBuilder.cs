@@ -14,11 +14,18 @@ namespace Albatross.CodeAnalysis.Syntax {
 	/// </summary>
 	public class InvocationExpressionBuilder : INodeBuilder {
 		IdentifierNameSyntax? identifier;
+		bool await;
 		public InvocationExpressionBuilder() { }
 		public InvocationExpressionBuilder(string name) : this(new IdentifierNode(name)) { }
 		public InvocationExpressionBuilder(IdentifierNode identifier) {
 			this.identifier = identifier.Identifier;
 		}
+
+		public INodeBuilder Await() {
+			this.await = true;
+			return this;
+		}
+
 
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			var array = elements.ToArray();
@@ -39,7 +46,11 @@ namespace Albatross.CodeAnalysis.Syntax {
 			}
 
 			var name = (ExpressionSyntax)new MemberAccessBuilder().Build(nameParameters);
-			return SyntaxFactory.InvocationExpression(name).WithArgumentList(argumentList);
+			var syntax = SyntaxFactory.InvocationExpression(name).WithArgumentList(argumentList);
+			if (await) {
+				return SyntaxFactory.AwaitExpression(syntax);
+			}
+			return syntax;
 		}
 	}
 }

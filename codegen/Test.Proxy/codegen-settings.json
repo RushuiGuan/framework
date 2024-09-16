@@ -1,0 +1,11 @@
+{
+	"namespace": "Test.Proxy",
+	"globalMethodSettings": {
+		"useDateTimeAsDateOnly": false
+	},
+	"methodSettings": {
+		"RoutingParamTestController.RouteWithDateTimeAsDateOnly": {
+			"useDateTimeAsDateOnly": true
+		}
+	}
+}

@@ -66,10 +66,10 @@ namespace Albatross.CodeGen.CommandLine {
 			services.AddSingleton(provider => {
 				var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
 				if (options.SettingsFile == null) {
-					return new CSharpProxySettings();
+					return new CSharpProxyControllerSettings();
 				} else if (options.SettingsFile.Exists) {
 					using var stream = options.SettingsFile.OpenRead();
-					var settings = JsonSerializer.Deserialize<CSharpProxySettings>(stream, DefaultJsonSettings.Value.Default) ?? throw new ArgumentException("Unable to deserialize csharp proxy settings");
+					var settings = JsonSerializer.Deserialize<CSharpProxyControllerSettings>(stream, DefaultJsonSettings.Value.Default) ?? throw new ArgumentException("Unable to deserialize csharp proxy settings");
 					return settings;
 				} else {
 					throw new InvalidOperationException($"File {options.SettingsFile.Name} doesn't exist");

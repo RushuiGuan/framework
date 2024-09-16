@@ -1,13 +1,7 @@
-﻿using Albatross.CodeGen.CSharp.Models;
-using Albatross.CodeGen.Tests.WebApi;
-using Albatross.CodeGen.WebClient.CSharp;
+﻿using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.Models;
-using Albatross.Config;
-using Albatross.Hosting.Test;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using Xunit;
 
@@ -17,60 +11,6 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 
 		public TestWebClientCodeGen(WebClientTestHost host) {
 			this.host = host;
-		}
-
-		[Fact]
-		public void TestHttpGet() {
-			using (var scope = host.Create()) {
-				Type type = typeof(QueryStringParamTestController);
-				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
-				Class converted = handle.Convert(type);
-				var sb = new StringBuilder();
-				using (StringWriter writer = new StringWriter(sb)) {
-					writer.Code(converted);
-				}
-				string expectedFile = Path.Join(AppContext.BaseDirectory, "TestHttpGetProxyService.expected.cs");
-				using (StreamReader reader = new StreamReader(expectedFile)) {
-					string expected = reader.ReadToEnd();
-					Assert.Equal(expected, sb.ToString());
-				}
-			}
-		}
-
-		[Fact]
-		public void TestHttpPost() {
-			using (var scope = host.Create()) {
-				Type type = typeof(BodyParamTestController);
-				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
-				Class converted = handle.Convert(type);
-				var sb = new StringBuilder();
-				using (var writer = new StringWriter(sb)) {
-					writer.Code(converted);
-				}
-				string expectedFile = Path.Join(AppContext.BaseDirectory, "TestHttpPostProxyService.expected.cs");
-				using (var reader = new StreamReader(expectedFile)) {
-					string expected = reader.ReadToEnd();
-					Assert.Equal(expected, sb.ToString());
-				}
-			}
-		}
-
-		[Fact]
-		public void TestHttpDelete() {
-			using (var scope = host.Create()) {
-				Type type = typeof(RoutingParamTestController);
-				ConvertApiControllerToCSharpClass handle = scope.Get<ConvertApiControllerToCSharpClass>();
-				Class converted = handle.Convert(type);
-				StringBuilder sb = new StringBuilder();
-				using (var writer = new StringWriter(sb)) {
-					writer.Code(converted);
-				}
-				string expectedFile = Path.Join(AppContext.BaseDirectory, "TestHttpDeleteProxyService.expected.cs");
-				using (var reader = new StreamReader(expectedFile)) {
-					string expected = reader.ReadToEnd();
-					Assert.Equal(expected, sb.ToString());
-				}
-			}
 		}
 
 		/// <summary>

@@ -33,11 +33,11 @@ namespace Albatross.WebClient {
 
 		#region utility
 		public Uri BaseUrl => this.client.BaseAddress ?? throw new InvalidOperationException($"Base address not set for {this.GetType().FullName}");
-		public string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
-		public T? Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
-		public ValueTask<T?> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
-		protected JsonSerializerOptions defaultSerializationOptions { get; private set; }
-		public async Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
+		protected internal string SerializeJson<T>(T t) => JsonSerializer.Serialize<T>(t, defaultSerializationOptions);
+		protected internal T? Deserialize<T>(string content) => JsonSerializer.Deserialize<T>(content, defaultSerializationOptions);
+		protected internal ValueTask<T?> DeserializeAsync<T>(Stream stream) => JsonSerializer.DeserializeAsync<T>(stream, defaultSerializationOptions);
+		protected internal JsonSerializerOptions defaultSerializationOptions { get; private set; }
+		protected internal async Task<HttpRequestMessage> CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri) {
 			var result = new HttpRequestMessage(request.Method, updatedUri ?? request.RequestUri) {
 				Version = request.Version
 			};
@@ -52,7 +52,7 @@ namespace Albatross.WebClient {
 			}
 			return result;
 		}
-		public static bool ShouldRedirect(HttpResponseMessage response) {
+		protected internal static bool ShouldRedirect(HttpResponseMessage response) {
 			switch (response.StatusCode) {
 				case HttpStatusCode.MultipleChoices:
 				case HttpStatusCode.Moved:
@@ -68,7 +68,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region retry logic 
-		public static bool ShouldRetry(Exception err, bool includeInternalServerError) {
+		protected internal static bool ShouldRetry(Exception err, bool includeInternalServerError) {
 			if (err is HttpRequestException) {
 				return true;
 			} else if (err is ServiceException serviceException) {
@@ -92,7 +92,7 @@ namespace Albatross.WebClient {
 		/// <param name="count">Determine the number of the retries</param>
 		/// <param name="maxDelayInSeconds"></param>
 		/// <returns></returns>
-		public AsyncRetryPolicy<T> GetDefaultRetryPolicy<T>(Func<T, bool> predicate, Action<DelegateResult<T>, TimeSpan> onRetry, bool retryInternalServerError, int count, int? maxDelayInSeconds) {
+		protected internal AsyncRetryPolicy<T> GetDefaultRetryPolicy<T>(Func<T, bool> predicate, Action<DelegateResult<T>, TimeSpan> onRetry, bool retryInternalServerError, int count, int? maxDelayInSeconds) {
 			var array = new TimeSpan[count];
 			var delay = 1;
 			for (int i = 0; i < count; i++) {
@@ -106,7 +106,7 @@ namespace Albatross.WebClient {
 			return Policy.Handle<Exception>(err => ShouldRetry(err, retryInternalServerError)).OrResult<T>(predicate)
 					.WaitAndRetryAsync(array, (delegateResult, timespan) => onRetry(delegateResult, timespan));
 		}
-		public AsyncRetryPolicy<T> GetDefaultRetryPolicy<T>(Func<T, bool> predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds)
+		protected internal AsyncRetryPolicy<T> GetDefaultRetryPolicy<T>(Func<T, bool> predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds)
 			=> this.GetDefaultRetryPolicy<T>(predicate, (delegateResult, timeSpan) => {
 				this.logger.LogWarning("Retrying {what} after {timespan} seconds\non result: {@result}\nfor error: {error}",
 					what, timeSpan, delegateResult.Result, delegateResult.Exception);
@@ -114,7 +114,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region creating request
-		public IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, params string[] arrayQueryStringValues) {
+		protected internal IEnumerable<string> CreateRequestUrls(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, params string[] arrayQueryStringValues) {
 			var urls = new List<string>();
 			int offset = 0;
 			do {
@@ -136,7 +136,7 @@ namespace Albatross.WebClient {
 			} while (offset < arrayQueryStringValues.Length);
 			return urls;
 		}
-		public IEnumerable<string> CreateRequestUrlsByDelimitedQueryString(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, string arrayQueryStringDelimiter, params string[] arrayQueryStringValues) {
+		protected internal IEnumerable<string> CreateRequestUrlsByDelimitedQueryString(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, string arrayQueryStringDelimiter, params string[] arrayQueryStringValues) {
 			var urls = new List<string>();
 			int offset = 0;
 			do {
@@ -202,7 +202,6 @@ namespace Albatross.WebClient {
 			request.Content = content;
 			return request;
 		}
-
 		#endregion
 
 		#region get response

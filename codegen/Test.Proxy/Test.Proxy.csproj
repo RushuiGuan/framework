@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
+    <ProjectReference Include="..\..\webclient\Albatross.WebClient\Albatross.WebClient.csproj" />
+    <ProjectReference Include="..\Test.Dto\Test.Dto.csproj" />
+  </ItemGroup>
+
+</Project>

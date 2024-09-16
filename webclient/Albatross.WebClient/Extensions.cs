@@ -4,9 +4,11 @@ using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("Albatross.WebClient.Test")]
 namespace Albatross.WebClient {
 	public static class Extensions {
 		public static StringBuilder CreateUrl(this string url, NameValueCollection queryStringValues) {
@@ -121,6 +123,7 @@ namespace Albatross.WebClient {
 			var result = await client.GetJsonResponse<ResultType, ErrorType>(request);
 			return result ?? throw new InvalidDataException($"No data was returned from {request.Method}: {request.RequestUri}");
 		}
+		public static string ISO8601StringDateOnly(this DateTime value) => value.ToString("yyyy-MM-dd");
 		public static string ISO8601String(this DateTime value) {
 			if (value.Kind == DateTimeKind.Utc) {
 				return value.ToString("yyyy-MM-ddTHH:mm:ssZ");

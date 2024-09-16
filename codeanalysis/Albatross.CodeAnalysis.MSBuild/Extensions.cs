@@ -66,7 +66,7 @@ namespace Albatross.CodeAnalysis.MSBuild {
 			var sb = new StringBuilder();
 			foreach (var node in stack.Finalize()) {
 				if (node is INodeContainer container) {
-					var formatted = Formatter.Format(container.Node, workspace, options);
+					var formatted = Formatter.Format(container.Node.NormalizeWhitespace(), workspace, options);
 					sb.AppendLine(formatted.ToFullString());
 				} else {
 					throw new InvalidOperationException($"Stack item of type {node.GetType().Name} is not expected.  Only {typeof(INodeContainer).Name} is expected");
