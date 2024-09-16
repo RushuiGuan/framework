@@ -1,4 +1,5 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.WebClient.CSharp;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,15 @@ namespace Albatross.CodeGen.WebClient.Models {
 	public record class MethodInfo {
 		private readonly Compilation compilation;
 
-		public MethodInfo(Compilation compilation, IMethodSymbol symbol) {
+		public MethodInfo(CSharpProxyMethodSettings settings, Compilation compilation, IMethodSymbol symbol) {
+			this.Settings = settings;
 			this.compilation = compilation;
 			this.Name = symbol.Name;
 			this.ReturnType = GetReturnType((INamedTypeSymbol)symbol.ReturnType);
+			// if the return type is string, it should not be nullable
+			if(this.ReturnType.SpecialType == SpecialType.System_String && this.ReturnType.IsNullableReferenceType()) {
+				this.ReturnType = compilation.GetSpecialType(SpecialType.System_String);
+			}
 			var routeSegments = symbol.GetRouteText().GetRouteSegments().ToArray();
 			this.HttpMethod = GetHttpMethod(symbol);
 			foreach(var parameter in symbol.Parameters) {
@@ -22,6 +28,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 				this.RouteTemplate = "/" + this.RouteTemplate;
 			}
 		}
+		public CSharpProxyMethodSettings Settings { get; init; }
 		public string HttpMethod { get; set; }
 		public string Name { get; set; }
 		[JsonIgnore]

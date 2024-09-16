@@ -14,6 +14,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 			this.name = name;
 			this.collection = collection;
 		}
+
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			return SyntaxFactory.ForEachStatement(SyntaxFactory.IdentifierName(type), name, SyntaxFactory.IdentifierName(collection),
 				SyntaxFactory.Block(elements.Select(x => new StatementNode(x).StatementSyntax)));

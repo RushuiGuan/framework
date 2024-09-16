@@ -11,7 +11,7 @@ namespace Albatross.CommandLine.CodeGen {
 			this.OptionAttribute = optionAttribute;
 			this.Name = $"--{property.Name.Kebaberize()}";
 			this.Type = property.Type.ToDisplayString();
-			this.Required = !property.IsNullable();
+			this.Required = !property.Type.IsNullable();
 			this.Hidden = false;
 			this.Description = null;
 			this.Aliases = Array.Empty<string>();

@@ -34,6 +34,10 @@ namespace Albatross.CodeAnalysis.Syntax {
 			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
 			return this;
 		}
+		public MethodDeclarationBuilder Async() {
+			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
+			return this;
+		}
 		public MethodDeclarationSyntax Node { get; private set; }
 
 

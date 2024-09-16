@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,14 +131,10 @@ namespace Albatross.CodeAnalysis.Symbols {
 			}
 		}
 
-		public static bool IsNullable(this ITypeSymbol symbol) {
-			return symbol is INamedTypeSymbol named && (
-				named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>" || symbol.NullableAnnotation == NullableAnnotation.Annotated
-			);
-		}
-		public static bool IsNullable(this IPropertySymbol propertySymbol) {
-			return propertySymbol.Type.IsNullable();
-		}
+		public static bool IsNullable(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named
+			&& (named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>" || symbol.NullableAnnotation == NullableAnnotation.Annotated);
+		public static bool IsNullableReferenceType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && !named.IsValueType && symbol.NullableAnnotation == NullableAnnotation.Annotated;
+		public static bool IsNullableValueType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>";
 
 		public static string GetFullName(this ITypeSymbol symbol) {
 			string fullName;
@@ -175,6 +172,19 @@ namespace Albatross.CodeAnalysis.Symbols {
 			} else {
 				return $"{symbol.ContainingNamespace.GetFullNamespace()}.{symbol.Name}";
 			}
+		}
+		public static bool TryGetCollectionElementType(this ITypeSymbol typeSymbol, out ITypeSymbol? elementType) {
+			if (typeSymbol is IArrayTypeSymbol arrayTypeSymbol) {
+				elementType = arrayTypeSymbol.ElementType;
+				return true;
+			} else if (typeSymbol is INamedTypeSymbol namedTypeSymbol) {
+				if (namedTypeSymbol.IsGenericType && namedTypeSymbol.OriginalDefinition.GetFullName() == "System.Collections.Generic.IEnumerable<>") {
+					elementType = namedTypeSymbol.TypeArguments[0];
+					return true;
+				}
+			}
+			elementType = null;
+			return false;
 		}
 	}
 }
