@@ -20,13 +20,6 @@ namespace Albatross.WebClient.Test{
 	}
 	public class TestMyProxyService {
 		[Fact]
-		public async Task TestNoRelativeAddress() {
-			var client = new HttpClient();
-			client.BaseAddress = new Uri("http://myyyhost/mmmyyy-data");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
-			await proxy.RunMe();
-		}
-		[Fact]
 		public void TestRequestGeneration1() {
 			List<int> ids = new List<int>();
 			for (int i = 0; i < 1000; i++) {

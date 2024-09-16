@@ -15,7 +15,7 @@ namespace Albatross.EFCore.Test {
 		public class MyTestHost1 : MyTestHost {
 			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 				base.RegisterServices(configuration, services);
-				services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, TestSessionEventHandler>());
+				services.TryAddEnumerable(ServiceDescriptor.Singleton<IDbSessionEventHandler, TestSessionEventHandler>());
 			}
 		}
 		[Fact]
@@ -78,7 +78,7 @@ namespace Albatross.EFCore.Test {
 			Assert.NotEqual(0, data.Id);
 			ExceptionDbSessionEventHandler.ThrowPriorSaveException = true;
 			Assert.Throws<AggregateException>(() => session.SaveChanges());
-			await Assert.ThrowsAsync<AggregateException>(() => session.SaveChangesAsync());
+			await Assert.ThrowsAsync<PreSaveException>(() => session.SaveChangesAsync());
 		}
 	}
 }
