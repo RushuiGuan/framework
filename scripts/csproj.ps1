@@ -82,19 +82,39 @@ function Replace-ProjectReference {
 				$parent = $element.Node.ParentNode;
 				$parent.RemoveChild($element.Node) | Out-Null;
 				$path = $element.Node.Attributes.Where({ $_.Name -eq "Include" }).Value;
-				$newNode = $doc.CreateElement("ProjectReference");
+				$newNode = $doc.CreateElement("PackageReference");
 				$newNode.SetAttribute("Include", $project);
 				$newNode.SetAttribute("Version", $version);
-				foreach($child in $element.Node.ChildNodes) {
+				foreach ($child in $element.Node.ChildNodes) {
 					$newNode.AppendChild($child.CloneNode($true)) | Out-Null;
 				}
-				foreach($attrib in $element.Node.Attributes) {
-					if($attrib.Name -ne "Include") {
+				foreach ($attrib in $element.Node.Attributes) {
+					if ($attrib.Name -ne "Include") {
 						$newNode.SetAttribute($attrib.Name, $attrib.Value);
 					}
 				}
 				$parent.AppendChild($newNode) | Out-Null;
 			}
+		}
+		$doc.Save($file.FullName);
+	}
+}
+
+function Remove-PackageReference {
+	param (
+		[Parameter(Mandatory, ValueFromPipeline, Position = 0)]
+		[System.IO.FileInfo]$csproj,
+		[Parameter(Mandatory, Position = 1)]
+		[string]$packageId
+	)
+	process {
+		$file = Get-Item $csproj;
+		[xml]$doc = Get-Content $file.FullName;
+		
+		$elements = Select-Xml -Xml $doc -XPath "/Project/ItemGroup/PackageReference[@Include='$packageId']"
+		foreach ($element in $elements) {
+			$parent = $element.Node.ParentNode;
+			$parent.RemoveChild($element.Node) | Out-Null;
 		}
 		$doc.Save($file.FullName);
 	}

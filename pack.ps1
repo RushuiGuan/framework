@@ -64,7 +64,7 @@ $codeGenProjects = @(
 );
 
 $utilityProjects  = @(
-#	"codegen\Albatross.CodeGen.CommandLine\Albatross.CodeGen.CommandLine.csproj"
+	"codegen\Albatross.CodeGen.CommandLine\Albatross.CodeGen.CommandLine.csproj"
 );
 
 if(-not [string]::IsNullOrEmpty($project)){

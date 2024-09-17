@@ -61,42 +61,8 @@ function Update-UtilityProjectReference {
 	)
 
 	process { 
-		[xml]$doc = Get-Content $csproj;
-		# find the project reference to Albatross.CodeAnalysis.csproj and remove it
-		$node = Select-Xml -Xml $doc -XPath '//Project/ItemGroup/ProjectReference[contains(@Include, "Albatross.CodeAnalysis.csproj")]' | Select-Object -ExpandProperty Node
-		if ($node) {
-			$parentNode = $node.ParentNode
-			$parentNode.RemoveChild($node) | Out-Null
-		}
-
-		# find the package reference to Albatross.CodeAnalysis and remove it
-		$node = Select-Xml -Xml $doc -XPath '//Project/ItemGroup/PackageReference[@Include="Albatross.CodeAnalysis"]' | Select-Object -ExpandProperty Node
-		if ($node) {
-			$parentNode = $node.ParentNode
-			$parentNode.RemoveChild($node) | Out-Null
-		}
-
-		# recreate the package reference to Albatross.CodeAnalysis with the new version
-		$node = Select-Xml -Xml $doc -XPath '//Project/ItemGroup' | Select-Object -ExpandProperty Node
-		$newElement = $doc.CreateElement("PackageReference")
-		$newElement.SetAttribute("Include", 'Albatross.CodeAnalysis')
-		$newElement.SetAttribute("Version", $version)
-		$newElement.SetAttribute("GeneratePathProperty", 'true')
-		$newElement.SetAttribute("PrivateAssets", 'all')
-		$node.AppendChild($newElement) | Out-Null
-
-		# remove the TargetPathWithTargetPlatformMoniker element for project reference
-		$node = Select-Xml -Xml $doc -XPath '//Project/PropertyGroup/GetTargetPathDependsOn' | Select-Object -ExpandProperty Node
-		if($node) {
-			$parentNode = $node.ParentNode
-			$parentNode.RemoveChild($node) | Out-Null
-		}
-		$node = Select-Xml -Xml $doc -XPath '//Project/Target[@Name="GetDependencyTargetPaths"]' | Select-Object -ExpandProperty Node
-		if ($node) {
-			$parentNode = $node.ParentNode
-			$parentNode.RemoveChild($node) | Out-Null
-		}
-		$doc.Save($csproj)
+		Replace-ProjectReference -csproj $csproj -match "Albatross" -version $version;
+		Remove-PackageReference -csproj $csproj -packageId "Albatross.CodeAnalysis";
 	}
 }
 
@@ -162,7 +128,6 @@ function Run-Pack {
 					--output $artifacts `
 					--configuration release
 			}
-
 			$hasNugetPush = $false;
 			if ($nugetSource) { 
 				get-item $artifacts\*.nupkg | foreach-Object {
