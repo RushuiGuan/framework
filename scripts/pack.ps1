@@ -52,6 +52,53 @@ function Update-CodeGenProjectReference {
 		$doc.Save($csproj)
 	}
 }
+function Update-UtilityProjectReference {
+	param (
+		[Parameter(Mandatory)]
+		[string]$csproj,
+		[Parameter(Mandatory)]
+		[string]$version
+	)
+
+	process { 
+		[xml]$doc = Get-Content $csproj;
+		# find the project reference to Albatross.CodeAnalysis.csproj and remove it
+		$node = Select-Xml -Xml $doc -XPath '//Project/ItemGroup/ProjectReference[contains(@Include, "Albatross.CodeAnalysis.csproj")]' | Select-Object -ExpandProperty Node
+		if ($node) {
+			$parentNode = $node.ParentNode
+			$parentNode.RemoveChild($node) | Out-Null
+		}
+
+		# find the package reference to Albatross.CodeAnalysis and remove it
+		$node = Select-Xml -Xml $doc -XPath '//Project/ItemGroup/PackageReference[@Include="Albatross.CodeAnalysis"]' | Select-Object -ExpandProperty Node
+		if ($node) {
+			$parentNode = $node.ParentNode
+			$parentNode.RemoveChild($node) | Out-Null
+		}
+
+		# recreate the package reference to Albatross.CodeAnalysis with the new version
+		$node = Select-Xml -Xml $doc -XPath '//Project/ItemGroup' | Select-Object -ExpandProperty Node
+		$newElement = $doc.CreateElement("PackageReference")
+		$newElement.SetAttribute("Include", 'Albatross.CodeAnalysis')
+		$newElement.SetAttribute("Version", $version)
+		$newElement.SetAttribute("GeneratePathProperty", 'true')
+		$newElement.SetAttribute("PrivateAssets", 'all')
+		$node.AppendChild($newElement) | Out-Null
+
+		# remove the TargetPathWithTargetPlatformMoniker element for project reference
+		$node = Select-Xml -Xml $doc -XPath '//Project/PropertyGroup/GetTargetPathDependsOn' | Select-Object -ExpandProperty Node
+		if($node) {
+			$parentNode = $node.ParentNode
+			$parentNode.RemoveChild($node) | Out-Null
+		}
+		$node = Select-Xml -Xml $doc -XPath '//Project/Target[@Name="GetDependencyTargetPaths"]' | Select-Object -ExpandProperty Node
+		if ($node) {
+			$parentNode = $node.ParentNode
+			$parentNode.RemoveChild($node) | Out-Null
+		}
+		$doc.Save($csproj)
+	}
+}
 
 function Run-Pack {
 	param(
@@ -60,6 +107,7 @@ function Run-Pack {
 		[Parameter(Mandatory)]
 		[string[]]$projects,
 		[string[]]$codeGenProjects,
+		[string[]]$utilityProjects,
 		[string]$nugetSource,
 		[switch]
 		[bool]$prod,
@@ -101,6 +149,14 @@ function Run-Pack {
 			foreach ($project in $codeGenProjects) {
 				$noHashVersion = $version.SubString(0, $version.IndexOf("+"));
 				Update-CodeGenProjectReference -csproj "$directory\$project" -version $noHashVersion;
+				Write-Information "Building $project";
+				dotnet pack $directory\$project `
+					--output $artifacts `
+					--configuration release
+			}
+			foreach ($project in $utilityProjects) {
+				$noHashVersion = $version.SubString(0, $version.IndexOf("+"));
+				Update-UtilityProjectReference -csproj "$directory\$project" -version $noHashVersion;
 				Write-Information "Building $project";
 				dotnet pack $directory\$project `
 					--output $artifacts `

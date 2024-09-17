@@ -4,7 +4,9 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<AssemblyName>codegen</AssemblyName>
+		<PackageId>Albatross.CodeGen.CommandLine</PackageId>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<PackAsTool>true</PackAsTool>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.10.0" />
