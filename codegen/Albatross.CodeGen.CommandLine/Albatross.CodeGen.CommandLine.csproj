@@ -8,6 +8,9 @@
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<PackAsTool>true</PackAsTool>
 		<Authors>Rushui Guan</Authors>
+		<Title>Albatross CodeGenerator for CSharp and TypeScript WebApi Proxy Generation</Title>
+		<ToolCommandName>albatross-codegen</ToolCommandName>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.10.0" />
@@ -32,5 +35,11 @@
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 			<OutputItemType>Analyzer</OutputItemType>
 		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="readme.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 </Project>
