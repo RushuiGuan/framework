@@ -27,10 +27,6 @@ $projects = @(
 	"caching\Albatross.EFCore.AutoCacheEviction",
 	"codeanalysis\Albatross.CodeAnalysis",
 	"codeanalysis\Albatross.CodeAnalysis.MSBuild",
-	"codegen\Albatross.CodeGen",
-	"codegen\Albatross.CodeGen.CSharp",
-	"codegen\Albatross.CodeGen.TypeScript",
-	"codegen\Albatross.CodeGen.WebClient",
 	"collections\Albatross.Collections",
 	"commandline\Albatross.CommandLine",
 	"config\Albatross.Config",
@@ -63,14 +59,9 @@ $codeGenProjects = @(
 	"messaging\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj"
 );
 
-$utilityProjects  = @(
-#	"codegen\Albatross.CodeGen.CommandLine\Albatross.CodeGen.CommandLine.csproj"
-);
-
 if(-not [string]::IsNullOrEmpty($project)){
 	$projects = $projects | Where-Object { $_ -like "$project*" }
 	$codeGenProjects = $codeGenProjects | Where-Object { $_ -like "$project*" }
-	$utilityProjects = $utilityProjects | Where-Object { $_ -like "$project*" }
 }
 
 $nugetSource = $env:DefaultNugetSource;
@@ -80,7 +71,6 @@ if($nopush){
 
 Run-Pack -projects $projects `
 	-codeGenProjects $codeGenProjects `
-	-utilityProjects $utilityProjects `
 	-directory $PSScriptRoot `
 	-nugetSource $nugetSource `
 	-prod:$prod `
