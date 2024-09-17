@@ -151,6 +151,9 @@ function Run-Pack {
 				foreach ($project in $codeGenProjects) {
 					git checkout $directory\$project;
 				}
+				foreach ($project in $utilityProjects) {
+					git checkout $directory\$project;
+				}
 			}
 		}
 	}
