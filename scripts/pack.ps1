@@ -52,6 +52,19 @@ function Update-CodeGenProjectReference {
 		$doc.Save($csproj)
 	}
 }
+function Update-UtilityProjectReference {
+	param (
+		[Parameter(Mandatory)]
+		[string]$csproj,
+		[Parameter(Mandatory)]
+		[string]$version
+	)
+
+	process { 
+		Replace-ProjectReference -csproj $csproj -match "Albatross" -version $version;
+		Remove-PackageReference -csproj $csproj -packageId "Albatross.CodeAnalysis";
+	}
+}
 
 function Run-Pack {
 	param(
@@ -60,6 +73,7 @@ function Run-Pack {
 		[Parameter(Mandatory)]
 		[string[]]$projects,
 		[string[]]$codeGenProjects,
+		[string[]]$utilityProjects,
 		[string]$nugetSource,
 		[switch]
 		[bool]$prod,
@@ -106,7 +120,14 @@ function Run-Pack {
 					--output $artifacts `
 					--configuration release
 			}
-
+			foreach ($project in $utilityProjects) {
+				$noHashVersion = $version.SubString(0, $version.IndexOf("+"));
+				Update-UtilityProjectReference -csproj "$directory\$project" -version $noHashVersion;
+				Write-Information "Building $project";
+				dotnet pack $directory\$project `
+					--output $artifacts `
+					--configuration release
+			}
 			$hasNugetPush = $false;
 			if ($nugetSource) { 
 				get-item $artifacts\*.nupkg | foreach-Object {
@@ -128,6 +149,9 @@ function Run-Pack {
 				git checkout $versionFile;
 
 				foreach ($project in $codeGenProjects) {
+					git checkout $directory\$project;
+				}
+				foreach ($project in $utilityProjects) {
 					git checkout $directory\$project;
 				}
 			}
