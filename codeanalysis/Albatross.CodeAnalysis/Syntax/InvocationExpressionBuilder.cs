@@ -49,8 +49,9 @@ namespace Albatross.CodeAnalysis.Syntax {
 			var syntax = SyntaxFactory.InvocationExpression(name).WithArgumentList(argumentList);
 			if (await) {
 				return SyntaxFactory.AwaitExpression(syntax);
+			} else {
+				return syntax;
 			}
-			return syntax;
 		}
 	}
 }

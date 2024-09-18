@@ -11,7 +11,7 @@ namespace Test.Proxy {
 		}
 
 		public const string ControllerPath = "api/nullable-param-test";
-		public Task<System.String> NullableStringParam(System.String? text) {
+		public async Task<System.String> NullableStringParam(System.String? text) {
 			string path = $"{ControllerPath}/nullable-string-param";
 			var queryString = new NameValueCollection();
 			if (text != null) {
@@ -19,11 +19,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> NullableValueType(System.Nullable<System.Int32> id) {
+		public async Task<System.String> NullableValueType(System.Nullable<System.Int32> id) {
 			string path = $"{ControllerPath}/nullable-value-type";
 			var queryString = new NameValueCollection();
 			if (id != null) {
@@ -31,11 +31,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> NullableDateOnly(System.Nullable<System.DateOnly> date) {
+		public async Task<System.String> NullableDateOnly(System.Nullable<System.DateOnly> date) {
 			string path = $"{ControllerPath}/nullable-date-only";
 			var queryString = new NameValueCollection();
 			if (date != null) {
@@ -43,19 +43,19 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task NullablePostParam(Test.Dto.MyDto? dto) {
+		public async Task NullablePostParam(Test.Dto.MyDto? dto) {
 			string path = $"{ControllerPath}/nullable-post-param";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateJsonRequest<Test.Dto.MyDto?>(HttpMethod.Post, path, queryString, dto)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> NullableStringArray(System.String?[] values) {
+		public async Task<System.String> NullableStringArray(System.String?[] values) {
 			string path = $"{ControllerPath}/nullable-string-array";
 			var queryString = new NameValueCollection();
 			foreach (var item in values) {
@@ -65,11 +65,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> NullableStringCollection(System.Collections.Generic.IEnumerable<System.String> values) {
+		public async Task<System.String> NullableStringCollection(System.Collections.Generic.IEnumerable<System.String> values) {
 			string path = $"{ControllerPath}/nullable-string-collection";
 			var queryString = new NameValueCollection();
 			foreach (var item in values) {
@@ -79,11 +79,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> NullableValueTypeArray(System.Nullable<System.Int32>[] values) {
+		public async Task<System.String> NullableValueTypeArray(System.Nullable<System.Int32>[] values) {
 			string path = $"{ControllerPath}/nullable-value-type-array";
 			var queryString = new NameValueCollection();
 			foreach (var item in values) {
@@ -93,11 +93,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> NullableValueTypeCollection(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>> values) {
+		public async Task<System.String> NullableValueTypeCollection(System.Collections.Generic.IEnumerable<System.Nullable<System.Int32>> values) {
 			string path = $"{ControllerPath}/nullable-value-type-collection";
 			var queryString = new NameValueCollection();
 			foreach (var item in values) {
@@ -107,11 +107,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> NullableDateOnlyCollection(System.Collections.Generic.IEnumerable<System.Nullable<System.DateOnly>> dates) {
+		public async Task<System.String> NullableDateOnlyCollection(System.Collections.Generic.IEnumerable<System.Nullable<System.DateOnly>> dates) {
 			string path = $"{ControllerPath}/nullable-date-only-collection";
 			var queryString = new NameValueCollection();
 			foreach (var item in dates) {
@@ -121,11 +121,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> NullableDateOnlyArray(System.Nullable<System.DateOnly>[] dates) {
+		public async Task<System.String> NullableDateOnlyArray(System.Nullable<System.DateOnly>[] dates) {
 			string path = $"{ControllerPath}/nullable-date-only-array";
 			var queryString = new NameValueCollection();
 			foreach (var item in dates) {
@@ -135,7 +135,7 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 	}

@@ -11,84 +11,84 @@ namespace Test.Proxy {
 		}
 
 		public const string ControllerPath = "api/from-query-param-test";
-		public Task RequiredString(System.String name) {
+		public async Task RequiredString(System.String name) {
 			string path = $"{ControllerPath}/required-string";
 			var queryString = new NameValueCollection();
 			queryString.Add("name", name);
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task RequiredStringImplied(System.String name) {
+		public async Task RequiredStringImplied(System.String name) {
 			string path = $"{ControllerPath}/required-string-implied";
 			var queryString = new NameValueCollection();
 			queryString.Add("name", name);
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task RequiredStringDiffName(System.String name) {
+		public async Task RequiredStringDiffName(System.String name) {
 			string path = $"{ControllerPath}/required-string-diff-name";
 			var queryString = new NameValueCollection();
 			queryString.Add("n", name);
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task RequiredDateTime(System.DateTime datetime) {
+		public async Task RequiredDateTime(System.DateTime datetime) {
 			string path = $"{ControllerPath}/required-datetime";
 			var queryString = new NameValueCollection();
 			queryString.Add("datetime", datetime.ISO8601String());
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task RequiredDateTimeDiffName(System.DateTime datetime) {
+		public async Task RequiredDateTimeDiffName(System.DateTime datetime) {
 			string path = $"{ControllerPath}/required-datetime_diff-name";
 			var queryString = new NameValueCollection();
 			queryString.Add("d", datetime.ISO8601String());
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task RequiredDateOnly(System.DateOnly dateonly) {
+		public async Task RequiredDateOnly(System.DateOnly dateonly) {
 			string path = $"{ControllerPath}/required-dateonly";
 			var queryString = new NameValueCollection();
 			queryString.Add("dateonly", dateonly.ISO8601String());
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task RequiredDateOnlyDiffName(System.DateOnly dateonly) {
+		public async Task RequiredDateOnlyDiffName(System.DateOnly dateonly) {
 			string path = $"{ControllerPath}/required-dateonly_diff-name";
 			var queryString = new NameValueCollection();
 			queryString.Add("d", dateonly.ISO8601String());
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task RequiredDateTimeOffset(System.DateTimeOffset dateTimeOffset) {
+		public async Task RequiredDateTimeOffset(System.DateTimeOffset dateTimeOffset) {
 			string path = $"{ControllerPath}/required-datetimeoffset";
 			var queryString = new NameValueCollection();
 			queryString.Add("dateTimeOffset", dateTimeOffset.ISO8601String());
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task RequiredDateTimeOffsetDiffName(System.DateTimeOffset dateTimeOffset) {
+		public async Task RequiredDateTimeOffsetDiffName(System.DateTimeOffset dateTimeOffset) {
 			string path = $"{ControllerPath}/required-datetimeoffset_diff-name";
 			var queryString = new NameValueCollection();
 			queryString.Add("d", dateTimeOffset.ISO8601String());
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 	}
