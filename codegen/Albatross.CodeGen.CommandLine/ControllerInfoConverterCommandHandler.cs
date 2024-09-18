@@ -1,5 +1,6 @@
-﻿using Albatross.CodeGen.Utility;
+﻿using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.Models;
+using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
@@ -11,11 +12,15 @@ namespace Albatross.CodeGen.CommandLine {
 	public class ControllerInfoConverterCommandHandler : ICommandHandler {
 		private readonly Compilation compilation;
 		private readonly ConvertApiControllerToControllerInfo converter;
+		private readonly CodeGenSettings settings;
 		private readonly ControllerInfoCommandOptions options;
 
-		public ControllerInfoConverterCommandHandler(Compilation compilation, ConvertApiControllerToControllerInfo converter, IOptions<ControllerInfoCommandOptions> options) {
+		public ControllerInfoConverterCommandHandler(Compilation compilation, ConvertApiControllerToControllerInfo converter, 
+			CodeGenSettings settings,
+			IOptions<ControllerInfoCommandOptions> options) {
 			this.compilation = compilation;
 			this.converter = converter;
+			this.settings = settings;
 			this.options = options.Value;
 		}
 
@@ -27,7 +32,7 @@ namespace Albatross.CodeGen.CommandLine {
 			var controllerClass = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var dtoClassWalker = new ApiControllerClassWalker(semanticModel);
+				var dtoClassWalker = new ApiControllerClassWalker(semanticModel, settings.ControllerFilter);
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
 				controllerClass.AddRange(dtoClassWalker.Result);
 			}

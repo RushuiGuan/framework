@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.WebClient.Settings;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
 	public class ConvertApiControllerToTypeScriptFile : IConvertObject<INamedTypeSymbol, TypeScriptFileDeclaration> {

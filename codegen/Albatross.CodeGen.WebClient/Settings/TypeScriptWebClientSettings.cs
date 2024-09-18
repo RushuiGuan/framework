@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Albatross.CodeGen.WebClient.TypeScript {
+namespace Albatross.CodeGen.WebClient.Settings {
 	public record class TypeScriptWebClientSettings {
+		public SymbolFilterPatterns ControllerFilter { get; init; } = new SymbolFilterPatterns();
+		public SymbolFilterPatterns DtoFilter { get; init; } = new SymbolFilterPatterns();
+		public SymbolFilterPatterns EnumFilter { get; init; } = new SymbolFilterPatterns();
+
 		public string EndPointName { get; init; } = "endpoint_name";
 		public string BaseClassName { get; init; } = "WebClient";
 		public string BaseClassModule { get; init; } = "@my_module/webclient";

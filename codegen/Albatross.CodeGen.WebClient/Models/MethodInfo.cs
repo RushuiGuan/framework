@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.WebClient.CSharp;
+using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 	public record class MethodInfo {
 		private readonly Compilation compilation;
 
-		public MethodInfo(CSharpProxyMethodSettings settings, Compilation compilation, IMethodSymbol symbol) {
+		public MethodInfo(WebClientMethodSettings settings, Compilation compilation, IMethodSymbol symbol) {
 			this.Settings = settings;
 			this.compilation = compilation;
 			this.Name = symbol.Name;
@@ -28,7 +29,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 				this.RouteTemplate = "/" + this.RouteTemplate;
 			}
 		}
-		public CSharpProxyMethodSettings Settings { get; init; }
+		public WebClientMethodSettings Settings { get; init; }
 		public string HttpMethod { get; set; }
 		public string Name { get; set; }
 		[JsonIgnore]

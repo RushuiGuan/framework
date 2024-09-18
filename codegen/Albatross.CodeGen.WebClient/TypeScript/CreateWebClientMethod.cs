@@ -4,6 +4,7 @@ using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.Modifiers;
+using Albatross.CodeGen.WebClient.Settings;
 using Albatross.Text;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
@@ -141,7 +142,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 				} else {
 					string queryName = string.Empty;
 					if (param.TryGetAttribute(My.FromQueryAttributeClassName, out var fromQueryAttrib)) {
-						queryName = fromQueryAttrib.NamedArguments.Where(x => x.Key == "Name").FirstOrDefault().Value.Value as string;
+						queryName = fromQueryAttrib!.NamedArguments.Where(x => x.Key == "Name").FirstOrDefault().Value.Value as string;
 					}
 					if (string.IsNullOrEmpty(queryName)) {
 						queryName = param.Name.CamelCase();

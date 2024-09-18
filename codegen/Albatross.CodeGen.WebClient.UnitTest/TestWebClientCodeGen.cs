@@ -82,7 +82,7 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 			var segments = input.GetRouteSegments();
 			var writer = new StringWriter();
 			foreach (var item in segments) {
-				writer.Write(item.Build(new CSharpProxyMethodSettings()));
+				writer.Write(item.Build(new Settings.WebClientMethodSettings()));
 			}
 			writer.Flush();
 			string result = writer.ToString();

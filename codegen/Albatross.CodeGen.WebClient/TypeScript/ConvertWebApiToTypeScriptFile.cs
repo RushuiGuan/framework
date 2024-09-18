@@ -10,6 +10,7 @@ using System.Linq;
 using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.Text;
+using Albatross.CodeGen.WebClient.Settings;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
 	public class ConvertWebApiToTypeScriptFile : IConvertObject<ControllerInfo, TypeScriptFileDeclaration> {

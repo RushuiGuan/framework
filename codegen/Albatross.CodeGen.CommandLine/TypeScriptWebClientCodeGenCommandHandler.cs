@@ -1,5 +1,6 @@
-﻿using Albatross.CodeGen.Utility;
+﻿using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.Models;
+using Albatross.CodeGen.WebClient.Settings;
 using Albatross.CodeGen.WebClient.TypeScript;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
@@ -9,17 +10,24 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class TypeScriptProxyCodeGenCommandHandler : ICommandHandler {
-		private readonly ILogger<TypeScriptProxyCodeGenCommandHandler> logger;
+	public class TypeScriptWebClientCodeGenCommandHandler : ICommandHandler {
+		private readonly ILogger<TypeScriptWebClientCodeGenCommandHandler> logger;
 		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
+		private readonly CodeGenSettings settings;
 		private readonly ConvertApiControllerToControllerInfo convertToWebApi;
 		private readonly ConvertWebApiToTypeScriptFile converToTypeScriptFile;
 
-		public TypeScriptProxyCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, ILogger<TypeScriptProxyCodeGenCommandHandler> logger, Compilation compilation, ConvertApiControllerToControllerInfo convertToWebApi, ConvertWebApiToTypeScriptFile converToTypeScriptFile) {
+		public TypeScriptWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, 
+			ILogger<TypeScriptWebClientCodeGenCommandHandler> logger, 
+			Compilation compilation, 
+			CodeGenSettings settings,
+			ConvertApiControllerToControllerInfo convertToWebApi, 
+			ConvertWebApiToTypeScriptFile converToTypeScriptFile) {
 			this.options = options.Value;
 			this.logger = logger;
 			this.compilation = compilation;
+			this.settings = settings;
 			this.convertToWebApi = convertToWebApi;
 			this.converToTypeScriptFile = converToTypeScriptFile;
 		}
@@ -32,7 +40,7 @@ namespace Albatross.CodeGen.CommandLine {
 			var controllerClass = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var dtoClassWalker = new ApiControllerClassWalker(semanticModel);
+				var dtoClassWalker = new ApiControllerClassWalker(semanticModel, settings.TypeScriptControllerFilter);
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
 				controllerClass.AddRange(dtoClassWalker.Result);
 			}
