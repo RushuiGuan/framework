@@ -1,22 +1,21 @@
-﻿using Albatross.CodeAnalysis.Symbols;
-using Microsoft.CodeAnalysis;
-using System.Text.Json.Serialization;
+﻿using Microsoft.CodeAnalysis;
+using System.Linq;
 
 namespace Albatross.CodeGen.WebClient.Models {
 	public record class DtoClassInfo {
-		public DtoClassInfo(string name) {
-			this.Name = name;
+		public DtoClassInfo(INamedTypeSymbol symbol) {
+			this.Name = symbol.Name;
+			Properties = symbol.GetMembers().OfType<IPropertySymbol>().Select(x => new DtoClassPropertyInfo(x)).ToArray();
+
+			if(symbol.BaseType != null && symbol.BaseType.SpecialType != SpecialType.System_Object) {
+				BaseType = symbol.BaseType;
+			}else{
+				BaseType = null;
+			}
 		}
-		public string Name { get; set; }
-	}
-	public record class DtoClassPropertyInfo {
-		public DtoClassPropertyInfo(string name, ITypeSymbol type) {
-			this.Name = name;
-			this.Type = type;
-		}
-		public string Name { get; set; }
-		[JsonIgnore]
-		public ITypeSymbol Type { get; set; }
-		public string TypeName => Type.GetFullName();
+
+		public string Name { get; }
+		public INamedTypeSymbol? BaseType{get; }
+		public DtoClassPropertyInfo[] Properties { get; }
 	}
 }

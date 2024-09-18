@@ -1,4 +1,4 @@
-﻿using Albatross.CodeGen.WebClient.CSharp;
+﻿using Albatross.CodeGen.WebClient.CSharpOld;
 using Albatross.CodeGen.WebClient.Models;
 using System.Collections.Generic;
 using System.IO;

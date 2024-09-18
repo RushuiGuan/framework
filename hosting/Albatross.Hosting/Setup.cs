@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using System;
 using System.Threading.Tasks;
 
 namespace Albatross.Hosting {
@@ -21,7 +22,7 @@ namespace Albatross.Hosting {
 			hostBuilder = Host.CreateDefaultBuilder(args).UseSerilog();
 			setupSerilog = new SetupSerilog().UseConfigFile(environment, null, args);
 			var configBuilder = new ConfigurationBuilder()
-				.SetBasePath(System.IO.Directory.GetCurrentDirectory())
+				.SetBasePath(AppContext.BaseDirectory)
 				.AddJsonFile("appsettings.json", false, true);
 			if (!string.IsNullOrEmpty(environment)) { configBuilder.AddJsonFile($"appsettings.{environment}.json", true, true); }
 

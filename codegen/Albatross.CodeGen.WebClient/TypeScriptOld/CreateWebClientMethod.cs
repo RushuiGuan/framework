@@ -5,12 +5,13 @@ using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.Modifiers;
 using Albatross.CodeGen.WebClient.Settings;
+using Albatross.CodeGen.WebClient.TypeScript;
 using Albatross.Text;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.CodeGen.WebClient.TypeScript {
+namespace Albatross.CodeGen.WebClient.TypeScriptOld {
 	public interface ICreateWebClientMethod : IConvertObject<IMethodSymbol, MethodDeclaration> { }
 
 	public class CreateWebClientMethod : ICreateWebClientMethod {
@@ -26,13 +27,13 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		}
 		public MethodDeclaration Convert(IMethodSymbol methodSymbol) {
 			var returnType = typeConverter.Convert(methodSymbol.ReturnType);
-			if (object.Equals(returnType, Defined.Types.Void())) {
+			if (Equals(returnType, Defined.Types.Void())) {
 				returnType = Defined.Types.Object();
 			}
 			return new MethodDeclaration(methodSymbol.Name.CamelCase()) {
 				Modifiers = settings.UsePromise ? [new AsyncModifier()] : [],
 				ReturnType = settings.UsePromise ? returnType.ToPromise() : returnType.ToObservable(),
-				Parameters = new ListOfSyntaxNodes<ParameterDeclaration>(methodSymbol.Parameters.Select(x => this.parameterConverter.Convert(x))),
+				Parameters = new ListOfSyntaxNodes<ParameterDeclaration>(methodSymbol.Parameters.Select(x => parameterConverter.Convert(x))),
 				Body = new ScopedVariableExpressionBuilder()
 					.IsConstant()
 					.WithName("relativeUrl").WithExpression(methodSymbol.GetRoute().ConvertRoute2StringInterpolation())
@@ -58,17 +59,17 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			}
 		}
 		IExpression CreateHttpInvocationExpression(IMethodSymbol methodSymbol) {
-			var builder = new CodeGen.TypeScript.Expressions.InvocationExpressionBuilder();
+			var builder = new InvocationExpressionBuilder();
 			if (settings.UsePromise) {
 				builder.Await();
 			}
-			var returnType = this.typeConverter.Convert(methodSymbol.ReturnType);
+			var returnType = typeConverter.Convert(methodSymbol.ReturnType);
 			var hasVoidReturnType = false;
-			if (object.Equals(returnType, Defined.Types.Void())) {
+			if (Equals(returnType, Defined.Types.Void())) {
 				hasVoidReturnType = true;
 				returnType = Defined.Types.Object();
 			}
-			var hasStringReturnType = object.Equals(returnType, Defined.Types.String());
+			var hasStringReturnType = Equals(returnType, Defined.Types.String());
 			var httpMethod = methodSymbol.GetHttpMethod();
 			switch (httpMethod) {
 				case "get":
@@ -111,7 +112,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			// add from body parameter if it exists
 			var fromBodyParameter = methodSymbol.Parameters.FirstOrDefault(x => x.HasAttribute("Microsoft.AspNetCore.Mvc.FromBodyAttribute"));
 			if (fromBodyParameter != null) {
-				builder.AddGenericArgument(this.typeConverter.Convert(fromBodyParameter.Type));
+				builder.AddGenericArgument(typeConverter.Convert(fromBodyParameter.Type));
 				builder.AddArgument(new IdentifierNameExpression(fromBodyParameter.Name.CamelCase()));
 			} else if (httpMethod == "post" || httpMethod == "put" || httpMethod == "patch") {
 				builder.AddGenericArgument(Defined.Types.String());

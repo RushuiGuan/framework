@@ -1,13 +1,12 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.Syntax;
-using Albatross.CodeGen.TypeScript.TypeConversions;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.CodeGen.TypeScript.Conversions {
+namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class ConvertType : IConvertObject<ITypeSymbol, ITypeExpression> {
 		private readonly IEnumerable<ITypeConverter> converters;
 		private readonly ILogger<ConvertType> logger;
@@ -19,13 +18,13 @@ namespace Albatross.CodeGen.TypeScript.Conversions {
 
 		public ITypeExpression Convert(ITypeSymbol symbol) {
 			foreach (ITypeConverter c in converters) {
-				if(c.TryConvert(symbol, this, out ITypeExpression? expression)) {
+				if (c.TryConvert(symbol, this, out ITypeExpression? expression)) {
 					logger.LogDebug("{converter} is used to convert type symbol {symbol}", c.GetType().FullName, symbol.GetFullName());
 					return expression;
-				}	
+				}
 			}
 			throw new InvalidOperationException($"TypeConverter is not found for {symbol.GetFullName()}");
 		}
-		object IConvertObject<ITypeSymbol>.Convert(ITypeSymbol from) => this.Convert(from);
+		object IConvertObject<ITypeSymbol>.Convert(ITypeSymbol from) => Convert(from);
 	}
 }

@@ -26,6 +26,9 @@
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.25" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Remove="serilog.json" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0" />
@@ -42,11 +45,9 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<Content Update="serilog.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
+		<None Include="serilog.json">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 	<ItemGroup>
 	  <None Include="readme.md">

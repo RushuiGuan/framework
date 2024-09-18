@@ -11,7 +11,7 @@ using System.Linq;
 using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.WebClient.Settings;
 
-namespace Albatross.CodeGen.WebClient.TypeScript {
+namespace Albatross.CodeGen.WebClient.TypeScriptOld {
 	public class ConvertApiControllerToTypeScriptFile : IConvertObject<INamedTypeSymbol, TypeScriptFileDeclaration> {
 		public const string ControllerPostfix = "Controller";
 		public const string ControllerNamePlaceholder = "[controller]";
@@ -34,7 +34,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		string ControllerRoute(INamedTypeSymbol controllerSymbol) {
 			var route = controllerSymbol.GetRoute();
 			route = route?.Replace(ControllerNamePlaceholder, ControllerName(controllerSymbol).ToLower()) ?? string.Empty;
-			if(!string.IsNullOrEmpty(route) && !route.EndsWith("/")){
+			if (!string.IsNullOrEmpty(route) && !route.EndsWith("/")) {
 				route = route + "/";
 			}
 			return route;

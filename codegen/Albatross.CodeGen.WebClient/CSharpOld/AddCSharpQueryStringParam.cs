@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace Albatross.CodeGen.WebClient.CSharp {
+namespace Albatross.CodeGen.WebClient.CSharpOld {
 	public class AddCSharpQueryStringParam : ICodeElement {
 		public AddCSharpQueryStringParam(string key, string valueVariableName, Type valueType) {
 			Key = key;

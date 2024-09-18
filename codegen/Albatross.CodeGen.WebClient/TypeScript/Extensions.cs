@@ -1,7 +1,5 @@
 ﻿using Albatross.CodeGen.Syntax;
-using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Expressions;
-using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 

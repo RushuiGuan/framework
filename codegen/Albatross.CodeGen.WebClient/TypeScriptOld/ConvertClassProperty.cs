@@ -1,7 +1,6 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Declarations;
-using Albatross.CodeGen.TypeScript.TypeConversions;
 using Albatross.Text;
 using Microsoft.CodeAnalysis;
 
