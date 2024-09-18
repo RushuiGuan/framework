@@ -4,14 +4,17 @@ using Albatross.CodeAnalysis.Syntax;
 using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
+using Albatross.CodeGen.WebClient.Settings;
 
 namespace Albatross.CodeGen.WebClient.CSharp {
 	public class ConvertWebApiToCSharpCodeStack : IConvertObject<ControllerInfo, CodeStack> {
 		const string ProxyService = "ProxyService";
 		private readonly Compilation compilation;
+		private readonly CSharpWebClientSettings proxySettings;
 
-		public ConvertWebApiToCSharpCodeStack(Compilation compilation) {
+		public ConvertWebApiToCSharpCodeStack(Compilation compilation, CSharpWebClientSettings proxySettings) {
 			this.compilation = compilation;
+			this.proxySettings = proxySettings;
 		}
 		public CodeStack Convert(ControllerInfo from) {
 			var codeStack = new CodeStack();
@@ -23,7 +26,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 					.With(new UsingDirectiveNode("Albatross.WebClient"))
 					.With(new UsingDirectiveNode("System.Collections.Specialized"));
 
-				using (codeStack.NewScope(new NamespaceDeclarationBuilder(from.Namespace))) {
+				using (codeStack.NewScope(new NamespaceDeclarationBuilder(proxySettings.Namespace))) {
 					var proxyClassName = from.ControllerName + ProxyService;
 					codeStack.FileName = $"{proxyClassName}.generated.cs";
 
@@ -129,7 +132,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 				}
 			}
 		}
-		CodeStack CreateAddQueryStringStatement(CodeStack codeStack, CSharpProxyMethodSettings settings, ITypeSymbol type, string queryKey, string variableName) {
+		CodeStack CreateAddQueryStringStatement(CodeStack codeStack, WebClientMethodSettings settings, ITypeSymbol type, string queryKey, string variableName) {
 			ITypeSymbol finalType = type;
 			if (type.IsNullable()) {
 				codeStack.Begin(new IfStatementBuilder());

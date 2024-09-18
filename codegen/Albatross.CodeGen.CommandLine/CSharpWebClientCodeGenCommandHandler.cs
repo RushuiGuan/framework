@@ -1,7 +1,8 @@
 ﻿using Albatross.CodeAnalysis.MSBuild;
-using Albatross.CodeGen.Utility;
+using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.Models;
+using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -10,17 +11,23 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class CSharpProxyCodeGenCommandHandler : ICommandHandler {
-		private readonly ILogger<CSharpProxyCodeGenCommandHandler> logger;
+	public class CSharpWebClientCodeGenCommandHandler : ICommandHandler {
+		private readonly ILogger<CSharpWebClientCodeGenCommandHandler> logger;
 		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
+		private readonly CodeGenSettings settings;
 		private readonly ConvertApiControllerToControllerInfo convertToWebApi;
 		private readonly ConvertWebApiToCSharpCodeStack converToCSharpCodeStack;
 
-		public CSharpProxyCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, ILogger<CSharpProxyCodeGenCommandHandler> logger, Compilation compilation, ConvertApiControllerToControllerInfo convertToWebApi, ConvertWebApiToCSharpCodeStack converToCSharpFile) {
+		public CSharpWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, ILogger<CSharpWebClientCodeGenCommandHandler> logger, 
+			Compilation compilation,
+			CodeGenSettings settings,
+			ConvertApiControllerToControllerInfo convertToWebApi,
+			ConvertWebApiToCSharpCodeStack converToCSharpFile) {
 			this.options = options.Value;
 			this.logger = logger;
 			this.compilation = compilation;
+			this.settings = settings;
 			this.convertToWebApi = convertToWebApi;
 			this.converToCSharpCodeStack = converToCSharpFile;
 		}
@@ -33,7 +40,7 @@ namespace Albatross.CodeGen.CommandLine {
 			var controllerClass = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var dtoClassWalker = new ApiControllerClassWalker(semanticModel);
+				var dtoClassWalker = new ApiControllerClassWalker(semanticModel, settings.CSharpControllerFilter);
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
 				controllerClass.AddRange(dtoClassWalker.Result);
 			}

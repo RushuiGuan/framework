@@ -1,5 +1,5 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
-using Albatross.CodeGen.WebClient.CSharp;
+using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +21,17 @@ namespace Albatross.CodeGen.WebClient.Models {
 				}
 			}
 		}
-		public string Namespace { get; }
 		public string Route { get; set; }
 		public List<MethodInfo> Methods { get; } = new List<MethodInfo>();
 
-		public ControllerInfo(CSharpProxyControllerSettings settings, Compilation compilation, INamedTypeSymbol controller) {
-			this.Namespace = settings.Namespace;
+		public ControllerInfo(ApiControllerConversionSettings conversionSettings, Compilation compilation, INamedTypeSymbol controller) {
 			this.Controller = controller;
 			this.Route = controller.GetRouteText();
 			this.Route = this.Route.Replace(ControllerNamePlaceholder, this.ControllerName.ToLower());
 
 			foreach (var methodSymbol in controller.GetMembers().OfType<IMethodSymbol>()) {
 				if (methodSymbol.GetAttributes().Any(x => x.AttributeClass?.BaseType?.GetFullName() == My.HttpMethodAttributeClassName)) {
-					Methods.Add(new MethodInfo(settings.Get(controller.Name, methodSymbol.Name), compilation, methodSymbol));
+					Methods.Add(new MethodInfo(conversionSettings.Get(controller.Name, methodSymbol.Name), compilation, methodSymbol));
 				}
 			}
 		}

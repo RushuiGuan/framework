@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.CodeGen.WebClient;
+using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
@@ -14,15 +15,18 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly Compilation compilation;
 		private readonly IConvertObject<INamedTypeSymbol, InterfaceDeclaration> interfaceConverter;
 		private readonly IConvertObject<INamedTypeSymbol, EnumDeclaration> enumConverter;
+		private readonly CodeGenSettings settings;
 
 		public TypeScriptDtoCodeGenCommandHandler(Compilation compilation,
 			IConvertObject<INamedTypeSymbol, InterfaceDeclaration> interfaceConverter,
 			IConvertObject<INamedTypeSymbol, EnumDeclaration> enumConverter,
+			CodeGenSettings settings,
 			IOptions<CodeGenCommandOptions> options) {
 			this.options = options.Value;
 			this.compilation = compilation;
 			this.interfaceConverter = interfaceConverter;
 			this.enumConverter = enumConverter;
+			this.settings = settings;
 		}
 
 		public int Invoke(InvocationContext context) {
@@ -34,11 +38,11 @@ namespace Albatross.CodeGen.CommandLine {
 			var enums = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var dtoClassWalker = new DtoClassWalker(semanticModel);
+				var dtoClassWalker = new DtoClassWalker(semanticModel, settings.TypeScriptDtoFilter);
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
 				dtoClasses.AddRange(dtoClassWalker.Result);
 
-				var enumWalker = new EnumTypeWalker(semanticModel);
+				var enumWalker = new EnumTypeWalker(semanticModel, settings.EnumFilter);
 				enumWalker.Visit(syntaxTree.GetRoot());
 				enums.AddRange(enumWalker.Result);
 			}

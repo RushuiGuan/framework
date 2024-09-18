@@ -9,7 +9,7 @@
 		<PackAsTool>true</PackAsTool>
 		<Authors>Rushui Guan</Authors>
 		<Title>Albatross CodeGenerator for CSharp and TypeScript WebApi Proxy Generation</Title>
-		<ToolCommandName>albatross-codegen</ToolCommandName>
+		<ToolCommandName>codegen</ToolCommandName>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>

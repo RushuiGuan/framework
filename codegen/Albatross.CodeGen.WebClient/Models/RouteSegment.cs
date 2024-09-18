@@ -1,16 +1,17 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.WebClient.CSharp;
+using Albatross.CodeGen.WebClient.Settings;
 
 namespace Albatross.CodeGen.WebClient.Models {
 	public interface IRouteSegment {
-		string Build(CSharpProxyMethodSettings settings);
+		string Build(WebClientMethodSettings settings);
 	}
 	public record class RouteTextSegment : IRouteSegment {
 		public RouteTextSegment(string text) {
 			Text = text;
 		}
 		public string Text { get; }
-		public string Build(CSharpProxyMethodSettings settings) => Text;
+		public string Build(WebClientMethodSettings settings) => Text;
 	}
 	public record class RouteParameterSegment : IRouteSegment {
 		public RouteParameterSegment(string text) {
@@ -19,7 +20,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 		public ParameterInfo? ParameterInfo { get; set; }
 		public string Text { get; init; }
 
-		public string Build(CSharpProxyMethodSettings settings) {
+		public string Build(WebClientMethodSettings settings) {
 			var type = ParameterInfo?.Type.GetFullName();
 			if (type == "System.DateTime" && settings.UseDateTimeAsDateOnly == true) {
 				return $"{{{Text}.ISO8601StringDateOnly()}}";
