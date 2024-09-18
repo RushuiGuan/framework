@@ -7,9 +7,9 @@ namespace Test.CommandLine {
 	public class TestOptions {
 	}
 	public class TestCommandHandler : ICommandHandler {
-		private readonly FromQueryParamTestProxyService proxy;
+		private readonly FromBodyParamTestProxyService proxy;
 
-		public TestCommandHandler(FromQueryParamTestProxyService proxy) {
+		public TestCommandHandler(FromBodyParamTestProxyService proxy) {
 			this.proxy = proxy;
 		}
 
@@ -18,7 +18,7 @@ namespace Test.CommandLine {
 		}
 
 		public async Task<int> InvokeAsync(InvocationContext context) {
-			await proxy.RequiredString("test");
+			await proxy.RequiredObject(new Dto.MyDto());
 			return 0;
 		}
 	}
