@@ -10,11 +10,11 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 	public class ConvertWebApiToCSharpCodeStack : IConvertObject<ControllerInfo, CodeStack> {
 		const string ProxyService = "ProxyService";
 		private readonly Compilation compilation;
-		private readonly CSharpWebClientSettings proxySettings;
+		private readonly CodeGenSettings settings;
 
-		public ConvertWebApiToCSharpCodeStack(Compilation compilation, CSharpWebClientSettings proxySettings) {
+		public ConvertWebApiToCSharpCodeStack(Compilation compilation, CodeGenSettings settings) {
 			this.compilation = compilation;
-			this.proxySettings = proxySettings;
+			this.settings = settings;
 		}
 		public CodeStack Convert(ControllerInfo from) {
 			var codeStack = new CodeStack();
@@ -26,7 +26,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 					.With(new UsingDirectiveNode("Albatross.WebClient"))
 					.With(new UsingDirectiveNode("System.Collections.Specialized"));
 
-				using (codeStack.NewScope(new NamespaceDeclarationBuilder(proxySettings.Namespace))) {
+				using (codeStack.NewScope(new NamespaceDeclarationBuilder(settings.CSharpWebClientSettings.Namespace))) {
 					var proxyClassName = from.ControllerName + ProxyService;
 					codeStack.FileName = $"{proxyClassName}.generated.cs";
 
