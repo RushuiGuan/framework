@@ -28,7 +28,7 @@ namespace Albatross.CommandLine {
 				hostBuilder.UseSerilog(logger);
 				logger.Debug("Building Host");
 				var configBuilder = new ConfigurationBuilder()
-					.SetBasePath(System.IO.Directory.GetCurrentDirectory())
+					.SetBasePath(AppContext.BaseDirectory)
 					.AddJsonFile("appsettings.json", true, false);
 				if (!string.IsNullOrEmpty(environment.Value)) {
 					configBuilder.AddJsonFile($"appsettings.{environment}.json", true, false);

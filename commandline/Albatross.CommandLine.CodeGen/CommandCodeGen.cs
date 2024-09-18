@@ -83,7 +83,7 @@ namespace Albatross.CommandLine.CodeGen {
 					using (diCodeStack.NewScope(new NamespaceDeclarationBuilder("Albatross.CommandLine"))) {
 						using (diCodeStack.NewScope(new ClassDeclarationBuilder("RegistrationExtensions").Static())) {
 							using (diCodeStack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Static())) {
-								diCodeStack.With(new ParameterNode(true, "IServiceCollection", "services"));
+								diCodeStack.With(new ParameterNode("IServiceCollection", "services").WithThis());
 								foreach (var setup in setups) {
 									using (diCodeStack.NewScope()) {
 										diCodeStack.With(new IdentifierNode("services"))
@@ -111,7 +111,7 @@ namespace Albatross.CommandLine.CodeGen {
 							}
 
 							using (diCodeStack.NewScope(new MethodDeclarationBuilder("Setup", "AddCommands").Static())) {
-								diCodeStack.With(new ParameterNode(true, "Setup", "setup"));
+								diCodeStack.With(new ParameterNode("Setup", "setup").WithThis());
 								foreach (var setup in setups) {
 									namespaces.Add(setup.OptionClass.ContainingNamespace.ToDisplayString());
 									using (diCodeStack.NewScope()) {

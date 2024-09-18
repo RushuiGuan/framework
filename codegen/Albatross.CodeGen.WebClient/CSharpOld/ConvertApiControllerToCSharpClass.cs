@@ -15,7 +15,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Albatross.CodeGen.WebClient.CSharp {
+namespace Albatross.CodeGen.WebClient.CSharpOld {
 	public class ConvertApiControllerToCSharpClass : IConvertObject<Type, Class> {
 		const string Controller = "Controller";
 		const string ProxyService = "ProxyService";

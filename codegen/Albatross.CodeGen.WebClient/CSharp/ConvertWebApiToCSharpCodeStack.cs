@@ -34,7 +34,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 						codeStack.With(new BaseTypeNode("ClientBase"));
 						using (codeStack.NewScope(new ConstructorDeclarationBuilder(proxyClassName))) {
 							codeStack
-								.With(new ParameterNode(false, new GenericIdentifierNode("ILogger", proxyClassName), "logger"))
+								.With(new ParameterNode(new GenericIdentifierNode("ILogger", proxyClassName), "logger"))
 								.With(new ParameterNode("HttpClient", "client"));
 							codeStack
 								.Begin(new ArgumentListBuilder())

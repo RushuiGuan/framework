@@ -1,6 +1,5 @@
 ﻿using Albatross.CodeAnalysis.MSBuild;
 using Albatross.CodeAnalysis.Symbols;
-using Albatross.CodeGen.CSharp.Models;
 using Albatross.CodeGen.TypeScript.Conversions;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Xunit;

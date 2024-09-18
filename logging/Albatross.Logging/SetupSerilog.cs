@@ -38,7 +38,7 @@ namespace Albatross.Logging {
 
 		public static void UseConfigFile(LoggerConfiguration cfg, string environment, string? basePath, string[]? commandlineArgs) {
 			if (string.IsNullOrEmpty(basePath)) {
-				basePath = System.IO.Directory.GetCurrentDirectory();
+				basePath = AppContext.BaseDirectory;
 			}
 			var configBuilder = new ConfigurationBuilder()
 				.SetBasePath(basePath!)
