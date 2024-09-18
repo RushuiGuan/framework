@@ -19,8 +19,5 @@ namespace Test.Proxy {
 				});
 			return services;
 		}
-
-		public static string ISO8601String(this DateOnly value) => $"{value:yyyy-MM-dd}";
-		public static string ISO8601String(this TimeOnly value) => $"{value:HH:mm:ss.fffffff}";
 	}
 }

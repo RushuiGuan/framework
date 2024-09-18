@@ -11,7 +11,7 @@ namespace Test.Proxy {
 		}
 
 		public const string ControllerPath = "api/array-param-test";
-		public Task<System.String> ArrayStringParam(System.String[] array) {
+		public async Task<System.String> ArrayStringParam(System.String[] array) {
 			string path = $"{ControllerPath}/array-string-param";
 			var queryString = new NameValueCollection();
 			foreach (var item in array) {
@@ -19,11 +19,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> ArrayValueType(System.Int32[] array) {
+		public async Task<System.String> ArrayValueType(System.Int32[] array) {
 			string path = $"{ControllerPath}/array-value-type";
 			var queryString = new NameValueCollection();
 			foreach (var item in array) {
@@ -31,11 +31,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> CollectionStringParam(System.Collections.Generic.IEnumerable<System.String> collection) {
+		public async Task<System.String> CollectionStringParam(System.Collections.Generic.IEnumerable<System.String> collection) {
 			string path = $"{ControllerPath}/collection-string-param";
 			var queryString = new NameValueCollection();
 			foreach (var item in collection) {
@@ -43,11 +43,11 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.String> CollectionValueType(System.Collections.Generic.IEnumerable<System.Int32> collection) {
+		public async Task<System.String> CollectionValueType(System.Collections.Generic.IEnumerable<System.Int32> collection) {
 			string path = $"{ControllerPath}/collection-value-type";
 			var queryString = new NameValueCollection();
 			foreach (var item in collection) {
@@ -55,7 +55,7 @@ namespace Test.Proxy {
 			}
 
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRawResponse(request);
+				return await this.GetRawResponse(request);
 			}
 		}
 	}

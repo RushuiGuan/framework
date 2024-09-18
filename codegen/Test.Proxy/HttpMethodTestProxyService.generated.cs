@@ -11,43 +11,43 @@ namespace Test.Proxy {
 		}
 
 		public const string ControllerPath = "api/http-method-test";
-		public Task Delete() {
+		public async Task Delete() {
 			string path = $"{ControllerPath}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task Post() {
+		public async Task Post() {
 			string path = $"{ControllerPath}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task Patch() {
+		public async Task Patch() {
 			string path = $"{ControllerPath}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Patch, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 
-		public Task<System.Int32> Get() {
+		public async Task<System.Int32> Get() {
 			string path = $"{ControllerPath}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return this.GetRequiredJsonResponseForValueType<System.Int32>(request);
+				return await this.GetRequiredJsonResponseForValueType<System.Int32>(request);
 			}
 		}
 
-		public Task Put() {
+		public async Task Put() {
 			string path = $"{ControllerPath}";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Put, path, queryString)) {
-				return this.GetRawResponse(request);
+				await this.GetRawResponse(request);
 			}
 		}
 	}

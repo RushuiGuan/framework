@@ -53,7 +53,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 							} else {
 								returnType = new GenericIdentifierNode("Task", method.ReturnType.AsTypeNode()).Type;
 							}
-							using (codeStack.NewScope(new MethodDeclarationBuilder(returnType, method.Name))) {
+							using (codeStack.NewScope(new MethodDeclarationBuilder(returnType, method.Name).Async())) {
 								foreach (var param in method.Parameters) {
 									codeStack.With(new ParameterNode(param.Type.AsTypeNode(), param.Name));
 								}
@@ -71,7 +71,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 												CreateAddQueryStringStatement(codeStack, method.Settings, elementType!, param.QueryKey, "item");
 											}
 										} else {
-											CreateAddQueryStringStatement(codeStack, method.Settings, param.Type, param.QueryKey, param.Name); 
+											CreateAddQueryStringStatement(codeStack, method.Settings, param.Type, param.QueryKey, param.Name);
 										}
 									}
 								}
@@ -99,29 +99,39 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 											}
 										}
 									}
-									using (codeStack.NewScope(new ReturnExpressionBuilder())) {
-										if (method.ReturnType.SpecialType == SpecialType.System_Void || method.ReturnType.SpecialType == SpecialType.System_String) {
-											codeStack.With(new ThisExpression()).ToNewBegin(new InvocationExpressionBuilder("GetRawResponse"))
-												.Begin(new ArgumentListBuilder())
-													.With(new IdentifierNode("request"))
-												.End()
-											.End();
-										} else {
-											string functionName;
-											if (method.ReturnType.IsNullable()) {
-												functionName = "GetJsonResponse";
-											} else if (method.ReturnType.IsValueType) {
-												functionName = "GetRequiredJsonResponseForValueType";
+									if (method.ReturnType.SpecialType == SpecialType.System_Void) {
+										using (codeStack.NewScope()) {
+											codeStack.With(new ThisExpression()).ToNewBegin(new InvocationExpressionBuilder("GetRawResponse").Await())
+														.Begin(new ArgumentListBuilder())
+															.With(new IdentifierNode("request"))
+														.End()
+													.End();
+										}
+									} else {
+										using (codeStack.NewScope(new ReturnExpressionBuilder())) {
+											if (method.ReturnType.SpecialType == SpecialType.System_String) {
+												codeStack.With(new ThisExpression()).ToNewBegin(new InvocationExpressionBuilder("GetRawResponse").Await())
+													.Begin(new ArgumentListBuilder())
+														.With(new IdentifierNode("request"))
+													.End()
+												.End();
 											} else {
-												functionName = "GetRequiredJsonResponse";
+												string functionName;
+												if (method.ReturnType.IsNullable()) {
+													functionName = "GetJsonResponse";
+												} else if (method.ReturnType.IsValueType) {
+													functionName = "GetRequiredJsonResponseForValueType";
+												} else {
+													functionName = "GetRequiredJsonResponse";
+												}
+												codeStack.With(new ThisExpression())
+													.With(new GenericIdentifierNode(functionName, method.ReturnType.AsTypeNode()))
+													.ToNewBegin(new InvocationExpressionBuilder().Await())
+													.Begin(new ArgumentListBuilder())
+														.With(new IdentifierNode("request"))
+													.End()
+												.End();
 											}
-											codeStack.With(new ThisExpression())
-												.With(new GenericIdentifierNode(functionName, method.ReturnType.AsTypeNode()))
-												.ToNewBegin(new InvocationExpressionBuilder())
-												.Begin(new ArgumentListBuilder())
-													.With(new IdentifierNode("request"))
-												.End()
-											.End();
 										}
 									}
 								}
