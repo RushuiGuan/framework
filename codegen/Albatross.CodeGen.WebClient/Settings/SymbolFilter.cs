@@ -5,11 +5,11 @@ namespace Albatross.CodeGen.WebClient.Settings {
 		Regex? inclusiveFilter, exclusiveFilter;
 
 		public SymbolFilter(SymbolFilterPatterns patterns) {
-			if (patterns.Inclusion != null) {
-				this.inclusiveFilter = new Regex(patterns.Inclusion, RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+			if (patterns.Include != null) {
+				this.inclusiveFilter = new Regex(patterns.Include, RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 			}
-			if (patterns.Exclusion != null) {
-				this.exclusiveFilter = new Regex(patterns.Exclusion, RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+			if (patterns.Exclude != null) {
+				this.exclusiveFilter = new Regex(patterns.Exclude, RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 			}
 		}
 

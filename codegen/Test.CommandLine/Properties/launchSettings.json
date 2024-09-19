@@ -2,7 +2,7 @@
   "profiles": {
     "Test.CommandLine": {
       "commandName": "Project",
-      "commandLineArgs": "test"
+      "commandLineArgs": "test-redirect --log debug"
     }
   }
 }

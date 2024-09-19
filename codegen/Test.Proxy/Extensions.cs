@@ -11,13 +11,23 @@ namespace Test.Proxy {
 			services.AddConfig<TestProxyConfig>()
 				.TryAddSingleton<IJsonSettings, DefaultJsonSettings>();
 			services.AddHttpClient("test-proxy").AddClients()
+				.AddTypedClient<RedirectTestProxyService>()
+				.AddTypedClient<AbsUrlRedirectTestProxyService>()
 				.ConfigureHttpClient((provider, client) => {
 					var config = provider.GetRequiredService<TestProxyConfig>();
 					client.BaseAddress = new Uri(config.EndPoint);
 				}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {
 					UseDefaultCredentials = true,
+					AllowAutoRedirect = false,
 				});
 			return services;
+		}
+
+		public static string ISO8601String(this DateOnly date) {
+			return date.ToString("yyyy-MM-dd");
+		}
+		public static string ISO8601String(this TimeOnly time) {
+			return time.ToString("HH:mm:ss");
 		}
 	}
 }
