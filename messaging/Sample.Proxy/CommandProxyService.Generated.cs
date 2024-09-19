@@ -1,29 +1,29 @@
-using System;
+using Albatross.WebClient;
+using Microsoft.Extensions.Logging;
+using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Albatross.WebClient;
-using System.Collections.Generic;
-using Albatross.Serialization;
 
 #nullable enable
 namespace Sample.Proxy {
-	public partial class CommandProxyService : Albatross.WebClient.ClientBase {
-		public CommandProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client, Albatross.Serialization.DefaultJsonSettings.Value) {
+	public partial class CommandProxyService : ClientBase {
+		public CommandProxyService(ILogger<CommandProxyService> logger, HttpClient client) : base(logger, client) {
 		}
-		public const System.String ControllerPath = "api/command";
-		public async System.Threading.Tasks.Task SubmitSystemCommand(Sample.Core.Commands.MyOwnNameSpace.ISystemCommand @systemCommand) {
+
+		public const string ControllerPath = "api/command";
+		public async Task SubmitSystemCommand(Sample.Core.Commands.MyOwnNameSpace.ISystemCommand systemCommand) {
 			string path = $"{ControllerPath}/system";
-			var queryString = new System.Collections.Specialized.NameValueCollection();
-			queryString.Add("systemCommand", System.Convert.ToString(@systemCommand));
+			var queryString = new NameValueCollection();
+			queryString.Add("systemCommand", $"{systemCommand}");
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
 				await this.GetRawResponse(request);
 			}
 		}
-		public async System.Threading.Tasks.Task SubmitAppCommand(Sample.Core.Commands.MyOwnNameSpace.IApplicationCommand @applicationCommand) {
+
+		public async Task SubmitAppCommand(Sample.Core.Commands.MyOwnNameSpace.IApplicationCommand applicationCommand) {
 			string path = $"{ControllerPath}/app";
-			var queryString = new System.Collections.Specialized.NameValueCollection();
-			queryString.Add("applicationCommand", System.Convert.ToString(@applicationCommand));
+			var queryString = new NameValueCollection();
+			queryString.Add("applicationCommand", $"{applicationCommand}");
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
 				await this.GetRawResponse(request);
 			}
