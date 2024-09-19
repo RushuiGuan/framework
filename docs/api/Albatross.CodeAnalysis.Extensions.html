@@ -90,7 +90,7 @@ Class Extensions
 
   <div class="facts text-secondary">
     <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeAnalysis.html">CodeAnalysis</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.Hosting.CommandLine.CodeGen.dll</dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.CodeAnalysis.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
@@ -123,10 +123,10 @@ Class Extensions
 </h2>
 
 
-  <a id="Albatross_CodeAnalysis_Extensions_CreateCompilation_" data-uid="Albatross.CodeAnalysis.Extensions.CreateCompilation*"></a>
+  <a id="Albatross_CodeAnalysis_Extensions_BuildCodeGeneneratorErrorMessage_" data-uid="Albatross.CodeAnalysis.Extensions.BuildCodeGeneneratorErrorMessage*"></a>
 
-  <h3 id="Albatross_CodeAnalysis_Extensions_CreateCompilation_System_String___" data-uid="Albatross.CodeAnalysis.Extensions.CreateCompilation(System.String[])">
-  CreateCompilation(params string[])
+  <h3 id="Albatross_CodeAnalysis_Extensions_BuildCodeGeneneratorErrorMessage_System_Exception_System_String_" data-uid="Albatross.CodeAnalysis.Extensions.BuildCodeGeneneratorErrorMessage(System.Exception,System.String)">
+  BuildCodeGeneneratorErrorMessage(Exception, string)
   
   </h3>
 
@@ -134,48 +134,14 @@ Class Extensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Compilation CreateCompilation(params string[] sourceCodes)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string BuildCodeGeneneratorErrorMessage(this Exception err, string generatorName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>sourceCodes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dt><code>err</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
     <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.compilation">Compilation</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_GetFullName_" data-uid="Albatross.CodeAnalysis.Extensions.GetFullName*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_GetFullName_Microsoft_CodeAnalysis_ITypeSymbol_" data-uid="Albatross.CodeAnalysis.Extensions.GetFullName(Microsoft.CodeAnalysis.ITypeSymbol)">
-  GetFullName(ITypeSymbol)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetFullName(this ITypeSymbol symbol)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a></dt>
+    <dt><code>generatorName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -195,10 +161,10 @@ Class Extensions
 
 
 
-  <a id="Albatross_CodeAnalysis_Extensions_GetFullNamespace_" data-uid="Albatross.CodeAnalysis.Extensions.GetFullNamespace*"></a>
+  <a id="Albatross_CodeAnalysis_Extensions_CodeGenDiagnostic_" data-uid="Albatross.CodeAnalysis.Extensions.CodeGenDiagnostic*"></a>
 
-  <h3 id="Albatross_CodeAnalysis_Extensions_GetFullNamespace_Microsoft_CodeAnalysis_INamespaceSymbol_" data-uid="Albatross.CodeAnalysis.Extensions.GetFullNamespace(Microsoft.CodeAnalysis.INamespaceSymbol)">
-  GetFullNamespace(INamespaceSymbol)
+  <h3 id="Albatross_CodeAnalysis_Extensions_CodeGenDiagnostic_Microsoft_CodeAnalysis_GeneratorExecutionContext_Microsoft_CodeAnalysis_DiagnosticSeverity_System_String_System_String_" data-uid="Albatross.CodeAnalysis.Extensions.CodeGenDiagnostic(Microsoft.CodeAnalysis.GeneratorExecutionContext,Microsoft.CodeAnalysis.DiagnosticSeverity,System.String,System.String)">
+  CodeGenDiagnostic(GeneratorExecutionContext, DiagnosticSeverity, string, string)
   
   </h3>
 
@@ -206,20 +172,21 @@ Class Extensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetFullNamespace(this INamespaceSymbol symbol)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void CodeGenDiagnostic(this GeneratorExecutionContext context, DiagnosticSeverity severity, string code, string message)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamespacesymbol">INamespaceSymbol</a></dt>
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.generatorexecutioncontext">GeneratorExecutionContext</a></dt>
+    <dd></dd>
+    <dt><code>severity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.diagnosticseverity">DiagnosticSeverity</a></dt>
+    <dd></dd>
+    <dt><code>code</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -231,10 +198,10 @@ Class Extensions
 
 
 
-  <a id="Albatross_CodeAnalysis_Extensions_GetGlobalReferences_" data-uid="Albatross.CodeAnalysis.Extensions.GetGlobalReferences*"></a>
+  <a id="Albatross_CodeAnalysis_Extensions_CreateGeneratorDebugFile_" data-uid="Albatross.CodeAnalysis.Extensions.CreateGeneratorDebugFile*"></a>
 
-  <h3 id="Albatross_CodeAnalysis_Extensions_GetGlobalReferences" data-uid="Albatross.CodeAnalysis.Extensions.GetGlobalReferences">
-  GetGlobalReferences()
+  <h3 id="Albatross_CodeAnalysis_Extensions_CreateGeneratorDebugFile_Microsoft_CodeAnalysis_GeneratorExecutionContext_System_String_System_String_" data-uid="Albatross.CodeAnalysis.Extensions.CreateGeneratorDebugFile(Microsoft.CodeAnalysis.GeneratorExecutionContext,System.String,System.String)">
+  CreateGeneratorDebugFile(GeneratorExecutionContext, string, string)
   
   </h3>
 
@@ -242,51 +209,16 @@ Class Extensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;MetadataReference&gt; GetGlobalReferences()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.metadatareference">MetadataReference</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_GetRequiredSymbol_" data-uid="Albatross.CodeAnalysis.Extensions.GetRequiredSymbol*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_GetRequiredSymbol_Microsoft_CodeAnalysis_Compilation_System_String_" data-uid="Albatross.CodeAnalysis.Extensions.GetRequiredSymbol(Microsoft.CodeAnalysis.Compilation,System.String)">
-  GetRequiredSymbol(Compilation, string)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static INamedTypeSymbol GetRequiredSymbol(this Compilation compilation, string typeName)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void CreateGeneratorDebugFile(this GeneratorExecutionContext context, string fileName, string content)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>compilation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.compilation">Compilation</a></dt>
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.generatorexecutioncontext">GeneratorExecutionContext</a></dt>
     <dd></dd>
-    <dt><code>typeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>fileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a></dt>
+    <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -300,10 +232,11 @@ Class Extensions
 
 
 
-  <a id="Albatross_CodeAnalysis_Extensions_HasAttribute_" data-uid="Albatross.CodeAnalysis.Extensions.HasAttribute*"></a>
 
-  <h3 id="Albatross_CodeAnalysis_Extensions_HasAttribute_Microsoft_CodeAnalysis_ISymbol_System_String_" data-uid="Albatross.CodeAnalysis.Extensions.HasAttribute(Microsoft.CodeAnalysis.ISymbol,System.String)">
-  HasAttribute(ISymbol, string)
+  <a id="Albatross_CodeAnalysis_Extensions_CreateNamespaceNullableDirective_" data-uid="Albatross.CodeAnalysis.Extensions.CreateNamespaceNullableDirective*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Extensions_CreateNamespaceNullableDirective_Microsoft_CodeAnalysis_CSharp_Syntax_NamespaceDeclarationSyntax_" data-uid="Albatross.CodeAnalysis.Extensions.CreateNamespaceNullableDirective(Microsoft.CodeAnalysis.CSharp.Syntax.NamespaceDeclarationSyntax)">
+  CreateNamespaceNullableDirective(NamespaceDeclarationSyntax)
   
   </h3>
 
@@ -311,326 +244,18 @@ Class Extensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool HasAttribute(this ISymbol symbol, string attributeName)</code></pre>
+    <pre><code class="lang-csharp hljs">public static NamespaceDeclarationSyntax CreateNamespaceNullableDirective(this NamespaceDeclarationSyntax syntax)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.isymbol">ISymbol</a></dt>
-    <dd></dd>
-    <dt><code>attributeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>syntax</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.syntax.namespacedeclarationsyntax">NamespaceDeclarationSyntax</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_HasAttributeWithArguments_" data-uid="Albatross.CodeAnalysis.Extensions.HasAttributeWithArguments*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_HasAttributeWithArguments_Microsoft_CodeAnalysis_ISymbol_System_String_System_String___" data-uid="Albatross.CodeAnalysis.Extensions.HasAttributeWithArguments(Microsoft.CodeAnalysis.ISymbol,System.String,System.String[])">
-  HasAttributeWithArguments(ISymbol, string, params string[])
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool HasAttributeWithArguments(this ISymbol symbol, string attributeName, params string[] parameter)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.isymbol">ISymbol</a></dt>
-    <dd></dd>
-    <dt><code>attributeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>parameter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_HasAttributeWithBaseType_" data-uid="Albatross.CodeAnalysis.Extensions.HasAttributeWithBaseType*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_HasAttributeWithBaseType_Microsoft_CodeAnalysis_ISymbol_System_String_" data-uid="Albatross.CodeAnalysis.Extensions.HasAttributeWithBaseType(Microsoft.CodeAnalysis.ISymbol,System.String)">
-  HasAttributeWithBaseType(ISymbol, string)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool HasAttributeWithBaseType(this ISymbol symbol, string baseTypeName)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.isymbol">ISymbol</a></dt>
-    <dd></dd>
-    <dt><code>baseTypeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_IsConstructedFrom_" data-uid="Albatross.CodeAnalysis.Extensions.IsConstructedFrom*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_IsConstructedFrom_Microsoft_CodeAnalysis_INamedTypeSymbol_Microsoft_CodeAnalysis_INamedTypeSymbol_" data-uid="Albatross.CodeAnalysis.Extensions.IsConstructedFrom(Microsoft.CodeAnalysis.INamedTypeSymbol,Microsoft.CodeAnalysis.INamedTypeSymbol)">
-  IsConstructedFrom(INamedTypeSymbol, INamedTypeSymbol)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsConstructedFrom(this INamedTypeSymbol typeSymbol, INamedTypeSymbol genericDefinitionSymbol)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>typeSymbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a></dt>
-    <dd></dd>
-    <dt><code>genericDefinitionSymbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_IsDerivedFrom_" data-uid="Albatross.CodeAnalysis.Extensions.IsDerivedFrom*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_IsDerivedFrom_Microsoft_CodeAnalysis_ITypeSymbol_Microsoft_CodeAnalysis_ITypeSymbol_" data-uid="Albatross.CodeAnalysis.Extensions.IsDerivedFrom(Microsoft.CodeAnalysis.ITypeSymbol,Microsoft.CodeAnalysis.ITypeSymbol)">
-  IsDerivedFrom(ITypeSymbol, ITypeSymbol)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsDerivedFrom(this ITypeSymbol typeSymbol, ITypeSymbol baseTypeSymbol)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>typeSymbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a></dt>
-    <dd></dd>
-    <dt><code>baseTypeSymbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_IsNullable_" data-uid="Albatross.CodeAnalysis.Extensions.IsNullable*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_IsNullable_Microsoft_CodeAnalysis_ITypeSymbol_" data-uid="Albatross.CodeAnalysis.Extensions.IsNullable(Microsoft.CodeAnalysis.ITypeSymbol)">
-  IsNullable(ITypeSymbol)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsNullable(this ITypeSymbol symbol)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_IsNumeric_" data-uid="Albatross.CodeAnalysis.Extensions.IsNumeric*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_IsNumeric_Microsoft_CodeAnalysis_ITypeSymbol_" data-uid="Albatross.CodeAnalysis.Extensions.IsNumeric(Microsoft.CodeAnalysis.ITypeSymbol)">
-  IsNumeric(ITypeSymbol)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsNumeric(this ITypeSymbol symbol)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_TryGetAttribute_" data-uid="Albatross.CodeAnalysis.Extensions.TryGetAttribute*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_TryGetAttribute_Microsoft_CodeAnalysis_ISymbol_System_String_Microsoft_CodeAnalysis_AttributeData__" data-uid="Albatross.CodeAnalysis.Extensions.TryGetAttribute(Microsoft.CodeAnalysis.ISymbol,System.String,Microsoft.CodeAnalysis.AttributeData@)">
-  TryGetAttribute(ISymbol, string, out AttributeData?)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryGetAttribute(this ISymbol symbol, string attributeName, out AttributeData? attributeData)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.isymbol">ISymbol</a></dt>
-    <dd></dd>
-    <dt><code>attributeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>attributeData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.attributedata">AttributeData</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeAnalysis_Extensions_TryGetGenericTypeArguments_" data-uid="Albatross.CodeAnalysis.Extensions.TryGetGenericTypeArguments*"></a>
-
-  <h3 id="Albatross_CodeAnalysis_Extensions_TryGetGenericTypeArguments_Microsoft_CodeAnalysis_ITypeSymbol_System_String_Microsoft_CodeAnalysis_ITypeSymbol____" data-uid="Albatross.CodeAnalysis.Extensions.TryGetGenericTypeArguments(Microsoft.CodeAnalysis.ITypeSymbol,System.String,Microsoft.CodeAnalysis.ITypeSymbol[]@)">
-  TryGetGenericTypeArguments(ITypeSymbol, string, out ITypeSymbol[])
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryGetGenericTypeArguments(this ITypeSymbol symbol, string genericTypeDefinitionName, out ITypeSymbol[] arguments)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a></dt>
-    <dd></dd>
-    <dt><code>genericTypeDefinitionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>arguments</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a>[]</dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.syntax.namespacedeclarationsyntax">NamespaceDeclarationSyntax</a></dt>
     <dd></dd>
   </dl>
 

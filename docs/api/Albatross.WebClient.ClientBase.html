@@ -130,6 +130,9 @@ Class ClientBase
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.WebClient.Extensions.html#Albatross_WebClient_Extensions_GetRequiredJsonResponseForValueType__1_Albatross_WebClient_ClientBase_System_Net_Http_HttpRequestMessage_">Extensions.GetRequiredJsonResponseForValueType&lt;ResultType&gt;(ClientBase, HttpRequestMessage)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.WebClient.Extensions.html#Albatross_WebClient_Extensions_GetRequiredJsonResponse__1_Albatross_WebClient_ClientBase_System_Net_Http_HttpRequestMessage_">Extensions.GetRequiredJsonResponse&lt;ResultType&gt;(ClientBase, HttpRequestMessage)</a>
   </div>
   <div>
@@ -422,7 +425,7 @@ Class ClientBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;HttpRequestMessage&gt; CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri)</code></pre>
+    <pre><code class="lang-csharp hljs">protected Task&lt;HttpRequestMessage&gt; CloneHttpRequest(HttpRequestMessage request, Uri? updatedUri)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -494,7 +497,7 @@ Class ClientBase
   <a id="Albatross_WebClient_ClientBase_CreateJsonRequest_" data-uid="Albatross.WebClient.ClientBase.CreateJsonRequest*"></a>
 
   <h3 id="Albatross_WebClient_ClientBase_CreateJsonRequest__1_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection___0_" data-uid="Albatross.WebClient.ClientBase.CreateJsonRequest``1(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection,``0)">
-  CreateJsonRequest&lt;T&gt;(HttpMethod, string, NameValueCollection, T)
+  CreateJsonRequest&lt;T&gt;(HttpMethod, string, NameValueCollection, T?)
   
   </h3>
 
@@ -502,7 +505,7 @@ Class ClientBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateJsonRequest&lt;T&gt;(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T t)</code></pre>
+    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateJsonRequest&lt;T&gt;(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T? t)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -631,7 +634,7 @@ Class ClientBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; CreateRequestUrls(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, params string[] arrayQueryStringValues)</code></pre>
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;string&gt; CreateRequestUrls(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, params string[] arrayQueryStringValues)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -675,7 +678,7 @@ Class ClientBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; CreateRequestUrlsByDelimitedQueryString(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, string arrayQueryStringDelimiter, params string[] arrayQueryStringValues)</code></pre>
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;string&gt; CreateRequestUrlsByDelimitedQueryString(string relativeUrl, NameValueCollection queryStrings, int maxUrlLength, string arrayQueryStringKey, string arrayQueryStringDelimiter, params string[] arrayQueryStringValues)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -755,7 +758,7 @@ Class ClientBase
   <a id="Albatross_WebClient_ClientBase_CreateStringRequest_" data-uid="Albatross.WebClient.ClientBase.CreateStringRequest*"></a>
 
   <h3 id="Albatross_WebClient_ClientBase_CreateStringRequest_System_Net_Http_HttpMethod_System_String_System_Collections_Specialized_NameValueCollection_System_String_" data-uid="Albatross.WebClient.ClientBase.CreateStringRequest(System.Net.Http.HttpMethod,System.String,System.Collections.Specialized.NameValueCollection,System.String)">
-  CreateStringRequest(HttpMethod, string, NameValueCollection, string)
+  CreateStringRequest(HttpMethod, string, NameValueCollection, string?)
   
   </h3>
 
@@ -763,7 +766,7 @@ Class ClientBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string content)</code></pre>
+    <pre><code class="lang-csharp hljs">public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string? content)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -805,7 +808,7 @@ Class ClientBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ValueTask&lt;T?&gt; DeserializeAsync&lt;T&gt;(Stream stream)</code></pre>
+    <pre><code class="lang-csharp hljs">protected ValueTask&lt;T?&gt; DeserializeAsync&lt;T&gt;(Stream stream)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -846,7 +849,7 @@ Class ClientBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T? Deserialize&lt;T&gt;(string content)</code></pre>
+    <pre><code class="lang-csharp hljs">protected T? Deserialize&lt;T&gt;(string content)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1128,7 +1131,7 @@ use the maxDelayInSeconds to flatline the delay</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AsyncRetryPolicy&lt;T&gt; GetDefaultRetryPolicy&lt;T&gt;(Func&lt;T, bool&gt; predicate, Action&lt;DelegateResult&lt;T&gt;, TimeSpan&gt; onRetry, bool retryInternalServerError, int count, int? maxDelayInSeconds)</code></pre>
+    <pre><code class="lang-csharp hljs">protected AsyncRetryPolicy&lt;T&gt; GetDefaultRetryPolicy&lt;T&gt;(Func&lt;T, bool&gt; predicate, Action&lt;DelegateResult&lt;T&gt;, TimeSpan&gt; onRetry, bool retryInternalServerError, int count, int? maxDelayInSeconds)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1178,7 +1181,7 @@ use the maxDelayInSeconds to flatline the delay</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AsyncRetryPolicy&lt;T&gt; GetDefaultRetryPolicy&lt;T&gt;(Func&lt;T, bool&gt; predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds)</code></pre>
+    <pre><code class="lang-csharp hljs">protected AsyncRetryPolicy&lt;T&gt; GetDefaultRetryPolicy&lt;T&gt;(Func&lt;T, bool&gt; predicate, string what, bool retryInternalServerError, int count, int? maxDelayInSeconds)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1628,7 +1631,7 @@ use the maxDelayInSeconds to flatline the delay</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string SerializeJson&lt;T&gt;(T t)</code></pre>
+    <pre><code class="lang-csharp hljs">protected string SerializeJson&lt;T&gt;(T t)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1669,7 +1672,7 @@ use the maxDelayInSeconds to flatline the delay</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool ShouldRedirect(HttpResponseMessage response)</code></pre>
+    <pre><code class="lang-csharp hljs">protected bool ShouldRedirect(HttpResponseMessage response)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1705,7 +1708,7 @@ use the maxDelayInSeconds to flatline the delay</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool ShouldRetry(Exception err, bool includeInternalServerError)</code></pre>
+    <pre><code class="lang-csharp hljs">protected static bool ShouldRetry(Exception err, bool includeInternalServerError)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

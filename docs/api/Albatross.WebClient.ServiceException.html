@@ -169,7 +169,7 @@ Class ServiceException
   <a id="Albatross_WebClient_ServiceException__ctor_" data-uid="Albatross.WebClient.ServiceException.#ctor*"></a>
 
   <h3 id="Albatross_WebClient_ServiceException__ctor_System_Net_HttpStatusCode_System_Net_Http_HttpMethod_System_Uri_Albatross_WebClient_ServiceError_System_String_" data-uid="Albatross.WebClient.ServiceException.#ctor(System.Net.HttpStatusCode,System.Net.Http.HttpMethod,System.Uri,Albatross.WebClient.ServiceError,System.String)">
-  ServiceException(HttpStatusCode, HttpMethod, Uri, ServiceError?, string)
+  ServiceException(HttpStatusCode, HttpMethod?, Uri?, ServiceError?, string)
   
   </h3>
 
@@ -177,7 +177,7 @@ Class ServiceException
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ServiceException(HttpStatusCode status, HttpMethod method, Uri endpoint, ServiceError? detail, string errorMsg)</code></pre>
+    <pre><code class="lang-csharp hljs">public ServiceException(HttpStatusCode status, HttpMethod? method, Uri? endpoint, ServiceError? detail, string errorMsg)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

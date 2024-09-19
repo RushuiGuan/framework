@@ -1,0 +1,584 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class CodeStack | Albatross Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CodeStack | Albatross Framework Documentation ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Albatross Framework">
+            Albatross Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Albatross.CodeAnalysis.Syntax.CodeStack">
+
+
+
+  <h1 id="Albatross_CodeAnalysis_Syntax_CodeStack" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack" class="text-break">
+Class CodeStack  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeAnalysis.html">CodeAnalysis</a>.<a class="xref" href="Albatross.CodeAnalysis.Syntax.html">Syntax</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.CodeAnalysis.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CodeStack</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CodeStack</span></div>
+    </dd>
+  </dl>
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_FileName_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.FileName*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_FileName" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.FileName">
+  FileName
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? FileName { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_Begin_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.Begin*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_Begin_Albatross_CodeAnalysis_Syntax_INodeBuilder_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.Begin(Albatross.CodeAnalysis.Syntax.INodeBuilder)">
+  Begin(INodeBuilder?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack Begin(INodeBuilder? builder = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.CodeAnalysis.Syntax.INodeBuilder.html">INodeBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_Build_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.Build*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_Build" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.Build">
+  Build()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Build()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_Complete_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.Complete*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_Complete_Albatross_CodeAnalysis_Syntax_INodeBuilder_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.Complete(Albatross.CodeAnalysis.Syntax.INodeBuilder)">
+  Complete(INodeBuilder)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack Complete(INodeBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.CodeAnalysis.Syntax.INodeBuilder.html">INodeBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_End_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.End*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_End" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.End">
+  End()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack End()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_Finalize_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.Finalize*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_Finalize" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.Finalize">
+  Finalize()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;INodeContainer&gt; Finalize()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.CodeAnalysis.Syntax.INodeContainer.html">INodeContainer</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_NewScope_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.NewScope*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_NewScope_Albatross_CodeAnalysis_Syntax_INodeBuilder_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.NewScope(Albatross.CodeAnalysis.Syntax.INodeBuilder)">
+  NewScope(INodeBuilder?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack.Scope NewScope(INodeBuilder? builder = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.CodeAnalysis.Syntax.INodeBuilder.html">INodeBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a>.<a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.Scope.html">Scope</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_To_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.To*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_To_Albatross_CodeAnalysis_Syntax_INodeBuilder_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.To(Albatross.CodeAnalysis.Syntax.INodeBuilder)">
+  To(INodeBuilder)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack To(INodeBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.CodeAnalysis.Syntax.INodeBuilder.html">INodeBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_ToNewBegin_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.ToNewBegin*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_ToNewBegin_Albatross_CodeAnalysis_Syntax_INodeBuilder_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.ToNewBegin(Albatross.CodeAnalysis.Syntax.INodeBuilder)">
+  ToNewBegin(INodeBuilder)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack ToNewBegin(INodeBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.CodeAnalysis.Syntax.INodeBuilder.html">INodeBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_ToNewScope_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.ToNewScope*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_ToNewScope_Albatross_CodeAnalysis_Syntax_INodeBuilder_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.ToNewScope(Albatross.CodeAnalysis.Syntax.INodeBuilder)">
+  ToNewScope(INodeBuilder)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack.Scope ToNewScope(INodeBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Albatross.CodeAnalysis.Syntax.INodeBuilder.html">INodeBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a>.<a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.Scope.html">Scope</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_With_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.With*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_With_Albatross_CodeAnalysis_Syntax_INodeContainer___" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.With(Albatross.CodeAnalysis.Syntax.INodeContainer[])">
+  With(params INodeContainer[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack With(params INodeContainer[] nodes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>nodes</code> <a class="xref" href="Albatross.CodeAnalysis.Syntax.INodeContainer.html">INodeContainer</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeAnalysis_Syntax_CodeStack_With_" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.With*"></a>
+
+  <h3 id="Albatross_CodeAnalysis_Syntax_CodeStack_With_Microsoft_CodeAnalysis_SyntaxNode___" data-uid="Albatross.CodeAnalysis.Syntax.CodeStack.With(Microsoft.CodeAnalysis.SyntaxNode[])">
+  With(params SyntaxNode[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CodeStack With(params SyntaxNode[] nodes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>nodes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.syntaxnode">SyntaxNode</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeAnalysis.Syntax.CodeStack.html">CodeStack</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

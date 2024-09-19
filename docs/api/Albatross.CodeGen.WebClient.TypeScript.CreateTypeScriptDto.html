@@ -144,8 +144,8 @@ Class CreateTypeScriptDto
 
   <a id="Albatross_CodeGen_WebClient_TypeScript_CreateTypeScriptDto__ctor_" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_TypeScript_CreateTypeScriptDto__ctor_Microsoft_CodeAnalysis_Compilation_Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_INamedTypeSymbol_Albatross_CodeGen_TypeScript_Declarations_InterfaceDeclaration__Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_INamedTypeSymbol_Albatross_CodeGen_TypeScript_Declarations_EnumDeclaration__" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.#ctor(Microsoft.CodeAnalysis.Compilation,Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.INamedTypeSymbol,Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration},Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.INamedTypeSymbol,Albatross.CodeGen.TypeScript.Declarations.EnumDeclaration})">
-  CreateTypeScriptDto(Compilation, IConvertObject&lt;INamedTypeSymbol, InterfaceDeclaration&gt;, IConvertObject&lt;INamedTypeSymbol, EnumDeclaration&gt;)
+  <h3 id="Albatross_CodeGen_WebClient_TypeScript_CreateTypeScriptDto__ctor_Microsoft_CodeAnalysis_Compilation_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_INamedTypeSymbol_Albatross_CodeGen_TypeScript_Declarations_InterfaceDeclaration__Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_INamedTypeSymbol_Albatross_CodeGen_TypeScript_Declarations_EnumDeclaration__" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.#ctor(Microsoft.CodeAnalysis.Compilation,Albatross.CodeGen.WebClient.Settings.CodeGenSettings,Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.INamedTypeSymbol,Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration},Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.INamedTypeSymbol,Albatross.CodeGen.TypeScript.Declarations.EnumDeclaration})">
+  CreateTypeScriptDto(Compilation, CodeGenSettings, IConvertObject&lt;INamedTypeSymbol, InterfaceDeclaration&gt;, IConvertObject&lt;INamedTypeSymbol, EnumDeclaration&gt;)
   
   </h3>
 
@@ -153,12 +153,14 @@ Class CreateTypeScriptDto
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CreateTypeScriptDto(Compilation compilation, IConvertObject&lt;INamedTypeSymbol, InterfaceDeclaration&gt; interfaceConverter, IConvertObject&lt;INamedTypeSymbol, EnumDeclaration&gt; enumConverter)</code></pre>
+    <pre><code class="lang-csharp hljs">public CreateTypeScriptDto(Compilation compilation, CodeGenSettings settings, IConvertObject&lt;INamedTypeSymbol, InterfaceDeclaration&gt; interfaceConverter, IConvertObject&lt;INamedTypeSymbol, EnumDeclaration&gt; enumConverter)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>compilation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.compilation">Compilation</a></dt>
+    <dd></dd>
+    <dt><code>settings</code> <a class="xref" href="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.html">CodeGenSettings</a></dt>
     <dd></dd>
     <dt><code>interfaceConverter</code> <a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration.html">InterfaceDeclaration</a>&gt;</dt>
     <dd></dd>
