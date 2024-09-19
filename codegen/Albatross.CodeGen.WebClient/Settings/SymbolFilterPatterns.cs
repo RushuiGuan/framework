@@ -3,13 +3,13 @@
 	/// Note that exclusion pattern is applied first
 	/// </summary>
 	public record class SymbolFilterPatterns {
-		public string? Exclusion { get; init; }
-		public string? Inclusion { get; init; }
+		public string? Exclude { get; init; }
+		public string? Include { get; init; }
 
 		public SymbolFilterPatterns Overwrite(SymbolFilterPatterns other) {
 			return new SymbolFilterPatterns {
-				Exclusion = Exclusion ?? other.Exclusion,
-				Inclusion = Inclusion ?? other.Inclusion,
+				Exclude = Exclude ?? other.Exclude,
+				Include = Include ?? other.Include,
 			};
 		}
 	}

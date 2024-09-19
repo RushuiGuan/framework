@@ -29,7 +29,7 @@ namespace Albatross.WebClient {
 		}
 
 		public void UseTextWriter(TextWriter writer) { this.writer = writer; }
-		public virtual int MaxRedirect => 3;
+		public virtual int MaxRedirect => 8;
 		public const string GZipEncoding = "gzip";
 
 		#region utility
@@ -220,6 +220,8 @@ namespace Albatross.WebClient {
 			if (ShouldRedirect(response)) {
 				if (redirectCount > MaxRedirect) {
 					throw new InvalidOperationException($"Max redirect count of {MaxRedirect} exceeded");
+				} else {
+					redirectCount++;
 				}
 				var redirectUri = response.Headers.Location ?? throw new InvalidOperationException("Response is missing redirect location header");
 				if (!redirectUri.IsAbsoluteUri) {

@@ -32,8 +32,6 @@ namespace Albatross.CommandLine.CodeGen {
 		public string[] Aliases { get; } = Array.Empty<string>();
 		public CommandOptionSetup[] Options { get; private set; }
 
-
-
 		public string GetCommandClassName() {
 			string optionsClassName = OptionClass.Name;
 			if (optionsClassName.EndsWith(My.Postfix_Options, StringComparison.InvariantCultureIgnoreCase)) {
