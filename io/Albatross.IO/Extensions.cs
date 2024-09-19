@@ -52,10 +52,6 @@ namespace Albatross.IO {
 			if (stream.CanSeek) {
 				if (seekToEnd) { stream.Seek(0, SeekOrigin.End); }
 				var position = stream.Position;
-				if(position == 0){
-					line = null;
-					return false;
-				}
 				Stack<char> stack = new Stack<char>();
 				while (position > 0) {
 					position--;
@@ -75,6 +71,25 @@ namespace Albatross.IO {
 			}
 			line = null;
 			return false;
+		}
+
+		public static bool TryReadFirstLineFromAsciiStream(this Stream stream, [NotNullWhen(true)] out string? line) {
+			var sb = new StringBuilder();
+			while (stream.Position < stream.Length) {
+				var @byte = stream.ReadByte();
+				if (@byte == '\n' && sb.Length > 0) {
+					break;
+				} else if (@byte != '\r' && @byte != '\n') {
+					sb.Append((char)@byte);
+				}
+			}
+			if (sb.Length > 0) {
+				line = sb.ToString();
+				return true;
+			} else {
+				line = null;
+				return false;
+			}
 		}
 	}
 }
