@@ -26,13 +26,10 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			var enums = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var dtoClassWalker = new DtoClassWalker(semanticModel, settings.TypeScriptDtoFilter);
-				dtoClassWalker.Visit(syntaxTree.GetRoot());
-				dtoClasses.AddRange(dtoClassWalker.Result);
-
-				var enumWalker = new EnumTypeWalker(semanticModel, settings.TypeScriptDtoFilter);
-				enumWalker.Visit(syntaxTree.GetRoot());
-				enums.AddRange(enumWalker.Result);
+				var symbolWalker = new DtoClassEnumWalker(semanticModel, settings.TypeScriptDtoFilter);
+				symbolWalker.Visit(syntaxTree.GetRoot());
+				dtoClasses.AddRange(symbolWalker.DtoClasses);
+				enums.AddRange(symbolWalker.EnumTypes);
 			}
 			return new TypeScriptFileDeclaration("dto") {
 				EnumDeclarations = enums.Select(x => enumConverter.Convert(x)).ToList(),
