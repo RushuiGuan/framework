@@ -7,17 +7,18 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.CodeGen.WebClient {
-	public class DtoClassWalker : CSharpSyntaxWalker {
+	public class DtoClassEnumWalker : CSharpSyntaxWalker {
 		private readonly SemanticModel semanticModel;
-		public List<INamedTypeSymbol> Result { get; } = new List<INamedTypeSymbol>();
+		public List<INamedTypeSymbol> DtoClasses { get; } = new List<INamedTypeSymbol>();
+		public List<INamedTypeSymbol> EnumTypes { get; } = new List<INamedTypeSymbol>();
 		Settings.SymbolFilter filter;
 
-		public DtoClassWalker(SemanticModel semanticModel, SymbolFilterPatterns patterns) {
+		public DtoClassEnumWalker(SemanticModel semanticModel, SymbolFilterPatterns patterns) {
 			this.semanticModel = semanticModel;
 			filter = new Settings.SymbolFilter(patterns);
 		}
 
-		bool IsValidDtoType([NotNullWhen(true)] INamedTypeSymbol? symbol) =>
+		bool IsValidDtoClass([NotNullWhen(true)] INamedTypeSymbol? symbol) =>
 			symbol != null
 				&& symbol.DeclaredAccessibility == Accessibility.Public
 				&& !symbol.IsAbstract
@@ -29,18 +30,25 @@ namespace Albatross.CodeGen.WebClient {
 
 		public override void VisitClassDeclaration(ClassDeclarationSyntax node) {
 			var symbol = semanticModel.GetDeclaredSymbol(node);
-			if (IsValidDtoType(symbol) && this.filter.IsMatch(symbol.GetFullName())) {
-				Result.Add(symbol);
+			if (IsValidDtoClass(symbol) && this.filter.IsMatch(symbol.GetFullName())) {
+				DtoClasses.Add(symbol);
 			}
 			base.VisitClassDeclaration(node);
 		}
 
 		public override void VisitRecordDeclaration(RecordDeclarationSyntax node) {
 			var symbol = semanticModel.GetDeclaredSymbol(node);
-			if (IsValidDtoType(symbol) && this.filter.IsMatch(symbol.GetFullName())) {
-				Result.Add(symbol);
+			if (IsValidDtoClass(symbol) && this.filter.IsMatch(symbol.GetFullName())) {
+				DtoClasses.Add(symbol);
 			}
 			base.VisitRecordDeclaration(node);
+		}
+		public override void VisitEnumDeclaration(EnumDeclarationSyntax node) {
+			var symbol = semanticModel.GetDeclaredSymbol(node);
+			if (symbol != null && symbol.DeclaredAccessibility == Accessibility.Public && filter.IsMatch(symbol.GetFullName())) {
+				EnumTypes.Add(symbol);
+			}
+			base.VisitEnumDeclaration(node);
 		}
 	}
 }
