@@ -7,16 +7,25 @@ using Albatross.CodeGen.WebClient.TypeScript;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.TypeScriptOld;
 using Albatross.CodeGen.WebClient.CSharpOld;
+using Albatross.CodeGen.CommandLine;
 
 namespace Albatross.CodeGen.WebClient {
 	public static class Extensions {
 
 		public static IServiceCollection AddWebClientCodeGen(this IServiceCollection services) {
 			services.AddCSharpCodeGen().AddTypeScriptCodeGen();
-			services.TryAddScoped<ConvertApiControllerToControllerInfo>();
-			services.TryAddScoped<ConvertWebApiToCSharpCodeStack>();
-			services.TryAddScoped<ConvertWebApiToTypeScriptFile>();
-			services.TryAddScoped<CreateHttpClientRegistrations>();
+			services.AddCodeGen(typeof(Extensions).Assembly);
+			// symbol to model conversion
+			services.AddScoped<ConvertClassSymbolToDtoClassModel>()
+				.AddScoped<ConvertEnumSymbolToDtoEnumModel>()
+				.AddScoped<ConvertApiControllerToControllerModel>();
+
+			// model to code conversion
+			services.AddScoped<ConvertWebApiToCSharpCodeStack>()
+				.AddScoped<ConvertWebApiToTypeScriptFile>()
+				.AddScoped<CreateHttpClientRegistrations>()
+				.AddScoped<ConvertDtoClassModelToTypeScriptInterface>()
+				.AddScoped<ConvertEnumModelToTypeScriptEnum>();
 			return services;
 		}
 

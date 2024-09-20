@@ -5,11 +5,11 @@ using Microsoft.CodeAnalysis;
 using System.Linq;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
-	public class ConvertDtoClassInfoToTypeScriptInterface : IConvertObject<DtoClassInfo, InterfaceDeclaration> {
+	public class ConvertDtoClassModelToTypeScriptInterface : IConvertObject<DtoClassInfo, InterfaceDeclaration> {
 		private readonly IConvertObject<ITypeSymbol, ITypeExpression> typeConverter;
 		private readonly IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> propertyConverter;
 
-		public ConvertDtoClassInfoToTypeScriptInterface(IConvertObject<ITypeSymbol, ITypeExpression> typeConverter, 
+		public ConvertDtoClassModelToTypeScriptInterface(IConvertObject<ITypeSymbol, ITypeExpression> typeConverter, 
 			IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> propertyConverter) {
 			this.typeConverter = typeConverter;
 			this.propertyConverter = propertyConverter;

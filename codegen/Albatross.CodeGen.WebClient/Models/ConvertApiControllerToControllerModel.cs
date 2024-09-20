@@ -2,11 +2,11 @@
 using Microsoft.CodeAnalysis;
 
 namespace Albatross.CodeGen.WebClient.Models {
-	public class ConvertApiControllerToControllerInfo : IConvertObject<INamedTypeSymbol, ControllerInfo> {
+	public class ConvertApiControllerToControllerModel : IConvertObject<INamedTypeSymbol, ControllerInfo> {
 		private readonly CodeGenSettings settings;
 		private readonly Compilation compilation;
 
-		public ConvertApiControllerToControllerInfo(CodeGenSettings settings, Compilation compilation) {
+		public ConvertApiControllerToControllerModel(CodeGenSettings settings, Compilation compilation) {
 			this.settings = settings;
 			this.compilation = compilation;
 		}
