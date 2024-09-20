@@ -127,20 +127,5 @@ namespace Albatross.WebClient {
 			var result = await client.GetJsonResponse<ResultType, ErrorType>(request);
 			return result ?? throw new InvalidDataException($"No data was returned from {request.Method}: {request.RequestUri}");
 		}
-		public static string ISO8601StringDateOnly(this DateTime value) => value.ToString("yyyy-MM-dd");
-		public static string ISO8601String(this DateTime value) {
-			if (value.Kind == DateTimeKind.Utc) {
-				return value.ToString("yyyy-MM-ddTHH:mm:ssZ");
-			}else if(value.Kind == DateTimeKind.Local){
-				return value.ToString("yyyy-MM-ddTHH:mm:sszzz");
-			} else {
-				return value.ToString("yyyy-MM-ddTHH:mm:ss");
-			}
-		}
-		public static string ISO8601String(this DateTimeOffset value) => $"{value:yyyy-MM-ddTHH:mm:sszzz}";
-#if NET6_0_OR_GREATER
-		public static string ISO8601String(this DateOnly value) => $"{value:yyyy-MM-dd}";
-		public static string ISO8601String(this TimeOnly value) => $"{value:HH:mm:ss.fffffff}";
-#endif
 	}
 }

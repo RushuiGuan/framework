@@ -172,5 +172,19 @@ namespace Albatross.Dates {
 			var gmtOffset = timeZone.GetUtcOffset(DateTime.SpecifyKind(utc, DateTimeKind.Utc));
 			 return new DateTimeOffset(utc.Utc2Local(gmtOffset), gmtOffset);
 		}
+
+		public static string ISO8601StringDateOnly(this DateTime value) => value.ToString("yyyy-MM-dd");
+		public static string ISO8601String(this DateTime value) {
+			if (value.Kind == DateTimeKind.Utc) {
+				return value.ToString("yyyy-MM-ddTHH:mm:ssZ");
+			} else if (value.Kind == DateTimeKind.Local) {
+				return value.ToString("yyyy-MM-ddTHH:mm:sszzz");
+			} else {
+				return value.ToString("yyyy-MM-ddTHH:mm:ss");
+			}
+		}
+		public static string ISO8601String(this DateTimeOffset value) => $"{value:yyyy-MM-ddTHH:mm:sszzz}";
+
+
 	}
 }
