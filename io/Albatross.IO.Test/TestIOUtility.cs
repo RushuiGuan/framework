@@ -23,12 +23,12 @@ namespace Albatross.Test.IO {
 		}
 
 
-		[Fact]
-		public async Task TestPrepend() {
-			//var sourceFile = Path.GetTempFileName();
-			//var destinationFile = Path.GetTempFileName();
-			var sourceFile = @"c:\temp\source.txt";
-			var destinationFile = @"c:\temp\destination.txt";
+		[Theory]
+		[InlineData(true)]
+		[InlineData(false)]
+		public async Task TestPrepend(bool copySource) {
+			var sourceFile = Path.GetTempFileName();
+			var destinationFile = Path.GetTempFileName();
 			using (var writer = new StreamWriter(sourceFile)) {
 				for (int i = 0; i < 10; i++) {
 					writer.WriteLine(i);
@@ -41,7 +41,7 @@ namespace Albatross.Test.IO {
 			}
 			using (var srcStream = File.Open(sourceFile, FileMode.Open, FileAccess.ReadWrite)) {
 				using(var dstStream = File.Open(destinationFile, FileMode.Open, FileAccess.ReadWrite)) {
-					await dstStream.Prepend(srcStream);
+					await dstStream.Prepend(srcStream, copySource);
 				}
 			}
 
