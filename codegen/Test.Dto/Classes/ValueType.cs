@@ -1,4 +1,6 @@
-﻿namespace Test.Dto {
+﻿using Test.Dto.Enums;
+
+namespace Test.Dto.Classes {
 	public record class ValueType {
 		public int Int { get; set; }
 		public long Long { get; set; }

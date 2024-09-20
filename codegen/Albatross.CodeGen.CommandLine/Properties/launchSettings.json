@@ -14,7 +14,8 @@
     },
     "typescript-dto": {
       "commandName": "Project",
-      "commandLineArgs": "typescript-dto -p c:\\app\\framework\\codegen\\Albatross.CodeGen.Tests.Dto\\Albatross.CodeGen.Tests.Dto.csproj -o c:\\temp\r\n"
+      "commandLineArgs": "typescript-dto -p .\\Test.Dto\\Test.Dto.csproj -s .\\Test.Proxy\\codegen-settings.json\r\n",
+      "workingDirectory": "c:\\app\\framework\\codegen"
     },
     "secmaster dto": {
       "commandName": "Project",

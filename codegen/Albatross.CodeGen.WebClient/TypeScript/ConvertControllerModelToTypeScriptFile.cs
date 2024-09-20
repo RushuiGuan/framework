@@ -13,13 +13,13 @@ using Albatross.Text;
 using Albatross.CodeGen.WebClient.Settings;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
-	public class ConvertWebApiToTypeScriptFile : IConvertObject<ControllerInfo, TypeScriptFileDeclaration> {
+	public class ConvertControllerModelToTypeScriptFile : IConvertObject<ControllerInfo, TypeScriptFileDeclaration> {
 		public const string ControllerPostfix = "Controller";
 		public const string ControllerNamePlaceholder = "[controller]";
 		private readonly TypeScriptWebClientSettings settings;
 		private readonly IConvertObject<ITypeSymbol, ITypeExpression> typeConverter;
 
-		public ConvertWebApiToTypeScriptFile(TypeScriptWebClientSettings settings, IConvertObject<ITypeSymbol, ITypeExpression> typeConverter) {
+		public ConvertControllerModelToTypeScriptFile(TypeScriptWebClientSettings settings, IConvertObject<ITypeSymbol, ITypeExpression> typeConverter) {
 			this.settings = settings;
 			this.typeConverter = typeConverter;
 		}

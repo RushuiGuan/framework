@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Test.Dto.Classes;
 
 #nullable enable
 namespace Test.Proxy {
@@ -74,10 +75,10 @@ namespace Test.Proxy {
 			}
 		}
 
-		public async Task RequiredPostParam(Test.Dto.MyDto dto) {
+		public async Task RequiredPostParam(MyDto dto) {
 			string path = $"{ControllerPath}/required-post-param";
 			var queryString = new NameValueCollection();
-			using (var request = this.CreateJsonRequest<Test.Dto.MyDto>(HttpMethod.Post, path, queryString, dto)) {
+			using (var request = this.CreateJsonRequest<MyDto>(HttpMethod.Post, path, queryString, dto)) {
 				await this.GetRawResponse(request);
 			}
 		}

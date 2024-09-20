@@ -1,8 +1,8 @@
-﻿using Test.Dto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using Test.Dto.Classes;
 
 namespace Test.WebApi.Controllers {
 	[Route("api/required-return-type")]

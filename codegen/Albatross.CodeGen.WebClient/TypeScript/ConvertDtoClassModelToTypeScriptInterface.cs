@@ -17,7 +17,6 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 
 		public InterfaceDeclaration Convert(DtoClassInfo from) {
 			return new InterfaceDeclaration(from.Name) {
-				BaseInterfaceName = from.BaseType != null && !from.BaseType.IsValueType ? typeConverter.Convert(from.BaseType) : null,
 				Properties = from.Properties.Select(x => propertyConverter.Convert(x)).ToList(),
 			};
 		}

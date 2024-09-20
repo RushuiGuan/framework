@@ -8,6 +8,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			"System.DateOnly",
 			"System.DateTime",
 			"System.TimeSpan",
+			"System.TimeOnly",
 			"System.DateTimeOffset"
 		];
 

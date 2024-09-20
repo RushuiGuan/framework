@@ -23,9 +23,18 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 			.Union(InterfaceDeclarations)
 			.Union(ClasseDeclarations);
 
+		bool IsSelf(ISourceExpression source) {
+			if (source is FileNameSourceExpression fileNameSource && fileNameSource.FileName == this.Name) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
 		public override TextWriter Generate(TextWriter writer) {
-			var importExpressions = this.ImportDeclarations.Union(new ImportCollection(this.GetDescendants()));
+			var importExpressions = this.ImportDeclarations
+				.Union(new ImportCollection(this.GetDescendants()))
+				.Where(x => !IsSelf(x.Source));
 			new ImportCollection(importExpressions).Generate(writer);
 			writer.WriteLine();
 			foreach (var item in EnumDeclarations) {
