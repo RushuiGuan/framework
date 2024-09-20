@@ -1,36 +1,37 @@
-using System;
+using Albatross.WebClient;
+using Microsoft.Extensions.Logging;
+using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Albatross.WebClient;
-using System.Collections.Generic;
-using Albatross.Serialization;
 
 #nullable enable
 namespace Sample.Proxy {
-	public partial class RunProxyService : Albatross.WebClient.ClientBase {
-		public RunProxyService(Microsoft.Extensions.Logging.ILogger @logger, System.Net.Http.HttpClient @client) : base(@logger, @client, Albatross.Serialization.DefaultJsonSettings.Value) {
+	public partial class RunProxyService : ClientBase {
+		public RunProxyService(ILogger<RunProxyService> logger, HttpClient client) : base(logger, client) {
 		}
-		public const System.String ControllerPath = "api/run";
-		public async System.Threading.Tasks.Task Subscribe(System.String @topic) {
+
+		public const string ControllerPath = "api/run";
+		public async Task Subscribe(System.String topic) {
 			string path = $"{ControllerPath}/sub";
-			var queryString = new System.Collections.Specialized.NameValueCollection();
-			queryString.Add("topic", @topic);
+			var queryString = new NameValueCollection();
+			queryString.Add("topic", topic);
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
 				await this.GetRawResponse(request);
 			}
 		}
-		public async System.Threading.Tasks.Task Unsubscribe(System.String @topic) {
+
+		public async Task Unsubscribe(System.String topic) {
 			string path = $"{ControllerPath}/unsub";
-			var queryString = new System.Collections.Specialized.NameValueCollection();
-			queryString.Add("topic", @topic);
+			var queryString = new NameValueCollection();
+			queryString.Add("topic", topic);
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
 				await this.GetRawResponse(request);
 			}
 		}
-		public async System.Threading.Tasks.Task UnsubscribeAll() {
+
+		public async Task UnsubscribeAll() {
 			string path = $"{ControllerPath}/unsub-all";
-			var queryString = new System.Collections.Specialized.NameValueCollection();
+			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
 				await this.GetRawResponse(request);
 			}
