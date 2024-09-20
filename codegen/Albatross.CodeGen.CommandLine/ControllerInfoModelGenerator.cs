@@ -9,15 +9,15 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class ControllerInfoConverterCommandHandler : ICommandHandler {
+	public class ControllerInfoModelGenerator : ICommandHandler {
 		private readonly Compilation compilation;
 		private readonly ConvertApiControllerToControllerInfo converter;
 		private readonly CodeGenSettings settings;
-		private readonly ControllerInfoCommandOptions options;
+		private readonly CodeGenCommandOptions options;
 
-		public ControllerInfoConverterCommandHandler(Compilation compilation, ConvertApiControllerToControllerInfo converter, 
+		public ControllerInfoModelGenerator(Compilation compilation, ConvertApiControllerToControllerInfo converter, 
 			CodeGenSettings settings,
-			IOptions<ControllerInfoCommandOptions> options) {
+			IOptions<CodeGenCommandOptions> options) {
 			this.compilation = compilation;
 			this.converter = converter;
 			this.settings = settings;
@@ -37,9 +37,15 @@ namespace Albatross.CodeGen.CommandLine {
 				controllerClass.AddRange(dtoClassWalker.Result);
 			}
 			foreach(var item in controllerClass) {
-				if(string.IsNullOrEmpty(options.Controller) || string.Equals(item.Name, options.Controller, System.StringComparison.OrdinalIgnoreCase)) {
+				if(string.IsNullOrEmpty(options.AdhocFilter) || string.Equals(item.Name, options.AdhocFilter, System.StringComparison.OrdinalIgnoreCase)) {
 					var model = converter.Convert(item);
-					System.Console.WriteLine(JsonSerializer.Serialize(model, new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, }));
+					var text = JsonSerializer.Serialize(model, new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, });
+					System.Console.WriteLine(text);
+					if (options.OutputDirectory != null) {
+						using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, $"{item.Name}.generated.json"))) {
+							writer.Write(text);
+						}
+					}
 				}
 			}
 			return Task.FromResult(0);

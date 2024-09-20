@@ -49,7 +49,7 @@ namespace Albatross.CodeGen.CommandLine {
 			}
 			var models = new List<ControllerInfo>();
 			foreach (var controller in controllerClass) {
-				if (string.IsNullOrEmpty(options.Controller) || string.Equals(controller.Name, options.Controller, System.StringComparison.InvariantCultureIgnoreCase)) {
+				if (string.IsNullOrEmpty(options.AdhocFilter) || string.Equals(controller.Name, options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
 					logger.LogInformation("Generating proxy for {controller}", controller.Name);
 					var webApi = this.convertToWebApi.Convert(controller);
 					models.Add(webApi);

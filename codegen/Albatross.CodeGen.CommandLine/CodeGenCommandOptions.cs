@@ -5,6 +5,8 @@ namespace Albatross.CodeGen.CommandLine {
 	[Verb("csharp-proxy", typeof(CSharpWebClientCodeGenCommandHandler))]
 	[Verb("typescript-dto", typeof(TypeScriptDtoCodeGenCommandHandler))]
 	[Verb("typescript-proxy", typeof(TypeScriptWebClientCodeGenCommandHandler))]
+	[Verb("controller-model", typeof(ControllerInfoModelGenerator))]
+	[Verb("dto-model", typeof(DtoClassInfoModelGenerator))]
 	public record class CodeGenCommandOptions {
 		[Option(Alias = ["p"])]
 		public FileInfo ProjectFile { get; set; } = null!;
@@ -16,6 +18,6 @@ namespace Albatross.CodeGen.CommandLine {
 		public DirectoryInfo? OutputDirectory { get; set; }
 
 		[Option(Alias = ["c"])]
-		public string? Controller { get; set; }
+		public string? AdhocFilter { get; set; }
 	}
 }

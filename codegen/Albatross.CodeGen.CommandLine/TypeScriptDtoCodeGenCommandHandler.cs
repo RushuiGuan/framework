@@ -38,13 +38,10 @@ namespace Albatross.CodeGen.CommandLine {
 			var enums = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var dtoClassWalker = new DtoClassEnumWalker(semanticModel, settings.TypeScriptDtoFilter);
-				dtoClassWalker.Visit(syntaxTree.GetRoot());
-				dtoClasses.AddRange(dtoClassWalker.DtoClasses);
-
-				var enumWalker = new EnumTypeWalker(semanticModel, settings.EnumFilter);
-				enumWalker.Visit(syntaxTree.GetRoot());
-				enums.AddRange(enumWalker.EnumTypes);
+				var symbolWalker = new DtoClassEnumWalker(semanticModel, settings.TypeScriptDtoFilter);
+				symbolWalker.Visit(syntaxTree.GetRoot());
+				dtoClasses.AddRange(symbolWalker.DtoClasses);
+				enums.AddRange(symbolWalker.EnumTypes);
 			}
 			var dtoFile = new TypeScriptFileDeclaration("dto") {
 				EnumDeclarations = enums.Select(x => enumConverter.Convert(x)).ToList(),

@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 
 namespace Albatross.CodeGen.WebClient.Models {
-	public record class ConvertClassSymbolToDtoClass : IConvertObject<INamedTypeSymbol, DtoClassInfo> {
+	public record class ConvertClassSymbolToDtoClassModel : IConvertObject<INamedTypeSymbol, DtoClassInfo> {
 		public DtoClassInfo Convert(INamedTypeSymbol from) {
 			return new DtoClassInfo(from);
 		}

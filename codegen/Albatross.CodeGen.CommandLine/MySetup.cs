@@ -23,25 +23,14 @@ namespace Albatross.CodeGen.CommandLine {
 			services.RegisterCommands();
 			services.AddTypeScriptCodeGen().AddWebClientCodeGen();
 			services.AddScoped(provider => MSBuildWorkspace.Create());
-			if (context.ParsedCommandName() == "webapi") {
-				services.AddScoped<ICurrentProject>(provider => {
-					var options = provider.GetRequiredService<IOptions<ControllerInfoCommandOptions>>().Value;
-					if (options.ProjectFile.Exists) {
-						return new CurrentProject(options.ProjectFile.FullName);
-					} else {
-						throw new InvalidOperationException($"File {options.ProjectFile.Name} doesn't exist");
-					}
-				});
-			} else {
-				services.AddScoped<ICurrentProject>(provider => {
-					var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
-					if (options.ProjectFile.Exists) {
-						return new CurrentProject(options.ProjectFile.FullName);
-					} else {
-						throw new InvalidOperationException($"File {options.ProjectFile.Name} doesn't exist");
-					}
-				});
-			}
+			services.AddScoped<ICurrentProject>(provider => {
+				var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
+				if (options.ProjectFile.Exists) {
+					return new CurrentProject(options.ProjectFile.FullName);
+				} else {
+					throw new InvalidOperationException($"File {options.ProjectFile.Name} doesn't exist");
+				}
+			});
 			services.AddScoped<ICompilationFactory, MSBuildProjectCompilationFactory>();
 			services.AddScoped(provider => provider.GetRequiredService<ICompilationFactory>().Create());
 			services.AddShortenLoggerName(false, "Albatross");
