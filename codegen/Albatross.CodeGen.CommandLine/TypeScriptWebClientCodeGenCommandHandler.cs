@@ -1,4 +1,5 @@
-﻿using Albatross.CodeGen.WebClient;
+﻿using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
 using Albatross.CodeGen.WebClient.TypeScript;
@@ -15,14 +16,14 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
 		private readonly CodeGenSettings settings;
-		private readonly ConvertApiControllerToControllerInfo convertToWebApi;
+		private readonly ConvertApiControllerToControllerModel convertToWebApi;
 		private readonly ConvertWebApiToTypeScriptFile converToTypeScriptFile;
 
 		public TypeScriptWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, 
 			ILogger<TypeScriptWebClientCodeGenCommandHandler> logger, 
 			Compilation compilation, 
 			CodeGenSettings settings,
-			ConvertApiControllerToControllerInfo convertToWebApi, 
+			ConvertApiControllerToControllerModel convertToWebApi, 
 			ConvertWebApiToTypeScriptFile converToTypeScriptFile) {
 			this.options = options.Value;
 			this.logger = logger;
@@ -37,21 +38,23 @@ namespace Albatross.CodeGen.CommandLine {
 		}
 
 		public Task<int> InvokeAsync(InvocationContext context) {
-			var controllerClass = new List<INamedTypeSymbol>();
+			var models = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
 				var dtoClassWalker = new ApiControllerClassWalker(semanticModel, settings.TypeScriptControllerFilter);
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
-				controllerClass.AddRange(dtoClassWalker.Result);
+				models.AddRange(dtoClassWalker.Result);
 			}
-			foreach (var controller in controllerClass) {
-				logger.LogInformation("Generating proxy for {controller}", controller.Name);
-				var webApi = this.convertToWebApi.Convert(controller);
-				var file = this.converToTypeScriptFile.Convert(webApi);
-				file.Generate(System.Console.Out);
-				if (options.OutputDirectory != null) {
-					using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, file.FileName))) {
-						file.Generate(writer);
+			foreach (var model in models) {
+				if (string.IsNullOrEmpty(options.AdhocFilter) || model.GetFullName().Contains(options.AdhocFilter)) {
+					logger.LogInformation("Generating proxy for {controller}", model.Name);
+					var webApi = this.convertToWebApi.Convert(model);
+					var file = this.converToTypeScriptFile.Convert(webApi);
+					file.Generate(System.Console.Out);
+					if (options.OutputDirectory != null) {
+						using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, file.FileName))) {
+							file.Generate(writer);
+						}
 					}
 				}
 			}

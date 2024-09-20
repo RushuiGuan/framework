@@ -28,5 +28,7 @@ namespace Albatross.CodeGen.WebClient {
 		public const string HttpMethodPut = "Put";
 		public const string HttpMethodDelete = "Delete";
 
+		public const string JsonStringEnumConverter_ClassName = "System.Text.Json.Serialization.JsonStringEnumConverter";
+		public const string JsonConverterAttribute_ClassName = "System.Text.Json.Serialization.JsonConverterAttribute";
 	}
 }

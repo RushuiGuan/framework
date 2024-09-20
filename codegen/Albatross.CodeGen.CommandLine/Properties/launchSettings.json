@@ -24,6 +24,11 @@
       "commandName": "Project",
       "commandLineArgs": "csharp-proxy -p .\\Test.WebApi\\Test.WebApi.csproj -s .\\Test.Proxy\\codegen-settings.json",
       "workingDirectory": "C:\\app\\framework\\codegen"
+    },
+    "dto-model": {
+      "commandName": "Project",
+      "commandLineArgs": "dto-model -p .\\Test.Dto\\Test.Dto.csproj -s .\\Test.Proxy\\codegen-settings.json --adhoc-filter mystringenum",
+      "workingDirectory": "C:\\app\\framework\\codegen"
     }
   }
 }

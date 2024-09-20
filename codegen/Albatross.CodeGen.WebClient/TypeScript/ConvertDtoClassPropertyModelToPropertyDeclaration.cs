@@ -5,10 +5,10 @@ using Albatross.CodeGen.WebClient.Models;
 using Microsoft.CodeAnalysis;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
-	public class ConvertDtoClassPropertyInfoToPropertyDeclaration : IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> {
+	public class ConvertDtoClassPropertyModelToPropertyDeclaration : IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> {
 		private readonly IConvertObject<ITypeSymbol, ITypeExpression> typeConverter;
 
-		public ConvertDtoClassPropertyInfoToPropertyDeclaration(IConvertObject<ITypeSymbol, ITypeExpression> typeConverter) {
+		public ConvertDtoClassPropertyModelToPropertyDeclaration(IConvertObject<ITypeSymbol, ITypeExpression> typeConverter) {
 			this.typeConverter = typeConverter;
 		}
 

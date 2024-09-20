@@ -1,4 +1,5 @@
-﻿using Albatross.CodeGen.WebClient;
+﻿using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 namespace Albatross.CodeGen.CommandLine {
 	public class ControllerInfoModelGenerator : ICommandHandler {
 		private readonly Compilation compilation;
-		private readonly ConvertApiControllerToControllerInfo converter;
+		private readonly ConvertApiControllerToControllerModel converter;
 		private readonly CodeGenSettings settings;
 		private readonly CodeGenCommandOptions options;
 
-		public ControllerInfoModelGenerator(Compilation compilation, ConvertApiControllerToControllerInfo converter, 
+		public ControllerInfoModelGenerator(Compilation compilation, ConvertApiControllerToControllerModel converter, 
 			CodeGenSettings settings,
 			IOptions<CodeGenCommandOptions> options) {
 			this.compilation = compilation;
@@ -37,7 +38,7 @@ namespace Albatross.CodeGen.CommandLine {
 				controllerClass.AddRange(dtoClassWalker.Result);
 			}
 			foreach(var item in controllerClass) {
-				if(string.IsNullOrEmpty(options.AdhocFilter) || string.Equals(item.Name, options.AdhocFilter, System.StringComparison.OrdinalIgnoreCase)) {
+				if(string.IsNullOrEmpty(options.AdhocFilter) || item.GetFullName().Contains(options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
 					var model = converter.Convert(item);
 					var text = JsonSerializer.Serialize(model, new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, });
 					System.Console.WriteLine(text);

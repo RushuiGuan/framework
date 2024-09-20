@@ -1,4 +1,5 @@
-﻿using Albatross.CodeGen.WebClient;
+﻿using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
@@ -46,22 +47,26 @@ namespace Albatross.CodeGen.CommandLine {
 			var serializationOptions = new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, };
 			var dtoModels = new List<DtoClassInfo>();
 			foreach (var item in dtoClasses) {
-				if (string.IsNullOrEmpty(options.AdhocFilter) || string.Equals(item.Name, options.AdhocFilter, System.StringComparison.OrdinalIgnoreCase)) {
+				if (string.IsNullOrEmpty(options.AdhocFilter) || item.GetFullName().Contains(options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
 					var model = dtoConverter.Convert(item);
 					dtoModels.Add(model);
 				}
 			}
-			var text = JsonSerializer.Serialize(dtoModels, serializationOptions);
-			System.Console.WriteLine(text);
+			if (dtoModels.Any()) {
+				var text = JsonSerializer.Serialize(dtoModels, serializationOptions);
+				System.Console.WriteLine(text);
+			}
 			var enumModels = new List<EnumInfo>();
 			foreach (var item in enumClasses){
-				if (string.IsNullOrEmpty(options.AdhocFilter) || string.Equals(item.Name, options.AdhocFilter, System.StringComparison.OrdinalIgnoreCase)) {
+				if (string.IsNullOrEmpty(options.AdhocFilter) || item.GetFullName().Contains(options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
 					var model = enumConverter.Convert(item);
 					enumModels.Add(model);
 				}
 			}
-			text = JsonSerializer.Serialize(enumModels, serializationOptions);
-			System.Console.WriteLine(text);
+			if (enumModels.Any()) {
+				var text = JsonSerializer.Serialize(enumModels, serializationOptions);
+				System.Console.WriteLine(text);
+			}
 
 			if (options.OutputDirectory != null) {
 				if (dtoModels.Any()) {

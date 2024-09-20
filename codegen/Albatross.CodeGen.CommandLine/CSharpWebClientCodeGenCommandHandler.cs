@@ -1,4 +1,5 @@
 ﻿using Albatross.CodeAnalysis.MSBuild;
+using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.Models;
@@ -17,14 +18,14 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
 		private readonly CodeGenSettings settings;
-		private readonly ConvertApiControllerToControllerInfo convertToWebApi;
+		private readonly ConvertApiControllerToControllerModel convertToWebApi;
 		private readonly ConvertWebApiToCSharpCodeStack converToCSharpCodeStack;
 
 		public CSharpWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, ILogger<CSharpWebClientCodeGenCommandHandler> logger,
 			CreateHttpClientRegistrations createHttpClientRegistrations,
 			Compilation compilation,
 			CodeGenSettings settings,
-			ConvertApiControllerToControllerInfo convertToWebApi,
+			ConvertApiControllerToControllerModel convertToWebApi,
 			ConvertWebApiToCSharpCodeStack converToCSharpFile) {
 			this.options = options.Value;
 			this.logger = logger;
@@ -49,7 +50,7 @@ namespace Albatross.CodeGen.CommandLine {
 			}
 			var models = new List<ControllerInfo>();
 			foreach (var controller in controllerClass) {
-				if (string.IsNullOrEmpty(options.AdhocFilter) || string.Equals(controller.Name, options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
+				if (string.IsNullOrEmpty(options.AdhocFilter) || controller.GetFullName().Contains(options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
 					logger.LogInformation("Generating proxy for {controller}", controller.Name);
 					var webApi = this.convertToWebApi.Convert(controller);
 					models.Add(webApi);
