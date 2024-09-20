@@ -48,5 +48,22 @@ namespace Albatross.IO {
 			}
 			return sb.ToString();
 		}
+
+		/// <summary>
+		/// prepend the content of the source stream in front of the destination stream.  The content of the source stream is not changed, however
+		/// the last modified date of the source stream is updated to the current time since it is used as a buffer file.
+		/// </summary>
+		/// <param name="destination"></param>
+		/// <param name="source"></param>
+		/// <returns></returns>
+		public static async Task Prepend(this Stream destination, Stream source) {
+			var srcLength = source.Length;
+			source.Seek(0, SeekOrigin.End);
+			await destination.CopyToAsync(source);
+			destination.Seek(0, SeekOrigin.Begin);
+			source.Seek(0, SeekOrigin.Begin);
+			await source.CopyToAsync(destination);
+			source.SetLength(srcLength);
+		}
 	}
 }
