@@ -8,6 +8,7 @@ using Moq;
 using Albatross.Serialization;
 using System;
 using FluentAssertions;
+using Albatross.Dates;
 
 namespace Albatross.WebClient.Test {
 	public class TestClient : ClientBase {

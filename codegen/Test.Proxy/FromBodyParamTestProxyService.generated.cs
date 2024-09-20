@@ -1,9 +1,9 @@
+using Albatross.Dates;
 using Albatross.WebClient;
 using Microsoft.Extensions.Logging;
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Test.Dto.Classes;
 
 #nullable enable
 namespace Test.Proxy {
@@ -12,18 +12,18 @@ namespace Test.Proxy {
 		}
 
 		public const string ControllerPath = "api/from-body-param-test";
-		public async Task RequiredObject(MyDto dto) {
+		public async Task RequiredObject(Test.Dto.Classes.MyDto dto) {
 			string path = $"{ControllerPath}/required-object";
 			var queryString = new NameValueCollection();
-			using (var request = this.CreateJsonRequest<MyDto>(HttpMethod.Post, path, queryString, dto)) {
+			using (var request = this.CreateJsonRequest<Test.Dto.Classes.MyDto>(HttpMethod.Post, path, queryString, dto)) {
 				await this.GetRawResponse(request);
 			}
 		}
 
-		public async Task NullableObject(MyDto? dto) {
+		public async Task NullableObject(Test.Dto.Classes.MyDto? dto) {
 			string path = $"{ControllerPath}/nullable-object";
 			var queryString = new NameValueCollection();
-			using (var request = this.CreateJsonRequest<MyDto?>(HttpMethod.Post, path, queryString, dto)) {
+			using (var request = this.CreateJsonRequest<Test.Dto.Classes.MyDto?>(HttpMethod.Post, path, queryString, dto)) {
 				await this.GetRawResponse(request);
 			}
 		}
@@ -60,18 +60,18 @@ namespace Test.Proxy {
 			}
 		}
 
-		public async Task RequiredObjectArray(MyDto[] array) {
+		public async Task RequiredObjectArray(Test.Dto.Classes.MyDto[] array) {
 			string path = $"{ControllerPath}/required-object-array";
 			var queryString = new NameValueCollection();
-			using (var request = this.CreateJsonRequest<MyDto[]>(HttpMethod.Post, path, queryString, array)) {
+			using (var request = this.CreateJsonRequest<Test.Dto.Classes.MyDto[]>(HttpMethod.Post, path, queryString, array)) {
 				await this.GetRawResponse(request);
 			}
 		}
 
-		public async Task NullableObjectArray(MyDto?[] array) {
+		public async Task NullableObjectArray(Test.Dto.Classes.MyDto?[] array) {
 			string path = $"{ControllerPath}/nullable-object-array";
 			var queryString = new NameValueCollection();
-			using (var request = this.CreateJsonRequest<MyDto?[]>(HttpMethod.Post, path, queryString, array)) {
+			using (var request = this.CreateJsonRequest<Test.Dto.Classes.MyDto?[]>(HttpMethod.Post, path, queryString, array)) {
 				await this.GetRawResponse(request);
 			}
 		}

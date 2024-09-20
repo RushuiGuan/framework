@@ -28,6 +28,6 @@
 		}
 	},
 	"controllerFilter": {
-		"exclude": "Test\\.WebApi\\.Controllers\\.RedirectTestController"
+		"exclude": "^Test\\.WebApi\\.Controllers\\.(AbsUrl)?RedirectTestController$"
 	}
 }

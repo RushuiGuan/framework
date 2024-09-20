@@ -1,9 +1,9 @@
+using Albatross.Dates;
 using Albatross.WebClient;
 using Microsoft.Extensions.Logging;
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Test.Dto.Classes;
 
 #nullable enable
 namespace Test.Proxy {
@@ -164,51 +164,51 @@ namespace Test.Proxy {
 			}
 		}
 
-		public async Task<MyDto> GetMyDto() {
+		public async Task<Test.Dto.Classes.MyDto> GetMyDto() {
 			string path = $"{ControllerPath}/object";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<MyDto>(request);
+				return await this.GetRequiredJsonResponse<Test.Dto.Classes.MyDto>(request);
 			}
 		}
 
-		public async Task<MyDto> GetAsyncMyDto() {
+		public async Task<Test.Dto.Classes.MyDto> GetAsyncMyDto() {
 			string path = $"{ControllerPath}/async-object";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<MyDto>(request);
+				return await this.GetRequiredJsonResponse<Test.Dto.Classes.MyDto>(request);
 			}
 		}
 
-		public async Task<MyDto> ActionResultObject() {
+		public async Task<Test.Dto.Classes.MyDto> ActionResultObject() {
 			string path = $"{ControllerPath}/action-result-object";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<MyDto>(request);
+				return await this.GetRequiredJsonResponse<Test.Dto.Classes.MyDto>(request);
 			}
 		}
 
-		public async Task<MyDto> AsyncActionResultObject() {
+		public async Task<Test.Dto.Classes.MyDto> AsyncActionResultObject() {
 			string path = $"{ControllerPath}/async-action-result-object";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<MyDto>(request);
+				return await this.GetRequiredJsonResponse<Test.Dto.Classes.MyDto>(request);
 			}
 		}
 
-		public async Task<MyDto[]> GetMyDtoArray() {
+		public async Task<Test.Dto.Classes.MyDto[]> GetMyDtoArray() {
 			string path = $"{ControllerPath}/array-return-type";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<MyDto[]>(request);
+				return await this.GetRequiredJsonResponse<Test.Dto.Classes.MyDto[]>(request);
 			}
 		}
 
-		public async Task<System.Collections.Generic.IEnumerable<MyDto>> GetMyDtoCollection() {
+		public async Task<System.Collections.Generic.IEnumerable<Test.Dto.Classes.MyDto>> GetMyDtoCollection() {
 			string path = $"{ControllerPath}/collection-return-type";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				return await this.GetRequiredJsonResponse<System.Collections.Generic.IEnumerable<MyDto>>(request);
+				return await this.GetRequiredJsonResponse<System.Collections.Generic.IEnumerable<Test.Dto.Classes.MyDto>>(request);
 			}
 		}
 	}

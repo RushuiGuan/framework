@@ -24,6 +24,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 					.With(new UsingDirectiveNode("System.Threading.Tasks"))
 					.With(new UsingDirectiveNode("Microsoft.Extensions.Logging"))
 					.With(new UsingDirectiveNode("Albatross.WebClient"))
+					.With(new UsingDirectiveNode("Albatross.Dates"))
 					.With(new UsingDirectiveNode("System.Collections.Specialized"));
 
 				using (codeStack.NewScope(new NamespaceDeclarationBuilder(settings.CSharpWebClientSettings.Namespace))) {
