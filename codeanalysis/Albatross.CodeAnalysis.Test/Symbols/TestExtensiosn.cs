@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using FluentAssertions;
 using Albatross.CodeAnalysis.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
+using FluentAssertions.Equivalency;
 
 namespace Albatross.CodeAnalysis.Test.Symbols {
 	public class TestExtensiosn {
@@ -118,6 +119,14 @@ public string? Text{ get; set; }
 			var type = classType.GetMembers("Field").First().As<IFieldSymbol>().Type;
 			var result = type.AsTypeNode();
 			result.Node.NormalizeWhitespace().ToFullString().Should().Be(expectedResult);
+		}
+
+		[Fact]
+		public void TestIsOpenGenericType() {
+			const string code = @"public class MyClass<T>{}";
+			var compilation = code.CreateCompilation();
+			var classType = compilation.GetRequiredSymbol("MyClass`1");
+			classType.IsGenericTypeDefinition().Should().BeTrue();
 		}
 	}
 }

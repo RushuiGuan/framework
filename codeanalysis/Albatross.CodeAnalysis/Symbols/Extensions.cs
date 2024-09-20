@@ -193,5 +193,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 			elementType = null;
 			return false;
 		}
+
+		public static bool IsGenericTypeDefinition(this INamedTypeSymbol symbol) => symbol.IsGenericType && symbol.IsDefinition;
 	}
 }

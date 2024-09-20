@@ -1,5 +1,6 @@
 ﻿using Albatross.CommandLine;
 using System.CommandLine.Invocation;
+using Test.Dto.Classes;
 using Test.Proxy;
 
 namespace Test.CommandLine {
@@ -18,7 +19,7 @@ namespace Test.CommandLine {
 		}
 
 		public async Task<int> InvokeAsync(InvocationContext context) {
-			await proxy.RequiredObject(new Dto.MyDto());
+			await proxy.RequiredObject(new MyDto());
 			return 0;
 		}
 	}

@@ -57,7 +57,7 @@ namespace Albatross.CodeGen.CommandLine {
 					.Where(x => string.IsNullOrEmpty(options.AdhocFilter) || x.GetFullName().Contains(options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase))
 					.Select(x => enum2Model.Convert(x)));
 			}
-			var dtoFile = new TypeScriptFileDeclaration("dto.generated") {
+			var dtoFile = new TypeScriptFileDeclaration("dto") {
 				InterfaceDeclarations = dtoModels
 					.Select(x => dtoModel2TypeScript.Convert(x)).ToList(),
 			};
@@ -67,7 +67,7 @@ namespace Albatross.CodeGen.CommandLine {
 					dtoFile.Generate(writer);
 				}
 			}
-			var enumFile = new TypeScriptFileDeclaration("enum.generated") {
+			var enumFile = new TypeScriptFileDeclaration("enum") {
 				EnumDeclarations = enumModels.Select(x => enumModel2TypeScript.Convert(x))
 			};
 			enumFile.Generate(System.Console.Out);

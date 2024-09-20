@@ -1,4 +1,4 @@
-﻿namespace Test.Dto {
+﻿namespace Test.Dto.Classes {
 	public class ReferenceType {
 		public string String { get; set; } = string.Empty;
 		public MyClassWithGenericBaseType MyClass { get; set; } = null!;

@@ -1,16 +1,17 @@
 ﻿using System.Collections;
+using Test.Dto.Enums;
 
-namespace Test.Dto {
+namespace Test.Dto.Classes {
 	public class MyDto {
 		public string Name { get; set; } = string.Empty;
-		public System.String StringLongName { get; set; } = string.Empty;
+		public string StringLongName { get; set; } = string.Empty;
 		public byte[] ByteArray { get; set; } = new byte[0];
 
 		public int Int { get; set; }
 		public long Long { get; set; }
 		public double Double { get; set; }
 		public decimal Decimal { get; set; }
-		public System.Decimal DecimalLongName { get; set; }
+		public decimal DecimalLongName { get; set; }
 		public float Float { get; set; }
 		public bool Bool { get; set; }
 		public char Char { get; set; }
@@ -27,7 +28,7 @@ namespace Test.Dto {
 		public DateTimeOffset DateTimeOffset { get; set; }
 		public TimeSpan TimeSpan { get; set; }
 		public int? NullableInt { get; set; }
-		public Nullable<int> NullableIntGeneric { get; set; }
+		public int? NullableIntGeneric { get; set; }
 		public string? NullableString { get; set; }
 		public string?[] NullableStringArray { get; set; } = new string[0];
 		public Guid Guid { get; set; }

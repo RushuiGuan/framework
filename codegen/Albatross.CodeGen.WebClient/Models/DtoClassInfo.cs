@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 
@@ -6,20 +7,26 @@ namespace Albatross.CodeGen.WebClient.Models {
 	public record class DtoClassInfo {
 		public DtoClassInfo(INamedTypeSymbol symbol) {
 			this.Name = symbol.Name;
-			Properties = symbol.GetMembers().OfType<IPropertySymbol>()
-				.Where(x => !(symbol.IsRecord && x.Name == "EqualityContract"))
-				.Select(x => new DtoClassPropertyInfo(x)).ToArray();
+			var properties = new Dictionary<string, DtoClassPropertyInfo>();
 
-			if (symbol.BaseType != null && symbol.BaseType.SpecialType != SpecialType.System_Object) {
-				BaseType = symbol.BaseType;
-			} else {
-				BaseType = null;
+			while (symbol != null) {
+				foreach (var item in symbol.GetMembers().OfType<IPropertySymbol>()
+				.Where(x => !(symbol.IsRecord && x.Name == "EqualityContract"))
+				.Select(x => new DtoClassPropertyInfo(x))) {
+					if (!properties.ContainsKey(item.Name)) {
+						properties.Add(item.Name, item);
+					}
+				}
+				if (symbol.BaseType != null && symbol.BaseType.SpecialType != SpecialType.System_Object) {
+					symbol = symbol.BaseType;
+				} else {
+					symbol = null;
+				}
 			}
+			Properties = properties.Values.ToArray();
 		}
 
 		public string Name { get; }
-		[JsonIgnore]
-		public INamedTypeSymbol? BaseType { get; }
 		public DtoClassPropertyInfo[] Properties { get; }
 	}
 }

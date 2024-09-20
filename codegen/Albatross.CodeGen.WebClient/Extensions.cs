@@ -22,7 +22,7 @@ namespace Albatross.CodeGen.WebClient {
 
 			// model to code conversion
 			services.AddScoped<ConvertWebApiToCSharpCodeStack>()
-				.AddScoped<ConvertWebApiToTypeScriptFile>()
+				.AddScoped<ConvertControllerModelToTypeScriptFile>()
 				.AddScoped<CreateHttpClientRegistrations>()
 				.AddScoped<ConvertDtoClassModelToTypeScriptInterface>()
 				.AddScoped<ConvertEnumModelToTypeScriptEnum>();

@@ -1,5 +1,5 @@
-﻿using Test.Dto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Test.Dto.Classes;
 
 namespace Test.WebApi.Controllers {
 	[Route("api/from-body-param-test")]

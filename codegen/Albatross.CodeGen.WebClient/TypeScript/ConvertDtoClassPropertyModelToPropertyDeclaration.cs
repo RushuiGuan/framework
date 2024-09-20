@@ -2,6 +2,7 @@
 using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.CodeGen.WebClient.Models;
+using Albatross.Text;
 using Microsoft.CodeAnalysis;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
@@ -13,7 +14,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		}
 
 		public PropertyDeclaration Convert(DtoClassPropertyInfo from) {
-			return new PropertyDeclaration(from.Name) {
+			return new PropertyDeclaration(from.Name.CamelCase()) {
 				Type = typeConverter.Convert(from.Type),
 				Optional = from.Type.IsNullable(),
 			};

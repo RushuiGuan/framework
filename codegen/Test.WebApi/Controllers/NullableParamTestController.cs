@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using Test.Dto;
+using Test.Dto.Classes;
 
 namespace Test.WebApi.Controllers {
 	[Route("api/nullable-param-test")]

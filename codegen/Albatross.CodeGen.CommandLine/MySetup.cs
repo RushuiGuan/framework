@@ -38,22 +38,6 @@ namespace Albatross.CodeGen.CommandLine {
 			services.AddSingleton(provider => {
 				var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
 				if (options.SettingsFile == null) {
-					return new TypeScriptWebClientSettings();
-				} else if (options.SettingsFile.Exists) {
-					using var stream = options.SettingsFile.OpenRead();
-					var settings = JsonSerializer.Deserialize<TypeScriptWebClientSettings>(stream, DefaultJsonSettings.Value.Default) ?? throw new ArgumentException("Unable to deserialize typescript webclient settings");
-					return settings;
-				} else {
-					throw new InvalidOperationException($"File {options.SettingsFile.Name} doesn't exist");
-				}
-			});
-			services.AddSingleton<ISourceLookup>(provider => {
-				var settings = provider.GetRequiredService<TypeScriptWebClientSettings>();
-				return new DefaultTypeScriptSourceLookup(settings.NameSpaceModuleMapping);
-			});
-			services.AddSingleton(provider => {
-				var options = provider.GetRequiredService<IOptions<CodeGenCommandOptions>>().Value;
-				if (options.SettingsFile == null) {
 					return new CodeGenSettings();
 				} else if (options.SettingsFile.Exists) {
 					using var stream = options.SettingsFile.OpenRead();
@@ -63,6 +47,11 @@ namespace Albatross.CodeGen.CommandLine {
 					throw new InvalidOperationException($"File {options.SettingsFile.Name} doesn't exist");
 				}
 			});
+			services.AddSingleton<ISourceLookup>(provider => {
+				var settings = provider.GetRequiredService<CodeGenSettings>();
+				return new DefaultTypeScriptSourceLookup(settings.TypeScriptWebClientSettings.NameSpaceModuleMapping);
+			});
+
 		}
 	}
 }
