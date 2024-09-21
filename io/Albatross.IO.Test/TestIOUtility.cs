@@ -21,41 +21,5 @@ namespace Albatross.Test.IO {
 		public void TestConvertText2Filename(string text, string filler, string expected) {
 			Assert.Equal(expected, text.ConvertToFilename(filler));
 		}
-
-
-		[Theory]
-		[InlineData(true)]
-		[InlineData(false)]
-		public async Task TestPrepend(bool copySource) {
-			var sourceFile = Path.GetTempFileName();
-			var destinationFile = Path.GetTempFileName();
-			using (var writer = new StreamWriter(sourceFile)) {
-				for (int i = 0; i < 10; i++) {
-					writer.WriteLine(i);
-				}
-			}
-			using(var writer = new StreamWriter(destinationFile)) {
-				for (int i = 10; i < 20; i++) {
-					writer.WriteLine(i);
-				}
-			}
-			using (var srcStream = File.Open(sourceFile, FileMode.Open, FileAccess.ReadWrite)) {
-				using(var dstStream = File.Open(destinationFile, FileMode.Open, FileAccess.ReadWrite)) {
-					await dstStream.Prepend(srcStream, copySource);
-				}
-			}
-
-			using(var reader = new StreamReader(destinationFile)) {
-				var lines = new List<string>();
-				while (!reader.EndOfStream) {
-					var line = await reader.ReadLineAsync();
-					lines.Add(line??string.Empty);
-				}
-				Assert.Equal(20, lines.Count);
-				for(int i=0; i < 20; i++) {
-					Assert.Equal(i.ToString(), lines[i]);
-				}
-			}
-		}
 	}
 }

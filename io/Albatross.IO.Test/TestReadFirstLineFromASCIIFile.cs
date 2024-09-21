@@ -3,12 +3,12 @@ using System.IO;
 using Xunit;
 
 namespace Albatross.IO.Test {
-	public class TestReadFirstLineFromFile {
+	public class TestReadFirstLineFromASCIIFile {
 		[Fact]
 		public void EmptyFile() {
 			var file = Path.GetTempFileName();
 			using (var stream = File.OpenRead(file)) {
-				var result = stream.TryReadLineFromStream(out var line);
+				var result = stream.TryReadLineFromStream(out var line, out _);
 				result.Should().BeFalse();
 				line.Should().BeNull();
 			}
@@ -23,7 +23,7 @@ namespace Albatross.IO.Test {
 			}
 
 			using (var stream = File.OpenRead(file)) {
-				var result = stream.TryReadLineFromStream(out var line);
+				var result = stream.TryReadLineFromStream(out var line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(text);
 			}
@@ -38,7 +38,7 @@ namespace Albatross.IO.Test {
 			}
 
 			using (var stream = File.OpenRead(file)) {
-				var result = stream.TryReadLineFromStream(out var line);
+				var result = stream.TryReadLineFromStream(out var line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(text);
 			}
@@ -55,15 +55,15 @@ namespace Albatross.IO.Test {
 			}
 
 			using (var stream = File.OpenRead(file)) {
-				var result = stream.TryReadLineFromStream(out var line);
+				var result = stream.TryReadLineFromStream(out var line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line1);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line2);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeFalse();
 				line.Should().BeNull();
 			}
@@ -80,15 +80,15 @@ namespace Albatross.IO.Test {
 			}
 
 			using (var stream = File.OpenRead(file)) {
-				var result = stream.TryReadLineFromStream(out var line);
+				var result = stream.TryReadLineFromStream(out var line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line1);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line2);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeFalse();
 				line.Should().BeNull();
 			}
@@ -107,15 +107,15 @@ namespace Albatross.IO.Test {
 			}
 
 			using (var stream = File.OpenRead(file)) {
-				var result = stream.TryReadLineFromStream(out var line);
+				var result = stream.TryReadLineFromStream(out var line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line1);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line2);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeFalse();
 				line.Should().BeNull();
 			}
@@ -133,15 +133,15 @@ namespace Albatross.IO.Test {
 			}
 
 			using (var stream = File.OpenRead(file)) {
-				var result = stream.TryReadLineFromStream(out var line);
+				var result = stream.TryReadLineFromStream(out var line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line1);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line2);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeFalse();
 				line.Should().BeNull();
 			}
@@ -162,19 +162,19 @@ namespace Albatross.IO.Test {
 			}
 
 			using (var stream = File.OpenRead(file)) {
-				var result = stream.TryReadLineFromStream(out var line);
+				var result = stream.TryReadLineFromStream(out var line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line1);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(space);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeTrue();
 				line.Should().Be(line2);
 
-				result = stream.TryReadLineFromStream(out line);
+				result = stream.TryReadLineFromStream(out line, out _);
 				result.Should().BeFalse();
 				line.Should().BeNull();
 			}

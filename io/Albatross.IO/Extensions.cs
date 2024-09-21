@@ -49,35 +49,5 @@ namespace Albatross.IO {
 			return sb.ToString();
 		}
 
-		/// <summary>
-		/// insert the content of the source stream to the destination stream.  If the copySource is true, the source stream 
-		/// is copied to a temporary file before the prepend operation and therefore is untouched.  Otherwise the source stream is used 
-		/// as the buffer file. The content of the source stream is not changed, however the last modified date of the source stream would be updated.
-		/// </summary>
-		/// <param name="destination"></param>
-		/// <param name="source"></param>
-		/// <returns></returns>
-		public static async Task Prepend(this Stream destination, Stream source, bool copySource) {
-			Stream? copy = null;
-			try {
-				if (copySource) {
-					copy = File.Open(Path.GetTempFileName(), FileMode.Create, FileAccess.ReadWrite);
-					await source.CopyToAsync(copy);
-					source = copy;
-				}
-				var srcLength = source.Length;
-				source.Seek(0, SeekOrigin.End);
-				await destination.CopyToAsync(source);
-				destination.Seek(0, SeekOrigin.Begin);
-				source.Seek(0, SeekOrigin.Begin);
-				await source.CopyToAsync(destination);
-				source.SetLength(srcLength);
-			}finally{
-				copy?.Dispose();
-				if(copy != null) {
-					File.Delete(((FileStream)copy).Name);
-				}
-			}
-		}
 	}
 }
