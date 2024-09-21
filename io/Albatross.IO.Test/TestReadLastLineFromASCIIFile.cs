@@ -3,7 +3,7 @@ using System.IO;
 using Xunit;
 
 namespace Albatross.IO.Test {
-	public class TestReadLastLineFromFile {
+	public class TestReadLastLineFromASCIIFile {
 		[Fact]
 		public void EmptyFile() {
 			var file = Path.GetTempFileName();
