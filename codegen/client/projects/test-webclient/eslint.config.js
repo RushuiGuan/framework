@@ -1,12 +1,17 @@
-const baseConfig = require('./eslint.base.config.js');
 const nx = require('@nx/eslint-plugin');
+const baseConfig = require('../../eslint.base.config.js');
 
 module.exports = [
   ...baseConfig,
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    // Override or add rules here
-    rules: {},
+    files: ['**/*.json'],
+    rules: {
+      '@nx/dependency-checks': [
+        'error',
+        { ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs}'] },
+      ],
+    },
+    languageOptions: { parser: require('jsonc-eslint-parser') },
   },
   ...nx.configs['flat/angular'],
   ...nx.configs['flat/angular-template'],
@@ -17,7 +22,7 @@ module.exports = [
         'error',
         {
           type: 'attribute',
-          prefix: 'app',
+          prefix: 'lib',
           style: 'camelCase',
         },
       ],
@@ -25,7 +30,7 @@ module.exports = [
         'error',
         {
           type: 'element',
-          prefix: 'app',
+          prefix: 'lib',
           style: 'kebab-case',
         },
       ],
@@ -35,15 +40,5 @@ module.exports = [
     files: ['**/*.html'],
     // Override or add rules here
     rules: {},
-  },
-  {
-    files: ['**/*.json'],
-    rules: {
-      '@nx/dependency-checks': [
-        'error',
-        { ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs}'] },
-      ],
-    },
-    languageOptions: { parser: require('jsonc-eslint-parser') },
   },
 ];

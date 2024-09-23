@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@test-client/test-webclient": ["test-webclient/src/index.ts"]
+      "@mirage/test-webclient": ["projects/test-webclient/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
