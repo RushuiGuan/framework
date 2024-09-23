@@ -14,4 +14,7 @@
             <PackagePath></PackagePath>
         </None>
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\collections\Albatross.Collections\Albatross.Collections.csproj" />
+    </ItemGroup>
 </Project>

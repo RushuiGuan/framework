@@ -20,7 +20,7 @@ namespace Albatross.Collections {
 		}
 
 		public static T GetOrAdd<K, T>(this IDictionary<K, T> dict, K key, Func<T> func) {
-			if(!dict.TryGetValue(key, out T value)) {
+			if (!dict.TryGetValue(key, out T value)) {
 				value = func();
 				dict.Add(key, value);
 			}
@@ -36,7 +36,7 @@ namespace Albatross.Collections {
 			}
 		}
 
-
+		[Obsolete]
 		public static T GetOrAdd<T>(this ICollection<T> list, Func<T, bool> predicate, Func<T> func) {
 			var item = list.FirstOrDefault(predicate);
 			if (item == null) {
@@ -46,7 +46,8 @@ namespace Albatross.Collections {
 			return item;
 		}
 
-		public static bool TryGetAndRemove<T>(this ICollection<T> list, Func<T, bool> predicate,[NotNullWhen(true)] out T? item) {
+		[Obsolete($"Replaced with {nameof(TryGetOneAndRemove)}")]
+		public static bool TryGetAndRemove<T>(this ICollection<T> list, Func<T, bool> predicate, [NotNullWhen(true)] out T? item) {
 			item = list.FirstOrDefault(predicate);
 			if (item != null) {
 				list.Remove(item);
@@ -55,6 +56,22 @@ namespace Albatross.Collections {
 				return false;
 			}
 		}
+
+		/// <summary>
+		/// Return true if an item that matches the predicate is found.  If found, the item is removed from the list and returned as an out parameter.
+		/// </summary>
+		public static bool TryGetOneAndRemove<T>(this IList<T> list, Func<T, bool> predicate, [NotNullWhen(true)] out T? item) where T : notnull {
+			for (var i = 0; i < list.Count; i++) {
+				if (predicate(list[i])) {
+					item = list[i];
+					list.RemoveAt(i);
+					return true;
+				}
+			}
+			item = default;
+			return false;
+		}
+
 
 		/// <summary>
 		/// Remove items from the existing collection that have the same key as the new items, and then add the new items to the existing collection.
@@ -67,7 +84,7 @@ namespace Albatross.Collections {
 		public static void Replace<T, K>(this IList<T> existingItems, IEnumerable<T> newItems, Func<T, K> getKey) {
 			if (newItems.Any()) {
 				var keys = newItems.Select(getKey).ToHashSet();
-				for(int i = existingItems.Count - 1; i >= 0; i--) {
+				for (int i = existingItems.Count - 1; i >= 0; i--) {
 					var item = existingItems.ElementAt(i);
 					if (keys.Contains(getKey(item))) {
 						existingItems.RemoveAt(i);

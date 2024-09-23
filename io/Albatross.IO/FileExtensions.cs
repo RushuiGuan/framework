@@ -44,6 +44,13 @@ namespace Albatross.IO {
 				}
 			}
 		}
+		
+		/// <summary>
+		/// Append the remainng content of the second stream to the first stream.
+		/// </summary>
+		/// <param name="first"></param>
+		/// <param name="second"></param>
+		/// <returns></returns>
 		public static async Task Append(this Stream first, Stream second) {
 			first.Seek(0, SeekOrigin.End);
 			await second.CopyToAsync(first);
