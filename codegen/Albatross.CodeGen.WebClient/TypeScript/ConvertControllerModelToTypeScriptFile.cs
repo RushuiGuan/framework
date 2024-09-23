@@ -19,8 +19,8 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		private readonly TypeScriptWebClientSettings settings;
 		private readonly IConvertObject<ITypeSymbol, ITypeExpression> typeConverter;
 
-		public ConvertControllerModelToTypeScriptFile(TypeScriptWebClientSettings settings, IConvertObject<ITypeSymbol, ITypeExpression> typeConverter) {
-			this.settings = settings;
+		public ConvertControllerModelToTypeScriptFile(CodeGenSettings settings, IConvertObject<ITypeSymbol, ITypeExpression> typeConverter) {
+			this.settings = settings.TypeScriptWebClientSettings;
 			this.typeConverter = typeConverter;
 		}
 
