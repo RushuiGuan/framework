@@ -1,4 +1,4 @@
-$location = "$env:DevDirectory\test-client\projects\test-webclient";
+$location = "$PSScriptRoot\..\test-client\projects\test-webclient";
 
 get-item $location\*.generated.ts | remove-item;
 
