@@ -1,8 +1,8 @@
 {
 	"typeScriptWebClientSettings": {
 		"nameSpaceModuleMapping": {
-			"Test.Dto.Enums": "enum",
-			"Test.Dto.Classes": "dto"
+			"Test.Dto.Enums": "enum.generated.ts",
+			"Test.Dto.Classes": "dto.generated.ts"
 		}
 	},
 	"cSharpWebClientSettings": {

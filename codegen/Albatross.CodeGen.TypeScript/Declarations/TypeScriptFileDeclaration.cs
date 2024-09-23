@@ -24,7 +24,7 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 			.Union(ClasseDeclarations);
 
 		bool IsSelf(ISourceExpression source) {
-			if (source is FileNameSourceExpression fileNameSource && fileNameSource.FileName == this.Name) {
+			if (source is FileNameSourceExpression fileNameSource && fileNameSource.FileName == this.FileName) {
 				return true;
 			} else {
 				return false;
