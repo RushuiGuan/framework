@@ -15,7 +15,7 @@
     ],
     "sharedGlobals": []
   },
-  "nxCloudId": "66f0e62cb88a4333f78dfc89",
+  "nxCloudId": "66f0ea7220fc841423e034ff",
   "targetDefaults": {
     "@angular-devkit/build-angular:application": {
       "cache": true,
@@ -46,6 +46,11 @@
     },
     "e2e-ci--**/*": {
       "dependsOn": ["^build"]
+    },
+    "@nx/angular:package": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "plugins": [
