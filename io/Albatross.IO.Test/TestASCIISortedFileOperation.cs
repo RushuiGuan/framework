@@ -10,7 +10,7 @@ namespace Albatross.IO.Test {
 
 		[Fact]
 		public void Run() {
-			AsciiExtensions.CombineSortedFiles<DateTime>("a.csv", "b.csv", x=> DateTime.Parse(x));
+			AsciiExtensions.StitchChanges<DateTime>("a.csv", "b.csv", x=> DateTime.Parse(x));
 		}
 	}
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.IO {
 	public static class AsciiExtensions {
-		public static bool TryReadLastLineFromStream(this Stream stream, [NotNullWhen(true)] out string? line, bool seekToEnd = true) {
+		public static bool TryReadLastLine(this Stream stream, [NotNullWhen(true)] out string? line, bool seekToEnd = true) {
 			if (stream.CanSeek) {
 				if (seekToEnd) { stream.Seek(0, SeekOrigin.End); }
 				var position = stream.Position;
@@ -32,9 +32,9 @@ namespace Albatross.IO {
 			return false;
 		}
 
-		public static bool TryReadLineFromStream(this Stream stream, [NotNullWhen(true)] out string? line, out long positionPrior) {
+		public static bool TryReadLine(this Stream stream, [NotNullWhen(true)] out string? line, out long positionPrior) {
 			var sb = new StringBuilder(128);
-			if (stream.TryReadLineFromStream(sb, out positionPrior)) {
+			if (stream.TryReadLine(sb, out positionPrior)) {
 				line = sb.ToString();
 				return true;
 			} else {
@@ -43,7 +43,7 @@ namespace Albatross.IO {
 			}
 		}
 
-		public static bool TryReadLineFromStream(this Stream stream, StringBuilder sb, out long positionPrior) {
+		public static bool TryReadLine(this Stream stream, StringBuilder sb, out long positionPrior) {
 			positionPrior = stream.Position;
 			var before = sb.Length;
 			while (stream.Position < stream.Length) {
@@ -57,14 +57,16 @@ namespace Albatross.IO {
 			return sb.Length > before;
 		}
 
-		public static async Task CombineSortedFiles<T>(string current, string changes, Func<string, T> getSortKey) where T : IComparable<T> {
+		public static async Task StitchChanges<T>(this string current, string changes, Func<string, T> getSortKey) where T : IComparable<T> {
 			using (var stream = File.Open(current, FileMode.OpenOrCreate, FileAccess.ReadWrite)) {
 				using (var changesStream = File.Open(changes, FileMode.Open, FileAccess.ReadWrite)) {
-					if (stream.Length == 0) {
+					if (changesStream.Length == 0) {
+						return;
+					}else if (stream.Length == 0) {
 						await changesStream.CopyToAsync(stream);
 					} else {
 						T firstKey, lastKey, firstChangeKey, lastChangeKey;
-						if (stream.TryReadLineFromStream(out var firstLine, out _) && stream.TryReadLastLineFromStream(out var lastLine)) {
+						if (stream.TryReadLine(out var firstLine, out _) && stream.TryReadLastLine(out var lastLine)) {
 							firstKey = getSortKey(firstLine);
 							lastKey = getSortKey(lastLine);
 							if (firstKey.CompareTo(lastKey) > 0) {
@@ -73,7 +75,7 @@ namespace Albatross.IO {
 						} else {
 							throw new InvalidOperationException("Original file is empty");
 						}
-						if (changesStream.TryReadLineFromStream(out firstLine, out _) && changesStream.TryReadLastLineFromStream(out lastLine)) {
+						if (changesStream.TryReadLine(out firstLine, out _) && changesStream.TryReadLastLine(out lastLine)) {
 							firstChangeKey = getSortKey(firstLine);
 							lastChangeKey = getSortKey(lastLine);
 							if (firstChangeKey.CompareTo(lastChangeKey) > 0) {
@@ -103,18 +105,19 @@ namespace Albatross.IO {
 							stream.SetLength(changesStream.Length);
 						} else if (firstChangeKey.CompareTo(firstKey) > 0 && lastChangeKey.CompareTo(lastKey) < 0) {
 							// overlapped within the original file, exclusive of the first and last key
-							using (var alt_stream = new FileInfo(Path.GetTempFileName()).Open(FileMode.CreateNew, FileAccess.ReadWrite)) {
+							var alt_file = Path.GetTempFileName();
+							using (var alt_stream = new FileInfo(alt_file).Open(FileMode.CreateNew, FileAccess.Write)) {
 								long totalSize = changesStream.Length;
 								stream.Seek(0, SeekOrigin.Begin);
 								await stream.CopyToAsync(alt_stream);
-								while (stream.TryReadLineFromStream(out var line, out var positionPrior)) {
+								while (stream.TryReadLine(out var line, out var positionPrior)) {
 									var key = getSortKey(line);
 									if (key.CompareTo(firstChangeKey) >= 0) {
 										totalSize += positionPrior + 1;
 										alt_stream.Seek(positionPrior, SeekOrigin.Begin);
 										await changesStream.CopyToAsync(alt_stream);
 									}
-									if (key.CompareTo(lastChangeKey) <= 0) {
+									if (key.CompareTo(lastChangeKey) < 0) {
 										stream.Seek(positionPrior, SeekOrigin.Begin);
 										totalSize += stream.Length - positionPrior;
 										break;
@@ -127,12 +130,13 @@ namespace Albatross.IO {
 								await alt_stream.CopyToAsync(stream);
 								stream.SetLength(totalSize);
 							}
+							File.Delete(alt_file);
 						} else if (lastChangeKey.CompareTo(firstKey) >= 0 && lastChangeKey.CompareTo(lastKey) < 0) {
 							// overlapped before, inclusive of the first key, exclusive of the last key
 							// if the changes start before the original file, but ends within the original file, find the point
 							// where the changes end and prepend the changes to the original file at that position
 							stream.Seek(0, SeekOrigin.Begin);
-							while (stream.TryReadLineFromStream(out var line, out var positionPrior)) {
+							while (stream.TryReadLine(out var line, out var positionPrior)) {
 								var key = getSortKey(line);
 								if (key.CompareTo(lastChangeKey) > 0) {
 									stream.Seek(positionPrior, SeekOrigin.Begin);
@@ -145,7 +149,7 @@ namespace Albatross.IO {
 						} else if (firstChangeKey.CompareTo(firstKey) > 0 && firstChangeKey.CompareTo(lastKey) <= 0) {
 							// overlapped after, exclusive of the first key, inclusive of the last key
 							stream.Seek(0, SeekOrigin.Begin);
-							while (stream.TryReadLineFromStream(out var line, out var positionPrior)) {
+							while (stream.TryReadLine(out var line, out var positionPrior)) {
 								var key = getSortKey(line);
 								if (key.CompareTo(firstChangeKey) >= 0) {
 									stream.Seek(positionPrior, SeekOrigin.Begin);
@@ -155,7 +159,7 @@ namespace Albatross.IO {
 							changesStream.Seek(0, SeekOrigin.Begin);
 							await changesStream.CopyToAsync(stream);
 						} else {
-							throw new InvalidOperationException("Invalid state");
+							throw new InvalidOperationException("Logic Error");
 						}
 					}
 				}
