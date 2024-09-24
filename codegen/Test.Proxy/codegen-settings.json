@@ -3,7 +3,10 @@
 		"nameSpaceModuleMapping": {
 			"Test.Dto.Enums": "enum.generated.ts",
 			"Test.Dto.Classes": "dto.generated.ts"
-		}
+		},
+		"endPointName": "test-client",
+		"baseClassModule": "@mirage/webclient",
+		"configServiceModule": "@mirage/config"
 	},
 	"cSharpWebClientSettings": {
 		"namespace": "Test.Proxy"
