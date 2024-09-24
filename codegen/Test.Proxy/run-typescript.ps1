@@ -12,7 +12,8 @@ codegen typescript-dto `
 
 
 codegen typescript-proxy `
-	-p $PSScriptRoot\..\Test.Proxy\Test.Proxy.csproj `
+	-p $PSScriptRoot\..\Test.WebApi\Test.WebApi.csproj `
 	-s $PSScriptRoot\codegen-settings.json `
 	-o $location\src\lib\ `
 	--log information
+
