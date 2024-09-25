@@ -1,107 +1,106 @@
-import { HttpClient }  from "@angular/common/http";
-import { Injectable }  from "@angular/core";
-import { ConfigService }  from "@mirage/config";
-import { WebClient }  from "@mirage/webclient";
-import { MyDto }  from './dto.generated';
-import { Observable }  from "rxjs";
+import { MyDto }  from './dto';
+import { HttpClient }  from '@angular/common/http';
+import { Injectable }  from '@angular/core';
+import { ConfigService, DataService, Logger }  from 'welton-core';
 
-@Injectable({ providedIn: "root" })
-export class NullableReturnTypeTestService extends WebClient {
-	get endPoint(): string  {
-		return this.config.endpoint("test-client") + "api/nullable-return-type";
+@Injectable({"providedIn":"root"})
+export class NullableReturnTypeTestService extends DataService {
+	get endPoint():string {
+		return this.config.endpoint('test') + 'api/nullable-return-type/'
 	}
-	constructor(private config: ConfigService, protected client: HttpClient) {
-		super();
-		console.log("NullableReturnTypeTestService instance created");
+	constructor(private config: ConfigService, protected client: HttpClient, logger: Logger) {
+		super(logger);
+		this.logger.info("NullableReturnTypeTestService instance created");
 	}
-	getString(): Observable<string>  {
-		const relativeUrl = `/string`;
-		const result = this.doGetStringAsync(relativeUrl, {});
+	async getString(): Promise<string>  {
+		const relativeUrl = `string`;
+		const result = await this.doGetStringAsync(relativeUrl, null);
 		return result;
 	}
-	getAsyncString(): Observable<string>  {
-		const relativeUrl = `/async-string`;
-		const result = this.doGetStringAsync(relativeUrl, {});
+	async getAsyncString(): Promise<string>  {
+		const relativeUrl = `async-string`;
+		const result = await this.doGetStringAsync(relativeUrl, null);
 		return result;
 	}
-	getActionResultString(): Observable<string>  {
-		const relativeUrl = `/action-result-string`;
-		const result = this.doGetStringAsync(relativeUrl, {});
+	async getActionResultString(): Promise<ActionResult_<string>>  {
+		const relativeUrl = `action-result-string`;
+		const result = await this.doGetAsync<ActionResult_<string>>(relativeUrl, null);
 		return result;
 	}
-	getAsyncActionResultString(): Observable<string>  {
-		const relativeUrl = `/async-action-result-string`;
-		const result = this.doGetStringAsync(relativeUrl, {});
+	async getAsyncActionResultString(): Promise<ActionResult_<string>>  {
+		const relativeUrl = `async-action-result-string`;
+		const result = await this.doGetAsync<ActionResult_<string>>(relativeUrl, null);
 		return result;
 	}
-	getInt(): Observable<number>  {
-		const relativeUrl = `/int`;
-		const result = this.doGetAsync<number>(relativeUrl, {});
+	async getInt(): Promise<number>  {
+		const relativeUrl = `int`;
+		const result = await this.doGetAsync<number>(relativeUrl, null);
 		return result;
 	}
-	getAsyncInt(): Observable<number>  {
-		const relativeUrl = `/async-int`;
-		const result = this.doGetAsync<number>(relativeUrl, {});
+	async getAsyncInt(): Promise<number>  {
+		const relativeUrl = `async-int`;
+		const result = await this.doGetAsync<number>(relativeUrl, null);
 		return result;
 	}
-	getActionResultInt(): Observable<number>  {
-		const relativeUrl = `/action-result-int`;
-		const result = this.doGetAsync<number>(relativeUrl, {});
+	async getActionResultInt(): Promise<ActionResult_<number>>  {
+		const relativeUrl = `action-result-int`;
+		const result = await this.doGetAsync<ActionResult_<number>>(relativeUrl, null);
 		return result;
 	}
-	getAsyncActionResultInt(): Observable<number>  {
-		const relativeUrl = `/async-action-result-int`;
-		const result = this.doGetAsync<number>(relativeUrl, {});
+	async getAsyncActionResultInt(): Promise<ActionResult_<number>>  {
+		const relativeUrl = `async-action-result-int`;
+		const result = await this.doGetAsync<ActionResult_<number>>(relativeUrl, null);
 		return result;
 	}
-	getDateTime(): Observable<Date>  {
-		const relativeUrl = `/datetime`;
-		const result = this.doGetAsync<Date>(relativeUrl, {});
+	async getDateTime(): Promise<Date>  {
+		const relativeUrl = `datetime`;
+		const result = await this.doGetAsync<Date>(relativeUrl, null);
 		return result;
 	}
-	getAsyncDateTime(): Observable<Date>  {
-		const relativeUrl = `/async-datetime`;
-		const result = this.doGetAsync<Date>(relativeUrl, {});
+	async getAsyncDateTime(): Promise<Date>  {
+		const relativeUrl = `async-datetime`;
+		const result = await this.doGetAsync<Date>(relativeUrl, null);
 		return result;
 	}
-	getActionResultDateTime(): Observable<Date>  {
-		const relativeUrl = `/action-result-datetime`;
-		const result = this.doGetAsync<Date>(relativeUrl, {});
+	async getActionResultDateTime(): Promise<ActionResult_<Date>>  {
+		const relativeUrl = `action-result-datetime`;
+		const result = await this.doGetAsync<ActionResult_<Date>>(relativeUrl, null);
 		return result;
 	}
-	getAsyncActionResultDateTime(): Observable<Date>  {
-		const relativeUrl = `/async-action-result-datetime`;
-		const result = this.doGetAsync<Date>(relativeUrl, {});
+	async getAsyncActionResultDateTime(): Promise<ActionResult_<Date>>  {
+		const relativeUrl = `async-action-result-datetime`;
+		const result = await this.doGetAsync<ActionResult_<Date>>(relativeUrl, null);
 		return result;
 	}
-	getMyDto(): Observable<MyDto>  {
-		const relativeUrl = `/object`;
-		const result = this.doGetAsync<MyDto>(relativeUrl, {});
+	async getMyDto(): Promise<MyDto>  {
+		const relativeUrl = `object`;
+		const result = await this.doGetAsync<MyDto>(relativeUrl, null);
 		return result;
 	}
-	getAsyncMyDto(): Observable<MyDto>  {
-		const relativeUrl = `/async-object`;
-		const result = this.doGetAsync<MyDto>(relativeUrl, {});
+	async getAsyncMyDto(): Promise<MyDto>  {
+		const relativeUrl = `async-object`;
+		const result = await this.doGetAsync<MyDto>(relativeUrl, null);
 		return result;
 	}
-	actionResultObject(): Observable<MyDto>  {
-		const relativeUrl = `/action-result-object`;
-		const result = this.doGetAsync<MyDto>(relativeUrl, {});
+	async actionResultObject(): Promise<ActionResult_<MyDto>>  {
+		const relativeUrl = `action-result-object`;
+		const result = await this.doGetAsync<ActionResult_<MyDto>>(relativeUrl, null);
 		return result;
 	}
-	asyncActionResultObject(): Observable<MyDto>  {
-		const relativeUrl = `/async-action-result-object`;
-		const result = this.doGetAsync<MyDto>(relativeUrl, {});
+	async asyncActionResultObject(): Promise<ActionResult_<MyDto>>  {
+		const relativeUrl = `async-action-result-object`;
+		const result = await this.doGetAsync<ActionResult_<MyDto>>(relativeUrl, null);
 		return result;
 	}
-	getMyDtoNullableArray(): Observable<MyDto[]>  {
-		const relativeUrl = `/nullable-array-return-type`;
-		const result = this.doGetAsync<MyDto[]>(relativeUrl, {});
+	async getMyDtoNullableArray(): Promise<MyDto[]>  {
+		const relativeUrl = `nullable-array-return-type`;
+		const result = await this.doGetAsync<MyDto[]>(relativeUrl, null);
 		return result;
 	}
-	getMyDtoCollection(): Observable<MyDto[]>  {
-		const relativeUrl = `/nullable-collection-return-type`;
-		const result = this.doGetAsync<MyDto[]>(relativeUrl, {});
+	async getMyDtoCollection(): Promise<MyDto[]>  {
+		const relativeUrl = `nullable-collection-return-type`;
+		const result = await this.doGetAsync<MyDto[]>(relativeUrl, null);
 		return result;
 	}
 }
+

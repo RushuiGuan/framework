@@ -1,61 +1,60 @@
-import { HttpClient }  from "@angular/common/http";
-import { Injectable }  from "@angular/core";
-import { ConfigService }  from "@mirage/config";
-import { WebClient }  from "@mirage/webclient";
-import { Observable }  from "rxjs";
+import { HttpClient }  from '@angular/common/http';
+import { Injectable }  from '@angular/core';
+import { ConfigService, DataService, Logger }  from 'welton-core';
 
-@Injectable({ providedIn: "root" })
-export class FromRouteParamTestService extends WebClient {
-	get endPoint(): string  {
-		return this.config.endpoint("test-client") + "api/from-routing-param-test";
+@Injectable({"providedIn":"root"})
+export class FromRouteParamTestService extends DataService {
+	get endPoint():string {
+		return this.config.endpoint('test') + 'api/from-routing-param-test/'
 	}
-	constructor(private config: ConfigService, protected client: HttpClient) {
-		super();
-		console.log("FromRouteParamTestService instance created");
+	constructor(private config: ConfigService, protected client: HttpClient, logger: Logger) {
+		super(logger);
+		this.logger.info("FromRouteParamTestService instance created");
 	}
-	implicitRoute(name: string, id: number): Observable<object>  {
-		const relativeUrl = `/implicit-route/${name}/${id}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async implicitRoute(name: string, id: number): Promise<any>  {
+		const relativeUrl = `implicit-route/${name}/${id}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
-	explicitRoute(name: string, id: number): Observable<object>  {
-		const relativeUrl = `/explicit-route/${name}/${id}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async explicitRoute(name: string, id: number): Promise<any>  {
+		const relativeUrl = `explicit-route/${name}/${id}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
-	wildCardRouteDouble(name: string, id: number): Observable<object>  {
-		const relativeUrl = `/wild-card-route-double/${id}/${name}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async wildCardRouteDouble(name: string, id: number): Promise<any>  {
+		const relativeUrl = `wild-card-route-double/${id}/${name}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
-	wildCardRouteSingle(name: string, id: number): Observable<object>  {
-		const relativeUrl = `/wild-card-route-single/${id}/${name}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async wildCardRouteSingle(name: string, id: number): Promise<any>  {
+		const relativeUrl = `wild-card-route-single/${id}/${name}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
-	dateTimeRoute(date: Date, id: number): Observable<object>  {
-		const relativeUrl = `/date-time-route/{date.ISO8601String()}/${id}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async dateTimeRoute(date: string, id: number): Promise<any>  {
+		const relativeUrl = `date-time-route/${date}/${id}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
-	dateTimeAsDateOnlyRoute(date: Date, id: number): Observable<object>  {
-		const relativeUrl = `/date-time-as-date-only-route/{date.ISO8601StringDateOnly()}/${id}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async dateTimeAsDateOnlyRoute(date: string, id: number): Promise<any>  {
+		const relativeUrl = `date-time-as-date-only-route/${date}/${id}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
-	dateOnlyRoute(date: Date, id: number): Observable<object>  {
-		const relativeUrl = `/date-only-route/{date.ISO8601String()}/${id}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async dateOnlyRoute(date: string, id: number): Promise<any>  {
+		const relativeUrl = `date-only-route/${date}/${id}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
-	dateTimeOffsetRoute(date: Date, id: number): Observable<object>  {
-		const relativeUrl = `/datetimeoffset-route/{date.ISO8601String()}/${id}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async dateTimeOffsetRoute(date: DateTimeOffset, id: number): Promise<any>  {
+		const relativeUrl = `datetimeoffset-route/${date}/${id}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
-	timeOnlyRoute(time: Date, id: number): Observable<object>  {
-		const relativeUrl = `/timeonly-route/{time.ISO8601String()}/${id}`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
+	async timeOnlyRoute(time: TimeOnly, id: number): Promise<any>  {
+		const relativeUrl = `timeonly-route/${time}/${id}`;
+		const result = await this.doGetAsync<any>(relativeUrl, null);
 		return result;
 	}
 }
+

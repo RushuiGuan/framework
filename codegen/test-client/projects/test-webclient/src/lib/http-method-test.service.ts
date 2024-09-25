@@ -1,41 +1,35 @@
-import { HttpClient }  from "@angular/common/http";
-import { Injectable }  from "@angular/core";
-import { ConfigService }  from "@mirage/config";
-import { WebClient }  from "@mirage/webclient";
-import { Observable }  from "rxjs";
+import { HttpClient }  from '@angular/common/http';
+import { Injectable }  from '@angular/core';
+import { ConfigService, DataService, Logger }  from 'welton-core';
 
-@Injectable({ providedIn: "root" })
-export class HttpMethodTestService extends WebClient {
-	get endPoint(): string  {
-		return this.config.endpoint("test-client") + "api/http-method-test";
+@Injectable({"providedIn":"root"})
+export class HttpMethodTestService extends DataService {
+	get endPoint():string {
+		return this.config.endpoint('test') + 'api/http-method-test/'
 	}
-	constructor(private config: ConfigService, protected client: HttpClient) {
-		super();
-		console.log("HttpMethodTestService instance created");
+	constructor(private config: ConfigService, protected client: HttpClient, logger: Logger) {
+		super(logger);
+		this.logger.info("HttpMethodTestService instance created");
 	}
-	delete(): Observable<object>  {
+	async delete(): Promise<any>  {
 		const relativeUrl = ``;
-		const result = this.doDeleteAsync(relativeUrl, {});
+		await this.doDeleteAsync(relativeUrl, null)
+	}
+	async post(): Promise<any>  {
+		const relativeUrl = ``;
+		const result = await this.doPostAsync<any,any>(relativeUrl, null, null);
 		return result;
 	}
-	post(): Observable<object>  {
+	async patch(): Promise<any>  {
 		const relativeUrl = ``;
-		const result = this.doPostAsync<object, string>(relativeUrl, "", {});
+	}
+	async get(): Promise<number>  {
+		const relativeUrl = ``;
+		const result = await this.doGetAsync<number>(relativeUrl, null);
 		return result;
 	}
-	patch(): Observable<object>  {
+	async put(): Promise<any>  {
 		const relativeUrl = ``;
-		const result = this.doPatchAsync<object, string>(relativeUrl, "", {});
-		return result;
-	}
-	get(): Observable<number>  {
-		const relativeUrl = ``;
-		const result = this.doGetAsync<number>(relativeUrl, {});
-		return result;
-	}
-	put(): Observable<object>  {
-		const relativeUrl = ``;
-		const result = this.doPutAsync<object, string>(relativeUrl, "", {});
-		return result;
 	}
 }
+

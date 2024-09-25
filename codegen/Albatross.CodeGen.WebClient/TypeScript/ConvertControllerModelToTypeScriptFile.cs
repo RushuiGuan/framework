@@ -33,7 +33,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		}
 
 		public TypeScriptFileDeclaration Convert(ControllerInfo model) {
-			var fileName = $"{model.ControllerName.Kebaberize()}.service";
+			var fileName = $"{model.ControllerName.Kebaberize()}.generated.service";
 			return new TypeScriptFileDeclaration(fileName) {
 				ClasseDeclarations = [
 					new ClassDeclaration($"{model.ControllerName}Service"){

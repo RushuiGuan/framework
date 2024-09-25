@@ -1,61 +1,60 @@
-import { HttpClient }  from "@angular/common/http";
-import { Injectable }  from "@angular/core";
-import { ConfigService }  from "@mirage/config";
-import { WebClient }  from "@mirage/webclient";
-import { Observable }  from "rxjs";
+import { HttpClient }  from '@angular/common/http';
+import { Injectable }  from '@angular/core';
+import { ConfigService, DataService, Logger }  from 'welton-core';
 
-@Injectable({ providedIn: "root" })
-export class FromQueryParamTestService extends WebClient {
-	get endPoint(): string  {
-		return this.config.endpoint("test-client") + "api/from-query-param-test";
+@Injectable({"providedIn":"root"})
+export class FromQueryParamTestService extends DataService {
+	get endPoint():string {
+		return this.config.endpoint('test') + 'api/from-query-param-test/'
 	}
-	constructor(private config: ConfigService, protected client: HttpClient) {
-		super();
-		console.log("FromQueryParamTestService instance created");
+	constructor(private config: ConfigService, protected client: HttpClient, logger: Logger) {
+		super(logger);
+		this.logger.info("FromQueryParamTestService instance created");
 	}
-	requiredString(name: string): Observable<object>  {
-		const relativeUrl = `/required-string`;
-		const result = this.doGetAsync<object>(relativeUrl, { name });
+	async requiredString(name: string): Promise<any>  {
+		const relativeUrl = `required-string`;
+		const result = await this.doGetAsync<any>(relativeUrl, { name});
 		return result;
 	}
-	requiredStringImplied(name: string): Observable<object>  {
-		const relativeUrl = `/required-string-implied`;
-		const result = this.doGetAsync<object>(relativeUrl, { name });
+	async requiredStringImplied(name: string): Promise<any>  {
+		const relativeUrl = `required-string-implied`;
+		const result = await this.doGetAsync<any>(relativeUrl, { name});
 		return result;
 	}
-	requiredStringDiffName(name: string): Observable<object>  {
-		const relativeUrl = `/required-string-diff-name`;
-		const result = this.doGetAsync<object>(relativeUrl, { n: name });
+	async requiredStringDiffName(name: string): Promise<any>  {
+		const relativeUrl = `required-string-diff-name`;
+		const result = await this.doGetAsync<any>(relativeUrl, { n});
 		return result;
 	}
-	requiredDateTime(datetime: Date): Observable<object>  {
-		const relativeUrl = `/required-datetime`;
-		const result = this.doGetAsync<object>(relativeUrl, { datetime });
+	async requiredDateTime(datetime: string): Promise<any>  {
+		const relativeUrl = `required-datetime`;
+		const result = await this.doGetAsync<any>(relativeUrl, { datetime});
 		return result;
 	}
-	requiredDateTimeDiffName(datetime: Date): Observable<object>  {
-		const relativeUrl = `/required-datetime_diff-name`;
-		const result = this.doGetAsync<object>(relativeUrl, { d: datetime });
+	async requiredDateTimeDiffName(datetime: string): Promise<any>  {
+		const relativeUrl = `required-datetime_diff-name`;
+		const result = await this.doGetAsync<any>(relativeUrl, { d});
 		return result;
 	}
-	requiredDateOnly(dateonly: Date): Observable<object>  {
-		const relativeUrl = `/required-dateonly`;
-		const result = this.doGetAsync<object>(relativeUrl, { dateonly });
+	async requiredDateOnly(dateonly: string): Promise<any>  {
+		const relativeUrl = `required-dateonly`;
+		const result = await this.doGetAsync<any>(relativeUrl, { dateonly});
 		return result;
 	}
-	requiredDateOnlyDiffName(dateonly: Date): Observable<object>  {
-		const relativeUrl = `/required-dateonly_diff-name`;
-		const result = this.doGetAsync<object>(relativeUrl, { d: dateonly });
+	async requiredDateOnlyDiffName(dateonly: string): Promise<any>  {
+		const relativeUrl = `required-dateonly_diff-name`;
+		const result = await this.doGetAsync<any>(relativeUrl, { d});
 		return result;
 	}
-	requiredDateTimeOffset(dateTimeOffset: Date): Observable<object>  {
-		const relativeUrl = `/required-datetimeoffset`;
-		const result = this.doGetAsync<object>(relativeUrl, { dateTimeOffset });
+	async requiredDateTimeOffset(dateTimeOffset: DateTimeOffset): Promise<any>  {
+		const relativeUrl = `required-datetimeoffset`;
+		const result = await this.doGetAsync<any>(relativeUrl, { dateTimeOffset});
 		return result;
 	}
-	requiredDateTimeOffsetDiffName(dateTimeOffset: Date): Observable<object>  {
-		const relativeUrl = `/required-datetimeoffset_diff-name`;
-		const result = this.doGetAsync<object>(relativeUrl, { d: dateTimeOffset });
+	async requiredDateTimeOffsetDiffName(dateTimeOffset: DateTimeOffset): Promise<any>  {
+		const relativeUrl = `required-datetimeoffset_diff-name`;
+		const result = await this.doGetAsync<any>(relativeUrl, { d});
 		return result;
 	}
 }
+

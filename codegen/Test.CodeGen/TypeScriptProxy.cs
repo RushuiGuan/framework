@@ -43,7 +43,7 @@ namespace Test.CodeGen {
 			return Task.FromResult(0);
 		}
 		void AddImport(Class @class) {
-			@class.Imports.Add(new Import("my-core-lib", "ConfigService", "DataService", "Logger"));
+			@class.Imports.Add(new Import("shared-core", "ConfigService", "DataService", "Logger"));
 		}
 	}
 }
