@@ -2,14 +2,14 @@ import { MyEnum, MyStringEnum }  from './enum.generated';
 
 export interface ArrayValueType {
 	intArray: number[];
-	nullableIntArray: number[];
+	nullableIntArray: number|undefined[];
 }
 export interface BaseType {
 	id: number;
 }
 export interface CollectionValueType {
 	intCollection: number[];
-	nullableIntCollection: number[];
+	nullableIntCollection: number|undefined[];
 }
 export interface MyClassWithBaseType {
 	id: number;
@@ -42,8 +42,8 @@ export interface MyDto {
 	dateOnly: Date;
 	dateTimeOffset: Date;
 	timeSpan: Date;
-	nullableInt ?: number;
-	nullableIntGeneric ?: number;
+	nullableInt ?: number|undefined;
+	nullableIntGeneric ?: number|undefined;
 	nullableString ?: string;
 	nullableStringArray: string[];
 	guid: string;
@@ -57,7 +57,7 @@ export interface ReferenceType {
 	string: string;
 	myClass: MyClassWithGenericBaseType;
 	nullableString ?: string;
-	nullableMyClass ?: MyClassWithGenericBaseType;
+	nullableMyClass ?: MyClassWithGenericBaseType|undefined;
 }
 export interface ValueType {
 	int: number;
@@ -81,25 +81,25 @@ export interface ValueType {
 	guid: string;
 	enum: MyEnum;
 	stringEnum: MyStringEnum;
-	nullableInt ?: number;
-	nullableLong ?: number;
-	nullableDouble ?: number;
-	nullableDecimal ?: number;
-	nullableFloat ?: number;
-	nullableBool ?: boolean;
-	nullableChar ?: string;
-	nullableShort ?: number;
-	nullableUShort ?: number;
-	nullableUInt ?: number;
-	nullableULong ?: number;
-	nullableSByte ?: number;
-	nullableByte ?: number;
-	nullableDateTime ?: Date;
-	nullableDateOnly ?: Date;
-	nullableDateTimeOffset ?: Date;
-	nullableTimeSpan ?: Date;
-	nullableTimeOnly ?: Date;
-	nullableGuid ?: string;
-	nullableEnum ?: MyEnum;
-	nullableStringEnum ?: MyStringEnum;
+	nullableInt ?: number|undefined;
+	nullableLong ?: number|undefined;
+	nullableDouble ?: number|undefined;
+	nullableDecimal ?: number|undefined;
+	nullableFloat ?: number|undefined;
+	nullableBool ?: boolean|undefined;
+	nullableChar ?: string|undefined;
+	nullableShort ?: number|undefined;
+	nullableUShort ?: number|undefined;
+	nullableUInt ?: number|undefined;
+	nullableULong ?: number|undefined;
+	nullableSByte ?: number|undefined;
+	nullableByte ?: number|undefined;
+	nullableDateTime ?: Date|undefined;
+	nullableDateOnly ?: Date|undefined;
+	nullableDateTimeOffset ?: Date|undefined;
+	nullableTimeSpan ?: Date|undefined;
+	nullableTimeOnly ?: Date|undefined;
+	nullableGuid ?: string|undefined;
+	nullableEnum ?: MyEnum|undefined;
+	nullableStringEnum ?: MyStringEnum|undefined;
 }

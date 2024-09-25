@@ -51,6 +51,7 @@ namespace Albatross.CodeGen.CommandLine {
 					var webApi = this.convertToWebApi.Convert(model);
 					var file = this.converToTypeScriptFile.Convert(webApi);
 					file.Generate(System.Console.Out);
+					logger.LogInformation("directory: {data}", options.OutputDirectory?.FullName);
 					if (options.OutputDirectory != null) {
 						using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, file.FileName))) {
 							file.Generate(writer);

@@ -1,57 +1,56 @@
-import { HttpClient }  from "@angular/common/http";
-import { Injectable }  from "@angular/core";
-import { ConfigService }  from "@mirage/config";
-import { WebClient }  from "@mirage/webclient";
-import { MyDto }  from './dto.generated';
-import { Observable }  from "rxjs";
+import { MyDto }  from './dto';
+import { HttpClient }  from '@angular/common/http';
+import { Injectable }  from '@angular/core';
+import { ConfigService, DataService, Logger }  from 'welton-core';
 
-@Injectable({ providedIn: "root" })
-export class FromBodyParamTestService extends WebClient {
-	get endPoint(): string  {
-		return this.config.endpoint("test-client") + "api/from-body-param-test";
+@Injectable({"providedIn":"root"})
+export class FromBodyParamTestService extends DataService {
+	get endPoint():string {
+		return this.config.endpoint('test') + 'api/from-body-param-test/'
 	}
-	constructor(private config: ConfigService, protected client: HttpClient) {
-		super();
-		console.log("FromBodyParamTestService instance created");
+	constructor(private config: ConfigService, protected client: HttpClient, logger: Logger) {
+		super(logger);
+		this.logger.info("FromBodyParamTestService instance created");
 	}
-	requiredObject(dto: MyDto): Observable<object>  {
-		const relativeUrl = `/required-object`;
-		const result = this.doPostAsync<object, MyDto>(relativeUrl, dto, {});
+	async requiredObject(dto: MyDto): Promise<any>  {
+		const relativeUrl = `required-object`;
+		const result = await this.doPostAsync<any,MyDto>(relativeUrl, dto, null);
 		return result;
 	}
-	nullableObject(dto: MyDto): Observable<object>  {
-		const relativeUrl = `/nullable-object`;
-		const result = this.doPostAsync<object, MyDto>(relativeUrl, dto, {});
+	async nullableObject(dto: MyDto): Promise<any>  {
+		const relativeUrl = `nullable-object`;
+		const result = await this.doPostAsync<any,MyDto>(relativeUrl, dto, null);
 		return result;
 	}
-	requiredInt(value: number): Observable<object>  {
-		const relativeUrl = `/required-int`;
-		const result = this.doPostAsync<object, number>(relativeUrl, value, {});
+	async requiredInt(value: number): Promise<any>  {
+		const relativeUrl = `required-int`;
+		const result = await this.doPostAsync<any,number>(relativeUrl, value, null);
 		return result;
 	}
-	nullableInt(value: number): Observable<object>  {
-		const relativeUrl = `/nullable-int`;
-		const result = this.doPostAsync<object, number>(relativeUrl, value, {});
+	async nullableInt(value: number): Promise<any>  {
+		const relativeUrl = `nullable-int`;
+		const result = await this.doPostAsync<any,number>(relativeUrl, value, null);
 		return result;
 	}
-	requiredString(value: string): Observable<object>  {
-		const relativeUrl = `/required-string`;
-		const result = this.doPostAsync<object, string>(relativeUrl, value, {});
+	async requiredString(value: string): Promise<any>  {
+		const relativeUrl = `required-string`;
+		const result = await this.doPostAsync<any,string>(relativeUrl, value, null);
 		return result;
 	}
-	nullableString(value: string): Observable<object>  {
-		const relativeUrl = `/nullable-string`;
-		const result = this.doPostAsync<object, string>(relativeUrl, value, {});
+	async nullableString(value: string): Promise<any>  {
+		const relativeUrl = `nullable-string`;
+		const result = await this.doPostAsync<any,string>(relativeUrl, value, null);
 		return result;
 	}
-	requiredObjectArray(array: MyDto[]): Observable<object>  {
-		const relativeUrl = `/required-object-array`;
-		const result = this.doPostAsync<object, MyDto[]>(relativeUrl, array, {});
+	async requiredObjectArray(array: MyDto[]): Promise<any>  {
+		const relativeUrl = `required-object-array`;
+		const result = await this.doPostAsync<any,MyDto[]>(relativeUrl, array, null);
 		return result;
 	}
-	nullableObjectArray(array: MyDto[]): Observable<object>  {
-		const relativeUrl = `/nullable-object-array`;
-		const result = this.doPostAsync<object, MyDto[]>(relativeUrl, array, {});
+	async nullableObjectArray(array: MyDto[]): Promise<any>  {
+		const relativeUrl = `nullable-object-array`;
+		const result = await this.doPostAsync<any,MyDto[]>(relativeUrl, array, null);
 		return result;
 	}
 }
+

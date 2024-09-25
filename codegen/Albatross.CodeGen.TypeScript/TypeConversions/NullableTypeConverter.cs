@@ -2,14 +2,20 @@
 using Microsoft.CodeAnalysis;
 using System.Diagnostics.CodeAnalysis;
 using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.TypeScript.Expressions;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class NullableTypeConverter : ITypeConverter {
 		public int Precedence => 80;
-		public const string NullableDefinitionName = "System.Nullable<>";
 		public bool TryConvert(ITypeSymbol symbol, IConvertObject<ITypeSymbol, ITypeExpression> factory, [NotNullWhen(true)] out ITypeExpression? expression) {
-			if (symbol.TryGetGenericTypeArguments(NullableDefinitionName, out var arguments)) {
-				expression = factory.Convert(arguments[0]);
+			ITypeExpression? typeExpression = null;
+			if (symbol.TryGetNullableValueType(out var valueType)) {
+				typeExpression = factory.Convert(valueType!);
+			} else if (symbol.IsNullableReferenceType()) {
+				typeExpression = factory.Convert(symbol.WithNullableAnnotation(NullableAnnotation.None));
+			}
+			if (typeExpression != null) {
+				expression = new MultiTypeExpression(typeExpression, Defined.Types.Undefined());
 				return true;
 			} else {
 				expression = null;

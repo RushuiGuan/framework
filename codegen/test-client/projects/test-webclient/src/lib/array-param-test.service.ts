@@ -1,36 +1,35 @@
-import { HttpClient }  from "@angular/common/http";
-import { Injectable }  from "@angular/core";
-import { ConfigService }  from "@mirage/config";
-import { WebClient }  from "@mirage/webclient";
-import { Observable }  from "rxjs";
+import { HttpClient }  from '@angular/common/http';
+import { Injectable }  from '@angular/core';
+import { ConfigService, DataService, Logger }  from 'welton-core';
 
-@Injectable({ providedIn: "root" })
-export class ArrayParamTestService extends WebClient {
-	get endPoint(): string  {
-		return this.config.endpoint("test-client") + "api/array-param-test";
+@Injectable({"providedIn":"root"})
+export class ArrayParamTestService extends DataService {
+	get endPoint():string {
+		return this.config.endpoint('test') + 'api/array-param-test/'
 	}
-	constructor(private config: ConfigService, protected client: HttpClient) {
-		super();
-		console.log("ArrayParamTestService instance created");
+	constructor(private config: ConfigService, protected client: HttpClient, logger: Logger) {
+		super(logger);
+		this.logger.info("ArrayParamTestService instance created");
 	}
-	arrayStringParam(array: string[]): Observable<string>  {
-		const relativeUrl = `/array-string-param`;
-		const result = this.doGetStringAsync(relativeUrl, { a: array });
+	async arrayStringParam(array: string[]): Promise<string>  {
+		const relativeUrl = `array-string-param`;
+		const result = await this.doGetStringAsync(relativeUrl, { a});
 		return result;
 	}
-	arrayValueType(array: number[]): Observable<string>  {
-		const relativeUrl = `/array-value-type`;
-		const result = this.doGetStringAsync(relativeUrl, { a: array });
+	async arrayValueType(array: number[]): Promise<string>  {
+		const relativeUrl = `array-value-type`;
+		const result = await this.doGetStringAsync(relativeUrl, { a});
 		return result;
 	}
-	collectionStringParam(collection: string[]): Observable<string>  {
-		const relativeUrl = `/collection-string-param`;
-		const result = this.doGetStringAsync(relativeUrl, { c: collection });
+	async collectionStringParam(collection: string[]): Promise<string>  {
+		const relativeUrl = `collection-string-param`;
+		const result = await this.doGetStringAsync(relativeUrl, { c});
 		return result;
 	}
-	collectionValueType(collection: number[]): Observable<string>  {
-		const relativeUrl = `/collection-value-type`;
-		const result = this.doGetStringAsync(relativeUrl, { c: collection });
+	async collectionValueType(collection: number[]): Promise<string>  {
+		const relativeUrl = `collection-value-type`;
+		const result = await this.doGetStringAsync(relativeUrl, { c});
 		return result;
 	}
 }
+
