@@ -52,8 +52,9 @@ namespace Albatross.IO {
 		/// <param name="second"></param>
 		/// <returns></returns>
 		public static async Task Append(this Stream first, Stream second) {
-			first.Seek(0, SeekOrigin.End);
+			var length = first.Position + second.Length - second.Position;
 			await second.CopyToAsync(first);
+			first.SetLength(length);
 		}
 		public static async Task<string> Append(this string firstFile, string secondFile) {
 			using (var first = File.Open(firstFile, FileMode.Open, FileAccess.Write)) {
