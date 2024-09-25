@@ -6,7 +6,7 @@ namespace Albatross.CodeGen.TypeScript {
 	public static class Defined {
 		public static class Patterns {
 			public static Regex IdentifierName => new Regex(@"^\w\w*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-			public static Regex ModuleSource => new Regex(@"^(@\w+/)?\w+(/\w+)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+			public static Regex ModuleSource => new Regex(@"^(@\w+/)? [\w\-]+ (/\w+)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		}
 		public static class Types {
 			public static SimpleTypeExpression Any(bool optional = false) => new SimpleTypeExpression {
@@ -87,6 +87,7 @@ namespace Albatross.CodeGen.TypeScript {
 			public static ISourceExpression AngularCore => new ModuleSourceExpression("@angular/core");
 			public static ISourceExpression AngularHttp => new ModuleSourceExpression("@angular/common/http");
 			public static ISourceExpression Rxjs => new ModuleSourceExpression("rxjs");
+			public static ISourceExpression DateFns => new ModuleSourceExpression("date-fns");
 		}
 
 		public static class Identifiers {

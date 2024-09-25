@@ -2,14 +2,14 @@ import { MyEnum, MyStringEnum }  from './enum.generated';
 
 export interface ArrayValueType {
 	intArray: number[];
-	nullableIntArray: number|undefined[];
+	nullableIntArray: (number|undefined)[];
 }
 export interface BaseType {
 	id: number;
 }
 export interface CollectionValueType {
 	intCollection: number[];
-	nullableIntCollection: number|undefined[];
+	nullableIntCollection: (number|undefined)[];
 }
 export interface MyClassWithBaseType {
 	id: number;

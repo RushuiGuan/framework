@@ -15,92 +15,92 @@ export class RequiredParamTestService extends WebClient {
 		console.log("RequiredParamTestService instance created");
 	}
 	explicitStringParam(text: string): Observable<string>  {
-		const relativeUrl = `/explicit-string-param`;
+		const relativeUrl = `explicit-string-param`;
 		const result = this.doGetStringAsync(relativeUrl, { text });
 		return result;
 	}
 	implicitStringParam(text: string): Observable<string>  {
-		const relativeUrl = `/implicit-string-param`;
+		const relativeUrl = `implicit-string-param`;
 		const result = this.doGetStringAsync(relativeUrl, { text });
 		return result;
 	}
 	requiredStringParam(text: string): Observable<string>  {
-		const relativeUrl = `/required-string-param`;
+		const relativeUrl = `required-string-param`;
 		const result = this.doGetStringAsync(relativeUrl, { text });
 		return result;
 	}
 	requiredValueType(id: number): Observable<string>  {
-		const relativeUrl = `/required-value-type`;
+		const relativeUrl = `required-value-type`;
 		const result = this.doGetStringAsync(relativeUrl, { id });
 		return result;
 	}
 	requiredDateOnly(date: Date): Observable<string>  {
-		const relativeUrl = `/required-date-only`;
+		const relativeUrl = `required-date-only`;
 		const result = this.doGetStringAsync(relativeUrl, { date });
 		return result;
 	}
 	requiredDateTime(date: Date): Observable<string>  {
-		const relativeUrl = `/required-datetime`;
+		const relativeUrl = `required-datetime`;
 		const result = this.doGetStringAsync(relativeUrl, { date });
 		return result;
 	}
 	requiredDateTimeAsDateOnly(date: Date): Observable<string>  {
-		const relativeUrl = `/requried-datetime-as-dateonly`;
+		const relativeUrl = `requried-datetime-as-dateonly`;
 		const result = this.doDeleteAsync(relativeUrl, { date });
 		return result;
 	}
 	requiredPostParam(dto: MyDto): Observable<object>  {
-		const relativeUrl = `/required-post-param`;
+		const relativeUrl = `required-post-param`;
 		const result = this.doPostAsync<object, MyDto>(relativeUrl, dto, {});
 		return result;
 	}
 	requiredStringArray(values: string[]): Observable<string>  {
-		const relativeUrl = `/required-string-array`;
+		const relativeUrl = `required-string-array`;
 		const result = this.doGetStringAsync(relativeUrl, { values });
 		return result;
 	}
 	requiredStringCollection(values: string[]): Observable<string>  {
-		const relativeUrl = `/required-string-collection`;
+		const relativeUrl = `required-string-collection`;
 		const result = this.doGetStringAsync(relativeUrl, { values });
 		return result;
 	}
 	requiredValueTypeArray(values: number[]): Observable<string>  {
-		const relativeUrl = `/required-value-type-array`;
+		const relativeUrl = `required-value-type-array`;
 		const result = this.doGetStringAsync(relativeUrl, { values });
 		return result;
 	}
 	requiredValueTypeCollection(values: number[]): Observable<string>  {
-		const relativeUrl = `/required-value-type-collection`;
+		const relativeUrl = `required-value-type-collection`;
 		const result = this.doGetStringAsync(relativeUrl, { values });
 		return result;
 	}
 	requiredDateOnlyCollection(dates: Date[]): Observable<string>  {
-		const relativeUrl = `/required-date-only-collection`;
+		const relativeUrl = `required-date-only-collection`;
 		const result = this.doGetStringAsync(relativeUrl, { dates });
 		return result;
 	}
 	requiredDateOnlyArray(dates: Date[]): Observable<string>  {
-		const relativeUrl = `/required-date-only-array`;
+		const relativeUrl = `required-date-only-array`;
 		const result = this.doGetStringAsync(relativeUrl, { dates });
 		return result;
 	}
 	requiredDateTimeCollection(dates: Date[]): Observable<string>  {
-		const relativeUrl = `/required-datetime-collection`;
+		const relativeUrl = `required-datetime-collection`;
 		const result = this.doGetStringAsync(relativeUrl, { dates });
 		return result;
 	}
 	requiredDateTimeArray(dates: Date[]): Observable<string>  {
-		const relativeUrl = `/required-datetime-array`;
+		const relativeUrl = `required-datetime-array`;
 		const result = this.doGetStringAsync(relativeUrl, { dates });
 		return result;
 	}
 	requiredDateTimeAsDateOnlyCollection(dates: Date[]): Observable<string>  {
-		const relativeUrl = `/required-datetime-as-dateonly-collection`;
+		const relativeUrl = `required-datetime-as-dateonly-collection`;
 		const result = this.doGetStringAsync(relativeUrl, { dates });
 		return result;
 	}
 	requiredDateTimeAsDateOnlyArray(dates: Date[]): Observable<string>  {
-		const relativeUrl = `/required-datetime-as-dateonly-array`;
+		const relativeUrl = `required-datetime-as-dateonly-array`;
 		const result = this.doGetStringAsync(relativeUrl, { dates });
 		return result;
 	}

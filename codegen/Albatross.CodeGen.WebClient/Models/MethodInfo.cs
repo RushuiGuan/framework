@@ -24,10 +24,12 @@ namespace Albatross.CodeGen.WebClient.Models {
 			foreach (var parameter in symbol.Parameters) {
 				this.Parameters.Add(new ParameterInfo(parameter, routeSegments));
 			}
-			this.RouteTemplate = string.Join("", routeSegments.Select(x=>x.Build(settings)));
-			if (!string.IsNullOrEmpty(this.RouteTemplate) && !this.RouteTemplate.StartsWith("/")) {
-				this.RouteTemplate = "/" + this.RouteTemplate;
-			}
+			this.RouteSegments = routeSegments;
+
+			//this.RouteTemplate = string.Join("", routeSegments.Select(x=>x.Template));
+			//if (!string.IsNullOrEmpty(this.RouteTemplate) && !this.RouteTemplate.StartsWith("/")) {
+			//	this.RouteTemplate = "/" + this.RouteTemplate;
+			//}
 		}
 		public WebClientMethodSettings Settings { get; init; }
 		public string HttpMethod { get; set; }
@@ -35,7 +37,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 		[JsonIgnore]
 		public ITypeSymbol ReturnType { get; set; }
 		public string ReturnTypeText => ReturnType.GetFullName();
-		public string RouteTemplate { get; set; }
+		public IEnumerable<IRouteSegment> RouteSegments { get; }
 		public List<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
 
 		ITypeSymbol GetReturnType(ITypeSymbol type) {
