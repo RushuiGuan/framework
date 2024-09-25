@@ -23,6 +23,7 @@ function StopProcessAndWait($processName){
 		"Albatross.CodeGen.CommandLine"
 		` "Test.WebApi"
 		` "Test.CommandLine"
+		` "Test.CodeGen"
 	);
 
 
@@ -76,3 +77,4 @@ function StopProcessAndWait($processName){
 
 	set-alias -name codegen -Value $env:InstallDirectory\Albatross.CodeGen.CommandLine\codegen.exe
 	set-alias -name proxy-test -Value $env:InstallDirectory\Test.CommandLine\test.commandline.exe
+	set-alias -name proxy-test-legacy -Value $env:InstallDirectory\Test.CodeGen\test.codegen.exe
