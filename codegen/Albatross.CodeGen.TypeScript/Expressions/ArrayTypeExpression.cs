@@ -10,7 +10,11 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 		public bool Optional { get; init; }
 
 		public override TextWriter Generate(TextWriter writer) {
-			return writer.Code(Type).Append("[]");
+			if (Type is MultiTypeExpression) {
+				return writer.OpenParenthesis().Code(Type).CloseParenthesis().Append("[]");
+			} else {
+				return writer.Code(Type).Append("[]");
+			}
 		}
 	}
 }

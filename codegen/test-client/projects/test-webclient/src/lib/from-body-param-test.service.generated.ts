@@ -15,43 +15,43 @@ export class FromBodyParamTestService extends WebClient {
 		console.log("FromBodyParamTestService instance created");
 	}
 	requiredObject(dto: MyDto): Observable<object>  {
-		const relativeUrl = `/required-object`;
+		const relativeUrl = `required-object`;
 		const result = this.doPostAsync<object, MyDto>(relativeUrl, dto, {});
 		return result;
 	}
 	nullableObject(dto: MyDto|undefined): Observable<object>  {
-		const relativeUrl = `/nullable-object`;
+		const relativeUrl = `nullable-object`;
 		const result = this.doPostAsync<object, MyDto|undefined>(relativeUrl, dto, {});
 		return result;
 	}
 	requiredInt(value: number): Observable<object>  {
-		const relativeUrl = `/required-int`;
+		const relativeUrl = `required-int`;
 		const result = this.doPostAsync<object, number>(relativeUrl, value, {});
 		return result;
 	}
 	nullableInt(value: number|undefined): Observable<object>  {
-		const relativeUrl = `/nullable-int`;
+		const relativeUrl = `nullable-int`;
 		const result = this.doPostAsync<object, number|undefined>(relativeUrl, value, {});
 		return result;
 	}
 	requiredString(value: string): Observable<object>  {
-		const relativeUrl = `/required-string`;
+		const relativeUrl = `required-string`;
 		const result = this.doPostAsync<object, string>(relativeUrl, value, {});
 		return result;
 	}
 	nullableString(value: string): Observable<object>  {
-		const relativeUrl = `/nullable-string`;
+		const relativeUrl = `nullable-string`;
 		const result = this.doPostAsync<object, string>(relativeUrl, value, {});
 		return result;
 	}
 	requiredObjectArray(array: MyDto[]): Observable<object>  {
-		const relativeUrl = `/required-object-array`;
+		const relativeUrl = `required-object-array`;
 		const result = this.doPostAsync<object, MyDto[]>(relativeUrl, array, {});
 		return result;
 	}
-	nullableObjectArray(array: MyDto|undefined[]): Observable<object>  {
-		const relativeUrl = `/nullable-object-array`;
-		const result = this.doPostAsync<object, MyDto|undefined[]>(relativeUrl, array, {});
+	nullableObjectArray(array: (MyDto|undefined)[]): Observable<object>  {
+		const relativeUrl = `nullable-object-array`;
+		const result = this.doPostAsync<object, (MyDto|undefined)[]>(relativeUrl, array, {});
 		return result;
 	}
 }

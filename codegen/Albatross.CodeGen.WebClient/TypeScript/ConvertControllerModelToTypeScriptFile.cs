@@ -11,6 +11,7 @@ using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.Text;
 using Albatross.CodeGen.WebClient.Settings;
+using Microsoft.VisualBasic;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
 	public class ConvertControllerModelToTypeScriptFile : IConvertObject<ControllerInfo, TypeScriptFileDeclaration> {
@@ -33,7 +34,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		}
 
 		public TypeScriptFileDeclaration Convert(ControllerInfo model) {
-			var fileName = $"{model.ControllerName.Kebaberize()}.generated.service";
+			var fileName = $"{model.ControllerName.Kebaberize()}.service.generated";
 			return new TypeScriptFileDeclaration(fileName) {
 				ClasseDeclarations = [
 					new ClassDeclaration($"{model.ControllerName}Service"){
@@ -94,11 +95,46 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 				Parameters = new ListOfSyntaxNodes<ParameterDeclaration>(method.Parameters.Select(x => new ParameterDeclaration(x.Name) { Type = typeConverter.Convert(x.Type) })),
 				Body = new ScopedVariableExpressionBuilder()
 					.IsConstant()
-					.WithName("relativeUrl").WithExpression(method.RouteTemplate.ConvertRoute2StringInterpolation())
+					.WithName("relativeUrl").WithExpression(new StringInterpolationExpression(method.RouteSegments.Select(x => BuildRouteSegment(method, x))))
 					.Add(() => CreateHttpInvocationExpression(method))
 					.BuildAll()
 			};
 		}
+
+		const string TimeOnlyFormat = "HH:mm:ss.SSS";
+		const string DateOnlyFormat = "yyyy-MM-dd";
+		const string DateTimeFormat = "yyyy-MM-ddTHH:mm:ssXXX";
+
+		IExpression BuildRouteSegment(MethodInfo method, IRouteSegment segment) {
+			if (segment is RouteParameterSegment parameterSegment) {
+				var typeName = parameterSegment.ParameterInfo?.Type.GetFullName();
+				if (typeName == typeof(TimeOnly).FullName) {
+					return FormattedDate(segment.Text, TimeOnlyFormat);
+				} else if (typeName == typeof(DateOnly).FullName) {
+					return FormattedDate(segment.Text, DateOnlyFormat);
+				} else if (typeName == typeof(DateTime).FullName || typeName == typeof(DateTimeOffset).FullName) {
+					if (method.Settings.UseDateTimeAsDateOnly == true) {
+						return FormattedDate(segment.Text, DateOnlyFormat);
+					} else {
+						return FormattedDate(segment.Text, DateTimeFormat);
+					}
+				} else {
+					return new IdentifierNameExpression(segment.Text);
+				}
+			} else {
+				return new StringLiteralExpression(segment.Text);
+			}
+		}
+		InvocationExpression FormattedDate(string text, string format) {
+			return new InvocationExpression {
+				Identifier = new QualifiedIdentifierNameExpression("format", Defined.Sources.DateFns),
+				ArgumentList = new ListOfSyntaxNodes<IExpression>(
+							new IdentifierNameExpression(text),
+							new StringLiteralExpression(format)),
+
+			};
+		}
+
 		IExpression CreateHttpInvocationExpression(MethodInfo method) {
 			var builder = new InvocationExpressionBuilder();
 			if (settings.UsePromise) {

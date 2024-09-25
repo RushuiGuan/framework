@@ -1,0 +1,33 @@
+{
+	"typeScriptWebClientSettings": {
+		"nameSpaceModuleMapping": {
+			"Test.Dto.Enums": "enum.generated.ts",
+			"Test.Dto.Classes": "dto.generated.ts"
+		},
+		"endPointName": "test-client",
+		"baseClassModule": "@mirage/webclient",
+		"configServiceModule": "@mirage/config"
+	},
+	"apiControllerConversionSetting": {
+		"globalMethodSettings": {
+			"useDateTimeAsDateOnly": false
+		},
+		"methodSettings": {
+			"FromRouteParamTestController.DateTimeAsDateOnlyRoute": {
+				"useDateTimeAsDateOnly": true
+			},
+			"RequiredParamTestController.RequiredDateTimeAsDateOnlyCollection": {
+				"useDateTimeAsDateOnly": true
+			},
+			"RequiredParamTestController.RequiredDateTimeAsDateOnlyArray": {
+				"useDateTimeAsDateOnly": true
+			},
+			"RequiredParamTestController.RequiredDateTimeAsDateOnly": {
+				"useDateTimeAsDateOnly": true
+			}
+		}
+	},
+	"controllerFilter": {
+		"exclude": "^Test\\.WebApi\\.Controllers\\.(AbsUrl)?RedirectTestController$"
+	}
+}

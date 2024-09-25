@@ -9,6 +9,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 		[InlineData("@_/_", true)]
 		[InlineData("@/a", false)]
 		[InlineData("a1", true)]
+		[InlineData("date-fns", true)]
 		[InlineData("@angular/core", true)]
 		[InlineData("@1angular/core", true)]
 		[InlineData("@_angular/core", true)]

@@ -20,11 +20,11 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 			var codeStack = new CodeStack();
 			using (codeStack.NewScope(new CompilationUnitBuilder())) {
 				codeStack
+					.With(new UsingDirectiveNode("Albatross.Dates"))
 					.With(new UsingDirectiveNode("System.Net.Http"))
 					.With(new UsingDirectiveNode("System.Threading.Tasks"))
 					.With(new UsingDirectiveNode("Microsoft.Extensions.Logging"))
 					.With(new UsingDirectiveNode("Albatross.WebClient"))
-					.With(new UsingDirectiveNode("Albatross.Dates"))
 					.With(new UsingDirectiveNode("System.Collections.Specialized"));
 
 				using (codeStack.NewScope(new NamespaceDeclarationBuilder(settings.CSharpWebClientSettings.Namespace))) {
@@ -58,12 +58,14 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 								foreach (var param in method.Parameters) {
 									codeStack.With(new ParameterNode(param.Type.AsTypeNode(), param.Name));
 								}
-								codeStack.Begin(new VariableBuilder("string", "path"))
-									.Begin(new StringInterpolationBuilder())
-										.With(new IdentifierNode("ControllerPath"))
-										.With(new LiteralNode(method.RouteTemplate))
-									.End()
-								.End();
+								using (codeStack.NewScope(new VariableBuilder("string", "path"))) {
+									using (codeStack.NewScope(new StringInterpolationBuilder())) {
+										codeStack.With(new IdentifierNode("ControllerPath"));
+										foreach (var routeSegment in method.RouteSegments) {
+											BuildRouteSegment(codeStack, method, routeSegment);
+										}
+									}
+								}
 								codeStack.Begin(new VariableBuilder("var", "queryString")).Complete(new NewObjectBuilder("NameValueCollection")).End();
 								foreach (var param in method.Parameters.Where(x => x.WebType == ParameterType.FromQuery)) {
 									using (codeStack.NewScope()) {
@@ -142,6 +144,23 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 					return codeStack;
 				}
 			}
+		}
+		CodeStack BuildRouteSegment(CodeStack cs, MethodInfo method, IRouteSegment routeSegment) {
+			using (cs.NewScope()) {
+				if (routeSegment is RouteParameterSegment routeParam) {
+					var type = routeParam.ParameterInfo?.Type.GetFullName();
+					if (type == "System.DateTime" && method.Settings.UseDateTimeAsDateOnly == true) {
+						cs.With(new IdentifierNode(routeParam.Text)).To(new InvocationExpressionBuilder("ISO8601StringDateOnly"));
+					} else if (type == "System.DateTime" || type == "System.DateTimeOffset" || type == "System.DateOnly" || type == "System.TimeOnly") {
+						cs.With(new IdentifierNode(routeParam.Text)).To(new InvocationExpressionBuilder("ISO8601String"));
+					} else {
+						cs.With(new IdentifierNode(routeParam.Text));
+					}
+				} else {
+					cs.With(new LiteralNode(routeSegment.Text));
+				}
+			}
+			return cs;
 		}
 		CodeStack CreateAddQueryStringStatement(CodeStack codeStack, WebClientMethodSettings settings, ITypeSymbol type, string queryKey, string variableName) {
 			ITypeSymbol finalType = type;

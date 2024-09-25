@@ -2,10 +2,17 @@
 using Albatross.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Expressions {
 	public record class StringInterpolationExpression : SyntaxNode, IExpression {
-		public required IExpression[] Expressions { get; init; }
+		public StringInterpolationExpression(params IExpression[] expressions) {
+			this.Expressions = expressions;
+		}
+		public StringInterpolationExpression(IEnumerable<IExpression> expressions) {
+			this.Expressions = expressions.ToArray();
+		}
+		public IExpression[] Expressions { get; init; } = [];
 
 		public override IEnumerable<ISyntaxNode> Children => Expressions;
 

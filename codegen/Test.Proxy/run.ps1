@@ -1,4 +1,4 @@
-get-item $PSScriptRoot\*.generated.cs | remove-item;
+# get-item $PSScriptRoot\*.generated.cs | remove-item;
 
 codegen csharp-proxy `
 	-p $PSScriptRoot\..\Test.WebApi\Test.WebApi.csproj `
