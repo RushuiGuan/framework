@@ -64,6 +64,12 @@ namespace Albatross.Text {
 		public static TextWriter Semicolon(this TextWriter writer, int count = 1) {
 			return writer.AppendChar(';', count);
 		}
+
+		/// <summary>
+		/// this signature is added for backward compatibility reasons
+		/// </summary>
+		public static TextWriter WriteItems<T>(this TextWriter writer, IEnumerable<T?> items, string delimiter, Action<TextWriter, T>? action)
+			=> WriteItems(writer, items, delimiter, action, null, null);
 		/// <summary>
 		/// String.Join for TextWriter
 		/// </summary>
@@ -72,7 +78,7 @@ namespace Albatross.Text {
 			int count = 0, total = items.Count();
 			foreach (var item in items) {
 				if (item != null) {
-					if(prefix != null && count == 0) {
+					if (prefix != null && count == 0) {
 						writer.Append(prefix);
 					}
 					if (action == null) {
@@ -83,7 +89,7 @@ namespace Albatross.Text {
 					count++;
 					if (count != total) {
 						writer.Append(delimiter);
-					}else if(postfix != null) {
+					} else if (postfix != null) {
 						writer.Append(postfix);
 					}
 				} else {
