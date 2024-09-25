@@ -1,11 +1,7 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using Albatross.IO;
-using System.IO;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
-namespace Albatross.Test.IO {
+namespace Albatross.IO.Test {
 	public class TestIOUtility {
 
 		[Fact]

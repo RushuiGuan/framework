@@ -69,7 +69,9 @@ namespace Albatross.IO {
 		}
 
 		public void Seek(IPosition position) {
-			if (position is LongPosition pos) {
+			if (position is EndPosition) {
+				stream.Seek(0, SeekOrigin.End);
+			} else if (position is LongPosition pos) {
 				stream.Seek(pos.Value, SeekOrigin.Begin);
 			} else {
 				throw new ArgumentException();
