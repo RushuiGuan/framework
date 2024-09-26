@@ -21,7 +21,8 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly ConvertApiControllerToControllerModel convertToWebApi;
 		private readonly ConvertWebApiToCSharpCodeStack converToCSharpCodeStack;
 
-		public CSharpWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, ILogger<CSharpWebClientCodeGenCommandHandler> logger,
+		public CSharpWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, 
+			ILogger<CSharpWebClientCodeGenCommandHandler> logger,
 			CreateHttpClientRegistrations createHttpClientRegistrations,
 			Compilation compilation,
 			CodeGenSettings settings,
@@ -44,7 +45,7 @@ namespace Albatross.CodeGen.CommandLine {
 			var controllerClass = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var dtoClassWalker = new ApiControllerClassWalker(semanticModel, settings.CSharpControllerFilter);
+				var dtoClassWalker = new ApiControllerClassWalker(semanticModel, settings.CreateCSharpControllerFilter());
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
 				controllerClass.AddRange(dtoClassWalker.Result);
 			}
@@ -53,6 +54,7 @@ namespace Albatross.CodeGen.CommandLine {
 				if (string.IsNullOrEmpty(options.AdhocFilter) || controller.GetFullName().Contains(options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
 					logger.LogInformation("Generating proxy for {controller}", controller.Name);
 					var webApi = this.convertToWebApi.Convert(controller);
+					webApi.ApplyMethodFilters(settings.CreateCSharpControllerMethodFilters());
 					models.Add(webApi);
 					var codeStack = this.converToCSharpCodeStack.Convert(webApi);
 

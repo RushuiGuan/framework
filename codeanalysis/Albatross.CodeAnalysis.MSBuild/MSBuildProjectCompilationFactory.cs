@@ -13,9 +13,12 @@ namespace Albatross.CodeAnalysis.MSBuild {
 			this.getProject = getProject;
 		}
 
+		public Workspace Workspace => this.workspace;
+
 		public Compilation Create() {
 			var project = workspace.OpenProjectAsync(this.getProject.Path).Result;
-			var compilation = project.GetCompilationAsync().Result ?? throw new InvalidOperationException($"Unable to create a compilation instance for project {this.getProject.Path}");
+			var compilation = project.GetCompilationAsync().Result 
+				?? throw new InvalidOperationException($"Unable to create a compilation instance for project {this.getProject.Path}");
 			return compilation;
 		}
 	}

@@ -15,6 +15,7 @@ using System;
 using System.Text.Json;
 using System.CommandLine.Invocation;
 using Albatross.CodeGen.WebClient.Settings;
+using Microsoft.CodeAnalysis;
 
 namespace Albatross.CodeGen.CommandLine {
 	public class MySetup : Setup {
@@ -32,6 +33,7 @@ namespace Albatross.CodeGen.CommandLine {
 				}
 			});
 			services.AddScoped<ICompilationFactory, MSBuildProjectCompilationFactory>();
+			services.AddScoped(provider => provider.GetRequiredService<ICompilationFactory>().Workspace);
 			services.AddScoped(provider => provider.GetRequiredService<ICompilationFactory>().Create());
 			services.AddShortenLoggerName(false, "Albatross");
 

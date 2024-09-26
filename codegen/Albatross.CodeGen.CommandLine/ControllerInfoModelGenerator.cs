@@ -16,7 +16,7 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly CodeGenSettings settings;
 		private readonly CodeGenCommandOptions options;
 
-		public ControllerInfoModelGenerator(Compilation compilation, ConvertApiControllerToControllerModel converter, 
+		public ControllerInfoModelGenerator(Compilation compilation, ConvertApiControllerToControllerModel converter,
 			CodeGenSettings settings,
 			IOptions<CodeGenCommandOptions> options) {
 			this.compilation = compilation;
@@ -37,9 +37,10 @@ namespace Albatross.CodeGen.CommandLine {
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
 				controllerClass.AddRange(dtoClassWalker.Result);
 			}
-			foreach(var item in controllerClass) {
-				if(string.IsNullOrEmpty(options.AdhocFilter) || item.GetFullName().Contains(options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
+			foreach (var item in controllerClass) {
+				if (string.IsNullOrEmpty(options.AdhocFilter) || item.GetFullName().Contains(options.AdhocFilter, System.StringComparison.InvariantCultureIgnoreCase)) {
 					var model = converter.Convert(item);
+					model.ApplyMethodFilters(settings.CreateControllerMethodFilters());
 					var text = JsonSerializer.Serialize(model, new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, });
 					System.Console.WriteLine(text);
 					if (options.OutputDirectory != null) {

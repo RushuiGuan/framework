@@ -13,7 +13,7 @@ namespace Test.Proxy {
 
 		public const string ControllerPath = "api/http-method-test";
 		public async Task Delete() {
-			string path = $"{ControllerPath}";
+			string path = $"{ControllerPath}/";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
 				await this.GetRawResponse(request);
@@ -21,7 +21,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task Post() {
-			string path = $"{ControllerPath}";
+			string path = $"{ControllerPath}/";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
 				await this.GetRawResponse(request);
@@ -29,7 +29,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task Patch() {
-			string path = $"{ControllerPath}";
+			string path = $"{ControllerPath}/";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Patch, path, queryString)) {
 				await this.GetRawResponse(request);
@@ -37,7 +37,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task<System.Int32> Get() {
-			string path = $"{ControllerPath}";
+			string path = $"{ControllerPath}/";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return await this.GetRequiredJsonResponseForValueType<System.Int32>(request);
@@ -45,7 +45,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task Put() {
-			string path = $"{ControllerPath}";
+			string path = $"{ControllerPath}/";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Put, path, queryString)) {
 				await this.GetRawResponse(request);

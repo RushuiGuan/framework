@@ -20,8 +20,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.CSharp", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.TypeScript", "Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj", "{AF626D8C-A697-4131-8C83-4329A20BBF61}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.Python", "Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj", "{3AD21F93-638B-4619-ADC9-5784E78E4CD8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{106E138F-304F-426D-8BB3-3625D8FFD9B6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis", "..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj", "{CE4A69D0-9596-4027-90DC-E3057B3A4CF6}"
@@ -60,7 +58,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.CommandLine", "Test.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config", "..\config\Albatross.Config\Albatross.Config.csproj", "{39AA4767-8987-46E1-A557-408AC2AB197C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CodeGen", "Test.CodeGen\Test.CodeGen.csproj", "{00E60EC9-9824-464A-913A-2D7DBFC04AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.CodeGen", "Test.CodeGen\Test.CodeGen.csproj", "{00E60EC9-9824-464A-913A-2D7DBFC04AD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,18 +142,6 @@ Global
 		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Release|arm64.Build.0 = Release|Any CPU
 		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Release|x86.ActiveCfg = Release|Any CPU
 		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Release|x86.Build.0 = Release|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Debug|arm64.ActiveCfg = Debug|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Debug|arm64.Build.0 = Debug|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Debug|x86.Build.0 = Debug|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Release|arm64.ActiveCfg = Release|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Release|arm64.Build.0 = Release|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Release|x86.ActiveCfg = Release|Any CPU
-		{3AD21F93-638B-4619-ADC9-5784E78E4CD8}.Release|x86.Build.0 = Release|Any CPU
 		{CE4A69D0-9596-4027-90DC-E3057B3A4CF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE4A69D0-9596-4027-90DC-E3057B3A4CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE4A69D0-9596-4027-90DC-E3057B3A4CF6}.Debug|arm64.ActiveCfg = Debug|Any CPU

@@ -41,7 +41,7 @@ namespace Albatross.CodeGen.CommandLine {
 			var models = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var dtoClassWalker = new ApiControllerClassWalker(semanticModel, settings.TypeScriptControllerFilter);
+				var dtoClassWalker = new ApiControllerClassWalker(semanticModel, settings.CreateTypeScriptControllerFilter());
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
 				models.AddRange(dtoClassWalker.Result);
 			}
@@ -49,6 +49,7 @@ namespace Albatross.CodeGen.CommandLine {
 				if (string.IsNullOrEmpty(options.AdhocFilter) || model.GetFullName().Contains(options.AdhocFilter)) {
 					logger.LogInformation("Generating proxy for {controller}", model.Name);
 					var webApi = this.convertToWebApi.Convert(model);
+					webApi.ApplyMethodFilters(settings.CreateTypeScriptControllerMethodFilters());
 					var file = this.converToTypeScriptFile.Convert(webApi);
 					file.Generate(System.Console.Out);
 					logger.LogInformation("directory: {data}", options.OutputDirectory?.FullName);

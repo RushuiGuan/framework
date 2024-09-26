@@ -1,5 +1,4 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
-using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
@@ -25,11 +24,6 @@ namespace Albatross.CodeGen.WebClient.Models {
 				this.Parameters.Add(new ParameterInfo(parameter, routeSegments));
 			}
 			this.RouteSegments = routeSegments;
-
-			//this.RouteTemplate = string.Join("", routeSegments.Select(x=>x.Template));
-			//if (!string.IsNullOrEmpty(this.RouteTemplate) && !this.RouteTemplate.StartsWith("/")) {
-			//	this.RouteTemplate = "/" + this.RouteTemplate;
-			//}
 		}
 		public WebClientMethodSettings Settings { get; init; }
 		public string HttpMethod { get; set; }

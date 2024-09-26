@@ -3,6 +3,7 @@
 namespace Albatross.CodeGen.WebClient.Settings {
 	public record class TypeScriptWebClientSettings {
 		public SymbolFilterPatterns ControllerFilter { get; init; } = new SymbolFilterPatterns();
+		public SymbolFilterPatterns[] ControllerMethodFilters { get; init; } = [];
 		public SymbolFilterPatterns DtoFilter { get; init; } = new SymbolFilterPatterns();
 		public SymbolFilterPatterns EnumFilter { get; init; } = new SymbolFilterPatterns();
 

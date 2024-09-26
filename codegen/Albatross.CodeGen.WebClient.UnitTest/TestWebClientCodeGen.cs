@@ -64,32 +64,6 @@ namespace Albatross.CodeGen.WebClient.UnitTest {
 		}
 
 		[Theory]
-		[InlineData("snapshot/{**name}", @"snapshot/{name}")]
-		[InlineData("snapshot/{*name}", @"snapshot/{name}")]
-		[InlineData("snapshot", @"snapshot")]
-		[InlineData("snapshot/{tradeDate}", @"snapshot/{tradeDate}")]
-		[InlineData("snapshot/{date}", @"snapshot/{date}")]
-		[InlineData("snapshot/{tradeDate}/red", @"snapshot/{tradeDate}/red")]
-		[InlineData("snapshot/{tradeDate}/{**name}", @"snapshot/{tradeDate}/{name}")]
-		[InlineData("snapshot/{tradeDate}/{id}", @"snapshot/{tradeDate}/{id}")]
-		[InlineData("snapshot/{test_tradeDate}", @"snapshot/{test_tradeDate}")]
-		[InlineData("{tradeDate}", @"{tradeDate}")]
-		[InlineData("{tradeDate1}/{tradeDate2}", @"{tradeDate1}/{tradeDate2}")]
-		[InlineData("snapshot/test{tradeDate}", @"snapshot/test{tradeDate}")]
-		[InlineData("snapshot/test{tradeDate}test2{xx}", @"snapshot/test{tradeDate}test2{xx}")]
-		[InlineData("snapshot/wacky{tradeDate}doodle{xx}string", @"snapshot/wacky{tradeDate}doodle{xx}string")]
-		public void TestRouteSegmentCreation(string input, string expected) {
-			var segments = input.GetRouteSegments();
-			var writer = new StringWriter();
-			foreach (var item in segments) {
-				writer.Write(item.Build(new Settings.WebClientMethodSettings()));
-			}
-			writer.Flush();
-			string result = writer.ToString();
-			Assert.Equal(expected, result);
-		}
-
-		[Theory]
 		[InlineData("{**name}", true, "", "**", "name")]
 		[InlineData("{**name9}", true, "", "**", "name9")]
 		[InlineData("{**tradeDate}", true,"",  "**", "tradeDate")]

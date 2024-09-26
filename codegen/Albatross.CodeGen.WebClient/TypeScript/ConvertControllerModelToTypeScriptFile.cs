@@ -11,7 +11,6 @@ using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.Text;
 using Albatross.CodeGen.WebClient.Settings;
-using Microsoft.VisualBasic;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
 	public class ConvertControllerModelToTypeScriptFile : IConvertObject<ControllerInfo, TypeScriptFileDeclaration> {

@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.WebClient.Settings {
 			}
 		}
 
-		public bool IsMatch(string name) {
+		public bool ShouldKeep(string name) {
 			if (this.exclusiveFilter != null && this.exclusiveFilter.IsMatch(name)) {
 				return false;
 			}

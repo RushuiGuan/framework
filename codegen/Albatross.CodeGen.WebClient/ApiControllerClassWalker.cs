@@ -20,7 +20,7 @@ namespace Albatross.CodeGen.WebClient {
 			if (node.Identifier.Text.EndsWith("Controller")) {
 				var symbol = semanticModel.GetDeclaredSymbol(node);
 				if (symbol?.BaseType != null && symbol.BaseType.Name == "ControllerBase") {
-					if (filter.IsMatch(symbol.GetFullName())) {
+					if (filter.ShouldKeep(symbol.GetFullName())) {
 						Result.Add(symbol);
 					}
 				}

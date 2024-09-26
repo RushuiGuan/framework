@@ -7,10 +7,13 @@
 		public string? Include { get; init; }
 
 		public SymbolFilterPatterns Overwrite(SymbolFilterPatterns other) {
-			return new SymbolFilterPatterns {
-				Exclude = Exclude ?? other.Exclude,
-				Include = Include ?? other.Include,
-			};
+			if (HasValue) {
+				return this;
+			} else {
+				return other;
+			}
 		}
+
+		public bool HasValue => !string.IsNullOrWhiteSpace(Exclude) || !string.IsNullOrWhiteSpace(Include);
 	}
 }

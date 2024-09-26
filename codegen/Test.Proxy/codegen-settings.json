@@ -1,36 +1,49 @@
 {
-	"typeScriptWebClientSettings": {
-		"nameSpaceModuleMapping": {
-			"Test.Dto.Enums": "enum.generated.ts",
-			"Test.Dto.Classes": "dto.generated.ts"
-		},
-		"endPointName": "test-client",
-		"baseClassModule": "@mirage/webclient",
-		"configServiceModule": "@mirage/config"
-	},
-	"cSharpWebClientSettings": {
-		"namespace": "Test.Proxy"
-	},
-	"apiControllerConversionSetting": {
-		"globalMethodSettings": {
-			"useDateTimeAsDateOnly": false
-		},
-		"methodSettings": {
-			"FromRouteParamTestController.DateTimeAsDateOnlyRoute": {
-				"useDateTimeAsDateOnly": true
-			},
-			"RequiredParamTestController.RequiredDateTimeAsDateOnlyCollection": {
-				"useDateTimeAsDateOnly": true
-			},
-			"RequiredParamTestController.RequiredDateTimeAsDateOnlyArray": {
-				"useDateTimeAsDateOnly": true
-			},
-			"RequiredParamTestController.RequiredDateTimeAsDateOnly": {
-				"useDateTimeAsDateOnly": true
-			}
-		}
-	},
-	"controllerFilter": {
-		"exclude": "^Test\\.WebApi\\.Controllers\\.(AbsUrl)?RedirectTestController$"
-	}
+    "$schema": "codegen-settings.schema.json",
+    "typeScriptWebClientSettings": {
+        "nameSpaceModuleMapping": {
+            "Test.Dto.Enums": "enum.generated.ts",
+            "Test.Dto.Classes": "dto.generated.ts"
+        },
+        "controllerMethodFilters": [
+            {
+            }
+        ],
+        "endPointName": "test-client",
+        "baseClassModule": "@mirage/webclient",
+        "configServiceModule": "@mirage/config"
+    },
+    "cSharpWebClientSettings": {
+        "namespace": "Test.Proxy",
+        "controllerMethodFilters": [
+            {
+                "exclude": "FilteredByCSharp$"
+            }
+        ]
+    },
+    "apiControllerConversionSetting": {
+        "globalMethodSettings": {
+            "useDateTimeAsDateOnly": false
+        },
+        "methodSettings": {
+            "FromRouteParamTestController.DateTimeAsDateOnlyRoute": {
+                "useDateTimeAsDateOnly": true
+            },
+            "RequiredParamTestController.RequiredDateTimeAsDateOnlyCollection": {
+                "useDateTimeAsDateOnly": true
+            },
+            "RequiredParamTestController.RequiredDateTimeAsDateOnlyArray": {
+                "useDateTimeAsDateOnly": true
+            },
+            "RequiredParamTestController.RequiredDateTimeAsDateOnly": {
+                "useDateTimeAsDateOnly": true
+            }
+        }
+    },
+    "controllerFilter": {
+        "exclude": "^Test\\.WebApi\\.Controllers\\.(AbsUrl)?RedirectTestController$"
+    },
+    "controllerMethodFilters": [
+        { "exclude": "FilteredByAll$" }
+    ]
 }
