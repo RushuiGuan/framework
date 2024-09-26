@@ -13,7 +13,7 @@ namespace Test.Proxy {
 
 		public const string ControllerPath = "api/array-param-test";
 		public async Task<System.String> ArrayStringParam(System.String[] array) {
-			string path = $"{ControllerPath}/ array-string-param";
+			string path = $"{ControllerPath}/array-string-param";
 			var queryString = new NameValueCollection();
 			foreach (var item in array) {
 				queryString.Add("a", item);
@@ -25,7 +25,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task<System.String> ArrayValueType(System.Int32[] array) {
-			string path = $"{ControllerPath}/ array-value-type";
+			string path = $"{ControllerPath}/array-value-type";
 			var queryString = new NameValueCollection();
 			foreach (var item in array) {
 				queryString.Add("a", $"{item}");
@@ -37,7 +37,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task<System.String> CollectionStringParam(System.Collections.Generic.IEnumerable<System.String> collection) {
-			string path = $"{ControllerPath}/ collection-string-param";
+			string path = $"{ControllerPath}/collection-string-param";
 			var queryString = new NameValueCollection();
 			foreach (var item in collection) {
 				queryString.Add("c", item);
@@ -49,7 +49,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task<System.String> CollectionValueType(System.Collections.Generic.IEnumerable<System.Int32> collection) {
-			string path = $"{ControllerPath}/ collection-value-type";
+			string path = $"{ControllerPath}/collection-value-type";
 			var queryString = new NameValueCollection();
 			foreach (var item in collection) {
 				queryString.Add("c", $"{item}");

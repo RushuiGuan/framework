@@ -57,7 +57,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 
 		/// <summary>
 		/// For whatever reason, the formatter will create a space after '/' literal in the interpolated string
-		/// should ask the question in stack overflow
+		/// should ask the question in stack overflow,  Run this test to see if it is fixed
 		/// </summary>
 		[Fact]
 		public void LowLevelCheck() {

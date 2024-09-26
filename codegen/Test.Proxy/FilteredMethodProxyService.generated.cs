@@ -13,7 +13,7 @@ namespace Test.Proxy {
 
 		public const string ControllerPath = "api/filtered-method";
 		public async Task FilteredByAll() {
-			string path = $"{ControllerPath}/ all";
+			string path = $"{ControllerPath}/all";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				await this.GetRawResponse(request);
@@ -21,7 +21,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task FilteredByNone() {
-			string path = $"{ControllerPath}/ none";
+			string path = $"{ControllerPath}/none";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				await this.GetRawResponse(request);
@@ -29,7 +29,7 @@ namespace Test.Proxy {
 		}
 
 		public async Task FilteredByTypeScript() {
-			string path = $"{ControllerPath}/ typescript";
+			string path = $"{ControllerPath}/typescript";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				await this.GetRawResponse(request);
