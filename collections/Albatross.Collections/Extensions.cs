@@ -36,7 +36,6 @@ namespace Albatross.Collections {
 			}
 		}
 
-		[Obsolete]
 		public static T GetOrAdd<T>(this ICollection<T> list, Func<T, bool> predicate, Func<T> func) {
 			var item = list.FirstOrDefault(predicate);
 			if (item == null) {
