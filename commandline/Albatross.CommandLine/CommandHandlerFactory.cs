@@ -20,9 +20,19 @@ namespace Albatross.CommandLine {
 
 		public Task<int> InvokeAsync(InvocationContext context) {
 			var provider = context.GetHost().Services;
-			var logger = provider.GetRequiredService<ILogger<CommandHandlerFactory>>();
-			var handler = provider.GetKeyedService<ICommandHandler>(command.Name);
 			var globalOptions = provider.GetRequiredService<IOptions<GlobalOptions>>().Value;
+			var logger = provider.GetRequiredService<ILogger<CommandHandlerFactory>>();
+			ICommandHandler? handler = null;
+			try {
+				handler = provider.GetKeyedService<ICommandHandler>(command.Name);
+			} catch (Exception err) {
+				if (globalOptions.ShowStack) {
+					logger.LogError(err, "Error creating CommandHandler for Command {command}", command.Name);
+				} else {
+					logger.LogError("Error creating CommandHandler for Command {command}: {msg}", command.Name, err.Message);
+				}
+				return Task.FromResult(2);
+			}
 			if (handler == null) {
 				logger.LogError("No CommandHandler is not registered for Command {command}", command.Name);
 				return Task.FromResult(1);
