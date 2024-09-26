@@ -11,23 +11,39 @@ namespace Albatross.CodeAnalysis.Syntax {
 	public class StringInterpolationBuilder : INodeBuilder {
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			var list = new List<InterpolatedStringContentSyntax>();
+			string text = string.Empty;
 			foreach (var elem in elements) {
-				if (elem is LiteralExpressionSyntax literal) {
+				if (elem is LiteralExpressionSyntax literal && literal.Kind() == SyntaxKind.StringLiteralExpression) {
+					text = text + literal.Token.ValueText;
+					continue;
+				} else if (!string.IsNullOrEmpty(text)) {
 					list.Add(SyntaxFactory.InterpolatedStringText(
 						SyntaxFactory.Token(SyntaxTriviaList.Empty,
 							SyntaxKind.InterpolatedStringTextToken,
-							literal.Token.ValueText,
-							literal.Token.ValueText,
+							text,
+							text,
 							SyntaxTriviaList.Empty)
 						)
 					);
-				} else if (elem is ExpressionSyntax identifier) {
+					text = string.Empty;
+				} 
+				if (elem is ExpressionSyntax identifier) {
 					list.Add(SyntaxFactory.Interpolation(identifier));
 				} else if (elem is InterpolationSyntax interpolationSyntax) {
 					list.Add(interpolationSyntax);
 				} else {
 					throw new ArgumentException($"Invalid element type {elem.GetType().Name}");
 				}
+			}
+			if (!string.IsNullOrEmpty(text)) {
+				list.Add(SyntaxFactory.InterpolatedStringText(
+						SyntaxFactory.Token(SyntaxTriviaList.Empty,
+							SyntaxKind.InterpolatedStringTextToken,
+							text,
+							text,
+							SyntaxTriviaList.Empty)
+						)
+					);
 			}
 			return SyntaxFactory.InterpolatedStringExpression(SyntaxFactory.Token(SyntaxKind.InterpolatedStringStartToken))
 				.WithContents(SyntaxFactory.List(list));

@@ -1,11 +1,11 @@
 param(
 	[switch]
-	[bool]$alias
+	[bool]$skip
 )
 $InformationPreference = "Continue";
 $install = $env:InstallDirectory;
 
-if(-not $alias) {
+if(-not $skip) {
 	$projects = @(
 		"sample.commandline"
 	);

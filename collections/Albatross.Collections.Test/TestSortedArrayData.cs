@@ -63,6 +63,7 @@ namespace Albatross.Collections.Test {
 		[InlineData(0, 1, 1, 1, "0,1")]
 		public void Append(int start, int count, int start2, int count2, string expected) {
 			var data = new SortedArrayData<int, int>(My.Array(start, count), x => x);
+			data.Seek(new EndPosition());
 			var data2 = new SortedArrayData<int, int>(My.Array(start2, count2), x => x);
 			data.Append(data2);
 			string.Join(",", data.Items).Should().BeEquivalentTo(expected);

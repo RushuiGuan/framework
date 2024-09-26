@@ -15,7 +15,6 @@ using System;
 using System.Text.Json;
 using System.CommandLine.Invocation;
 using Albatross.CodeGen.WebClient.Settings;
-using Microsoft.CodeAnalysis;
 
 namespace Albatross.CodeGen.CommandLine {
 	public class MySetup : Setup {
