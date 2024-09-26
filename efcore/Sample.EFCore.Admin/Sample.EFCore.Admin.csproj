@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\hosting\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
