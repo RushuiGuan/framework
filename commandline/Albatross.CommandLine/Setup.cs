@@ -31,7 +31,7 @@ namespace Albatross.CommandLine {
 					.SetBasePath(AppContext.BaseDirectory)
 					.AddJsonFile("appsettings.json", true, false);
 				if (!string.IsNullOrEmpty(environment.Value)) {
-					configBuilder.AddJsonFile($"appsettings.{environment}.json", true, false);
+					configBuilder.AddJsonFile($"appsettings.{environment.Value}.json", true, false);
 				}
 				logger.Debug("Creating configuration");
 				var configuration = configBuilder.AddEnvironmentVariables().Build();
