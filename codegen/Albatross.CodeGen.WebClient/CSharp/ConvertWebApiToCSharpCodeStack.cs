@@ -60,8 +60,10 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 								}
 								using (codeStack.NewScope(new VariableBuilder("string", "path"))) {
 									using (codeStack.NewScope(new StringInterpolationBuilder())) {
-										codeStack.With(new IdentifierNode("ControllerPath"))
-											.With(new LiteralNode(@"/"));
+										codeStack.With(new IdentifierNode("ControllerPath"));
+										if (method.RouteSegments.Any()) {
+											codeStack.With(new LiteralNode(@"/"));
+										}
 										foreach (var routeSegment in method.RouteSegments) {
 											BuildRouteSegment(codeStack, method, routeSegment);
 										}

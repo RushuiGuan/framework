@@ -12,6 +12,13 @@ namespace Test.Proxy {
 		}
 
 		public const string ControllerPath = "api/controllerroutetest";
+		public async Task Post() {
+			string path = $"{ControllerPath}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
 	}
 }
 #nullable disable
