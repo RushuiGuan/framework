@@ -3,34 +3,19 @@ using FluentAssertions;
 using Xunit;
 
 namespace Albatross.CodeAnalysis.Test.Syntax {
-	public class TestStringInterpolation {
+	public class TestForEachBuilder {
+		const string Simple_Expected = @"foreach (var item in items)
+{
+	int i = 0;
+}
+";
 		[Fact]
 		public void Simple() {
-			var result = new StringInterpolationBuilder().Build([new IdentifierNode("test").Node, new LiteralNode("x").Node]).ToFullString();
-			result.Should().Be("$\"{test}x\"");
-		}
-
-
-		[Fact]
-		public void Multiple() {
-			var result = new StringInterpolationBuilder().Build([
-				new IdentifierNode("test").Node,
-				new LiteralNode("x").Node,
-				new IdentifierNode("test").Node,
-				new LiteralNode("x").Node
-			]).ToFullString();
-			result.Should().Be("$\"{test}x{test}x\"");
-		}
-
-		[Fact]
-		public void WithFormat() {
-			var result = new StringInterpolationBuilder().Build([
-				new StringInterpolationNode("test", "yyyy-MM-dd").Node,
-				new LiteralNode("x").Node,
-				new StringInterpolationNode("test", "#,#0").Node,
-				new LiteralNode("x").Node
-			]).ToFullString();
-			result.Should().Be("$\"{test:yyyy-MM-dd}x{test:#,#0}x\"");
+			var result = new CodeStack().Begin(new ForEachStatementBuilder("var", "item", "items"))
+					.Begin(new VariableBuilder("int", "i")).With(new LiteralNode(0)).End()
+				.End()
+				.Build();
+			result.Should().Be(Simple_Expected);
 		}
 	}
 }

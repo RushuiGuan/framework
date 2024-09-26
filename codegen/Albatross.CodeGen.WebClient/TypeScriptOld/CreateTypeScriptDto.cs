@@ -26,7 +26,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			var enums = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
-				var symbolWalker = new DtoClassEnumWalker(semanticModel, settings.TypeScriptDtoFilter);
+				var symbolWalker = new DtoClassEnumWalker(semanticModel, settings.CreateTypeScriptDtoFilter());
 				symbolWalker.Visit(syntaxTree.GetRoot());
 				dtoClasses.AddRange(symbolWalker.DtoClasses);
 				enums.AddRange(symbolWalker.EnumTypes);

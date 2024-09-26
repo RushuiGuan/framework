@@ -35,5 +35,16 @@ namespace Albatross.CodeGen.WebClient.Models {
 				}
 			}
 		}
+		public void ApplyMethodFilters(IEnumerable<Settings.SymbolFilter> filters) {
+			if (filters.Any()) {
+				var controllerName = this.Controller.GetFullName();
+				for (int i = this.Methods.Count - 1; i >= 0; i--) {
+					var method = this.Methods[i];
+					if (!filters.Any(x => x.ShouldKeep($"{controllerName}.{method.Name}"))) {
+						this.Methods.RemoveAt(i);
+					}
+				}
+			}
+		}
 	}
 }

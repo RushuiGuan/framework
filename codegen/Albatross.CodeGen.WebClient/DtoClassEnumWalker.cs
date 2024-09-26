@@ -32,7 +32,7 @@ namespace Albatross.CodeGen.WebClient {
 
 		public override void VisitClassDeclaration(ClassDeclarationSyntax node) {
 			var symbol = semanticModel.GetDeclaredSymbol(node);
-			if (IsValidDtoClass(symbol) && this.filter.IsMatch(symbol.GetFullName())) {
+			if (IsValidDtoClass(symbol) && this.filter.ShouldKeep(symbol.GetFullName())) {
 				DtoClasses.Add(symbol);
 			}
 			base.VisitClassDeclaration(node);
@@ -40,14 +40,14 @@ namespace Albatross.CodeGen.WebClient {
 
 		public override void VisitRecordDeclaration(RecordDeclarationSyntax node) {
 			var symbol = semanticModel.GetDeclaredSymbol(node);
-			if (IsValidDtoClass(symbol) && this.filter.IsMatch(symbol.GetFullName())) {
+			if (IsValidDtoClass(symbol) && this.filter.ShouldKeep(symbol.GetFullName())) {
 				DtoClasses.Add(symbol);
 			}
 			base.VisitRecordDeclaration(node);
 		}
 		public override void VisitEnumDeclaration(EnumDeclarationSyntax node) {
 			var symbol = semanticModel.GetDeclaredSymbol(node);
-			if (symbol != null && symbol.DeclaredAccessibility == Accessibility.Public && filter.IsMatch(symbol.GetFullName())) {
+			if (symbol != null && symbol.DeclaredAccessibility == Accessibility.Public && filter.ShouldKeep(symbol.GetFullName())) {
 				EnumTypes.Add(symbol);
 			}
 			base.VisitEnumDeclaration(node);

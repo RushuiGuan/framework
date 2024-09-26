@@ -3,6 +3,7 @@
 namespace Albatross.CodeGen.WebClient.Settings {
 	public record class CSharpWebClientSettings {
 		public SymbolFilterPatterns ControllerFilter { get; init; } = new SymbolFilterPatterns();
+		public SymbolFilterPatterns[] ControllerMethodFilters { get; init; } = [];
 
 		public string Namespace { get; init; } = "MyNamespace";
 		/// <summary>
