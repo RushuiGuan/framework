@@ -18,7 +18,7 @@ namespace Albatross.CommandLine {
 
 		public int Invoke(InvocationContext context) => throw new NotSupportedException();
 
-		public Task<int> InvokeAsync(InvocationContext context) {
+		public async Task<int> InvokeAsync(InvocationContext context) {
 			var provider = context.GetHost().Services;
 			var globalOptions = provider.GetRequiredService<IOptions<GlobalOptions>>().Value;
 			var logger = provider.GetRequiredService<ILogger<CommandHandlerFactory>>();
@@ -31,11 +31,11 @@ namespace Albatross.CommandLine {
 				} else {
 					logger.LogError("Error creating CommandHandler for Command {command}: {msg}", command.Name, err.Message);
 				}
-				return Task.FromResult(2);
+				return 2;
 			}
 			if (handler == null) {
 				logger.LogError("No CommandHandler is not registered for Command {command}", command.Name);
-				return Task.FromResult(1);
+				return 1;
 			} else {
 				Stopwatch? stopwatch;
 				if (globalOptions.Benchmark) {
@@ -44,14 +44,14 @@ namespace Albatross.CommandLine {
 					stopwatch = null;
 				}
 				try {
-					return handler.InvokeAsync(context);
+					return await handler.InvokeAsync(context);
 				} catch (Exception err) {
 					if (globalOptions.ShowStack) {
 						logger.LogError(err, "Error invoking Command {command}", command.Name);
 					} else {
 						logger.LogError("Error invoking Command {command}: {message}", command.Name, err.Message);
 					}
-					return Task.FromResult(1);
+					return 1;
 				} finally {
 					if (stopwatch != null) {
 						stopwatch.Stop();
