@@ -9,6 +9,7 @@ namespace Albatross.Reflection.Test {
 		public class A {
 			public string? Test1 { get; set; }
 			public int Number { get; set; }
+			public int? NullableNumber { get; set; }
 		}
 
 		public class B {
@@ -50,6 +51,16 @@ namespace Albatross.Reflection.Test {
 
 			a.SetValueIfNotNull(args => args.Number, null);
 			Assert.Equal(1, a.Number);
+
+
+			a.SetValueIfNotNull(args => args.NullableNumber, null);
+			Assert.Null(a.NullableNumber);
+
+			a.SetValueIfNotNull(args => args.NullableNumber, 1);
+			Assert.Equal(1, a.NullableNumber);
+
+			a.SetValueIfNotNull(args => args.NullableNumber, null);
+			Assert.Equal(1, a.NullableNumber);
 		}
 
 		[Fact]

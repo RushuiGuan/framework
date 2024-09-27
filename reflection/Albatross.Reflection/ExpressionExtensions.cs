@@ -51,6 +51,14 @@ namespace Albatross.Reflection {
 			}
 			return ob;
 		}
+
+		public static T SetValueIfNotNull<T, V>(this T ob, Expression<Func<T, V?>> lambda, V? value) where V : struct {
+			if (value.HasValue) {
+				PropertyInfo prop = lambda.GetPropertyInfo();
+				prop.SetValue(ob, value);
+			}
+			return ob;
+		}
 		public static T SetTextIfNotEmpty<T>(this T obj, Expression<Func<T, string?>> lambda, string? value) {
 			if (!string.IsNullOrEmpty(value)) {
 				PropertyInfo prop = lambda.GetPropertyInfo();
