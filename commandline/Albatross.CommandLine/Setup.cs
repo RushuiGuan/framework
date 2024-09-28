@@ -54,11 +54,16 @@ namespace Albatross.CommandLine {
 
 		private Task SetCommandHanlerMiddleware(InvocationContext context, Func<InvocationContext, Task> next) {
 			var cmd = context.ParseResult.CommandResult.Command;
-			cmd.Handler = new CommandHandlerFactory(cmd);
+			cmd.Handler = new GlobalCommandHandler(cmd);
 			return next(context);
 		}
-
-
+		/// <summary>
+		/// Overwrite this method to use a custom global command handler for all commands
+		/// </summary>
+		public virtual ICommandHandler CreateGlobalCommandHandler(Command command) {
+			return new GlobalCommandHandler(command);
+		}
+		
 		public virtual RootCommand CreateRootCommand() {
 			var cmd = new RootCommand(RootCommandDescription);
 			var logOption = new Option<LogEventLevel?>("--verbosity", () => LogEventLevel.Error){
