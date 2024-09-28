@@ -9,19 +9,28 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Albatross.CommandLine {
-	public class CommandHandlerFactory : ICommandHandler {
+	public class GlobalCommandHandler : ICommandHandler {
 		private readonly Command command;
 
-		public CommandHandlerFactory(Command command) {
+		public GlobalCommandHandler(Command command) {
 			this.command = command;
 		}
 
 		public int Invoke(InvocationContext context) => throw new NotSupportedException();
 
+		public virtual int HandleCommandException(Exception err, ILogger logger, GlobalOptions globalOptions) {
+			if (globalOptions.ShowStack) {
+				logger.LogError(err, "Error invoking Command {command}", command.Name);
+			} else {
+				logger.LogError("Error invoking Command {command}: {message}", command.Name, err.Message);
+			}
+			return 1;
+		}
+
 		public async Task<int> InvokeAsync(InvocationContext context) {
 			var provider = context.GetHost().Services;
 			var globalOptions = provider.GetRequiredService<IOptions<GlobalOptions>>().Value;
-			var logger = provider.GetRequiredService<ILogger<CommandHandlerFactory>>();
+			var logger = provider.GetRequiredService<ILogger<GlobalCommandHandler>>();
 			ICommandHandler? handler = null;
 			try {
 				handler = provider.GetKeyedService<ICommandHandler>(command.Name);
@@ -46,12 +55,7 @@ namespace Albatross.CommandLine {
 				try {
 					return await handler.InvokeAsync(context);
 				} catch (Exception err) {
-					if (globalOptions.ShowStack) {
-						logger.LogError(err, "Error invoking Command {command}", command.Name);
-					} else {
-						logger.LogError("Error invoking Command {command}: {message}", command.Name, err.Message);
-					}
-					return 1;
+					return HandleCommandException(err, logger, globalOptions);
 				} finally {
 					if (stopwatch != null) {
 						stopwatch.Stop();
