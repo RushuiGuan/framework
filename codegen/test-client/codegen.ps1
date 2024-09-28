@@ -1,17 +1,21 @@
-$location = $PSScriptRoot;
+$location = get-location;
+$project = $PSScriptRoot;
 
-get-item $location\projects\test-webclient\src\lib\*.generated.ts | remove-item;
+get-item $project\projects\test-webclient\src\lib\*.generated.ts | remove-item;
 
-codegen typescript-dto `
-	-p $location\..\Test.Dto\Test.Dto.csproj `
-	-s $location\..\Test.Proxy\codegen-settings.json `
-	-o $location\projects\test-webclient\src\lib\ `
-	--log information
+set-location $PSScriptRoot\..\Albatross.CodeGen.CommandLine;
+
+dotnet run -- typescript-dto `
+	-p $project\..\Test.Dto\Test.Dto.csproj `
+	-s $project\..\Test.Proxy\codegen-settings.json `
+	-o $project\projects\test-webclient\src\lib\ `
+	-v information
 
 
-codegen typescript-proxy `
-	-p $location\..\Test.WebApi\Test.WebApi.csproj `
-	-s $location\..\Test.Proxy\codegen-settings.json `
-	-o $location\projects\test-webclient\src\lib\ `
-	--log information
+dotnet run -- typescript-proxy `
+	-p $project\..\Test.WebApi\Test.WebApi.csproj `
+	-s $project\..\Test.Proxy\codegen-settings.json `
+	-o $project\projects\test-webclient\src\lib\ `
+	-v information
 
+Set-Location $location;

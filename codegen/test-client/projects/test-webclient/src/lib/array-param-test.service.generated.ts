@@ -15,22 +15,22 @@ export class ArrayParamTestService extends WebClient {
 	}
 	arrayStringParam(array: string[]): Observable<string>  {
 		const relativeUrl = `array-string-param`;
-		const result = this.doGetStringAsync(relativeUrl, { a: array });
+		const result = this.doGetStringAsync(relativeUrl, { a });
 		return result;
 	}
 	arrayValueType(array: number[]): Observable<string>  {
 		const relativeUrl = `array-value-type`;
-		const result = this.doGetStringAsync(relativeUrl, { a: array });
+		const result = this.doGetStringAsync(relativeUrl, { a });
 		return result;
 	}
 	collectionStringParam(collection: string[]): Observable<string>  {
 		const relativeUrl = `collection-string-param`;
-		const result = this.doGetStringAsync(relativeUrl, { c: collection });
+		const result = this.doGetStringAsync(relativeUrl, { c });
 		return result;
 	}
 	collectionValueType(collection: number[]): Observable<string>  {
 		const relativeUrl = `collection-value-type`;
-		const result = this.doGetStringAsync(relativeUrl, { c: collection });
+		const result = this.doGetStringAsync(relativeUrl, { c });
 		return result;
 	}
 }

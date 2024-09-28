@@ -5,27 +5,27 @@ namespace Test.WebApi.Controllers {
 	[Route("api/from-body-param-test")]
 	public class FromBodyParamTestController : ControllerBase {
 		[HttpPost("required-object")]
-		public void RequiredObject([FromBody] MyDto dto) { }
+		public int RequiredObject([FromBody] MyDto dto) => 1;
 
 		[HttpPost("nullable-object")]
-		public void NullableObject([FromBody] MyDto? dto) { }
+		public int NullableObject([FromBody] MyDto? dto) => 1;
 
 		[HttpPost("required-int")]
-		public void RequiredInt([FromBody] int value) { }
+		public int RequiredInt([FromBody] int value) => 1;
 
 		[HttpPost("nullable-int")]
-		public void NullableInt([FromBody] int? value) { }
+		public int NullableInt([FromBody] int? value) => 1;
 
 		[HttpPost("required-string")]
-		public void RequiredString([FromBody] string value) { }
+		public int RequiredString([FromBody] string value) => 1;
 
 		[HttpPost("nullable-string")]
-		public void NullableString([FromBody] string? value) { }
+		public int NullableString([FromBody] string? value) => 1;
 
 		[HttpPost("required-object-array")]
-		public void RequiredObjectArray([FromBody] MyDto[] array) { }
+		public int RequiredObjectArray([FromBody] MyDto[] array) => 1;
 
 		[HttpPost("nullable-object-array")]
-		public void NullableObjectArray([FromBody] MyDto?[] array) { }
+		public int NullableObjectArray([FromBody] MyDto?[] array) => 1;
 	}
 }

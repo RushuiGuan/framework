@@ -14,44 +14,44 @@ export class FromBodyParamTestService extends WebClient {
 		super();
 		console.log("FromBodyParamTestService instance created");
 	}
-	requiredObject(dto: MyDto): Observable<object>  {
+	requiredObject(dto: MyDto): Observable<number>  {
 		const relativeUrl = `required-object`;
-		const result = this.doPostAsync<object, MyDto>(relativeUrl, dto, {});
+		const result = this.doPostAsync<number, MyDto>(relativeUrl, dto, {});
 		return result;
 	}
-	nullableObject(dto: MyDto|undefined): Observable<object>  {
+	nullableObject(dto: MyDto|undefined): Observable<number>  {
 		const relativeUrl = `nullable-object`;
-		const result = this.doPostAsync<object, MyDto|undefined>(relativeUrl, dto, {});
+		const result = this.doPostAsync<number, MyDto|undefined>(relativeUrl, dto, {});
 		return result;
 	}
-	requiredInt(value: number): Observable<object>  {
+	requiredInt(value: number): Observable<number>  {
 		const relativeUrl = `required-int`;
-		const result = this.doPostAsync<object, number>(relativeUrl, value, {});
+		const result = this.doPostAsync<number, number>(relativeUrl, value, {});
 		return result;
 	}
-	nullableInt(value: number|undefined): Observable<object>  {
+	nullableInt(value: number|undefined): Observable<number>  {
 		const relativeUrl = `nullable-int`;
-		const result = this.doPostAsync<object, number|undefined>(relativeUrl, value, {});
+		const result = this.doPostAsync<number, number|undefined>(relativeUrl, value, {});
 		return result;
 	}
-	requiredString(value: string): Observable<object>  {
+	requiredString(value: string): Observable<number>  {
 		const relativeUrl = `required-string`;
-		const result = this.doPostAsync<object, string>(relativeUrl, value, {});
+		const result = this.doPostAsync<number, string>(relativeUrl, value, {});
 		return result;
 	}
-	nullableString(value: string): Observable<object>  {
+	nullableString(value: string): Observable<number>  {
 		const relativeUrl = `nullable-string`;
-		const result = this.doPostAsync<object, string>(relativeUrl, value, {});
+		const result = this.doPostAsync<number, string>(relativeUrl, value, {});
 		return result;
 	}
-	requiredObjectArray(array: MyDto[]): Observable<object>  {
+	requiredObjectArray(array: MyDto[]): Observable<number>  {
 		const relativeUrl = `required-object-array`;
-		const result = this.doPostAsync<object, MyDto[]>(relativeUrl, array, {});
+		const result = this.doPostAsync<number, MyDto[]>(relativeUrl, array, {});
 		return result;
 	}
-	nullableObjectArray(array: (MyDto|undefined)[]): Observable<object>  {
+	nullableObjectArray(array: (MyDto|undefined)[]): Observable<number>  {
 		const relativeUrl = `nullable-object-array`;
-		const result = this.doPostAsync<object, (MyDto|undefined)[]>(relativeUrl, array, {});
+		const result = this.doPostAsync<number, (MyDto|undefined)[]>(relativeUrl, array, {});
 		return result;
 	}
 }
