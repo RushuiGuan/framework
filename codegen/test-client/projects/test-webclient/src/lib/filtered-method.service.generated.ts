@@ -13,6 +13,11 @@ export class FilteredMethodService extends WebClient {
 		super();
 		console.log("FilteredMethodService instance created");
 	}
+	filteredByAll(): Observable<object>  {
+		const relativeUrl = `all`;
+		const result = this.doGetAsync<object>(relativeUrl, {});
+		return result;
+	}
 	filteredByNone(): Observable<object>  {
 		const relativeUrl = `none`;
 		const result = this.doGetAsync<object>(relativeUrl, {});
@@ -20,11 +25,6 @@ export class FilteredMethodService extends WebClient {
 	}
 	filteredByCSharp(): Observable<object>  {
 		const relativeUrl = `csharp`;
-		const result = this.doGetAsync<object>(relativeUrl, {});
-		return result;
-	}
-	filteredByTypeScript(): Observable<object>  {
-		const relativeUrl = `typescript`;
 		const result = this.doGetAsync<object>(relativeUrl, {});
 		return result;
 	}

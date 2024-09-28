@@ -2,6 +2,7 @@ import { HttpClient }  from "@angular/common/http";
 import { Injectable }  from "@angular/core";
 import { ConfigService }  from "@mirage/config";
 import { WebClient }  from "@mirage/webclient";
+import { format }  from "date-fns";
 import { MyDto }  from './dto.generated';
 import { Observable }  from "rxjs";
 
@@ -36,17 +37,17 @@ export class RequiredParamTestService extends WebClient {
 	}
 	requiredDateOnly(date: Date): Observable<string>  {
 		const relativeUrl = `required-date-only`;
-		const result = this.doGetStringAsync(relativeUrl, { date });
+		const result = this.doGetStringAsync(relativeUrl, { date: format(date, "yyyy-MM-dd") });
 		return result;
 	}
 	requiredDateTime(date: Date): Observable<string>  {
 		const relativeUrl = `required-datetime`;
-		const result = this.doGetStringAsync(relativeUrl, { date });
+		const result = this.doGetStringAsync(relativeUrl, { date: format(date, "yyyy-MM-ddTHH:mm:ssXXX") });
 		return result;
 	}
 	requiredDateTimeAsDateOnly(date: Date): Observable<string>  {
 		const relativeUrl = `requried-datetime-as-dateonly`;
-		const result = this.doDeleteAsync(relativeUrl, { date });
+		const result = this.doGetStringAsync(relativeUrl, { date: format(date, "yyyy-MM-dd") });
 		return result;
 	}
 	requiredPostParam(dto: MyDto): Observable<object>  {
@@ -76,32 +77,32 @@ export class RequiredParamTestService extends WebClient {
 	}
 	requiredDateOnlyCollection(dates: Date[]): Observable<string>  {
 		const relativeUrl = `required-date-only-collection`;
-		const result = this.doGetStringAsync(relativeUrl, { dates });
+		const result = this.doGetStringAsync(relativeUrl, { dates: dates.map(x => format(x, "yyyy-MM-dd")) });
 		return result;
 	}
 	requiredDateOnlyArray(dates: Date[]): Observable<string>  {
 		const relativeUrl = `required-date-only-array`;
-		const result = this.doGetStringAsync(relativeUrl, { dates });
+		const result = this.doGetStringAsync(relativeUrl, { dates: dates.map(x => format(x, "yyyy-MM-dd")) });
 		return result;
 	}
 	requiredDateTimeCollection(dates: Date[]): Observable<string>  {
 		const relativeUrl = `required-datetime-collection`;
-		const result = this.doGetStringAsync(relativeUrl, { dates });
+		const result = this.doGetStringAsync(relativeUrl, { dates: dates.map(x => format(x, "yyyy-MM-ddTHH:mm:ssXXX")) });
 		return result;
 	}
 	requiredDateTimeArray(dates: Date[]): Observable<string>  {
 		const relativeUrl = `required-datetime-array`;
-		const result = this.doGetStringAsync(relativeUrl, { dates });
+		const result = this.doGetStringAsync(relativeUrl, { dates: dates.map(x => format(x, "yyyy-MM-ddTHH:mm:ssXXX")) });
 		return result;
 	}
 	requiredDateTimeAsDateOnlyCollection(dates: Date[]): Observable<string>  {
 		const relativeUrl = `required-datetime-as-dateonly-collection`;
-		const result = this.doGetStringAsync(relativeUrl, { dates });
+		const result = this.doGetStringAsync(relativeUrl, { dates: dates.map(x => format(x, "yyyy-MM-dd")) });
 		return result;
 	}
 	requiredDateTimeAsDateOnlyArray(dates: Date[]): Observable<string>  {
 		const relativeUrl = `required-datetime-as-dateonly-array`;
-		const result = this.doGetStringAsync(relativeUrl, { dates });
+		const result = this.doGetStringAsync(relativeUrl, { dates: dates.map(x => format(x, "yyyy-MM-dd")) });
 		return result;
 	}
 }

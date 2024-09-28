@@ -14,6 +14,7 @@
 		}
 
 		public ParameterInfo? ParameterInfo { get; set; }
+		public ParameterInfo RequiredParameterInfo => ParameterInfo ?? throw new System.InvalidOperationException("ParameterInfo is not set");
 		public string Text { get; }
 	}
 }

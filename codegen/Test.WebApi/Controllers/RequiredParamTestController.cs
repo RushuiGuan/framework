@@ -25,7 +25,7 @@ namespace Test.WebApi.Controllers {
 		[HttpGet("required-datetime")]
 		public string RequiredDateTime(DateTime date) => date.ToString();
 
-		[HttpDelete("requried-datetime-as-dateonly")]
+		[HttpGet("requried-datetime-as-dateonly")]
 		public string RequiredDateTimeAsDateOnly(DateTime date) => date.ToString();
 
 		[HttpPost("required-post-param")]

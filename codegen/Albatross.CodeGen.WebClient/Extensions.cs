@@ -5,8 +5,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.TypeScript;
 using Albatross.CodeGen.WebClient.Models;
-using Albatross.CodeGen.WebClient.TypeScriptOld;
-using Albatross.CodeGen.WebClient.CSharpOld;
 using Albatross.CodeGen.CommandLine;
 
 namespace Albatross.CodeGen.WebClient {
@@ -31,11 +29,7 @@ namespace Albatross.CodeGen.WebClient {
 
 		public static IServiceCollection AddLegacyWebClientCodeGen(this IServiceCollection services) {
 			services.AddCSharpCodeGen().AddTypeScriptCodeGen();
-			services.TryAddSingleton<ICreateApiCSharpProxy, CreateApiCSharpProxy>();
 			services.TryAddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
-			services.TryAddScoped<ICreateWebClientMethod, CreateWebClientMethod>();
-			services.TryAddSingleton<ConvertApiControllerToCSharpClass>();
-			services.TryAddScoped<ConvertApiControllerToTypeScriptFile>();
 			return services;
 		}
 	}
