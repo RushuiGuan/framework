@@ -54,7 +54,7 @@ namespace Albatross.CommandLine {
 
 		private Task SetCommandHanlerMiddleware(InvocationContext context, Func<InvocationContext, Task> next) {
 			var cmd = context.ParseResult.CommandResult.Command;
-			cmd.Handler = new GlobalCommandHandler(cmd);
+			cmd.Handler = CreateGlobalCommandHandler(cmd);
 			return next(context);
 		}
 		/// <summary>
