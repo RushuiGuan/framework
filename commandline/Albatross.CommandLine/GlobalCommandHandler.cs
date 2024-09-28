@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.CommandLine {
 	public class GlobalCommandHandler : ICommandHandler {
-		private readonly Command command;
+		protected readonly Command command;
 
 		public GlobalCommandHandler(Command command) {
 			this.command = command;
