@@ -26,7 +26,7 @@ export class FromQueryParamTestService extends WebClient {
 	}
 	requiredStringDiffName(name: string): Observable<object>  {
 		const relativeUrl = `required-string-diff-name`;
-		const result = this.doGetAsync<object>(relativeUrl, { n });
+		const result = this.doGetAsync<object>(relativeUrl, { n: name });
 		return result;
 	}
 	requiredDateTime(datetime: Date): Observable<object>  {
@@ -36,7 +36,7 @@ export class FromQueryParamTestService extends WebClient {
 	}
 	requiredDateTimeDiffName(datetime: Date): Observable<object>  {
 		const relativeUrl = `required-datetime_diff-name`;
-		const result = this.doGetAsync<object>(relativeUrl, { d: format(d, "yyyy-MM-ddTHH:mm:ssXXX") });
+		const result = this.doGetAsync<object>(relativeUrl, { d: format(datetime, "yyyy-MM-ddTHH:mm:ssXXX") });
 		return result;
 	}
 	requiredDateOnly(dateonly: Date): Observable<object>  {
@@ -46,7 +46,7 @@ export class FromQueryParamTestService extends WebClient {
 	}
 	requiredDateOnlyDiffName(dateonly: Date): Observable<object>  {
 		const relativeUrl = `required-dateonly_diff-name`;
-		const result = this.doGetAsync<object>(relativeUrl, { d: format(d, "yyyy-MM-dd") });
+		const result = this.doGetAsync<object>(relativeUrl, { d: format(dateonly, "yyyy-MM-dd") });
 		return result;
 	}
 	requiredDateTimeOffset(dateTimeOffset: Date): Observable<object>  {
@@ -56,7 +56,7 @@ export class FromQueryParamTestService extends WebClient {
 	}
 	requiredDateTimeOffsetDiffName(dateTimeOffset: Date): Observable<object>  {
 		const relativeUrl = `required-datetimeoffset_diff-name`;
-		const result = this.doGetAsync<object>(relativeUrl, { d: format(d, "yyyy-MM-ddTHH:mm:ssXXX") });
+		const result = this.doGetAsync<object>(relativeUrl, { d: format(dateTimeOffset, "yyyy-MM-ddTHH:mm:ssXXX") });
 		return result;
 	}
 }
