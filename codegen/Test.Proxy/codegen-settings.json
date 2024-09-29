@@ -12,7 +12,8 @@
 		],
 		"endPointName": "test-client",
 		"baseClassModule": "@mirage/webclient",
-		"configServiceModule": "@mirage/config"
+		"configServiceModule": "@mirage/config",
+		"usePromise": false
 	},
 	"cSharpWebClientSettings": {
 		"namespace": "Test.Proxy",

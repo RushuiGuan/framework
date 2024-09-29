@@ -18,4 +18,9 @@ dotnet run -- typescript-proxy `
 	-o $project\projects\test-webclient\src\lib\ `
 	-v information
 
+dotnet run -- typescript-entrypoint `
+	-s $project\..\Test.Proxy\codegen-settings.json `
+	-o $project\projects\test-webclient\src\ `
+	-v information
+
 Set-Location $location;

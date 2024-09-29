@@ -112,7 +112,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 				return new StringLiteralExpression(segment.Text);
 			}
 		}
-		
+
 		InvocationExpression FormattedDate(string text, string format) {
 			return new InvocationExpression {
 				Identifier = new QualifiedIdentifierNameExpression("format", Defined.Sources.DateFns),
@@ -151,9 +151,9 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		}
 		bool IsDate(ITypeSymbol type) {
 			var typeName = type.GetFullName();
-			return typeName == typeof(TimeOnly).FullName 
-				|| typeName == typeof(DateOnly).FullName 
-				|| typeName == typeof(DateTime).FullName 
+			return typeName == typeof(TimeOnly).FullName
+				|| typeName == typeof(DateOnly).FullName
+				|| typeName == typeof(DateTime).FullName
 				|| typeName == typeof(DateTimeOffset).FullName;
 		}
 		/// <summary>
@@ -165,7 +165,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		/// </summary>
 		JsonPropertyExpression BuildQueryStringParameter(ParameterInfo parameter, bool useDateTimeAsDateOnly) {
 			IExpression value;
-			if (parameter.Type.TryGetCollectionElementType(out var elementType) && IsDate(elementType!) ) {
+			if (parameter.Type.TryGetCollectionElementType(out var elementType) && IsDate(elementType!)) {
 				value = new InvocationExpression {
 					Identifier = new MultiPartIdentifierNameExpression(parameter.Name.CamelCase(), "map"),
 					ArgumentList = new ListOfSyntaxNodes<IExpression>(
@@ -176,20 +176,15 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 					)
 				};
 			} else {
-				value = BuildParamValue(parameter.QueryKey, parameter.Type, useDateTimeAsDateOnly);
+				value = BuildParamValue(parameter.Name.CamelCase(), parameter.Type, useDateTimeAsDateOnly);
 			}
 			return new JsonPropertyExpression(parameter.QueryKey, value);
 		}
 
 		IExpression CreateHttpInvocationExpression(MethodInfo method) {
 			var builder = new InvocationExpressionBuilder();
-			if (settings.UsePromise) {
-				builder.Await();
-			}
 			var returnType = this.typeConverter.Convert(method.ReturnType);
-			var hasVoidReturnType = false;
 			if (object.Equals(returnType, Defined.Types.Void())) {
-				hasVoidReturnType = true;
 				returnType = Defined.Types.Object();
 			}
 			var hasStringReturnType = object.Equals(returnType, Defined.Types.String());
@@ -244,8 +239,15 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			// build query string
 			builder.AddArgument(BuildQueryStringParameters(method));
 
-			if (settings.UsePromise && hasVoidReturnType) {
-				return builder.Build();
+			if (settings.UsePromise) {
+				return new ScopedVariableExpressionBuilder()
+					.IsConstant().WithName("result").WithExpression(builder.Build())
+					.Add(() => new ReturnExpression(new InvocationExpression() {
+						Identifier = Defined.Identifiers.FirstValueFrom,
+						ArgumentList = new ListOfSyntaxNodes<IExpression>(new IdentifierNameExpression("result")),
+						UseAwaitOperator = true,
+					}))
+					.BuildAll();
 			} else {
 				return new ScopedVariableExpressionBuilder()
 					.IsConstant().WithName("result").WithExpression(builder.Build())
@@ -254,8 +256,6 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			}
 		}
 
-		object IConvertObject<ControllerInfo>.Convert(ControllerInfo from) {
-			return this.Convert(from);
-		}
+		object IConvertObject<ControllerInfo>.Convert(ControllerInfo from) => this.Convert(from);
 	}
 }

@@ -95,6 +95,7 @@ namespace Albatross.CodeGen.TypeScript {
 			public static IIdentifierNameExpression This => new IdentifierNameExpression("this");
 			public static IIdentifierNameExpression Promise => new IdentifierNameExpression("Promise");
 			public static IIdentifierNameExpression Observable => new QualifiedIdentifierNameExpression("Observable", Sources.Rxjs);
+			public static IIdentifierNameExpression FirstValueFrom => new QualifiedIdentifierNameExpression("firstValueFrom", Sources.Rxjs);
 		}
 	}
 }

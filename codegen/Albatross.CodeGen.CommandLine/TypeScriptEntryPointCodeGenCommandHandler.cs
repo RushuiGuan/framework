@@ -9,21 +9,21 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	[Verb("typescript-entry-file", typeof(TypeScriptEntryFileCodeGenCommandHandler))]
-	public record TypeScriptEntryFileCodeGenOptions {
+	[Verb("typescript-entrypoint", typeof(TypeScriptEntryPointCodeGenCommandHandler))]
+	public record TypeScriptEntryPointCodeGenOptions {
 		[Option(Alias = ["o"])]
 		public DirectoryInfo OutputDirectory { get; init; } = null!;
 		
 		[Option(Alias = ["s"])]
 		public FileInfo? SettingsFile { get; set; }
 	}
-	public class TypeScriptEntryFileCodeGenCommandHandler : ICommandHandler {
-		private readonly ILogger<TypeScriptEntryFileCodeGenCommandHandler> logger;
-		private readonly TypeScriptEntryFileCodeGenOptions options;
+	public class TypeScriptEntryPointCodeGenCommandHandler : ICommandHandler {
+		private readonly ILogger<TypeScriptEntryPointCodeGenCommandHandler> logger;
+		private readonly TypeScriptEntryPointCodeGenOptions options;
 		private readonly TypeScriptWebClientSettings settings;
 
-		public TypeScriptEntryFileCodeGenCommandHandler(IOptions<TypeScriptEntryFileCodeGenOptions> options, 
-			ILogger<TypeScriptEntryFileCodeGenCommandHandler> logger, 
+		public TypeScriptEntryPointCodeGenCommandHandler(IOptions<TypeScriptEntryPointCodeGenOptions> options, 
+			ILogger<TypeScriptEntryPointCodeGenCommandHandler> logger, 
 			CodeGenSettings settings) {
 			this.options = options.Value;
 			this.logger = logger;
