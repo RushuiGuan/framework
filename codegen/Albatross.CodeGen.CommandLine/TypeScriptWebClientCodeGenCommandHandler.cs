@@ -1,4 +1,5 @@
 ﻿using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
@@ -23,7 +24,7 @@ namespace Albatross.CodeGen.CommandLine {
 			ILogger<TypeScriptWebClientCodeGenCommandHandler> logger, 
 			Compilation compilation, 
 			CodeGenSettings settings,
-			ConvertApiControllerToControllerModel convertToWebApi, 
+			ConvertApiControllerToControllerModel convertToWebApi,
 			ConvertControllerModelToTypeScriptFile converToTypeScriptFile) {
 			this.options = options.Value;
 			this.logger = logger;
@@ -45,6 +46,7 @@ namespace Albatross.CodeGen.CommandLine {
 				dtoClassWalker.Visit(syntaxTree.GetRoot());
 				models.AddRange(dtoClassWalker.Result);
 			}
+			var files = new List<TypeScriptFileDeclaration>();
 			foreach (var model in models) {
 				if (string.IsNullOrEmpty(options.AdhocFilter) || model.GetFullName().Contains(options.AdhocFilter)) {
 					logger.LogInformation("Generating proxy for {controller}", model.Name);
@@ -52,6 +54,7 @@ namespace Albatross.CodeGen.CommandLine {
 					webApi.ApplyMethodFilters(settings.CreateTypeScriptControllerMethodFilters());
 					var file = this.converToTypeScriptFile.Convert(webApi);
 					file.Generate(System.Console.Out);
+					files.Add(file);
 					logger.LogInformation("directory: {data}", options.OutputDirectory?.FullName);
 					if (options.OutputDirectory != null) {
 						using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, file.FileName))) {
