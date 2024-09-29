@@ -12,7 +12,7 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 
 		public override TextWriter Generate(TextWriter writer) {
 			writer.Append("export ");
-			if (!Items.HasAny) {
+			if (Items.HasAny) {
 				writer.Append("{").Code(Items).Append("}");
 			} else {
 				writer.Append("*");

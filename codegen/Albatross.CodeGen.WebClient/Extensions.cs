@@ -29,7 +29,7 @@ namespace Albatross.CodeGen.WebClient {
 
 		public static IServiceCollection AddLegacyWebClientCodeGen(this IServiceCollection services) {
 			services.AddCSharpCodeGen().AddTypeScriptCodeGen();
-			services.TryAddSingleton<ICreateAngularPublicApi, CreateAngularPublicApi>();
+			services.TryAddSingleton<ICreateAngularEntryFile, CreateAngularEntryFile>();
 			return services;
 		}
 	}

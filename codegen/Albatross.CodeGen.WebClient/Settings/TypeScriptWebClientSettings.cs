@@ -12,6 +12,8 @@ namespace Albatross.CodeGen.WebClient.Settings {
 		public string BaseClassModule { get; init; } = "@my_module/webclient";
 		public string ConfigServiceModule { get; init; } = "@my_module/config";
 		public bool UsePromise { get; set; }
+		public string EntryFile { get; init; } = "public-api.ts";
+		public string SourcePathRelatedToEntryFile { get; init; } = "lib";
 		/// <summary>
 		/// mapping bewteen c# namespace and typescript module
 		/// </summary>

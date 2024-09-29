@@ -67,6 +67,12 @@
         "usePromise": {
           "type": "boolean"
         },
+        "entryFile": {
+          "type": "string"
+        },
+        "sourcePathRelatedToEntryFile": {
+          "type": "string"
+        },
         "nameSpaceModuleMapping": {
           "type": "object",
           "additionalProperties": {
