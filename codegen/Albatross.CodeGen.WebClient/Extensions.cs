@@ -1,7 +1,6 @@
 ﻿using Albatross.CodeGen.CSharp;
 using Microsoft.Extensions.DependencyInjection;
 using Albatross.CodeGen.TypeScript;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.TypeScript;
 using Albatross.CodeGen.WebClient.Models;
@@ -24,12 +23,6 @@ namespace Albatross.CodeGen.WebClient {
 				.AddScoped<CreateHttpClientRegistrations>()
 				.AddScoped<ConvertDtoClassModelToTypeScriptInterface>()
 				.AddScoped<ConvertEnumModelToTypeScriptEnum>();
-			return services;
-		}
-
-		public static IServiceCollection AddLegacyWebClientCodeGen(this IServiceCollection services) {
-			services.AddCSharpCodeGen().AddTypeScriptCodeGen();
-			services.TryAddSingleton<ICreateAngularEntryFile, CreateAngularEntryFile>();
 			return services;
 		}
 	}
