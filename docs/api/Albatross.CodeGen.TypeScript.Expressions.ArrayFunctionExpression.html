@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class CreateAngularPublicApi | Albatross Framework Documentation </title>
+      <title>Class ArrayFunctionExpression | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class CreateAngularPublicApi | Albatross Framework Documentation ">
+      <meta name="title" content="Class ArrayFunctionExpression | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,24 +80,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateAngularPublicApi">
+        <article data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_TypeScript_CreateAngularPublicApi" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateAngularPublicApi" class="text-break">
-Class CreateAngularPublicApi  
+  <h1 id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression" class="text-break">
+Class ArrayFunctionExpression  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.WebClient.html">WebClient</a>.<a class="xref" href="Albatross.CodeGen.WebClient.TypeScript.html">TypeScript</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.WebClient.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.TypeScript.html">TypeScript</a>.<a class="xref" href="Albatross.CodeGen.TypeScript.Expressions.html">Expressions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.TypeScript.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CreateAngularPublicApi : ICreateAngularPublicApi</code></pre>
+    <pre><code class="lang-csharp hljs">public record ArrayFunctionExpression : SyntaxNode, IEquatable&lt;SyntaxNode&gt;, IExpression, ISyntaxNode, ICodeElement, IEquatable&lt;ArrayFunctionExpression&gt;</code></pre>
   </div>
 
 
@@ -107,18 +107,30 @@ Class CreateAngularPublicApi
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">CreateAngularPublicApi</span></div>
+      <div><a class="xref" href="Albatross.CodeGen.Syntax.SyntaxNode.html">SyntaxNode</a></div>
+      <div><span class="xref">ArrayFunctionExpression</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.CodeGen.WebClient.TypeScript.ICreateAngularPublicApi.html">ICreateAngularPublicApi</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Albatross.CodeGen.Syntax.SyntaxNode.html">SyntaxNode</a>&gt;</div>
+      <div><a class="xref" href="Albatross.CodeGen.Syntax.IExpression.html">IExpression</a></div>
+      <div><a class="xref" href="Albatross.CodeGen.Syntax.ISyntaxNode.html">ISyntaxNode</a></div>
+      <div><a class="xref" href="Albatross.CodeGen.ICodeElement.html">ICodeElement</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.html">ArrayFunctionExpression</a>&gt;</div>
     </dd>
   </dl>
 
 
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Albatross.CodeGen.Syntax.SyntaxNode.html#Albatross_CodeGen_Syntax_SyntaxNode_GetDescendants">SyntaxNode.GetDescendants()</a>
+    </div>
+  </dd></dl>
 
   <dl class="typelist extensionMethods">
     <dt>Extension Methods</dt>
@@ -133,6 +145,9 @@ Class CreateAngularPublicApi
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -144,14 +159,14 @@ Class CreateAngularPublicApi
 
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_TypeScript_CreateAngularPublicApi_Generate_" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateAngularPublicApi.Generate*"></a>
+  <a id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression_Arguments_" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.Arguments*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_TypeScript_CreateAngularPublicApi_Generate_System_String_System_String_System_Collections_Generic_IEnumerable_Albatross_CodeGen_TypeScript_Declarations_TypeScriptFileDeclaration__" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateAngularPublicApi.Generate(System.String,System.String,System.Collections.Generic.IEnumerable{Albatross.CodeGen.TypeScript.Declarations.TypeScriptFileDeclaration})">
-  Generate(string, string, IEnumerable&lt;TypeScriptFileDeclaration&gt;)
+  <h3 id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression_Arguments" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.Arguments">
+  Arguments
   
   </h3>
 
@@ -159,19 +174,117 @@ Class CreateAngularPublicApi
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Generate(string outputFolder, string fileFolder, IEnumerable&lt;TypeScriptFileDeclaration&gt; files)</code></pre>
+    <pre><code class="lang-csharp hljs">public ListOfSyntaxNodes&lt;IIdentifierNameExpression&gt; Arguments { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeGen.Syntax.ListOfSyntaxNodes-1.html">ListOfSyntaxNodes</a>&lt;<a class="xref" href="Albatross.CodeGen.Syntax.IIdentifierNameExpression.html">IIdentifierNameExpression</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression_Body_" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.Body*"></a>
+
+  <h3 id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression_Body" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.Body">
+  Body
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IExpression Body { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeGen.Syntax.IExpression.html">IExpression</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression_Children_" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.Children*"></a>
+
+  <h3 id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression_Children" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.Children">
+  Children
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override IEnumerable&lt;ISyntaxNode&gt; Children { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.CodeGen.Syntax.ISyntaxNode.html">ISyntaxNode</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression_Generate_" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.Generate*"></a>
+
+  <h3 id="Albatross_CodeGen_TypeScript_Expressions_ArrayFunctionExpression_Generate_System_IO_TextWriter_" data-uid="Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.Generate(System.IO.TextWriter)">
+  Generate(TextWriter)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override TextWriter Generate(TextWriter writer)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>outputFolder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>fileFolder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>files</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.TypeScriptFileDeclaration.html">TypeScriptFileDeclaration</a>&gt;</dt>
+    <dt><code>writer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
     <dd></dd>
   </dl>
 
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

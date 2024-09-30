@@ -1394,6 +1394,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CodeGen.CommandLine.ConvertEnumModelToTypeScriptEnum.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CodeGen.CommandLine.ConvertEnumModelToTypeScriptEnum.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CodeGen.CommandLine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CodeGen.CommandLine.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.CodeGen.ConversionException.yml",
       "output": {
         ".html": {
@@ -1594,56 +1614,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.ConvertClassProperty.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.ConvertClassProperty.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.ConvertDtoClassToInterface.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.ConvertDtoClassToInterface.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.ConvertEnum.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.ConvertEnum.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.ConvertMethodParameter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.ConvertMethodParameter.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.TypeScript.Conversions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.CodeGen.TypeScript.Declarations.ClassDeclaration.yml",
       "output": {
         ".html": {
@@ -1828,6 +1798,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.CodeGen.TypeScript.Defined.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CodeGen.TypeScript.Expressions.ArrayFunctionExpression.html"
         }
       },
       "version": ""
@@ -2444,90 +2424,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.AddCSharpQueryStringParam.yml",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.DtoClassEnumWalker.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.AddCSharpQueryStringParam.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.AddCSharpRouteUrl.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.AddCSharpRouteUrl.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.ConvertApiControllerToCSharpClass.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.ConvertApiControllerToCSharpClass.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.Extensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.Extensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.ICreateApiCSharpProxy.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.ICreateApiCSharpProxy.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.CSharpOld.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.DtoClassWalker.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.DtoClassWalker.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.EnumTypeWalker.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.EnumTypeWalker.html"
+          "relative_path": "api/Albatross.CodeGen.WebClient.DtoClassEnumWalker.html"
         }
       },
       "version": ""
@@ -2554,20 +2454,30 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerInfo.yml",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerModel.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerInfo.html"
+          "relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerModel.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClass.yml",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClassModel.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClass.html"
+          "relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClassModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertEnumSymbolToDtoEnumModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CodeGen.WebClient.Models.ConvertEnumSymbolToDtoEnumModel.html"
         }
       },
       "version": ""
@@ -2588,6 +2498,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.Models.EnumInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CodeGen.WebClient.Models.EnumInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.Models.EnumMember.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CodeGen.WebClient.Models.EnumMember.html"
         }
       },
       "version": ""
@@ -2714,6 +2644,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.Settings.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CodeGen.WebClient.Settings.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.CodeGen.WebClient.Settings.SymbolFilter.yml",
       "output": {
         ".html": {
@@ -2764,50 +2704,30 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassInfoToTypeScriptInterface.yml",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertControllerModelToTypeScriptFile.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassInfoToTypeScriptInterface.html"
+          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertControllerModelToTypeScriptFile.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyInfoToPropertyDeclaration.yml",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassModelToTypeScriptInterface.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyInfoToPropertyDeclaration.html"
+          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassModelToTypeScriptInterface.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertWebApiToTypeScriptFile.yml",
+      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyModelToPropertyDeclaration.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertWebApiToTypeScriptFile.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.CreateAngularPublicApi.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.CreateAngularPublicApi.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.html"
+          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyModelToPropertyDeclaration.html"
         }
       },
       "version": ""
@@ -2824,70 +2744,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ICreateAngularPublicApi.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.ICreateAngularPublicApi.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.yml",
       "output": {
         ".html": {
           "relative_path": "api/Albatross.CodeGen.WebClient.TypeScript.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.ConvertApiControllerToTypeScriptFile.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.ConvertApiControllerToTypeScriptFile.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.CreateWebClientMethod.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.CreateWebClientMethod.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.Extensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.Extensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.ICreateWebClientMethod.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.ICreateWebClientMethod.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.WebClient.TypeScriptOld.html"
         }
       },
       "version": ""
@@ -2914,6 +2774,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Collections.EndPosition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Collections.EndPosition.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Collections.Extensions.yml",
       "output": {
         ".html": {
@@ -2924,10 +2794,70 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Collections.IPosition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Collections.IPosition.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Collections.ISortedData-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Collections.ISortedData-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Collections.IntPosition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Collections.IntPosition.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Collections.LongPosition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Collections.LongPosition.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Collections.MergeExtensions.yml",
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Collections.MergeExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Collections.SortedArrayData-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Collections.SortedArrayData-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Collections.SortedDataExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Collections.SortedDataExtensions.html"
         }
       },
       "version": ""
@@ -4104,6 +4034,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.Hosting.Test.NumberExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.Hosting.Test.NumberExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.Hosting.Test.ServiceExtension.yml",
       "output": {
         ".html": {
@@ -4384,10 +4324,40 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.IO.AsciiExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.IO.AsciiExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.IO.Extensions.yml",
       "output": {
         ".html": {
           "relative_path": "api/Albatross.IO.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.IO.FileExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.IO.FileExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.IO.SortedAsciiCsvFile-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.IO.SortedAsciiCsvFile-1.html"
         }
       },
       "version": ""

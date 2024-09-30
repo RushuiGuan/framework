@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Interface ICreateAngularPublicApi | Albatross Framework Documentation </title>
+      <title>Class ConvertDtoClassPropertyModelToPropertyDeclaration | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Interface ICreateAngularPublicApi | Albatross Framework Documentation ">
+      <meta name="title" content="Class ConvertDtoClassPropertyModelToPropertyDeclaration | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,12 +80,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.TypeScript.ICreateAngularPublicApi">
+        <article data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyModelToPropertyDeclaration">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_TypeScript_ICreateAngularPublicApi" data-uid="Albatross.CodeGen.WebClient.TypeScript.ICreateAngularPublicApi" class="text-break">
-Interface ICreateAngularPublicApi  
+  <h1 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassPropertyModelToPropertyDeclaration" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyModelToPropertyDeclaration" class="text-break">
+Class ConvertDtoClassPropertyModelToPropertyDeclaration  
   </h1>
 
   <div class="facts text-secondary">
@@ -97,13 +97,27 @@ Interface ICreateAngularPublicApi
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ICreateAngularPublicApi</code></pre>
+    <pre><code class="lang-csharp hljs">public class ConvertDtoClassPropertyModelToPropertyDeclaration : IConvertObject&lt;DtoClassPropertyInfo, PropertyDeclaration&gt;, IConvertObject&lt;DtoClassPropertyInfo&gt;</code></pre>
   </div>
 
 
 
 
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ConvertDtoClassPropertyModelToPropertyDeclaration</span></div>
+    </dd>
+  </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo.html">DtoClassPropertyInfo</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.PropertyDeclaration.html">PropertyDeclaration</a>&gt;</div>
+      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-1.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo.html">DtoClassPropertyInfo</a>&gt;</div>
+    </dd>
+  </dl>
 
 
 
@@ -120,6 +134,9 @@ Interface ICreateAngularPublicApi
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -131,14 +148,14 @@ Interface ICreateAngularPublicApi
 
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_TypeScript_ICreateAngularPublicApi_Generate_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ICreateAngularPublicApi.Generate*"></a>
+  <a id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassPropertyModelToPropertyDeclaration__ctor_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyModelToPropertyDeclaration.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_TypeScript_ICreateAngularPublicApi_Generate_System_String_System_String_System_Collections_Generic_IEnumerable_Albatross_CodeGen_TypeScript_Declarations_TypeScriptFileDeclaration__" data-uid="Albatross.CodeGen.WebClient.TypeScript.ICreateAngularPublicApi.Generate(System.String,System.String,System.Collections.Generic.IEnumerable{Albatross.CodeGen.TypeScript.Declarations.TypeScriptFileDeclaration})">
-  Generate(string, string, IEnumerable&lt;TypeScriptFileDeclaration&gt;)
+  <h3 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassPropertyModelToPropertyDeclaration__ctor_Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_ITypeSymbol_Albatross_CodeGen_Syntax_ITypeExpression__" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyModelToPropertyDeclaration.#ctor(Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.ITypeSymbol,Albatross.CodeGen.Syntax.ITypeExpression})">
+  ConvertDtoClassPropertyModelToPropertyDeclaration(IConvertObject&lt;ITypeSymbol, ITypeExpression&gt;)
   
   </h3>
 
@@ -146,19 +163,55 @@ Interface ICreateAngularPublicApi
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Generate(string outputFolder, string fileFolder, IEnumerable&lt;TypeScriptFileDeclaration&gt; dependancies)</code></pre>
+    <pre><code class="lang-csharp hljs">public ConvertDtoClassPropertyModelToPropertyDeclaration(IConvertObject&lt;ITypeSymbol, ITypeExpression&gt; typeConverter)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>outputFolder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>fileFolder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>dependancies</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.TypeScriptFileDeclaration.html">TypeScriptFileDeclaration</a>&gt;</dt>
+    <dt><code>typeConverter</code> <a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.Syntax.ITypeExpression.html">ITypeExpression</a>&gt;</dt>
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassPropertyModelToPropertyDeclaration_Convert_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyModelToPropertyDeclaration.Convert*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassPropertyModelToPropertyDeclaration_Convert_Albatross_CodeGen_WebClient_Models_DtoClassPropertyInfo_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassPropertyModelToPropertyDeclaration.Convert(Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo)">
+  Convert(DtoClassPropertyInfo)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PropertyDeclaration Convert(DtoClassPropertyInfo from)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>from</code> <a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo.html">DtoClassPropertyInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.PropertyDeclaration.html">PropertyDeclaration</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

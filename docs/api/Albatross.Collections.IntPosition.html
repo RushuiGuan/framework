@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class ConvertEnum | Albatross Framework Documentation </title>
+      <title>Class IntPosition | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ConvertEnum | Albatross Framework Documentation ">
+      <meta name="title" content="Class IntPosition | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,24 +80,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertEnum">
+        <article data-uid="Albatross.Collections.IntPosition">
 
 
 
-  <h1 id="Albatross_CodeGen_TypeScript_Conversions_ConvertEnum" data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertEnum" class="text-break">
-Class ConvertEnum  
+  <h1 id="Albatross_Collections_IntPosition" data-uid="Albatross.Collections.IntPosition" class="text-break">
+Class IntPosition  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.TypeScript.html">TypeScript</a>.<a class="xref" href="Albatross.CodeGen.TypeScript.Conversions.html">Conversions</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.WebClient.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Collections.html">Collections</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Collections.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ConvertEnum : IConvertObject&lt;INamedTypeSymbol, EnumDeclaration&gt;, IConvertObject&lt;INamedTypeSymbol&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public record IntPosition : IPosition, IEquatable&lt;IntPosition&gt;</code></pre>
   </div>
 
 
@@ -107,15 +107,15 @@ Class ConvertEnum
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ConvertEnum</span></div>
+      <div><span class="xref">IntPosition</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.EnumDeclaration.html">EnumDeclaration</a>&gt;</div>
-      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-1.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>&gt;</div>
+      <div><a class="xref" href="Albatross.Collections.IPosition.html">IPosition</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Albatross.Collections.IntPosition.html">IntPosition</a>&gt;</div>
     </dd>
   </dl>
 
@@ -134,6 +134,9 @@ Class ConvertEnum
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -145,14 +148,14 @@ Class ConvertEnum
 
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="constructors">Constructors
 </h2>
 
 
-  <a id="Albatross_CodeGen_TypeScript_Conversions_ConvertEnum_Convert_" data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertEnum.Convert*"></a>
+  <a id="Albatross_Collections_IntPosition__ctor_" data-uid="Albatross.Collections.IntPosition.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_TypeScript_Conversions_ConvertEnum_Convert_Microsoft_CodeAnalysis_INamedTypeSymbol_" data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertEnum.Convert(Microsoft.CodeAnalysis.INamedTypeSymbol)">
-  Convert(INamedTypeSymbol)
+  <h3 id="Albatross_Collections_IntPosition__ctor_System_Int32_" data-uid="Albatross.Collections.IntPosition.#ctor(System.Int32)">
+  IntPosition(int)
   
   </h3>
 
@@ -160,23 +163,53 @@ Class ConvertEnum
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EnumDeclaration Convert(INamedTypeSymbol from)</code></pre>
+    <pre><code class="lang-csharp hljs">public IntPosition(int value)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>from</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a></dt>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
 
-  <h4 class="section">Returns</h4>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_Collections_IntPosition_Value_" data-uid="Albatross.Collections.IntPosition.Value*"></a>
+
+  <h3 id="Albatross_Collections_IntPosition_Value" data-uid="Albatross.Collections.IntPosition.Value">
+  Value
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Value { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.EnumDeclaration.html">EnumDeclaration</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
-
-
-
 
 
 

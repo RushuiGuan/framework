@@ -133,6 +133,9 @@ Class MethodInfo
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -343,10 +346,10 @@ public ITypeSymbol ReturnType { get; set; }</code></pre>
 
 
 
-  <a id="Albatross_CodeGen_WebClient_Models_MethodInfo_RouteTemplate_" data-uid="Albatross.CodeGen.WebClient.Models.MethodInfo.RouteTemplate*"></a>
+  <a id="Albatross_CodeGen_WebClient_Models_MethodInfo_RouteSegments_" data-uid="Albatross.CodeGen.WebClient.Models.MethodInfo.RouteSegments*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_Models_MethodInfo_RouteTemplate" data-uid="Albatross.CodeGen.WebClient.Models.MethodInfo.RouteTemplate">
-  RouteTemplate
+  <h3 id="Albatross_CodeGen_WebClient_Models_MethodInfo_RouteSegments" data-uid="Albatross.CodeGen.WebClient.Models.MethodInfo.RouteSegments">
+  RouteSegments
   
   </h3>
 
@@ -354,7 +357,7 @@ public ITypeSymbol ReturnType { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string RouteTemplate { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IRouteSegment&gt; RouteSegments { get; }</code></pre>
   </div>
 
 
@@ -363,7 +366,7 @@ public ITypeSymbol ReturnType { get; set; }</code></pre>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.IRouteSegment.html">IRouteSegment</a>&gt;</dt>
     <dd></dd>
   </dl>
 

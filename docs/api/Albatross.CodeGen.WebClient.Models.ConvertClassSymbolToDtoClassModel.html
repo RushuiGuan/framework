@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class ConvertApiControllerToControllerInfo | Albatross Framework Documentation </title>
+      <title>Class ConvertClassSymbolToDtoClassModel | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ConvertApiControllerToControllerInfo | Albatross Framework Documentation ">
+      <meta name="title" content="Class ConvertClassSymbolToDtoClassModel | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,12 +80,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerInfo">
+        <article data-uid="Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClassModel">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_Models_ConvertApiControllerToControllerInfo" data-uid="Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerInfo" class="text-break">
-Class ConvertApiControllerToControllerInfo  
+  <h1 id="Albatross_CodeGen_WebClient_Models_ConvertClassSymbolToDtoClassModel" data-uid="Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClassModel" class="text-break">
+Class ConvertClassSymbolToDtoClassModel  
   </h1>
 
   <div class="facts text-secondary">
@@ -97,7 +97,7 @@ Class ConvertApiControllerToControllerInfo
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ConvertApiControllerToControllerInfo : IConvertObject&lt;INamedTypeSymbol, ControllerInfo&gt;, IConvertObject&lt;INamedTypeSymbol&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public record ConvertClassSymbolToDtoClassModel : IConvertObject&lt;INamedTypeSymbol, DtoClassInfo&gt;, IConvertObject&lt;INamedTypeSymbol&gt;, IEquatable&lt;ConvertClassSymbolToDtoClassModel&gt;</code></pre>
   </div>
 
 
@@ -107,15 +107,16 @@ Class ConvertApiControllerToControllerInfo
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ConvertApiControllerToControllerInfo</span></div>
+      <div><span class="xref">ConvertClassSymbolToDtoClassModel</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.WebClient.Models.ControllerInfo.html">ControllerInfo</a>&gt;</div>
+      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassInfo.html">DtoClassInfo</a>&gt;</div>
       <div><a class="xref" href="Albatross.CodeGen.IConvertObject-1.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClassModel.html">ConvertClassSymbolToDtoClassModel</a>&gt;</div>
     </dd>
   </dl>
 
@@ -134,6 +135,9 @@ Class ConvertApiControllerToControllerInfo
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -145,50 +149,13 @@ Class ConvertApiControllerToControllerInfo
 
 
 
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="Albatross_CodeGen_WebClient_Models_ConvertApiControllerToControllerInfo__ctor_" data-uid="Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerInfo.#ctor*"></a>
-
-  <h3 id="Albatross_CodeGen_WebClient_Models_ConvertApiControllerToControllerInfo__ctor_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_Microsoft_CodeAnalysis_Compilation_" data-uid="Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerInfo.#ctor(Albatross.CodeGen.WebClient.Settings.CodeGenSettings,Microsoft.CodeAnalysis.Compilation)">
-  ConvertApiControllerToControllerInfo(CodeGenSettings, Compilation)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConvertApiControllerToControllerInfo(CodeGenSettings settings, Compilation compilation)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>settings</code> <a class="xref" href="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.html">CodeGenSettings</a></dt>
-    <dd></dd>
-    <dt><code>compilation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.compilation">Compilation</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="methods">Methods
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_Models_ConvertApiControllerToControllerInfo_Convert_" data-uid="Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerInfo.Convert*"></a>
+  <a id="Albatross_CodeGen_WebClient_Models_ConvertClassSymbolToDtoClassModel_Convert_" data-uid="Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClassModel.Convert*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_Models_ConvertApiControllerToControllerInfo_Convert_Microsoft_CodeAnalysis_INamedTypeSymbol_" data-uid="Albatross.CodeGen.WebClient.Models.ConvertApiControllerToControllerInfo.Convert(Microsoft.CodeAnalysis.INamedTypeSymbol)">
+  <h3 id="Albatross_CodeGen_WebClient_Models_ConvertClassSymbolToDtoClassModel_Convert_Microsoft_CodeAnalysis_INamedTypeSymbol_" data-uid="Albatross.CodeGen.WebClient.Models.ConvertClassSymbolToDtoClassModel.Convert(Microsoft.CodeAnalysis.INamedTypeSymbol)">
   Convert(INamedTypeSymbol)
   
   </h3>
@@ -197,18 +164,18 @@ Class ConvertApiControllerToControllerInfo
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ControllerInfo Convert(INamedTypeSymbol controllerSymbol)</code></pre>
+    <pre><code class="lang-csharp hljs">public DtoClassInfo Convert(INamedTypeSymbol from)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>controllerSymbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a></dt>
+    <dt><code>from</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.WebClient.Models.ControllerInfo.html">ControllerInfo</a></dt>
+    <dt><a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassInfo.html">DtoClassInfo</a></dt>
     <dd></dd>
   </dl>
 

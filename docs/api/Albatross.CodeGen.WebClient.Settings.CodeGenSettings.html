@@ -124,6 +124,27 @@ Class CodeGenSettings
     <dt>Extension Methods</dt>
     <dd>
   <div>
+      <a class="xref" href="Albatross.CodeGen.WebClient.Settings.Extensions.html#Albatross_CodeGen_WebClient_Settings_Extensions_CreateCSharpControllerFilter_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_">Extensions.CreateCSharpControllerFilter(CodeGenSettings)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.CodeGen.WebClient.Settings.Extensions.html#Albatross_CodeGen_WebClient_Settings_Extensions_CreateCSharpControllerMethodFilters_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_">Extensions.CreateCSharpControllerMethodFilters(CodeGenSettings)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.CodeGen.WebClient.Settings.Extensions.html#Albatross_CodeGen_WebClient_Settings_Extensions_CreateControllerMethodFilters_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_">Extensions.CreateControllerMethodFilters(CodeGenSettings)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.CodeGen.WebClient.Settings.Extensions.html#Albatross_CodeGen_WebClient_Settings_Extensions_CreateTypeScriptControllerFilter_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_">Extensions.CreateTypeScriptControllerFilter(CodeGenSettings)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.CodeGen.WebClient.Settings.Extensions.html#Albatross_CodeGen_WebClient_Settings_Extensions_CreateTypeScriptControllerMethodFilters_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_">Extensions.CreateTypeScriptControllerMethodFilters(CodeGenSettings)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.CodeGen.WebClient.Settings.Extensions.html#Albatross_CodeGen_WebClient_Settings_Extensions_CreateTypeScriptDtoFilter_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_">Extensions.CreateTypeScriptDtoFilter(CodeGenSettings)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.CodeGen.WebClient.Settings.Extensions.html#Albatross_CodeGen_WebClient_Settings_Extensions_TypeScriptEnumFilter_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_">Extensions.TypeScriptEnumFilter(CodeGenSettings)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
   </div>
   <div>
@@ -131,6 +152,9 @@ Class CodeGenSettings
   </div>
   <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
@@ -169,37 +193,6 @@ Class CodeGenSettings
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Albatross.CodeGen.WebClient.Settings.ApiControllerConversionSettings.html">ApiControllerConversionSettings</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_CSharpControllerFilter_" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.CSharpControllerFilter*"></a>
-
-  <h3 id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_CSharpControllerFilter" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.CSharpControllerFilter">
-  CSharpControllerFilter
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SymbolFilterPatterns CSharpControllerFilter { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.WebClient.Settings.SymbolFilterPatterns.html">SymbolFilterPatterns</a></dt>
     <dd></dd>
   </dl>
 
@@ -272,6 +265,37 @@ Class CodeGenSettings
 
 
 
+  <a id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_ControllerMethodFilters_" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.ControllerMethodFilters*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_ControllerMethodFilters" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.ControllerMethodFilters">
+  ControllerMethodFilters
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SymbolFilterPatterns[] ControllerMethodFilters { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeGen.WebClient.Settings.SymbolFilterPatterns.html">SymbolFilterPatterns</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_DtoFilter_" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.DtoFilter*"></a>
 
   <h3 id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_DtoFilter" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.DtoFilter">
@@ -315,99 +339,6 @@ Class CodeGenSettings
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public SymbolFilterPatterns EnumFilter { get; init; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.WebClient.Settings.SymbolFilterPatterns.html">SymbolFilterPatterns</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_TypeScriptControllerFilter_" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.TypeScriptControllerFilter*"></a>
-
-  <h3 id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_TypeScriptControllerFilter" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.TypeScriptControllerFilter">
-  TypeScriptControllerFilter
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SymbolFilterPatterns TypeScriptControllerFilter { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.WebClient.Settings.SymbolFilterPatterns.html">SymbolFilterPatterns</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_TypeScriptDtoFilter_" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.TypeScriptDtoFilter*"></a>
-
-  <h3 id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_TypeScriptDtoFilter" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.TypeScriptDtoFilter">
-  TypeScriptDtoFilter
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SymbolFilterPatterns TypeScriptDtoFilter { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.WebClient.Settings.SymbolFilterPatterns.html">SymbolFilterPatterns</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_TypeScriptEnumFilter_" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.TypeScriptEnumFilter*"></a>
-
-  <h3 id="Albatross_CodeGen_WebClient_Settings_CodeGenSettings_TypeScriptEnumFilter" data-uid="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.TypeScriptEnumFilter">
-  TypeScriptEnumFilter
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SymbolFilterPatterns TypeScriptEnumFilter { get; }</code></pre>
   </div>
 
 

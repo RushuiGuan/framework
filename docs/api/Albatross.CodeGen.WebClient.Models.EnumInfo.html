@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class CreateTypeScriptDto | Albatross Framework Documentation </title>
+      <title>Class EnumInfo | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class CreateTypeScriptDto | Albatross Framework Documentation ">
+      <meta name="title" content="Class EnumInfo | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,16 +80,16 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto">
+        <article data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_TypeScript_CreateTypeScriptDto" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto" class="text-break">
-Class CreateTypeScriptDto  
+  <h1 id="Albatross_CodeGen_WebClient_Models_EnumInfo" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo" class="text-break">
+Class EnumInfo  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.WebClient.html">WebClient</a>.<a class="xref" href="Albatross.CodeGen.WebClient.TypeScript.html">TypeScript</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.WebClient.html">WebClient</a>.<a class="xref" href="Albatross.CodeGen.WebClient.Models.html">Models</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Albatross.CodeGen.WebClient.dll</dd></dl>
   </div>
 
@@ -97,7 +97,7 @@ Class CreateTypeScriptDto
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CreateTypeScriptDto</code></pre>
+    <pre><code class="lang-csharp hljs">public record EnumInfo : IEquatable&lt;EnumInfo&gt;</code></pre>
   </div>
 
 
@@ -107,10 +107,16 @@ Class CreateTypeScriptDto
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">CreateTypeScriptDto</span></div>
+      <div><span class="xref">EnumInfo</span></div>
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.EnumInfo.html">EnumInfo</a>&gt;</div>
+    </dd>
+  </dl>
 
 
 
@@ -125,6 +131,9 @@ Class CreateTypeScriptDto
   </div>
   <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
   </div>
   <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
@@ -142,10 +151,10 @@ Class CreateTypeScriptDto
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_TypeScript_CreateTypeScriptDto__ctor_" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.#ctor*"></a>
+  <a id="Albatross_CodeGen_WebClient_Models_EnumInfo__ctor_" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_TypeScript_CreateTypeScriptDto__ctor_Microsoft_CodeAnalysis_Compilation_Albatross_CodeGen_WebClient_Settings_CodeGenSettings_Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_INamedTypeSymbol_Albatross_CodeGen_TypeScript_Declarations_InterfaceDeclaration__Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_INamedTypeSymbol_Albatross_CodeGen_TypeScript_Declarations_EnumDeclaration__" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.#ctor(Microsoft.CodeAnalysis.Compilation,Albatross.CodeGen.WebClient.Settings.CodeGenSettings,Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.INamedTypeSymbol,Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration},Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.INamedTypeSymbol,Albatross.CodeGen.TypeScript.Declarations.EnumDeclaration})">
-  CreateTypeScriptDto(Compilation, CodeGenSettings, IConvertObject&lt;INamedTypeSymbol, InterfaceDeclaration&gt;, IConvertObject&lt;INamedTypeSymbol, EnumDeclaration&gt;)
+  <h3 id="Albatross_CodeGen_WebClient_Models_EnumInfo__ctor_Microsoft_CodeAnalysis_INamedTypeSymbol_" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo.#ctor(Microsoft.CodeAnalysis.INamedTypeSymbol)">
+  EnumInfo(INamedTypeSymbol)
   
   </h3>
 
@@ -153,18 +162,12 @@ Class CreateTypeScriptDto
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CreateTypeScriptDto(Compilation compilation, CodeGenSettings settings, IConvertObject&lt;INamedTypeSymbol, InterfaceDeclaration&gt; interfaceConverter, IConvertObject&lt;INamedTypeSymbol, EnumDeclaration&gt; enumConverter)</code></pre>
+    <pre><code class="lang-csharp hljs">public EnumInfo(INamedTypeSymbol symbol)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>compilation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.compilation">Compilation</a></dt>
-    <dd></dd>
-    <dt><code>settings</code> <a class="xref" href="Albatross.CodeGen.WebClient.Settings.CodeGenSettings.html">CodeGenSettings</a></dt>
-    <dd></dd>
-    <dt><code>interfaceConverter</code> <a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration.html">InterfaceDeclaration</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>enumConverter</code> <a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.EnumDeclaration.html">EnumDeclaration</a>&gt;</dt>
+    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a></dt>
     <dd></dd>
   </dl>
 
@@ -179,14 +182,14 @@ Class CreateTypeScriptDto
 
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_TypeScript_CreateTypeScriptDto_Generate_" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.Generate*"></a>
+  <a id="Albatross_CodeGen_WebClient_Models_EnumInfo_Members_" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo.Members*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_TypeScript_CreateTypeScriptDto_Generate" data-uid="Albatross.CodeGen.WebClient.TypeScript.CreateTypeScriptDto.Generate">
-  Generate()
+  <h3 id="Albatross_CodeGen_WebClient_Models_EnumInfo_Members" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo.Members">
+  Members
   
   </h3>
 
@@ -194,18 +197,80 @@ Class CreateTypeScriptDto
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TypeScriptFileDeclaration Generate()</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;EnumMember&gt; Members { get; }</code></pre>
   </div>
 
 
-  <h4 class="section">Returns</h4>
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.TypeScriptFileDeclaration.html">TypeScriptFileDeclaration</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.EnumMember.html">EnumMember</a>&gt;</dt>
     <dd></dd>
   </dl>
 
 
 
+
+
+
+
+
+  <a id="Albatross_CodeGen_WebClient_Models_EnumInfo_Name_" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo.Name*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_Models_EnumInfo_Name" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo.Name">
+  Name
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeGen_WebClient_Models_EnumInfo_UseTextAsValue_" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo.UseTextAsValue*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_Models_EnumInfo_UseTextAsValue" data-uid="Albatross.CodeGen.WebClient.Models.EnumInfo.UseTextAsValue">
+  UseTextAsValue
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseTextAsValue { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

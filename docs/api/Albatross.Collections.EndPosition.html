@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Extensions | Albatross Framework Documentation </title>
+      <title>Class EndPosition | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Extensions | Albatross Framework Documentation ">
+      <meta name="title" content="Class EndPosition | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,24 +80,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.CSharpOld.Extensions">
+        <article data-uid="Albatross.Collections.EndPosition">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_CSharpOld_Extensions" data-uid="Albatross.CodeGen.WebClient.CSharpOld.Extensions" class="text-break">
-Class Extensions  
+  <h1 id="Albatross_Collections_EndPosition" data-uid="Albatross.Collections.EndPosition" class="text-break">
+Class EndPosition  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.WebClient.html">WebClient</a>.<a class="xref" href="Albatross.CodeGen.WebClient.CSharpOld.html">CSharpOld</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.WebClient.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Collections.html">Collections</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Collections.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Extensions</code></pre>
+    <pre><code class="lang-csharp hljs">public class EndPosition : IPosition</code></pre>
   </div>
 
 
@@ -107,53 +107,41 @@ Class Extensions
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">Extensions</span></div>
+      <div><span class="xref">EndPosition</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Albatross.Collections.IPosition.html">IPosition</a></div>
     </dd>
   </dl>
 
 
 
-
-
-
-
-
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-
-  <a id="Albatross_CodeGen_WebClient_CSharpOld_Extensions_GetMethod_" data-uid="Albatross.CodeGen.WebClient.CSharpOld.Extensions.GetMethod*"></a>
-
-  <h3 id="Albatross_CodeGen_WebClient_CSharpOld_Extensions_GetMethod_Microsoft_AspNetCore_Mvc_Routing_HttpMethodAttribute_" data-uid="Albatross.CodeGen.WebClient.CSharpOld.Extensions.GetMethod(Microsoft.AspNetCore.Mvc.Routing.HttpMethodAttribute)">
-  GetMethod(HttpMethodAttribute)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetMethod(this HttpMethodAttribute attribute)</code></pre>
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
   </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>attribute</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.routing.httpmethodattribute">HttpMethodAttribute</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
 
 
 

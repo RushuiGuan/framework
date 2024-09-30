@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class ConvertMethodParameter | Albatross Framework Documentation </title>
+      <title>Class ConvertDtoClassModelToTypeScriptInterface | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ConvertMethodParameter | Albatross Framework Documentation ">
+      <meta name="title" content="Class ConvertDtoClassModelToTypeScriptInterface | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,16 +80,16 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertMethodParameter">
+        <article data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassModelToTypeScriptInterface">
 
 
 
-  <h1 id="Albatross_CodeGen_TypeScript_Conversions_ConvertMethodParameter" data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertMethodParameter" class="text-break">
-Class ConvertMethodParameter  
+  <h1 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassModelToTypeScriptInterface" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassModelToTypeScriptInterface" class="text-break">
+Class ConvertDtoClassModelToTypeScriptInterface  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.TypeScript.html">TypeScript</a>.<a class="xref" href="Albatross.CodeGen.TypeScript.Conversions.html">Conversions</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.WebClient.html">WebClient</a>.<a class="xref" href="Albatross.CodeGen.WebClient.TypeScript.html">TypeScript</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Albatross.CodeGen.WebClient.dll</dd></dl>
   </div>
 
@@ -97,7 +97,7 @@ Class ConvertMethodParameter
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ConvertMethodParameter : IConvertObject&lt;IParameterSymbol, ParameterDeclaration&gt;, IConvertObject&lt;IParameterSymbol&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class ConvertDtoClassModelToTypeScriptInterface : IConvertObject&lt;DtoClassInfo, InterfaceDeclaration&gt;, IConvertObject&lt;DtoClassInfo&gt;</code></pre>
   </div>
 
 
@@ -107,15 +107,15 @@ Class ConvertMethodParameter
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ConvertMethodParameter</span></div>
+      <div><span class="xref">ConvertDtoClassModelToTypeScriptInterface</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.iparametersymbol">IParameterSymbol</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.ParameterDeclaration.html">ParameterDeclaration</a>&gt;</div>
-      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-1.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.iparametersymbol">IParameterSymbol</a>&gt;</div>
+      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassInfo.html">DtoClassInfo</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration.html">InterfaceDeclaration</a>&gt;</div>
+      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-1.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassInfo.html">DtoClassInfo</a>&gt;</div>
     </dd>
   </dl>
 
@@ -134,6 +134,9 @@ Class ConvertMethodParameter
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -149,10 +152,10 @@ Class ConvertMethodParameter
 </h2>
 
 
-  <a id="Albatross_CodeGen_TypeScript_Conversions_ConvertMethodParameter__ctor_" data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertMethodParameter.#ctor*"></a>
+  <a id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassModelToTypeScriptInterface__ctor_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassModelToTypeScriptInterface.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_TypeScript_Conversions_ConvertMethodParameter__ctor_Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_ITypeSymbol_Albatross_CodeGen_Syntax_ITypeExpression__" data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertMethodParameter.#ctor(Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.ITypeSymbol,Albatross.CodeGen.Syntax.ITypeExpression})">
-  ConvertMethodParameter(IConvertObject&lt;ITypeSymbol, ITypeExpression&gt;)
+  <h3 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassModelToTypeScriptInterface__ctor_Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_ITypeSymbol_Albatross_CodeGen_Syntax_ITypeExpression__Albatross_CodeGen_IConvertObject_Albatross_CodeGen_WebClient_Models_DtoClassPropertyInfo_Albatross_CodeGen_TypeScript_Declarations_PropertyDeclaration__" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassModelToTypeScriptInterface.#ctor(Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.ITypeSymbol,Albatross.CodeGen.Syntax.ITypeExpression},Albatross.CodeGen.IConvertObject{Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo,Albatross.CodeGen.TypeScript.Declarations.PropertyDeclaration})">
+  ConvertDtoClassModelToTypeScriptInterface(IConvertObject&lt;ITypeSymbol, ITypeExpression&gt;, IConvertObject&lt;DtoClassPropertyInfo, PropertyDeclaration&gt;)
   
   </h3>
 
@@ -160,12 +163,14 @@ Class ConvertMethodParameter
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConvertMethodParameter(IConvertObject&lt;ITypeSymbol, ITypeExpression&gt; typeConverter)</code></pre>
+    <pre><code class="lang-csharp hljs">public ConvertDtoClassModelToTypeScriptInterface(IConvertObject&lt;ITypeSymbol, ITypeExpression&gt; typeConverter, IConvertObject&lt;DtoClassPropertyInfo, PropertyDeclaration&gt; propertyConverter)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>typeConverter</code> <a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.Syntax.ITypeExpression.html">ITypeExpression</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>propertyConverter</code> <a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo.html">DtoClassPropertyInfo</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.PropertyDeclaration.html">PropertyDeclaration</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -184,10 +189,10 @@ Class ConvertMethodParameter
 </h2>
 
 
-  <a id="Albatross_CodeGen_TypeScript_Conversions_ConvertMethodParameter_Convert_" data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertMethodParameter.Convert*"></a>
+  <a id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassModelToTypeScriptInterface_Convert_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassModelToTypeScriptInterface.Convert*"></a>
 
-  <h3 id="Albatross_CodeGen_TypeScript_Conversions_ConvertMethodParameter_Convert_Microsoft_CodeAnalysis_IParameterSymbol_" data-uid="Albatross.CodeGen.TypeScript.Conversions.ConvertMethodParameter.Convert(Microsoft.CodeAnalysis.IParameterSymbol)">
-  Convert(IParameterSymbol)
+  <h3 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassModelToTypeScriptInterface_Convert_Albatross_CodeGen_WebClient_Models_DtoClassInfo_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassModelToTypeScriptInterface.Convert(Albatross.CodeGen.WebClient.Models.DtoClassInfo)">
+  Convert(DtoClassInfo)
   
   </h3>
 
@@ -195,18 +200,18 @@ Class ConvertMethodParameter
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ParameterDeclaration Convert(IParameterSymbol from)</code></pre>
+    <pre><code class="lang-csharp hljs">public InterfaceDeclaration Convert(DtoClassInfo from)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>from</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.iparametersymbol">IParameterSymbol</a></dt>
+    <dt><code>from</code> <a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassInfo.html">DtoClassInfo</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.ParameterDeclaration.html">ParameterDeclaration</a></dt>
+    <dt><a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration.html">InterfaceDeclaration</a></dt>
     <dd></dd>
   </dl>
 

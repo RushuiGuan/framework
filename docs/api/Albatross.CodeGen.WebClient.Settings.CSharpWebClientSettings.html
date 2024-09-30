@@ -133,6 +133,9 @@ Class CSharpWebClientSettings
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -179,6 +182,37 @@ Class CSharpWebClientSettings
 
 
 
+  <a id="Albatross_CodeGen_WebClient_Settings_CSharpWebClientSettings_ControllerMethodFilters_" data-uid="Albatross.CodeGen.WebClient.Settings.CSharpWebClientSettings.ControllerMethodFilters*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_Settings_CSharpWebClientSettings_ControllerMethodFilters" data-uid="Albatross.CodeGen.WebClient.Settings.CSharpWebClientSettings.ControllerMethodFilters">
+  ControllerMethodFilters
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SymbolFilterPatterns[] ControllerMethodFilters { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Albatross.CodeGen.WebClient.Settings.SymbolFilterPatterns.html">SymbolFilterPatterns</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Albatross_CodeGen_WebClient_Settings_CSharpWebClientSettings_Namespace_" data-uid="Albatross.CodeGen.WebClient.Settings.CSharpWebClientSettings.Namespace*"></a>
 
   <h3 id="Albatross_CodeGen_WebClient_Settings_CSharpWebClientSettings_Namespace" data-uid="Albatross.CodeGen.WebClient.Settings.CSharpWebClientSettings.Namespace">
@@ -200,6 +234,39 @@ Class CSharpWebClientSettings
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeGen_WebClient_Settings_CSharpWebClientSettings_UseTextContentTypeForStringPost_" data-uid="Albatross.CodeGen.WebClient.Settings.CSharpWebClientSettings.UseTextContentTypeForStringPost*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_Settings_CSharpWebClientSettings_UseTextContentTypeForStringPost" data-uid="Albatross.CodeGen.WebClient.Settings.CSharpWebClientSettings.UseTextContentTypeForStringPost">
+  UseTextContentTypeForStringPost
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, the client will use Text/Plain content type for string post.  This requires the server to accept
+text/plain content type for the Body.  If false, the client will use application/json content type for string post.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseTextContentTypeForStringPost { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 

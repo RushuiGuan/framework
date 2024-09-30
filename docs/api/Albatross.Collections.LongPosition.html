@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class CreateApiCSharpProxy | Albatross Framework Documentation </title>
+      <title>Class LongPosition | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class CreateApiCSharpProxy | Albatross Framework Documentation ">
+      <meta name="title" content="Class LongPosition | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,24 +80,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy">
+        <article data-uid="Albatross.Collections.LongPosition">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_CSharpOld_CreateApiCSharpProxy" data-uid="Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy" class="text-break">
-Class CreateApiCSharpProxy  
+  <h1 id="Albatross_Collections_LongPosition" data-uid="Albatross.Collections.LongPosition" class="text-break">
+Class LongPosition  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.WebClient.html">WebClient</a>.<a class="xref" href="Albatross.CodeGen.WebClient.CSharpOld.html">CSharpOld</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.WebClient.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Collections.html">Collections</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Collections.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CreateApiCSharpProxy : ICreateApiCSharpProxy</code></pre>
+    <pre><code class="lang-csharp hljs">public record LongPosition : IPosition, IEquatable&lt;LongPosition&gt;</code></pre>
   </div>
 
 
@@ -107,14 +107,15 @@ Class CreateApiCSharpProxy
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">CreateApiCSharpProxy</span></div>
+      <div><span class="xref">LongPosition</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.CodeGen.WebClient.CSharpOld.ICreateApiCSharpProxy.html">ICreateApiCSharpProxy</a></div>
+      <div><a class="xref" href="Albatross.Collections.IPosition.html">IPosition</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Albatross.Collections.LongPosition.html">LongPosition</a>&gt;</div>
     </dd>
   </dl>
 
@@ -133,6 +134,9 @@ Class CreateApiCSharpProxy
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -148,10 +152,10 @@ Class CreateApiCSharpProxy
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_CSharpOld_CreateApiCSharpProxy__ctor_" data-uid="Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy.#ctor*"></a>
+  <a id="Albatross_Collections_LongPosition__ctor_" data-uid="Albatross.Collections.LongPosition.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_CSharpOld_CreateApiCSharpProxy__ctor_Albatross_CodeGen_WebClient_CSharpOld_ConvertApiControllerToCSharpClass_Microsoft_Extensions_Logging_ILogger_Albatross_CodeGen_WebClient_CSharpOld_CreateApiCSharpProxy__" data-uid="Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy.#ctor(Albatross.CodeGen.WebClient.CSharpOld.ConvertApiControllerToCSharpClass,Microsoft.Extensions.Logging.ILogger{Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy})">
-  CreateApiCSharpProxy(ConvertApiControllerToCSharpClass, ILogger&lt;CreateApiCSharpProxy&gt;)
+  <h3 id="Albatross_Collections_LongPosition__ctor_System_Int64_" data-uid="Albatross.Collections.LongPosition.#ctor(System.Int64)">
+  LongPosition(long)
   
   </h3>
 
@@ -159,14 +163,12 @@ Class CreateApiCSharpProxy
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CreateApiCSharpProxy(ConvertApiControllerToCSharpClass converter, ILogger&lt;CreateApiCSharpProxy&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public LongPosition(long value)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>converter</code> <a class="xref" href="Albatross.CodeGen.WebClient.CSharpOld.ConvertApiControllerToCSharpClass.html">ConvertApiControllerToCSharpClass</a></dt>
-    <dd></dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy.html">CreateApiCSharpProxy</a>&gt;</dt>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
     <dd></dd>
   </dl>
 
@@ -181,13 +183,14 @@ Class CreateApiCSharpProxy
 
 
 
-  <h2 class="section" id="fields">Fields
+  <h2 class="section" id="properties">Properties
 </h2>
 
 
+  <a id="Albatross_Collections_LongPosition_Value_" data-uid="Albatross.Collections.LongPosition.Value*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_CSharpOld_CreateApiCSharpProxy_DefaultPattern" data-uid="Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy.DefaultPattern">
-  DefaultPattern
+  <h3 id="Albatross_Collections_LongPosition_Value" data-uid="Albatross.Collections.LongPosition.Value">
+  Value
   
   </h3>
 
@@ -195,66 +198,18 @@ Class CreateApiCSharpProxy
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string DefaultPattern = &quot;^.+Controller$&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public long Value { get; }</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
     <dd></dd>
   </dl>
-
-
-
-
-
-
-
-
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-
-  <a id="Albatross_CodeGen_WebClient_CSharpOld_CreateApiCSharpProxy_Generate_" data-uid="Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy.Generate*"></a>
-
-  <h3 id="Albatross_CodeGen_WebClient_CSharpOld_CreateApiCSharpProxy_Generate_System_String_System_String_System_Collections_Generic_IEnumerable_System_Reflection_Assembly__System_String_System_Func_Albatross_CodeGen_CSharp_Models_Class_System_Boolean__" data-uid="Albatross.CodeGen.WebClient.CSharpOld.CreateApiCSharpProxy.Generate(System.String,System.String,System.Collections.Generic.IEnumerable{System.Reflection.Assembly},System.String,System.Func{Albatross.CodeGen.CSharp.Models.Class,System.Boolean})">
-  Generate(string?, string, IEnumerable&lt;Assembly&gt;, string, Func&lt;Class, bool&gt;?)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Generate(string? pattern, string @namespace, IEnumerable&lt;Assembly&gt; assemblies, string outputDirectory, Func&lt;Class, bool&gt;? adjustClassModel = null)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>pattern</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>namespace</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>assemblies</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>outputDirectory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>adjustClassModel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Albatross.CodeGen.CSharp.Models.Class.html">Class</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
 
 
 

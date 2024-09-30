@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class ConvertDtoClassInfoToTypeScriptInterface | Albatross Framework Documentation </title>
+      <title>Class ConvertEnumModelToTypeScriptEnum | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ConvertDtoClassInfoToTypeScriptInterface | Albatross Framework Documentation ">
+      <meta name="title" content="Class ConvertEnumModelToTypeScriptEnum | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,16 +80,16 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassInfoToTypeScriptInterface">
+        <article data-uid="Albatross.CodeGen.CommandLine.ConvertEnumModelToTypeScriptEnum">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassInfoToTypeScriptInterface" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassInfoToTypeScriptInterface" class="text-break">
-Class ConvertDtoClassInfoToTypeScriptInterface  
+  <h1 id="Albatross_CodeGen_CommandLine_ConvertEnumModelToTypeScriptEnum" data-uid="Albatross.CodeGen.CommandLine.ConvertEnumModelToTypeScriptEnum" class="text-break">
+Class ConvertEnumModelToTypeScriptEnum  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.WebClient.html">WebClient</a>.<a class="xref" href="Albatross.CodeGen.WebClient.TypeScript.html">TypeScript</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.CommandLine.html">CommandLine</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Albatross.CodeGen.WebClient.dll</dd></dl>
   </div>
 
@@ -97,7 +97,7 @@ Class ConvertDtoClassInfoToTypeScriptInterface
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ConvertDtoClassInfoToTypeScriptInterface : IConvertObject&lt;DtoClassInfo, InterfaceDeclaration&gt;, IConvertObject&lt;DtoClassInfo&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class ConvertEnumModelToTypeScriptEnum : IConvertObject&lt;EnumInfo, EnumDeclaration&gt;, IConvertObject&lt;EnumInfo&gt;</code></pre>
   </div>
 
 
@@ -107,15 +107,15 @@ Class ConvertDtoClassInfoToTypeScriptInterface
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ConvertDtoClassInfoToTypeScriptInterface</span></div>
+      <div><span class="xref">ConvertEnumModelToTypeScriptEnum</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassInfo.html">DtoClassInfo</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration.html">InterfaceDeclaration</a>&gt;</div>
-      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-1.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassInfo.html">DtoClassInfo</a>&gt;</div>
+      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.EnumInfo.html">EnumInfo</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.EnumDeclaration.html">EnumDeclaration</a>&gt;</div>
+      <div><a class="xref" href="Albatross.CodeGen.IConvertObject-1.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.EnumInfo.html">EnumInfo</a>&gt;</div>
     </dd>
   </dl>
 
@@ -134,6 +134,9 @@ Class ConvertDtoClassInfoToTypeScriptInterface
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -145,51 +148,14 @@ Class ConvertDtoClassInfoToTypeScriptInterface
 
 
 
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassInfoToTypeScriptInterface__ctor_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassInfoToTypeScriptInterface.#ctor*"></a>
-
-  <h3 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassInfoToTypeScriptInterface__ctor_Albatross_CodeGen_IConvertObject_Microsoft_CodeAnalysis_ITypeSymbol_Albatross_CodeGen_Syntax_ITypeExpression__Albatross_CodeGen_IConvertObject_Albatross_CodeGen_WebClient_Models_DtoClassPropertyInfo_Albatross_CodeGen_TypeScript_Declarations_PropertyDeclaration__" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassInfoToTypeScriptInterface.#ctor(Albatross.CodeGen.IConvertObject{Microsoft.CodeAnalysis.ITypeSymbol,Albatross.CodeGen.Syntax.ITypeExpression},Albatross.CodeGen.IConvertObject{Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo,Albatross.CodeGen.TypeScript.Declarations.PropertyDeclaration})">
-  ConvertDtoClassInfoToTypeScriptInterface(IConvertObject&lt;ITypeSymbol, ITypeExpression&gt;, IConvertObject&lt;DtoClassPropertyInfo, PropertyDeclaration&gt;)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConvertDtoClassInfoToTypeScriptInterface(IConvertObject&lt;ITypeSymbol, ITypeExpression&gt; typeConverter, IConvertObject&lt;DtoClassPropertyInfo, PropertyDeclaration&gt; propertyConverter)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>typeConverter</code> <a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.itypesymbol">ITypeSymbol</a>, <a class="xref" href="Albatross.CodeGen.Syntax.ITypeExpression.html">ITypeExpression</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>propertyConverter</code> <a class="xref" href="Albatross.CodeGen.IConvertObject-2.html">IConvertObject</a>&lt;<a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassPropertyInfo.html">DtoClassPropertyInfo</a>, <a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.PropertyDeclaration.html">PropertyDeclaration</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="methods">Methods
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassInfoToTypeScriptInterface_Convert_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassInfoToTypeScriptInterface.Convert*"></a>
+  <a id="Albatross_CodeGen_CommandLine_ConvertEnumModelToTypeScriptEnum_Convert_" data-uid="Albatross.CodeGen.CommandLine.ConvertEnumModelToTypeScriptEnum.Convert*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_TypeScript_ConvertDtoClassInfoToTypeScriptInterface_Convert_Albatross_CodeGen_WebClient_Models_DtoClassInfo_" data-uid="Albatross.CodeGen.WebClient.TypeScript.ConvertDtoClassInfoToTypeScriptInterface.Convert(Albatross.CodeGen.WebClient.Models.DtoClassInfo)">
-  Convert(DtoClassInfo)
+  <h3 id="Albatross_CodeGen_CommandLine_ConvertEnumModelToTypeScriptEnum_Convert_Albatross_CodeGen_WebClient_Models_EnumInfo_" data-uid="Albatross.CodeGen.CommandLine.ConvertEnumModelToTypeScriptEnum.Convert(Albatross.CodeGen.WebClient.Models.EnumInfo)">
+  Convert(EnumInfo)
   
   </h3>
 
@@ -197,18 +163,18 @@ Class ConvertDtoClassInfoToTypeScriptInterface
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InterfaceDeclaration Convert(DtoClassInfo from)</code></pre>
+    <pre><code class="lang-csharp hljs">public EnumDeclaration Convert(EnumInfo from)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>from</code> <a class="xref" href="Albatross.CodeGen.WebClient.Models.DtoClassInfo.html">DtoClassInfo</a></dt>
+    <dt><code>from</code> <a class="xref" href="Albatross.CodeGen.WebClient.Models.EnumInfo.html">EnumInfo</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.InterfaceDeclaration.html">InterfaceDeclaration</a></dt>
+    <dt><a class="xref" href="Albatross.CodeGen.TypeScript.Declarations.EnumDeclaration.html">EnumDeclaration</a></dt>
     <dd></dd>
   </dl>
 

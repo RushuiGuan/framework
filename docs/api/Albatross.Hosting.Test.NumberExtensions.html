@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Extensions | Albatross Framework Documentation </title>
+      <title>Class NumberExtensions | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Extensions | Albatross Framework Documentation ">
+      <meta name="title" content="Class NumberExtensions | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,24 +80,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.TypeScriptOld.Extensions">
+        <article data-uid="Albatross.Hosting.Test.NumberExtensions">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_TypeScriptOld_Extensions" data-uid="Albatross.CodeGen.WebClient.TypeScriptOld.Extensions" class="text-break">
-Class Extensions  
+  <h1 id="Albatross_Hosting_Test_NumberExtensions" data-uid="Albatross.Hosting.Test.NumberExtensions" class="text-break">
+Class NumberExtensions  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.WebClient.html">WebClient</a>.<a class="xref" href="Albatross.CodeGen.WebClient.TypeScriptOld.html">TypeScriptOld</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.WebClient.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.Hosting.html">Hosting</a>.<a class="xref" href="Albatross.Hosting.Test.html">Test</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.Hosting.Test.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Extensions</code></pre>
+    <pre><code class="lang-csharp hljs">public static class NumberExtensions</code></pre>
   </div>
 
 
@@ -107,7 +107,7 @@ Class Extensions
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">Extensions</span></div>
+      <div><span class="xref">NumberExtensions</span></div>
     </dd>
   </dl>
 
@@ -123,10 +123,10 @@ Class Extensions
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_TypeScriptOld_Extensions_GetHttpMethod_" data-uid="Albatross.CodeGen.WebClient.TypeScriptOld.Extensions.GetHttpMethod*"></a>
+  <a id="Albatross_Hosting_Test_NumberExtensions_AsString_" data-uid="Albatross.Hosting.Test.NumberExtensions.AsString*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_TypeScriptOld_Extensions_GetHttpMethod_Microsoft_CodeAnalysis_IMethodSymbol_" data-uid="Albatross.CodeGen.WebClient.TypeScriptOld.Extensions.GetHttpMethod(Microsoft.CodeAnalysis.IMethodSymbol)">
-  GetHttpMethod(IMethodSymbol)
+  <h3 id="Albatross_Hosting_Test_NumberExtensions_AsString__1_System_Collections_Generic_IEnumerable___0__" data-uid="Albatross.Hosting.Test.NumberExtensions.AsString``1(System.Collections.Generic.IEnumerable{``0})">
+  AsString&lt;T&gt;(IEnumerable&lt;T&gt;)
   
   </h3>
 
@@ -134,12 +134,12 @@ Class Extensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetHttpMethod(this IMethodSymbol methodSymbol)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string AsString&lt;T&gt;(this IEnumerable&lt;T&gt; array)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>methodSymbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.imethodsymbol">IMethodSymbol</a></dt>
+    <dt><code>array</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -149,6 +149,11 @@ Class Extensions
     <dd></dd>
   </dl>
 
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -159,10 +164,10 @@ Class Extensions
 
 
 
-  <a id="Albatross_CodeGen_WebClient_TypeScriptOld_Extensions_GetRoute_" data-uid="Albatross.CodeGen.WebClient.TypeScriptOld.Extensions.GetRoute*"></a>
+  <a id="Albatross_Hosting_Test_NumberExtensions_EvenNumbers_" data-uid="Albatross.Hosting.Test.NumberExtensions.EvenNumbers*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_TypeScriptOld_Extensions_GetRoute_Microsoft_CodeAnalysis_ISymbol_" data-uid="Albatross.CodeGen.WebClient.TypeScriptOld.Extensions.GetRoute(Microsoft.CodeAnalysis.ISymbol)">
-  GetRoute(ISymbol)
+  <h3 id="Albatross_Hosting_Test_NumberExtensions_EvenNumbers_System_Int32___" data-uid="Albatross.Hosting.Test.NumberExtensions.EvenNumbers(System.Int32[])">
+  EvenNumbers(int[])
   
   </h3>
 
@@ -170,18 +175,99 @@ Class Extensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetRoute(this ISymbol symbol)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int[] EvenNumbers(this int[] array)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>symbol</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.isymbol">ISymbol</a></dt>
+    <dt><code>array</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_Hosting_Test_NumberExtensions_IntArray_" data-uid="Albatross.Hosting.Test.NumberExtensions.IntArray*"></a>
+
+  <h3 id="Albatross_Hosting_Test_NumberExtensions_IntArray_System_String_" data-uid="Albatross.Hosting.Test.NumberExtensions.IntArray(System.String)">
+  IntArray(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Create integer from string.  The string can be comma delimited numbers or a range of numbers separated by dash.  use -e to
+generate even numbers, use -o to generate odd numbers.
+For example, &quot;1,2,3,5-7&quot; will return [1,2,3,5,6,7],
+&quot;1 -e 6&quot; will generate [2,4,6] and &quot;1 -o 6&quot; will generate [2,4,6]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int[] IntArray(this string text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+  <a id="Albatross_Hosting_Test_NumberExtensions_OddNumbers_" data-uid="Albatross.Hosting.Test.NumberExtensions.OddNumbers*"></a>
+
+  <h3 id="Albatross_Hosting_Test_NumberExtensions_OddNumbers_System_Int32___" data-uid="Albatross.Hosting.Test.NumberExtensions.OddNumbers(System.Int32[])">
+  OddNumbers(int[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int[] OddNumbers(this int[] array)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>array</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</dt>
     <dd></dd>
   </dl>
 

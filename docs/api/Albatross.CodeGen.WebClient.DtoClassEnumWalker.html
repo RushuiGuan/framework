@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class EnumTypeWalker | Albatross Framework Documentation </title>
+      <title>Class DtoClassEnumWalker | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class EnumTypeWalker | Albatross Framework Documentation ">
+      <meta name="title" content="Class DtoClassEnumWalker | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,12 +80,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.WebClient.EnumTypeWalker">
+        <article data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker">
 
 
 
-  <h1 id="Albatross_CodeGen_WebClient_EnumTypeWalker" data-uid="Albatross.CodeGen.WebClient.EnumTypeWalker" class="text-break">
-Class EnumTypeWalker  
+  <h1 id="Albatross_CodeGen_WebClient_DtoClassEnumWalker" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker" class="text-break">
+Class DtoClassEnumWalker  
   </h1>
 
   <div class="facts text-secondary">
@@ -97,7 +97,7 @@ Class EnumTypeWalker
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class EnumTypeWalker : CSharpSyntaxWalker</code></pre>
+    <pre><code class="lang-csharp hljs">public class DtoClassEnumWalker : CSharpSyntaxWalker</code></pre>
   </div>
 
 
@@ -109,7 +109,7 @@ Class EnumTypeWalker
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor">CSharpSyntaxVisitor</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxwalker">CSharpSyntaxWalker</a></div>
-      <div><span class="xref">EnumTypeWalker</span></div>
+      <div><span class="xref">DtoClassEnumWalker</span></div>
     </dd>
   </dl>
 
@@ -626,16 +626,10 @@ Class EnumTypeWalker
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visittypeparameter">CSharpSyntaxVisitor.VisitTypeParameter(TypeParameterSyntax)</a>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitclassdeclaration">CSharpSyntaxVisitor.VisitClassDeclaration(ClassDeclarationSyntax)</a>
-    </div>
-    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitstructdeclaration">CSharpSyntaxVisitor.VisitStructDeclaration(StructDeclarationSyntax)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitinterfacedeclaration">CSharpSyntaxVisitor.VisitInterfaceDeclaration(InterfaceDeclarationSyntax)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitrecorddeclaration">CSharpSyntaxVisitor.VisitRecordDeclaration(RecordDeclarationSyntax)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitdelegatedeclaration">CSharpSyntaxVisitor.VisitDelegateDeclaration(DelegateDeclarationSyntax)</a>
@@ -666,6 +660,12 @@ Class EnumTypeWalker
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitdefaultconstraint">CSharpSyntaxVisitor.VisitDefaultConstraint(DefaultConstraintSyntax)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitallowsconstraintclause">CSharpSyntaxVisitor.VisitAllowsConstraintClause(AllowsConstraintClauseSyntax)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitrefstructconstraint">CSharpSyntaxVisitor.VisitRefStructConstraint(RefStructConstraintSyntax)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.csharpsyntaxvisitor.visitfielddeclaration">CSharpSyntaxVisitor.VisitFieldDeclaration(FieldDeclarationSyntax)</a>
@@ -874,6 +874,9 @@ Class EnumTypeWalker
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
   </div>
   <div>
@@ -889,10 +892,10 @@ Class EnumTypeWalker
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_EnumTypeWalker__ctor_" data-uid="Albatross.CodeGen.WebClient.EnumTypeWalker.#ctor*"></a>
+  <a id="Albatross_CodeGen_WebClient_DtoClassEnumWalker__ctor_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_EnumTypeWalker__ctor_Microsoft_CodeAnalysis_SemanticModel_Albatross_CodeGen_WebClient_Settings_SymbolFilterPatterns_" data-uid="Albatross.CodeGen.WebClient.EnumTypeWalker.#ctor(Microsoft.CodeAnalysis.SemanticModel,Albatross.CodeGen.WebClient.Settings.SymbolFilterPatterns)">
-  EnumTypeWalker(SemanticModel, SymbolFilterPatterns)
+  <h3 id="Albatross_CodeGen_WebClient_DtoClassEnumWalker__ctor_Microsoft_CodeAnalysis_SemanticModel_Albatross_CodeGen_WebClient_Settings_SymbolFilterPatterns_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.#ctor(Microsoft.CodeAnalysis.SemanticModel,Albatross.CodeGen.WebClient.Settings.SymbolFilterPatterns)">
+  DtoClassEnumWalker(SemanticModel, SymbolFilterPatterns)
   
   </h3>
 
@@ -900,7 +903,7 @@ Class EnumTypeWalker
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EnumTypeWalker(SemanticModel semanticModel, SymbolFilterPatterns patterns)</code></pre>
+    <pre><code class="lang-csharp hljs">public DtoClassEnumWalker(SemanticModel semanticModel, SymbolFilterPatterns patterns)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -926,10 +929,10 @@ Class EnumTypeWalker
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_EnumTypeWalker_Result_" data-uid="Albatross.CodeGen.WebClient.EnumTypeWalker.Result*"></a>
+  <a id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_DtoClasses_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.DtoClasses*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_EnumTypeWalker_Result" data-uid="Albatross.CodeGen.WebClient.EnumTypeWalker.Result">
-  Result
+  <h3 id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_DtoClasses" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.DtoClasses">
+  DtoClasses
   
   </h3>
 
@@ -937,7 +940,38 @@ Class EnumTypeWalker
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;INamedTypeSymbol&gt; Result { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;INamedTypeSymbol&gt; DtoClasses { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.inamedtypesymbol">INamedTypeSymbol</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_EnumTypes_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.EnumTypes*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_EnumTypes" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.EnumTypes">
+  EnumTypes
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;INamedTypeSymbol&gt; EnumTypes { get; }</code></pre>
   </div>
 
 
@@ -961,9 +995,41 @@ Class EnumTypeWalker
 </h2>
 
 
-  <a id="Albatross_CodeGen_WebClient_EnumTypeWalker_VisitEnumDeclaration_" data-uid="Albatross.CodeGen.WebClient.EnumTypeWalker.VisitEnumDeclaration*"></a>
+  <a id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_VisitClassDeclaration_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.VisitClassDeclaration*"></a>
 
-  <h3 id="Albatross_CodeGen_WebClient_EnumTypeWalker_VisitEnumDeclaration_Microsoft_CodeAnalysis_CSharp_Syntax_EnumDeclarationSyntax_" data-uid="Albatross.CodeGen.WebClient.EnumTypeWalker.VisitEnumDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax)">
+  <h3 id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_VisitClassDeclaration_Microsoft_CodeAnalysis_CSharp_Syntax_ClassDeclarationSyntax_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.VisitClassDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax)">
+  VisitClassDeclaration(ClassDeclarationSyntax)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when the visitor visits a ClassDeclarationSyntax node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void VisitClassDeclaration(ClassDeclarationSyntax node)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>node</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.syntax.classdeclarationsyntax">ClassDeclarationSyntax</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_VisitEnumDeclaration_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.VisitEnumDeclaration*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_VisitEnumDeclaration_Microsoft_CodeAnalysis_CSharp_Syntax_EnumDeclarationSyntax_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.VisitEnumDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax)">
   VisitEnumDeclaration(EnumDeclarationSyntax)
   
   </h3>
@@ -979,6 +1045,38 @@ Class EnumTypeWalker
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>node</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.syntax.enumdeclarationsyntax">EnumDeclarationSyntax</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_VisitRecordDeclaration_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.VisitRecordDeclaration*"></a>
+
+  <h3 id="Albatross_CodeGen_WebClient_DtoClassEnumWalker_VisitRecordDeclaration_Microsoft_CodeAnalysis_CSharp_Syntax_RecordDeclarationSyntax_" data-uid="Albatross.CodeGen.WebClient.DtoClassEnumWalker.VisitRecordDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.RecordDeclarationSyntax)">
+  VisitRecordDeclaration(RecordDeclarationSyntax)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when the visitor visits a RecordDeclarationSyntax node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void VisitRecordDeclaration(RecordDeclarationSyntax node)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>node</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.csharp.syntax.recorddeclarationsyntax">RecordDeclarationSyntax</a></dt>
     <dd></dd>
   </dl>
 
