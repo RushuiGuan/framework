@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class StringLiteral | Albatross Framework Documentation </title>
+      <title>Class CommandCodeGen | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class StringLiteral | Albatross Framework Documentation ">
+      <meta name="title" content="Class CommandCodeGen | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,24 +80,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.CSharp.Models.StringLiteral">
+        <article data-uid="Albatross.CommandLine.CodeGen.CommandCodeGen">
 
 
 
-  <h1 id="Albatross_CodeGen_CSharp_Models_StringLiteral" data-uid="Albatross.CodeGen.CSharp.Models.StringLiteral" class="text-break">
-Class StringLiteral  
+  <h1 id="Albatross_CommandLine_CodeGen_CommandCodeGen" data-uid="Albatross.CommandLine.CodeGen.CommandCodeGen" class="text-break">
+Class CommandCodeGen  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.CSharp.html">CSharp</a>.<a class="xref" href="Albatross.CodeGen.CSharp.Models.html">Models</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.CSharp.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CommandLine.html">CommandLine</a>.<a class="xref" href="Albatross.CommandLine.CodeGen.html">CodeGen</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.CommandLine.CodeGen.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class StringLiteral : ICodeElement</code></pre>
+    <pre><code class="lang-csharp hljs">[Generator]
+public class CommandCodeGen : ISourceGenerator</code></pre>
   </div>
 
 
@@ -107,14 +108,14 @@ Class StringLiteral
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">StringLiteral</span></div>
+      <div><span class="xref">CommandCodeGen</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.CodeGen.ICodeElement.html">ICodeElement</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.isourcegenerator">ISourceGenerator</a></div>
     </dd>
   </dl>
 
@@ -147,105 +148,75 @@ Class StringLiteral
 
 
 
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="Albatross_CodeGen_CSharp_Models_StringLiteral__ctor_" data-uid="Albatross.CodeGen.CSharp.Models.StringLiteral.#ctor*"></a>
-
-  <h3 id="Albatross_CodeGen_CSharp_Models_StringLiteral__ctor_System_String_" data-uid="Albatross.CodeGen.CSharp.Models.StringLiteral.#ctor(System.String)">
-  StringLiteral(string)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StringLiteral(string value)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-
-  <a id="Albatross_CodeGen_CSharp_Models_StringLiteral_Value_" data-uid="Albatross.CodeGen.CSharp.Models.StringLiteral.Value*"></a>
-
-  <h3 id="Albatross_CodeGen_CSharp_Models_StringLiteral_Value" data-uid="Albatross.CodeGen.CSharp.Models.StringLiteral.Value">
-  Value
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Value { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
   <h2 class="section" id="methods">Methods
 </h2>
 
 
-  <a id="Albatross_CodeGen_CSharp_Models_StringLiteral_Generate_" data-uid="Albatross.CodeGen.CSharp.Models.StringLiteral.Generate*"></a>
+  <a id="Albatross_CommandLine_CodeGen_CommandCodeGen_Execute_" data-uid="Albatross.CommandLine.CodeGen.CommandCodeGen.Execute*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Models_StringLiteral_Generate_System_IO_TextWriter_" data-uid="Albatross.CodeGen.CSharp.Models.StringLiteral.Generate(System.IO.TextWriter)">
-  Generate(TextWriter)
+  <h3 id="Albatross_CommandLine_CodeGen_CommandCodeGen_Execute_Microsoft_CodeAnalysis_GeneratorExecutionContext_" data-uid="Albatross.CommandLine.CodeGen.CommandCodeGen.Execute(Microsoft.CodeAnalysis.GeneratorExecutionContext)">
+  Execute(GeneratorExecutionContext)
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Called to perform source generation. A generator can use the <code class="paramref">context</code>
+to add source files via the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.generatorexecutioncontext.addsource#microsoft-codeanalysis-generatorexecutioncontext-addsource(system-string-microsoft-codeanalysis-text-sourcetext)">AddSource(string, SourceText)</a>
+method.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TextWriter Generate(TextWriter writer)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Execute(GeneratorExecutionContext context)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>writer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
-    <dd></dd>
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.generatorexecutioncontext">GeneratorExecutionContext</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.generatorexecutioncontext">GeneratorExecutionContext</a> to add source to</p>
+</dd>
   </dl>
 
-  <h4 class="section">Returns</h4>
+
+
+
+
+
+
+
+  <h4 class="section" id="Albatross_CommandLine_CodeGen_CommandCodeGen_Execute_Microsoft_CodeAnalysis_GeneratorExecutionContext__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This call represents the main generation step. It is called after a <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.compilation">Compilation</a> is
+created that contains the user written code.</p>
+<p>A generator can use the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.generatorexecutioncontext.compilation">Compilation</a> property to
+discover information about the users compilation and make decisions on what source to
+provide.</p>
+</div>
+
+
+
+
+  <a id="Albatross_CommandLine_CodeGen_CommandCodeGen_Initialize_" data-uid="Albatross.CommandLine.CodeGen.CommandCodeGen.Initialize*"></a>
+
+  <h3 id="Albatross_CommandLine_CodeGen_CommandCodeGen_Initialize_Microsoft_CodeAnalysis_GeneratorInitializationContext_" data-uid="Albatross.CommandLine.CodeGen.CommandCodeGen.Initialize(Microsoft.CodeAnalysis.GeneratorInitializationContext)">
+  Initialize(GeneratorInitializationContext)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called before generation occurs. A generator can use the <code class="paramref">context</code>
+to register callbacks required to perform generation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize(GeneratorInitializationContext context)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
-    <dd></dd>
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.generatorinitializationcontext">GeneratorInitializationContext</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.generatorinitializationcontext">GeneratorInitializationContext</a> to register callbacks on</p>
+</dd>
   </dl>
+
 
 
 

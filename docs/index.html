@@ -69,7 +69,7 @@
         <article data-uid="">
 <h1 id="albatross-framework">Albatross Framework</h1>
 
-<p>Albatross is a .Net development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration points to other frameworks so that developers can work with a consistant platform without dealing with low level technical issues.</p>
+<p>Albatross is a .Net development framework that allow developers to quickly bootstrap an application with cross cutting functionaties such as logging, caching and config management.  It builds intergration points to other libraries so that developers can work with a consistant platform without having to solve the same technical problems repeatly.</p>
 <h2 id="here-is-a-list-of-technogies-adopted-by-albatross">Here is a list of technogies adopted by Albatross</h2>
 <table>
 <thead>
@@ -116,12 +116,12 @@
 <td>Albatross.Caching</td>
 </tr>
 <tr>
-<td>Command line parsing (legacy)</td>
+<td>Command line utility (legacy)</td>
 <td>CommandLineParser</td>
 <td>Albatross.Hosting.Utility</td>
 </tr>
 <tr>
-<td>Command line parsing (WIP)</td>
+<td>Command line utility (New)</td>
 <td>System.CommandLine</td>
 <td>Albatross.CommandLine</td>
 </tr>
@@ -143,14 +143,19 @@
 <td>Net6/7/8</td>
 </tr>
 <tr>
-<td>Albatross.Hosting.Utility</td>
-<td>Bootstrapping assembly for creating a command line console program</td>
-<td>Net6/7/8</td>
-</tr>
-<tr>
 <td>Albatross.Hosting.Test</td>
 <td>Bootstrapping assembly for createing a unit test project</td>
 <td>Net6/7/8</td>
+</tr>
+<tr>
+<td>Albatross.CommandLine</td>
+<td>Bootstrapping assembly for creating a command line console program (New)</td>
+<td>Net6/7/8</td>
+</tr>
+<tr>
+<td>Albatross.SpecFlowPlugin</td>
+<td>SpecFlow Plugin host with Microsoft Dependency Injection and Serilog logging</td>
+<td>netstandard2.0</td>
 </tr>
 <tr>
 <td>Albatross.Authentication</td>
@@ -179,18 +184,28 @@
 </tr>
 <tr>
 <td>Albatross.Caching.MemCache</td>
-<td>MemCach implementation</td>
+<td>Memory Cache implementation</td>
 <td>NetStandard2.1</td>
 </tr>
 <tr>
 <td>Albatross.CodeGen</td>
-<td>CodeGen utility class</td>
-<td>NetStandard2.1</td>
+<td>CodeGen base library</td>
+<td>Net8.0</td>
+</tr>
+<tr>
+<td>Albatross.CodeGen.TypeScript</td>
+<td>CodeGen library for TypeScript</td>
+<td>Net8.0</td>
 </tr>
 <tr>
 <td>Albatross.CodeGen.WebClient</td>
-<td>CodeGen Implementation for WebApi Proxy</td>
+<td>CodeGen library for Generating WebApi Proxy</td>
 <td>Net6/7/8</td>
+</tr>
+<tr>
+<td>Albatross.CodeGen.CommandLine</td>
+<td>CodeGen Tool for Generating WebApi Proxy</td>
+<td>Net8</td>
 </tr>
 <tr>
 <td>Albatross.Config</td>
@@ -213,14 +228,14 @@
 <td>Net6/7/8, EFCore7/8</td>
 </tr>
 <tr>
-<td>Albatross.DateLevel</td>
-<td>Provides date level entity functionality</td>
-<td>Net6.0</td>
-</tr>
-<tr>
 <td>Albatross.EFCore.SqlServer</td>
 <td>ORM Sql server setup</td>
 <td>Net6/7/8, EFCore8.0</td>
+</tr>
+<tr>
+<td>Albatross.DateLevel</td>
+<td>Provides date level entity functionality</td>
+<td>Net6.0</td>
 </tr>
 <tr>
 <td>Albatross.WebClient</td>
@@ -236,11 +251,16 @@
 </table>
 <h2 id="utility-assemblies">Utility assemblies</h2>
 <ul>
+<li>Albatross.Collections</li>
 <li>Albatross.Text</li>
 <li>Albatross.Threading</li>
 <li>Albatross.Serilization</li>
 <li>Albatross.Math</li>
 <li>Albatross.Reflection</li>
+<li>Albatross.IO</li>
+<li>Albatross.CodeAnalysis</li>
+<li>Albatross.Dates</li>
+<li>Albatross.Math</li>
 </ul>
 
 </article>

@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class MethodCall | Albatross Framework Documentation </title>
+      <title>Class CommandOptionSetup | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class MethodCall | Albatross Framework Documentation ">
+      <meta name="title" content="Class CommandOptionSetup | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,24 +80,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.CSharp.Models.MethodCall">
+        <article data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup">
 
 
 
-  <h1 id="Albatross_CodeGen_CSharp_Models_MethodCall" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall" class="text-break">
-Class MethodCall  
+  <h1 id="Albatross_CommandLine_CodeGen_CommandOptionSetup" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup" class="text-break">
+Class CommandOptionSetup  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.CSharp.html">CSharp</a>.<a class="xref" href="Albatross.CodeGen.CSharp.Models.html">Models</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.CSharp.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CommandLine.html">CommandLine</a>.<a class="xref" href="Albatross.CommandLine.CodeGen.html">CodeGen</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.CommandLine.CodeGen.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class MethodCall : ICodeElement</code></pre>
+    <pre><code class="lang-csharp hljs">public class CommandOptionSetup</code></pre>
   </div>
 
 
@@ -107,16 +107,10 @@ Class MethodCall
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">MethodCall</span></div>
+      <div><span class="xref">CommandOptionSetup</span></div>
     </dd>
   </dl>
 
-  <dl class="typelist implements">
-    <dt>Implements</dt>
-    <dd>
-      <div><a class="xref" href="Albatross.CodeGen.ICodeElement.html">ICodeElement</a></div>
-    </dd>
-  </dl>
 
 
 
@@ -151,10 +145,10 @@ Class MethodCall
 </h2>
 
 
-  <a id="Albatross_CodeGen_CSharp_Models_MethodCall__ctor_" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.#ctor*"></a>
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup__ctor_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Models_MethodCall__ctor_System_String_" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.#ctor(System.String)">
-  MethodCall(string)
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup__ctor_Microsoft_CodeAnalysis_IPropertySymbol_Microsoft_CodeAnalysis_AttributeData_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.#ctor(Microsoft.CodeAnalysis.IPropertySymbol,Microsoft.CodeAnalysis.AttributeData)">
+  CommandOptionSetup(IPropertySymbol, AttributeData?)
   
   </h3>
 
@@ -162,12 +156,14 @@ Class MethodCall
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MethodCall(string name)</code></pre>
+    <pre><code class="lang-csharp hljs">public CommandOptionSetup(IPropertySymbol property, AttributeData? optionAttribute)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>property</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.ipropertysymbol">IPropertySymbol</a></dt>
+    <dd></dd>
+    <dt><code>optionAttribute</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.attributedata">AttributeData</a></dt>
     <dd></dd>
   </dl>
 
@@ -186,10 +182,10 @@ Class MethodCall
 </h2>
 
 
-  <a id="Albatross_CodeGen_CSharp_Models_MethodCall_Await_" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.Await*"></a>
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Aliases_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Aliases*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Models_MethodCall_Await" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.Await">
-  Await
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Aliases" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Aliases">
+  Aliases
   
   </h3>
 
@@ -197,7 +193,7 @@ Class MethodCall
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Await { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string[] Aliases { get; }</code></pre>
   </div>
 
 
@@ -206,7 +202,7 @@ Class MethodCall
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
     <dd></dd>
   </dl>
 
@@ -217,10 +213,10 @@ Class MethodCall
 
 
 
-  <a id="Albatross_CodeGen_CSharp_Models_MethodCall_Name_" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.Name*"></a>
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Description_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Description*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Models_MethodCall_Name" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.Name">
-  Name
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Description" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Description">
+  Description
   
   </h3>
 
@@ -228,7 +224,7 @@ Class MethodCall
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string? Description { get; }</code></pre>
   </div>
 
 
@@ -248,10 +244,10 @@ Class MethodCall
 
 
 
-  <a id="Albatross_CodeGen_CSharp_Models_MethodCall_Parameters_" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.Parameters*"></a>
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Hidden_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Hidden*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Models_MethodCall_Parameters" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.Parameters">
-  Parameters
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Hidden" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Hidden">
+  Hidden
   
   </h3>
 
@@ -259,7 +255,7 @@ Class MethodCall
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IEnumerable&lt;ICodeElement&gt; Parameters { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Hidden { get; set; }</code></pre>
   </div>
 
 
@@ -268,7 +264,7 @@ Class MethodCall
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Albatross.CodeGen.ICodeElement.html">ICodeElement</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 
@@ -279,14 +275,10 @@ Class MethodCall
 
 
 
-  <h2 class="section" id="methods">Methods
-</h2>
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Name_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Name*"></a>
 
-
-  <a id="Albatross_CodeGen_CSharp_Models_MethodCall_Generate_" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.Generate*"></a>
-
-  <h3 id="Albatross_CodeGen_CSharp_Models_MethodCall_Generate_System_IO_TextWriter_" data-uid="Albatross.CodeGen.CSharp.Models.MethodCall.Generate(System.IO.TextWriter)">
-  Generate(TextWriter)
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Name" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Name">
+  Name
   
   </h3>
 
@@ -294,23 +286,142 @@ Class MethodCall
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual TextWriter Generate(TextWriter writer)</code></pre>
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><code>writer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
-  <h4 class="section">Returns</h4>
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup_OptionAttribute_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.OptionAttribute*"></a>
+
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup_OptionAttribute" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.OptionAttribute">
+  OptionAttribute
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AttributeData? OptionAttribute { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.attributedata">AttributeData</a></dt>
     <dd></dd>
   </dl>
 
 
 
+
+
+
+
+
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Property_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Property*"></a>
+
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Property" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Property">
+  Property
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPropertySymbol Property { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.codeanalysis.ipropertysymbol">IPropertySymbol</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Required_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Required*"></a>
+
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Required" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Required">
+  Required
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Required { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Type_" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Type*"></a>
+
+  <h3 id="Albatross_CommandLine_CodeGen_CommandOptionSetup_Type" data-uid="Albatross.CommandLine.CodeGen.CommandOptionSetup.Type">
+  Type
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Type { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

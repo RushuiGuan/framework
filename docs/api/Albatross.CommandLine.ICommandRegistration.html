@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Extensions | Albatross Framework Documentation </title>
+      <title>Interface ICommandRegistration | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Extensions | Albatross Framework Documentation ">
+      <meta name="title" content="Interface ICommandRegistration | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,37 +80,87 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.CSharp.Extensions">
+        <article data-uid="Albatross.CommandLine.ICommandRegistration">
 
 
 
-  <h1 id="Albatross_CodeGen_CSharp_Extensions" data-uid="Albatross.CodeGen.CSharp.Extensions" class="text-break">
-Class Extensions  
+  <h1 id="Albatross_CommandLine_ICommandRegistration" data-uid="Albatross.CommandLine.ICommandRegistration" class="text-break">
+Interface ICommandRegistration  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.CSharp.html">CSharp</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.CSharp.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CommandLine.html">CommandLine</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.CommandLine.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Extensions</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ICommandRegistration</code></pre>
   </div>
 
 
 
 
-  <dl class="typelist inheritance">
-    <dt>Inheritance</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">Extensions</span></div>
-    </dd>
-  </dl>
 
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_String_System_Func_System_String_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, string?, Func&lt;string, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfHasKey__3___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___2__System_Func___2_System_Threading_Tasks_Task___1___">ExpressionExtensions.SetValueIfHasKey&lt;T, V, K&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, K?, Func&lt;K, Task&lt;V&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0_System_Nullable___1____System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V?&gt;&gt;, V?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetValueIfNotNull__2___0_System_Linq_Expressions_Expression_System_Func___0___1___System_Nullable___1__">ExpressionExtensions.SetValueIfNotNull&lt;T, V&gt;(T, Expression&lt;Func&lt;T, V&gt;&gt;, V?)</a>
+  </div>
+  <div>
+      <a class="xref" href="Albatross.EFCore.Extensions.html#Albatross_EFCore_Extensions_ValidateByDataAnnotations_System_Object_">Extensions.ValidateByDataAnnotations(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Albatross_CommandLine_ICommandRegistration_Command_" data-uid="Albatross.CommandLine.ICommandRegistration.Command*"></a>
+
+  <h3 id="Albatross_CommandLine_ICommandRegistration_Command" data-uid="Albatross.CommandLine.ICommandRegistration.Command">
+  Command
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Command { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -123,10 +173,10 @@ Class Extensions
 </h2>
 
 
-  <a id="Albatross_CodeGen_CSharp_Extensions_AddCSharpCodeGen_" data-uid="Albatross.CodeGen.CSharp.Extensions.AddCSharpCodeGen*"></a>
+  <a id="Albatross_CommandLine_ICommandRegistration_RegisterServices_" data-uid="Albatross.CommandLine.ICommandRegistration.RegisterServices*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Extensions_AddCSharpCodeGen_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.CodeGen.CSharp.Extensions.AddCSharpCodeGen(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-  AddCSharpCodeGen(IServiceCollection)
+  <h3 id="Albatross_CommandLine_ICommandRegistration_RegisterServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="Albatross.CommandLine.ICommandRegistration.RegisterServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+  RegisterServices(IServiceCollection)
   
   </h3>
 
@@ -134,7 +184,7 @@ Class Extensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IServiceCollection AddCSharpCodeGen(this IServiceCollection services)</code></pre>
+    <pre><code class="lang-csharp hljs">IServiceCollection RegisterServices(IServiceCollection services)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

@@ -1064,306 +1064,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConversionExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConversionExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertFieldInfoToField.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertFieldInfoToField.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertMethodInfoToMethod.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertMethodInfoToMethod.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertParameterInfoToParameter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertParameterInfoToParameter.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertPropertyInfoToProperty.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertPropertyInfoToProperty.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertTypeToCSharpClass.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Conversions.ConvertTypeToCSharpClass.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Conversions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Conversions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Extensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Extensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.AccessModifier.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.AccessModifier.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.AccessModifierElement.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.AccessModifierElement.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.AssignmentCodeBlock.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.AssignmentCodeBlock.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Class.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Class.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Constructor.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Constructor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.DotNetType.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.DotNetType.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Extensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Extensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Field.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Field.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.ForEachCodeBlock.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.ForEachCodeBlock.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.IfElseCodeBlock.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.IfElseCodeBlock.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Literal.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Literal.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Method.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Method.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.MethodCall.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.MethodCall.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.NewObjectCodeBlock-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.NewObjectCodeBlock-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Parameter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Parameter.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.ParameterCollection.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.ParameterCollection.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.ParameterModifier.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.ParameterModifier.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Property.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Property.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.StringLiteral.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.StringLiteral.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.Variable.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.Variable.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.Models.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.Models.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Albatross.CodeGen.CSharp.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Albatross.CodeGen.CSharp.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Albatross.CodeGen.CodeBlock.yml",
       "output": {
         ".html": {
@@ -2868,6 +2568,156 @@
       "output": {
         ".html": {
           "relative_path": "api/Albatross.Collections.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.CodeGen.CodeGenClassDeclarationWalker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.CodeGen.CodeGenClassDeclarationWalker.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.CodeGen.CommandCodeGen.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.CodeGen.CommandCodeGen.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.CodeGen.CommandOptionSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.CodeGen.CommandOptionSetup.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.CodeGen.CommandSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.CodeGen.CommandSetup.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.CodeGen.My.Diagnostic.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.CodeGen.My.Diagnostic.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.CodeGen.My.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.CodeGen.My.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.CodeGen.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.CodeGen.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.GlobalCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.GlobalCommandHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.GlobalOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.GlobalOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.ICommandRegistration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.ICommandRegistration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.OptionAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.OptionAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.Setup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.Setup.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.VerbAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.VerbAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Albatross.CommandLine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Albatross.CommandLine.html"
         }
       },
       "version": ""
@@ -6641,6 +6491,16 @@
       "output": {
         ".html": {
           "relative_path": "articles/caching.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/commandline.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/commandline.html"
         }
       },
       "version": ""

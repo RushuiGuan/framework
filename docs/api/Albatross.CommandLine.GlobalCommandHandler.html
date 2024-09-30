@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Parameter | Albatross Framework Documentation </title>
+      <title>Class GlobalCommandHandler | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Parameter | Albatross Framework Documentation ">
+      <meta name="title" content="Class GlobalCommandHandler | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,24 +80,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.CSharp.Models.Parameter">
+        <article data-uid="Albatross.CommandLine.GlobalCommandHandler">
 
 
 
-  <h1 id="Albatross_CodeGen_CSharp_Models_Parameter" data-uid="Albatross.CodeGen.CSharp.Models.Parameter" class="text-break">
-Class Parameter  
+  <h1 id="Albatross_CommandLine_GlobalCommandHandler" data-uid="Albatross.CommandLine.GlobalCommandHandler" class="text-break">
+Class GlobalCommandHandler  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.CSharp.html">CSharp</a>.<a class="xref" href="Albatross.CodeGen.CSharp.Models.html">Models</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.CSharp.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CommandLine.html">CommandLine</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.CommandLine.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Parameter : ICodeElement</code></pre>
+    <pre><code class="lang-csharp hljs">public class GlobalCommandHandler : ICommandHandler</code></pre>
   </div>
 
 
@@ -107,14 +107,14 @@ Class Parameter
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">Parameter</span></div>
+      <div><span class="xref">GlobalCommandHandler</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="Albatross.CodeGen.ICodeElement.html">ICodeElement</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.commandline.invocation.icommandhandler">ICommandHandler</a></div>
     </dd>
   </dl>
 
@@ -151,10 +151,10 @@ Class Parameter
 </h2>
 
 
-  <a id="Albatross_CodeGen_CSharp_Models_Parameter__ctor_" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.#ctor*"></a>
+  <a id="Albatross_CommandLine_GlobalCommandHandler__ctor_" data-uid="Albatross.CommandLine.GlobalCommandHandler.#ctor*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Models_Parameter__ctor_System_String_Albatross_CodeGen_CSharp_Models_DotNetType_" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.#ctor(System.String,Albatross.CodeGen.CSharp.Models.DotNetType)">
-  Parameter(string, DotNetType)
+  <h3 id="Albatross_CommandLine_GlobalCommandHandler__ctor_System_CommandLine_Command_" data-uid="Albatross.CommandLine.GlobalCommandHandler.#ctor(System.CommandLine.Command)">
+  GlobalCommandHandler(Command)
   
   </h3>
 
@@ -162,14 +162,12 @@ Class Parameter
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Parameter(string name, DotNetType type)</code></pre>
+    <pre><code class="lang-csharp hljs">public GlobalCommandHandler(Command command)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>type</code> <a class="xref" href="Albatross.CodeGen.CSharp.Models.DotNetType.html">DotNetType</a></dt>
+    <dt><code>command</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.commandline.command">Command</a></dt>
     <dd></dd>
   </dl>
 
@@ -184,14 +182,13 @@ Class Parameter
 
 
 
-  <h2 class="section" id="properties">Properties
+  <h2 class="section" id="fields">Fields
 </h2>
 
 
-  <a id="Albatross_CodeGen_CSharp_Models_Parameter_Modifier_" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.Modifier*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Models_Parameter_Modifier" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.Modifier">
-  Modifier
+  <h3 id="Albatross_CommandLine_GlobalCommandHandler_command" data-uid="Albatross.CommandLine.GlobalCommandHandler.command">
+  command
   
   </h3>
 
@@ -199,80 +196,18 @@ Class Parameter
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ParameterModifier Modifier { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">protected readonly Command command</code></pre>
   </div>
 
 
 
 
-
-  <h4 class="section">Property Value</h4>
+  <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.CSharp.Models.ParameterModifier.html">ParameterModifier</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.commandline.command">Command</a></dt>
     <dd></dd>
   </dl>
 
-
-
-
-
-
-
-
-  <a id="Albatross_CodeGen_CSharp_Models_Parameter_Name_" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.Name*"></a>
-
-  <h3 id="Albatross_CodeGen_CSharp_Models_Parameter_Name" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.Name">
-  Name
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Albatross_CodeGen_CSharp_Models_Parameter_Type_" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.Type*"></a>
-
-  <h3 id="Albatross_CodeGen_CSharp_Models_Parameter_Type" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.Type">
-  Type
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DotNetType Type { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Albatross.CodeGen.CSharp.Models.DotNetType.html">DotNetType</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -285,10 +220,10 @@ Class Parameter
 </h2>
 
 
-  <a id="Albatross_CodeGen_CSharp_Models_Parameter_Generate_" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.Generate*"></a>
+  <a id="Albatross_CommandLine_GlobalCommandHandler_HandleCommandException_" data-uid="Albatross.CommandLine.GlobalCommandHandler.HandleCommandException*"></a>
 
-  <h3 id="Albatross_CodeGen_CSharp_Models_Parameter_Generate_System_IO_TextWriter_" data-uid="Albatross.CodeGen.CSharp.Models.Parameter.Generate(System.IO.TextWriter)">
-  Generate(TextWriter)
+  <h3 id="Albatross_CommandLine_GlobalCommandHandler_HandleCommandException_System_Exception_Microsoft_Extensions_Logging_ILogger_Albatross_CommandLine_GlobalOptions_" data-uid="Albatross.CommandLine.GlobalCommandHandler.HandleCommandException(System.Exception,Microsoft.Extensions.Logging.ILogger,Albatross.CommandLine.GlobalOptions)">
+  HandleCommandException(Exception, ILogger, GlobalOptions)
   
   </h3>
 
@@ -296,19 +231,101 @@ Class Parameter
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TextWriter Generate(TextWriter writer)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual int HandleCommandException(Exception err, ILogger logger, GlobalOptions globalOptions)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>writer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
+    <dt><code>err</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd></dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></dt>
+    <dd></dd>
+    <dt><code>globalOptions</code> <a class="xref" href="Albatross.CommandLine.GlobalOptions.html">GlobalOptions</a></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.textwriter">TextWriter</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_GlobalCommandHandler_Invoke_" data-uid="Albatross.CommandLine.GlobalCommandHandler.Invoke*"></a>
+
+  <h3 id="Albatross_CommandLine_GlobalCommandHandler_Invoke_System_CommandLine_Invocation_InvocationContext_" data-uid="Albatross.CommandLine.GlobalCommandHandler.Invoke(System.CommandLine.Invocation.InvocationContext)">
+  Invoke(InvocationContext)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Performs an action when the associated command is invoked on the command line.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Invoke(InvocationContext context)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.commandline.invocation.invocationcontext">InvocationContext</a></dt>
+    <dd><p>Provides context for the invocation, including parse results and binding support.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>A value that can be used as the exit code for the process.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_GlobalCommandHandler_InvokeAsync_" data-uid="Albatross.CommandLine.GlobalCommandHandler.InvokeAsync*"></a>
+
+  <h3 id="Albatross_CommandLine_GlobalCommandHandler_InvokeAsync_System_CommandLine_Invocation_InvocationContext_" data-uid="Albatross.CommandLine.GlobalCommandHandler.InvokeAsync(System.CommandLine.Invocation.InvocationContext)">
+  InvokeAsync(InvocationContext)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Performs an action when the associated command is invoked on the command line.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;int&gt; InvokeAsync(InvocationContext context)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>context</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.commandline.invocation.invocationcontext">InvocationContext</a></dt>
+    <dd><p>Provides context for the invocation, including parse results and binding support.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd><p>A value that can be used as the exit code for the process.</p>
+</dd>
   </dl>
 
 

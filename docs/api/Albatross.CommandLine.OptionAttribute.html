@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Enum AccessModifier | Albatross Framework Documentation </title>
+      <title>Class OptionAttribute | Albatross Framework Documentation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Enum AccessModifier | Albatross Framework Documentation ">
+      <meta name="title" content="Class OptionAttribute | Albatross Framework Documentation ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -80,31 +80,37 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Albatross.CodeGen.CSharp.Models.AccessModifier">
+        <article data-uid="Albatross.CommandLine.OptionAttribute">
 
 
 
-
-  <h1 id="Albatross_CodeGen_CSharp_Models_AccessModifier" data-uid="Albatross.CodeGen.CSharp.Models.AccessModifier" class="text-break">
-Enum AccessModifier  
+  <h1 id="Albatross_CommandLine_OptionAttribute" data-uid="Albatross.CommandLine.OptionAttribute" class="text-break">
+Class OptionAttribute  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CodeGen.html">CodeGen</a>.<a class="xref" href="Albatross.CodeGen.CSharp.html">CSharp</a>.<a class="xref" href="Albatross.CodeGen.CSharp.Models.html">Models</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Albatross.CodeGen.CSharp.dll</dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Albatross.html">Albatross</a>.<a class="xref" href="Albatross.CommandLine.html">CommandLine</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Albatross.CommandLine.dll</dd></dl>
   </div>
 
   <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Flags]
-public enum AccessModifier</code></pre>
+    <pre><code class="lang-csharp hljs">public class OptionAttribute : Attribute</code></pre>
   </div>
 
 
 
 
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.attribute">Attribute</a></div>
+      <div><span class="xref">OptionAttribute</span></div>
+    </dd>
+  </dl>
 
 
 
@@ -112,15 +118,6 @@ public enum AccessModifier</code></pre>
   <dl class="typelist extensionMethods">
     <dt>Extension Methods</dt>
     <dd>
-  <div>
-      <a class="xref" href="Albatross.Reflection.EnumTextExtensions.html#Albatross_Reflection_EnumTextExtensions_GetEnumMemberAttribute__2___0_">EnumTextExtensions.GetEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
-  </div>
-  <div>
-      <a class="xref" href="Albatross.Reflection.EnumTextExtensions.html#Albatross_Reflection_EnumTextExtensions_GetEnumText__1___0_">EnumTextExtensions.GetEnumText&lt;EnumType&gt;(EnumType)</a>
-  </div>
-  <div>
-      <a class="xref" href="Albatross.Reflection.EnumTextExtensions.html#Albatross_Reflection_EnumTextExtensions_GetRequiredEnumMemberAttribute__2___0_">EnumTextExtensions.GetRequiredEnumMemberAttribute&lt;EnumType, A&gt;(EnumType)</a>
-  </div>
   <div>
       <a class="xref" href="Albatross.Reflection.ExpressionExtensions.html#Albatross_Reflection_ExpressionExtensions_SetTextIfNotEmpty__1___0_System_Linq_Expressions_Expression_System_Func___0_System_String___System_String_">ExpressionExtensions.SetTextIfNotEmpty&lt;T&gt;(T, Expression&lt;Func&lt;T, string?&gt;&gt;, string?)</a>
   </div>
@@ -141,20 +138,167 @@ public enum AccessModifier</code></pre>
   </div>
   </dd></dl>
 
-  <h2 id="fields">Fields
+
+
+
+
+  <h2 class="section" id="properties">Properties
 </h2>
+
+
+  <a id="Albatross_CommandLine_OptionAttribute_Alias_" data-uid="Albatross.CommandLine.OptionAttribute.Alias*"></a>
+
+  <h3 id="Albatross_CommandLine_OptionAttribute_Alias" data-uid="Albatross.CommandLine.OptionAttribute.Alias">
+  Alias
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string[] Alias { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt id="Albatross_CodeGen_CSharp_Models_AccessModifier_Internal"><code>Internal = 8</code></dt>
-    <dd></dd>
-    <dt id="Albatross_CodeGen_CSharp_Models_AccessModifier_None"><code>None = 0</code></dt>
-    <dd></dd>
-    <dt id="Albatross_CodeGen_CSharp_Models_AccessModifier_Private"><code>Private = 2</code></dt>
-    <dd></dd>
-    <dt id="Albatross_CodeGen_CSharp_Models_AccessModifier_Protected"><code>Protected = 4</code></dt>
-    <dd></dd>
-    <dt id="Albatross_CodeGen_CSharp_Models_AccessModifier_Public"><code>Public = 1</code></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_OptionAttribute_Description_" data-uid="Albatross.CommandLine.OptionAttribute.Description*"></a>
+
+  <h3 id="Albatross_CommandLine_OptionAttribute_Description" data-uid="Albatross.CommandLine.OptionAttribute.Description">
+  Description
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Description { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_OptionAttribute_Hidden_" data-uid="Albatross.CommandLine.OptionAttribute.Hidden*"></a>
+
+  <h3 id="Albatross_CommandLine_OptionAttribute_Hidden" data-uid="Albatross.CommandLine.OptionAttribute.Hidden">
+  Hidden
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Hidden { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_OptionAttribute_Required_" data-uid="Albatross.CommandLine.OptionAttribute.Required*"></a>
+
+  <h3 id="Albatross_CommandLine_OptionAttribute_Required" data-uid="Albatross.CommandLine.OptionAttribute.Required">
+  Required
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Required { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Albatross_CommandLine_OptionAttribute_Skip_" data-uid="Albatross.CommandLine.OptionAttribute.Skip*"></a>
+
+  <h3 id="Albatross_CommandLine_OptionAttribute_Skip" data-uid="Albatross.CommandLine.OptionAttribute.Skip">
+  Skip
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Skip { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
 
 
 
