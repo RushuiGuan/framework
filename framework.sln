@@ -82,8 +82,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Caching.WebApi", "ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen", "codegen\Albatross.CodeGen\Albatross.CodeGen.csproj", "{5DAC22DA-6B2E-4E15-ABF7-E70D7D1B1E65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.CSharp", "codegen\Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj", "{E31DC15A-78A2-456B-A345-F621250679CF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.Python", "codegen\Albatross.CodeGen.Python\Albatross.CodeGen.Python.csproj", "{3761F233-25EA-40EF-8DD4-83D272B72D76}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.TypeScript", "codegen\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj", "{30954AD0-C5E5-491A-9BEC-D55A2EA5AFB7}"
@@ -233,6 +231,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.MSBuild", "codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj", "{9F47C779-0D57-4B01-8CDA-C8638D17688D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "comandline", "comandline", "{70F19D88-A49C-419F-8A5C-14ACCBF9EE74}"
+	ProjectSection(SolutionItems) = preProject
+		commandline\readme.md = commandline\readme.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CommandLine", "commandline\Sample.CommandLine\Sample.CommandLine.csproj", "{92758798-6FD8-4C9D-93AF-E81961AE3DBA}"
 EndProject
@@ -320,10 +321,6 @@ Global
 		{5DAC22DA-6B2E-4E15-ABF7-E70D7D1B1E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DAC22DA-6B2E-4E15-ABF7-E70D7D1B1E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DAC22DA-6B2E-4E15-ABF7-E70D7D1B1E65}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E31DC15A-78A2-456B-A345-F621250679CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E31DC15A-78A2-456B-A345-F621250679CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E31DC15A-78A2-456B-A345-F621250679CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E31DC15A-78A2-456B-A345-F621250679CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3761F233-25EA-40EF-8DD4-83D272B72D76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3761F233-25EA-40EF-8DD4-83D272B72D76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3761F233-25EA-40EF-8DD4-83D272B72D76}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -642,7 +639,6 @@ Global
 		{19EFF89B-3509-493B-B18E-436C46382C10} = {02848862-C161-4785-90AC-68FC721A2909}
 		{47021584-391A-41E6-8803-7CB1011BDDC3} = {02848862-C161-4785-90AC-68FC721A2909}
 		{5DAC22DA-6B2E-4E15-ABF7-E70D7D1B1E65} = {F0077DD2-731A-4663-804B-7636EBD2EFA8}
-		{E31DC15A-78A2-456B-A345-F621250679CF} = {F0077DD2-731A-4663-804B-7636EBD2EFA8}
 		{3761F233-25EA-40EF-8DD4-83D272B72D76} = {F0077DD2-731A-4663-804B-7636EBD2EFA8}
 		{30954AD0-C5E5-491A-9BEC-D55A2EA5AFB7} = {F0077DD2-731A-4663-804B-7636EBD2EFA8}
 		{B6947D16-FE67-4753-B1FE-981EC1854271} = {F0077DD2-731A-4663-804B-7636EBD2EFA8}
