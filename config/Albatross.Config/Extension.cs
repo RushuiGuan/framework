@@ -6,14 +6,6 @@ using System;
 namespace Albatross.Config {
 	// the class name Extension cannot be renamed to Extensions (standard) because of backward compability reason.
 	public static class Extension {
-
-		public static string GetAssemblyLocation(this Type type) {
-			string location = type.Assembly.Location;
-			return System.IO.Path.GetDirectoryName(location) ?? throw new InvalidOperationException($"Invalid assembly location: {location}");
-		}
-
-		public static string GetWorkingDirectory() => System.Environment.CurrentDirectory;
-
 		/// <summary>
 		/// Registration for the Configuration Class C.  C has to have the base class of <see cref="ConfigBase"/> and it also requires a constructor with
 		/// a single parameter of type <see cref="IConfiguration"/>
@@ -23,7 +15,7 @@ namespace Albatross.Config {
 		/// <typeparam name="ConfigType">The configuration class</typeparam>
 		/// <param name="services">The ServiceCollection instance</param>
 		/// <returns>The service collection instance</returns>
-		public static IServiceCollection AddConfig<ConfigType>(this IServiceCollection services, bool singleton = false) where ConfigType : ConfigBase {
+		public static IServiceCollection AddConfig<ConfigType>(this IServiceCollection services, bool singleton = true) where ConfigType : ConfigBase {
 			if (singleton) {
 				services.TryAddSingleton<ConfigType>(provider => {
 					var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
@@ -45,7 +37,8 @@ namespace Albatross.Config {
 		/// For C# the HttpClient class will remove any relative path if the BaseUrl does not end with a slash.  For example: http://localhost/beezy will becomes 
 		/// http://localhost unless base url is set as http://localhost/beezy/
 		/// For the request url, if it starts with a slash, it will be considered as a root url.  By default, we shouldn't use any slash in the request url.
-		/// The call will append Slack '/' to the endpoint by default if it doesn't already end with it.  If this behavior is not desired, set ensureTrailingSlash to false
+		/// The call will append Slack '/' to the endpoint by default if it doesn't already end with it.  If this behavior is not desired, set ensureTrailingSlash 
+		/// to false
 		/// </summary>
 		/// <param name="configuration"></param>
 		/// <param name="name"></param>
