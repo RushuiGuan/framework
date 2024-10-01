@@ -15,11 +15,11 @@ Albatross framework is an application framework built on top of Microsoft .Net f
 |dates|||
 |efcore|||
 |excel|||
-|Hosting|Bootstrapping library that is used to create a web or service app|.NET 6/7/8|
+|[hosting](./hosting/README.md)|Bootstrapping library that is used to create a web or service app|net6.0,7.0,8.0|
 |io|||
-|logging|||
+|logging|Logging setup with serilog|netstandard2.0|
 |math|||
-|messaging|||
+|messaging|Durable messaging library with ZeroMQ|net6.0|
 |reflection|||
 |serialization|||
 |specflow|||
