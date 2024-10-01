@@ -1,4 +1,11 @@
-# Albatross.Hosting assembly is a bootstrapping assembly that can be used to create a aspnetcore webapp or a service application.
+# Albatross.Hosting 
+A bootstrapping assembly for web api and service applications.
+
+## Features
+
+## Quick Start
+
+## Related Articles
 
 ## Create a new webapp
 * Create a new console application
