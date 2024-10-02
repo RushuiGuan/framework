@@ -1,8 +1,10 @@
 Set-StrictMode -Version Latest
 
 Get-ChildItem readme.md -Recurse | ForEach-Object {
-	$newName = $_.FullName -replace 'readme.md', 'README1.md'
-	Rename-Item -Path $_.FullName -NewName $newName
+	if($_.FullName.EndsWith("readme.md")) {
+		$newName = $_.FullName -replace 'readme.md', 'README1.md'
+		Rename-Item -Path $_.FullName -NewName $newName
+	}
 }
 
 git add .
