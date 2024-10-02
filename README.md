@@ -9,7 +9,7 @@ Albatross framework is an application framework built on top of Microsoft .Net f
 |codeanalysis|||
 |codegen|||
 |collections|||
-|[commandline](./commandline)|||
+|[commandline](./commandline/Albatross.CommandLine)|||
 |[config](./config/Albatross.Config)|||
 |datelevel|||
 |dates|||
