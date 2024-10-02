@@ -14,7 +14,7 @@ Albatross framework is an application framework built on top of Microsoft .Net f
 |datelevel|||
 |dates|||
 |efcore|||
-|excel|||
+|[excel](./excel/Albatross.Hosting.Excel/)|ExcelDNA hosting library with logging, configuration and dependency injection.||
 |[hosting](./hosting)|Bootstrapping library that is used to create a web or service app|net6.0,7.0,8.0|
 |io|||
 |[logging](./logging/Albatross.Logging)|Logging setup with serilog|netstandard2.0|
@@ -25,4 +25,4 @@ Albatross framework is an application framework built on top of Microsoft .Net f
 |[specflow](./specflow/Albatross.SpecFlowPlugin//)|A Specflow plugin library preconfigured with configuration, logging and dependency injection.||
 |text|||
 |threading|||
-|webclient|||
+|[webclient](./webclient/Albatross.WebClient/)|Extends the functionality of .net HttpClient class||
