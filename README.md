@@ -22,7 +22,7 @@ Albatross framework is an application framework built on top of Microsoft .Net f
 |[messaging](./messaging/Albatross.Messaging)|Durable messaging library with ZeroMQ|net6.0|
 |reflection|||
 |serialization|||
-|specflow|||
+|[specflow](./specflow/Albatross.SpecFlowPlugin//)|A Specflow plugin library preconfigured with configuration, logging and dependency injection.||
 |text|||
 |threading|||
 |webclient|||
