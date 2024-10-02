@@ -1,6 +1,0 @@
-The purpose of the Albatross.Authentication namespace is to return the name of the current user.
-The Albatross.Authentication assembly contains the IGetCurrentUser interface.  It has seperate implementation assemblies such as Albatross.Authentication.AspNetCore and Albatross.Authentication.Windows.  While the consumer of the ICurrentUser interface will only need to reference the Albatross.Authentication assembly, the actual implementation can be decided by the entry point application.
-
-For example, if the entry point application is a Windows Forms application, the Albatross.Authentication.Windows assembly should be referenced.  Albatross.Authentication.Windows.Extensions.RegisterWindowsAuthentication(services) should be called in the service registration code of the application.  This will register the Windows implementation of IGetCurrentUser with the DI container.
-
-If the entry point application is an ASP.NET Core application, the Albatross.Authentication.AspNetCore assembly should be referenced.  Albatross.Authentication.AspNetCore.Extensions.RegisterAspNetCoreAuthentication(services) should be called in the service registration code of the application.  This will register the AspNetCore implementation of IGetCurrentUser with the DI container.
