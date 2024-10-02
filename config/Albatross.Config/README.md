@@ -8,6 +8,10 @@ Simplfied configuration setup for your .Net applications.
 * Validate configuration data using data annotation attributes in the System.DataAnnotation namespace or implement your own validation.
 * Custom implementation of IHostEnvironment to save us from changing prod data by accident.
 
+## Related Articles
+* [.NET configuration Setup](../docs/.net-config-setup.md)
+* [Use of Environment Variables and Other Options](../docs/use-of-env.md)
+
 ## Quick Start
 `Albatross.Config` requires the .Net configuration to be setup correctly and an instance of `IConfiguration` can be injected through DI.  A config POCO class can be created using base class `Albatross.Config.ConfigBase`.  It's required to have a constructor with a single parameter of type `Microsoft.Extensions.Configuration.IConfiguration`.
 
@@ -43,7 +47,7 @@ public class MyConfig : ConfigBase {
 ```
 If the Key of the config class is defined, the json values of the key in the `appsettings.json` file will be binded to the config class.  The `Validate` method of the class will be invoked after the creation of its instance.  An exception will be thrown if there are any validation errors.
 
-Once the config class is registered using DI, it can be injected directly to classes as a dependency.  The `AddConfig` method by default registers the config class as a Singleton.  `AddConfig(false)` will register the class with a scoped lifetime.
+Once the config class is registered using DI, it can be injected directly to classes as a dependency.  The `AddConfig` method by default registers the config class as a Singleton.  `AddConfig(false)` will register the class with a scoped lifetime.  The scoped lifetime is useful in the rare case of config data change.
 ```csharp
 	public static IServiceCollection RegisterMyServices(this IServiceCollection services) {
 		services.AddConfig<MyConfig>();
