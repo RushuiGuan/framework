@@ -4,7 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\LICENSE">
@@ -14,7 +14,7 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Include="readme.md">
+	  <None Include="README.md">
 	    <PackagePath>\</PackagePath>
 	    <Pack>True</Pack>
 	  </None>

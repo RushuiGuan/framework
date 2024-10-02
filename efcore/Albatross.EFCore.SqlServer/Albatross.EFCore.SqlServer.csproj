@@ -6,7 +6,7 @@
         <Description>SqlServer Setup for Albatross.EFCore</Description>
         <Authors>Rushui Guan</Authors>
         <Nullable>enable</Nullable>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.35" />
@@ -30,7 +30,7 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-      <None Include="readme.md">
+      <None Include="README.md">
         <PackagePath>\</PackagePath>
         <Pack>True</Pack>
       </None>

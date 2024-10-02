@@ -8,7 +8,7 @@
 		<Description>Wrapper library to quickly create a combination of web api, spa or service with serilog logging, swagger and bearer token authentication\authorization support.</Description>
 		<Nullable>enable</Nullable>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
@@ -50,7 +50,7 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Include="readme.md">
+	  <None Include="README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>

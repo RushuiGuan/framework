@@ -4,7 +4,7 @@
 		<Nullable>enable</Nullable>
 		<Description>Albatross.Caching Implementation using Microsoft.Extensions.Caching.Memory.MemoryCache</Description>
 		<LangVersion>Latest</LangVersion>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
 
@@ -14,7 +14,7 @@
 		<PackageReference Include="Polly.Caching.Memory" Version="3.0.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="readme.md">
+	  <None Update="README.md">
 	    <PackagePath>\</PackagePath>
 	    <Pack>True</Pack>
 	  </None>

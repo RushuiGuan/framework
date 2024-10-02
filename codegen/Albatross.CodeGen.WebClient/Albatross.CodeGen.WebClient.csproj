@@ -4,7 +4,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Nullable>enable</Nullable>
     <Description>This assembly contains code generator that can generate C# and TypeScript Proxies from AspNetCore controller classes</Description>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -22,7 +22,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Update="readme.md">
+    <None Update="README.md">
       <PackagePath>\</PackagePath>
       <Pack>True</Pack>
     </None>
