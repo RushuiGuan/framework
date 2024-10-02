@@ -10,7 +10,7 @@
 		<Authors>Rushui Guan</Authors>
 		<Title>Albatross CodeGenerator for CSharp and TypeScript WebApi Proxy Generation</Title>
 		<ToolCommandName>codegen</ToolCommandName>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.11.0" />
@@ -38,7 +38,7 @@
 		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Include="readme.md">
+	  <None Include="README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>

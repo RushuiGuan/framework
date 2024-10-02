@@ -3,14 +3,14 @@
 		<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore\Albatross.EFCore.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Include="readme.md">
+	  <None Include="README.md">
 	    <PackagePath>\</PackagePath>
 	    <Pack>True</Pack>
 	  </None>

@@ -8,7 +8,7 @@
 		<Authors>Rushui Guan</Authors>
 		<PackageProjectUrl>https://github.com/RushuiGuan/framework</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\dates\Albatross.Dates\Albatross.Dates.csproj" />
@@ -29,7 +29,7 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Include="readme.md">
+	  <None Include="README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>

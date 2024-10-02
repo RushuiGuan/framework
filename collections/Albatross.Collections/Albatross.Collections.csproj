@@ -7,14 +7,14 @@
         <Authors>Rushui Guan</Authors>
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
         <Description>An assembly that contains utility that deal with collections</Description>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <None Include="..\..\LICENSE">
             <Pack>True</Pack>
             <PackagePath></PackagePath>
         </None>
-        <None Include="..\readme.md">
+        <None Include="..\README.md">
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>
         </None>

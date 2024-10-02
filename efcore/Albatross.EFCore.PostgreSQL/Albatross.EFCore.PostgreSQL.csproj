@@ -5,7 +5,7 @@
         <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
         <Nullable>enable</Nullable>
         <Description>PostgresSQL Setup for Albatross.EFCore</Description>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
@@ -26,7 +26,7 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-      <None Include="readme.md">
+      <None Include="README.md">
         <PackagePath>\</PackagePath>
         <Pack>True</Pack>
       </None>

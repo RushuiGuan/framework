@@ -10,7 +10,7 @@ Simplfied configuration setup for your .Net applications.
 
 ## Related Articles
 * [.NET configuration Setup](../docs/.net-config-setup.md)
-* [Use of Environment Variables and Other Options](../docs/use-of-env.md)
+* [Use of Environment Variables and Command Line Parameters](../docs/use-of-env.md)
 
 ## Quick Start
 `Albatross.Config` requires the .Net configuration to be setup correctly and an instance of `IConfiguration` can be injected through DI.  A config POCO class can be created using base class `Albatross.Config.ConfigBase`.  It's required to have a constructor with a single parameter of type `Microsoft.Extensions.Configuration.IConfiguration`.
