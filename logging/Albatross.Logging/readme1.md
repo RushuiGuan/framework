@@ -1,0 +1,1 @@
+Albatross.Logging assembly setups application logging with Serilog
