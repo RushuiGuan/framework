@@ -52,6 +52,7 @@ function Update-CodeGenProjectReference {
 		$doc.Save($csproj)
 	}
 }
+
 function Update-UtilityProjectReference {
 	param (
 		[Parameter(Mandatory)]
@@ -65,7 +66,6 @@ function Update-UtilityProjectReference {
 		Remove-PackageReference -csproj $csproj -packageId "Albatross.CodeAnalysis";
 	}
 }
-
 function Run-Pack {
 	param(
 		[Parameter(Mandatory)]
