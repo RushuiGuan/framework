@@ -1,3 +1,4 @@
+Set-StrictMode -Version Latest;
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
 
@@ -10,8 +11,8 @@ function Test-GitDiff {
         [string]$path
     )
     if ($path) {
-        $check = (git status $path -s);
-        return ($check.Count -ne 0);
+        [array]$check = (git status $path -s);
+        return ($check.Length -ne 0);
     }
     else {
         return $false;

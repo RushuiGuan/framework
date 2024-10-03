@@ -12,6 +12,7 @@ param(
 	[switch]
 	[bool]$norevertchanges
 )
+Set-StrictMode -Version Latest;
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
 . $PSScriptRoot\scripts\pack.ps1;
