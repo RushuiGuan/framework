@@ -204,8 +204,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{2E80
 		scripts\pack.ps1 = scripts\pack.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "specflow", "specflow", "{D599692D-B2C5-4D01-A369-AA9A5A1BACEE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "datelevel", "datelevel", "{B36671DF-532E-48B2-A7E0-7F0A2CAC2F8F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.DateLevel", "datelevel\Albatross.DateLevel\Albatross.DateLevel.csproj", "{D8254260-52BB-45F3-87D0-BAB3C4742E1A}"
