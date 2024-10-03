@@ -19,7 +19,7 @@ namespace Sample.Spec.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class DataSetFeature : object, Xunit.IClassFixture<DataSetFeature.FixtureData>, System.IDisposable
+    public partial class Feature1Feature : object, Xunit.IClassFixture<Feature1Feature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace Sample.Spec.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "DataSet.feature"
+#line 1 "Feature1.feature"
 #line hidden
         
-        public DataSetFeature(DataSetFeature.FixtureData fixtureData, Sample_Spec_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public Feature1Feature(Feature1Feature.FixtureData fixtureData, Sample_Spec_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace Sample.Spec.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "DataSet", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Feature1", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,16 +80,16 @@ namespace Sample.Spec.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create a new dataset")]
-        [Xunit.TraitAttribute("FeatureTitle", "DataSet")]
-        [Xunit.TraitAttribute("Description", "Create a new dataset")]
+        [Xunit.SkippableFactAttribute(DisplayName="My first scenario")]
+        [Xunit.TraitAttribute("FeatureTitle", "Feature1")]
+        [Xunit.TraitAttribute("Description", "My first scenario")]
         [Xunit.TraitAttribute("Category", "tag1")]
-        public void CreateANewDataset()
+        public void MyFirstScenario()
         {
             string[] tagsOfScenario = new string[] {
                     "tag1"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new dataset", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("My first scenario", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -101,16 +101,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.Given("a id of 10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 8
- testRunner.When("save the dataset", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 9
- testRunner.Then("a new dataset is created with the id 10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 10
- testRunner.Then("wait 1 second(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("provide text = \"random text (2)\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -123,12 +114,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                DataSetFeature.FeatureSetup();
+                Feature1Feature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                DataSetFeature.FeatureTearDown();
+                Feature1Feature.FeatureTearDown();
             }
         }
     }
