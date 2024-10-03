@@ -12,7 +12,7 @@ function Test-GitDiff {
     )
     if ($path) {
         [array]$check = (git status $path -s);
-        return ($check.Length -ne 0);
+		return ($null -ne $check) -and ($check.Length -ne 0);
     }
     else {
         return $false;
