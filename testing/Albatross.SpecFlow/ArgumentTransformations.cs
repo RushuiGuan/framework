@@ -4,6 +4,10 @@ using TechTalk.SpecFlow;
 
 namespace Albatross.SpecFlow {
 	public class ArgumentTransformations {
+		public ArgumentTransformations(ScenarioContext scenario) {
+			this.scenario = scenario;
+		}
+
 		protected readonly ScenarioContext scenario;
 		public T GetRequiredValue<T>(string key) {
 			if (scenario.TryGetValue<T>(key, out var value)) {
@@ -12,6 +16,7 @@ namespace Albatross.SpecFlow {
 				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
 			}
 		}
+		
 		public T? GetPropertyValue<T>(string key, string propertyName) {
 			if (scenario.TryGetValue(key, out var value)) {
 				var type = value.GetType();
@@ -26,18 +31,14 @@ namespace Albatross.SpecFlow {
 			}
 		}
 
-		public ArgumentTransformations(ScenarioContext scenario) {
-			this.scenario = scenario;
-		}
-
 		[Then(@"wait (.*) second\(s\)")]
 		public Task ThenWaitSeconds(int seconds) => Task.Delay(seconds * 1000);
 
 		#region random values
-		[StepArgumentTransformation(@"random")]
+		[StepArgumentTransformation(@"random text")]
 		public string AutoText() => new Fixture().Create<string>();
 
-		[StepArgumentTransformation(@"random text with max length of (.*)")]
+		[StepArgumentTransformation(@"random text \((.*)\)")]
 		public string AutoText(int length) => new Fixture().Create<string>().Substring(0, length);
 
 		[StepArgumentTransformation(@"random int between (.*) and (.*)")]
@@ -70,9 +71,17 @@ namespace Albatross.SpecFlow {
 			}
 		}
 	
-		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive)")]
+		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive|yes|no)")]
 		public bool BooleanTransform(string value) {
 			return value == "with" || value == "should be" || value == "should" || value == "active";
+		}
+
+		public T GetStoredValueByKey<T>(string value) {
+			if (scenario.TryGetValue<T>(value, out var result)) {
+				return result;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {value} and the type of {typeof(T).Name}");
+			}
 		}
 	}
 }
