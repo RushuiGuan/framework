@@ -1,3 +1,4 @@
+Set-StrictMode -Version Latest;
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
 
@@ -91,7 +92,7 @@ function Run-Pack {
 		dotnet restore $directory --verbosity minimal
 		
 		$artifacts = "$directory\artifacts";
-		if(-not $noclean) {
+		if(-not $noclean -and (Test-Path $artifacts -PathType Container)) {
 			Write-Information "Cleaning artifacts directory: $artifacts"
 			Get-ChildItem $artifacts | foreach-object { Remove-Item $_.FullName; }
 		}

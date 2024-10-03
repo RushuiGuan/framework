@@ -73,7 +73,7 @@ namespace Albatross.SpecFlow {
 	
 		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive|yes|no)")]
 		public bool BooleanTransform(string value) {
-			return value == "with" || value == "should be" || value == "should" || value == "active";
+			return value == "with" || value == "should be" || value == "should" || value == "active" || value == "yes";
 		}
 
 		public T GetStoredValueByKey<T>(string value) {
