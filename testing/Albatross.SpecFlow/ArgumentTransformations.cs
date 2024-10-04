@@ -37,16 +37,16 @@ namespace Albatross.SpecFlow {
 
 		#region random values
 		[StepArgumentTransformation(@"random text")]
-		public string AutoText() => new Fixture().Create<string>();
+		public string RandomText() => new Fixture().Create<string>();
+
+		[StepArgumentTransformation(@"random int")]
+		public int RandomInt() => random.Next();
 
 		[StepArgumentTransformation(@"random text \((\d+)\)")]
-		public string AutoText(int length) => new Fixture().Create<string>().Substring(0, length);
+		public string RandomText(int length) => new Fixture().Create<string>().Substring(0, length);
 
 		[StepArgumentTransformation(@"random int \((\d+)\s*-\s*(\d+)\)")]
-		public int AutoInt(int min, int max) => random.Next(min, max);
-
-		[StepArgumentTransformation(@"random int \((\d+)\s*-\s*(\d+)\)")]
-		public int AutoInt() => random.Next();
+		public int RandomInt(int min, int max) => random.Next(min, max);
 		#endregion
 
 		#region dates
