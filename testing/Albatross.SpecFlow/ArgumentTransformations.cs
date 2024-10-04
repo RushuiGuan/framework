@@ -4,6 +4,7 @@ using TechTalk.SpecFlow;
 
 namespace Albatross.SpecFlow {
 	public class ArgumentTransformations {
+		static Random random = new Random();
 		public ArgumentTransformations(ScenarioContext scenario) {
 			this.scenario = scenario;
 		}
@@ -31,18 +32,21 @@ namespace Albatross.SpecFlow {
 			}
 		}
 
-		[Then(@"wait (.*) second\(s\)")]
+		[Then(@"wait (\d+) second\(s\)")]
 		public Task ThenWaitSeconds(int seconds) => Task.Delay(seconds * 1000);
 
 		#region random values
 		[StepArgumentTransformation(@"random text")]
 		public string AutoText() => new Fixture().Create<string>();
 
-		[StepArgumentTransformation(@"random text \((.*)\)")]
+		[StepArgumentTransformation(@"random text \((\d+)\)")]
 		public string AutoText(int length) => new Fixture().Create<string>().Substring(0, length);
 
-		[StepArgumentTransformation(@"random int between (.*) and (.*)")]
-		public int AutoInt(int min, int max) => new Random().Next(min, max);
+		[StepArgumentTransformation(@"random int \((\d+)\s*-\s*(\d+)\)")]
+		public int AutoInt(int min, int max) => random.Next(min, max);
+
+		[StepArgumentTransformation(@"random int \((\d+)\s*-\s*(\d+)\)")]
+		public int AutoInt() => random.Next();
 		#endregion
 
 		#region dates
