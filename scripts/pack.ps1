@@ -133,9 +133,6 @@ function Run-Pack {
 			if ($nugetSource) { 
 				get-item $artifacts\*.nupkg | foreach-Object {
 					nuget push $_.FullName -source $nugetSource -apiKey az
-					if ($exitcode -ne 0) {
-						#	Write-Error "Error push nuget package $($_.Name)";
-					}
 					$hasNugetPush = $true;
 				}
 			}
