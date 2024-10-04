@@ -42,10 +42,10 @@ namespace Albatross.SpecFlow {
 		[StepArgumentTransformation(@"random int")]
 		public int RandomInt() => random.Next();
 
-		[StepArgumentTransformation(@"random text \((\d+)\)")]
+		[StepArgumentTransformation(@"random text\s*\((\d+)\)")]
 		public string RandomText(int length) => new Fixture().Create<string>().Substring(0, length);
 
-		[StepArgumentTransformation(@"random int \((\d+)\s*-\s*(\d+)\)")]
+		[StepArgumentTransformation(@"random int\s*\(\s*(\d+)\s*-\s*(\d+)\s*\)")]
 		public int RandomInt(int min, int max) => random.Next(min, max);
 		#endregion
 
