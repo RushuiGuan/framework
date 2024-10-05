@@ -7,6 +7,7 @@
 		<Description>Simplfied configuration setup for your .Net applications.</Description>
 		<Nullable>enable</Nullable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl>https://github.com/RushuiGuan/framework/tree/main/config/Albatross.Config</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
