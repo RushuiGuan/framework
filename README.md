@@ -1,5 +1,5 @@
 # Albatross Framework
-Albatross framework is an application framework built on top of Microsoft .Net framework.  It contains libraries and tools that solve common problems and patterns.
+Albatross framework is an application framework built on top of Microsoft .Net.  It contains libraries and tools that solve common problems and patterns.
 
 # Libraries
 |Name|Description|Target Frameworks|
