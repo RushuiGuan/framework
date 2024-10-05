@@ -1,15 +1,15 @@
 # The Comparison between Albatross.Config and the default IOptions<> Config setup
 
-Overall, config through `Albatross.Config` is easier to implement than the varies `IOptions` interfaces created by the .Net library because its functionality is exposed directly through the POCO class itself.
+Overall, config through `Albatross.Config` is easier to implement than the varies `IOptions` interfaces created by the .Net library because its functionality is exposed directly through the configuration class itself.
 
 |Albatross.Config|IOptions<> Config Setup|
 |-|-|
-|POCO config class can be injected as dependency directly|POCO class are injected through `IOptions<>` interface and access through `IOptions.Value` property|
-|POCO class has to have a constructor with a single parameter of type `IConfiguration`|No required constructor|
-|POCO class needs to derive from `ConfigBase`|No base class requirement|
-| Registerd the POCO object using the Scoped lifetime to achieve the same functionality as `IOptionsSnapshot`: `AddConfig(false)` |`IOptionsSnapshot` provides a snapshot of the options at the time of the object construction |
-|allow validation by DataAnnotations or custom|Validation by DataAnnotations or custom through IValidateOption<> interface|
-|**POCO class can access other configuration values in the config file**|POCO class values comes from binded config values only|
+|Config class can be injected as dependency directly|POCO class are injected through `IOptions<>` interface and access through `IOptions.Value` property|
+|Config class requires a constructor with a single parameter of type `IConfiguration`|No required constructor|
+|Config class requires a base class of `ConfigBase`|No base class requirement|
+| Registerd the config class using the Scoped lifetime `AddConfig(false)` to achieve the same functionality as `IOptionsSnapshot` |`IOptionsSnapshot` provides a snapshot of the options at the time of the object construction |
+|allow validation by DataAnnotations or create custom validations by overriding the Validate method|Validation by DataAnnotations or create custom validations through IValidateOption<> interface|
+|**Config class can access other configuration values in the config file**|POCO class values comes from binded config values only|
 
 ## A Not-Very-Obvious Advantage of `Albatross.Config`
 Configurations can be part of a library that would be consumed by different applications.  Libraries would have its own config section in the configuration file.  What happens when two libraries need to share the same config value?  Here is an example:
@@ -29,7 +29,7 @@ Configurations can be part of a library that would be consumed by different appl
 	}
 }
 ```
-In the case above, both secmaster and pricemaster dll have their own config requirements but they also shared common endpoints and connection strings.  This can be done with `Albatross.Config`:
+In the case above, both secmaster and pricemaster library have their own config requirements but they also shared common endpoints and connection strings.  This can be done with `Albatross.Config`:
 ```csharp
 public class SecMasterConfig : ConfigBase {
 	public SecMasterConfig(IConfiguration configuration) {
@@ -54,7 +54,7 @@ public class PriceMasterConfig : ConfigBase {
 	public string RootPath { get; set; }
 }
 ```
-Now these `Config` classes can be easily injected into its own libraries and we are happily on the way.  With `IOptions` interfaces, this is not so simple.  Libary authors would have to make sacrifices with the repeated config values as show below: 
+Now these config classes can be easily injected into its own libraries and we are happily on the way.  With `IOptions` interfaces, this is not so simple.  Libary authors would have to make sacrifices with the repeated config values as show below: 
 ```json
 {
 	"secmaster" : {
