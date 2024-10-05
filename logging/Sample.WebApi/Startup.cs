@@ -2,7 +2,7 @@ using Albatross.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Sample.Logging.WebApi {
+namespace Sample.WebApi {
 	public class Startup : Albatross.Hosting.Startup {
 		public override bool Swagger => true;
 		public override bool WebApi => true;
