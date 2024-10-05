@@ -2,7 +2,7 @@
 Simplfied configuration setup for your .Net applications.
 
 ## Features
-* Use Strong typed POCO configuration class without using the IOptions<> interface.
+* Use Strong typed configuration class without using the IOptions<> interface.
 * Built-In [ProgramSetting](./ProgramSetting.cs) and [EnvironmentSetting](./EnvironmentSetting.cs) config class.
 * Built-In endpoints configuration key similar to the connectionStrings key provided by default.
 * Validate configuration data using data annotation attributes in the System.DataAnnotation namespace or implement your own validation.
@@ -14,9 +14,9 @@ Simplfied configuration setup for your .Net applications.
 * [Use of Environment Variables and Command Line Parameters](../docs/hosting-env.md)
 
 ## Quick Start
-`Albatross.Config` requires the .Net configuration to be setup correctly and an instance of `IConfiguration` can be injected through DI.  A config POCO class can be created using base class `Albatross.Config.ConfigBase`.  It's required to have a constructor with a single parameter of type `Microsoft.Extensions.Configuration.IConfiguration`.
+`Albatross.Config` allows users to create strong typed config classes to manage the configuration data.  The config class requires a base class of `Albatross.Config.ConfigBase` and a constructor with a single parameter of type `Microsoft.Extensions.Configuration.IConfiguration`.
 
-Here is an example of appsettings.json file and the matching config POCO file.
+Here is an example of appsettings.json file and the matching config class.
 ```json
 {
 	"connectionStrings" : {
