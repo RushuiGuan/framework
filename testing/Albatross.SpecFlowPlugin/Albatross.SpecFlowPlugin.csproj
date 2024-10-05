@@ -8,6 +8,7 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/RushuiGuan/framework/tree/main/testing/Albatross.SpecFlowPlugin</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+		<Authors>Rushui Guan</Authors>
 	</PropertyGroup>
 
 	<ItemGroup>
