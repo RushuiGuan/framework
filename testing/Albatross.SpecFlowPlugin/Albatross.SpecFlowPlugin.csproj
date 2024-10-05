@@ -6,6 +6,7 @@
 		<LangVersion>Latest</LangVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/RushuiGuan/framework/tree/main/testing/Albatross.SpecFlowPlugin</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
