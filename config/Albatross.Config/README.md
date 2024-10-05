@@ -3,14 +3,15 @@ Simplfied configuration setup for your .Net applications.
 
 ## Features
 * Use Strong typed POCO configuration class without using the IOptions<> interface.
-* Built-In ProgramSetting and EnvironmentSetting config class.
+* Built-In [ProgramSetting](./ProgramSetting.cs) and [EnvironmentSetting](./EnvironmentSetting.cs) config class.
 * Built-In endpoints configuration key similar to the connectionStrings key provided by default.
 * Validate configuration data using data annotation attributes in the System.DataAnnotation namespace or implement your own validation.
-* Custom implementation of IHostEnvironment to save us from changing prod data by accident.
+* Custom implementation of IHostEnvironment to save us from changing prod data by accident.  See [HELP!  My developers are also DBAs](../docs/hosting-env.md).
 
 ## Related Articles
-* [.NET configuration Setup](../docs/.net-config-setup.md)
-* [Use of Environment Variables and Command Line Parameters](../docs/use-of-env.md)
+* [The Comparison between Albatross.Config and the default IOptions<> Setup](../docs/the-comparison.md)
+* [.Net Hosting Environments](../docs/hosting-env.md)
+* [Use of Environment Variables and Command Line Parameters](../docs/hosting-env.md)
 
 ## Quick Start
 `Albatross.Config` requires the .Net configuration to be setup correctly and an instance of `IConfiguration` can be injected through DI.  A config POCO class can be created using base class `Albatross.Config.ConfigBase`.  It's required to have a constructor with a single parameter of type `Microsoft.Extensions.Configuration.IConfiguration`.
