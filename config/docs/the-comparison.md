@@ -47,7 +47,7 @@ public class PriceMasterConfig : ConfigBase {
 		this.ConnectionString = configuration.GetRequiredConnectionString("db");
 		this.SlackEndPoint = configuration.GetRequiredConnectionString("slack");
 	}
-	public override string Key => "secmaster";
+	public override string Key => "pricemaster";
 	public string ConnectionString { get; }
 	public string SlackEndPoint { get; }
 	[Required]
