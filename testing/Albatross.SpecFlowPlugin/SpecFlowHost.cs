@@ -32,7 +32,7 @@ namespace Albatross.SpecFlowPlugin {
 			this.rootBodiContainer = rootBodiContainer;
 			var basePath = new FileInfo(testAssembly.Location).DirectoryName
 				?? throw new InvalidOperationException($"Test Assembly {testAssembly.FullName} doesnot have a location");
-			this.Environment = EnvironmentSetting.ASPNETCORE_ENVIRONMENT.Value;
+			this.Environment = EnvironmentSetting.DOTNET_ENVIRONMENT.Value;
 
 			var setupSerilog = new SetupSerilog().UseConfigFile(Environment, basePath, null);
 			this.logger = setupSerilog.Create();
@@ -55,7 +55,7 @@ namespace Albatross.SpecFlowPlugin {
 		}
 
 		public virtual void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
-			services.TryAddSingleton(EnvironmentSetting.ASPNETCORE_ENVIRONMENT);
+			services.TryAddSingleton(EnvironmentSetting.DOTNET_ENVIRONMENT);
 			services.TryAddSingleton(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger("default"));
 
 			services.TryAddSingleton(this.rootBodiContainer);

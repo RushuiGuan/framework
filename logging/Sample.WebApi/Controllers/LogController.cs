@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Sample.Logging.WebApi.Controllers {
+namespace Sample.WebApi.Controllers {
 	[Route("api/log")]
 	[ApiController]
 	public class LogController : ControllerBase {

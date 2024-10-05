@@ -14,7 +14,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\hosting\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
+    <ProjectReference Include="..\..\testing\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
     <ProjectReference Include="..\Albatross.IO\Albatross.IO.csproj" />
   </ItemGroup>
 </Project>
