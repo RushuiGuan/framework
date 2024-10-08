@@ -8,7 +8,7 @@
 		<Folder Include="Properties\" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\hosting\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
+		<ProjectReference Include="..\..\commandline\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
 		<ProjectReference Include="..\Sample.Core\Sample.Core.csproj" />
 		<ProjectReference Include="..\Sample.Proxy\Sample.Proxy.csproj" />
 	</ItemGroup>

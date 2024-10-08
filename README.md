@@ -10,8 +10,7 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |codegen|||
 |collections|||
 |[commandline](./commandline/Albatross.CommandLine)|||
-|[config](./config/Albatross.Config)||![NuGet Version](https://img.shields.io/nuget/v/Albatross.Config)
-|
+|[config](./config/Albatross.Config)||![NuGet Version](https://img.shields.io/nuget/v/Albatross.Config)|
 |datelevel|||
 |dates|||
 |efcore|||
@@ -19,14 +18,12 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |[hosting](./hosting/Albatross.Hosting/)|Bootstrapping library that is used to create a web or service app|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Hosting)
 |
 |io|||
-|[logging](./logging/Albatross.Logging)|Logging setup with serilog|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Logging)
-|
+|[logging](./logging/Albatross.Logging)|Logging setup with serilog|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Logging)|
 |math|||
-|[messaging](./messaging/Albatross.Messaging)|Durable messaging library with ZeroMQ|net6.0|
+|[messaging](./messaging/Albatross.Messaging)|Durable messaging library with ZeroMQ||
 |reflection|||
-|serialization|||
-|[specflow](./testing/Albatross.SpecFlowPlugin//)|A Specflow plugin library preconfigured with configuration, logging and dependency injection.|![NuGet Version](https://img.shields.io/nuget/v/Albatross.SpecFlowPlugin)
-|
+|serialization||![NuGet Version](https://img.shields.io/nuget/v/Albatross.Serialization)|
+|[specflow](./testing/Albatross.SpecFlowPlugin//)|A Specflow plugin library preconfigured with configuration, logging and dependency injection.|![NuGet Version](https://img.shields.io/nuget/v/Albatross.SpecFlowPlugin)|
 |text|||
 |threading|||
 |[webclient](./webclient/Albatross.WebClient/)|Extends the functionality of .net HttpClient class||
