@@ -3,9 +3,6 @@
 		<TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Authors>Rushui Guan</Authors>
-		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
