@@ -9,15 +9,15 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |codeanalysis|||
 |codegen|||
 |collections|||
-|[commandline](./commandline/Albatross.CommandLine)|||
-|[config](./config/Albatross.Config)||![NuGet Version](https://img.shields.io/nuget/v/Albatross.Config)|
+|[commandline](./commandline/Albatross.CommandLine)|An essential library that compliments the [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library||
+|[config](./config/Albatross.Config)|Simplfied configuration setup for your .Net applications.|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Config)|
 |datelevel|||
 |dates|||
 |efcore|||
 |[excel](./excel/Albatross.Hosting.Excel/)|ExcelDNA hosting library with logging, configuration and dependency injection.||
 |[hosting](./hosting/Albatross.Hosting/)|Bootstrapping library that is used to create a web or service app|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Hosting)|
 |io|||
-|[logging](./logging/Albatross.Logging)|Logging setup with serilog|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Logging)|
+|[logging](./logging/Albatross.Logging)|Quick logging setup for your .Net application using Serilog.|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Logging)|
 |math|||
 |[messaging](./messaging/Albatross.Messaging)|Durable messaging library with ZeroMQ||
 |reflection|||
