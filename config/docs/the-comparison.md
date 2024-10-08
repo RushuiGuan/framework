@@ -4,7 +4,7 @@ Overall, config through `Albatross.Config` is easier to implement than the varie
 
 |Albatross.Config|IOptions<> Config Setup|
 |-|-|
-|Config class can be injected as dependency directly|POCO class are injected through `IOptions<>` interface and access through `IOptions.Value` property|
+|Config class is not POCO and can be injected as dependency directly|POCO class are injected through `IOptions<>` interface and access through `IOptions.Value` property|
 |Config class requires a constructor with a single parameter of type `IConfiguration`|No required constructor|
 |Config class requires a base class of `ConfigBase`|No base class requirement|
 | Registerd the config class using the Scoped lifetime `AddConfig(false)` to achieve the same functionality as `IOptionsSnapshot` |`IOptionsSnapshot` provides a snapshot of the options at the time of the object construction |
@@ -54,7 +54,7 @@ public class PriceMasterConfig : ConfigBase {
 	public string RootPath { get; set; }
 }
 ```
-Now these config classes can be easily injected into its own libraries and we are happily on the way.  With `IOptions` interfaces, this is not so simple.  Libary authors would have to make sacrifices with the repeated config values as show below: 
+Now these config classes can be easily injected into its own libraries and we are happily on the way.  With `IOptions` interfaces, this is not so simple.  Libary authors would have to make sacrifices with the repeated config values as shown below: 
 ```json
 {
 	"secmaster" : {
