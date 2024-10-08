@@ -1,21 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<LangVersion>Latest</LangVersion>
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Nullable>enable</Nullable>
-	  <LangVersion>Latest</LangVersion>
-	  <Description>This assembly contains utility classes that support serialization via System.Text.Json namespace</Description>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
-    <PackageReference Include="System.Text.Json" Version="8.0.4" />
-  </ItemGroup>
+		<Description>Provides additional functionalities for serialization using System.Text.Json.</Description>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/serialization/Albatross.Serialization</PackageProjectUrl>
+	</PropertyGroup>
 
 	<ItemGroup>
-		<None Update="README.md">
+		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
+		<PackageReference Include="System.Text.Json" Version="8.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>

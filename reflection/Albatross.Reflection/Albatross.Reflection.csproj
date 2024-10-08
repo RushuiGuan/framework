@@ -3,12 +3,18 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Authors>Rushui Guan</Authors>
-		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+
+		<Description>A utility library that provides functionality related to .Net reflection</Description>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/reflection/Albatross.Reflection</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Include="..\..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>

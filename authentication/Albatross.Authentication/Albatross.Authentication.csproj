@@ -3,11 +3,9 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-		<Authors>Rushui Guan</Authors>
-		<Description>A nuget package to determine the current user name</Description>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+
+		<Description>An assembly to return the identify of the current user</Description>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/authentication/Albatross.Authentication</PackageProjectUrl>
 	</PropertyGroup>
 	
 	<ItemGroup>
@@ -21,7 +19,7 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<None Update="README.md">
+		<None Include="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>

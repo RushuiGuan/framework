@@ -3,12 +3,9 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+
 		<Description>The assembly contains the AspNetCore implementation of IGetCurrentUser interface.  It retrieves the current user name using AspNetCore HttpContext.</Description>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Authors>Rushui Guan</Authors>
-		<PackageProjectUrl></PackageProjectUrl>
-		<RepositoryUrl>https://github.com/RushuiGuan/framework/tree/staging/authentication</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/authentication/Albatross.Authentication.AspNetCore</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>

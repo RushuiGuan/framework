@@ -4,11 +4,9 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<PackageProjectUrl>https://github.com/RushuiGuan/framework/tree/main/testing/Albatross.SpecFlowPlugin</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-		<Authors>Rushui Guan</Authors>
+
+		<Description>A Specflow plugin that can be used to easily create a SpecFlow test assembly preconfigured with configuration, logging and dependency injection</Description>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/testing/Albatross.SpecFlowPlugin</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -27,7 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="README.md">
+	  <None Include="README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>

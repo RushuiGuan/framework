@@ -4,11 +4,10 @@
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Authors>Rushui Guan</Authors>
-		<RepositoryUrl>https://github.com/RushuiGuan/framework/tree/staging/authentication</RepositoryUrl>
+
+
 		<Description>The assembly contains the Windows implementation of IGetCurrentUser interface. It retrieves the current window user name.</Description>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/authentication/Albatross.Authentication.Windows</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
