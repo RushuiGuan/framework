@@ -4,6 +4,7 @@
 		<OutputType>Library</OutputType>
 		<Description>hosting framework for test projects</Description>
 		<Nullable>enable</Nullable>
+		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>
