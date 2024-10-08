@@ -9,8 +9,8 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\..\commandline\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
     <ProjectReference Include="..\Albatross.Messaging\Albatross.Messaging.csproj" />
-    <ProjectReference Include="..\..\hosting\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
