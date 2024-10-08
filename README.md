@@ -20,8 +20,8 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |[logging](./logging/Albatross.Logging)|Quick logging setup for your .Net application using Serilog.|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Logging)|
 |math|||
 |[messaging](./messaging/Albatross.Messaging)|Durable messaging library with ZeroMQ||
-|reflection|||
-|[serialization](./serialization/Albatross.Serialization/)||![NuGet Version](https://img.shields.io/nuget/v/Albatross.Serialization)|
+|[reflection](./reflection/Albatross.Reflection/)|A utility library that provides functionality related to .Net reflection.|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Reflection)|
+|[serialization](./serialization/Albatross.Serialization/)|Provides additional functionalities for serialization using System.Text.Json|![NuGet Version](https://img.shields.io/nuget/v/Albatross.Serialization)|
 |[specflow](./testing/Albatross.SpecFlowPlugin//)|A Specflow plugin library preconfigured with configuration, logging and dependency injection.|![NuGet Version](https://img.shields.io/nuget/v/Albatross.SpecFlowPlugin)|
 |text|||
 |threading|||
