@@ -1,6 +1,5 @@
 # Albatross.SpecFlowPlugin
-
-A Specflow plugin library preconfigured with configuration, logging and dependency injection.
+A Specflow plugin that can be used to easily create a SpecFlow test assembly preconfigured with configuration, logging and dependency injection.
 
 ## Features
 * Serilog logging provided by [Albatross.Logging](../../logging/Albatross.Logging/)
