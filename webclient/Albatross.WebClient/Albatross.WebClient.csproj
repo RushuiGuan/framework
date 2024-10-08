@@ -3,12 +3,7 @@
 		<TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<Description>The assembly provides extention methods and a base class to for HttpClient proxy classes</Description>
-		<Authors>Rushui Guan</Authors>
-		<PackageProjectUrl>https://github.com/RushuiGuan/framework</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\dates\Albatross.Dates\Albatross.Dates.csproj" />

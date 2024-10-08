@@ -5,12 +5,10 @@
 		<Nullable>enable</Nullable>
 		<AssemblyName>codegen</AssemblyName>
 		<PackageId>Albatross.CodeGen.CommandLine</PackageId>
-		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<PackAsTool>true</PackAsTool>
-		<Authors>Rushui Guan</Authors>
-		<Title>Albatross CodeGenerator for CSharp and TypeScript WebApi Proxy Generation</Title>
 		<ToolCommandName>codegen</ToolCommandName>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Title>Albatross CodeGenerator for CSharp and TypeScript WebApi Proxy Generation</Title>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.11.0" />
@@ -37,10 +35,16 @@
 			<OutputItemType>Analyzer</OutputItemType>
 		</ProjectReference>
 	</ItemGroup>
+
 	<ItemGroup>
-	  <None Include="README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>
+			</PackagePath>
+		</None>
+		<None Include="README.md">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
 	</ItemGroup>
 </Project>
