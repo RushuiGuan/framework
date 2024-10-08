@@ -11,4 +11,11 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.11.0" />
 		<PackageReference Include="System.Text.Json" Version="8.0.4" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
 </Project>

@@ -14,4 +14,10 @@
             <PackagePath></PackagePath>
         </None>
     </ItemGroup>
+    <ItemGroup>
+      <None Update="README.md">
+        <PackagePath>\</PackagePath>
+        <Pack>True</Pack>
+      </None>
+    </ItemGroup>
 </Project>

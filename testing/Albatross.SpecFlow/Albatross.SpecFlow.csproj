@@ -11,4 +11,11 @@
 		<PackageReference Include="SpecFlow" Version="3.9.74" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
+
 </Project>

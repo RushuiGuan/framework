@@ -14,6 +14,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
 		<PackageReference Include="Polly" Version="7.2.4" />
 		<PackageReference Include="Polly.Caching.Distributed" Version="3.0.1" />
+		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\LICENSE">
@@ -21,14 +22,9 @@
 			<PackagePath>
 			</PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-	  <ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <None Update="README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 </Project>

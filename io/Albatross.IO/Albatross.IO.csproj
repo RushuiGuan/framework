@@ -17,4 +17,10 @@
     <ItemGroup>
       <ProjectReference Include="..\..\collections\Albatross.Collections\Albatross.Collections.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <None Update="README.md">
+        <PackagePath>\</PackagePath>
+        <Pack>True</Pack>
+      </None>
+    </ItemGroup>
 </Project>
