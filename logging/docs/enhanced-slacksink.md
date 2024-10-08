@@ -30,5 +30,5 @@ The WebHookUrl is a secret and has to be stored as an environment variable.  Bec
 		"outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{ErrorMessage}"
 	}
 }
-1. Sometimes a mix of options 2 and 3 are used because the same servers can have legacy applications that use the original `SlackSinkOptions`.
 ```
+1. Sometimes a mix of options 2 and 3 are used because the same servers can have legacy applications that use the original `SlackSinkOptions`.
