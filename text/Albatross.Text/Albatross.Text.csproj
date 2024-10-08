@@ -1,26 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
+	<PropertyGroup>
 		<TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <Authors>Rushui Guan</Authors>
-        <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-    </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="..\..\LICENSE">
-            <Pack>True</Pack>
-            <PackagePath></PackagePath>
-        </None>
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="README.md">
-        <PackagePath>\</PackagePath>
-        <Pack>True</Pack>
-      </None>
-    </ItemGroup>
+		<Authors>Rushui Guan</Authors>
+		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="README.md">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>
 </Project>

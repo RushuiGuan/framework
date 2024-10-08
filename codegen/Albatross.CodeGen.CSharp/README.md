@@ -1,0 +1,1 @@
+# Albatross.CodeGen.CSharp
