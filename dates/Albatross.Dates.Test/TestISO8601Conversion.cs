@@ -31,14 +31,14 @@ namespace Albatross.Dates.Test {
 		public void TestDateOnly() {
 			var value = new DateOnly(2024, 9, 12);
 			var value_expected = JsonSerializer.Serialize(value);
-			$"{value:yyyy-MM-dd}".Should().Be(value_expected.Trim('"'));
+			value.ISO8601String().Should().Be(value_expected.Trim('"'));
 		}
 
 		[Fact]
 		public void TestTimeOnly() {
 			var value = new TimeOnly(14, 20, 40, 123);
 			var value_expected = JsonSerializer.Serialize(value);
-			$"{value:HH:mm:ss.fffffff}".Should().Be(value_expected.Trim('"'));
+			value.ISO8601String().Should().Be(value_expected.Trim('"'));
 		}
 	}
 }

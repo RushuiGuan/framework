@@ -164,8 +164,8 @@ namespace Albatross.Dates {
 			return weekdays;
 		}
 
-		public static string ISO8601String(this DateOnly value) => $"{value:yyyy-MM-dd}";
-		public static string ISO8601String(this TimeOnly value) => $"{value:HH:mm:ss.fffffff}";
+		public static string ISO8601String(this DateOnly value) => value.ToString(Formatting.ISO8601DateOnly);
+		public static string ISO8601String(this TimeOnly value) => value.ToString(Formatting.ISO8601TimeOnly);
 	}
 }
 #endif

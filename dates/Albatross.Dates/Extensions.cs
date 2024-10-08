@@ -173,8 +173,8 @@ namespace Albatross.Dates {
 			 return new DateTimeOffset(utc.Utc2Local(gmtOffset), gmtOffset);
 		}
 
-		public static string ISO8601StringDateOnly(this DateTime value) => value.ToString("yyyy-MM-dd");
-		public static string ISO8601String(this DateTime value) => $"{value:yyyy-MM-ddTHH:mm:ssK}";
-		public static string ISO8601String(this DateTimeOffset value) => $"{value:yyyy-MM-ddTHH:mm:ssK}";
+		public static string ISO8601StringDateOnly(this DateTime value) => value.ToString(Formatting.ISO8601DateOnly);
+		public static string ISO8601String(this DateTime value) => value.ToString(Formatting.ISO8601);
+		public static string ISO8601String(this DateTimeOffset value) => value.ToString(Formatting.ISO8601);
 	}
 }
