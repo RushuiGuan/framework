@@ -13,4 +13,10 @@
 	  <PackageReference Include="ExcelDna.IntelliSense" Version="1.7.0" />
 	  <PackageReference Include="ExcelDna.Registration" Version="1.7.0" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
 </Project>
