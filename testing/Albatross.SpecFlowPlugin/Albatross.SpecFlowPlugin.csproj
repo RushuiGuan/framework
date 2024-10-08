@@ -9,12 +9,7 @@
 		<PackageProjectUrl>$(RepositoryProjectRoot)/testing/Albatross.SpecFlowPlugin</PackageProjectUrl>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <None Include="..\..\LICENSE">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
+	
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
@@ -24,7 +19,12 @@
 		<PackageReference Include="SpecFlow" Version="3.9.74" />
 	</ItemGroup>
 
+
 	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	  <None Include="README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>

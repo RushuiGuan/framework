@@ -1,22 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
+	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <Authors>Rushui Guan</Authors>
-        <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-    </PropertyGroup>
-    <ItemGroup>
-        <None Include="..\..\LICENSE">
-            <Pack>True</Pack>
-            <PackagePath></PackagePath>
-        </None>
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="README.md">
-        <PackagePath>\</PackagePath>
-        <Pack>True</Pack>
-      </None>
-    </ItemGroup>
+		<Authors>Rushui Guan</Authors>
+		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="README.md">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>
 </Project>
