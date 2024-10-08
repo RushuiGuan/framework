@@ -17,7 +17,7 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |[excel](./excel/Albatross.Hosting.Excel/)|ExcelDNA hosting library with logging, configuration and dependency injection.||
 |[hosting](./hosting/Albatross.Hosting/)|Bootstrapping library that is used to create a web or service app|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Hosting)](https://www.nuget.org/packages/Albatross.Hosting)|
 |io|||
-|[logging](./logging/Albatross.Logging)|Quick logging setup for your .Net application using Serilog.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Logging)](https://www.nuget.org/packages/Albatross.Loggging)|
+|[logging](./logging/Albatross.Logging)|Quick logging setup for your .Net application using Serilog.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Logging)](https://www.nuget.org/packages/Albatross.Logging)|
 |math|||
 |[messaging](./messaging/Albatross.Messaging)|Durable messaging library with ZeroMQ||
 |[reflection](./reflection/Albatross.Reflection/)|A utility library that provides functionality related to .Net reflection.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Reflection)](https://www.nuget.org/packages/Albatross.Reflection)|
