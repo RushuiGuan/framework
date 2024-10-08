@@ -29,7 +29,7 @@
 	  <ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="README.md">
+	  <None Include="README.md">
 	    <PackagePath>\</PackagePath>
 	    <Pack>True</Pack>
 	  </None>
