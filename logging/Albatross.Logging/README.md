@@ -2,9 +2,9 @@
 Quick logging setup for your .Net application using Serilog.
 
 ## Features
-- ErrorMessage enricher
-- Shortened logger name
-- Enhanced SlackSink
+- [ErrorMessage enricher](../docs/error-msg-enricher.md)
+- [Shortened Logger Name](../docs/shortened-logger-name.md)
+- [Enhanced SlackSink](../docs/enhanced-slacksink.md)
 
 ## Quick Start
 `Albatross.Logging` are integrated to the Albatross hosting projects below.
