@@ -17,7 +17,7 @@
             "File": {
                 "Name": "File",
                 "Args": {
-                    "path": "%LogDirectory%\\Sample.Hosting.WebApi\\Sample.Hosting.WebApi.log",
+                    "path": "%LogDirectory%\\Sample.WebApi\\Sample.WebApi.log",
                     "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ssz} {MachineName} {SourceContext} {ThreadId} [{Level:w3}] {Message:lj}{NewLine}{Exception}",
                     "rollingInterval": "Day"
                 }

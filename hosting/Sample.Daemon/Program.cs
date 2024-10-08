@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sample.Hosting.Daemon {
+namespace Sample.Daemon {
 	internal class Program {
 		static void Main(string[] args) {
 			Console.WriteLine("Hello, World!");

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace Sample.Hosting.WebApi.Controllers {
+namespace Sample.WebApi.Controllers {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ValuesController : ControllerBase {
