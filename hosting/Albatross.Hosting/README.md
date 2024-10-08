@@ -2,6 +2,7 @@
 A library for bootstrapping .Net Web Api or Service applications with preset functionalities.
 
 ## Features
+* Targets .Net 6/7/8
 * Logging integration with Serilog provided by [Albatross.Logging](../../logging/Albatross.Logging)
 * Simplified configuration management provided by [Albatross.Config](../../config/Albatross.Config)
 * Built-in [http request logging](../docs/request-logging.md) middleware
