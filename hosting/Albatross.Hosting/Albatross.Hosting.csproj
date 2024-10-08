@@ -4,7 +4,7 @@
 		<OutputType>Library</OutputType>
 		<Nullable>enable</Nullable>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
-
+		<IsPackable>true</IsPackable>
 		<Description>A library for creating .Net Web Api or Service applications with preconfigured settings</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/Hosting/Albatross.Hosting</PackageProjectUrl>
 	</PropertyGroup>
