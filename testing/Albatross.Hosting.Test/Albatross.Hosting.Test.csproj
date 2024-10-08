@@ -1,16 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
-		<IsPackable>true</IsPackable>
-		<ApplicationIcon />
 		<OutputType>Library</OutputType>
-		<StartupObject />
-		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Authors>Rushui Guan</Authors>
 		<Description>hosting framework for test projects</Description>
 		<Nullable>enable</Nullable>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>

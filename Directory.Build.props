@@ -4,6 +4,8 @@
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
 		<EnableWindowsTargeting>True</EnableWindowsTargeting>
+		<LangVersion>Latest</LangVersion>
+		<Nullable>enable</Nullable>
 
 		<RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
 		<RepositoryProjectRoot>https://github.com/RushuiGuan/framework/tree/main</RepositoryProjectRoot>

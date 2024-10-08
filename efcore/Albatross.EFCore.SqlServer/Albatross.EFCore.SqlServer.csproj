@@ -1,12 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
 		<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
         <Description>SqlServer Setup for Albatross.EFCore</Description>
-        <Authors>Rushui Guan</Authors>
         <Nullable>enable</Nullable>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.35" />

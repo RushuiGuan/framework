@@ -3,11 +3,7 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <Authors>Rushui Guan</Authors>
-        <RepositoryUrl>https://github.com/RushuiGuan/framework</RepositoryUrl>
         <Description>An assembly that contains utility that deal with collections</Description>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <None Include="..\..\LICENSE">
