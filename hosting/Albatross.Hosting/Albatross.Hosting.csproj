@@ -24,7 +24,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.33" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Content Remove="serilog.json" />
+		<Content Remove="serilog.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
@@ -44,13 +44,11 @@
 			</PackagePath>
 		</None>
 		<None Include="serilog.json">
-		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-	  <None Include="README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 </Project>
