@@ -10,7 +10,7 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |codegen|||
 |collections|||
 |[commandline](./commandline/Albatross.CommandLine)|An essential library that compliments the [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library||
-|[config](./config/Albatross.Config)|Simplfied configuration setup for your .Net applications.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Config)](https://www.nuget.org/packages/Albatross.Config)|
+|[config](./config/Albatross.Config)|Simplified configuration setup for your .Net applications.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Config)](https://www.nuget.org/packages/Albatross.Config)|
 |datelevel|||
 |dates|||
 |efcore|||

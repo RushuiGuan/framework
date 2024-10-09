@@ -1,5 +1,5 @@
 # Albatross.Config
-Simplfied configuration setup for your .Net applications.
+Simplified configuration setup for your .Net applications.
 
 ## Features
 * Use Strong typed configuration class without using the IOptions<> interface.
