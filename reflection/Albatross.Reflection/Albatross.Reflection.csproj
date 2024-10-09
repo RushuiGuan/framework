@@ -4,7 +4,7 @@
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
 
-		<Description>A utility library that provides functionality related to .Net reflection</Description>
+		<Description>A utility library that provides functionalities related to .Net reflection</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/reflection/Albatross.Reflection</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
