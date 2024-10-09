@@ -4,7 +4,7 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 # Libraries
 |Name|Description||
 |-|-|-|
-|[authentication](./authentication/Albatross.Authentication/)|Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication)](https://www.nuget.org/packages/Albatross.Authentication)|
+|[authentication](./authentication/Albatross.Authentication/) ([AspNetCore](./authentication/Albatross.Authentication.AspNetCore//), [Windows](./authentication/Albatross.Authentication.Windows/)) |Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication)](https://www.nuget.org/packages/Albatross.Authentication)|
 |caching|||
 |codeanalysis|||
 |codegen|||

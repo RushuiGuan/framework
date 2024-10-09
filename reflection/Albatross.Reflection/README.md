@@ -1,3 +1,3 @@
 # Albatross.Reflection
-A utility library that provides functionality related to .Net reflection.
+A utility library that provides functionalities related to .Net reflection.
 

@@ -1,1 +1,2 @@
 # Albatross.Authentication.Windows
+Return the identity of the current user through `System.Security.Principal.WindowsIdentity`.  If the user is a domain user, the domain name and the following slash \'\\\' will be removed.  This assembly targets `net6.0-windows`.
