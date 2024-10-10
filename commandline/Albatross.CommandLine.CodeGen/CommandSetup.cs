@@ -10,6 +10,7 @@ namespace Albatross.CommandLine.CodeGen {
 			this.OptionClass = optionClass;
 			this.VerbAttribute = verbAttribute;
 			this.CommandClassName = GetCommandClassName();
+
 			this.HandlerClass = verbAttribute.ConstructorArguments[1].Value?.ToString() ?? string.Empty;
 
 			this.Name = VerbAttribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
