@@ -8,12 +8,20 @@ using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace Benchmark.Collections {
 	[Verb("measure-listitem-removal", typeof(MeasureListItemRemoval), description: "Measure the performance of removing items from a list using RemoveAt")]
 	public class MeasureListItemRemovalOptions {
 		[Option(Alias = ["c"])]
 		public int Count { get; set; }
+
+		[Option(Alias = ["cutoff"])]
+		public int? AlgoCutoff { get; set; }
+
+		[Option(Alias = ["r"])]
+		public int? Repeat { get; set; }
 	}
 
 	public class MeasureListItemRemoval : ICommandHandler {
@@ -37,11 +45,10 @@ namespace Benchmark.Collections {
 			return list;
 		}
 
-		public static void RemoveFromTheBack(List<BenchmarkResult> results, int count) {
+		public static void RemoveFromTheRear(List<BenchmarkResult> results, int count) {
 			var list = BuildList(count);
-
 			Stopwatch stopwatch = Stopwatch.StartNew();
-			list.RemoveAny_FromBack(predicate);
+			list.RemoveAny_FromRear(predicate);
 			stopwatch.Stop();
 			results.Add(new BenchmarkResult(MethodBase.GetCurrentMethod()?.Name ?? string.Empty) {
 				Count = count,
@@ -52,7 +59,6 @@ namespace Benchmark.Collections {
 
 		public static void RemoveFromTheFront(List<BenchmarkResult> results, int count) {
 			var list = BuildList(count);
-
 			Stopwatch stopwatch = Stopwatch.StartNew();
 #pragma warning disable CS0618 // Type or member is obsolete
 			list.RemoveAny_FromFront(predicate);
@@ -65,11 +71,10 @@ namespace Benchmark.Collections {
 			});
 		}
 
-		public static void LinearOperation(List<BenchmarkResult> results, int count) {
+		public static void RemoveWithNewList(List<BenchmarkResult> results, int count) {
 			var list = BuildList(count);
-
 			Stopwatch stopwatch = Stopwatch.StartNew();
-			list.RemoveAny_Linear(predicate);
+			list.RemoveAny_WithNewList(predicate);
 			stopwatch.Stop();
 			results.Add(new BenchmarkResult(MethodBase.GetCurrentMethod()?.Name ?? string.Empty) {
 				Count = count,
@@ -78,14 +83,13 @@ namespace Benchmark.Collections {
 			});
 		}
 
-		public static void RemoveAnyMethod(List<BenchmarkResult> results, int count) {
+		public static void RemoveAnyWithAlgoSelection(List<BenchmarkResult> results, int count, int algoCutoff) {
 			var list = BuildList(count);
-
 			Stopwatch stopwatch = Stopwatch.StartNew();
-			var newList = new List<int>();
-			list.RemoveAny(predicate);
+			list.RemoveAny(predicate, algoCutoff);
 			stopwatch.Stop();
-			results.Add(new BenchmarkResult(MethodBase.GetCurrentMethod()?.Name ?? string.Empty) {
+			var name = $"{nameof(RemoveAnyWithAlgoSelection)}-{algoCutoff}";
+			results.Add(new BenchmarkResult(name) {
 				Count = count,
 				ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
 				ElapsedTicks = stopwatch.ElapsedTicks
@@ -95,20 +99,37 @@ namespace Benchmark.Collections {
 		public int Invoke(InvocationContext context) => throw new NotImplementedException();
 
 
+		void WarmUp() {
+		}
+
+		void RunTest(List<BenchmarkResult> results, int seed) {
+			var random = new Random(seed);
+			RemoveFromTheFront(results, this.options.Count);
+			RemoveFromTheRear(results, this.options.Count);
+			RemoveWithNewList(results, this.options.Count);
+			RemoveAnyWithAlgoSelection(results, this.options.Count, this.options.AlgoCutoff ?? 100);
+		}
+
 		public async Task<int> InvokeAsync(InvocationContext context) {
 			//first call the methods to warm up the JIT
 			var list = new List<BenchmarkResult>();
-			RemoveFromTheFront(list, 0);
-			RemoveFromTheBack(list, 0);
-			LinearOperation(list, 0);
-			RemoveAnyMethod(list, 0);
+			int warmUpIndex;
+			for (warmUpIndex = 0; warmUpIndex < 10; warmUpIndex++) {
+				RunTest(list, warmUpIndex);
+			}
 
 			// run the test now
 			list = new List<BenchmarkResult>();
-			RemoveFromTheFront(list, this.options.Count);
-			RemoveFromTheBack(list, this.options.Count);
-			LinearOperation(list, this.options.Count);
-			RemoveAnyMethod(list, this.options.Count);
+			for (int i = 0; i < (this.options.Repeat ?? 100); i++) {
+				RunTest(list, i + warmUpIndex);
+			}
+
+			var report = list.GroupBy(x => x.Test).Select(x => new BenchmarkResult(x.Key) {
+				Count = x.First().Count,
+				ElapsedMilliseconds = Convert.ToInt64(x.Average(args => args.ElapsedMilliseconds)),
+				ElapsedTicks = Convert.ToInt64(x.Average(args => args.ElapsedTicks))
+			}).ToArray();
+
 
 			var options = new PrintOptionBuilder<PrintTableOption>()
 				.Property("Test", "Count", "ElapsedMilliseconds", "ElapsedTicks")
@@ -116,7 +137,7 @@ namespace Benchmark.Collections {
 				.Format("ElapsedMilliseconds", "#,#0")
 				.Format("ElapsedTicks", "#,#0")
 				.Build();
-			await Console.Out.PrintTable(list.ToArray(), options);
+			await Console.Out.PrintTable(report, options);
 			return 0;
 		}
 	}
