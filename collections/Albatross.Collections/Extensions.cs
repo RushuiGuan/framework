@@ -95,6 +95,16 @@ namespace Albatross.Collections {
 		}
 
 		public const int ListItemRemovalAlgoCutoff = 100;
+		/// <summary>
+		/// Remove items from a list based on the predicate.  Returns the removed item in a list.  If the list count is less or equal to the cut off,
+		/// <see cref="RemoveAny_FromRear{T}(IList{T}, Predicate{T})"/> method is used.  Otherwise <see cref="RemoveAny_WithNewList{T}(IList{T}, Predicate{T})"/>
+		/// method is used.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="list"></param>
+		/// <param name="predicate"></param>
+		/// <param name="algoCutoff"></param>
+		/// <returns></returns>
 		public static IList<T> RemoveAny<T>(this IList<T> list, Predicate<T> predicate, int algoCutoff = ListItemRemovalAlgoCutoff) {
 			if (list.Count > algoCutoff) {
 				return list.RemoveAny_WithNewList(predicate);
@@ -108,12 +118,14 @@ namespace Albatross.Collections {
 		/// If the list size is larger than 1000 elements, use <see cref="RemoveAny_Linear{T}(IList{T}, Func{T, bool})"/>.  
 		/// </summary>
 		public static IList<T> RemoveAny_FromRear<T>(this IList<T> list, Predicate<T> predicate) {
+			var removed = new List<T>();
 			for (int i = list.Count - 1; i >= 0; i--) {
 				if (predicate(list[i])) {
+					removed.Add(list[i]);
 					list.RemoveAt(i);
 				}
 			}
-			return list;
+			return removed;
 		}
 
 		/// <summary>
@@ -121,15 +133,18 @@ namespace Albatross.Collections {
 		/// Good for large list, slight performance penalty for list with 100 elements (100 - 200 ticks).  See the benchmark measure-listitem-removal for more details.
 		/// </summary>
 		public static IList<T> RemoveAny_WithNewList<T>(this IList<T> list, Predicate<T> predicate) {
+			var removed = new List<T>();
 			var newList = new List<T>();
 			foreach (var item in list) {
 				if (!predicate(item)) {
 					newList.Add(item);
+				} else {
+					removed.Add(item);
 				}
 			}
 			list.Clear();
 			list.AddRange(newList);
-			return list;
+			return removed;
 		}
 
 		public static ICollection<T> AddIfNotNull<T>(this ICollection<T> collection, params T?[] items) {
