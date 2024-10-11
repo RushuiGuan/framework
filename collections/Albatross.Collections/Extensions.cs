@@ -80,7 +80,7 @@ namespace Albatross.Collections {
 		/// <param name="existingItems"></param>
 		/// <param name="newItems"></param>
 		/// <param name="getKey"></param>
-		[Obsolete("An odd method that is hard to understand.  Use AddRange and RemoveAny_Linear instead.")]
+		[Obsolete("An odd method that is hard to understand.  Use AddRange and RemoveAny instead.")]
 		public static void Replace<T, K>(this IList<T> existingItems, IEnumerable<T> newItems, Func<T, K> getKey) {
 			if (newItems.Any()) {
 				var keys = newItems.Select(getKey).ToHashSet();
@@ -97,9 +97,9 @@ namespace Albatross.Collections {
 		public const int ListItemRemovalAlgoCutoff = 100;
 		public static IList<T> RemoveAny<T>(this IList<T> list, Predicate<T> predicate, int algoCutoff = ListItemRemovalAlgoCutoff) {
 			if (list.Count > algoCutoff) {
-				return list.RemoveAny_Linear(predicate);
+				return list.RemoveAny_WithNewList(predicate);
 			} else {
-				return list.RemoveAny_FromBack(predicate);
+				return list.RemoveAny_FromRear(predicate);
 			}
 		}
 
@@ -107,7 +107,7 @@ namespace Albatross.Collections {
 		/// Remove any items from the list that match the predicate.  Use the List.RemoveAt method and remove from the back.  Performance is O(n).
 		/// If the list size is larger than 1000 elements, use <see cref="RemoveAny_Linear{T}(IList{T}, Func{T, bool})"/>.  
 		/// </summary>
-		public static IList<T> RemoveAny_FromBack<T>(this IList<T> list, Predicate<T> predicate) {
+		public static IList<T> RemoveAny_FromRear<T>(this IList<T> list, Predicate<T> predicate) {
 			for (int i = list.Count - 1; i >= 0; i--) {
 				if (predicate(list[i])) {
 					list.RemoveAt(i);
@@ -130,7 +130,7 @@ namespace Albatross.Collections {
 		/// Remove all items from the list that match the predicate.  Copy the items that do not match to a new list.  Performance is n.
 		/// Good for large list, slight performance penalty for list with 100 elements (100 - 200 ticks).  See the benchmark measure-listitem-removal for more details.
 		/// </summary>
-		public static IList<T> RemoveAny_Linear<T>(this IList<T> list, Predicate<T> predicate) {
+		public static IList<T> RemoveAny_WithNewList<T>(this IList<T> list, Predicate<T> predicate) {
 			var newList = new List<T>();
 			foreach (var item in list) {
 				if (!predicate(item)) {
