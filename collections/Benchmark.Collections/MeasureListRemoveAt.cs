@@ -7,21 +7,18 @@ using System.Collections.Generic;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Linq;
 
 namespace Benchmark.Collections {
 	[Verb("measure-listitem-removal", typeof(MeasureListItemRemoval), description: "Measure the performance of removing items from a list using RemoveAt")]
 	public class MeasureListItemRemovalOptions {
-		[Option(Alias = ["c"])]
-		public int Count { get; set; }
+		public int ListSize { get; set; }
 
-		[Option(Alias = ["cutoff"])]
+		[Option(Alias = ["cutoff"], Description ="Used to determine the list size cut off point to switch from RemoveAny_FromRear to RemoveAny_WithNewList.  Default is 100")]
 		public int? AlgoCutoff { get; set; }
 
-		[Option(Alias = ["r"])]
-		public int? Repeat { get; set; }
+		[Option(Alias = ["c"], Description = "How many times the test will be run, default is 100")]
+		public int? Count { get; set; }
 	}
 
 	public class MeasureListItemRemoval : ICommandHandler {
@@ -45,52 +42,34 @@ namespace Benchmark.Collections {
 			return list;
 		}
 
-		public static void RemoveFromTheRear(List<BenchmarkResult> results, int count) {
-			var list = BuildList(count);
+		public static void RemoveFromTheRear(List<BenchmarkResult> results, int listSize) {
+			var list = BuildList(listSize);
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			list.RemoveAny_FromRear(predicate);
 			stopwatch.Stop();
-			results.Add(new BenchmarkResult(MethodBase.GetCurrentMethod()?.Name ?? string.Empty) {
-				Count = count,
+			results.Add(new BenchmarkResult(nameof(RemoveFromTheRear), $"listSize={listSize:#,#}") {
 				ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
 				ElapsedTicks = stopwatch.ElapsedTicks
 			});
 		}
 
-		public static void RemoveFromTheFront(List<BenchmarkResult> results, int count) {
-			var list = BuildList(count);
-			Stopwatch stopwatch = Stopwatch.StartNew();
-#pragma warning disable CS0618 // Type or member is obsolete
-			list.RemoveAny_FromFront(predicate);
-#pragma warning restore CS0618 // Type or member is obsolete
-			stopwatch.Stop();
-			results.Add(new BenchmarkResult(MethodBase.GetCurrentMethod()?.Name ?? string.Empty) {
-				Count = count,
-				ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
-				ElapsedTicks = stopwatch.ElapsedTicks
-			});
-		}
-
-		public static void RemoveWithNewList(List<BenchmarkResult> results, int count) {
-			var list = BuildList(count);
+		public static void RemoveWithNewList(List<BenchmarkResult> results, int listSize) {
+			var list = BuildList(listSize);
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			list.RemoveAny_WithNewList(predicate);
 			stopwatch.Stop();
-			results.Add(new BenchmarkResult(MethodBase.GetCurrentMethod()?.Name ?? string.Empty) {
-				Count = count,
+			results.Add(new BenchmarkResult(nameof(RemoveWithNewList), $"listSize={listSize:#,#}") {
 				ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
 				ElapsedTicks = stopwatch.ElapsedTicks
 			});
 		}
 
-		public static void RemoveAnyWithAlgoSelection(List<BenchmarkResult> results, int count, int algoCutoff) {
-			var list = BuildList(count);
+		public static void RemoveAnyWithAlgoSelection(List<BenchmarkResult> results, int listSize, int algoCutoff) {
+			var list = BuildList(listSize);
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			list.RemoveAny(predicate, algoCutoff);
 			stopwatch.Stop();
-			var name = $"{nameof(RemoveAnyWithAlgoSelection)}-{algoCutoff}";
-			results.Add(new BenchmarkResult(name) {
-				Count = count,
+			results.Add(new BenchmarkResult(nameof(RemoveAnyWithAlgoSelection), $"listSize={listSize:#,#}, algoCutOff={algoCutoff:#,#}") {
 				ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
 				ElapsedTicks = stopwatch.ElapsedTicks
 			});
@@ -99,15 +78,11 @@ namespace Benchmark.Collections {
 		public int Invoke(InvocationContext context) => throw new NotImplementedException();
 
 
-		void WarmUp() {
-		}
-
 		void RunTest(List<BenchmarkResult> results, int seed) {
 			var random = new Random(seed);
-			RemoveFromTheFront(results, this.options.Count);
-			RemoveFromTheRear(results, this.options.Count);
-			RemoveWithNewList(results, this.options.Count);
-			RemoveAnyWithAlgoSelection(results, this.options.Count, this.options.AlgoCutoff ?? 100);
+			RemoveFromTheRear(results, this.options.ListSize);
+			RemoveWithNewList(results, this.options.ListSize);
+			RemoveAnyWithAlgoSelection(results, this.options.ListSize, this.options.AlgoCutoff ?? 100);
 		}
 
 		public async Task<int> InvokeAsync(InvocationContext context) {
@@ -120,24 +95,17 @@ namespace Benchmark.Collections {
 
 			// run the test now
 			list = new List<BenchmarkResult>();
-			for (int i = 0; i < (this.options.Repeat ?? 100); i++) {
+			for (int i = 0; i < (this.options.Count ?? 100); i++) {
 				RunTest(list, i + warmUpIndex);
 			}
 
-			var report = list.GroupBy(x => x.Test).Select(x => new BenchmarkResult(x.Key) {
-				Count = x.First().Count,
-				ElapsedMilliseconds = Convert.ToInt64(x.Average(args => args.ElapsedMilliseconds)),
-				ElapsedTicks = Convert.ToInt64(x.Average(args => args.ElapsedTicks))
-			}).ToArray();
-
-
 			var options = new PrintOptionBuilder<PrintTableOption>()
-				.Property("Test", "Count", "ElapsedMilliseconds", "ElapsedTicks")
+				.Property("TestName", "Parameter", "Count", "AverageDuration", "AverageTicks")
 				.Format("Count", "#,#0")
-				.Format("ElapsedMilliseconds", "#,#0")
-				.Format("ElapsedTicks", "#,#0")
+				.Format("AverageDuration", "#,#0")
+				.Format("AverageTicks", "#,#0")
 				.Build();
-			await Console.Out.PrintTable(report, options);
+			await Console.Out.PrintTable(list.BuildReports().ToArray(), options);
 			return 0;
 		}
 	}

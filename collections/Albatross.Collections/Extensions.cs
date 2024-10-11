@@ -116,16 +116,6 @@ namespace Albatross.Collections {
 			return list;
 		}
 
-		[Obsolete("DONOT USE.  EXISTS FOR BENCHMARK REASON")]
-		public static IList<T> RemoveAny_FromFront<T>(this IList<T> list, Predicate<T> predicate) {
-			for (int i = 0; i < list.Count; i++) {
-				if (predicate(list[i])) {
-					list.RemoveAt(i);
-				}
-			}
-			return list;
-		}
-
 		/// <summary>
 		/// Remove all items from the list that match the predicate.  Copy the items that do not match to a new list.  Performance is n.
 		/// Good for large list, slight performance penalty for list with 100 elements (100 - 200 ticks).  See the benchmark measure-listitem-removal for more details.
