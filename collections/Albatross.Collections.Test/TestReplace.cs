@@ -25,7 +25,9 @@ namespace Albatross.Collections.Test {
 			var copy = existing.ToList();
 			var newItems = new A[]{
 			};
+#pragma warning disable CS0618 // Type or member is obsolete
 			existing.Replace(newItems, x => x.Id);
+#pragma warning restore CS0618 // Type or member is obsolete
 			existing.Should().BeEquivalentTo(copy);
 		}
 
@@ -42,7 +44,9 @@ namespace Albatross.Collections.Test {
 				new A(5, "e"),
 				new A(6, "f"),
 			};
+#pragma warning disable CS0618 // Type or member is obsolete
 			existing.Replace(newItems, x => x.Id);
+#pragma warning restore CS0618 // Type or member is obsolete
 			existing.Should().BeEquivalentTo(copy.Union(newItems).ToArray());
 		}
 
@@ -59,7 +63,9 @@ namespace Albatross.Collections.Test {
 				new A(5, "e"),
 				new A(6, "f"),
 			};
+#pragma warning disable CS0618 // Type or member is obsolete
 			existing.Replace(newItems, x => x.Id);
+#pragma warning restore CS0618 // Type or member is obsolete
 			existing.Should().BeEquivalentTo(copy.Where(x => x.Id != 1).Union(newItems));
 		}
 	}
