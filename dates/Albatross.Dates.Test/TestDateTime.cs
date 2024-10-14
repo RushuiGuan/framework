@@ -214,5 +214,15 @@ namespace Albatross.Dates.Test {
 			var result = d1.GetNumberOfWeekdays(d2);
 			Assert.Equal(expectedResult, result);
 		}
+
+		[Theory]
+		[InlineData("2023-01-01", "2023-01-31")]
+		[InlineData("2024-02-10", "2024-02-29")]
+		public void TestEndOfMonth(string dateText, string expectedEndOfMonth) {
+			var date = DateTime.Parse(dateText);
+			var expected = DateTime.Parse(expectedEndOfMonth);
+			var actual = date.EndOfMonth();
+			Assert.Equal(expected, actual);
+		}
 	}
 }
