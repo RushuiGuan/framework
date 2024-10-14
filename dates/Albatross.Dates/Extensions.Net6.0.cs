@@ -166,6 +166,8 @@ namespace Albatross.Dates {
 
 		public static string ISO8601String(this DateOnly value) => value.ToString(Formatting.ISO8601DateOnly);
 		public static string ISO8601String(this TimeOnly value) => value.ToString(Formatting.ISO8601TimeOnly);
+		public static DateOnly StartOfMonth(this DateOnly date) => new DateOnly(date.Year, date.Month, 1);
+		public static DateOnly EndOfMonth(this DateOnly date) => new DateOnly(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
 	}
 }
 #endif

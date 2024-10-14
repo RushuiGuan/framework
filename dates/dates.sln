@@ -6,10 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Dates", "Albatross.Dates\Albatross.Dates.csproj", "{7B3F86AD-D42D-44F0-AEAA-B4089222E71F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70CD2EAC-2B9A-4271-8B5D-6597D9DCD075}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		pack.ps1 = pack.ps1
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Dates.Test", "Albatross.Dates.Test\Albatross.Dates.Test.csproj", "{074C8513-F848-4944-A645-1331BD1D50E1}"
 EndProject
