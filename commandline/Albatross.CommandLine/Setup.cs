@@ -80,6 +80,9 @@ namespace Albatross.CommandLine {
 
 		public Setup AddCommand<TCommand>() where TCommand : Command, new() {
 			var cmd = new TCommand();
+			if (cmd is IInitializable initializable) {
+				initializable.Init();
+			}
 			this.RootCommand.Add(cmd);
 			return this;
 		}
