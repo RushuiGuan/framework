@@ -31,6 +31,7 @@ namespace Albatross.CommandLine.CodeGen {
 			}
 		}
 
+		public string CommandOptionPropertyName => $"Option_{this.Property.Name}";
 		public IPropertySymbol Property { get; }
 		public AttributeData? OptionAttribute { get; }
 		public bool Required { get; private set; }

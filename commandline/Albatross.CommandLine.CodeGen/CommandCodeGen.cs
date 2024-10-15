@@ -55,13 +55,18 @@ namespace Albatross.CommandLine.CodeGen {
 							.With(new UsingDirectiveNode("System"), new UsingDirectiveNode("System.IO"))
 							.With(new UsingDirectiveNode("System.Threading.Tasks"));
 						using (cs.NewScope(new NamespaceDeclarationBuilder(setup.OptionClass.ContainingNamespace.ToDisplayString()))) {
-							using (cs.NewScope(new ClassDeclarationBuilder(setup.CommandClassName).Partial())) {
+							using (cs.NewScope(new ClassDeclarationBuilder(setup.CommandClassName).Sealed().Partial())) {
 								cs.With(new BaseTypeNode(My.CommandClassName));
 								using (cs.NewScope(new ConstructorDeclarationBuilder(setup.CommandClassName))) {
 									using (cs.NewScope(new ArgumentListBuilder())) {
 										cs.With(new LiteralNode(setup.Name)).With(new LiteralNode(setup.Description));
 									}
 									this.BuildConstructorStatements(cs, setup, setup.OptionClass);
+								}
+								// build the option properties
+								foreach (var option in setup.Options) {
+									var optionType = new GenericIdentifierNode(My.OptionClassName, option.Type);
+									cs.With(new PropertyNode(optionType, option.CommandOptionPropertyName).GetterOnly());
 								}
 							}
 						}
@@ -117,7 +122,6 @@ namespace Albatross.CommandLine.CodeGen {
 									using (diCodeStack.NewScope()) {
 										diCodeStack.With(new IdentifierNode("setup"))
 											.With(new GenericIdentifierNode("AddCommand", setup.CommandClassName))
-											.To(new MemberAccessBuilder())
 											.To(new InvocationExpressionBuilder());
 									}
 								}
@@ -154,30 +158,32 @@ namespace Albatross.CommandLine.CodeGen {
 				}
 			}
 			if (setup.Options.Any()) {
-				var variableName = "option";
-				cs.Complete(new VariableBuilder(My.OptionClassName, variableName));
+				// var variableName = "option";
+				// cs.Complete(new VariableBuilder(My.OptionClassName, variableName));
 				foreach (var option in setup.Options) {
-					using (cs.NewScope(new AssignmentExpressionBuilder(variableName))) {
-						using (cs.NewScope(new NewObjectBuilder(My.OptionClassName, option.Type))) {
-							using (cs.NewScope(new ArgumentListBuilder())) {
-								cs.With(new LiteralNode(option.Name)).With(new LiteralNode(option.Description));
-							}
-							if (option.Required) {
-								using (cs.NewScope(new AssignmentExpressionBuilder("IsRequired"))) {
-									cs.With(new LiteralNode(true));
+					using (cs.NewScope()) {
+						using (cs.With(new ThisExpression()).With(new IdentifierNode(option.CommandOptionPropertyName)).ToNewScope(new AssignmentExpressionBuilder())) {
+							using (cs.NewScope(new NewObjectBuilder(new GenericIdentifierNode(My.OptionClassName, option.Type)))) {
+								using (cs.NewScope(new ArgumentListBuilder())) {
+									cs.With(new LiteralNode(option.Name)).With(new LiteralNode(option.Description));
 								}
-							}
-							if (option.Hidden) {
-								cs.Begin(new AssignmentExpressionBuilder("IsHidden"))
-									.With(new LiteralNode(true))
-								.End();
+								if (option.Required) {
+									using (cs.NewScope(new AssignmentExpressionBuilder("IsRequired"))) {
+										cs.With(new LiteralNode(true));
+									}
+								}
+								if (option.Hidden) {
+									cs.Begin(new AssignmentExpressionBuilder("IsHidden"))
+										.With(new LiteralNode(true))
+									.End();
+								}
 							}
 						}
 					}
 
 					foreach (var alias in option.Aliases) {
 						using (cs.NewScope()) {
-							cs.With(new IdentifierNode(variableName))
+							cs.With(new IdentifierNode(option.CommandOptionPropertyName))
 								.With(new IdentifierNode("AddAlias"))
 								.To(new MemberAccessBuilder())
 								.ToNewBegin(new InvocationExpressionBuilder())
@@ -193,7 +199,7 @@ namespace Albatross.CommandLine.CodeGen {
 							.To(new MemberAccessBuilder())
 							.ToNewBegin(new InvocationExpressionBuilder())
 								.Begin(new ArgumentListBuilder())
-									.With(new IdentifierNode(variableName))
+									.With(new IdentifierNode(option.CommandOptionPropertyName))
 								.End()
 							.End();
 					}

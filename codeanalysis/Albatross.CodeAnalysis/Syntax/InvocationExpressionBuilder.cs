@@ -7,10 +7,10 @@ using System.Linq;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
-	/// Generate a <see cref="InvocationExpressionSyntax"/> instance.  Expects the following parameters
-	/// * <see cref="ExpressionSyntax"/> as the first parameter
-	/// * <see cref="SimpleNameSyntax"/> as subsequent parameters
-	/// * <see cref="ArgumentListSyntax"/> Optionally as the last parameter
+	/// Generate a <see cref="InvocationExpressionSyntax"/> instance.  Expects a series of <see cref="ExpressionSyntax"/> 
+	/// follows by an optional <see cref="ArgumentListSyntax"/>.  The ExpressionSyntax is used to construct the name of the
+	/// method.  The last node in the method name can also be passed in directly from the constructor.  The ArgumentListSyntax is used
+	/// to construct the arguments to the method.  
 	/// </summary>
 	public class InvocationExpressionBuilder : INodeBuilder {
 		IdentifierNameSyntax? identifier;
