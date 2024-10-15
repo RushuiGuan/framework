@@ -45,6 +45,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 				return false;
 			}
 		}
+
 		public static bool TryGetNullableValueType(this ITypeSymbol symbol, out ITypeSymbol? valueType) {
 			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>") {
 				valueType = named.TypeArguments.Single();
@@ -140,7 +141,9 @@ namespace Albatross.CodeAnalysis.Symbols {
 
 		public static bool IsNullable(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named
 			&& (named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>" || symbol.NullableAnnotation == NullableAnnotation.Annotated);
+
 		public static bool IsNullableReferenceType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && !named.IsValueType && symbol.NullableAnnotation == NullableAnnotation.Annotated;
+
 		public static bool IsNullableValueType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>";
 
 		public static string GetFullName(this ITypeSymbol symbol) {
@@ -180,6 +183,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 				return $"{symbol.ContainingNamespace.GetFullNamespace()}.{symbol.Name}";
 			}
 		}
+
 		public static bool TryGetCollectionElementType(this ITypeSymbol typeSymbol, out ITypeSymbol? elementType) {
 			if (typeSymbol is IArrayTypeSymbol arrayTypeSymbol) {
 				elementType = arrayTypeSymbol.ElementType;
@@ -195,5 +199,28 @@ namespace Albatross.CodeAnalysis.Symbols {
 		}
 
 		public static bool IsGenericTypeDefinition(this INamedTypeSymbol symbol) => symbol.IsGenericType && symbol.IsDefinition;
+
+		public static IEnumerable<IPropertySymbol> GetProperties(this INamedTypeSymbol symbol, bool useBaseClassProperties) {
+			foreach (var member in symbol.GetMembers().OfType<IPropertySymbol>()) {
+				if (member.SetMethod?.DeclaredAccessibility == Accessibility.Public
+					&& member.GetMethod?.DeclaredAccessibility == Accessibility.Public) {
+					yield return member;
+				}
+			}
+			if (useBaseClassProperties && symbol.BaseType != null) {
+				foreach (var member in GetProperties(symbol.BaseType, useBaseClassProperties)) {
+					yield return member;
+				}
+			}
+		}
+
+		public static IEnumerable<IPropertySymbol> GetDistinctProperties(this INamedTypeSymbol symbol, bool useBaseClassProperties) {
+			var set = new HashSet<string>();
+			foreach(var item in symbol.GetProperties(useBaseClassProperties)) {
+				if (set.Add(item.Name)) {
+					yield return item;
+				}
+			}
+		}
 	}
 }

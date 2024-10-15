@@ -21,13 +21,17 @@ namespace Albatross.CommandLine.CodeGen {
 			} else {
 				this.HandlerClass = "MissingHandlerClassName";
 			}
-			if (VerbAttribute.TryGetNamedArgument("Description", out var description)) {
-				this.Description = description.Value?.ToString();
+			if (VerbAttribute.TryGetNamedArgument("Description", out var typedConstant)) {
+				this.Description = typedConstant.Value?.ToString();
 			}
-			if (VerbAttribute.TryGetNamedArgument("Alias", out var verbAlias)) {
-				this.Aliases = verbAlias.Values.Select(x => x.Value?.ToString() ?? string.Empty).ToArray();
+			if (VerbAttribute.TryGetNamedArgument("Alias", out typedConstant)) {
+				this.Aliases = typedConstant.Values.Select(x => x.Value?.ToString() ?? string.Empty).ToArray();
 			}
-			this.Options = GetCommandOptions();
+			var useBaseClasssProperties = true;
+			if (verbAttribute.TryGetNamedArgument("UseBaseClassProperties", out typedConstant)) {
+				useBaseClasssProperties = Convert.ToBoolean(typedConstant.Value);
+			}
+			this.Options = GetCommandOptions(useBaseClasssProperties);
 		}
 
 
@@ -55,11 +59,10 @@ namespace Albatross.CommandLine.CodeGen {
 				this.CommandClassName = $"{GetCommandClassName()}{index}";
 			}
 		}
-		public CommandOptionSetup[] GetCommandOptions() {
-			var propertySymbols = OptionClass.GetMembers().OfType<IPropertySymbol>()
-				.Where(s => s.SetMethod?.DeclaredAccessibility == Accessibility.Public
-					&& s.GetMethod?.DeclaredAccessibility == Accessibility.Public)
-				.ToList();
+
+
+		public CommandOptionSetup[] GetCommandOptions(bool useBaseClassProperties) {
+			var propertySymbols = OptionClass.GetDistinctProperties(useBaseClassProperties).ToArray();
 			var list = new List<CommandOptionSetup>();
 			foreach (var propertySymbol in propertySymbols) {
 				AttributeData? attributeData = null;

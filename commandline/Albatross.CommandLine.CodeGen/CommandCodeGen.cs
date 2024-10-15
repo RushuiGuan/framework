@@ -167,8 +167,6 @@ namespace Albatross.CommandLine.CodeGen {
 				}
 			}
 			if (setup.Options.Any()) {
-				// var variableName = "option";
-				// cs.Complete(new VariableBuilder(My.OptionClassName, variableName));
 				foreach (var option in setup.Options) {
 					using (cs.NewScope()) {
 						using (cs.With(new ThisExpression()).With(new IdentifierNode(option.CommandOptionPropertyName)).ToNewScope(new AssignmentExpressionBuilder())) {
@@ -215,7 +213,6 @@ namespace Albatross.CommandLine.CodeGen {
 				}
 			}
 		}
-
 
 		public void Initialize(GeneratorInitializationContext context) { }
 	}
