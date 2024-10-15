@@ -35,6 +35,7 @@ namespace Albatross.CommandLine.CodeGen {
 					string text = $"No option class found.  Eligible classes should be public and annotated with the {My.VerbAttributeClass}";
 					context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}1", text);
 				} else {
+					// if the setup class is not found, use the namespace of the first option class
 					if (string.IsNullOrEmpty(setupClassNamespace)) {
 						setupClassNamespace = optionClasses.First().ContainingNamespace.ToDisplayString();
 					}
