@@ -5,6 +5,7 @@ using System.CommandLine;
 using System.Threading.Tasks;
 using System;
 using Albatross.CommandLine;
+using System.Collections.Generic;
 
 namespace Sample.CommandLine {
 	[Verb("sys-command", typeof(SysCommandHandler), Alias = ["t"])]
@@ -23,6 +24,11 @@ namespace Sample.CommandLine {
 
 		[Option(Required = true)]
 		public int? ForceRequired { get; set; }
+
+		public ICollection<string> Items { get; set; } = new List<string>();
+
+		[Option(Required = true)]
+		public IDictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
 	}
 	public class SysCommandHandler : ICommandHandler {
 		private readonly ILogger<SysCommandHandler> logger;

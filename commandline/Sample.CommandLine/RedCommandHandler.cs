@@ -11,12 +11,12 @@ namespace Sample.CommandLine {
 	public class RedCommandHandler : ICommandHandler {
 		private readonly ILogger<RedCommandHandler> logger;
 		private readonly IConsole console;
-		private readonly MyOptions myOptions;
+		private readonly ColorCommandOptions myOptions;
 
 		private GlobalOptions GlobalOptions { get; }
 		public MyColorPicker Picker { get; }
 
-		public RedCommandHandler(MyColorPicker picker, ILogger<RedCommandHandler> logger, IConsole console, IOptions<GlobalOptions> globalOptions, IOptions<MyOptions> myOptions) {
+		public RedCommandHandler(MyColorPicker picker, ILogger<RedCommandHandler> logger, IConsole console, IOptions<GlobalOptions> globalOptions, IOptions<ColorCommandOptions> myOptions) {
 			Picker = picker;
 			this.logger = logger;
 			this.console = console;

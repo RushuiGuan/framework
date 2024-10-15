@@ -6,7 +6,7 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Sample.CommandLine {
-	[Verb("post", typeof(PostCommandHandler), UseBaseClassProperties = false, Description = "Create a new item")]
+	[Verb("post", typeof(PostCommandHandler), UseBaseClassProperties = true, Description = "Create a new item")]
 	public record class PostCommandOptions : BaseCommandOptions {
 		public string Value { get; set; } = string.Empty;
 	}
