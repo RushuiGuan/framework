@@ -10,8 +10,9 @@ namespace Albatross.Text {
 		public static Task PrintProperties<T>(this TextWriter writer, T? data, PrintPropertiesOption option)
 			=> writer.PrintProperties<T>(new T?[] { data }, option);
 
-		public static async Task PrintProperties<T>(this TextWriter writer, T?[] items, PrintPropertiesOption option) {
-			int columnCount = items.Length + 1;
+		public static async Task PrintProperties<T>(this TextWriter writer, IEnumerable<T?> items, PrintPropertiesOption option) {
+			var itemArray = items.ToArray();
+			int columnCount = itemArray.Length + 1;
 			int[] columnWidth = new int[columnCount];
 			var rows = new List<string?[]>();
 			string?[] row;
@@ -30,10 +31,10 @@ namespace Albatross.Text {
 				rows.Add(row);
 				row[0] = option.GetRowHeader?.Invoke(name) ?? name;
 				columnWidth[0] = System.Math.Max(columnWidth[0], name.Length);
-				for (int i = 0; i < items.Length; i++) {
-					var value = type.GetPropertyValue(items[i], name, true);
+				for (int i = 0; i < itemArray.Length; i++) {
+					var value = type.GetPropertyValue(itemArray[i], name, true);
 					if (option.FormatValue != null) {
-						row[i + 1] = await option.FormatValue(items[i], name, value);
+						row[i + 1] = await option.FormatValue(itemArray[i], name, value);
 					} else {
 						row[i + 1] = Convert.ToString(value);
 					}
@@ -61,7 +62,7 @@ namespace Albatross.Text {
 			}
 		}
 
-		public static async Task PrintTable<T>(this TextWriter writer, T?[] items, PrintTableOption option) {
+		public static async Task PrintTable<T>(this TextWriter writer, IEnumerable<T?> items, PrintTableOption option) {
 			bool columnHeaderLine = false;
 			int columnCount = option.Properties.Length;
 			int[] columnWidth = new int[columnCount];
