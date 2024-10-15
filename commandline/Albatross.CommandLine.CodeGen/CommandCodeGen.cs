@@ -188,7 +188,7 @@ namespace Albatross.CommandLine.CodeGen {
 								.To(new MemberAccessBuilder())
 								.ToNewBegin(new InvocationExpressionBuilder())
 									.Begin(new ArgumentListBuilder())
-										.With(new LiteralNode($"-{alias}"))
+										.With(new LiteralNode(alias.StartsWith("-") ? alias : $"-{alias}"))
 									.End()
 								.End();
 						}

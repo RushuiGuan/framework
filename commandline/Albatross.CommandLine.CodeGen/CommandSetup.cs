@@ -16,15 +16,13 @@ namespace Albatross.CommandLine.CodeGen {
 			} else {
 				this.Name = "MissingVerbName";
 			}
-
 			if (verbAttribute.ConstructorArguments.Length > 1) {
 				this.HandlerClass = verbAttribute.ConstructorArguments[1].Value?.ToString() ?? string.Empty;
 			} else {
 				this.HandlerClass = "MissingHandlerClassName";
 			}
-			
-			if (VerbAttribute.ConstructorArguments.Length > 2) {
-				this.Description = VerbAttribute.ConstructorArguments[2].Value?.ToString();
+			if (VerbAttribute.TryGetNamedArgument("Description", out var description)) {
+				this.Description = description.Value?.ToString();
 			}
 			if (VerbAttribute.TryGetNamedArgument("Alias", out var verbAlias)) {
 				this.Aliases = verbAlias.Values.Select(x => x.Value?.ToString() ?? string.Empty).ToArray();
@@ -33,8 +31,8 @@ namespace Albatross.CommandLine.CodeGen {
 		}
 
 
-		public INamedTypeSymbol OptionClass { get;  }
-		public AttributeData VerbAttribute { get;  }
+		public INamedTypeSymbol OptionClass { get; }
+		public AttributeData VerbAttribute { get; }
 		public string HandlerClass { get; }
 		public string CommandClassName { get; private set; }
 		public string Name { get; }
@@ -47,7 +45,7 @@ namespace Albatross.CommandLine.CodeGen {
 			if (optionsClassName.EndsWith(My.Postfix_Options, StringComparison.InvariantCultureIgnoreCase)) {
 				optionsClassName = optionsClassName.Substring(0, optionsClassName.Length - My.Postfix_Options.Length);
 			}
-			if(!optionsClassName.EndsWith(My.CommandClassName, StringComparison.InvariantCultureIgnoreCase)) {
+			if (!optionsClassName.EndsWith(My.CommandClassName, StringComparison.InvariantCultureIgnoreCase)) {
 				optionsClassName = optionsClassName + My.CommandClassName;
 			}
 			return optionsClassName;
@@ -67,7 +65,7 @@ namespace Albatross.CommandLine.CodeGen {
 				AttributeData? attributeData = null;
 				var skip = false;
 				if (propertySymbol.TryGetAttribute(My.OptionAttributeClass, out attributeData)) {
-					if(attributeData!.TryGetNamedArgument("Skip", out var result)) {
+					if (attributeData!.TryGetNamedArgument("Skip", out var result)) {
 						skip = Convert.ToBoolean(result.Value);
 					}
 				}

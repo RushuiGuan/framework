@@ -15,7 +15,12 @@ namespace Albatross.CommandLine.CodeGen {
 			this.Hidden = false;
 			this.Description = null;
 			this.Aliases = Array.Empty<string>();
-			if(optionAttribute != null) {
+			if (optionAttribute != null) {
+				if (optionAttribute.ConstructorArguments.Any()) {
+					this.Aliases = optionAttribute.ConstructorArguments[0].Values.Select(x => x.Value?.ToString() ?? string.Empty)
+						.Where(x => !string.IsNullOrEmpty(x))
+						.ToArray();
+				}
 				if (optionAttribute.TryGetNamedArgument("Required", out var required)) {
 					this.Required = Convert.ToBoolean(required.Value);
 				}
@@ -24,9 +29,6 @@ namespace Albatross.CommandLine.CodeGen {
 				}
 				if (optionAttribute.TryGetNamedArgument("Description", out var descriptionConstant)) {
 					this.Description = descriptionConstant.Value?.ToString();
-				}
-				if (optionAttribute.TryGetNamedArgument("Alias", out var optionAlias)) {
-					this.Aliases = optionAlias.Values.Select(x => x.Value?.ToString() ?? string.Empty).ToArray();
 				}
 			}
 		}
