@@ -48,15 +48,15 @@ namespace Albatross.Text {
 		/// </summary>
 		public static string TrimDecimal(this decimal value) {
 			var text = $"{value}";
-			int lastDigit = text.Length;
+			int lastDigitToTrim = text.Length;
 			for (int i = text.Length - 1; i >= 0; i--) {
 				var c = text[i];
-				if ((c == '0' || c == '.') && lastDigit == i + 1) {
-					lastDigit = i;
+				if ((c == '0' || c == '.') && lastDigitToTrim == i + 1) {
+					lastDigitToTrim = i;
 				}
 				if (c == '.') {
-					if (lastDigit != text.Length) {
-						return text.Substring(0, lastDigit);
+					if (lastDigitToTrim != text.Length) {
+						return text.Substring(0, lastDigitToTrim);
 					} else {
 						return text;
 					}
