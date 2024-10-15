@@ -47,7 +47,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 		}
 
 		public static bool TryGetNullableValueType(this ITypeSymbol symbol, out ITypeSymbol? valueType) {
-			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>") {
+			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == My.NullableGenericDefinition) {
 				valueType = named.TypeArguments.Single();
 				return true;
 			} else {
@@ -75,77 +75,28 @@ namespace Albatross.CodeAnalysis.Symbols {
 			}
 		}
 
-		public static bool HasAttribute(this ISymbol symbol, string attributeName) {
-			foreach (var attribute in symbol.GetAttributes()) {
-				var className = attribute.AttributeClass?.GetFullName();
-				if (!string.IsNullOrEmpty(className)) {
-					if (className == attributeName) {
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-
-		public static bool TryGetAttribute(this ISymbol symbol, string attributeName, out AttributeData? attributeData) {
-			foreach (var attribute in symbol.GetAttributes()) {
-				var className = attribute.AttributeClass?.GetFullName();
-				if (!string.IsNullOrEmpty(className)) {
-					if (className == attributeName) {
-						attributeData = attribute;
-						return true;
-					}
-				}
-			}
-			attributeData = null;
-			return false;
-		}
-
-		public static bool HasAttributeWithBaseType(this ISymbol symbol, string baseTypeName) {
-			foreach (var attribute in symbol.GetAttributes()) {
-				var className = attribute.AttributeClass?.BaseType?.GetFullName();
-				if (!string.IsNullOrEmpty(className)) {
-					if (className == baseTypeName) {
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-
-		public static bool HasAttributeWithArguments(this ISymbol symbol, string attributeName, params string[] parameter) {
-			foreach (var attribute in symbol.GetAttributes()) {
-				var className = attribute.AttributeClass?.GetFullName();
-				if (!string.IsNullOrEmpty(className)) {
-					if (className == attributeName) {
-						var match = attribute.ConstructorArguments.Select(x => (x.Value as INamedTypeSymbol)?.GetFullName()).SequenceEqual(parameter);
-						if (match) {
-							return true;
-						}
-					}
-				}
-			}
-			return false;
-		}
-
-		public static bool TryGetNamedArgument(this AttributeData attributeData, string name, out TypedConstant result) {
-			var argument = attributeData.NamedArguments.Where(x => x.Key == name).Select<KeyValuePair<string, TypedConstant>, TypedConstant?>(x => x.Value).FirstOrDefault();
-			if (argument != null) {
-				result = argument.Value;
-				return true;
-			} else {
-				result = new TypedConstant();
-				return false;
-			}
-		}
-
 		public static bool IsNullable(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named
-			&& (named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>" || symbol.NullableAnnotation == NullableAnnotation.Annotated);
+			&& (named.IsGenericType && named.OriginalDefinition.GetFullName() == My.NullableGenericDefinition || symbol.NullableAnnotation == NullableAnnotation.Annotated);
 
 		public static bool IsNullableReferenceType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && !named.IsValueType && symbol.NullableAnnotation == NullableAnnotation.Annotated;
 
-		public static bool IsNullableValueType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == "System.Nullable<>";
+		public static bool IsNullableValueType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == My.NullableGenericDefinition;
 
+		/// <summary>
+		/// for the sake of our sanity, this method will return false for string
+		/// </summary>
+		/// <param name="symbol"></param>
+		/// <returns></returns>
+		public static bool IsCollection(this ITypeSymbol symbol) {
+			if(symbol.SpecialType == SpecialType.System_String) {
+				return false;
+			}else if (symbol is IArrayTypeSymbol) {
+				return true;
+			} else {
+				return symbol.GetFullName() == My.IEnumerable || symbol.AllInterfaces.Any(x => x.GetFullName() == My.IEnumerable);
+			}
+		}
+		
 		public static string GetFullName(this ITypeSymbol symbol) {
 			string fullName;
 			if (symbol is IArrayTypeSymbol arraySymbol) {
@@ -185,17 +136,27 @@ namespace Albatross.CodeAnalysis.Symbols {
 		}
 
 		public static bool TryGetCollectionElementType(this ITypeSymbol typeSymbol, out ITypeSymbol? elementType) {
-			if (typeSymbol is IArrayTypeSymbol arrayTypeSymbol) {
+			if (typeSymbol.SpecialType == SpecialType.System_String) {
+				elementType = null;
+				return false;
+			} else if (typeSymbol is IArrayTypeSymbol arrayTypeSymbol) {
 				elementType = arrayTypeSymbol.ElementType;
 				return true;
-			} else if (typeSymbol is INamedTypeSymbol namedTypeSymbol) {
-				if (namedTypeSymbol.IsGenericType && namedTypeSymbol.OriginalDefinition.GetFullName() == "System.Collections.Generic.IEnumerable<>") {
-					elementType = namedTypeSymbol.TypeArguments[0];
+			} else {
+				if (typeSymbol.TryGetGenericTypeArguments(My.IEnumerableGenericDefinition, out var arguments)) {
+					elementType = arguments[0];
 					return true;
+				} else {
+					var ienumerableDefinition = typeSymbol.AllInterfaces.FirstOrDefault(x => x.IsGenericType && x.OriginalDefinition.GetFullName() == My.IEnumerableGenericDefinition);
+					if (ienumerableDefinition != null) {
+						elementType = ienumerableDefinition.TypeArguments[0];
+						return true;
+					} else {
+						elementType = null;
+						return false;
+					}
 				}
 			}
-			elementType = null;
-			return false;
 		}
 
 		public static bool IsGenericTypeDefinition(this INamedTypeSymbol symbol) => symbol.IsGenericType && symbol.IsDefinition;

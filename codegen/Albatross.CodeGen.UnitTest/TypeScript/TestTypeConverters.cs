@@ -23,7 +23,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
 			var factory = new ConvertType([new StringTypeConverter()], MockedLogger);
-			var converter = new ArrayTypeConverter(compilation);
+			var converter = new ArrayTypeConverter();
 			Assert.True(converter.TryConvert(p1Symbol.Type, factory, out var result));
 			Assert.IsType<ArrayTypeExpression>(result);
 			var expression = result as ArrayTypeExpression;
@@ -37,7 +37,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
-			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter(compilation)], MockedLogger);
+			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter()], MockedLogger);
 			var result = factory.Convert(p1Symbol.Type);
 			Assert.Equal(Defined.Types.String(), result);
 		}
@@ -50,7 +50,7 @@ namespace Albatross.CodeGen.UnitTest.TypeScript {
 
 			var symbol = compilation.GetRequiredSymbol("Example");
 			var p1Symbol = symbol.GetMembers().OfType<IPropertySymbol>().Where(x => x.Name == "P1").First();
-			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter(compilation)], MockedLogger);
+			var factory = new ConvertType([new StringTypeConverter(), new ArrayTypeConverter()], MockedLogger);
 			var result = factory.Convert(p1Symbol.Type);
 			Assert.Equal(Defined.Types.String(true), result);
 		}

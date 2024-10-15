@@ -34,6 +34,10 @@
 			<TargetPathWithTargetPlatformMoniker Include="$(PKGHumanizer_Core)\lib\netstandard2.0\Humanizer.dll" IncludeRuntimeDependency="false" />
 		</ItemGroup>
 	</Target>
+
+	<ItemGroup>
+	  <None Remove="bin\Debug\netstandard2.0\\Albatross.CommandLine.CodeGen.dll" />
+	</ItemGroup>
 	<!-- end -->
 
 
