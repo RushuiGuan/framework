@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Buffers;
 using System.Data;
 using System.Text.Json.Serialization;
+using System.IO;
 
 namespace Albatross.Serialization {
 	public static class Extensions {
@@ -60,10 +61,10 @@ namespace Albatross.Serialization {
 			for (int i = 0; i < reader.FieldCount; i++) {
 				object value = reader.GetValue(i);
 				if (value == DBNull.Value || value == null) {
-					if (options?.DefaultIgnoreCondition != JsonIgnoreCondition.WhenWritingNull) { 
+					if (options?.DefaultIgnoreCondition != JsonIgnoreCondition.WhenWritingNull) {
 						writer.WriteNull(reader.GetName(i));
 					}
-				} else { 
+				} else {
 					writer.WritePropertyName(reader.GetName(i));
 					JsonSerializer.Serialize(writer, value, value.GetType(), options);
 				}
@@ -77,6 +78,11 @@ namespace Albatross.Serialization {
 				reader.WriteJson(writer, options);
 			}
 			return JsonSerializer.Deserialize<JsonElement>(bufferWriter.WrittenSpan, options);
+		}
+
+		public static TextWriter PrintJson<T>(this TextWriter writer, T data) {
+			writer.Write(JsonSerializer.Serialize(data, FormattedJsonSettings.Value.Default));
+			return writer;
 		}
 	}
 }
