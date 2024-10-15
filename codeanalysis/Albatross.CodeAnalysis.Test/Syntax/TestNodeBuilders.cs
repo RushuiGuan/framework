@@ -1,6 +1,5 @@
 ﻿using Albatross.CodeAnalysis.Syntax;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Xunit;
 
 namespace Albatross.CodeAnalysis.Test {
@@ -64,9 +63,6 @@ namespace Albatross.CodeAnalysis.Test {
 				.End().Build();
 			Assert.Equal(expected, node.ToString().Trim());
 		}
-
-		
-
 
 		[InlineData("this.a.b\r\n", true, "a", "b")]
 		[InlineData("a.b\r\n", false, "a", "b")]

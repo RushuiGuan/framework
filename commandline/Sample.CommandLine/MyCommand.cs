@@ -1,5 +1,4 @@
 ﻿using Albatross.CommandLine;
-
 using System.CommandLine;
 using System.IO;
 
@@ -18,5 +17,11 @@ namespace Sample.CommandLine {
 
 		[Option(Description = "input file name", Alias = ["x"])]
 		public FileInfo MyFile { get; set; } = null!;
+	}
+
+	public sealed partial class MyCommand : IInitializable {
+		public void Init() {
+			this.Option_Data.AddCompletions("1", "2", "3");
+		}
 	}
 }

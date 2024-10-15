@@ -16,13 +16,8 @@ namespace Albatross.CodeAnalysis.Syntax {
 		private NewObjectBuilder(TypeSyntax typeSyntax) {
 			Node = SyntaxFactory.ObjectCreationExpression(typeSyntax);
 		}
+		public NewObjectBuilder(TypeNode typeNode) : this(typeNode.Type) { }
 		public NewObjectBuilder(string typeName) : this(SyntaxFactory.IdentifierName(typeName)) { }
-		public NewObjectBuilder(string typeName, params string[] genericTypeArguments) : this(CreateGenericType(typeName, genericTypeArguments)) {
-		}
-		static TypeSyntax CreateGenericType(string typeName, IEnumerable<string> genericTypeArguments) {
-			var arguments = SyntaxFactory.SeparatedList(genericTypeArguments.Select(x => SyntaxFactory.ParseTypeName(x)));
-			return SyntaxFactory.GenericName(SyntaxFactory.Identifier(typeName), SyntaxFactory.TypeArgumentList(arguments));
-		}
 		public ObjectCreationExpressionSyntax Node { get; private set; }
 
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
