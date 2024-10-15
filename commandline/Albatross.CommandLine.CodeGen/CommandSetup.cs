@@ -11,9 +11,18 @@ namespace Albatross.CommandLine.CodeGen {
 			this.VerbAttribute = verbAttribute;
 			this.CommandClassName = GetCommandClassName();
 
-			this.HandlerClass = verbAttribute.ConstructorArguments[1].Value?.ToString() ?? string.Empty;
+			if (verbAttribute.ConstructorArguments.Length > 0) {
+				this.Name = VerbAttribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
+			} else {
+				this.Name = "MissingVerbName";
+			}
 
-			this.Name = VerbAttribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
+			if (verbAttribute.ConstructorArguments.Length > 1) {
+				this.HandlerClass = verbAttribute.ConstructorArguments[1].Value?.ToString() ?? string.Empty;
+			} else {
+				this.HandlerClass = "MissingHandlerClassName";
+			}
+			
 			if (VerbAttribute.ConstructorArguments.Length > 2) {
 				this.Description = VerbAttribute.ConstructorArguments[2].Value?.ToString();
 			}
