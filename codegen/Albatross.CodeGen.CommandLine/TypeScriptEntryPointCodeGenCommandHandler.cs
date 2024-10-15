@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace Albatross.CodeGen.CommandLine {
 	[Verb("typescript-entrypoint", typeof(TypeScriptEntryPointCodeGenCommandHandler))]
 	public record TypeScriptEntryPointCodeGenOptions {
-		[Option(Alias = ["o"])]
+		[Option("o")]
 		public DirectoryInfo OutputDirectory { get; init; } = null!;
 		
-		[Option(Alias = ["s"])]
+		[Option("s")]
 		public FileInfo? SettingsFile { get; set; }
 	}
 	public class TypeScriptEntryPointCodeGenCommandHandler : ICommandHandler {

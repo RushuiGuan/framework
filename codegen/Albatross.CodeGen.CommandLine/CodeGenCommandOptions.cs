@@ -8,16 +8,16 @@ namespace Albatross.CodeGen.CommandLine {
 	[Verb("controller-model", typeof(ControllerInfoModelGenerator))]
 	[Verb("dto-model", typeof(DtoClassInfoModelGenerator))]
 	public record class CodeGenCommandOptions {
-		[Option(Alias = ["p"])]
+		[Option("p")]
 		public FileInfo ProjectFile { get; set; } = null!;
 
-		[Option(Alias = ["s"])]
+		[Option("s")]
 		public FileInfo? SettingsFile { get; set; }
 
-		[Option(Alias = ["o"])]
+		[Option("o")]
 		public DirectoryInfo? OutputDirectory { get; set; }
 
-		[Option(Alias = ["c"])]
+		[Option("c")]
 		public string? AdhocFilter { get; set; }
 	}
 }
