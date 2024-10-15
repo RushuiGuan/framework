@@ -15,6 +15,7 @@ namespace Albatross.CommandLine.CodeGen {
 	public class CommandCodeGen : ISourceGenerator {
 		public void Execute(GeneratorExecutionContext context) {
 			using var writer = new StringWriter();
+			string? setupClassNamespace = null;
 			try {
 				// System.Diagnostics.Debugger.Launch();
 				var optionClasses = new List<INamedTypeSymbol>();
@@ -23,14 +24,20 @@ namespace Albatross.CommandLine.CodeGen {
 
 				foreach (var syntaxTree in context.Compilation.SyntaxTrees) {
 					var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
-					var walker = new CodeGenClassDeclarationWalker(semanticModel);
+					var walker = new CodeGenClassDeclarationWalker(context.Compilation, semanticModel);
 					walker.Visit(syntaxTree.GetRoot());
 					optionClasses.AddRange(walker.CommandOptionClasses);
+					if (string.IsNullOrEmpty(setupClassNamespace)) {
+						setupClassNamespace = walker.SetupClass?.ContainingNamespace.ToDisplayString();
+					}
 				}
 				if (!optionClasses.Any()) {
 					string text = $"No option class found.  Eligible classes should be public and annotated with the {My.VerbAttributeClass}";
 					context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}1", text);
 				} else {
+					if (string.IsNullOrEmpty(setupClassNamespace)) {
+						setupClassNamespace = optionClasses.First().ContainingNamespace.ToDisplayString();
+					}
 					foreach (var optionClass in optionClasses) {
 						foreach (var attribute in optionClass.GetAttributes()) {
 							if (attribute.AttributeClass?.GetFullName() == My.VerbAttributeClass) {
@@ -83,9 +90,10 @@ namespace Albatross.CommandLine.CodeGen {
 					diCodeStack.With(new UsingDirectiveNode("System.CommandLine.Invocation"));
 					diCodeStack.With(new UsingDirectiveNode("System.CommandLine.Hosting"));
 					diCodeStack.With(new UsingDirectiveNode("Albatross.CommandLine"));
+
 					var namespaces = new List<string>();
 					var addedOptionClasses = new HashSet<string>();
-					using (diCodeStack.NewScope(new NamespaceDeclarationBuilder("Albatross.CommandLine"))) {
+					using (diCodeStack.NewScope(new NamespaceDeclarationBuilder(setupClassNamespace ?? "RootNamespaceNotYetFound"))) {
 						using (diCodeStack.NewScope(new ClassDeclarationBuilder("RegistrationExtensions").Static())) {
 							using (diCodeStack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Static())) {
 								diCodeStack.With(new ParameterNode("IServiceCollection", "services").WithThis());

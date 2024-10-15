@@ -7,11 +7,14 @@ using System.Linq;
 
 namespace Albatross.CommandLine.CodeGen {
 	public class CodeGenClassDeclarationWalker : CSharpSyntaxWalker {
+		private readonly Compilation compilation;
 		private readonly SemanticModel semanticModel;
 		public List<INamedTypeSymbol> CommandOptionClasses { get; } = new List<INamedTypeSymbol>();
 		public List<INamedTypeSymbol> CommandHandlerClasses { get; } = new List<INamedTypeSymbol>();
+		public INamedTypeSymbol? SetupClass { get; private set; }
 
-		public CodeGenClassDeclarationWalker(SemanticModel semanticModel) {
+		public CodeGenClassDeclarationWalker(Compilation compilation, SemanticModel semanticModel) {
+			this.compilation = compilation;
 			this.semanticModel = semanticModel;
 		}
 		public override void VisitClassDeclaration(ClassDeclarationSyntax node) {
@@ -31,6 +34,8 @@ namespace Albatross.CommandLine.CodeGen {
 						CommandOptionClasses.Add(classSymbol);
 					} else if (classSymbol.Interfaces.Any(x => x.GetFullName() == My.ICommandHandler_InterfaceName)) {
 						CommandHandlerClasses.Add(classSymbol);
+					} else if (classSymbol.IsDerivedFrom(compilation.GetRequiredSymbol(My.SetupClassName))) {
+						SetupClass = classSymbol;
 					}
 				}
 			}
