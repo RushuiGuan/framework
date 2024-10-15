@@ -88,5 +88,28 @@ namespace Albatross.Test.Text {
 			var result = text.TrimEnd(trim);
 			Assert.Equal(expected, result);
 		}
+
+		[Theory]
+		[InlineData("0", "0")]
+		[InlineData("0.0", "0")]
+		[InlineData("0.1", "0.1")]
+		[InlineData("0.10", "0.1")]
+		[InlineData("0.100", "0.1")]
+		[InlineData("0.123", "0.123")]
+		[InlineData(".0", "0")]
+		[InlineData("0.", "0")]
+		[InlineData("1.0", "1")]
+		[InlineData("1", "1")]
+		[InlineData("10.0101010", "10.010101")]
+		[InlineData("10.123", "10.123")]
+		[InlineData("10.1230", "10.123")]
+		[InlineData("10.1230000", "10.123")]
+		[InlineData("10", "10")]
+		[InlineData("123", "123")]
+		public void TestTrimDecimal(string number, string expected) {
+			var value = decimal.Parse(number);
+			var result = value.TrimDecimal();
+			Assert.Equal(expected, result);
+		}
 	}
 }

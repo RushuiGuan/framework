@@ -42,5 +42,27 @@ namespace Albatross.Text {
 				}
 			}
 		}
+
+		/// <summary>
+		/// write a decimal number and remove its trailing zeros after the decimal point
+		/// </summary>
+		public static string TrimDecimal(this decimal value) {
+			var text = $"{value}";
+			int lastDigit = text.Length;
+			for (int i = text.Length - 1; i >= 0; i--) {
+				var c = text[i];
+				if ((c == '0' || c == '.') && lastDigit == i + 1) {
+					lastDigit = i;
+				}
+				if (c == '.') {
+					if (lastDigit != text.Length) {
+						return text.Substring(0, lastDigit);
+					} else {
+						return text;
+					}
+				}
+			}
+			return text;
+		}
 	}
 }
