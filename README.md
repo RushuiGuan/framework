@@ -4,12 +4,14 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 # Libraries
 |Name|Description||
 |-|-|-|
-|[authentication](./authentication/Albatross.Authentication/) ([AspNetCore](./authentication/Albatross.Authentication.AspNetCore//), [Windows](./authentication/Albatross.Authentication.Windows/)) |Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication)](https://www.nuget.org/packages/Albatross.Authentication)|
+|[authentication](./authentication/Albatross.Authentication/) |Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication)](https://www.nuget.org/packages/Albatross.Authentication)|
+|[authentication.windows](./authentication/Albatross.Authentication.Windows/) |Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication.Windows)](https://www.nuget.org/packages/Albatross.Authentication.Windows)|
+|[authentication.aspnetcore](./authentication/Albatross.Authentication.AspNetCore/) |Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication.AspNetCore)](https://www.nuget.org/packages/Albatross.Authentication.AspNetCore)|
 |caching|||
 |codeanalysis|||
 |codegen|||
 |collections|||
-|[commandline](./commandline/Albatross.CommandLine)|An essential library that compliments the [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library||
+|[commandline](./commandline/Albatross.CommandLine)|An integration library that provdes depedency injection, configuration and logging support for [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library.||
 |[config](./config/Albatross.Config)|Simplified configuration setup for your .Net applications.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Config)](https://www.nuget.org/packages/Albatross.Config)|
 |datelevel|||
 |dates|||
