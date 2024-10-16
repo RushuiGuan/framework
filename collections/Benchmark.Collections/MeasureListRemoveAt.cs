@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 using System.Linq;
 
 namespace Benchmark.Collections {
-	[Verb("measure-listitem-removal", typeof(MeasureListItemRemoval), description: "Measure the performance of removing items from a list using RemoveAt")]
+	[Verb("measure-listitem-removal", typeof(MeasureListItemRemoval), Description = "Measure the performance of removing items from a list using RemoveAt")]
 	public class MeasureListItemRemovalOptions {
 		public int ListSize { get; set; }
 
-		[Option(Alias = ["cutoff"], Description ="Used to determine the list size cut off point to switch from RemoveAny_FromRear to RemoveAny_WithNewList.  Default is 100")]
+		[Option("cutoff", Description = "Used to determine the list size cut off point to switch from RemoveAny_FromRear to RemoveAny_WithNewList.  Default is 100")]
 		public int? AlgoCutoff { get; set; }
 
-		[Option(Alias = ["c"], Description = "How many times the test will be run, default is 100")]
+		[Option("c", Description = "How many times the test will be run, default is 100")]
 		public int? Count { get; set; }
 	}
 
