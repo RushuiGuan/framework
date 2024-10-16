@@ -17,7 +17,10 @@ namespace Albatross.CommandLine {
 		}
 		public int Invoke(InvocationContext context) => throw new NotSupportedException();
 		public virtual Task<int> InvokeAsync(InvocationContext context) {
-			logger.LogInformation("Running Command {name}", context.ParsedCommandName());
+			logger.LogWarning("Running Command {name} of type {type} with value {@param}", 
+				context.ParsedCommandName(), 
+				context.ParseResult.CommandResult.Command.GetType().Name,
+				this.options);
 			return Task.FromResult(0);
 		}
 	}

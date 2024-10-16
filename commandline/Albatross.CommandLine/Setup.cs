@@ -63,16 +63,14 @@ namespace Albatross.CommandLine {
 		public virtual ICommandHandler CreateGlobalCommandHandler(Command command) {
 			return new GlobalCommandHandler(command);
 		}
-		
+
 		public virtual RootCommand CreateRootCommand() {
 			var cmd = new RootCommand(RootCommandDescription);
-			var logOption = new Option<LogEventLevel?>("--verbosity", () => LogEventLevel.Error){
-				IsHidden = true,
-			};
+			var logOption = new Option<LogEventLevel?>("--verbosity", () => LogEventLevel.Error);
 			logOption.AddAlias("-v");
 			cmd.AddGlobalOption(logOption);
-			cmd.AddGlobalOption(new Option<bool>("--benchmark") { IsHidden = true });
-			cmd.AddGlobalOption(new Option<bool>("--show-stack") { IsHidden = true });
+			cmd.AddGlobalOption(new Option<bool>("--benchmark"));
+			cmd.AddGlobalOption(new Option<bool>("--show-stack"));
 			return cmd;
 		}
 		public RootCommand RootCommand { get; }
