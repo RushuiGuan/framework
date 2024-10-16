@@ -257,8 +257,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.WebApi", "hosting\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Utility", "commandline\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj", "{D83B3827-7D28-47E6-BF65-15FB694BABC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Hosting.Utility", "commandline\Sample.Utility\Sample.Hosting.Utility.csproj", "{87C93DFE-32D4-48D3-90AE-8A1D31512890}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -617,10 +615,6 @@ Global
 		{D83B3827-7D28-47E6-BF65-15FB694BABC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D83B3827-7D28-47E6-BF65-15FB694BABC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D83B3827-7D28-47E6-BF65-15FB694BABC1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87C93DFE-32D4-48D3-90AE-8A1D31512890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87C93DFE-32D4-48D3-90AE-8A1D31512890}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87C93DFE-32D4-48D3-90AE-8A1D31512890}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87C93DFE-32D4-48D3-90AE-8A1D31512890}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -714,7 +708,6 @@ Global
 		{678F764F-2580-46D5-A968-6BF4B721516B} = {F5D5FCE3-97DC-4136-BA39-B7BB1C571112}
 		{A27864FC-F3A2-404F-AA05-E63B4F5AE8DB} = {F5D5FCE3-97DC-4136-BA39-B7BB1C571112}
 		{D83B3827-7D28-47E6-BF65-15FB694BABC1} = {70F19D88-A49C-419F-8A5C-14ACCBF9EE74}
-		{87C93DFE-32D4-48D3-90AE-8A1D31512890} = {70F19D88-A49C-419F-8A5C-14ACCBF9EE74}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4751EEB3-6D5D-4780-B0C9-ECB82447CB4A}
