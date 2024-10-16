@@ -11,11 +11,11 @@ namespace Sample.CommandLine {
 
 		public int Data { get; set; }
 
-		[Option("s", "--second", Description = "second file name")]
+		[Option("s", "second", Description = "second file name")]
 		public FileInfo SecondFile { get; set; } = null!;
 
 
-		[Option("x", "--myfile", Description = "input file name")]
+		[Option("x", "myfile", Description = "input file name")]
 		public FileInfo MyFile { get; set; } = null!;
 	}
 
