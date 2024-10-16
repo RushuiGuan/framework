@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace Albatross.CommandLine {
-	public abstract class BaseHandler<T> : ICommandHandler where T : class {
+	public class BaseHandler<T> : ICommandHandler where T : class {
 		protected readonly T options;
 		protected readonly ILogger logger;
 		protected virtual TextWriter writer => Console.Out;
@@ -16,6 +16,9 @@ namespace Albatross.CommandLine {
 			this.logger = logger;
 		}
 		public int Invoke(InvocationContext context) => throw new NotSupportedException();
-		public abstract Task<int> InvokeAsync(InvocationContext context);
+		public virtual Task<int> InvokeAsync(InvocationContext context) {
+			logger.LogInformation("Running Command {name}", context.ParsedCommandName());
+			return Task.FromResult(0);
+		}
 	}
 }

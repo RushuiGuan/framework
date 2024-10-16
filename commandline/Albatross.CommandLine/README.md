@@ -8,6 +8,7 @@ An integration library that provdes depedency injection, configuration and loggi
 * Easy configuration setup provided by [Albatross.Config](../../config/Albatross.Config/).
 
 ## Related Articles
+* [Conventions](../docs/conventions.md)
 * [Global options](../docs/global-options.md)
 * [Command Options](../docs/command-options.md)
 * [Error Handling](../docs/error-handling.md)
