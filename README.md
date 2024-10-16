@@ -5,8 +5,8 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |Name|Description||
 |-|-|-|
 |[authentication](./authentication/Albatross.Authentication/) |Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication)](https://www.nuget.org/packages/Albatross.Authentication)|
-|[authentication.windows](./authentication/Albatross.Authentication.Windows/) |Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication.Windows)](https://www.nuget.org/packages/Albatross.Authentication.Windows)|
-|[authentication.aspnetcore](./authentication/Albatross.Authentication.AspNetCore/) |Returns the identity of the current user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication.AspNetCore)](https://www.nuget.org/packages/Albatross.Authentication.AspNetCore)|
+|[authentication.windows](./authentication/Albatross.Authentication.Windows/) |Returns the identity of the current user using httpcontext|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication.Windows)](https://www.nuget.org/packages/Albatross.Authentication.Windows)|
+|[authentication.aspnetcore](./authentication/Albatross.Authentication.AspNetCore/) |Returns the identity of the current windows user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication.AspNetCore)](https://www.nuget.org/packages/Albatross.Authentication.AspNetCore)|
 |caching|||
 |codeanalysis|||
 |codegen|||
