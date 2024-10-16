@@ -8,10 +8,10 @@ An integration library that provdes depedency injection, configuration and loggi
 * Easy configuration setup provided by [Albatross.Config](../../config/Albatross.Config/).
 
 ## Related Articles
-* Global options
-* Command Options
-* CommandLine error handling
-* How to customize a command
+* [Global options](../docs/global-options.md)
+* [Command Options](../docs/command-options.md)
+* [Error Handling](../docs/error-handling.md)
+* [Command Customization](../docs/command-customization.md)
 
 ## Quick Start ([Sample Program](../Sample.CommandLine/))
 * Create a .net8 Console program
