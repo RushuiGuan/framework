@@ -7,3 +7,6 @@ A durable messaging library implementation with [ZeroMQ](https://zeromq.org/).
 * Dynamic queue creation
 * Command Pattern
 * PubSub Pattern
+
+## Related Articles
+* [How to implement the Fan-in Pattern](../docs/fan-in.md)
