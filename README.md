@@ -8,7 +8,7 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |[authentication.windows](./authentication/Albatross.Authentication.Windows/) |Returns the identity of the current windows user|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication.Windows)](https://www.nuget.org/packages/Albatross.Authentication.Windows)|
 |[authentication.aspnetcore](./authentication/Albatross.Authentication.AspNetCore/) |Returns the identity of the current user using httpcontext|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Authentication.AspNetCore)](https://www.nuget.org/packages/Albatross.Authentication.AspNetCore)|
 |caching|||
-|codeanalysis|||
+|[codeanalysis](./codeanalysis/Albatross.CodeAnalysis/)|A code analysis library that provides syntax builders so that it is easier to create code generators using rosyln.||
 |codegen|||
 |collections|||
 |[commandline](./commandline/Albatross.CommandLine)|An integration library that provdes depedency injection, configuration and logging support for [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library.||
