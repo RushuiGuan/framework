@@ -1,5 +1,5 @@
 ﻿namespace Albatross.CommandLine {
-	public interface IInitializable {
+	public interface IRequireInitialization {
 		void Init();
 	}
 }

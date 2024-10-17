@@ -4,6 +4,7 @@ using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
+using Albatross.CommandLine;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -12,10 +13,8 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class CSharpWebClientCodeGenCommandHandler : ICommandHandler {
-		private readonly ILogger<CSharpWebClientCodeGenCommandHandler> logger;
+	public class CSharpWebClientCodeGenCommandHandler : BaseHandler<CodeGenCommandOptions> {
 		private readonly CreateHttpClientRegistrations createHttpClientRegistrations;
-		private readonly CodeGenCommandOptions options;
 		private readonly Compilation compilation;
 		private readonly CodeGenSettings settings;
 		private readonly ConvertApiControllerToControllerModel convertToWebApi;
@@ -24,12 +23,10 @@ namespace Albatross.CodeGen.CommandLine {
 		public CSharpWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, 
 			ILogger<CSharpWebClientCodeGenCommandHandler> logger,
 			CreateHttpClientRegistrations createHttpClientRegistrations,
-			Compilation compilation,
+			Compilation compilation, 
 			CodeGenSettings settings,
 			ConvertApiControllerToControllerModel convertToWebApi,
-			ConvertWebApiToCSharpCodeStack converToCSharpFile) {
-			this.options = options.Value;
-			this.logger = logger;
+			ConvertWebApiToCSharpCodeStack converToCSharpFile) :base(options, logger){
 			this.createHttpClientRegistrations = createHttpClientRegistrations;
 			this.compilation = compilation;
 			this.settings = settings;
@@ -37,11 +34,7 @@ namespace Albatross.CodeGen.CommandLine {
 			this.converToCSharpCodeStack = converToCSharpFile;
 		}
 
-		public int Invoke(InvocationContext context) {
-			throw new System.NotSupportedException();
-		}
-
-		public Task<int> InvokeAsync(InvocationContext context) {
+		public override Task<int> InvokeAsync(InvocationContext context) {
 			var controllerClass = new List<INamedTypeSymbol>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
 				var semanticModel = compilation.GetSemanticModel(syntaxTree);
@@ -59,7 +52,7 @@ namespace Albatross.CodeGen.CommandLine {
 					var codeStack = this.converToCSharpCodeStack.Convert(webApi);
 
 					var text = codeStack.BuildWithFormat();
-					System.Console.WriteLine(text);
+					this.writer.WriteLine(text);
 					if (options.OutputDirectory != null) {
 						using (var writer = new System.IO.StreamWriter(System.IO.Path.Join(options.OutputDirectory.FullName, codeStack.FileName ?? "generated.cs"))) {
 							writer.Write(text);

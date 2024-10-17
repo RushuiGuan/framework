@@ -1,5 +1,4 @@
 ﻿using Albatross.CommandLine;
-using System;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,24 +6,18 @@ using Albatross.CodeGen.WebClient.Settings;
 using NJsonSchema.Generation;
 using Microsoft.Extensions.Options;
 using NJsonSchema;
+using Microsoft.Extensions.Logging;
 
 namespace Albatross.CodeGen.CommandLine {
 	[Verb("settings-schema", typeof(GenerateSettingsSchema))]
 	public record class GenerateSettingsSchemaOptions {
 		public FileInfo? File { get; set; }
 	}
-	public class GenerateSettingsSchema : ICommandHandler {
-		private readonly GenerateSettingsSchemaOptions options;
-
-		public GenerateSettingsSchema(IOptions<GenerateSettingsSchemaOptions> options) {
-			this.options = options.Value;
+	public class GenerateSettingsSchema : BaseHandler<GenerateSettingsSchemaOptions> {
+		public GenerateSettingsSchema(IOptions<GenerateSettingsSchemaOptions> options, ILogger logger) : base(options, logger){
 		}
 
-		public int Invoke(InvocationContext context) {
-			throw new NotImplementedException();
-		}
-
-		public Task<int> InvokeAsync(InvocationContext context) {
+		public override Task<int> InvokeAsync(InvocationContext context) {
 			var settings = new SystemTextJsonSchemaGeneratorSettings {
 				SerializerOptions = new System.Text.Json.JsonSerializerOptions {
 					WriteIndented = true,

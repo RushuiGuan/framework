@@ -19,7 +19,7 @@ namespace Sample.CommandLine {
 		public FileInfo MyFile { get; set; } = null!;
 	}
 
-	public sealed partial class ColorCommand : IInitializable {
+	public sealed partial class ColorCommand : IRequireInitialization {
 		public void Init() {
 			this.Option_Data.AddCompletions("1", "2", "3");
 		}
