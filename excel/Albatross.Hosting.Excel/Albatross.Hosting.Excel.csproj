@@ -13,8 +13,7 @@
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
 		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
 		<ProjectReference Include="..\..\logging\Albatross.Logging\Albatross.Logging.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Albatross.Excel\Albatross.Excel.csproj" />
