@@ -4,6 +4,8 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/comandline/Albatross.CommandLine</PackageProjectUrl>
+		<Description>An integration library that provdes depedency injection, configuration and logging support for [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
