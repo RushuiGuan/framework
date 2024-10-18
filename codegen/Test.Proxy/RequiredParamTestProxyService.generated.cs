@@ -70,7 +70,7 @@ namespace Test.Proxy {
 			string path = $"{ControllerPath}/requried-datetime-as-dateonly";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", date.ISO8601StringDateOnly());
-			using (var request = this.CreateRequest(HttpMethod.Delete, path, queryString)) {
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				return await this.GetRawResponse(request);
 			}
 		}

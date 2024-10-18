@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Threading", "Albatross.Threading\Albatross.Threading.csproj", "{79916BDB-63E7-4F53-8CC2-4F2F95563675}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Thrading.Test", "Albatross.Threading.Test\Albatross.Thrading.Test.csproj", "{EB6E4AE6-A248-4EAD-8950-54B41D215DA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Threading.Test", "Albatross.Threading.Test\Albatross.Threading.Test.csproj", "{22B8288C-090E-477D-A5C6-E77DC3027D89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{79916BDB-63E7-4F53-8CC2-4F2F95563675}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79916BDB-63E7-4F53-8CC2-4F2F95563675}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79916BDB-63E7-4F53-8CC2-4F2F95563675}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB6E4AE6-A248-4EAD-8950-54B41D215DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB6E4AE6-A248-4EAD-8950-54B41D215DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB6E4AE6-A248-4EAD-8950-54B41D215DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB6E4AE6-A248-4EAD-8950-54B41D215DA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B8288C-090E-477D-A5C6-E77DC3027D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B8288C-090E-477D-A5C6-E77DC3027D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B8288C-090E-477D-A5C6-E77DC3027D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B8288C-090E-477D-A5C6-E77DC3027D89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

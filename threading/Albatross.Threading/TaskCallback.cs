@@ -7,7 +7,7 @@ namespace Albatross.Threading {
 		public object? Context { get; set; }
 		public Task<T> Task => taskCompletionSource.Task;
 		private TaskCompletionSource<T> taskCompletionSource = new TaskCompletionSource<T>();
-		private CancellationTokenRegistration cancellationTokenRegistration;
+		private CancellationTokenRegistration? cancellationTokenRegistration;
 
 		public TaskCallback() { }
 		public TaskCallback(CancellationToken cancellationToken) {
@@ -23,11 +23,11 @@ namespace Albatross.Threading {
 			});
 		}
 		public void SetException(Exception err) {
-			cancellationTokenRegistration.Dispose();
+			cancellationTokenRegistration?.Dispose();
 			taskCompletionSource.TrySetException(err);
 		}
 		public void SetResult(T obj) {
-			cancellationTokenRegistration.Dispose();
+			cancellationTokenRegistration?.Dispose();
 			taskCompletionSource.TrySetResult(obj);
 		}
 	}
@@ -35,7 +35,7 @@ namespace Albatross.Threading {
 		public object? Context { get; set; }
 		public Task Task => taskCompletionSource.Task;
 		private TaskCompletionSource<bool> taskCompletionSource = new TaskCompletionSource<bool>();
-		private CancellationTokenRegistration cancellationTokenRegistration;
+		private CancellationTokenRegistration? cancellationTokenRegistration;
 
 		public TaskCallback() { }
 		public TaskCallback(CancellationToken cancellationToken) {
@@ -51,11 +51,11 @@ namespace Albatross.Threading {
 			});
 		}
 		public void SetException(Exception err) {
-			cancellationTokenRegistration.Dispose();
+			cancellationTokenRegistration?.Dispose();
 			taskCompletionSource.TrySetException(err);
 		}
 		public void SetResult() {
-			cancellationTokenRegistration.Dispose();
+			cancellationTokenRegistration?.Dispose();
 			taskCompletionSource.TrySetResult(true);
 		}
 	}

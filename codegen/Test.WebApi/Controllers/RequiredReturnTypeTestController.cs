@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using Test.Dto.Classes;
+using System.Linq;
 
 namespace Test.WebApi.Controllers {
 	[Route("api/required-return-type")]
@@ -86,5 +87,8 @@ namespace Test.WebApi.Controllers {
 
 		[HttpGet("collection-return-type")]
 		public IEnumerable<MyDto> GetMyDtoCollection() => Array.Empty<MyDto>();
+
+		[HttpGet("async-collection-return-type")]
+		public IAsyncEnumerable<MyDto> GetMyDtoCollectionAsync() => AsyncEnumerable.Empty<MyDto>();
 	}
 }

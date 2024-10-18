@@ -211,6 +211,14 @@ namespace Test.Proxy {
 				return await this.GetRequiredJsonResponse<System.Collections.Generic.IEnumerable<Test.Dto.Classes.MyDto>>(request);
 			}
 		}
+
+		public async Task<System.Collections.Generic.IAsyncEnumerable<Test.Dto.Classes.MyDto>> GetMyDtoCollectionAsync() {
+			string path = $"{ControllerPath}/async-collection-return-type";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				return await this.GetRequiredJsonResponse<System.Collections.Generic.IAsyncEnumerable<Test.Dto.Classes.MyDto>>(request);
+			}
+		}
 	}
 }
 #nullable disable

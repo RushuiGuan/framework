@@ -22,6 +22,18 @@ namespace Albatross.Messaging.Commands {
 			this.routerServer = routerServer;
 			this.context = context;
 		}
+		/// <summary>
+		/// The InternalCommandClient can only submit commands that are fire and forget.  If the timeout is set and the caller awaits the result, 
+		/// the caller is waiting to ensure that the command has been received and processed by the router server queue. In the rare situation where 
+		/// the router server has a large amount of items on its queue, the returning task could wait for a while.  That is why a timeout value is 
+		/// required.  Keep in mind that the timeout is always a possibility.  If the timeout of 0 is set, await the task will return the id of the command
+		/// immediately.  The caller will not be waiting for anything.
+		/// </summary>
+		/// <param name="command"></param>
+		/// <param name="fireAndForget"></param>
+		/// <param name="timeout"></param>
+		/// <returns></returns>
+		/// <exception cref="NotSupportedException"></exception>
 		public Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 2000) {
 			var type = command.GetType();
 			if (fireAndForget) {
@@ -31,9 +43,15 @@ namespace Albatross.Messaging.Commands {
 				var id = routerServer.Counter.NextId();
 				context.InternalCommands.Add(id);
 				var request = new CommandRequest(context.Route, id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
-				var internalCmd = new InternalCommandWithCallback(request);
-				this.routerServer.SubmitToQueue(internalCmd);
-				return internalCmd.Task.WithTimeOut(TimeSpan.FromMilliseconds(timeout));
+				if (timeout == 0) {
+					var internalCmd = new InternalCommand(request);
+					this.routerServer.SubmitToQueue(internalCmd);
+					return Task.FromResult(id);
+				} else {
+					var internalCmd = new InternalCommandWithCallback(request);
+					this.routerServer.SubmitToQueue(internalCmd);
+					return internalCmd.Task.WithTimeOut(TimeSpan.FromMilliseconds(timeout));
+				}
 			} else {
 				throw new NotSupportedException();
 			}
