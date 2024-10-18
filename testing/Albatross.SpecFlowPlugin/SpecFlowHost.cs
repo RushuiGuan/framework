@@ -34,14 +34,14 @@ namespace Albatross.SpecFlowPlugin {
 				?? throw new InvalidOperationException($"Test Assembly {testAssembly.FullName} doesnot have a location");
 			this.Environment = EnvironmentSetting.DOTNET_ENVIRONMENT.Value;
 
-			var setupSerilog = new SetupSerilog().UseConfigFile(Environment, basePath, null);
+			var setupSerilog = new SetupSerilog().Configure(cfg => ConfigureSerilog(cfg, Environment, basePath));
 			this.logger = setupSerilog.Create();
 			logger.Information($"Creating SpecFlowHost {testAssembly.FullName} with env = {Environment}");
 
 			var hostBuilder = Host.CreateDefaultBuilder().UseSerilog();
 			this.configuration = new ConfigurationBuilder()
 				.SetBasePath(basePath!)
-				.AddJsonFile("appsettings.json", false, false)
+				.AddJsonFile("appsettings.json", true, false)
 				.AddJsonFile($"appsettings.{Environment}.json", true, false)
 				.AddEnvironmentVariables()
 				.Build();
@@ -52,6 +52,10 @@ namespace Albatross.SpecFlowPlugin {
 			}).ConfigureServices((context, services) => this.ConfigureServices(services, context.Configuration))
 			.Build();
 			Init();
+		}
+
+		protected virtual void ConfigureSerilog(LoggerConfiguration cfg, string environment, string basePath) {
+			SetupSerilog.UseConfigFile(cfg, environment, basePath, null);
 		}
 
 		public virtual void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
