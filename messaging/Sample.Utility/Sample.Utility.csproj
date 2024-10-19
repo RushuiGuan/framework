@@ -8,7 +8,17 @@
 		<Folder Include="Properties\" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\commandline\Albatross.Hosting.Utility\Albatross.Hosting.Utility.csproj" />
+		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+			<OutputItemType>Analyzer</OutputItemType>
+		</ProjectReference>
+		<ProjectReference Include="..\..\commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+			<OutputItemType>Analyzer</OutputItemType>
+		</ProjectReference>
+		<ProjectReference Include="..\..\commandline\Albatross.CommandLine\Albatross.CommandLine.csproj" />
 		<ProjectReference Include="..\Sample.Core\Sample.Core.csproj" />
 		<ProjectReference Include="..\Sample.Proxy\Sample.Proxy.csproj" />
 	</ItemGroup>

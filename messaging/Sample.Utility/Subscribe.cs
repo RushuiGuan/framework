@@ -1,27 +1,31 @@
-﻿using Albatross.Hosting.Utility;
-using CommandLine;
+﻿using Albatross.CommandLine;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Sample.Proxy;
-using System;
+using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Sample.Utility {
 
-	[Verb("sub")]
-	public class SubscribeOption : BaseOption {
-		[Option('o', "on")]
+	[Verb("sub", typeof(RunWithCallback))]
+	public class SubscribeOption {
+		[Option("o")]
 		public bool On { get; set; }
 
-		[Option('t', "topic", Required = true)]
+		[Option("t")]
 		public string Topic { get; set; } = string.Empty;
 	}
-	public class Subscribe : MyUtilityBase<SubscribeOption> {
-		public Subscribe(SubscribeOption option) : base(option) {
+	public class Subscribe : BaseHandler<SubscribeOption> {
+		private readonly RunProxyService svc;
+
+		public Subscribe(RunProxyService svc, IOptions<SubscribeOption> options, ILogger logger) : base(options, logger) {
+			this.svc = svc;
 		}
-		public async Task<int> RunUtility(RunProxyService svc) {
-			if (Options.On) {
-				await svc.Subscribe(Options.Topic);
+		public override async Task<int> InvokeAsync(InvocationContext context) {
+			if (options.On) {
+				await svc.Subscribe(options.Topic);
 			} else {
-				await svc.Unsubscribe(Options.Topic);
+				await svc.Unsubscribe(options.Topic);
 			}
 			return 0;
 		}

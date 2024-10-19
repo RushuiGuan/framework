@@ -1,17 +1,21 @@
-﻿using CommandLine;
+﻿using Albatross.CommandLine;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Sample.Core.Commands;
+using Sample.Proxy;
+using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Sample.Utility {
-	[Verb("test-custom-dealer-client")]
+	[Verb("test-custom-dealer-client", typeof(TestCustomDealerClientSetup))]
 	public class TestCustomDealerClientSetupOption : MyBaseOption {
 	}
-	public class TestCustomDealerClientSetup : MyUtilityBase<TestCustomDealerClientSetupOption> {
-		public TestCustomDealerClientSetup(TestCustomDealerClientSetupOption option) : base(option) {
+	public class TestCustomDealerClientSetup : MyBaseHandler<TestCustomDealerClientSetupOption> {
+		public TestCustomDealerClientSetup(CommandProxyService commandProxy, IOptions<TestCustomDealerClientSetupOption> options, ILogger logger) : base(commandProxy, options, logger) {
 		}
-		public async Task<int> RunUtility(Proxy.CommandProxyService client, ILogger<TestCustomDealerClientSetup> logger) {
-			await client.SubmitSystemCommand(new MyCommand1("test command 1"));
+
+		public override async Task<int> InvokeAsync(InvocationContext context) {
+			await commandProxy.SubmitSystemCommand(new MyCommand1("test command 1"));
 			logger.LogInformation("Existing command");
 			return 0;
 		}

@@ -1,37 +1,80 @@
 param(
 	[Parameter(Position=0)]
 	[string]$project,
-	[switch]
-	[bool]$alias
+	[switch][bool]$skip,
+	[switch][bool]$run
 )
 $InformationPreference = "Continue";
 $install = $env:InstallDirectory;
 
-if(-not $alias) {
+function StopProcessAndWait($processName){
+	$process = Get-Process -Name $processName -ErrorAction Ignore
+	if($process){
+		Write-Information "Stopping process $processName";
+		do{
+			Stop-Process -Name $processName -Force -ErrorAction Ignore;
+			Start-Sleep -Seconds 1;
+		}while(Get-Process -Name $processName -ErrorAction Ignore)
+		Write-Output $processName;
+	}
+}
+
 	$projects = @(
-		"albatross.messaging.utility",
-		"sample.utility"
-		,"sample.webapi"
-		,"sample.daemon"
+		"Albatross.Messaging.Utility"
+		` "Sample.WebApi"
+		` "Sample.Utility"
+		` "Sample.Daemon"
 	);
+
+
+	$serviceProjects =@(
+		"Sample.WebApi"	
+		` "Sample.Daemon"
+	);
+
+	$autoRestartProjects = @();	
 
 	if(-not [string]::IsNullOrEmpty($project)){
 		$projects = $projects | Where-Object { $_ -like "*$project" }
 	}
-	
-	foreach($item in $projects){
-		if(Test-Path "$install/$item" -type Container){
-			Write-Information "Deleting $item";
- 			Get-ChildItem $install\$item | Remove-Item -Recurse -Force;
+
+	if(-not $skip) {
+		foreach($item in $projects){
+			if($serviceProjects -contains $item){
+				StopProcessAndWait $item | ForEach-Object { $autoRestartProjects += $_ }
+			}
+
+			if(Test-Path "$install/$item" -type Container){
+				Write-Information "Deleting $item";
+ 				Get-ChildItem $install\$item | Remove-Item -Recurse -Force;
+			}
+		}
+
+		dotnet restore $PSScriptRoot
+		foreach($project in $projects){
+			dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c release
 		}
 	}
 
-	dotnet restore $PSScriptRoot
-	foreach($project in $projects){
-		"Building $project";
-		dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c debug --no-restore
+	$projects2Run = @();
+	if($run){
+		$projects2Run = $serviceProjects;
+	}else{
+		$projects2Run = $autoRestartProjects;
 	}
-}
+
+	if($projects2Run.Length -gt 0){
+		$hasTab = $false;
+		$projects2Run | ForEach-Object {
+			Write-Information "Starting $_";
+			if($hasTab){
+				wt -w 0 split-pane --title $_ -d $PSScriptRoot $env:InstallDirectory\$_\$_.exe
+			}else{
+				wt -w 0 new-tab --title $_ -d $PSScriptRoot $env:InstallDirectory\$_\$_.exe
+				$hasTab = $true;
+			}
+		}
+	}
 
 set-alias -name sample-messaging -Value $env:InstallDirectory\sample.utility\sample.utility.exe
 set-alias -name sample-messaging-webapi -Value $env:InstallDirectory\sample.webapi\sample.webapi.exe
