@@ -31,6 +31,10 @@
     "bad-cmd": {
       "commandName": "Project",
       "commandLineArgs": "bad-cmd"
+    },
+    "effiency-test": {
+      "commandName": "Project",
+      "commandLineArgs": "efficiency-test -f .\\Sample.Utility\\TestCases\\SingleIOBound-callback.json"
     }
   }
 }

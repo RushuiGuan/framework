@@ -16,6 +16,7 @@ namespace Sample.CommandHandlers {
 
 		public override async Task Handle(EfficiencyTestComand command) {
 			if (command.CPUBound) {
+				logger.LogInformation("Running cpu bound task");
 				Stopwatch stopwatch = Stopwatch.StartNew();
 				int counter = 0;
 				while (stopwatch.Elapsed.TotalMilliseconds < command.Duration) {
@@ -25,6 +26,7 @@ namespace Sample.CommandHandlers {
 					}
 				}
 			} else {
+				logger.LogInformation("Running io bound task");
 				await Task.Delay(command.Duration);
 			}
 

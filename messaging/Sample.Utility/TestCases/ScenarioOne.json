@@ -1,0 +1,16 @@
+[
+	{
+		"cpuBound": false,
+		"duration": 1000,
+		"subCommandCount": 100,
+		"subCommand": {
+			"cpuBound": true,
+			"duration": 5000,
+			"subCommandCount": 100,
+			"subCommand": {
+				"cpuBound": true,
+				"duration": 2000
+			}
+		}
+	}
+]

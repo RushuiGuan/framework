@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Albatross.Messaging.Utility": {
+      "commandName": "Project",
+      "commandLineArgs": "seek -p sample.daemon -i 200002"
+    }
+  }
+}

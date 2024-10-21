@@ -2,6 +2,7 @@
 using Albatross.CommandLine;
 using Albatross.Messaging.EventSource;
 using Albatross.Messaging.Messages;
+using Albatross.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -19,8 +20,11 @@ namespace Albatross.Messaging.Utility {
 		[Option("l")]
 		public string? ProjectLocation { get; set; }
 
-		[Option("i", "id")]
-		public ulong Id { get; set; }
+		[Option("s")]
+		public DateTime Start { get; set; }
+
+		[Option("t")]
+		public string CommandType { get; set; } = string.Empty;
 	}
 	public class Measure : BaseHandler<Measureoptions> {
 		private readonly IMessageFactory messageFactory;
@@ -30,7 +34,7 @@ namespace Albatross.Messaging.Utility {
 		}
 
 		public override async Task<int> InvokeAsync(InvocationContext context) {
-			List<MessageGroup> result = new List<MessageGroup>();
+			Dictionary<ulong, MessageGroup> result = new Dictionary<ulong, MessageGroup>();
 			if (!string.IsNullOrEmpty(options.Project)) {
 				string folder;
 				if (string.IsNullOrEmpty(options.ProjectLocation)) {
@@ -39,35 +43,37 @@ namespace Albatross.Messaging.Utility {
 					folder = System.IO.Path.Combine(options.ProjectLocation, options.Project);
 				}
 				foreach (var file in System.IO.Directory.EnumerateFiles(folder, "*.log")) {
-					var msg = await SearchFile(file, messageFactory);
-					result.AddIfNotNull(msg);
+					await SearchFile(result, file, messageFactory);
 				}
 			}
-			foreach (var group in result) {
-				await group.Write(Console.Out);
-			}
+			await this.writer.PrintTable(result.Values, new PrintOptionBuilder<PrintTableOption>()
+				.Property(nameof(MessageGroup.Id), 
+					nameof(MessageGroup.Type), 
+					nameof(MessageGroup.Mode), 
+					nameof(MessageGroup.Client), 
+					nameof(MessageGroup.RequestAckDuration), 
+					nameof(MessageGroup.ReplyDuration), 
+					nameof(MessageGroup.ReplyAckDuration), 
+					nameof(MessageGroup.Sequence))
+				.Build());
 			return 0;
 		}
 
-		async Task<MessageGroup?> SearchFile(string file, IMessageFactory messageFactory) {
-			MessageGroup? message = null;
+		async Task SearchFile(Dictionary<ulong, MessageGroup> dict, string file, IMessageFactory messageFactory) {
 			using var stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			using (var reader = new StreamReader(stream)) {
 				while (!reader.EndOfStream) {
 					var line = await reader.ReadLineAsync();
 					if (line != null) {
 						if (EventEntry.TryParseLine(messageFactory, line, out var entry)) {
-							if (options.Id == entry.Message.Id) {
-								if (message == null) {
-									message = new MessageGroup(entry.Message.Route ?? string.Empty, entry.Message.Id);
-								}
-								message.Add(entry);
+							if (entry.TimeStamp >= options.Start) {
+								var msg = dict.GetOrAdd(entry.Message.Id, () => new MessageGroup(entry.Message.Route ?? string.Empty, entry.Message.Id));
+								msg.Add(entry);
 							}
 						}
 					}
 				}
 			}
-			return message;
 		}
 	}
 }

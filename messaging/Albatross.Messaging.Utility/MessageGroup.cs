@@ -34,17 +34,17 @@ namespace Albatross.Messaging.Utility {
 		public string Mode => this.request?.Message?.Mode.ToString() ?? string.Empty;
 
 		public string RequestPayLoad => this.request?.Message?.Payload.ToUtf8String() ?? string.Empty;
-		public int? RequestAckDuration => (this.requestAck?.Entry.TimeStamp - this.request?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
-		public int RequestErrorDuration => (this.requestError?.Entry.TimeStamp - this.request?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
+		public double RequestAckDuration => (this.requestAck?.Entry.TimeStamp - this.request?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
+		public double RequestErrorDuration => (this.requestError?.Entry.TimeStamp - this.requestAck?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
 		public string RequestErrorMessage => this.requestError?.Message?.Message.ToUtf8String() ?? string.Empty;
 
 		public string ReplyPayLoad => this.reply?.Message?.Payload.ToUtf8String() ?? string.Empty;
-		public int? ReplyDuration => (this.reply?.Entry.TimeStamp - this.requestAck?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
-		public int? ReplyAckDuration => (this.clientAck?.Entry.TimeStamp - this.reply?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
+		public double ReplyDuration => (this.reply?.Entry.TimeStamp - this.requestAck?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
+		public double ReplyAckDuration => (this.clientAck?.Entry.TimeStamp - this.reply?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
 		
 		public string ReplyErrorMessage => this.errorReply?.Message?.Message.ToUtf8String() ?? string.Empty;
-		public int? ReplyErrorDuration => (this.errorReply?.Entry.TimeStamp - this.requestAck?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
-		public int? ReplyErrorAckDuration => (this.clientAck?.Entry.TimeStamp - this.errorReply?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
+		public double ReplyErrorDuration => (this.errorReply?.Entry.TimeStamp - this.request?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
+		public double ReplyErrorAckDuration => (this.clientAck?.Entry.TimeStamp - this.errorReply?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
 		public string? Sequence { get; set; }
 
 
@@ -71,7 +71,7 @@ namespace Albatross.Messaging.Utility {
 				} else if (entry.Message is ClientAck) {
 					this.clientAck = new EventEntry<ClientAck>(entry);
 				} else {
-					throw new ArgumentException($"Unknown message type: {entry.Message.GetType().Name}");
+					// throw new ArgumentException($"Unknown message type: {entry.Message.GetType().Name}");
 				}
 			} else {
 				throw new ArgumentException();
