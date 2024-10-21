@@ -50,7 +50,7 @@ namespace Albatross.Messaging.Commands {
 	}
 	
 	public interface ITaskCallbackCommandClient {
-		Task SubmitWithCallback(object command, int timeout = 2000);
+		Task<ulong> SubmitWithCallback(object command, int timeout = 2000);
 		Task<T?> SubmitWithCallback<T>(object command, int timeout = 2000);
 	}
 
@@ -69,10 +69,11 @@ namespace Albatross.Messaging.Commands {
 			return callback;
 		}
 
-		public async Task SubmitWithCallback(object command, int timeout = 2000) {
+		public async Task<ulong> SubmitWithCallback(object command, int timeout = 2000) {
 			ulong id = await base.Submit(command, false, timeout);
 			var callback = GetCallback(id);
 			await callback.Task;
+			return id;
 		}
 		public async Task<T?> SubmitWithCallback<T>(object command, int timeout = 2000) {
 			ulong id = await base.Submit(command, false, timeout);

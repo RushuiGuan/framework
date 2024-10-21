@@ -15,6 +15,9 @@ namespace Sample.Utility {
 
 		[Option("v")]
 		public int? Value { get; set; }
+
+		[Option("c")]
+		public bool Callback { get; set; }
 	}
 	public class RunCommandWithResult : BaseHandler<RunCommandWithResultOptions> {
 		private readonly CommandProxyService client;
@@ -25,8 +28,10 @@ namespace Sample.Utility {
 		public override async Task<int> InvokeAsync(InvocationContext context) {
 			var cmd = new TestOperationWithResultCommand(options.Name) {
 				Value = options.Value ?? new Random().Next(),
+				Callback = options.Callback,
 			};
-			await client.SubmitSystemCommand(cmd);
+			var id = await client.SubmitSystemCommand(cmd);
+			writer.WriteLine($"Command submitted with id {id}");
 			return 0;
 		}
 	}

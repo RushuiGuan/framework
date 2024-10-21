@@ -14,26 +14,26 @@ namespace Sample.WebApi.Controllers {
 		}
 
 		[HttpPost("system")]
-		public async Task SubmitSystemCommand([FromBody] ISystemCommand systemCommand) {
+		public async Task<ulong> SubmitSystemCommand([FromBody] ISystemCommand systemCommand) {
 			if (systemCommand.Callback) {
-				await this.commandClient.SubmitWithCallback(systemCommand);
+				return await this.commandClient.SubmitWithCallback(systemCommand);
 			} else {
-				await this.commandClient.Submit(systemCommand);
+				return await this.commandClient.Submit(systemCommand);
 			}
 		}
 
 		[HttpPost("app")]
-		public async Task SubmitAppCommand([FromBody] IApplicationCommand applicationCommand) {
-			await this.commandClient.SubmitWithCallback(applicationCommand);
+		public async Task<ulong> SubmitAppCommand([FromBody] IApplicationCommand applicationCommand) {
+			return await this.commandClient.SubmitWithCallback(applicationCommand);
 		}
 
 
 		[HttpPost("command-serialization-error-test")]
-		public async Task CommandSerializationErrorTest(bool callback) {
+		public async Task<ulong> CommandSerializationErrorTest(bool callback) {
 			if (callback) {
-				await this.commandClient.SubmitWithCallback(new SerializationErrorTestCommand("a", "b"));
+				return await this.commandClient.SubmitWithCallback(new SerializationErrorTestCommand("a", "b"));
 			} else {
-				await this.commandClient.Submit(new SerializationErrorTestCommand("a", "b"));
+				return await this.commandClient.Submit(new SerializationErrorTestCommand("a", "b"));
 			}
 		}
 	}
