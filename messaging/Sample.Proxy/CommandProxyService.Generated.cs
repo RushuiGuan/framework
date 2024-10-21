@@ -27,6 +27,15 @@ namespace Sample.Proxy {
 				await this.GetRawResponse(request);
 			}
 		}
+
+		public async Task CommandSerializationErrorTest(System.Boolean callback) {
+			string path = $"{ControllerPath}/command-serialization-error-test";
+			var queryString = new NameValueCollection();
+			queryString.Add("callback", $"{callback}");
+			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
 	}
 }
 #nullable disable

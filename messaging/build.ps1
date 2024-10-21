@@ -76,7 +76,7 @@ function StopProcessAndWait($processName){
 		}
 	}
 
-set-alias -name sample-messaging -Value $env:InstallDirectory\sample.utility\sample.utility.exe
+set-alias -name sample -Value $env:InstallDirectory\sample.utility\sample.exe
 set-alias -name sample-messaging-webapi -Value $env:InstallDirectory\sample.webapi\sample.webapi.exe
 set-alias -name sample-messaging-daemon -Value $env:InstallDirectory\sample.daemon\sample.daemon.exe
 set-alias -name msg -Value $env:InstallDirectory\albatross.messaging.utility\msg.exe

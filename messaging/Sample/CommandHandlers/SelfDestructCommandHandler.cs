@@ -1,7 +1,6 @@
 ﻿using Albatross.Messaging.Commands;
 using Microsoft.Extensions.Logging;
 using Sample.Core.Commands;
-using System;
 using System.Threading.Tasks;
 
 namespace Sample.CommandHandlers {
@@ -13,22 +12,10 @@ namespace Sample.CommandHandlers {
 		}
 
 		public override async Task Handle(SelfDestructCommand command) {
-			var selfDestruct = false;
-			var diff = DateTime.Now.Ticks - command.Tick;
-			logger.LogInformation("clock is {diff}", diff);
-			var gap = 10000000;
-			if (diff < gap) {
-				selfDestruct = true;
-			}
-			if (selfDestruct) {
-				logger.LogInformation("Self destructing in {delay} second", command.Delay);
-				if (command.Delay > 0) {
-					await Task.Delay(command.Delay * 1000);
-				}
-				System.Diagnostics.Process.GetCurrentProcess().Kill();
-			} else {
-				logger.LogInformation("Skip because {diff} >= {gap}", diff, gap);
-			}
+			var delay = command.Delay ?? 3;
+			logger.LogInformation("Self destructing in {delay} second", delay);
+			await Task.Delay(delay * 1000);
+			System.Diagnostics.Process.GetCurrentProcess().Kill();
 		}
 	}
 }

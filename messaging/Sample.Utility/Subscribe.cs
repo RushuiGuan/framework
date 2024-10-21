@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Utility {
 
-	[Verb("sub", typeof(RunWithCallback))]
+	[Verb("sub", typeof(Subscribe))]
 	public class SubscribeOption {
 		[Option("o")]
 		public bool On { get; set; }

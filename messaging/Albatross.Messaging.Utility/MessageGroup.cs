@@ -22,23 +22,30 @@ namespace Albatross.Messaging.Utility {
 			Id = id;
 		}
 		EventEntry<CommandRequest>? request;
+		EventEntry<CommandRequestAck>? requestAck;
+		EventEntry<CommandRequestError>? requestError;
 		EventEntry<CommandReply>? reply;
 		EventEntry<CommandErrorReply>? errorReply;
-		EventEntry<CommandRequestError>? requestError;
-		EventEntry<CommandRequestAck>? requestAck;
 		EventEntry<ClientAck>? clientAck;
 
 		public ulong Id { get; set; }
 		public string Client { get; set; }
 		public string Type => this.request?.Message?.CommandType ?? string.Empty;
 		public string Mode => this.request?.Message?.Mode.ToString() ?? string.Empty;
+
 		public string RequestPayLoad => this.request?.Message?.Payload.ToUtf8String() ?? string.Empty;
-		public string ReplyPayLoad => this.reply?.Message?.Payload.ToUtf8String() ?? string.Empty;
-		public string ErrorMessage => this.errorReply?.Message?.Message.ToUtf8String() ?? this.requestError?.Message?.Message.ToUtf8String() ?? string.Empty;
-		public string Sequence { get; set; }
 		public int? RequestAckDuration => (this.requestAck?.Entry.TimeStamp - this.request?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
+		public int RequestErrorDuration => (this.requestError?.Entry.TimeStamp - this.request?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
+		public string RequestErrorMessage => this.requestError?.Message?.Message.ToUtf8String() ?? string.Empty;
+
+		public string ReplyPayLoad => this.reply?.Message?.Payload.ToUtf8String() ?? string.Empty;
 		public int? ReplyDuration => (this.reply?.Entry.TimeStamp - this.requestAck?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
 		public int? ReplyAckDuration => (this.clientAck?.Entry.TimeStamp - this.reply?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
+		
+		public string ReplyErrorMessage => this.errorReply?.Message?.Message.ToUtf8String() ?? string.Empty;
+		public int? ReplyErrorDuration => (this.errorReply?.Entry.TimeStamp - this.requestAck?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
+		public int? ReplyErrorAckDuration => (this.clientAck?.Entry.TimeStamp - this.errorReply?.Entry.TimeStamp).GetValueOrDefault().Milliseconds;
+		public string? Sequence { get; set; }
 
 
 		public List<EventEntry> Entries { get; } = new List<EventEntry>();
@@ -71,39 +78,34 @@ namespace Albatross.Messaging.Utility {
 			}
 		}
 
-		PrintTableOption printTableOption = new PrintOptionBuilder<PrintTableOption>()
-			.Property(nameof(Id),
+		PrintPropertiesOption BuildPrintOptions() {
+			var fields = new List<string> {
 				nameof(Client),
 				nameof(Type),
 				nameof(Mode),
 				nameof(RequestPayLoad),
-				nameof(RequestAckDuration),
-				nameof(ReplyPayLoad),
-				nameof(ReplyDuration),
-				nameof(ReplyAckDuration),
-				nameof(ErrorMessage),
-				nameof(Sequence)
-			).Build();
-
-		PrintPropertiesOption printOption = new PrintOptionBuilder<PrintPropertiesOption>()
-			.Property(nameof(Id),
-				nameof(Client),
-				nameof(Type),
-				nameof(Mode),
-				nameof(RequestPayLoad),
-				nameof(RequestAckDuration),
-
-				nameof(ReplyPayLoad),
-				nameof(ReplyDuration),
-				nameof(ReplyAckDuration),
-
-				nameof(ErrorMessage),
-				nameof(Sequence)
-			)
-			.Build();
+			};
+			if (requestError != null) {
+				fields.Add(nameof(RequestErrorDuration));
+				fields.Add(nameof(RequestErrorMessage));
+			} else {
+				fields.Add(nameof(RequestAckDuration));
+			}
+			if (errorReply != null) {
+				fields.Add(nameof(ReplyErrorMessage));
+				fields.Add(nameof(ReplyErrorDuration));
+				fields.Add(nameof(ReplyErrorAckDuration));
+			} else {
+				fields.Add(nameof(ReplyPayLoad));
+				fields.Add(nameof(ReplyDuration));
+				fields.Add(nameof(ReplyAckDuration));
+			};
+			fields.Add(nameof(Sequence));
+			return new PrintOptionBuilder<PrintPropertiesOption>().Property(fields.ToArray()).Build();
+		}
 
 		public async Task Write(TextWriter writer) {
-			await writer.PrintProperties(this, this.printOption);
+			await writer.PrintProperties(this, this.BuildPrintOptions());
 		}
 	}
 }

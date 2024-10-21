@@ -3,6 +3,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<OutputType>Exe</OutputType>
 		<Nullable>enable</Nullable>
+		<AssemblyName>sample</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Remove="EfficiencyTestCases\**" />

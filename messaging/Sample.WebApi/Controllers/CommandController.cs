@@ -1,5 +1,5 @@
-﻿using Albatross.Messaging.Commands;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Sample.Core.Commands;
 using Sample.Core.Commands.MyOwnNameSpace;
 using System.Threading.Tasks;
 
@@ -25,6 +25,16 @@ namespace Sample.WebApi.Controllers {
 		[HttpPost("app")]
 		public async Task SubmitAppCommand([FromBody] IApplicationCommand applicationCommand) {
 			await this.commandClient.SubmitWithCallback(applicationCommand);
+		}
+
+
+		[HttpPost("command-serialization-error-test")]
+		public async Task CommandSerializationErrorTest(bool callback) {
+			if (callback) {
+				await this.commandClient.SubmitWithCallback(new SerializationErrorTestCommand("a", "b"));
+			} else {
+				await this.commandClient.Submit(new SerializationErrorTestCommand("a", "b"));
+			}
 		}
 	}
 }
