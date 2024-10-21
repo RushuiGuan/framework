@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Sample.Core.Commands {
 	public record class EfficiencyTestComand : ISystemCommand {
+		public bool Callback { get; set; }
+
 		public int Id { get; set; }
 		/// <summary>
 		/// Duration in ms
@@ -16,9 +18,9 @@ namespace Sample.Core.Commands {
 		/// <summary>
 		/// If true, perform CPU intensive operations.  Otherwise run Task.Sleep
 		/// </summary>
-		public bool CPUIntensive { get; set; }
+		public bool CPUBound { get; set; }
 
-		public EfficiencyTestComand SubCommand { get; set; } = new EfficiencyTestComand();
+		public EfficiencyTestComand? SubCommand { get; set; }
 		public int SubCommandCount { get; set; }
 	}
 }

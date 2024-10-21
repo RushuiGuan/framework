@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,15 +89,15 @@ namespace Albatross.CodeAnalysis.Symbols {
 		/// <param name="symbol"></param>
 		/// <returns></returns>
 		public static bool IsCollection(this ITypeSymbol symbol) {
-			if(symbol.SpecialType == SpecialType.System_String) {
+			if (symbol.SpecialType == SpecialType.System_String) {
 				return false;
-			}else if (symbol is IArrayTypeSymbol) {
+			} else if (symbol is IArrayTypeSymbol) {
 				return true;
 			} else {
 				return symbol.GetFullName() == My.IEnumerable || symbol.AllInterfaces.Any(x => x.GetFullName() == My.IEnumerable);
 			}
 		}
-		
+
 		public static string GetFullName(this ITypeSymbol symbol) {
 			string fullName;
 			if (symbol is IArrayTypeSymbol arraySymbol) {
@@ -177,11 +178,16 @@ namespace Albatross.CodeAnalysis.Symbols {
 
 		public static IEnumerable<IPropertySymbol> GetDistinctProperties(this INamedTypeSymbol symbol, bool useBaseClassProperties) {
 			var set = new HashSet<string>();
-			foreach(var item in symbol.GetProperties(useBaseClassProperties)) {
+			foreach (var item in symbol.GetProperties(useBaseClassProperties)) {
 				if (set.Add(item.Name)) {
 					yield return item;
 				}
 			}
+		}
+
+		public static bool IsPartial(this INamedTypeSymbol symbol) {
+			return symbol.DeclaringSyntaxReferences.Select(x => x.GetSyntax())
+				.OfType<InterfaceDeclarationSyntax>().Any(x => x.Modifiers.Any(SyntaxKind.PartialKeyword));
 		}
 	}
 }

@@ -43,7 +43,7 @@ namespace Albatross.CommandLine {
 				return 2;
 			}
 			if (handler == null) {
-				logger.LogError("No CommandHandler is not registered for Command {command}", command.Name);
+				logger.LogError("No CommandHandler is registered for Command {command}", command.Name);
 				return 1;
 			} else {
 				Stopwatch? stopwatch;

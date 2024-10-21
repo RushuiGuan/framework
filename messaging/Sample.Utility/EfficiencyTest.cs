@@ -19,7 +19,7 @@ namespace Sample.Utility {
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {
 			using var stream = this.options.InputFile.OpenRead();
-			var command = await JsonSerializer.DeserializeAsync<EfficiencyTestComand>(stream);
+			var command = await JsonSerializer.DeserializeAsync<EfficiencyTestComand>(stream, Albatross.Serialization.ReducedFootprintJsonSettings.Value.Default);
 			if (command != null) {
 				await this.commandProxy.SubmitSystemCommand(command);
 			}

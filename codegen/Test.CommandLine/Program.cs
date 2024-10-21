@@ -4,10 +4,8 @@ using System.CommandLine.Parsing;
 
 namespace Test.CommandLine {
 	internal class Program {
-		static async Task<int> Main(string[] args) {
-			var setup = new MySetup().AddCommands();
-			var parser = setup.CommandBuilder.Build();
-			return await parser.InvokeAsync(args);
+		static Task<int> Main(string[] args) {
+			return new MySetup().AddCommands().CommandBuilder.Build().InvokeAsync(args);
 		}
 	}
 }

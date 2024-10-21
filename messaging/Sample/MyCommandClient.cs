@@ -3,19 +3,13 @@ using Albatross.Messaging.Commands;
 using Microsoft.Extensions.Logging;
 
 namespace Sample {
-	public class MyCommandClient : CallbackCommandClient {
+	public interface IMyCommandClient : ITaskCallbackCommandClient, ICommandClient { }
+	public class MyCommandClient : TaskCallbackCommandClient, IMyCommandClient {
 		private readonly ILogger<MyCommandClient> logger;
 
-		public MyCommandClient(ILogger<MyCommandClient> logger, MyDealerClientBuilder builder) : base(builder.DealerClient, builder.CommandClientService) {
+		public MyCommandClient(ILogger<MyCommandClient> logger, MyDealerClientBuilder builder)
+			: base(builder.DealerClient, builder.CommandClientService) {
 			this.logger = logger;
-		}
-
-		public override void OnCommandCallback(ulong id, string commandType, byte[] message) {
-			logger.LogInformation("success callback: {id}, {type}, {msg}", id, commandType, message.ToUtf8String());
-		}
-
-		public override void OnCommandErrorCallback(ulong id, string commandType, string errorType, byte[] message) {
-			logger.LogInformation("failure callback: {id}, {type}, {errorType} {msg}", id, commandType, errorType, message.ToUtf8String());
 		}
 	}
 }

@@ -1,6 +1,5 @@
 using System;
 using Albatross.Config;
-using Albatross.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,9 +17,7 @@ namespace Sample.WebApi {
 
 		public override void ConfigureServices(IServiceCollection services) {
 			base.ConfigureServices(services);
-			services.AddDefaultMessagingClient();
 			services.AddCustomMessagingClient();
-			services.AddControllers(options => options.InputFormatters.Add(new PlainTextInputFormatter()));
 		}
 
 		public override async void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Albatross.Hosting.Startup> logger) {

@@ -1,3 +1,4 @@
+using Albatross.Dates;
 using Albatross.WebClient;
 using Microsoft.Extensions.Logging;
 using System.Collections.Specialized;
@@ -14,8 +15,7 @@ namespace Sample.Proxy {
 		public async Task SubmitSystemCommand(Sample.Core.Commands.MyOwnNameSpace.ISystemCommand systemCommand) {
 			string path = $"{ControllerPath}/system";
 			var queryString = new NameValueCollection();
-			queryString.Add("systemCommand", $"{systemCommand}");
-			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
+			using (var request = this.CreateJsonRequest<Sample.Core.Commands.MyOwnNameSpace.ISystemCommand>(HttpMethod.Post, path, queryString, systemCommand)) {
 				await this.GetRawResponse(request);
 			}
 		}
@@ -23,8 +23,7 @@ namespace Sample.Proxy {
 		public async Task SubmitAppCommand(Sample.Core.Commands.MyOwnNameSpace.IApplicationCommand applicationCommand) {
 			string path = $"{ControllerPath}/app";
 			var queryString = new NameValueCollection();
-			queryString.Add("applicationCommand", $"{applicationCommand}");
-			using (var request = this.CreateRequest(HttpMethod.Post, path, queryString)) {
+			using (var request = this.CreateJsonRequest<Sample.Core.Commands.MyOwnNameSpace.IApplicationCommand>(HttpMethod.Post, path, queryString, applicationCommand)) {
 				await this.GetRawResponse(request);
 			}
 		}

@@ -1,5 +1,4 @@
 ﻿using Albatross.Messaging.Commands;
-using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 using Sample.Core.Commands;
 using System.Diagnostics;
@@ -10,13 +9,13 @@ namespace Sample.CommandHandlers {
 		private readonly ILogger<EfficiencyTestComandHandler> logger;
 		private readonly ICommandClient client;
 
-		public EfficiencyTestComandHandler(ILogger<EfficiencyTestComandHandler> logger, ICommandClient client) {
+		public EfficiencyTestComandHandler(ILogger<EfficiencyTestComandHandler> logger, InternalCommandClient client) {
 			this.logger = logger;
 			this.client = client;
 		}
 
 		public override async Task Handle(EfficiencyTestComand command) {
-			if (command.CPUIntensive) {
+			if (command.CPUBound) {
 				Stopwatch stopwatch = Stopwatch.StartNew();
 				int counter = 0;
 				while (stopwatch.Elapsed.TotalMilliseconds < command.Duration) {

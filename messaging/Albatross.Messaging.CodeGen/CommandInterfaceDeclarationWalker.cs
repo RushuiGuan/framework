@@ -1,7 +1,9 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Albatross.CodeAnalysis.Symbols;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Albatross.Messaging.CodeGen {
@@ -15,10 +17,14 @@ namespace Albatross.Messaging.CodeGen {
 		}
 
 		public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node) {
-			if(node.Modifiers.Any(SyntaxKind.PartialKeyword)) {
+			if (node.Modifiers.Any(SyntaxKind.PartialKeyword)) {
 				var interfaceSymbol = semanticModel.GetDeclaredSymbol(node) as INamedTypeSymbol;
-				if (interfaceSymbol != null && regex.IsMatch(interfaceSymbol.Name) && interfaceSymbol.GetMembers().IsEmpty) {
-					Results.Add(interfaceSymbol);
+				if (interfaceSymbol != null && interfaceSymbol.IsPartial()) {
+					if (interfaceSymbol.GetAttributes().Any(x => x.AttributeClass?.Name.EndsWith("CommandInterfaceAttribute") == true)) {
+						Results.Add(interfaceSymbol);
+					} else if (interfaceSymbol != null && regex.IsMatch(interfaceSymbol.Name) && interfaceSymbol.GetMembers().IsEmpty) {
+						Results.Add(interfaceSymbol);
+					}
 				}
 			}
 			base.VisitInterfaceDeclaration(node);

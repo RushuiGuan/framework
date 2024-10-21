@@ -11,6 +11,7 @@ namespace Sample.Core.Commands {
 		public string Name { get; set; }
 		public int Delay { get; set; }
 		public bool Error { get; set; }
+		public bool Callback => true;
 		public List<MyCommand2> Commands { get; set; } = new List<MyCommand2>();
 	}
 
@@ -23,6 +24,7 @@ namespace Sample.Core.Commands {
 		public string Name { get; set; }
 		public int Delay { get; set; }
 		public bool Error { get; set; }
+		public bool Callback => true;
 		public List<MyCommand1> Commands { get; set; } = new List<MyCommand1>();
 	}
 
@@ -34,6 +36,7 @@ namespace Sample.Core.Commands {
 		public string Name { get; set; }
 		public int Delay { get; set; }
 		public bool Error { get; set; }
+		public bool Callback => true;
 		public List<MyCommand1> Commands { get; set; } = new List<MyCommand1>();
 	}
 
@@ -41,6 +44,7 @@ namespace Sample.Core.Commands {
 		public MyResult(string name) {
 			Name = name;
 		}
+		public bool Callback => true;
 		public string Name { get; set; }
 	}
 
@@ -48,5 +52,6 @@ namespace Sample.Core.Commands {
 	public record class SelfDestructCommand : ISystemCommand {
 		public long Tick { get; set; }
 		public int Delay { get; set; }
+		public bool Callback => true;
 	}
 }

@@ -5,6 +5,12 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="EfficiencyTestCases\**" />
+	  <Content Remove="EfficiencyTestCases\**" />
+	  <EmbeddedResource Remove="EfficiencyTestCases\**" />
+	  <None Remove="EfficiencyTestCases\**" />
+	</ItemGroup>
+	<ItemGroup>
 		<Folder Include="Properties\" />
 	</ItemGroup>
 	<ItemGroup>

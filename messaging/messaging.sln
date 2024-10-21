@@ -48,6 +48,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CommandLine.CodeG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CommandLine", "..\commandline\Albatross.CommandLine\Albatross.CommandLine.csproj", "{06A56532-93CA-42C0-A4B4-0EA6CD39324C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Text", "..\text\Albatross.Text\Albatross.Text.csproj", "{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +132,10 @@ Global
 		{06A56532-93CA-42C0-A4B4-0EA6CD39324C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06A56532-93CA-42C0-A4B4-0EA6CD39324C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A56532-93CA-42C0-A4B4-0EA6CD39324C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,6 +150,7 @@ Global
 		{5A7116F7-9434-4CDF-86EE-EA50A80DA72F} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
 		{461B23C5-A31E-44A2-9D13-80CD2AE86FCA} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
 		{06A56532-93CA-42C0-A4B4-0EA6CD39324C} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
+		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93B8E026-8109-4C54-A58E-FC6B8A0022E8}

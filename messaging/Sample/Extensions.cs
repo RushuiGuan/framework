@@ -18,7 +18,7 @@ namespace Sample {
 		public static IServiceCollection AddCustomMessagingClient(this IServiceCollection services) {
 			services.TryAddSingleton<IMessageFactory, MessageFactory>();
 			services.AddConfig<MessagingConfiguration>();
-			services.TryAddSingleton<ICommandClient, MyCommandClient>();
+			services.TryAddSingleton<IMyCommandClient, MyCommandClient>();
 			services.TryAddSingleton(args => new MyDealerClientBuilder(args, args.GetRequiredService<MessagingConfiguration>().DealerClient));
 			// Use a custom ISubscriptionClient if need to connect to multiplie subscription endpoint
 			services.TryAddSingleton<IMySubscriptionClient, MySubscriptionClient>();

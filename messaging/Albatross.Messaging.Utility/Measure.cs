@@ -1,6 +1,5 @@
 ﻿using Albatross.Collections;
 using Albatross.CommandLine;
-using Albatross.Messaging.Commands.Messages;
 using Albatross.Messaging.EventSource;
 using Albatross.Messaging.Messages;
 using Microsoft.Extensions.Logging;
@@ -12,24 +11,21 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Utility {
-	[Verb("seek", typeof(Seek))]
-	public class Seekoptions {
+	[Verb("measure", typeof(Measure))]
+	public class Measureoptions {
 		[Option("p")]
 		public string Project { get; set; } = string.Empty;
 
 		[Option("l")]
 		public string? ProjectLocation { get; set; }
 
-		[Option("c", "command")]
-		public string? Command { get; set; }
-
 		[Option("i", "id")]
-		public ulong? Id { get; set; }
+		public ulong Id { get; set; }
 	}
-	public class Seek : BaseHandler<Seekoptions> {
+	public class Measure : BaseHandler<Measureoptions> {
 		private readonly IMessageFactory messageFactory;
 
-		public Seek(IMessageFactory messageFactory, IOptions<Seekoptions> options, ILogger logger) : base(options, logger) {
+		public Measure(IMessageFactory messageFactory, IOptions<Measureoptions> options, ILogger logger) : base(options, logger) {
 			this.messageFactory = messageFactory;
 		}
 
