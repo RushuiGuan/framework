@@ -1,0 +1,7 @@
+[
+	{
+		"cpuBound": false,
+		"duration": 1000,
+		"callback": true
+	}
+]

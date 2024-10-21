@@ -1,9 +1,4 @@
 ﻿using Sample.Core.Commands.MyOwnNameSpace;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample.Core.Commands {
 	public record class EfficiencyTestComand : ISystemCommand {

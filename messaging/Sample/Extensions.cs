@@ -58,7 +58,7 @@ namespace Sample {
 				case SelfDestructCommand:
 				case MyCommand1:
 					return "my-command-queue1";
-				case MyCommand2:
+				case TestOperationWithResultCommand:
 					return "my-command-queue2";
 				case PingCommand:
 				case PongCommand:

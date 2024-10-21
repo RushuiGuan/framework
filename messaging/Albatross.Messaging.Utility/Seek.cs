@@ -1,12 +1,9 @@
-﻿using Albatross.Collections;
-using Albatross.CommandLine;
-using Albatross.Messaging.Commands.Messages;
+﻿using Albatross.CommandLine;
 using Albatross.Messaging.EventSource;
 using Albatross.Messaging.Messages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Threading.Tasks;
@@ -20,9 +17,6 @@ namespace Albatross.Messaging.Utility {
 		[Option("l")]
 		public string? ProjectLocation { get; set; }
 
-		[Option("c", "command")]
-		public string? Command { get; set; }
-
 		[Option("i", "id")]
 		public ulong? Id { get; set; }
 	}
@@ -34,7 +28,7 @@ namespace Albatross.Messaging.Utility {
 		}
 
 		public override async Task<int> InvokeAsync(InvocationContext context) {
-			List<MessageGroup> result = new List<MessageGroup>();
+			MessageGroup? message = null;
 			if (!string.IsNullOrEmpty(options.Project)) {
 				string folder;
 				if (string.IsNullOrEmpty(options.ProjectLocation)) {
@@ -43,18 +37,16 @@ namespace Albatross.Messaging.Utility {
 					folder = System.IO.Path.Combine(options.ProjectLocation, options.Project);
 				}
 				foreach (var file in System.IO.Directory.EnumerateFiles(folder, "*.log")) {
-					var msg = await SearchFile(file, messageFactory);
-					result.AddIfNotNull(msg);
+					message = await SearchFile(message, file, messageFactory);
 				}
 			}
-			foreach (var group in result) {
-				await group.Write(Console.Out);
+			if (message != null) {
+				await message.Write(Console.Out);
 			}
 			return 0;
 		}
 
-		async Task<MessageGroup?> SearchFile(string file, IMessageFactory messageFactory) {
-			MessageGroup? message = null;
+		async Task<MessageGroup?> SearchFile(MessageGroup? message, string file, IMessageFactory messageFactory) {
 			using var stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			using (var reader = new StreamReader(stream)) {
 				while (!reader.EndOfStream) {

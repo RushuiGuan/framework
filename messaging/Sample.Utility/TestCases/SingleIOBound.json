@@ -1,0 +1,18 @@
+[
+	{
+		"cpuBound": false,
+		"duration": 1000
+	},
+	{
+		"cpuBound": false,
+		"duration": 1000
+	},
+	{
+		"cpuBound": false,
+		"duration": 1000
+	},
+	{
+		"cpuBound": false,
+		"duration": 1000
+	}
+]

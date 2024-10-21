@@ -1,31 +1,30 @@
 ﻿using Albatross.Messaging.Commands;
 using Microsoft.Extensions.Logging;
 using Sample.Core.Commands;
-using System;
 using System.Threading.Tasks;
 
 namespace Sample.CommandHandlers {
-	public class MyCommand2Handler : BaseCommandHandler<MyCommand2> {
+	public record class OperationResult {
+		public OperationResult(string name) {
+			Name = name;
+		}
+		public string Name { get; set; }
+		public int Value { get; set; }
+	}
+	public class TestOperationWithResultCommandHandler : BaseCommandHandler<TestOperationWithResultCommand, OperationResult> {
 		private readonly CommandContext context;
 		private readonly ICommandClient client;
-		private readonly ILogger<MyCommand2Handler> logger;
+		private readonly ILogger<TestOperationWithResultCommandHandler> logger;
 
-		public MyCommand2Handler(CommandContext context, InternalCommandClient commandClient, ILogger<MyCommand2Handler> logger) {
+		public TestOperationWithResultCommandHandler(CommandContext context, InternalCommandClient commandClient, ILogger<TestOperationWithResultCommandHandler> logger) {
 			this.context = context;
 			client = commandClient;
 			this.logger = logger;
 		}
 
-		public override async Task Handle(MyCommand2 command) {
-			logger.LogInformation("Running: {cmd}", command.Name);
-			logger.LogInformation("Context: {context}", context);
-			if (command.Delay > 0) {
-				await Task.Delay(command.Delay);
-			}
-			await client.SubmitCollection(command.Commands);
-			if (command.Error) {
-				throw new InvalidOperationException($"Error executing command {command.Name}");
-			}
+		public override async Task<OperationResult> Handle(TestOperationWithResultCommand command) {
+			await Task.Delay(10);
+			return new OperationResult(command.Name) { Value = command.Value * 100 };
 		}
 	}
 }

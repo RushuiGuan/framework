@@ -34,12 +34,6 @@ namespace Sample.Utility {
 					Error = options.Error,
 					Delay = options.Delay,
 				};
-
-				if (options.ChildCount > 0) {
-					for (int j = 0; j < options.ChildCount; j++) {
-						cmd.Commands.Add(new MyCommand2($"test command {j}"));
-					}
-				}
 				await client.SubmitSystemCommand(cmd);
 			}
 			return 0;
