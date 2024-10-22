@@ -1,13 +1,13 @@
-﻿using System;
-using Albatross.Collections;
-using Albatross.Hosting.Test;
+﻿using Albatross.Hosting.Test;
 using FluentAssertions;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
+using System.Linq;
+using Albatross.Text;
 
 namespace Albatross.IO.Test {
-	public class TestSortedAsciiCsvFile{
+	public class TestFileStitching{
 		[Theory]
 		//[InlineData("", "", "")]
 		// contain
@@ -36,15 +36,25 @@ namespace Albatross.IO.Test {
 		[InlineData("2-3", "1-3", "1,2,3")]
 		[InlineData("2-3", "2-4", "2,3,4")]
 		public async Task TestTheStiching(string current, string changes, string expected) {
-			FileStream current_stream;
-			using (current_stream = File.Open(My.SortedTestFile(current, @"c:\temp\current.csv"), FileMode.Open, FileAccess.ReadWrite, FileShare.Read)) {
-				using (var changes_stream = File.Open(My.SortedTestFile(changes, @"c:\temp\changes.csv"), FileMode.Open, FileAccess.ReadWrite, FileShare.Read)) {
-					var current_data = new SortedAsciiCsvFile<int>(current_stream, x => int.Parse(x));
-					var changes_data = new SortedAsciiCsvFile<int>(changes_stream, x => int.Parse(x));
-					await current_data.Stitch(changes_data);
+			var options = new FileStitchingOptions<int, int>(x => x.ToString(), x => x, x => int.Parse(x));
+			var current_file = CreateTestFile(current);
+			var changes_list = changes.IntArray().ToList();
+			await new FileInfo(current_file).Stitch(changes_list, options);
+			CombineLines(current_file).Should().BeEquivalentTo(string.Join(",", expected.IntArray()));
+		}
+		string CreateTestFile(string text) {
+			var file = Path.GetTempFileName();
+			using (var writer = new StreamWriter(file)) {
+				foreach (var item in text.IntArray()) {
+					writer.WriteLine(item);
 				}
 			}
-			current_stream.Name.StringContent().Should().BeEquivalentTo(My.SortedTestFile(expected).StringContent());
+			return file;
+		}
+		string CombineLines(string fileName) {
+			var writer = new StringWriter();
+			writer.WriteItems(File.ReadAllLines(fileName), ",");
+			return writer.ToString();
 		}
 	}
 }
