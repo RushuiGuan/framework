@@ -1,5 +1,4 @@
-﻿using Albatross.Collections;
-using Albatross.CommandLine;
+﻿using Albatross.CommandLine;
 using Albatross.Messaging.EventSource;
 using Albatross.Messaging.Messages;
 using Albatross.Text;
@@ -23,8 +22,8 @@ namespace Albatross.Messaging.Utility {
 		[Option("s")]
 		public DateTime Start { get; set; }
 
-		[Option("t")]
-		public string CommandType { get; set; } = string.Empty;
+		[Option("e")]
+		public DateTime? End { get; set; }
 	}
 	public class Measure : BaseHandler<Measureoptions> {
 		private readonly IMessageFactory messageFactory;
@@ -50,7 +49,6 @@ namespace Albatross.Messaging.Utility {
 				.Property(nameof(MessageGroup.Id), 
 					nameof(MessageGroup.Type), 
 					nameof(MessageGroup.Mode), 
-					nameof(MessageGroup.Client), 
 					nameof(MessageGroup.RequestAckDuration), 
 					nameof(MessageGroup.ReplyDuration), 
 					nameof(MessageGroup.ReplyAckDuration), 
@@ -66,9 +64,13 @@ namespace Albatross.Messaging.Utility {
 					var line = await reader.ReadLineAsync();
 					if (line != null) {
 						if (EventEntry.TryParseLine(messageFactory, line, out var entry)) {
-							if (entry.TimeStamp >= options.Start) {
-								var msg = dict.GetOrAdd(entry.Message.Id, () => new MessageGroup(entry.Message.Route ?? string.Empty, entry.Message.Id));
-								msg.Add(entry);
+							if (dict.TryGetValue(entry.Message.Id, out var messageGroup)) {
+								messageGroup.Add(entry);
+							} else {
+								if (entry.TimeStamp >= options.Start && (options.End == null || entry.TimeStamp <= options.End.Value)) {
+									messageGroup = new MessageGroup(entry.Message.Route ?? string.Empty, entry.Message.Id);
+									dict.Add(entry.Message.Id, messageGroup);
+								}
 							}
 						}
 					}

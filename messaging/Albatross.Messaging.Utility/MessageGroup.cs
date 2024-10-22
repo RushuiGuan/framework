@@ -71,7 +71,7 @@ namespace Albatross.Messaging.Utility {
 				} else if (entry.Message is ClientAck) {
 					this.clientAck = new EventEntry<ClientAck>(entry);
 				} else {
-					// throw new ArgumentException($"Unknown message type: {entry.Message.GetType().Name}");
+					throw new ArgumentException($"Unknown message type: {entry.Message.GetType().Name}");
 				}
 			} else {
 				throw new ArgumentException();
