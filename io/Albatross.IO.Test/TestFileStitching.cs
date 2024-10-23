@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Xunit;
 using System.Linq;
 using Albatross.Text;
+using Moq;
+using Microsoft.Extensions.Logging;
 
 namespace Albatross.IO.Test {
 	public class TestFileStitching{
@@ -39,7 +41,8 @@ namespace Albatross.IO.Test {
 			var options = new FileStitchingOptions<int, int>(string.Empty, x => x.ToString(), x => x, x => int.Parse(x));
 			var current_file = CreateTestFile(current);
 			var changes_list = changes.IntArray().ToList();
-			await new FileInfo(current_file).Stitch(changes_list, options);
+			var logger = new Mock<ILogger>().Object;
+			await new FileInfo(current_file).Stitch(changes_list, options, logger);
 			CombineLines(current_file).Should().BeEquivalentTo(string.Join(",", expected.IntArray()));
 		}
 		string CreateTestFile(string text) {

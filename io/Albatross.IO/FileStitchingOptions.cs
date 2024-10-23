@@ -5,8 +5,8 @@ using System;
 using System.Text;
 namespace Albatross.IO {
 	public class FileStitchingOptions<Key, Record> where Record : notnull where Key : notnull {
-		public FileStitchingOptions(string metadataFileName, Func<Record, string> getText, Func<Record, Key> getKey, Func<string, Key> getKeyFromText) {
-			MetadataFileName = metadataFileName;
+		public FileStitchingOptions(string indexFilename, Func<Record, string> getText, Func<Record, Key> getKey, Func<string, Key> getKeyFromText) {
+			IndexFilename = indexFilename;
 			GetText = getText;
 			GetKey = getKey;
 			GetKeyFromText = getKeyFromText;
@@ -21,7 +21,11 @@ namespace Albatross.IO {
 		/// TempFile should be on the same drive as the target file to improve performance
 		/// </summary>
 		public string TempFile { get; set; } = Path.GetTempFileName();
-		public string MetadataFileName { get; }
+
+		public string IndexFilename { get; }
+		public int IndexBufferSize { get; set; } = 4096;
+		public int IndexRetryCount { get; set; } = 10;
+		public int IndexRetryDelay { get; set; } = 1000;
 	}
 }
 #endif

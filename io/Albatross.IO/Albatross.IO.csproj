@@ -21,6 +21,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="MessagePack" Version="2.5.187" />
+	  <PackageReference Include="MessagePackAnalyzer" Version="2.5.187">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
 	  <PackageReference Include="Polly" Version="7.2.4" />
 	</ItemGroup>

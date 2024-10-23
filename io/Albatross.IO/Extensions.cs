@@ -60,7 +60,7 @@ namespace Albatross.IO {
 				return Task.FromResult(stream);
 			}, context, cancellationToken ?? CancellationToken.None);
 		}
-
+		
 		public static Task<Stream> OpenAsyncExclusiveWriteStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
 			var policy = CreateRetryPolicy(retryCount, delay_ms, onRetry, logger);
 			var context = new Context(file.FullName);
