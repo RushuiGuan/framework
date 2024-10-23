@@ -36,7 +36,7 @@ namespace Albatross.IO.Test {
 		[InlineData("2-3", "1-3", "1,2,3")]
 		[InlineData("2-3", "2-4", "2,3,4")]
 		public async Task TestTheStiching(string current, string changes, string expected) {
-			var options = new FileStitchingOptions<int, int>(x => x.ToString(), x => x, x => int.Parse(x));
+			var options = new FileStitchingOptions<int, int>(string.Empty, x => x.ToString(), x => x, x => int.Parse(x));
 			var current_file = CreateTestFile(current);
 			var changes_list = changes.IntArray().ToList();
 			await new FileInfo(current_file).Stitch(changes_list, options);

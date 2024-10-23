@@ -1,7 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Polly.Retry;
+using Polly;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Albatross.IO {
 	public static class Extensions {
@@ -46,5 +51,35 @@ namespace Albatross.IO {
 			return sb.ToString();
 		}
 
+		public static Task<Stream> OpenAsyncSharedReadStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
+			var policy = CreateRetryPolicy(retryCount, delay_ms, onRetry, logger);
+			var context = new Context(file.FullName);
+			context["action"] = "open-async-shared-read";
+			return policy.ExecuteAsync((context, token) => {
+				Stream stream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.Asynchronous | FileOptions.SequentialScan);
+				return Task.FromResult(stream);
+			}, context, cancellationToken ?? CancellationToken.None);
+		}
+
+		public static Task<Stream> OpenAsyncExclusiveWriteStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
+			var policy = CreateRetryPolicy(retryCount, delay_ms, onRetry, logger);
+			var context = new Context(file.FullName);
+			context["action"] = "open-async-exclusive-write";
+			return policy.ExecuteAsync((context, token) => {
+				Stream stream = new FileStream(file.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, bufferSize, FileOptions.Asynchronous);
+				return Task.FromResult(stream);
+			}, context, cancellationToken ?? CancellationToken.None);
+		}
+		const int ERROR_SHARING_VIOLATION = unchecked((int)0x80070020);
+		static AsyncRetryPolicy<Stream> CreateRetryPolicy(int count, int delay_ms, Action<int>? action, ILogger logger) {
+			return Policy.Handle<IOException>(err => err.HResult == ERROR_SHARING_VIOLATION)
+				.OrResult<Stream>(x => false)
+				.WaitAndRetryAsync<Stream>(count, x => TimeSpan.FromMilliseconds(delay_ms), (result, delay, count, context) => {
+					if (action != null) {
+						action(count);
+					}
+					logger.LogWarning("{count} retry to open file {name} for {action} after {delay:#,#}ms", count, context.OperationKey, context["action"], delay.Milliseconds);
+				});
+		}
 	}
 }

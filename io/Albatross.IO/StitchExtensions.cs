@@ -1,14 +1,19 @@
-﻿#if NET8_0_OR_GREATER
-using System.IO;
+﻿using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using System.Linq;
+using Polly.Retry;
+using Polly;
+using Microsoft.Extensions.Logging;
+using System.Threading;
 namespace Albatross.IO {
 	public static class StitchExtensions {
+#if NET8_0_OR_GREATER
 		/// <summary>
-		/// Stitch the changes to a sorted file.  
+		/// Provide a way to apply sorted changes to a sorted file in the most efficient way.  The method does not combine data, but rather 
+		/// replaces the sorted data in the file with the changes when the keys of the changes overlaps the keys in the file.  As an example:
+		/// if the file has sorted integers: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 and the changes are 3, 8.  The resulting file will be 1, 2, 3, 8, 9, 10.
 		/// </summary>
 		public static async Task Stitch<Key, Record>(this FileInfo file, List<Record> changes, FileStitchingOptions<Key, Record> options) where Key : notnull, IComparable<Key> where Record : notnull {
 			if (changes.Count > 0) {
@@ -58,6 +63,6 @@ namespace Albatross.IO {
 				}
 			}
 		}
+#endif
 	}
 }
-#endif
