@@ -18,6 +18,9 @@ namespace Albatross.Hosting.Test {
 		/// <exception cref="ArgumentException"></exception>
 		public static int[] IntArray(this string text) {
 			var list = new List<int>();
+			if (string.IsNullOrEmpty(text)) {
+				return Array.Empty<int>();
+			}
 			foreach (var segment in text.Split(",")) {
 				Match match = RangedNumber.Match(segment);
 				if (match.Success) {
