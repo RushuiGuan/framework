@@ -7,6 +7,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\collections\Albatross.Collections\Albatross.Collections.csproj" />
+		<ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

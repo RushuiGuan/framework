@@ -3,6 +3,7 @@
 using System.IO;
 using System;
 using System.Text;
+using MessagePack;
 namespace Albatross.IO {
 	public class FileStitchingOptions<Key, Record> where Record : notnull where Key : notnull {
 		public FileStitchingOptions(string filename, Func<Record, Key> getKey) {
@@ -24,9 +25,12 @@ namespace Albatross.IO {
 		public int IndexBufferSize { get; init; } = 4096;
 		public int IndexRetryCount { get; init; } = 10;
 		public int IndexRetryDelay { get; init; } = 1000;
+
+		public MessagePackSerializerOptions IndexSerializationOptions { get; init; } = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
+		public MessagePackSerializerOptions RecordSerializationOptions { get; init; } = MessagePackSerializerOptions.Standard;
 	}
 	public class TextFileStitchingOptions<Key, Record> : FileStitchingOptions<Key, Record> where Record : notnull where Key : notnull {
-		public TextFileStitchingOptions(string filename, Func<Record, string> getText, Func<Record, Key> getKey, Func<string, Key> getKeyFromText):base(filename, getKey) {
+		public TextFileStitchingOptions(string filename, Func<Record, string> getText, Func<Record, Key> getKey, Func<string, Key> getKeyFromText) : base(filename, getKey) {
 			GetText = getText;
 			GetKeyFromText = getKeyFromText;
 		}

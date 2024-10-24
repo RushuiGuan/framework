@@ -35,6 +35,9 @@ namespace Albatross.IO.Test {
 
 
 	public class TestTextFileStitching {
+		readonly static MessagePackSerializerOptions RecordSerializationOptions = MessagePackSerializerOptions.Standard;
+		readonly static MessagePackSerializerOptions IndexSerializationOptions = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4Block);
+
 		[Theory]
 		[InlineData("", "", "")]
 		[InlineData("", "1-5", "1-5")]
@@ -88,7 +91,7 @@ namespace Albatross.IO.Test {
 				item.Value.Should().Be(lookup[item.Id].Value);
 			}
 			// now check the index positions in reverse
-			var indexes = await options.IndexFilename.ReadFileIndex<int>();
+			var indexes = await options.IndexFilename.ReadIndex<int>(IndexSerializationOptions, CancellationToken.None);
 			for (int i = indexes.Length - 1; i >= 0; i--) {
 				var index = indexes[i];
 				using (var stream = File.OpenRead(options.File.FullName)) {
@@ -155,12 +158,12 @@ namespace Albatross.IO.Test {
 				item.Value.Should().Be(lookup[item.Id].Value);
 			}
 			// now check the index positions in reverse
-			var indexes = await options.IndexFilename.ReadFileIndex<int>();
+			var indexes = await options.IndexFilename.ReadIndex<int>(IndexSerializationOptions, CancellationToken.None);
 			for (int i = indexes.Length - 1; i >= 0; i--) {
 				var index = indexes[i];
 				using (var stream = File.OpenRead(options.File.FullName)) {
 					stream.Seek(index.Position, SeekOrigin.Begin);
-					var item = await MessagePackSerializer.DeserializeAsync<TestData>(stream, StitchExtensions.RecordSerializationOptions);
+					var item = await MessagePackSerializer.DeserializeAsync<TestData>(stream, RecordSerializationOptions);
 					item.Should().BeEquivalentTo(lookup[index.Key]);
 				}
 			}
@@ -186,7 +189,7 @@ namespace Albatross.IO.Test {
 			var file = filename ?? Path.GetTempFileName();
 			using (var stream = File.OpenWrite(file)) {
 				foreach (var item in data) {
-					await MessagePackSerializer.SerializeAsync(stream, item, StitchExtensions.RecordSerializationOptions);
+					await MessagePackSerializer.SerializeAsync(stream, item, RecordSerializationOptions);
 				}
 				stream.SetLength(stream.Position);
 			}
@@ -204,7 +207,7 @@ namespace Albatross.IO.Test {
 		}
 		async Task<IEnumerable<TestData>> ReadDataFromBinary(string file) {
 			using (var stream = File.OpenRead(file)) {
-				var items = stream.ReadAsStream<TestData>(StitchExtensions.RecordSerializationOptions);
+				var items = stream.ReadArrayAsync<TestData>(RecordSerializationOptions, CancellationToken.None);
 				var list = new List<TestData>();
 				await foreach (var record in items) {
 					list.Add(record);
