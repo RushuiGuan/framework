@@ -7,6 +7,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="serilog.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="serilog.staging.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="hostsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -15,17 +24,4 @@
 		<ProjectReference Include="..\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
 		<ProjectReference Include="..\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<Content Update="hostsettings.json">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Content>
-		<Content Update="serilog.json">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Content>
-		<Content Update="serilog.staging.json">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-
 </Project>

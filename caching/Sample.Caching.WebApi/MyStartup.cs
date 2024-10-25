@@ -18,14 +18,15 @@ namespace Sample.Caching.WebApi {
 			base.ConfigureServices(services);
 			services.AddBuiltInCache();
 			services.AddCaching();
-			services.AddRedisCaching(this.Configuration);
-			services.AddMemCachingAsSecondary();
+			// services.AddRedisCaching(this.Configuration);
+			// services.AddMemCachingAsSecondary();
+			services.AddMemCaching();
 			services.AddSignalR();
 			services.AddControllers(options => options.InputFormatters.Add(new PlainTextInputFormatter()));
 		}
 		public override void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting envSetting, ILogger<Startup> logger) {
 			base.Configure(app, programSetting, envSetting, logger);
-			app.ApplicationServices.UseRedisCaching();
+			// app.ApplicationServices.UseRedisCaching();
 		}
 		protected override void ConfigureCors(CorsPolicyBuilder builder) {
 			base.ConfigureCors(builder);

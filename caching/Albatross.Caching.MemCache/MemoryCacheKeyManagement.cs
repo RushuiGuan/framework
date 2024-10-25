@@ -16,7 +16,7 @@ namespace Albatross.Caching {
 		private readonly IDictionary keys;
 
 		public MemoryCacheKeyManagement(IMemoryCache cache) {
-			if(!(cache is MemoryCache)) {
+			if (!(cache is MemoryCache)) {
 				throw new InvalidOperationException($"{nameof(MemoryCacheKeyManagement)} can only be used with MemoryCache");
 			}
 			this.cache = (MemoryCache)cache;
@@ -27,7 +27,7 @@ namespace Albatross.Caching {
 			FieldInfo? field = typeof(MemoryCache).GetField("_coherentState", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 			var obj = field.GetValue(cache);
 			Type? type = obj?.GetType();
-			FieldInfo? entryField = type?.GetField("_entries", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+			FieldInfo? entryField = type?.GetField("_stringEntries", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 			IDictionary? dictionary = (IDictionary?)(entryField?.GetValue(obj));
 			return dictionary ?? throw new InvalidOperationException("Unable to get the CacheEntryDictionary object from MemoryCache by reflection");
 		}
