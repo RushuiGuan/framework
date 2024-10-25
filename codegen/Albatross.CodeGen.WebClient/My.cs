@@ -21,6 +21,7 @@ namespace Albatross.CodeGen.WebClient {
 		public const string TaskClassName = "System.Threading.Tasks.Task";
 		public const string GenericTaskClassName = "System.Threading.Tasks.Task<>";
 		public const string GenericActionResultClassName = "Microsoft.AspNetCore.Mvc.ActionResult<>";
+		public const string AsyncEnumerableClassName = "System.Collections.Generic.IAsyncEnumerable<>";
 
 		public const string HttpMethodGet = "Get";
 		public const string HttpMethodPost = "Post";

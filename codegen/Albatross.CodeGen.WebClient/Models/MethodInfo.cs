@@ -33,7 +33,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 		public string ReturnTypeText => ReturnType.GetFullName();
 		public IEnumerable<IRouteSegment> RouteSegments { get; }
 		public List<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
-
+		
 		ITypeSymbol GetReturnType(ITypeSymbol type) {
 			if (type is INamedTypeSymbol named && named.IsGenericType) {
 				var genericTypeFullName = named.OriginalDefinition.GetFullName();
@@ -41,6 +41,9 @@ namespace Albatross.CodeGen.WebClient.Models {
 					case My.GenericTaskClassName:
 					case My.GenericActionResultClassName:
 						return GetReturnType(named.TypeArguments[0]);
+					case My.AsyncEnumerableClassName:
+						return compilation.GetSpecialType(SpecialType.System_Collections_Generic_IEnumerable_T)
+							.Construct(named.TypeArguments[0]);
 					default:
 						return named;
 				}
