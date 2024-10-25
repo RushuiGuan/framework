@@ -5,14 +5,15 @@ using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
 using Albatross.CodeGen.WebClient.Settings;
+using System.Runtime.Intrinsics.X86;
 
 namespace Albatross.CodeGen.WebClient.CSharp {
-	public class ConvertWebApiToCSharpCodeStack_WebClient740 : IConvertObject<ControllerInfo, CodeStack> {
+	public class ConvertWebApiToCSharpCodeStack_Client402 : IConvertObject<ControllerInfo, CodeStack> {
 		const string ProxyService = "ProxyService";
 		private readonly Compilation compilation;
 		private readonly CodeGenSettings settings;
 
-		public ConvertWebApiToCSharpCodeStack_WebClient740(Compilation compilation, CodeGenSettings settings) {
+		public ConvertWebApiToCSharpCodeStack_Client402(Compilation compilation, CodeGenSettings settings) {
 			this.compilation = compilation;
 			this.settings = settings;
 		}
@@ -59,7 +60,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 									codeStack.With(new ParameterNode(param.Type.AsTypeNode(), param.Name));
 								}
 								using (codeStack.NewScope(new VariableBuilder("string", "path"))) {
-									using (codeStack.NewScope(new StringInterpolationBuilder())) {
+									using (codeStack.NewScope(new InterpolatedStringBuilder())) {
 										codeStack.With(new IdentifierNode("ControllerPath"));
 										if (method.RouteSegments.Any()) {
 											codeStack.With(new LiteralNode(@"/"));
@@ -126,9 +127,9 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 												if (method.ReturnType.IsNullable()) {
 													functionName = "GetJsonResponse";
 												} else if (method.ReturnType.IsValueType) {
-													functionName = "GetRequiredJsonResponseForValueType";
+													functionName = "GetJsonResponse";
 												} else {
-													functionName = "GetRequiredJsonResponse";
+													functionName = "GetJsonResponse";
 												}
 												codeStack.With(new ThisExpression())
 													.With(new GenericIdentifierNode(functionName, method.ReturnType.AsTypeNode()))
@@ -153,9 +154,13 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 				if (routeSegment is RouteParameterSegment routeParam) {
 					var type = routeParam.ParameterInfo?.Type.GetFullName();
 					if (type == "System.DateTime" && method.Settings.UseDateTimeAsDateOnly == true) {
-						cs.With(new IdentifierNode(routeParam.Text)).To(new InvocationExpressionBuilder("ISO8601StringDateOnly"));
-					} else if (type == "System.DateTime" || type == "System.DateTimeOffset" || type == "System.DateOnly" || type == "System.TimeOnly") {
-						cs.With(new IdentifierNode(routeParam.Text)).To(new InvocationExpressionBuilder("ISO8601String"));
+						cs.Complete(new StringInterpolationBuilder(routeParam.Text, "yyyy-MM-dd"));
+					} else if (type == "System.DateTime" || type == "System.DateTimeOffset") {
+						cs.Complete(new StringInterpolationBuilder(routeParam.Text, "yyyy-MM-ddTHH:mm:ssK"));
+					} else if (type == "System.DateOnly") {
+						cs.Complete(new StringInterpolationBuilder(routeParam.Text, "yyyy-MM-dd"));
+					} else if (type == "System.TimeOnly") {
+						cs.Complete(new StringInterpolationBuilder(routeParam.Text, "HH:mm:ss.fffffff"));
 					} else {
 						cs.With(new IdentifierNode(routeParam.Text));
 					}
@@ -180,34 +185,20 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 				using (codeStack.With(new IdentifierNode("queryString")).ToNewScope(new InvocationExpressionBuilder("Add"))) {
 					using (codeStack.NewScope(new ArgumentListBuilder())) {
 						codeStack.With(new LiteralNode(queryKey));
-						if (finalType.SpecialType == SpecialType.System_String) {
+						using (codeStack.NewScope(new InterpolatedStringBuilder())) {
 							codeStack.With(new IdentifierNode(variableName));
-						} else {
-							if (finalType.SpecialType == SpecialType.System_DateTime && settings.UseDateTimeAsDateOnly == true) {
-								using (codeStack.NewScope()) {
-									codeStack.With(new IdentifierNode(variableName));
-									if (type.IsNullableValueType()) {
-										codeStack.With(new IdentifierNode("Value"));
-									}
-									codeStack.To(new InvocationExpressionBuilder("ISO8601StringDateOnly"));
-								}
+							if (type.IsNullableValueType()) {
+								codeStack.With(new IdentifierNode("Value"))
+									.To(new MemberAccessBuilder());
+							}
+							if (finalType.SpecialType == SpecialType.System_DateTime && settings.UseDateTimeAsDateOnly == true
+								|| finalType.GetFullName() == "System.DateOnly") {
+								codeStack.To(new StringInterpolationBuilder("yyyy-MM-dd"));
 							} else if (finalType.SpecialType == SpecialType.System_DateTime
-								|| finalType.GetFullName() == "System.DateTimeOffset"
-								|| finalType.GetFullName() == "System.DateOnly"
-								|| finalType.GetFullName() == "System.TimeOnly") {
-								using (codeStack.NewScope()) {
-									codeStack.With(new IdentifierNode(variableName));
-									if (type.IsNullableValueType()) {
-										codeStack.With(new IdentifierNode("Value"));
-									}
-									codeStack.To(new InvocationExpressionBuilder("ISO8601String"));
-								}
-							} else if (finalType.SpecialType == SpecialType.System_String) {
-								codeStack.With(new IdentifierNode(variableName));
-							} else {
-								codeStack.Begin().With(new IdentifierNode(variableName))
-									.To(new StringInterpolationBuilder())
-								.End();
+								|| finalType.GetFullName() == "System.DateTimeOffset") {
+								codeStack.To(new StringInterpolationBuilder("yyyy-MM-ddTHH:mm:ssK"));
+							} else if (finalType.GetFullName() == "System.TimeOnly") {
+								codeStack.To(new StringInterpolationBuilder("HH:mm:ss.fffffff"));
 							}
 						}
 					}

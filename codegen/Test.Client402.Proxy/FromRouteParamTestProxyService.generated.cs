@@ -1,0 +1,89 @@
+using Albatross.Dates;
+using Albatross.WebClient;
+using Microsoft.Extensions.Logging;
+using System.Collections.Specialized;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+#nullable enable
+namespace Test.Proxy {
+	public partial class FromRouteParamTestProxyService : ClientBase {
+		public FromRouteParamTestProxyService(ILogger<FromRouteParamTestProxyService> logger, HttpClient client) : base(logger, client) {
+		}
+
+		public const string ControllerPath = "api/from-routing-param-test";
+		public async Task ImplicitRoute(System.String name, System.Int32 id) {
+			string path = $"{ControllerPath}/implicit-route/{name}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task ExplicitRoute(System.String name, System.Int32 id) {
+			string path = $"{ControllerPath}/explicit-route/{name}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task WildCardRouteDouble(System.String name, System.Int32 id) {
+			string path = $"{ControllerPath}/wild-card-route-double/{id}/{name}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task WildCardRouteSingle(System.String name, System.Int32 id) {
+			string path = $"{ControllerPath}/wild-card-route-single/{id}/{name}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task DateTimeRoute(System.DateTime date, System.Int32 id) {
+			string path = $"{ControllerPath}/date-time-route/{date:yyyy-MM-ddTHH:mm:ssK}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task DateTimeAsDateOnlyRoute(System.DateTime date, System.Int32 id) {
+			string path = $"{ControllerPath}/date-time-as-date-only-route/{date:yyyy-MM-dd}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task DateOnlyRoute(System.DateOnly date, System.Int32 id) {
+			string path = $"{ControllerPath}/date-only-route/{date:yyyy-MM-dd}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task DateTimeOffsetRoute(System.DateTimeOffset date, System.Int32 id) {
+			string path = $"{ControllerPath}/datetimeoffset-route/{date:yyyy-MM-ddTHH:mm:ssK}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task TimeOnlyRoute(System.TimeOnly time, System.Int32 id) {
+			string path = $"{ControllerPath}/timeonly-route/{time:HH:mm:ss.fffffff}/{id}";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+	}
+}
+#nullable disable
+

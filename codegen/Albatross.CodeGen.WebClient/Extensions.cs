@@ -17,7 +17,7 @@ namespace Albatross.CodeGen.WebClient {
 				.AddScoped<ConvertApiControllerToControllerModel>();
 
 			// model to code conversion
-			services.AddScoped<ConvertWebApiToCSharpCodeStack_WebClient740>()
+			services.AddScoped<ConvertWebApiToCSharpCodeStack_Client740>()
 				.AddScoped<ConvertControllerModelToTypeScriptFile>()
 				.AddScoped<CreateHttpClientRegistrations>()
 				.AddScoped<ConvertDtoClassModelToTypeScriptInterface>()

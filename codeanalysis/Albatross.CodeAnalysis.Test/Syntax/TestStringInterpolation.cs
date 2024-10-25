@@ -11,14 +11,14 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 	public class TestStringInterpolation {
 		[Fact]
 		public void Simple() {
-			var result = new StringInterpolationBuilder().Build([new IdentifierNode("test").Node, new LiteralNode("x").Node]).ToFullString();
+			var result = new InterpolatedStringBuilder().Build([new IdentifierNode("test").Node, new LiteralNode("x").Node]).ToFullString();
 			result.Should().Be("$\"{test}x\"");
 		}
 
 
 		[Fact]
 		public void Multiple() {
-			var result = new StringInterpolationBuilder().Build([
+			var result = new InterpolatedStringBuilder().Build([
 				new IdentifierNode("test").Node,
 				new LiteralNode("x").Node,
 				new IdentifierNode("test").Node,
@@ -30,12 +30,12 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		[Fact]
 		public void WithFormat() {
 			var codeStack = new CodeStack();
-			var node = new StringInterpolationBuilder().Build([
+			var node = new InterpolatedStringBuilder().Build([
 				new LiteralNode("/").Node,
-				new StringInterpolationNode("test", "yyyy-MM-dd").Node,
+				new StringInterpolationBuilder("test", "yyyy-MM-dd").Build([]),
 				new LiteralNode("x").Node,
 				new LiteralNode("/").Node,
-				new StringInterpolationNode("test", "#,#0").Node,
+				new StringInterpolationBuilder("test", "#,#0").Build([]),
 				new LiteralNode("/").Node,
 				new LiteralNode("array").Node
 			]);
@@ -46,7 +46,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		public void AllLiteral() {
 			var codeStack = new CodeStack();
 			using (codeStack.NewScope(new VariableBuilder("string", "path"))) {
-				using (codeStack.NewScope(new StringInterpolationBuilder())) {
+				using (codeStack.NewScope(new InterpolatedStringBuilder())) {
 					codeStack.With(new IdentifierNode("ControllerPath"))
 						.With(new LiteralNode("/"))
 						.With(new LiteralNode("array-string-param"));

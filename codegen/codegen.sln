@@ -58,6 +58,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.CodeGen", "Test.CodeGe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Test", "..\testing\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj", "{D4CAB7EC-8F98-45B1-B965-75F8F136E4E3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Client402.Proxy", "Test.Client402.Proxy\Test.Client402.Proxy.csproj", "{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -356,6 +358,18 @@ Global
 		{D4CAB7EC-8F98-45B1-B965-75F8F136E4E3}.Release|arm64.Build.0 = Release|Any CPU
 		{D4CAB7EC-8F98-45B1-B965-75F8F136E4E3}.Release|x86.ActiveCfg = Release|Any CPU
 		{D4CAB7EC-8F98-45B1-B965-75F8F136E4E3}.Release|x86.Build.0 = Release|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Debug|arm64.Build.0 = Debug|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Debug|x86.Build.0 = Debug|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Release|arm64.ActiveCfg = Release|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Release|arm64.Build.0 = Release|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Release|x86.ActiveCfg = Release|Any CPU
+		{8813EBCC-B9B2-4A81-8E2D-94DC8E802BF8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

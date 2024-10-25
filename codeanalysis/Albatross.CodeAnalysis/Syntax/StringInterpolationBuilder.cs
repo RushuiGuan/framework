@@ -1,52 +1,44 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp;
+using System.Collections.Generic;
+using System.Linq;
+using Humanizer;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
-	/// Accept a mixture of <see cref="ExpressionSyntax"/>, <see cref="LiteralExpressionSyntax"/> and <see cref="InterpolationSyntax"/>
+	/// Create a <see cref="InterpolationSyntax"/> instance />/>
 	/// </summary>
 	public class StringInterpolationBuilder : INodeBuilder {
+		private readonly string? format;
+		IdentifierNameSyntax? identifier;
+
+		public StringInterpolationBuilder() { }
+		public StringInterpolationBuilder(string format) {
+			this.format = format;
+		}
+		public StringInterpolationBuilder(IdentifierNode identifier, string format) {
+			this.identifier = identifier.Identifier;
+			this.format = format;
+		}
+		public StringInterpolationBuilder(string identifier, string format) : this(new IdentifierNode(identifier), format) { }
+
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
-			var list = new List<InterpolatedStringContentSyntax>();
-			string text = string.Empty;
-			foreach (var elem in elements) {
-				if (elem is LiteralExpressionSyntax literal && literal.Kind() == SyntaxKind.StringLiteralExpression) {
-					text = text + literal.Token.ValueText;
-					continue;
-				} else if (!string.IsNullOrEmpty(text)) {
-					list.Add(SyntaxFactory.InterpolatedStringText(
-						SyntaxFactory.Token(SyntaxTriviaList.Empty,
-							SyntaxKind.InterpolatedStringTextToken,
-							text,
-							text,
-							SyntaxTriviaList.Empty)
-						)
-					);
-					text = string.Empty;
-				} 
-				if (elem is ExpressionSyntax identifier) {
-					list.Add(SyntaxFactory.Interpolation(identifier));
-				} else if (elem is InterpolationSyntax interpolationSyntax) {
-					list.Add(interpolationSyntax);
-				} else {
-					throw new ArgumentException($"Invalid element type {elem.GetType().Name}");
-				}
+			var elementList = new List<SyntaxNode>(elements);
+			if (this.identifier != null) {
+				elementList.Add(this.identifier);
 			}
-			if (!string.IsNullOrEmpty(text)) {
-				list.Add(SyntaxFactory.InterpolatedStringText(
-						SyntaxFactory.Token(SyntaxTriviaList.Empty,
-							SyntaxKind.InterpolatedStringTextToken,
-							text,
-							text,
-							SyntaxTriviaList.Empty)
-						)
-					);
+			var expressionSyntax = (ExpressionSyntax)new MemberAccessBuilder().Build(elementList);
+			var result = SyntaxFactory.Interpolation(expressionSyntax);
+			if (!string.IsNullOrEmpty(format)) {
+				result = result.WithFormatClause(
+					SyntaxFactory.InterpolationFormatClause(
+						SyntaxFactory.Token(SyntaxKind.ColonToken),
+						SyntaxFactory.Token(SyntaxTriviaList.Empty, SyntaxKind.InterpolatedStringTextToken, format!, format!, SyntaxTriviaList.Empty)
+					)
+				);
 			}
-			return SyntaxFactory.InterpolatedStringExpression(SyntaxFactory.Token(SyntaxKind.InterpolatedStringStartToken))
-				.WithContents(SyntaxFactory.List(list));
+			return result;
 		}
 	}
 }

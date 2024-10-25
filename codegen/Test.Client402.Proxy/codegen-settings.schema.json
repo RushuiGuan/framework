@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "CodeGenSettings",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "typeScriptWebClientSettings": {
+      "$ref": "#/definitions/TypeScriptWebClientSettings"
+    },
+    "cSharpWebClientSettings": {
+      "$ref": "#/definitions/CSharpWebClientSettings"
+    },
+    "apiControllerConversionSetting": {
+      "$ref": "#/definitions/ApiControllerConversionSettings"
+    },
+    "controllerFilter": {
+      "$ref": "#/definitions/SymbolFilterPatterns"
+    },
+    "dtoFilter": {
+      "$ref": "#/definitions/SymbolFilterPatterns"
+    },
+    "enumFilter": {
+      "$ref": "#/definitions/SymbolFilterPatterns"
+    },
+    "controllerMethodFilters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SymbolFilterPatterns"
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "TypeScriptWebClientSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "controllerFilter": {
+          "$ref": "#/definitions/SymbolFilterPatterns"
+        },
+        "controllerMethodFilters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SymbolFilterPatterns"
+          }
+        },
+        "dtoFilter": {
+          "$ref": "#/definitions/SymbolFilterPatterns"
+        },
+        "enumFilter": {
+          "$ref": "#/definitions/SymbolFilterPatterns"
+        },
+        "endPointName": {
+          "type": "string"
+        },
+        "baseClassName": {
+          "type": "string"
+        },
+        "baseClassModule": {
+          "type": "string"
+        },
+        "configServiceModule": {
+          "type": "string"
+        },
+        "usePromise": {
+          "type": "boolean"
+        },
+        "entryFile": {
+          "type": "string"
+        },
+        "sourcePathRelatedToEntryFile": {
+          "type": "string"
+        },
+        "nameSpaceModuleMapping": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SymbolFilterPatterns": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "exclude": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "include": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "hasValue": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CSharpWebClientSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "controllerFilter": {
+          "$ref": "#/definitions/SymbolFilterPatterns"
+        },
+        "controllerMethodFilters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SymbolFilterPatterns"
+          }
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "useTextContentTypeForStringPost": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ApiControllerConversionSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "globalMethodSettings": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/WebClientMethodSettings"
+            }
+          ]
+        },
+        "methodSettings": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/WebClientMethodSettings"
+          }
+        }
+      }
+    },
+    "WebClientMethodSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "useDateTimeAsDateOnly": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
