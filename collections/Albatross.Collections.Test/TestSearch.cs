@@ -1,10 +1,5 @@
-﻿using Albatross.EFCore;
-using Albatross.Hosting.Test;
-using System;
-using System.Collections.Generic;
+﻿using Albatross.Hosting.Test;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.Collections.Test {

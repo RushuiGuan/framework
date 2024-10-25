@@ -4,15 +4,15 @@ using System.Text;
 
 namespace Albatross.Collections {
 	public static class SearchExtensions {
-		public static T? BinarySearchFirstValueGreaterOrEqual<T, K>(this IList<T> list, K key, Func<T, K> selector) where T : struct where K : IComparable<K> {
+		public static Record? BinarySearchFirstValueGreaterOrEqual<Record, Key>(this IList<Record> list, Key key, Func<Record, Key> getKey) where Record : struct where Key : IComparable<Key> {
 			int left = 0;
 			int right = list.Count - 1;
-			T? result = default;
+			Record? result = default;
 
 			while (left <= right) {
 				int mid = left + (right - left) / 2;
-				T item = list[mid];
-				K value = selector(item);
+				Record item = list[mid];
+				Key value = getKey(item);
 
 				if (value.CompareTo(key) >= 0) {
 					result = item;
@@ -23,17 +23,17 @@ namespace Albatross.Collections {
 			}
 			return result;
 		}
-		public static T? BinarySearchFirstValueLessOrEqual<T, K>(this IList<T> list, K key, Func<T, K> selector)
-			where T : struct
-			where K : IComparable<K> {
+		public static Record? BinarySearchFirstValueLessOrEqual<Record, Key>(this IList<Record> list, Key key, Func<Record, Key> getKey)
+			where Record : struct
+			where Key : IComparable<Key> {
 			int left = 0;
 			int right = list.Count - 1;
-			T? result = default;
+			Record? result = default;
 
 			while (left <= right) {
 				int mid = left + (right - left) / 2;
-				T item = list[mid];
-				K value = selector(item);
+				Record item = list[mid];
+				Key value = getKey(item);
 
 				if (value.CompareTo(key) <= 0) {
 					result = item;
@@ -46,16 +46,16 @@ namespace Albatross.Collections {
 			return result;
 		}
 
-		public static T? BinarySearchFirstGreaterOrEqual<T, K>(this IList<T> list, K key, Func<T, K> selector)
-			where T : class where K : IComparable<K> {
+		public static Record? BinarySearchFirstGreaterOrEqual<Record, Key>(this IList<Record> list, Key key, Func<Record, Key> getKey)
+			where Record : class where Key : IComparable<Key> {
 			int left = 0;
 			int right = list.Count - 1;
-			T? result = default;
+			Record? result = default;
 
 			while (left <= right) {
 				int mid = left + (right - left) / 2;
-				T item = list[mid];
-				K value = selector(item);
+				Record item = list[mid];
+				Key value = getKey(item);
 
 				if (value.CompareTo(key) >= 0) {
 					result = item;
@@ -66,17 +66,17 @@ namespace Albatross.Collections {
 			}
 			return result;
 		}
-		public static T? BinarySearchFirstLessOrEqual<T, K>(this IList<T> list, K key, Func<T, K> selector)
-			where T : class
-			where K : IComparable<K> {
+		public static Record? BinarySearchFirstLessOrEqual<Record, Key>(this IList<Record> list, Key key, Func<Record, Key> getKey)
+			where Record : class
+			where Key : IComparable<Key> {
 			int left = 0;
 			int right = list.Count - 1;
-			T? result = default;
+			Record? result = default;
 
 			while (left <= right) {
 				int mid = left + (right - left) / 2;
-				T item = list[mid];
-				K value = selector(item);
+				Record item = list[mid];
+				Key value = getKey(item);
 
 				if (value.CompareTo(key) <= 0) {
 					result = item;
