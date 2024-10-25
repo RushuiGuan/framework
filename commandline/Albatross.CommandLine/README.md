@@ -18,10 +18,6 @@ An integration library that provdes depedency injection, configuration and loggi
 * Create a .net8 Console program
 	* Make sure the `<Nullable>enable</Nullable>` option is enabled for the project.
 * Reference [Albatross.CommandLine]() and [Albatross.CommandLine.CodeGen]() from nuget.
-* Mark `Albatross.CommandLine.CodeGen` as `PrivateAssets = All`
-	```xml
-	<PackageReference Include="Albatross.CommandLine.CodeGen" Version="7.4.4" PrivateAssets="All" />
-	```
 * Create a class `MySetup.cs` that inherits base class [Albatross.CommandLine.Setup](./Setup.cs)
 	```csharp
 	public class MySetup : Setup{

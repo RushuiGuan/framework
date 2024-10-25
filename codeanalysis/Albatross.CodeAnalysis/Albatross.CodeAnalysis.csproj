@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<Description>A code analysis library that provides syntax builders so that it is easier to create code generators using rosyln</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/codeanalysis/Albatross.CodeAnalysis</PackageProjectUrl>
+		<DevelopmentDependency>true</DevelopmentDependency>
 	</PropertyGroup>
 
 	<ItemGroup>
