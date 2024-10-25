@@ -19,7 +19,6 @@
     <ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj" />
     <ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj" />
     <ProjectReference Include="..\..\testing\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
-    <ProjectReference Include="..\Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj" />
     <ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
     <ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
     <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />

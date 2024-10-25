@@ -16,8 +16,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.UnitTest"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.WebClient.UnitTest", "Albatross.CodeGen.WebClient.UnitTest\Albatross.CodeGen.WebClient.UnitTest.csproj", "{339BD57B-B8F5-4957-844F-BF2154B4B9E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.CSharp", "Albatross.CodeGen.CSharp\Albatross.CodeGen.CSharp.csproj", "{8594A25A-BC56-422A-8142-7F127991638F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeGen.TypeScript", "Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj", "{AF626D8C-A697-4131-8C83-4329A20BBF61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{106E138F-304F-426D-8BB3-3625D8FFD9B6}"
@@ -118,18 +116,6 @@ Global
 		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Release|arm64.Build.0 = Release|Any CPU
 		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Release|x86.ActiveCfg = Release|Any CPU
 		{339BD57B-B8F5-4957-844F-BF2154B4B9E7}.Release|x86.Build.0 = Release|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Debug|arm64.ActiveCfg = Debug|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Debug|arm64.Build.0 = Debug|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Debug|x86.Build.0 = Debug|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Release|arm64.ActiveCfg = Release|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Release|arm64.Build.0 = Release|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Release|x86.ActiveCfg = Release|Any CPU
-		{8594A25A-BC56-422A-8142-7F127991638F}.Release|x86.Build.0 = Release|Any CPU
 		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF626D8C-A697-4131-8C83-4329A20BBF61}.Debug|arm64.ActiveCfg = Debug|Any CPU

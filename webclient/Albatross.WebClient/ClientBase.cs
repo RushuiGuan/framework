@@ -29,7 +29,7 @@ namespace Albatross.WebClient {
 		}
 
 		public void UseTextWriter(TextWriter writer) { this.writer = writer; }
-		public virtual int MaxRedirect => 8;
+		protected virtual int MaxRedirect => 8;
 		public const string GZipEncoding = "gzip";
 
 		#region utility
@@ -168,14 +168,14 @@ namespace Albatross.WebClient {
 			} while (offset < arrayQueryStringValues.Length);
 			return urls;
 		}
-		public HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
+		protected HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var request = new HttpRequestMessage(method, relativeUrl.CreateUrl(queryStringValues).ToString());
 			// NoCache has been moved to DefaultRequestHeaders during client setup
 			// request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 			writer.LogRequest(request, client);
 			return request;
 		}
-		public HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T? t) {
+		protected HttpRequestMessage CreateJsonRequest<T>(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, T? t) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			if (t != null) {
 				string content = SerializeJson<T>(t);
@@ -184,7 +184,7 @@ namespace Albatross.WebClient {
 			}
 			return request;
 		}
-		public HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string? content) {
+		protected HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string? content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			if (content != null) {
 				request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Text);
@@ -192,12 +192,12 @@ namespace Albatross.WebClient {
 			}
 			return request;
 		}
-		public HttpRequestMessage CreateStreamRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, Stream stream) {
+		protected HttpRequestMessage CreateStreamRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, Stream stream) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			request.Content = new StreamContent(stream);
 			return request;
 		}
-		public HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, params MultiPartFormData[] formDataArray) {
+		protected HttpRequestMessage CreateMultiPartFormRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, params MultiPartFormData[] formDataArray) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			var content = new MultipartFormDataContent();
 			foreach (var item in formDataArray) {
@@ -206,7 +206,7 @@ namespace Albatross.WebClient {
 			request.Content = content;
 			return request;
 		}
-		public HttpRequestMessage CreateFormUrlEncodedRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, IDictionary<string, string> formUrlEncodedValues) {
+		protected HttpRequestMessage CreateFormUrlEncodedRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, IDictionary<string, string> formUrlEncodedValues) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			var content = new FormUrlEncodedContent(formUrlEncodedValues);
 			request.Content = content;

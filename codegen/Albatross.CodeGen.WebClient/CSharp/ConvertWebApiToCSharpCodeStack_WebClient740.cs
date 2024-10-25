@@ -7,12 +7,12 @@ using System.Linq;
 using Albatross.CodeGen.WebClient.Settings;
 
 namespace Albatross.CodeGen.WebClient.CSharp {
-	public class ConvertWebApiToCSharpCodeStack : IConvertObject<ControllerInfo, CodeStack> {
+	public class ConvertWebApiToCSharpCodeStack_WebClient740 : IConvertObject<ControllerInfo, CodeStack> {
 		const string ProxyService = "ProxyService";
 		private readonly Compilation compilation;
 		private readonly CodeGenSettings settings;
 
-		public ConvertWebApiToCSharpCodeStack(Compilation compilation, CodeGenSettings settings) {
+		public ConvertWebApiToCSharpCodeStack_WebClient740(Compilation compilation, CodeGenSettings settings) {
 			this.compilation = compilation;
 			this.settings = settings;
 		}

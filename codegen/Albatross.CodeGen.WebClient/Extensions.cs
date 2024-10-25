@@ -1,5 +1,4 @@
-﻿using Albatross.CodeGen.CSharp;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.TypeScript;
@@ -10,7 +9,7 @@ namespace Albatross.CodeGen.WebClient {
 	public static class Extensions {
 
 		public static IServiceCollection AddWebClientCodeGen(this IServiceCollection services) {
-			services.AddCSharpCodeGen().AddTypeScriptCodeGen();
+			services.AddTypeScriptCodeGen();
 			services.AddCodeGen(typeof(Extensions).Assembly);
 			// symbol to model conversion
 			services.AddScoped<ConvertClassSymbolToDtoClassModel>()
@@ -18,7 +17,7 @@ namespace Albatross.CodeGen.WebClient {
 				.AddScoped<ConvertApiControllerToControllerModel>();
 
 			// model to code conversion
-			services.AddScoped<ConvertWebApiToCSharpCodeStack>()
+			services.AddScoped<ConvertWebApiToCSharpCodeStack_WebClient740>()
 				.AddScoped<ConvertControllerModelToTypeScriptFile>()
 				.AddScoped<CreateHttpClientRegistrations>()
 				.AddScoped<ConvertDtoClassModelToTypeScriptInterface>()

@@ -18,7 +18,7 @@ using Albatross.CodeGen.WebClient.Settings;
 
 namespace Albatross.CodeGen.CommandLine {
 	public class MySetup : Setup {
-		protected override string RootCommandDescription => "Albatross HttpClient Code Generator";
+		protected override string RootCommandDescription => "Albatross Code Generator that creates HttpClient proxy for CSharp, TypeScript and Python projects";
 		public override void RegisterServices(InvocationContext context, IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			base.RegisterServices(context, configuration, envSetting, services);
 			services.RegisterCommands();
