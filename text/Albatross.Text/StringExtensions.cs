@@ -68,7 +68,7 @@ namespace Albatross.Text {
 		/// <param name="character"></param>
 		/// <returns></returns>
 		public static string? PostfixIfNotNullOrEmpty(this string? text, char character) {
-			if(!string.IsNullOrEmpty(text) && !text.EndsWith(character)) {
+			if (!string.IsNullOrEmpty(text) && !text.EndsWith(character)) {
 				return text + character;
 			} else {
 				return text;
@@ -85,13 +85,13 @@ namespace Albatross.Text {
 		public static string ReplaceMultipleChars(this string text, char replacementCharacter, params char[] targetCharacters) {
 			var array = new char[text.Length];
 			var set = new HashSet<char>(targetCharacters);
-			for(int i=0; i<text.Length; i++) {
+			for (int i = 0; i < text.Length; i++) {
 				if (set.Contains(text[i])) {
 					array[i] = replacementCharacter;
 				} else {
 					array[i] = text[i];
 				}
-			}	
+			}
 			return new string(array);
 		}
 	}

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Sample.EFCore {
-	public class Data2  {
+	public class Data2 {
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public Data2(string name) {

@@ -16,7 +16,7 @@ namespace Albatross.CodeGen.Python.Models {
 			get => this.Single<IModuleCodeElement>(nameof(Value));
 			set => Set(value, nameof(Value));
 		}
-		
+
 		public override TextWriter Generate(TextWriter writer) {
 			throw new NotImplementedException();
 		}

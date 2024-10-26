@@ -1,5 +1,5 @@
-﻿using Albatross.Hosting.Test;
-using Albatross.DateLevel.Test;
+﻿using Albatross.DateLevel.Test;
+using Albatross.Hosting.Test;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +91,7 @@ namespace Albatross.DateLevel.Test {
 			}, x => {
 				Assert.Equal(1, x.Key);
 				Assert.Equal(new DateOnly(2022, 3, 16), x.StartDate);
-				Assert.Equal(DateOnlyValues.Mar31_2022, x.EndDate);	
+				Assert.Equal(DateOnlyValues.Mar31_2022, x.EndDate);
 			});
 		}
 

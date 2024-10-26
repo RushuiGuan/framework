@@ -4,11 +4,11 @@ using Xunit;
 namespace Albatross.Serialization.Test {
 	public class TestApplyJsonValue {
 		[Theory]
-		 [InlineData("0", "1", "1")]
-		 [InlineData("{}", "{}", "{}")]
-		 [InlineData("[1]", "[2]", "[2]")]
-		 [InlineData("[1]", "2", "2")]
-		 [InlineData("{\"a\":1}", "false", "false")]
+		[InlineData("0", "1", "1")]
+		[InlineData("{}", "{}", "{}")]
+		[InlineData("[1]", "[2]", "[2]")]
+		[InlineData("[1]", "2", "2")]
+		[InlineData("{\"a\":1}", "false", "false")]
 		[InlineData("{\"a\":1}", "{\"a\":2}", "{\"a\":2}")]
 		[InlineData("{\"a\":1}", "{\"A\":2}", "{\"a\":1,\"A\":2}")]
 		[InlineData("{\"a\":1}", "{\"b\":2}", "{\"a\":1,\"b\":2}")]

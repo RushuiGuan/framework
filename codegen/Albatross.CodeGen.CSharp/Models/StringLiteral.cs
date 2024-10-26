@@ -12,7 +12,7 @@ namespace Albatross.CodeGen.CSharp.Models {
 
 		public TextWriter Generate(TextWriter writer) {
 			writer.AppendChar('"');
-			foreach(char c in Value) {
+			foreach (char c in Value) {
 				switch (c) {
 					case '"':
 						writer.Append("\\\"");

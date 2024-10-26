@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	public class ParameterNode : NodeContainer {
-		public ParameterNode(TypeNode typeNode, string name) : base(Build(typeNode, name)){ }
+		public ParameterNode(TypeNode typeNode, string name) : base(Build(typeNode, name)) { }
 		public ParameterNode(string type, string name) : this(new TypeNode(type), name) { }
 
 		public ParameterNode WithThis() {

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
 	public class Decorator : CompositeModuleCodeElement {
-		public Decorator(string name, params IModuleCodeElement[] parameters) :this(name, string.Empty, parameters) { }
+		public Decorator(string name, params IModuleCodeElement[] parameters) : this(name, string.Empty, parameters) { }
 		public Decorator(string name, string module, params IModuleCodeElement[] parameters) : base(name, module) {
 			parameters.ForEach(p => AddParameter(p));
 		}

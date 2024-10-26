@@ -7,7 +7,7 @@ namespace Albatross.AzureStorage {
 	public static class Extensions {
 		public static async Task<BlobClient> Move(this BlobClient src, BlobContainerClient container, string file, bool overwrite, CancellationToken cancellationToken = default) {
 			var dst = container.GetBlobClient(file);
-			if(src.Name == dst.Name) {
+			if (src.Name == dst.Name) {
 				return src;
 			}
 			var existing = await dst.ExistsAsync(cancellationToken);

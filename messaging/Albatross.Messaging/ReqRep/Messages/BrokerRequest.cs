@@ -1,5 +1,5 @@
-﻿using Albatross.Text;
-using Albatross.Messaging.Messages;
+﻿using Albatross.Messaging.Messages;
+using Albatross.Text;
 using NetMQ;
 using System;
 using System.IO;
@@ -9,7 +9,7 @@ namespace Albatross.Messaging.ReqRep.Messages {
 		public static string MessageHeader => "broker-req";
 		public string ClientId { get; private set; } = string.Empty;
 		public ulong RequestId { get; private set; }
-		public byte[] Payload { get; private set; }= Array.Empty<byte>();
+		public byte[] Payload { get; private set; } = Array.Empty<byte>();
 
 
 		public BrokerRequest(string route, ulong messageId, string clientId, ulong requestId, byte[] payload) : base(MessageHeader, route, messageId) {

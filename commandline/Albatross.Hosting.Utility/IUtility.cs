@@ -8,7 +8,7 @@ namespace Albatross.Hosting.Utility {
 		TextWriter Out { get; }
 		TextWriter Error { get; }
 	}
-	public interface IUtility<T> : IUtility{
-		T Options{ get; }
+	public interface IUtility<T> : IUtility {
+		T Options { get; }
 	}
 }

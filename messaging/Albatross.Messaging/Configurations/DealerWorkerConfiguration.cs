@@ -6,7 +6,7 @@ namespace Albatross.Messaging.Configurations {
 		public string Identity { get; init; }
 		public string EndPoint { get; set; }
 		public ISet<string> Services { get; init; } = new HashSet<string> { DefaultService };
-		public DealerWorkerConfiguration(string identity, string endpoint) { 
+		public DealerWorkerConfiguration(string identity, string endpoint) {
 			this.Identity = identity;
 			this.EndPoint = endpoint;
 		}

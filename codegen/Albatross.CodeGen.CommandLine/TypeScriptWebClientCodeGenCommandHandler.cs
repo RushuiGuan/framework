@@ -20,9 +20,9 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly ConvertApiControllerToControllerModel convertToWebApi;
 		private readonly ConvertControllerModelToTypeScriptFile converToTypeScriptFile;
 
-		public TypeScriptWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options, 
-			ILogger<TypeScriptWebClientCodeGenCommandHandler> logger, 
-			Compilation compilation, 
+		public TypeScriptWebClientCodeGenCommandHandler(IOptions<CodeGenCommandOptions> options,
+			ILogger<TypeScriptWebClientCodeGenCommandHandler> logger,
+			Compilation compilation,
 			CodeGenSettings settings,
 			ConvertApiControllerToControllerModel convertToWebApi,
 			ConvertControllerModelToTypeScriptFile converToTypeScriptFile) {

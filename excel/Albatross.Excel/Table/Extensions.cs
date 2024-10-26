@@ -19,7 +19,7 @@ namespace Albatross.Excel.Table {
 		/// <param name="options"></param>
 		/// <returns></returns>
 		public static ExcelReference WriteTable<T>(this T[] values, excel.Worksheet sheet, TableOptions options) where T : notnull {
-			if(options.TryGetDataRange(sheet.Name, out var range)) {
+			if (options.TryGetDataRange(sheet.Name, out var range)) {
 				range.Clear();
 			}
 			// create an 2D array that include the header
@@ -251,7 +251,7 @@ namespace Albatross.Excel.Table {
 				var values = (object[,])targetRange.GetValue();
 				if (CellValue.IsEmptyArray(values)) {
 					return true;
-				} else { 
+				} else {
 					var result = MessageBox.Show("Target range contains data that will be overwritten and the process cannot be undone.  Do you want to proceed?", "Warning", MessageBoxButton.YesNo);
 					if (result == MessageBoxResult.Yes) {
 						return true;

@@ -13,8 +13,8 @@ namespace Albatross.CodeGen.Python.Models {
 			Method = new Method(method);
 			parameters.ForEach(AddParameter);
 		}
-		
-		public Method Method { 
+
+		public Method Method {
 			get => Single<Method>(nameof(Method));
 			set => Set(value, nameof(Method));
 		}

@@ -58,8 +58,8 @@
 			public static PythonType TimeDelta() => new PythonType("timedelta", Modules.DateTime) {
 				DefaultValue = new Literal("timedelta.min"),
 			};
-			public static PythonType Boolean() => new PythonType("bool") { 
-				DefaultValue = new Literal(false) 
+			public static PythonType Boolean() => new PythonType("bool") {
+				DefaultValue = new Literal(false)
 			};
 			public static PythonType Dictionary() => new PythonType("dict") {
 				DefaultValue = new MethodCall(My.Methods.Field(), new Assignment("default_factory", new Literal("dict")))

@@ -23,7 +23,7 @@ namespace Albatross.Logging {
 			if (namespacePrefixes.Any(x => type.FullName.StartsWith(x))) {
 				return exclusive ? type.FullName : type.Name;
 			} else {
-				return exclusive ? type.Name: type.FullName;
+				return exclusive ? type.Name : type.FullName;
 			}
 		}
 	}

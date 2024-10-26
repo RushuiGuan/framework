@@ -2,8 +2,8 @@
 using System.IO;
 
 namespace Albatross.CodeGen.TypeScript.Declarations {
-	public record class ConstructorDeclaration : MethodDeclaration{
-		public ConstructorDeclaration() : base("constructor") { 
+	public record class ConstructorDeclaration : MethodDeclaration {
+		public ConstructorDeclaration() : base("constructor") {
 			ReturnType = Defined.Types.Void();
 		}
 		public override TextWriter Generate(TextWriter writer) {

@@ -37,7 +37,7 @@ namespace Albatross.EFCore.AutoCacheEviction {
 
 		public void OnModifiedEntry(EntityEntry entry) {
 			if (entry.Entity is ICachedObject<DbContext, PropertyEntry> cachedObject) {
-				var newKeys = cachedObject.CreateCacheKeys(ObjectState.Modified, entry.Context, entry.Properties.Where(x=>x.IsModified).ToArray());
+				var newKeys = cachedObject.CreateCacheKeys(ObjectState.Modified, entry.Context, entry.Properties.Where(x => x.IsModified).ToArray());
 				cacheKeys.AddRange(newKeys);
 			}
 		}

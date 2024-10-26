@@ -1,7 +1,7 @@
 ﻿namespace Albatross.Messaging.Messages {
 	public enum EntryType {
-		In, 
-		Out, 
+		In,
+		Out,
 		Record
 	}
 }

@@ -10,6 +10,6 @@ namespace Albatross.Config.UnitTest {
 		public string Name { get; } = null!;
 
 		[Required]
-		public string Data { get; }=null!;
+		public string Data { get; } = null!;
 	}
 }

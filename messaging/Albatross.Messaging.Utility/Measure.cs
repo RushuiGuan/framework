@@ -46,12 +46,12 @@ namespace Albatross.Messaging.Utility {
 				}
 			}
 			await this.writer.PrintTable(result.Values, new PrintOptionBuilder<PrintTableOption>()
-				.Property(nameof(MessageGroup.Id), 
-					nameof(MessageGroup.Type), 
-					nameof(MessageGroup.Mode), 
-					nameof(MessageGroup.RequestAckDuration), 
-					nameof(MessageGroup.ReplyDuration), 
-					nameof(MessageGroup.ReplyAckDuration), 
+				.Property(nameof(MessageGroup.Id),
+					nameof(MessageGroup.Type),
+					nameof(MessageGroup.Mode),
+					nameof(MessageGroup.RequestAckDuration),
+					nameof(MessageGroup.ReplyDuration),
+					nameof(MessageGroup.ReplyAckDuration),
 					nameof(MessageGroup.Sequence))
 				.Build());
 			return 0;

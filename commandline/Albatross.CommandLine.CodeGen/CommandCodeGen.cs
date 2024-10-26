@@ -190,11 +190,11 @@ namespace Albatross.CommandLine.CodeGen {
 
 					foreach (var alias in option.Aliases) {
 						string aliasName;
-						if(alias.StartsWith("-")) {
+						if (alias.StartsWith("-")) {
 							aliasName = alias;
-						} else if(alias.Length == 1) {
+						} else if (alias.Length == 1) {
 							aliasName = $"-{alias}";
-						}else {
+						} else {
 							aliasName = $"--{alias}";
 						}
 						using (cs.NewScope()) {

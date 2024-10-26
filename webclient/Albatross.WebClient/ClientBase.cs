@@ -1,18 +1,18 @@
-﻿using System;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Specialized;
+﻿using Albatross.Serialization;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using System.Net;
-using System.IO;
-using System.Collections.Generic;
 using Polly;
 using Polly.Retry;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.IO.Compression;
-using Albatross.Serialization;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Albatross.WebClient {
 	public abstract class ClientBase {
@@ -151,7 +151,7 @@ namespace Albatross.WebClient {
 				int index;
 				for (index = offset; index < arrayQueryStringValues.Length; index++) {
 					int current = sb.Length;
-					if(index > offset) {
+					if (index > offset) {
 						sb.Append(Uri.EscapeDataString(arrayQueryStringDelimiter));
 					}
 					sb.Append(Uri.EscapeDataString(arrayQueryStringValues[index]));

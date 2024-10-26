@@ -1,6 +1,6 @@
 ﻿using Albatross.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Sample.Daemon {
 	public class MySetup : Setup {

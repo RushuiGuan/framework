@@ -1,6 +1,6 @@
-﻿using Albatross.Caching.MemCache;
+﻿using Albatross.Caching;
+using Albatross.Caching.MemCache;
 using Albatross.Caching.Redis;
-using Albatross.Caching;
 using Albatross.Config;
 using Albatross.Hosting;
 using Microsoft.AspNetCore.Cors.Infrastructure;

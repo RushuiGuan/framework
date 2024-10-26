@@ -6,9 +6,9 @@ using System.Collections;
 namespace Albatross.CodeGen.Python.Conversions {
 	public class ConvertTypeToPythonType : IConvertObject<Type, PythonType> {
 		public PythonType Convert(Type type) {
-			if(type.IsNullableValueType()) {
+			if (type.IsNullableValueType()) {
 				return this.Convert(type.GetGenericArguments()[0]);
-			}else if (type == typeof(string) || type == typeof(char)) {
+			} else if (type == typeof(string) || type == typeof(char)) {
 				return My.Types.String();
 			} else if (type == typeof(int) || type == typeof(long) || type == typeof(short) || type == typeof(byte)) {
 				return My.Types.Int();

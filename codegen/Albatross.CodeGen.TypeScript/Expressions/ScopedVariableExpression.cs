@@ -1,5 +1,5 @@
-﻿using Albatross.Collections;
-using Albatross.CodeGen.Syntax;
+﻿using Albatross.CodeGen.Syntax;
+using Albatross.Collections;
 using Albatross.Text;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +19,7 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 		public override IEnumerable<ISyntaxNode> Children => new List<ISyntaxNode> { Identifier }.AddIfNotNull(Type, Assignment);
 
 		public override TextWriter Generate(TextWriter writer) {
-			if(IsConstant) {
+			if (IsConstant) {
 				writer.Append("const ");
 			} else {
 				writer.Append("let ");

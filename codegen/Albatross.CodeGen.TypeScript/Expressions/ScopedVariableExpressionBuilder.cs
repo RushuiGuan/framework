@@ -26,8 +26,8 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 			return this;
 		}
 
-		public override ScopedVariableExpression Build() 
-			=> new ScopedVariableExpression(name?? throw new InvalidOperationException("Variable name has not been set")) {
+		public override ScopedVariableExpression Build()
+			=> new ScopedVariableExpression(name ?? throw new InvalidOperationException("Variable name has not been set")) {
 				IsConstant = isConstant,
 				Type = this.type,
 				Assignment = expression,

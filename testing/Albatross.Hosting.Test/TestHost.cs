@@ -1,13 +1,13 @@
-﻿using Serilog;
+﻿using Albatross.Config;
+using Albatross.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using Albatross.Logging;
-using System.Threading.Tasks;
-using System.IO;
 using Microsoft.Extensions.Logging;
-using Albatross.Config;
+using Serilog;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Albatross.Hosting.Test {
 	public class TestHost : IDisposable {
@@ -15,7 +15,7 @@ namespace Albatross.Hosting.Test {
 		protected IHost host;
 		public IServiceProvider Provider => this.host.Services;
 
-		static TestHost(){
+		static TestHost() {
 			new SetupSerilog().UseConsole(Serilog.Events.LogEventLevel.Debug).UseConfigFile("serilog.json", null, null);
 		}
 

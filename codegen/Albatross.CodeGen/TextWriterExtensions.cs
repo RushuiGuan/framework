@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using Albatross.Text;
+using System.IO;
 using System.Linq;
-using Albatross.Text;
 
 namespace Albatross.CodeGen {
 	public static class TextWriterExtensions {

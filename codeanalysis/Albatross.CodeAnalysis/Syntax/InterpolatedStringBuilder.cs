@@ -1,8 +1,8 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
@@ -29,7 +29,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 						)
 					);
 					text = string.Empty;
-				} 
+				}
 				if (elem is ExpressionSyntax identifier) {
 					list.Add(SyntaxFactory.Interpolation(identifier));
 				} else if (elem is InterpolationSyntax interpolationSyntax) {

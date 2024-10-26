@@ -8,7 +8,7 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 			Identifier = new IdentifierNameExpression(name);
 			this.Source = source;
 		}
-		public IdentifierNameExpression Identifier { get;  }
+		public IdentifierNameExpression Identifier { get; }
 		public ISourceExpression Source { get; }
 		public override IEnumerable<ISyntaxNode> Children => [Identifier, Source];
 

@@ -13,7 +13,7 @@ namespace Albatross.Reflection {
 		/// <summary>
 		/// Return the generic argument of Nullable<>
 		/// </summary>
-		public static bool GetNullableValueType(this Type nullableType, [NotNullWhen(true)]out Type? valueType) {
+		public static bool GetNullableValueType(this Type nullableType, [NotNullWhen(true)] out Type? valueType) {
 			if (nullableType.IsGenericType && nullableType.GetGenericTypeDefinition() == typeof(Nullable<>)) {
 				valueType = nullableType.GetGenericArguments()[0];
 				return true;
@@ -99,7 +99,7 @@ namespace Albatross.Reflection {
 		/// <param name="genericDefinition">The definition of a generic type.  For example: typeof(IEnumerable&lt;&gt;)</param>
 		/// <param name="genericType">If the class extends\implements the generic type\interface, its type will be set in this output parameter</param>
 		/// <returns>Return true if the class implements the generic interface</returns>
-		public static bool TryGetClosedGenericType(this Type type, Type genericDefinition, [NotNullWhen(true)]out Type? genericType) {
+		public static bool TryGetClosedGenericType(this Type type, Type genericDefinition, [NotNullWhen(true)] out Type? genericType) {
 			genericType = null;
 			if (!type.IsAbstract && type.IsClass && !type.IsGenericTypeDefinition) {
 				if (genericDefinition.IsInterface) {
@@ -161,7 +161,7 @@ namespace Albatross.Reflection {
 		public static string GetTypeNameWithoutAssemblyVersion(this Type type) => $"{type.FullName}, {type.Assembly.GetName().Name}";
 
 		public static string GetAssemblyLocation(this Assembly asm, string path) {
-			string location = System.IO.Path.GetDirectoryName(asm.Location)??throw new Exception($"Cannot find the location of assembly {asm.FullName}");
+			string location = System.IO.Path.GetDirectoryName(asm.Location) ?? throw new Exception($"Cannot find the location of assembly {asm.FullName}");
 			return System.IO.Path.Combine(location, path);
 		}
 
@@ -186,14 +186,14 @@ namespace Albatross.Reflection {
 				bindingFlag = bindingFlag | BindingFlags.IgnoreCase;
 			}
 			var index = name.IndexOf('.');
-			if(index == -1) {
+			if (index == -1) {
 				var property = type.GetProperty(name, bindingFlag) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
 				return property.GetValue(data);
 			} else {
 				var firstProperty = name.Substring(0, index);
 				var property = type.GetProperty(firstProperty, bindingFlag) ?? throw new ArgumentException($"Property {name} is not found in type {type.Name}");
 				var value = property.GetValue(data);
-				if(value != null) {
+				if (value != null) {
 					var remainingProperty = name.Substring(index + 1);
 					// use value.GetType() instead of property.PropertyType because property.PropertyType may be a base class of value
 					return GetPropertyValue(value.GetType(), value, remainingProperty, ignoreCase);

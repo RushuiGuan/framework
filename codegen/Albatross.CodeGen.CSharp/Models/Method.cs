@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace Albatross.CodeGen.CSharp.Models {
-	public class Method : ICodeElement{
+	public class Method : ICodeElement {
 		public Method(string name) {
 			Name = name;
 		}
@@ -12,7 +12,7 @@ namespace Albatross.CodeGen.CSharp.Models {
 		public string Name { get; set; }
 		public AccessModifier AccessModifier { get; set; }
 		public IEnumerable<Parameter> Parameters { get; set; } = new Parameter[0];
-        public bool Async { get; set; }
+		public bool Async { get; set; }
 		public bool Static { get; set; }
 		public bool Virtual { get; set; }
 		public bool Override { get; set; }
@@ -31,7 +31,7 @@ namespace Albatross.CodeGen.CSharp.Models {
 			writer.Code(ReturnType).Space().Append(Name).OpenParenthesis()
 				.Code(new ParameterCollection(Parameters))
 				.CloseParenthesis();
-			using(var scope = writer.BeginScope()) {
+			using (var scope = writer.BeginScope()) {
 				scope.Writer.Code(CodeBlock);
 			}
 			return writer;

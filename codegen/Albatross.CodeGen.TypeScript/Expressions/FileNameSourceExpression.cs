@@ -15,7 +15,7 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 		public override IEnumerable<ISyntaxNode> Children => [];
 
 		public override TextWriter Generate(TextWriter writer) {
-			if(Path.IsPathRooted(FileName)) {
+			if (Path.IsPathRooted(FileName)) {
 				throw new ArgumentException("FileNameSource can only use relative path for its FileName property");
 			}
 			writer.Append('\'').Append("./");

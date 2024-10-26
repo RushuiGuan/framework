@@ -41,7 +41,7 @@ namespace Albatross.Messaging.Utility {
 		public string ReplyPayLoad => this.reply?.Message?.Payload.ToUtf8String() ?? string.Empty;
 		public double ReplyDuration => (this.reply?.Entry.TimeStamp - this.requestAck?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
 		public double ReplyAckDuration => (this.clientAck?.Entry.TimeStamp - this.reply?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
-		
+
 		public string ReplyErrorMessage => this.errorReply?.Message?.Message.ToUtf8String() ?? string.Empty;
 		public double ReplyErrorDuration => (this.errorReply?.Entry.TimeStamp - this.request?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
 		public double ReplyErrorAckDuration => (this.clientAck?.Entry.TimeStamp - this.errorReply?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;

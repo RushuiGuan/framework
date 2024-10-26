@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using Albatross.Messaging.Messages;
-using System;
-using Albatross.Messaging.Services;
+﻿using Albatross.Messaging.Messages;
 using Albatross.Messaging.ReqRep.Messages;
+using Albatross.Messaging.Services;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Albatross.Messaging.ReqRep {
 	public class RouterBrokerService : IRouterServerService {

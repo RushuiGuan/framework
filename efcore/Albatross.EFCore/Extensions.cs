@@ -23,7 +23,7 @@ namespace Albatross.EFCore {
 		/// <typeparam name="T"></typeparam>
 		/// <param name="builder"></param>
 		/// <returns></returns>
-		public static PropertyBuilder<T?> HasImmutableJsonProperty<T>(this PropertyBuilder<T?> builder)  {
+		public static PropertyBuilder<T?> HasImmutableJsonProperty<T>(this PropertyBuilder<T?> builder) {
 			builder.IsRequired(false).IsUnicode(false).HasConversion(new ValueConverter<T?, string?>(
 								args => SaveNullableJsonData(args),
 								args => GetNullableJsonData<T>(args)),

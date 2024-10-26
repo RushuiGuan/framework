@@ -11,7 +11,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 			public Scope(CodeStack parent) { this.parent = parent; }
 			public void Dispose() { parent.End(); }
 		}
-		
+
 		Stack<INode> stack = new Stack<INode>();
 		public string? FileName { get; set; }
 
@@ -77,8 +77,8 @@ namespace Albatross.CodeAnalysis.Syntax {
 				foreach (var node in nodes) {
 					stack.Push(node);
 				}
-			}else  if (lastNode is INodeBuilder builder) {
-				var result = builder.Build(nodes.Cast<INodeContainer>().Select(x=>x.Node));
+			} else if (lastNode is INodeBuilder builder) {
+				var result = builder.Build(nodes.Cast<INodeContainer>().Select(x => x.Node));
 				stack.Push(new NodeContainer(result));
 			} else {
 				throw new InvalidOperationException($"CodeStack is missing a builder therefore out of balance.  Please double check your scopes");
@@ -88,7 +88,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 
 		public IEnumerable<INodeContainer> Finalize() {
 			foreach (var item in stack.Reverse()) {
-				if(item is INodeContainer container) {
+				if (item is INodeContainer container) {
 					yield return container;
 				} else {
 					throw new InvalidOperationException($"CodeStack is missing a end call therefore out of balance.  Please double check your scopes");

@@ -15,7 +15,7 @@ namespace Albatross.CodeGen.Syntax {
 			this.queue = new Queue<Func<IExpression>>();
 			queue.Enqueue(this.InternalBuild);
 		}
-		
+
 		public Builder Next<Builder>() where Builder : ExpressionBuilder, new() {
 			var next = new Builder();
 			this.queue.Enqueue(next.InternalBuild);

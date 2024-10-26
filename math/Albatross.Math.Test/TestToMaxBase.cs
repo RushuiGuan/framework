@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Albatross.Math;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Albatross.Math;
 using Xunit;
 
 namespace Albatross.Test.Math {
@@ -13,10 +13,10 @@ namespace Albatross.Test.Math {
 			var set = new HashSet<string>();
 			long tick = DateTime.Now.Ticks;
 			for (int i = 0; i < 100000000; i++) {
-				var text= tick.ToMaxBase();
-				if(set.Contains(text)) {
+				var text = tick.ToMaxBase();
+				if (set.Contains(text)) {
 					throw new Exception("Duplicate value");
-				}else{
+				} else {
 					set.Add(text);
 				}
 				tick++;

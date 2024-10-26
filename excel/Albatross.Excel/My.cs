@@ -1,6 +1,6 @@
-﻿using interop = Microsoft.Office.Interop.Excel;
-using ExcelDna.Integration;
+﻿using ExcelDna.Integration;
 using System.Diagnostics.CodeAnalysis;
+using interop = Microsoft.Office.Interop.Excel;
 
 namespace Albatross.Excel {
 	public static class My {

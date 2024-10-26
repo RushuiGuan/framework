@@ -9,7 +9,7 @@ namespace Albatross.CodeGen.Python.Models {
 		}
 		public string Name { get; set; }
 		public string Module { get; set; }
-		
+
 		public void Build() {
 			throw new NotImplementedException();
 		}

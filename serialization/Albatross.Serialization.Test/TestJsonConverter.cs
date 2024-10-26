@@ -15,7 +15,7 @@ namespace Albatross.Serialization.Test {
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public enum HisEnum {
-		A, 
+		A,
 		B
 	}
 

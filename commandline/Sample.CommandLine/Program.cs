@@ -1,7 +1,7 @@
-﻿using System.CommandLine;
+﻿using Albatross.CommandLine;
+using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.Threading.Tasks;
-using Albatross.CommandLine;
 
 namespace Sample.CommandLine {
 	internal class Program {

@@ -55,8 +55,8 @@ namespace Albatross.Collections {
 
 		public static async Task MergeAsync<Src, Dst, TKey>(this IEnumerable<Dst> dst, IEnumerable<Src> src,
 			Func<Src, TKey> srcKeySelector, Func<Dst, TKey> dstKeySelector,
-			Func<Src, Dst, Task>? matched, 
-			Func<Src, Task>? notMatchedByDst, 
+			Func<Src, Dst, Task>? matched,
+			Func<Src, Task>? notMatchedByDst,
 			Func<Dst, Task>? notMatchedBySrc) where TKey : notnull {
 
 			var dstArray = dst.ToArray();

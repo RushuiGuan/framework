@@ -30,7 +30,7 @@ namespace Albatross.Reflection.Test {
 		[InlineData("Padding", null)]
 		[InlineData("Padding.Left", null)]
 		[InlineData("Padding.Right", null)]
-		[InlineData("Padding.x", null)]	// the method will return null here even when x is not a valid property because the Padding property is null
+		[InlineData("Padding.x", null)] // the method will return null here even when x is not a valid property because the Padding property is null
 		public void TestGetPropertyValue(string propertyName, object? expected) {
 			var obj = new Style {
 				Name = "box",
@@ -86,12 +86,12 @@ namespace Albatross.Reflection.Test {
 		[InlineData("width.unit", "inches")]
 		[InlineData("padding.left", "50px")]
 		public void TestSetPropertyValue(string propertyName, object value) {
-			var obj = new Style { 
+			var obj = new Style {
 				Width = new Width(),
 				Padding = new Padding(),
 			};
 			typeof(Style).SetPropertyValue(obj, propertyName, value, true);
-			Assert.Equal(value, typeof(Style).GetPropertyValue(obj, propertyName, true));	
+			Assert.Equal(value, typeof(Style).GetPropertyValue(obj, propertyName, true));
 		}
 
 		[Theory]

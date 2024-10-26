@@ -9,6 +9,6 @@ namespace Albatross.Config.UnitTest {
 		}
 
 		public string ConnectionString { get; }
-		public string EndPoint{ get; }
+		public string EndPoint { get; }
 	}
 }

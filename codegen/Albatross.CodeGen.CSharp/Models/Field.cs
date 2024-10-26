@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 
 namespace Albatross.CodeGen.CSharp.Models {
-	public class Field : ICodeElement{ 
+	public class Field : ICodeElement {
 		public Field(string name, DotNetType type) {
 			this.Name = name;
 			this.Type = type;
@@ -14,7 +14,7 @@ namespace Albatross.CodeGen.CSharp.Models {
 		public string Name { get; set; }
 		public DotNetType Type { get; set; }
 		public AccessModifier Modifier { get; set; }
-		public bool ReadOnly { get; set; } 
+		public bool ReadOnly { get; set; }
 		public bool Static { get; set; }
 		public bool Const { get; set; }
 		public string? Value { get; set; }

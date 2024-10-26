@@ -1,12 +1,12 @@
 ﻿using Albatross.Math;
 using Albatross.Messaging.Configurations;
-using Albatross.Messaging.Messages;
 using Albatross.Messaging.EventSource;
+using Albatross.Messaging.Messages;
 using Microsoft.Extensions.Logging;
-using NetMQ.Sockets;
 using NetMQ;
-using System.Collections.Generic;
+using NetMQ.Sockets;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

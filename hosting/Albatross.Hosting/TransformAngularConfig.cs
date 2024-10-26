@@ -45,14 +45,14 @@ namespace Albatross.Hosting {
 				if (File.Exists(indexHtml)) {
 					logger.LogInformation("Replacing baseHref for {file}", indexHtml);
 					string content;
-					using(var reader = new StreamReader(indexHtml)) {
+					using (var reader = new StreamReader(indexHtml)) {
 						content = reader.ReadToEnd();
 						string pattern = "<\\s*base\\s+href\\s*=\\s*\"[a-z0-9_\\-/]*\"\\s*>";
 						Regex regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 						string replacement = $"<base href=\"{config.BaseHref}\">";
 						content = regex.Replace(content, replacement);
 					}
-					using(var writer = new StreamWriter(indexHtml)) {
+					using (var writer = new StreamWriter(indexHtml)) {
 						writer.Write(content);
 					}
 				} else {
@@ -69,19 +69,19 @@ namespace Albatross.Hosting {
 			}
 			var location = new string[] {
 				System.Environment.CurrentDirectory
-			}.Union(config.ConfigFile.SkipLast(1)).Union(new string[] { name}).ToArray();
+			}.Union(config.ConfigFile.SkipLast(1)).Union(new string[] { name }).ToArray();
 			return Path.Join(location);
 		}
 
 		JsonElement ReadJsonFile(string file) {
-			using(var reader = new StreamReader(file)) {
+			using (var reader = new StreamReader(file)) {
 				string text = reader.ReadToEnd();
 				return JsonSerializer.Deserialize<JsonElement>(text);
 			}
 		}
 		void WriteJsonFile(string file, JsonElement element) {
-			string content = JsonSerializer.Serialize<JsonElement>(element, new JsonSerializerOptions { WriteIndented=true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase,  });
-			using(StreamWriter writer = new StreamWriter(file)) {
+			string content = JsonSerializer.Serialize<JsonElement>(element, new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, });
+			using (StreamWriter writer = new StreamWriter(file)) {
 				writer.Write(content);
 			}
 		}

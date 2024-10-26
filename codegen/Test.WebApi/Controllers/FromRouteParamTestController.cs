@@ -19,7 +19,7 @@ namespace Test.WebApi.Controllers {
 		public void ExplicitRoute([FromRoute] string name, [FromRoute] int id) { }
 
 		[HttpGet("wild-card-route-double/{id}/{**name}")]
-		public void WildCardRouteDouble([FromRoute] string name, [FromRoute] int id)  {}
+		public void WildCardRouteDouble([FromRoute] string name, [FromRoute] int id) { }
 
 		[HttpGet("wild-card-route-single/{id}/{*name}")]
 		public void WildCardRouteSingle([FromRoute] string name, [FromRoute] int id) { }
@@ -40,4 +40,3 @@ namespace Test.WebApi.Controllers {
 		public void TimeOnlyRoute([FromRoute] TimeOnly time, [FromRoute] int id) { }
 	}
 }
-

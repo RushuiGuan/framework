@@ -7,7 +7,7 @@ namespace Sample.CommandLine {
 	[Verb("test", typeof(Test))]
 	public class TestOptions { }
 
-	public class Test :ICommandHandler {
+	public class Test : ICommandHandler {
 		private readonly ILogger<Test> logger;
 
 		public Test(ILogger<Test> logger) {

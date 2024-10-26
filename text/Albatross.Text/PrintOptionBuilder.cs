@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Albatross.Text {
-	public class PrintOptionBuilder<T> where T:PrintOption, new(){
+	public class PrintOptionBuilder<T> where T : PrintOption, new() {
 		Action<T>? action;
 		public PrintOptionBuilder<T> Set(Action<T> action) {
 			this.action += action;
@@ -25,7 +25,7 @@ namespace Albatross.Text {
 			return this;
 		}
 
-		public PrintOptionBuilder<T> Format(string property, string format)  {
+		public PrintOptionBuilder<T> Format(string property, string format) {
 			this.formatters[property] = (object? entity, object? value) => string.Format($"{{0:{format}}}", value);
 			return this;
 		}
@@ -49,9 +49,9 @@ namespace Albatross.Text {
 		}
 	}
 
-	public static class  PrintOptionBuilderExtensions {
-		
-		public static PrintOptionBuilder<T> ColumnHeaderLineCharacter<T>(this PrintOptionBuilder<T> builder, char value) where T:PrintOption, new() {
+	public static class PrintOptionBuilderExtensions {
+
+		public static PrintOptionBuilder<T> ColumnHeaderLineCharacter<T>(this PrintOptionBuilder<T> builder, char value) where T : PrintOption, new() {
 			return builder.Set(option => option.ColumnHeaderLineCharacter = value);
 		}
 		public static PrintOptionBuilder<PrintTableOption> PrintHeader(this PrintOptionBuilder<PrintTableOption> builder, bool value = true) {

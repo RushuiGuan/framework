@@ -1,8 +1,8 @@
 ﻿using Albatross.Caching;
 
 namespace Sample.Caching.WebApi.CacheKeys {
-	public class Tier1Key : CacheKey { 
-		public Tier1Key(int t1Value) : base("t1", t1Value.ToString(), true) { } 
+	public class Tier1Key : CacheKey {
+		public Tier1Key(int t1Value) : base("t1", t1Value.ToString(), true) { }
 	}
 }
 

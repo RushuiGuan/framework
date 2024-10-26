@@ -56,7 +56,7 @@ namespace Albatross.Test.Text {
 		[InlineData(".", "", "---", "***", "")]
 		[InlineData(".", "a,b,,d", "---", "***", "---a.b.d***")]
 		public void TestWriteItems(string delimiter, string data, string? prefix, string? postfix, string expected) {
-			var array = data.Split(",", StringSplitOptions.None).Select(x=> x == "" ? null : x).ToArray();
+			var array = data.Split(",", StringSplitOptions.None).Select(x => x == "" ? null : x).ToArray();
 			var result = new StringWriter().WriteItems(array, delimiter, null, prefix, postfix).ToString();
 			Assert.Equal(expected, result);
 

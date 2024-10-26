@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Albatross.Reflection;
+using System;
 using System.Collections.Generic;
-using Albatross.Reflection;
 
 namespace Albatross.Text {
 	public static class ConversionExtensions {

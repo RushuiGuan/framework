@@ -23,4 +23,4 @@ namespace Albatross.CodeGen.CSharp.Conversions {
 
 		object IConvertObject<MethodInfo>.Convert(MethodInfo from) => this.Convert(from);
 	}
-} 
+}

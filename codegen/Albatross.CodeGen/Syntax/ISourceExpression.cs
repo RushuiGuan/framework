@@ -1,3 +1,3 @@
 ﻿namespace Albatross.CodeGen.Syntax {
-	public interface ISourceExpression :IExpression { }
+	public interface ISourceExpression : IExpression { }
 }

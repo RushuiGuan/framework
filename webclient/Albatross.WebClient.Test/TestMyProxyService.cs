@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.WebClient.Test{
+namespace Albatross.WebClient.Test {
 	public class MyProxyService : WebClient.ClientBase {
 		public MyProxyService(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
 		}
@@ -117,7 +117,7 @@ http://myyyhost/api/bar?date=2022-10-10&id=0
 		//[InlineData(47, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
 		//[InlineData(48, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
 		//[InlineData(49, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
-		[InlineData(50, 2,".", "api/bar?date=2022-10-10&id=0.1")]
+		[InlineData(50, 2, ".", "api/bar?date=2022-10-10&id=0.1")]
 		[InlineData(51, 2, ".", "api/bar?date=2022-10-10&id=0.1")]
 		[InlineData(52, 2, ".", "api/bar?date=2022-10-10&id=0.1")]
 		[InlineData(52, 2, ",", "api/bar?date=2022-10-10&id=0%2C1")]

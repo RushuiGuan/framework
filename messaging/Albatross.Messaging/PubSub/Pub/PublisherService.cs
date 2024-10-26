@@ -1,6 +1,6 @@
 ﻿using Albatross.Messaging.EventSource;
-using Albatross.Messaging.PubSub.Messages;
 using Albatross.Messaging.Messages;
+using Albatross.Messaging.PubSub.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 

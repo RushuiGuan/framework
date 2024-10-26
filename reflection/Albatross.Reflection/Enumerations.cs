@@ -10,7 +10,7 @@ namespace Albatross.Reflection {
 			if (string.IsNullOrEmpty(path)) {
 				return name ?? string.Empty;
 			} else {
-				if(!string.IsNullOrEmpty(name)) {
+				if (!string.IsNullOrEmpty(name)) {
 					name = $".{name}";
 				}
 				if (index.HasValue) {
@@ -30,18 +30,18 @@ namespace Albatross.Reflection {
 		/// <param name="index"></param>
 		/// <param name="result"></param>
 		public static void Property(object? value, string? path, int? index, Dictionary<string, object> result) {
-			if(value == null) {
+			if (value == null) {
 				return;
-			}else if (value is string) {
+			} else if (value is string) {
 				result.Add(GetPropertyKey(path, index, null), value);
-			}else if(value.GetType().IsValueType) {
+			} else if (value.GetType().IsValueType) {
 				result.Add(GetPropertyKey(path, index, null), value);
 			} else {
 				var type = value.GetType();
-				if (type.IsArray || typeof(IEnumerable).IsAssignableFrom(type)){
+				if (type.IsArray || typeof(IEnumerable).IsAssignableFrom(type)) {
 					var newPath = GetPropertyKey(path, index, null);
 					int newIndex = 0;
-					foreach(var item in (IEnumerable)value) {
+					foreach (var item in (IEnumerable)value) {
 						Property(item, newPath, newIndex, result);
 						newIndex++;
 					}

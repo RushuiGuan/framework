@@ -20,13 +20,13 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly ConvertApiControllerToControllerModel convertToWebApi;
 		private readonly ConvertWebApiToCSharpCodeStack_Client740 converToCSharpCodeStack;
 
-		public CSharpWebClientCodeGenCommandHandler_Client740(IOptions<CodeGenCommandOptions> options, 
+		public CSharpWebClientCodeGenCommandHandler_Client740(IOptions<CodeGenCommandOptions> options,
 			ILogger<CSharpWebClientCodeGenCommandHandler_Client740> logger,
 			CreateHttpClientRegistrations createHttpClientRegistrations,
-			Compilation compilation, 
+			Compilation compilation,
 			CodeGenSettings settings,
 			ConvertApiControllerToControllerModel convertToWebApi,
-			ConvertWebApiToCSharpCodeStack_Client740 converToCSharpFile) :base(options, logger){
+			ConvertWebApiToCSharpCodeStack_Client740 converToCSharpFile) : base(options, logger) {
 			this.createHttpClientRegistrations = createHttpClientRegistrations;
 			this.compilation = compilation;
 			this.settings = settings;

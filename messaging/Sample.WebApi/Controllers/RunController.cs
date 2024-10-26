@@ -18,13 +18,13 @@ namespace Sample.WebApi.Controllers {
 
 
 		[HttpPost("sub")]
-		public Task Subscribe([FromQuery] string topic) 
+		public Task Subscribe([FromQuery] string topic)
 			=> subscriptionClient.Subscribe(this.subscriber, topic);
 
 		[HttpPost("unsub")]
 		public Task Unsubscribe([FromQuery] string topic) => subscriptionClient.Unsubscribe(this.subscriber, topic);
 
 		[HttpPost("unsub-all")]
-		public Task UnsubscribeAll () => subscriptionClient.UnsubscribeAll();
+		public Task UnsubscribeAll() => subscriptionClient.UnsubscribeAll();
 	}
 }

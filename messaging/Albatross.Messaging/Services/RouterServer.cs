@@ -1,12 +1,12 @@
 ﻿using Albatross.Collections;
 using Albatross.Messaging.Configurations;
-using Albatross.Messaging.Messages;
 using Albatross.Messaging.EventSource;
+using Albatross.Messaging.Messages;
 using Microsoft.Extensions.Logging;
-using NetMQ.Sockets;
 using NetMQ;
-using System.Collections.Generic;
+using NetMQ.Sockets;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,9 +33,9 @@ namespace Albatross.Messaging.Services {
 		public IEventWriter EventWriter => this.eventWriter;
 		public IAtomicCounter Counter => this.counter;
 
-		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILoggerFactory loggerFactory,  IMessageFactory messageFactory) {
+		public RouterServer(RouterServerConfiguration config, IEnumerable<IRouterServerService> services, ILoggerFactory loggerFactory, IMessageFactory messageFactory) {
 			this.logger = loggerFactory.CreateLogger<RouterServer>();
-			logger.LogInformation("Creating {name} instance w. maintainConnection={maintain}, receiveHighWatermark={rchw}, sendHighWatermark={sendhw}, timerInterval={timerintv}", 
+			logger.LogInformation("Creating {name} instance w. maintainConnection={maintain}, receiveHighWatermark={rchw}, sendHighWatermark={sendhw}, timerInterval={timerintv}",
 				nameof(RouterServer), config.MaintainConnection, config.ReceiveHighWatermark, config.SendHighWatermark, config.ActualTimerInterval);
 			this.config = config;
 			this.receiveServices = services.Where(args => args.CanReceive).ToArray();
@@ -114,7 +114,7 @@ namespace Albatross.Messaging.Services {
 			try {
 				var frames = e.Socket.ReceiveMultipartMessage();
 				var msg = this.messageFactory.Create(frames);
-				if(msg is UnknownMsg) {
+				if (msg is UnknownMsg) {
 					logger.LogError("unknown message: {@msg}", msg);
 					return;
 				}

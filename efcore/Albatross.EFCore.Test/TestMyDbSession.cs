@@ -11,7 +11,7 @@ using Xunit;
 namespace Albatross.EFCore.Test.MyNamespace {
 	public class TestSampleDbSession : IClassFixture<MyTestHost> {
 		private readonly MyTestHost host;
-		
+
 		public TestSampleDbSession(MyTestHost host) {
 			this.host = host;
 		}

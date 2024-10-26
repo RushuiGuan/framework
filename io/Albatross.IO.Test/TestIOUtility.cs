@@ -1,5 +1,5 @@
-﻿using Xunit;
-using Albatross.IO;
+﻿using Albatross.IO;
+using Xunit;
 
 namespace Albatross.IO.Test {
 	public class TestIOUtility {

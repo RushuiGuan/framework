@@ -1,14 +1,14 @@
-﻿using Albatross.Reflection;
-using Albatross.Messaging.Commands.Messages;
+﻿using Albatross.Messaging.Commands.Messages;
 using Albatross.Messaging.Messages;
 using Albatross.Messaging.Services;
+using Albatross.Reflection;
+using Albatross.Threading;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Albatross.Threading;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	public delegate void CommandCallbackDelegate(ulong id, string commandType, byte[] message);
@@ -70,7 +70,7 @@ namespace Albatross.Messaging.Commands {
 				Task.Run(() => {
 					try {
 						this.OnCommandError(errorMessage.Id, errorMessage.CommandType, errorMessage.ClassName, errorMessage.Message);
-					}catch(Exception err) {
+					} catch (Exception err) {
 						logger.LogError(err, "Error running command error callback for {type}({id})", errorMessage.CommandType, errorMessage.Id);
 					}
 				});

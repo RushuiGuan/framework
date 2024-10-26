@@ -11,7 +11,7 @@ namespace Albatross.Reflection {
 	}
 
 	public static class EnumTextExtensions {
-		public static A? GetEnumMemberAttribute<A>(Type type, object enumValue) where A : Attribute  {
+		public static A? GetEnumMemberAttribute<A>(Type type, object enumValue) where A : Attribute {
 			if (type.IsEnum) {
 				var name = Enum.GetName(type, enumValue);
 				var members = type.GetMember(name);

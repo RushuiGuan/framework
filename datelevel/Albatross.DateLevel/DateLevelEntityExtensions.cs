@@ -146,7 +146,7 @@ namespace Albatross.DateLevel {
 		/// <param name="start"></param>
 		/// <param name="endDate"></param>
 		/// <exception cref="ArgumentException"></exception>
-		public static void UpdateDateLevel<T>(this ICollection<T> collection, Action<T> modify, DateOnly start, DateOnly? endDate, bool rebuild = true) 
+		public static void UpdateDateLevel<T>(this ICollection<T> collection, Action<T> modify, DateOnly start, DateOnly? endDate, bool rebuild = true)
 			where T : DateLevelEntity {
 			if (start > endDate) {
 				throw new ArgumentException("Start date cannot be greater than end date");
@@ -252,7 +252,7 @@ namespace Albatross.DateLevel {
 		/// <returns></returns>
 		public static void RebuildDateLevelSeries<T, K>(this IEnumerable<T> source, Action<T> remove)
 			where T : DateLevelEntity<K>
-			where K: IEquatable<K>{
+			where K : IEquatable<K> {
 			var groups = source.GroupBy(x => x.Key);
 			foreach (var group in groups) {
 				RebuildDateLevelSeries<T>(group, remove);
@@ -323,7 +323,7 @@ namespace Albatross.DateLevel {
 		public static IEnumerable<T> GetOverlappedDateLevelEntities<T, K>(this IEnumerable<T> source, K key, DateOnly start, DateOnly? end)
 			where T : IDateLevelEntity<K>
 			where K : IEquatable<K> {
-			source = source.Where(x=> x.Key.Equals(key));
+			source = source.Where(x => x.Key.Equals(key));
 			return GetOverlappedDateLevelEntities<T>(source, start, end);
 		}
 		/// <summary>

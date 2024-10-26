@@ -23,9 +23,9 @@ namespace Albatross.CodeAnalysis.Syntax {
 			var usingDirectives = new List<UsingDirectiveSyntax>();
 			var memberDeclarations = new List<MemberDeclarationSyntax>();
 			foreach (var element in elements) {
-				if(element is UsingDirectiveSyntax usingDirectiveSyntax){
+				if (element is UsingDirectiveSyntax usingDirectiveSyntax) {
 					usingDirectives.Add(usingDirectiveSyntax);
-				} else if(element is MemberDeclarationSyntax memberDeclarationSyntax){
+				} else if (element is MemberDeclarationSyntax memberDeclarationSyntax) {
 					memberDeclarations.Add(memberDeclarationSyntax);
 				} else {
 					throw new InvalidOperationException($"SyntaxNode of type {element.GetType().Name} cannot be added to namespace");

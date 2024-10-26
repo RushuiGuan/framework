@@ -18,10 +18,10 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 
 		public override TextWriter Generate(TextWriter writer) {
 			writer.Append("`");
-			foreach(var item in Expressions) {
+			foreach (var item in Expressions) {
 				if (item is StringLiteralExpression literal) {
 					writer.Append(literal.Value);
-				}else{
+				} else {
 					writer.Append("${");
 					writer.Code(item);
 					writer.Append("}");

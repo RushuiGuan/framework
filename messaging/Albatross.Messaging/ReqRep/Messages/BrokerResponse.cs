@@ -1,5 +1,5 @@
-﻿using Albatross.Text;
-using Albatross.Messaging.Messages;
+﻿using Albatross.Messaging.Messages;
+using Albatross.Text;
 using NetMQ;
 using System;
 using System.IO;

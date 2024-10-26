@@ -11,7 +11,7 @@ namespace Test.WebApi.Controllers {
 		public void RequiredStringImplied(string name) { }
 
 		[HttpGet("required-string-diff-name")]
-		public void RequiredStringDiffName([FromQuery(Name ="n")]string name) { }
+		public void RequiredStringDiffName([FromQuery(Name = "n")] string name) { }
 
 		[HttpGet("required-datetime")]
 		public void RequiredDateTime(DateTime datetime) { }

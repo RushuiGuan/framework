@@ -1,11 +1,11 @@
 ﻿using Albatross.Config;
 using Albatross.Excel;
 using Albatross.Excel.Table;
+using Albatross.Text;
+using ExcelDna.Integration;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Reflection;
-using Albatross.Text;
-using ExcelDna.Integration;
 
 namespace Albatross.Hosting.Excel {
 	public record class HelpEntry {

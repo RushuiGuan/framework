@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using Albatross.Text;
-using System.IO;
-using System;
+﻿using Albatross.Text;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Albatross.EFCore.ChangeReporting {
 	public class ChangeReportDbEventHandler<T> : IDbSessionEventHandler where T : class {

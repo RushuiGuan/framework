@@ -1,10 +1,10 @@
-﻿using Albatross.Hosting.Test;
+﻿using Albatross.Caching.BuiltIn;
+using Albatross.Caching.Test.CacheKeys;
+using Albatross.Hosting.Test;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using System.Collections.Generic;
-using Albatross.Caching.Test.CacheKeys;
-using Albatross.Caching.BuiltIn;
 
 namespace Albatross.Caching.Test {
 	public class MyCacheKey : CacheKey {

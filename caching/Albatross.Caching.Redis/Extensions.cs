@@ -43,7 +43,7 @@ namespace Albatross.Caching.Redis {
 			var logger = serviceProvider.GetRequiredService<ILogger>();
 			try {
 				serviceProvider.GetRequiredService<RedisCacheKeyManagement>().Init().Wait();
-			}catch(Exception err) {
+			} catch (Exception err) {
 				logger.LogError(err, "Error connecting to redis server");
 			}
 		}

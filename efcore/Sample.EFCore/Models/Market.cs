@@ -17,7 +17,7 @@ namespace Sample.EFCore.Models {
 
 
 		public List<ContractSpec> ContractSpec { get; set; } = new List<ContractSpec>();
-		public List<SpreadSpec> SpreadSpec{ get; set; } = new List<SpreadSpec>();
+		public List<SpreadSpec> SpreadSpec { get; set; } = new List<SpreadSpec>();
 
 	}
 	public class MarketEntityMap : EntityMap<Market> {

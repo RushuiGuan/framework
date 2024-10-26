@@ -1,8 +1,8 @@
 ﻿using Albatross.Messaging.Messages;
+using Albatross.Messaging.ReqRep.Messages;
+using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 using System;
-using Albatross.Messaging.Services;
-using Albatross.Messaging.ReqRep.Messages;
 
 namespace Albatross.Messaging.ReqRep {
 	public class DealerWorkerService : IDealerClientService {

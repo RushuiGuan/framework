@@ -1,4 +1,4 @@
-﻿namespace Albatross.CodeGen.Syntax{
+﻿namespace Albatross.CodeGen.Syntax {
 	public interface ITypeExpression : IExpression {
 	}
 }

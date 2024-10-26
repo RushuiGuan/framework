@@ -142,7 +142,7 @@ namespace Albatross.Excel.Table {
 
 		public void UpdateFormula(TableColumn column) {
 			var sb = new StringBuilder(column.Formula.Value);
-			foreach(var item in this.columns.Values) {
+			foreach (var item in this.columns.Values) {
 				sb.Replace("<" + item.Name + ">", string.Format("RC[{0}]", item.Index - column.Index));
 			}
 			column.Formula.Value = sb.ToString();
@@ -151,7 +151,7 @@ namespace Albatross.Excel.Table {
 		public TableOptions Build() {
 			// create the columns in one pass
 			var hasKey = false;
-			var array = columns.Values.OrderBy(args=>args.Order).ThenBy(args=>args.Name).ToArray();
+			var array = columns.Values.OrderBy(args => args.Order).ThenBy(args => args.Name).ToArray();
 			options.Columns = new TableColumn[array.Length];
 			var formulaColumns = new List<TableColumn>();
 			for (int i = 0; i < array.Length; i++) {
@@ -165,7 +165,7 @@ namespace Albatross.Excel.Table {
 				}
 			}
 			// second pass to update formula
-			foreach(var column in formulaColumns) {
+			foreach (var column in formulaColumns) {
 				UpdateFormula(column);
 			}
 			if (!hasKey) {

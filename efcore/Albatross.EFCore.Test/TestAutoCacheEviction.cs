@@ -15,7 +15,7 @@ namespace Albatross.EFCore.Test {
 		public async Task TestRun() {
 			using var scope = host.Create();
 			var svc = scope.Get<MyDataService>();
-			var data = new MyData{ Text = "test" };
+			var data = new MyData { Text = "test" };
 			await svc.Set(data);
 			Assert.Equal("test", data.Text);
 

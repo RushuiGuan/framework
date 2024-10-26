@@ -12,9 +12,9 @@ namespace Albatross.Logging {
 		public CustomLogger(ILoggerFactory factory, IGetLoggerName getLoggerName) {
 			logger = factory.CreateLogger(getLoggerName.Get(typeof(T)));
 		}
-		public IDisposable? BeginScope<TState>(TState state) where TState : notnull =>this.logger.BeginScope(state);
+		public IDisposable? BeginScope<TState>(TState state) where TState : notnull => this.logger.BeginScope(state);
 		public bool IsEnabled(LogLevel logLevel) => this.logger.IsEnabled(logLevel);
-		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) 
+		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
 			=> this.logger.Log(logLevel, eventId, state, exception, formatter);
 	}
 }

@@ -1,8 +1,8 @@
 ﻿using Albatross.Logging;
 using Albatross.Text;
 using CommandLine;
-using Serilog.Events;
 using Serilog;
+using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -115,7 +115,7 @@ namespace Albatross.Hosting.Utility {
 			return Console.ReadLine();
 		}
 
-		public static string GetEnumHelpText<T>(string description = "") where T:struct, Enum{
+		public static string GetEnumHelpText<T>(string description = "") where T : struct, Enum {
 			var writer = new StringWriter();
 			if (!string.IsNullOrEmpty(description)) {
 				writer.Append(description).Append(". ");
@@ -124,7 +124,7 @@ namespace Albatross.Hosting.Utility {
 			return writer.ToString();
 		}
 
-		public T ParseEnum<T>(string? value, T? defaultValue = null) where T:struct, Enum {
+		public T ParseEnum<T>(string? value, T? defaultValue = null) where T : struct, Enum {
 			if (string.IsNullOrEmpty(value)) {
 				return defaultValue ?? throw new ArgumentException(GetEnumHelpText<T>($"No value provided for {typeof(T).Name}"));
 			} else if (Enum.TryParse<T>(value, true, out T result)) {

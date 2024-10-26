@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Albatross.WebClient.Test {
-	public class PayLoad{
+	public class PayLoad {
 		public string Name { get; set; } = String.Empty;
 		public byte[] Data { get; set; } = new byte[0];
 		public int Number { get; set; }

@@ -15,7 +15,7 @@ namespace Albatross.EFCore.PostgreSQL {
 			DbContextOptionsBuilder<T> builder = new DbContextOptionsBuilder<T>();
 			builder.UseNpgsql(connectionString, opt => {
 				opt.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds);
-				opt.MigrationsHistoryTable(DbSession.EFMigrationHistory, historyTableSchema); 
+				opt.MigrationsHistoryTable(DbSession.EFMigrationHistory, historyTableSchema);
 			});
 			return builder.Options;
 		}

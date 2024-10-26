@@ -1,10 +1,10 @@
-﻿using Microsoft.CodeAnalysis;
-using Albatross.CodeGen.WebClient.Models;
+﻿using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeAnalysis.Syntax;
-using Albatross.CodeAnalysis.Symbols;
+using Albatross.CodeGen.WebClient.Models;
+using Albatross.CodeGen.WebClient.Settings;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
-using Albatross.CodeGen.WebClient.Settings;
 using System.Runtime.Intrinsics.X86;
 
 namespace Albatross.CodeGen.WebClient.CSharp {
@@ -212,4 +212,3 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 		}
 	}
 }
-

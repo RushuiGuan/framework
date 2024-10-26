@@ -29,7 +29,7 @@ namespace Albatross.Hosting.Test {
 					for (int i = start; i <= end; i++) {
 						list.Add(i);
 					}
-					if(match.Groups[2].Value == "-e") {
+					if (match.Groups[2].Value == "-e") {
 						list = list.Where(x => x % 2 == 0).ToList();
 					} else if (match.Groups[2].Value == "-o") {
 						list = list.Where(x => x % 2 == 1).ToList();
@@ -42,7 +42,7 @@ namespace Albatross.Hosting.Test {
 			}
 			return list.ToArray();
 		}
-		public static int[] EvenNumbers(this int[] array) 
+		public static int[] EvenNumbers(this int[] array)
 			=> array.Where(x => x % 2 == 0).ToArray();
 		public static int[] OddNumbers(this int[] array)
 			=> array.Where(x => x % 2 == 1).ToArray();

@@ -1,13 +1,13 @@
-﻿using Albatross.Hosting.Test;
-using Sample.Caching.WebApi;
+﻿using Albatross.Caching.BuiltIn;
+using Albatross.Hosting.Test;
 using Microsoft.Extensions.DependencyInjection;
+using Sample.Caching.WebApi;
+using Sample.Caching.WebApi.CacheKeys;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using System.Collections.Generic;
-using Albatross.Caching.BuiltIn;
-using Sample.Caching.WebApi.CacheKeys;
-using System.Linq;
 
 namespace Albatross.Caching.Test {
 	public class TestMultiTierCache {

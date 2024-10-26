@@ -1,11 +1,11 @@
-﻿using interop = Microsoft.Office.Interop.Excel;
-using Albatross.Excel.SampleAddIn.Models;
+﻿using Albatross.Excel.SampleAddIn.Models;
+using Albatross.Excel.Table;
+using ExcelDna.Integration;
+using Humanizer;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using ExcelDna.Integration;
-using Albatross.Excel.Table;
-using Humanizer;
+using interop = Microsoft.Office.Interop.Excel;
 
 namespace Albatross.Excel.SampleAddIn {
 	public class TableWriteDemo {

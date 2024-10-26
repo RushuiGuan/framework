@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Albatross.Authentication;
+﻿using Albatross.Authentication;
 using Albatross.Config;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Albatross.Hosting {
 	[Route("api/app-info")]

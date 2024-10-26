@@ -1,8 +1,8 @@
-﻿using System.CommandLine;
+﻿using Albatross.CodeGen.CommandLine;
 using Albatross.CommandLine;
-using Albatross.CodeGen.CommandLine;
-using System.Threading.Tasks;
+using System.CommandLine;
 using System.CommandLine.Parsing;
+using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.Tests.Utility {
 	internal class Program {

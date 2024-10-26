@@ -29,10 +29,10 @@ namespace Albatross.CodeAnalysis.Syntax {
 			var nameParameters = new List<SyntaxNode>();
 			var array = elements.ToArray();
 			// add all the elements except the last one
-			for (int i=0; i < array.Length - 1; i++) {
+			for (int i = 0; i < array.Length - 1; i++) {
 				nameParameters.Add(array[i]);
 			}
-			if(IdentifierName != null) {
+			if (IdentifierName != null) {
 				nameParameters.Add(IdentifierName);
 			}
 			if (nameParameters.Count == 0 || array.Length == 0) {

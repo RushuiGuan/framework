@@ -157,7 +157,7 @@ namespace Albatross.Dates {
 			return weekdays;
 		}
 
-	
+
 		public static DateTime Local2Utc(this DateTime local, TimeSpan gmtOffset) => DateTime.SpecifyKind(local - gmtOffset, DateTimeKind.Utc);
 		public static DateTime Utc2Local(this DateTime utc, TimeSpan gmtOffset) => DateTime.SpecifyKind(utc + gmtOffset, DateTimeKind.Unspecified);
 		public static DateTimeOffset Utc2DateTimeOffset(this DateTime utc, TimeSpan gmtOffset) => new DateTimeOffset(utc.Utc2Local(gmtOffset), gmtOffset);
@@ -170,7 +170,7 @@ namespace Albatross.Dates {
 		}
 		public static DateTimeOffset Utc2DateTimeOffset(this DateTime utc, TimeZoneInfo timeZone) {
 			var gmtOffset = timeZone.GetUtcOffset(DateTime.SpecifyKind(utc, DateTimeKind.Utc));
-			 return new DateTimeOffset(utc.Utc2Local(gmtOffset), gmtOffset);
+			return new DateTimeOffset(utc.Utc2Local(gmtOffset), gmtOffset);
 		}
 
 		public static string ISO8601StringDateOnly(this DateTime value) => value.ToString(Formatting.ISO8601DateOnly);

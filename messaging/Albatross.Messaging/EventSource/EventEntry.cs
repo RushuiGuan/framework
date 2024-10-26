@@ -34,7 +34,7 @@ namespace Albatross.Messaging.EventSource {
 					type = EntryType.Out;
 				} else if (text == In) {
 					type = EntryType.In;
-				}else if(text == Record) {
+				} else if (text == Record) {
 					type = EntryType.Record;
 				} else {
 					return false;
@@ -56,7 +56,7 @@ namespace Albatross.Messaging.EventSource {
 				case EntryType.Out: writer.Write(Out); break;
 				case EntryType.In: writer.Write(In); break;
 				case EntryType.Record: writer.Write(Record); break;
-				default: writer.Write('#');break;
+				default: writer.Write('#'); break;
 			}
 			writer.Space()
 				.Append(DateTime.UtcNow.ToString(EventEntry.TimeStampFormat)).Space();

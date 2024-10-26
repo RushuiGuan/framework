@@ -1,5 +1,5 @@
-﻿using Albatross.Hosting.Test;
-using Albatross.DateLevel.Test;
+﻿using Albatross.DateLevel.Test;
+using Albatross.Hosting.Test;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -256,7 +256,7 @@ namespace Albatross.DateLevel.Test {
 			list.SetDateLevel<SpreadSpec, int>(new SpreadSpec(1, DateOnlyValues.Jul1_2022, 200), true);
 			list.SetDateLevel<SpreadSpec, int>(new SpreadSpec(1, DateOnlyValues.Sep1_2022, 300), true);
 			list.SetDateLevel<SpreadSpec, int>(new SpreadSpec(1, DateOnlyValues.Nov1_2022, 400), true);
-			list.Sort(Compare);;
+			list.Sort(Compare); ;
 
 			Assert.Collection(list,
 				args => {
@@ -808,7 +808,7 @@ namespace Albatross.DateLevel.Test {
 
 			list.SetDateLevel<SpreadSpec, int>(new SpreadSpec(1, DateOnlyValues.Mar1_2022, 100), true);
 			list.SetDateLevel<SpreadSpec, int>(new SpreadSpec(1, DateOnlyValues.Jul1_2022, 200), true);
-			list.SetDateLevel<SpreadSpec, int>(new SpreadSpec(1, DateOnlyValues.Feb1_2022, 150) { EndDate = DateOnlyValues.Mar31_2022}, true);
+			list.SetDateLevel<SpreadSpec, int>(new SpreadSpec(1, DateOnlyValues.Feb1_2022, 150) { EndDate = DateOnlyValues.Mar31_2022 }, true);
 			list.Sort(Compare);
 
 			Assert.Collection(list,
@@ -824,7 +824,7 @@ namespace Albatross.DateLevel.Test {
 				},
 				args => {
 					Assert.Equal(DateOnlyValues.Jul1_2022, args.StartDate);
-					Assert.Equal(DateOnlyValues.MaxSqlDate, args.EndDate); 
+					Assert.Equal(DateOnlyValues.MaxSqlDate, args.EndDate);
 					Assert.Equal(200, args.Value);
 				}
 			);
@@ -937,11 +937,11 @@ namespace Albatross.DateLevel.Test {
 			};
 			list.SetDateLevel<SpreadSpec, int>(new SpreadSpec(1, DateOnlyValues.May1_2022, 100), true);
 			list.Sort(Compare);
-			Assert.Collection(list, args => { 
+			Assert.Collection(list, args => {
 				Assert.Equal(DateOnlyValues.Jan1_2022, args.StartDate);
 				Assert.Equal(DateOnlyValues.Mar31_2022, args.EndDate);
 			},
-			args => { 
+			args => {
 				Assert.Equal(DateOnlyValues.Apr1_2022, args.StartDate);
 				Assert.Equal(DateOnlyValues.Oct31_2022, args.EndDate);
 			},

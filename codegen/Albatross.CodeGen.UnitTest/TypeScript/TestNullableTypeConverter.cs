@@ -10,6 +10,6 @@ using Xunit;
 
 namespace Albatross.CodeGen.UnitTest.TypeScript {
 	public class TestNullableTypeConverter {
-		
+
 	}
 }

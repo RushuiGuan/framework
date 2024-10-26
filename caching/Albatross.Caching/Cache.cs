@@ -79,7 +79,7 @@ namespace Albatross.Caching {
 			return policy.Execute(func, new Context(keyValue.Key));
 		}
 		public (bool, CacheFormat) TryGet(KeyFormat keyValue) => this.syncCacheProvider.TryGet(keyValue.Key);
-		public void Put(KeyFormat keyValue, CacheFormat cacheValue) 
+		public void Put(KeyFormat keyValue, CacheFormat cacheValue)
 			=> this.syncCacheProvider.Put(keyValue.Key, cacheValue, this.TtlStrategy.GetTtl(new Context(keyValue.Key), cacheValue));
 	}
 }

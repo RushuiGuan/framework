@@ -14,7 +14,7 @@ namespace Albatross.EFCore.ChangeReporting {
 
 		public static ChangeReportBuilder<T> IgnoreProperties<T>(this ChangeReportBuilder<T> builder, params string[] properties) where T : class
 			=> builder.Set(handler => {
-				foreach(var property in properties){
+				foreach (var property in properties) {
 					handler.Options.SkippedProperties.Add(property);
 				}
 			});
@@ -74,7 +74,7 @@ namespace Albatross.EFCore.ChangeReporting {
 			services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, ChangeReportDbEventHandler<T>>(provider => builder.Build()));
 			return services;
 		}
-		public static IServiceCollection AddChangeReporting<T>(this IServiceCollection services,Func<IServiceProvider, ChangeReportDbEventHandler<T>> func) where T : class {
+		public static IServiceCollection AddChangeReporting<T>(this IServiceCollection services, Func<IServiceProvider, ChangeReportDbEventHandler<T>> func) where T : class {
 			services.TryAddEnumerable(ServiceDescriptor.Scoped<IDbSessionEventHandler, ChangeReportDbEventHandler<T>>(func));
 			return services;
 		}

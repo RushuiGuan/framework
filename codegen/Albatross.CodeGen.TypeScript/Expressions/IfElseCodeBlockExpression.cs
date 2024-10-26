@@ -1,5 +1,5 @@
-﻿using Albatross.Collections;
-using Albatross.CodeGen.Syntax;
+﻿using Albatross.CodeGen.Syntax;
+using Albatross.Collections;
 using Albatross.Text;
 using System.Collections.Generic;
 using System.IO;

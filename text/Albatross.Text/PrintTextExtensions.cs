@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Albatross.Reflection;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-using Albatross.Reflection;
 using System.Threading.Tasks;
 
 namespace Albatross.Text {
@@ -125,7 +125,7 @@ namespace Albatross.Text {
 				writer.Space(maxWidth).AppendChar(seperator, seperatorWidth).AppendLine(line);
 			}
 		}
-	
+
 		public static void Indent(this TextWriter writer, string text, char letter = ' ', int seperatorWidth = 4)
 			=> writer.PrintSideBySide("", text, letter, seperatorWidth);
 	}

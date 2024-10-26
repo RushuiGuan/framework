@@ -24,8 +24,8 @@ namespace Albatross.IO.Test {
 			var logger = new Mock<ILogger>().Object;
 			var file = new FileInfo(path);
 			int? retry1 = null, retry2 = null;
-			using (var stream1 = await file.OpenAsyncSharedReadStreamWithRetry(4096, 3, 100, logger, x=> retry1 = x)) {
-				using (var stream2 = await file.OpenAsyncSharedReadStreamWithRetry(4096, 3, 100, logger,x => retry2 = x)) {
+			using (var stream1 = await file.OpenAsyncSharedReadStreamWithRetry(4096, 3, 100, logger, x => retry1 = x)) {
+				using (var stream2 = await file.OpenAsyncSharedReadStreamWithRetry(4096, 3, 100, logger, x => retry2 = x)) {
 					using var reader1 = new StreamReader(stream1);
 					using var reader2 = new StreamReader(stream2);
 					var line1 = await reader1.ReadLineAsync();

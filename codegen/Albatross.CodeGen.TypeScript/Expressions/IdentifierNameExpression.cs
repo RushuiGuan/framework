@@ -7,8 +7,8 @@ using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Expressions {
 	public record class IdentifierNameExpression : SyntaxNode, IIdentifierNameExpression {
-		public IdentifierNameExpression(string name) { 
-			if(Defined.Patterns.IdentifierName.IsMatch(name)) {
+		public IdentifierNameExpression(string name) {
+			if (Defined.Patterns.IdentifierName.IsMatch(name)) {
 				this.Name = name;
 			} else {
 				throw new ArgumentException($"Invalid identifier name {name}");

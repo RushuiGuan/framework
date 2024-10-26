@@ -5,13 +5,13 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
-	public class PythonModule  : ICodeElement{
+	public class PythonModule : ICodeElement {
 		public string Name { get; set; }
 		public PythonModule(string name) {
 			Name = name;
 		}
 
-		public List<Import> Imports { get;  } = new List<Import>();
+		public List<Import> Imports { get; } = new List<Import>();
 		public List<Method> Functions { get; } = new List<Method>();
 		public List<ClassDeclaration> Classes { get; } = new List<ClassDeclaration>();
 
@@ -41,7 +41,7 @@ namespace Albatross.CodeGen.Python.Models {
 			foreach (var item in Imports) {
 				writer.Code(item);
 			}
-			if(Functions.Any()) { writer.AppendLine(); }
+			if (Functions.Any()) { writer.AppendLine(); }
 			Functions.Select(x => writer.Code(x));
 
 			if (Classes.Any()) { writer.AppendLine(); }

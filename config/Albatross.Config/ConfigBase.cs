@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Albatross.Config {
-	public abstract class ConfigBase  {
+	public abstract class ConfigBase {
 		public virtual string Key => string.Empty;
 		public ConfigBase(IConfiguration configuration) {
 			if (!string.IsNullOrEmpty(Key)) {

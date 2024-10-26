@@ -1,11 +1,11 @@
-﻿using Albatross.CodeAnalysis.Symbols;
-using Albatross.CodeAnalysis.MSBuild;
-using Xunit;
-using Microsoft.CodeAnalysis;
-using FluentAssertions;
+﻿using Albatross.CodeAnalysis.MSBuild;
+using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeAnalysis.Syntax;
-using Microsoft.CodeAnalysis.CSharp;
+using FluentAssertions;
 using FluentAssertions.Equivalency;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Xunit;
 
 namespace Albatross.CodeAnalysis.Test.Symbols {
 	public class TestExtensiosn {

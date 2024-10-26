@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Albatross.CodeGen.Python.Models {
 	public class StringLiteral : CompositeModuleCodeElement {
-		public StringLiteral(string value): base(string.Empty, string.Empty) {
+		public StringLiteral(string value) : base(string.Empty, string.Empty) {
 			Value = value;
 		}
 		public string Value { get; set; }

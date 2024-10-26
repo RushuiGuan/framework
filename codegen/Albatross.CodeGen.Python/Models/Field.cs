@@ -3,8 +3,8 @@ using System.IO;
 
 namespace Albatross.CodeGen.Python.Models {
 	public class Field : Assignment {
-		public Field(string name, PythonType type, IModuleCodeElement value) 
-			: base(new Variable(name, type) { IsInstanceField = true }, value) { 
+		public Field(string name, PythonType type, IModuleCodeElement value)
+			: base(new Variable(name, type) { IsInstanceField = true }, value) {
 		}
 
 		public bool Static { get; set; }

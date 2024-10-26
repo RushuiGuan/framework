@@ -1,17 +1,17 @@
-﻿using Albatross.Messaging.Configurations;
-using Albatross.Messaging.Messages;
+﻿using Albatross.Config;
 using Albatross.Messaging.Commands;
+using Albatross.Messaging.Configurations;
+using Albatross.Messaging.Messages;
 using Albatross.Messaging.PubSub;
 using Albatross.Messaging.PubSub.Sub;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Sample.Core.Commands;
+using Sample.PubSub;
 using System;
 using System.Threading.Tasks;
-using Albatross.Config;
-using Sample.PubSub;
-using Sample.Core.Commands;
 
 namespace Sample {
 	public static class Extensions {

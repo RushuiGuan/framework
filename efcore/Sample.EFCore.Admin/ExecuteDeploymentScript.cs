@@ -1,9 +1,9 @@
 ﻿using Albatross.CommandLine;
 using Albatross.EFCore.SqlServer;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 
 namespace Sample.EFCore.Admin {
 	[Verb("exec-script", typeof(ExecuteDeploymentScript), Description = "Execute deployment scripts")]

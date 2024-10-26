@@ -11,7 +11,7 @@ namespace Albatross.CodeGen.TypeScript.Expressions {
 		public required string Operator { get; init; }
 		public required IExpression Right { get; init; }
 
-		public override TextWriter Generate(TextWriter writer) 
-			=>  writer.Code(this.Left).Append($" {Operator} ").Code(this.Right);
+		public override TextWriter Generate(TextWriter writer)
+			=> writer.Code(this.Left).Append($" {Operator} ").Code(this.Right);
 	}
 }

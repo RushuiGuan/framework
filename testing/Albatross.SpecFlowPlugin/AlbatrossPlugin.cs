@@ -39,7 +39,7 @@ namespace Albatross.SpecFlowPlugin {
 		}
 
 		private void CustomizeFeatureDependencies(object sender, CustomizeFeatureDependenciesEventArgs args) {
-			
+
 		}
 
 		private void CustomizeScenarioDependencies(object sender, CustomizeScenarioDependenciesEventArgs args) {

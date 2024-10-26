@@ -36,7 +36,7 @@ namespace Albatross.Caching {
 		}
 
 		public static IEnumerable<string> Remove(this ICacheKeyManagement keyMgmt, params ICacheKey[] keys) {
-			var set = new HashSet<string>(keys.Select(x=>x.Key));
+			var set = new HashSet<string>(keys.Select(x => x.Key));
 			keyMgmt.Remove(set.ToArray());
 			return set;
 		}
@@ -78,7 +78,7 @@ namespace Albatross.Caching {
 			foreach (var key in keys) {
 				if (!wildCardKeys.Contains(key.ResetKey)) {
 					wildCardKeys.Add(key.ResetKey);
-					foreach(var item in keyMgmt.FindKeys(key.ResetKey)) {
+					foreach (var item in keyMgmt.FindKeys(key.ResetKey)) {
 						set.Add(item);
 					}
 				}

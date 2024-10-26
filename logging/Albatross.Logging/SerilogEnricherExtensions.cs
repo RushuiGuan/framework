@@ -1,5 +1,5 @@
-﻿using Serilog.Configuration;
-using Serilog;
+﻿using Serilog;
+using Serilog.Configuration;
 using System;
 
 namespace Albatross.Logging {

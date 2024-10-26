@@ -5,11 +5,11 @@ using Test.Proxy;
 
 namespace Test.CommandLine {
 	[Verb("test-redirect", typeof(TestRedirectCommandHandler))]
-	public class TestRedirectOptions { 
-		public bool AbsUrl{get;set; }
-		public int ActionId{ get; set; }
+	public class TestRedirectOptions {
+		public bool AbsUrl { get; set; }
+		public int ActionId { get; set; }
 	}
-	
+
 	public class TestRedirectCommandHandler : ICommandHandler {
 		private readonly RedirectTestProxyService client;
 		private readonly AbsUrlRedirectTestProxyService absClient;
@@ -27,7 +27,7 @@ namespace Test.CommandLine {
 		}
 
 		public async Task<int> InvokeAsync(InvocationContext context) {
-			if(options.AbsUrl) {
+			if (options.AbsUrl) {
 				await absClient.Get(options.ActionId);
 			} else {
 				await client.Get(options.ActionId);

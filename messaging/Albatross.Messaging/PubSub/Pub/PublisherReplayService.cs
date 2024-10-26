@@ -1,5 +1,5 @@
-﻿using Albatross.Messaging.PubSub.Messages;
-using Albatross.Messaging.Messages;
+﻿using Albatross.Messaging.Messages;
+using Albatross.Messaging.PubSub.Messages;
 using Albatross.Messaging.Services;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,7 +10,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 	public class PublisherReplayMessageGroup {
 		public int Index { get; set; }
 		public IMessage Request { get; init; }
-		public PublisherReplayMessageGroup(IMessage request, int index) { 
+		public PublisherReplayMessageGroup(IMessage request, int index) {
 			this.Request = request;
 			this.Index = index;
 		}
@@ -57,7 +57,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 				case ClientAck ack:
 					if (records.TryGetValue(key, out var value)) {
 						value.Ack = ack;
-						if(value.Request is Event) {
+						if (value.Request is Event) {
 							records.Remove(key);
 						}
 						return true;
@@ -72,7 +72,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 		void End(IMessagingService messagingService) {
 			logger.LogInformation("rerun {count} publisher messages to replay", records.Count);
 			foreach (var msg in records.Values.OrderBy(args => args.Index)) {
-				if(msg.Request is Event){
+				if (msg.Request is Event) {
 					messagingService.Transmit(msg.Request);
 				}
 			}

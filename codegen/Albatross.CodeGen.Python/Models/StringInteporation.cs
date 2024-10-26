@@ -10,7 +10,7 @@ namespace Albatross.CodeGen.Python.Models {
 
 		public override TextWriter Generate(TextWriter writer) {
 			writer.Append("f\"");
-			foreach(var item in this) {
+			foreach (var item in this) {
 				if (item is StringLiteral literal) {
 					literal.WriteContent(writer);
 				} else {

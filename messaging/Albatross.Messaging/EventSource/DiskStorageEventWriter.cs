@@ -37,7 +37,7 @@ namespace Albatross.Messaging.EventSource {
 			if (stream.Length > 0) {
 				stream.Seek(0, SeekOrigin.End);
 			}
-			if(stream.Position == 0) {
+			if (stream.Position == 0) {
 				writer.WriteLine($"# maxSize {config.MaxFileSize}");
 			}
 			return writer;
@@ -50,7 +50,7 @@ namespace Albatross.Messaging.EventSource {
 				.Where(args => args.Exists)
 				.OrderByDescending(args => args.Name)
 				.FirstOrDefault();
-			if(file == null || file.Length > config.MaxFileSize) {
+			if (file == null || file.Length > config.MaxFileSize) {
 				file = NewFile();
 			}
 			return Open(file);
@@ -64,14 +64,14 @@ namespace Albatross.Messaging.EventSource {
 		}
 
 		void CheckSize() {
-			if(streamWriter.BaseStream.Length > config.MaxFileSize) {
+			if (streamWriter.BaseStream.Length > config.MaxFileSize) {
 				streamWriter.Dispose();
 				var newFile = NewFile();
 				streamWriter = Open(newFile);
 				logger.LogInformation("new storage created {name}", newFile.FullName);
 			}
 		}
-		
+
 		public void Dispose() {
 			if (!disposed) {
 				logger.LogInformation("disposing disk storage");

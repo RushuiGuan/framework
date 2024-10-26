@@ -25,7 +25,7 @@ namespace Albatross.CodeGen.WebClient {
 
 		public const string HttpMethodGet = "Get";
 		public const string HttpMethodPost = "Post";
-		public const string HttpMethodPatch= "Patch";
+		public const string HttpMethodPatch = "Patch";
 		public const string HttpMethodPut = "Put";
 		public const string HttpMethodDelete = "Delete";
 

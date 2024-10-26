@@ -28,22 +28,22 @@ namespace Albatross.Excel {
 			this.range.SetValue(value);
 			return this;
 		}
-		public CellBuilder Use<T>(T cellProperty)where T : CellProperty {
+		public CellBuilder Use<T>(T cellProperty) where T : CellProperty {
 			properties[typeof(T)] = cellProperty;
 			return this;
 		}
-		public CellBuilder Use<T>(Action<T> action) where T : CellProperty, new(){
+		public CellBuilder Use<T>(Action<T> action) where T : CellProperty, new() {
 			var cellProperty = properties.GetOrAdd(typeof(T), () => new T());
 			action((T)cellProperty);
 			return this;
 		}
 		public void Focus() {
-			if(!this.selected) {
+			if (!this.selected) {
 				this.selected = true;
 			}
 		}
 		public void Apply() {
-			foreach(var item in this.properties.Values) {
+			foreach (var item in this.properties.Values) {
 				item.Apply(this.range);
 			}
 		}

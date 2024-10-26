@@ -73,7 +73,7 @@ namespace Albatross.CodeGen.CSharp.Models {
 			}
 			if (UseNullablePreprocessor) {
 				writer.WriteLine();
-				writer.AppendLine("#nullable disable"); 
+				writer.AppendLine("#nullable disable");
 			}
 			return writer;
 		}

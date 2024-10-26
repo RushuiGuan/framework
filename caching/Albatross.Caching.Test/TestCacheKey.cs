@@ -7,9 +7,9 @@ namespace Albatross.Caching.Test {
 		[InlineData("prefix", null, "prefix:", "prefix:*", "prefix:*")]
 		[InlineData("prefix", "", "prefix:", "prefix:*", "prefix:*")]
 		[InlineData("", "xx", "df:xx:", "df:xx:*", "df:*")]
-		public void TestCacheKeyCreation_NoParent(string keyPrefix, string? keyValue, 
-			string expectedKey, 
-			string expectedWildCardKey, 
+		public void TestCacheKeyCreation_NoParent(string keyPrefix, string? keyValue,
+			string expectedKey,
+			string expectedWildCardKey,
 			string expectedResetKey) {
 
 			var key = new CacheKey(keyPrefix, keyValue, false);

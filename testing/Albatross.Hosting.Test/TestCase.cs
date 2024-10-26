@@ -6,14 +6,14 @@
 		}
 	}
 
-	public class TestCase<T> : TestCase{
+	public class TestCase<T> : TestCase {
 		public T? P1 { get; set; }
-		public TestCase(string name):base(name) {		}
+		public TestCase(string name) : base(name) { }
 	}
-	public class TestCase<T1, T2> :TestCase{
+	public class TestCase<T1, T2> : TestCase {
 		public T1? P1 { get; set; }
 		public T2? P2 { get; set; }
-		public TestCase(string name):base(name) {		}
+		public TestCase(string name) : base(name) { }
 	}
 	public class TestCase<T1, T2, T3> : TestCase {
 		public T1? P1 { get; set; }

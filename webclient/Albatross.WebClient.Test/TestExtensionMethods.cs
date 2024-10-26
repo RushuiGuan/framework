@@ -1,11 +1,11 @@
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
-using Microsoft.Extensions.DependencyInjection;
-using System.IO;
 
 namespace Albatross.WebClient.Test {
-	public partial class TestWebClient : IClassFixture<MyTestHost>{
+	public partial class TestWebClient : IClassFixture<MyTestHost> {
 		private readonly MyTestHost host;
 
 		public TestWebClient(MyTestHost host) {

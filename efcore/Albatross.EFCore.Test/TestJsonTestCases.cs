@@ -134,7 +134,7 @@ namespace Albatross.EFCore.Test {
 		[Theory]
 		[InlineData("test param:1 2 3 4 5 6 7 8 9 10")]
 		public void TestParam10(string testCaseName) {
-			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int, int , int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
+			var value = Assembly.GetExecutingAssembly().GetJsonTestCases<int, int, int, int, int, int, int, int, int, int>("Albatross.EFCore.Test.TestCases.data.json", testCaseName);
 			Assert.NotNull(value);
 			var array = ParseName(testCaseName);
 			Assert.Equal(array[0], value.P1);

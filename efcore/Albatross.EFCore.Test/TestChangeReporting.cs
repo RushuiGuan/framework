@@ -36,7 +36,7 @@ namespace Albatross.EFCore.Test {
 			await session.SaveChangesAsync();
 			Assert.NotNull(host.ReportText);
 		}
-		
+
 		public class MyTestHost2 : MyTestHost {
 			public string? ReportText { get; set; }
 			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
@@ -53,7 +53,7 @@ namespace Albatross.EFCore.Test {
 					}));
 			}
 		}
-		
+
 		[Fact]
 		public async Task TestChangeReportingModified() {
 			var host = new MyTestHost2();
@@ -68,7 +68,7 @@ namespace Albatross.EFCore.Test {
 			await session.SaveChangesAsync();
 			Assert.NotNull(host.ReportText);
 		}
-		
+
 		public class MyTestHost3 : MyTestHost {
 			public string? ReportText { get; set; }
 			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {

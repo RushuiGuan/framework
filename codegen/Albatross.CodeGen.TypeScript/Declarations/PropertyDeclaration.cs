@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Declarations {
 	public record class PropertyDeclaration : SyntaxNode, IDeclaration, ICodeElement {
-		public PropertyDeclaration(string name){
+		public PropertyDeclaration(string name) {
 			this.Identifier = new IdentifierNameExpression(name);
 		}
 
-		public IdentifierNameExpression Identifier { get;  }
+		public IdentifierNameExpression Identifier { get; }
 		public bool Optional { get; init; }
 		public IEnumerable<IModifier> Modifiers { get; init; } = [];
 		public ITypeExpression Type { get; init; } = Defined.Types.Any();

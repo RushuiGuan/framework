@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Albatross.CommandLine;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.CommandLine.Invocation;
-using System.CommandLine;
-using System.Threading.Tasks;
 using System;
-using Albatross.CommandLine;
 using System.Collections.Generic;
+using System.CommandLine;
+using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 
 namespace Sample.CommandLine {
 	[Verb("sys-command", typeof(SysCommandHandler), Alias = ["t"])]

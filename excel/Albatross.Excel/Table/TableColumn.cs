@@ -34,14 +34,14 @@ namespace Albatross.Excel.Table {
 			ReadEntityPropertyHandler = (column, entity) => propertyInfo.GetValue(entity);
 			ReadOnly = false;
 			if (Type.IsValueType) {
-				if(Type.GetNullableValueType(out var actualType)) {
+				if (Type.GetNullableValueType(out var actualType)) {
 					Type = actualType;
 					IsNullable = true;
 				}
 			} else {
 				IsNullable = new NullabilityInfoContext().Create(propertyInfo).WriteState == NullabilityState.Nullable;
 			}
-			if(attribute != null) {
+			if (attribute != null) {
 				ReadOnly = attribute.ReadOnly;
 				Required = attribute.Required;
 				Title = attribute.Title ?? Title;
@@ -67,7 +67,7 @@ namespace Albatross.Excel.Table {
 			return TrySetEntityPropertyHandler(entity, this, value, out error);
 		}
 		public void AutoFormat() {
-			if(!this.NumberFormat.HasValue) {
+			if (!this.NumberFormat.HasValue) {
 				if (Type == typeof(DateTime)) {
 					this.NumberFormat.StandardDate();
 				}

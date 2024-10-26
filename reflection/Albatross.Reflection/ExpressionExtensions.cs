@@ -44,7 +44,7 @@ namespace Albatross.Reflection {
 			return Expression.Lambda<Func<T, bool>>(body, parameter);
 		}
 
-		public static T SetValueIfNotNull<T, V>(this T ob, Expression<Func<T, V>> lambda, V? value) where V:struct{
+		public static T SetValueIfNotNull<T, V>(this T ob, Expression<Func<T, V>> lambda, V? value) where V : struct {
 			if (value.HasValue) {
 				PropertyInfo prop = lambda.GetPropertyInfo();
 				prop.SetValue(ob, value);

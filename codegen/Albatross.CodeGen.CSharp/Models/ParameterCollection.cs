@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace Albatross.CodeGen.CSharp.Models {
-	public class ParameterCollection : ICodeElement{
+	public class ParameterCollection : ICodeElement {
 		public ParameterCollection(IEnumerable<Parameter> parameters) {
 			Parameters = parameters;
 		}

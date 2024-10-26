@@ -1,17 +1,17 @@
-﻿using Albatross.EFCore;
-using Albatross.CommandLine;
-using System.Text.RegularExpressions;
-using Sample.EFCore.Models;
-using System.Threading.Tasks;
-using System.IO;
-using System.Collections.Generic;
+﻿using Albatross.CommandLine;
+using Albatross.EFCore;
 using Microsoft.Extensions.Logging;
-using System.CommandLine.Invocation;
 using Microsoft.Extensions.Options;
+using Sample.EFCore.Models;
+using System.Collections.Generic;
+using System.CommandLine.Invocation;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Sample.EFCore.Admin {
 	[Verb("create-sql-script", typeof(GenerateSqlScript), Description = "Generate sql script for database")]
-	public class GenerateSqlScriptOption  {
+	public class GenerateSqlScriptOption {
 		[Option("o", "output-file", Description = "Set the output file")]
 		public string? Out { get; set; }
 

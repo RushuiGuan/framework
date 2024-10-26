@@ -8,11 +8,11 @@ namespace Albatross.CodeGen.Python.Models {
 			Expression = expression;
 		}
 
-		public IModuleCodeElement Expression { 
+		public IModuleCodeElement Expression {
 			get => Single<IModuleCodeElement>(nameof(Expression));
-			set	=> Set(value, nameof(Expression));
+			set => Set(value, nameof(Expression));
 		}
-		public override TextWriter Generate(TextWriter writer) 
+		public override TextWriter Generate(TextWriter writer)
 			=> writer.AppendLine().Append("return ").Code(Expression);
 	}
 }

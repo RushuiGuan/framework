@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Albatross.CodeGen.CommandLine;
 using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.WebClient.CSharp;
-using Albatross.CodeGen.WebClient.TypeScript;
 using Albatross.CodeGen.WebClient.Models;
-using Albatross.CodeGen.CommandLine;
+using Albatross.CodeGen.WebClient.TypeScript;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Albatross.CodeGen.WebClient {
 	public static class Extensions {

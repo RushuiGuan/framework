@@ -1,6 +1,6 @@
 ﻿using Albatross.Text;
-using MessagePack.Formatters;
 using MessagePack;
+using MessagePack.Formatters;
 
 namespace Albatross.IO {
 	public sealed class CustomDecimalFormatter : IMessagePackFormatter<decimal> {

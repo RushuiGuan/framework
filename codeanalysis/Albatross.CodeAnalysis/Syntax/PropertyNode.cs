@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Albatross.CodeAnalysis.Syntax {
 	public class PropertyNode : NodeContainer {
 		public PropertyNode(TypeNode typeNode, string name) : base(SyntaxFactory.PropertyDeclaration(typeNode.Type, name)) { }
-		public PropertyNode(string type, string name):this(new TypeNode(type), name) { }
+		public PropertyNode(string type, string name) : this(new TypeNode(type), name) { }
 
 		public PropertyNode Public() {
 			Node = ((PropertyDeclarationSyntax)Node).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));

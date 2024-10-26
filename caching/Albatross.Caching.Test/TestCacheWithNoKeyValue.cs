@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Albatross.Caching.BuiltIn;
+using Microsoft.Extensions.DependencyInjection;
+using Sample.Caching.WebApi.CacheKeys;
 using System.Threading.Tasks;
 using Xunit;
-using Sample.Caching.WebApi.CacheKeys;
-using Albatross.Caching.BuiltIn;
 
 namespace Albatross.Caching.Test {
 	public class TestCacheWithNoKeyValue {
@@ -64,7 +64,7 @@ namespace Albatross.Caching.Test {
 			Assert.Contains(level1.Key, allKeys);
 			Assert.Contains(level2.Key, allKeys);
 			Assert.Contains(level3.Key, allKeys);
-			
+
 			keyMgmt.Remove(level3.Key);
 			allKeys = keyMgmt.FindKeys(level1.ResetKey);
 			Assert.DoesNotContain(level3.Key, allKeys);

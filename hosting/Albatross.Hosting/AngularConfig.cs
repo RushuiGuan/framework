@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 
 namespace Albatross.Hosting {
-	public class AngularConfig : ConfigBase{
+	public class AngularConfig : ConfigBase {
 		public AngularConfig(IConfiguration configuration) : base(configuration) {
 		}
 

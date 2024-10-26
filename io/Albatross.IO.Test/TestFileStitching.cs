@@ -1,15 +1,15 @@
 ﻿using Albatross.Hosting.Test;
+using FluentAssertions;
+using MessagePack;
+using Microsoft.Extensions.Logging;
+using Moq;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using Moq;
-using Microsoft.Extensions.Logging;
-using System;
-using MessagePack;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
-using System.Threading;
 
 namespace Albatross.IO.Test {
 	[MessagePackObject]

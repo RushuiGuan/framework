@@ -19,7 +19,7 @@ namespace Albatross.CodeGen.CommandLine {
 
 		public ControllerInfoModelGenerator(Compilation compilation, ConvertApiControllerToControllerModel converter,
 			CodeGenSettings settings, ILogger logger,
-			IOptions<CodeGenCommandOptions> options) :base(options, logger){
+			IOptions<CodeGenCommandOptions> options) : base(options, logger) {
 			this.compilation = compilation;
 			this.converter = converter;
 			this.settings = settings;

@@ -11,7 +11,7 @@ namespace Albatross.Messaging.PubSub {
 			services.TryAddSingleton<IPublisher, Publisher>();
 			services.TryAddSingleton<IPublisherService, PublisherService>();
 			services.AddSingleton<IRouterServerService, PublisherReplayService>();
-			services.AddSingleton<IRouterServerService>(args=>args.GetRequiredService<IPublisherService>());
+			services.AddSingleton<IRouterServerService>(args => args.GetRequiredService<IPublisherService>());
 			services.TryAddSingleton(args => args.GetRequiredService<MessagingConfiguration>().SubscriptionManagement);
 			services.TryAddSingleton<ISubscriptionManagement, SubscriptionManagement>();
 			services.AddRouterServer();
@@ -20,7 +20,7 @@ namespace Albatross.Messaging.PubSub {
 
 		public static IServiceCollection AddSubscriber(this IServiceCollection services) {
 			services.TryAddSingleton<SubscriptionService>();
-			services.AddSingleton<IDealerClientService>(args=>args.GetRequiredService<SubscriptionService>());
+			services.AddSingleton<IDealerClientService>(args => args.GetRequiredService<SubscriptionService>());
 			services.TryAddSingleton<ISubscriptionClient, SubscriptionClient>();
 			services.AddDealerClient();
 			return services;

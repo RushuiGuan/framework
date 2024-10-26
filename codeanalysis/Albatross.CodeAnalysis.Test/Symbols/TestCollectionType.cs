@@ -1,7 +1,7 @@
-﻿using Albatross.CodeAnalysis.Symbols;
-using Albatross.CodeAnalysis.MSBuild;
-using Xunit;
+﻿using Albatross.CodeAnalysis.MSBuild;
+using Albatross.CodeAnalysis.Symbols;
 using Microsoft.CodeAnalysis;
+using Xunit;
 
 namespace Albatross.CodeAnalysis.Test.Symbols {
 	public class TestCollectionType {

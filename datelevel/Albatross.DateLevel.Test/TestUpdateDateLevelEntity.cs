@@ -338,10 +338,10 @@ namespace Albatross.DateLevel.Test {
 					Assert.Equal(7000, x.V2);
 				},
 				x => {
-						Assert.Equal(new DateOnly(2024, 8, 1), x.StartDate);
-						Assert.Equal(new DateOnly(9999, 12, 31), x.EndDate);
-						Assert.Equal(800, x.V1);
-						Assert.Equal(8000, x.V2);
+					Assert.Equal(new DateOnly(2024, 8, 1), x.StartDate);
+					Assert.Equal(new DateOnly(9999, 12, 31), x.EndDate);
+					Assert.Equal(800, x.V1);
+					Assert.Equal(8000, x.V2);
 				});
 		}
 

@@ -1,13 +1,13 @@
-﻿using System;
-using Albatross.Collections;
+﻿using Albatross.Collections;
 using Albatross.CommandLine;
 using Albatross.Text;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Benchmark.Collections {
 	[Verb("measure-listitem-removal", typeof(MeasureListItemRemoval), Description = "Measure the performance of removing items from a list using RemoveAt")]

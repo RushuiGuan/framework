@@ -34,4 +34,3 @@ namespace Albatross.Serialization.Test {
 	}
 }
 #nullable restore
-

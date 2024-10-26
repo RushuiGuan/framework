@@ -1,10 +1,10 @@
 ﻿using Albatross.Collections;
-using Albatross.Threading;
 using Albatross.Messaging.Services;
+using Albatross.Threading;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	/// <summary>
@@ -48,7 +48,7 @@ namespace Albatross.Messaging.Commands {
 			this.service.OnCommandError -= OnCommandErrorCallback;
 		}
 	}
-	
+
 	public interface ITaskCallbackCommandClient {
 		Task<ulong> SubmitWithCallback(object command, int timeout = 2000);
 		Task<T?> SubmitWithCallback<T>(object command, int timeout = 2000);
@@ -81,12 +81,12 @@ namespace Albatross.Messaging.Commands {
 			var data = await callback.Task;
 			return JsonSerializer.Deserialize<T>(data, Messaging.MessagingJsonSettings.Value.Default);
 		}
-		
+
 		public override void OnCommandCallback(ulong id, string commandType, byte[] message) {
 			var callback = GetCallback(id);
 			callback.SetResult(message);
 		}
-		public override void OnCommandErrorCallback(ulong id, string commandType, string errorType, byte[] message) { 
+		public override void OnCommandErrorCallback(ulong id, string commandType, string errorType, byte[] message) {
 			var callback = GetCallback(id);
 			callback.SetException(new CommandException(id, errorType, message.ToUtf8String()));
 		}

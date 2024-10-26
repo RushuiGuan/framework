@@ -51,7 +51,7 @@ namespace Albatross.Text.Test {
 			value = Enum.Parse(typeof(DayOfWeek), "monday", true);
 			Assert.Equal(DayOfWeek.Monday, value);
 
-			
+
 			var obj = "monday".Convert(typeof(DayOfWeek));
 			Assert.Equal(DayOfWeek.Monday, obj);
 		}

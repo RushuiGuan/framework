@@ -1,11 +1,10 @@
 ﻿using Albatross.CommandLine;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.CommandLine.Invocation;
-
-using System.CommandLine;
-using System.Threading.Tasks;
 using System;
+using System.CommandLine;
+using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 
 namespace Sample.CommandLine {
 	public class RedCommandHandler : ICommandHandler {

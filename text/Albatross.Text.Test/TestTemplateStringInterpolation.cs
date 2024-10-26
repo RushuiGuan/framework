@@ -28,7 +28,7 @@ namespace Albatross.Text.Test {
 		[InlineData("${b}${b}${b}", "111")]
 		public void Test(string input, string expectedResult) {
 			var instance = new StringInterpolationService(Logger());
-			var result = instance.Interpolate<IDictionary<string, string>>(input, (key,values) => values[key], values);
+			var result = instance.Interpolate<IDictionary<string, string>>(input, (key, values) => values[key], values);
 			Assert.Equal(expectedResult, result);
 		}
 	}

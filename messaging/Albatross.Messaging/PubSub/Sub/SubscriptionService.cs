@@ -1,12 +1,12 @@
 ﻿using Albatross.Collections;
-using Albatross.Messaging.PubSub.Messages;
 using Albatross.Messaging.Messages;
+using Albatross.Messaging.PubSub.Messages;
 using Albatross.Messaging.Services;
+using Albatross.Threading;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Albatross.Threading;
 
 namespace Albatross.Messaging.PubSub.Sub {
 	public class SubscriptionService : IDealerClientService {
@@ -28,7 +28,7 @@ namespace Albatross.Messaging.PubSub.Sub {
 			switch (msg) {
 				case ServerAck ack:
 					lock (sync) {
-						if(callbacks.TryGetAndRemove(ack.Id, out var callback)) {
+						if (callbacks.TryGetAndRemove(ack.Id, out var callback)) {
 							callback.SetResult(ack.Id);
 							return true;
 						}

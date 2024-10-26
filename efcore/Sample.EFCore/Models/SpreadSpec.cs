@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Sample.EFCore.Models {
-	public class SpreadSpec : DateLevelEntity<int>{
+	public class SpreadSpec : DateLevelEntity<int> {
 		public SpreadSpec(int marketId, DateOnly startDate, decimal value) : base(startDate) {
 			this.MarketId = marketId;
 			this.Value = value;

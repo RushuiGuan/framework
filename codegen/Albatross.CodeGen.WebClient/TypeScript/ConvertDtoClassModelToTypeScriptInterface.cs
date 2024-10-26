@@ -9,7 +9,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		private readonly IConvertObject<ITypeSymbol, ITypeExpression> typeConverter;
 		private readonly IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> propertyConverter;
 
-		public ConvertDtoClassModelToTypeScriptInterface(IConvertObject<ITypeSymbol, ITypeExpression> typeConverter, 
+		public ConvertDtoClassModelToTypeScriptInterface(IConvertObject<ITypeSymbol, ITypeExpression> typeConverter,
 			IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> propertyConverter) {
 			this.typeConverter = typeConverter;
 			this.propertyConverter = propertyConverter;

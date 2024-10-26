@@ -14,15 +14,15 @@ namespace Albatross.CodeGen.Python.Models {
 			Expression = expression;
 		}
 
-		public Variable Variable { 
-			get => Single<Variable>(nameof(Variable)); 
+		public Variable Variable {
+			get => Single<Variable>(nameof(Variable));
 			set => Set(value, nameof(Variable));
 		}
-		public IModuleCodeElement Expression { 
+		public IModuleCodeElement Expression {
 			get => Single<IModuleCodeElement>(nameof(Expression));
-			set	=> Set(value, nameof(Expression));
+			set => Set(value, nameof(Expression));
 		}
-		public override TextWriter Generate(TextWriter writer) 
+		public override TextWriter Generate(TextWriter writer)
 			=> writer.Code(Variable).Append(" = ").Code(Expression);
 	}
 }

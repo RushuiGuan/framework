@@ -14,11 +14,11 @@ namespace Albatross.CodeGen.Python.Models {
 			this.InitFields.ForEach(x => {
 				x.Static = false;
 			});
-			this.InitFields.ForEach(f=>this.CodeBlock.Add(f));
+			this.InitFields.ForEach(f => this.CodeBlock.Add(f));
 			base.Build();
 		}
 		public override TextWriter Generate(TextWriter writer) {
-			if(this.CodeBlock.Any()) {
+			if (this.CodeBlock.Any()) {
 				return base.Generate(writer);
 			} else {
 				return writer;

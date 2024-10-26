@@ -32,7 +32,7 @@ namespace Albatross.Reflection.Test {
 			Enumerations.Property(intValue, "a", null, dict);
 			Enumerations.Property(intValue, "a", 1, dict);
 			Enumerations.Property(textValue, "t", null, dict);
-			Assert.Collection(dict, 
+			Assert.Collection(dict,
 				x => {
 					Assert.Equal("a", x.Key);
 					Assert.Equal(1, x.Value);

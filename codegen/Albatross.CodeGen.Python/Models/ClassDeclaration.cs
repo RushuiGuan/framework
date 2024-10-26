@@ -12,12 +12,12 @@ namespace Albatross.CodeGen.Python.Models {
 		}
 
 		public bool UseDataClass { get; set; }
-		
+
 		public Constructor? Constructor {
 			get => SingleOrDefault<Constructor>(nameof(Constructor));
 			set => SetNullable(value, nameof(Constructor));
 		}
-		
+
 		public IEnumerable<ClassDeclaration> BaseClass => Collection<ClassDeclaration>(nameof(BaseClass));
 		public ClassDeclaration AddBaseClass(ClassDeclaration @class) => (ClassDeclaration)AddCodeElement(@class, nameof(BaseClass));
 		public ClassDeclaration RemoveBaseClass(ClassDeclaration @class) => (ClassDeclaration)RemoveCodeElement(@class, nameof(BaseClass));
@@ -47,7 +47,7 @@ namespace Albatross.CodeGen.Python.Models {
 				Fields.ForEach(x => x.Static = true);
 			} else {
 				Constructor = new Constructor();
-				foreach(var field in Fields.Where(x=>!x.Static)) {
+				foreach (var field in Fields.Where(x => !x.Static)) {
 					Constructor.InitFields.Add(field);
 				}
 			}
@@ -78,12 +78,12 @@ namespace Albatross.CodeGen.Python.Models {
 			if (other == null) {
 				return 1;
 			} else {
-				if(this.IsEnum != other.IsEnum) {
+				if (this.IsEnum != other.IsEnum) {
 					return this.IsEnum ? -1 : 1;
 				}
-				if(this.BaseClass.Any(x=>x.Name == other.Name)) {
+				if (this.BaseClass.Any(x => x.Name == other.Name)) {
 					return 1;
-				}else if(other.BaseClass.Any(x=>x.Name == this.Name)) {
+				} else if (other.BaseClass.Any(x => x.Name == this.Name)) {
 					return -1;
 				}
 				return Name.CompareTo(other.Name);

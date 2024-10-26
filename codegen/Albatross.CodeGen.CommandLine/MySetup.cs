@@ -1,20 +1,20 @@
-﻿using Albatross.CodeGen.WebClient;
-using Albatross.Logging;
-using Albatross.CodeAnalysis.MSBuild;
+﻿using Albatross.CodeAnalysis.MSBuild;
 using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript;
+using Albatross.CodeGen.WebClient;
+using Albatross.CodeGen.WebClient.Settings;
 using Albatross.CommandLine;
 using Albatross.Config;
+using Albatross.Logging;
 using Albatross.Serialization;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
-using System.Text.Json;
 using System.CommandLine.Invocation;
-using Albatross.CodeGen.WebClient.Settings;
+using System.Text.Json;
 
 namespace Albatross.CodeGen.CommandLine {
 	public class MySetup : Setup {

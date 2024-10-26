@@ -1,5 +1,5 @@
 ﻿namespace Albatross.Eventing {
-	public enum ClientType{
+	public enum ClientType {
 		Connection,
 		User,
 		Group,

@@ -2,7 +2,7 @@
 
 namespace Sample.Core.Commands {
 
-	public class PingCommand : IApplicationCommand{
+	public class PingCommand : IApplicationCommand {
 		public PingCommand(int round) {
 			Round = round;
 		}

@@ -48,7 +48,7 @@ namespace Sample.Caching.WebApi.Controllers {
 		[HttpPost("reset-t2-item")]
 		public void ResetTier2Item([FromQuery] int tier1Key, [FromQuery] int tier2Key) => keyMgmt.RemoveSelfAndChildren(new Tier2Key(tier1Key, tier2Key));
 		[HttpPost("reset-t2")]
-		public void ResetTier2([FromQuery]int tier1Key) => keyMgmt.Reset(new Tier2Key(tier1Key, 0));
+		public void ResetTier2([FromQuery] int tier1Key) => keyMgmt.Reset(new Tier2Key(tier1Key, 0));
 
 		[HttpGet("t3")]
 		public async Task<string> GetTier3([FromQuery] int tier1Key, [FromQuery] int tier2Key, [FromQuery] int tier3Key) {

@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using Sample.EFCore;
-using Albatross.Caching;
+﻿using Albatross.Caching;
 using Albatross.Caching.MemCache;
 using Albatross.EFCore.Audit;
 using Albatross.Hosting.Test;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Moq;
+using Sample.EFCore;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
 
 namespace Albatross.EFCore.Test {
 	public class MyTestHost : Hosting.Test.TestHost {

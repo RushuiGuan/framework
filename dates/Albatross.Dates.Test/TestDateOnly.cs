@@ -1,8 +1,8 @@
-﻿using System;
-using Xunit;
-using Albatross.Dates;
+﻿using Albatross.Dates;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Albatross.Dates.Test {
 	public class TestDateOnly {

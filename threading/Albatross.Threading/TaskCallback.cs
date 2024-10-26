@@ -11,7 +11,7 @@ namespace Albatross.Threading {
 
 		public TaskCallback() { }
 		public TaskCallback(CancellationToken cancellationToken) {
-			cancellationTokenRegistration =cancellationToken.Register(() => SetException(new OperationCanceledException(cancellationToken)));
+			cancellationTokenRegistration = cancellationToken.Register(() => SetException(new OperationCanceledException(cancellationToken)));
 		}
 		public TaskCallback(CancellationToken cancellationToken, Action<TaskCallback<T>> cancellationCallback) {
 			cancellationTokenRegistration = cancellationToken.Register(() => {
@@ -42,7 +42,7 @@ namespace Albatross.Threading {
 			cancellationTokenRegistration = cancellationToken.Register(() => SetException(new OperationCanceledException(cancellationToken)));
 		}
 		public TaskCallback(CancellationToken cancellationToken, Action<TaskCallback> cancellationCallback) {
-			cancellationTokenRegistration  = cancellationToken.Register(() => {
+			cancellationTokenRegistration = cancellationToken.Register(() => {
 				try {
 					cancellationCallback(this);
 				} catch (Exception err) {

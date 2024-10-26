@@ -34,7 +34,7 @@ namespace Albatross.Collections.Test {
 		public void ResetPosition() {
 			throw new NotImplementedException();
 		}
-		
+
 		public void Seek(IPosition position) {
 			throw new NotImplementedException();
 		}

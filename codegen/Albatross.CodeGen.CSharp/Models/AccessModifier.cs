@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.CSharp.Models {
 		Internal = 8,
 	}
 
-	public class AccessModifierElement: ICodeElement {
+	public class AccessModifierElement : ICodeElement {
 		public AccessModifierElement(AccessModifier accessModifier) {
 			AccessModifier = accessModifier;
 		}

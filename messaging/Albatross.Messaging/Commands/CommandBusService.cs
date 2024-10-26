@@ -21,7 +21,7 @@ namespace Albatross.Messaging.Commands {
 		}
 
 		public bool ProcessReceivedMsg(IMessagingService messagingService, IMessage msg) {
-			if(msg is CommandRequest cmd) {
+			if (msg is CommandRequest cmd) {
 				try {
 					var item = this.commandQueueFactory.CreateItem(cmd);
 					logger.LogDebug("AcceptingRequest => {id}", item.Id);
@@ -43,9 +43,9 @@ namespace Albatross.Messaging.Commands {
 			switch (msg) {
 				case CommandQueueItem item:
 					// the CommandQueueItem is sent here when it has finished its execution
-					if(item.Reply == null) {
+					if (item.Reply == null) {
 						logger.LogError("CommandQueueItem {type} for {queue} arrived without a reply message: {@command}", item.CommandType, item.Queue, item.Command);
-					}else if (item.Mode != CommandMode.Callback) {
+					} else if (item.Mode != CommandMode.Callback) {
 						messagingService.EventWriter.WriteEvent(new EventSource.EventEntry(EntryType.Record, item.Reply));
 					} else {
 						messagingService.SubmitToQueue(item.Reply);
@@ -63,7 +63,7 @@ namespace Albatross.Messaging.Commands {
 						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newItem.Id);
 						newItem.Queue.Submit(newItem);
 						internalCommand.SetResult(newItem.Id);
-					}catch(Exception err) {
+					} catch (Exception err) {
 						if (internalCommand is InternalCommandWithCallback) {
 							internalCommand.SetException(err);
 						} else {

@@ -1,7 +1,7 @@
 ﻿using Polly.Caching;
-using System.Text.Json;
-using System;
 using Polly.Caching.Distributed;
+using System;
+using System.Text.Json;
 
 namespace Albatross.Caching.Redis {
 	public class StringCacheProviderAdapter : ICacheProviderAdapter {
@@ -11,12 +11,12 @@ namespace Albatross.Caching.Redis {
 			this.cacheProvider = cacheProvider;
 		}
 
-		public IAsyncCacheProvider<T> Create<T>() 
+		public IAsyncCacheProvider<T> Create<T>()
 			=> ((IAsyncCacheProvider<string>)this.cacheProvider).WithSerializer(new StringJsonCacheItemSerializer<T>());
 
 		public ISyncCacheProvider<T> CreateSync<T>()
 			=> ((ISyncCacheProvider<string>)this.cacheProvider).WithSerializer<T, string>(new StringJsonCacheItemSerializer<T>());
-			
+
 	}
 	public class StringJsonCacheItemSerializer<T> : ICacheItemSerializer<T, string> {
 		public T Deserialize(string text) {

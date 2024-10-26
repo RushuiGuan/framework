@@ -17,7 +17,7 @@ namespace Albatross.CodeGen.Python.Models {
 			set => Set(value, nameof(Type));
 		}
 		public override TextWriter Generate(TextWriter writer) {
-			if(IsInstanceField) {
+			if (IsInstanceField) {
 				writer.Append(My.Keywords.Self).Dot();
 			}
 			writer.Append(Name).Code(Type);

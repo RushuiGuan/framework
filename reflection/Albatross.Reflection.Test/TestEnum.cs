@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Albatross.Reflection.Test {
 	public enum MyEnum {
-		a,b,c, d, e, f,
+		a, b, c, d, e, f,
 	}
 	public class TestEnum {
 		[Fact]

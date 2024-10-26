@@ -15,7 +15,7 @@ namespace Albatross.Messaging.Messages {
 			return t;
 		}
 		public IMessage Build(string line, int offset) {
-			var t= new T();
+			var t = new T();
 			t.ReadFromText(line, ref offset);
 			return t;
 		}

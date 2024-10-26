@@ -22,7 +22,7 @@ namespace Albatross.Excel.SampleAddIn {
 			this.logger = logger;
 		}
 
-		[ExcelFunction(Description ="test me")]
+		[ExcelFunction(Description = "test me")]
 		public async Task<object> Instruments() {
 			var builder = new ArrayFunctionBuilder(typeof(Instrument), true)
 				.AddColumnsByReflection().SetOrder("Id", "Name", "Date")
@@ -48,7 +48,7 @@ namespace Albatross.Excel.SampleAddIn {
 			logger.LogInformation("Calling {name} w. {@param}", functionName, parameters);
 			return AsyncTaskUtil.RunTask<object>(functionName, parameters, async () => {
 				await Task.Delay(100);
-				if(CellValue.TryReadInteger(idCell, out var id)) {
+				if (CellValue.TryReadInteger(idCell, out var id)) {
 					if (instruments.TryGetValue(id, out Instrument instrument)) {
 						return instrument.Name;
 					}

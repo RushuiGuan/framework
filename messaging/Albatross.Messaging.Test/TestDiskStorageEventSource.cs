@@ -22,7 +22,7 @@ namespace Albatross.Messaging.Test {
 		ILoggerFactory LoggerFactory {
 			get {
 				var mock = new Mock<ILoggerFactory>();
-				mock.Setup(x=>x.CreateLogger(It.IsAny<string>())).Returns(Logger);
+				mock.Setup(x => x.CreateLogger(It.IsAny<string>())).Returns(Logger);
 				return mock.Object;
 			}
 		}
@@ -34,10 +34,10 @@ namespace Albatross.Messaging.Test {
 			return new DiskStorageEventReader(config, new Mock<IMessageFactory>().Object, new Mock<ILogger>().Object);
 		}
 
-		IMessageFactory MessageFactory { get=>new Mock<IMessageFactory>().Object; }
+		IMessageFactory MessageFactory { get => new Mock<IMessageFactory>().Object; }
 
 		void CleanFolder(string name) {
-			if(Directory.Exists(name)) {
+			if (Directory.Exists(name)) {
 				Directory.Delete(name, true);
 			}
 		}

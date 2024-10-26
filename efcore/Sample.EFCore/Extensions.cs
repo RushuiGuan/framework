@@ -1,8 +1,8 @@
-﻿using Albatross.EFCore.SqlServer;
-using Albatross.Config;
+﻿using Albatross.Config;
+using Albatross.EFCore;
+using Albatross.EFCore.SqlServer;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.EFCore.Models;
-using Albatross.EFCore;
 
 namespace Sample.EFCore {
 	public static class Extensions {

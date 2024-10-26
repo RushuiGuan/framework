@@ -4,15 +4,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Serilog.Events;
 using Serilog;
+using Serilog.Events;
 using System;
 using System.CommandLine;
-using System.CommandLine.Invocation;
-using System.CommandLine.Hosting;
 using System.CommandLine.Builder;
-using System.Threading.Tasks;
+using System.CommandLine.Hosting;
+using System.CommandLine.Invocation;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Albatross.CommandLine {
 	public class Setup {

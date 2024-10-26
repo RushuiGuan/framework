@@ -31,7 +31,7 @@ namespace Sample.EFCore.Admin {
 				model = new Data3(options.Name);
 				session.DbContext.Add(model);
 			}
-			if(options.Clear) {
+			if (options.Clear) {
 				model.ArrayProperty.Clear();
 			} else {
 				model.ArrayProperty.Add(new JsonProperty(options.Property));

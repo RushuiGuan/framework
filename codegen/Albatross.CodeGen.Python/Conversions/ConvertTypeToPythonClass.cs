@@ -18,11 +18,11 @@ namespace Albatross.CodeGen.Python.Conversions {
 			if (type.BaseType != null && type.BaseType != typeof(object)) {
 				result.AddBaseClass(Convert(type.BaseType));
 			}
-			foreach(var field in type.GetFields().Where(x=>!x.IsStatic)) {
+			foreach (var field in type.GetFields().Where(x => !x.IsStatic)) {
 				var item = convertField.Convert(field);
 				result.AddField(item);
 			}
-			foreach(var property in type.GetProperties()) {
+			foreach (var property in type.GetProperties()) {
 				var item = convertProperty.Convert(property);
 				result.AddField(item);
 			}

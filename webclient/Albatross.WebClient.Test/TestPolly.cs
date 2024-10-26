@@ -158,7 +158,7 @@ namespace Albatross.WebClient.Test {
 			stopwatch.Stop();
 			Assert.Equal(3, argumentExceptionRetryCount);
 			Assert.Equal(0, invalidOpRetryCount);
-			Assert.True(stopwatch.ElapsedMilliseconds >= 150 && stopwatch.ElapsedMilliseconds< 200);
+			Assert.True(stopwatch.ElapsedMilliseconds >= 150 && stopwatch.ElapsedMilliseconds < 200);
 
 			stopwatch.Restart();
 			await Assert.ThrowsAsync<InvalidOperationException>(() => wrap.ExecuteAsync(() => throw new InvalidOperationException()));

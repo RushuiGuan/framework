@@ -1,9 +1,9 @@
-﻿using Albatross.EFCore.SqlServer;
-using Albatross.CommandLine;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
+﻿using Albatross.CommandLine;
+using Albatross.EFCore.SqlServer;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 
 namespace Sample.EFCore.Admin {
 	[Verb("ef-migrate", typeof(EFMigrate), Description = "Migrate database using dotnet ef tool")]

@@ -1,16 +1,16 @@
-﻿using Albatross.Logging;
+﻿using Albatross.Config;
+using Albatross.Logging;
 using ExcelDna.Integration;
+using ExcelDna.Integration.CustomUI;
 using ExcelDna.IntelliSense;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
-using Albatross.Config;
-using Microsoft.Extensions.Logging;
-using ExcelDna.Integration.CustomUI;
 using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Albatross.Hosting.Excel {
 	public abstract class HostedExcelAddIn : IExcelAddIn {

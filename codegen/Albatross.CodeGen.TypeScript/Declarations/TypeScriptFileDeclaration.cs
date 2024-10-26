@@ -1,6 +1,6 @@
-﻿using Albatross.Collections;
-using Albatross.CodeGen.Syntax;
+﻿using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Expressions;
+using Albatross.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

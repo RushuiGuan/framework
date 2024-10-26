@@ -1,7 +1,7 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.Syntax;
+using Microsoft.CodeAnalysis;
 using System.Diagnostics.CodeAnalysis;
-using Albatross.CodeAnalysis.Symbols;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 	public class ActionResultConverter : ITypeConverter {

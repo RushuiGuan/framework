@@ -7,12 +7,12 @@ using System.IO;
 using System.Linq;
 
 namespace Albatross.Messaging.EventSource {
-	public class DiskStorageEventReader :  IEventReader {
+	public class DiskStorageEventReader : IEventReader {
 		private readonly DiskStorageConfiguration config;
 		private readonly IMessageFactory messageFactory;
 		private readonly ILogger logger;
 
-		public DiskStorageEventReader(DiskStorageConfiguration config, IMessageFactory messageFactory, ILogger logger)  {
+		public DiskStorageEventReader(DiskStorageConfiguration config, IMessageFactory messageFactory, ILogger logger) {
 			this.config = config;
 			this.messageFactory = messageFactory;
 			this.logger = logger;
@@ -38,7 +38,7 @@ namespace Albatross.Messaging.EventSource {
 							EventEntry? replay = null;
 							try {
 								EventEntry.TryParseLine(messageFactory, line, out replay);
-							}catch(Exception ex) {
+							} catch (Exception ex) {
 								logger.LogError(ex, "Error parsing log entry: {line}", line);
 							}
 							if (replay?.TimeStamp >= cutOff) {

@@ -23,7 +23,7 @@ namespace Albatross.EFCore {
 		public DbEventSession(IServiceScope serviceScope) {
 			this.serviceScope = serviceScope;
 			this.logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<DbEventSession>>();
-			this.changeEventHandlers = serviceScope.ServiceProvider.GetService<IEnumerable<IDbSessionEventHandler>>() 
+			this.changeEventHandlers = serviceScope.ServiceProvider.GetService<IEnumerable<IDbSessionEventHandler>>()
 				?? Array.Empty<IDbSessionEventHandler>();
 		}
 		public async Task ExecutePriorSaveActions(IDbSession session) {
@@ -34,17 +34,17 @@ namespace Albatross.EFCore {
 			foreach (var entry in session.DbContext.ChangeTracker.Entries()) {
 				switch (entry.State) {
 					case EntityState.Added:
-						foreach(var handler in changeEventHandlers) {
+						foreach (var handler in changeEventHandlers) {
 							handler.OnAddedEntry(entry);
 						}
 						break;
 					case EntityState.Modified:
-						foreach(var handler in changeEventHandlers) {
+						foreach (var handler in changeEventHandlers) {
 							handler.OnModifiedEntry(entry);
 						}
 						break;
 					case EntityState.Deleted:
-						foreach(var handler in changeEventHandlers) {
+						foreach (var handler in changeEventHandlers) {
 							handler.OnDeletedEntry(entry);
 						}
 						break;
@@ -62,7 +62,7 @@ namespace Albatross.EFCore {
 			}
 		}
 		public void Dispose() {
-			if(!disposed) {
+			if (!disposed) {
 				disposed = true;
 				this.serviceScope.Dispose();
 			}

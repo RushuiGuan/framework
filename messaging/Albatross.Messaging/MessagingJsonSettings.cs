@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Albatross.Messaging {
 	public class MessagingJsonSettings : Serialization.IJsonSettings {
-		public JsonSerializerOptions Default {get;private set;}
+		public JsonSerializerOptions Default { get; private set; }
 		public JsonSerializerOptions Alternate => throw new NotSupportedException();
 
 		public MessagingJsonSettings() {

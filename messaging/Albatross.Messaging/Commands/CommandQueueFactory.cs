@@ -1,6 +1,6 @@
 ﻿using Albatross.Collections;
-using Albatross.Reflection;
 using Albatross.Messaging.Commands.Messages;
+using Albatross.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;

@@ -1,9 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json.Serialization;
 using System.Text.Json;
-using System.IO;
+using System.Text.Json.Serialization;
 
 namespace Albatross.Hosting.Test {
 	public static class TestCaseExtension {

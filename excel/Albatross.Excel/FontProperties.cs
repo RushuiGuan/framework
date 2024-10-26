@@ -4,7 +4,7 @@ namespace Albatross.Excel {
 	public abstract record class CellProperty {
 		public abstract void Apply(ExcelReference range);
 	}
-	public record class FontProperties : CellProperty{
+	public record class FontProperties : CellProperty {
 		object font = ExcelMissing.Value;
 		object fontStyle = ExcelMissing.Value;
 		object color = ExcelMissing.Value;

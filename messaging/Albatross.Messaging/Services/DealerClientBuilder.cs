@@ -1,7 +1,7 @@
 ﻿using Albatross.Messaging.Commands;
 using Albatross.Messaging.Configurations;
-using Albatross.Messaging.PubSub.Sub;
 using Albatross.Messaging.Messages;
+using Albatross.Messaging.PubSub.Sub;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -37,7 +37,7 @@ namespace Albatross.Messaging.Services {
 		}
 
 		public IDealerClientBuilder TryAddSubscriptionService() {
-			if(!services.Any(args=>args is SubscriptionService)) {
+			if (!services.Any(args => args is SubscriptionService)) {
 				services.Add(new SubscriptionService(this.serviceProvider.GetRequiredService<ILogger<SubscriptionService>>()));
 			}
 			return this;

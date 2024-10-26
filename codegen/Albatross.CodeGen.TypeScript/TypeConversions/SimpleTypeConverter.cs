@@ -18,7 +18,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 		}
 
 		public bool TryConvert(ITypeSymbol symbol, IConvertObject<ITypeSymbol, ITypeExpression> factory, [NotNullWhen(true)] out ITypeExpression? expression) {
-			if (IsMatch(symbol)){
+			if (IsMatch(symbol)) {
 				expression = GetResult(symbol);
 				return true;
 			} else {

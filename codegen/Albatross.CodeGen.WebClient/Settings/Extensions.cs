@@ -17,31 +17,31 @@ namespace Albatross.CodeGen.WebClient.Settings {
 
 		public static SymbolFilter[] CreateCSharpControllerMethodFilters(this CodeGenSettings settings) {
 			var selected = settings.CSharpWebClientSettings.ControllerMethodFilters.Where(x => x.HasValue).ToArray();
-			if(selected.Length == 0) {
+			if (selected.Length == 0) {
 				selected = settings.ControllerMethodFilters.Where(x => x.HasValue).ToArray();
 			}
 			return selected.Select(x => new SymbolFilter(x)).ToArray();
 		}
 		public static SymbolFilter[] CreateTypeScriptControllerMethodFilters(this CodeGenSettings settings) {
 			var selected = settings.TypeScriptWebClientSettings.ControllerMethodFilters.Where(x => x.HasValue).ToArray();
-			if(selected.Length == 0) {
+			if (selected.Length == 0) {
 				selected = settings.ControllerMethodFilters.Where(x => x.HasValue).ToArray();
 			}
 			return selected.Select(x => new SymbolFilter(x)).ToArray();
 		}
 		public static SymbolFilter[] CreateControllerMethodFilters(this CodeGenSettings settings)
-			=> settings.ControllerMethodFilters.Where(x=>x.HasValue).Select(x => new SymbolFilter(x)).ToArray();
+			=> settings.ControllerMethodFilters.Where(x => x.HasValue).Select(x => new SymbolFilter(x)).ToArray();
 
-		public static SymbolFilterPatterns CreateCSharpControllerFilter(this CodeGenSettings settings) 
+		public static SymbolFilterPatterns CreateCSharpControllerFilter(this CodeGenSettings settings)
 			=> settings.CSharpWebClientSettings.ControllerFilter.Overwrite(settings.ControllerFilter);
 
-		public static SymbolFilterPatterns CreateTypeScriptControllerFilter(this CodeGenSettings settings) 
+		public static SymbolFilterPatterns CreateTypeScriptControllerFilter(this CodeGenSettings settings)
 			=> settings.TypeScriptWebClientSettings.ControllerFilter.Overwrite(settings.ControllerFilter);
 
-		public static SymbolFilterPatterns CreateTypeScriptDtoFilter(this CodeGenSettings settings) 
+		public static SymbolFilterPatterns CreateTypeScriptDtoFilter(this CodeGenSettings settings)
 			=> settings.TypeScriptWebClientSettings.DtoFilter.Overwrite(settings.DtoFilter);
 
-		public static SymbolFilterPatterns TypeScriptEnumFilter(this CodeGenSettings settings) 
+		public static SymbolFilterPatterns TypeScriptEnumFilter(this CodeGenSettings settings)
 			=> settings.TypeScriptWebClientSettings.EnumFilter.Overwrite(settings.EnumFilter);
 	}
 }

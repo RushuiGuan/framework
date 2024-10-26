@@ -31,7 +31,7 @@ namespace Test.WebApi.Controllers {
 		public string NullableValueTypeCollection([FromQuery] IEnumerable<int?> values) => string.Join(",", values);
 
 		[HttpGet("nullable-date-only-collection")]
-		public string NullableDateOnlyCollection([FromQuery]IEnumerable<DateOnly?> dates) => string.Join(",", dates);
+		public string NullableDateOnlyCollection([FromQuery] IEnumerable<DateOnly?> dates) => string.Join(",", dates);
 
 		[HttpGet("nullable-date-only-array")]
 		public string NullableDateOnlyArray([FromQuery] DateOnly?[] dates) => string.Join(",", dates);

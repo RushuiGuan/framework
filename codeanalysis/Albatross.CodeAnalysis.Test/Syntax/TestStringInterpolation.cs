@@ -1,11 +1,11 @@
 ﻿using Albatross.CodeAnalysis.MSBuild;
 using Albatross.CodeAnalysis.Syntax;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
-using Xunit;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Formatting;
+using Xunit;
 
 namespace Albatross.CodeAnalysis.Test.Syntax {
 	public class TestStringInterpolation {
@@ -69,18 +69,18 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 
 					SyntaxFactory.List(new InterpolatedStringContentSyntax[] {
 						SyntaxFactory.InterpolatedStringText(
-							SyntaxFactory.Token(SyntaxTriviaList.Empty, 
-							SyntaxKind.InterpolatedStringTextToken, "/", "/", 
+							SyntaxFactory.Token(SyntaxTriviaList.Empty,
+							SyntaxKind.InterpolatedStringTextToken, "/", "/",
 							SyntaxTriviaList.Empty)
 						),
 						SyntaxFactory.InterpolatedStringText(
-							SyntaxFactory.Token(SyntaxTriviaList.Empty, 
-							SyntaxKind.InterpolatedStringTextToken, "Hello", "Hello", 
+							SyntaxFactory.Token(SyntaxTriviaList.Empty,
+							SyntaxKind.InterpolatedStringTextToken, "Hello", "Hello",
 							SyntaxTriviaList.Empty)
 						),
 					}),
-					SyntaxFactory.Token(SyntaxTriviaList.Empty, 
-						SyntaxKind.InterpolatedStringEndToken, 
+					SyntaxFactory.Token(SyntaxTriviaList.Empty,
+						SyntaxKind.InterpolatedStringEndToken,
 						SyntaxTriviaList.Empty)
 			);
 			var formatted = Formatter.Format(interpolatedString.NormalizeWhitespace(), workspace, null);
@@ -88,4 +88,3 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		}
 	}
 }
-

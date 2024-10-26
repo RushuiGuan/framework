@@ -16,8 +16,8 @@ namespace Albatross.CodeGen.TypeScript {
 		public bool TryGet(ITypeSymbol symbol, [NotNullWhen(true)] out ISourceExpression? module) {
 			if (symbol is INamedTypeSymbol named) {
 				var fullName = named.GetFullName();
-				foreach(var key in source.Keys) {
-					if(fullName.StartsWith(key, System.StringComparison.InvariantCultureIgnoreCase)) {
+				foreach (var key in source.Keys) {
+					if (fullName.StartsWith(key, System.StringComparison.InvariantCultureIgnoreCase)) {
 						module = new FileNameSourceExpression(source[key]);
 						return true;
 					}

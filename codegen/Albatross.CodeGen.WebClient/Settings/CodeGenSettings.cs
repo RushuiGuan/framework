@@ -7,7 +7,7 @@ namespace Albatross.CodeGen.WebClient.Settings {
 		public ApiControllerConversionSettings ApiControllerConversionSetting { get; init; } = new ApiControllerConversionSettings();
 
 		public SymbolFilterPatterns ControllerFilter { get; init; } = new SymbolFilterPatterns();
-		public SymbolFilterPatterns DtoFilter{ get; init; } = new SymbolFilterPatterns();
+		public SymbolFilterPatterns DtoFilter { get; init; } = new SymbolFilterPatterns();
 		public SymbolFilterPatterns EnumFilter { get; init; } = new SymbolFilterPatterns();
 		public SymbolFilterPatterns[] ControllerMethodFilters { get; init; } = [];
 	}

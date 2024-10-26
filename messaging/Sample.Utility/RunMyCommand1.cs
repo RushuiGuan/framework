@@ -1,11 +1,11 @@
-﻿using System.CommandLine;
+﻿using Albatross.CommandLine;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Sample.Core.Commands;
 using Sample.Proxy;
-using System.Threading.Tasks;
-using Albatross.CommandLine;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
+using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 
 namespace Sample.Utility {
 	[Verb("my-cmd1", typeof(RunMyCommand1))]

@@ -1,11 +1,11 @@
 ﻿using Albatross.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Albatross.Messaging.Configurations;
-using System.Text.Json;
-using System.IO;
-using System;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
 
 namespace Albatross.Messaging.PubSub.Pub {
 	public interface ISubscriptionManagement {
@@ -40,9 +40,9 @@ namespace Albatross.Messaging.PubSub.Pub {
 				Save();
 			}
 		}
-		
+
 		public void UnsubscribeAll(string route) {
-			foreach(var sub in subscriptions.ToArray()) {
+			foreach (var sub in subscriptions.ToArray()) {
 				sub.Subscribers.Remove(route);
 				if (!sub.Subscribers.Any()) {
 					subscriptions.Remove(sub);
@@ -70,7 +70,7 @@ namespace Albatross.Messaging.PubSub.Pub {
 							logger.LogInformation("Pattern: {pattern}; Subscriber: {subscriber}", item.Pattern, string.Join(',', item.Subscribers));
 						}
 						this.subscriptions = new HashSet<Subscription>(items);
-					}catch(Exception err) {
+					} catch (Exception err) {
 						logger.LogError(err, "Error reading subscription management info from {file}", filename);
 					}
 				}

@@ -1,5 +1,5 @@
-﻿using Albatross.Threading;
-using Albatross.Messaging.Services;
+﻿using Albatross.Messaging.Services;
+using Albatross.Threading;
 using System;
 using System.Threading.Tasks;
 

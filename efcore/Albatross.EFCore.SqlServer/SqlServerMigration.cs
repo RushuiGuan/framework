@@ -6,12 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.EFCore.SqlServer {
-	public class SqlServerMigration<T> where T: DbSession {
+	public class SqlServerMigration<T> where T : DbSession {
 		private readonly ISqlBatchExecution batchExecution;
 		private readonly T session;
 		private readonly ILogger<SqlServerMigration<T>> logger;
 
-		public SqlServerMigration(ISqlBatchExecution batchExecution, T session,ILogger<SqlServerMigration<T>> logger) {
+		public SqlServerMigration(ISqlBatchExecution batchExecution, T session, ILogger<SqlServerMigration<T>> logger) {
 			this.batchExecution = batchExecution;
 			this.session = session;
 			this.logger = logger;

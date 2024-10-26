@@ -1,9 +1,9 @@
-﻿using System.IO;
-using Albatross.CommandLine;
+﻿using Albatross.CommandLine;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.CommandLine.Invocation;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Utility {

@@ -41,7 +41,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 			if (this.identifier != null) {
 				nameParameters.Add(this.identifier);
 			}
-			if(nameParameters.Count == 0) {
+			if (nameParameters.Count == 0) {
 				throw new ArgumentException($"The {nameof(InvocationExpressionBuilder)} requires at least one {nameof(SimpleNameSyntax)} parameter");
 			}
 

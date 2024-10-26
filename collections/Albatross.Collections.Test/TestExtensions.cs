@@ -12,7 +12,7 @@ namespace Albatross.Collections.Test {
 		public void TryGetOneAndRemove(string array, int target, bool expected, string expected_text) {
 			var list = array.IntArray().ToList();
 			var old_length = list.Count;
-			var has = list.TryGetOneAndRemove(x=>x == target, out var result);
+			var has = list.TryGetOneAndRemove(x => x == target, out var result);
 			has.Should().Be(expected);
 			list.AsString().Should().Be(expected_text);
 			if (expected) {
@@ -30,7 +30,7 @@ namespace Albatross.Collections.Test {
 		}
 
 		[Fact]
-		public void TestRemoveAny_FromRear(){
+		public void TestRemoveAny_FromRear() {
 			var list = "1,2,3,4,5".IntArray().ToList();
 			var old_length = list.Count;
 			var removed = list.RemoveAny_FromRear(x => x == 4 || x == 5);

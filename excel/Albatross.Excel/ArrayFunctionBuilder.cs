@@ -117,7 +117,7 @@ namespace Albatross.Excel {
 			return this;
 		}
 		public ArrayFunctionBuilder FormatColumns(Action<CellBuilder> action, params string[] columnNames) {
-			if(columnNames.Length == 0) {
+			if (columnNames.Length == 0) {
 				throw new ArgumentException("Missing columns names");
 			}
 			this.Queue(() => {

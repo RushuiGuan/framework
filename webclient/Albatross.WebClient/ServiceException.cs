@@ -11,7 +11,7 @@ namespace Albatross.WebClient {
 	/// </summary>
 	public class ServiceError {
 		public string Message { get; set; }
-		[JsonPropertyName("type")]	// The server side serialize this property as "type"
+		[JsonPropertyName("type")]  // The server side serialize this property as "type"
 		public string? ClassName { get; set; }
 
 		public ServiceError(string message) {
@@ -21,7 +21,7 @@ namespace Albatross.WebClient {
 
 
 	public class ServiceException : ServiceException<ServiceError> {
-		public ServiceException(HttpStatusCode status, HttpMethod? method, Uri? endpoint, ServiceError? detail, string errorMsg) 
+		public ServiceException(HttpStatusCode status, HttpMethod? method, Uri? endpoint, ServiceError? detail, string errorMsg)
 			: base(status, method, endpoint, detail, errorMsg) { }
 	}
 
@@ -31,7 +31,7 @@ namespace Albatross.WebClient {
 		public string? Endpoint { get; set; }
 		public T? ErrorObject { get; private set; }
 
-		public ServiceException(HttpStatusCode statusCode, HttpMethod? method, Uri? endpoint, T? errorObject, string errorMsg) 
+		public ServiceException(HttpStatusCode statusCode, HttpMethod? method, Uri? endpoint, T? errorObject, string errorMsg)
 			: base(BuildMessage(statusCode, method, endpoint, errorMsg)) {
 
 			this.StatusCode = statusCode;

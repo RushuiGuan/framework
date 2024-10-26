@@ -14,13 +14,14 @@ namespace Albatross.CodeGen.UnitTest {
 		string? MyMethod3(string? a, Nullable<int> b) { return null; }
 
 
-		[Fact] public void TestNullableProperty() {
+		[Fact]
+		public void TestNullableProperty() {
 			var propertyInfo = this.GetType().GetProperty(nameof(Name));
 			Assert.True(new NullabilityInfoContext().Create(propertyInfo!).WriteState == NullabilityState.Nullable);
 			propertyInfo = this.GetType().GetProperty(nameof(Name1));
 			Assert.False(new NullabilityInfoContext().Create(propertyInfo!).WriteState == NullabilityState.Nullable);
 		}
-		
+
 		[Fact]
 		public void TestNullability1() {
 			var method = typeof(NullableParameterTest).GetMethod(nameof(MyMethod), BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new Exception();

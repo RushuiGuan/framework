@@ -6,6 +6,6 @@ namespace Test.Proxy {
 		public TestProxyConfig(IConfiguration configuration) : base(configuration) {
 			this.EndPoint = configuration.GetRequiredEndPoint("test");
 		}
-		public string EndPoint { get;  }
+		public string EndPoint { get; }
 	}
 }

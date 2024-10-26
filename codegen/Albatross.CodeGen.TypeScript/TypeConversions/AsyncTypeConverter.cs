@@ -13,7 +13,7 @@ namespace Albatross.CodeGen.TypeScript.TypeConversions {
 			if (name == "System.Threading.Tasks.Task") {
 				expression = Defined.Types.Void();
 				return true;
-			}else if (symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var arguments)) {
+			} else if (symbol.TryGetGenericTypeArguments(GenericDefinitionName, out var arguments)) {
 				expression = factory.Convert(arguments[0]);
 				return true;
 			} else {

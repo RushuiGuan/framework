@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
-using Polly.Retry;
 using Polly;
+using Polly.Retry;
 using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Albatross.IO {
 	public static class Extensions {
@@ -60,7 +60,7 @@ namespace Albatross.IO {
 				return Task.FromResult(stream);
 			}, context, cancellationToken ?? CancellationToken.None);
 		}
-		
+
 		public static Task<Stream> OpenAsyncExclusiveWriteStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
 			var policy = CreateRetryPolicy(retryCount, delay_ms, onRetry, logger);
 			var context = new Context(file.FullName);

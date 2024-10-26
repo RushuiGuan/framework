@@ -1,9 +1,9 @@
 ﻿using Albatross.Config;
 using Albatross.Serialization;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
-using System;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
+using System.Net.Http;
 
 namespace Test.Proxy {
 	public static partial class Extensions {

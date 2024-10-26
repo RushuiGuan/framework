@@ -1,6 +1,6 @@
-﻿using Albatross.Collections;
-using Albatross.CodeGen.Syntax;
+﻿using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Expressions;
+using Albatross.Collections;
 using Albatross.Text;
 using System.Collections.Generic;
 using System.IO;
@@ -28,7 +28,7 @@ namespace Albatross.CodeGen.TypeScript.Declarations {
 					.UnionAll(Decorators, Imports, Getters, Setters, Properties, Methods);
 
 		public override TextWriter Generate(TextWriter writer) {
-			Decorators.ForEach(x=>writer.Code(x).AppendLine());
+			Decorators.ForEach(x => writer.Code(x).AppendLine());
 			writer.Append("export ").Append("class ").Code(Identifier);
 			if (BaseClassName != null) {
 				writer.Append(" extends ").Code(BaseClassName);

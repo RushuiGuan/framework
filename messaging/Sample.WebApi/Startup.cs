@@ -1,9 +1,9 @@
-using System;
 using Albatross.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Sample.WebApi {
 	public class Startup : Albatross.Hosting.Startup {

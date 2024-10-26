@@ -33,7 +33,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 		public string ReturnTypeText => ReturnType.GetFullName();
 		public IEnumerable<IRouteSegment> RouteSegments { get; }
 		public List<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
-		
+
 		ITypeSymbol GetReturnType(ITypeSymbol type) {
 			if (type is INamedTypeSymbol named && named.IsGenericType) {
 				var genericTypeFullName = named.OriginalDefinition.GetFullName();

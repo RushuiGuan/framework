@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using Test.Dto.Classes;
 using System.Linq;
+using System.Threading.Tasks;
+using Test.Dto.Classes;
 
 namespace Test.WebApi.Controllers {
 	[Route("api/required-return-type")]

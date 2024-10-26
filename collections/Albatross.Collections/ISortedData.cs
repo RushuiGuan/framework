@@ -8,7 +8,7 @@ namespace Albatross.Collections {
 			this.Value = value;
 		}
 	}
-	public record class IntPosition : IPosition { 
+	public record class IntPosition : IPosition {
 		public int Value { get; }
 		public IntPosition(int value) {
 			this.Value = value;

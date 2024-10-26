@@ -83,7 +83,7 @@ namespace Albatross.Messaging.Test {
 			if (File.Exists(filename)) {
 				File.Delete(filename);
 			}
-			using(var writer = new StreamWriter(filename)) {
+			using (var writer = new StreamWriter(filename)) {
 				writer.WriteLine("abcdefg");
 				writer.WriteLine("abcdefg");
 			}

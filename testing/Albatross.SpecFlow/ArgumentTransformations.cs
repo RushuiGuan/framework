@@ -17,7 +17,7 @@ namespace Albatross.SpecFlow {
 				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
 			}
 		}
-		
+
 		public T? GetPropertyValue<T>(string key, string propertyName) {
 			if (scenario.TryGetValue(key, out var value)) {
 				var type = value.GetType();
@@ -74,7 +74,7 @@ namespace Albatross.SpecFlow {
 				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
 			}
 		}
-	
+
 		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive|yes|no)")]
 		public bool BooleanTransform(string value) {
 			return value == "with" || value == "should be" || value == "should" || value == "active" || value == "yes";

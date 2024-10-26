@@ -14,5 +14,5 @@ namespace Sample.Core.Commands {
 		public List<TestOperationWithResultCommand> Commands { get; set; } = new List<TestOperationWithResultCommand>();
 	}
 
-	
+
 }

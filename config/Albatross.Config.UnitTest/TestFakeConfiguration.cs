@@ -47,7 +47,7 @@ namespace Albatross.Config.UnitTest {
 		[Theory]
 		[InlineData("ConnectionStrings:a", "aaa", "ConnectionStrings:b", "any")]
 		[InlineData("ConnectionStrings:a", "aaa", "ConnectionStrings:a", "aaa")]
-		public void TestSettingAnyConfiguration(string settingPath, string settingValue,  string gettingPath, string expectedValue) {
+		public void TestSettingAnyConfiguration(string settingPath, string settingValue, string gettingPath, string expectedValue) {
 			var config = new AnyConfiguration();
 			config[settingPath] = settingValue;
 			Assert.Equal(expectedValue, config[gettingPath]);

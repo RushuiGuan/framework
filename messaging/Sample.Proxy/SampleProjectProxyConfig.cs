@@ -8,6 +8,6 @@ namespace Sample.Proxy {
 			EndPoint = configuration.GetRequiredEndPoint("sample-project")!;
 		}
 
-		public string EndPoint { get; set; } 
+		public string EndPoint { get; set; }
 	}
 }

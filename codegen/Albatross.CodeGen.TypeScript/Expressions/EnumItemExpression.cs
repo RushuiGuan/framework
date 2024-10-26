@@ -1,8 +1,8 @@
-﻿using Albatross.Collections;
-using Albatross.CodeGen.Syntax;
+﻿using Albatross.CodeGen.Syntax;
+using Albatross.Collections;
 using Albatross.Text;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Albatross.CodeGen.TypeScript.Expressions {

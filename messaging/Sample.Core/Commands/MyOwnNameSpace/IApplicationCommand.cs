@@ -1,4 +1,4 @@
 ﻿namespace Sample.Core.Commands.MyOwnNameSpace {
-	public partial interface IApplicationCommand { 
+	public partial interface IApplicationCommand {
 	}
 }

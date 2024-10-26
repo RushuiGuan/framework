@@ -9,7 +9,7 @@ using Xunit;
 namespace Albatross.Test.Text {
 	public class TestStringBuilderExtensions {
 		[Theory]
-		[InlineData("","", true)]
+		[InlineData("", "", true)]
 		[InlineData("a", "", true)]
 		[InlineData("a", "a", true)]
 		[InlineData("a", "b", false)]

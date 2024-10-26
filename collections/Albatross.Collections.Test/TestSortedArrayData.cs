@@ -26,7 +26,7 @@ namespace Albatross.Collections.Test {
 			var data = new SortedArrayData<int, int>(My.Array(start, count), x => x);
 			var keys = new List<int>();
 			var positions = new List<int>();
-			while (data.TryReadNexKey(out var key, out var position)){
+			while (data.TryReadNexKey(out var key, out var position)) {
 				keys.Add(key);
 				positions.Add(((IntPosition)position).Value);
 			}

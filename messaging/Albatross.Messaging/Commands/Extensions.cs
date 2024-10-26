@@ -1,11 +1,11 @@
-﻿using Albatross.Threading;
+﻿using Albatross.Messaging.Services;
 using Albatross.Reflection;
-using Albatross.Messaging.Services;
+using Albatross.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using System.Reflection;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
@@ -17,7 +17,7 @@ namespace Albatross.Messaging.Commands {
 			services.AddSingleton<IRegisterCommand>(new RegisterCommand(commandType, responseType ?? typeof(void), getQueueName));
 			return services;
 		}
-		
+
 		public static IServiceCollection AddCommandClient<T>(this IServiceCollection services) where T : class, ICommandClient {
 			services.TryAddSingleton<CommandClientService>();
 			services.AddSingleton<IDealerClientService>(args => args.GetRequiredService<CommandClientService>());

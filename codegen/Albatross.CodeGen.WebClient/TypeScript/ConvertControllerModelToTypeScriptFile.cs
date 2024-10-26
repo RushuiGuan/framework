@@ -1,17 +1,17 @@
-﻿using Humanizer;
+﻿using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Declarations;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.TypeScript.Modifiers;
+using Albatross.CodeGen.WebClient.Models;
+using Albatross.CodeGen.WebClient.Settings;
+using Albatross.Text;
+using Humanizer;
 using Microsoft.CodeAnalysis;
 using System;
-using System.Linq;
-using Albatross.CodeAnalysis.Symbols;
-using Albatross.CodeGen.WebClient.Models;
-using Albatross.Text;
-using Albatross.CodeGen.WebClient.Settings;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
 	public class ConvertControllerModelToTypeScriptFile : IConvertObject<ControllerInfo, TypeScriptFileDeclaration> {
@@ -37,16 +37,16 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			var fileName = $"{model.ControllerName.Kebaberize()}.service.generated";
 			return new TypeScriptFileDeclaration(fileName) {
 				ClasseDeclarations = [
-					new ClassDeclaration($"{model.ControllerName}Service"){
+					new ClassDeclaration($"{model.ControllerName}Service") {
 						Decorators = [
 							Defined.Invocations.InjectableDecorator("root"),
 						],
 						BaseClassName = new QualifiedIdentifierNameExpression(settings.BaseClassName, new ModuleSourceExpression(settings.BaseClassModule)),
 						Getters = [
-							new GetterDeclaration("endPoint"){
+							new GetterDeclaration("endPoint") {
 								ReturnType = Defined.Types.String(),
-								Body = new ReturnExpression(new InfixExpression("+"){
-									Left = new InvocationExpression{
+								Body = new ReturnExpression(new InfixExpression("+") {
+									Left = new InvocationExpression {
 										Identifier = new MultiPartIdentifierNameExpression("this", "config", "endpoint"),
 										ArgumentList = new ListOfSyntaxNodes<IExpression>(new StringLiteralExpression(settings.EndPointName)),
 									},
@@ -54,24 +54,24 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 								}),
 							}
 						],
-						Constructor = new ConstructorDeclaration(){
+						Constructor = new ConstructorDeclaration() {
 							Parameters = new ListOfSyntaxNodes<ParameterDeclaration> {
 								Nodes = [
-									new ParameterDeclaration("config"){
-										Type = new SimpleTypeExpression{
-											Identifier =  new QualifiedIdentifierNameExpression("ConfigService", new ModuleSourceExpression(settings.ConfigServiceModule)),
+									new ParameterDeclaration("config") {
+										Type = new SimpleTypeExpression {
+											Identifier = new QualifiedIdentifierNameExpression("ConfigService", new ModuleSourceExpression(settings.ConfigServiceModule)),
 										},
-										Modifiers = [ AccessModifier.Private ],
+										Modifiers = [AccessModifier.Private],
 									},
-									new ParameterDeclaration("client"){
+									new ParameterDeclaration("client") {
 										Type = Defined.Types.HttpClient(),
-										Modifiers = [ AccessModifier.Protected],
+										Modifiers = [AccessModifier.Protected],
 									}
 								],
 							},
-							Body = new CompositeExpression{
+							Body = new CompositeExpression {
 								Items = [
-									new InvocationExpression{
+									new InvocationExpression {
 										Identifier = new IdentifierNameExpression("super"),
 										Terminate = true,
 									},
@@ -79,7 +79,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 								]
 							},
 						},
-						Methods = model.Methods.Select(x=>BuildMethod(x)).ToList()
+						Methods = model.Methods.Select(x => BuildMethod(x)).ToList()
 					}
 				],
 			};

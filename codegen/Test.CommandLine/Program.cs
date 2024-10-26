@@ -1,5 +1,5 @@
-﻿using System.CommandLine;
-using Albatross.CommandLine;
+﻿using Albatross.CommandLine;
+using System.CommandLine;
 using System.CommandLine.Parsing;
 
 namespace Test.CommandLine {

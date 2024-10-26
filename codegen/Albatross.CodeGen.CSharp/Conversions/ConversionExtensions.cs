@@ -1,8 +1,8 @@
 ﻿
 using Albatross.CodeGen.CSharp.Models;
-using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Albatross.CodeGen.CSharp.Conversions {
 	public static class ConversionExtensions {

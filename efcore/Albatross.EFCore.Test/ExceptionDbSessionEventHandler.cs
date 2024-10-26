@@ -14,7 +14,7 @@ namespace Albatross.EFCore.Test {
 		}
 
 		public void OnAddedEntry(EntityEntry entry) {
-			if(ThrowPriorSaveException) {
+			if (ThrowPriorSaveException) {
 				throw new PreSaveException();
 			}
 		}

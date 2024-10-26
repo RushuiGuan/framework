@@ -1,8 +1,8 @@
 ﻿using Polly.Caching;
+using Polly.Caching.Distributed;
+using System;
 using System.IO;
 using System.Text.Json;
-using System;
-using Polly.Caching.Distributed;
 
 namespace Albatross.Caching.Redis {
 	public class ByteArrayCacheProviderAdapter : ICacheProviderAdapter {
@@ -34,7 +34,7 @@ namespace Albatross.Caching.Redis {
 		public byte[] Serialize(T obj) {
 			switch (obj) {
 				case byte[] bytes:
-					return bytes; 
+					return bytes;
 				default:
 					var stream = new MemoryStream();
 					JsonSerializer.Serialize<T>(stream, obj);

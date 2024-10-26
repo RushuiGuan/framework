@@ -1,8 +1,8 @@
-﻿using Albatross.Text;
-using Albatross.Messaging.Messages;
+﻿using Albatross.Messaging.Messages;
+using Albatross.Text;
 using NetMQ;
-using System.IO;
 using System;
+using System.IO;
 using System.Web;
 
 namespace Albatross.Messaging.PubSub.Messages {

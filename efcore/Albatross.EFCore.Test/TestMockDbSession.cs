@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Albatross.EFCore.Test {
 	public class TestMockDbSession {
-		readonly static Market[] Markets = new Market[] { 
+		readonly static Market[] Markets = new Market[] {
 			new Market("L"),
 			new Market("C"),
 			new Market("NG"),
@@ -52,7 +52,7 @@ namespace Albatross.EFCore.Test {
 			var session = Markets.CreateAsyncMockSession<ISampleDbSession, Market>();
 			var result = await session.DbContext
 				.Set<Market>()
-				.Where(args=>args.Name.Contains("C"))
+				.Where(args => args.Name.Contains("C"))
 				.ToArrayAsync();
 			Assert.NotEmpty(result);
 		}
@@ -83,7 +83,7 @@ namespace Albatross.EFCore.Test {
 			var session = Markets.CreateAsyncMockSession<ISampleDbSession, Market>();
 			var result = await session.DbContext
 				.Set<Market>()
-				.Include(args=>args.ContractSpec)
+				.Include(args => args.ContractSpec)
 				.Where(args => args.Name.Contains("C"))
 				.ToArrayAsync();
 			Assert.NotEmpty(result);

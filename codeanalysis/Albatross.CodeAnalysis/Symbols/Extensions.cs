@@ -185,7 +185,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 			}
 		}
 
-		public static bool IsPartial(this INamedTypeSymbol symbol) => 
+		public static bool IsPartial(this INamedTypeSymbol symbol) =>
 			symbol.DeclaringSyntaxReferences.Select(x => x.GetSyntax())
 				.OfType<InterfaceDeclarationSyntax>().Any(x => x.Modifiers.Any(SyntaxKind.PartialKeyword));
 	}

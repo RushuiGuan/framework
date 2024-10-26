@@ -1,6 +1,6 @@
-﻿using Albatross.Collections;
-using Albatross.CodeGen.Syntax;
+﻿using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Expressions;
+using Albatross.Collections;
 using Albatross.Text;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Albatross.CodeGen.TypeScript.Declarations {
 	public record class InterfaceDeclaration : SyntaxNode, IDeclaration, ICodeElement {
-		public InterfaceDeclaration(string name){
+		public InterfaceDeclaration(string name) {
 			this.Identifier = new IdentifierNameExpression(name);
 		}
 		public IdentifierNameExpression Identifier { get; }

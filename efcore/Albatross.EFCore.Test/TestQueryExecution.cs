@@ -14,9 +14,10 @@ namespace Albatross.EFCore.Test {
 		public void RunEnumeration() {
 			IEnumerable<int> result = Array.Select(args => {
 				Console.WriteLine($"original value: {args}");
-				return args * 100; });
+				return args * 100;
+			});
 
-			foreach(var item in result) {
+			foreach (var item in result) {
 				Console.WriteLine($"loop result {item}");
 			}
 		}

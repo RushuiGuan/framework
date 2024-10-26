@@ -1,15 +1,15 @@
 ﻿using CommandLine;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 
 namespace Albatross.Hosting.Utility {
 	[Verb("show-env")]
-	public class ShowEnvironmentOption {}
+	public class ShowEnvironmentOption { }
 
-	public class ShowEnvironment: UtilityBase<ShowEnvironmentOption> {
+	public class ShowEnvironment : UtilityBase<ShowEnvironmentOption> {
 
-		public ShowEnvironment(ShowEnvironmentOption option):base(option) {
+		public ShowEnvironment(ShowEnvironmentOption option) : base(option) {
 		}
 
 		public Task<int> RunUtility(IConfiguration configuration) {
@@ -18,7 +18,7 @@ namespace Albatross.Hosting.Utility {
 			logger.LogInformation("DOTNET_ENVIRONMENT Variable: {environment}", environment);
 
 			var section = configuration.GetSection("connectionStrings");
-			foreach(var item in section.GetChildren()) {
+			foreach (var item in section.GetChildren()) {
 				logger.LogInformation("Connection String: {name} {value}", item.Key, item.Value);
 			}
 

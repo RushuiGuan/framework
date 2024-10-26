@@ -14,7 +14,7 @@ namespace Albatross.EFCore.Test {
 		public TestJsonColumn(MyTestHost host) {
 			this.host = host;
 		}
-		
+
 		// [Fact(Skip ="require sql server")]
 		[Fact]
 		public async Task TestWriteJsonColumn() {
@@ -25,7 +25,7 @@ namespace Albatross.EFCore.Test {
 			var data = new MyData();
 			set.Add(data);
 			await session.SaveChangesAsync();
-		
+
 			Assert.NotEqual(0, data.Id);
 			data.Property = new JsonProperty(DateTime.Now.Ticks.ToString());
 			Assert.Equal(EntityState.Modified, session.DbContext.Entry(data).State);
@@ -70,7 +70,7 @@ namespace Albatross.EFCore.Test {
 			}
 
 			using (var session = scope.Get<SampleDbSession>()) {
-				var item = await session.Set<MyData>().FirstOrDefaultAsync(p=>p.Id == id);
+				var item = await session.Set<MyData>().FirstOrDefaultAsync(p => p.Id == id);
 				Assert.NotNull(item);
 				Assert.NotNull(item.Property);
 				Assert.Equal(text, item.Property.Text);

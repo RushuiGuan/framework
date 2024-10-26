@@ -20,7 +20,7 @@ namespace Albatross.DateLevel.Test {
 				},
 				new MyDateLevelValue(new DateOnly(2024, 8, 1), 800,8000)
 			};
-		
+
 		[Fact]
 		public void Test_1() {
 			var list = BaseLine();
@@ -68,7 +68,7 @@ namespace Albatross.DateLevel.Test {
 		[Fact]
 		public void Test_5() {
 			var list = BaseLine();
-			var items = list.GetOverlappedDateLevelEntities(9999, new DateOnly(2024, 9, 1),null);
+			var items = list.GetOverlappedDateLevelEntities(9999, new DateOnly(2024, 9, 1), null);
 			Assert.Collection(items,
 				x => {
 					Assert.Equal(new DateOnly(2024, 8, 1), x.StartDate);

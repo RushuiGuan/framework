@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Text.Json;
 using System.Buffers;
 using System.Data;
-using System.Text.Json.Serialization;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Albatross.Serialization {
 	public static class Extensions {

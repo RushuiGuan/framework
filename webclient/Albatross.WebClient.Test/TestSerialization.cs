@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using Xunit;
-using System.Text.Json;
-using System.Linq;
-using Microsoft.Extensions.Logging;
-using System.Net.Http;
-using Moq;
-using Albatross.Serialization;
-using System;
-using FluentAssertions;
 using Albatross.Dates;
+using Albatross.Serialization;
+using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using Xunit;
 
 namespace Albatross.WebClient.Test {
 	public class TestClient : ClientBase {
@@ -49,6 +49,6 @@ namespace Albatross.WebClient.Test {
 			Assert.NotNull(result);
 		}
 
-		
+
 	}
 }

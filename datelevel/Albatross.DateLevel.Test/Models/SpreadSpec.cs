@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
 namespace Albatross.DateLevel.Test {
-	public class SpreadSpec : DateLevelEntity<int>{
+	public class SpreadSpec : DateLevelEntity<int> {
 		public SpreadSpec(int marketId, DateOnly startDate, decimal value) : base(startDate) {
 			this.MarketId = marketId;
 			this.Value = value;

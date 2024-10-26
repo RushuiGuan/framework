@@ -2,12 +2,12 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Albatross.Text  {
+namespace Albatross.Text {
 	public interface IStringInterpolationService {
-		string Interpolate<T>(string input, Func<string, T, string> func, T value, bool throwException=false);
+		string Interpolate<T>(string input, Func<string, T, string> func, T value, bool throwException = false);
 	}
 
-	public class StringInterpolationService : IStringInterpolationService{
+	public class StringInterpolationService : IStringInterpolationService {
 		public StringInterpolationService(ILogger logger) {
 			this.logger = logger;
 		}
@@ -18,7 +18,7 @@ namespace Albatross.Text  {
 		public static readonly Regex ExpressionSearchRegex = new Regex(ExpressionSearchPattern, RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
 		private readonly ILogger logger;
 
-		public string Interpolate<T>(string input, Func<string, T, string> func, T value, bool throwException=false) {
+		public string Interpolate<T>(string input, Func<string, T, string> func, T value, bool throwException = false) {
 			return ExpressionSearchRegex.Replace(input, (match) => {
 				string expression = match.Groups[1].Value;
 				try {
