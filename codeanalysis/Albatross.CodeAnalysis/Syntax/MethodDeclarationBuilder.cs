@@ -13,11 +13,11 @@ namespace Albatross.CodeAnalysis.Syntax {
 	/// * <see cref="StatementSyntax"/> - zero or more statements for the method body
 	/// </summary>
 	public class MethodDeclarationBuilder : INodeBuilder {
-		public MethodDeclarationBuilder(TypeSyntax returnType, string methodName) {
-			Node = SyntaxFactory.MethodDeclaration(returnType, methodName);
+		public MethodDeclarationBuilder(TypeNode returnType, string methodName) {
+			Node = SyntaxFactory.MethodDeclaration(returnType.Type, methodName);
 			Public();
 		}
-		public MethodDeclarationBuilder(string returnType, string methodName) : this(SyntaxFactory.ParseTypeName(returnType), methodName) { }
+		public MethodDeclarationBuilder(string returnType, string methodName) : this(new TypeNode(returnType), methodName) { }
 		public MethodDeclarationBuilder Public() {
 			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 			return this;

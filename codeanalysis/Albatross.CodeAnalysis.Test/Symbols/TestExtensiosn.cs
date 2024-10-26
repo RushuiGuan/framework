@@ -21,9 +21,8 @@ namespace Albatross.CodeAnalysis.Test.Symbols {
 
 			var yourClass = compilation.GetRequiredSymbol("Test.YourClass");
 			var myBase = compilation.GetRequiredSymbol("Test.MyBase");
-			Assert.True(yourClass.IsDerivedFrom(myBase));
-
-			Assert.False(myBase.IsDerivedFrom(myBase));
+			Assert.True(yourClass.IsDerivedFrom("Test.MyBase"));
+			Assert.False(myBase.IsDerivedFrom("Test.MyBase"));
 		}
 		[Fact]
 		public void TestIsConstructedFrom() {

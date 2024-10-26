@@ -34,7 +34,7 @@ namespace Albatross.CommandLine.CodeGen {
 						CommandOptionClasses.Add(classSymbol);
 					} else if (classSymbol.Interfaces.Any(x => x.GetFullName() == My.ICommandHandler_InterfaceName)) {
 						CommandHandlerClasses.Add(classSymbol);
-					} else if (classSymbol.IsDerivedFrom(compilation.GetRequiredSymbol(My.SetupClassName))) {
+					} else if (classSymbol.IsDerivedFrom(My.SetupClassName)) {
 						SetupClass = classSymbol;
 					}
 				}

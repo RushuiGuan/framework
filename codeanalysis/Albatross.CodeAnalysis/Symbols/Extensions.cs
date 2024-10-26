@@ -16,12 +16,10 @@ namespace Albatross.CodeAnalysis.Symbols {
 			return symbol;
 		}
 
-		public static bool IsDerivedFrom(this ITypeSymbol typeSymbol, ITypeSymbol baseTypeSymbol) {
-			if (baseTypeSymbol.TypeKind == TypeKind.Interface) {
-				return typeSymbol.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, baseTypeSymbol));
-			} else if (typeSymbol.TypeKind == TypeKind.Class) {
+		public static bool IsDerivedFrom(this ITypeSymbol typeSymbol, string baseTypeName) {
+			if (typeSymbol.TypeKind == TypeKind.Class) {
 				for (var baseType = typeSymbol.BaseType; baseType != null; baseType = baseType.BaseType) {
-					if (SymbolEqualityComparer.Default.Equals(baseType, baseTypeSymbol)) {
+					if (baseType.GetFullName() == baseTypeName) {
 						return true;
 					}
 				}

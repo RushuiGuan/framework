@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -5,7 +6,7 @@ namespace Sample.Daemon {
 	public class Program {
 		public static Task Main(string[] args) {
 			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();
-			System.Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location);
+			System.Environment.CurrentDirectory = AppContext.BaseDirectory;
 			return new MySetup(args)
 				.ConfigureServiceHost<MyHostedService>()
 				.RunAsService()

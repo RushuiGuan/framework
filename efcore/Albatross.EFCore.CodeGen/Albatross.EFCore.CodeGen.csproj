@@ -6,8 +6,8 @@
 		<Nullable>Enable</Nullable>
 		<PackageTags>Analyzer;Roslyn</PackageTags>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<PackageProjectUrl>$(RepositoryProjectRoot)/comandline/Albatross.CommandLine.CodeGen</PackageProjectUrl>
-		<Description>A companion code generator used by the Albatross.CommandLine library</Description>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/efcore/Albatross.EFCore.CodeGen</PackageProjectUrl>
+		<Description>A companion code generator used by the Albatross.EFCore library</Description>
 		<DevelopmentDependency>true</DevelopmentDependency>
 	</PropertyGroup>
 
@@ -39,7 +39,7 @@
 	</Target>
 
 	<ItemGroup>
-	  <None Remove="bin\Debug\netstandard2.0\Albatross.CommandLine.CodeGen.dll" />
+		<None Remove="bin\Debug\netstandard2.0\Albatross.EFCore.CodeGen.dll" />
 	</ItemGroup>
 	<!-- end -->
 

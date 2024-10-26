@@ -7,6 +7,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+			<OutputItemType>Analyzer</OutputItemType>
+		</ProjectReference>
+		<ProjectReference Include="..\Albatross.EFCore.CodeGen\Albatross.EFCore.CodeGen.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+			<OutputItemType>Analyzer</OutputItemType>
+		</ProjectReference>
+		
 		<ProjectReference Include="..\..\caching\Albatross.Caching\Albatross.Caching.csproj" />
 		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
 		<ProjectReference Include="..\..\datelevel\Albatross.DateLevel\Albatross.DateLevel.csproj" />

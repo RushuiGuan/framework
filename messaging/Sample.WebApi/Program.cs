@@ -1,4 +1,5 @@
 using Albatross.Hosting;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace Sample.WebApi {
 	public class Program {
 		public static async Task Main(string[] args) {
 			Albatross.Logging.Extensions.RemoveLegacySlackSinkOptions();
-			System.Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(typeof(Program).Assembly.Location);
+			System.Environment.CurrentDirectory = AppContext.BaseDirectory;
 			await new Setup(args)
 				.ConfigureWebHost<Startup>()
 				.RunAsync();

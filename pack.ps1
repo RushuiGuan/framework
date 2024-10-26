@@ -73,7 +73,8 @@ $projects = @(
 );
 $codeGenProjects = @(
 	"commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj",
-	"messaging\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj"
+	"messaging\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj",
+	"efcore\Albatross.EFCore.CodeGen\Albatross.EFCore.CodeGen.csproj"
 );
 
 $utilityProjects  = @(

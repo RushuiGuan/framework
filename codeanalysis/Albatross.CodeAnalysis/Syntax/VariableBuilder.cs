@@ -12,11 +12,12 @@ namespace Albatross.CodeAnalysis.Syntax {
 	/// </summary>
 	public class VariableBuilder : INodeBuilder {
 
-		public VariableBuilder(string? type, string name) {
+		public VariableBuilder(string type, string name) {
 			type = string.IsNullOrEmpty(type) ? "var" : type;
 			Node = SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName(type!));
 			Name = name;
 		}
+		public VariableBuilder(string name) : this(string.Empty, name) { }
 
 		public VariableDeclarationSyntax Node { get; private set; }
 		public string Name { get; }

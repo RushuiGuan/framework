@@ -8,7 +8,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		public void UsingStatementWithVariableDeclaration() {
 			var codestack = new CodeStack()
 				.Begin(new UsingStatementBuilder())
-					.Begin(new VariableBuilder(null, "test"))
+					.Begin(new VariableBuilder("test"))
 						.Begin(new NewObjectBuilder("object"))
 						.End()
 					.End()

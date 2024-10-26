@@ -28,7 +28,7 @@ namespace Albatross.CodeGen.WebClient {
 				&& !symbol.IsGenericTypeDefinition()
 				&& symbol.TypeKind != TypeKind.Interface
 				&& symbol.TypeKind != TypeKind.Enum
-				&& !symbol.IsDerivedFrom(semanticModel.Compilation.GetRequiredSymbol("System.Text.Json.Serialization.JsonConverter"));
+				&& !symbol.IsDerivedFrom("System.Text.Json.Serialization.JsonConverter");
 
 		public override void VisitClassDeclaration(ClassDeclarationSyntax node) {
 			var symbol = semanticModel.GetDeclaredSymbol(node);

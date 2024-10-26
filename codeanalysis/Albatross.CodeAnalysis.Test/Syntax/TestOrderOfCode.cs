@@ -7,9 +7,9 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		[Fact]
 		public void Run() {
 			var cs = new CodeStack();
-			cs.Complete(new VariableBuilder(null, "a"));
-			cs.Complete(new VariableBuilder(null, "b"));
-			cs.Complete(new VariableBuilder(null, "c"));
+			cs.Complete(new VariableBuilder("a"));
+			cs.Complete(new VariableBuilder("b"));
+			cs.Complete(new VariableBuilder("c"));
 			var result = cs.Build();
 			result.Should().Be(@"var a
 var b

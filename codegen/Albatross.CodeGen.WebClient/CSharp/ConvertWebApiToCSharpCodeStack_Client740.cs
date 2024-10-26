@@ -48,11 +48,11 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 							.End();
 
 						foreach (var method in from.Methods) {
-							TypeSyntax returnType;
+							TypeNode returnType;
 							if (method.ReturnType.SpecialType == SpecialType.System_Void) {
-								returnType = new TypeNode("Task").Type;
+								returnType = new TypeNode("Task");
 							} else {
-								returnType = new GenericIdentifierNode("Task", method.ReturnType.AsTypeNode()).Type;
+								returnType = new GenericIdentifierNode("Task", method.ReturnType.AsTypeNode());
 							}
 							using (codeStack.NewScope(new MethodDeclarationBuilder(returnType, method.Name).Async())) {
 								foreach (var param in method.Parameters) {
@@ -82,7 +82,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 									}
 								}
 								using (codeStack.NewScope(new UsingStatementBuilder())) {
-									using (codeStack.NewScope(new VariableBuilder(null, "request"))) {
+									using (codeStack.NewScope(new VariableBuilder("request"))) {
 										codeStack.With(new ThisExpression());
 										var fromBody = method.Parameters.FirstOrDefault(x => x.WebType == ParameterType.FromBody);
 										if (fromBody == null) {
