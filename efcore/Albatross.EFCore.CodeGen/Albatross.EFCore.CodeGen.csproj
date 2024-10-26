@@ -9,6 +9,7 @@
 		<PackageProjectUrl>$(RepositoryProjectRoot)/efcore/Albatross.EFCore.CodeGen</PackageProjectUrl>
 		<Description>A companion code generator used by the Albatross.EFCore library</Description>
 		<DevelopmentDependency>true</DevelopmentDependency>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -29,7 +30,6 @@
 	<!-- begin: this setup is used for project reference only.  It would be removed when packing -->
 	<PropertyGroup>
 		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<Target Name="GetDependencyTargetPaths">
@@ -39,8 +39,9 @@
 	</Target>
 
 	<ItemGroup>
-		<None Remove="bin\Debug\netstandard2.0\Albatross.EFCore.CodeGen.dll" />
+	  <None Remove="bin\Debug\netstandard2.0\\Albatross.EFCore.CodeGen.dll" />
 	</ItemGroup>
+
 	<!-- end -->
 
 
