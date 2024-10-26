@@ -1,31 +1,26 @@
-﻿using Albatross.Config;
-using Albatross.Hosting.Utility;
+﻿using Albatross.CommandLine;
 using Albatross.EFCore.SqlServer;
-using CommandLine;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
+using System.CommandLine.Invocation;
 
 namespace Sample.EFCore.Admin {
-	[Verb("exec-script", HelpText = "Execute deployment scripts")]
-	public class ExecuteDeploymentScriptOption : BaseOption {
-		[Option('l', "location")]
+	[Verb("exec-script", typeof(ExecuteDeploymentScript), Description = "Execute deployment scripts")]
+	public class ExecuteDeploymentScriptOption {
+		[Option("l")]
 		public string? Location { get; set; }
 	}
 
-	public class ExecuteDeploymentScript : MyUtilityBase<ExecuteDeploymentScriptOption> {
-		public ExecuteDeploymentScript(ExecuteDeploymentScriptOption option) : base(option) {
+	public class ExecuteDeploymentScript : BaseHandler<ExecuteDeploymentScriptOption> {
+		private readonly SqlServerMigration<SampleSqlServerMigration> svc;
+
+		public ExecuteDeploymentScript(SqlServerMigration<SampleSqlServerMigration> svc, IOptions<ExecuteDeploymentScriptOption> options, ILogger logger) : base(options, logger) {
+			this.svc = svc;
 		}
-		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
-			base.RegisterServices(configuration, envSetting, services);
-			services.AddScoped<SqlServerMigration<SampleSqlServerMigration>>();
-			services.AddScoped<SampleSqlServerMigration>(provider => {
-				var config = provider.GetRequiredService<SampleConfig>();
-				return new SampleSqlServerMigration(config.ConnectionString);
-			});
-		}
-		public async Task<int> RunUtility(SqlServerMigration<SampleSqlServerMigration> svc) {
-			await svc.ExecuteDeploymentScript(Options.Location ?? "Scripts");
+
+		public override async Task<int> InvokeAsync(InvocationContext context) {
+			await svc.ExecuteDeploymentScript(options.Location ?? "Scripts");
 			return 0;
 		}
 	}

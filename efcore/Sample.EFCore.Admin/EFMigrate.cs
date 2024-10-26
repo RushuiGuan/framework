@@ -1,30 +1,21 @@
-﻿using CommandLine;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Albatross.Config;
-using Albatross.EFCore.SqlServer;
-using Albatross.Hosting.Utility;
+﻿using Albatross.EFCore.SqlServer;
+using Albatross.CommandLine;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
+using System.CommandLine.Invocation;
 
 namespace Sample.EFCore.Admin {
-	[Verb("ef-migrate", HelpText = "Migrate database using dotnet ef tool")]
-	public class EFMigrationOption:BaseOption { }
+	[Verb("ef-migrate", typeof(EFMigrate), Description = "Migrate database using dotnet ef tool")]
+	public class EFMigrationOption { }
 
-	public class EFMigrate : MyUtilityBase<EFMigrationOption> {
-		public EFMigrate(EFMigrationOption option) : base(option) {
+	public class EFMigrate : BaseHandler<EFMigrationOption> {
+		private readonly SqlServerMigration<SampleSqlServerMigration> svc;
+
+		public EFMigrate(SqlServerMigration<SampleSqlServerMigration> svc, IOptions<EFMigrationOption> options, ILogger logger) : base(options, logger) {
+			this.svc = svc;
 		}
-
-		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environmentSetting, IServiceCollection services) {
-			base.RegisterServices(configuration, environmentSetting, services);
-			services.AddScoped<SqlServerMigration<SampleSqlServerMigration>>();
-			services.AddScoped<ISqlBatchExecution, SqlBatchExecution>();
-			services.AddScoped(provider => {
-				var config = provider.GetRequiredService<SampleConfig>();
-				return new SampleSqlServerMigration(config.ConnectionString);
-			});
-		}
-
-		public async Task<int> RunUtility(SqlServerMigration<SampleSqlServerMigration> svc) {
+		public override async Task<int> InvokeAsync(InvocationContext context) {
 			await svc.MigrateEfCore();
 			return 0;
 		}

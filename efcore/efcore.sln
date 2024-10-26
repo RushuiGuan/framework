@@ -42,6 +42,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CommandLine", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CommandLine.CodeGen", "..\commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj", "{CABC9003-C7FC-4DFB-9F45-4ECFB15C61F0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis", "..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj", "{D6B453C3-BA13-4614-B3E9-A430B2BD8093}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Text", "..\text\Albatross.Text\Albatross.Text.csproj", "{71D73DBC-6683-4650-8BEB-E58B1D76C01F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Authentication", "..\authentication\Albatross.Authentication\Albatross.Authentication.csproj", "{624133B1-E0E8-408C-9A6D-1E013549F360}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Authentication.AspNetCore", "..\authentication\Albatross.Authentication.AspNetCore\Albatross.Authentication.AspNetCore.csproj", "{3A82D991-D0EC-4F09-AB6C-1A3D7D5E6EC9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Serialization", "..\serialization\Albatross.Serialization\Albatross.Serialization.csproj", "{E0A64059-1062-4EED-95E8-D1A18C844076}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Reflection", "..\reflection\Albatross.Reflection\Albatross.Reflection.csproj", "{A01140F2-389A-4DC3-9192-39E02FDC6AB7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching", "..\caching\Albatross.Caching\Albatross.Caching.csproj", "{26A8E9C1-EBD6-4E98-B810-B0A536BCCD22}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Caching.MemCache", "..\caching\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj", "{B5471418-9EA0-43BE-BB86-07B9D1953003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +124,38 @@ Global
 		{CABC9003-C7FC-4DFB-9F45-4ECFB15C61F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CABC9003-C7FC-4DFB-9F45-4ECFB15C61F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CABC9003-C7FC-4DFB-9F45-4ECFB15C61F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6B453C3-BA13-4614-B3E9-A430B2BD8093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6B453C3-BA13-4614-B3E9-A430B2BD8093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6B453C3-BA13-4614-B3E9-A430B2BD8093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6B453C3-BA13-4614-B3E9-A430B2BD8093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D73DBC-6683-4650-8BEB-E58B1D76C01F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D73DBC-6683-4650-8BEB-E58B1D76C01F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D73DBC-6683-4650-8BEB-E58B1D76C01F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D73DBC-6683-4650-8BEB-E58B1D76C01F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{624133B1-E0E8-408C-9A6D-1E013549F360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{624133B1-E0E8-408C-9A6D-1E013549F360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{624133B1-E0E8-408C-9A6D-1E013549F360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{624133B1-E0E8-408C-9A6D-1E013549F360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A82D991-D0EC-4F09-AB6C-1A3D7D5E6EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A82D991-D0EC-4F09-AB6C-1A3D7D5E6EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A82D991-D0EC-4F09-AB6C-1A3D7D5E6EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A82D991-D0EC-4F09-AB6C-1A3D7D5E6EC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0A64059-1062-4EED-95E8-D1A18C844076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A64059-1062-4EED-95E8-D1A18C844076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A64059-1062-4EED-95E8-D1A18C844076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A64059-1062-4EED-95E8-D1A18C844076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A01140F2-389A-4DC3-9192-39E02FDC6AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A01140F2-389A-4DC3-9192-39E02FDC6AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A01140F2-389A-4DC3-9192-39E02FDC6AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A01140F2-389A-4DC3-9192-39E02FDC6AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26A8E9C1-EBD6-4E98-B810-B0A536BCCD22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26A8E9C1-EBD6-4E98-B810-B0A536BCCD22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26A8E9C1-EBD6-4E98-B810-B0A536BCCD22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26A8E9C1-EBD6-4E98-B810-B0A536BCCD22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5471418-9EA0-43BE-BB86-07B9D1953003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5471418-9EA0-43BE-BB86-07B9D1953003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5471418-9EA0-43BE-BB86-07B9D1953003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5471418-9EA0-43BE-BB86-07B9D1953003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +168,14 @@ Global
 		{A225E1D8-98BA-42D8-919B-9A891C01D212} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
 		{152ED5B3-513F-4A80-9D65-58E23028F496} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
 		{CABC9003-C7FC-4DFB-9F45-4ECFB15C61F0} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
+		{D6B453C3-BA13-4614-B3E9-A430B2BD8093} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
+		{71D73DBC-6683-4650-8BEB-E58B1D76C01F} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
+		{624133B1-E0E8-408C-9A6D-1E013549F360} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
+		{3A82D991-D0EC-4F09-AB6C-1A3D7D5E6EC9} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
+		{E0A64059-1062-4EED-95E8-D1A18C844076} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
+		{A01140F2-389A-4DC3-9192-39E02FDC6AB7} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
+		{26A8E9C1-EBD6-4E98-B810-B0A536BCCD22} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
+		{B5471418-9EA0-43BE-BB86-07B9D1953003} = {0001BC13-6013-4170-A6ED-D13BBB355FB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A59FB39-0DD5-4F91-A558-7FFDCBB7BCA6}

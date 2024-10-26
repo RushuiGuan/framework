@@ -1,45 +1,42 @@
 ﻿using Albatross.EFCore;
-using CommandLine;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Albatross.Config;
-using Albatross.Hosting.Utility;
+using Albatross.CommandLine;
 using System.Text.RegularExpressions;
 using Sample.EFCore.Models;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
+using System.CommandLine.Invocation;
+using Microsoft.Extensions.Options;
 
 namespace Sample.EFCore.Admin {
-	[Verb("create-sql-script", HelpText = "Generate sql script for database")]
-	public class GenerateSqlScriptOption : BaseOption {
-		[Option('o', "output-file", Required = false, HelpText = "Set the output file")]
+	[Verb("create-sql-script", typeof(GenerateSqlScript), Description = "Generate sql script for database")]
+	public class GenerateSqlScriptOption  {
+		[Option("o", "output-file", Description = "Set the output file")]
 		public string? Out { get; set; }
 
-		[Option('d', "drop-script", Required = false, HelpText = "Drop table scripts")]
+		[Option("d", "drop-script", Description = "Drop table scripts")]
 		public string? DropScript { get; set; }
 	}
 
-	public class GenerateSqlScript : MyUtilityBase<GenerateSqlScriptOption> {
-		public GenerateSqlScript(GenerateSqlScriptOption option) : base(option) {
-		}
+	public class GenerateSqlScript : BaseHandler<GenerateSqlScriptOption> {
+		private readonly SampleDbSession dbSession;
 
-		public override void RegisterServices(IConfiguration configuration, EnvironmentSetting environmentSetting, IServiceCollection services) {
-			base.RegisterServices(configuration, environmentSetting, services);
+		public GenerateSqlScript(SampleDbSession dbSession, IOptions<GenerateSqlScriptOption> options, ILogger<GenerateSqlScript> logger) : base(options, logger) {
+			this.dbSession = dbSession;
 		}
-
-		public Task<int> RunUtility(SampleDbSession dbSession) {
+		public override Task<int> InvokeAsync(InvocationContext context) {
 			string script = dbSession.GetCreateScript();
 			using (StringReader reader = new StringReader(script)) {
 				string content = reader.ReadToEnd();
-				this.Options.WriteOutput(content);
-				if (!string.IsNullOrEmpty(Options.Out)) {
-					using (var file = new StreamWriter(Options.Out)) {
+				this.writer.WriteLine(content);
+				if (!string.IsNullOrEmpty(options.Out)) {
+					using (var file = new StreamWriter(options.Out)) {
 						file.WriteLine(content);
 					}
 				}
 			}
-			if (!string.IsNullOrEmpty(Options.DropScript)) {
+			if (!string.IsNullOrEmpty(options.DropScript)) {
 				List<string> tables = new List<string>();
 				Regex regex = new Regex(@"^CREATE TABLE (\[\w+\]\.\[\w+\]) \($", RegexOptions.IgnoreCase | RegexOptions.Singleline);
 				using (StringReader reader = new StringReader(script)) {
@@ -53,7 +50,7 @@ namespace Sample.EFCore.Admin {
 					}
 				}
 
-				using (var writer = new StreamWriter(Options.DropScript)) {
+				using (var writer = new StreamWriter(options.DropScript)) {
 					tables.Reverse();
 					foreach (var table in tables) {
 						if (table.StartsWith($"[{My.Schema.Sample}]")) {
