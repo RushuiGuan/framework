@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.IO;
 
 namespace Albatross.CodeAnalysis {
 	public static class My {
@@ -21,6 +19,13 @@ namespace Albatross.CodeAnalysis {
 			public const string System_IO = "System.IO";
 			public const string System_Threading_Tasks = "System.Threading.Tasks";
 			public const string Microsoft_Extensions_DependencyInjection = "Microsoft.Extensions.DependencyInjection";
+			public const string System_Collections_Generic = "System.Collections.Generic";
+			public const string Microsoft_EntityFrameworkCore = "Microsoft.EntityFrameworkCore";
+		}
+
+		public static TextWriter WriteSourceHeader(this TextWriter writer, string filename) {
+			writer.WriteLine($"// ********** {filename}.cs ********** //");
+			return writer;
 		}
 	}
 }

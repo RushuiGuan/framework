@@ -83,6 +83,7 @@ namespace Albatross.CommandLine.CodeGen {
 					}
 					var text = cs.Build();
 					context.AddSource(setup.CommandClassName, SourceText.From(text, Encoding.UTF8));
+					writer.WriteSourceHeader(setup.CommandClassName);
 					writer.WriteLine(text);
 				}
 
@@ -96,7 +97,7 @@ namespace Albatross.CommandLine.CodeGen {
 					var namespaces = new List<string>();
 					var addedOptionClasses = new HashSet<string>();
 					using (diCodeStack.NewScope(new NamespaceDeclarationBuilder(setupClassNamespace ?? "RootNamespaceNotYetFound"))) {
-						using (diCodeStack.NewScope(new ClassDeclarationBuilder(CodeAnalysis.My.Class.CodeGenExtensions).Static())) {
+						using (diCodeStack.NewScope(new ClassDeclarationBuilder(Shared.Class.CodeGenExtensions).Static())) {
 							using (diCodeStack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Static())) {
 								diCodeStack.With(new ParameterNode("IServiceCollection", "services").WithThis());
 								foreach (var setup in setups) {
@@ -114,10 +115,8 @@ namespace Albatross.CommandLine.CodeGen {
 										using (diCodeStack.NewScope()) {
 											diCodeStack.With(new IdentifierNode("services"))
 												.With(new GenericIdentifierNode("AddOptions", setup.OptionClass.Name))
-												.To(new MemberAccessBuilder())
 												.To(new InvocationExpressionBuilder())
 												.With(new IdentifierNode("BindCommandLine"))
-												.To(new MemberAccessBuilder())
 												.To(new InvocationExpressionBuilder());
 										}
 									}
@@ -145,6 +144,7 @@ namespace Albatross.CommandLine.CodeGen {
 				}
 				var code = diCodeStack.Build();
 				context.AddSource(Shared.Class.CodeGenExtensions, SourceText.From(code, Encoding.UTF8));
+				writer.WriteSourceHeader(Shared.Class.CodeGenExtensions);
 				writer.WriteLine(code);
 			} catch (Exception err) {
 				writer.WriteLine(err.ToString());

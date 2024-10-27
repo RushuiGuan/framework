@@ -26,8 +26,7 @@ namespace Albatross.Messaging.CodeGen {
 				}
 			}
 		}
-
-
+		
 		public void Execute(GeneratorExecutionContext context) {
 			using var writer = new StringWriter();
 			try {
@@ -44,40 +43,36 @@ namespace Albatross.Messaging.CodeGen {
 					Combine(foundClasses, walker.FoundImplementations);
 				}
 				var candidates = foundClasses.Where(x => foundInterfaces.Contains(x.Key)).ToArray();
-				
+				// var candidates = foundClasses.ToArray();
 
-				if (!foundInterfaces.Any()) {
+				if (!candidates.Any()) {
 					string text = $"Please provide an interface with the partial modifier, without any members and with a name that matches the following regex: ^I[a-zA-Z0-9_]*Command$";
 					var descriptor = new DiagnosticDescriptor("CmdInterfaceCodeGen01", "Command Interface CodeGen", text, "Generator", DiagnosticSeverity.Warning, true);
 					context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
 				} else {
-					foreach (var candidate in foundInterfaces) {
+					foreach (var candidate in candidates) {
 						var codeStack = new CodeStack();
 						using (codeStack.NewScope(new CompilationUnitBuilder())) {
 							codeStack.With(new UsingDirectiveNode(Shared.Namespace.System), new UsingDirectiveNode(Shared.Namespace.System_Text_Json_Serialization));
 							var namespacesToImport = new List<string>();
-							using (codeStack.NewScope(new NamespaceDeclarationBuilder(candidate.ContainingNamespace.ToDisplayString()))) {
-								using (codeStack.NewScope(new InterfaceDeclarationBuilder(candidate.Name).Partial())) {
+							using (codeStack.NewScope(new NamespaceDeclarationBuilder(candidate.Key.ContainingNamespace.ToDisplayString()))) {
+								using (codeStack.NewScope(new InterfaceDeclarationBuilder(candidate.Key.Name).Partial())) {
 									var attributeNames = new List<string>();
-									foreach (var syntaxTree in compilation.SyntaxTrees) {
-										var semanticModel = compilation.GetSemanticModel(syntaxTree);
-										var classWalker = new CommandInterfaceImplementationWalker(semanticModel, candidate.Name);
-										classWalker.Visit(syntaxTree.GetRoot());
-										foreach (var item in classWalker.Results) {
-											if (!attributeNames.Contains(item.Name)) {
-												namespacesToImport.Add(item.ContainingNamespace.ToDisplayString());
-												attributeNames.Add(item.Name);
-												using (codeStack.NewScope(new AttributeBuilder("JsonDerivedType"))) {
-													codeStack.Begin(new AttributeArgumentListBuilder())
-														.With(SyntaxFactory.TypeOfExpression(SyntaxFactory.ParseTypeName(item.Name)))
-														.With(new LiteralNode(item.Name))
-													.End();
-												}
-											} else {
-												string text = $"Interface {candidate.Name} has two class implementations of the same name {item.Name}";
-												var descriptor = new DiagnosticDescriptor("CmdInterfaceCodeGen02", "Command Interface CodeGen", text, "Generator", DiagnosticSeverity.Error, true);
-												context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
+
+									foreach (var item in candidate.Value) {
+										if (!attributeNames.Contains(item.Name)) {
+											namespacesToImport.Add(item.ContainingNamespace.ToDisplayString());
+											attributeNames.Add(item.Name);
+											using (codeStack.NewScope(new AttributeBuilder("JsonDerivedType"))) {
+												codeStack.Begin(new AttributeArgumentListBuilder())
+													.With(SyntaxFactory.TypeOfExpression(SyntaxFactory.ParseTypeName(item.Name)))
+													.With(new LiteralNode(item.Name))
+												.End();
 											}
+										} else {
+											string text = $"Interface {candidate.Key.Name} has two class implementations of the same name {item.Name}";
+											var descriptor = new DiagnosticDescriptor("CmdInterfaceCodeGen02", "Command Interface CodeGen", text, "Generator", DiagnosticSeverity.Error, true);
+											context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
 										}
 									}
 								}
@@ -87,9 +82,9 @@ namespace Albatross.Messaging.CodeGen {
 							}
 						}
 						var code = codeStack.Build();
-						writer.Write($"// {candidate.Name}");
+						writer.WriteSourceHeader(candidate.Key.Name);
 						writer.WriteLine(code);
-						context.AddSource(candidate.Name, SourceText.From(code, Encoding.UTF8));
+						context.AddSource(candidate.Key.Name, SourceText.From(code, Encoding.UTF8));
 					}
 				}
 			} catch (Exception err) {

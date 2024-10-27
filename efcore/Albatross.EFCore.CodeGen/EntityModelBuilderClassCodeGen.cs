@@ -1,4 +1,5 @@
-﻿using Albatross.CodeAnalysis;
+﻿using Shared = Albatross.CodeAnalysis.My;
+using Albatross.CodeAnalysis;
 using Albatross.CodeAnalysis.Symbols;
 using Albatross.CodeAnalysis.Syntax;
 using Microsoft.CodeAnalysis;
@@ -42,8 +43,8 @@ namespace Albatross.EFCore.CodeGen {
 				var codeStack = new CodeStack();
 				using (codeStack.NewScope(new CompilationUnitBuilder())) {
 					codeStack.With(new UsingDirectiveNode("Albatross.EFCore"));
-					codeStack.With(new UsingDirectiveNode("System.Collections.Generic"));
-					codeStack.With(new UsingDirectiveNode("Microsoft.EntityFrameworkCore"));
+					codeStack.With(new UsingDirectiveNode(Shared.Namespace.System_Collections_Generic));
+					codeStack.With(new UsingDirectiveNode(Shared.Namespace.Microsoft_EntityFrameworkCore));
 					using (codeStack.NewScope(new NamespaceDeclarationBuilder(dbSessionNamespace ?? "DbSessionNamespaceNotYetFound"))) {
 						using (codeStack.NewScope(new ClassDeclarationBuilder("CodeGen").Static())) {
 							using (codeStack.NewScope(new MethodDeclarationBuilder("ModelBuilder", "BuildEntityModels").Static())) {
@@ -63,8 +64,8 @@ namespace Albatross.EFCore.CodeGen {
 					}
 				}
 				var code = codeStack.Build();
-				context.AddSource("CodeGenExtensions", SourceText.From(code, Encoding.UTF8));
-				writer.WriteLine("// CodeGenExtensions");
+				context.AddSource(Shared.Class.CodeGenExtensions, SourceText.From(code, Encoding.UTF8));
+				writer.WriteSourceHeader(Shared.Class.CodeGenExtensions);
 				writer.WriteLine(code);
 			} catch (Exception err) {
 				writer.WriteLine(err.ToString());
