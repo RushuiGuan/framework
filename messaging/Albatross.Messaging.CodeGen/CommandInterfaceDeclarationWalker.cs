@@ -10,24 +10,46 @@ namespace Albatross.Messaging.CodeGen {
 	public class CommandInterfaceDeclarationWalker : CSharpSyntaxWalker {
 		private readonly SemanticModel semanticModel;
 		private readonly Regex regex = new Regex("^I[a-zA-Z0-9_]*Command$", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
-		public List<INamedTypeSymbol> Results { get; } = new List<INamedTypeSymbol>();
+		public List<INamedTypeSymbol> FoundInterfaces { get; } = new List<INamedTypeSymbol>();
+		public Dictionary<INamedTypeSymbol, List<INamedTypeSymbol>> FoundImplementations { get; } = [];
 
 		public CommandInterfaceDeclarationWalker(SemanticModel semanticModel) {
 			this.semanticModel = semanticModel;
 		}
 
+		bool IsEligibleInterface(INamedTypeSymbol? symbol) {
+			if (symbol != null && symbol.TypeKind == TypeKind.Interface && symbol.IsPartial()) {
+				if (symbol.GetAttributes().Any(x => x.AttributeClass?.Name.EndsWith("CommandInterfaceAttribute") == true)) {
+					return true;
+				} else if (symbol != null && regex.IsMatch(symbol.Name) && symbol.GetMembers().IsEmpty) {
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node) {
 			if (node.Modifiers.Any(SyntaxKind.PartialKeyword)) {
-				var interfaceSymbol = semanticModel.GetDeclaredSymbol(node) as INamedTypeSymbol;
-				if (interfaceSymbol != null && interfaceSymbol.IsPartial()) {
-					if (interfaceSymbol.GetAttributes().Any(x => x.AttributeClass?.Name.EndsWith("CommandInterfaceAttribute") == true)) {
-						Results.Add(interfaceSymbol);
-					} else if (interfaceSymbol != null && regex.IsMatch(interfaceSymbol.Name) && interfaceSymbol.GetMembers().IsEmpty) {
-						Results.Add(interfaceSymbol);
-					}
+				var interfaceSymbol = semanticModel.GetDeclaredSymbol(node);
+				if (IsEligibleInterface(interfaceSymbol)) {
+					FoundInterfaces.Add(interfaceSymbol!);
 				}
 			}
 			base.VisitInterfaceDeclaration(node);
+		}
+
+		public override void VisitClassDeclaration(ClassDeclarationSyntax node) {
+			var classSymbol = semanticModel.GetDeclaredSymbol(node);
+			if (classSymbol != null && !classSymbol.IsAbstract) {
+				var interfaceSymbol = classSymbol.AllInterfaces.FirstOrDefault(x => IsEligibleInterface(x));
+				if (interfaceSymbol != null) {
+					if (!FoundImplementations.TryGetValue(interfaceSymbol, out var classes)) {
+						classes = new List<INamedTypeSymbol>();
+						FoundImplementations.Add(interfaceSymbol, classes);
+					}
+					classes.Add(classSymbol);
+				}
+			}
 		}
 	}
 }

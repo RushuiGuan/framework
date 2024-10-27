@@ -38,35 +38,33 @@ namespace Albatross.EFCore.CodeGen {
 						dbSessionNamespace = entityModelBuilderClasses.First().ContainingNamespace.ToDisplayString();
 					}
 				}
+
 				var codeStack = new CodeStack();
 				using (codeStack.NewScope(new CompilationUnitBuilder())) {
 					codeStack.With(new UsingDirectiveNode("Albatross.EFCore"));
 					codeStack.With(new UsingDirectiveNode("System.Collections.Generic"));
+					codeStack.With(new UsingDirectiveNode("Microsoft.EntityFrameworkCore"));
 					using (codeStack.NewScope(new NamespaceDeclarationBuilder(dbSessionNamespace ?? "DbSessionNamespaceNotYetFound"))) {
 						using (codeStack.NewScope(new ClassDeclarationBuilder("CodeGen").Static())) {
-							using (codeStack.NewScope(new MethodDeclarationBuilder(new GenericIdentifierNode("List", "IBuildEntityModel"), "GatherBuilders").Static())) {
-								codeStack.Begin(new VariableBuilder("list"))
-									.Complete(new NewObjectBuilder(new GenericIdentifierNode("List", "IBuildEntityModel")))
-									.End();
-
+							using (codeStack.NewScope(new MethodDeclarationBuilder("ModelBuilder", "BuildEntityModels").Static())) {
+								codeStack.With(new ParameterNode("ModelBuilder", "modelBuilder").WithThis());
 								foreach (var setup in entityModelBuilderClasses) {
 									using (codeStack.NewScope()) {
-										codeStack.With(new IdentifierNode("list"))
-											.With(new IdentifierNode("Add"))
-											.Begin(new ArgumentListBuilder())
-												.Complete(new NewObjectBuilder(setup.GetFullName()))
-											.End()
-											.To(new InvocationExpressionBuilder());
+										codeStack.Complete(new NewObjectBuilder(setup.GetFullName()))
+											.With(new IdentifierNode("Build"))
+											.ToNewBegin(new InvocationExpressionBuilder())
+												.With(new ArgumentListBuilder().Build([new IdentifierNode("modelBuilder").Node]))
+											.End();
 									}
 								}
-								codeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("list").Identifier));
+								codeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("modelBuilder").Identifier));
 							}
 						}
 					}
 				}
 				var code = codeStack.Build();
-				context.AddSource("EntityModelBuilderExtensions", SourceText.From(code, Encoding.UTF8));
-				writer.WriteLine("// EntityModelBuilderExtensions");
+				context.AddSource("CodeGenExtensions", SourceText.From(code, Encoding.UTF8));
+				writer.WriteLine("// CodeGenExtensions");
 				writer.WriteLine(code);
 			} catch (Exception err) {
 				writer.WriteLine(err.ToString());

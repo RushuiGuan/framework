@@ -46,7 +46,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 		}
 
 		public static bool TryGetNullableValueType(this ITypeSymbol symbol, out ITypeSymbol? valueType) {
-			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == My.NullableGenericDefinition) {
+			if (symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == My.GenericDefinition.Nullable) {
 				valueType = named.TypeArguments.Single();
 				return true;
 			} else {
@@ -75,11 +75,11 @@ namespace Albatross.CodeAnalysis.Symbols {
 		}
 
 		public static bool IsNullable(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named
-			&& (named.IsGenericType && named.OriginalDefinition.GetFullName() == My.NullableGenericDefinition || symbol.NullableAnnotation == NullableAnnotation.Annotated);
+			&& (named.IsGenericType && named.OriginalDefinition.GetFullName() == My.GenericDefinition.Nullable || symbol.NullableAnnotation == NullableAnnotation.Annotated);
 
 		public static bool IsNullableReferenceType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && !named.IsValueType && symbol.NullableAnnotation == NullableAnnotation.Annotated;
 
-		public static bool IsNullableValueType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == My.NullableGenericDefinition;
+		public static bool IsNullableValueType(this ITypeSymbol symbol) => symbol is INamedTypeSymbol named && named.IsGenericType && named.OriginalDefinition.GetFullName() == My.GenericDefinition.Nullable;
 
 		/// <summary>
 		/// for the sake of our sanity, this method will return false for string
@@ -92,7 +92,7 @@ namespace Albatross.CodeAnalysis.Symbols {
 			} else if (symbol is IArrayTypeSymbol) {
 				return true;
 			} else {
-				return symbol.GetFullName() == My.IEnumerable || symbol.AllInterfaces.Any(x => x.GetFullName() == My.IEnumerable);
+				return symbol.GetFullName() == My.Class.IEnumerable || symbol.AllInterfaces.Any(x => x.GetFullName() == My.Class.IEnumerable);
 			}
 		}
 
@@ -142,11 +142,11 @@ namespace Albatross.CodeAnalysis.Symbols {
 				elementType = arrayTypeSymbol.ElementType;
 				return true;
 			} else {
-				if (typeSymbol.TryGetGenericTypeArguments(My.IEnumerableGenericDefinition, out var arguments)) {
+				if (typeSymbol.TryGetGenericTypeArguments(My.GenericDefinition.IEnumerable, out var arguments)) {
 					elementType = arguments[0];
 					return true;
 				} else {
-					var ienumerableDefinition = typeSymbol.AllInterfaces.FirstOrDefault(x => x.IsGenericType && x.OriginalDefinition.GetFullName() == My.IEnumerableGenericDefinition);
+					var ienumerableDefinition = typeSymbol.AllInterfaces.FirstOrDefault(x => x.IsGenericType && x.OriginalDefinition.GetFullName() == My.GenericDefinition.IEnumerable);
 					if (ienumerableDefinition != null) {
 						elementType = ienumerableDefinition.TypeArguments[0];
 						return true;

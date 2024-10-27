@@ -11,9 +11,7 @@ namespace Sample.EFCore.Models {
 		protected SampleDbSession(DbContextOptions option) : base(option) { }
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			// base.OnModelCreating(modelBuilder);
-			foreach(var builder in CodeGen.GatherBuilders()) {
-				builder.Build(modelBuilder);
-			}
+			modelBuilder.BuildEntityModels();
 			modelBuilder.HasDefaultSchema(My.Schema.Sample);
 		}
 	}
