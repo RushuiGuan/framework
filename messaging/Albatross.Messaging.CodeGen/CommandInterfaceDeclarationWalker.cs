@@ -7,17 +7,33 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Albatross.Messaging.CodeGen {
+	public record class CommandHandlerSetup {
+		public CommandHandlerSetup(INamedTypeSymbol commandHandler, ITypeSymbol commandType) {
+			CommandHandler = commandHandler;
+			CommandType = commandType;
+		}
+		public INamedTypeSymbol CommandHandler {
+			get; set;
+		}
+		public ITypeSymbol CommandType {
+			get; set;
+		}
+		public ITypeSymbol? ReturnType {
+			get; set;
+		}
+	}
 	public class CommandInterfaceDeclarationWalker : CSharpSyntaxWalker {
 		private readonly SemanticModel semanticModel;
 		private readonly Regex regex = new Regex("^I[a-zA-Z0-9_]*Command$", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace);
 		public HashSet<INamedTypeSymbol> FoundInterfaces { get; } = [];
 		public Dictionary<INamedTypeSymbol, List<INamedTypeSymbol>> FoundImplementations { get; } = [];
+		public List<CommandHandlerSetup> CommandHandlers { get; } = [];
 
 		public CommandInterfaceDeclarationWalker(SemanticModel semanticModel) {
 			this.semanticModel = semanticModel;
 		}
 
-		bool IsEligibleInterface(INamedTypeSymbol symbol) {
+		bool IsEligibleCommandInterface(INamedTypeSymbol symbol) {
 			if (FoundInterfaces.Contains(symbol) || FoundImplementations.ContainsKey(symbol)) {
 				return true;
 			}
@@ -35,7 +51,7 @@ namespace Albatross.Messaging.CodeGen {
 			if (node.Modifiers.Any(SyntaxKind.PartialKeyword)) {
 				var interfaceSymbol = semanticModel.GetDeclaredSymbol(node);
 				if (interfaceSymbol != null) {
-					if (IsEligibleInterface(interfaceSymbol)) {
+					if (IsEligibleCommandInterface(interfaceSymbol)) {
 						FoundInterfaces.Add(interfaceSymbol!);
 					}
 				}
@@ -46,13 +62,25 @@ namespace Albatross.Messaging.CodeGen {
 		public override void VisitClassDeclaration(ClassDeclarationSyntax node) {
 			var classSymbol = semanticModel.GetDeclaredSymbol(node);
 			if (classSymbol != null && !classSymbol.IsAbstract) {
-				var interfaceSymbol = classSymbol.AllInterfaces.FirstOrDefault(x => IsEligibleInterface(x));
-				if (interfaceSymbol != null) {
-					if (!FoundImplementations.TryGetValue(interfaceSymbol, out var classes)) {
-						classes = new List<INamedTypeSymbol>();
-						FoundImplementations.Add(interfaceSymbol, classes);
+				foreach (var interfaceSymbol in classSymbol.AllInterfaces) {
+					if (IsEligibleCommandInterface(interfaceSymbol)) {
+						if (!FoundImplementations.TryGetValue(interfaceSymbol, out var classes)) {
+							classes = new List<INamedTypeSymbol>();
+							FoundImplementations.Add(interfaceSymbol, classes);
+						}
+						classes.Add(classSymbol);
+						break;
+					} else if (interfaceSymbol.IsGenericType) {
+						if (interfaceSymbol.OriginalDefinition.GetFullName() == "Albatross.Messaging.Commands.ICommandHandler<>") {
+							CommandHandlers.Add(new CommandHandlerSetup(classSymbol, interfaceSymbol.TypeArguments[0]));
+							break;
+						} else if (interfaceSymbol.OriginalDefinition.GetFullName() == "Albatross.Messaging.Commands.ICommandHandler<,>") {
+							CommandHandlers.Add(new CommandHandlerSetup(classSymbol, interfaceSymbol.TypeArguments[0]) {
+								ReturnType = interfaceSymbol.TypeArguments[1]
+							});
+							break;
+						}
 					}
-					classes.Add(classSymbol);
 				}
 			}
 		}

@@ -1,4 +1,5 @@
-﻿using Albatross.Config;
+﻿using Sample.CommandHandlers;
+using Albatross.Config;
 using Albatross.Messaging.Commands;
 using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
@@ -68,7 +69,7 @@ namespace Sample {
 		}
 		public static IServiceCollection AddMessagingDaemonServices(this IServiceCollection services) {
 			services.AddCommandBus()
-				.AddAssemblyCommandHandlers(typeof(Sample.Extensions).Assembly, GetQueueName)
+				.RegisterCommands(GetQueueName)
 				.AddPublisher();
 			return services;
 		}

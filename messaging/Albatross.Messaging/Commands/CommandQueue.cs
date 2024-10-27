@@ -49,7 +49,7 @@ namespace Albatross.Messaging.Commands {
 			var context = scope.ServiceProvider.GetRequiredService<CommandContext>();
 			item.SetContext(context);
 			try {
-				var commandHandler = (ICommandHandler)scope.ServiceProvider.GetRequiredService(item.Registration.CommandHandlerType);
+				var commandHandler = item.Registration.CreateCommandHandler(scope.ServiceProvider);
 				// run everything else using a diff thread
 				await Task.Run(async () => {
 					if (item.Command is ILogDetail logDetail) {

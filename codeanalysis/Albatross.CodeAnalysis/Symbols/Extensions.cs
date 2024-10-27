@@ -186,5 +186,14 @@ namespace Albatross.CodeAnalysis.Symbols {
 		public static bool IsPartial(this INamedTypeSymbol symbol) =>
 			symbol.DeclaringSyntaxReferences.Select(x => x.GetSyntax())
 				.OfType<InterfaceDeclarationSyntax>().Any(x => x.Modifiers.Any(SyntaxKind.PartialKeyword));
+
+		public static string GetTypeNameRelativeToNamespace(this ITypeSymbol symbol, string currentNamespace) {
+			var symbolNamespace = symbol.ContainingNamespace.GetFullNamespace();
+			if (currentNamespace == symbolNamespace || symbolNamespace.StartsWith(currentNamespace + ".")) {
+				return symbol.Name;
+			} else {
+				return symbol.GetFullName();
+			}
+		}
 	}
 }

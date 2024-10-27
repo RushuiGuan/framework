@@ -9,7 +9,6 @@
 		<PackageProjectUrl>$(RepositoryProjectRoot)/efcore/Albatross.EFCore.CodeGen</PackageProjectUrl>
 		<Description>A companion code generator used by the Albatross.EFCore library</Description>
 		<DevelopmentDependency>true</DevelopmentDependency>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>

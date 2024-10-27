@@ -13,8 +13,16 @@ namespace Albatross.Messaging.Commands {
 		public const string DefaultQueueName = "default_queue";
 		public static string GetDefaultQueueName(object _, IServiceProvider provider) => DefaultQueueName;
 
-		static IServiceCollection AddCommand(this IServiceCollection services, Type commandType, Type? responseType, Func<object, IServiceProvider, string> getQueueName) {
-			services.AddSingleton<IRegisterCommand>(new RegisterCommand(commandType, responseType ?? typeof(void), getQueueName));
+		//static IServiceCollection AddCommand(this IServiceCollection services, Type commandType, Type? responseType, Func<object, IServiceProvider, string> getQueueName) {
+		//	services.AddSingleton<IRegisterCommand>(new RegisterCommand(commandType, responseType ?? typeof(void), getQueueName));
+		//	return services;
+		//}
+		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string> getQueueName) where T : notnull {
+			services.AddSingleton<IRegisterCommand<T>>(new RegisterCommand<T>(getQueueName));
+			return services;
+		}
+		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, Func<T, IServiceProvider, string> getQueueName) where T : notnull where K : notnull {
+			services.AddSingleton<IRegisterCommand<T, K>>(new RegisterCommand<T, K>(getQueueName));
 			return services;
 		}
 
@@ -28,24 +36,24 @@ namespace Albatross.Messaging.Commands {
 
 		public static IServiceCollection AddCommandClient(this IServiceCollection services) => AddCommandClient<CommandClient>(services);
 
-		public static bool TryAddCommandHandler(this IServiceCollection services, Type commandHandlerType, Func<object, IServiceProvider, string> getQueueName) {
-			if (commandHandlerType.TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
-				var genericArguments = genericType.GetGenericArguments();
-				services.AddCommand(genericArguments[0], genericArguments[1], getQueueName);
-				services.TryAddScoped(genericType, commandHandlerType);
-			} else if (commandHandlerType.TryGetClosedGenericType(typeof(ICommandHandler<>), out genericType)) {
-				var genericArguments = genericType.GetGenericArguments();
-				services.AddCommand(genericArguments[0], null, getQueueName);
-				services.TryAddScoped(genericType, commandHandlerType);
-			} else {
-				return false;
-			}
-			return true;
-		}
+		//public static bool TryAddCommandHandler(this IServiceCollection services, Type commandHandlerType, Func<object, IServiceProvider, string> getQueueName) {
+		//	if (commandHandlerType.TryGetClosedGenericType(typeof(ICommandHandler<,>), out Type? genericType)) {
+		//		var genericArguments = genericType.GetGenericArguments();
+		//		services.AddCommand(genericArguments[0], genericArguments[1], getQueueName);
+		//		services.TryAddScoped(genericType, commandHandlerType);
+		//	} else if (commandHandlerType.TryGetClosedGenericType(typeof(ICommandHandler<>), out genericType)) {
+		//		var genericArguments = genericType.GetGenericArguments();
+		//		services.AddCommand(genericArguments[0], null, getQueueName);
+		//		services.TryAddScoped(genericType, commandHandlerType);
+		//	} else {
+		//		return false;
+		//	}
+		//	return true;
+		//}
 		public static IServiceCollection AddAssemblyCommandHandlers(this IServiceCollection services, Assembly assembly, Func<object, IServiceProvider, string> getQueueName) {
 			var types = assembly.GetConcreteClasses<ICommandHandler>();
 			foreach (var type in types) {
-				TryAddCommandHandler(services, type, getQueueName);
+				// TryAddCommandHandler(services, type, getQueueName);
 			}
 			return services;
 		}

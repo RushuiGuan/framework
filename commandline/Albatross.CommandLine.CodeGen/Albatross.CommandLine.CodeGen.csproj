@@ -9,7 +9,6 @@
 		<PackageProjectUrl>$(RepositoryProjectRoot)/comandline/Albatross.CommandLine.CodeGen</PackageProjectUrl>
 		<Description>A companion code generator used by the Albatross.CommandLine library</Description>
 		<DevelopmentDependency>true</DevelopmentDependency>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>

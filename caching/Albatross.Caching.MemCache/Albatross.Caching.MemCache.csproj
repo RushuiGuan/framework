@@ -4,8 +4,6 @@
 		<Nullable>enable</Nullable>
 		<Description>Albatross.Caching Implementation using Microsoft.Extensions.Caching.Memory.MemoryCache</Description>
 		<LangVersion>Latest</LangVersion>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
 
 	<ItemGroup>
