@@ -9,6 +9,5 @@ namespace Sample.EFCore.Admin {
 		public SampleSqlServerMigration(string connectionString)
 			: base(Sql.Extensions.BuildMigrationOption<SampleDbSession>(My.Schema.Sample, connectionString)) {
 		}
-		public override Assembly[] EntityModelAssemblies => new Assembly[] { typeof(SampleDbSession).Assembly };
 	}
 }

@@ -188,9 +188,9 @@ namespace Albatross.CodeAnalysis.Symbols {
 				.OfType<InterfaceDeclarationSyntax>().Any(x => x.Modifiers.Any(SyntaxKind.PartialKeyword));
 
 		public static string GetTypeNameRelativeToNamespace(this ITypeSymbol symbol, string currentNamespace) {
-			var symbolNamespace = symbol.ContainingNamespace.GetFullNamespace();
-			if (currentNamespace == symbolNamespace || symbolNamespace.StartsWith(currentNamespace + ".")) {
-				return symbol.Name;
+			var fullName = symbol.GetFullName();
+			if (fullName.StartsWith(currentNamespace + ".")) {
+				return fullName.Substring(currentNamespace.Length + 1);
 			} else {
 				return symbol.GetFullName();
 			}

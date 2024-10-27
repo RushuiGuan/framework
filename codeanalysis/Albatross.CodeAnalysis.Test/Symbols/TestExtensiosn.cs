@@ -127,5 +127,16 @@ public string? Text{ get; set; }
 			var classType = compilation.GetRequiredSymbol("MyClass`1");
 			classType.IsGenericTypeDefinition().Should().BeTrue();
 		}
+
+		[Theory]
+		[InlineData("MyNamespace", "CommandHandler.MyClass")]
+		[InlineData("MyNamespace.CommandHandler", "MyClass")]
+		[InlineData("XXX", "MyNamespace.CommandHandler.MyClass")]
+		public void TestGetTypeNameRelativeToNamespace(string currentNamespace, string expected) {
+			const string code = @"namespace MyNamespace.CommandHandler { public class MyClass{} }";
+			var compilation = code.CreateCompilation();
+			var classType = compilation.GetRequiredSymbol("MyNamespace.CommandHandler.MyClass");
+			classType.GetTypeNameRelativeToNamespace(currentNamespace).Should().Be(expected);
+		}
 	}
 }
