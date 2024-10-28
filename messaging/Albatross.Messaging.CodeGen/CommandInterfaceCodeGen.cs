@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Albatross.CodeAnalysis.Symbols;
+using System.Data;
 
 namespace Albatross.Messaging.CodeGen {
 	/// <summary>
@@ -18,7 +19,7 @@ namespace Albatross.Messaging.CodeGen {
 	/// </summary>
 	[Generator]
 	public class CommandInterfaceCodeGen : ISourceGenerator {
-		void Combine<K, R>(Dictionary<K, List<R>> first, Dictionary<K, List<R>> second) {
+		public static void Combine<K, R>(Dictionary<K, List<R>> first, Dictionary<K, List<R>> second) {
 			foreach (var pair in second) {
 				if (first.TryGetValue(pair.Key, out var values)) {
 					values.AddRange(pair.Value);
@@ -34,20 +35,16 @@ namespace Albatross.Messaging.CodeGen {
 				// System.Diagnostics.Debugger.Launch();
 				var compilation = context.Compilation;
 
-				List<INamedTypeSymbol> foundCommandInterfaces = new List<INamedTypeSymbol>();
-				Dictionary<INamedTypeSymbol, List<INamedTypeSymbol>> foundCommandInterfaceImplementations = [];
 				var commandHandlerSetups = new List<CommandHandlerSetup>();
+				var commandInterfaces = new Dictionary<INamedTypeSymbol, List<INamedTypeSymbol>>(SymbolEqualityComparer.Default);
 				foreach (var syntaxTree in compilation.SyntaxTrees) {
 					var semanticModel = compilation.GetSemanticModel(syntaxTree);
-					var walker = new CommandInterfaceDeclarationWalker(semanticModel);
+					var walker = new MessagingCodeGenSyntaxWalker(semanticModel);
 					walker.Visit(syntaxTree.GetRoot());
-					foundCommandInterfaces.AddRange(walker.FoundInterfaces);
-					Combine(foundCommandInterfaceImplementations, walker.FoundImplementations);
+					Combine(commandInterfaces, walker.CommandInterfaces);
 					commandHandlerSetups.AddRange(walker.CommandHandlers);
 				}
-				var commandInterfaceCandidates = foundCommandInterfaceImplementations.Where(x => foundCommandInterfaces.Contains(x.Key)).ToArray();
-				// var candidates = foundClasses.ToArray();
-				foreach (var candidate in commandInterfaceCandidates) {
+				foreach (var candidate in commandInterfaces) {
 					var codeStack = new CodeStack();
 					using (codeStack.NewScope(new CompilationUnitBuilder())) {
 						codeStack.With(new UsingDirectiveNode(Shared.Namespace.System), new UsingDirectiveNode(Shared.Namespace.System_Text_Json_Serialization));
@@ -149,7 +146,7 @@ namespace Albatross.Messaging.CodeGen {
 				writer.WriteLine(err.ToString());
 				context.CodeGenDiagnostic(DiagnosticSeverity.Error, "CmdInterfaceCodeGen03", err.BuildCodeGeneneratorErrorMessage("messaging"));
 			} finally {
-				context.CreateGeneratorDebugFile("albatorss-messaging-codegen.debug.txt", writer.ToString());
+				context.CreateGeneratorDebugFile("albatross-messaging-codegen.debug.txt", writer.ToString());
 			}
 		}
 		public void Initialize(GeneratorInitializationContext context) { }

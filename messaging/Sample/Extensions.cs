@@ -67,12 +67,5 @@ namespace Sample {
 			}
 			return Albatross.Messaging.Commands.Extensions.DefaultQueueName;
 		}
-		public static IServiceCollection AddMessagingDaemonServices(this IServiceCollection services) {
-			services.AddCommandBus()
-				.RegisterCommands(GetQueueName)
-				.AddPublisher();
-			return services;
-		}
-
 	}
 }

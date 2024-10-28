@@ -26,7 +26,7 @@ if(-not $alias) {
 	dotnet restore $PSScriptRoot
 	foreach($project in $projects){
 		"Building $project";
-		dotnet publish $PSScriptRoot\sample\$project\$project.csproj -o $install\$project -c debug --no-restore
+		dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c debug --no-restore
 	}
 }
 

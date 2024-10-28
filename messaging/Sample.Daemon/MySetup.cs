@@ -1,4 +1,7 @@
-﻿using Albatross.Hosting;
+﻿using Sample.CommandHandlers;
+using Albatross.Messaging.Commands;
+using Albatross.Messaging.PubSub;
+using Albatross.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +12,9 @@ namespace Sample.Daemon {
 
 		public override void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
 			base.ConfigureServices(services, configuration);
-			services.AddMessagingDaemonServices();
+			services.AddCommandBus()
+				.RegisterCommands(Sample.Extensions.GetQueueName)
+				.AddPublisher();
 		}
 	}
 }

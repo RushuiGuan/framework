@@ -14,11 +14,11 @@ namespace Albatross.Messaging.Commands {
 		public static string GetDefaultQueueName(object _, IServiceProvider provider) => DefaultQueueName;
 		
 		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string> getQueueName) where T : notnull {
-			services.AddSingleton<IRegisterCommand<T>>(new RegisterCommand<T>(getQueueName));
+			services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IRegisterCommand), new RegisterCommand<T>(getQueueName)));
 			return services;
 		}
 		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, Func<T, IServiceProvider, string> getQueueName) where T : notnull where K : notnull {
-			services.AddSingleton<IRegisterCommand<T, K>>(new RegisterCommand<T, K>(getQueueName));
+			services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IRegisterCommand), new RegisterCommand<T, K>(getQueueName)));
 			return services;
 		}
 

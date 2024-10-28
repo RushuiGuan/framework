@@ -23,6 +23,10 @@ namespace Albatross.EFCore.CodeGen {
 			FindTargets(node);
 			base.VisitClassDeclaration(node);
 		}
+		public override void VisitRecordDeclaration(RecordDeclarationSyntax node) {
+			FindTargets(node);
+			base.VisitRecordDeclaration(node);
+		}
 
 		void FindTargets(TypeDeclarationSyntax node) {
 			if (node.Modifiers.Any(SyntaxKind.PublicKeyword)) {

@@ -50,6 +50,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CommandLine", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Text", "..\text\Albatross.Text\Albatross.Text.csproj", "{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.MSBuild", "..\codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj", "{4EE2CB65-62DD-4085-87C2-A81B3738524C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThirdParty", "ThirdParty\ThirdParty.csproj", "{2A4224B0-5300-4033-9251-E05EBDD431CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +140,14 @@ Global
 		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EE2CB65-62DD-4085-87C2-A81B3738524C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EE2CB65-62DD-4085-87C2-A81B3738524C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EE2CB65-62DD-4085-87C2-A81B3738524C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EE2CB65-62DD-4085-87C2-A81B3738524C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A4224B0-5300-4033-9251-E05EBDD431CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A4224B0-5300-4033-9251-E05EBDD431CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A4224B0-5300-4033-9251-E05EBDD431CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A4224B0-5300-4033-9251-E05EBDD431CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +163,7 @@ Global
 		{461B23C5-A31E-44A2-9D13-80CD2AE86FCA} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
 		{06A56532-93CA-42C0-A4B4-0EA6CD39324C} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
 		{C4261859-DB39-4BFB-8F95-53ED20ED4A9A} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
+		{4EE2CB65-62DD-4085-87C2-A81B3738524C} = {DEAE3DA7-307F-4E70-9A22-60D3CEEAB30F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93B8E026-8109-4C54-A58E-FC6B8A0022E8}

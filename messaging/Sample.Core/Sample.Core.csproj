@@ -18,5 +18,6 @@
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 			<OutputItemType>Analyzer</OutputItemType>
 		</ProjectReference>
+		<ProjectReference Include="..\ThirdParty\ThirdParty.csproj" />
 	</ItemGroup>
 </Project>
