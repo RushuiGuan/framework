@@ -16,6 +16,7 @@
 		<ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
 		<ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
 		<ProjectReference Include="..\..\threading\Albatross.Threading\Albatross.Threading.csproj" />
+		<ProjectReference Include="..\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj" />
 		<PackageReference Include="CoenM.Encoding.Z85e" Version="1.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />
 		<PackageReference Include="NetMQ" Version="4.0.1.13" />

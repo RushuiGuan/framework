@@ -11,6 +11,7 @@
 		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
 		<ProjectReference Include="..\..\logging\Albatross.Logging\Albatross.Logging.csproj" />
 		<ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
+		<ProjectReference Include="..\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj" />
 		<PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
 		<PackageReference Include="System.CommandLine.Hosting" Version="0.4.0-alpha.22272.1" />
 		<PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
