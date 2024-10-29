@@ -148,7 +148,10 @@ namespace Albatross.Messaging.CodeGen {
 				writer.WriteLine(err.ToString());
 				context.CodeGenDiagnostic(DiagnosticSeverity.Error, "CmdInterfaceCodeGen03", err.BuildCodeGeneneratorErrorMessage("messaging"));
 			} finally {
-				context.CreateGeneratorDebugFile("albatross-messaging-codegen.debug.txt", writer.ToString());
+				var text = writer.ToString();
+				if (!string.IsNullOrEmpty(text)) {
+					context.CreateGeneratorDebugFile("albatross-messaging-codegen.debug.txt", text);
+				}
 			}
 		}
 		public void Initialize(GeneratorInitializationContext context) { }
