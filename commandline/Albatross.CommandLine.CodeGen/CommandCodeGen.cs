@@ -57,6 +57,7 @@ namespace Albatross.CommandLine.CodeGen {
 						}
 					}
 				}
+				if (!setups.Any()) return;
 				foreach (var setup in setups) {
 					var cs = new CodeStack();
 					using (cs.NewScope(new CompilationUnitBuilder())) {

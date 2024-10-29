@@ -31,8 +31,7 @@ namespace Albatross.EFCore.CodeGen {
 					}
 				}
 				if (!entityModelBuilderClasses.Any()) {
-					string text = $"No EntityModelBuilder class found.  Eligible classes should be public, have a default constructor and derived from the interface {My.EntityModelBuilderInterfaceName}";
-					context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}1", text);
+					return;
 				} else {
 					// if the setup class is not found, use the namespace of the first option class
 					if (string.IsNullOrEmpty(dbSessionNamespace)) {
