@@ -1,6 +1,4 @@
-﻿#if NET8_0_OR_GREATER
-
-using System.IO;
+﻿using System.IO;
 using System;
 using System.Text;
 using MessagePack;
@@ -40,4 +38,3 @@ namespace Albatross.IO {
 		public Encoding Encoding { get; init; } = Encoding.UTF8;
 	}
 }
-#endif

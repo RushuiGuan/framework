@@ -1,5 +1,4 @@
-﻿#if NET8_0_OR_GREATER
-using System.IO;
+﻿using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -65,7 +64,7 @@ namespace Albatross.IO {
 					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
 						await MessagePackSerializer.SerializeAsync(indexStream, indexData, options.IndexSerializationOptions);
 						indexStream.SetLength(indexStream.Position);
-						File.Move(options.TempFilename, options.File.FullName, true);
+						Extensions.MoveFileWithOverwrite(options.TempFilename, options.File.FullName);
 					}
 				} else {
 					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
@@ -127,7 +126,7 @@ namespace Albatross.IO {
 					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
 						await MessagePackSerializer.SerializeAsync(indexStream, indexData, options.IndexSerializationOptions);
 						indexStream.SetLength(indexStream.Position);
-						File.Move(options.TempFilename, options.File.FullName, true);
+						Extensions.MoveFileWithOverwrite(options.TempFilename, options.File.FullName);
 					}
 				} else {
 					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
@@ -145,7 +144,7 @@ namespace Albatross.IO {
 			}
 		}
 
-		public static async IAsyncEnumerable<Record> ReadArrayAsync<Record>(this Stream stream, MessagePackSerializerOptions options, [EnumeratorCancellation]CancellationToken cancellationToken) {
+		public static async IAsyncEnumerable<Record> ReadArrayAsync<Record>(this Stream stream, MessagePackSerializerOptions options, [EnumeratorCancellation] CancellationToken cancellationToken) {
 			using var reader = new MessagePackStreamReader(stream);
 			for (var value = await reader.ReadAsync(cancellationToken); value != null; value = await reader.ReadAsync(cancellationToken)) {
 				var msg = MessagePackSerializer.Deserialize<Record>(value.Value, options);
@@ -159,10 +158,9 @@ namespace Albatross.IO {
 					var result = await MessagePackSerializer.DeserializeAsync<FileIndexValue<Key>[]>(stream, options, cancellationToken);
 					return result;
 				}
-			}else{
+			} else {
 				return Array.Empty<FileIndexValue<Key>>();
 			}
 		}
 	}
 }
-#endif

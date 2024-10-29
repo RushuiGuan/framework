@@ -1,4 +1,4 @@
-﻿using Albatross.Hosting.Test;
+﻿using Albatross.Testing;
 using System.Linq;
 using Xunit;
 

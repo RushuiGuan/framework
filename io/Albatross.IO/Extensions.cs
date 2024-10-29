@@ -81,5 +81,25 @@ namespace Albatross.IO {
 					logger.LogWarning("{count} retry to open file {name} for {action} after {delay:#,#}ms", count, context.OperationKey, context["action"], delay.Milliseconds);
 				});
 		}
+
+		/// <summary>
+		/// Rename the file from source to destination.  If the destination file exists, it will be overwritten
+		/// For .net6.0 and above, use File.Move with overwritten = true method to perform an atomic move\delete operation.  
+		/// The os will perform the operation by issuing a single command.  For netstandard2.1 code, File.Move does not have the overwrite parameter.
+		/// Use File.Replace instead.  The thing about the replace command is that, if the destination file doesn't exist, it will throw an exception.  So we create
+		/// a empty destination file if it doesn't exist
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="destination"></param>
+		public static void MoveFileWithOverwrite(string source, string destination) {
+#if NETSTANDARD2_1
+			if (!File.Exists(destination)) {
+				File.WriteAllText(destination, string.Empty);
+			}
+			File.Replace(source, destination, null, true);
+#else
+			File.Move(source, destination, true);
+#endif
+		}
 	}
 }

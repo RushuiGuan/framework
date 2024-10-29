@@ -1,5 +1,4 @@
-﻿#if NET8_0_OR_GREATER
-using MessagePack;
+﻿using MessagePack;
 namespace Albatross.IO {
 	[MessagePackObject]
 	public record class FileIndexValue<KeyType> {
@@ -15,4 +14,3 @@ namespace Albatross.IO {
 		public long Position { get; }
 	}
 }
-#endif

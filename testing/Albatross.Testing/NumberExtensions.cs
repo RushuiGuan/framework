@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.Testing {
 	public static class NumberExtensions {
 		readonly static Regex Number = new Regex(@"^\s*\d+\s*$", RegexOptions.Singleline | RegexOptions.Compiled);
 		readonly static Regex RangedNumber = new Regex(@"^(\d+)\s*(-[e|o]?)\s*(\d+)$", RegexOptions.Singleline | RegexOptions.Compiled);
