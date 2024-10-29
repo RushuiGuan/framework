@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>Enable</Nullable>
+		
 		<PackageTags>Analyzer;Roslyn</PackageTags>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<DevelopmentDependency>true</DevelopmentDependency>
 	</PropertyGroup>
 	<ItemGroup>

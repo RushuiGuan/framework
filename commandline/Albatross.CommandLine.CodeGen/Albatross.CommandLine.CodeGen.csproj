@@ -2,12 +2,13 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<LangVersion>Latest</LangVersion>
-		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<Nullable>Enable</Nullable>
-		<PackageTags>Analyzer;Roslyn</PackageTags>
-		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/comandline/Albatross.CommandLine.CodeGen</PackageProjectUrl>
 		<Description>A companion code generator used by the Albatross.CommandLine library</Description>
+
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<PackageTags>Analyzer;Roslyn</PackageTags>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<DevelopmentDependency>true</DevelopmentDependency>
 	</PropertyGroup>
 

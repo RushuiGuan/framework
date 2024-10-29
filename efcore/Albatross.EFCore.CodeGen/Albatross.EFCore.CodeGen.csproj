@@ -2,12 +2,13 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<LangVersion>Latest</LangVersion>
-		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<Nullable>Enable</Nullable>
-		<PackageTags>Analyzer;Roslyn</PackageTags>
-		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/efcore/Albatross.EFCore.CodeGen</PackageProjectUrl>
 		<Description>A companion code generator used by the Albatross.EFCore library</Description>
+
+		<PackageTags>Analyzer;Roslyn</PackageTags>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<DevelopmentDependency>true</DevelopmentDependency>
 	</PropertyGroup>
 
