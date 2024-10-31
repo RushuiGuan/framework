@@ -58,8 +58,8 @@ $projects = @(
 	
 	"testing\Albatross.Testing",
 	"testing\Albatross.Hosting.Test",
-	"testing\Albatross.SpecFlow",
-	"testing\Albatross.SpecFlowPlugin",
+	"testing\Albatross.Reqnroll",
+	"testing\Albatross.ReqnrollPlugin",
 
 	"io\Albatross.IO",
 	
