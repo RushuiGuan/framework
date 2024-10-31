@@ -31,8 +31,7 @@ namespace Albatross.EFCore.CodeGen {
 					}
 				}
 				if (!entityModelBuilderClasses.Any()) {
-					string text = $"No EntityModelBuilder class found.  Eligible classes should be public, have a default constructor and derived from the interface {My.EntityModelBuilderInterfaceName}";
-					context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}1", text);
+					return;
 				} else {
 					// if the setup class is not found, use the namespace of the first option class
 					if (string.IsNullOrEmpty(dbSessionNamespace)) {
@@ -71,7 +70,10 @@ namespace Albatross.EFCore.CodeGen {
 				writer.WriteLine(err.ToString());
 				context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}2", err.BuildCodeGeneneratorErrorMessage("commandline"));
 			} finally {
-				context.CreateGeneratorDebugFile("albatross-efcore-codegen.debug.txt", writer.ToString());
+				var text = writer.ToString();
+				if (!string.IsNullOrEmpty(text)) {
+					context.CreateGeneratorDebugFile("albatross-efcore-codegen.debug.txt", text);
+				}
 			}
 		}
 		public void Initialize(GeneratorInitializationContext context) { }

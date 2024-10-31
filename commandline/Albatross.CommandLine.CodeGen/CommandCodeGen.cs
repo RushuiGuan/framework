@@ -57,6 +57,7 @@ namespace Albatross.CommandLine.CodeGen {
 						}
 					}
 				}
+				if (!setups.Any()) return;
 				foreach (var setup in setups) {
 					var cs = new CodeStack();
 					using (cs.NewScope(new CompilationUnitBuilder())) {
@@ -150,7 +151,10 @@ namespace Albatross.CommandLine.CodeGen {
 				writer.WriteLine(err.ToString());
 				context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}2", err.BuildCodeGeneneratorErrorMessage("commandline"));
 			} finally {
-				context.CreateGeneratorDebugFile("albatross-commandline-codegen.debug.txt", writer.ToString());
+				var text = writer.ToString();
+				if (!string.IsNullOrEmpty(text)) {
+					context.CreateGeneratorDebugFile("albatross-commandline-codegen.debug.txt", text);
+				}
 			}
 		}
 

@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Albatross.CodeAnalysis.Symbols;
-using System.Data;
 
 namespace Albatross.Messaging.CodeGen {
 	/// <summary>
@@ -43,6 +42,9 @@ namespace Albatross.Messaging.CodeGen {
 					walker.Visit(syntaxTree.GetRoot());
 					Combine(commandInterfaces, walker.CommandInterfaces);
 					commandHandlerSetups.AddRange(walker.CommandHandlers);
+				}
+				if(!commandInterfaces.Any() && !commandHandlerSetups.Any()) {
+					return;
 				}
 				foreach (var candidate in commandInterfaces) {
 					var codeStack = new CodeStack();
@@ -146,7 +148,10 @@ namespace Albatross.Messaging.CodeGen {
 				writer.WriteLine(err.ToString());
 				context.CodeGenDiagnostic(DiagnosticSeverity.Error, "CmdInterfaceCodeGen03", err.BuildCodeGeneneratorErrorMessage("messaging"));
 			} finally {
-				context.CreateGeneratorDebugFile("albatross-messaging-codegen.debug.txt", writer.ToString());
+				var text = writer.ToString();
+				if (!string.IsNullOrEmpty(text)) {
+					context.CreateGeneratorDebugFile("albatross-messaging-codegen.debug.txt", text);
+				}
 			}
 		}
 		public void Initialize(GeneratorInitializationContext context) { }
