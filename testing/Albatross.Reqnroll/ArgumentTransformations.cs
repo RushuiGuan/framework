@@ -1,8 +1,8 @@
 ﻿using AutoFixture;
+using Reqnroll;
 using System.Reflection;
-using TechTalk.SpecFlow;
 
-namespace Albatross.SpecFlow {
+namespace Albatross.Reqnroll {
 	public class ArgumentTransformations {
 		static Random random = new Random();
 		public ArgumentTransformations(ScenarioContext scenario) {
