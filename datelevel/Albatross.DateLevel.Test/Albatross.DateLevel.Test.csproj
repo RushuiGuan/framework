@@ -13,6 +13,9 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\efcore\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
+		<ProjectReference Include="..\..\efcore\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj" />
+		<ProjectReference Include="..\..\testing\Albatross.Testing.EFCore\Albatross.Testing.EFCore.csproj" />
+		<ProjectReference Include="..\..\testing\Albatross.Testing\Albatross.Testing.csproj" />
+		<ProjectReference Include="..\Albatross.DateLevel\Albatross.DateLevel.csproj" />
 	</ItemGroup>
 </Project>

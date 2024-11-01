@@ -1,1 +1,0 @@
-Albatross.Hosting.Test assembly is a bootstrapping assembly that can be used to create a test classes with DI capabilities.

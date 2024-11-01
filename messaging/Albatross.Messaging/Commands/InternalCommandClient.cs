@@ -34,7 +34,7 @@ namespace Albatross.Messaging.Commands {
 		/// <param name="timeout"></param>
 		/// <returns></returns>
 		/// <exception cref="NotSupportedException"></exception>
-		public Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 2000) {
+		public Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 0) {
 			var type = command.GetType();
 			if (fireAndForget) {
 				using var stream = new MemoryStream();

@@ -25,11 +25,11 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Theory]
-		[InlineData(MemCacheHost.HostType)]
-		[InlineData(RedisCacheHost.HostType)]
+		[InlineData(My.MemCacheHostType)]
+		[InlineData(My.RedisCacheHostType)]
 		public async Task TestBasicOperation(string hostType) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, CacheKey>>();
 
 			await tier1.PutAsync(new CacheKey(null, true), 1);
@@ -39,11 +39,11 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Theory]
-		[InlineData(MemCacheHost.HostType)]
-		[InlineData(RedisCacheHost.HostType)]
+		[InlineData(My.MemCacheHostType)]
+		[InlineData(My.RedisCacheHostType)]
 		public async Task TestLeveledKeyRemoveSelfOnly(string hostType) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level1Key>>();
 			var tier2 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level2Key>>();
@@ -82,16 +82,16 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Theory]
-		[InlineData(MemCacheHost.HostType, 1)]
-		[InlineData(MemCacheHost.HostType, 2)]
-		[InlineData(MemCacheHost.HostType, 3)]
+		[InlineData(My.MemCacheHostType, 1)]
+		[InlineData(My.MemCacheHostType, 2)]
+		[InlineData(My.MemCacheHostType, 3)]
 
-		[InlineData(RedisCacheHost.HostType, 1)]
-		[InlineData(RedisCacheHost.HostType, 2)]
-		[InlineData(RedisCacheHost.HostType, 3)]
+		[InlineData(My.RedisCacheHostType, 1)]
+		[InlineData(My.RedisCacheHostType, 2)]
+		[InlineData(My.RedisCacheHostType, 3)]
 		public async Task TestLeveledKeyRemoveSelfAndChildren(string hostType, int tier) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level1Key>>();
 			var tier2 = scope.ServiceProvider.GetRequiredService<OneDayCache<int, Level2Key>>();

@@ -1,9 +1,8 @@
-﻿using Albatross.Hosting.Test;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace Albatross.Config.UnitTest {
-	public class TestFakeConfiguration : IClassFixture<MyTestHost> {
+	public class TestFakeConfiguration {
 		IConfigurationSection? Get(IConfiguration config, string path) {
 			var keys = path.Split(':');
 			IConfigurationSection? section = null;

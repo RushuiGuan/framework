@@ -1,5 +1,5 @@
 ﻿using Albatross.EFCore.ChangeReporting;
-using Albatross.Hosting.Test;
+using Albatross.Testing.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,101 +11,87 @@ using Xunit;
 
 namespace Albatross.EFCore.Test {
 	public class TestChangeReporting {
-		public class MyTestHost1 : MyTestHost {
-			public string? ReportText { get; set; }
-			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-				base.RegisterServices(configuration, services);
-				services.AddChangeReporting(new ChangeReportBuilder<MyData>()
-					.Added()
-					.IgnoreProperties(nameof(MyData.Property), nameof(MyData.ArrayProperty))
-					.FixedHeaders(nameof(MyData.Id))
-					.OnReportGenerated((text) => {
-						this.ReportText = text;
-						return Task.CompletedTask;
-					}));
-			}
+		void RegisterServices_Report1(IConfiguration configuration, IServiceCollection services, Action<string> reportGenerated) {
+			services.AddChangeReporting(new ChangeReportBuilder<MyData>()
+				.Added()
+				.IgnoreProperties(nameof(MyData.Property), nameof(MyData.ArrayProperty))
+				.FixedHeaders(nameof(MyData.Id))
+				.OnReportGenerated((text) => {
+					reportGenerated(text);
+					return Task.CompletedTask;
+				}));
 		}
+
 		[Fact]
 		public async Task TestChangeReportingAdded() {
-			var host = new MyTestHost1();
-			using var scope = host.Create();
+			string? reportText = null;
+			using var host = new TestHostBuilder().RegisterServices((cfg, services) => RegisterServices_Report1(cfg, services, x => reportText = x)).Build();
+			using var scope = host.Services.CreateScope();
 			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
 			await session.SaveChangesAsync();
-			Assert.NotNull(host.ReportText);
+			Assert.NotNull(reportText);
 		}
-
-		public class MyTestHost2 : MyTestHost {
-			public string? ReportText { get; set; }
-			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-				base.RegisterServices(configuration, services);
-				services.AddChangeReporting(new ChangeReportBuilder<MyData>()
+		void RegisterServices_Report2(IConfiguration configuration, IServiceCollection services, Action<string> reportGenerated) {
+			services.AddChangeReporting(new ChangeReportBuilder<MyData>()
 					.Modified()
 					.IgnoreProperties(nameof(MyData.Id), nameof(MyData.Property), nameof(MyData.ArrayProperty))
 					.FixedHeaders(nameof(MyData.Id))
 					.Prefix("prefix\n")
 					.Postfix("postfix")
 					.OnReportGenerated((text) => {
-						this.ReportText = text;
+						reportGenerated(text);
 						return Task.CompletedTask;
 					}));
-			}
 		}
-
 		[Fact]
 		public async Task TestChangeReportingModified() {
-			var host = new MyTestHost2();
-			using var scope = host.Create();
+			string? reportText = null;
+			using var host = new TestHostBuilder().RegisterServices((cfg, services) => RegisterServices_Report2(cfg, services, x => reportText = x)).Build();
+			using var scope = host.Services.CreateScope();
 			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
 			await session.SaveChangesAsync();
-			Assert.Null(host.ReportText);
+			Assert.Null(reportText);
 			data.Bool = true;
 			await session.SaveChangesAsync();
-			Assert.NotNull(host.ReportText);
+			Assert.NotNull(reportText);
 		}
-
-		public class MyTestHost3 : MyTestHost {
-			public string? ReportText { get; set; }
-			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-				base.RegisterServices(configuration, services);
-				services.AddChangeReporting(new ChangeReportBuilder<MyData>()
-					.Deleted()
+		void RegisterServices_Report3(IConfiguration configuration, IServiceCollection services, Action<string> reportGenerated) {
+			services.AddChangeReporting(new ChangeReportBuilder<MyData>()
+						.Deleted()
 					.IgnoreProperties(nameof(MyData.Id), nameof(MyData.Property), nameof(MyData.ArrayProperty))
 					.FixedHeaders(nameof(MyData.Id))
 					.Prefix("prefix\n")
 					.Postfix("postfix")
 					.OnReportGenerated((text) => {
-						this.ReportText = text;
+						reportGenerated(text);
 						return Task.CompletedTask;
 					}));
-			}
 		}
 
 		[Fact]
 		public async Task TestChangeReportingDelete() {
-			var host = new MyTestHost3();
-			using var scope = host.Create();
+			string? reportText = null;
+			using var host = new TestHostBuilder().RegisterServices((cfg, services) => RegisterServices_Report3(cfg, services, x => reportText = x)).Build();
+			using var scope = host.Services.CreateScope();
 			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
 			await session.SaveChangesAsync();
-			Assert.Null(host.ReportText);
+			Assert.Null(reportText);
 			set.Remove(data);
 			await session.SaveChangesAsync();
-			Assert.NotNull(host.ReportText);
+			Assert.NotNull(reportText);
 		}
 
-		public class MyTestHost4 : MyTestHost {
-			public string? ReportText { get; set; }
-			public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-				base.RegisterServices(configuration, services);
-				services.AddChangeReporting(new ChangeReportBuilder<MyData>()
+		void RegisterServices_Report4(IConfiguration configuration, IServiceCollection services, Action<string> reportGenerated) {
+			services.AddChangeReporting(new ChangeReportBuilder<MyData>()
 				.AllChangeTypes()
 				.IgnoreProperties(nameof(MyData.Id), nameof(MyData.Property), nameof(MyData.ArrayProperty))
 				.FixedHeaders(nameof(MyData.Id), nameof(MyData.Int))
@@ -114,16 +100,15 @@ namespace Albatross.EFCore.Test {
 				.Prefix("prefix\n")
 				.Postfix("postfix")
 				.OnReportGenerated((text) => {
-					this.ReportText = text;
+					reportGenerated(text);
 					return Task.CompletedTask;
 				}));
-			}
 		}
-
 		[Fact]
 		public async Task TestChangeReportingFormat() {
-			var host = new MyTestHost4();
-			using var scope = host.Create();
+			string? reportText = null;
+			using var host = new TestHostBuilder().RegisterServices((cfg, services) => RegisterServices_Report4(cfg, services, x => reportText = x)).Build();
+			using var scope = host.Services.CreateScope();
 			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData {
@@ -133,7 +118,7 @@ namespace Albatross.EFCore.Test {
 			};
 			set.Add(data);
 			await session.SaveChangesAsync();
-			Assert.NotNull(host.ReportText);
+			Assert.NotNull(reportText);
 		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using Albatross.Hosting.Test;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Threading.Tasks;
 
 namespace Albatross.EFCore.Test {

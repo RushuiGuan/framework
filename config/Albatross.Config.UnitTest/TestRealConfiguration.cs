@@ -1,15 +1,9 @@
-﻿using Albatross.Hosting.Test;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Albatross.Config.UnitTest {
-	public class TestRealConfiguration : IClassFixture<MyTestHost> {
-		private readonly MyTestHost host;
-
-		public TestRealConfiguration(MyTestHost host) {
-			this.host = host;
-		}
+	public class TestRealConfiguration {
 
 		[Theory]
 		[InlineData("")]
@@ -18,7 +12,8 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("single-value-config")]
 		[InlineData("ConnectionStrings:configDatabaseConnection")]
 		public void TestGetPath(string path) {
-			var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 			var section = Get(config, path);
 			Assert.Equal(path, section?.Path);
@@ -44,7 +39,8 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("program:app", "config-unittest")]
 		[InlineData("ConnectionStrings:my-database", "azure-db")]
 		public void TestGetValue(string path, string? expectedValue) {
-			var scope = host.Create();
+			var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 			var section = config.GetSection(path);
 			Assert.Equal(expectedValue, section?.Value);
@@ -56,7 +52,8 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("program:app", "config-unittest")]
 		[InlineData("ConnectionStrings:my-database", "azure-db")]
 		public void TestGetValueByIndex(string path, string? expectedValue) {
-			var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 			var value = config[path];
 			Assert.Equal(expectedValue, value);
@@ -64,7 +61,8 @@ namespace Albatross.Config.UnitTest {
 
 		[Fact]
 		public void VerifyNotNullCheck() {
-			var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 			var section = config.GetSection(string.Empty);
 			Assert.NotNull(section);

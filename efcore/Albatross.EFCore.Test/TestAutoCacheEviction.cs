@@ -4,16 +4,11 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.EFCore.Test {
-	public class TestAutoCacheEviction : IClassFixture<MyTestHost> {
-		private readonly MyTestHost host;
-
-		public TestAutoCacheEviction(MyTestHost host) {
-			this.host = host;
-		}
-
+	public class TestAutoCacheEviction {
 		[Fact]
 		public async Task TestRun() {
-			using var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var svc = scope.ServiceProvider.GetRequiredService<MyDataService>();
 			var data = new MyData { Text = "test" };
 			await svc.Set(data);

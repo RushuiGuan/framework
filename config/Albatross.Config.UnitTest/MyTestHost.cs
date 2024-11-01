@@ -1,11 +1,14 @@
-﻿using Albatross.Hosting.Test;
+﻿using Albatross.Testing.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Albatross.Config.UnitTest {
-	public class MyTestHost : Hosting.Test.TestHost {
-		public override void RegisterServices(IConfiguration configuration, IServiceCollection services) {
-			base.RegisterServices(configuration, services);
+	public class My {
+		public static IHost Create() {
+			return new TestHostBuilder().WithAppSettingsConfiguration("testing").RegisterServices(RegisterServices).Build();
+		}
+		public static void RegisterServices(IConfiguration configuration, IServiceCollection services) {
 			services.AddConfig<ProgramSetting>();
 			services.AddConfig<SingleValueConfig>();
 			services.AddConfig<MySetting>();

@@ -7,17 +7,12 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.EFCore.Test {
-	public class TestJsonColumn : IClassFixture<MyTestHost> {
-		private readonly MyTestHost host;
-
-		public TestJsonColumn(MyTestHost host) {
-			this.host = host;
-		}
-
+	public class TestJsonColumn {
 		// [Fact(Skip ="require sql server")]
 		[Fact]
 		public async Task TestWriteJsonColumn() {
-			using var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 
 			var set = session.Set<MyData>();
@@ -38,7 +33,8 @@ namespace Albatross.EFCore.Test {
 
 		[Fact]
 		public async Task TestWriteArrayColumn() {
-			using var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 
 			var set = session.Set<MyData>();
@@ -57,7 +53,8 @@ namespace Albatross.EFCore.Test {
 		//[Fact(Skip ="require sql server")]
 		[Fact]
 		public async Task TestRead() {
-			using var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			int id;
 			var text = "test";
 			using (var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>()) {

@@ -1,19 +1,16 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
 
 namespace Albatross.Config.UnitTest {
+	public class Tests {
 
-	public class Tests : IClassFixture<MyTestHost> {
-		private readonly MyTestHost host;
-
-		public Tests(MyTestHost host) {
-			this.host = host;
-		}
 
 		[Fact]
 		public void TestGetProgramSetting() {
-			var setting = host.Provider.GetRequiredService<ProgramSetting>();
+			using var host = My.Create();
+			var setting = host.Services.GetRequiredService<ProgramSetting>();
 			Assert.NotNull(setting);
 			Assert.Equal("config-unittest", setting.App);
 			Assert.Equal("config", setting.Group);
@@ -26,7 +23,8 @@ namespace Albatross.Config.UnitTest {
 		/// </summary>
 		[Fact]
 		public void TestSingleValueConfig() {
-			var value = host.Provider.GetRequiredService<SingleValueConfig>();
+			using var host = My.Create();
+			var value = host.Services.GetRequiredService<SingleValueConfig>();
 			Assert.NotNull(value);
 			Assert.Equal("www.google.com", value.Value);
 		}
@@ -36,7 +34,8 @@ namespace Albatross.Config.UnitTest {
 		/// </summary>
 		[Fact]
 		public void TestSerializedConfig() {
-			var config = host.Provider.GetRequiredService<MySetting>();
+			using var host = My.Create();
+			var config = host.Services.GetRequiredService<MySetting>();
 			Assert.NotNull(config);
 			Assert.Equal("my test data", config.Name);
 			Assert.NotNull(config.Data);
@@ -48,7 +47,8 @@ namespace Albatross.Config.UnitTest {
 		/// </summary>
 		[Fact]
 		public void TestConfigWithNoKey() {
-			var cfg = host.Provider.GetRequiredService<ConfigWithNoKey>();
+			using var host = My.Create();
+			var cfg = host.Services.GetRequiredService<ConfigWithNoKey>();
 			Assert.NotNull(cfg);
 			Assert.Equal("azure-db", cfg.ConnectionString);
 			Assert.Equal("microsoft.com/", cfg.EndPoint);
@@ -60,14 +60,16 @@ namespace Albatross.Config.UnitTest {
 		/// </summary>
 		[Fact]
 		public void TestNotDefinedConfig() {
-			var cfg = host.Provider.GetRequiredService<DbConfig>();
+			using var host = My.Create();
+			var cfg = host.Services.GetRequiredService<DbConfig>();
 			Assert.NotNull(cfg);
 			Assert.Null(cfg.Data);
 		}
 
 		[Fact]
 		public void TestValidation() {
-			Assert.Throws<ValidationException>(() => host.Provider.GetRequiredService<ValidationTest>());
+			using var host = My.Create();
+			Assert.Throws<ValidationException>(() => host.Services.GetRequiredService<ValidationTest>());
 		}
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using Albatross.Caching.BuiltIn;
 using Albatross.Caching.Test.CacheKeys;
-using Albatross.DependencyInjection.Test;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,11 +13,11 @@ namespace Albatross.Caching.Test {
 
 	public class TestCacheKeyReset {
 		[Theory]
-		[InlineData(MemCacheHost.HostType)]
-		[InlineData(RedisCacheHost.HostType)]
+		[InlineData(My.MemCacheHostType)]
+		[InlineData(My.RedisCacheHostType)]
 		public async Task TestResetOperation(string hostType) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 			var cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, MyCacheKey>>();
 			keyMgmt.Reset(new MyCacheKey(null));

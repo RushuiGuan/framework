@@ -1,12 +1,9 @@
-﻿using Albatross.Hosting.Test;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sample.EFCore;
 using Sample.EFCore.Models;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 

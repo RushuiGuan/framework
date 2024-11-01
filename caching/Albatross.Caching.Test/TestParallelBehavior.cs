@@ -21,10 +21,10 @@ namespace Albatross.Caching.Test {
 		/// <param name="loopCount"></param>
 		/// <returns></returns>
 		[Theory]
-		[InlineData(MemCacheHost.HostType, 3, 3)]
+		[InlineData(My.MemCacheHostType, 3, 3)]
 		public async Task TestParallelBahavior(string hostType, int expected_cacheMiss, int loopCount) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CacheKey>>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
@@ -52,10 +52,10 @@ namespace Albatross.Caching.Test {
 		/// <param name="loopCount"></param>
 		/// <returns></returns>
 		[Theory]
-		[InlineData(MemCacheHost.HostType, 1, 3)]
+		[InlineData(My.MemCacheHostType, 1, 3)]
 		public async Task TestParallelBahaviorWithLazy(string hostType, int expected_cacheMiss, int loopCount) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var cacheMgmt = scope.ServiceProvider.GetRequiredService<OneDayCache<Lazy<Task<MyData>>, CacheKey>>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;

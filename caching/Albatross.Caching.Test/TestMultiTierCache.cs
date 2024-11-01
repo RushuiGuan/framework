@@ -1,10 +1,8 @@
 ﻿using Albatross.Caching.BuiltIn;
-using Albatross.DependencyInjection.Test;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.Caching.WebApi;
 using Sample.Caching.WebApi.CacheKeys;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,8 +11,8 @@ namespace Albatross.Caching.Test {
 	public class TestMultiTierCache {
 		[Fact]
 		public void TestKeyGeneration() {
-			using var host = "redis".GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(My.RedisCacheHostType);
+			using var scope = host.Services.CreateScope();
 
 			Assert.Equal("t1:1:", new Tier1Key(1).Key);
 			Assert.Equal("t1:1:*", new Tier1Key(1).WildCardKey);
@@ -30,11 +28,11 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Theory]
-		[InlineData(MemCacheHost.HostType)]
-		[InlineData(RedisCacheHost.HostType)]
+		[InlineData(My.MemCacheHostType)]
+		[InlineData(My.RedisCacheHostType)]
 		public async Task TestBasicOperation(string hostType) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var tier1Cache = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier1Key>>();
 
 			var keys = new Tier1Key[] {
@@ -57,11 +55,11 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Theory]
-		[InlineData(MemCacheHost.HostType)]
-		[InlineData(RedisCacheHost.HostType)]
+		[InlineData(My.MemCacheHostType)]
+		[InlineData(My.RedisCacheHostType)]
 		public async Task TestTieredKeyRemoveSelfOnly(string hostType) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier1Key>>();
 			var tier2 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier2Key>>();
@@ -100,16 +98,16 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Theory]
-		[InlineData(MemCacheHost.HostType, 1, 1, 1, 1)]
-		[InlineData(RedisCacheHost.HostType, 1, 1, 1, 1)]
-		[InlineData(RedisCacheHost.HostType, 2, 1, 1, 1)]
-		[InlineData(RedisCacheHost.HostType, 3, 1, 1, 1)]
-		[InlineData(RedisCacheHost.HostType, 1, 1, 2, 3)]
-		[InlineData(RedisCacheHost.HostType, 2, 1, 2, 3)]
-		[InlineData(RedisCacheHost.HostType, 3, 1, 2, 3)]
+		[InlineData(My.MemCacheHostType, 1, 1, 1, 1)]
+		[InlineData(My.RedisCacheHostType, 1, 1, 1, 1)]
+		[InlineData(My.RedisCacheHostType, 2, 1, 1, 1)]
+		[InlineData(My.RedisCacheHostType, 3, 1, 1, 1)]
+		[InlineData(My.RedisCacheHostType, 1, 1, 2, 3)]
+		[InlineData(My.RedisCacheHostType, 2, 1, 2, 3)]
+		[InlineData(My.RedisCacheHostType, 3, 1, 2, 3)]
 		public async Task TestTieredKeyRemoveSelfAndChildren(string hostType, int tier, int keyValue1, int keyValue2, int keyValue3) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var tier1Key = new Tier1Key(keyValue1);
 			var tier2Key = new Tier2Key(keyValue1, keyValue2);
 			var tier3Key = new Tier3Key(keyValue1, keyValue2, keyValue3);

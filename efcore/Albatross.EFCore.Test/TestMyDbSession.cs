@@ -9,13 +9,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.EFCore.Test.MyNamespace {
-	public class TestSampleDbSession : IClassFixture<MyTestHost> {
-		private readonly MyTestHost host;
-
-		public TestSampleDbSession(MyTestHost host) {
-			this.host = host;
-		}
-
+	public class TestSampleDbSession  {
 		[Fact]
 		public void TestGetEntityModels() {
 			var items = typeof(Market).Assembly.GetEntityModels(null);
@@ -29,7 +23,8 @@ namespace Albatross.EFCore.Test.MyNamespace {
 		[Fact]
 		public async Task TestContractSpecPersistance() {
 			string marketName = "test";
-			using var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<Market>();
 			var market = await set
@@ -57,7 +52,8 @@ namespace Albatross.EFCore.Test.MyNamespace {
 		[Fact]
 		public async Task TestSpreadSpecPersistance() {
 			string marketName = "test";
-			using var scope = host.Create();
+			using var host = My.Create();
+			using var scope = host.Services.CreateScope();
 			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<Market>();
 			var market = set
@@ -86,7 +82,8 @@ namespace Albatross.EFCore.Test.MyNamespace {
 
 		[Fact]
 		public async Task TestChangeTracker() {
-			using (var scope = host.Create()) {
+			using var host = My.Create();
+			using (var scope = host.Services.CreateScope()) {
 				var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 				var set = session.DbContext.Set<MyData>();
 				for (int i = 0; i < 10; i++) {
@@ -95,7 +92,7 @@ namespace Albatross.EFCore.Test.MyNamespace {
 				}
 				await session.SaveChangesAsync();
 			}
-			using (var scope = host.Create()) {
+			using (var scope = host.Services.CreateScope()) {
 				var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 				var array = await session.DbContext.Set<MyData>().ToArrayAsync();
 				Assert.Equal(array.Length, session.ChangeTracker.Entries().Count());

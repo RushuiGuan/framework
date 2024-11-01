@@ -8,11 +8,11 @@ using Xunit;
 namespace Albatross.Caching.Test {
 	public class TestKeyManagement {
 		[Theory]
-		[InlineData(MemCacheHost.HostType)]
-		[InlineData(RedisCacheHost.HostType)]
+		[InlineData(My.MemCacheHostType)]
+		[InlineData(My.RedisCacheHostType)]
 		public async Task TestStringKeyCreation(string hostType) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var cache1 = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CacheKey>>();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 
@@ -32,11 +32,11 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Theory]
-		[InlineData(MemCacheHost.HostType)]
-		[InlineData(RedisCacheHost.HostType)]
+		[InlineData(My.MemCacheHostType)]
+		[InlineData(My.RedisCacheHostType)]
 		public async Task TestKeyRemoval(string hostType) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CacheKey>>();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 
@@ -60,11 +60,11 @@ namespace Albatross.Caching.Test {
 		}
 
 		[Theory]
-		[InlineData(MemCacheHost.HostType)]
-		[InlineData(RedisCacheHost.HostType)]
+		[InlineData(My.MemCacheHostType)]
+		[InlineData(My.RedisCacheHostType)]
 		public async Task TestKeyReset(string hostType) {
-			using var host = hostType.GetTestHost();
-			using var scope = host.Create();
+			using var host = My.GetTestHost(hostType);
+			using var scope = host.Services.CreateScope();
 			var stringKeyCache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CustomKey1>>();
 			var stringKey2Cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CustomKey2>>();
 			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
