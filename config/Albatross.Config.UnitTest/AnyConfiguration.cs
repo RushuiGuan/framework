@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.Config.UnitTest {
 	public class EmptyConfigurationSection : IConfigurationSection {
 		public string? this[string key] {
 			get => null;

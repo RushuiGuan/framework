@@ -1,5 +1,6 @@
 ﻿using Albatross.Hosting.Test;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Albatross.Config.UnitTest {
@@ -18,7 +19,7 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("ConnectionStrings:configDatabaseConnection")]
 		public void TestGetPath(string path) {
 			var scope = host.Create();
-			var config = scope.Get<IConfiguration>();
+			var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 			var section = Get(config, path);
 			Assert.Equal(path, section?.Path);
 		}
@@ -44,7 +45,7 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("ConnectionStrings:my-database", "azure-db")]
 		public void TestGetValue(string path, string? expectedValue) {
 			var scope = host.Create();
-			var config = scope.Get<IConfiguration>();
+			var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 			var section = config.GetSection(path);
 			Assert.Equal(expectedValue, section?.Value);
 		}
@@ -56,7 +57,7 @@ namespace Albatross.Config.UnitTest {
 		[InlineData("ConnectionStrings:my-database", "azure-db")]
 		public void TestGetValueByIndex(string path, string? expectedValue) {
 			var scope = host.Create();
-			var config = scope.Get<IConfiguration>();
+			var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 			var value = config[path];
 			Assert.Equal(expectedValue, value);
 		}
@@ -64,7 +65,7 @@ namespace Albatross.Config.UnitTest {
 		[Fact]
 		public void VerifyNotNullCheck() {
 			var scope = host.Create();
-			var config = scope.Get<IConfiguration>();
+			var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 			var section = config.GetSection(string.Empty);
 			Assert.NotNull(section);
 		}

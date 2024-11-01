@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Albatross.Hosting.Utility {
+namespace Albatross.DependencyInjection.Utility {
 	public class BaseOption {
 		[Option("console-out", HelpText = "The filename to save the console output")]
 		public string? Output { get; set; }

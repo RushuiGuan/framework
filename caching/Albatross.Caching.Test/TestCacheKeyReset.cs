@@ -1,6 +1,6 @@
 ﻿using Albatross.Caching.BuiltIn;
 using Albatross.Caching.Test.CacheKeys;
-using Albatross.Hosting.Test;
+using Albatross.DependencyInjection.Test;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestResetOperation(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var keyMgmt = scope.Get<ICacheKeyManagement>();
+			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 			var cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, MyCacheKey>>();
 			keyMgmt.Reset(new MyCacheKey(null));
 

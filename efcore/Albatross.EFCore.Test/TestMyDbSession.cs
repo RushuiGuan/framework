@@ -1,6 +1,6 @@
 ﻿using Albatross.DateLevel;
-using Albatross.Hosting.Test;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Sample.EFCore;
 using Sample.EFCore.Models;
 using System;
@@ -30,7 +30,7 @@ namespace Albatross.EFCore.Test.MyNamespace {
 		public async Task TestContractSpecPersistance() {
 			string marketName = "test";
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<Market>();
 			var market = await set
 				.Include(args => args.ContractSpec)
@@ -58,7 +58,7 @@ namespace Albatross.EFCore.Test.MyNamespace {
 		public async Task TestSpreadSpecPersistance() {
 			string marketName = "test";
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<Market>();
 			var market = set
 				.Include(args => args.SpreadSpec)
@@ -87,7 +87,7 @@ namespace Albatross.EFCore.Test.MyNamespace {
 		[Fact]
 		public async Task TestChangeTracker() {
 			using (var scope = host.Create()) {
-				var session = scope.Get<SampleDbSession>();
+				var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 				var set = session.DbContext.Set<MyData>();
 				for (int i = 0; i < 10; i++) {
 					var data = new MyData { Int = i };
@@ -96,12 +96,12 @@ namespace Albatross.EFCore.Test.MyNamespace {
 				await session.SaveChangesAsync();
 			}
 			using (var scope = host.Create()) {
-				var session = scope.Get<SampleDbSession>();
+				var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 				var array = await session.DbContext.Set<MyData>().ToArrayAsync();
 				Assert.Equal(array.Length, session.ChangeTracker.Entries().Count());
 			}
 			//using (var scope = host.Create()) {
-			//	var session = scope.Get<SampleDbSession>();
+			//	var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			//	var array = await session.DbContext.Set<MyData>().ToArrayAsync();
 			//	array[0].Int = 100;
 			//	Assert.Empty(session.ChangeTracker.Entries());

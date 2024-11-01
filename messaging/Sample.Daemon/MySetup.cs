@@ -1,7 +1,7 @@
 ﻿using Sample.CommandHandlers;
 using Albatross.Messaging.Commands;
 using Albatross.Messaging.PubSub;
-using Albatross.Hosting;
+using Albatross.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

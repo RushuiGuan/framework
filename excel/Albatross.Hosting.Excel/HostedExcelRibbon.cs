@@ -3,7 +3,7 @@ using ExcelDna.Integration.Extensibility;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace Albatross.Hosting.Excel {
+namespace Albatross.DependencyInjection.Excel {
 	public class HostedExcelRibbon : ExcelRibbon {
 		private readonly ILogger logger;
 

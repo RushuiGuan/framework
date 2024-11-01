@@ -1,6 +1,6 @@
 ﻿using Albatross.Caching.MemCache;
 using Albatross.Caching.Redis;
-using Albatross.Hosting.Test;
+using Albatross.DependencyInjection.Test;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

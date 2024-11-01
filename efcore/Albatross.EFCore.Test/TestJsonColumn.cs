@@ -1,9 +1,8 @@
-﻿using Albatross.Hosting.Test;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Sample.EFCore;
 using Sample.EFCore.Models;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -19,7 +18,7 @@ namespace Albatross.EFCore.Test {
 		[Fact]
 		public async Task TestWriteJsonColumn() {
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 
 			var set = session.Set<MyData>();
 			var data = new MyData();
@@ -40,7 +39,7 @@ namespace Albatross.EFCore.Test {
 		[Fact]
 		public async Task TestWriteArrayColumn() {
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 
 			var set = session.Set<MyData>();
 			var data = new MyData();
@@ -61,7 +60,7 @@ namespace Albatross.EFCore.Test {
 			using var scope = host.Create();
 			int id;
 			var text = "test";
-			using (var session = scope.Get<SampleDbSession>()) {
+			using (var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>()) {
 				var data = new MyData();
 				data.Property = new JsonProperty(text);
 				session.Set<MyData>().Add(data);
@@ -69,7 +68,7 @@ namespace Albatross.EFCore.Test {
 				id = data.Id;
 			}
 
-			using (var session = scope.Get<SampleDbSession>()) {
+			using (var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>()) {
 				var item = await session.Set<MyData>().FirstOrDefaultAsync(p => p.Id == id);
 				Assert.NotNull(item);
 				Assert.NotNull(item.Property);

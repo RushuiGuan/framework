@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Albatross.Hosting.Excel {
+namespace Albatross.DependencyInjection.Excel {
 	public class FunctionRegistrationService {
 		private List<ExcelFunctionRegistration> registrations = new List<ExcelFunctionRegistration>();
 		private readonly IServiceProvider provider;

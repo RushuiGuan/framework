@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.Testing.EFCore {
 	public class TestAsyncEnumerableQuery<T> : IOrderedQueryable<T>, IAsyncQueryProvider, IAsyncEnumerable<T> {
 		EnumerableQuery<T> value;
 

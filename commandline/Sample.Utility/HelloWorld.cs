@@ -1,4 +1,4 @@
-﻿using Albatross.Hosting.Utility;
+﻿using Albatross.DependencyInjection.Utility;
 using CommandLine;
 
 namespace Sample.Hosting.Utility {

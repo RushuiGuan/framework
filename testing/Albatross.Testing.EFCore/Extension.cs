@@ -1,19 +1,8 @@
 ﻿using Albatross.EFCore;
-using CsvHelper;
-using Dapper;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.Testing.EFCore {
 	public static class Extension {
 		/// <summary>
 		/// This method can create a mock db session object using the provided enumerable items.  the session can be query 
@@ -42,36 +31,5 @@ namespace Albatross.Hosting.Test {
 				.Returns(() => data.GetAsyncEnumerator());
 			return mock;
 		}
-
-		public static string GetSourceCodeDirectory(this string projectPath) {
-			return @$"{System.Environment.GetEnvironmentVariable("DevDirectory")}\{projectPath}";
-		}
-
-		public static bool DumpCsv(this string query, object parameters, string connectionString, string outputFile, bool skipIfEmpty = true) {
-			using var conn = new SqlConnection(connectionString);
-			var items = conn.Query(query, parameters).ToArray();
-			if (!skipIfEmpty || items.Length > 0) {
-				items.DumpCsv(outputFile);
-				return true;
-			} else {
-				return false;
-			}
-		}
-
-		public static void DumpCsv<T>(this IEnumerable<T> items, string outputFile) {
-			using var writer = new StreamWriter(outputFile);
-			using var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture, false);
-			csvWriter.WriteRecords(items);
-		}
-
-		public static IEnumerable<T> ReadCsv<T>(this string resource) {
-			using var stream = Assembly.GetCallingAssembly().GetManifestResourceStream(resource)
-				?? throw new ArgumentException($"Assembly embedded resource {resource} was not found");
-			using var reader = new StreamReader(stream);
-			var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture, false);
-			return csvReader.GetRecords<T>();
-		}
-
-		public static T Get<T>(this IServiceScope scope) where T : notnull => scope.ServiceProvider.GetRequiredService<T>();
 	}
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 
-namespace Albatross.Hosting {
+namespace Albatross.DependencyInjection {
 	[Route("api/app-info")]
 	[ApiController]
 	[Authorize]

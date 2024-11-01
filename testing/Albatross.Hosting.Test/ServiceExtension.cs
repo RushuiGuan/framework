@@ -1,7 +1,7 @@
 ﻿using Albatross.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.DependencyInjection.Testing {
 	public static class ServiceExtension {
 		/// <summary>
 		/// register the test principal provider in such a way that the test provider instance can be retrieved and modified

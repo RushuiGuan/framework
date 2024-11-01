@@ -1,6 +1,6 @@
 ﻿using Albatross.Caching.BuiltIn;
 using Albatross.Caching.Test.CacheKeys;
-using Albatross.Hosting.Test;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,8 +13,8 @@ namespace Albatross.Caching.Test {
 		public async Task TestStringKeyCreation(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cache1 = scope.Get<OneDayCache<MyData, CacheKey>>();
-			var keyMgmt = scope.Get<ICacheKeyManagement>();
+			var cache1 = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CacheKey>>();
+			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 
 			var data = new MyData("a");
 			var keyValues = new string[] { "", "1", "2", "3" };
@@ -37,8 +37,8 @@ namespace Albatross.Caching.Test {
 		public async Task TestKeyRemoval(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cache = scope.Get<OneDayCache<MyData, CacheKey>>();
-			var keyMgmt = scope.Get<ICacheKeyManagement>();
+			var cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CacheKey>>();
+			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 
 			var data = new MyData("a");
 			var keyValues = new string[] { "", "1", "2", "3" };
@@ -65,9 +65,9 @@ namespace Albatross.Caching.Test {
 		public async Task TestKeyReset(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var stringKeyCache = scope.Get<OneDayCache<MyData, CustomKey1>>();
-			var stringKey2Cache = scope.Get<OneDayCache<MyData, CustomKey2>>();
-			var keyMgmt = scope.Get<ICacheKeyManagement>();
+			var stringKeyCache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CustomKey1>>();
+			var stringKey2Cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CustomKey2>>();
+			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 
 			var data = new MyData("a");
 			var keyValues = new string[] { "", "1", "2", "3" };

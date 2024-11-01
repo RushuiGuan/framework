@@ -3,7 +3,7 @@ using FluentAssertions;
 using Xunit;
 
 namespace Sample.Hosting.Test {
-	public class Class1 {
+	public class TestIntArray {
 		[Theory]
 		[InlineData("1,2", "1,2")]
 		[InlineData("1-3", "1,2,3")]

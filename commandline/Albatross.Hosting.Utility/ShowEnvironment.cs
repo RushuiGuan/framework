@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Albatross.Hosting.Utility {
+namespace Albatross.DependencyInjection.Utility {
 	[Verb("show-env")]
 	public class ShowEnvironmentOption { }
 

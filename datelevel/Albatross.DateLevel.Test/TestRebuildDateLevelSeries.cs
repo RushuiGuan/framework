@@ -1,4 +1,4 @@
-﻿using Albatross.Hosting.Test;
+﻿using Albatross.Testing.EFCore;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;

@@ -1,4 +1,4 @@
-﻿using Albatross.Hosting.Test;
+﻿using Albatross.Testing.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Sample.EFCore.Models;
 using System.Linq;

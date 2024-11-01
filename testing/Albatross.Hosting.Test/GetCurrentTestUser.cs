@@ -1,6 +1,6 @@
 ﻿using Albatross.Authentication;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.DependencyInjection.Testing {
 	public class GetCurrentTestUser : IGetCurrentUser {
 		public string Provider { get; set; }
 		public string User { get; set; }

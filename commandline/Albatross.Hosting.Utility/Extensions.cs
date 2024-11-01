@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Albatross.Hosting.Utility {
+namespace Albatross.DependencyInjection.Utility {
 	public static class Extensions {
 		public static async Task<int> Run(this Parser parser, string[] args, params Type[] jobTypes) {
 			Dictionary<Type, Type> dict = new Dictionary<Type, Type>();

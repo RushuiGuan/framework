@@ -1,5 +1,5 @@
 ﻿using Albatross.Caching.Test.CacheKeys;
-using Albatross.Hosting.Test;
+using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using System;
 using System.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestRelativeCacheManagement(string hostType, int delay_ms, int loopCount, int expected_cacheMiss) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cache = scope.Get<BuiltIn.OneSecondCache<object, CacheKey>>();
+			var cache = scope.ServiceProvider.GetRequiredService<BuiltIn.OneSecondCache<object, CacheKey>>();
 			string keyValue = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			for (int i = 0; i < loopCount; i++) {
@@ -52,7 +52,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestSlidingCacheManagement(string hostType, int delay_ms, int loopCount, int expected_cacheMiss) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cacheMgmt = scope.Get<BuiltIn.OneSecondSlidingTtlCache<MyData, CacheKey>>();
+			var cacheMgmt = scope.ServiceProvider.GetRequiredService<BuiltIn.OneSecondSlidingTtlCache<MyData, CacheKey>>();
 			string keyValue = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			for (int i = 0; i < loopCount; i++) {

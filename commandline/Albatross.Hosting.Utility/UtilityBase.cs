@@ -14,7 +14,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Albatross.Hosting.Utility {
+namespace Albatross.DependencyInjection.Utility {
 	/// <summary>
 	/// The utility base acts as the bootstrapper for dependency injections.
 	/// </summary>

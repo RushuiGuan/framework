@@ -3,7 +3,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Albatross.Hosting {
+namespace Albatross.DependencyInjection {
 	public class PlainTextInputFormatter : TextInputFormatter {
 		public PlainTextInputFormatter() {
 			SupportedMediaTypes.Add("text/plain");

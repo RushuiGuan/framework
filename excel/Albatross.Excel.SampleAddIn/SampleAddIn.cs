@@ -1,6 +1,6 @@
 ﻿using Albatross.Authentication.Windows;
 using Albatross.Config;
-using Albatross.Hosting.Excel;
+using Albatross.DependencyInjection.Excel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;

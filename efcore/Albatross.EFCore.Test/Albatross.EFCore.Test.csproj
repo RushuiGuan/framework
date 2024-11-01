@@ -26,7 +26,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\caching\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
-		<ProjectReference Include="..\..\testing\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
+		<ProjectReference Include="..\..\testing\Albatross.Testing.EFCore\Albatross.Testing.EFCore.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj" />

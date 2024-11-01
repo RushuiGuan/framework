@@ -7,7 +7,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Albatross.Hosting {
+namespace Albatross.DependencyInjection {
 	public class SwaggerScope {
 		public string Name { get; set; }
 		public string Description { get; set; }

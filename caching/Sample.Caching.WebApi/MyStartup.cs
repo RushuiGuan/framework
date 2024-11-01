@@ -2,7 +2,7 @@
 using Albatross.Caching.MemCache;
 using Albatross.Caching.Redis;
 using Albatross.Config;
-using Albatross.Hosting;
+using Albatross.DependencyInjection;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace Sample.Caching.WebApi {

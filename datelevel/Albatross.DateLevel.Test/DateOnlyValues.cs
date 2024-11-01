@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Albatross.Hosting.Test {
+namespace Albatross.DateLevel.Test {
 	public static class DateOnlyValues {
 		public const string Any = "any";
 

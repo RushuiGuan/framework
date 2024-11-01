@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 
 namespace Sample.WebApi {
-	public class Startup : Albatross.Hosting.Startup {
+	public class Startup : Albatross.DependencyInjection.Startup {
 		public override bool Swagger => true;
 		public override bool WebApi => true;
 		public override bool Secured => true;

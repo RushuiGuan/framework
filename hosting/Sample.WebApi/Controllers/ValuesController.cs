@@ -1,4 +1,4 @@
-﻿using Albatross.Hosting;
+﻿using Albatross.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

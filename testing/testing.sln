@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.ReqnrollPlugin", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Testing", "Albatross.Testing\Albatross.Testing.csproj", "{3FF7E334-BC80-42EA-83E9-EFB59F845923}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Reqnroll", "Albatross.Reqnroll\Albatross.Reqnroll.csproj", "{95A3FEA3-6D74-446D-A602-5A13E6989852}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{3FF7E334-BC80-42EA-83E9-EFB59F845923}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FF7E334-BC80-42EA-83E9-EFB59F845923}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FF7E334-BC80-42EA-83E9-EFB59F845923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A3FEA3-6D74-446D-A602-5A13E6989852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A3FEA3-6D74-446D-A602-5A13E6989852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A3FEA3-6D74-446D-A602-5A13E6989852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A3FEA3-6D74-446D-A602-5A13E6989852}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,6 @@
 ﻿using Albatross.Caching;
 using Albatross.Caching.MemCache;
 using Albatross.EFCore.Audit;
-using Albatross.Hosting.Test;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Configuration;

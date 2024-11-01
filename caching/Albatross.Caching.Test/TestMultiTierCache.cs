@@ -1,5 +1,5 @@
 ﻿using Albatross.Caching.BuiltIn;
-using Albatross.Hosting.Test;
+using Albatross.DependencyInjection.Test;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.Caching.WebApi;
 using Sample.Caching.WebApi.CacheKeys;
@@ -62,7 +62,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestTieredKeyRemoveSelfOnly(string hostType) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var keyMgmt = scope.Get<ICacheKeyManagement>();
+			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier1Key>>();
 			var tier2 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier2Key>>();
 			var tier3 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier3Key>>();
@@ -114,7 +114,7 @@ namespace Albatross.Caching.Test {
 			var tier2Key = new Tier2Key(keyValue1, keyValue2);
 			var tier3Key = new Tier3Key(keyValue1, keyValue2, keyValue3);
 
-			var keyMgmt = scope.Get<ICacheKeyManagement>();
+			var keyMgmt = scope.ServiceProvider.GetRequiredService<ICacheKeyManagement>();
 
 			var tier1 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier1Key>>();
 			var tier2 = scope.ServiceProvider.GetRequiredService<OneDayCache<string, Tier2Key>>();

@@ -1,4 +1,4 @@
-﻿using Albatross.Hosting.Test;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Sample.EFCore;
 using System.Threading.Tasks;
 using Xunit;
@@ -14,7 +14,7 @@ namespace Albatross.EFCore.Test {
 		[Fact]
 		public async Task TestRun() {
 			using var scope = host.Create();
-			var svc = scope.Get<MyDataService>();
+			var svc = scope.ServiceProvider.GetRequiredService<MyDataService>();
 			var data = new MyData { Text = "test" };
 			await svc.Set(data);
 			Assert.Equal("test", data.Text);

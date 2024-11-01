@@ -80,7 +80,7 @@ namespace Albatross.Reqnroll {
 			return value == "with" || value == "should be" || value == "should" || value == "active" || value == "yes";
 		}
 
-		public T GetStoredValueByKey<T>(string value) {
+		public T GetScenarioContextValueByKey<T>(string value) {
 			if (scenario.TryGetValue<T>(value, out var result)) {
 				return result;
 			} else {

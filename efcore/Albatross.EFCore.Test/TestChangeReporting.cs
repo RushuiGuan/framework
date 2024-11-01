@@ -29,7 +29,7 @@ namespace Albatross.EFCore.Test {
 		public async Task TestChangeReportingAdded() {
 			var host = new MyTestHost1();
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
@@ -58,7 +58,7 @@ namespace Albatross.EFCore.Test {
 		public async Task TestChangeReportingModified() {
 			var host = new MyTestHost2();
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
@@ -90,7 +90,7 @@ namespace Albatross.EFCore.Test {
 		public async Task TestChangeReportingDelete() {
 			var host = new MyTestHost3();
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
@@ -124,7 +124,7 @@ namespace Albatross.EFCore.Test {
 		public async Task TestChangeReportingFormat() {
 			var host = new MyTestHost4();
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData {
 				Int = 1000,

@@ -1,6 +1,6 @@
 ﻿using Albatross.Caching.BuiltIn;
 using Albatross.Caching.Test.CacheKeys;
-using Albatross.Hosting.Test;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestParallelBahavior(string hostType, int expected_cacheMiss, int loopCount) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cache = scope.Get<OneDayCache<MyData, CacheKey>>();
+			var cache = scope.ServiceProvider.GetRequiredService<OneDayCache<MyData, CacheKey>>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			List<Task> tasks = new List<Task>();
@@ -56,7 +56,7 @@ namespace Albatross.Caching.Test {
 		public async Task TestParallelBahaviorWithLazy(string hostType, int expected_cacheMiss, int loopCount) {
 			using var host = hostType.GetTestHost();
 			using var scope = host.Create();
-			var cacheMgmt = scope.Get<OneDayCache<Lazy<Task<MyData>>, CacheKey>>();
+			var cacheMgmt = scope.ServiceProvider.GetRequiredService<OneDayCache<Lazy<Task<MyData>>, CacheKey>>();
 			string key = Guid.NewGuid().ToString();
 			int cache_miss = 0;
 			var tasks = new List<Task<Lazy<Task<MyData>>>>();

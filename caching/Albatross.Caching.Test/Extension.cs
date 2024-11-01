@@ -1,4 +1,4 @@
-﻿using Albatross.Hosting.Test;
+﻿using Albatross.DependencyInjection.Test;
 using System;
 
 namespace Albatross.Caching.Test {

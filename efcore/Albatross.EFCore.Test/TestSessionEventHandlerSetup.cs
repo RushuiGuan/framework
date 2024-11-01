@@ -22,8 +22,8 @@ namespace Albatross.EFCore.Test {
 		public async Task TestAuditCreateChange() {
 			var host = new MyTestHost1();
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
-			scope.Get<GetCurrentTestUser>().User = "xx";
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
+			scope.ServiceProvider.GetRequiredService<GetCurrentTestUser>().User = "xx";
 
 			var set = session.DbContext.Set<MyData>();
 			DateTime utcNow = DateTime.UtcNow;
@@ -43,7 +43,7 @@ namespace Albatross.EFCore.Test {
 			MyData data;
 			DateTime audit;
 			using (var scope = host.Create()) {
-				var session = scope.Get<SampleDbSession>();
+				var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 				var set = session.DbContext.Set<MyData>();
 				data = new MyData();
 				set.Add(data);
@@ -70,7 +70,7 @@ namespace Albatross.EFCore.Test {
 		public async Task TestSessionHandlerException() {
 			var host = new MyTestHost2();
 			using var scope = host.Create();
-			var session = scope.Get<SampleDbSession>();
+			var session = scope.ServiceProvider.GetRequiredService<SampleDbSession>();
 			var set = session.DbContext.Set<MyData>();
 			var data = new MyData();
 			set.Add(data);
