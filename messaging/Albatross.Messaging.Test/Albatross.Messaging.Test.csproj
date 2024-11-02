@@ -14,7 +14,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj" />
-		<ProjectReference Include="..\..\testing\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
+		<ProjectReference Include="..\..\testing\Albatross.Testing\Albatross.Testing.csproj" />
 		<ProjectReference Include="..\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj" />
 		<ProjectReference Include="..\Albatross.Messaging\Albatross.Messaging.csproj" />
 	</ItemGroup>

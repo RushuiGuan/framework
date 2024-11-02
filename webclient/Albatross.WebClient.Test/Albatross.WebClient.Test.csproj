@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
-    <ProjectReference Include="..\..\testing\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj" />
+    <ProjectReference Include="..\..\testing\Albatross.Testing\Albatross.Testing.csproj" />
 	  <ProjectReference Include="..\Albatross.WebClient\Albatross.WebClient.csproj" />
 	  <PackageReference Include="FluentAssertions" Version="6.12.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />

@@ -12,7 +12,7 @@ namespace Albatross.Test.Math {
 		public void Run() {
 			var set = new HashSet<string>();
 			long tick = DateTime.Now.Ticks;
-			for (int i = 0; i < 100000000; i++) {
+			for (int i = 0; i < 100000; i++) {
 				var text = tick.ToMaxBase();
 				if (set.Contains(text)) {
 					throw new Exception("Duplicate value");

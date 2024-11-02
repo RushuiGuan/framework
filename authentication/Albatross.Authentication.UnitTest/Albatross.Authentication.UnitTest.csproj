@@ -14,6 +14,7 @@
 		</PackageReference>
   </ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\..\testing\Albatross.Testing\Albatross.Testing.csproj" />
 	  <ProjectReference Include="..\Albatross.Authentication.AspNetCore\Albatross.Authentication.AspNetCore.csproj" />
 	  <ProjectReference Include="..\Albatross.Authentication.Windows\Albatross.Authentication.Windows.csproj" />
 	  <ProjectReference Include="..\Albatross.Authentication\Albatross.Authentication.csproj" />

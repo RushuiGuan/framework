@@ -1,20 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.WebClient.Test {
-	public partial class TestWebClient : IClassFixture<MyTestHost> {
-		private readonly MyTestHost host;
-
-		public TestWebClient(MyTestHost host) {
-			this.host = host;
-		}
-
+	public partial class TestWebClient  {
 		[Fact]
 		public void TestConfig() {
-			var config = host.Provider.GetRequiredService<MyConfig>();
+			using var host = My.Create();
+			var config = host.Services.GetRequiredService<MyConfig>();
 			Assert.True(config.TestUrl.EndsWith('/'));
 			Assert.True(config.Test1Url.EndsWith('/'));
 		}
