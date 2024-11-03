@@ -55,7 +55,7 @@ namespace Albatross.ReqnrollPlugin {
 		}
 
 		protected virtual void ConfigureSerilog(LoggerConfiguration cfg, string environment, string basePath) {
-			SetupSerilog.UseConfigFile(cfg, environment, basePath, null);
+			SetupSerilog.UseConsole(cfg, Serilog.Events.LogEventLevel.Information);
 		}
 
 		public virtual void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
