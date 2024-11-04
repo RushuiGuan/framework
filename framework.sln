@@ -12,13 +12,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codegen", "codegen", "{F0077DD2-731A-4663-804B-7636EBD2EFA8}"
 	ProjectSection(SolutionItems) = preProject
 		codegen\build.ps1 = codegen\build.ps1
-		codegen\generate typescript.ps1 = codegen\generate typescript.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "collections", "collections", "{9D043716-8EDA-4117-88BC-88438C5F11CD}"
-	ProjectSection(SolutionItems) = preProject
-		collections\readme.md = collections\readme.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{39364EF4-1CA6-4CA9-B032-95978CA67696}"
 EndProject
