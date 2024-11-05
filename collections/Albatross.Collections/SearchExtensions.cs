@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Albatross.Collections {
 	public static class SearchExtensions {
-		public static Record? BinarySearchFirstValueGreaterOrEqual<Record, Key>(this IList<Record> list, Key key, Func<Record, Key> getKey) where Record : struct where Key : IComparable<Key> {
+		public static Record? BinarySearchFirstValueGreaterOrEqual<Record, Key>(this IList<Record> list, Key key, Func<Record, Key> getKey)
+			where Record : struct where Key : IComparable<Key> {
 			int left = 0;
 			int right = list.Count - 1;
 			Record? result = default;
 
+			if (key.CompareTo(getKey(list[0])) <= 0) {
+				return list[0];
+			} else if (key.CompareTo(getKey(list[list.Count - 1])) > 0) {
+				return default;
+			}
 			while (left <= right) {
 				int mid = left + (right - left) / 2;
 				Record item = list[mid];
@@ -30,6 +35,11 @@ namespace Albatross.Collections {
 			int right = list.Count - 1;
 			Record? result = default;
 
+			if (key.CompareTo(getKey(list[0])) < 0) {
+				return default;
+			} else if (key.CompareTo(getKey(list[list.Count - 1])) >= 0) {
+				return list[list.Count - 1];
+			}
 			while (left <= right) {
 				int mid = left + (right - left) / 2;
 				Record item = list[mid];
@@ -42,7 +52,6 @@ namespace Albatross.Collections {
 					right = mid - 1;
 				}
 			}
-
 			return result;
 		}
 
@@ -52,6 +61,11 @@ namespace Albatross.Collections {
 			int right = list.Count - 1;
 			Record? result = default;
 
+			if (key.CompareTo(getKey(list[0])) <= 0) {
+				return list[0];
+			} else if (key.CompareTo(getKey(list[list.Count - 1])) > 0) {
+				return default;
+			}
 			while (left <= right) {
 				int mid = left + (right - left) / 2;
 				Record item = list[mid];
@@ -73,6 +87,11 @@ namespace Albatross.Collections {
 			int right = list.Count - 1;
 			Record? result = default;
 
+			if (key.CompareTo(getKey(list[0])) < 0) {
+				return default;
+			} else if (key.CompareTo(getKey(list[list.Count - 1])) >= 0) {
+				return list[list.Count - 1];
+			}
 			while (left <= right) {
 				int mid = left + (right - left) / 2;
 				Record item = list[mid];
@@ -85,7 +104,6 @@ namespace Albatross.Collections {
 					right = mid - 1;
 				}
 			}
-
 			return result;
 		}
 	}
