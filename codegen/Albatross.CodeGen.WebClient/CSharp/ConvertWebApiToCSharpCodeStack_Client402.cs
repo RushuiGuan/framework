@@ -3,9 +3,7 @@ using Albatross.CodeAnalysis.Syntax;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
-using System.Runtime.Intrinsics.X86;
 
 namespace Albatross.CodeGen.WebClient.CSharp {
 	public class ConvertWebApiToCSharpCodeStack_Client402 : IConvertObject<ControllerInfo, CodeStack> {
@@ -21,7 +19,6 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 			var codeStack = new CodeStack();
 			using (codeStack.NewScope(new CompilationUnitBuilder())) {
 				codeStack
-					.With(new UsingDirectiveNode("Albatross.Dates"))
 					.With(new UsingDirectiveNode("System.Net.Http"))
 					.With(new UsingDirectiveNode("System.Threading.Tasks"))
 					.With(new UsingDirectiveNode("Microsoft.Extensions.Logging"))

@@ -1,1 +1,0 @@
-Albatross.Collections namespace contains utility classes that works with collections.
