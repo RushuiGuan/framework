@@ -44,4 +44,8 @@ namespace Sample.EFCore.Models {
 				.OnDelete(DeleteBehavior.Cascade);
 		}
 	}
+
+	// this should be excluded by codegen
+	public class GenericEntityMap<T> : EntityMap<T> where T:class{
+	}
 }

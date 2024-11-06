@@ -29,7 +29,7 @@ namespace Albatross.CommandLine.CodeGen {
 		void FindTargets(TypeDeclarationSyntax node) {
 			if (node.Modifiers.Any(SyntaxKind.PublicKeyword)) {
 				var classSymbol = semanticModel.GetDeclaredSymbol(node);
-				if (classSymbol != null && !classSymbol.IsAbstract) {
+				if (classSymbol != null && classSymbol.IsConcreteClass()) {
 					if (classSymbol.TryGetAttribute(My.VerbAttributeClass, out _)) {
 						CommandOptionClasses.Add(classSymbol);
 					} else if (classSymbol.Interfaces.Any(x => x.GetFullName() == My.ICommandHandler_InterfaceName)) {

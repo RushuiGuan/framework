@@ -195,5 +195,11 @@ namespace Albatross.CodeAnalysis.Symbols {
 				return symbol.GetFullName();
 			}
 		}
+
+		public static bool IsConcreteClass(this INamedTypeSymbol symbol) => 
+			symbol.TypeKind == TypeKind.Class 
+			&& !symbol.IsAbstract
+			&& !symbol.IsStatic
+			&& !symbol.IsGenericTypeDefinition();
 	}
 }

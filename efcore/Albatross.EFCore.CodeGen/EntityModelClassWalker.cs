@@ -31,7 +31,7 @@ namespace Albatross.EFCore.CodeGen {
 		void FindTargets(TypeDeclarationSyntax node) {
 			if (node.Modifiers.Any(SyntaxKind.PublicKeyword)) {
 				var classSymbol = semanticModel.GetDeclaredSymbol(node);
-				if (classSymbol != null && !classSymbol.IsAbstract) {
+				if (classSymbol != null && classSymbol.IsConcreteClass()) {
 					if (classSymbol.AllInterfaces.Any(x => x.GetFullName() == My.EntityModelBuilderInterfaceName
 						&& (!x.Constructors.Any() || x.Constructors.Any(x => x.Parameters.Length == 0)))) {
 						EntityModelBuilderClasses.Add(classSymbol);

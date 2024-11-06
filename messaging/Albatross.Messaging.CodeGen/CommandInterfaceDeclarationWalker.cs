@@ -78,7 +78,7 @@ namespace Albatross.Messaging.CodeGen {
 		}
 
 		void VisitClassDeclaration(INamedTypeSymbol? classSymbol) {
-			if (classSymbol != null && !classSymbol.IsAbstract) {
+			if (classSymbol != null && classSymbol.IsConcreteClass()) {
 				// logger.WriteLine($"check class: {classSymbol.GetFullName()}");
 				foreach (var interfaceSymbol in classSymbol.AllInterfaces) {
 					if (IsEligibleCommandInterface(interfaceSymbol)) {
