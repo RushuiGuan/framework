@@ -107,7 +107,7 @@ An integration library that provdes depedency injection, configuration and loggi
 * We now have a functional command line program completed with dependency injection, logging and config setup.
 
 ## Global Options
-This global option class is defined as:
+This global option class is defined as below.  Its functionalities are baked into the parent command handler and available for all commands.
 ```csharp
 public record class GlobalOptions {
 	// default is Error
