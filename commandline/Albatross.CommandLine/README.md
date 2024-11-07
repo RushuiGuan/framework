@@ -1,5 +1,5 @@
 # Albatross.CommandLine
-An integration library that provdes depedency injection, configuration and logging support for [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library.  It uses [Albatross.CommandLine.CodeGen](../Albatross.CommandLine.CodeGen/) to generate commands and options automatically while giving deveopers the flexibility to customize and leverage the capability of [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library.
+An integration library that provdes dependency injection, configuration and logging support for [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library.  It uses [Albatross.CommandLine.CodeGen](../Albatross.CommandLine.CodeGen/) to generate commands and options automatically while giving developers the flexibility to customize and leverage the capability of [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library.
 
 ## Features
 * Dependency Injection enabled by [Code Generator](../Albatross.CommandLine.CodeGen/).
