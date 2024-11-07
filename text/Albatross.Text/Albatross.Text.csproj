@@ -3,6 +3,9 @@
 		<TargetFrameworks>netstandard2.1;net6.0;net8.0</TargetFrameworks>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
+
+		<Description>String manipulation library</Description>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/text/Albatross.Text</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />

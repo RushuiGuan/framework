@@ -3,6 +3,17 @@ using System;
 using System.Text.RegularExpressions;
 
 namespace Albatross.Text {
+	public static class StringInterpolationExtensions {
+		public static string Interpolate<T>(this string input, Func<string, T, string> func, T value, bool throwException = false) {
+			return new StringInterpolationService(new Microsoft.Extensions.Logging.Abstractions.NullLogger<StringInterpolationService>())
+				.Interpolate(input, func, value, throwException);
+		}
+		public static string Interpolate(this string input, Func<string, string> func) {
+			return new StringInterpolationService(new Microsoft.Extensions.Logging.Abstractions.NullLogger<StringInterpolationService>())
+				.Interpolate<object?>(input, (name, obj) => func(name), null, true);
+		}
+	}
+
 	public interface IStringInterpolationService {
 		string Interpolate<T>(string input, Func<string, T, string> func, T value, bool throwException = false);
 	}

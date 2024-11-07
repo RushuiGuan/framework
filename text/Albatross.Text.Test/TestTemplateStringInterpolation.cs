@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 using Xunit;
 
 namespace Albatross.Text.Test {
@@ -28,8 +25,18 @@ namespace Albatross.Text.Test {
 		[InlineData("${b}${b}${b}", "111")]
 		public void Test(string input, string expectedResult) {
 			var instance = new StringInterpolationService(Logger());
-			var result = instance.Interpolate<IDictionary<string, string>>(input, (key, values) => values[key], values);
+			var result = input.Interpolate<IDictionary<string, string>>((key, values) => values[key], values);
 			Assert.Equal(expectedResult, result);
+		}
+
+
+		[Theory]
+		[InlineData("abc_${b}_abc", @"{""b"":""1""}", "abc_1_abc")]
+		[InlineData("abc_${b}_abc_${b}", @"{""b"":""1""}", "abc_1_abc_1")]
+		public void TestStringInterpolationWithoutObject(string text, string dictionary, string expected) {
+			var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(dictionary) ?? new Dictionary<string, string>();
+			var result = text.Interpolate(args => dict[args]);
+			Assert.Equal(expected, result);
 		}
 	}
 }
