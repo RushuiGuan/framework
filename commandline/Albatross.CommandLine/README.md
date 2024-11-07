@@ -1,18 +1,17 @@
 # Albatross.CommandLine
 An integration library that provdes depedency injection, configuration and logging support for [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library.  It uses [Albatross.CommandLine.CodeGen](../Albatross.CommandLine.CodeGen/) to generate commands and options automatically while giving deveopers the flexibility to customize and leverage the capability of [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library.
 
-
 ## Features
 * Dependency Injection enabled by [Code Generator](../Albatross.CommandLine.CodeGen/).
 * Logging integration with Serilog provided by [Albatross.Logging](../../logging/Albatross.Logging/).
 * Easy configuration setup provided by [Albatross.Config](../../config/Albatross.Config/).
 
 ## Related Articles
+* [Code Generator](../Albatross.CommandLine.CodeGen/README.md)
 * [Conventions](../docs/conventions.md)
-* [Global options](../docs/global-options.md)
+* [Global options](#global-options)
 * [Command Options](../docs/command-options.md)
-* [Error Handling](../docs/error-handling.md)
-* [Command Customization](../docs/command-customization.md)
+* [Error Handling](#error-handling)
 
 ## Quick Start ([Sample Program](../Sample.CommandLine/))
 * Create a .net8 Console program
@@ -106,3 +105,22 @@ An integration library that provdes depedency injection, configuration and loggi
 	#nullable disable
 	```
 * We now have a functional command line program completed with dependency injection, logging and config setup.
+
+## Global Options
+This global option class is defined as:
+```csharp
+public record class GlobalOptions {
+	// default is Error
+	public LogLevel? Verbosity { get; set; }
+	// when true, log the duration of command execution in milliseconds
+	public bool Benchmark { get; set; }
+	// when true, show the full stack when there is an exception
+	public bool ShowStack { get; set; }
+}
+```
+
+## Error Handling
+* Unhandled command handler exception will be caught and an error code of 10000 will be returned.  The exception message will be logged as error.  If the show-stack option is set, the full code stack will be logged instead.
+* An error code of 9999 will be returned if there is an issue constructing the command handler instance.  It could happen when the dependency is not property configured.  
+* An error code of 9998 will be returned if the command handler is not registered.  This could happen if the `CodeGenExtensions.RegisterCommands()` method is not used.
+* If none of the defined commands shows up, `CodeGenExtensions.AddCommands()` method is not invoked.

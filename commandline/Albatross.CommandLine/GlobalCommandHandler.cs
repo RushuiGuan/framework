@@ -24,7 +24,7 @@ namespace Albatross.CommandLine {
 			} else {
 				logger.LogError("Error invoking Command {command}: {message}", command.Name, err.Message);
 			}
-			return 1;
+			return 10000;
 		}
 
 		public async Task<int> InvokeAsync(InvocationContext context) {
@@ -40,11 +40,11 @@ namespace Albatross.CommandLine {
 				} else {
 					logger.LogError("Error creating CommandHandler for Command {command}: {msg}", command.Name, err.Message);
 				}
-				return 2;
+				return 9999;
 			}
 			if (handler == null) {
 				logger.LogError("No CommandHandler is registered for Command {command}", command.Name);
-				return 1;
+				return 9998;
 			} else {
 				Stopwatch? stopwatch;
 				if (globalOptions.Benchmark) {
