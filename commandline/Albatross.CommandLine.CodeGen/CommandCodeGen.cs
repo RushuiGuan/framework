@@ -196,10 +196,8 @@ namespace Albatross.CommandLine.CodeGen {
 						string aliasName;
 						if (alias.StartsWith("-")) {
 							aliasName = alias;
-						} else if (alias.Length == 1) {
-							aliasName = $"-{alias}";
 						} else {
-							aliasName = $"--{alias}";
+							aliasName = $"-{alias}";
 						}
 						using (cs.NewScope()) {
 							cs.With(new IdentifierNode(option.CommandOptionPropertyName))
