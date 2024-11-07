@@ -61,12 +61,12 @@ namespace Albatross.IO {
 			}, context, cancellationToken ?? CancellationToken.None);
 		}
 
-		public static Task<Stream> OpenAsyncExclusiveWriteStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
+		public static Task<Stream> OpenAsyncExclusiveReadWriteStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
 			var policy = CreateRetryPolicy(retryCount, delay_ms, onRetry, logger);
 			var context = new Context(file.FullName);
-			context["action"] = "open-async-exclusive-write";
+			context["action"] = "open-async-exclusive-readwrite";
 			return policy.ExecuteAsync((context, token) => {
-				Stream stream = new FileStream(file.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, bufferSize, FileOptions.Asynchronous);
+				Stream stream = new FileStream(file.FullName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None, bufferSize, FileOptions.Asynchronous);
 				return Task.FromResult(stream);
 			}, context, cancellationToken ?? CancellationToken.None);
 		}

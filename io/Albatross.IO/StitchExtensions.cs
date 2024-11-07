@@ -61,13 +61,13 @@ namespace Albatross.IO {
 							}
 						}
 					}
-					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
+					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveReadWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
 						await MessagePackSerializer.SerializeAsync(indexStream, indexData, options.IndexSerializationOptions);
 						indexStream.SetLength(indexStream.Position);
 						Extensions.MoveFileWithOverwrite(options.TempFilename, options.File.FullName);
 					}
 				} else {
-					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
+					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveReadWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
 						using (var stream = new FileStream(options.File.FullName, FileMode.Create, FileAccess.Write, FileShare.None, options.BufferSize, FileOptions.Asynchronous)) {
 							using (var writer = new StreamWriter(stream, options.Encoding) {
 								AutoFlush = true,
@@ -123,13 +123,13 @@ namespace Albatross.IO {
 							writeStream.SetLength(writeStream.Position);
 						}
 					}
-					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
+					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveReadWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
 						await MessagePackSerializer.SerializeAsync(indexStream, indexData, options.IndexSerializationOptions);
 						indexStream.SetLength(indexStream.Position);
 						Extensions.MoveFileWithOverwrite(options.TempFilename, options.File.FullName);
 					}
 				} else {
-					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
+					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveReadWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
 						using (var stream = new FileStream(options.File.FullName, FileMode.Create, FileAccess.Write, FileShare.None, options.BufferSize, FileOptions.Asynchronous)) {
 							foreach (var record in changes) {
 								indexData.Add(options.GetKey(record), stream.Position);

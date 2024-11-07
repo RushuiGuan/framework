@@ -45,7 +45,7 @@ namespace Albatross.IO.Test {
 			var logger = new Mock<ILogger>().Object;
 			var file = new FileInfo(path);
 
-			var writeStream = await file.OpenAsyncExclusiveWriteStreamWithRetry(4096, 3, 100, logger);
+			var writeStream = await file.OpenAsyncExclusiveReadWriteStreamWithRetry(4096, 3, 100, logger);
 			// wait a second and dispose the write stream
 			_ = Task.Delay(800).ContinueWith(x => writeStream.Dispose());
 			int retryCount = 0;
