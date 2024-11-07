@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Albatross.DependencyInjection {
+namespace Albatross.Hosting {
 	public class UsageWriter {
 		public ILogger Logger { get; }
 

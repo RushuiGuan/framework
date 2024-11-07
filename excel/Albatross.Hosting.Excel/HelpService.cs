@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Albatross.DependencyInjection.Excel {
+namespace Albatross.Hosting.Excel {
 	public record class HelpEntry {
 		public string Type { get; set; } = string.Empty;
 		public string Entry { get; set; } = string.Empty;

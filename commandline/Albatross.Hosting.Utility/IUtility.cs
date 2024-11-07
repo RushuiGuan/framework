@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Albatross.DependencyInjection.Utility {
+namespace Albatross.Hosting.Utility {
 	public interface IUtility : IDisposable {
 		Task<int> Run();
 		TextWriter Out { get; }

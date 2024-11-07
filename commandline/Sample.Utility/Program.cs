@@ -1,4 +1,4 @@
-﻿using Albatross.DependencyInjection.Utility;
+﻿using Albatross.Hosting.Utility;
 using CommandLine;
 using System.Threading.Tasks;
 

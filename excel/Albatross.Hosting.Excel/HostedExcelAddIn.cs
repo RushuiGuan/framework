@@ -12,7 +12,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 
-namespace Albatross.DependencyInjection.Excel {
+namespace Albatross.Hosting.Excel {
 	public abstract class HostedExcelAddIn : IExcelAddIn {
 		public Microsoft.Extensions.Logging.ILogger logger;
 		private IServiceProvider provider => host.Services;

@@ -1,7 +1,7 @@
 ﻿using Albatross.Config;
 using Microsoft.Extensions.Configuration;
 
-namespace Albatross.DependencyInjection {
+namespace Albatross.Hosting {
 	public class AngularConfig : ConfigBase {
 		public AngularConfig(IConfiguration configuration) : base(configuration) {
 		}

@@ -1,4 +1,4 @@
-﻿using Albatross.DependencyInjection;
+﻿using Albatross.Hosting;
 using System.Threading.Tasks;
 
 namespace Sample.WebApi {

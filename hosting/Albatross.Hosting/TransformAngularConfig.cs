@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-namespace Albatross.DependencyInjection {
+namespace Albatross.Hosting {
 	public interface ITransformAngularConfig {
 		void Transform();
 	}

@@ -1,4 +1,4 @@
-using Albatross.DependencyInjection;
+using Albatross.Hosting;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;

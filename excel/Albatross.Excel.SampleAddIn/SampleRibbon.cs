@@ -1,4 +1,4 @@
-﻿using Albatross.DependencyInjection.Excel;
+﻿using Albatross.Hosting.Excel;
 using Albatross.Reflection;
 using ExcelDna.Integration.CustomUI;
 using Microsoft.Extensions.Logging;

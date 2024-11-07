@@ -20,7 +20,7 @@ using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Albatross.DependencyInjection {
+namespace Albatross.Hosting {
 	/// <summary>
 	/// Default Startup class that setups the web server.
 	/// </summary>

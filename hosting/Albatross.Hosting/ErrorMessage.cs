@@ -1,4 +1,4 @@
-﻿namespace Albatross.DependencyInjection {
+﻿namespace Albatross.Hosting {
 	public class ErrorMessage {
 		public string? Message { get; set; }
 		public string? Type { get; set; }

@@ -10,7 +10,7 @@ using Serilog;
 using System;
 using System.Threading.Tasks;
 
-namespace Albatross.DependencyInjection {
+namespace Albatross.Hosting {
 	public class Setup {
 		protected IHostBuilder hostBuilder;
 		protected IConfiguration configuration;
@@ -52,7 +52,7 @@ namespace Albatross.DependencyInjection {
 			return this;
 		}
 
-		public virtual Setup ConfigureWebHost<Startup>() where Startup : DependencyInjection.Startup {
+		public virtual Setup ConfigureWebHost<Startup>() where Startup : Hosting.Startup {
 			hostBuilder.ConfigureWebHostDefaults(webBuilder => {
 				webBuilder.UseStartup<Startup>();
 				webBuilder.PreferHostingUrls(true);

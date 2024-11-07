@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Albatross.DependencyInjection.Excel {
+namespace Albatross.Hosting.Excel {
 	public static class Extensions {
 		public static IServiceCollection AddExcelRibbon<T>(this IServiceCollection services) where T : HostedExcelRibbon {
 			services.TryAddEnumerable(ServiceDescriptor.Singleton<ExcelRibbon, T>());

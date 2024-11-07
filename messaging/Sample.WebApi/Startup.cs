@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 
 namespace Sample.WebApi {
-	public class Startup : Albatross.DependencyInjection.Startup {
+	public class Startup : Albatross.Hosting.Startup {
 		public override bool Swagger => true;
 		public override bool WebApi => true;
 		public override bool Secured => true;
@@ -20,7 +20,7 @@ namespace Sample.WebApi {
 			services.AddCustomMessagingClient();
 		}
 
-		public override async void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Albatross.DependencyInjection.Startup> logger) {
+		public override async void Configure(IApplicationBuilder app, ProgramSetting programSetting, EnvironmentSetting environmentSetting, ILogger<Albatross.Hosting.Startup> logger) {
 			base.Configure(app, programSetting, environmentSetting, logger);
 			try {
 				await app.ApplicationServices.UseCustomMessagingClient(logger);
