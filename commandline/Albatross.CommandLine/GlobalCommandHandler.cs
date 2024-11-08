@@ -16,7 +16,8 @@ namespace Albatross.CommandLine {
 			this.command = command;
 		}
 
-		public int Invoke(InvocationContext context) => throw new NotSupportedException();
+		public int Invoke(InvocationContext context) => Invoke(context, false).Result;
+		public Task<int> InvokeAsync(InvocationContext context) => Invoke(context, true);
 
 		public virtual int HandleCommandException(Exception err, ILogger logger, GlobalOptions globalOptions) {
 			if (globalOptions.ShowStack) {
@@ -27,7 +28,7 @@ namespace Albatross.CommandLine {
 			return 10000;
 		}
 
-		public async Task<int> InvokeAsync(InvocationContext context) {
+		public async Task<int> Invoke(InvocationContext context, bool async) {
 			var provider = context.GetHost().Services;
 			var globalOptions = provider.GetRequiredService<IOptions<GlobalOptions>>().Value;
 			var logger = provider.GetRequiredService<ILogger<GlobalCommandHandler>>();
@@ -53,7 +54,11 @@ namespace Albatross.CommandLine {
 					stopwatch = null;
 				}
 				try {
-					return await handler.InvokeAsync(context);
+					if (async) {
+						return await handler.InvokeAsync(context);
+					} else {
+						return handler.Invoke(context);
+					}
 				} catch (Exception err) {
 					return HandleCommandException(err, logger, globalOptions);
 				} finally {
