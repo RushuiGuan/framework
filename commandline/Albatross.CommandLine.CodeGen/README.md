@@ -31,6 +31,7 @@ public partial class TestCommand : IRequireInitialization {
 		...
 	}
 }
+// generated code.  Option properties are created with the Prefix of `Option_`
 public sealed partial class TestCommand : Command {
 	public TestCommand() : base("test", "A test command") {
 		this.Option_Name = new Option<string>("--name", null) {
