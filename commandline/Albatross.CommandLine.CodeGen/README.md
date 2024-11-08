@@ -20,6 +20,7 @@ public record class TestOptions {
 	public int Value { get; set; }
 }
 // implement your command handler logic here
+// optionally use BaseHandler<OptionType> class as the base class
 public class TestCommandHandler : ICommandHandler {
 	...
 }
