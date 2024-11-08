@@ -21,12 +21,12 @@ namespace Albatross.IO {
 			where Key : notnull, IComparable<Key> where Record : notnull {
 			if (changes.Any()) {
 				var indexData = new List<FileIndexValue<Key>>();
-				if (options.File.Exists) {
+				if (options.DataFile.Exists) {
 					var firstChangeKey = options.GetKey(changes.First());
 					var lastChangeKey = options.GetKey(changes.Last());
 					var changesSaved = false;
-					using (var readStream = new FileStream(options.File.FullName, FileMode.Open, FileAccess.Read, FileShare.Read, options.BufferSize, FileOptions.Asynchronous | FileOptions.SequentialScan)) {
-						using (var writeStream = new FileStream(options.TempFilename, FileMode.Create, FileAccess.Write, FileShare.None, options.BufferSize, true)) {
+					using (var readStream = options.GetDataFileReadStream()) {
+						using (var writeStream = options.GetTempFileStream()) {
 							using var reader = new StreamReader(readStream, options.Encoding);
 							using var writer = new StreamWriter(writeStream, options.Encoding) {
 								AutoFlush = true
@@ -61,14 +61,14 @@ namespace Albatross.IO {
 							}
 						}
 					}
-					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveReadWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
+					using (var indexStream = await options.GetIndexFileStream()) {
 						await MessagePackSerializer.SerializeAsync(indexStream, indexData, options.IndexSerializationOptions);
 						indexStream.SetLength(indexStream.Position);
-						Extensions.MoveFileWithOverwrite(options.TempFilename, options.File.FullName);
+						Extensions.MoveFileWithOverwrite(options.TempFilename, options.DataFile.FullName);
 					}
 				} else {
-					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveReadWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
-						using (var stream = new FileStream(options.File.FullName, FileMode.Create, FileAccess.Write, FileShare.None, options.BufferSize, FileOptions.Asynchronous)) {
+					using (var indexStream = await options.GetIndexFileStream()) {
+						using (var stream = options.GetDataFileWriteStream()) {
 							using (var writer = new StreamWriter(stream, options.Encoding) {
 								AutoFlush = true,
 							}) {
@@ -88,12 +88,12 @@ namespace Albatross.IO {
 			where Key : notnull, IComparable<Key> where Record : notnull {
 			if (changes.Any()) {
 				var indexData = new List<FileIndexValue<Key>>();
-				if (options.File.Exists) {
+				if (options.DataFile.Exists) {
 					var firstChangeKey = options.GetKey(changes.First());
 					var lastChangeKey = options.GetKey(changes.Last());
 					var changesSaved = false;
-					using (var readStream = new FileStream(options.File.FullName, FileMode.Open, FileAccess.Read, FileShare.Read, options.BufferSize, FileOptions.Asynchronous | FileOptions.SequentialScan)) {
-						using (var writeStream = new FileStream(options.TempFilename, FileMode.Create, FileAccess.Write, FileShare.None, options.BufferSize, true)) {
+					using (var readStream = options.GetDataFileReadStream()) {
+						using (var writeStream = options.GetTempFileStream()) {
 							var items = readStream.ReadArrayAsync<Record>(options.RecordSerializationOptions, CancellationToken.None);
 							await foreach (var record in items) {
 								var key = options.GetKey(record);
@@ -123,14 +123,14 @@ namespace Albatross.IO {
 							writeStream.SetLength(writeStream.Position);
 						}
 					}
-					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveReadWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
+					using (var indexStream = await options.GetIndexFileStream()) {
 						await MessagePackSerializer.SerializeAsync(indexStream, indexData, options.IndexSerializationOptions);
 						indexStream.SetLength(indexStream.Position);
-						Extensions.MoveFileWithOverwrite(options.TempFilename, options.File.FullName);
+						Extensions.MoveFileWithOverwrite(options.TempFilename, options.DataFile.FullName);
 					}
 				} else {
-					using (var indexStream = await new FileInfo(options.IndexFilename).OpenAsyncExclusiveReadWriteStreamWithRetry(options.IndexBufferSize, options.IndexRetryCount, options.IndexRetryDelay, logger)) {
-						using (var stream = new FileStream(options.File.FullName, FileMode.Create, FileAccess.Write, FileShare.None, options.BufferSize, FileOptions.Asynchronous)) {
+					using (var indexStream = await options.GetIndexFileStream()) {
+						using (var stream = options.GetDataFileWriteStream()) {
 							foreach (var record in changes) {
 								indexData.Add(options.GetKey(record), stream.Position);
 								await MessagePackSerializer.SerializeAsync<Record>(stream, record, options.RecordSerializationOptions, CancellationToken.None);

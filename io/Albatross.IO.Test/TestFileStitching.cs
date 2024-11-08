@@ -82,7 +82,7 @@ namespace Albatross.IO.Test {
 			var options = new TextFileStitchingOptions<int, TestData>(current_file, x => x.ToString(), x => x.Id, x => new TestData(x).Id);
 			var logger = new Mock<ILogger>().Object;
 			await options.StitchText(changes, logger);
-			var result = ReadDataFromTextFile(options.File.FullName).ToArray();
+			var result = ReadDataFromTextFile(options.DataFile.FullName).ToArray();
 
 			// first check the keys
 			result.Select(x => x.Id).ToArray().Should().BeEquivalentTo(expected_text.IntArray());
@@ -94,7 +94,7 @@ namespace Albatross.IO.Test {
 			var indexes = await options.IndexFilename.ReadIndex<int>(IndexSerializationOptions, CancellationToken.None);
 			for (int i = indexes.Length - 1; i >= 0; i--) {
 				var index = indexes[i];
-				using (var stream = File.OpenRead(options.File.FullName)) {
+				using (var stream = File.OpenRead(options.DataFile.FullName)) {
 					stream.Seek(index.Position, SeekOrigin.Begin);
 					var line = await new StreamReader(stream).ReadLineAsync();
 					Assert.NotNull(line);
@@ -149,7 +149,7 @@ namespace Albatross.IO.Test {
 			var options = new FileStitchingOptions<int, TestData>(current_file, x => x.Id);
 			var logger = new Mock<ILogger>().Object;
 			await options.StitchBinary(changes, logger);
-			var result = (await ReadDataFromBinary(options.File.FullName)).ToArray();
+			var result = (await ReadDataFromBinary(options.DataFile.FullName)).ToArray();
 
 			// first check the keys
 			result.Select(x => x.Id).ToArray().Should().BeEquivalentTo(expected_text.IntArray());
@@ -161,7 +161,7 @@ namespace Albatross.IO.Test {
 			var indexes = await options.IndexFilename.ReadIndex<int>(IndexSerializationOptions, CancellationToken.None);
 			for (int i = indexes.Length - 1; i >= 0; i--) {
 				var index = indexes[i];
-				using (var stream = File.OpenRead(options.File.FullName)) {
+				using (var stream = File.OpenRead(options.DataFile.FullName)) {
 					stream.Seek(index.Position, SeekOrigin.Begin);
 					var item = await MessagePackSerializer.DeserializeAsync<TestData>(stream, RecordSerializationOptions);
 					item.Should().BeEquivalentTo(lookup[index.Key]);
