@@ -6,7 +6,7 @@ As a development dependency of [Albatross.CommandLine](../Albatross.CommandLine/
 
 * The command is created as a partial class which allows user to add additional functionalities.  To customize a command, create a partial command class of the same name with the interface [Albatross.CommandLine.IRequireInitialization](../Albatross.CommandLine/IRequireInitialization.cs).  
 * Nullable property are declared as optional and vice vesa.  However requirement can be overwritten using the [Albatross.CommandLine.OptionAttribute](../Albatross.CommandLine/OptionAttribute.cs) as shown in the `Value` property in the example.
-* Option alias can be created using the [Albatross.CommandLine.OptionAttribute](../Albatross.CommandLine/OptionAttribute.cs).  Aliases are prefixed with a single dash ('-') if the dash has not been prefixed already.  By default, 
+* Option alias can be created using the [Albatross.CommandLine.OptionAttribute](../Albatross.CommandLine/OptionAttribute.cs).  Aliases are prefixed with a single dash ('-') if the dash has not been prefixed already.
 
 ```csharp
 [Verb("test", typeof(TestCommandHandler), Description = "A test command")]
