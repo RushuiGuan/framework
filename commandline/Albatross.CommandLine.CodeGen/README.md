@@ -11,8 +11,11 @@ As a development dependency of [Albatross.CommandLine](../Albatross.CommandLine/
 ```csharp
 [Verb("test", typeof(TestCommandHandler), Description = "A test command")]
 public record class TestOptions {
+	// required since its type is not nullable
 	public string Name { get; set; } = string.Empty;
+	// not required since its type is nullable
 	public string? Description { get; set; }
+	// not required since the default behavior is overwritten by the Option attribute
 	[Option("v", "value", Required = false, Description = "An integer value")]
 	public int Value { get; set; }
 }
