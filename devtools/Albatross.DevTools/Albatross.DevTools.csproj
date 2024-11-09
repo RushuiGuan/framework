@@ -4,6 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<AssemblyName>devtools</AssemblyName>
+		<PackageId>Albatross.DevTools</PackageId>
 		<PackAsTool>True</PackAsTool>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/devtools/Albatross.DevTools</PackageProjectUrl>
 		<Description>A command line program that contains utilities that help with dotnet development process</Description>
