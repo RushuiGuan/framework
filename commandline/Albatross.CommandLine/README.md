@@ -15,8 +15,8 @@ An integration library that provdes dependency injection, configuration and logg
 
 ## Quick Start ([Sample Program](../Sample.CommandLine/))
 * Create a .net8 Console program
-	* Make sure the `<Nullable>enable</Nullable>` option is enabled for the project.
-* Reference [Albatross.CommandLine](.) from nuget.  [Albatross.CommandLine.CodeGen](../Albatross.CommandLine.CodeGen/) should be referenced automatically as a dev dependency.
+	* Make sure the `Nullable` option is enabled for the project.
+* Reference [Albatross.CommandLine](https://www.nuget.org/packages/Albatross.CommandLine) from nuget.  [Albatross.CommandLine.CodeGen](https://www.nuget.org/packages/Albatross.CommandLine.CodeGen/) should be referenced automatically as a dev dependency.
 * Create a class `MySetup.cs` that inherits base class [Albatross.CommandLine.Setup](./Setup.cs)
 	```csharp
 	public class MySetup : Setup{
