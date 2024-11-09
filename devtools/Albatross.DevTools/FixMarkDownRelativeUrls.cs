@@ -52,7 +52,7 @@ namespace Albatross.DevTools {
 					return match.Value;
 				} else {
 					var relativePath = GetRelativeUrl(this.options.RootFolder.FullName, this.options.MarkdownFile);
-					var newUrl = GetAbsoluteUrl(this.options.RootFolder.FullName, relativePath, path);
+					var newUrl = GetAbsoluteUrl(this.options.RootUrl, relativePath, path);
 					return match.Value.Replace(path, newUrl);
 				}
 			});
