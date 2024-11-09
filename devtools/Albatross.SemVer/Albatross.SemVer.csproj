@@ -1,19 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
-    <StartupObject />
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
-    <Authors>Rushui Guan</Authors>
-    <Company>Rushui Guan</Company>
-    <Title>Albatross Semantic Version Library with SemVer 2.0 Implementation</Title>
-    <Description>Supports parsing and operations of Major, Minor, Patch, Prerelease and Metadata according to semver2.0 spec.</Description>
-    <PackageLicenseUrl>https://github.com/RushuiGuan/license/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/RushuiGuan/semver</PackageProjectUrl>
-    <PackageTags>semver semantic version</PackageTags>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<OutputType>Library</OutputType>
+		<Nullable>enable</Nullable>
+		<Description>Supports parsing and operations of Major, Minor, Patch, Prerelease and Metadata according to semver2.0 spec.</Description>
+		<PackageTags>semver semantic version</PackageTags>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/devtools/Albatross.SemVer</PackageProjectUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 </Project>
