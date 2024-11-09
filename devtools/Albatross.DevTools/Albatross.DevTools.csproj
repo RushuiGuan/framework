@@ -4,6 +4,9 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<AssemblyName>devtools</AssemblyName>
+		<PackAsTool>True</PackAsTool>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/devtools/Albatross.DevTools</PackageProjectUrl>
+		<Description>A command line program that contains utilities that help with dotnet development process</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,5 +22,16 @@
 		</ProjectReference>
 		<ProjectReference Include="..\..\commandline\Albatross.CommandLine\Albatross.CommandLine.csproj" />
 	</ItemGroup>
-</Project>
 
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>
+			</PackagePath>
+		</None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+</Project>
