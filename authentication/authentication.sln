@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Authentication", "Albatross.Authentication\Albatross.Authentication.csproj", "{1C9F202A-E50C-447D-9683-422005B8BB34}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AAF5BABC-23A0-4435-94D1-E9DAE1F79CB5}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		pack.ps1 = pack.ps1
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Authentication.Windows", "Albatross.Authentication.Windows\Albatross.Authentication.Windows.csproj", "{F8DBB95A-65C9-4370-8D09-B92F3C1238A6}"
 EndProject

@@ -10,6 +10,7 @@
     <RepositoryProjectRoot>https://github.com/RushuiGuan/framework/tree/main</RepositoryProjectRoot>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Authors>Rushui Guan</Authors>
+	  <PackageIcon>icon.png</PackageIcon>
+	  <Authors>Rushui Guan</Authors>
   </PropertyGroup>
 </Project>

@@ -7,14 +7,16 @@
 		<Description>An assembly to return the identify of the current user</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/authentication/Albatross.Authentication</PackageProjectUrl>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
 		<None Include="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
