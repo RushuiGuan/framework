@@ -8,16 +8,13 @@ namespace Albatross.DevTools.UnitTest {
 		[InlineData("C:\\root", "C:\\file.md", "..\\file.md")]
 		[InlineData("C:\\root", "C:\\temp\\file.md", "..\\temp\\file.md")]
 		public void TestGetRelativePath(string rootFolder, string file, string expected) {
-			Assert.Equal(expected, FixMarkDownRelativeUrls.GetRelativeUrl(rootFolder, new FileInfo(file)));
+			Assert.Equal(expected, FixMarkDownRelativeUrls.GetRelativeUrl(new DirectoryInfo(rootFolder), new FileInfo(file)));
 		}
 
 		[Theory]
-		[InlineData(".", "C:\\root\\file.md")]
-		[InlineData("test", "C:\\root\\file.md")]
-		[InlineData(".\\test", "C:\\root\\file.md")]
 		[InlineData("C:\\root", "E:\\temp\\file.md")]
 		public void TestGetRelativePath_InvalidRootFolder(string rootFolder, string file) {
-			Assert.Throws<ArgumentException>(() => FixMarkDownRelativeUrls.GetRelativeUrl(rootFolder, new FileInfo(file)));
+			Assert.Throws<ArgumentException>(() => FixMarkDownRelativeUrls.GetRelativeUrl(new DirectoryInfo(rootFolder), new FileInfo(file)));
 		}
 
 		[Theory]
@@ -37,6 +34,12 @@ namespace Albatross.DevTools.UnitTest {
 		// [InlineData("http://root", "..\\file.md", "files/relative.md")]
 		public void TestGetAbsoluteUrl_InvalidRelativePath(string rootUrl, string relativeFilePath, string relativeUrl) {
 			Assert.Throws<ArgumentException>(() => FixMarkDownRelativeUrls.GetAbsoluteUrl(rootUrl, relativeFilePath, relativeUrl));
+		}
+
+		[Theory]
+		[InlineData("Reference [Albatross.CommandLine](.) from nuget", "c:\\app\\framework", "c:\\app\\framework\\commandline\\Albatross.CommandLine\\README.md", "https://repo", "Reference [Albatross.CommandLine](https://repo/commandline/Albatross.CommandLine/) from nuget")]
+		public void TestReplaceAll(string text, string rootFolder, string markdownFile, string rootUrl, string expected) {
+			Assert.Equal(expected, FixMarkDownRelativeUrls.ReplaceAll(text, new DirectoryInfo(rootFolder), new FileInfo(markdownFile), rootUrl));
 		}
 	}
 }
