@@ -11,7 +11,7 @@ namespace Albatross.DevTools {
 	[Verb("fix-markdown-relative-urls", typeof(FixMarkDownRelativeUrls), Description = Description)]
 	public record class FixMarkDownRelativeUrlsOptions {
 		const string Description = "Replace the relative urls in a markdown file with absolute urls using the provided RootUrl and RootFolder.  The new url will be the constructed with the format of: {RootUrl}/{PathRelativeToRootFolder}.  The utility is useful to fix the relative urls in the README.md file since the file is packed as part of the nuget package and its relative urls will not work in the nuget.org website";
-		public FileInfo MarkDownFile { get; set; } = null!;
+		public FileInfo MarkdownFile { get; set; } = null!;
 		public string RootUrl { get; set; } = string.Empty;
 		public DirectoryInfo RootFolder { get; set; } = null!;
 	}
@@ -42,20 +42,21 @@ namespace Albatross.DevTools {
 		public FixMarkDownRelativeUrls(IOptions<FixMarkDownRelativeUrlsOptions> options, ILogger logger) : base(options, logger) { }
 		static Regex regex = new Regex(@"\[(.*?)\]\((.*?)\)", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 		public override async Task<int> InvokeAsync(InvocationContext context) {
-			if (!this.options.MarkDownFile.Exists) {
-				throw new InvalidOperationException($"File {this.options.MarkDownFile.FullName} does not exist");
+			if (!this.options.MarkdownFile.Exists) {
+				throw new InvalidOperationException($"File {this.options.MarkdownFile.FullName} does not exist");
 			}
-			var text = await File.ReadAllTextAsync(this.options.MarkDownFile.FullName);
+			var text = await File.ReadAllTextAsync(this.options.MarkdownFile.FullName);
 			var newText = regex.Replace(text, (match) => {
 				var path = match.Groups[2].Value;
-				if (new Uri(path).IsAbsoluteUri) {
+				if (new Uri(path, UriKind.RelativeOrAbsolute).IsAbsoluteUri) {
 					return match.Value;
 				} else {
-					var relativePath = GetRelativeUrl(this.options.RootFolder.FullName, this.options.MarkDownFile);
+					var relativePath = GetRelativeUrl(this.options.RootFolder.FullName, this.options.MarkdownFile);
 					var newUrl = GetAbsoluteUrl(this.options.RootFolder.FullName, relativePath, path);
 					return match.Value.Replace(path, newUrl);
 				}
 			});
+			await File.WriteAllTextAsync(this.options.MarkdownFile.FullName, newText);
 			return 0;
 		}
 	}
