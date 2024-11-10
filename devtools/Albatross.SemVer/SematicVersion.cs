@@ -9,39 +9,9 @@ namespace Albatross.SemVer {
 	/// Simplified sematic version 2.0
 	/// Only allows a label and a revision number for pre-releases
 	/// </summary>
-	public sealed class SematicVersion : IComparable<SematicVersion> {
+	public sealed record class SematicVersion : IComparable<SematicVersion> {
 		public SematicVersion() { }
-		public SematicVersion(string version) {
-			Parse(version);
-		}
-
-		public int Major { get; set; }
-		public int Minor { get; set; }
-		public int Patch { get; set; }
-
-		const char Dot = '.';
-		const char Hyphen = '-';
-		const char Plus = '+';
-
-		const string AlphanumericsPattern = "^[0-9A-Za-z-]+$";
-		public static readonly Regex AlphaNumericRegex = new Regex(AlphanumericsPattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
-
-		const string LeadingZeroNumericPattern = "^0[0-9]+$";
-		public static readonly Regex LeadingZeroNumericRegex = new Regex(LeadingZeroNumericPattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
-
-		const string NonLeadingZeroNumericPattern = "^(0|[1-9][0-9]*)$";
-		public static readonly Regex NonLeadingZeroNumericRegex = new Regex(NonLeadingZeroNumericPattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
-
-		/// <summary>
-		/// Identifiers MUST comprise only ASCII alphanumerics and hyphen [0-9A-Za-z-]. Identifiers MUST NOT be empty. Numeric identifiers MUST NOT include leading zeroes.
-		/// </summary>
-		public IEnumerable<string> PreRelease { get; set; }
-		/// <summary>
-		/// Identifiers MUST comprise only ASCII alphanumerics and hyphen [0-9A-Za-z-]. Identifiers MUST NOT be empty.
-		/// </summary>
-		public IEnumerable<string> Metadata { get; set; }
-
-		public void Parse(string input) {
+		public SematicVersion(string input) {
 			if (string.IsNullOrWhiteSpace(input)) { throw new EmptyIdentifierException(); }
 			int hyphenIndex = input.IndexOf(Hyphen);
 			int plusIndex = input.IndexOf(Plus);
@@ -58,64 +28,79 @@ namespace Albatross.SemVer {
 				throw new FormatException();
 			}
 
-			string versionText = null;
-			string prereleaseText = null;
-			string metadataText = null;
+			string versionText;
+			string? prereleaseText = null;
+			string? metadataText = null;
+
 
 			if (hyphenIndex == -1) {
-				PreRelease = new string[0];
+				if (plusIndex == -1) {
+					versionText = input;
+				} else {
+					versionText = input.Substring(0, plusIndex);
+				}
 			} else {
 				versionText = input.Substring(0, hyphenIndex);
+				if (plusIndex == -1) {
+					prereleaseText = input.Substring(hyphenIndex + 1);
+				} else {
+					prereleaseText = input.Substring(hyphenIndex + 1, plusIndex - hyphenIndex - 1);
+				}
 			}
-			if (plusIndex == -1) {
-				Metadata = new string[0];
-			} else {
+			if (plusIndex != -1) {
 				metadataText = input.Substring(plusIndex + 1);
 			}
-
-			if (hyphenIndex == -1 && plusIndex == -1) {
-				versionText = input;
-			} else if (hyphenIndex != -1 && plusIndex == -1) {
-				prereleaseText = input.Substring(hyphenIndex + 1);
-			} else if (hyphenIndex == -1 && plusIndex != -1) {
-				versionText = input.Substring(0, plusIndex);
-			} else {
-				prereleaseText = input.Substring(hyphenIndex + 1, plusIndex - hyphenIndex - 1);
-			}
-			ParseVersion(versionText);
+			ParseVersion(versionText, out var major, out var minor, out var patch);
 			if (prereleaseText != null) {
 				PreRelease = prereleaseText.Split(Dot);
 			}
 			if (metadataText != null) {
 				Metadata = metadataText.Split(Dot);
 			}
+			this.Major = major;
+			this.Minor = minor;
+			this.Patch = patch;
 			Validate();
 		}
-		private void ParseVersion(string text) {
-			string[] list = text.Split(Dot);
-			if (list.Length != 3) {
-				throw new FormatException();
-			}
-			foreach (string item in list) {
-				if (!NonLeadingZeroNumericRegex.IsMatch(item)) {
-					throw new LeadingZeroException();
-				}
-			}
-			Major = int.Parse(list[0]);
-			Minor = int.Parse(list[1]);
-			Patch = int.Parse(list[2]);
-		}
+
+		public const char Dot = '.';
+		public const char Hyphen = '-';
+		public const char Plus = '+';
+
+		const string AlphanumericsPattern = "^[0-9A-Za-z-]+$";
+		public static readonly Regex AlphaNumericRegex = new Regex(AlphanumericsPattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
+
+		const string LeadingZeroNumericPattern = "^0[0-9]+$";
+		public static readonly Regex LeadingZeroNumericRegex = new Regex(LeadingZeroNumericPattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
+
+		const string NonLeadingZeroNumericPattern = "^(0|[1-9][0-9]*)$";
+		public static readonly Regex NonLeadingZeroNumericRegex = new Regex(NonLeadingZeroNumericPattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
+
+
+		public int Major { get; init; }
+		public int Minor { get; init; }
+		public int Patch { get; init; }
+
+		/// <summary>
+		/// Identifiers MUST comprise only ASCII alphanumerics and hyphen [0-9A-Za-z-]. Identifiers MUST NOT be empty. Numeric identifiers MUST NOT include leading zeroes.
+		/// </summary>
+		public IEnumerable<string> PreRelease { get; init; } = new string[0];
+		/// <summary>
+		/// Identifiers MUST comprise only ASCII alphanumerics and hyphen [0-9A-Za-z-]. Identifiers MUST NOT be empty.
+		/// </summary>
+		public IEnumerable<string> Metadata { get; init; } = new string[0];
+
 		public override string ToString() {
 			StringBuilder sb = new StringBuilder();
-			sb.Append(Major).Dot().Append(Minor).Dot().Append(Patch);
+			sb.Append(Major).Append(Dot).Append(Minor).Append(Dot).Append(Patch);
 			if (PreRelease?.Count() > 0) {
 				bool first = true;
 				foreach (var item in PreRelease) {
 					if (first) {
-						sb.Hyphen();
+						sb.Append(Hyphen);
 						first = false;
 					} else {
-						sb.Dot();
+						sb.Append(Dot);
 					}
 					sb.Append(item);
 				}
@@ -124,10 +109,10 @@ namespace Albatross.SemVer {
 				bool first = true;
 				foreach (var item in Metadata) {
 					if (first) {
-						sb.Plus();
+						sb.Append(Plus);
 						first = false;
 					} else {
-						sb.Dot();
+						sb.Append(Dot);
 					}
 					sb.Append(item);
 				}
@@ -199,53 +184,80 @@ namespace Albatross.SemVer {
 				throw new ArgumentNullException();
 			}
 		}
+
+		static void ParseVersion(string text, out int major, out int minor, out int patch) {
+			string[] list = text.Split(Dot);
+			if (list.Length != 3) {
+				throw new FormatException();
+			}
+			foreach (string item in list) {
+				if (!NonLeadingZeroNumericRegex.IsMatch(item)) {
+					throw new LeadingZeroException();
+				}
+			}
+			major = int.Parse(list[0]);
+			minor = int.Parse(list[1]);
+			patch = int.Parse(list[2]);
+		}
+
 		public SematicVersion NextRelease(ReleaseType type) {
 			if (!IsRelease) {
-				PreRelease = new string[0];
 				if (Major == 0) {
-					Major = 1;
-					Minor = 0;
-					Patch = 0;
+					return this with {
+						Major = 1,
+						Minor = 0,
+						Patch = 0,
+						PreRelease = new string[0]
+					};
+				} else {
+					return this with {
+						PreRelease = new string[0]
+					};
 				}
 			} else if (type == ReleaseType.Major) {
-				Major++;
-				Minor = 0;
-				Patch = 0;
+				return this with {
+					Major = Major + 1,
+					Minor = 0,
+					Patch = 0,
+					PreRelease = new string[0]
+				};
 			} else if (type == ReleaseType.Minor) {
-				Minor++;
-				Patch = 0;
+				return this with {
+					Minor = Minor + 1,
+					Patch = 0,
+				};
 			} else {
-				Patch++;
+				return this with {
+					Patch = Patch + 1
+				};
 			}
-			Validate();
-			return this;
 		}
-		public SematicVersion NextPrerelease(string label) {
-			if (string.IsNullOrEmpty(label)) { label = "0"; }
-			var newVersion = new SematicVersion {
-				Major = Major,
-				Minor = Minor,
-				Patch = HasPreRelease ? Patch : Patch + 1,
-				PreRelease = new string[] { label },
-			};
-			if (newVersion.CompareTo(this) > 0) {
-				Patch = newVersion.Patch;
-				PreRelease = new string[] { label, };
-			} else {
-				List<string> list = new List<string>();
-				if (PreRelease != null) { list.AddRange(PreRelease); }
-				NextPrerelease(list);
-				PreRelease = list;
-			}
-			Validate();
-			return this;
-		}
-		private void NextPrerelease(List<string> list) {
+
+		private static void NextPrerelease(List<string> list) {
 			if (int.TryParse(list.LastOrDefault(), out int numeric)) {
 				numeric++;
 				list[list.Count - 1] = Convert.ToString(numeric);
 			} else {
 				list.Add(Convert.ToString(numeric));
+			}
+		}
+
+		public SematicVersion NextPrerelease(string? label) {
+			if (string.IsNullOrEmpty(label)) { label = "0"; }
+			var newVersion = this with {
+				Major = Major,
+				Minor = Minor,
+				Patch = HasPreRelease ? Patch : Patch + 1,
+				PreRelease = [label],
+			};
+			if (newVersion.CompareTo(this) > 0) {
+				return newVersion;
+			} else {
+				var list = new List<string>(PreRelease);
+				NextPrerelease(list);
+				return this with {
+					PreRelease = list
+				};
 			}
 		}
 	}

@@ -40,7 +40,6 @@ namespace Albatross.SemVer.UnitTest {
 
 		[Theory]
 		//some edge cases
-		[InlineData(null)]
 		[InlineData("")]
 		[InlineData("   ")]
 		[InlineData("+-")]
