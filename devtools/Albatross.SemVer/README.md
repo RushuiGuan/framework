@@ -1,2 +1,7 @@
 # Albatross.SemVer
-Supports parsing and operations of Major, Minor, Patch, Prerelease and Metadata according to semver2.0 spec
+Semantic 2.0 Version Parsing and Operation Implementation using DotNet
+
+## Features
+* Supports parsing of version string with prerelease and metadata
+* Supports comparison of two semver versions
+* Supports incrementing of Major, Minor, Patch and Prerelease versions

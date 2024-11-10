@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<OutputType>Library</OutputType>
 		<Nullable>enable</Nullable>
-		<Description>Supports parsing and operations of Major, Minor, Patch, Prerelease and Metadata according to semver2.0 spec.</Description>
+		<Description>Semantic 2.0 Version Parsing and Operation Implementation using DotNet</Description>
 		<PackageTags>semver semantic version</PackageTags>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/devtools/Albatross.SemVer</PackageProjectUrl>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<None Include="..\..\icon.png">
 			<Pack>True</Pack>

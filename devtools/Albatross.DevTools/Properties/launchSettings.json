@@ -2,8 +2,8 @@
   "profiles": {
     "Albatross.DevTools": {
       "commandName": "Project",
-      "commandLineArgs": "fix-markdown-relative-urls --markdown-file .\\commandline\\Albatross.CommandLine\\README.md --root-folder . --root-url https://github.com/RushuiGuan/framework/blob/main/README.md",
-      "workingDirectory": "c:\\app\\framework"
+      "commandLineArgs": "project-version -d .",
+      "workingDirectory": "c:\\app\\framework\\devtools"
     }
   }
 }

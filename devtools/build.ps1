@@ -21,7 +21,7 @@ if(-not $skip) {
 
 	foreach($project in $projects){
 		"Building $project";
-		dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c debug
+		dotnet publish $PSScriptRoot\$project\$project.csproj -o $install\$project -c release
 	}
 }
 

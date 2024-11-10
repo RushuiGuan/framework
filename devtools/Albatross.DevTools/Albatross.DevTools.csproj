@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
@@ -9,21 +10,25 @@
 		<PackageProjectUrl>$(RepositoryProjectRoot)/devtools/Albatross.DevTools</PackageProjectUrl>
 		<Description>A command line program that contains utilities that help with dotnet development process</Description>
 	</PropertyGroup>
-
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath></PackagePath>
 		</None>
 		<None Include="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
-
 	<ItemGroup>
-	  <PackageReference Include="Albatross.CommandLine" Version="7.5.6" />
-	  <PackageReference Include="LibGit2Sharp" Version="0.30.0" />
+		<PackageReference Include="Albatross.CommandLine" Version="7.5.6" />
+		<PackageReference Include="LibGit2Sharp" Version="0.30.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Albatross.SemVer\Albatross.SemVer.csproj" />
 	</ItemGroup>
 </Project>
