@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Test", "Albatross.Hosting.Test\Albatross.Hosting.Test.csproj", "{5B27F605-F5D0-482B-A3CF-DE43B325348F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Test", "Sample.Test\Sample.Test.csproj", "{B8D474FF-DD71-447F-B868-40E32A941C47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{833BA74B-8791-4A2B-9859-D11A9943CB6A}"
@@ -33,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B27F605-F5D0-482B-A3CF-DE43B325348F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B27F605-F5D0-482B-A3CF-DE43B325348F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B27F605-F5D0-482B-A3CF-DE43B325348F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B27F605-F5D0-482B-A3CF-DE43B325348F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8D474FF-DD71-447F-B868-40E32A941C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8D474FF-DD71-447F-B868-40E32A941C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D474FF-DD71-447F-B868-40E32A941C47}.Release|Any CPU.ActiveCfg = Release|Any CPU

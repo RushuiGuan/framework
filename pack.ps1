@@ -1,6 +1,6 @@
 param(
 	[parameter(Mandatory=$true)]
-	[string]
+	[System.IO.DirectoryInfo]
 	$directory,
 	[switch]
 	[bool]$skipTest,
@@ -15,12 +15,12 @@ $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
 Set-StrictMode -Version Latest;
 
-$root = "$PSScriptRoot\$directory";
+$root = Resolve-Path -Path $directory;
 
 if(-not [System.IO.Directory]::Exists($root)){
 	Write-Error "Directory $root does not exist"
 }else{
-	Write-Information "Working directory: $root"
+	Write-Information "Project directory: $root"
 }
 
 if(-not [System.IO.File]::Exists("$root\.projects")){
@@ -28,7 +28,10 @@ if(-not [System.IO.File]::Exists("$root\.projects")){
 }
 
 $testProjects = devtools project-list -f "$root\.projects" -h tests
+Write-Information "Test projects: $($testProjects -join ', ')"
+
 $projects = devtools project-list -f "$root\.projects" -h packages
+Write-Information "Projects: $($projects -join ', ')"
 
 if (-not $skipTest) {
 	# run the test projects
@@ -69,7 +72,7 @@ try {
 	Write-Information "Version: $version";
 	devtools set-project-version -d $root -ver $version
 	
-	$repositoryProjectRoot = devtools read-project-property -f .\Directory.Build.props -p RepositoryProjectRoot
+	$repositoryProjectRoot = devtools read-project-property -f $PSScriptRoot\Directory.Build.props -p RepositoryProjectRoot
 	if($LASTEXITCODE -ne 0){
 		Write-Error "Unable to read RepositoryProjectRoot from the Directory.Build.props file";
 	} else {
@@ -93,8 +96,8 @@ try {
 				Write-Error "Build failed for $project"
 			}
 		}finally{
-			# Copy-Item $tmp $readme -Force
-			# Remove-Item $tmp -Force
+			Copy-Item $tmp $readme -Force
+			Remove-Item $tmp -Force
 		}
 	}
 	if(-not [string]::IsNullOrEmpty($env:LocalNugetSource)){
