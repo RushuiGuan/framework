@@ -31,17 +31,22 @@ namespace Albatross.DevTools {
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {
 			var versionText = GetVersionFromFile();
-			if (options.Prod) {
-				this.writer.WriteLine(new SematicVersion(versionText).ToString());
-				return Task.FromResult(0);
-			} else {
-				var gitDirectory = Repository.Discover(options.Directory.FullName);
-				if (gitDirectory != null) {
-					using var repo = new Repository(gitDirectory);
-					var branch = repo.Head.FriendlyName;
-					var commitCount = repo.Commits.Count();
-					var hash = repo.Head.Tip.Sha.Substring(0, 7);
-					var semver = new SematicVersion(versionText) {
+
+			var gitDirectory = Repository.Discover(options.Directory.FullName);
+			if (gitDirectory != null) {
+				using var repo = new Repository(gitDirectory);
+				var branch = repo.Head.FriendlyName;
+				var commitCount = repo.Commits.Count();
+				var hash = repo.Head.Tip.Sha.Substring(0, 7);
+				SematicVersion semver;
+				if (options.Prod) {
+					semver = new SematicVersion(versionText) {
+						Metadata = [
+							hash
+						]
+					};
+				} else {
+					semver = new SematicVersion(versionText) {
 						PreRelease = [
 							$"{commitCount}",
 							branch,
@@ -50,12 +55,12 @@ namespace Albatross.DevTools {
 							hash
 						]
 					};
-					this.writer.WriteLine(semver.ToString());
-					return Task.FromResult(0);
-				} else {
-					logger.LogError("git directory not found");
-					return Task.FromResult(1);
 				}
+				this.writer.WriteLine(semver.ToString());
+				return Task.FromResult(0);
+			} else {
+				logger.LogError("git directory not found");
+				return Task.FromResult(1);
 			}
 		}
 	}
