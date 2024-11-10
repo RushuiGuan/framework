@@ -7,8 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config", "Albatro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B668184F-4F3F-4C01-A410-F832D27FD374}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		pack.ps1 = pack.ps1
+		.projects = .projects
+		7.5.7 = 7.5.7
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config.UnitTest", "Albatross.Config.UnitTest\Albatross.Config.UnitTest.csproj", "{7408BA75-1F9A-4333-A349-A94E99DCB9CF}"
