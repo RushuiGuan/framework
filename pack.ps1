@@ -72,6 +72,8 @@ try {
 	$repositoryProjectRoot = devtools read-project-property -f .\Directory.Build.props -p RepositoryProjectRoot
 	if($LASTEXITCODE -ne 0){
 		Write-Error "Unable to read RepositoryProjectRoot from the Directory.Build.props file";
+	} else {
+		$repositoryProjectRoot = $repositoryProjectRoot + "/README.md";
 	}
 	foreach($project in $projects){
 		# first fix the README.md file
