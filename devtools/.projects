@@ -1,0 +1,7 @@
+# Tests
+Albatross.DevTools.UnitTest
+Albatross.SemVer.UnitTest
+
+# Packages
+Albatross.DevTools
+Albatross.SemVer

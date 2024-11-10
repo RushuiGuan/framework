@@ -1,105 +1,106 @@
 param(
-	[Parameter(Position=0)]
-	[string]$project,
+	[parameter(Mandatory=$true)]
+	[string]
+	$directory,
+	[switch]
+	[bool]$skipTest,
 	[switch]
 	[bool]$prod,
 	[switch]
-	[bool]$nopush,
-	[switch]
 	[bool]$force,
 	[switch]
-	[bool]$noclean,
-	[switch]
-	[bool]$norevertchanges
+	[bool]$push
 )
-Set-StrictMode -Version Latest;
 $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
-. $PSScriptRoot\scripts\pack.ps1;
+Set-StrictMode -Version Latest;
 
-$projects = @(
-	"authentication\Albatross.Authentication",
-	"authentication\Albatross.Authentication.AspNetCore",
-	"authentication\Albatross.Authentication.Windows",
+$root = "$PSScriptRoot\$directory";
 
-	"caching\Albatross.Caching",
-	"caching\Albatross.Caching.Controllers",
-	"caching\Albatross.Caching.MemCache",
-	"caching\Albatross.Caching.Redis",
-	"caching\Albatross.EFCore.AutoCacheEviction",
-
-	"codeanalysis\Albatross.CodeAnalysis",
-	"codeanalysis\Albatross.CodeAnalysis.MSBuild",
-
-	"codegen\Albatross.CodeGen",
-	"codegen\Albatross.CodeGen.CSharp",
-	"codegen\Albatross.CodeGen.TypeScript",
-	"codegen\Albatross.CodeGen.WebClient",
-
-	"collections\Albatross.Collections",
-	
-	"commandline\Albatross.CommandLine",
-	"commandline\Albatross.Hosting.Utility",
-	
-	"config\Albatross.Config",
-	"dates\Albatross.Dates",
-	"datelevel\Albatross.DateLevel",
-	
-	"efcore\Albatross.EFCore",
-	"efcore\Albatross.EFCore.Audit",
-	"efcore\Albatross.EFCore.ChangeReporting",
-	"efcore\Albatross.EFCore.PostgreSQL",
-	"efcore\Albatross.EFCore.SqlServer",
-	
-	"excel\Albatross.Excel",
-	"excel\Albatross.Hosting.Excel",
-	
-	"hosting\Albatross.Hosting",
-	
-	"testing\Albatross.Testing",
-	"testing\Albatross.Testing.EFCore",
-	"testing\Albatross.Reqnroll",
-	"testing\Albatross.ReqnrollPlugin",
-
-	"io\Albatross.IO",
-	
-	"logging\Albatross.Logging",
-	"math\Albatross.Math",
-	"messaging\Albatross.Messaging",
-	"reflection\Albatross.Reflection",
-	"serialization\Albatross.Serialization",
-	"text\Albatross.Text",
-	"threading\Albatross.Threading",
-	"webclient\Albatross.WebClient"
-);
-$codeGenProjects = @(
-	"commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj",
-	"messaging\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj",
-	"efcore\Albatross.EFCore.CodeGen\Albatross.EFCore.CodeGen.csproj"
-);
-
-$utilityProjects  = @(
-	"codegen\Albatross.CodeGen.CommandLine\Albatross.CodeGen.CommandLine.csproj",
-	"devtools\Albatross.DevTools\Albatross.DevTools.csproj"
-);
-
-if(-not [string]::IsNullOrEmpty($project)){
-	$projects = $projects | Where-Object { $_ -like "$project*" }
-	$codeGenProjects = $codeGenProjects | Where-Object { $_ -like "$project*" }
-	$utilityProjects = $utilityProjects | Where-Object { $_ -like "$project*" }
+if(-not [System.IO.Directory]::Exists($root)){
+	Write-Error "Directory $root does not exist"
+}else{
+	Write-Information "Working directory: $root"
 }
 
-$nugetSource = $env:DefaultNugetSource;
-if($nopush){
-	$nugetSource = $null;
+if(-not [System.IO.File]::Exists("$root\.projects")){
+	Write-Error ".projects file not found"
 }
 
-Run-Pack -projects $projects `
-	-codeGenProjects $codeGenProjects `
-	-utilityProjects $utilityProjects `
-	-directory $PSScriptRoot `
-	-nugetSource $nugetSource `
-	-prod:$prod `
-	-force:$force `
-	-noclean:$noclean `
-	-norevertchanges:$norevertchanges
+$testProjects = devtools project-list -f "$root\.projects" -h tests
+$projects = devtools project-list -f "$root\.projects" -h packages
+
+if (-not $skipTest) {
+	# run the test projects
+	foreach($item in $testProjects){
+		"Testing $item";
+		dotnet test $root\$item\$item.csproj -c release
+		if($LASTEXITCODE -ne 0){
+			Write-Error "Test failed for $item"
+		}
+	}
+}
+
+if($projects.Length -eq 0){
+	Write-Information "Nothing to do";
+	return;	
+}
+
+# if $prod is true and $force is false, do not proceed if the directory is dirty
+if($prod -and -not $force){
+	devtools is-dirty -d $root
+	if($LASTEXITCODE -ne 0){
+		Write-Error "Directory is dirty. Please commit or stash changes before proceeding"
+	}
+}
+
+$version = devtools project-version -d $root -p="$prod"
+if($LASTEXITCODE -ne 0){
+	Write-Error "Unable to get project version"
+}
+try {
+	# first clean up the artifacts folder
+	Write-Information "Cleaning up artifacts folder: $root\artifacts";
+	Get-ChildItem $root\artifacts\*.nupkg | Remove-Item -Force
+
+	Write-Information "Version: $version";
+	devtools set-project-version -d $root -ver $version
+	
+	$repositoryProjectRoot = devtools read-project-property -f .\Directory.Build.props -p RepositoryProjectRoot
+	if($LASTEXITCODE -ne 0){
+		Write-Error "Unable to read RepositoryProjectRoot from the Directory.Build.props file";
+	}
+	foreach($project in $projects){
+		# first fix the README.md file
+		$readme = "$root\$project\README.md";
+		$tmp = [System.IO.Path]::GetTempFileName()
+		Copy-Item $readme $tmp -Force
+		try {
+			if ([System.IO.File]::Exists($readme)) {
+				devtools fix-markdown-relative-urls --markdown-file $readme --root-folder $PSScriptRoot --root-url $repositoryProjectRoot
+				if($LASTEXITCODE -ne 0){
+					Write-Error "Unable to fix the README.md file for $project"
+				}
+			}
+			"Building $project";
+			dotnet pack $root\$project\$project.csproj -c release -o $root\artifacts
+			if($LASTEXITCODE -ne 0){
+				Write-Error "Build failed for $project"
+			}
+		}finally{
+			Copy-Item $tmp $readme -Force
+			Remove-Item $tmp -Force
+		}
+	}
+	if(-not [string]::IsNullOrEmpty($env:LocalNugetSource)){
+		nuget push $root\artifacts\*.nupkg -Source $env:LocalNugetSource
+	}
+	if($push){
+		nuget push $root\artifacts\*.nupkg -Source staging -ApiKey az;
+	}
+} finally {
+	devtools remove-project-version -d $root
+	Get-ChildItem $root\*.csproj -recurse | ForEach-Object { 
+		devtools format-xml -f $_.FullName
+	}
+}
