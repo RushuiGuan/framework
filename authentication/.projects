@@ -1,0 +1,7 @@
+# Tests
+Albatross.Authentication.UnitTest
+
+#Packages
+Albatross.Authentication
+Albatross.Authentication.AspNetCore
+Albatross.Authentication.Windows

@@ -171,7 +171,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		Directory.Build.props = Directory.Build.props
 		pack.ps1 = pack.ps1
 		README.md = README.md
-		pack_old.ps1 = pack_old.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{2E80905E-7575-46C4-B86D-3AAE0B2C50B3}"

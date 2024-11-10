@@ -61,8 +61,11 @@ if($LASTEXITCODE -ne 0){
 try {
 	# first clean up the artifacts folder
 	Write-Information "Cleaning up artifacts folder: $root\artifacts";
-	Get-ChildItem $root\artifacts\*.nupkg | Remove-Item -Force
-
+	if(-not [System.IO.Directory]::Exists("$root\artifacts")){
+		New-Item -ItemType Directory -Path "$root\artifacts"
+	} else {
+		Get-ChildItem $root\artifacts\*.nupkg | Remove-Item -Force
+	}
 	Write-Information "Version: $version";
 	devtools set-project-version -d $root -ver $version
 	
@@ -88,8 +91,8 @@ try {
 				Write-Error "Build failed for $project"
 			}
 		}finally{
-			Copy-Item $tmp $readme -Force
-			Remove-Item $tmp -Force
+			# Copy-Item $tmp $readme -Force
+			# Remove-Item $tmp -Force
 		}
 	}
 	if(-not [string]::IsNullOrEmpty($env:LocalNugetSource)){
