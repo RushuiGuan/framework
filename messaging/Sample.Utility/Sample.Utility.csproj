@@ -6,26 +6,7 @@
 		<AssemblyName>sample</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="EfficiencyTestCases\**" />
-	  <Content Remove="EfficiencyTestCases\**" />
-	  <EmbeddedResource Remove="EfficiencyTestCases\**" />
-	  <None Remove="EfficiencyTestCases\**" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Properties\" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
-			<PrivateAssets>all</PrivateAssets>
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Analyzer</OutputItemType>
-		</ProjectReference>
-		<ProjectReference Include="..\..\commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj">
-			<PrivateAssets>all</PrivateAssets>
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Analyzer</OutputItemType>
-		</ProjectReference>
-		<ProjectReference Include="..\..\commandline\Albatross.CommandLine\Albatross.CommandLine.csproj" />
+		<PackageReference Include="Albatross.CommandLine" Version="7.5.7" />
 		<ProjectReference Include="..\Sample.Core\Sample.Core.csproj" />
 		<ProjectReference Include="..\Sample.Proxy\Sample.Proxy.csproj" />
 	</ItemGroup>

@@ -1,0 +1,7 @@
+# Packages
+Albatross.Messaging
+Albatross.Messaging.CodeGen
+Albatross.Messaging.Utility
+
+#Testing
+Albatross.Messaging.Test

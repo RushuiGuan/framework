@@ -7,7 +7,7 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\hosting\Albatross.Hosting\Albatross.Hosting.csproj" />
+		<PackageReference Include="Albatross.Hosting" Version="7.5.7" />
 		<ProjectReference Include="..\Sample\Sample.csproj" />
 	</ItemGroup>
 
