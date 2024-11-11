@@ -22,6 +22,22 @@
 		<None Include="$(PkgAlbatross_CodeAnalysis)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 	</ItemGroup>
 	<!-- end -->
+	
+	<!-- begin: this setup is used for project reference only.  It would be removed when packing -->
+	<PropertyGroup>
+		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+	</PropertyGroup>
+	<Target Name="GetDependencyTargetPaths">
+		<ItemGroup>
+			<TargetPathWithTargetPlatformMoniker Include="$(PKGAlbatross_CodeAnalysis)\lib\netstandard2.0\Albatross.CodeAnalysis.dll" IncludeRuntimeDependency="false" />
+			<TargetPathWithTargetPlatformMoniker Include="$(PKGHumanizer_Core)\lib\netstandard2.0\Humanizer.dll" IncludeRuntimeDependency="false" />
+		</ItemGroup>
+	</Target>
+	<ItemGroup>
+		<None Remove="bin\Debug\netstandard2.0\\Albatross.CommandLine.CodeGen.dll" />
+	</ItemGroup>
+	<!-- end -->
+	
 	<ItemGroup>
 		<None Include="..\..\icon.png">
 			<Pack>True</Pack>
