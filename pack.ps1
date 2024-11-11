@@ -55,7 +55,7 @@ if ($projects.Length -eq 0) {
 $isDirty = $false;
 devtools is-dirty -d $root
 if ($LASTEXITCODE -ne 0) {
-	$isDirty = true;
+	$isDirty = $true;
 }
 
 # if $prod is true and $force is false, do not proceed if the directory is dirty
