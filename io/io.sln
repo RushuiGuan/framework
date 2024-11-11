@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CD46C42-AD83-4239-87BA-BD0875D560B2}"
+	ProjectSection(SolutionItems) = preProject
+		.projects = .projects
+		.version = .version
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.IO", "Albatross.IO\Albatross.IO.csproj", "{DDA25F8A-7031-41EA-8FCF-C61467F1BBFB}"
 EndProject
