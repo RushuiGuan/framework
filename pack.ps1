@@ -121,6 +121,15 @@ try {
 		$tagText = "$directoryName-$version";
 		Write-Information "Tagging $tagText";
 		git tag $tagText;
+		if($prod){
+			#if it is a prod build and tagged, bump the version to the next patch
+			$version = devtools build-version -ver $version --next-patch -clear-pre -clear-meta
+			if ($LASTEXITCODE -ne 0) {
+				Write-Error "Error bumping version";
+			}
+			Set-Content -Path $root\.version -Value $version;
+			git commit -m "Bump version of $directoryName to $version" $root\.version;
+		}
 	}
 	if (-not [string]::IsNullOrEmpty($env:LocalNugetSource)) {
 		nuget push $root\artifacts\*.nupkg -Source $env:LocalNugetSource
