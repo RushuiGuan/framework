@@ -114,7 +114,10 @@ try {
 	}
 	if ($tag -and $projects.Length -ne 0) {
 		$directoryName = Split-Path $root -Leaf
-		$version = devtools build-version -clear-meta
+		$version = devtools build-version -ver $version -clear-meta
+		if ($LASTEXITCODE -ne 0) {
+			Write-Error "Error removing meta from version";
+		}
 		$tagText = "$directoryName-$version";
 		Write-Information "Tagging $tagText";
 		git tag $tagText;
