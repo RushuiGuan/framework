@@ -1,26 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-	  <TargetFramework>net8.0</TargetFramework>
-	  <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Embedded\**" />
-    <Compile Remove="Validation\**" />
-    <EmbeddedResource Remove="Embedded\**" />
-    <EmbeddedResource Remove="Validation\**" />
-    <None Remove="Embedded\**" />
-    <None Remove="Validation\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-    <PackageReference Include="xunit" Version="2.9.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Albatross.Math\Albatross.Math.csproj" />
-  </ItemGroup>
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="Embedded\**" />
+		<Compile Remove="Validation\**" />
+		<EmbeddedResource Remove="Embedded\**" />
+		<EmbeddedResource Remove="Validation\**" />
+		<None Remove="Embedded\**" />
+		<None Remove="Validation\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+		<PackageReference Include="xunit" Version="2.9.2" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Albatross.Math\Albatross.Math.csproj" />
+	</ItemGroup>
 </Project>
