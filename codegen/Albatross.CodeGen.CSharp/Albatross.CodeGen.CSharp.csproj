@@ -1,19 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\..\collections\Albatross.Collections\Albatross.Collections.csproj" />
 		<ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath></PackagePath>
 		</None>
 		<None Include="README.md">
 			<Pack>True</Pack>
