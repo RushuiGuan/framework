@@ -5,8 +5,8 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CD46C42-AD83-4239-87BA-BD0875D560B2}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		pack.ps1 = pack.ps1
+		.projects = .projects
+		.version = .version
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Math", "Albatross.Math\Albatross.Math.csproj", "{BA787969-FF07-43FB-8B58-256C40DE4854}"
