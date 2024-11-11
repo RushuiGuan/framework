@@ -11,8 +11,8 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
-		<ProjectReference Include="..\..\logging\Albatross.Logging\Albatross.Logging.csproj" />
+		<PackageReference Include="Albatross.Config" Version="7.5.7" />
+		<PackageReference Include="Albatross.Logging" Version="7.5.7" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 		<PackageReference Include="Reqnroll" Version="2.1.1" />
@@ -20,17 +20,17 @@
 
 
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath>\</PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
 		<None Include="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
-
 </Project>

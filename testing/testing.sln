@@ -5,18 +5,6 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Test", "Sample.Test\Sample.Test.csproj", "{B8D474FF-DD71-447F-B868-40E32A941C47}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{833BA74B-8791-4A2B-9859-D11A9943CB6A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config", "..\config\Albatross.Config\Albatross.Config.csproj", "{74A4741E-7B19-4A65-95AF-B22B715A0ACA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Authentication", "..\authentication\Albatross.Authentication\Albatross.Authentication.csproj", "{0D71DA07-9A94-4FA5-AB7A-EE926A700710}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.SqlServer", "..\efcore\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj", "{2878B4BF-45FC-40B4-B5DB-4AAEE6B7F1EA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Logging", "..\logging\Albatross.Logging\Albatross.Logging.csproj", "{7B788D95-DA9E-468B-AF51-87BD02E066A8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Reflection", "..\reflection\Albatross.Reflection\Albatross.Reflection.csproj", "{F65F8BEB-8F6C-41BC-BEA6-D374F8694DC3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Reqnroll", "Sample.Reqnroll\Sample.Reqnroll.csproj", "{CD897776-51E8-45F6-82DB-ADCAF1C452A5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.ReqnrollPlugin", "Albatross.ReqnrollPlugin\Albatross.ReqnrollPlugin.csproj", "{753390CE-3A93-4860-9A46-8C22689A9D43}"
@@ -24,6 +12,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Testing", "Albatross.Testing\Albatross.Testing.csproj", "{3FF7E334-BC80-42EA-83E9-EFB59F845923}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Reqnroll", "Albatross.Reqnroll\Albatross.Reqnroll.csproj", "{95A3FEA3-6D74-446D-A602-5A13E6989852}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F85F679E-8B1B-4DE9-853D-2F7D52D3C879}"
+	ProjectSection(SolutionItems) = preProject
+		.projects = .projects
+		.version = .version
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,26 +29,6 @@ Global
 		{B8D474FF-DD71-447F-B868-40E32A941C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D474FF-DD71-447F-B868-40E32A941C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8D474FF-DD71-447F-B868-40E32A941C47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74A4741E-7B19-4A65-95AF-B22B715A0ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74A4741E-7B19-4A65-95AF-B22B715A0ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74A4741E-7B19-4A65-95AF-B22B715A0ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74A4741E-7B19-4A65-95AF-B22B715A0ACA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D71DA07-9A94-4FA5-AB7A-EE926A700710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D71DA07-9A94-4FA5-AB7A-EE926A700710}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D71DA07-9A94-4FA5-AB7A-EE926A700710}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D71DA07-9A94-4FA5-AB7A-EE926A700710}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2878B4BF-45FC-40B4-B5DB-4AAEE6B7F1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2878B4BF-45FC-40B4-B5DB-4AAEE6B7F1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2878B4BF-45FC-40B4-B5DB-4AAEE6B7F1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2878B4BF-45FC-40B4-B5DB-4AAEE6B7F1EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B788D95-DA9E-468B-AF51-87BD02E066A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B788D95-DA9E-468B-AF51-87BD02E066A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B788D95-DA9E-468B-AF51-87BD02E066A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B788D95-DA9E-468B-AF51-87BD02E066A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F65F8BEB-8F6C-41BC-BEA6-D374F8694DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F65F8BEB-8F6C-41BC-BEA6-D374F8694DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F65F8BEB-8F6C-41BC-BEA6-D374F8694DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F65F8BEB-8F6C-41BC-BEA6-D374F8694DC3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD897776-51E8-45F6-82DB-ADCAF1C452A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD897776-51E8-45F6-82DB-ADCAF1C452A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD897776-51E8-45F6-82DB-ADCAF1C452A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -74,13 +48,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{74A4741E-7B19-4A65-95AF-B22B715A0ACA} = {833BA74B-8791-4A2B-9859-D11A9943CB6A}
-		{0D71DA07-9A94-4FA5-AB7A-EE926A700710} = {833BA74B-8791-4A2B-9859-D11A9943CB6A}
-		{2878B4BF-45FC-40B4-B5DB-4AAEE6B7F1EA} = {833BA74B-8791-4A2B-9859-D11A9943CB6A}
-		{7B788D95-DA9E-468B-AF51-87BD02E066A8} = {833BA74B-8791-4A2B-9859-D11A9943CB6A}
-		{F65F8BEB-8F6C-41BC-BEA6-D374F8694DC3} = {833BA74B-8791-4A2B-9859-D11A9943CB6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C568CCEE-15A7-4F8C-B4A0-C3B2B7AC3F8A}
