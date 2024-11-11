@@ -11,21 +11,20 @@
 	<ItemGroup>
 		<EmbeddedResource Include="TestCases\data.json" />
 	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+	
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Albatross.Testing.EFCore" Version="7.5.7" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\testing\Albatross.Testing.EFCore\Albatross.Testing.EFCore.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.PostgreSQL\Albatross.EFCore.PostgreSQL.csproj" />
