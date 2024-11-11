@@ -25,7 +25,7 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |[messaging](./messaging/Albatross.Messaging)|Durable messaging library with ZeroMQ||
 |[reflection](./reflection/Albatross.Reflection/)|A utility library that provides functionality related to .Net reflection.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Reflection)](https://www.nuget.org/packages/Albatross.Reflection)|
 |[serialization](./serialization/Albatross.Serialization/)|Provides additional functionalities for serialization using System.Text.Json|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Serialization)](https://www.nuget.org/packages/Albatross.Serialization)|
-|[reqnroll](./testing/Albatross.ReqnrollPlugin//)|A Reqnroll plugin library preconfigured with configuration, logging and dependency injection.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.ReqnrollPlugin)](https://www.nuget.org/packages/Albatross.ReqnrollPlugin)|
+|[reqnroll plugin](./testing/Albatross.ReqnrollPlugin//)|A Reqnroll plugin library preconfigured with configuration, logging and dependency injection.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.ReqnrollPlugin)](https://www.nuget.org/packages/Albatross.ReqnrollPlugin)|
 |[text](./text/Albatross.Text/)|A string manipulation library|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Text)](https://www.nuget.org/packages/Albatross.Text)|
 |threading|||
 |[webclient](./webclient/Albatross.WebClient/)|Extends the functionality of .net HttpClient class||
