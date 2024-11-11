@@ -12,6 +12,7 @@ An integration library that provdes dependency injection, configuration and logg
 * [Global options](#global-options)
 * [Command Options](../docs/command-options.md)
 * [Error Handling](#error-handling)
+* [Customizations](#customization)
 
 ## Quick Start ([Sample Program](../Sample.CommandLine/))
 * Create a .net8 Console program
@@ -125,3 +126,13 @@ public record class GlobalOptions {
 * An error code of 9999 will be returned if there is an issue constructing the command handler instance.  It could happen when the dependency is not property configured.  
 * An error code of 9998 will be returned if the command handler is not registered.  This could happen if the `CodeGenExtensions.RegisterCommands()` method is not used.
 * If none of the defined commands shows up, `CodeGenExtensions.AddCommands()` method is not invoked.
+
+## Customization
+[Setup](./Setup.cs) has a few methods that can be overwritten to change the behavior of the program
+* Override the `RegisterServices` method to setup dependency injections
+* Override the `RootCommandDescription` property to create a custom description for the root command.
+* Override the `ConfigureBuilder` method to customize `System.CommandLine` to the desired behavior.
+* Override the `CreateRootCommand` method to change the global options
+* Override the `CreateGlobalCommandHandler` method to use your own global command handler.
+	* Albatross.CommandLine uses an instance of [GlobalCommandHandler](./GlobalCommandHandler.cs) for all commands.  Its job is to invoke the specific sub command handler,  error handling and implementation of global options.  The `GlobalCommandHandler` class bypasses the error handling mechanism of `System.CommandLine` library.
+	* `CreateGlobalCommandHandler` method can be overwritten to so that a different global handler can be used.

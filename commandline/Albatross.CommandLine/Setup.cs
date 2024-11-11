@@ -40,7 +40,7 @@ namespace Albatross.CommandLine {
 					builder.AddConfiguration(configuration);
 				}).ConfigureServices((context, svc) => RegisterServices(context.GetInvocationContext(), context.Configuration, environment, svc));
 			});
-			this.CommandBuilder.UseDefaults();
+			this.ConfigureBuilder();
 		}
 
 		public virtual CommandLineBuilder ConfigureBuilder() {
