@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<Nullable>enable</Nullable>
 		<IsPackable>true</IsPackable>
 		<TestProject>false</TestProject>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="AutoFixture" Version="4.18.1" />
 		<PackageReference Include="FluentAssertions" Version="6.12.1" />
@@ -15,7 +15,6 @@
 		<PackageReference Include="Moq" Version="4.20.72" />
 		<PackageReference Include="xunit" Version="2.9.2" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Include="..\..\icon.png">
 			<Pack>True</Pack>

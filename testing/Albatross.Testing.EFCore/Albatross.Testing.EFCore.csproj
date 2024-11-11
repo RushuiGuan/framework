@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -7,16 +8,14 @@
 		<TestProject>false</TestProject>
 	</PropertyGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\efcore\Albatross.EFCore\Albatross.EFCore.csproj" />
-	  <ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
-	  <ProjectReference Include="..\Albatross.Testing\Albatross.Testing.csproj" />
+		<ProjectReference Include="..\..\efcore\Albatross.EFCore\Albatross.EFCore.csproj" />
+		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
+		<ProjectReference Include="..\Albatross.Testing\Albatross.Testing.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath></PackagePath>
 		</None>
 		<None Include="README.md">
 			<Pack>True</Pack>

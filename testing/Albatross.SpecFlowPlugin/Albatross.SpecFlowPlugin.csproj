@@ -1,16 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
-
 		<Description>A Specflow plugin that can be used to easily create a SpecFlow test assembly preconfigured with configuration, logging and dependency injection</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/testing/Albatross.SpecFlowPlugin</PackageProjectUrl>
 	</PropertyGroup>
-
-	
-
 	<ItemGroup>
 		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
 		<ProjectReference Include="..\..\logging\Albatross.Logging\Albatross.Logging.csproj" />
@@ -18,17 +14,14 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 		<PackageReference Include="SpecFlow" Version="3.9.74" />
 	</ItemGroup>
-
-
 	<ItemGroup>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-	  <None Include="README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
-
 </Project>

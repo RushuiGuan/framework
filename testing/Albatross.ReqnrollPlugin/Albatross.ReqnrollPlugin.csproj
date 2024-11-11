@@ -1,5 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Nullable>enable</Nullable>
@@ -7,9 +7,6 @@
 		<Description>A Reqnroll plugin that can be used to easily create a Reqnroll test assembly preconfigured with configuration, logging and dependency injection</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/testing/Albatross.ReqnrollPlugin</PackageProjectUrl>
 	</PropertyGroup>
-
-
-
 	<ItemGroup>
 		<PackageReference Include="Albatross.Config" Version="7.5.7" />
 		<PackageReference Include="Albatross.Logging" Version="7.5.7" />
@@ -17,8 +14,6 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 		<PackageReference Include="Reqnroll" Version="2.1.1" />
 	</ItemGroup>
-
-
 	<ItemGroup>
 		<None Include="..\..\icon.png">
 			<Pack>True</Pack>
