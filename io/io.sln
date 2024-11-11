@@ -4,26 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CD46C42-AD83-4239-87BA-BD0875D560B2}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		pack.ps1 = pack.ps1
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.IO", "Albatross.IO\Albatross.IO.csproj", "{DDA25F8A-7031-41EA-8FCF-C61467F1BBFB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.IO.Test", "Albatross.IO.Test\Albatross.IO.Test.csproj", "{07BF2F0E-D189-4996-9809-D059458DD11B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{65EE88B7-531F-4991-A5F2-24B2857A8669}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Collections", "..\collections\Albatross.Collections\Albatross.Collections.csproj", "{D14E6E4D-637F-4E19-9C46-57B6D806C748}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config", "..\config\Albatross.Config\Albatross.Config.csproj", "{AD224093-B4D5-4F26-827E-074B7B19FE79}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Logging", "..\logging\Albatross.Logging\Albatross.Logging.csproj", "{9AD1FB11-9120-437A-9315-7BEEFA3D4A71}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Test", "..\testing\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj", "{CEE3578B-7489-4506-B21C-9D684D608CCE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Text", "..\text\Albatross.Text\Albatross.Text.csproj", "{EF5D7C70-7C65-4FF7-9037-A25EEB2C2885}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,36 +23,9 @@ Global
 		{07BF2F0E-D189-4996-9809-D059458DD11B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07BF2F0E-D189-4996-9809-D059458DD11B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07BF2F0E-D189-4996-9809-D059458DD11B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D14E6E4D-637F-4E19-9C46-57B6D806C748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D14E6E4D-637F-4E19-9C46-57B6D806C748}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D14E6E4D-637F-4E19-9C46-57B6D806C748}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D14E6E4D-637F-4E19-9C46-57B6D806C748}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD224093-B4D5-4F26-827E-074B7B19FE79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD224093-B4D5-4F26-827E-074B7B19FE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD224093-B4D5-4F26-827E-074B7B19FE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD224093-B4D5-4F26-827E-074B7B19FE79}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9AD1FB11-9120-437A-9315-7BEEFA3D4A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9AD1FB11-9120-437A-9315-7BEEFA3D4A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9AD1FB11-9120-437A-9315-7BEEFA3D4A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9AD1FB11-9120-437A-9315-7BEEFA3D4A71}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEE3578B-7489-4506-B21C-9D684D608CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEE3578B-7489-4506-B21C-9D684D608CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEE3578B-7489-4506-B21C-9D684D608CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEE3578B-7489-4506-B21C-9D684D608CCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF5D7C70-7C65-4FF7-9037-A25EEB2C2885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF5D7C70-7C65-4FF7-9037-A25EEB2C2885}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF5D7C70-7C65-4FF7-9037-A25EEB2C2885}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF5D7C70-7C65-4FF7-9037-A25EEB2C2885}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{D14E6E4D-637F-4E19-9C46-57B6D806C748} = {65EE88B7-531F-4991-A5F2-24B2857A8669}
-		{AD224093-B4D5-4F26-827E-074B7B19FE79} = {65EE88B7-531F-4991-A5F2-24B2857A8669}
-		{9AD1FB11-9120-437A-9315-7BEEFA3D4A71} = {65EE88B7-531F-4991-A5F2-24B2857A8669}
-		{CEE3578B-7489-4506-B21C-9D684D608CCE} = {65EE88B7-531F-4991-A5F2-24B2857A8669}
-		{EF5D7C70-7C65-4FF7-9037-A25EEB2C2885} = {65EE88B7-531F-4991-A5F2-24B2857A8669}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE880DF3-20C6-4576-87F7-CA6D7CFD5DC0}

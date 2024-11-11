@@ -6,28 +6,29 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\collections\Albatross.Collections\Albatross.Collections.csproj" />
-		<ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
+		<PackageReference Include="Albatross.Collections" Version="7.5.7" />
+		<PackageReference Include="Albatross.Text" Version="7.5.7" />
+		<PackageReference Include="MessagePack" Version="2.5.187" />
+		<PackageReference Include="MessagePackAnalyzer" Version="2.5.187">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+		<PackageReference Include="Polly" Version="7.2.4" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath></PackagePath>
+			<PackagePath>\</PackagePath>
 		</None>
 		<None Include="README.md">
-			<PackagePath>\</PackagePath>
 			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
 		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="MessagePack" Version="2.5.187" />
-	  <PackageReference Include="MessagePackAnalyzer" Version="2.5.187">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
-	  <PackageReference Include="Polly" Version="7.2.4" />
 	</ItemGroup>
 </Project>
