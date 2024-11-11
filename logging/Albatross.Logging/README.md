@@ -11,9 +11,7 @@ Quick logging setup for your .Net application using Serilog.
 * [Albatross.Hosting](../../hosting/Albatross.Hosting/)
 * [Albatross.CommandLine](../../commandline/Albatross.CommandLine/)
 * [Albatross.Hosting.Excel](../../excel/Albatross.Hosting.Excel/)
-* [Albatross.Hosting.Utility](../../hosting/Albatross.Hosting.Utility/)
-* [Albatross.Hosting.Test](../../testing/Albatross.Hosting.Test/)
-* [Albatross.SpecFlowPlugin](../../testing/Albatross.SpecFlowPlugin/)
+* [Albatross.ReqnrollPlugin](../../testing/Albatross.ReqnrollPlugin/)
 
 To setup `Albatross.Logging` on your own, see the code below:
 ```csharp
