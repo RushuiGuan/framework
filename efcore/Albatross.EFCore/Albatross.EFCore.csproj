@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Description>This assembly contains convenient classes that allow users to get EFCore up and running quickly.  It also contains entity ChangeReporting functionality and implementation of DateLevelEntity pattern.</Description>
