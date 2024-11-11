@@ -6,8 +6,8 @@
 		<Description>The assembly provides extention methods and a base class to for HttpClient proxy classes</Description>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\dates\Albatross.Dates\Albatross.Dates.csproj" />
-		<ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
+		<PackageReference Include="Albatross.Dates" Version="7.5.7" />
+		<PackageReference Include="Albatross.Serialization" Version="7.5.7" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="8.0.10" />
 	</ItemGroup>
@@ -17,16 +17,17 @@
 		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath>\</PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-	  <None Include="README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 </Project>
