@@ -4,5 +4,5 @@ Albatross.Caching.Controllers
 Albatross.Caching.MemCache
 Albatross.Caching.Redis
 
-# Testing
+# Tests
 Albatross.Caching.Test
