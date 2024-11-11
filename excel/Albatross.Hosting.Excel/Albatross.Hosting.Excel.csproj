@@ -9,21 +9,26 @@
     <None Remove="ribbon.xml" />
   </ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\text\Albatross.Text\Albatross.Text.csproj" />
+		<PackageReference Include="Albatross.Text" Version="7.5.7" />
+		<PackageReference Include="Albatross.Config" Version="7.5.7" />
+		<PackageReference Include="Albatross.Logging" Version="7.5.7" />
+
+
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
-		<ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
-		<ProjectReference Include="..\..\logging\Albatross.Logging\Albatross.Logging.csproj" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Albatross.Excel\Albatross.Excel.csproj" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath>\</PackagePath>
 		</None>
 		<None Include="README.md">
 			<Pack>True</Pack>

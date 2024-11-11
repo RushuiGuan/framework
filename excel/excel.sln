@@ -7,8 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Excel", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3B40380-B358-4CFB-8167-90E28811255B}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		pack.ps1 = pack.ps1
+		.projects = .projects
+		.version = .version
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Excel", "Albatross.Excel\Albatross.Excel.csproj", "{E137CA87-25BA-4711-A7B2-7021E4CE2042}"

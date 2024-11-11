@@ -39,6 +39,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.Excel\Albatross.Excel.csproj" />
 		<ProjectReference Include="..\Albatross.Hosting.Excel\Albatross.Hosting.Excel.csproj" />
-		<ProjectReference Include="..\..\authentication\Albatross.Authentication.Windows\Albatross.Authentication.Windows.csproj" />
+		<PackageReference Include="Albatross.Authentication.Windows" Version="7.5.8" />
 	</ItemGroup>
 </Project>
