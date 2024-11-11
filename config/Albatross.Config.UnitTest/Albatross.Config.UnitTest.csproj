@@ -19,9 +19,9 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Albatross.Testing" Version="7.5.7" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\testing\Albatross.Testing\Albatross.Testing.csproj" />
 		<ProjectReference Include="..\Albatross.Config\Albatross.Config.csproj" />
 	</ItemGroup>
 	<ItemGroup>
