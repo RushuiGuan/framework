@@ -6,7 +6,6 @@
 		<Nullable>enable</Nullable>
 		<Description>An assembly to return the identify of the current user</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/authentication/Albatross.Authentication</PackageProjectUrl>
-		<PackageIconUrl></PackageIconUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png">
