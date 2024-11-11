@@ -1,26 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="ribbon.xml" />
-  </ItemGroup>
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="ribbon.xml" />
+	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Albatross.Text" Version="7.5.7" />
 		<PackageReference Include="Albatross.Config" Version="7.5.7" />
 		<PackageReference Include="Albatross.Logging" Version="7.5.7" />
-
-
 		<PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Albatross.Excel\Albatross.Excel.csproj" />
+		<ProjectReference Include="..\Albatross.Excel\Albatross.Excel.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Include="..\..\icon.png">
 			<Pack>True</Pack>

@@ -1,10 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<None Remove="Albatross.Excel.SampleAddIn.dna" />
 		<None Remove="appsettings.json" />
@@ -12,7 +11,6 @@
 		<None Remove="ribbon.xml" />
 		<None Remove="serilog.json" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<Content Include="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -27,7 +25,6 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
-
 	<ItemGroup>
 		<EmbeddedResource Include="Embedded\ribbon.xml" />
 	</ItemGroup>
