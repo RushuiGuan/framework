@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
@@ -16,12 +17,10 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath></PackagePath>
 		</None>
 		<None Include="README.md">
 			<Pack>True</Pack>
