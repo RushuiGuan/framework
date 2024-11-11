@@ -7,20 +7,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
-			<PrivateAssets>all</PrivateAssets>
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Analyzer</OutputItemType>
-		</ProjectReference>
-		<ProjectReference Include="..\..\commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj">
-			<PrivateAssets>all</PrivateAssets>
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Analyzer</OutputItemType>
-		</ProjectReference>
-		
-		
-		<ProjectReference Include="..\..\commandline\Albatross.CommandLine\Albatross.CommandLine.csproj" />
+	  <PackageReference Include="Albatross.CommandLine" Version="7.5.7-1993.main" />
 	</ItemGroup>
+
 
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.Logging\Albatross.Logging.csproj" />
