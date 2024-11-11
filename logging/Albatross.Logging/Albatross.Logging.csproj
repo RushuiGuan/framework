@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
-
 		<Description>Quick logging setup for your .Net application using Serilog</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/logging/Albatross.Logging</PackageProjectUrl>
 	</PropertyGroup>
@@ -28,19 +28,17 @@
 		<PackageReference Include="Serilog.Sinks.Slack" Version="2.2.2" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="README.md">
 			<PackagePath>\</PackagePath>
-			<Pack>True</Pack>
 		</None>
-		<None Update="serilog.json">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 </Project>

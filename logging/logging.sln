@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Logging", "Albatr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08A6AB65-D348-4809-B4F1-89573923DAD4}"
 	ProjectSection(SolutionItems) = preProject
+		.projects = .projects
+		.version = .version
 		build.ps1 = build.ps1
 	EndProjectSection
 EndProject
