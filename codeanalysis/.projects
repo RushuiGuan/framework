@@ -1,0 +1,6 @@
+# Packages
+Albatross.CodeAnalysis
+Albatross.CodeAnalysis.MSBuild
+
+# Testing
+Albatross.CodeAnalysis.Test

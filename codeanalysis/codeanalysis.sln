@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1099E6C7-472C-4C23-BE56-C00019E891D5}"
 	ProjectSection(SolutionItems) = preProject
+		.projects = .projects
+		.version = .version
 		build.ps1 = build.ps1
 	EndProjectSection
 EndProject
@@ -14,9 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.MSBu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.CodeAnalysis.Test", "Albatross.CodeAnalysis.Test\Albatross.CodeAnalysis.Test.csproj", "{29EFA752-4677-4D34-A54B-10A11E87C7BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.CodeGen", "Sample.CodeGen\Sample.CodeGen.csproj", "{37680763-F296-4F26-8F2F-D32E529963ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CodeGen", "Sample.CodeGen\Sample.CodeGen.csproj", "{37680763-F296-4F26-8F2F-D32E529963ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.CodeGen.Consumer", "Sample.CodeGen.Consumer\Sample.CodeGen.Consumer.csproj", "{CF5FC557-38E7-45D1-AA86-3D54C974E772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CodeGen.Consumer", "Sample.CodeGen.Consumer\Sample.CodeGen.Consumer.csproj", "{CF5FC557-38E7-45D1-AA86-3D54C974E772}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
