@@ -114,6 +114,7 @@ try {
 	}
 	if ($tag -and $projects.Length -ne 0) {
 		$directoryName = Split-Path $root -Leaf
+		$version = devtools build-version -clear-meta
 		$tagText = "$directoryName-$version";
 		Write-Information "Tagging $tagText";
 		git tag $tagText;
