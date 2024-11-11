@@ -7,8 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Serialization", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DD9E0809-642D-4FD0-B71B-B9CEF23A0961}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		pack.ps1 = pack.ps1
+		.projects = .projects
+		.version = .version
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Serialization.Test", "Albatross.Serialization.Test\Albatross.Serialization.Test.csproj", "{5B874566-9918-4BC1-9835-1906EB9917A3}"
