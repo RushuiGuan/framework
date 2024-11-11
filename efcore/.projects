@@ -1,0 +1,10 @@
+# Packages
+Albatross.EFCore
+Albatross.EFCore.Audit
+Albatross.EFCore.ChangeReporting
+Albatross.EFCore.CodeGen
+Albatross.EFCore.PostgreSQL
+Albatross.EFCore.SqlServer
+
+# Testing
+Albatross.EFCore.Test

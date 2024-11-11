@@ -14,11 +14,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="Humanizer.Core" Version="2.14.1" GeneratePathProperty="true" PrivateAssets="all" />
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj" PrivateAssets="all" />
+		<PackageReference Include="Albatross.CodeAnalysis" Version="7.5.7" GeneratePathProperty="true" PrivateAssets="all" />
 	</ItemGroup>
 
 
-	<!-- begin: this setup is for package reference.  It used when packing -->
+	<!-- begin: this setup is used when packing -->
 	<ItemGroup>
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 		<None Include="$(PkgHumanizer_Core)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
@@ -26,30 +26,14 @@
 	</ItemGroup>
 	<!-- end -->
 
-
-	<!-- begin: this setup is used for project reference only.  It would be removed when packing -->
-	<PropertyGroup>
-		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
-	</PropertyGroup>
-
-	<Target Name="GetDependencyTargetPaths">
-		<ItemGroup>
-			<TargetPathWithTargetPlatformMoniker Include="$(PKGHumanizer_Core)\lib\netstandard2.0\Humanizer.dll" IncludeRuntimeDependency="false" />
-		</ItemGroup>
-	</Target>
-
 	<ItemGroup>
-	  <None Remove="bin\Debug\netstandard2.0\\Albatross.EFCore.CodeGen.dll" />
-	</ItemGroup>
-
-	<!-- end -->
-
-
-	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath>\</PackagePath>
 		</None>
 		<None Include="README.md">
 			<Pack>True</Pack>

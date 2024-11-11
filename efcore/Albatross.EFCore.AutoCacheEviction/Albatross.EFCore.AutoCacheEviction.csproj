@@ -4,8 +4,8 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore\Albatross.EFCore.csproj" />
+		<PackageReference Include="Albatross.Caching" Version="7.5.7" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png">

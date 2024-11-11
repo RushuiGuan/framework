@@ -25,7 +25,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\caching\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
 		<ProjectReference Include="..\..\testing\Albatross.Testing.EFCore\Albatross.Testing.EFCore.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.Audit\Albatross.EFCore.Audit.csproj" />
 		<ProjectReference Include="..\Albatross.EFCore.ChangeReporting\Albatross.EFCore.ChangeReporting.csproj" />
