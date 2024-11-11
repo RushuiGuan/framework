@@ -7,18 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.DateLevel", "Alba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.DateLevel.Test", "Albatross.DateLevel.Test\Albatross.DateLevel.Test.csproj", "{232C47A3-DFDB-4D9B-B894-CEE23D536D33}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{E9E9B299-A3CF-485F-93E2-D768B8886BFD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Hosting.Test", "..\testing\Albatross.Hosting.Test\Albatross.Hosting.Test.csproj", "{8BA6C206-1099-4B1A-BFE2-865D389BC67D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Config", "..\config\Albatross.Config\Albatross.Config.csproj", "{E6A85FD1-37F6-484B-AA43-4063ABC63F30}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Logging", "..\logging\Albatross.Logging\Albatross.Logging.csproj", "{8DA28632-A5B3-47FA-BB67-4A17533DA4D0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.EFCore.SqlServer", "..\efcore\Albatross.EFCore.SqlServer\Albatross.EFCore.SqlServer.csproj", "{DFBA88F1-9608-47AE-9CFD-545E7F249F3A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.Reflection", "..\reflection\Albatross.Reflection\Albatross.Reflection.csproj", "{50FD82BF-8D4B-4D11-B091-E0E39EC80F63}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,36 +21,9 @@ Global
 		{232C47A3-DFDB-4D9B-B894-CEE23D536D33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{232C47A3-DFDB-4D9B-B894-CEE23D536D33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{232C47A3-DFDB-4D9B-B894-CEE23D536D33}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BA6C206-1099-4B1A-BFE2-865D389BC67D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BA6C206-1099-4B1A-BFE2-865D389BC67D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BA6C206-1099-4B1A-BFE2-865D389BC67D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BA6C206-1099-4B1A-BFE2-865D389BC67D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6A85FD1-37F6-484B-AA43-4063ABC63F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6A85FD1-37F6-484B-AA43-4063ABC63F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6A85FD1-37F6-484B-AA43-4063ABC63F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6A85FD1-37F6-484B-AA43-4063ABC63F30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DA28632-A5B3-47FA-BB67-4A17533DA4D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DA28632-A5B3-47FA-BB67-4A17533DA4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DA28632-A5B3-47FA-BB67-4A17533DA4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DA28632-A5B3-47FA-BB67-4A17533DA4D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DFBA88F1-9608-47AE-9CFD-545E7F249F3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFBA88F1-9608-47AE-9CFD-545E7F249F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFBA88F1-9608-47AE-9CFD-545E7F249F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFBA88F1-9608-47AE-9CFD-545E7F249F3A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50FD82BF-8D4B-4D11-B091-E0E39EC80F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50FD82BF-8D4B-4D11-B091-E0E39EC80F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50FD82BF-8D4B-4D11-B091-E0E39EC80F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50FD82BF-8D4B-4D11-B091-E0E39EC80F63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{8BA6C206-1099-4B1A-BFE2-865D389BC67D} = {E9E9B299-A3CF-485F-93E2-D768B8886BFD}
-		{E6A85FD1-37F6-484B-AA43-4063ABC63F30} = {E9E9B299-A3CF-485F-93E2-D768B8886BFD}
-		{8DA28632-A5B3-47FA-BB67-4A17533DA4D0} = {E9E9B299-A3CF-485F-93E2-D768B8886BFD}
-		{DFBA88F1-9608-47AE-9CFD-545E7F249F3A} = {E9E9B299-A3CF-485F-93E2-D768B8886BFD}
-		{50FD82BF-8D4B-4D11-B091-E0E39EC80F63} = {E9E9B299-A3CF-485F-93E2-D768B8886BFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CDD03008-48C2-4CB9-A372-CBD6CA988F8F}
