@@ -6,22 +6,23 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj" />
-		<ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
-		<ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
+		<PackageReference Include="Albatross.CodeAnalysis" Version="7.5.7" />
+		<PackageReference Include="Albatross.Serialization" Version="7.5.7" />
+		<ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="README.md">
 			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="README.md">
 			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 </Project>

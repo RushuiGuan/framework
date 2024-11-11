@@ -1,31 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Python\**" />
-    <EmbeddedResource Remove="Python\**" />
-    <None Remove="Python\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj" />
-    <ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj" />
-    <ProjectReference Include="..\..\testing\Albatross.Testing\Albatross.Testing.csproj" />
-    <ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
-    <ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
-    <ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="appSettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Albatross.Testing" Version="7.5.7" />
+		<PackageReference Include="Albatross.CodeAnalysis" Version="7.5.7" />
+		<PackageReference Include="Albatross.CodeAnalysis.MSBuild" Version="7.5.7" />
+
+
+		<ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
+		<ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
+		<ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="appSettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 </Project>

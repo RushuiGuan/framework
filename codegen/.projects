@@ -1,0 +1,8 @@
+# Packages
+Albatross.CodeGen
+Albatross.CodeGen.CommandLine
+Albatross.CodeGen.TypeScript
+Albatross.CodeGen.WebClient
+
+# Testing
+Albatross.CodeGen.UnitTest

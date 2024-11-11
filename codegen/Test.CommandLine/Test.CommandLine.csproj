@@ -9,18 +9,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Test.Proxy\Test.Proxy.csproj" />
-		
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
-			<PrivateAssets>all</PrivateAssets>
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Analyzer</OutputItemType>
-		</ProjectReference>
-		<ProjectReference Include="..\..\commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj">
-			<PrivateAssets>all</PrivateAssets>
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Analyzer</OutputItemType>
-		</ProjectReference>
-		<ProjectReference Include="..\..\commandline\Albatross.CommandLine\Albatross.CommandLine.csproj" />
+		<PackageReference Include="Albatross.CommandLine" Version="7.5.7" />
 	</ItemGroup>
 
 	<ItemGroup>

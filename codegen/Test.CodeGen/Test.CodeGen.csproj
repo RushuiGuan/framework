@@ -9,10 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="Albatross.CodeGen.WebClient" Version="7.3.0" />
-    <PackageReference Include="Albatross.CommandLine" Version="7.3.1-1762.codegen" />
-    <PackageReference Include="Albatross.CommandLine.CodeGen" Version="7.3.1-1762.codegen" />
-    <PackageReference Include="Albatross.IO" Version="7.3.1-1762.codegen" />
-    <PackageReference Include="Albatross.Text" Version="7.3.1-1762.codegen" />
+    <PackageReference Include="Albatross.CommandLine" Version="7.5.7" />
+    <PackageReference Include="Albatross.IO" Version="7.5.7" />
+    <PackageReference Include="Albatross.Text" Version="7.5.7" />
   </ItemGroup>
 
   <ItemGroup>

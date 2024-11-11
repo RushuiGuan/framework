@@ -6,9 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\config\Albatross.Config\Albatross.Config.csproj" />
-    <ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
-    <ProjectReference Include="..\..\webclient\Albatross.WebClient\Albatross.WebClient.csproj" />
+	  <PackageReference Include="Albatross.Config" Version="7.5.7" />
+	  <PackageReference Include="Albatross.Serialization" Version="7.5.7" />
+	  <PackageReference Include="Albatross.WebClient" Version="7.5.7" />
+	  
     <ProjectReference Include="..\Test.Dto\Test.Dto.csproj" />
   </ItemGroup>
 

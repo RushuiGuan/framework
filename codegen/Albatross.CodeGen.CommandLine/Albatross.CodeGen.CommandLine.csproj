@@ -15,36 +15,26 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.11.0" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.11.0" />
 		<PackageReference Include="NJsonSchema" Version="11.0.2" />
+		<PackageReference Include="Albatross.CommandLine" Version="7.5.7" />
+		<PackageReference Include="Albatross.Logging" Version="7.5.7" />
+		<PackageReference Include="Albatross.Serialization" Version="7.5.7" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis.MSBuild\Albatross.CodeAnalysis.MSBuild.csproj" />
-		<ProjectReference Include="..\..\commandline\Albatross.CommandLine\Albatross.CommandLine.csproj" />
-		<ProjectReference Include="..\..\logging\Albatross.Logging\Albatross.Logging.csproj" />
-		<ProjectReference Include="..\..\serialization\Albatross.Serialization\Albatross.Serialization.csproj" />
 		<ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
 		<ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
-
-		<ProjectReference Include="..\..\codeanalysis\Albatross.CodeAnalysis\Albatross.CodeAnalysis.csproj">
-			<PrivateAssets>all</PrivateAssets>
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Analyzer</OutputItemType>
-		</ProjectReference>
-		<ProjectReference Include="..\..\commandline\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj">
-			<PrivateAssets>all</PrivateAssets>
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Analyzer</OutputItemType>
-		</ProjectReference>
 	</ItemGroup>
-
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath>
-			</PackagePath>
+			<PackagePath>\</PackagePath>
 		</None>
 		<None Include="README.md">
-			<PackagePath>\</PackagePath>
 			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 </Project>
