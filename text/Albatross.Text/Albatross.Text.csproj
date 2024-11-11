@@ -1,24 +1,28 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.1;net6.0;net8.0</TargetFrameworks>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
-
 		<Description>String manipulation library</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/text/Albatross.Text</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\reflection\Albatross.Reflection\Albatross.Reflection.csproj" />
+		<PackageReference Include="Albatross.Reflection" Version="7.5.7" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath></PackagePath>
+			<PackagePath>\</PackagePath>
 		</None>
 		<None Include="README.md">
-			<PackagePath>\</PackagePath>
 			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 </Project>
