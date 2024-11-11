@@ -1,18 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
-
 		<Description>Provides additional functionalities for serialization using System.Text.Json.</Description>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/serialization/Albatross.Serialization</PackageProjectUrl>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Albatross.Reflection" Version="7.5.7" />
 		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Include="..\..\icon.png">
 			<Pack>True</Pack>
