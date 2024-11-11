@@ -19,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\hosting\Albatross.Hosting\Albatross.Hosting.csproj" />
+		<PackageReference Include="Albatross.Hosting" Version="7.5.7" />
 		<ProjectReference Include="..\Albatross.Caching.Controllers\Albatross.Caching.Controllers.csproj" />
 		<ProjectReference Include="..\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
 		<ProjectReference Include="..\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />

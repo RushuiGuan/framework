@@ -1,0 +1,8 @@
+# Packages
+Albatross.Caching
+Albatross.Caching.Controllers
+Albatross.Caching.MemCache
+Albatross.Caching.Redis
+
+# Testing
+Albatross.Caching.Test

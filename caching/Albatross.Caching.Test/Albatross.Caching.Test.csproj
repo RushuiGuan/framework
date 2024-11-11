@@ -22,8 +22,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\testing\Albatross.Testing\Albatross.Testing.csproj" />
-    <ProjectReference Include="..\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
+	  <PackageReference Include="Albatross.Text" Version="7.5.7" />
+	  <ProjectReference Include="..\Albatross.Caching.MemCache\Albatross.Caching.MemCache.csproj" />
     <ProjectReference Include="..\Albatross.Caching.Redis\Albatross.Caching.Redis.csproj" />
     <ProjectReference Include="..\Sample.Caching.WebApi\Sample.Caching.WebApi.csproj" />
   </ItemGroup>
