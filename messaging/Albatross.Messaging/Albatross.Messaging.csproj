@@ -1,12 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<Description>This assembly contains messaging implementation using ZeroMQ.  Currently it supports pubsub and command queue pattern.</Description>
 		<LangVersion>Latest</LangVersion>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Albatross.Collections" Version="7.5.7" />
 		<PackageReference Include="Albatross.Config" Version="7.5.7" />
@@ -21,7 +20,6 @@
 		<PackageReference Include="NetMQ" Version="4.0.1.13" />
 		<ProjectReference Include="..\Albatross.Messaging.CodeGen\Albatross.Messaging.CodeGen.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Include="..\..\icon.png">
 			<Pack>True</Pack>

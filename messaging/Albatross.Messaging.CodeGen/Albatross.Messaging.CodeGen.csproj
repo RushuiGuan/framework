@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>Enable</Nullable>
-		
 		<PackageTags>Analyzer;Roslyn</PackageTags>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
@@ -13,7 +13,6 @@
 		<PackageReference Include="Humanizer.Core" Version="2.14.1" GeneratePathProperty="true" PrivateAssets="all" />
 		<PackageReference Include="Albatross.CodeAnalysis" Version="7.5.7" GeneratePathProperty="true" PrivateAssets="all" />
 	</ItemGroup>
-
 	<!-- begin: this setup is for package reference.  It used when packing -->
 	<ItemGroup>
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
@@ -21,24 +20,20 @@
 		<None Include="$(PkgAlbatross_CodeAnalysis)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 	</ItemGroup>
 	<!-- end -->
-
 	<!-- begin: this setup is used for project reference only.  It would be removed when packing -->
 	<PropertyGroup>
 		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
 	</PropertyGroup>
-
 	<Target Name="GetDependencyTargetPaths">
 		<ItemGroup>
 			<TargetPathWithTargetPlatformMoniker Include="$(PKGHumanizer_Core)\lib\netstandard2.0\Humanizer.dll" IncludeRuntimeDependency="false" />
 			<TargetPathWithTargetPlatformMoniker Include="$(PKGAlbatross_CodeAnalysis)\lib\netstandard2.0\Albatross.CodeAnalysis.dll" IncludeRuntimeDependency="false" />
 		</ItemGroup>
 	</Target>
-
 	<ItemGroup>
-	  <None Remove="bin\Debug\netstandard2.0\\Albatross.Messaging.CodeGen.dll" />
+		<None Remove="bin\Debug\netstandard2.0\\Albatross.Messaging.CodeGen.dll" />
 	</ItemGroup>
 	<!-- end -->
-
 	<ItemGroup>
 		<None Include="..\..\icon.png">
 			<Pack>True</Pack>
