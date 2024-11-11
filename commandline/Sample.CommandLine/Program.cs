@@ -1,5 +1,4 @@
-﻿using Albatross.CommandLine;
-using System.CommandLine;
+﻿using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.Threading.Tasks;
 
@@ -8,7 +7,7 @@ namespace Sample.CommandLine {
 		static Task<int> Main(string[] args) =>
 			new MySetup()
 				.AddCommands()
-				.CommandBuilder
+				.ConfigureBuilder()
 				.Build()
 				.InvokeAsync(args);
 	}

@@ -43,6 +43,10 @@ namespace Albatross.CommandLine {
 			this.CommandBuilder.UseDefaults();
 		}
 
+		public virtual CommandLineBuilder ConfigureBuilder() {
+			return this.CommandBuilder.UseDefaults();
+		}
+
 		private Task AddLoggingMiddleware(InvocationContext context, Func<InvocationContext, Task> next) {
 			var logOption = this.RootCommand.Options.OfType<Option<LogEventLevel?>>().First();
 			var result = context.ParseResult.GetValueForOption(logOption);
