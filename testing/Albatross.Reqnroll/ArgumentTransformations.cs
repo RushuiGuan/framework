@@ -1,35 +1,12 @@
 ﻿using AutoFixture;
 using Reqnroll;
-using System.Reflection;
 
 namespace Albatross.Reqnroll {
 	public class ArgumentTransformations {
+		protected readonly ScenarioContext scenario;
 		static Random random = new Random();
 		public ArgumentTransformations(ScenarioContext scenario) {
 			this.scenario = scenario;
-		}
-
-		protected readonly ScenarioContext scenario;
-		public T GetRequiredValue<T>(string key) {
-			if (scenario.TryGetValue<T>(key, out var value)) {
-				return value;
-			} else {
-				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
-			}
-		}
-
-		public T? GetPropertyValue<T>(string key, string propertyName) {
-			if (scenario.TryGetValue(key, out var value)) {
-				var type = value.GetType();
-				var property = type.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty) ?? throw new ArgumentException($"Type {type.Name} doesn't have a public get property of name {propertyName}");
-				if (property.PropertyType == typeof(T)) {
-					return (T)property.GetValue(value);
-				} else {
-					throw new ArgumentException($"Property {propertyName} of type {type.Name} is not of type {typeof(T).Name}");
-				}
-			} else {
-				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
-			}
 		}
 
 		[Then(@"wait (\d+) second\(s\)")]
@@ -63,10 +40,10 @@ namespace Albatross.Reqnroll {
 		}
 		#endregion
 
-		[StepArgumentTransformation(@"context:(.*)")]
+		[StepArgumentTransformation(@"context:(\w+)")]
 		public string GetString(string key) => scenario.Get<string>(key);
 
-		[StepArgumentTransformation(@"context:(.*)")]
+		[StepArgumentTransformation(@"context:(\w+)")]
 		public int GetInt(string key) {
 			if (scenario.TryGetValue<int>(key, out var value)) {
 				return value;
@@ -80,12 +57,22 @@ namespace Albatross.Reqnroll {
 			return value == "with" || value == "should be" || value == "should" || value == "active" || value == "yes";
 		}
 
-		public T GetScenarioContextValueByKey<T>(string value) {
-			if (scenario.TryGetValue<T>(value, out var result)) {
-				return result;
-			} else {
-				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {value} and the type of {typeof(T).Name}");
+		[StepArgumentTransformation(@"context: (\w+)\.(\w+)")]
+		public object? GetPropertyValue(string key, string property) {
+			if (scenario.TryGetValue(key, out var value)) {
+				var type = value.GetType();
+				var propertyInfo = type.GetProperty(property);
+				if (propertyInfo == null) {
+					throw new ArgumentException($"Type {type.Name} doesn't have a public get property of name {property}");
+				}else{
+					return propertyInfo.GetValue(value);
+				}
+			} else{
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
 			}
 		}
+
+		[Then("show value => (.*)")]
+		public void ShowValue(object value) { }
 	}
 }
