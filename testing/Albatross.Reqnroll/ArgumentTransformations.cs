@@ -2,14 +2,14 @@
 using Reqnroll;
 
 namespace Albatross.Reqnroll {
-	public class ArgumentTransformations {
+	public class SharedBindings {
 		protected readonly ScenarioContext scenario;
 		static Random random = new Random();
-		public ArgumentTransformations(ScenarioContext scenario) {
+		public SharedBindings(ScenarioContext scenario) {
 			this.scenario = scenario;
 		}
 
-		[Then(@"wait (\d+) second\(s\)")]
+		[Then(@"Wait (\d+) second\(s\)")]
 		public Task ThenWaitSeconds(int seconds) => Task.Delay(seconds * 1000);
 
 		#region random values
