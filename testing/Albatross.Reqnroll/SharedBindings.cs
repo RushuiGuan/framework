@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using Albatross.Dates;
+using AutoFixture;
 using Reqnroll;
 
 namespace Albatross.Reqnroll {
@@ -29,14 +30,17 @@ namespace Albatross.Reqnroll {
 		#region dates
 		[StepArgumentTransformation(@"today")]
 		public DateOnly Today() => DateOnly.FromDateTime(DateTime.Today);
-
 		[StepArgumentTransformation(@"(last saturday)")]
-		public DateOnly LastSaturday(string key) {
+		public DateOnly LastSaturday() {
 			DateOnly lastSaturday = DateOnly.FromDateTime(DateTime.Today);
 			while (lastSaturday.DayOfWeek != DayOfWeek.Saturday) {
 				lastSaturday = lastSaturday.AddDays(-1);
 			}
 			return lastSaturday;
+		}
+		[StepArgumentTransformation(@"(previousWeekday)")]
+		public DateOnly PreviousWeekday() {
+			return DateTime.Today.DateOnly().PreviousWeekday();
 		}
 		#endregion
 
