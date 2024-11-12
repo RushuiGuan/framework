@@ -21,6 +21,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.ReqnrollPlugin\Albatross.ReqnrollPlugin.csproj" />
+		<ProjectReference Include="..\Albatross.Reqnroll\Albatross.Reqnroll.csproj" />
+		<ProjectReference Include="..\Albatross.Testing\Albatross.Testing.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="appsettings.json">

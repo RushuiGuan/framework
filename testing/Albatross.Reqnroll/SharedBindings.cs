@@ -30,6 +30,7 @@ namespace Albatross.Reqnroll {
 		#region dates
 		[StepArgumentTransformation(@"today")]
 		public DateOnly Today() => DateOnly.FromDateTime(DateTime.Today);
+
 		[StepArgumentTransformation(@"(last saturday)")]
 		public DateOnly LastSaturday() {
 			DateOnly lastSaturday = DateOnly.FromDateTime(DateTime.Today);
@@ -38,11 +39,18 @@ namespace Albatross.Reqnroll {
 			}
 			return lastSaturday;
 		}
+
 		[StepArgumentTransformation(@"(previousWeekday)")]
 		public DateOnly PreviousWeekday() {
 			return DateTime.Today.DateOnly().PreviousWeekday();
 		}
 		#endregion
+
+		#region context based transformations
+		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive|yes|no)")]
+		public bool BooleanTransform(string value) {
+			return value == "with" || value == "should be" || value == "should" || value == "active" || value == "yes";
+		}
 
 		[StepArgumentTransformation(@"context:(\w+)")]
 		public string GetString(string key) => scenario.Get<string>(key);
@@ -56,27 +64,187 @@ namespace Albatross.Reqnroll {
 			}
 		}
 
-		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive|yes|no)")]
-		public bool BooleanTransform(string value) {
-			return value == "with" || value == "should be" || value == "should" || value == "active" || value == "yes";
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public bool GetBool(string key) {
+			if (scenario.TryGetValue<bool>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
 		}
 
-		[StepArgumentTransformation(@"context: (\w+)\.(\w+)")]
-		public object? GetPropertyValue(string key, string property) {
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public long GetLong(string key) {
+			if (scenario.TryGetValue<long>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public decimal GetDecimal(string key) {
+			if (scenario.TryGetValue<decimal>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public double GetDouble(string key) {
+			if (scenario.TryGetValue<double>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public DateTime GetDateTime(string key) {
+			if (scenario.TryGetValue<DateTime>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public DateOnly GetDateOnly(string key) {
+			if (scenario.TryGetValue<DateOnly>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public int? GetNullableInt(string key) {
+			if (scenario.TryGetValue<int?>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public bool? GetNullableBool(string key) {
+			if (scenario.TryGetValue<bool?>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public long? GetNullableLong(string key) {
+			if (scenario.TryGetValue<long?>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public decimal? GetNullableDecimal(string key) {
+			if (scenario.TryGetValue<decimal?>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public double? GetNullableDouble(string key) {
+			if (scenario.TryGetValue<double?>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public DateTime? GetNullableDateTime(string key) {
+			if (scenario.TryGetValue<DateTime?>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)")]
+		public DateOnly? GetNullableDateOnly(string key) {
+			if (scenario.TryGetValue<DateOnly?>(key, out var value)) {
+				return value;
+			} else {
+				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
+			}
+		}
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public object? GetProperty(string key, string property) {
 			if (scenario.TryGetValue(key, out var value)) {
 				var type = value.GetType();
 				var propertyInfo = type.GetProperty(property);
 				if (propertyInfo == null) {
 					throw new ArgumentException($"Type {type.Name} doesn't have a public get property of name {property}");
-				}else{
+				} else {
 					return propertyInfo.GetValue(value);
 				}
-			} else{
+			} else {
 				throw new ArgumentException($"ScenarioContext doesn't have a value with the name of {key}");
 			}
 		}
 
-		[Then("show value => (.*)")]
-		public void ShowValue(object value) { }
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public string? GetStringProperty(string key, string property) => scenario.GetPropertyValue<string>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public bool GetBooleanProperty(string key, string property) => scenario.GetPropertyValue<bool>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public int GetIntProperty(string key, string property) => scenario.GetPropertyValue<int>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public long GetLongProperty(string key, string property) => scenario.GetPropertyValue<long>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public decimal GetDecimalProperty(string key, string property) => scenario.GetPropertyValue<decimal>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public double GetDoubleProperty(string key, string property) => scenario.GetPropertyValue<double>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public DateTime GetDateTimeProperty(string key, string property) => scenario.GetPropertyValue<DateTime>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public DateOnly GetDateOnlyProperty(string key, string property) => scenario.GetPropertyValue<DateOnly>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public int? GetNullableIntProperty(string key, string property) => scenario.GetPropertyValue<int?>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public bool? GetNullableBoolProperty(string key, string property) => scenario.GetPropertyValue<bool?>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public long? GetNullableLongProperty(string key, string property) => scenario.GetPropertyValue<long?>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public decimal? GetNullableDecimalProperty(string key, string property) => scenario.GetPropertyValue<decimal?>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public double? GetNullableDoubleProperty(string key, string property) => scenario.GetPropertyValue<double?>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public DateTime? GetNullableDateTimeProperty(string key, string property) => scenario.GetPropertyValue<DateTime?>(key, property);
+
+		[StepArgumentTransformation(@"context:(\w+)\.(\w+)")]
+		public DateOnly? GetNullableDateProperty(string key, string property) => scenario.GetPropertyValue<DateOnly?>(key, property);
+		#endregion
+
+		[Then(@"Show value of {Object}")]
+		public void ShowValue(object value) {
+			Console.WriteLine(value);
+		}
 	}
 }
