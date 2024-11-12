@@ -31,7 +31,7 @@ namespace Albatross.Reqnroll {
 		[StepArgumentTransformation(@"today")]
 		public DateOnly Today() => DateOnly.FromDateTime(DateTime.Today);
 
-		[StepArgumentTransformation(@"(last saturday)")]
+		[StepArgumentTransformation(@"last saturday")]
 		public DateOnly LastSaturday() {
 			DateOnly lastSaturday = DateOnly.FromDateTime(DateTime.Today);
 			while (lastSaturday.DayOfWeek != DayOfWeek.Saturday) {
@@ -40,7 +40,7 @@ namespace Albatross.Reqnroll {
 			return lastSaturday;
 		}
 
-		[StepArgumentTransformation(@"(previousWeekday)")]
+		[StepArgumentTransformation(@"previousWeekday")]
 		public DateOnly PreviousWeekday() {
 			return DateTime.Today.DateOnly().PreviousWeekday();
 		}
