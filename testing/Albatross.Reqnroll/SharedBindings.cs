@@ -28,6 +28,12 @@ namespace Albatross.Reqnroll {
 		#endregion
 
 		#region dates
+		[StepArgumentTransformation(@"now")]
+		public DateTime Now() => DateTime.Now;
+
+		[StepArgumentTransformation(@"utcnow")]
+		public DateTime UtcNow() => DateTime.UtcNow;
+
 		[StepArgumentTransformation(@"today")]
 		public DateOnly Today() => DateOnly.FromDateTime(DateTime.Today);
 
