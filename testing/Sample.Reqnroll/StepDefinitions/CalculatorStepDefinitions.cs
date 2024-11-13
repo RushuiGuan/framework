@@ -34,7 +34,9 @@ namespace Sample.Reqnroll.StepDefinitions {
 		public void GivenVerifyThatTheAgePropertyOfTheObjectMyObjectEqualIntMyObject_Age(MyClass myClass, int? value) {
 			value.Should().Be(myClass.Age);
 		}
-
+		[Then("Test the TimeOnly parameter: {}")]
+		public void ThenTestTheTimeOnlyParameter(TimeOnly time) {
+		}
 
 		[StepArgumentTransformation(@"(.*)")]
 		public MyClass MyClass(string key) => scenario.GetRequiredValue<MyClass>(key);

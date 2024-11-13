@@ -22,9 +22,11 @@ namespace Sample.Reqnroll.Features
     public partial class CalculatorFeature : object, Xunit.IClassFixture<CalculatorFeature.FixtureData>, Xunit.IAsyncLifetime
     {
         
-        private static global::Reqnroll.ITestRunner testRunner;
+        private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
+        
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Calculator", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -38,25 +40,30 @@ namespace Sample.Reqnroll.Features
         
         public static async System.Threading.Tasks.Task FeatureSetupAsync()
         {
-            testRunner = global::Reqnroll.TestRunnerManager.GetTestRunnerForAssembly();
-            global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Calculator", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
-            await testRunner.OnFeatureStartAsync(featureInfo);
         }
         
         public static async System.Threading.Tasks.Task FeatureTearDownAsync()
         {
-            await testRunner.OnFeatureEndAsync();
-            global::Reqnroll.TestRunnerManager.ReleaseTestRunner(testRunner);
-            testRunner = null;
         }
         
         public async System.Threading.Tasks.Task TestInitializeAsync()
         {
+            testRunner = global::Reqnroll.TestRunnerManager.GetTestRunnerForAssembly(featureHint: featureInfo);
+            if (((testRunner.FeatureContext != null) 
+                        && (testRunner.FeatureContext.FeatureInfo.Equals(featureInfo) == false)))
+            {
+                await testRunner.OnFeatureEndAsync();
+            }
+            if ((testRunner.FeatureContext == null))
+            {
+                await testRunner.OnFeatureStartAsync(featureInfo);
+            }
         }
         
         public async System.Threading.Tasks.Task TestTearDownAsync()
         {
             await testRunner.OnScenarioEndAsync();
+            global::Reqnroll.TestRunnerManager.ReleaseTestRunner(testRunner);
         }
         
         public void ScenarioInitialize(global::Reqnroll.ScenarioInfo scenarioInfo)
@@ -119,7 +126,10 @@ this.ScenarioInitialize(scenarioInfo);
  await testRunner.AndAsync("Verify that the Age property of the object MyObject equal context:MyObject.Age", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 9
- await testRunner.ThenAsync("Show value => context:MyObject.Name", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("Test the TimeOnly parameter: 10:00", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 10
+ await testRunner.ThenAsync("Show value of context:MyObject.Name", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
