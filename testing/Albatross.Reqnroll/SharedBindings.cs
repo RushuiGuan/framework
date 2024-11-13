@@ -53,6 +53,9 @@ namespace Albatross.Reqnroll {
 		}
 
 		[StepArgumentTransformation(@"context:(\w+)")]
+		public object GetValue(string key) => scenario[key];
+
+		[StepArgumentTransformation(@"context:(\w+)")]
 		public string GetString(string key) => scenario.Get<string>(key);
 
 		[StepArgumentTransformation(@"context:(\w+)")]
