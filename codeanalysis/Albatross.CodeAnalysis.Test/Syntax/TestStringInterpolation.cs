@@ -59,7 +59,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		/// For whatever reason, the formatter will create a space after '/' literal in the interpolated string
 		/// should ask the question in stack overflow,  Run this test to see if it is fixed
 		/// </summary>
-		[Fact]
+		[Fact(Skip = "this is a behavior test.  Run to see if changed")]
 		public void LowLevelCheck() {
 			using var workspace = new AdhocWorkspace();
 			var interpolatedString = SyntaxFactory.InterpolatedStringExpression(
