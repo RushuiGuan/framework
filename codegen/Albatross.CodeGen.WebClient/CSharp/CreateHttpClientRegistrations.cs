@@ -22,13 +22,18 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 				codeStack.With(new UsingDirectiveNode("Microsoft.Extensions.DependencyInjection"));
 				using (codeStack.NewScope(new NamespaceDeclarationBuilder(settings.CSharpWebClientSettings.Namespace))) {
 					using (codeStack.NewScope(new ClassDeclarationBuilder("Extensions").Static().Partial())) {
-						using (codeStack.NewScope(new MethodDeclarationBuilder("IHttpClientBuilder", "AddClients").Static())) {
+						using (codeStack.NewScope(new MethodDeclarationBuilder("IHttpClientBuilder", "AddClients").Public().Static())) {
 							codeStack.With(new ParameterNode("IHttpClientBuilder", "builder").WithThis());
 							using (codeStack.NewScope(new ReturnExpressionBuilder())) {
 								codeStack.With(new IdentifierNode("builder"));
 								foreach (var model in models) {
-									codeStack.With(new GenericIdentifierNode("AddTypedClient", model.ControllerName + "ProxyService"));
-									codeStack.To(new InvocationExpressionBuilder());
+									GenericIdentifierNode addTypedClientIdentifier;
+									if (settings.CSharpWebClientSettings.UseInterface) {
+										addTypedClientIdentifier = new GenericIdentifierNode("AddTypedClient", $"I{model.ControllerName}ProxyService", $"{model.ControllerName}ProxyService");
+									} else {
+										addTypedClientIdentifier = new GenericIdentifierNode("AddTypedClient", model.ControllerName + "ProxyService");
+									}
+									codeStack.With(addTypedClientIdentifier).To(new InvocationExpressionBuilder());
 								}
 							}
 						}

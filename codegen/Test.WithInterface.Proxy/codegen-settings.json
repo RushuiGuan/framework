@@ -16,13 +16,13 @@
 		"usePromise": false
 	},
 	"cSharpWebClientSettings": {
-		"namespace": "Test.Proxy",
+		"namespace": "Test.WithInterface.Proxy",
 		"controllerMethodFilters": [
 			{
 				"exclude": "FilteredByCSharp$"
 			}
 		],
-		"useInterface": false
+		"useInterface": true
 	},
 	"apiControllerConversionSetting": {
 		"globalMethodSettings": {

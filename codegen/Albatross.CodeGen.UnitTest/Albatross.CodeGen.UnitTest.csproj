@@ -12,9 +12,9 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.Testing" Version="7.5.7" />
-		<PackageReference Include="Albatross.CodeAnalysis" Version="7.5.7" />
-		<PackageReference Include="Albatross.CodeAnalysis.MSBuild" Version="7.5.7" />
+		<PackageReference Include="Albatross.Testing" Version="7.5.8-2147.main" />
+		<PackageReference Include="Albatross.CodeAnalysis" Version="7.5.8-2148.main" />
+		<PackageReference Include="Albatross.CodeAnalysis.MSBuild" Version="7.5.8-2148.main" />
 		<ProjectReference Include="..\Albatross.CodeGen.TypeScript\Albatross.CodeGen.TypeScript.csproj" />
 		<ProjectReference Include="..\Albatross.CodeGen.WebClient\Albatross.CodeGen.WebClient.csproj" />
 		<ProjectReference Include="..\Albatross.CodeGen\Albatross.CodeGen.csproj" />

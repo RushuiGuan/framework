@@ -11,5 +11,6 @@ namespace Albatross.CodeGen.WebClient.Settings {
 		/// text/plain content type for the Body.  If false, the client will use application/json content type for string post.
 		/// </summary>
 		public bool UseTextContentTypeForStringPost { get; init; } = true;
+		public bool UseInterface { get; init; }
 	}
 }
