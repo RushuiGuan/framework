@@ -10,6 +10,8 @@ namespace Test.WithInterface.Proxy {
 	public partial interface IFilteredMethodProxyService {
 		Task FilteredByAll();
 		Task FilteredByNone();
+		Task FilteredByCSharp2();
+		Task IncludedByCSharp();
 		Task FilteredByTypeScript();
 	}
 
@@ -28,6 +30,22 @@ namespace Test.WithInterface.Proxy {
 
 		public async Task FilteredByNone() {
 			string path = $"{ControllerPath}/none";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task FilteredByCSharp2() {
+			string path = $"{ControllerPath}/csharp2";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
+		public async Task IncludedByCSharp() {
+			string path = $"{ControllerPath}/include-this-method";
 			var queryString = new NameValueCollection();
 			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
 				await this.GetRawResponse(request);
