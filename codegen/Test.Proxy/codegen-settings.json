@@ -20,6 +20,15 @@
 		"controllerMethodFilters": [
 			{
 				"exclude": "FilteredByCSharp$"
+			},
+			{
+				"exclude": "FilteredByCSharp2$"
+			},
+			{
+				"exclude": "IncludedByCSharp$"
+			},
+			{
+				"include": "IncludedByCSharp$"
 			}
 		]
 	},

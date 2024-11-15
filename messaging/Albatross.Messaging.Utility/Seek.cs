@@ -11,34 +11,29 @@ using System.Threading.Tasks;
 namespace Albatross.Messaging.Utility {
 	[Verb("seek", typeof(Seek))]
 	public class Seekoptions {
-		[Option("p")]
-		public string Project { get; set; } = string.Empty;
-
-		[Option("l")]
-		public string? ProjectLocation { get; set; }
-
 		[Option("i", "id")]
 		public ulong? Id { get; set; }
 	}
 	public class Seek : BaseHandler<Seekoptions> {
 		private readonly IMessageFactory messageFactory;
+		private readonly MessagingGlobalOptions messagingOptions;
 
-		public Seek(IMessageFactory messageFactory, IOptions<Seekoptions> options, ILogger logger) : base(options, logger) {
+		public Seek(IMessageFactory messageFactory, IOptions<MessagingGlobalOptions> messagingOptions, IOptions<Seekoptions> options, ILogger logger) : base(options, logger) {
 			this.messageFactory = messageFactory;
+			this.messagingOptions = messagingOptions.Value;
 		}
 
 		public override async Task<int> InvokeAsync(InvocationContext context) {
 			MessageGroup? message = null;
-			if (!string.IsNullOrEmpty(options.Project)) {
-				string folder;
-				if (string.IsNullOrEmpty(options.ProjectLocation)) {
-					folder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), options.Project);
-				} else {
-					folder = System.IO.Path.Combine(options.ProjectLocation, options.Project);
-				}
-				foreach (var file in System.IO.Directory.EnumerateFiles(folder, "*.log")) {
-					message = await SearchFile(message, file, messageFactory);
-				}
+			string folder;
+			if (string.IsNullOrEmpty(messagingOptions.EventSourceFolder)) {
+				folder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), messagingOptions.Application);
+			} else {
+				folder = messagingOptions.EventSourceFolder;
+			}
+			foreach (var file in System.IO.Directory.EnumerateFiles(folder, "*.log")) {
+				this.writer.WriteLine($"Searching file {file}");
+				message = await SearchFile(message, file, messageFactory);
 			}
 			if (message != null) {
 				await message.Write(Console.Out);

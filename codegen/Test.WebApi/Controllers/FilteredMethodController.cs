@@ -8,8 +8,14 @@ namespace Test.WebApi.Controllers {
 		public void FilteredByAll() { }
 		[HttpGet("none")]
 		public void FilteredByNone() { }
+		
 		[HttpGet("csharp")]
 		public void FilteredByCSharp() { }
+		[HttpGet("csharp2")]
+		public void FilteredByCSharp2() { }
+		[HttpGet("include-this-method")]
+		public void IncludedByCSharp() { }
+
 		[HttpGet("typescript")]
 		public void FilteredByTypeScript() { }
 	}

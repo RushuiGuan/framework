@@ -23,7 +23,7 @@
     },
     "csharp-proxy": {
       "commandName": "Project",
-      "commandLineArgs": "csharp-proxy -p .\\Test.WebApi\\Test.WebApi.csproj -s .\\Test.Proxy\\codegen-settings.json -c ArrayParamTest",
+      "commandLineArgs": "csharp-proxy -p .\\Test.WebApi\\Test.WebApi.csproj -s .\\Test.Proxy\\codegen-settings.json -o .\\Test.Proxy",
       "workingDirectory": "C:\\app\\framework\\codegen"
     },
     "dto-model": {

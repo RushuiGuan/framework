@@ -40,7 +40,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 				var controllerName = this.Controller.GetFullName();
 				for (int i = this.Methods.Count - 1; i >= 0; i--) {
 					var method = this.Methods[i];
-					if (!filters.Any(x => x.ShouldKeep($"{controllerName}.{method.Name}"))) {
+					if(!Settings.SymbolFilter.ShouldKeep(filters, $"{controllerName}.{method.Name}")) {
 						this.Methods.RemoveAt(i);
 					}
 				}

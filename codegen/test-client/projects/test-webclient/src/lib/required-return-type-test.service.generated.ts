@@ -139,4 +139,9 @@ export class RequiredReturnTypeTestService extends WebClient {
 		const result = this.doGetAsync<MyDto[]>(relativeUrl, {});
 		return result;
 	}
+	getMyDtoCollectionAsync(): Observable<MyDto[]>  {
+		const relativeUrl = `async-collection-return-type`;
+		const result = this.doGetAsync<MyDto[]>(relativeUrl, {});
+		return result;
+	}
 }

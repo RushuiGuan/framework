@@ -1,4 +1,5 @@
 export * from './lib/array-param-test.service.generated';
+export * from './lib/cancellation-token-test.service.generated';
 export * from './lib/controller-route-test.service.generated';
 export * from './lib/dto.generated';
 export * from './lib/enum.generated';

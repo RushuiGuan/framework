@@ -28,4 +28,14 @@ export class FilteredMethodService extends WebClient {
 		const result = this.doGetAsync<object>(relativeUrl, {});
 		return result;
 	}
+	filteredByCSharp2(): Observable<object>  {
+		const relativeUrl = `csharp2`;
+		const result = this.doGetAsync<object>(relativeUrl, {});
+		return result;
+	}
+	includedByCSharp(): Observable<object>  {
+		const relativeUrl = `include-this-method`;
+		const result = this.doGetAsync<object>(relativeUrl, {});
+		return result;
+	}
 }

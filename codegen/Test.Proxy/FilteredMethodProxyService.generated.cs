@@ -28,6 +28,14 @@ namespace Test.Proxy {
 			}
 		}
 
+		public async Task IncludedByCSharp() {
+			string path = $"{ControllerPath}/include-this-method";
+			var queryString = new NameValueCollection();
+			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				await this.GetRawResponse(request);
+			}
+		}
+
 		public async Task FilteredByTypeScript() {
 			string path = $"{ControllerPath}/typescript";
 			var queryString = new NameValueCollection();
