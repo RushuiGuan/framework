@@ -1,10 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	/// <summary>
@@ -15,7 +12,6 @@ namespace Albatross.CodeAnalysis.Syntax {
 	public class MethodDeclarationBuilder : INodeBuilder {
 		public MethodDeclarationBuilder(TypeNode returnType, string methodName) {
 			Node = SyntaxFactory.MethodDeclaration(returnType.Type, methodName);
-			Public();
 		}
 		public MethodDeclarationBuilder(string returnType, string methodName) : this(new TypeNode(returnType), methodName) { }
 		public MethodDeclarationBuilder Public() {
@@ -39,7 +35,11 @@ namespace Albatross.CodeAnalysis.Syntax {
 			return this;
 		}
 		public MethodDeclarationSyntax Node { get; private set; }
-
+		bool usedByInterface;
+		public MethodDeclarationBuilder UsedByInterface() {
+			usedByInterface = true;
+			return this;
+		}
 
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			var statements = new List<StatementSyntax>();
@@ -50,7 +50,11 @@ namespace Albatross.CodeAnalysis.Syntax {
 					statements.Add(new StatementNode(element).StatementSyntax);
 				}
 			}
-			Node = Node.WithBody(SyntaxFactory.Block(statements));
+			if (usedByInterface) {
+				Node = Node.WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+			} else {
+				Node = Node.WithBody(SyntaxFactory.Block(statements));
+			}
 			return Node;
 		}
 	}

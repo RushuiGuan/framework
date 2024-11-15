@@ -12,7 +12,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		[Fact]
 		public void TestScope() {
 			var cs = new CodeStack();
-			using (cs.NewScope(new MethodDeclarationBuilder("string", "MyMethod"))) {
+			using (cs.NewScope(new MethodDeclarationBuilder("string", "MyMethod").Public())) {
 				cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
 				cs.Begin(new VariableBuilder("int", "test2")).With(new LiteralNode(2)).End();
 			}
@@ -29,7 +29,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		[Fact]
 		public void TestNoOpNodeBuilder() {
 			var cs = new CodeStack();
-			using (cs.NewScope(new MethodDeclarationBuilder("string", "MyMethod"))) {
+			using (cs.NewScope(new MethodDeclarationBuilder("string", "MyMethod").Public())) {
 				using (cs.NewScope()) {
 					cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
 					cs.Begin(new VariableBuilder("int", "test2")).With(new LiteralNode(2)).End();
@@ -57,7 +57,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 				using (cs.NewScope()) {
 					cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
 					cs.Begin(new VariableBuilder("int", "test2")).With(new LiteralNode(2)).End();
-					cs.To(new MethodDeclarationBuilder("string", "MyMethod"));
+					cs.To(new MethodDeclarationBuilder("string", "MyMethod").Public());
 				}
 			}
 			Assert.Equal(TestFeed_Expected, cs.Build());

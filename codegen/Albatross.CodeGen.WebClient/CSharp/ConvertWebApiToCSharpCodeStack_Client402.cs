@@ -52,7 +52,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 							} else {
 								returnType = new GenericIdentifierNode("Task", method.ReturnType.AsTypeNode());
 							}
-							using (codeStack.NewScope(new MethodDeclarationBuilder(returnType, method.Name).Async())) {
+							using (codeStack.NewScope(new MethodDeclarationBuilder(returnType, method.Name).Public().Async())) {
 								foreach (var param in method.Parameters) {
 									codeStack.With(new ParameterNode(param.Type.AsTypeNode(), param.Name));
 								}

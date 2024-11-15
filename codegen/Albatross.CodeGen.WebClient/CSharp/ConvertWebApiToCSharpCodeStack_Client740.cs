@@ -29,10 +29,30 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 
 				using (codeStack.NewScope(new NamespaceDeclarationBuilder(settings.CSharpWebClientSettings.Namespace))) {
 					var proxyClassName = from.ControllerName + ProxyService;
+					var interfaceClassName = $"I{proxyClassName}";
 					codeStack.FileName = $"{proxyClassName}.generated.cs";
-
+					if (settings.CSharpWebClientSettings.UseInterface) {
+						using (codeStack.NewScope(new InterfaceDeclarationBuilder(interfaceClassName).Partial())) {
+							foreach (var method in from.Methods) {
+								TypeNode returnType;
+								if (method.ReturnType.SpecialType == SpecialType.System_Void) {
+									returnType = new TypeNode("Task");
+								} else {
+									returnType = new GenericIdentifierNode("Task", method.ReturnType.AsTypeNode());
+								}
+								using (codeStack.NewScope(new MethodDeclarationBuilder(returnType, method.Name).UsedByInterface())) {
+									foreach (var param in method.Parameters) {
+										codeStack.With(new ParameterNode(param.Type.AsTypeNode(), param.Name));
+									}
+								}
+							}
+						}
+					}
 					using (codeStack.NewScope(new ClassDeclarationBuilder(proxyClassName).Partial())) {
 						codeStack.With(new BaseTypeNode("ClientBase"));
+						if (settings.CSharpWebClientSettings.UseInterface) {
+							codeStack.With(new BaseTypeNode(interfaceClassName));
+						}
 						using (codeStack.NewScope(new ConstructorDeclarationBuilder(proxyClassName))) {
 							codeStack
 								.With(new ParameterNode(new GenericIdentifierNode("ILogger", proxyClassName), "logger"))
@@ -54,7 +74,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 							} else {
 								returnType = new GenericIdentifierNode("Task", method.ReturnType.AsTypeNode());
 							}
-							using (codeStack.NewScope(new MethodDeclarationBuilder(returnType, method.Name).Async())) {
+							using (codeStack.NewScope(new MethodDeclarationBuilder(returnType, method.Name).Public().Async())) {
 								foreach (var param in method.Parameters) {
 									codeStack.With(new ParameterNode(param.Type.AsTypeNode(), param.Name));
 								}

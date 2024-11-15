@@ -24,6 +24,10 @@ namespace Albatross.CodeAnalysis.Syntax {
 			if (attributes.Any()) {
 				Node = Node.WithAttributeLists(SyntaxFactory.List(attributes.Select(x => SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(x)))));
 			}
+			var properties = elements.OfType<PropertyDeclarationSyntax>().ToArray();
+			Node = Node.AddMembers(properties);
+			var methods = elements.OfType<MethodDeclarationSyntax>().ToArray();
+			Node = Node.AddMembers(methods);
 			return Node;
 		}
 	}
