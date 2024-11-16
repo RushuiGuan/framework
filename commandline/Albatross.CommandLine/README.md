@@ -136,3 +136,19 @@ public record class GlobalOptions {
 * Override the `CreateGlobalCommandHandler` method to use your own global command handler.
 	* Albatross.CommandLine uses an instance of [GlobalCommandHandler](./GlobalCommandHandler.cs) for all commands.  Its job is to invoke the specific sub command handler,  error handling and implementation of global options.  The `GlobalCommandHandler` class bypasses the error handling mechanism of `System.CommandLine` library.
 	* `CreateGlobalCommandHandler` method can be overwritten to so that a different global handler can be used.
+* Command Customization - Create a partial class for the command and implement interface `IRequireInitialization`.  The partial keyword allows the modification of the generated `MyCommand` class.  Since the class now inherits from `IRequireInitialization` interface, the `Init` method will be invoked when the command is constructed.  This is a good place to add validators or other customizations.  In the sample code below, a validator is added to ensure that either `InstrumentId` or `MarketId` is specified but not both.  The generated option properties makes it easy to reference the option symbols.
+	```csharp
+	public partial class MyCommand : IRequireInitialization {
+		public void Init() {
+			AddValidator(commandResult => {
+				var required = commandResult.Children.Where(x => x.Symbol == this.Option_InstrumentId || x.Symbol == this.Option_MarketId).ToArray();
+				if (required.Length == 2) {
+					commandResult.ErrorMessage = "InstrumentId and MarketId cannot be used together.";
+				}else if(required.Length == 0){
+					commandResult.ErrorMessage = "Either InstrumentId or MarketId must be specified.";
+				}
+			});
+		}
+	}
+	```
+			
