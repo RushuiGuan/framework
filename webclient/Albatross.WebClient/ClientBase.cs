@@ -9,7 +9,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -217,7 +216,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region get response
-		public async Task<HttpResponseMessage> SendRequest(HttpRequestMessage request, int redirectCount = 0) {
+		protected async Task<HttpResponseMessage> SendRequest(HttpRequestMessage request, int redirectCount = 0) {
 			var response = await client.SendAsync(request);
 			if (ShouldRedirect(response)) {
 				if (redirectCount > MaxRedirect) {
@@ -238,37 +237,37 @@ namespace Albatross.WebClient {
 				return response;
 			}
 		}
-		public async Task<string> GetRawResponse(HttpRequestMessage request) {
+		protected async Task<string> GetRawResponse(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsText(response);
 			}
 		}
-		public async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
+		protected async Task<string> GetRawResponse<ErrorType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsText<ErrorType>(response);
 			}
 		}
-		public async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
+		protected internal async Task<ResultType?> GetJsonResponse<ResultType, ErrorType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsJson<ResultType, ErrorType>(response);
 			}
 		}
-		public async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
+		protected internal async Task<ResultType?> GetJsonResponse<ResultType>(HttpRequestMessage request) {
 			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				return await ProcessResponseAsJson<ResultType>(response);
 			}
 		}
-		public async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
+		protected async Task Download<ErrorType>(HttpRequestMessage request, Stream stream) {
 			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				await this.Download<ErrorType>(response, stream);
 			}
 		}
-		public async Task Download(HttpRequestMessage request, Stream stream) {
+		protected async Task Download(HttpRequestMessage request, Stream stream) {
 			logger.LogDebug("{method}: {baseUri}{relativeUri}", request.Method, BaseUrl, request.RequestUri);
 			using (var response = await SendRequest(request)) {
 				await this.Download(response, stream);
@@ -277,8 +276,8 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region error processing
-		public Task EnsureStatusCode(HttpResponseMessage response) => EnsureStatusCode<ServiceError>(response);
-		public async Task EnsureStatusCode<ErrorType>(HttpResponseMessage response) {
+		protected Task EnsureStatusCode(HttpResponseMessage response) => EnsureStatusCode<ServiceError>(response);
+		protected async Task EnsureStatusCode<ErrorType>(HttpResponseMessage response) {
 			Exception exception;
 			if ((int)response.StatusCode > 399) {
 				string content = await response.ReadResponseAsText();
@@ -298,7 +297,7 @@ namespace Albatross.WebClient {
 		#endregion
 
 		#region process response
-		public async Task<T?> ReadResponseAsJson<T>(HttpResponseMessage response) {
+		protected async Task<T?> ReadResponseAsJson<T>(HttpResponseMessage response) {
 			if (response.StatusCode == HttpStatusCode.NoContent || response.Content.Headers.ContentLength == 0) {
 				return default;
 			} else {
@@ -311,7 +310,7 @@ namespace Albatross.WebClient {
 				}
 			}
 		}
-		public async Task<string> ProcessResponseAsText(HttpResponseMessage response) {
+		protected async Task<string> ProcessResponseAsText(HttpResponseMessage response) {
 			try {
 				await EnsureStatusCode(response);
 				string content = await response.ReadResponseAsText();
@@ -320,7 +319,7 @@ namespace Albatross.WebClient {
 				await writer.LogResponse(response);
 			}
 		}
-		public async Task<string> ProcessResponseAsText<ErrorType>(HttpResponseMessage response) {
+		protected async Task<string> ProcessResponseAsText<ErrorType>(HttpResponseMessage response) {
 			try {
 				await EnsureStatusCode<ErrorType>(response);
 				string content = await response.ReadResponseAsText();
@@ -329,7 +328,7 @@ namespace Albatross.WebClient {
 				await writer.LogResponse(response);
 			}
 		}
-		public async Task<ResultType?> ProcessResponseAsJson<ResultType, ErrorType>(HttpResponseMessage response) {
+		protected async Task<ResultType?> ProcessResponseAsJson<ResultType, ErrorType>(HttpResponseMessage response) {
 			try {
 				await EnsureStatusCode<ErrorType>(response);
 				var result = await ReadResponseAsJson<ResultType>(response);
@@ -338,7 +337,7 @@ namespace Albatross.WebClient {
 				await writer.LogResponse(response);
 			}
 		}
-		public async Task<ResultType?> ProcessResponseAsJson<ResultType>(HttpResponseMessage response) {
+		protected async Task<ResultType?> ProcessResponseAsJson<ResultType>(HttpResponseMessage response) {
 			try {
 				await EnsureStatusCode(response);
 				string content = await response.ReadResponseAsText();
@@ -347,7 +346,7 @@ namespace Albatross.WebClient {
 				await writer.LogResponse(response);
 			}
 		}
-		public async Task Download<ErrorType>(HttpResponseMessage response, Stream stream) {
+		protected async Task Download<ErrorType>(HttpResponseMessage response, Stream stream) {
 			try {
 				await EnsureStatusCode<ErrorType>(response);
 				if (response.Content.Headers.ContentEncoding.Contains(ClientBase.GZipEncoding)) {
@@ -361,7 +360,7 @@ namespace Albatross.WebClient {
 				await writer.LogResponse(response, false);
 			}
 		}
-		public Task Download(HttpResponseMessage response, Stream stream) => Download<ServiceError>(response, stream);
+		protected Task Download(HttpResponseMessage response, Stream stream) => Download<ServiceError>(response, stream);
 		#endregion
 	}
 }
