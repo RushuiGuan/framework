@@ -1,6 +1,7 @@
 # Packages
 Albatross.EFCore
 Albatross.EFCore.Audit
+Albatross.EFCore.AutoCacheEviction
 Albatross.EFCore.ChangeReporting
 Albatross.EFCore.CodeGen
 Albatross.EFCore.PostgreSQL

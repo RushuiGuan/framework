@@ -4,9 +4,9 @@ using System.IO;
 namespace Albatross.Messaging.Services {
 	/// <summary>
 	/// durable counter will return true unique ids even in the case of process crashing.  The returned Id will always get bigger but it is not garanteed to be
-	/// sequential.  Most of the time, the nextId() method will return the next ulong value, but in case of the process crashing, it will return the next
-	/// integer number dividable by 10000.
-	/// Under the hood, the class use a file to keep track of the id value.  For efficiency reason, it only updates the file when the Id % 10000 == 0.
+	/// consecutive.  Under normal operations, the `NextId()` method will return n for the first time and n + 1 afterwards.  The number n is the interval to write to disk.
+	/// If the process crashes at number `a`, the `NextId()` after restarting will be a + n.  Using this approach, the counter doesn't need to write to disk on every increment
+	/// instead it writes to disk every n increments.  This is useful when the counter is used in a high throughput environment.
 	/// </summary>
 	public class DurableAtomicCounter : IAtomicCounter {
 		string fileName;
