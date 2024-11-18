@@ -46,6 +46,13 @@ namespace Albatross.Messaging.Services {
 			this.eventWriter = new DiskStorageEventWriter("router-server", config.DiskStorage, loggerFactory);
 			this.eventReader = new DiskStorageEventReader(config.DiskStorage, messageFactory, loggerFactory.CreateLogger("router-server-log-reader"));
 			this.socket = new RouterSocket();
+			if (config.UseCurveEncryption) {
+				if(string.IsNullOrEmpty(config.ServerPrivateKey)) {
+					throw new ArgumentException("curve encryption is enabled but the server private key is missing");
+				}
+				socket.Options.CurveServer = true;
+				socket.Options.CurveCertificate = NetMQCertificate.CreateFromSecretKey(config.ServerPrivateKey);
+			}
 			this.socket.ReceiveReady += Socket_ReceiveReady;
 			this.socket.Options.ReceiveHighWatermark = config.ReceiveHighWatermark;
 			this.socket.Options.SendHighWatermark = config.SendHighWatermark;

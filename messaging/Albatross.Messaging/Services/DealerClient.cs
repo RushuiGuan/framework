@@ -44,6 +44,13 @@ namespace Albatross.Messaging.Services {
 			this.eventWriter = new DiskStorageEventWriter(config.DiskStorage.FileName, config.DiskStorage, loggerFactory);
 			this.logger = loggerFactory.CreateLogger<DealerClient>();
 			socket = new DealerSocket();
+			if (config.UseCurveEncryption) {
+				if (string.IsNullOrEmpty(config.ServerPublicKey)) {
+					throw new ArgumentException("curve encryption is enabled but the public key is not provided");
+				}
+				socket.Options.CurveCertificate = new NetMQCertificate();
+				socket.Options.CurveServerKey = NetMQCertificate.FromPublicKey(config.ServerPublicKey).PublicKey;
+			}
 			socket.ReceiveReady += Socket_ReceiveReady;
 			var identity = string.IsNullOrEmpty(config.Identity) ? DateTime.UtcNow.Ticks.ToMaxBase() : $"{config.Identity}_{System.Net.Dns.GetHostName()}";
 			socket.Options.Identity = identity.ToUtf8Bytes();

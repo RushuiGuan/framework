@@ -6,6 +6,8 @@ namespace Albatross.Messaging.Configurations {
 		public string Identity { get; set; } = string.Empty;
 		public string EndPoint { get; set; } = string.Empty;
 		public int AckTimeout { get; set; }
+		public bool UseCurveEncryption { get; set; }
+		public string? ServerPublicKey { get; set; }
 
 		/// <summary>
 		/// Timer interval in milliseconds.  If not specifed, default to 3 seconds

@@ -10,6 +10,8 @@ namespace Albatross.Messaging.Configurations {
 		/// when starting up, the number of minutes in logs to replay
 		/// </summary>
 		public int LogCatchUpPeriod { get; set; }
+		public bool UseCurveEncryption { get; set; }
+		public string? ServerPrivateKey { get; set; }
 
 		/// <summary>
 		/// Timer interval in milliseconds.  If not specifed, default to 3 seconds
