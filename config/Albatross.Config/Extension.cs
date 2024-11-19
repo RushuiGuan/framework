@@ -2,10 +2,20 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+#if NET8_0_OR_GREATER
+using System.Diagnostics.CodeAnalysis;
+#endif
 
 namespace Albatross.Config {
 	// the class name Extension cannot be renamed to Extensions (standard) because of backward compability reason.
 	public static class Extension {
+		private static ConfigType CreateNValidate<ConfigType>(IConfiguration configuration) where ConfigType : ConfigBase {
+			var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), configuration) 
+				?? throw new InvalidOperationException($"Failed to create instance of {typeof(ConfigType).Name}");
+			cfg.Validate();
+			return cfg;
+		}
+
 		/// <summary>
 		/// Registration for the Configuration Class C.  C has to have the base class of <see cref="ConfigBase"/> and it also requires a constructor with
 		/// a single parameter of type <see cref="IConfiguration"/>
@@ -15,19 +25,15 @@ namespace Albatross.Config {
 		/// <typeparam name="ConfigType">The configuration class</typeparam>
 		/// <param name="services">The ServiceCollection instance</param>
 		/// <returns>The service collection instance</returns>
+#if NET8_0_OR_GREATER
+		public static IServiceCollection AddConfig<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] ConfigType>(this IServiceCollection services, bool singleton = true) where ConfigType : ConfigBase {
+#else
 		public static IServiceCollection AddConfig<ConfigType>(this IServiceCollection services, bool singleton = true) where ConfigType : ConfigBase {
+#endif
 			if (singleton) {
-				services.TryAddSingleton<ConfigType>(provider => {
-					var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
-					cfg.Validate();
-					return cfg;
-				});
+				services.TryAddSingleton<ConfigType>(provider => CreateNValidate<ConfigType>(provider.GetRequiredService<IConfiguration>()));
 			} else {
-				services.TryAddScoped<ConfigType>(provider => {
-					var cfg = (ConfigType)Activator.CreateInstance(typeof(ConfigType), provider.GetRequiredService<IConfiguration>());
-					cfg.Validate();
-					return cfg;
-				});
+				services.TryAddScoped<ConfigType>(provider => CreateNValidate<ConfigType>(provider.GetRequiredService<IConfiguration>()));
 			}
 			return services;
 		}

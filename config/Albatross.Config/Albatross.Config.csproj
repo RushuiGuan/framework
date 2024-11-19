@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<Description>Simplfied configuration setup for your .Net applications.</Description>
