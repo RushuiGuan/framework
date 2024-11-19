@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.SemVer", "Albatro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Albatross.SemVer.UnitTest", "Albatross.SemVer.UnitTest\Albatross.SemVer.UnitTest.csproj", "{1448833D-324E-480E-BED9-4407D1FDFDA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDevOpsProxy", "AzureDevOpsProxy\AzureDevOpsProxy.csproj", "{DAAC52CA-6785-47B5-B347-94A6448F3A91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{1448833D-324E-480E-BED9-4407D1FDFDA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1448833D-324E-480E-BED9-4407D1FDFDA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1448833D-324E-480E-BED9-4407D1FDFDA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAAC52CA-6785-47B5-B347-94A6448F3A91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAAC52CA-6785-47B5-B347-94A6448F3A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAAC52CA-6785-47B5-B347-94A6448F3A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAAC52CA-6785-47B5-B347-94A6448F3A91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

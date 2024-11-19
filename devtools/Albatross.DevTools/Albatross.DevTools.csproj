@@ -25,10 +25,16 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.CommandLine" Version="7.5.6" />
+		<PackageReference Include="Albatross.CommandLine" Version="7.5.8" />
 		<PackageReference Include="LibGit2Sharp" Version="0.30.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.SemVer\Albatross.SemVer.csproj" />
+		<ProjectReference Include="..\AzureDevOpsProxy\AzureDevOpsProxy.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>
