@@ -15,7 +15,7 @@ namespace Albatross.CommandLine {
 			this.options = options.Value;
 			this.logger = logger;
 		}
-		public int Invoke(InvocationContext context) {
+		public virtual int Invoke(InvocationContext context) {
 			logger.LogInformation("Running Command {name} of type {type} with options {@param}",
 				context.ParsedCommandName(),
 				context.ParseResult.CommandResult.Command.GetType().Name,
