@@ -9,10 +9,19 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Utility {
-	[Verb("seek", typeof(Seek))]
+	[Verb("seek", typeof(Seek), Description = "Search the event source files for a conversation with the specified id")]
 	public class Seekoptions {
 		[Option("i", "id")]
 		public ulong? Id { get; set; }
+
+		[Option("s", Description = "The local time to start searching for the events")]
+		public DateTime? Start { get; set; }
+
+		[Option("e", Description = "The local time to stop searching for the events")]
+		public DateTime? End { get; set; }
+
+		[Option("p", "pattern", Description = "Regular expression pattern that can be used as a filter on the message class name")]
+		public string? MessageClassNameFilterPattern { get; set; }
 	}
 	public class Seek : BaseHandler<Seekoptions> {
 		private readonly IMessageFactory messageFactory;
@@ -24,25 +33,19 @@ namespace Albatross.Messaging.Utility {
 		}
 
 		public override async Task<int> InvokeAsync(InvocationContext context) {
-			MessageGroup? message = null;
-			string folder;
-			if (string.IsNullOrEmpty(messagingOptions.EventSourceFolder)) {
-				folder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), messagingOptions.Application);
-			} else {
-				folder = messagingOptions.EventSourceFolder;
-			}
-			foreach (var file in System.IO.Directory.EnumerateFiles(folder, "*.log")) {
+			Conversation? conversation = null;
+			foreach (var file in messagingOptions.GetEventSourceFiles()) {
 				this.writer.WriteLine($"Searching file {file}");
-				message = await SearchFile(message, file, messageFactory);
+				conversation = await SearchFile(conversation, file, messageFactory);
 			}
-			if (message != null) {
-				await message.Write(Console.Out);
+			if (conversation != null) {
+				await conversation.Write(Console.Out);
 			}
 			return 0;
 		}
 
-		async Task<MessageGroup?> SearchFile(MessageGroup? message, string file, IMessageFactory messageFactory) {
-			using var stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+		async Task<Conversation?> SearchFile(Conversation? message, FileInfo file, IMessageFactory messageFactory) {
+			using var stream = File.Open(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			using (var reader = new StreamReader(stream)) {
 				while (!reader.EndOfStream) {
 					var line = await reader.ReadLineAsync();
@@ -50,7 +53,7 @@ namespace Albatross.Messaging.Utility {
 						if (EventEntry.TryParseLine(messageFactory, line, out var entry)) {
 							if (options.Id == entry.Message.Id) {
 								if (message == null) {
-									message = new MessageGroup(entry.Message.Route ?? string.Empty, entry.Message.Id);
+									message = new Conversation(entry.Message.Route ?? string.Empty, entry.Message.Id);
 								}
 								message.Add(entry);
 							}

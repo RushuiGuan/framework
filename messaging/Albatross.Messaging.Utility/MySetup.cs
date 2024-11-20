@@ -18,7 +18,9 @@ namespace Albatross.Messaging.Utility {
 		}
 		public override RootCommand CreateRootCommand() {
 			var cmd = base.CreateRootCommand();
-			var appOption = new Option<string>("--application", "The application name");
+			var appOption = new Option<string>("--application", "The application name") {
+				IsRequired = true,
+			};
 			appOption.AddAlias("-a");
 			cmd.AddGlobalOption(appOption);
 

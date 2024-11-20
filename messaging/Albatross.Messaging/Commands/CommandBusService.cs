@@ -25,7 +25,7 @@ namespace Albatross.Messaging.Commands {
 				try {
 					var item = this.commandQueueFactory.CreateItem(cmd);
 					logger.LogDebug("AcceptingRequest => {id}", item.Id);
-					item.Queue.Submit(item);
+					item.Queue.Submit(item, false);
 					// internal command should not be routed here
 					Debug.Assert(item.Mode != CommandMode.Internal);
 					messagingService.Transmit(new CommandRequestAck(cmd.Route, cmd.Id));
@@ -61,7 +61,7 @@ namespace Albatross.Messaging.Commands {
 						messagingService.EventWriter.WriteEvent(new EventSource.EventEntry(EntryType.In, internalCommand.Request));
 						var newItem = this.commandQueueFactory.CreateItem(internalCommand.Request);
 						logger.LogDebug("ProcessQueue, InternalCommand => {id}", newItem.Id);
-						newItem.Queue.Submit(newItem);
+						newItem.Queue.Submit(newItem, internalCommand.Priority);
 						internalCommand.SetResult(newItem.Id);
 					} catch (Exception err) {
 						if (internalCommand is InternalCommandWithCallback) {

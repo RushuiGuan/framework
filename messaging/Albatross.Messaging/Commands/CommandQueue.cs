@@ -14,6 +14,7 @@ namespace Albatross.Messaging.Commands {
 		protected ILogger logger = null!;
 		protected readonly RouterServer routerServer;
 		protected readonly IServiceScopeFactory scopeFactory;
+		protected readonly Queue<CommandQueueItem> priorityQueue = new Queue<CommandQueueItem>();
 		protected readonly Queue<CommandQueueItem> queue = new Queue<CommandQueueItem>();
 		protected CommandQueueItem? currentItem;
 		public string Name { get; private set; } = string.Empty;
@@ -27,17 +28,21 @@ namespace Albatross.Messaging.Commands {
 			this.logger = logger;
 			logger.LogInformation("command queue {name} setup", queueName);
 		}
-		public void Submit(CommandQueueItem item) {
+		public void Submit(CommandQueueItem item, bool priority) {
 			logger.LogDebug("Submitting => {id}", item.Id);
-			this.queue.Enqueue(item);
+			if (priority) {
+				this.priorityQueue.Enqueue(item);
+			} else {
+				this.queue.Enqueue(item);
+			}
 			this.RunNextIfNotBusy();
 		}
 
-		public int Count { get => this.queue.Count; }
+		public int Count => this.queue.Count + this.priorityQueue.Count;
 
 		public void RunNextIfNotBusy() {
 			if (currentItem == null || currentItem.IsCompleted) {
-				if (this.queue.TryDequeue(out var next)) {
+				if (this.priorityQueue.TryDequeue(out var next) || this.queue.TryDequeue(out next)) {
 					logger.LogDebug("RunNextIfNotBusy => {id}", next.Id);
 					this.currentItem = next;
 					_ = Run(next);

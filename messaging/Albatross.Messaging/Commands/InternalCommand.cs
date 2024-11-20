@@ -13,6 +13,7 @@ namespace Albatross.Messaging.Commands {
 		public CommandRequest Request { get; }
 		public virtual void SetException(Exception err) { }
 		public virtual void SetResult(ulong id) { }
+		public bool Priority { get; set; }
 	}
 
 	/// <summary>

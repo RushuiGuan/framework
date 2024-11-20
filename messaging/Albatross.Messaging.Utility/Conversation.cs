@@ -8,16 +8,8 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Utility {
-	public class EventEntry<T> where T : IMessage {
-		public EventEntry(EventEntry eventEntry) {
-			Entry = eventEntry;
-		}
-		public EventEntry Entry { get; }
-		public T Message => (T)Entry.Message;
-	}
-
-	public class MessageGroup {
-		public MessageGroup(string client, ulong id) {
+	public class Conversation {
+		public Conversation(string client, ulong id) {
 			Client = client;
 			Id = id;
 		}
@@ -47,8 +39,8 @@ namespace Albatross.Messaging.Utility {
 		public double ReplyErrorAckDuration => (this.clientAck?.Entry.TimeStamp - this.errorReply?.Entry.TimeStamp).GetValueOrDefault().TotalMilliseconds;
 		public string? Sequence { get; set; }
 
-
 		public List<EventEntry> Entries { get; } = new List<EventEntry>();
+		public bool IsCompleted { get; internal set; }
 
 		public void Add(EventEntry entry) {
 			if (string.IsNullOrEmpty(Sequence)) {

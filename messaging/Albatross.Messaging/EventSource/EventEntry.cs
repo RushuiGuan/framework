@@ -40,8 +40,7 @@ namespace Albatross.Messaging.EventSource {
 					return false;
 				}
 				if (line.TryGetText(Messages.Message.LogDelimiter, ref offset, out text)) {
-					if (DateTime.TryParseExact(text, EventEntry.TimeStampFormat, null, System.Globalization.DateTimeStyles.None, out timeStamp)) {
-						timeStamp = timeStamp.ToUniversalTime();
+					if (DateTime.TryParseExact(text, EventEntry.TimeStampFormat, null, System.Globalization.DateTimeStyles.RoundtripKind, out timeStamp)) {
 						var msg = messageFactory.Create(line, offset);
 						replay = new EventEntry(type, timeStamp, msg);
 						return true;

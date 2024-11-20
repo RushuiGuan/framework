@@ -34,26 +34,33 @@ namespace Albatross.Messaging.Commands {
 		/// <param name="timeout"></param>
 		/// <returns></returns>
 		/// <exception cref="NotSupportedException"></exception>
-		public Task<ulong> Submit(object command, bool fireAndForget = true, int timeout = 0) {
+		public Task<ulong> Submit(object command, bool _, int timeout = 0) {
+			return Send(command, false, timeout);
+		}
+		public Task<ulong> SubmitPriority(object command, bool _, int timeout = 0) {
+			return Send(command, true, timeout);
+		}
+
+		private Task<ulong> Send(object command, bool priority, int timeout = 0) {
 			var type = command.GetType();
-			if (fireAndForget) {
-				using var stream = new MemoryStream();
-				JsonSerializer.Serialize(stream, command, type, MessagingJsonSettings.Value.Default);
-				// internal commands have the route of "internal" and can use the ids of the router server
-				var id = routerServer.Counter.NextId();
-				context.InternalCommands.Add(id);
-				var request = new CommandRequest(context.Route, id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
-				if (timeout == 0) {
-					var internalCmd = new InternalCommand(request);
-					this.routerServer.SubmitToQueue(internalCmd);
-					return Task.FromResult(id);
-				} else {
-					var internalCmd = new InternalCommandWithCallback(request);
-					this.routerServer.SubmitToQueue(internalCmd);
-					return internalCmd.Task.WithTimeOut(TimeSpan.FromMilliseconds(timeout));
-				}
+			using var stream = new MemoryStream();
+			JsonSerializer.Serialize(stream, command, type, MessagingJsonSettings.Value.Default);
+			// internal commands have the route of "internal" and can use the ids of the router server
+			var id = routerServer.Counter.NextId();
+			context.InternalCommands.Add(id);
+			var request = new CommandRequest(context.Route, id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
+			if (timeout == 0) {
+				var internalCmd = new InternalCommand(request) {
+					Priority = priority,
+				};
+				this.routerServer.SubmitToQueue(internalCmd);
+				return Task.FromResult(id);
 			} else {
-				throw new NotSupportedException();
+				var internalCmd = new InternalCommandWithCallback(request) {
+					Priority = priority,
+				};
+				this.routerServer.SubmitToQueue(internalCmd);
+				return internalCmd.Task.WithTimeOut(TimeSpan.FromMilliseconds(timeout));
 			}
 		}
 	}
