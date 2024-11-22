@@ -34,7 +34,7 @@ namespace Albatross.Messaging.Commands {
 		/// <param name="timeout"></param>
 		/// <returns></returns>
 		/// <exception cref="NotSupportedException"></exception>
-		public Task<ulong> Submit(object command, bool _, int timeout = 0) {
+		public Task<ulong> Submit(object command, bool _ = false, int timeout = 0) {
 			return Send(command, false, timeout);
 		}
 		public Task<ulong> SubmitPriority(object command, int timeout = 0) {
