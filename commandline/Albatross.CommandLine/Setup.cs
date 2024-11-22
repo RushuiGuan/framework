@@ -11,6 +11,7 @@ using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Hosting;
 using System.CommandLine.Invocation;
+using System.CommandLine.NamingConventionBinder;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -58,7 +59,9 @@ namespace Albatross.CommandLine {
 
 		private Task SetCommandHanlerMiddleware(InvocationContext context, Func<InvocationContext, Task> next) {
 			var cmd = context.ParseResult.CommandResult.Command;
-			cmd.Handler = CreateGlobalCommandHandler(cmd);
+			if (cmd.Handler == null) {
+				cmd.Handler = CreateGlobalCommandHandler(cmd);
+			}
 			return next(context);
 		}
 		/// <summary>
@@ -70,23 +73,24 @@ namespace Albatross.CommandLine {
 
 		public virtual RootCommand CreateRootCommand() {
 			var cmd = new RootCommand(RootCommandDescription);
-			var logOption = new Option<LogEventLevel?>("--verbosity", () => LogEventLevel.Error);
+			// cmd.Handler = new HelpCommandHandler();
+			var logOption = new Option<LogEventLevel?>("--verbosity", () => LogEventLevel.Error, "Change the verbosity of logging");
 			logOption.AddAlias("-v");
 			cmd.AddGlobalOption(logOption);
-			cmd.AddGlobalOption(new Option<bool>("--benchmark"));
-			cmd.AddGlobalOption(new Option<bool>("--show-stack"));
+			cmd.AddGlobalOption(new Option<bool>("--benchmark", "Show the time it takes to run the command in milliseconds"));
+			cmd.AddGlobalOption(new Option<bool>("--show-stack", "Show the full stack when an exception has been thrown"));
 			return cmd;
 		}
 		public RootCommand RootCommand { get; }
 		public CommandLineBuilder CommandBuilder { get; }
 
-		public Setup AddCommand<TCommand>() where TCommand : Command, new() {
+		public TCommand AddCommand<TCommand>() where TCommand : Command, new() {
 			var cmd = new TCommand();
 			if (cmd is IRequireInitialization requireInit) {
 				requireInit.Init();
 			}
 			this.RootCommand.Add(cmd);
-			return this;
+			return cmd;
 		}
 
 		public virtual void RegisterServices(InvocationContext context, IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {

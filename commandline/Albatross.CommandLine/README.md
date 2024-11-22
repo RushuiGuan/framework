@@ -9,8 +9,9 @@ An integration library that provdes dependency injection, configuration and logg
 ## Related Articles
 * [Code Generator](../Albatross.CommandLine.CodeGen/README.md)
 * [Conventions](../docs/conventions.md)
-* [Global options](#global-options)
+* [Global Options](#global-options)
 * [Command Options](../docs/command-options.md)
+* [How to Create Mutually Exclusive Options](../docs/mutually-exclusive-options.md)
 * [Error Handling](#error-handling)
 * [Customizations](#customization)
 

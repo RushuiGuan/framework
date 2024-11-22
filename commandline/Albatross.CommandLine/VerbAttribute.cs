@@ -12,5 +12,6 @@ namespace Albatross.CommandLine {
 		public string? Description { get; set; }
 		public string[] Alias { get; set; } = new string[0];
 		public bool UseBaseClassProperties { get; set; } = true;
+		public string? Parent { get; set; }
 	}
 }

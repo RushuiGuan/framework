@@ -25,4 +25,4 @@ if(-not $skip) {
 	}
 }
 
-set-alias -name sample-commandline -Value $env:InstallDirectory\sample.commandline\sample.commandline.exe
+set-alias -name sample -Value $env:InstallDirectory\sample.commandline\sample.commandline.exe
