@@ -7,7 +7,6 @@ namespace Sample.CommandLine {
 		static Task<int> Main(string[] args) =>
 			new MySetup()
 				.AddCommands()
-				.AddMyCommands()
 				.CommandBuilder
 				.Build()
 				.InvokeAsync(args);

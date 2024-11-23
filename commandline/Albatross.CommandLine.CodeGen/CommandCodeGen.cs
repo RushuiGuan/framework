@@ -21,7 +21,7 @@ namespace Albatross.CommandLine.CodeGen {
 				// System.Diagnostics.Debugger.Launch();
 				var optionClasses = new List<INamedTypeSymbol>();
 				var handlerClasses = new Dictionary<string, string>();
-				var setups = new List<CommandSetup>();
+				var setups = new SortedDictionary<string, CommandSetup>();
 
 				foreach (var syntaxTree in context.Compilation.SyntaxTrees) {
 					var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
@@ -35,30 +35,34 @@ namespace Albatross.CommandLine.CodeGen {
 				if (!optionClasses.Any()) {
 					string text = $"No option class found.  Eligible classes should be public and annotated with the {My.VerbAttributeClass}";
 					context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}1", text);
-				} else {
-					// if the setup class is not found, use the namespace of the first option class
-					if (string.IsNullOrEmpty(setupClassNamespace)) {
-						setupClassNamespace = optionClasses.First().ContainingNamespace.ToDisplayString();
-					}
-					foreach (var optionClass in optionClasses) {
-						foreach (var attribute in optionClass.GetAttributes()) {
-							if (attribute.AttributeClass?.GetFullName() == My.VerbAttributeClass) {
-								var setup = new CommandSetup(optionClass, attribute);
-								setups.Add(setup);
-							}
-						}
-					}
-					foreach (var group in setups.GroupBy(x => x.CommandClassName)) {
-						if (group.Count() > 1) {
-							int index = 0;
-							foreach (var setup in group) {
-								setup.RenameCommandClass(index++);
+					return;
+				}
+				// if the setup class is not found, use the namespace of the first option class
+				if (string.IsNullOrEmpty(setupClassNamespace)) {
+					setupClassNamespace = optionClasses.First().ContainingNamespace.ToDisplayString();
+				}
+				foreach (var optionClass in optionClasses) {
+					foreach (var attribute in optionClass.GetAttributes()) {
+						if (attribute.AttributeClass?.GetFullName() == My.VerbAttributeClass) {
+							var setup = new CommandSetup(optionClass, attribute);
+							if (setups.ContainsKey(setup.Key)) {
+								context.CodeGenDiagnostic(DiagnosticSeverity.Error, $"{My.Diagnostic.IdPrefix}3", $"Duplicate command key '{setup.Key}' found");
+							} else {
+								setups.Add(setup.Key, setup);
 							}
 						}
 					}
 				}
-				if (!setups.Any()) return;
-				foreach (var setup in setups) {
+				foreach (var group in setups.Values.GroupBy(x => x.CommandClassName)) {
+					if (group.Count() > 1) {
+						int index = 0;
+						foreach (var setup in group) {
+							setup.RenameCommandClass(index++);
+						}
+					}
+				}
+				// generate the command class
+				foreach (var setup in setups.Values) {
 					var cs = new CodeStack();
 					using (cs.NewScope(new CompilationUnitBuilder())) {
 						cs.With(new UsingDirectiveNode("System.CommandLine"))
@@ -72,7 +76,7 @@ namespace Albatross.CommandLine.CodeGen {
 									using (cs.NewScope(new ArgumentListBuilder())) {
 										cs.With(new LiteralNode(setup.Name)).With(new LiteralNode(setup.Description));
 									}
-									this.BuildConstructorStatements(cs, setup, setup.OptionClass);
+									this.BuildConstructorStatements(cs, setup);
 								}
 								// build the option properties
 								foreach (var option in setup.Options) {
@@ -87,13 +91,15 @@ namespace Albatross.CommandLine.CodeGen {
 					writer.WriteSourceHeader(setup.CommandClassName);
 					writer.WriteLine(text);
 				}
-
+				// generate the code to register the commands
 				var diCodeStack = new CodeStack();
 				using (diCodeStack.NewScope(new CompilationUnitBuilder())) {
 					diCodeStack.With(new UsingDirectiveNode(Shared.Namespace.Microsoft_Extensions_DependencyInjection));
 					diCodeStack.With(new UsingDirectiveNode("System.CommandLine.Invocation"));
 					diCodeStack.With(new UsingDirectiveNode("System.CommandLine.Hosting"));
+					diCodeStack.With(new UsingDirectiveNode("System.CommandLine"));
 					diCodeStack.With(new UsingDirectiveNode("Albatross.CommandLine"));
+					diCodeStack.With(new UsingDirectiveNode("System.Collections.Generic"));
 
 					var namespaces = new List<string>();
 					var addedOptionClasses = new HashSet<string>();
@@ -101,12 +107,12 @@ namespace Albatross.CommandLine.CodeGen {
 						using (diCodeStack.NewScope(new ClassDeclarationBuilder(Shared.Class.CodeGenExtensions).Static())) {
 							using (diCodeStack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Static())) {
 								diCodeStack.With(new ParameterNode("IServiceCollection", "services").WithThis());
-								foreach (var setup in setups) {
+								foreach (var setup in setups.Values) {
 									using (diCodeStack.NewScope()) {
 										diCodeStack.With(new IdentifierNode("services"))
 											.With(new GenericIdentifierNode("AddKeyedScoped", "ICommandHandler", setup.HandlerClass))
 											.To(new MemberAccessBuilder())
-											.Begin(new ArgumentListBuilder()).With(new LiteralNode(setup.Name)).End()
+											.Begin(new ArgumentListBuilder()).With(new LiteralNode(setup.Key)).End()
 											.To(new InvocationExpressionBuilder());
 									}
 									if (!addedOptionClasses.Contains(setup.OptionClass.Name)) {
@@ -127,12 +133,39 @@ namespace Albatross.CommandLine.CodeGen {
 
 							using (diCodeStack.NewScope(new MethodDeclarationBuilder("Setup", "AddCommands").Static())) {
 								diCodeStack.With(new ParameterNode("Setup", "setup").WithThis());
-								foreach (var setup in setups) {
+
+								diCodeStack.Begin(new VariableBuilder("dict"))
+									.Complete(new NewObjectBuilder(new GenericIdentifierNode("Dictionary", "string", "Command")))
+								.End();
+
+								using (diCodeStack.NewScope()) {
+									diCodeStack.With(new IdentifierNode("dict"))
+										.With(new IdentifierNode("Add"))
+										.ToNewBegin(new InvocationExpressionBuilder())
+											.Begin(new ArgumentListBuilder())
+												.Begin(new MemberAccessBuilder())
+													.With(new IdentifierNode("string"))
+													.With(new IdentifierNode("Empty"))
+												.End()
+												.Begin(new MemberAccessBuilder())
+													.With(new IdentifierNode("setup"))
+													.With(new IdentifierNode("RootCommand"))
+												.End()
+											.End()
+										.End();
+								}
+
+								foreach (var setup in setups.Values) {
 									namespaces.Add(setup.OptionClass.ContainingNamespace.ToDisplayString());
 									using (diCodeStack.NewScope()) {
-										diCodeStack.With(new IdentifierNode("setup"))
+										diCodeStack.With(new IdentifierNode("dict"))
 											.With(new GenericIdentifierNode("AddCommand", setup.CommandClassName))
-											.To(new InvocationExpressionBuilder());
+											.ToNewBegin(new InvocationExpressionBuilder())
+												.Begin(new ArgumentListBuilder())
+													.With(new LiteralNode(setup.Key))
+													.With(new IdentifierNode("setup"))
+												.End()
+											.End();
 									}
 								}
 								diCodeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("setup").Identifier));
@@ -158,7 +191,7 @@ namespace Albatross.CommandLine.CodeGen {
 			}
 		}
 
-		void BuildConstructorStatements(CodeStack cs, CommandSetup setup, INamedTypeSymbol optionClass) {
+		void BuildConstructorStatements(CodeStack cs, CommandSetup setup) {
 			foreach (var value in setup.Aliases) {
 				using (cs.NewScope()) {
 					cs.With(new ThisExpression()).With(new IdentifierNode("AddAlias"))

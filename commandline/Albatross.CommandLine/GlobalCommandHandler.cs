@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 namespace Albatross.CommandLine {
 	public class GlobalCommandHandler : ICommandHandler {
 		protected readonly Command command;
+		protected readonly string key;
 
 		public GlobalCommandHandler(Command command) {
 			this.command = command;
+			this.key = command.GetKey();
 		}
 
 		public int Invoke(InvocationContext context) => Invoke(context, false).Result;
@@ -21,9 +23,9 @@ namespace Albatross.CommandLine {
 
 		public virtual int HandleCommandException(Exception err, ILogger logger, GlobalOptions globalOptions) {
 			if (globalOptions.ShowStack) {
-				logger.LogError(err, "Error invoking Command {command}", command.Name);
+				logger.LogError(err, "Error invoking Command {command}", key);
 			} else {
-				logger.LogError("Error invoking Command {command}: {message}", command.Name, err.Message);
+				logger.LogError("Error invoking Command {command}: {message}", key, err.Message);
 			}
 			return 10000;
 		}
@@ -34,17 +36,17 @@ namespace Albatross.CommandLine {
 			var logger = provider.GetRequiredService<ILogger<GlobalCommandHandler>>();
 			ICommandHandler? handler = null;
 			try {
-				handler = provider.GetKeyedService<ICommandHandler>(command.Name);
+				handler = provider.GetKeyedService<ICommandHandler>(key);
 			} catch (Exception err) {
 				if (globalOptions.ShowStack) {
-					logger.LogError(err, "Error creating CommandHandler for Command {command}", command.Name);
+					logger.LogError(err, "Error creating CommandHandler for Command {command}", key);
 				} else {
-					logger.LogError("Error creating CommandHandler for Command {command}: {msg}", command.Name, err.Message);
+					logger.LogError("Error creating CommandHandler for Command {command}: {msg}", key, err.Message);
 				}
 				return 9999;
 			}
 			if (handler == null) {
-				logger.LogError("No CommandHandler is registered for Command {command}", command.Name);
+				logger.LogError("No CommandHandler is registered for Command {command}", key);
 				return 9998;
 			} else {
 				Stopwatch? stopwatch;

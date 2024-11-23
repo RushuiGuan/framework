@@ -11,7 +11,6 @@ using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Hosting;
 using System.CommandLine.Invocation;
-using System.CommandLine.NamingConventionBinder;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,7 +21,6 @@ namespace Albatross.CommandLine {
 			this.RootCommand = CreateRootCommand();
 			this.CommandBuilder = new CommandLineBuilder(this.RootCommand);
 			this.CommandBuilder.AddMiddleware(AddLoggingMiddleware);
-			this.CommandBuilder.AddMiddleware(SetCommandHanlerMiddleware);
 			this.CommandBuilder.UseHost(args => Host.CreateDefaultBuilder(), hostBuilder => {
 				var environment = EnvironmentSetting.DOTNET_ENVIRONMENT;
 				var logger = new SetupSerilog().Configure(ConfigureLogging).Create();
@@ -47,20 +45,11 @@ namespace Albatross.CommandLine {
 		public virtual CommandLineBuilder ConfigureBuilder() {
 			return this.CommandBuilder.UseDefaults();
 		}
-
 		private Task AddLoggingMiddleware(InvocationContext context, Func<InvocationContext, Task> next) {
 			var logOption = this.RootCommand.Options.OfType<Option<LogEventLevel?>>().First();
 			var result = context.ParseResult.GetValueForOption(logOption);
 			if (result != null) {
 				SetupSerilog.SwitchConsoleLoggingLevel(result.Value);
-			}
-			return next(context);
-		}
-
-		private Task SetCommandHanlerMiddleware(InvocationContext context, Func<InvocationContext, Task> next) {
-			var cmd = context.ParseResult.CommandResult.Command;
-			if (cmd.Handler == null) {
-				cmd.Handler = CreateGlobalCommandHandler(cmd);
 			}
 			return next(context);
 		}
@@ -73,7 +62,7 @@ namespace Albatross.CommandLine {
 
 		public virtual RootCommand CreateRootCommand() {
 			var cmd = new RootCommand(RootCommandDescription);
-			// cmd.Handler = new HelpCommandHandler();
+			cmd.Handler = new HelpCommandHandler();
 			var logOption = new Option<LogEventLevel?>("--verbosity", () => LogEventLevel.Error, "Change the verbosity of logging");
 			logOption.AddAlias("-v");
 			cmd.AddGlobalOption(logOption);
@@ -84,13 +73,14 @@ namespace Albatross.CommandLine {
 		public RootCommand RootCommand { get; }
 		public CommandLineBuilder CommandBuilder { get; }
 
-		public TCommand AddCommand<TCommand>() where TCommand : Command, new() {
-			var cmd = new TCommand();
-			if (cmd is IRequireInitialization requireInit) {
-				requireInit.Init();
+		[Obsolete]
+		public Setup AddCommand<TCommand>() where TCommand : Command, new() {
+			var command = new TCommand();
+			if (command is IRequireInitialization instance) {
+				instance.Init();
 			}
-			this.RootCommand.Add(cmd);
-			return cmd;
+			this.RootCommand.Add(command);
+			return this;
 		}
 
 		public virtual void RegisterServices(InvocationContext context, IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {

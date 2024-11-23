@@ -12,14 +12,18 @@ namespace Albatross.CommandLine.CodeGen {
 			this.CommandClassName = GetCommandClassName();
 
 			if (verbAttribute.ConstructorArguments.Length > 0) {
-				this.Name = VerbAttribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
+				this.Key = VerbAttribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
 			} else {
-				this.Name = "MissingVerbName";
+				this.Key = "MissingVerbKey";
 			}
+			this.Name = this.Key.Split(' ').Last();
 			if (verbAttribute.ConstructorArguments.Length > 1) {
 				this.HandlerClass = verbAttribute.ConstructorArguments[1].Value?.ToString() ?? string.Empty;
 			} else {
-				this.HandlerClass = "MissingHandlerClassName";
+				this.HandlerClass = string.Empty;
+			}
+			if (string.IsNullOrEmpty(this.HandlerClass)) {
+				this.HandlerClass = "Albatross.CommandLine.DefaultCommandHandler";
 			}
 			if (VerbAttribute.TryGetNamedArgument("Description", out var typedConstant)) {
 				this.Description = typedConstant.Value?.ToString();
@@ -34,16 +38,21 @@ namespace Albatross.CommandLine.CodeGen {
 			this.Options = GetCommandOptions(useBaseClasssProperties);
 		}
 
-
+		public string Key { get; set; }
+		public string Name { get; }
 		public INamedTypeSymbol OptionClass { get; }
 		public AttributeData VerbAttribute { get; }
 		public string HandlerClass { get; }
 		public string CommandClassName { get; private set; }
-		public string Name { get; }
 		public string? Description { get; }
 		public string[] Aliases { get; } = Array.Empty<string>();
 		public CommandOptionSetup[] Options { get; private set; }
 
+		/// <summary>
+		/// Command class name is derived from the options class name by:
+		/// 1. Remove the postfix "Options" if exists
+		/// 2. Append "Command" if the remaining string does not end with "Command"
+		/// </summary>
 		public string GetCommandClassName() {
 			string optionsClassName = OptionClass.Name;
 			if (optionsClassName.EndsWith(My.Postfix_Options, StringComparison.InvariantCultureIgnoreCase)) {
