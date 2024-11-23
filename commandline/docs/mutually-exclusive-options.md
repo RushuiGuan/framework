@@ -34,36 +34,43 @@ public class MutuallyExclusiveCommandHandler : BaseHandler<MutuallyExclusiveComm
 Source file is located at [MutuallyExclusiveCommandOptions.cs](../Sample.CommandLine/MutuallyExclusiveCommandOptions.cs)
 
 ## The New Way
-The new way is to use sub commands.  Sub commands are natively supported by the `System.CommandLine` library.  With it, help messages will be generated correctly out of box and mutually exclusive options can be created as its own commands that may or may not share the same command handler.  
+The new way is to use sub commands.  Sub commands are natively supported by the `System.CommandLine` library.  With it, help messages will be generated correctly out of box and mutually exclusive options can be created as its own commands.  
 
-In the example below, the parent command `search` has two sub commands `id` and `name`.  They are linked to the parent command when the `Parent` property of the `Verb` attribute is set to the parent verb.  In this case, the subcommands share the same command handler `SearchCommandHandler`.  The handler can inject options from both sub commands into its constructor and decide what to do base on its values. 
+In the example below, the parent command `search` has two sub commands `id` and `name`.  The subcommands share the same command handler `SearchCommandHandler`.  The handler can inject options from both sub commands into its constructor and decide what to do base on the command context.
 
-Note that the parent command has the `HelpCommandHandler`.  When it is invoked without any sub command, it will display the its help messages.
+Note that the parent command options `SearchOptions` doesn't need to be declared.  When omitted, the system will generate one with the `HelpCommandHandler`.
 
 ```csharp
+// this declaration is not required.  The system will auto generate the parent command with a HelpCommandHandler if it is not declared
 [Verb("search", typeof(HelpCommandHandler))]
 public record class SearchOptions { }
 
-[Verb("id", typeof(SearchCommandHandler), Parent = "search")]
+[Verb("search id", typeof(SearchCommandHandler))]
 public class SearchByIdOptions {
 	public int Id { get; set; }
 }
-[Verb("name", typeof(SearchCommandHandler), Parent = "search")]
+[Verb("search name", typeof(SearchCommandHandler))]
 public class SearchByNameOptions {
 	public string Name { get; set; } = string.Empty;
 }
 public class SearchCommandHandler : ICommandHandler {
-	public SearchCommandHandler(IOptions<SearchByIdOptions>? searchByIdOptions, IOptions<SearchByNameOptions>? searchByNameOptions) {
+	private readonly IOptions<SearchByIdOptions> searchByIdOptions;
+	private readonly IOptions<SearchByNameOptions> searchByNameOptions;
+
+	public SearchCommandHandler(IOptions<SearchByIdOptions> searchByIdOptions, IOptions<SearchByNameOptions> searchByNameOptions) {
+		this.searchByIdOptions = searchByIdOptions;
+		this.searchByNameOptions = searchByNameOptions;
 	}
 
 	public int Invoke(InvocationContext context) {
-		// do something
+		context.Console.WriteLine($"sub command: {context.ParseResult.CommandResult.Command.Name} has been invoked");
+		context.Console.WriteLine($"search by id: {searchByIdOptions.Value.Id}");
+		context.Console.WriteLine($"search by name: {searchByNameOptions.Value.Name}");
 		return 0;
 	}
 
 	public Task<int> InvokeAsync(InvocationContext context) {
-		// do something
-		return Task.FromResult(0);
+		return Task.FromResult(Invoke(context));
 	}
 }
 ```

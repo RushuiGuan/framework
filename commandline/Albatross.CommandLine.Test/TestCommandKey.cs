@@ -4,7 +4,7 @@ using Xunit;
 namespace Albatross.CommandLine.Test {
 	public class TestCommandKey {
 		[Fact]
-		public void BehaviorTest() {
+		public void TestGetKey() {
 			var cmd = new RootCommand();
 			var cmd1 = new Command("1");
 			var cmd2 = new Command("2");
@@ -19,7 +19,7 @@ namespace Albatross.CommandLine.Test {
 		}
 
 		[Fact]
-		public void CircularReferenceTest() {
+		public void TestCircularReference() {
 			var cmd1 = new Command("1");
 			var cmd2 = new Command("2");
 			var cmd3 = new Command("3");
