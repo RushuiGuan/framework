@@ -8,22 +8,22 @@ using Polly.Retry;
 
 namespace Albatross.IO {
 	public static class StreamExtensions {
-		public static Task<Stream> OpenAsyncSharedReadStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
+		public static Task<Stream> OpenSharedReadStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, FileOptions fileOptions, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
 			var policy = CreateRetryPolicy(retryCount, delay_ms, onRetry, logger);
 			var context = new Context(file.FullName);
 			context["action"] = "open-async-shared-read";
 			return policy.ExecuteAsync((context, token) => {
-				Stream stream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.Asynchronous | FileOptions.SequentialScan);
+				Stream stream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, fileOptions);
 				return Task.FromResult(stream);
 			}, context, cancellationToken ?? CancellationToken.None);
 		}
 
-		public static Task<Stream> OpenAsyncExclusiveReadWriteStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
+		public static Task<Stream> OpenExclusiveReadWriteStreamWithRetry(this FileInfo file, int bufferSize, int retryCount, int delay_ms, FileOptions fileOptions, ILogger logger, Action<int>? onRetry = null, CancellationToken? cancellationToken = null) {
 			var policy = CreateRetryPolicy(retryCount, delay_ms, onRetry, logger);
 			var context = new Context(file.FullName);
 			context["action"] = "open-async-exclusive-readwrite";
 			return policy.ExecuteAsync((context, token) => {
-				Stream stream = new FileStream(file.FullName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None, bufferSize, FileOptions.Asynchronous);
+				Stream stream = new FileStream(file.FullName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None, bufferSize, fileOptions);
 				return Task.FromResult(stream);
 			}, context, cancellationToken ?? CancellationToken.None);
 		}
