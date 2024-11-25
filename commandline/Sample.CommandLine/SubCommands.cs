@@ -4,13 +4,15 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 
 namespace Sample.CommandLine {
-	// parent1 has two subcommands sub1 and sub2,  parent1 itself is not declared and will be generated with a default HelpCommandHandler
+	// parent1 has two subcommands sub1 and sub2,  parent1 itself is not declared and will
+	// be generated with a default HelpCommandHandler
 	[Verb("parent1 sub1")]
 	public class MySub1Options { }
 	[Verb("parent1 sub2")]
 	public class MySub2Options { }
 
-	// parent2 has two subcommands sub1 and sub2,  parent2 itself is declared with a custom handler.  All three commands should work independently.
+	// parent2 has two subcommands sub1 and sub2,  parent2 itself is declared with a custom
+	// handler.  All three commands should work independently.
 	// notice that the sub commands names are only unique within the same parent.
 	[Verb("parent2 sub1")]
 	public class MySub3Options { }
@@ -24,7 +26,9 @@ namespace Sample.CommandLine {
 		}
 	}
 
-	// parent3 has a subcommand sub1 and they share the same handler.  The sub command options inherits from the parent options.  In this situation, the sub command in a sense extends the parent command with additional options
+	// parent3 has a subcommand sub1 and they share the same handler.  The sub command options
+	// inherits from the parent options.  In this situation, the sub command in a sense extends
+	// the parent command with additional options
 	[Verb("parent3", typeof(MyParent3Handler))]
 	public class MyParent3Options {
 		public int Id { get; set; }
