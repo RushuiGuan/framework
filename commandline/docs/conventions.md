@@ -22,7 +22,8 @@ By convention, the default option name is always the lower case kebaberized prop
 ```csharp
 [Verb("backup", typeof(BackupCommandHandler))]
 public class BackupCommandOptions {
-	[Option("f", "file", "------file-name", Description = "The name of the file to backup")]
+	// this option has 4 alias: --file-name, -f, -file and ----file-name.  --file-name is the default.
+	[Option("f", "file", "----file-name", Description = "The name of the file to backup")]
 	public string FileName { get; set; } = string.Empty;
 }
 // generated command class
