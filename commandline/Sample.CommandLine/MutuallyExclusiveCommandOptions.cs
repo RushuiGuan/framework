@@ -1,5 +1,4 @@
 ﻿using Albatross.CommandLine;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Linq;
 
@@ -26,7 +25,7 @@ namespace Sample.CommandLine {
 		}
 	}
 	public class MutuallyExclusiveCommandHandler : BaseHandler<MutuallyExclusiveCommandOptions> {
-		public MutuallyExclusiveCommandHandler(IOptions<MutuallyExclusiveCommandOptions> options, ILogger logger) : base(options, logger) {
+		public MutuallyExclusiveCommandHandler(IOptions<MutuallyExclusiveCommandOptions> options) : base(options) {
 		}
 	}
 }

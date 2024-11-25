@@ -1,5 +1,4 @@
 ﻿using Albatross.CommandLine;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Sample.CommandLine {
@@ -9,7 +8,7 @@ namespace Sample.CommandLine {
 	}
 
 	public class PatchCommandHandler : BaseHandler<PatchCommandOptions> {
-		public PatchCommandHandler(IOptions<PatchCommandOptions> options, ILogger logger) : base(options, logger) {
+		public PatchCommandHandler(IOptions<PatchCommandOptions> options) : base(options) {
 		}
 	}
 }

@@ -13,11 +13,11 @@ namespace Sample.CommandLine {
 		public string? DirectoryName { get; set; }
 	}
 	public class BackupCommandHandler : BaseHandler<BackupCommandOptions> {
-		public BackupCommandHandler(IOptions<BackupCommandOptions> options, ILogger logger) : base(options, logger) {
+		public BackupCommandHandler(IOptions<BackupCommandOptions> options) : base(options) {
 		}
 	}
 	public class BackMeUpCommandHandler : BaseHandler<BackupOptions> {
-		public BackMeUpCommandHandler(IOptions<BackupOptions> options, ILogger logger) : base(options, logger) {
+		public BackMeUpCommandHandler(IOptions<BackupOptions> options) : base(options) {
 		}
 	}
 }
