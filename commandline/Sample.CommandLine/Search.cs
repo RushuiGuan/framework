@@ -27,7 +27,7 @@ namespace Sample.CommandLine {
 		}
 
 		public int Invoke(InvocationContext context) {
-			context.Console.WriteLine($"sub command: {context.ParseResult.CommandResult.Command.Name} has been invoked");
+			context.Console.WriteLine($"Command: {context.ParseResult.CommandResult.Command.Name} has been invoked");
 			context.Console.WriteLine($"search by id: {searchByIdOptions.Value.Id}");
 			context.Console.WriteLine($"search by name: {searchByNameOptions.Value.Name}");
 			return 0;

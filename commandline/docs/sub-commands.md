@@ -10,7 +10,7 @@ public class MySubOptions {
 ```
 The example above tells the system to create a command `id` with the parent command `search`.  The parent command options can be declared explicitly.  If missing, the system will create one automatically.  A good use case for the sub command is to create [Mutually Exclusive Options](./mutually-exclusive-options.md#the-new-way).
 
-Here is a few more code example for sub commands:
+Here is a few more code example for sub commands [[source](../Sample.CommandLine/SubCommands.cs)]:
 
 1. parent1 has two subcommands sub1 and sub2,  parent1 itself is not declared and will be generated with a default HelpCommandHandler.  Sub1 and sub2 are declared without a command handler, therefore the system assigns the [DefaultCommandHandler](../Albatross.CommandLine/DefaultCommandHandler.cs).
 	```csharp
