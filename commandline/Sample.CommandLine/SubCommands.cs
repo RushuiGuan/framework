@@ -7,17 +7,17 @@ namespace Sample.CommandLine {
 	// parent1 has two subcommands sub1 and sub2,  parent1 itself is not declared and will
 	// be generated with a default HelpCommandHandler
 	[Verb("parent1 sub1")]
-	public class MySub1Options { }
+	public class MyParent1Sub1Options { }
 	[Verb("parent1 sub2")]
-	public class MySub2Options { }
+	public class MyParent1Sub2Options { }
 
 	// parent2 has two subcommands sub1 and sub2,  parent2 itself is declared with a custom
 	// handler.  All three commands should work independently.
 	// notice that the sub commands names are only unique within the same parent.
 	[Verb("parent2 sub1")]
-	public class MySub3Options { }
+	public class MyParent2Sub1Options { }
 	[Verb("parent2 sub2")]
-	public class MySub4Options { }
+	public class MyParent2Sub2Options { }
 
 	[Verb("parent2", typeof(MyParent2Handler))]
 	public class MyParent2Options { }
@@ -34,12 +34,12 @@ namespace Sample.CommandLine {
 		public int Id { get; set; }
 	}
 	[Verb("parent3 sub1", typeof(MyParent3Handler))]
-	public class MySub5Options : MyParent3Options {
+	public class MyParent3Sub1Options : MyParent3Options {
 		public string Name { get; set; } = string.Empty;
 	}
 
-	public class MyParent3Handler : BaseHandler<MySub5Options> {
-		public MyParent3Handler(IOptions<MySub5Options> options) : base(options) { }
+	public class MyParent3Handler : BaseHandler<MyParent3Sub1Options> {
+		public MyParent3Handler(IOptions<MyParent3Sub1Options> options) : base(options) { }
 		public override int Invoke(InvocationContext context) {
 			// remove base.Invoke and do some work here
 			base.Invoke(context);
