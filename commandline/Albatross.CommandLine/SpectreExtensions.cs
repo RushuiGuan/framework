@@ -37,21 +37,27 @@ namespace Albatross.CommandLine {
 				progress.StopTask();
 			}
 		}
-		public static async Task ExecuteAsync(this ProgressTask progress, Func<ProgressTask, double, Task> func) {
+		public static async Task ExecuteAsync(this ProgressTask progress, Func<ProgressTask, double, Task> func, Func<string, string>? updateDescription = null) {
 			progress.StartTask();
 			try {
 				var counter = 0.0;
 				await func(progress, counter);
+				if (updateDescription != null) {
+					progress.Description = updateDescription(progress.Description);
+				}
 			} finally {
 				progress.Value = progress.MaxValue;
 				progress.StopTask();
 			}
 		}
-		public static void Execute(this ProgressTask progress, Action<ProgressTask, double> func) {
+		public static void Execute(this ProgressTask progress, Action<ProgressTask, double> func, Func<string, string>? updateDescription = null) {
 			progress.StartTask();
 			try {
 				var counter = 0.0;
 				func(progress, counter);
+				if (updateDescription != null) {
+					progress.Description = updateDescription(progress.Description);
+				}
 			} finally {
 				progress.Value = progress.MaxValue;
 				progress.StopTask();
