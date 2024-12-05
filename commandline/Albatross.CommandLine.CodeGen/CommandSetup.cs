@@ -23,7 +23,7 @@ namespace Albatross.CommandLine.CodeGen {
 				this.HandlerClass = string.Empty;
 			}
 			if (string.IsNullOrEmpty(this.HandlerClass)) {
-				this.HandlerClass = "Albatross.CommandLine.DefaultCommandHandler";
+				this.HandlerClass = "Albatross.CommandLine.HelpCommandHandler";
 			}
 			if (VerbAttribute.TryGetNamedArgument("Description", out var typedConstant)) {
 				this.Description = typedConstant.Value?.ToString();
