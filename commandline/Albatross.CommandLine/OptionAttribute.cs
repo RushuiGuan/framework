@@ -10,6 +10,7 @@ namespace Albatross.CommandLine {
 		public bool Hidden { get; set; }
 		public bool Required { get; set; }
 		public bool Ignore { get; set; }
+		public bool DefaultToInitializer { get; set; }
 	}
 	public class ArgumentAttribute : Attribute {
 		public ArgumentAttribute(string name) {
@@ -19,5 +20,6 @@ namespace Albatross.CommandLine {
 		public string Name { get; set; }
 		public string? Description { get; set; }
 		public bool Hidden { get; set; }
+		public bool DefaultToInitializer { get; set; }
 	}
 }

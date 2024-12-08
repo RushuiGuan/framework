@@ -7,7 +7,7 @@ using System.CommandLine.Invocation;
 
 namespace Sample.CommandLine {
 	public class MySetup : Setup {
-		protected override string RootCommandDescription => "This a sample command";
+		protected override string RootCommandDescription => "This a sample commandline program";
 		public override void RegisterServices(InvocationContext context, IConfiguration configuration, EnvironmentSetting envSetting, IServiceCollection services) {
 			base.RegisterServices(context, configuration, envSetting, services);
 			services.AddShortenLoggerName(false, "Albatross", "Sample");

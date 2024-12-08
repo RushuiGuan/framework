@@ -1,5 +1,5 @@
 # Albatross.CommandLine.CodeGen
-A companion code generator used by the [Albatross.CommandLine](../Albatross.CommandLine/) library.  Currently supports generation of commands, subcommands and options with dependency injection.  Support for Argument is not yet available but being considered.
+A companion code generator used by the [Albatross.CommandLine](../Albatross.CommandLine/) library.  Currently supports generation of commands, subcommands and options with dependency injection.  Support for Argument is not yet available but being actively worked on.
 
 ## Features
 As a development dependency of [Albatross.CommandLine](../Albatross.CommandLine/) library, codegen will be referenced automatically as a PrivateAssets when the reference for [Albatross.CommandLine](../Albatross.CommandLine/) is added to a project.  The code generator looks for options classes those are annotated with the [Albatross.CommandLine.VerbAttribute](../Albatross.CommandLine/VerbAttribute.cs) and genenerate the appropriate command classes.  In the example below, the class `TestOptions`, `TestCommandHandler` and the first `TestCommand` class are created manually and the second `TestCommand` class is generated.  

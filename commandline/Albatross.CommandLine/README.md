@@ -47,7 +47,7 @@ An integration library that simplifies the creation of console program using the
 				.InvokeAsync(args);
 	}
 	```	
-* Create a new class file [TestCommand.cs](../Sample.CommandLine/TestCommand.cs) with the following code:
+* Create a new class file [TestCommandHandler.cs](../Sample.CommandLine/TestCommandHandler.cs) with the following code:
 	```csharp
 	[Verb("test", typeof(TestCommandHandler), Description = "My Test Command")]
 	public record class TestCommandOptions {

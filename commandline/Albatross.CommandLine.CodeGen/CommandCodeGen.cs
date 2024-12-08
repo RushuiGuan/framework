@@ -69,6 +69,7 @@ namespace Albatross.CommandLine.CodeGen {
 							.With(new UsingDirectiveNode(Shared.Namespace.System))
 							.With(new UsingDirectiveNode(Shared.Namespace.System_IO))
 							.With(new UsingDirectiveNode(Shared.Namespace.System_Threading_Tasks));
+						IEnumerable<string> additionalNamespaces = [];
 						using (cs.NewScope(new NamespaceDeclarationBuilder(setup.OptionClass.ContainingNamespace.ToDisplayString()))) {
 							using (cs.NewScope(new ClassDeclarationBuilder(setup.CommandClassName).Sealed().Partial())) {
 								cs.With(new BaseTypeNode(My.CommandClassName));
@@ -76,7 +77,7 @@ namespace Albatross.CommandLine.CodeGen {
 									using (cs.NewScope(new ArgumentListBuilder())) {
 										cs.With(new LiteralNode(setup.Name)).With(new LiteralNode(setup.Description));
 									}
-									this.BuildConstructorStatements(cs, setup);
+									additionalNamespaces = this.BuildConstructorStatements(cs, setup);
 								}
 								// build the option properties
 								foreach (var option in setup.Options) {
@@ -84,6 +85,9 @@ namespace Albatross.CommandLine.CodeGen {
 									cs.With(new PropertyNode(optionType, option.CommandOptionPropertyName).GetterOnly());
 								}
 							}
+						}
+						foreach (var item in additionalNamespaces) {
+							cs.With(new UsingDirectiveNode(item));
 						}
 					}
 					var text = cs.Build();
@@ -191,7 +195,8 @@ namespace Albatross.CommandLine.CodeGen {
 			}
 		}
 
-		void BuildConstructorStatements(CodeStack cs, CommandSetup setup) {
+		IEnumerable<string> BuildConstructorStatements(CodeStack cs, CommandSetup setup) {
+			var namespaces = new HashSet<string>();
 			foreach (var value in setup.Aliases) {
 				using (cs.NewScope()) {
 					cs.With(new ThisExpression()).With(new IdentifierNode("AddAlias"))
@@ -243,6 +248,18 @@ namespace Albatross.CommandLine.CodeGen {
 								.End();
 						}
 					}
+					if (option.ShouldDefaultToInitializer && option.PropertyInitializer != null) {
+						using (cs.NewScope()) {
+							namespaces.Add(option.Property.Type.ContainingNamespace.ToDisplayString());
+							cs.With(new IdentifierNode(option.CommandOptionPropertyName))
+								.With(new IdentifierNode("SetDefaultValue"))
+								.ToNewBegin(new InvocationExpressionBuilder())
+									.Begin(new ArgumentListBuilder())
+										.With(new NodeContainer(option.PropertyInitializer))
+									.End()
+								.End();
+						}
+					}
 					using (cs.NewScope()) {
 						cs.With(new ThisExpression())
 							.With(new IdentifierNode("AddOption"))
@@ -255,6 +272,7 @@ namespace Albatross.CommandLine.CodeGen {
 					}
 				}
 			}
+			return namespaces;
 		}
 
 		public void Initialize(GeneratorInitializationContext context) { }

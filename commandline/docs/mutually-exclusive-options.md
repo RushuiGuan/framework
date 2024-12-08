@@ -31,7 +31,7 @@ public class MutuallyExclusiveCommandHandler : BaseHandler<MutuallyExclusiveComm
 	}
 }
 ```
-Source file is located at [MutuallyExclusiveCommandOptions.cs](../Sample.CommandLine/MutuallyExclusiveCommandOptions.cs)
+Source file is located at [MutuallyExclusiveCommandOptions.cs](../Sample.CommandLine/Example_MutuallyExclusiveCommandOptions.cs)
 
 ## The New Way
 The new way is to use sub commands.  Sub commands are natively supported by the `System.CommandLine` library.  With it, help messages will be generated correctly out of box and mutually exclusive options can be created as its own commands.  
