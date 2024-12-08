@@ -9,6 +9,15 @@ namespace Albatross.CommandLine {
 		public string[] Alias { get; }
 		public bool Hidden { get; set; }
 		public bool Required { get; set; }
-		public bool Skip { get; set; }
+		public bool Ignore { get; set; }
+	}
+	public class ArgumentAttribute : Attribute {
+		public ArgumentAttribute(string name) {
+			Name = name;
+		}
+
+		public string Name { get; set; }
+		public string? Description { get; set; }
+		public bool Hidden { get; set; }
 	}
 }

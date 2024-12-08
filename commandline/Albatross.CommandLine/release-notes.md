@@ -3,6 +3,7 @@
 ## 7.7.0 - Behavior Adjustment
 * If the [VerbAttribute](./VerbAttribute.cs) is created without the handler type parameter, it will default to use [HelpCommandHandler](./HelpCommandHandler.cs)instead of [DefaultCommandHandler](./DefaultCommandHandler.cs).
 * References `Spectre.Console` version 0.49.1 and Add extension methods for Spectre at [SpectreExtensions](./SpectreExtensions.cs).
+* Rename `VerbAttribute.Skip` property to `VerbAttribute.Ignore` property.
 ## 7.6.0 - Sub Command Support + Upgrades in Different Areas
 * The [VerbAttribute](./VerbAttribute.cs) can now be created without the handler type parameter.  The system will use the [DefaultCommandHandler](./DefaultCommandHandler.cs).
 * New sub command support.  See [Sub Commands](../docs/sub-commands.md).

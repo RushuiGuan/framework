@@ -77,7 +77,7 @@ namespace Albatross.CommandLine.CodeGen {
 				AttributeData? attributeData = null;
 				var skip = false;
 				if (propertySymbol.TryGetAttribute(My.OptionAttributeClass, out attributeData)) {
-					if (attributeData!.TryGetNamedArgument("Skip", out var result)) {
+					if (attributeData!.TryGetNamedArgument("Ignore", out var result)) {
 						skip = Convert.ToBoolean(result.Value);
 					}
 				}

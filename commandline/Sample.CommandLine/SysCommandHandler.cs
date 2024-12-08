@@ -16,11 +16,11 @@ namespace Sample.CommandLine {
 		[Option(Required = false)]
 		public decimal Price { get; set; }
 
-		[Option(Skip = true)]
-		public int ShouldSkip { get; set; }
+		[Option(Ignore = true)]
+		public int ShouldIgnore { get; set; }
 
-		[Option(Skip = false)]
-		public int ShouldNotSkip { get; set; }
+		[Option(Ignore = false)]
+		public int ShouldNotIgnore { get; set; }
 
 		[Option(Required = true)]
 		public int? ForceRequired { get; set; }
