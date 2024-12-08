@@ -3,6 +3,9 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net8.0;netstandard2.1</TargetFrameworks>
 		<Nullable>enable</Nullable>
+		<PackageReleaseNotes>See release-notes.md file</PackageReleaseNotes>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/dates/Albatross.Dates</PackageProjectUrl>
+		<Description>Utilities that works with dates and times</Description>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png">
