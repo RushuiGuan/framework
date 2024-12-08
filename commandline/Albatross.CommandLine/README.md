@@ -171,8 +171,8 @@ public record class GlobalOptions {
 	* Albatross.CommandLine uses an instance of [GlobalCommandHandler](./GlobalCommandHandler.cs) for all commands.  Its job is to invoke the specific sub command handler,  error handling and implementation of global options.  The `GlobalCommandHandler` class bypasses the error handling mechanism of `System.CommandLine` library.
 	* `CreateGlobalCommandHandler` method can be overwritten to so that a different global handler can be used.
 * `Albatross.CommandLine` library does not prevent users from using a manually created command and its handler.  It should just work after the command is added to the root command.
-* Generated Command Customization - It might be easier to modify a generated command instead.  	
-	
+* Generated Command Customization - It might be easier to modify a generated command instead.  [example](../Sample.CommandLine/Example_CustomizeGeneratedCommand.cs)
+
 	Using the previous `TestCommand` example, create a partial class for the command and implement interface `IRequireInitialization`.  The partial keyword allows the modification of the generated `TestCommand` class.  Since the class now inherits from `IRequireInitialization` interface, the `Init` method will be invoked when the command is constructed.  This is a good place to add validators or other customizations.  In the sample code below, a custom validator is added.
 	```csharp
 	public partial class TestCommand : IRequireInitialization {

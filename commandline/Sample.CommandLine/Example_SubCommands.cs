@@ -17,7 +17,7 @@ namespace Sample.CommandLine {
 	public class MyParent2Sub2Options { }
 
 	[Verb("parent1", Description = "parent1 doesn't have any handler or parameter, its options can be omitted")]
-	[Verb("parent2", Description = "However, without the options, there is no help messages.  So we can just use the same 'ParentOptions' class for the purpose of setting its description")]
+	[Verb("parent2", Description = "However, without the options, there is no help messages.  So the same 'ParentOptions' class are being used for the purpose of setting descriptions")]
 	public class ParentCommandOptions { }
 
 

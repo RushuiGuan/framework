@@ -13,7 +13,6 @@ namespace Albatross.CommandLine.CodeGen {
 			this.OptionAttribute = optionAttribute;
 			this.Name = $"--{property.Name.Kebaberize()}";
 			this.Type = property.Type.ToDisplayString();
-			this.Required = property.Type.SpecialType != SpecialType.System_Boolean && !property.Type.IsNullable() && !property.Type.IsCollection() && !ShouldDefaultToInitializer;
 			this.Hidden = false;
 			this.Description = null;
 			this.Aliases = Array.Empty<string>();
@@ -36,6 +35,7 @@ namespace Albatross.CommandLine.CodeGen {
 					this.Description = descriptionConstant.Value?.ToString();
 				}
 			}
+			this.Required = property.Type.SpecialType != SpecialType.System_Boolean && !property.Type.IsNullable() && !property.Type.IsCollection() && !ShouldDefaultToInitializer;
 		}
 
 		public string CommandOptionPropertyName => $"Option_{this.Property.Name}";

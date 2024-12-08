@@ -1,5 +1,8 @@
 # Release Notes
 
+## 7.9.0 - Add Argument Support
+## 7.8.0 - Add and implement the logic for the `OptionAttribute.DefaultToInitializer` Property
+* If the `OptionAttribute.DefaultToInitializer` property is set to `true`, the code generator will generate a default value using the initializer value of the property.
 ## 7.7.0 - Behavior Adjustment
 * If the [VerbAttribute](./VerbAttribute.cs) is created without the handler type parameter, it will default to use [HelpCommandHandler](./HelpCommandHandler.cs)instead of [DefaultCommandHandler](./DefaultCommandHandler.cs).
 * References `Spectre.Console` version 0.49.1 and Add extension methods for Spectre at [SpectreExtensions](./SpectreExtensions.cs).
