@@ -162,25 +162,10 @@ public record class GlobalOptions {
 * If none of the defined commands shows up, `CodeGenExtensions.AddCommands()` method is not invoked.
 
 ## Customization
-[Setup](./Setup.cs) has a few methods that can be overwritten to change the behavior of the program
-* Override the `RegisterServices` method to setup dependency injections
-* Override the `RootCommandDescription` property to create a custom description for the root command.
-* Override the `ConfigureBuilder` method to customize `System.CommandLine` to the desired behavior.
-* Override the `CreateRootCommand` method to change the global options
-* Override the `CreateGlobalCommandHandler` method to use your own global command handler.
-	* Albatross.CommandLine uses an instance of [GlobalCommandHandler](./GlobalCommandHandler.cs) for all commands.  Its job is to invoke the specific sub command handler,  error handling and implementation of global options.  The `GlobalCommandHandler` class bypasses the error handling mechanism of `System.CommandLine` library.
-	* `CreateGlobalCommandHandler` method can be overwritten to so that a different global handler can be used.
+[Setup](./Setup.cs) has a few methods that can be overwritten to change the behavior of the program.
+* `RegisterServices` method should be used to register services for the purpose of dependency injections
+* `RootCommandDescription` property can be changed to create a custom description for the root command.
+* Overwrite the `ConfigureBuilder` method to customize `System.CommandLine` to the desired behavior.
+* Overwrite the `CreateRootCommand` method to change the global options
 * `Albatross.CommandLine` library does not prevent users from using a manually created command and its handler.  It should just work after the command is added to the root command.
-* Generated Command Customization - It might be easier to modify a generated command instead.  [example](../Sample.CommandLine/Example_CustomizeGeneratedCommand.cs)
-
-	Using the previous `TestCommand` example, create a partial class for the command and implement interface `IRequireInitialization`.  The partial keyword allows the modification of the generated `TestCommand` class.  Since the class now inherits from `IRequireInitialization` interface, the `Init` method will be invoked when the command is constructed.  This is a good place to add validators or other customizations.  In the sample code below, a custom validator is added.
-	```csharp
-	public partial class TestCommand : IRequireInitialization {
-		public void Init() {
-			AddValidator(commandResult => {
-				// add your custom validation here
-			});
-		}
-	}
-	```
-			
+* Generated Command Customization - It might be easier to modify a generated command instead.  See the [example](../Sample.CommandLine/Example_CustomizeGeneratedCommand.cs) here.
