@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Albatross.CommandLine {
 	public static class SpectreExtensions {
-		public static Queue<ProgressTask> Enqueue(this Queue<ProgressTask> queue, ProgressContext context, string description) {
-			queue.Enqueue(context.AddTask(description, false, 1));
+		public static Queue<ProgressTask> Enqueue(this Queue<ProgressTask> queue, ProgressContext context, string description, int maxValue = 1) {
+			queue.Enqueue(context.AddTask(description, false, maxValue));
 			return queue;
 		}
 		public static async Task<T> ExecuteAsync<T>(this ProgressTask progress, Func<ProgressTask, double, Task<T>> func, Func<string, T, string>? updateDescription = null) {
