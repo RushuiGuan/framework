@@ -15,7 +15,7 @@ Albatross framework is an application framework built on top of Microsoft .Net. 
 |[commandline codegen](./commandline/Albatross.CommandLine.CodeGen/)|An codegen library referenced by Albatross.CommandLine as a dev dependency.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.CommandLine.CodeGen)](https://www.nuget.org/packages/Albatross.CommandLine.CodeGen)|
 |[config](./config/Albatross.Config)|Simplified configuration setup for your .Net applications.|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Config)](https://www.nuget.org/packages/Albatross.Config)|
 |datelevel|||
-|dates|||
+|[dates](./dates/Albatross.Dates/)|Date and time utility library|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Dates)](https://www.nuget.org/packages/Albatross.Dates)|
 |efcore|||
 |[excel](./excel/Albatross.Hosting.Excel/)|ExcelDNA hosting library with logging, configuration and dependency injection.||
 |[hosting](./hosting/Albatross.Hosting/)|Bootstrapping library that is used to create a web or service app|[![NuGet Version](https://img.shields.io/nuget/v/Albatross.Hosting)](https://www.nuget.org/packages/Albatross.Hosting)|

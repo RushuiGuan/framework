@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Linq;
 
 namespace Sample.CommandLine {
-	[Verb("mutually-exclusive-command", typeof(MutuallyExclusiveCommandHandler))]
+	[Verb("mutually-exclusive-command", Description = "This demonstrates the creation of mutually exclusive command through a custom validation logic")]
 	public class MutuallyExclusiveCommandOptions {
 		[Option(Required = false, Description = "Describe your option requirement here")]
 		public int Id { get; set; }
@@ -22,10 +22,6 @@ namespace Sample.CommandLine {
 					result.ErrorMessage = "Id and Name are mutually exclusive";
 				};
 			});
-		}
-	}
-	public class MutuallyExclusiveCommandHandler : BaseHandler<MutuallyExclusiveCommandOptions> {
-		public MutuallyExclusiveCommandHandler(IOptions<MutuallyExclusiveCommandOptions> options) : base(options) {
 		}
 	}
 }

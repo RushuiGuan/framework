@@ -7,7 +7,7 @@ using System.CommandLine.Parsing;
 using System.Threading.Tasks;
 
 namespace Sample.CommandLine {
-	[Verb("test", typeof(TestCommandHandler), Description = "My Test Command")]
+	[Verb("test", typeof(TestCommandHandler), Description = "A Test Command")]
 	public record class TestCommandOptions {
 		// Name is a required option by default since the property is not nullable
 		public string Name { get; set; } = string.Empty;

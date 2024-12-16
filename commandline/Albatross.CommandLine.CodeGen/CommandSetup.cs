@@ -23,7 +23,7 @@ namespace Albatross.CommandLine.CodeGen {
 				this.HandlerClass = string.Empty;
 			}
 			if (string.IsNullOrEmpty(this.HandlerClass)) {
-				this.HandlerClass = "Albatross.CommandLine.DefaultCommandHandler";
+				this.HandlerClass = "Albatross.CommandLine.HelpCommandHandler";
 			}
 			if (VerbAttribute.TryGetNamedArgument("Description", out var typedConstant)) {
 				this.Description = typedConstant.Value?.ToString();
@@ -77,7 +77,7 @@ namespace Albatross.CommandLine.CodeGen {
 				AttributeData? attributeData = null;
 				var skip = false;
 				if (propertySymbol.TryGetAttribute(My.OptionAttributeClass, out attributeData)) {
-					if (attributeData!.TryGetNamedArgument("Skip", out var result)) {
+					if (attributeData!.TryGetNamedArgument("Ignore", out var result)) {
 						skip = Convert.ToBoolean(result.Value);
 					}
 				}

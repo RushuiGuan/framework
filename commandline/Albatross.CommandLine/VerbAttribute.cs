@@ -15,6 +15,10 @@ namespace Albatross.CommandLine {
 		public string Name { get; }
 		public string? Description { get; set; }
 		public string[] Alias { get; set; } = new string[0];
+		/// <summary>
+		/// When true, the properties of the base class are included in the options.  
+		/// When false, only the properties of the current class are included.
+		/// </summary>
 		public bool UseBaseClassProperties { get; set; } = true;
 	}
 }

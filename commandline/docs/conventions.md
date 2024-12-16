@@ -18,7 +18,7 @@ If both `BackupCommandOptions` and `BackupOptions` class are used, there will be
 There is no strict requirement on the naming of command handler.  It is often postfixed with `CommandHandler` such as `BackupCommandHandler`.  But it is also ok to just use the name `Backup`.
 
 ## Generated Option Names
-By convention, the default option name is always the lower case kebaberized property name.  In the code sample below, property `FileName` will have a default option name of `--file-name`.  This behavior is dictated by the options binding logic within the `System.CommandLine.NamingConventionBinder` assembly and cannot be changed.  However aliases can be added by the developers.  A single dash will be prefixed for manually defined aliases.  No dash will be prefixed if it is already part of the alias. [[source](../Sample.CommandLine/BackupCommand.cs)]
+By convention, the default option name is always the lower case kebaberized property name.  In the code sample below, property `FileName` will have a default option name of `--file-name`.  This behavior is dictated by the options binding logic within the `System.CommandLine.NamingConventionBinder` assembly and cannot be changed.  However aliases can be added by the developers.  A single dash will be prefixed for manually defined aliases.  No dash will be prefixed if it is already part of the alias.
 ```csharp
 [Verb("backup", typeof(BackupCommandHandler))]
 public class BackupCommandOptions {
