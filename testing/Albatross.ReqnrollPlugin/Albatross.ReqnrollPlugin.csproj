@@ -8,8 +8,8 @@
 		<PackageProjectUrl>$(RepositoryProjectRoot)/testing/Albatross.ReqnrollPlugin</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.Config" Version="7.5.7" />
-		<PackageReference Include="Albatross.Logging" Version="7.5.7" />
+		<PackageReference Include="Albatross.Config" Version="7.5.8" />
+		<PackageReference Include="Albatross.Logging" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 		<PackageReference Include="Reqnroll" Version="2.2.1" />
