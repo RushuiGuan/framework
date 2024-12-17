@@ -169,7 +169,7 @@ namespace Albatross.WebClient {
 		}
 		protected HttpRequestMessage CreateRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues) {
 			var sb = relativeUrl.CreateUrl(queryStringValues);
-			if (sb[^1] == '&') { sb.Length--; }
+			if (sb.Length > 0 && sb[^1] == '&') { sb.Length--; }
 			var request = new HttpRequestMessage(method, sb.ToString());
 			// NoCache has been moved to DefaultRequestHeaders during client setup
 			// request.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
