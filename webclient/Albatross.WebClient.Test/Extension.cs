@@ -8,8 +8,8 @@ using System.Text;
 namespace Albatross.WebClient.Test {
 	public static class Extension {
 		public static IServiceCollection AddTestClientService(this IServiceCollection services) {
-			services.AddHttpClient<SecuredProxyService>()
-			   .AddTypedClient<ValueProxyService>().ConfigureHttpClient((provider, client) => {
+			services.AddHttpClient("test")
+			   .ConfigureHttpClient((provider, client) => {
 				   client.Timeout = TimeSpan.FromSeconds(2);
 				   client.BaseAddress = new Uri(provider.GetRequiredService<MyConfig>().TestUrl);
 			   });

@@ -1,9 +1,9 @@
-﻿using Albatross.Serialization;
-using Albatross.Testing.DependencyInjection;
+﻿using Albatross.Testing.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Polly;
 using Polly.Retry;
 using System;
@@ -26,10 +26,14 @@ namespace Albatross.WebClient.Test {
 		public bool Success { get; set; }
 	}
 
-	public class PollyTestClient : ClientBase {
+	public class PollyTestClient {
 		public const System.String ControllerPath = "home";
+		private readonly ILogger logger;
+		private readonly HttpClient client;
 
-		public PollyTestClient(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
+		public PollyTestClient(ILogger logger, HttpClient client) {
+			this.logger = logger;
+			this.client = client;
 		}
 
 		public async Task<string> GetData(int count) {
@@ -37,18 +41,23 @@ namespace Albatross.WebClient.Test {
 			var queryString = new System.Collections.Specialized.NameValueCollection();
 			queryString.Add("count", count.ToString());
 
-			using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
-				var result = await this.GetRawResponse(request);
+			var options = new RequestOptions();
+			using (var request = RequestExtensions.CreateRequest(HttpMethod.Get, path, queryString, options)) {
+				var result = await request.GetRawResponse(client, options);
 				return result;
 			}
 		}
 
 	}
 
-	public class PollyTestClient2 : ClientBase {
+	public class PollyTestClient2 {
 		public const System.String ControllerPath = "home";
+		private readonly ILogger logger;
+		private readonly HttpClient client;
 
-		public PollyTestClient2(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
+		public PollyTestClient2(ILogger logger, HttpClient client) {
+			this.logger = logger;
+			this.client = client;
 		}
 
 		public async Task<string> GetData(int count) {
@@ -65,24 +74,26 @@ namespace Albatross.WebClient.Test {
 				},
 				(result, timespan) => { });
 
+			var options = new RequestOptions();
 			var response = await myRetryPolicy.ExecuteAsync(async () => {
-				using (var request = this.CreateRequest(HttpMethod.Get, path, queryString)) {
+				using (var request = RequestExtensions.CreateRequest(HttpMethod.Get, path, queryString, options)) {
 					return await this.client.SendAsync(request);
 				}
 			});
-			return await ProcessResponseAsText(response);
+			return await response.ProcessResponseAsText(options);
 		}
 
 		public async Task<MyResponse?> PostData(MyRequest @myRequest) {
 			string path = $"{ControllerPath}/polly-post-test";
 			var queryString = new System.Collections.Specialized.NameValueCollection();
-			using (var request = this.CreateJsonRequest<MyRequest>(HttpMethod.Post, path, queryString, @myRequest)) {
-				return await this.GetJsonResponse<MyResponse>(request);
+			var options = new RequestOptions();
+			using (var request = RequestExtensions.CreateJsonRequest<MyRequest>(HttpMethod.Post, path, queryString, @myRequest, options)) {
+				return await request.GetJsonResponse<MyResponse>(client, options);
 			}
 		}
 
 		public async Task<MyResponse?> PostDataWithRetry(MyRequest @myRequest) {
-			var policy = this.GetDefaultRetryPolicy<MyResponse?>(args => false, nameof(PostData), true, 3, int.MaxValue);
+			var policy = RetryExtensions.GetDefaultRetryPolicy<MyResponse?>(args => false, nameof(PostData), true, 3, int.MaxValue, NullLogger.Instance);
 			return await policy.ExecuteAsync(() => this.PostData(myRequest));
 		}
 	}
