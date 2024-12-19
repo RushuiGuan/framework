@@ -10,12 +10,18 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.WebClient.Test {
-	public class MyProxyService : WebClient.ClientBase {
-		public MyProxyService(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
+	public class MyProxyService  {
+		private readonly ILogger logger;
+		private readonly HttpClient client;
+
+		public MyProxyService(ILogger logger, HttpClient client, IJsonSettings serializationOption) {
+			this.logger = logger;
+			this.client = client;
 		}
 		public async Task<string> RunMe() {
-			using var request = CreateRequest(HttpMethod.Get, string.Empty, new NameValueCollection());
-			return await this.GetRawResponse(request);
+			var options = new RequestOptions();
+			using var request = RequestExtensions.CreateRequest(HttpMethod.Get, string.Empty, new NameValueCollection(), options);
+			return await request.GetRawResponse(this.client, options);
 		}
 	}
 	public class TestMyProxyService {
@@ -36,7 +42,7 @@ namespace Albatross.WebClient.Test {
 			foreach (var item in ids) {
 				arrayQueryString.Add(Convert.ToString(@item));
 			}
-			var requests = proxy.CreateRequestUrls(path, queryString, 2000, "id", arrayQueryString.ToArray());
+			var requests = RequestExtensions.CreateRequestUrls(client.RequiredBaseUrl(), path, queryString, 2000, "id", arrayQueryString.ToArray());
 			Assert.Equal(4, requests.Count());
 		}
 
@@ -57,7 +63,7 @@ namespace Albatross.WebClient.Test {
 			foreach (var item in ids) {
 				arrayQueryString.Add(Convert.ToString(@item));
 			}
-			var requests = proxy.CreateRequestUrls(path, queryString, 2000, "id", arrayQueryString.ToArray());
+			var requests = RequestExtensions.CreateRequestUrls(client.RequiredBaseUrl(), path, queryString, 2000, "id", arrayQueryString.ToArray());
 			Assert.Single(requests);
 		}
 		[InlineData(45, 2, "api/bar?date=2022-10-10&id=0&", "api/bar?date=2022-10-10&id=1&")]
@@ -80,7 +86,7 @@ namespace Albatross.WebClient.Test {
 			for (int i = 0; i < count; i++) {
 				arrayQueryString.Add(i.ToString());
 			}
-			var requests = proxy.CreateRequestUrls(path, queryString, maxlength, "id", arrayQueryString.ToArray()).ToArray();
+			var requests = RequestExtensions.CreateRequestUrls(client.RequiredBaseUrl(), path, queryString, maxlength, "id", arrayQueryString.ToArray()).ToArray();
 			Assert.Equal(expected.Length, requests.Count());
 			List<(string expectedUrl, string actualUrl)> list = new List<(string expectedUrl, string actualUrl)>();
 			List<Action<(string expectedUrl, string actualUrl)>> actions = new List<Action<(string, string)>>();
@@ -106,7 +112,7 @@ namespace Albatross.WebClient.Test {
 			for (int i = 0; i < count; i++) {
 				arrayQueryString.Add(i.ToString());
 			}
-			Assert.Throws<InvalidOperationException>(() => proxy.CreateRequestUrls(path, queryString, maxlength, "id", arrayQueryString.ToArray()));
+			Assert.Throws<InvalidOperationException>(() => RequestExtensions.CreateRequestUrls(client.RequiredBaseUrl(), path, queryString, maxlength, "id", arrayQueryString.ToArray()));
 		}
 		/*
 http://myyyhost/api/bar?date=2022-10-10&id=0%2C1
@@ -137,7 +143,7 @@ http://myyyhost/api/bar?date=2022-10-10&id=0
 			for (int i = 0; i < count; i++) {
 				arrayQueryString.Add(i.ToString());
 			}
-			var requests = proxy.CreateRequestUrlsByDelimitedQueryString(path, queryString, maxlength, "id", delimiter, arrayQueryString.ToArray()).ToArray();
+			var requests = RequestExtensions.CreateRequestUrlsByDelimitedQueryString(client.RequiredBaseUrl(), path, queryString, maxlength, "id", delimiter, arrayQueryString.ToArray()).ToArray();
 			Assert.Equal(expected.Length, requests.Count());
 			List<(string expectedUrl, string actualUrl)> list = new List<(string expectedUrl, string actualUrl)>();
 			List<Action<(string expectedUrl, string actualUrl)>> actions = new List<Action<(string, string)>>();
@@ -162,7 +168,7 @@ http://myyyhost/api/bar?date=2022-10-10&id=0
 			for (int i = 0; i < count; i++) {
 				arrayQueryString.Add(i.ToString());
 			}
-			Assert.Throws<InvalidOperationException>(() => proxy.CreateRequestUrlsByDelimitedQueryString(path, queryString, maxlength, "id", delimiter, arrayQueryString.ToArray()));
+			Assert.Throws<InvalidOperationException>(() => RequestExtensions.CreateRequestUrlsByDelimitedQueryString(client.RequiredBaseUrl(), path, queryString, maxlength, "id", delimiter, arrayQueryString.ToArray()));
 		}
 	}
 }

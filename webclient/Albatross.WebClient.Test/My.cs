@@ -6,9 +6,8 @@ namespace Albatross.WebClient.Test {
 		public static IHost Create() {
 			return new TestHostBuilder().WithAppSettingsConfiguration("test")
 				.RegisterServices((configuration, services) => {
-				services.AddTestClientService();
-			}).Build();
 
+				}).Build();
 		}
 	}
 }
