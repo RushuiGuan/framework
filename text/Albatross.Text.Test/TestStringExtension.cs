@@ -110,6 +110,8 @@ namespace Albatross.Test.Text {
 			var value = decimal.Parse(number);
 			var result = value.TrimDecimal();
 			Assert.Equal(expected, result);
+			result = value.Decimal2CompactString();
+			Assert.Equal(expected, result);
 		}
 	}
 }
