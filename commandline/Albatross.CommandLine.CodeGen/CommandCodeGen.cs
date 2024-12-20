@@ -25,7 +25,7 @@ namespace Albatross.CommandLine.CodeGen {
 
 				foreach (var syntaxTree in context.Compilation.SyntaxTrees) {
 					var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
-					var walker = new CodeGenClassDeclarationWalker(context.Compilation, semanticModel);
+					var walker = new CodeGenClassDeclarationWalker(semanticModel);
 					walker.Visit(syntaxTree.GetRoot());
 					optionClasses.AddRange(walker.CommandOptionClasses);
 					if (string.IsNullOrEmpty(setupClassNamespace)) {
@@ -79,10 +79,27 @@ namespace Albatross.CommandLine.CodeGen {
 									}
 									additionalNamespaces = this.BuildConstructorStatements(cs, setup);
 								}
+								var variableArityArgumentCount = 0;
+								var index = 0;
+								// build the argument properties
+								foreach (var argument in setup.Arguments.OrderBy(x => x.Order).ThenBy(x => x.Index)) {
+									var argumentType = new GenericIdentifierNode(My.ArgumentClassName, argument.Type);
+									cs.With(new PropertyNode(argumentType, argument.CommandPropertyName).GetterOnly());
+									if (!argument.FixedArity) {
+										variableArityArgumentCount++;
+										if (index != setup.Arguments.Length - 1) {
+											context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}4", $"A variable arity argument [{setup.Name} <{argument.Name}>] should be the last argument in the argument list");
+										}
+									}
+									index++;
+								}
+								if (variableArityArgumentCount > 1) {
+									context.CodeGenDiagnostic(DiagnosticSeverity.Warning, $"{My.Diagnostic.IdPrefix}5", $"Command [{setup.Name}] should only have a single argument with variable arity");
+								}
 								// build the option properties
-								foreach (var option in setup.Options) {
+								foreach (var option in setup.Options.OrderBy(x => x.Order).ThenBy(x => x.Index)) {
 									var optionType = new GenericIdentifierNode(My.OptionClassName, option.Type);
-									cs.With(new PropertyNode(optionType, option.CommandOptionPropertyName).GetterOnly());
+									cs.With(new PropertyNode(optionType, option.CommandPropertyName).GetterOnly());
 								}
 							}
 						}
@@ -208,10 +225,47 @@ namespace Albatross.CommandLine.CodeGen {
 						.End();
 				}
 			}
-			if (setup.Options.Any()) {
-				foreach (var option in setup.Options) {
+			if (setup.Arguments.Any()) {
+				foreach (var argument in setup.Arguments.OrderBy(x => x.Order).ThenBy(x => x.Index)) {
 					using (cs.NewScope()) {
-						using (cs.With(new ThisExpression()).With(new IdentifierNode(option.CommandOptionPropertyName)).ToNewScope(new AssignmentExpressionBuilder())) {
+						using (cs.With(new ThisExpression()).With(new IdentifierNode(argument.CommandPropertyName)).ToNewScope(new AssignmentExpressionBuilder())) {
+							using (cs.NewScope(new NewObjectBuilder(new GenericIdentifierNode(My.ArgumentClassName, argument.Type)))) {
+								using (cs.NewScope(new ArgumentListBuilder())) {
+									cs.With(new LiteralNode(argument.Name)).With(new LiteralNode(argument.Description));
+								}
+								if (argument.Hidden) {
+									cs.Begin(new AssignmentExpressionBuilder("IsHidden"))
+										.With(new LiteralNode(true))
+									.End();
+								}
+								cs.Begin(new AssignmentExpressionBuilder("Arity"))
+									.Begin(new NewObjectBuilder("ArgumentArity"))
+										.Begin(new ArgumentListBuilder())
+											.With(new LiteralNode(argument.ArityMin))
+											.With(new LiteralNode(argument.ArityMax))
+										.End()
+									.End()
+								.End();
+							}
+						}
+						SetCommandPropertyDefaultValue(argument, cs, namespaces);
+						using (cs.NewScope()) {
+							cs.With(new ThisExpression())
+								.With(new IdentifierNode("AddArgument"))
+								.To(new MemberAccessBuilder())
+								.ToNewBegin(new InvocationExpressionBuilder())
+									.Begin(new ArgumentListBuilder())
+										.With(new IdentifierNode(argument.CommandPropertyName))
+									.End()
+								.End();
+						}
+					}
+				}
+			}
+			if (setup.Options.Any()) {
+				foreach (var option in setup.Options.OrderBy(x => x.Order).ThenBy(x => x.Index)) {
+					using (cs.NewScope()) {
+						using (cs.With(new ThisExpression()).With(new IdentifierNode(option.CommandPropertyName)).ToNewScope(new AssignmentExpressionBuilder())) {
 							using (cs.NewScope(new NewObjectBuilder(new GenericIdentifierNode(My.OptionClassName, option.Type)))) {
 								using (cs.NewScope(new ArgumentListBuilder())) {
 									cs.With(new LiteralNode(option.Name)).With(new LiteralNode(option.Description));
@@ -238,7 +292,7 @@ namespace Albatross.CommandLine.CodeGen {
 							aliasName = $"-{alias}";
 						}
 						using (cs.NewScope()) {
-							cs.With(new IdentifierNode(option.CommandOptionPropertyName))
+							cs.With(new IdentifierNode(option.CommandPropertyName))
 								.With(new IdentifierNode("AddAlias"))
 								.To(new MemberAccessBuilder())
 								.ToNewBegin(new InvocationExpressionBuilder())
@@ -248,25 +302,14 @@ namespace Albatross.CommandLine.CodeGen {
 								.End();
 						}
 					}
-					if (option.ShouldDefaultToInitializer && option.PropertyInitializer != null) {
-						using (cs.NewScope()) {
-							namespaces.Add(option.Property.Type.ContainingNamespace.ToDisplayString());
-							cs.With(new IdentifierNode(option.CommandOptionPropertyName))
-								.With(new IdentifierNode("SetDefaultValue"))
-								.ToNewBegin(new InvocationExpressionBuilder())
-									.Begin(new ArgumentListBuilder())
-										.With(new NodeContainer(option.PropertyInitializer))
-									.End()
-								.End();
-						}
-					}
+					SetCommandPropertyDefaultValue(option, cs, namespaces);
 					using (cs.NewScope()) {
 						cs.With(new ThisExpression())
 							.With(new IdentifierNode("AddOption"))
 							.To(new MemberAccessBuilder())
 							.ToNewBegin(new InvocationExpressionBuilder())
 								.Begin(new ArgumentListBuilder())
-									.With(new IdentifierNode(option.CommandOptionPropertyName))
+									.With(new IdentifierNode(option.CommandPropertyName))
 								.End()
 							.End();
 					}
@@ -275,6 +318,20 @@ namespace Albatross.CommandLine.CodeGen {
 			return namespaces;
 		}
 
+		void SetCommandPropertyDefaultValue(CommandPropertySetup propertySetup, CodeStack cs, ISet<string> namespaces) {
+			if (propertySetup.ShouldDefaultToInitializer && propertySetup.PropertyInitializer != null) {
+				using (cs.NewScope()) {
+					namespaces.Add(propertySetup.Property.Type.ContainingNamespace.ToDisplayString());
+					cs.With(new IdentifierNode(propertySetup.CommandPropertyName))
+						.With(new IdentifierNode("SetDefaultValue"))
+						.ToNewBegin(new InvocationExpressionBuilder())
+							.Begin(new ArgumentListBuilder())
+								.With(new NodeContainer(propertySetup.PropertyInitializer))
+							.End()
+						.End();
+				}
+			}
+		}
 		public void Initialize(GeneratorInitializationContext context) { }
 	}
 }

@@ -7,14 +7,12 @@ using System.Linq;
 
 namespace Albatross.CommandLine.CodeGen {
 	public class CodeGenClassDeclarationWalker : CSharpSyntaxWalker {
-		private readonly Compilation compilation;
 		private readonly SemanticModel semanticModel;
 		public List<INamedTypeSymbol> CommandOptionClasses { get; } = new List<INamedTypeSymbol>();
 		public List<INamedTypeSymbol> CommandHandlerClasses { get; } = new List<INamedTypeSymbol>();
 		public INamedTypeSymbol? SetupClass { get; private set; }
 
-		public CodeGenClassDeclarationWalker(Compilation compilation, SemanticModel semanticModel) {
-			this.compilation = compilation;
+		public CodeGenClassDeclarationWalker(SemanticModel semanticModel) {
 			this.semanticModel = semanticModel;
 		}
 		public override void VisitClassDeclaration(ClassDeclarationSyntax node) {

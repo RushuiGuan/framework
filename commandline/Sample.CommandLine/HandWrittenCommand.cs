@@ -10,8 +10,11 @@ namespace Sample.CommandLine {
 	public class ArgumentTestOptions {
 		public string Name { get; set; } = string.Empty;
 
-		[Option(Ignore = true)]
+		[Ignore]
 		public DateOnly DeadLine { get; set; }//  = new DateOnly(2024, 1, 1);
+
+		[Ignore]
+		public int[] Id { get; set; } = Array.Empty<int>();
 	}
 	public partial class ArgumentTestCommand : IRequireInitialization {
 		public void Init() {
@@ -19,9 +22,10 @@ namespace Sample.CommandLine {
 			argument.SetDefaultValue(new DateOnly(2024, 1,1));
 			this.AddArgument(argument);
 
-			//argument = new Argument<int[]>("id", "The id of the item");
-			//argument.Arity = ArgumentArity.OneOrMore;
-			//this.AddArgument(argument);
+			argument = new Argument<int[]>("id", "The id of the item") {
+				IsHidden = false,
+			};
+			this.AddArgument(argument);
 		}
 	}
 	public class ArgumentTestCommandHandler : BaseHandler<ArgumentTestOptions> {
