@@ -46,18 +46,18 @@ namespace Albatross.Text {
 		/// <summary>
 		/// write a decimal number and remove its trailing zeros after the decimal point
 		/// </summary>
-		[Obsolete("Use Decimal2CompactString instead")]
-		public static string TrimDecimal(this decimal value) => TrimDecimalTrailingZeros(value.ToString());
-		public static string Decimal2CompactString(this decimal value) => $"{value:G29}";
+		[Obsolete("Use Decimal2CompactText instead")]
+		public static string TrimDecimal(this decimal value) => Decimal2CompactText(value.ToString());
+		public static string Decimal2CompactText(this decimal value) => $"{value:G29}";
 		/// <summary>
 		/// this method is useful when a decimal number should be compacted after formatting.
 		/// Here is an example to format 2000.5640000 as 2,000.564.
 		/// var d = 2000.56400000M;
-		/// var text = d.ToString("#,0.#############################").TrimDecimalTrailingZeros()
+		/// var text = d.ToString("#,0.#############################").Decimal2CompactText()
 		/// </summary>
 		/// <param name="decimalText"></param>
 		/// <returns></returns>
-		public static string TrimDecimalTrailingZeros(this string decimalText) {
+		public static string Decimal2CompactText(this string decimalText) {
 			int lastDigitToTrim = decimalText.Length;
 			for (int i = decimalText.Length - 1; i >= 0; i--) {
 				var c = decimalText[i];
