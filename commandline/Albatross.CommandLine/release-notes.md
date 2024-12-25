@@ -1,7 +1,7 @@
 # Release Notes
 
 ## 7.9.0 - Add Argument Support
-* Add support for arguments.  See [Arguments](../docs/arguments.md).
+* Add support for arguments.
 * Remove `OptionAttribute.Ignore` property and replace its functionality with a new attribute class `Albatross.CommandLine.IgnoreAttribute`
 ## 7.8.0 - Add and implement the logic for the `OptionAttribute.DefaultToInitializer` Property
 * If the `OptionAttribute.DefaultToInitializer` property is set to `true`, the code generator will generate a default value using the initializer value of the property.

@@ -5,7 +5,7 @@ Command Options class is the entry point to create a new command.  When annotate
 // declared options class
 [Verb("hello", typeof(HelloWorldCommandHandler), Description = "HelloWorld command")]
 public record class HelloWorldOptions {
-	[Option("n", Description = "Give me a name")]
+	[Argument(Description = "Give me a name")]
 	public string Name { get; set; } = string.Empty;
 
 	[Option("d", Description = "Give me an optional date")]
