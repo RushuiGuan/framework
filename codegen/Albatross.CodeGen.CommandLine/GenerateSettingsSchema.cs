@@ -1,6 +1,5 @@
 ﻿using Albatross.CodeGen.WebClient.Settings;
 using Albatross.CommandLine;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NJsonSchema;
 using NJsonSchema.Generation;
@@ -14,7 +13,7 @@ namespace Albatross.CodeGen.CommandLine {
 		public FileInfo? File { get; set; }
 	}
 	public class GenerateSettingsSchema : BaseHandler<GenerateSettingsSchemaOptions> {
-		public GenerateSettingsSchema(IOptions<GenerateSettingsSchemaOptions> options, ILogger logger) : base(options, logger) {
+		public GenerateSettingsSchema(IOptions<GenerateSettingsSchemaOptions> options) : base(options) {
 		}
 
 		public override Task<int> InvokeAsync(InvocationContext context) {
