@@ -17,7 +17,7 @@ namespace Albatross.CommandLine.Test {
 			Assert.Equal("1 2 3", cmd3.GetKey());
 			Assert.Equal("1", cmd1.GetKey());
 		}
-
+		
 		[Fact]
 		public void TestCircularReference() {
 			var cmd1 = new Command("1");

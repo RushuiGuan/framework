@@ -46,23 +46,33 @@ namespace Albatross.Text {
 		/// <summary>
 		/// write a decimal number and remove its trailing zeros after the decimal point
 		/// </summary>
-		public static string TrimDecimal(this decimal value) {
-			var text = $"{value}";
-			int lastDigitToTrim = text.Length;
-			for (int i = text.Length - 1; i >= 0; i--) {
-				var c = text[i];
+		[Obsolete("Use Decimal2CompactString instead")]
+		public static string TrimDecimal(this decimal value) => TrimDecimalTrailingZeros(value.ToString());
+		public static string Decimal2CompactString(this decimal value) => $"{value:G29}";
+		/// <summary>
+		/// this method is useful when a decimal number should be compacted after formatting.
+		/// Here is an example to format 2000.5640000 as 2,000.564.
+		/// var d = 2000.56400000M;
+		/// var text = d.ToString("#,0.#############################").TrimDecimalTrailingZeros()
+		/// </summary>
+		/// <param name="decimalText"></param>
+		/// <returns></returns>
+		public static string TrimDecimalTrailingZeros(this string decimalText) {
+			int lastDigitToTrim = decimalText.Length;
+			for (int i = decimalText.Length - 1; i >= 0; i--) {
+				var c = decimalText[i];
 				if ((c == '0' || c == '.') && lastDigitToTrim == i + 1) {
 					lastDigitToTrim = i;
 				}
 				if (c == '.') {
-					if (lastDigitToTrim != text.Length) {
-						return text.Substring(0, lastDigitToTrim);
+					if (lastDigitToTrim != decimalText.Length) {
+						return decimalText.Substring(0, lastDigitToTrim);
 					} else {
-						return text;
+						return decimalText;
 					}
 				}
 			}
-			return text;
+			return decimalText;
 		}
 	}
 }

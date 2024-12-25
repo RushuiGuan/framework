@@ -35,7 +35,9 @@ namespace Albatross.CommandLine.CodeGen {
 			if (verbAttribute.TryGetNamedArgument("UseBaseClassProperties", out typedConstant)) {
 				useBaseClasssProperties = Convert.ToBoolean(typedConstant.Value);
 			}
-			this.Options = GetCommandOptions(useBaseClasssProperties);
+			GetCommandPropertyOptions(useBaseClasssProperties, out var options, out var arguments);
+			this.Options = options.ToArray();
+			this.Arguments = arguments.ToArray();
 		}
 
 		public string Key { get; set; }
@@ -46,7 +48,8 @@ namespace Albatross.CommandLine.CodeGen {
 		public string CommandClassName { get; private set; }
 		public string? Description { get; }
 		public string[] Aliases { get; } = Array.Empty<string>();
-		public CommandOptionSetup[] Options { get; private set; }
+		public CommandOptionPropertySetup[] Options { get; private set; }
+		public CommandArgumentPropertySetup[] Arguments { get; private set; }
 
 		/// <summary>
 		/// Command class name is derived from the options class name by:
@@ -68,24 +71,27 @@ namespace Albatross.CommandLine.CodeGen {
 				this.CommandClassName = $"{GetCommandClassName()}{index}";
 			}
 		}
-
-
-		public CommandOptionSetup[] GetCommandOptions(bool useBaseClassProperties) {
+		public void GetCommandPropertyOptions(bool useBaseClassProperties, out List<CommandOptionPropertySetup> options, out List<CommandArgumentPropertySetup> arguments) {
+			options = new List<CommandOptionPropertySetup>();
+			arguments = new List<CommandArgumentPropertySetup>();
 			var propertySymbols = OptionClass.GetDistinctProperties(useBaseClassProperties).ToArray();
-			var list = new List<CommandOptionSetup>();
+			int index = 0;
 			foreach (var propertySymbol in propertySymbols) {
+				index++;
 				AttributeData? attributeData = null;
-				var skip = false;
-				if (propertySymbol.TryGetAttribute(My.OptionAttributeClass, out attributeData)) {
-					if (attributeData!.TryGetNamedArgument("Ignore", out var result)) {
-						skip = Convert.ToBoolean(result.Value);
-					}
-				}
-				if (!skip) {
-					list.Add(new CommandOptionSetup(propertySymbol, attributeData));
+				if (propertySymbol.TryGetAttribute(My.IgnoreAttributeClass, out _)) {
+					continue;
+				} else if (propertySymbol.TryGetAttribute(My.ArgumentAttributeClass, out attributeData)) {
+					arguments.Add(new CommandArgumentPropertySetup(propertySymbol, attributeData!) {
+						Index = index,
+					});
+				} else {
+					propertySymbol.TryGetAttribute(My.OptionAttributeClass, out attributeData);
+					options.Add(new CommandOptionPropertySetup(propertySymbol, attributeData) {
+						Index = index,
+					});
 				}
 			}
-			return list.ToArray();
 		}
 	}
 }

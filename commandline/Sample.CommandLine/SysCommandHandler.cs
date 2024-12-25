@@ -16,10 +16,9 @@ namespace Sample.CommandLine {
 		[Option(Required = false)]
 		public decimal Price { get; set; }
 
-		[Option(Ignore = true)]
+		[Ignore]
 		public int ShouldIgnore { get; set; }
 
-		[Option(Ignore = false)]
 		public int ShouldNotIgnore { get; set; }
 
 		[Option(Required = true)]
