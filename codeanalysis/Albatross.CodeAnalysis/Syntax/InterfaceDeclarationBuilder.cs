@@ -8,7 +8,6 @@ namespace Albatross.CodeAnalysis.Syntax {
 	public class InterfaceDeclarationBuilder : INodeBuilder {
 		public InterfaceDeclarationBuilder(string interfaceName) {
 			Node = SyntaxFactory.InterfaceDeclaration(interfaceName);
-			Public();
 		}
 		public InterfaceDeclarationSyntax Node { get; private set; }
 		public InterfaceDeclarationBuilder Public() {

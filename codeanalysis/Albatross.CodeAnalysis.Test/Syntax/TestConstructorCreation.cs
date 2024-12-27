@@ -13,7 +13,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		[Fact]
 		public void SimpleConstructor() {
 			var node = new CodeStack()
-				.Begin(new ClassDeclarationBuilder("Test"))
+				.Begin(new ClassDeclarationBuilder("Test").Public())
 					.Begin(new ConstructorDeclarationBuilder("Test")).End()
 				.End().Build();
 			Assert.Equal(ClassBuilderWithConstructor_Expected, node.ToString());
@@ -29,7 +29,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		[Fact]
 		public void ConstructorWithParameter() {
 			var node = new CodeStack()
-				.Begin(new ClassDeclarationBuilder("Test"))
+				.Begin(new ClassDeclarationBuilder("Test").Public())
 					.Begin(new ConstructorDeclarationBuilder("Test")).With(new ParameterNode("string", "name"))
 					.End()
 				.End().Build();
@@ -45,7 +45,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		[Fact]
 		public void ConstructorWithParameterAndBaseCall() {
 			var node = new CodeStack()
-				.Begin(new ClassDeclarationBuilder("Test"))
+				.Begin(new ClassDeclarationBuilder("Test").Public())
 					.Begin(new ConstructorDeclarationBuilder("Test")).With(new ParameterNode("string", "name"))
 						.Begin(new ArgumentListBuilder()).With(new IdentifierNode("name")).End()
 					.End()

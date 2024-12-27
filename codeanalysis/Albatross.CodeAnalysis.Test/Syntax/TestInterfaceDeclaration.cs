@@ -10,7 +10,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 ";
 		[Fact]
 		public void MethodInvocation() {
-			var result = new CodeStack().Begin(new InterfaceDeclarationBuilder("ITest"))
+			var result = new CodeStack().Begin(new InterfaceDeclarationBuilder("ITest").Public())
 				.Begin(new MethodDeclarationBuilder("void", "test").UsedByInterface()).End()
 				.End().Build();
 			Assert.Equal(InterfaceDeclaration_Expected, result.ToString());

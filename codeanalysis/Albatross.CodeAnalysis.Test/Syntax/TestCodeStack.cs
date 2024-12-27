@@ -52,7 +52,7 @@ namespace Albatross.CodeAnalysis.Test.Syntax {
 		[Fact]
 		public void TestFeed() {
 			var cs = new CodeStack();
-			using (cs.NewScope(new ClassDeclarationBuilder("MyClass"))) {
+			using (cs.NewScope(new ClassDeclarationBuilder("MyClass").Public())) {
 				cs.With(new PropertyNode("string", "Name").Default());
 				using (cs.NewScope()) {
 					cs.Begin(new VariableBuilder("int", "test1")).With(new LiteralNode(1)).End();
