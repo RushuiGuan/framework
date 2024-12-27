@@ -4,7 +4,8 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageProjectUrl>$(RepositoryProjectRoot)/commandline/Albatross.CommandLine</PackageProjectUrl>
-		<Description>An integration library that simplifies the creation of console program using the [System.CommandLine](https://learn.microsoft.com/en-us/dotnet/standard/commandline/) library</Description>
+		<Description>An integration library that simplifies the creation of console program using the System.CommandLine library</Description>
+		<PackageReleaseNotes>$(RepositoryProjectRoot)/commandline/Albatross.CommandLine/release-notes.md</PackageReleaseNotes>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.CommandLine.CodeGen\Albatross.CommandLine.CodeGen.csproj" />
