@@ -1,6 +1,7 @@
 # Release Notes
 
-## 7.9.0 - Add Argument Support
+## 7.8.1 - Add Argument Support
+* ^ Incorrect version for this release.  Should have been a minor instead of patch release 
 * Add support for arguments.
 * Remove `OptionAttribute.Ignore` property and replace its functionality with a new attribute class `Albatross.CommandLine.IgnoreAttribute`
 ## 7.8.0 - Add and implement the logic for the `OptionAttribute.DefaultToInitializer` Property
