@@ -14,9 +14,12 @@ namespace Albatross.Authentication.AspNetCore {
 		const string ClaimType_Name = "name";
 
 		public static string? GetIdentity(this ClaimsPrincipal user) {
-			var name = user.FindFirst(ClaimType_Name)?.Value;
-			if(string.IsNullOrEmpty(name)) {
-				name = user.FindFirst(ClaimType_Preferred_Username)?.Value;
+			var name = user.Identity?.Name;
+			if (string.IsNullOrEmpty(name)) {
+				name = user.FindFirst(ClaimType_Name)?.Value;
+				if (string.IsNullOrEmpty(name)) {
+					name = user.FindFirst(ClaimType_Preferred_Username)?.Value;
+				}
 			}
 			return name;
 		}
@@ -39,13 +42,7 @@ namespace Albatross.Authentication.AspNetCore {
 			}
 		}
 		public static string GetIdentity(this HttpContext? context) {
-			string? name = null;
-			if(context?.User != null) {
-				name = context.User.Identity?.Name;
-				if (string.IsNullOrEmpty(name)) {
-					name = context.User.GetIdentity();
-				}
-			}
+			var name = context?.User.GetIdentity();
 			return name.NormalizeIdentity();
 		}
 	}
