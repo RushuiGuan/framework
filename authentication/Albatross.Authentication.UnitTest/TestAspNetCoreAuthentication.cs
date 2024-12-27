@@ -6,8 +6,8 @@ namespace Albatross.Authentication.UnitTest {
 		[Theory]
 		[InlineData("domain\\user", "user")]
 		[InlineData("user", "user")]
-		[InlineData("", "Anonymous")]
-		[InlineData(null, "Anonymous")]
+		[InlineData("", My.Anonymous)]
+		[InlineData(null, My.Anonymous)]
 		public void TestNormalizeIdentity(string? name, string expected) {
 			var result = name.NormalizeIdentity();
 			Assert.Equal(expected, result);

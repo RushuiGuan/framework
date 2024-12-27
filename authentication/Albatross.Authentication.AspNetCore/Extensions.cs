@@ -35,7 +35,7 @@ namespace Albatross.Authentication.AspNetCore {
 				}
 				return name;
 			} else {
-				return "Anonymous";
+				return My.Anonymous;
 			}
 		}
 		public static string GetIdentity(this HttpContext? context) {
