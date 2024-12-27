@@ -126,7 +126,7 @@ namespace Albatross.CommandLine.CodeGen {
 					var addedOptionClasses = new HashSet<string>();
 					using (diCodeStack.NewScope(new NamespaceDeclarationBuilder(setupClassNamespace ?? "RootNamespaceNotYetFound"))) {
 						using (diCodeStack.NewScope(new ClassDeclarationBuilder(Shared.Class.CodeGenExtensions).Static())) {
-							using (diCodeStack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Static())) {
+							using (diCodeStack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Public().Static())) {
 								diCodeStack.With(new ParameterNode("IServiceCollection", "services").WithThis());
 								foreach (var setup in setups.Values) {
 									using (diCodeStack.NewScope()) {
@@ -152,7 +152,7 @@ namespace Albatross.CommandLine.CodeGen {
 								diCodeStack.With(SyntaxFactory.ReturnStatement(new IdentifierNode("services").Identifier));
 							}
 
-							using (diCodeStack.NewScope(new MethodDeclarationBuilder("Setup", "AddCommands").Static())) {
+							using (diCodeStack.NewScope(new MethodDeclarationBuilder("Setup", "AddCommands").Public().Static())) {
 								diCodeStack.With(new ParameterNode("Setup", "setup").WithThis());
 
 								diCodeStack.Begin(new VariableBuilder("dict"))

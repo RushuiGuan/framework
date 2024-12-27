@@ -4,7 +4,6 @@ using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
 using Albatross.CommandLine;
 using Microsoft.CodeAnalysis;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.CommandLine.Invocation;
@@ -18,8 +17,7 @@ namespace Albatross.CodeGen.CommandLine {
 		private readonly CodeGenSettings settings;
 
 		public ControllerInfoModelGenerator(Compilation compilation, ConvertApiControllerToControllerModel converter,
-			CodeGenSettings settings, ILogger logger,
-			IOptions<CodeGenCommandOptions> options) : base(options, logger) {
+			CodeGenSettings settings, IOptions<CodeGenCommandOptions> options) : base(options) {
 			this.compilation = compilation;
 			this.converter = converter;
 			this.settings = settings;

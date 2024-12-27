@@ -16,6 +16,7 @@ Here is a few more code example for sub commands [[source](../Sample.CommandLine
 	```csharp
 	[Verb("parent1 sub1")]
 	public class MyParent1Sub1Options { }
+	
 	[Verb("parent1 sub2")]
 	public class MyParnet1Sub2Options { }
 	```
@@ -23,6 +24,7 @@ Here is a few more code example for sub commands [[source](../Sample.CommandLine
 	```csharp
 	[Verb("parent2 sub1")]
 	public class MyParent2Sub1Options { }
+	
 	[Verb("parent2 sub2")]
 	public class MyParent2Sub2Options { }
 
@@ -39,6 +41,7 @@ Here is a few more code example for sub commands [[source](../Sample.CommandLine
 	public class MyParent3Options {
 		public int Id { get; set; }
 	}
+	
 	[Verb("parent3 sub1", typeof(MyParent3Handler))]
 	public class MyParent3Sub1Options : MyParent3Options {
 		public string Name { get; set; } = string.Empty;

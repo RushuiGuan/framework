@@ -161,14 +161,14 @@ namespace Albatross.CodeAnalysis.Symbols {
 		public static bool IsGenericTypeDefinition(this INamedTypeSymbol symbol) => symbol.IsGenericType && symbol.IsDefinition;
 
 		public static IEnumerable<IPropertySymbol> GetProperties(this INamedTypeSymbol symbol, bool useBaseClassProperties) {
-			foreach (var member in symbol.GetMembers().OfType<IPropertySymbol>()) {
-				if (member.SetMethod?.DeclaredAccessibility == Accessibility.Public
-					&& member.GetMethod?.DeclaredAccessibility == Accessibility.Public) {
+			if (useBaseClassProperties && symbol.BaseType != null) {
+				foreach (var member in GetProperties(symbol.BaseType, useBaseClassProperties)) {
 					yield return member;
 				}
 			}
-			if (useBaseClassProperties && symbol.BaseType != null) {
-				foreach (var member in GetProperties(symbol.BaseType, useBaseClassProperties)) {
+			foreach (var member in symbol.GetMembers().OfType<IPropertySymbol>()) {
+				if (member.SetMethod?.DeclaredAccessibility == Accessibility.Public
+					&& member.GetMethod?.DeclaredAccessibility == Accessibility.Public) {
 					yield return member;
 				}
 			}

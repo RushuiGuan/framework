@@ -4,7 +4,6 @@ using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
 using Albatross.CommandLine;
 using Microsoft.CodeAnalysis;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.CommandLine.Invocation;
@@ -22,8 +21,8 @@ namespace Albatross.CodeGen.CommandLine {
 
 		public DtoClassInfoModelGenerator(Compilation compilation, ConvertClassSymbolToDtoClassModel dtoConverter,
 			ConvertEnumSymbolToDtoEnumModel enumConverter,
-			CodeGenSettings settings, ILogger logger,
-			IOptions<CodeGenCommandOptions> options) : base(options, logger) {
+			CodeGenSettings settings, 
+			IOptions<CodeGenCommandOptions> options) : base(options) {
 			this.compilation = compilation;
 			this.dtoConverter = dtoConverter;
 			this.enumConverter = enumConverter;
