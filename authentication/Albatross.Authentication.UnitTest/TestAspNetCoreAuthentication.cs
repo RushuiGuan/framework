@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Albatross.Authentication.AspNetCore;
 using Xunit;
 
 namespace Albatross.Authentication.UnitTest {
 	public class TestAspNetCoreAuthentication {
-		[Fact]
-		public void Run() {
-			// don't know how to test this
+		[Theory]
+		[InlineData("domain\\user", "user")]
+		[InlineData("user", "user")]
+		[InlineData("", "Anonymous")]
+		[InlineData(null, "Anonymous")]
+		public void TestNormalizeIdentity(string? name, string expected) {
+			var result = name.NormalizeIdentity();
+			Assert.Equal(expected, result);
 		}
 	}
 }
