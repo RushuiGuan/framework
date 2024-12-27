@@ -21,7 +21,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 			using (codeStack.NewScope(new CompilationUnitBuilder())) {
 				codeStack.With(new UsingDirectiveNode("Microsoft.Extensions.DependencyInjection"));
 				using (codeStack.NewScope(new NamespaceDeclarationBuilder(settings.CSharpWebClientSettings.Namespace))) {
-					using (codeStack.NewScope(new ClassDeclarationBuilder("Extensions").Static().Partial())) {
+					using (codeStack.NewScope(new ClassDeclarationBuilder("Extensions").Public().Static().Partial())) {
 						using (codeStack.NewScope(new MethodDeclarationBuilder("IHttpClientBuilder", "AddClients").Public().Static())) {
 							codeStack.With(new ParameterNode("IHttpClientBuilder", "builder").WithThis());
 							using (codeStack.NewScope(new ReturnExpressionBuilder())) {

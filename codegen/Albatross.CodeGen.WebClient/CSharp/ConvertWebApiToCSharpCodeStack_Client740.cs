@@ -3,7 +3,6 @@ using Albatross.CodeAnalysis.Syntax;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
 
 namespace Albatross.CodeGen.WebClient.CSharp {
@@ -32,7 +31,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 					var interfaceClassName = $"I{proxyClassName}";
 					codeStack.FileName = $"{proxyClassName}.generated.cs";
 					if (settings.CSharpWebClientSettings.UseInterface) {
-						using (codeStack.NewScope(new InterfaceDeclarationBuilder(interfaceClassName).Partial())) {
+						using (codeStack.NewScope(new InterfaceDeclarationBuilder(interfaceClassName).Public().Partial())) {
 							foreach (var method in from.Methods) {
 								TypeNode returnType;
 								if (method.ReturnType.SpecialType == SpecialType.System_Void) {
@@ -48,7 +47,13 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 							}
 						}
 					}
-					using (codeStack.NewScope(new ClassDeclarationBuilder(proxyClassName).Partial())) {
+					var classBuilder = new ClassDeclarationBuilder(proxyClassName);
+					if (settings.CSharpWebClientSettings.UseInternalProxy) {
+						classBuilder.Internal();
+					} else {
+						classBuilder.Public();
+					}
+					using (codeStack.NewScope(classBuilder.Partial())) {
 						codeStack.With(new BaseTypeNode("ClientBase"));
 						if (settings.CSharpWebClientSettings.UseInterface) {
 							codeStack.With(new BaseTypeNode(interfaceClassName));

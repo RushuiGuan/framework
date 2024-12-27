@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace Albatross.CodeGen.WebClient.Settings {
 	public record class CSharpWebClientSettings {
 		public SymbolFilterPatterns ControllerFilter { get; init; } = new SymbolFilterPatterns();
@@ -12,5 +11,10 @@ namespace Albatross.CodeGen.WebClient.Settings {
 		/// </summary>
 		public bool UseTextContentTypeForStringPost { get; init; } = true;
 		public bool UseInterface { get; init; }
+		/// <summary>
+		/// when true, proxies are created with internal access modifier instead of public.  Useful when paired with UseInterface
+		/// to force the use of the interface.
+		/// </summary>
+		public bool UseInternalProxy { get; init; }
 	}
 }

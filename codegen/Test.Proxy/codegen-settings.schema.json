@@ -123,6 +123,9 @@
         },
         "useInterface": {
           "type": "boolean"
+        },
+        "useInternalProxy": {
+          "type": "boolean"
         }
       }
     },

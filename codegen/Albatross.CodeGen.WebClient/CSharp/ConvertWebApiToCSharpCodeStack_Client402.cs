@@ -29,7 +29,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 					var proxyClassName = from.ControllerName + ProxyService;
 					codeStack.FileName = $"{proxyClassName}.generated.cs";
 
-					using (codeStack.NewScope(new ClassDeclarationBuilder(proxyClassName).Partial())) {
+					using (codeStack.NewScope(new ClassDeclarationBuilder(proxyClassName).Public().Partial())) {
 						codeStack.With(new BaseTypeNode("ClientBase"));
 						using (codeStack.NewScope(new ConstructorDeclarationBuilder(proxyClassName))) {
 							codeStack

@@ -8,7 +8,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Test.Proxy\Test.Proxy.csproj" />
-		<PackageReference Include="Albatross.CommandLine" Version="7.8.0" />
+		<PackageReference Include="Albatross.CommandLine" Version="7.8.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="appsettings.json">
