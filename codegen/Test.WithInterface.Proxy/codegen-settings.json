@@ -22,7 +22,8 @@
 				"exclude": "FilteredByCSharp$"
 			}
 		],
-		"useInterface": true
+		"useInterface": true,
+		"useInternalProxy": false
 	},
 	"apiControllerConversionSetting": {
 		"globalMethodSettings": {
