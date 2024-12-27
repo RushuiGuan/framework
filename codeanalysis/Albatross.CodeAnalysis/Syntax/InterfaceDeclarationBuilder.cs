@@ -14,6 +14,10 @@ namespace Albatross.CodeAnalysis.Syntax {
 			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 			return this;
 		}
+		public InterfaceDeclarationBuilder Internal() {
+			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.InternalKeyword));
+			return this;
+		}
 		public InterfaceDeclarationBuilder Partial() {
 			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 			return this;
