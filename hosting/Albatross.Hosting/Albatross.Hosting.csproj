@@ -13,18 +13,17 @@
 		<Content Remove="serilog.json" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.10" />
-		<PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.11" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.1" />
-		<PackageReference Include="Albatross.Authentication.AspNetCore" Version="7.5.8" />
-		<PackageReference Include="Albatross.Config" Version="7.5.7" />
-		<PackageReference Include="Albatross.Logging" Version="7.5.7" />
-		<PackageReference Include="Albatross.Serialization" Version="7.5.7" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+		<PackageReference Include="Albatross.Authentication.AspNetCore" Version="7.6.0" />
+		<PackageReference Include="Albatross.Config" Version="7.5.8" />
+		<PackageReference Include="Albatross.Logging" Version="8.0.0" />
+		<PackageReference Include="Albatross.Serialization" Version="7.5.8" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png">
