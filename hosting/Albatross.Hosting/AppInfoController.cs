@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace Albatross.Hosting {
 	[Route("api/app-info")]
@@ -24,6 +26,20 @@ namespace Albatross.Hosting {
 
 		[HttpGet]
 		public ProgramSetting Get() => programSetting;
+
+
+		[HttpGet("versions")]
+		public string Versions() {
+			var sb = new StringBuilder();
+			var assembly = Assembly.GetEntryAssembly();
+			if (assembly != null) {
+				sb.AppendLine(assembly.FullName);
+				foreach (var refAssembly in assembly.GetReferencedAssemblies()) {
+					sb.AppendLine(refAssembly.FullName);
+				}
+			}
+			return sb.ToString();
+		}
 
 		[HttpGet("env")]
 		public EnvironmentSetting GetEnvironment() => environmentSetting;
