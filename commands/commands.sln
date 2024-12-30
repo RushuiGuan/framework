@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.Commands", "Albatross.Commands\Albatross.Commands.csproj", "{AF388A4D-54D8-44D6-9C3F-AC14864A3E63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4F937D75-BBAA-48DD-993C-2353CF78F2AC}"
+	ProjectSection(SolutionItems) = preProject
+		.projects = .projects
+		.version = .version
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
