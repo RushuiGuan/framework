@@ -1,0 +1,2 @@
+# Albatross.Commands
+This module contains the api to create and execute in process command queues.  It has been replaced by Albatross.Messaging which provides out of process commmand queue capability.  It is brought back from death to support legacy code.
