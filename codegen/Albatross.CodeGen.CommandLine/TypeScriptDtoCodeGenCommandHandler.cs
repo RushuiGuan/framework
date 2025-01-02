@@ -4,17 +4,16 @@ using Albatross.CodeGen.WebClient;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.Settings;
 using Albatross.CodeGen.WebClient.TypeScript;
+using Albatross.CommandLine;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
-	public class TypeScriptDtoCodeGenCommandHandler : ICommandHandler {
-		private readonly CodeGenCommandOptions options;
+	public class TypeScriptDtoCodeGenCommandHandler : BaseHandler<CodeGenCommandOptions> {
 		private readonly Compilation compilation;
 		private readonly CodeGenSettings settings;
 		private readonly ConvertClassSymbolToDtoClassModel dto2Model;
@@ -28,8 +27,7 @@ namespace Albatross.CodeGen.CommandLine {
 			ConvertEnumSymbolToDtoEnumModel enum2Model,
 			ConvertDtoClassModelToTypeScriptInterface dtoModel2TypeScript,
 			ConvertEnumModelToTypeScriptEnum enumModel2TypeScript,
-			IOptions<CodeGenCommandOptions> options) {
-			this.options = options.Value;
+			IOptions<CodeGenCommandOptions> options) :base(options){
 			this.compilation = compilation;
 			this.settings = settings;
 			this.dto2Model = dto2Model;
@@ -38,11 +36,7 @@ namespace Albatross.CodeGen.CommandLine {
 			this.enumModel2TypeScript = enumModel2TypeScript;
 		}
 
-		public int Invoke(InvocationContext context) {
-			throw new System.NotImplementedException();
-		}
-
-		public Task<int> InvokeAsync(InvocationContext context) {
+		public override int Invoke(InvocationContext context) {
 			var dtoModels = new List<DtoClassInfo>();
 			var enumModels = new List<EnumInfo>();
 			foreach (var syntaxTree in compilation.SyntaxTrees) {
@@ -58,6 +52,7 @@ namespace Albatross.CodeGen.CommandLine {
 					.Select(x => enum2Model.Convert(x)));
 			}
 			var dtoFile = new TypeScriptFileDeclaration("dto.generated") {
+				EnumDeclarations = enumModels.Select(x => enumModel2TypeScript.Convert(x)),
 				InterfaceDeclarations = dtoModels
 					.Select(x => dtoModel2TypeScript.Convert(x)).ToList(),
 			};
@@ -67,16 +62,7 @@ namespace Albatross.CodeGen.CommandLine {
 					dtoFile.Generate(writer);
 				}
 			}
-			var enumFile = new TypeScriptFileDeclaration("enum.generated") {
-				EnumDeclarations = enumModels.Select(x => enumModel2TypeScript.Convert(x))
-			};
-			enumFile.Generate(System.Console.Out);
-			if (options.OutputDirectory != null) {
-				using (var writer = new StreamWriter(Path.Join(options.OutputDirectory.FullName, enumFile.FileName))) {
-					enumFile.Generate(writer);
-				}
-			}
-			return Task.FromResult(0);
+			return 0;
 		}
 	}
 }

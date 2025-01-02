@@ -1,5 +1,14 @@
-import { MyEnum, MyStringEnum }  from './enum.generated';
 
+export enum MyEnum {
+	One = 0,
+	Two = 1,
+	Three = 2
+}
+export enum MyStringEnum {
+	One = "One",
+	Two = "Two",
+	Three = "Three"
+}
 export interface ArrayValueType {
 	intArray: number[];
 	nullableIntArray: (number|undefined)[];
