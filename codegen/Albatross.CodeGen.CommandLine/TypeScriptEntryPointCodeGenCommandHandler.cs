@@ -4,9 +4,9 @@ using Albatross.CommandLine;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.CommandLine.Invocation;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace Albatross.CodeGen.CommandLine {
 	[Verb("typescript-entrypoint", typeof(TypeScriptEntryPointCodeGenCommandHandler))]
@@ -17,26 +17,33 @@ namespace Albatross.CodeGen.CommandLine {
 		[Option("s")]
 		public FileInfo? SettingsFile { get; set; }
 	}
-	public class TypeScriptEntryPointCodeGenCommandHandler : ICommandHandler {
+	public class TypeScriptEntryPointCodeGenCommandHandler : BaseHandler<TypeScriptEntryPointCodeGenOptions> {
 		private readonly ILogger<TypeScriptEntryPointCodeGenCommandHandler> logger;
-		private readonly TypeScriptEntryPointCodeGenOptions options;
 		private readonly TypeScriptWebClientSettings settings;
 
 		public TypeScriptEntryPointCodeGenCommandHandler(IOptions<TypeScriptEntryPointCodeGenOptions> options,
 			ILogger<TypeScriptEntryPointCodeGenCommandHandler> logger,
-			CodeGenSettings settings) {
-			this.options = options.Value;
+			CodeGenSettings settings) : base(options) {
 			this.logger = logger;
 			this.settings = settings.TypeScriptWebClientSettings;
 		}
 
-		public int Invoke(InvocationContext context) {
-			throw new System.NotSupportedException();
-		}
-
-		public Task<int> InvokeAsync(InvocationContext context) {
+		public override int Invoke(InvocationContext context) {
 			string entryFile = Path.Combine(this.options.OutputDirectory.FullName, this.settings.EntryFile);
 			var sourceFoler = Path.Combine(this.options.OutputDirectory.FullName, this.settings.SourcePathRelatedToEntryFile);
+
+			var entries = new HashSet<string>();
+			if (File.Exists(entryFile)) {
+				using (var reader = new StreamReader(entryFile)) {
+					while (!reader.EndOfStream) {
+						var line = reader.ReadLine();
+						if(!string.IsNullOrEmpty(line)) {
+							entries.Add(line);
+						}
+					}
+				}
+			}
+
 			using (var writer = new StreamWriter(entryFile)) {
 				foreach (var file in Directory.GetFiles(sourceFoler, "*.generated.ts", SearchOption.TopDirectoryOnly)) {
 					string source = $"./{settings.SourcePathRelatedToEntryFile}/{new FileInfo(file).Name}";
@@ -47,7 +54,7 @@ namespace Albatross.CodeGen.CommandLine {
 					Console.Out.Code(exportExpression);
 				}
 			}
-			return Task.FromResult(0);
+			return 0;
 		}
 	}
 }
