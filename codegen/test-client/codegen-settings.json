@@ -15,7 +15,8 @@
 		"usePromise": false,
 		"baseTypeMapping": {
 			"Test.Dto.Classes.AbstractClass":"MyBaseClass,./dto",
-			"Test.Dto.Classes.ICommand":"ICommand,./dto"
+			"Test.Dto.Classes.ICommand":"ICommand,./dto",
+			"Test.Dto.Classes.IEmptyInterface":"IEmptyInterface,./dto"
 		}
 	},
 	"apiControllerConversionSetting": {

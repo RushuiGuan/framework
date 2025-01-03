@@ -19,10 +19,10 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 
 		public InterfaceDeclaration Convert(DtoClassInfo from) {
 			ITypeExpression? baseInterfaceName = null;
-			foreach (var property in from.Properties) {
-				if (settings.TypeScriptWebClientSettings.BaseTypeMapping.TryGetValue(property.ClassName, out var baseType)) {
+			foreach (var baseTypeName in from.BaseTypes) {
+				if (settings.TypeScriptWebClientSettings.BaseTypeMapping.TryGetValue(baseTypeName, out var mappedType)) {
 					baseInterfaceName = new SimpleTypeExpression {
-						Identifier = baseType.ParseIdentifierName(),
+						Identifier = mappedType.ParseIdentifierName(),
 					};
 				}
 			}

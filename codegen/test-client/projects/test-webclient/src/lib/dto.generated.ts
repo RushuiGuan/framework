@@ -1,4 +1,4 @@
-import { MyBaseClass }  from "./dto";
+import { ICommand, IEmptyInterface, MyBaseClass }  from "./dto";
 
 export enum MyEnum {
 	One = 0,
@@ -21,7 +21,10 @@ export interface ArrayValueType {
 export interface BaseType {
 	id: number;
 }
-export interface Command1 {
+export interface Command1 extends ICommand {
+	name: string;
+}
+export interface Command2 extends IEmptyInterface {
 	name: string;
 }
 export interface CollectionValueType {

@@ -71,17 +71,27 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 								]
 							},
 						},
-						Methods = model.Methods.Select(x => BuildMethod(x)).ToList()
+						Methods = GroupMethods(model).Select(x=> BuildMethod(x.Method, x.Index)).ToArray(),
 					}
 				],
 			};
 		}
-		MethodDeclaration BuildMethod(MethodInfo method) {
+		// has to do this since typescript doesn't support methods of the same name
+		IEnumerable<(MethodInfo Method, int Index)> GroupMethods(ControllerInfo model) {
+			foreach (var group in model.Methods.GroupBy(x => x.Name)) {
+				var index = 0;
+				foreach (var item in group) {
+					yield return (item, index++);
+				}
+			}
+		}
+		MethodDeclaration BuildMethod(MethodInfo method, int index) {
 			var returnType = this.typeConverter.Convert(method.ReturnType);
 			if (object.Equals(returnType, Defined.Types.Void())) {
 				returnType = Defined.Types.Object();
 			}
-			return new MethodDeclaration(method.Name.CamelCase()) {
+			var name = index == 0 ? method.Name.CamelCase() : $"{method.Name.CamelCase()}{index}";
+			return new MethodDeclaration(name) {
 				Modifiers = settings.UsePromise ? [new AsyncModifier()] : [],
 				ReturnType = settings.UsePromise ? returnType.ToPromise() : returnType.ToObservable(),
 				Parameters = new ListOfSyntaxNodes<ParameterDeclaration>(method.Parameters.Select(x => new ParameterDeclaration(x.Name) { Type = typeConverter.Convert(x.Type) })),

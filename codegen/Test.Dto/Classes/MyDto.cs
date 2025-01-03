@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text.Json.Serialization;
 using Test.Dto.Enums;
 
 namespace Test.Dto.Classes {
@@ -37,5 +38,8 @@ namespace Test.Dto.Classes {
 		public int[] IntArray { get; set; } = new int[0];
 		public IEnumerable IntEnumerable { get; set; } = new int[0];
 		public IEnumerable<int> IntEnumerableGeneric { get; set; } = new int[0];
+
+		[JsonIgnore]
+		public string Ignored { get; set; } = string.Empty;
 	}
 }

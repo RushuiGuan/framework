@@ -5,3 +5,7 @@ export interface MyBaseClass {
 export interface ICommand {
 	$type: string;
 }
+
+export interface IEmptyInterface {
+	$type: string;
+}
