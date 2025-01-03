@@ -78,6 +78,12 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "baseTypeMapping": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },

@@ -12,7 +12,11 @@
 		"endPointName": "test-client",
 		"baseClassModule": "@mirage/webclient",
 		"configServiceModule": "@mirage/config",
-		"usePromise": false
+		"usePromise": false,
+		"baseTypeMapping": {
+			"Test.Dto.Classes.AbstractClass":"MyBaseClass,./dto",
+			"Test.Dto.Classes.ICommand":"ICommand,./dto"
+		}
 	},
 	"apiControllerConversionSetting": {
 		"globalMethodSettings": {

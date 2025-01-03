@@ -25,14 +25,6 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 			this.typeConverter = typeConverter;
 		}
 
-		string ControllerName(INamedTypeSymbol controllerSymbol) {
-			if (controllerSymbol.Name.EndsWith(ControllerPostfix)) {
-				return controllerSymbol.Name.Substring(0, controllerSymbol.Name.Length - ControllerPostfix.Length);
-			} else {
-				throw new InvalidOperationException($"Controller class {controllerSymbol.GetFullName()} must be postfixed with {ControllerPostfix}");
-			}
-		}
-
 		public TypeScriptFileDeclaration Convert(ControllerInfo model) {
 			var fileName = $"{model.ControllerName.Kebaberize()}.service.generated";
 			return new TypeScriptFileDeclaration(fileName) {

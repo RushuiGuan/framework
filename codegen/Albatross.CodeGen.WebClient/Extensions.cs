@@ -1,5 +1,6 @@
 ﻿using Albatross.CodeGen.CommandLine;
 using Albatross.CodeGen.TypeScript;
+using Albatross.CodeGen.TypeScript.TypeConversions;
 using Albatross.CodeGen.WebClient.CSharp;
 using Albatross.CodeGen.WebClient.Models;
 using Albatross.CodeGen.WebClient.TypeScript;
@@ -22,6 +23,8 @@ namespace Albatross.CodeGen.WebClient {
 				.AddScoped<CreateHttpClientRegistrations>()
 				.AddScoped<ConvertDtoClassModelToTypeScriptInterface>()
 				.AddScoped<ConvertEnumModelToTypeScriptEnum>();
+
+			services.AddSingleton<ITypeConverter, MappedTypeConverter>();
 			return services;
 		}
 	}

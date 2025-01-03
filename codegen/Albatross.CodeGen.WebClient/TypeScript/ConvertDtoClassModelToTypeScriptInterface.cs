@@ -1,24 +1,36 @@
 ﻿using Albatross.CodeGen.Syntax;
+using Albatross.CodeGen.TypeScript;
 using Albatross.CodeGen.TypeScript.Declarations;
+using Albatross.CodeGen.TypeScript.Expressions;
 using Albatross.CodeGen.WebClient.Models;
+using Albatross.CodeGen.WebClient.Settings;
 using Microsoft.CodeAnalysis;
 using System.Linq;
 
 namespace Albatross.CodeGen.WebClient.TypeScript {
 	public class ConvertDtoClassModelToTypeScriptInterface : IConvertObject<DtoClassInfo, InterfaceDeclaration> {
-		private readonly IConvertObject<ITypeSymbol, ITypeExpression> typeConverter;
+		private readonly CodeGenSettings settings;
 		private readonly IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> propertyConverter;
 
-		public ConvertDtoClassModelToTypeScriptInterface(IConvertObject<ITypeSymbol, ITypeExpression> typeConverter,
-			IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> propertyConverter) {
-			this.typeConverter = typeConverter;
+		public ConvertDtoClassModelToTypeScriptInterface(CodeGenSettings settings, IConvertObject<DtoClassPropertyInfo, PropertyDeclaration> propertyConverter) {
+			this.settings = settings;
 			this.propertyConverter = propertyConverter;
 		}
 
 		public InterfaceDeclaration Convert(DtoClassInfo from) {
-			return new InterfaceDeclaration(from.Name) {
+			ITypeExpression? baseInterfaceName = null;
+			foreach (var property in from.Properties) {
+				if (settings.TypeScriptWebClientSettings.BaseTypeMapping.TryGetValue(property.ClassName, out var baseType)) {
+					baseInterfaceName = new SimpleTypeExpression {
+						Identifier = baseType.ParseIdentifierName(),
+					};
+				}
+			}
+			var declaration = new InterfaceDeclaration(from.Name) {
 				Properties = from.Properties.Select(x => propertyConverter.Convert(x)).ToList(),
+				BaseInterfaceName = baseInterfaceName,
 			};
+			return declaration;
 		}
 
 		object IConvertObject<DtoClassInfo>.Convert(DtoClassInfo from) => Convert(from);

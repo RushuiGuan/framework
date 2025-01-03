@@ -1,3 +1,4 @@
+import { MyBaseClass }  from "./dto";
 
 export enum MyEnum {
 	One = 0,
@@ -9,7 +10,7 @@ export enum MyStringEnum {
 	Two = "Two",
 	Three = "Three"
 }
-export interface DerivedClass {
+export interface DerivedClass extends MyBaseClass {
 	name: string;
 	value: number;
 }

@@ -1,5 +1,4 @@
-﻿using Albatross.CodeAnalysis.Symbols;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +11,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 			while (symbol != null) {
 				foreach (var item in symbol.GetMembers().OfType<IPropertySymbol>()
 				.Where(x => !(symbol.IsRecord && x.Name == "EqualityContract"))
-				.Select(x => new DtoClassPropertyInfo(x))) {
+				.Select(x => new DtoClassPropertyInfo(symbol, x))) {
 					if (!properties.ContainsKey(item.Name)) {
 						properties.Add(item.Name, item);
 					}

@@ -7,11 +7,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.CodeGen.TypeScript.TypeConversions {
 
-	public class CustomTypeConversion : ITypeConverter {
+	public class CustomTypeConverter : ITypeConverter {
 		private readonly ISourceLookup sourceLookup;
-		private readonly ILogger<CustomTypeConversion> logger;
+		private readonly ILogger<CustomTypeConverter> logger;
 
-		public CustomTypeConversion(ISourceLookup sourceLookup, ILogger<CustomTypeConversion> logger) {
+		public CustomTypeConverter(ISourceLookup sourceLookup, ILogger<CustomTypeConverter> logger) {
 			this.sourceLookup = sourceLookup;
 			this.logger = logger;
 		}

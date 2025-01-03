@@ -1,8 +1,8 @@
+import { ICommand, MyBaseClass }  from "./dto";
 import { HttpClient }  from "@angular/common/http";
 import { Injectable }  from "@angular/core";
 import { ConfigService }  from "@mirage/config";
 import { WebClient }  from "@mirage/webclient";
-import { AbstractClass, ICommand }  from './dto.generated';
 import { Observable }  from "rxjs";
 
 @Injectable({ providedIn: "root" })
@@ -19,7 +19,7 @@ export class InterfaceAndAbstractClassTestService extends WebClient {
 		const result = this.doPostAsync<object, string>(relativeUrl, "", { command });
 		return result;
 	}
-	submitByAbstractClass(command: AbstractClass): Observable<object>  {
+	submitByAbstractClass(command: MyBaseClass): Observable<object>  {
 		const relativeUrl = `abstract-class-as-param`;
 		const result = this.doPostAsync<object, string>(relativeUrl, "", { command });
 		return result;
@@ -34,14 +34,14 @@ export class InterfaceAndAbstractClassTestService extends WebClient {
 		const result = this.doPostAsync<ICommand, string>(relativeUrl, "", {});
 		return result;
 	}
-	returnAbstractClassAsync(): Observable<AbstractClass>  {
+	returnAbstractClassAsync(): Observable<MyBaseClass>  {
 		const relativeUrl = `return-abstract-class-async`;
-		const result = this.doPostAsync<AbstractClass, string>(relativeUrl, "", {});
+		const result = this.doPostAsync<MyBaseClass, string>(relativeUrl, "", {});
 		return result;
 	}
-	returnAbstractClass(): Observable<AbstractClass>  {
+	returnAbstractClass(): Observable<MyBaseClass>  {
 		const relativeUrl = `return-abstract-class`;
-		const result = this.doPostAsync<AbstractClass, string>(relativeUrl, "", {});
+		const result = this.doPostAsync<MyBaseClass, string>(relativeUrl, "", {});
 		return result;
 	}
 }

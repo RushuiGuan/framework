@@ -4,14 +4,22 @@ using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.WebClient.Models {
 	public record class DtoClassPropertyInfo {
-		public DtoClassPropertyInfo(IPropertySymbol symbol) {
+		public DtoClassPropertyInfo(INamedTypeSymbol classType, IPropertySymbol symbol) {
+			this.Class = classType;
+			this.ClassName = classType.GetFullName();
 			this.Name = symbol.Name;
-			this.Type = symbol.Type;
+			this.PropertyType = symbol.Type;
+			this.PropertyTypeName = symbol.Type.GetFullName();
 		}
 
-		public string Name { get; set; }
+		public string Name { get; }
+
 		[JsonIgnore]
-		public ITypeSymbol Type { get; set; }
-		public string TypeName => Type.GetFullName();
+		public ITypeSymbol Class { get; }
+		public string ClassName { get; }
+
+		[JsonIgnore]
+		public ITypeSymbol PropertyType { get; }
+		public string PropertyTypeName { get; }
 	}
 }

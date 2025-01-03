@@ -5,6 +5,7 @@ using Albatross.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
 using System.Reflection;
 
 namespace Albatross.CodeGen.TypeScript {
@@ -50,6 +51,28 @@ namespace Albatross.CodeGen.TypeScript {
 				};
 			}
 			return type;
+		}
+		/// <summary>
+		/// Parse a string into an IdentifierNameExpression, a fully qualified name can be constructed by using the format name,soure
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		public static IIdentifierNameExpression ParseIdentifierName(this string name) {
+			name = name.Trim();
+			var index = name.IndexOf(',');
+			var source = string.Empty;
+			if (index > 0) {
+				source = name.Substring(index + 1).Trim();
+				name = name.Substring(0, index).Trim();
+			}
+			if (string.IsNullOrEmpty(name)){
+				throw new ArgumentException($"{name} is not valid identifier name");
+			}
+			if (string.IsNullOrEmpty(source)) {
+				return new IdentifierNameExpression(name);
+			} else {
+				return new QualifiedIdentifierNameExpression(name, new GenericSourceExpression(source));
+			}
 		}
 	}
 }

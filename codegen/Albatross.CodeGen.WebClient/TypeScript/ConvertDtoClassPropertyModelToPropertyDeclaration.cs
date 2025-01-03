@@ -15,8 +15,8 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 
 		public PropertyDeclaration Convert(DtoClassPropertyInfo from) {
 			return new PropertyDeclaration(from.Name.CamelCase()) {
-				Type = typeConverter.Convert(from.Type),
-				Optional = from.Type.IsNullable(),
+				Type = typeConverter.Convert(from.PropertyType),
+				Optional = from.PropertyType.IsNullable(),
 			};
 		}
 
