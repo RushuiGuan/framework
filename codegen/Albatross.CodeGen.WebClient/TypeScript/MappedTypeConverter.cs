@@ -18,7 +18,7 @@ namespace Albatross.CodeGen.WebClient.TypeScript {
 		public int Precedence => 998;
 
 		public bool TryConvert(ITypeSymbol symbol, IConvertObject<ITypeSymbol, ITypeExpression> factory, [NotNullWhen(true)] out ITypeExpression? expression) {
-			if (settings.BaseTypeMapping.TryGetValue(symbol.GetFullName(), out var mappedType)) {
+			if (settings.TypeMapping.TryGetValue(symbol.GetFullName(), out var mappedType)) {
 				expression = new SimpleTypeExpression {
 					 Identifier = mappedType.ParseIdentifierName(),
 				};
