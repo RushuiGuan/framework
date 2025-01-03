@@ -7,6 +7,7 @@ export * from './lib/from-body-param-test.service.generated';
 export * from './lib/from-query-param-test.service.generated';
 export * from './lib/from-route-param-test.service.generated';
 export * from './lib/http-method-test.service.generated';
+export * from './lib/interface-and-abstract-class-test.service.generated';
 export * from './lib/nullable-param-test.service.generated';
 export * from './lib/nullable-return-type-test.service.generated';
 export * from './lib/required-param-test.service.generated';

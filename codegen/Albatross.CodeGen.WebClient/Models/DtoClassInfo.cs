@@ -1,7 +1,7 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Albatross.CodeAnalysis.Symbols;
+using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Serialization;
 
 namespace Albatross.CodeGen.WebClient.Models {
 	public record class DtoClassInfo {

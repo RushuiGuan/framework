@@ -16,8 +16,9 @@ namespace Albatross.CodeGen.TypeScript {
 			public static SimpleTypeExpression Void() => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("void")
 			};
-			public static SimpleTypeExpression Object() => new SimpleTypeExpression {
-				Identifier = new IdentifierNameExpression("object")
+			public static SimpleTypeExpression Object(bool optional = false) => new SimpleTypeExpression {
+				Identifier = new IdentifierNameExpression("object"),
+				Optional = optional
 			};
 			public static SimpleTypeExpression Boolean(bool optional = false) => new SimpleTypeExpression {
 				Identifier = new IdentifierNameExpression("boolean"),

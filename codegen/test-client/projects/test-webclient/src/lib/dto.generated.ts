@@ -9,12 +9,19 @@ export enum MyStringEnum {
 	Two = "Two",
 	Three = "Three"
 }
+export interface DerivedClass {
+	name: string;
+	value: number;
+}
 export interface ArrayValueType {
 	intArray: number[];
 	nullableIntArray: (number|undefined)[];
 }
 export interface BaseType {
 	id: number;
+}
+export interface Command1 {
+	name: string;
 }
 export interface CollectionValueType {
 	intCollection: number[];
@@ -64,9 +71,11 @@ export interface MyDto {
 }
 export interface ReferenceType {
 	string: string;
+	object: object;
 	myClass: MyClassWithGenericBaseType;
 	nullableString ?: string;
 	nullableMyClass ?: MyClassWithGenericBaseType|undefined;
+	nullableObject ?: object;
 }
 export interface ValueType {
 	int: number;
@@ -90,6 +99,7 @@ export interface ValueType {
 	guid: string;
 	enum: MyEnum;
 	stringEnum: MyStringEnum;
+	jsonElement: object;
 	nullableInt ?: number|undefined;
 	nullableLong ?: number|undefined;
 	nullableDouble ?: number|undefined;
@@ -111,4 +121,5 @@ export interface ValueType {
 	nullableGuid ?: string|undefined;
 	nullableEnum ?: MyEnum|undefined;
 	nullableStringEnum ?: MyStringEnum|undefined;
+	nullableJsonElement ?: object|undefined;
 }

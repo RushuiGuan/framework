@@ -1,4 +1,5 @@
-﻿using Test.Dto.Enums;
+﻿using System.Text.Json;
+using Test.Dto.Enums;
 
 namespace Test.Dto.Classes {
 	public record class ValueType {
@@ -23,6 +24,7 @@ namespace Test.Dto.Classes {
 		public Guid Guid { get; set; }
 		public MyEnum Enum { get; set; }
 		public MyStringEnum StringEnum { get; set; }
+		public JsonElement JsonElement { get; set; }
 
 		public int? NullableInt { get; set; }
 		public long? NullableLong { get; set; }
@@ -45,5 +47,6 @@ namespace Test.Dto.Classes {
 		public Guid? NullableGuid { get; set; }
 		public MyEnum? NullableEnum { get; set; }
 		public MyStringEnum? NullableStringEnum { get; set; }
+		public JsonElement? NullableJsonElement { get; set; }
 	}
 }
