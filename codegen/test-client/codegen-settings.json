@@ -2,7 +2,7 @@
 	"$schema": "codegen-settings.schema.json",
 	"typeScriptWebClientSettings": {
 		"nameSpaceModuleMapping": {
-			"Test.Dto": "dto.generated.ts"
+			"Test.Dto": "./dto.generated"
 		},
 		"controllerMethodFilters": [
 			{

@@ -2,6 +2,7 @@
 using Albatross.CodeGen.Syntax;
 using Albatross.CodeGen.TypeScript.Expressions;
 using Microsoft.CodeAnalysis;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -17,8 +18,9 @@ namespace Albatross.CodeGen.TypeScript {
 			if (symbol is INamedTypeSymbol named) {
 				var fullName = named.GetFullName();
 				foreach (var key in source.Keys) {
-					if (fullName.StartsWith(key, System.StringComparison.InvariantCultureIgnoreCase)) {
-						module = new FileNameSourceExpression(source[key]);
+					if (fullName.StartsWith(key, StringComparison.InvariantCultureIgnoreCase)) {
+						var value = source[key];
+						module = new GenericSourceExpression(value);
 						return true;
 					}
 				}
