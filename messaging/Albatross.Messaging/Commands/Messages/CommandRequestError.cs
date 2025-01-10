@@ -10,7 +10,7 @@ namespace Albatross.Messaging.Commands.Messages {
 		public string ClassName { get; private set; } = string.Empty;
 		public byte[] Message { get; private set; } = Array.Empty<byte>();
 
-		public CommandRequestError(string route, ulong id, string commandType, string errorClassName, byte[] message) : base(MessageHeader, route, id, commandType) {
+		public CommandRequestError(string route, ulong id, string commandName, string errorClassName, byte[] message) : base(MessageHeader, route, id, commandName) {
 			ClassName = errorClassName;
 			Message = message;
 		}

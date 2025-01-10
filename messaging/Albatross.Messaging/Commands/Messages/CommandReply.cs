@@ -9,7 +9,7 @@ namespace Albatross.Messaging.Commands.Messages {
 		public static string MessageHeader => "cmd-rep";
 		public byte[] Payload { get; private set; } = Array.Empty<byte>();
 
-		public CommandReply(string route, ulong id, string commandType, byte[] payload) : base(MessageHeader, route, id, commandType) {
+		public CommandReply(string route, ulong id, string commandName, byte[] payload) : base(MessageHeader, route, id, commandName) {
 			Payload = payload;
 		}
 		public CommandReply() { }

@@ -44,7 +44,7 @@ namespace Albatross.Messaging.Commands {
 				case CommandQueueItem item:
 					// the CommandQueueItem is sent here when it has finished its execution
 					if (item.Reply == null) {
-						logger.LogError("CommandQueueItem {type} for {queue} arrived without a reply message: {@command}", item.CommandType, item.Queue, item.Command);
+						logger.LogError("CommandQueueItem {type} for {queue} arrived without a reply message: {@command}", item.CommandName, item.Queue, item.Command);
 					} else if (item.Mode != CommandMode.Callback) {
 						messagingService.EventWriter.WriteEvent(new EventSource.EventEntry(EntryType.Record, item.Reply));
 					} else {

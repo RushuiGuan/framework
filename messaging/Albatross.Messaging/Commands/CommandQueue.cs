@@ -70,14 +70,14 @@ namespace Albatross.Messaging.Commands {
 					if (item.Registration.HasReturnType) {
 						var stream = new MemoryStream();
 						JsonSerializer.Serialize(stream, result, item.Registration.ResponseType, MessagingJsonSettings.Value.Default);
-						item.Reply = new CommandReply(item.Route, item.Id, item.CommandType, stream.ToArray());
+						item.Reply = new CommandReply(item.Route, item.Id, item.CommandName, stream.ToArray());
 					} else {
-						item.Reply = new CommandReply(item.Route, item.Id, item.CommandType, Array.Empty<byte>());
+						item.Reply = new CommandReply(item.Route, item.Id, item.CommandName, Array.Empty<byte>());
 					}
 					routerServer.SubmitToQueue(item);
 				});
 			} catch (Exception err) {
-				item.Reply = new CommandErrorReply(item.Route, item.Id, item.CommandType, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
+				item.Reply = new CommandErrorReply(item.Route, item.Id, item.CommandName, err.GetType().FullName ?? "Error", err.Message.ToUtf8Bytes());
 				routerServer.SubmitToQueue(item);
 				logger.LogError(err, "Failed {commandId}", item.Id);
 			}

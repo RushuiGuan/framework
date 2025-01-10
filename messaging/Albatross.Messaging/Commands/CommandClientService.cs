@@ -56,9 +56,9 @@ namespace Albatross.Messaging.Commands {
 				logger.LogInformation("Running success callback");
 				Task.Run(() => {
 					try {
-						this.OnCommandCompleted(response.Id, response.CommandType, response.Payload);
+						this.OnCommandCompleted(response.Id, response.CommandName, response.Payload);
 					} catch (Exception err) {
-						logger.LogError(err, "Error running command callback for command {type}({id})", response.CommandType, response.Id);
+						logger.LogError(err, "Error running command callback for command {type}({id})", response.CommandName, response.Id);
 					}
 				});
 			}
@@ -69,9 +69,9 @@ namespace Albatross.Messaging.Commands {
 				logger.LogInformation("Running error callback");
 				Task.Run(() => {
 					try {
-						this.OnCommandError(errorMessage.Id, errorMessage.CommandType, errorMessage.ClassName, errorMessage.Message);
+						this.OnCommandError(errorMessage.Id, errorMessage.CommandName, errorMessage.ClassName, errorMessage.Message);
 					} catch (Exception err) {
-						logger.LogError(err, "Error running command error callback for {type}({id})", errorMessage.CommandType, errorMessage.Id);
+						logger.LogError(err, "Error running command error callback for {type}({id})", errorMessage.CommandName, errorMessage.Id);
 					}
 				});
 			}

@@ -27,7 +27,7 @@ namespace Albatross.Messaging.Test {
 			Assert.Equal(msg.Message, result.Message);
 			Assert.Equal(msg.Route, result.Route);
 			Assert.Equal(msg.Id, result.Id);
-			Assert.Equal(msg.CommandType, result.CommandType);
+			Assert.Equal(msg.CommandName, result.CommandName);
 			Assert.Equal(msg.ClassName, result.ClassName);
 		}
 
@@ -52,7 +52,7 @@ namespace Albatross.Messaging.Test {
 			Assert.Equal(msg.Payload, result.Payload);
 			Assert.Equal(msg.Route, result.Route);
 			Assert.Equal(msg.Id, result.Id);
-			Assert.Equal(msg.CommandType, result.CommandType);
+			Assert.Equal(msg.CommandName, result.CommandName);
 		}
 
 		[Theory]
