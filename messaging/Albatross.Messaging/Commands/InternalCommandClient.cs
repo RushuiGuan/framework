@@ -1,4 +1,5 @@
-﻿using Albatross.Messaging.Commands.Messages;
+﻿using Albatross.Messaging.Core;
+using Albatross.Messaging.Commands.Messages;
 using Albatross.Messaging.Services;
 using Albatross.Threading;
 using System;

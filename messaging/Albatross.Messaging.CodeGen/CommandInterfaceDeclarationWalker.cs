@@ -3,7 +3,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -12,17 +11,20 @@ namespace Albatross.Messaging.CodeGen {
 		public CommandHandlerSetup(INamedTypeSymbol commandHandler, ITypeSymbol commandType) {
 			CommandHandler = commandHandler;
 			CommandType = commandType;
-			var names = new HashSet<string> {
-				commandType.GetFullName()
-			};
+
+			var names = new HashSet<string>();
+			var defaultCommandName = commandType.GetFullName();
 			foreach (var attribute in commandType.GetAttributes()) {
-				if (attribute.AttributeClass?.GetFullName() == "Albatross.Messaging.Core.AlternativeCommandNameAttribute") {
+				if (attribute.AttributeClass?.GetFullName() == "Albatross.Messaging.Core.CommandNameAttribute") {
+					defaultCommandName = attribute.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? defaultCommandName;
+				} else if (attribute.AttributeClass?.GetFullName() == "Albatross.Messaging.Core.AlternateCommandNameAttribute") {
 					var name = attribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
-					if(!string.IsNullOrEmpty(name)) {
+					if (!string.IsNullOrEmpty(name)) {
 						names.Add(name!);
 					}
 				}
 			}
+			names.Add(defaultCommandName);
 			this.CommandNames = names;
 		}
 
