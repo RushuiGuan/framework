@@ -20,7 +20,7 @@ namespace Albatross.Messaging.Commands {
 
 		public CommandQueueFactory(IEnumerable<IRegisterCommand> registrations, IServiceProvider provider) {
 			foreach (var item in registrations) {
-				foreach (var alias in item.Alias) {
+				foreach (var alias in item.Names) {
 					this.registrations.Add(alias, item);
 				}
 			}
