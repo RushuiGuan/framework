@@ -1,4 +1,5 @@
 # Packages
+Albatross.Messaging.Core
 Albatross.Messaging
 Albatross.Messaging.CodeGen
 Albatross.Messaging.Utility

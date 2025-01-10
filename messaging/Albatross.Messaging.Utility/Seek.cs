@@ -1,7 +1,6 @@
 ﻿using Albatross.CommandLine;
 using Albatross.Messaging.EventSource;
 using Albatross.Messaging.Messages;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.CommandLine.Invocation;
@@ -27,7 +26,7 @@ namespace Albatross.Messaging.Utility {
 		private readonly IMessageFactory messageFactory;
 		private readonly MessagingGlobalOptions messagingOptions;
 
-		public Seek(IMessageFactory messageFactory, IOptions<MessagingGlobalOptions> messagingOptions, IOptions<Seekoptions> options, ILogger logger) : base(options, logger) {
+		public Seek(IMessageFactory messageFactory, IOptions<MessagingGlobalOptions> messagingOptions, IOptions<Seekoptions> options) : base(options) {
 			this.messageFactory = messageFactory;
 			this.messagingOptions = messagingOptions.Value;
 		}

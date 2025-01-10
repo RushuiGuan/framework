@@ -1,5 +1,4 @@
 ﻿using Albatross.CommandLine;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetMQ;
 using System.CommandLine.Invocation;
@@ -10,7 +9,7 @@ namespace Albatross.Messaging.Utility {
 	public class GenerateEncryptionKeysOptions {
 	}
 	public class GenerateEncryptionKeys : BaseHandler<GenerateEncryptionKeysOptions> {
-		public GenerateEncryptionKeys(IOptions<GenerateEncryptionKeysOptions> options, ILogger logger) : base(options, logger) {
+		public GenerateEncryptionKeys(IOptions<GenerateEncryptionKeysOptions> options) : base(options) {
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {
 			var pair = new NetMQCertificate();

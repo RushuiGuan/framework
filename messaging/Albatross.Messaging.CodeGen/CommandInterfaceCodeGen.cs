@@ -43,7 +43,7 @@ namespace Albatross.Messaging.CodeGen {
 					Combine(commandInterfaces, walker.CommandInterfaces);
 					commandHandlerSetups.AddRange(walker.CommandHandlers);
 				}
-				if(!commandInterfaces.Any() && !commandHandlerSetups.Any()) {
+				if (!commandInterfaces.Any() && !commandHandlerSetups.Any()) {
 					return;
 				}
 				foreach (var candidate in commandInterfaces) {
@@ -52,7 +52,7 @@ namespace Albatross.Messaging.CodeGen {
 						codeStack.With(new UsingDirectiveNode(Shared.Namespace.System), new UsingDirectiveNode(Shared.Namespace.System_Text_Json_Serialization));
 						var namespacesToImport = new List<string>();
 						using (codeStack.NewScope(new NamespaceDeclarationBuilder(candidate.Key.ContainingNamespace.ToDisplayString()))) {
-							using (codeStack.NewScope(new InterfaceDeclarationBuilder(candidate.Key.Name).Partial())) {
+							using (codeStack.NewScope(new InterfaceDeclarationBuilder(candidate.Key.Name).Public().Partial())) {
 								var attributeNames = new List<string>();
 
 								foreach (var item in candidate.Value) {
@@ -90,10 +90,11 @@ namespace Albatross.Messaging.CodeGen {
 							.With(new UsingDirectiveNode("Albatross.Messaging.Commands"));
 						var myNamespace = commandHandlerSetups.First().CommandHandler.ContainingNamespace.GetFullNamespace();
 						using (codestack.NewScope(new NamespaceDeclarationBuilder(myNamespace))) {
-							using (codestack.NewScope(new ClassDeclarationBuilder(Shared.Class.CodeGenExtensions).Static())) {
-								using (codestack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Static())) {
+							using (codestack.NewScope(new ClassDeclarationBuilder(Shared.Class.CodeGenExtensions).Public().Static())) {
+								using (codestack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Public().Static())) {
 									codestack.With(new ParameterNode("IServiceCollection", "services").WithThis());
 									codestack.With(new ParameterNode(new GenericIdentifierNode("Func", "object", "IServiceProvider", "string"), "getQueueName"));
+									var commandNames = new HashSet<string>();
 									foreach (var item in commandHandlerSetups) {
 										using (codestack.NewScope()) {
 											codestack.With(new IdentifierNode("services"));
@@ -127,6 +128,18 @@ namespace Albatross.Messaging.CodeGen {
 											}
 											codestack.ToNewBegin(new InvocationExpressionBuilder())
 												.Begin(new ArgumentListBuilder())
+													.Begin(new NewArrayBuilder("string"))
+														.With(item.CommandNames.Select(x => {
+															if (commandNames.Contains(x)) {
+																string text = $"Command name \"{x}\" is being used by more than 1 command";
+																var descriptor = new DiagnosticDescriptor("CmdRegistrationCodeGen01", "Command Registration CodeGen", text, "Generator", DiagnosticSeverity.Error, true);
+																context.ReportDiagnostic(Diagnostic.Create(descriptor, Location.None));
+															} else {
+																commandNames.Add(x);
+															}
+															return new LiteralNode(x); 
+														}).ToArray())
+													.End()
 													.With(new IdentifierNode("getQueueName"))
 												.End()
 											.End();

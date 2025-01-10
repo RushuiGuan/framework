@@ -1,5 +1,4 @@
 ﻿using Albatross.CommandLine;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Sample.Proxy;
 using System.CommandLine.Invocation;
@@ -12,7 +11,7 @@ namespace Sample.Utility {
 	public class UnsubscribeAll : BaseHandler<UnsubscribeAllOption> {
 		private readonly RunProxyService svc;
 
-		public UnsubscribeAll(RunProxyService svc, IOptions<UnsubscribeAllOption> options, ILogger logger) : base(options, logger) {
+		public UnsubscribeAll(RunProxyService svc, IOptions<UnsubscribeAllOption> options) : base(options) {
 			this.svc = svc;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {

@@ -1,5 +1,4 @@
 ﻿using Albatross.CommandLine;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Sample.Proxy;
 using System.CommandLine.Invocation;
@@ -18,7 +17,7 @@ namespace Sample.Utility {
 	public class Subscribe : BaseHandler<SubscribeOption> {
 		private readonly RunProxyService svc;
 
-		public Subscribe(RunProxyService svc, IOptions<SubscribeOption> options, ILogger logger) : base(options, logger) {
+		public Subscribe(RunProxyService svc, IOptions<SubscribeOption> options) : base(options) {
 			this.svc = svc;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {

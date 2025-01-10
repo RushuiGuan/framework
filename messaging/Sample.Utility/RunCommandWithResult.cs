@@ -22,7 +22,7 @@ namespace Sample.Utility {
 	public class RunCommandWithResult : BaseHandler<RunCommandWithResultOptions> {
 		private readonly CommandProxyService client;
 
-		public RunCommandWithResult(CommandProxyService client, IOptions<RunCommandWithResultOptions> options, ILogger logger) : base(options, logger) {
+		public RunCommandWithResult(CommandProxyService client, IOptions<RunCommandWithResultOptions> options) : base(options) {
 			this.client = client;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {

@@ -11,7 +11,7 @@ namespace Sample.Utility {
 	public class TestCustomDealerClientSetupOption : MyBaseOption {
 	}
 	public class TestCustomDealerClientSetup : MyBaseHandler<TestCustomDealerClientSetupOption> {
-		public TestCustomDealerClientSetup(CommandProxyService commandProxy, IOptions<TestCustomDealerClientSetupOption> options, ILogger logger) : base(commandProxy, options, logger) {
+		public TestCustomDealerClientSetup(CommandProxyService commandProxy, IOptions<TestCustomDealerClientSetupOption> options, ILogger<TestCustomDealerClientSetup> logger) : base(commandProxy, options, logger) {
 		}
 
 		public override async Task<int> InvokeAsync(InvocationContext context) {

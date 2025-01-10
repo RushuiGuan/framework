@@ -17,7 +17,7 @@ namespace Sample.Utility {
 	public class Publish : BaseHandler<PublishOptions> {
 		private readonly CommandProxyService client;
 
-		public Publish(IOptions<PublishOptions> options, ILogger logger, CommandProxyService client) : base(options, logger) {
+		public Publish(IOptions<PublishOptions> options, CommandProxyService client) : base(options) {
 			this.client = client;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {

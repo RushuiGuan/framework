@@ -1,5 +1,4 @@
 ﻿using Albatross.CommandLine;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Sample.Core.Commands;
 using Sample.Proxy;
@@ -25,7 +24,7 @@ namespace Sample.Utility {
 	public class RunMyCommand1 : BaseHandler<RunMyCommand1Option> {
 		private readonly CommandProxyService client;
 
-		public RunMyCommand1(CommandProxyService client, IOptions<RunMyCommand1Option> options, ILogger logger) : base(options, logger) {
+		public RunMyCommand1(CommandProxyService client, IOptions<RunMyCommand1Option> options) : base(options) {
 			this.client = client;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {

@@ -10,7 +10,7 @@
 		<ToolCommandName>msg</ToolCommandName>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.CommandLine" Version="7.5.7" />
+		<PackageReference Include="Albatross.CommandLine" Version="7.8.1" />
 		<ProjectReference Include="..\Albatross.Messaging\Albatross.Messaging.csproj" />
 	</ItemGroup>
 	<ItemGroup>

@@ -11,9 +11,11 @@ namespace Sample.Utility {
 
 	public class MyBaseHandler<T> : BaseHandler<T> where T : class {
 		protected readonly CommandProxyService commandProxy;
+		protected readonly ILogger logger;
 
-		public MyBaseHandler(CommandProxyService commandProxy, IOptions<T> options, ILogger logger) : base(options, logger) {
+		public MyBaseHandler(CommandProxyService commandProxy, IOptions<T> options, ILogger logger) : base(options) {
 			this.commandProxy = commandProxy;
+			this.logger = logger;
 		}
 	}
 }

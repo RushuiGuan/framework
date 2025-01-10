@@ -16,7 +16,10 @@ namespace Albatross.Messaging.Utility {
 		public string? ProjectLocation { get; set; }
 	}
 	public class ResetEvents : BaseHandler<ResetEventsOptions> {
-		public ResetEvents(IOptions<ResetEventsOptions> options, ILogger logger) : base(options, logger) {
+		private readonly ILogger<ResetEvents> logger;
+
+		public ResetEvents(IOptions<ResetEventsOptions> options, ILogger<ResetEvents> logger) : base(options) {
+			this.logger = logger;
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {
 			string folder;

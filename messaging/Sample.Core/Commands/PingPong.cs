@@ -1,7 +1,7 @@
-﻿using Sample.Core.Commands.MyOwnNameSpace;
+﻿using Albatross.Messaging.Core;
+using Sample.Core.Commands.MyOwnNameSpace;
 
 namespace Sample.Core.Commands {
-
 	public class PingCommand : IApplicationCommand {
 		public PingCommand(int round) {
 			Round = round;
