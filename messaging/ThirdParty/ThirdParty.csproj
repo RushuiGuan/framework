@@ -3,4 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Albatross.Messaging.Core\Albatross.Messaging.Core.csproj" />
+	</ItemGroup>
 </Project>

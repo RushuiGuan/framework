@@ -18,6 +18,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Albatross.Hosting" Version="7.5.7" />
+		<ProjectReference Include="..\Albatross.Messaging.Core\Albatross.Messaging.Core.csproj" />
 		<ProjectReference Include="..\Sample\Sample.csproj" />
 	</ItemGroup>
 </Project>
