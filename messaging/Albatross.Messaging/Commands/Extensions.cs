@@ -1,5 +1,5 @@
-﻿using Albatross.Messaging.Services;
-using Albatross.Reflection;
+﻿using Albatross.Messaging.Core;
+using Albatross.Messaging.Services;
 using Albatross.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -12,13 +12,13 @@ namespace Albatross.Messaging.Commands {
 	public static class Extensions {
 		public const string DefaultQueueName = "default_queue";
 		public static string GetDefaultQueueName(object _, IServiceProvider provider) => DefaultQueueName;
-		
-		public static IServiceCollection AddCommand<T>(this IServiceCollection services, Func<T, IServiceProvider, string> getQueueName) where T : notnull {
-			services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IRegisterCommand), new RegisterCommand<T>(getQueueName)));
+
+		public static IServiceCollection AddCommand<T>(this IServiceCollection services, string[] names, Func<T, IServiceProvider, string> getQueueName) where T : notnull {
+			services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IRegisterCommand), new RegisterCommand<T>(names, getQueueName)));
 			return services;
 		}
-		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, Func<T, IServiceProvider, string> getQueueName) where T : notnull where K : notnull {
-			services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IRegisterCommand), new RegisterCommand<T, K>(getQueueName)));
+		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, string[] names, Func<T, IServiceProvider, string> getQueueName) where T : notnull where K : notnull {
+			services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IRegisterCommand), new RegisterCommand<T, K>(names, getQueueName)));
 			return services;
 		}
 
@@ -51,5 +51,8 @@ namespace Albatross.Messaging.Commands {
 			}
 			return tasks.WithTimeOut(TimeSpan.FromMilliseconds(timeout));
 		}
+
+		public static string GetCommandName(this Type type) => type.GetCustomAttribute<CommandNameAttribute>(false)?.Name 
+				?? type.FullName ?? throw new InvalidOperationException($"Command type {type.Name} does not have a full name");
 	}
 }

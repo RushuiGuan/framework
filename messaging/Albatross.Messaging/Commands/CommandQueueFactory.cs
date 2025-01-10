@@ -20,13 +20,15 @@ namespace Albatross.Messaging.Commands {
 
 		public CommandQueueFactory(IEnumerable<IRegisterCommand> registrations, IServiceProvider provider) {
 			foreach (var item in registrations) {
-				this.registrations.Add(item.CommandType.GetClassNameNeat(), item);
+				foreach (var alias in item.Alias) {
+					this.registrations.Add(alias, item);
+				}
 			}
 			this.provider = provider;
 		}
 
 		public CommandQueueItem CreateItem(CommandRequest request) {
-			if (registrations.TryGetValue(request.CommandType, out var registration)) {
+			if (registrations.TryGetValue(request.CommandName, out var registration)) {
 				var command = JsonSerializer.Deserialize(request.Payload, registration.CommandType, MessagingJsonSettings.Value.Default)
 					?? throw new InvalidOperationException($"cannot deserialize command object of type {registration.CommandType.FullName} for {request.Id}");
 				var queueName = registration.GetQueueName(command, provider);
@@ -38,7 +40,7 @@ namespace Albatross.Messaging.Commands {
 				var item = new CommandQueueItem(request, queue, registration, command);
 				return item;
 			} else {
-				throw new InvalidOperationException($"registration not found for command type {request.CommandType}");
+				throw new InvalidOperationException($"registration not found for command type {request.CommandName}");
 			}
 		}
 	}

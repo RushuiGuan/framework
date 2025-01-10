@@ -22,7 +22,7 @@ namespace Albatross.Messaging.Utility {
 
 		public ulong Id { get; set; }
 		public string Client { get; set; }
-		public string Type => this.request?.Message?.CommandType ?? string.Empty;
+		public string Type => this.request?.Message?.CommandName ?? string.Empty;
 		public string Mode => this.request?.Message?.Mode.ToString() ?? string.Empty;
 
 		public string RequestPayLoad => this.request?.Message?.Payload.ToUtf8String() ?? string.Empty;

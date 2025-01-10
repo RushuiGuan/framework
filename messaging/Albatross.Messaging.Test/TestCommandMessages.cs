@@ -62,8 +62,8 @@ namespace Albatross.Messaging.Test {
 		[InlineData(false, "xxabc", 99, "mytype", CommandMode.Internal, "mydata")]
 		[InlineData(false, "xxabc", 99, "mytype", CommandMode.Callback, "mydata")]
 		[InlineData(false, "xxabc", 99, "mytype", CommandMode.FireAndForget, "mydata")]
-		public void ReadWriteCommandRequest(bool useText, string route, ulong id, string commandType, CommandMode mode, string message) {
-			var msg = new CommandRequest(route, id, commandType, mode, message.ToUtf8Bytes());
+		public void ReadWriteCommandRequest(bool useText, string route, ulong id, string commandName, CommandMode mode, string message) {
+			var msg = new CommandRequest(route, id, commandName, mode, message.ToUtf8Bytes());
 			var result = new CommandRequest();
 			if (useText) {
 				StringWriter writer = new StringWriter();
@@ -79,7 +79,7 @@ namespace Albatross.Messaging.Test {
 			Assert.Equal(msg.Header, result.Header);
 			Assert.Equal(msg.Route, result.Route);
 			Assert.Equal(msg.Id, result.Id);
-			Assert.Equal(msg.CommandType, result.CommandType);
+			Assert.Equal(msg.CommandName, result.CommandName);
 			Assert.Equal(msg.Mode, result.Mode);
 			Assert.Equal(msg.Payload, result.Payload);
 		}

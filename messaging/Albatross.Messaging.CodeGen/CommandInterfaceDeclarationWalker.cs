@@ -12,7 +12,21 @@ namespace Albatross.Messaging.CodeGen {
 		public CommandHandlerSetup(INamedTypeSymbol commandHandler, ITypeSymbol commandType) {
 			CommandHandler = commandHandler;
 			CommandType = commandType;
+			var names = new HashSet<string> {
+				commandType.GetFullName()
+			};
+			foreach (var attribute in commandType.GetAttributes()) {
+				if (attribute.AttributeClass?.GetFullName() == "Albatross.Messaging.Core.AlternativeCommandNameAttribute") {
+					var name = attribute.ConstructorArguments.FirstOrDefault().Value?.ToString();
+					if(!string.IsNullOrEmpty(name)) {
+						names.Add(name!);
+					}
+				}
+			}
+			this.CommandNames = names;
 		}
+
+		public IEnumerable<string> CommandNames { get; }
 		public INamedTypeSymbol CommandHandler {
 			get; set;
 		}

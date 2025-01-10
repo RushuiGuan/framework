@@ -5,7 +5,7 @@ namespace Albatross.Messaging.Commands {
 	public class CommandQueueItem {
 		public string Route => request.Route;
 		public ulong Id => request.Id;
-		public string CommandType => request.CommandType;
+		public string CommandType => request.CommandName;
 		public CommandMode Mode => request.Mode;
 		public bool IsCompleted { get; internal set; }
 

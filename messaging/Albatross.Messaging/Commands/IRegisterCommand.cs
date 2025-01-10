@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 namespace Albatross.Messaging.Commands {
 	public interface IRegisterCommand {
 		bool HasReturnType { get; }
+		IEnumerable<string> Alias { get; }
 		Type CommandType { get; }
 		Type ResponseType { get; }
 		string GetQueueName(object command, IServiceProvider provider);
@@ -15,11 +17,13 @@ namespace Albatross.Messaging.Commands {
 		private readonly Func<T, IServiceProvider, string> getQueueName;
 
 		public bool HasReturnType => false;
+		public IEnumerable<string> Alias { get; }
 		public Type CommandType => typeof(T);
 		public Type ResponseType => typeof(void);
 		public Type CommandHandlerType => typeof(ICommandHandler<T>);
 
-		public RegisterCommand(Func<T, IServiceProvider, string> getQueueName) {
+		public RegisterCommand(string[] alias, Func<T, IServiceProvider, string> getQueueName) {
+			this.Alias = alias;
 			this.getQueueName = getQueueName;
 		}
 
@@ -38,11 +42,13 @@ namespace Albatross.Messaging.Commands {
 	public class RegisterCommand<T, K> : IRegisterCommand<T, K> where T : notnull where K : notnull {
 		private readonly Func<T, IServiceProvider, string> getQueueName;
 
+		public IEnumerable<string> Alias { get; }
 		public bool HasReturnType => true;
 		public Type CommandType => typeof(T);
 		public Type ResponseType => typeof(K);
 
-		public RegisterCommand(Func<T, IServiceProvider, string> getQueueName) {
+		public RegisterCommand(string[] alias, Func<T, IServiceProvider, string> getQueueName) {
+			this.Alias = alias;
 			this.getQueueName = getQueueName;
 		}
 

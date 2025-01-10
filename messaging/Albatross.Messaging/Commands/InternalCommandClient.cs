@@ -1,6 +1,5 @@
 ﻿using Albatross.Messaging.Commands.Messages;
 using Albatross.Messaging.Services;
-using Albatross.Reflection;
 using Albatross.Threading;
 using System;
 using System.IO;
@@ -48,7 +47,7 @@ namespace Albatross.Messaging.Commands {
 			// internal commands have the route of "internal" and can use the ids of the router server
 			var id = routerServer.Counter.NextId();
 			context.InternalCommands.Add(id);
-			var request = new CommandRequest(context.Route, id, type.GetClassNameNeat(), CommandMode.Internal, stream.ToArray());
+			var request = new CommandRequest(context.Route, id, type.GetCommandName(), CommandMode.Internal, stream.ToArray());
 			if (timeout == 0) {
 				var internalCmd = new InternalCommand(request) {
 					Priority = priority,
