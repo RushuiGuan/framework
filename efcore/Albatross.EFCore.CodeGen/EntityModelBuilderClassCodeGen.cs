@@ -45,8 +45,8 @@ namespace Albatross.EFCore.CodeGen {
 					codeStack.With(new UsingDirectiveNode(Shared.Namespace.System_Collections_Generic));
 					codeStack.With(new UsingDirectiveNode(Shared.Namespace.Microsoft_EntityFrameworkCore));
 					using (codeStack.NewScope(new NamespaceDeclarationBuilder(dbSessionNamespace ?? "DbSessionNamespaceNotYetFound"))) {
-						using (codeStack.NewScope(new ClassDeclarationBuilder("CodeGen").Static())) {
-							using (codeStack.NewScope(new MethodDeclarationBuilder("ModelBuilder", "BuildEntityModels").Static())) {
+						using (codeStack.NewScope(new ClassDeclarationBuilder("CodeGen").Public().Static())) {
+							using (codeStack.NewScope(new MethodDeclarationBuilder("ModelBuilder", "BuildEntityModels").Public().Static())) {
 								codeStack.With(new ParameterNode("ModelBuilder", "modelBuilder").WithThis());
 								foreach (var setup in entityModelBuilderClasses) {
 									using (codeStack.NewScope()) {
