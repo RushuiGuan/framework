@@ -4,8 +4,8 @@ using System;
 
 namespace Albatross.CodeAnalysis.Syntax {
 	public class ArrayTypeNode : TypeNode {
-		public ArrayTypeNode(TypeNode elementType) : this(elementType, null) { }
-		public ArrayTypeNode(TypeNode elementType, int? size) : base(CreateCollectionType(elementType, size)) { }
+		public ArrayTypeNode(string elementType, int? size = null) : this(new TypeNode(elementType), size) { }
+		public ArrayTypeNode(TypeNode elementType, int? size = null) : base(CreateCollectionType(elementType, size)) { }
 		public ArrayTypeSyntax ArrayType => (ArrayTypeSyntax)this.Node;
 
 		static ArrayTypeSyntax CreateCollectionType(TypeNode elementType, int? size) {

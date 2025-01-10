@@ -11,13 +11,12 @@ namespace Albatross.CodeAnalysis.Syntax {
 	/// If the variable is declare with `var` keyword, it has to be initialized.
 	/// </summary>
 	public class VariableBuilder : INodeBuilder {
-
-		public VariableBuilder(string type, string name) {
-			type = string.IsNullOrEmpty(type) ? "var" : type;
-			Node = SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName(type!));
+		public VariableBuilder(TypeNode type, string name) {
+			Node = SyntaxFactory.VariableDeclaration(type.Type);
 			Name = name;
 		}
-		public VariableBuilder(string name) : this(string.Empty, name) { }
+		public VariableBuilder(string type, string name) : this(new TypeNode(type), name) { }
+		public VariableBuilder(string name) : this("var", name) { }
 
 		public VariableDeclarationSyntax Node { get; private set; }
 		public string Name { get; }
