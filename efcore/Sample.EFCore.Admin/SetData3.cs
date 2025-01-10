@@ -22,7 +22,7 @@ namespace Sample.EFCore.Admin {
 	public class SetData3 : BaseHandler<SetData3Option> {
 		private readonly SampleDbSession session;
 
-		public SetData3(SampleDbSession session, IOptions<SetData3Option> options, ILogger logger) : base(options, logger) {
+		public SetData3(SampleDbSession session, IOptions<SetData3Option> options) : base(options) {
 			this.session = session;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {

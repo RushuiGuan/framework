@@ -22,7 +22,7 @@ namespace Sample.EFCore.Admin {
 	public class GenerateSqlScript : BaseHandler<GenerateSqlScriptOption> {
 		private readonly SampleDbSession dbSession;
 
-		public GenerateSqlScript(SampleDbSession dbSession, IOptions<GenerateSqlScriptOption> options, ILogger<GenerateSqlScript> logger) : base(options, logger) {
+		public GenerateSqlScript(SampleDbSession dbSession, IOptions<GenerateSqlScriptOption> options) : base(options) {
 			this.dbSession = dbSession;
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {

@@ -1,6 +1,5 @@
 ﻿using Albatross.CommandLine;
 using Albatross.EFCore.SqlServer;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace Sample.EFCore.Admin {
 	public class ExecuteDeploymentScript : BaseHandler<ExecuteDeploymentScriptOption> {
 		private readonly SqlServerMigration<SampleSqlServerMigration> svc;
 
-		public ExecuteDeploymentScript(SqlServerMigration<SampleSqlServerMigration> svc, IOptions<ExecuteDeploymentScriptOption> options, ILogger logger) : base(options, logger) {
+		public ExecuteDeploymentScript(SqlServerMigration<SampleSqlServerMigration> svc, IOptions<ExecuteDeploymentScriptOption> options) : base(options) {
 			this.svc = svc;
 		}
 

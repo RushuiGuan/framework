@@ -1,6 +1,5 @@
 ﻿using Albatross.CommandLine;
 using Albatross.EFCore.SqlServer;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ namespace Sample.EFCore.Admin {
 	public class EFMigrate : BaseHandler<EFMigrationOption> {
 		private readonly SqlServerMigration<SampleSqlServerMigration> svc;
 
-		public EFMigrate(SqlServerMigration<SampleSqlServerMigration> svc, IOptions<EFMigrationOption> options, ILogger logger) : base(options, logger) {
+		public EFMigrate(SqlServerMigration<SampleSqlServerMigration> svc, IOptions<EFMigrationOption> options) : base(options) {
 			this.svc = svc;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {

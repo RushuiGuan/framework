@@ -19,7 +19,7 @@ namespace Sample.EFCore.Admin {
 	public class SetData2 : BaseHandler<SetData2Option> {
 		private readonly SampleDbSession session;
 
-		public SetData2(SampleDbSession session, IOptions<SetData2Option> options, ILogger logger) : base(options, logger) {
+		public SetData2(SampleDbSession session, IOptions<SetData2Option> options) : base(options) {
 			this.session = session;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {
