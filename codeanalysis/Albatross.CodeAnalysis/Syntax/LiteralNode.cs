@@ -17,5 +17,7 @@ namespace Albatross.CodeAnalysis.Syntax {
 		}
 		public LiteralNode(bool boolValue)
 			: base(boolValue ? SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression) : SyntaxFactory.LiteralExpression(SyntaxKind.FalseLiteralExpression)) { }
+		
+		public LiteralExpressionSyntax LiteralExpression => (LiteralExpressionSyntax)Node;
 	}
 }

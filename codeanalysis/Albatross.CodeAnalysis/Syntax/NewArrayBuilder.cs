@@ -9,24 +9,24 @@ namespace Albatross.CodeAnalysis.Syntax {
 	/// Create an <see cref="ArrayCreationExpressionSyntax"/>.  
 	/// </summary>
 	public class NewArrayBuilder : INodeBuilder {
-		private readonly ArrayTypeSyntax typeSyntax;
+		private readonly TypeNode elementTypeNode;
+		public SyntaxNode Node { get; private set; }
 
-		private NewArrayBuilder(ArrayTypeSyntax typeSyntax) {
-			Node = SyntaxFactory.ArrayCreationExpression(typeSyntax);
-			this.typeSyntax = typeSyntax;
+		public NewArrayBuilder(string elementTypeName) : this(new TypeNode(elementTypeName)) { }
+		public NewArrayBuilder(TypeNode elementTypeNode) {
+			this.elementTypeNode = elementTypeNode;
+			this.Node = SyntaxFactory.ArrayCreationExpression(new ArrayTypeNode(elementTypeNode, 0).ArrayType);
 		}
-		public NewArrayBuilder(ArrayTypeNode typeNode) : this((ArrayTypeSyntax)typeNode.Type) { }
-		public NewArrayBuilder(string typeName) : this(new ArrayTypeNode(new TypeNode(typeName))) { }
-		public ArrayCreationExpressionSyntax Node { get; private set; }
 
 		public SyntaxNode Build(IEnumerable<SyntaxNode> elements) {
 			if (elements.Any()) {
-				Node = Node.WithInitializer(SyntaxFactory.InitializerExpression(
+				var arrayTypeNode = new ArrayTypeNode(elementTypeNode);
+				this.Node = SyntaxFactory.ArrayCreationExpression(arrayTypeNode.ArrayType)
+					.WithInitializer(SyntaxFactory.InitializerExpression(
 									SyntaxKind.ArrayInitializerExpression,
 									SyntaxFactory.SeparatedList(elements.Cast<ExpressionSyntax>())));
 			}
 			return Node;
 		}
 	}
-
 }
