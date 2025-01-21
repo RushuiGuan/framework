@@ -8,9 +8,5 @@ namespace Albatross.Testing {
 				yield return new object[] { item };
 			}
 		}
-
-		public static DateTime ConvertToDateTime(this string text) {
-			return DateTime.Parse(text, null, System.Globalization.DateTimeStyles.RoundtripKind);
-		}
 	}
 }
