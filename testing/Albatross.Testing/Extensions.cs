@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Albatross.Testing {
 	public static class Extensions {
@@ -6,6 +7,10 @@ namespace Albatross.Testing {
 			foreach (var item in source) {
 				yield return new object[] { item };
 			}
+		}
+
+		public static DateTime ConvertToDateTime(this string text) {
+			return DateTime.Parse(text, null, System.Globalization.DateTimeStyles.RoundtripKind);
 		}
 	}
 }
