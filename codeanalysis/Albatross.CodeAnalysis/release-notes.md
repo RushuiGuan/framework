@@ -1,3 +1,5 @@
+# 7.7.0
+Change the behavior of `ConstructorDeclarationBuilder` so that it would not be defaulted to `public` access modifier.
 # 7.6.2
 Add `NewArrayBuilder` class
 Change the behavior of `TypeNode` class.  If the type name is an empty string, the `var` type will be used.

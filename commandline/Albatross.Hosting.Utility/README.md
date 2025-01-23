@@ -1,1 +1,0 @@
-Albatross.Hosting.Utility assembly is a bootstrapping assembly that can be used to create a console utility program using CommandLineParser.  It has built-in logging and DI capability.
