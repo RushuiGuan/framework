@@ -14,7 +14,6 @@ namespace Albatross.CodeAnalysis.Syntax {
 	public class ConstructorDeclarationBuilder : INodeBuilder {
 		public ConstructorDeclarationBuilder(string className) {
 			Node = SyntaxFactory.ConstructorDeclaration(className);
-			Public();
 		}
 		public ConstructorDeclarationBuilder Public() {
 			Node = Node.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
