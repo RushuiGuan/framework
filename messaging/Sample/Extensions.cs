@@ -1,5 +1,4 @@
-﻿using Sample.CommandHandlers;
-using Albatross.Config;
+﻿using Albatross.Config;
 using Albatross.Messaging.Commands;
 using Albatross.Messaging.Configurations;
 using Albatross.Messaging.Messages;
@@ -54,13 +53,13 @@ namespace Sample {
 				logger.LogError("Timeout subscribing to sample-messaging-daemon, please make sure that it is running");
 			}
 		}
-		public static string GetQueueName(object command, IServiceProvider provider) {
+		public static string GetQueueName(ulong messageId, object command, IServiceProvider provider) {
 			switch (command) {
 				case SelfDestructCommand:
 				case MyCommand1:
 					return "my-command-queue1";
 				case TestOperationWithResultCommand:
-					return "my-command-queue2";
+					return $"my-command-queue2_{messageId % 5}";
 				case PingCommand:
 				case PongCommand:
 					return "ping pong";

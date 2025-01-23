@@ -1,23 +1,21 @@
-﻿using Albatross.Messaging.Core;
-using Albatross.Messaging.Services;
+﻿using Albatross.Messaging.Services;
 using Albatross.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Albatross.Messaging.Commands {
 	public static class Extensions {
 		public const string DefaultQueueName = "default_queue";
-		public static string GetDefaultQueueName(object _, IServiceProvider provider) => DefaultQueueName;
+		public static string GetDefaultQueueName(ulong messageId, object _, IServiceProvider provider) => DefaultQueueName;
 
-		public static IServiceCollection AddCommand<T>(this IServiceCollection services, string[] names, Func<T, IServiceProvider, string> getQueueName) where T : notnull {
+		public static IServiceCollection AddCommand<T>(this IServiceCollection services, string[] names, Func<ulong, T, IServiceProvider, string> getQueueName) where T : notnull {
 			services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IRegisterCommand), new RegisterCommand<T>(names, getQueueName)));
 			return services;
 		}
-		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, string[] names, Func<T, IServiceProvider, string> getQueueName) where T : notnull where K : notnull {
+		public static IServiceCollection AddCommand<T, K>(this IServiceCollection services, string[] names, Func<ulong, T, IServiceProvider, string> getQueueName) where T : notnull where K : notnull {
 			services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IRegisterCommand), new RegisterCommand<T, K>(names, getQueueName)));
 			return services;
 		}

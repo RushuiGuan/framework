@@ -31,7 +31,7 @@ namespace Albatross.Messaging.Commands {
 			if (registrations.TryGetValue(request.CommandName, out var registration)) {
 				var command = JsonSerializer.Deserialize(request.Payload, registration.CommandType, MessagingJsonSettings.Value.Default)
 					?? throw new InvalidOperationException($"cannot deserialize command object of type {registration.CommandType.FullName} for {request.Id}");
-				var queueName = registration.GetQueueName(command, provider);
+				var queueName = registration.GetQueueName(request.Id, command, provider);
 				var queue = this.commandQueues.GetOrAdd(queueName, () => {
 					var item = provider.GetRequiredService<CommandQueue>();
 					item.SetNewLogger(queueName, provider.GetRequiredService<ILoggerFactory>().CreateLogger($"queue-{queueName}"));
