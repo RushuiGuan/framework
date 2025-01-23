@@ -71,9 +71,9 @@ namespace Albatross.CommandLine.CodeGen {
 							.With(new UsingDirectiveNode(Shared.Namespace.System_Threading_Tasks));
 						IEnumerable<string> additionalNamespaces = [];
 						using (cs.NewScope(new NamespaceDeclarationBuilder(setup.OptionClass.ContainingNamespace.ToDisplayString()))) {
-							using (cs.NewScope(new ClassDeclarationBuilder(setup.CommandClassName).Sealed().Partial())) {
+							using (cs.NewScope(new ClassDeclarationBuilder(setup.CommandClassName).Public().Sealed().Partial())) {
 								cs.With(new BaseTypeNode(My.CommandClassName));
-								using (cs.NewScope(new ConstructorDeclarationBuilder(setup.CommandClassName))) {
+								using (cs.NewScope(new ConstructorDeclarationBuilder(setup.CommandClassName).Public())) {
 									using (cs.NewScope(new ArgumentListBuilder())) {
 										cs.With(new LiteralNode(setup.Name)).With(new LiteralNode(setup.Description));
 									}
@@ -125,7 +125,7 @@ namespace Albatross.CommandLine.CodeGen {
 					var namespaces = new List<string>();
 					var addedOptionClasses = new HashSet<string>();
 					using (diCodeStack.NewScope(new NamespaceDeclarationBuilder(setupClassNamespace ?? "RootNamespaceNotYetFound"))) {
-						using (diCodeStack.NewScope(new ClassDeclarationBuilder(Shared.Class.CodeGenExtensions).Static())) {
+						using (diCodeStack.NewScope(new ClassDeclarationBuilder(Shared.Class.CodeGenExtensions).Public().Static())) {
 							using (diCodeStack.NewScope(new MethodDeclarationBuilder("IServiceCollection", "RegisterCommands").Public().Static())) {
 								diCodeStack.With(new ParameterNode("IServiceCollection", "services").WithThis());
 								foreach (var setup in setups.Values) {
