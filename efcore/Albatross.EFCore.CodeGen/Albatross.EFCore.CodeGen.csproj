@@ -14,7 +14,7 @@
 	<!--When packing codegen, its dependencies should be included as part of the package-->
 	<ItemGroup>
 		<PackageReference Include="Humanizer.Core" Version="2.14.1" GeneratePathProperty="true" PrivateAssets="all" />
-		<PackageReference Include="Albatross.CodeAnalysis" Version="7.6.2" GeneratePathProperty="true" PrivateAssets="all" />
+		<PackageReference Include="Albatross.CodeAnalysis" Version="7.6.3" GeneratePathProperty="true" PrivateAssets="all" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />

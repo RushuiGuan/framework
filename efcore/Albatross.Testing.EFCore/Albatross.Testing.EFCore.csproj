@@ -9,7 +9,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Albatross.Reflection" Version="7.5.7" />
-		<PackageReference Include="Albatross.Testing" Version="7.5.7" />
+		<PackageReference Include="Albatross.Testing" Version="7.6.0" />
 		<ProjectReference Include="..\Albatross.EFCore\Albatross.EFCore.csproj" />
 	</ItemGroup>
 	<ItemGroup>
