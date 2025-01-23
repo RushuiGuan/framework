@@ -4,4 +4,4 @@ Albatross.ReqnrollPlugin
 Albatross.Testing
 
 # Tests
-Sample.Test
+Albatross.Testing.UnitTest
