@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
 		<Description>Provides additional functionalities for serialization using System.Text.Json.</Description>
@@ -9,13 +9,14 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Albatross.Reflection" Version="7.5.7" />
-		<PackageReference Include="Albatross.Text" Version="7.5.7" />
+		<PackageReference Include="Albatross.Text" Version="7.5.8" />
 		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 		<PackageReference Include="MessagePack" Version="2.5.192" />
 		<PackageReference Include="MessagePackAnalyzer" Version="2.5.192">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="YamlDotNet" Version="16.3.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png">

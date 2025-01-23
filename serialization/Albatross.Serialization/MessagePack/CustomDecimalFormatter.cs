@@ -2,7 +2,7 @@
 using MessagePack;
 using MessagePack.Formatters;
 
-namespace Albatross.Serialization {
+namespace Albatross.Serialization.MessagePack {
 	public sealed class CustomDecimalFormatter : IMessagePackFormatter<decimal> {
 		public static readonly CustomDecimalFormatter Instance = new CustomDecimalFormatter();
 
