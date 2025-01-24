@@ -9,7 +9,7 @@ namespace Albatross.Serialization.MessagePack {
 		private CustomDecimalFormatter() { }
 
 		public void Serialize(ref MessagePackWriter writer, decimal value, MessagePackSerializerOptions options) {
-			writer.Write(value.TrimDecimal());
+			writer.Write(value.Decimal2CompactText());
 		}
 
 		public decimal Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options) {

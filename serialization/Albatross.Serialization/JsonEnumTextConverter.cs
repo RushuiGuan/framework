@@ -20,7 +20,7 @@ namespace Albatross.Serialization {
 			var type = typeof(T);
 			if (type.IsEnum) {
 				foreach (T value in Enum.GetValues(type)) {
-					var name = Enum.GetName(type, value);
+					var name = Enum.GetName(type, value) ?? $"{value}";
 					var attrib = value.GetEnumMemberAttribute<T, EnumTextAttribute>();
 					var text = attrib?.Text ?? name;
 					dict[name] = new Map(value, text);
@@ -44,7 +44,7 @@ namespace Albatross.Serialization {
 		}
 
 		public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options) {
-			var name = Enum.GetName(typeof(T), value);
+			var name = Enum.GetName(typeof(T), value) ?? $"{value}";
 			writer.WriteStringValue(dict[name].Text);
 		}
 	}
