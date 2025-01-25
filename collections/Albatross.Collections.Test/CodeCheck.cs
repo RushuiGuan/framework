@@ -7,39 +7,40 @@ using Xunit;
 
 namespace Albatross.Collections.Test {
 	public class MyData {
-		public static int Count = 0;
 		public string Name { get; set; }
-		public MyData(string name) {
+		public MyData(string name, Action action) {
 			Name = name;
-			Count++;
+			action();
 		}
 	}
 	public class CodeCheck {
-		IEnumerable<MyData> GetData() {
+		IEnumerable<MyData> GetData(Action action) {
 			for (int i = 0; i < 10; i++) {
-				yield return new MyData((i % 2).ToString());
+				yield return new MyData((i % 2).ToString(), action);
 			}
 		}
 		[Fact]
 		public void TestLazy() {
-			var data = GetData();
-			Assert.Equal(0, MyData.Count);
+			var count = 0;
+			var data = GetData(() => count++);
+			Assert.Equal(0, count);
 			foreach (var item in data) {
 				item.ToString();
 			}
-			Assert.Equal(10, MyData.Count);
+			Assert.Equal(10, count);
 		}
 
 		[Fact]
 		public void TestLazyGrouping() {
-			var data = GetData().GroupBy(x => x.Name);
-			Assert.Equal(0, MyData.Count);
+			var count = 0;
+			var data = GetData(() => count++).GroupBy(x => x.Name);
+			Assert.Equal(0, count);
 			foreach (var group in data) {
 				foreach (var item in group) {
 					item.ToString();
 				}
 			}
-			Assert.Equal(10, MyData.Count);
+			Assert.Equal(10, count);
 		}
 	}
 }
