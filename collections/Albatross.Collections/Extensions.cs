@@ -161,5 +161,27 @@ namespace Albatross.Collections {
 			}
 			return collection;
 		}
+		public static T? Where<K, T>(this IDictionary<K, T> dict, K key, Func<T, bool>? predicate = null) where T : class {
+			if (dict.TryGetValue(key, out var value)) {
+				if (predicate == null || predicate(value)) {
+					return value;
+				} else {
+					return null;
+				}
+			} else {
+				return null;
+			}
+		}
+		public static T? WhereValue<K, T>(this IDictionary<K, T> dict, K key, Func<T, bool>? predicate = null) where T : struct {
+			if (dict.TryGetValue(key, out var value)) {
+				if (predicate == null || predicate(value)) {
+					return value;
+				} else {
+					return null;
+				}
+			} else {
+				return null;
+			}
+		}
 	}
 }
