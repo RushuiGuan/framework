@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace Albatross.CodeGen.WebClient.Settings {
 	public record class CSharpWebClientSettings {
 		public SymbolFilterPatterns ControllerFilter { get; init; } = new SymbolFilterPatterns();
@@ -16,5 +18,19 @@ namespace Albatross.CodeGen.WebClient.Settings {
 		/// to force the use of the interface.
 		/// </summary>
 		public bool UseInternalProxy { get; init; }
+
+		public WebClientMethodSettings? GlobalMethodSettings { get; set; }
+		public Dictionary<string, WebClientMethodSettings> MethodSettings { get; init; } = new Dictionary<string, WebClientMethodSettings>();
+		public Dictionary<string, WebClientConstructorSettings> ConstructorSettings { get; init; } = new Dictionary<string, WebClientConstructorSettings>();
+
+		public WebClientMethodSettings Get(string controllerName, string methodName) {
+			var key = $"{controllerName}.{methodName}";
+			var globalSettings = GlobalMethodSettings ?? new WebClientMethodSettings();
+			if (MethodSettings.TryGetValue(key, out var methodSettings)) {
+				return methodSettings.Overwrite(globalSettings);
+			} else {
+				return globalSettings;
+			}
+		}
 	}
 }

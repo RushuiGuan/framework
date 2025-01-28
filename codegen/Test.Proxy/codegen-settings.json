@@ -31,9 +31,7 @@
 				"include": "IncludedByCSharp$"
 			}
 		],
-		"useInterface": false
-	},
-	"apiControllerConversionSetting": {
+		"useInterface": false,
 		"globalMethodSettings": {
 			"useDateTimeAsDateOnly": false
 		},
@@ -49,6 +47,14 @@
 			},
 			"RequiredParamTestController.RequiredDateTimeAsDateOnly": {
 				"useDateTimeAsDateOnly": true
+			}
+		},
+		"constructorSettings": {
+			"OmittedConstructorController": {
+				"omit": true
+			},
+			"CustomJsonSettingsController": {
+				"customJsonSettings": "MyCustomJsonSettings.Instance"
 			}
 		}
 	},

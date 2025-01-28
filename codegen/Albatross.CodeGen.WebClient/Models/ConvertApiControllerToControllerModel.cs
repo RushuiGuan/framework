@@ -11,7 +11,7 @@ namespace Albatross.CodeGen.WebClient.Models {
 			this.compilation = compilation;
 		}
 		public ControllerInfo Convert(INamedTypeSymbol controllerSymbol) {
-			return new ControllerInfo(settings.ApiControllerConversionSetting, compilation, controllerSymbol);
+			return new ControllerInfo(settings.CSharpWebClientSettings, compilation, controllerSymbol);
 		}
 		object IConvertObject<INamedTypeSymbol>.Convert(INamedTypeSymbol from) => Convert(from);
 	}

@@ -23,9 +23,7 @@
 			}
 		],
 		"useInterface": true,
-		"useInternalProxy": false
-	},
-	"apiControllerConversionSetting": {
+		"useInternalProxy": false,
 		"globalMethodSettings": {
 			"useDateTimeAsDateOnly": false
 		},
@@ -41,6 +39,14 @@
 			},
 			"RequiredParamTestController.RequiredDateTimeAsDateOnly": {
 				"useDateTimeAsDateOnly": true
+			}
+		},
+		"constructorSettings": {
+			"OmittedConstructorController": {
+				"omit": true
+			},
+			"CustomJsonSettingsController": {
+				"customJsonSettings": "MyCustomJsonSettings.Instance"
 			}
 		}
 	},

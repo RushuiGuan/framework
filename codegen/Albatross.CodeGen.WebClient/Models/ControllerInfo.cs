@@ -24,14 +24,14 @@ namespace Albatross.CodeGen.WebClient.Models {
 		public string Route { get; set; }
 		public List<MethodInfo> Methods { get; } = new List<MethodInfo>();
 
-		public ControllerInfo(ApiControllerConversionSettings conversionSettings, Compilation compilation, INamedTypeSymbol controller) {
+		public ControllerInfo(CSharpWebClientSettings settings, Compilation compilation, INamedTypeSymbol controller) {
 			this.Controller = controller;
 			this.Route = controller.GetRouteText();
 			this.Route = this.Route.Replace(ControllerNamePlaceholder, this.ControllerName.ToLower());
 
 			foreach (var methodSymbol in controller.GetMembers().OfType<IMethodSymbol>()) {
 				if (methodSymbol.GetAttributes().Any(x => x.AttributeClass?.BaseType?.GetFullName() == My.HttpMethodAttributeClassName)) {
-					Methods.Add(new MethodInfo(conversionSettings.Get(controller.Name, methodSymbol.Name), compilation, methodSymbol));
+					Methods.Add(new MethodInfo(settings.Get(controller.Name, methodSymbol.Name), compilation, methodSymbol));
 				}
 			}
 		}

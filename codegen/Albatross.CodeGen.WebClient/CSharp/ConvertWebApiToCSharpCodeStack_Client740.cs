@@ -8,11 +8,9 @@ using System.Linq;
 namespace Albatross.CodeGen.WebClient.CSharp {
 	public class ConvertWebApiToCSharpCodeStack_Client740 : IConvertObject<ControllerInfo, CodeStack> {
 		const string ProxyService = "ProxyService";
-		private readonly Compilation compilation;
 		private readonly CodeGenSettings settings;
 
-		public ConvertWebApiToCSharpCodeStack_Client740(Compilation compilation, CodeGenSettings settings) {
-			this.compilation = compilation;
+		public ConvertWebApiToCSharpCodeStack_Client740(CodeGenSettings settings) {
 			this.settings = settings;
 		}
 		public CodeStack Convert(ControllerInfo from) {
@@ -20,6 +18,7 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 			using (codeStack.NewScope(new CompilationUnitBuilder())) {
 				codeStack
 					.With(new UsingDirectiveNode("Albatross.Dates"))
+					.With(new UsingDirectiveNode("Albatross.Serialization"))
 					.With(new UsingDirectiveNode("System.Net.Http"))
 					.With(new UsingDirectiveNode("System.Threading.Tasks"))
 					.With(new UsingDirectiveNode("Microsoft.Extensions.Logging"))
@@ -58,15 +57,18 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 						if (settings.CSharpWebClientSettings.UseInterface) {
 							codeStack.With(new BaseTypeNode(interfaceClassName));
 						}
-						using (codeStack.NewScope(new ConstructorDeclarationBuilder(proxyClassName).Public())) {
-							codeStack
-								.With(new ParameterNode(new GenericIdentifierNode("ILogger", proxyClassName), "logger"))
-								.With(new ParameterNode("HttpClient", "client"));
-							codeStack
-								.Begin(new ArgumentListBuilder())
-									.With(new IdentifierNode("logger"))
-									.With(new IdentifierNode("client"))
-								.End();
+						settings.CSharpWebClientSettings.ConstructorSettings.TryGetValue(from.Controller.Name, out var constructorSettings);
+						if (constructorSettings?.Omit != true) {
+							using (codeStack.NewScope(new ConstructorDeclarationBuilder(proxyClassName).Public())) {
+								codeStack
+									.With(new ParameterNode(new GenericIdentifierNode("ILogger", proxyClassName), "logger"))
+									.With(new ParameterNode("HttpClient", "client"))
+									.Begin(new ArgumentListBuilder())
+										.With(new IdentifierNode("logger"))
+										.With(new IdentifierNode("client"))
+										.Condition(!string.IsNullOrEmpty(constructorSettings?.CustomJsonSettings), cs => cs.With(new IdentifierNode(constructorSettings?.CustomJsonSettings!)))
+									.End();
+							}
 						}
 						codeStack.Begin(new FieldDeclarationBuilder("string", "ControllerPath").Public().Const())
 								.With(new LiteralNode(from.Route))
