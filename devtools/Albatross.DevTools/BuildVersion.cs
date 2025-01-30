@@ -29,7 +29,7 @@ namespace Albatross.DevTools {
 		public bool ClearMetadata { get; set; }
 	}
 	public class BuildVersion : BaseHandler<BuildVersionOptions> {
-		public BuildVersion(IOptions<BuildVersionOptions> options, ILogger logger) : base(options, logger) {
+		public BuildVersion(IOptions<BuildVersionOptions> options) : base(options) {
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {
 			var version = new SemVer.SematicVersion(this.options.Version);

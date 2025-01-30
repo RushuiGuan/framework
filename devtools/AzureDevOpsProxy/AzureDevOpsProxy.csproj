@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.Config" Version="7.5.7" />
-		<PackageReference Include="Albatross.WebClient" Version="7.5.8" />
+		<PackageReference Include="Albatross.Config" Version="7.5.8" />
+		<PackageReference Include="Albatross.WebClient" Version="7.5.9" />
 	</ItemGroup>
 </Project>

@@ -36,7 +36,7 @@ namespace Albatross.DevTools {
 			}
 			return result;
 		}
-		public FixMarkDownRelativeUrls(IOptions<FixMarkDownRelativeUrlsOptions> options, ILogger logger) : base(options, logger) { }
+		public FixMarkDownRelativeUrls(IOptions<FixMarkDownRelativeUrlsOptions> options) : base(options) { }
 		static Regex regex = new Regex(@"\[(.*?)\]\((.*?)\)", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 
 		public static string ReplaceAll(string text, DirectoryInfo rootFolder, FileInfo markdownFile, string rootUrl) {

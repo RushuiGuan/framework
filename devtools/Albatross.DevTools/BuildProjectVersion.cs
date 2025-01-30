@@ -18,7 +18,11 @@ namespace Albatross.DevTools {
 		public bool Prod { get; set; }
 	}
 	public class BuildProjectVersion : BaseHandler<BuildProjectVersionOptions> {
-		public BuildProjectVersion(IOptions<BuildProjectVersionOptions> options, ILogger logger) : base(options, logger) { }
+		private readonly ILogger<BuildProjectVersion> logger;
+
+		public BuildProjectVersion(IOptions<BuildProjectVersionOptions> options, ILogger<BuildProjectVersion> logger) : base(options) {
+			this.logger = logger;
+		}
 
 		private string GetVersionFromFile() {
 			var versionFile = Path.Join(this.options.Directory.FullName, ".version");

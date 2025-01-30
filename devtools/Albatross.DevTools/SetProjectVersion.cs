@@ -15,7 +15,10 @@ namespace Albatross.DevTools {
 		public string Version { get; set; } = string.Empty;
 	}
 	public class SetProjectVersion : BaseHandler<SetProjectVersionOptions> {
-		public SetProjectVersion(IOptions<SetProjectVersionOptions> options, ILogger logger) : base(options, logger) {
+		private readonly ILogger<SetProjectVersion> logger;
+
+		public SetProjectVersion(IOptions<SetProjectVersionOptions> options, ILogger<SetProjectVersion> logger) : base(options) {
+			this.logger = logger;
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {
 			var projectFiles = Directory.GetFiles(this.options.Directory.FullName, "*.csproj", SearchOption.AllDirectories);

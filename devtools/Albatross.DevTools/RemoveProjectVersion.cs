@@ -13,7 +13,10 @@ namespace Albatross.DevTools {
 		public DirectoryInfo Directory { get; set; } = null!;
 	}
 	public class RemoveProjectVersion : BaseHandler<RemoveProjectVersionOptions> {
-		public RemoveProjectVersion(IOptions<RemoveProjectVersionOptions> options, ILogger logger) : base(options, logger) {
+		private readonly ILogger<RemoveProjectVersion> logger;
+
+		public RemoveProjectVersion(IOptions<RemoveProjectVersionOptions> options, ILogger<RemoveProjectVersion> logger) : base(options) {
+			this.logger = logger;
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {
 			var projectFiles = Directory.GetFiles(this.options.Directory.FullName, "*.csproj", SearchOption.AllDirectories);

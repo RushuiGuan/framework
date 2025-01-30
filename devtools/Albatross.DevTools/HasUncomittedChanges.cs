@@ -15,7 +15,10 @@ namespace Albatross.DevTools {
 		public bool Show { get; set; }
 	}
 	public class HasUncomittedChanges : BaseHandler<HasUncomittedChangesOptions> {
-		public HasUncomittedChanges(IOptions<HasUncomittedChangesOptions> options, ILogger logger) : base(options, logger) {
+		private readonly ILogger<HasUncomittedChanges> logger;
+
+		public HasUncomittedChanges(IOptions<HasUncomittedChangesOptions> options, ILogger<HasUncomittedChanges> logger) : base(options) {
+			this.logger = logger;
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {
 			var gitDirectory = Repository.Discover(options.Directory.FullName);

@@ -15,7 +15,7 @@ namespace Albatross.DevTools {
 		public string Header { get; set; } = string.Empty;
 	}
 	public class GetProjectList : BaseHandler<GetProjectListOptions> {
-		public GetProjectList(IOptions<GetProjectListOptions> options, ILogger logger) : base(options, logger) {
+		public GetProjectList(IOptions<GetProjectListOptions> options) : base(options) {
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {
 			string? current = null;

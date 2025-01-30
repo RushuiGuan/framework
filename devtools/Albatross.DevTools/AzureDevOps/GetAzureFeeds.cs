@@ -14,7 +14,7 @@ namespace Albatross.DevTools.AzureDevOps {
 	public class GetAzureFeeds : BaseHandler<GetAzureFeedsOptions> {
 		private readonly FeedManagementProxy proxy;
 
-		public GetAzureFeeds(FeedManagementProxy proxy, IOptions<GetAzureFeedsOptions> options, ILogger logger) : base(options, logger) {
+		public GetAzureFeeds(FeedManagementProxy proxy, IOptions<GetAzureFeedsOptions> options) : base(options) {
 			this.proxy = proxy;
 		}
 		public override async Task<int> InvokeAsync(InvocationContext context) {

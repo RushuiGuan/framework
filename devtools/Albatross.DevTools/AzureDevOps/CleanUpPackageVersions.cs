@@ -28,11 +28,13 @@ namespace Albatross.DevTools.AzureDevOps {
 		private readonly FeedManagementProxy feedManagement;
 		private readonly PackageManagementProxy packageManagement;
 		private readonly PackageOperationProxy packageOperation;
+		private readonly ILogger<CleanUpPackageVersions> logger;
 
-		public CleanUpPackageVersions(FeedManagementProxy feedManagement, PackageManagementProxy packageManagement, PackageOperationProxy packageOperation, IOptions<CleanUpPackageVersionsOptions> options, ILogger logger) : base(options, logger) {
+		public CleanUpPackageVersions(FeedManagementProxy feedManagement, PackageManagementProxy packageManagement, PackageOperationProxy packageOperation, IOptions<CleanUpPackageVersionsOptions> options, ILogger<CleanUpPackageVersions> logger) : base(options) {
 			this.feedManagement = feedManagement;
 			this.packageManagement = packageManagement;
 			this.packageOperation = packageOperation;
+			this.logger = logger;
 		}
 		public class Candidate {
 			public Candidate(Feed feed, Package package, PackageVersion version) {

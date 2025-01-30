@@ -14,7 +14,7 @@ namespace Albatross.DevTools {
 		public string Property { get; set; } = string.Empty;
 	}
 	public class ReadProjectProperty : BaseHandler<ReadProjectPropertyOptions> {
-		public ReadProjectProperty(IOptions<ReadProjectPropertyOptions> options, ILogger logger) : base(options, logger) {
+		public ReadProjectProperty(IOptions<ReadProjectPropertyOptions> options) : base(options) {
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {
 			var doc = new System.Xml.XmlDocument();

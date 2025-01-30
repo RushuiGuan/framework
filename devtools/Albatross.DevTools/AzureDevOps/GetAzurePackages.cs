@@ -24,7 +24,7 @@ namespace Albatross.DevTools.AzureDevOps {
 		private readonly FeedManagementProxy feedManagement;
 		private readonly PackageManagementProxy packageManagement;
 
-		public GetAzurePackages(FeedManagementProxy feedManagement, PackageManagementProxy packageManagement, IOptions<GetAzurePackagesOptions> options, ILogger logger) : base(options, logger) {
+		public GetAzurePackages(FeedManagementProxy feedManagement, PackageManagementProxy packageManagement, IOptions<GetAzurePackagesOptions> options) : base(options) {
 			this.feedManagement = feedManagement;
 			this.packageManagement = packageManagement;
 		}

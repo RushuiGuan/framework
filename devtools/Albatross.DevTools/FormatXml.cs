@@ -16,7 +16,7 @@ namespace Albatross.DevTools {
 		public int SpaceIndentSize { get; set; }
 	}
 	public class FormatXml : BaseHandler<FormatXmlOptions> {
-		public FormatXml(IOptions<FormatXmlOptions> options, ILogger logger) : base(options, logger) {
+		public FormatXml(IOptions<FormatXmlOptions> options) : base(options) {
 		}
 		public override Task<int> InvokeAsync(InvocationContext context) {
 			if (!this.options.XmlFile.Exists) {

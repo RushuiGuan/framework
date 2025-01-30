@@ -1,7 +1,6 @@
 ﻿using Albatross.CommandLine;
 using Albatross.Text;
 using AzureDevOpsProxy;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.CommandLine.Invocation;
 using System.Linq;
@@ -20,7 +19,7 @@ namespace Albatross.DevTools.AzureDevOps {
 		private readonly FeedManagementProxy feedManagement;
 		private readonly PackageManagementProxy packageManagement;
 
-		public GetAzurePackageVersions(FeedManagementProxy feedManagement, PackageManagementProxy packageManagement, IOptions<GetAzurePackageVersionsOptions> options, ILogger logger) : base(options, logger) {
+		public GetAzurePackageVersions(FeedManagementProxy feedManagement, PackageManagementProxy packageManagement, IOptions<GetAzurePackageVersionsOptions> options) : base(options) {
 			this.feedManagement = feedManagement;
 			this.packageManagement = packageManagement;
 		}
