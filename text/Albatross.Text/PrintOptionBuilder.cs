@@ -67,9 +67,11 @@ namespace Albatross.Text {
 		public static PrintOptionBuilder<PrintTableOption> ColumnHeader(this PrintOptionBuilder<PrintTableOption> builder, Func<string, string> value) {
 			return builder.Set(option => option.GetColumnHeader = value);
 		}
+		[Obsolete("Use YamlDotNet instead")]
 		public static PrintOptionBuilder<PrintPropertiesOption> ColumnHeader(this PrintOptionBuilder<PrintPropertiesOption> builder, Func<int, string?> value) {
 			return builder.Set(option => option.GetColumnHeader = value);
 		}
+		[Obsolete("Use YamlDotNet instead")]
 		public static PrintOptionBuilder<PrintPropertiesOption> RowHeader(this PrintOptionBuilder<PrintPropertiesOption> builder, Func<string, string> value) {
 			return builder.Set(option => option.GetRowHeader = value);
 		}
