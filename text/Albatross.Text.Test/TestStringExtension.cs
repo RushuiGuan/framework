@@ -108,7 +108,7 @@ namespace Albatross.Test.Text {
 		[InlineData("123", "123")]
 		public void TestTrimDecimal(string number, string expected) {
 			var value = decimal.Parse(number);
-			var result = value.TrimDecimal();
+			var result = value.Decimal2CompactText();
 			Assert.Equal(expected, result);
 			result = value.Decimal2CompactText();
 			Assert.Equal(expected, result);

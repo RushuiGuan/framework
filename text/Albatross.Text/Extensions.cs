@@ -5,11 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Albatross.Text {
 	public static class Extensions {
-		public static IServiceCollection AddStringInterpolation(this IServiceCollection services) {
-			services.TryAddSingleton<IStringInterpolationService, StringInterpolationService>();
-			return services;
-		}
-
 		public static string TrimStart(this string line, string value) {
 			if (line.StartsWith(value)) {
 				return line.Substring(value.Length);

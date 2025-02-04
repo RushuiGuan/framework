@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Albatross.Text {
@@ -22,6 +25,10 @@ namespace Albatross.Text {
 
 		public PrintOptionBuilder<T> Property(params string[] properties) {
 			this.properties.AddRange(properties);
+			return this;
+		}
+		public PrintOptionBuilder<T> Exclude(params string[] properties) {
+			this.properties = this.properties.Except(properties).ToList();
 			return this;
 		}
 
@@ -65,6 +72,16 @@ namespace Albatross.Text {
 		}
 		public static PrintOptionBuilder<PrintPropertiesOption> RowHeader(this PrintOptionBuilder<PrintPropertiesOption> builder, Func<string, string> value) {
 			return builder.Set(option => option.GetRowHeader = value);
+		}
+		public static Task Print<T>(this TextWriter writer, IEnumerable<T> items, Action<PrintOptionBuilder<PrintTableOption>>? customize = null) {
+			var builder = new PrintOptionBuilder<PrintTableOption>();
+			var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(p => p.Name).ToArray();
+			builder.Property(properties);
+			if(customize != null) {
+				customize(builder);
+			}
+			var option = builder.Build();
+			return writer.PrintTable(items, option);
 		}
 	}
 }

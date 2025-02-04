@@ -1,13 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json;
 using Xunit;
 
 namespace Albatross.Text.Test {
 	public class TestTemplateStringInterpolation {
-
-		public ILogger<StringInterpolationService> Logger() => new Moq.Mock<ILogger<StringInterpolationService>>().Object;
-
 		IDictionary<string, string> values = new Dictionary<string, string> {
 			{ "b", "1"},
 			{ "", "x"},
@@ -24,11 +20,9 @@ namespace Albatross.Text.Test {
 		[InlineData("abc${b}abc", "abc1abc")]
 		[InlineData("${b}${b}${b}", "111")]
 		public void Test(string input, string expectedResult) {
-			var instance = new StringInterpolationService(Logger());
-			var result = input.Interpolate<IDictionary<string, string>>((key, values) => values[key], values);
+			var result = input.Interpolate((key, values) => values[key], values);
 			Assert.Equal(expectedResult, result);
 		}
-
 
 		[Theory]
 		[InlineData("abc_${b}_abc", @"{""b"":""1""}", "abc_1_abc")]
