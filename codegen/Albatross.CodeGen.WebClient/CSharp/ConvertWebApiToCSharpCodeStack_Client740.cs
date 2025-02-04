@@ -58,6 +58,9 @@ namespace Albatross.CodeGen.WebClient.CSharp {
 							codeStack.With(new BaseTypeNode(interfaceClassName));
 						}
 						settings.CSharpWebClientSettings.ConstructorSettings.TryGetValue(from.Controller.Name, out var constructorSettings);
+						if (constructorSettings == null) {
+							settings.CSharpWebClientSettings.ConstructorSettings.TryGetValue("*", out constructorSettings);
+						}
 						if (constructorSettings?.Omit != true) {
 							using (codeStack.NewScope(new ConstructorDeclarationBuilder(proxyClassName).Public())) {
 								codeStack
