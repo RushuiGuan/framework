@@ -18,6 +18,10 @@ namespace Albatross.Serialization.Test {
 		A,
 		B
 	}
+	public class Test {
+		public SecurityTypeText TextType { get; set; }
+		public SecurityTypeInt IntType { get; set; }
+	}
 
 	public class TestJsonConverter {
 		[Theory]
@@ -40,6 +44,28 @@ namespace Albatross.Serialization.Test {
 		public void Test() {
 			JsonSerializer.Deserialize<HisEnum>("\"A\"");
 
+		}
+
+		[Fact]
+		public void TestEnumUnknownTextValueDeserialization() {
+			var text = "{\"textType\":\"xxx\"}";
+			var obj = System.Text.Json.JsonSerializer.Deserialize<Test>(text, CustomJsonSettings.Value.Default);
+			Assert.Equal(SecurityTypeText.Undefined, obj?.TextType);
+		}
+
+		[Fact]
+		public void TestEnumUnknownValueValueDeserialization() {
+			var text = "{\"intType\": 99}";
+			var obj = JsonSerializer.Deserialize<Test>(text, CustomJsonSettings.Value.Default);
+			Assert.Equal(99, (int)obj.IntType);
+		}
+
+		[Fact]
+		public void TestEnumValueSerialization() {
+			var test = new Test { TextType = SecurityTypeText.Equity };
+			var actual = System.Text.Json.JsonSerializer.Serialize<Test>(test, DefaultJsonSettings.Value.Default);
+			var expected = System.Text.Json.JsonSerializer.Serialize<Test>(test, CustomJsonSettings.Value.Default);
+			Assert.Equal(expected, actual);
 		}
 	}
 }
