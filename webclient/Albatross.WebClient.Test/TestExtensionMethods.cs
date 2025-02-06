@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Albatross.WebClient.Test {
+namespace Albatross.RestClient.Test {
 	public partial class TestWebClient  {
 		[Fact]
 		public void TestConfig() {

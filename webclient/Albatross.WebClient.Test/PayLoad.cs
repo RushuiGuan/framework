@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Albatross.WebClient.Test {
+namespace Albatross.RestClient.Test {
 	public class PayLoad {
 		public string Name { get; set; } = String.Empty;
 		public byte[] Data { get; set; } = new byte[0];

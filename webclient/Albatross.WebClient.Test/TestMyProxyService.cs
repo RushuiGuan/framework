@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Albatross.WebClient.Test {
+namespace Albatross.RestClient.Test {
 	public class MyProxyService  {
 		private readonly ILogger logger;
 		private readonly HttpClient client;

@@ -1,7 +1,7 @@
 ﻿using Albatross.Config;
 using Microsoft.Extensions.Configuration;
 
-namespace Albatross.WebClient.Test {
+namespace Albatross.RestClient.Test {
 	public class MyConfig : ConfigBase {
 		public MyConfig(IConfiguration configuration) : base(configuration) {
 			this.TestUrl = configuration.GetRequiredEndPoint("test");

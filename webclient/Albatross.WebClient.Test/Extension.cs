@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace Albatross.WebClient.Test {
+namespace Albatross.RestClient.Test {
 	public static class Extension {
 		public static IServiceCollection AddTestClientService(this IServiceCollection services) {
 			services.AddHttpClient("test")

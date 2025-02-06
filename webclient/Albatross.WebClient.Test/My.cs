@@ -1,7 +1,7 @@
 ﻿using Albatross.Testing.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Albatross.WebClient.Test {
+namespace Albatross.RestClient.Test {
 	public static class My {
 		public static IHost Create() {
 			return new TestHostBuilder().WithAppSettingsConfiguration("test")
