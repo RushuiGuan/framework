@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Albatross.RestClient {
 	public static class ResponseExtensions {
 		public const string GZipEncoding = "gzip";
-
 
 		public static async Task<string> ReadResponseAsText(this HttpResponseMessage response) {
 			if (response.Content.Headers.ContentLength != 0 == true) {
