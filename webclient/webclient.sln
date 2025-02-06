@@ -11,10 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.version = .version
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.RestClient", "Albatross.RestClient\Albatross.RestClient.csproj", "{7AAEE127-D651-4237-9DB6-37FE47AF9231}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.RestClient.Test", "Albatross.RestClient.Test\Albatross.RestClient.Test.csproj", "{AE0025FB-6549-460E-95DD-B841253E9BA3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albatross.WebClient.Test", "Albatross.WebClient.Test\Albatross.WebClient.Test.csproj", "{5B070F58-63D1-459F-A131-4EF0BF22E661}"
 EndProject
 Global
@@ -27,14 +23,6 @@ Global
 		{D6153668-59F8-4E17-A275-93C6427F30A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6153668-59F8-4E17-A275-93C6427F30A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6153668-59F8-4E17-A275-93C6427F30A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AAEE127-D651-4237-9DB6-37FE47AF9231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AAEE127-D651-4237-9DB6-37FE47AF9231}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AAEE127-D651-4237-9DB6-37FE47AF9231}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AAEE127-D651-4237-9DB6-37FE47AF9231}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE0025FB-6549-460E-95DD-B841253E9BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE0025FB-6549-460E-95DD-B841253E9BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE0025FB-6549-460E-95DD-B841253E9BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE0025FB-6549-460E-95DD-B841253E9BA3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5B070F58-63D1-459F-A131-4EF0BF22E661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B070F58-63D1-459F-A131-4EF0BF22E661}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B070F58-63D1-459F-A131-4EF0BF22E661}.Release|Any CPU.ActiveCfg = Release|Any CPU
