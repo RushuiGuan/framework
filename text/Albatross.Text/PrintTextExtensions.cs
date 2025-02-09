@@ -6,12 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.Text {
+	[Obsolete("Use Albatross.TextGrid or YamlDotNet instead")]
 	public static partial class PrintTextExtensions {
-		[Obsolete("Use YamlDotNet instead")]
 		public static Task PrintProperties<T>(this TextWriter writer, T? data, PrintPropertiesOption option)
 			=> writer.PrintProperties<T>(new T?[] { data }, option);
 
-		[Obsolete("Use YamlDotNet instead")]
 		public static async Task PrintProperties<T>(this TextWriter writer, IEnumerable<T?> items, PrintPropertiesOption option) {
 			var itemArray = items.ToArray();
 			int columnCount = itemArray.Length + 1;

@@ -1,4 +1,5 @@
-﻿using Albatross.Text;
+﻿#pragma warning disable CS0618 // Type or member is obsolete
+using Albatross.Text;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -120,3 +121,4 @@ desk   furniture 200  2000-02-01 05:05:04-5 2000-07-04
 		}
 	}
 }
+#pragma warning restore CS0618 // Type or member is obsolete
