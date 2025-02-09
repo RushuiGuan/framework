@@ -3,7 +3,7 @@
 namespace Albatross.Text.Table {
 	public static class Extensions {
 		public static StringTable StringTable<T>(this IEnumerable<T> items, TableOptions<T>? options = null) {
-			options = options ?? TableBuilderFactory.Instance.Get<T>();
+			options = options ?? TableOptionFactory.Instance.Get<T>();
 			StringTable table = new StringTable(options.ColumnHeaders);
 			foreach (var item in items) {
 				table.Add(options.GetValue(item));

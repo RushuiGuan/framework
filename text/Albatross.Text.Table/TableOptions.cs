@@ -12,7 +12,7 @@ namespace Albatross.Text.Table {
 		public ImmutableArray<string> ColumnHeaders { get; }
 
 
-		public TableOptions(TableBuilder<T> builder) {
+		public TableOptions(TableOptionBuilder<T> builder) {
 			var getValueDelegates = new List<Func<T, object?>>();
 			var formatters = new List<Func<T, object?, string>>();
 			var columnHeaders = new List<string>();

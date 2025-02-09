@@ -11,7 +11,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestColumnOrders() {
-			var builder = new TableBuilder<TestClass>();
+			var builder = new TableOptionBuilder<TestClass>();
 			var options = new TableOptions<TestClass>(builder);
 			Assert.Equal(nameof(TestClass.Id), options.ColumnHeaders[0]);
 			Assert.Equal(nameof(TestClass.Name), options.ColumnHeaders[1]);

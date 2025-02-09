@@ -2,13 +2,13 @@
 using System.Reflection;
 
 namespace Albatross.Text.Table {
-	public class TableBuilder<T> {
+	public class TableOptionBuilder<T> {
 		public Dictionary<string, Func<T, object?>> GetValueDelegates { get; } = new Dictionary<string, Func<T, object?>>();
 		public Dictionary<string, Func<T, object?, string>> Formatters { get; } = new Dictionary<string, Func<T, object?, string>>();
 		public Dictionary<string, string> ColumnHeaders { get; } = new Dictionary<string, string>();
 		public Dictionary<string, int> ColumnOrders { get; } = new Dictionary<string, int>();
 
-		public TableBuilder() {
+		public TableOptionBuilder() {
 			int index = 0;
 			foreach (var property in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)) {
 				GetValueDelegates[property.Name] = x => property.GetValue(x);
@@ -18,17 +18,17 @@ namespace Albatross.Text.Table {
 			}
 		}
 
-		public TableBuilder<T> ColumnOrder(string property, int index) {
+		public TableOptionBuilder<T> ColumnOrder(string property, int index) {
 			this.ColumnOrders[property] = index;
 			return this;
 		}
 
-		public TableBuilder<T> Format(string property, string format) {
+		public TableOptionBuilder<T> Format(string property, string format) {
 			this.Formatters[property] = (T entity, object? value) => string.Format($"{{0:{format}}}", value);
 			return this;
 		}
 
-		public TableBuilder<T> Exclude(string property) {
+		public TableOptionBuilder<T> Exclude(string property) {
 			this.GetValueDelegates.Remove(property);
 			this.Formatters.Remove(property);
 			this.ColumnHeaders.Remove(property);
@@ -36,7 +36,7 @@ namespace Albatross.Text.Table {
 			return this;
 		}
 
-		public TableBuilder<T> SetColumn(string column, Func<T, object?> getValue) {
+		public TableOptionBuilder<T> SetColumn(string column, Func<T, object?> getValue) {
 			this.GetValueDelegates[column] = getValue;
 			if (!this.Formatters.ContainsKey(column)) {
 				this.Formatters[column] = (T entity, object? value) => DefaultFormat(value);
@@ -50,12 +50,12 @@ namespace Albatross.Text.Table {
 			return this;
 		}
 
-		public TableBuilder<T> ColumnHeader(string property, string columnHeader) {
+		public TableOptionBuilder<T> ColumnHeader(string property, string columnHeader) {
 			this.ColumnHeaders[property] = columnHeader;
 			return this;
 		}
 
-		public TableBuilder<T> Format(string property, Func<T, object?, string> format) {
+		public TableOptionBuilder<T> Format(string property, Func<T, object?, string> format) {
 			this.Formatters[property] = format;
 			return this;
 		}
