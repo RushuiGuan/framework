@@ -1,7 +1,7 @@
 ﻿using Albatross.Text;
 using System.Reflection;
 
-namespace Albatross.TextGrid {
+namespace Albatross.Text.Table {
 	public class TableBuilder<T> {
 		public Dictionary<string, Func<T, object?>> GetValueDelegates { get; } = new Dictionary<string, Func<T, object?>>();
 		public Dictionary<string, Func<T, object?, string>> Formatters { get; } = new Dictionary<string, Func<T, object?, string>>();

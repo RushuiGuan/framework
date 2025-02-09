@@ -1,4 +1,4 @@
-﻿namespace Albatross.Text {
+﻿namespace Albatross.Text.Table {
 	public class StringTable {
 		public class Column {
 			public string Name { get; }

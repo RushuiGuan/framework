@@ -1,6 +1,6 @@
 ﻿using Albatross.Text;
 
-namespace Albatross.TextGrid {
+namespace Albatross.Text.Table {
 	public static class Extensions {
 		public static StringTable StringTable<T>(this IEnumerable<T> items, TableOptions<T>? options = null) {
 			options = options ?? TableBuilderFactory.Instance.Get<T>();

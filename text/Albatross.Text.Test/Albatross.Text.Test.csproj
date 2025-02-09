@@ -15,6 +15,7 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\Albatross.Text.Table\Albatross.Text.Table.csproj" />
 		<ProjectReference Include="..\Albatross.Text\Albatross.Text.csproj" />
 	</ItemGroup>
 </Project>

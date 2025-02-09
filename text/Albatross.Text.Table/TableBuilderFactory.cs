@@ -1,4 +1,4 @@
-﻿namespace Albatross.TextGrid {
+﻿namespace Albatross.Text.Table {
 	public class TableBuilderFactory {
 		object sync = new object();
 		Dictionary<Type, TableOptions> registration = new Dictionary<Type, TableOptions>();

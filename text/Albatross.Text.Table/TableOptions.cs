@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace Albatross.TextGrid {
+namespace Albatross.Text.Table {
 	public abstract class TableOptions {
 		public abstract Type Type { get; }
 	}
