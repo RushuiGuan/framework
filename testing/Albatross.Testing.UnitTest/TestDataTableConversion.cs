@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Albatross.Reqnroll;
+using FluentAssertions;
 using Reqnroll;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,7 @@ namespace Albatross.Testing.UnitTest {
 				new TestClass { Date = new DateOnly(2021, 1, 1), Name = "Alice" },
 				new TestClass { Date = new DateOnly(2021, 1, 2), Name = "Bob" },
 			};
-			var table = items.ToDataTable((name, item, value) => {
-				if (name == "Date") {
-					return $"{value:yyyy-MM-dd}";
-				} else {
-					return $"{value}";
-				}
-			});
+			var table = items.DataTable();
 
 			var expected = new DataTable("Date", "Name");
 			expected.AddRow("2021-01-01", "Alice");

@@ -26,7 +26,7 @@ namespace Albatross.Reqnroll {
 			}
 		}
 
-		public static DataTable DataTable<T>(this IEnumerable<T> items, TableOptions<T>? options) {
+		public static DataTable DataTable<T>(this IEnumerable<T> items, TableOptions<T>? options = null) {
 			options = options ?? TableOptionFactory.Instance.Get<T>();
 			var table = new DataTable(options.ColumnOptions.Select(x=>x.Header).ToArray());
 			foreach (var item in items) {
