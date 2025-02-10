@@ -81,8 +81,3 @@ There are a few built-in extensions methods that can convert `IEnumerable<T>` in
 		table.Add(options.GetValue(item));
 	}
 	```
-
-
-	|a|b|c|d|
-	|-|-|-|-|
-	|1|2|3|4|
