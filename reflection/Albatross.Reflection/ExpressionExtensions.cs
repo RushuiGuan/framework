@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Albatross.Reflection {
 	public static class ExpressionExtensions {
-		public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, object>> lambda) {
+		public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, object?>> lambda) {
 			MemberExpression? member = lambda.Body as MemberExpression;
 			if (member == null) {
 				throw new ArgumentException($"Expression '{lambda}' refers to a method.");
