@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 namespace Albatross.Text {
-	[Obsolete("Use Albatross.TextGrid instead")]
+	[Obsolete("Use Albatross.Text.Table instead")]
 	public record class PrintOption {
 		public delegate Task<string> FormatValueDelegate(object? entity, string property, object? value);
 		public char ColumnHeaderLineCharacter { get; set; } = '-';

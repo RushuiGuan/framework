@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Albatross.Text {
-	[Obsolete("Use Albatross.TextGrid or YamlDotNet instead")]
+	[Obsolete("Use Albatross.Text.Table or YamlDotNet instead")]
 	public static partial class PrintTextExtensions {
 		public static Task PrintProperties<T>(this TextWriter writer, T? data, PrintPropertiesOption option)
 			=> writer.PrintProperties<T>(new T?[] { data }, option);

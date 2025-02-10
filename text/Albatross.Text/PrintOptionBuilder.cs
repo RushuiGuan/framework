@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Albatross.Text {
-	[Obsolete("Use Albatross.TextGrid instead")]
+	[Obsolete("Use Albatross.Text.Table instead")]
 	public class PrintOptionBuilder<T> where T : PrintOption, new() {
 		Action<T>? action;
 		public PrintOptionBuilder<T> Set(Action<T> action) {
@@ -57,7 +57,7 @@ namespace Albatross.Text {
 		}
 	}
 
-	[Obsolete("Use Albatross.TextGrid instead")]
+	[Obsolete("Use Albatross.Text.Table instead")]
 	public static class PrintOptionBuilderExtensions {
 		public static PrintOptionBuilder<T> ColumnHeaderLineCharacter<T>(this PrintOptionBuilder<T> builder, char value) where T : PrintOption, new() {
 			return builder.Set(option => option.ColumnHeaderLineCharacter = value);
