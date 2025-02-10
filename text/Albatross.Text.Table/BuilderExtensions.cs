@@ -1,5 +1,6 @@
 ﻿using Albatross.Reflection;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -30,6 +31,11 @@ namespace Albatross.Text.Table {
 			var propertyInfo = lambda.GetPropertyInfo();
 			return builder.SetColumn(propertyInfo.Name, getValue ?? (x => propertyInfo.GetValue(x)));
 		}
+		
+		public static TableOptionBuilder<IDictionary<string, T>> SetColumn<T>(this TableOptionBuilder<IDictionary<string, T>> builder, string column) {
+			return builder.SetColumn(column, x => x[column]);
+		}
+			
 
 		public static string DefaultFormat(object? value) {
 			if (value == null) {
@@ -66,7 +72,7 @@ namespace Albatross.Text.Table {
 			}
 			return builder;
 		}
-
+		
 		public static TableOptions<T> Build<T>(this TableOptionBuilder<T> builder) {
 			return new TableOptions<T>(builder);
 		}
