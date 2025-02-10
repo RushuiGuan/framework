@@ -5,28 +5,28 @@ using System.Reflection;
 
 namespace Albatross.Text.Table {
 	public static class BuilderExtensions {
-		public static TableOptionBuilder<T> Format<T>(this TableOptionBuilder<T> builder, Expression<Func<T, object?>> lambda, string format)
-			=> builder.Format<T>(lambda, (T entity, object? value) => string.Format($"{{0:{format}}}", value));
+		public static TableOptionBuilder<T> Format<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, string format)
+			=> builder.Format(lambda, (T entity, object? value) => string.Format($"{{0:{format}}}", value));
 
-		public static TableOptionBuilder<T> Format<T>(this TableOptionBuilder<T> buidler, Expression<Func<T, object?>> lambda, Func<T, object?, string> format)
+		public static TableOptionBuilder<T> Format<T, P>(this TableOptionBuilder<T> buidler, Expression<Func<T, P>> lambda, Func<T, object?, string> format)
 			=> buidler.Format(lambda.GetPropertyInfo().Name, format);
 
-		public static TableOptionBuilder<T> ColumnOrder<T>(this TableOptionBuilder<T> builder, Expression<Func<T, object?>> lambda, Func<int> getOrder)
+		public static TableOptionBuilder<T> ColumnOrder<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, Func<int> getOrder)
 			=> builder.ColumnOrder(lambda.GetPropertyInfo().Name, getOrder);
 
-		public static TableOptionBuilder<T> ColumnOrder<T>(this TableOptionBuilder<T> builder, Expression<Func<T, object?>> lambda, int order)
+		public static TableOptionBuilder<T> ColumnOrder<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, int order)
 			=> builder.ColumnOrder(lambda.GetPropertyInfo().Name, () => order);
 
-		public static TableOptionBuilder<T> ColumnHeader<T>(this TableOptionBuilder<T> builder, Expression<Func<T, object?>> lambda, Func<string> getColumnHeader)
+		public static TableOptionBuilder<T> ColumnHeader<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, Func<string> getColumnHeader)
 			=> builder.ColumnHeader(lambda.GetPropertyInfo().Name, getColumnHeader);
 
-		public static TableOptionBuilder<T> ColumnHeader<T>(this TableOptionBuilder<T> builder, Expression<Func<T, object?>> lambda, string header)
-			=> builder.ColumnHeader(lambda.GetPropertyInfo().Name, ()=> header);
+		public static TableOptionBuilder<T> ColumnHeader<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, string header)
+			=> builder.ColumnHeader(lambda.GetPropertyInfo().Name, () => header);
 
-		public static TableOptionBuilder<T> Ignore<T>(this TableOptionBuilder<T> builder, Expression<Func<T, object?>> lambda)
+		public static TableOptionBuilder<T> Ignore<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda)
 			=> builder.Ignore(lambda.GetPropertyInfo().Name);
 
-		public static TableOptionBuilder<T> Property<T>(this TableOptionBuilder<T> builder, Expression<Func<T, object?>> lambda, Func<T, object?>? getValue) {
+		public static TableOptionBuilder<T> Property<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, Func<T, object?>? getValue) {
 			var propertyInfo = lambda.GetPropertyInfo();
 			return builder.SetColumn(propertyInfo.Name, getValue ?? (x => propertyInfo.GetValue(x)));
 		}
