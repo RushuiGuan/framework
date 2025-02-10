@@ -54,14 +54,20 @@ namespace Albatross.Text.Table {
 			}
 		}
 
-		public void Print(TextWriter writer, bool showHeader = true) {
+		public void Print(TextWriter writer, bool showHeader = true, int? maxWidth = null) {
 			if (showHeader) {
-				writer.WriteItems(Columns.Select(x => x.GetText(x.Name)), " ");
-				writer.WriteLine();
+				var line = string.Join(" ", Columns.Select(x => x.GetText(x.Name)));
+				if (maxWidth.HasValue && line.Length > maxWidth) {
+					line = line.Substring(0, maxWidth.Value);
+				}
+				writer.WriteLine(line);
 			}
 			foreach (var row in Rows) {
-				writer.WriteItems(row.Values.Select((x, index) => Columns[index].GetText(x)).ToArray(), " ");
-				writer.WriteLine();
+				var line = string.Join(" ", row.Values.Select((x, index) => Columns[index].GetText(x)));
+				if (maxWidth.HasValue && line.Length > maxWidth) {
+					line = line.Substring(0, maxWidth.Value);
+				}
+				writer.WriteLine(line);
 			}
 		}
 	}
