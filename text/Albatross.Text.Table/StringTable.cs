@@ -1,4 +1,9 @@
-﻿namespace Albatross.Text.Table {
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace Albatross.Text.Table {
 	public class StringTable {
 		public class Column {
 			public string Name { get; }
@@ -8,6 +13,18 @@
 				MaxWidth = name.Length;
 			}
 			public bool AlignRight { get; set; }
+
+			public string GetText(string value) {
+				if (value.Length > MaxWidth) {
+					value = value.Substring(0, MaxWidth);
+				}
+				if (AlignRight) {
+					value = value.PadLeft(MaxWidth);
+				} else {
+					value = value.PadRight(MaxWidth);
+				}
+				return value;
+			}
 		}
 		public class Row {
 			public string[] Values { get; }
@@ -34,6 +51,17 @@
 				if (columns[i].MaxWidth < array[i].Length) {
 					columns[i].MaxWidth = array[i].Length;
 				}
+			}
+		}
+
+		public void Print(TextWriter writer, bool showHeader = true) {
+			if (showHeader) {
+				writer.WriteItems(Columns.Select(x => x.GetText(x.Name)), " ");
+				writer.WriteLine();
+			}
+			foreach (var row in Rows) {
+				writer.WriteItems(row.Values.Select((x, index) => Columns[index].GetText(x)).ToArray(), " ");
+				writer.WriteLine();
 			}
 		}
 	}

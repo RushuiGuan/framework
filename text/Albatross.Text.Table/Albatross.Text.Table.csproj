@@ -1,13 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Albatross.Text\Albatross.Text.csproj" />
-  </ItemGroup>
-
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<Description>Convert collection of objects into a tabular string format with fluent interface..  Can print tabular data as a table or other formats using TextWriter.</Description>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/text/Albatross.Text.Table</PackageProjectUrl>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\Albatross.Text\Albatross.Text.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 </Project>

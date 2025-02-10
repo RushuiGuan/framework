@@ -1,35 +1,45 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 
 namespace Albatross.Text.Table {
+	public class TableColumnOption<T> {
+		public required Func<T, object?> GetValueDelegate { get; init; }
+		public required Func<T, object?, string> Formatter { get; init; }
+		public required string Header { get; init; }
+		public required int Order { get; set; }
+		public required string Property { get; set; }
+	}
 	public abstract class TableOptions {
 		public abstract Type Type { get; }
 	}
 	public class TableOptions<T> : TableOptions {
 		public override Type Type => typeof(T);
+		public ImmutableArray<TableColumnOption<T>> ColumnOptions { get; }
 
-		public ImmutableArray<Func<T, object?>> GetValueDelegates { get; }
-		public ImmutableArray<Func<T, object?, string>> Formatters { get; }
-		public ImmutableArray<string> ColumnHeaders { get; }
-
-
+		public TableOptions() { }
 		public TableOptions(TableOptionBuilder<T> builder) {
-			var getValueDelegates = new List<Func<T, object?>>();
-			var formatters = new List<Func<T, object?, string>>();
-			var columnHeaders = new List<string>();
-			foreach (var column in builder.ColumnOrders.OrderBy(x => x.Value).ThenBy(x => x.Key).Select(x => x.Key)) {
-				getValueDelegates.Add(builder.GetValueDelegates[column]);
-				formatters.Add(builder.Formatters[column]);
-				columnHeaders.Add(builder.ColumnHeaders[column]);
+			var list = new List<TableColumnOption<T>>();
+			foreach (var keyValue in builder.ColumnOptionBuilders) {
+				list.Add(new TableColumnOption<T> {
+					GetValueDelegate = keyValue.Value.GetValueDelegate,
+					Formatter = keyValue.Value.Formatter,
+					Header = keyValue.Value.GetHeader(),
+					Order = keyValue.Value.GetOrder(),
+					Property = keyValue.Key,
+				});
 			}
-			this.GetValueDelegates = getValueDelegates.ToImmutableArray();
-			this.Formatters = formatters.ToImmutableArray();
-			this.ColumnHeaders = columnHeaders.ToImmutableArray();
+			this.ColumnOptions = list.OrderBy(x => x.Order)
+				.ThenBy(x => x.Header)
+				.ThenBy(x => x.Property)
+				.ToImmutableArray();
 		}
 
 		public IEnumerable<string> GetValue(T item) {
-			for(int i=0; i < GetValueDelegates.Length; i++) {
-				var value = GetValueDelegates[i](item);
-				yield return Formatters[i](item, value);
+			for (int i = 0; i < ColumnOptions.Length; i++) {
+				var value = ColumnOptions[i].GetValueDelegate(item);
+				yield return ColumnOptions[i].Formatter(item, value);
 			}
 		}
 	}
