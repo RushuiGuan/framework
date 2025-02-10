@@ -1,4 +1,5 @@
-﻿using Reqnroll;
+﻿using Albatross.Text.Table;
+using Reqnroll;
 using System.Reflection;
 
 namespace Albatross.Reqnroll {
@@ -25,5 +26,18 @@ namespace Albatross.Reqnroll {
 			}
 		}
 
+		public static DataTable DataTable<T>(this IEnumerable<T> items, TableOptions<T>? options) {
+			options = options ?? TableOptionFactory.Instance.Get<T>();
+			var table = new DataTable(options.ColumnOptions.Select(x=>x.Header).ToArray());
+			foreach (var item in items) {
+				var row = new List<string>();
+				foreach (var property in typeof(T).GetProperties()) {
+					var value = property.GetValue(item);
+					row.Add(converter(property.Name, item, value));
+				}
+				table.AddRow(row.ToArray());
+			}
+			return table;
+		}
 	}
 }

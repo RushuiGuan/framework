@@ -6,6 +6,8 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="Albatross.Text" Version="7.5.10-2344.main" />
+		<PackageReference Include="Albatross.Text.Table" Version="7.5.10-2344.main" />
 		<PackageReference Include="AutoFixture" Version="4.18.1" />
 		<PackageReference Include="Reqnroll" Version="2.2.1" />
 		<PackageReference Include="Albatross.Dates" Version="7.5.9" />
