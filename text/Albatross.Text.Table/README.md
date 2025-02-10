@@ -28,8 +28,8 @@ There are a few built-in extensions methods that can convert `IEnumerable<T>` in
 	```
 * Create a [TableOptionBuilder\<T>](./TableOptionBuilder.cs) instance and initialize it with class properties using reflection.
 	```csharp
-	// SetByReflection will initialize the TableOptionBuilder instance with the public instance properties as its columns.  It uses the default formatter from `BuilderExtensions.DefaultFormat`
-	var builder = new TableOptionBuilder<T>().SetByReflection();
+	// AddPropertiesByReflection will initialize the TableOptionBuilder instance with the public instance properties as its columns.  It uses the default formatter from `BuilderExtensions.DefaultFormat`
+	var builder = new TableOptionBuilder<T>().AddPropertiesByReflection();
 	```
 * Further customize the builder with the desired behavior
 	```csharp
@@ -44,7 +44,7 @@ There are a few built-in extensions methods that can convert `IEnumerable<T>` in
 * These steps can be chained using fluent syntax
 	```csharp
 	var options = new TableOptionBuilder<T>()
-		.SetByReflection()
+		.AddPropertiesByReflection()
 		.Format("Price", "#,#0.00")
 		.Exclude("Id")
 		.Build();
@@ -72,7 +72,7 @@ There are a few built-in extensions methods that can convert `IEnumerable<T>` in
 	List<T> list = new List<T>();
 	... populate the list ...
 	var options = new TableOptionBuilder<T>()
-		.SetByReflection()
+		.AddPropertiesByReflection()
 		.Format("Price", "#,#0.00")
 		.Exclude("Id")
 		.Build();

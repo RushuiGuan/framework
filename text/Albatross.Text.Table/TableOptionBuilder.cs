@@ -17,7 +17,7 @@ namespace Albatross.Text.Table {
 			return this;
 		}
 
-		public TableOptionBuilder<T> Exclude(string property) {
+		public TableOptionBuilder<T> Ignore(string property) {
 			this.ColumnOptionBuilders.Remove(property);
 			return this;
 		}

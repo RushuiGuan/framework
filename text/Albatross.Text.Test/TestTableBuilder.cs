@@ -32,19 +32,19 @@ namespace Albatross.Text.Test {
 			obj = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1));
 			BuilderExtensions.DefaultFormat(obj).Should().Be("2000-01-01T01:01:01+01:00");
 		}
-		
+
 		[Fact]
 		public void TestColumnOrders() {
-			var builder = new TableOptionBuilder<TestClass>().SetByReflection();
+			var builder = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
 			// test default order
 			var options = builder.Build();
-			options.ColumnOptions.Select(x=>new { x.Property, x.Order }).Should().BeEquivalentTo(new[] {
+			options.ColumnOptions.Select(x => new { x.Property, x.Order }).Should().BeEquivalentTo(new[] {
 				new { Property = nameof(TestClass.Id), Order = 0 },
 				new { Property = nameof(TestClass.Name), Order = 1 },
 				new { Property = nameof(TestClass.Value), Order = 2 },
 			});
 			// test order by the Order property
-			builder.Order(nameof(TestClass.Value), -1);
+			builder.ColumnOrder(x => x.Value, -1);
 			options = new TableOptions<TestClass>(builder);
 			options.ColumnOptions.Select(x => new { x.Property, x.Order }).Should().BeEquivalentTo(new[] {
 				new { Property = nameof(TestClass.Value), Order = -1 },
@@ -52,12 +52,12 @@ namespace Albatross.Text.Test {
 				new { Property = nameof(TestClass.Name), Order = 1 },
 			});
 			// test order by header
-			builder.Order(nameof(TestClass.Id), 0);
-			builder.Order(nameof(TestClass.Name), 0);
-			builder.Order(nameof(TestClass.Value), 0);
-			builder.Header(nameof(TestClass.Id), "C");
-			builder.Header(nameof(TestClass.Name), "A");
-			builder.Header(nameof(TestClass.Value), "B");
+			builder.ColumnOrder(x => x.Id, 0);
+			builder.ColumnOrder(x => x.Name, 0);
+			builder.ColumnOrder(x => x.Value, 0);
+			builder.ColumnHeader(x => x.Id, "C");
+			builder.ColumnHeader(x => x.Name, "A");
+			builder.ColumnHeader(x => x.Value, "B");
 			options = new TableOptions<TestClass>(builder);
 			options.ColumnOptions.Select(x => new { x.Property, x.Order, x.Header }).Should().BeEquivalentTo(new[] {
 				new { Property = nameof(TestClass.Name), Order = 0, Header = "A" },
@@ -65,29 +65,26 @@ namespace Albatross.Text.Test {
 				new { Property = nameof(TestClass.Id), Order = 0, Header = "C" },
 			});
 			// test order by property
-			builder.Order(nameof(TestClass.Id), 0);
-			builder.Order(nameof(TestClass.Name), 0);
-			builder.Order(nameof(TestClass.Value), 0);
-			builder.Header(nameof(TestClass.Id), "C");
-			builder.Header(nameof(TestClass.Name), "C");
-			builder.Header(nameof(TestClass.Value), "C");
+			builder.ColumnOrder(x => x.Id, 0);
+			builder.ColumnOrder(x => x.Name, 0);
+			builder.ColumnOrder(x => x.Value, 0);
+			builder.ColumnHeader(x => x.Id, "C");
+			builder.ColumnHeader(x => x.Name, "C");
+			builder.ColumnHeader(x => x.Value, "C");
 			options = new TableOptions<TestClass>(builder);
 			options.ColumnOptions.Select(x => new { x.Property, x.Order, x.Header }).Should().BeEquivalentTo(new[] {
 				new { Property = nameof(TestClass.Id), Order = 0, Header = "C" },
 				new { Property = nameof(TestClass.Name), Order = 0, Header = "C" },
 				new { Property = nameof(TestClass.Value), Order = 0, Header = "C" },
 			});
-
-
-
 		}
 
 		[Fact]
 		public void TestHeaders() {
-			var builder = new TableOptionBuilder<TestClass>().SetByReflection();
-			builder.Header(nameof(TestClass.Id), "C");
-			builder.Header(nameof(TestClass.Name), "A");
-			builder.Header(nameof(TestClass.Value), "B");
+			var builder = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
+			builder.ColumnHeader(x => x.Id, "C");
+			builder.ColumnHeader(x => x.Name, "A");
+			builder.ColumnHeader(x => x.Value, "B");
 			var options = new TableOptions<TestClass>(builder);
 			options.ColumnOptions.Select(x => new { x.Property, x.Header }).Should().BeEquivalentTo(new[] {
 				new { Property = nameof(TestClass.Id), Header = "C" },
@@ -98,7 +95,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestGetValueDelegate() {
-			var builder = new TableOptionBuilder<TestClass>().SetByReflection();
+			var builder = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
 			var options = new TableOptions<TestClass>(builder);
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0 };
 			var values = options.GetValue(obj);
@@ -106,9 +103,9 @@ namespace Albatross.Text.Test {
 		}
 
 		[Fact]
-		public void TestFormatter(){
-			var builder = new TableOptionBuilder<TestClass>().SetByReflection();
-			builder.Format(nameof(TestClass.Value), "0.00");
+		public void TestFormatter() {
+			var builder = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
+			builder.Format(x => x.Value, "0.00");
 			var options = new TableOptions<TestClass>(builder);
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0 };
 			var values = options.GetValue(obj);
@@ -117,7 +114,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestBuilderFactory() {
-			var options = new TableOptionBuilder<TestClass>().SetByReflection();
+			var options = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
 			Assert.NotNull(options);
 			TableOptionFactory.Instance.Register(new TableOptionBuilder<TestClass>());
 			var options2 = TableOptionFactory.Instance.Get<TestClass>();

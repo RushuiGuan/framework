@@ -10,7 +10,7 @@ namespace Albatross.Text.Table {
 				if (registration.TryGetValue(typeof(T), out TableOptions? options)) {
 					return (TableOptions<T>)options;
 				} else {
-					var newOptions = new TableOptionBuilder<T>().SetByReflection().Build();
+					var newOptions = new TableOptionBuilder<T>().AddPropertiesByReflection().Build();
 					Register<T>(newOptions);
 					return newOptions;
 				}
