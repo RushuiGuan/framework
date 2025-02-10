@@ -19,13 +19,10 @@ namespace Albatross.Text.Table {
 
 		public static void MarkdownTable<T>(this IEnumerable<T> items, TextWriter writer, TableOptions<T>? options = null) {
 			options = options ?? TableOptionFactory.Instance.Get<T>();
-			writer.WriteItems(options.ColumnOptions.Select(x => x.Header).ToArray(), "|").WriteLine();
+			writer.WriteItems(options.Headers, "|").WriteLine();
 			writer.WriteItems(options.ColumnOptions.Select(x => "-").ToArray(), "|").WriteLine();
 			foreach (var item in items) {
-				writer.WriteItems(options.ColumnOptions.Select(opt => {
-					var value = opt.GetValueDelegate(item);
-					return opt.Formatter(item, value);
-				}), "|").WriteLine();
+				writer.WriteItems(options.GetValue(item), "|").WriteLine();
 			}
 		}
 	}

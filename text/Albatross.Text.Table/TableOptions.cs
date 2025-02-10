@@ -36,11 +36,15 @@ namespace Albatross.Text.Table {
 				.ToImmutableArray();
 		}
 
-		public IEnumerable<string> GetValue(T item) {
+		public string[] Headers => ColumnOptions.Select(x => x.Header).ToArray();
+
+		public string[] GetValue(T item) {
+			var array = new string[ColumnOptions.Length];
 			for (int i = 0; i < ColumnOptions.Length; i++) {
 				var value = ColumnOptions[i].GetValueDelegate(item);
-				yield return ColumnOptions[i].Formatter(item, value);
+				array[i] = ColumnOptions[i].Formatter(item, value);
 			}
+			return array;
 		}
 	}
 }

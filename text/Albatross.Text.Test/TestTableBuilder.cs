@@ -101,7 +101,7 @@ namespace Albatross.Text.Test {
 			var builder = new TableOptionBuilder<TestClass>().SetByReflection();
 			var options = new TableOptions<TestClass>(builder);
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0 };
-			var values = options.GetValue(obj).ToArray();
+			var values = options.GetValue(obj);
 			values.Should().BeEquivalentTo(new[] { "1", "name", "1" });
 		}
 
@@ -111,7 +111,7 @@ namespace Albatross.Text.Test {
 			builder.Format(nameof(TestClass.Value), "0.00");
 			var options = new TableOptions<TestClass>(builder);
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0 };
-			var values = options.GetValue(obj).ToArray();
+			var values = options.GetValue(obj);
 			values.Should().BeEquivalentTo(new[] { "1", "name", "1.00" });
 		}
 
