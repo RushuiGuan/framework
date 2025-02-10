@@ -30,12 +30,7 @@ namespace Albatross.Reqnroll {
 			options = options ?? TableOptionFactory.Instance.Get<T>();
 			var table = new DataTable(options.ColumnOptions.Select(x=>x.Header).ToArray());
 			foreach (var item in items) {
-				var row = new List<string>();
-				foreach (var property in typeof(T).GetProperties()) {
-					var value = property.GetValue(item);
-					row.Add(converter(property.Name, item, value));
-				}
-				table.AddRow(row.ToArray());
+				table.AddRow(options.GetValue(item));
 			}
 			return table;
 		}
