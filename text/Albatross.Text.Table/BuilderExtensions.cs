@@ -26,7 +26,7 @@ namespace Albatross.Text.Table {
 		public static TableOptionBuilder<T> Ignore<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda)
 			=> builder.Ignore(lambda.GetPropertyInfo().Name);
 
-		public static TableOptionBuilder<T> Property<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, Func<T, object?>? getValue) {
+		public static TableOptionBuilder<T> Property<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, Func<T, object?>? getValue = null) {
 			var propertyInfo = lambda.GetPropertyInfo();
 			return builder.SetColumn(propertyInfo.Name, getValue ?? (x => propertyInfo.GetValue(x)));
 		}
