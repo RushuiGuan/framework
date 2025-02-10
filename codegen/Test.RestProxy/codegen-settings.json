@@ -1,0 +1,44 @@
+{
+	"$schema": "codegen-settings.schema.json",
+	"cSharpWebClientSettings": {
+		"namespace": "Test.RestProxy",
+		"controllerMethodFilters": [
+			{
+				"exclude": "FilteredByCSharp$"
+			}
+		],
+		"useInterface": true,
+		"useInternalProxy": false,
+		"globalMethodSettings": {
+			"useDateTimeAsDateOnly": false
+		},
+		"methodSettings": {
+			"FromRouteParamTestController.DateTimeAsDateOnlyRoute": {
+				"useDateTimeAsDateOnly": true
+			},
+			"RequiredParamTestController.RequiredDateTimeAsDateOnlyCollection": {
+				"useDateTimeAsDateOnly": true
+			},
+			"RequiredParamTestController.RequiredDateTimeAsDateOnlyArray": {
+				"useDateTimeAsDateOnly": true
+			},
+			"RequiredParamTestController.RequiredDateTimeAsDateOnly": {
+				"useDateTimeAsDateOnly": true
+			}
+		},
+		"constructorSettings": {
+			"OmittedConstructorController": {
+				"omit": true
+			},
+			"CustomJsonSettingsController": {
+				"customJsonSettings": "MyCustomJsonSettings.Instance"
+			}
+		}
+	},
+	"controllerFilter": {
+		"exclude": "^Test\\.WebApi\\.Controllers\\.(AbsUrl)?RedirectTestController$"
+	},
+	"controllerMethodFilters": [
+		{ "exclude": "FilteredByAll$" }
+	]
+}
