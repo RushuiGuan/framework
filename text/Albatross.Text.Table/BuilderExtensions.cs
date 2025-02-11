@@ -32,11 +32,6 @@ namespace Albatross.Text.Table {
 			return builder.SetColumn(propertyInfo.Name, getValue ?? (x => propertyInfo.GetValue(x)));
 		}
 		
-		public static TableOptionBuilder<IDictionary<string, T>> AddColumn<T>(this TableOptionBuilder<IDictionary<string, T>> builder, string column) {
-			return builder.SetColumn(column, x => x[column]);
-		}
-			
-
 		public static string DefaultFormat(object? value) {
 			if (value == null) {
 				return string.Empty;

@@ -1,7 +1,7 @@
 ﻿using Albatross.Text.Table;
 using FluentAssertions;
 using System.IO;
-using System.Net.Http.Headers;
+using System.Linq;
 using Xunit;
 
 namespace Albatross.Text.Test {
@@ -28,7 +28,9 @@ namespace Albatross.Text.Test {
 			Assert.Equal(2, table.Columns[0].MaxWidth);
 			Assert.Equal(4, table.Columns[1].MaxWidth);
 			Assert.Equal(5, table.Columns[2].MaxWidth);
-			table.Print().Should().Be("Id Name Value\r\n1  name 1    \r\n");
+			var writer = new StringWriter();
+			table.Print(writer);
+			writer.ToString().Should().Be("Id Name Value\r\n1  name 1    \r\n");
 		}
 	}
 }

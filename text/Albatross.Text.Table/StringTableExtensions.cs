@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Albatross.Text.Table {
@@ -13,10 +13,29 @@ namespace Albatross.Text.Table {
 			return table;
 		}
 
-		public static string Print(this StringTable table, bool showHeader = true) {
-			var writer = new StringWriter();
-			table.Print(writer, showHeader);
-			return writer.ToString();
+		public static StringTable SetColumn(this StringTable table, Func<StringTable.Column, bool> predicate, Action<StringTable.Column> action) {
+			foreach (var column in table.Columns.Where(x => predicate(x))) {
+				action(column);
+			}
+			return table;
+		}
+
+		public static StringTable MinWidth(this StringTable table, Func<StringTable.Column, bool> predicate, int minWidth)
+			=> table.SetColumn(predicate, x => x.MinWidth = minWidth);
+
+
+
+		public static StringTable AlignRight(this StringTable table, Func<StringTable.Column, bool> predicate, bool value = true)
+			=> table.SetColumn(predicate, x => x.AlignRight = value);
+
+		public static StringTable ResetColumns(this StringTable table) {
+			table.ResetColumns();
+			return table;
+		}
+
+		public static void PrintConsole(this StringTable table) {
+			table.AdjustColumnWidth(System.Console.BufferWidth);
+			table.Print(System.Console.Out);
 		}
 	}
 }
