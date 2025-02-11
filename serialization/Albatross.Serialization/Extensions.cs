@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Buffers;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text.Json;
@@ -83,6 +84,36 @@ namespace Albatross.Serialization {
 		public static TextWriter PrintJson<T>(this TextWriter writer, T data) {
 			writer.Write(JsonSerializer.Serialize(data, FormattedJsonSettings.Value.Default));
 			return writer;
+		}
+
+		public static object? ToObject(this JsonElement jsonElement) {
+			switch (jsonElement.ValueKind) {
+				case JsonValueKind.String:
+					return jsonElement.GetString();
+				case JsonValueKind.Number:
+					return jsonElement.GetDouble();
+				case JsonValueKind.True:
+					return true;
+				case JsonValueKind.False:
+					return false;
+				case JsonValueKind.Null:
+				case JsonValueKind.Undefined:
+					return null;
+				case JsonValueKind.Array:
+					var list = new List<object?>();
+					foreach (var item in jsonElement.EnumerateArray()) {
+						list.Add(ToObject(item));
+					}
+					return list;
+				case JsonValueKind.Object:
+					var dict = new Dictionary<string, object?>();
+					foreach (var item in jsonElement.EnumerateObject()) {
+						dict[item.Name] = ToObject(item.Value);
+					}
+					return dict;
+				default:
+					return jsonElement;
+			}
 		}
 	}
 }
