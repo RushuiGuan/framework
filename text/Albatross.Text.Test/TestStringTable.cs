@@ -12,7 +12,7 @@ namespace Albatross.Text.Test {
 			public decimal? Value { get; set; }
 		}
 		[Fact]
-		public void TestStringTableConversion() {
+		public void TestMarkdownTableConversion() {
 			var options = new TableOptionBuilder<TestClass>().AddPropertiesByReflection().Build();
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0M };
 			var writer = new StringWriter();
@@ -30,7 +30,7 @@ namespace Albatross.Text.Test {
 			Assert.Equal(5, table.Columns[2].MaxWidth);
 			var writer = new StringWriter();
 			table.Print(writer);
-			writer.ToString().Should().Be("Id Name Value\r\n1  name 1    \r\n");
+			writer.ToString().Should().Be("Id Name Value\r\n-------------\r\n1  name 1    \r\n-------------\r\n");
 		}
 	}
 }
