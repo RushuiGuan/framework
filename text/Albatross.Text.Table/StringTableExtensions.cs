@@ -24,7 +24,6 @@ namespace Albatross.Text.Table {
 			=> table.SetColumn(predicate, x => x.MinWidth = minWidth);
 
 
-
 		public static StringTable AlignRight(this StringTable table, Func<StringTable.Column, bool> predicate, bool value = true)
 			=> table.SetColumn(predicate, x => x.AlignRight = value);
 

@@ -13,7 +13,7 @@ namespace Albatross.Text.Test {
 		}
 		[Fact]
 		public void TestMarkdownTableConversion() {
-			var options = new TableOptionBuilder<TestClass>().AddPropertiesByReflection().Build();
+			var options = new TableOptionBuilder<TestClass>().SetColumnsByReflection().Build();
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0M };
 			var writer = new StringWriter();
 			new[] { obj }.MarkdownTable(writer, options);
@@ -22,7 +22,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestStringTablePrinting() {
-			var options = new TableOptionBuilder<TestClass>().AddPropertiesByReflection().Build();
+			var options = new TableOptionBuilder<TestClass>().SetColumnsByReflection().Build();
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0M };
 			var table = new[] { obj }.StringTable(options);
 			Assert.Equal(2, table.Columns[0].MaxWidth);

@@ -27,11 +27,11 @@ namespace Albatross.Text.Table {
 		public static TableOptionBuilder<T> Ignore<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda)
 			=> builder.Ignore(lambda.GetPropertyInfo().Name);
 
-		public static TableOptionBuilder<T> Property<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, Func<T, object?>? getValue = null) {
+		public static TableOptionBuilder<T> SetColumn<T, P>(this TableOptionBuilder<T> builder, Expression<Func<T, P>> lambda, Func<T, object?>? getValue = null) {
 			var propertyInfo = lambda.GetPropertyInfo();
 			return builder.SetColumn(propertyInfo.Name, getValue ?? (x => propertyInfo.GetValue(x)));
 		}
-		
+
 		public static string DefaultFormat(object? value) {
 			if (value == null) {
 				return string.Empty;
@@ -54,7 +54,7 @@ namespace Albatross.Text.Table {
 			}
 		}
 
-		public static TableOptionBuilder<T> AddPropertiesByReflection<T>(this TableOptionBuilder<T> builder) {
+		public static TableOptionBuilder<T> SetColumnsByReflection<T>(this TableOptionBuilder<T> builder) {
 			int index = 0;
 			foreach (var property in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)) {
 				int order = index++;
@@ -67,7 +67,12 @@ namespace Albatross.Text.Table {
 			}
 			return builder;
 		}
-		
+
+		public static TableOptionBuilder<T> SetColumn<T>(this TableOptionBuilder<T> builder, string column) where T : System.Collections.IDictionary {
+			builder.SetColumn(column, t => t[column]);
+			return builder;
+		}
+
 		public static TableOptions<T> Build<T>(this TableOptionBuilder<T> builder) {
 			return new TableOptions<T>(builder);
 		}

@@ -35,7 +35,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestColumnOrders() {
-			var builder = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
+			var builder = new TableOptionBuilder<TestClass>().SetColumnsByReflection();
 			// test default order
 			var options = builder.Build();
 			options.ColumnOptions.Select(x => new { x.Property, x.Order }).Should().BeEquivalentTo(new[] {
@@ -81,7 +81,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestHeaders() {
-			var builder = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
+			var builder = new TableOptionBuilder<TestClass>().SetColumnsByReflection();
 			builder.ColumnHeader(x => x.Id, "C");
 			builder.ColumnHeader(x => x.Name, "A");
 			builder.ColumnHeader(x => x.Value, "B");
@@ -95,7 +95,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestGetValueDelegate() {
-			var builder = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
+			var builder = new TableOptionBuilder<TestClass>().SetColumnsByReflection();
 			var options = new TableOptions<TestClass>(builder);
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0 };
 			var values = options.GetValue(obj);
@@ -104,7 +104,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestFormatter() {
-			var builder = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
+			var builder = new TableOptionBuilder<TestClass>().SetColumnsByReflection();
 			builder.Format(x => x.Value, "0.00");
 			var options = new TableOptions<TestClass>(builder);
 			var obj = new TestClass { Id = 1, Name = "name", Value = 1.0 };
@@ -114,7 +114,7 @@ namespace Albatross.Text.Test {
 
 		[Fact]
 		public void TestBuilderFactory() {
-			var options = new TableOptionBuilder<TestClass>().AddPropertiesByReflection();
+			var options = new TableOptionBuilder<TestClass>().SetColumnsByReflection();
 			Assert.NotNull(options);
 			TableOptionFactory.Instance.Register(new TableOptionBuilder<TestClass>());
 			var options2 = TableOptionFactory.Instance.Get<TestClass>();
