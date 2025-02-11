@@ -53,9 +53,9 @@ namespace Albatross.Reqnroll {
 		#endregion
 
 		#region context based transformations
-		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive|yes|no)")]
+		[StepArgumentTransformation(@"(with|without|should be|should not be|should|should not|active|inactive|yes|no|including|excluding)")]
 		public bool BooleanTransform(string value) {
-			return value == "with" || value == "should be" || value == "should" || value == "active" || value == "yes";
+			return value == "with" || value == "should be" || value == "should" || value == "active" || value == "yes" || value == "including";
 		}
 
 		[StepArgumentTransformation(@"context:(\w+)")]
