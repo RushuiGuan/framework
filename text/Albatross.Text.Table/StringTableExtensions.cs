@@ -32,9 +32,22 @@ namespace Albatross.Text.Table {
 			return table;
 		}
 
+		public static StringTable SetWidthLimit(this StringTable table, int width) {
+			table.AdjustColumnWidth(width);
+			return table;
+		}	
+
 		public static void PrintConsole(this StringTable table) {
-			table.AdjustColumnWidth(System.Console.BufferWidth);
+			table.AdjustColumnWidth(GetConsoleWith());
 			table.Print(System.Console.Out);
+		}
+
+		public static int GetConsoleWith() {
+			if (System.Console.IsOutputRedirected) {
+				return int.MaxValue;
+			} else {
+				return System.Console.BufferWidth;
+			}
 		}
 	}
 }
