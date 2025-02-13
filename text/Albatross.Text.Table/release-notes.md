@@ -1,2 +1,2 @@
-# 7.5.10
+# 8.0.0
 Initial release
