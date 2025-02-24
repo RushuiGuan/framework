@@ -9,6 +9,8 @@ namespace Albatross.CommandLine.CodeGen {
 		public CommandOptionPropertySetup(IPropertySymbol property, AttributeData? propertyAttribute)
 			: base(property, propertyAttribute, $"--{property.Name.Kebaberize()}") {
 			this.Aliases = Array.Empty<string>();
+			this.Required = property.Type.SpecialType != SpecialType.System_Boolean && !property.Type.IsNullable() && !property.Type.IsCollection() && !ShouldDefaultToInitializer;
+
 			if (propertyAttribute != null) {
 				if (propertyAttribute.ConstructorArguments.Any()) {
 					this.Aliases = propertyAttribute.ConstructorArguments[0].Values.Select(x => x.Value?.ToString() ?? string.Empty)
@@ -19,7 +21,6 @@ namespace Albatross.CommandLine.CodeGen {
 					this.Required = Convert.ToBoolean(required.Value);
 				}
 			}
-			this.Required = property.Type.SpecialType != SpecialType.System_Boolean && !property.Type.IsNullable() && !property.Type.IsCollection() && !ShouldDefaultToInitializer;
 		}
 
 		public override string CommandPropertyName => $"Option_{this.Property.Name}";
