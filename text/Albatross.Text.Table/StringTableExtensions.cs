@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Albatross.Text.Table {
@@ -48,6 +49,12 @@ namespace Albatross.Text.Table {
 			} else {
 				return System.Console.BufferWidth;
 			}
+		}
+
+		public static string Print(this StringTable table) {
+			var writer = new StringWriter();
+			table.Print(writer);
+			return writer.ToString();
 		}
 	}
 }
