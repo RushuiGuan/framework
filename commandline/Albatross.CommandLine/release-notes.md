@@ -1,4 +1,6 @@
 # Release Notes
+## 7.8.3
+* Bug fix on the `OptionAttribute.Required` property.  It is now working as expected for required collection and boolean types.
 
 ## 7.8.1 - Add Argument Support
 * ^ Incorrect version for this release.  Should have been a minor instead of patch release 
